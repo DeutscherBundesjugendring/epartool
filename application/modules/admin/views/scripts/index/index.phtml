@@ -1,0 +1,49 @@
+<?php
+/**
+ * index
+ *
+ * @description   Admin Dashboard
+ * @author        Markus Hackel
+ */
+?>
+<h2>Dashboard</h2>
+<div>
+  <h3>Grundeinstellungen</h3>
+  <ul>
+  <?php foreach ($this->basic_settings as $setting):?>
+    <li><a href="<?php echo $this->url($setting['url'])?>"><?php echo $setting['text']?></a></li>
+  <?php endforeach;?>
+  </ul>
+  <h3>Konsultationen verwalten</h3>
+  <p>
+    <a href="<?php echo $this->url(array('controller' => 'consultation', 'action' => 'new'))?>">Neue Konsultation anlegen</a>
+  </p>
+  <?php if (!empty($this->consultations)): ?>
+  <div>
+  <?php foreach ($this->consultations as $consultation):?>
+    <div>
+      <h4><a href="<?php echo $this->url(
+        array(
+          'controller' => 'consultation',
+          'action' => 'edit',
+          'kid' => $consultation->kid
+        ))?>">
+      <?php echo $consultation->titl?>
+      </a></h4>
+      <ul>
+        <li>
+          <a href="<?php echo $this->url(
+            array(
+              'controller' => 'consultation',
+              'action' => 'edit',
+              'kid' => $consultation->kid
+            ))?>">
+            Grundeinstellungen
+          </a>
+        </li>
+      </ul>
+    </div>
+  <?php endforeach;?>
+  </div>
+  <?php endif;?>
+</div>

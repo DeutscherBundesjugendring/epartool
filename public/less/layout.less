@@ -1,0 +1,139 @@
+//
+// Layout
+// --------------------------------------------------
+
+// Using sticky footer by Mystrdat:
+// http://mystrd.at/modern-clean-css-sticky-footer/
+
+
+
+// HTML & body
+// -------------------------
+
+html {
+	// Prepare for sticky footer
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	// Prepare for sticky footer
+	width: 100%;
+	margin: 0 0 @footerHeight;
+	padding-top: 1.5em;
+	background-color: @bodyBackground;
+}
+
+
+// Header
+// -------------------------
+
+.document-wrap > header {
+
+}
+
+// User box
+.user-box {
+	.user {
+		width: 75%;
+		overflow: hidden;
+
+		// Hover state
+		&:hover {
+			z-index: 1;
+			overflow: visible;
+		}
+	}
+}
+
+// Teaser
+.teaser > li a {
+	text-align: center;
+
+	h2 {
+		display: inline;
+	}
+}
+
+
+// Body copy
+// -------------------------
+
+.document-wrap > .body-copy {
+	min-height: 25em;
+
+	// Sections
+	section {
+		padding: 1.5em 0;
+	}
+
+	// Content holder
+	.content-holder {
+		position: relative; // for positioning of print link
+	}
+
+	// Print
+	.print {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	// Right sidebar
+	section + aside {
+		padding-top: 3em; // make place for print link
+	}
+
+	// Top link
+	.top-link {
+		margin: 1em 0;
+		text-align: center;
+	}
+}
+
+
+// Footer
+// -------------------------
+
+// Sticky footer
+body > footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	min-height: @footerHeight;
+	background-color: @footerBackground;
+	color: @footerText;
+
+	// Sections
+	section {
+		padding: 1.5em 0;
+	}
+
+	// TODO, TEMP: Navbar
+	.navbar .container {
+		width: 940px;
+	}
+
+	// Links
+	a {
+		text-decoration: underline;
+		color: @footerLinkText;
+
+		// Hover state
+		&:hover {
+			color: @footerLinkTextHover;
+		}
+	}
+
+	// Logos
+	.logo {
+		.opacity(50);
+		.transition(all @slow linear);
+
+		// Hover state
+		&:hover {
+			.opacity(100);
+		}
+	}
+}

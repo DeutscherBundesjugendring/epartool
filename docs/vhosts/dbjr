@@ -1,0 +1,38 @@
+<VirtualHost *:80>
+  	ServerName dev.dbjr
+	#ServerAlias dbjr dbjr.de
+  	DocumentRoot /var/www/dbjr/public
+
+	<Directory /var/www/dbjr/public>
+        	Options FollowSymLinks MultiViews
+        	AllowOverride Indexes AuthConfig Limit FileInfo Options
+        	Order allow,deny
+        	Allow from all
+        	php_admin_flag engine on
+	</Directory>
+
+	#AddDefaultCharset ISO-8859-1	
+
+	#php_admin_value open_basedir /tmp/:/var/www/biketech24/html:/var/lib/php5:/var/www/biketech24/phptmp$
+	#php_admin_value file_uploads 1
+	#php_admin_value upload_tmp_dir /var/www/biketech24/phptmp/
+	#php_admin_flag safe_mode Off
+	php_admin_flag display_errors On
+	#php_admin_flag register_globals On
+	#php_admin_value upload_max_filesize 20M
+	#php_admin_value max_execution_time 240
+	#php_admin_value max_input_time 240
+	#php_value memory_limit 128M
+	DirectoryIndex index.html index.php default.php
+	SetEnv DEVELOPER_MODE ""
+
+	ErrorLog /var/log/apache2/error.log
+        LogLevel warn
+	#
+	# Enable for Debugging only
+	#
+        CustomLog /var/log/apache2/access_dbjr.log combined
+        #CustomLog /dev/null combined
+	ServerSignature On
+</VirtualHost>
+

@@ -1,0 +1,181 @@
+//
+// Variables
+// --------------------------------------------------
+
+
+// Global values
+// --------------------------------------------------
+
+// Base path
+@basePath:                      '..';
+
+// Base unit
+@u:                             10px;
+
+
+// Colors
+// -------------------------
+
+// Grays
+@black:                         #000;
+@grayDarker:                    #1A1F24;
+@grayDark:                      #444;
+@gray:                          #666;
+@grayLight:                     #999;
+@grayLighter:                   #ccc;
+@grayLightest:                  #DBDBDB;
+@white:                         #fff;
+
+// Accent colors
+@orange:                        #fc9026;
+@blue:                          #02afdb;
+@blueDark:                      #0196bc;
+@turqoise:                      #5fa4a0;
+
+// Brand colors
+@brandColor:                    @orange;
+
+
+// Common color settings
+// -------------------------
+
+// Body
+@bodyBackground:                @white;
+@bodyText:                      @black;
+
+// Links
+@linkText:                      @blueDark;
+@linkTextHover:                 @black;
+
+// Highlight
+@highlightColor:                fade(@white, 40%);
+
+// Footer
+@footerBackground:              @bodyBackground;
+@footerText:                    @bodyText;
+@footerLinkText:                @linkText;
+@footerLinkTextHover:           @linkTextHover;
+
+
+// Typography
+// -------------------------
+@sansFontFamily:                Arial, sans-serif;
+@serifFontFamily:               Georgia, "Times New Roman", Times, serif;
+@monoFontFamily:                Monaco, Menlo, Consolas, "Courier New", monospace;
+@headingFontFamily:             "Paytone One", sans-serif;
+@subheadingFontFamily:          "Yanone Kaffeesatz", sans-serif;
+
+@baseFontSize:                  .8em; // 13px
+@baseFontFamily:                @sansFontFamily;
+@baseLineHeight:                1.565em; //20px
+
+
+// Animation timing
+// -------------------------
+
+@fast:                          100ms;
+@normal:                        200ms;
+@slow:                          500ms;
+
+
+// Component variables
+// --------------------------------------------------
+
+
+// Buttons
+// -------------------------
+
+@btnText:                       @black;
+@btnTextHover:                  @white;
+@btnBorderRadius:               0;
+@btnBackground:                 @blue;
+@btnBackgroundHover:            @orange;
+
+@btnPrimaryBackground:          @grayDarker;
+
+@btnInfoBackground:             #5bc0de;
+@btnInfoBackgroundHighlight:    #2f96b4;
+
+@btnSuccessBackground:          #62c462;
+@btnSuccessBackgroundHighlight: #51a351;
+
+@btnWarningBackground:          lighten(#f89406, 15%);
+@btnWarningBackgroundHighlight: #f89406;
+
+@btnDangerBackground:           #ee5f5b;
+@btnDangerBackgroundHighlight:  #bd362f;
+
+@btnInverseBackground:          #444;
+@btnInverseBackgroundHighlight: @grayDarker;
+
+
+// Tables
+// -------------------------
+@tableVerticalPadding:          1.5 * @u;
+@tableHorizontalPadding:        2 * @u;
+@tableFontSize:                 @baseFontSize;
+
+@tableBackground:               fade(@white, 15%); // overall background-color
+@tableBackgroundAccent:         fade(@white, 30%); // for striping
+@tableBackgroundHover:          fade(@white, 50%); // for hover
+@tableHeaderBackground:         fade(@grayLight, 20%); // header cells
+@tableHeaderBackgroundHover:    fade(@grayLight, 15%); // header cells hover
+@tableHeaderBackgroundActive:   @tableBackgroundAccent; // header cells active
+@tableBorder:                   @grayLight; // table and cell border
+
+
+// Dividers
+// -------------------------
+
+@dividerColor:                  @gray;
+
+
+// Navbar
+// -------------------------
+
+@navbarHeight:                  6 * @u;
+@navbarItemVerticalPadding:     2 * @u;
+@navbarItemHorizontalPadding:   2.5 * @u;
+
+//@navbarBorderColor:             @white;
+@navbarBackground:              @brandColor;
+@navbarText:                    @white;
+@navbarTextHover:               @white;
+
+
+// Forms
+// -------------------------
+
+@inputText:                     @bodyText;
+@inputBorderColor:              darken(@grayLight, 7%) transparent lighten(@grayLight, 18%) @grayLight;
+@inputBorderRadius:             0;
+@inputBackground:               @white;
+@inputReadonlyBackground:       fade(@inputBackground, 50%);
+@inputUneditableBackground:     transparent;
+@inputFocusBorder:              @brandColor;
+@inputFocusGlow:                transparent;
+
+@confirmationRowBackground:     rgba(255, 211, 0, 0.2);
+
+
+// Form Field States and Warnings
+// -------------------------
+
+@errorText:                     #ed6e6e;
+@errorBackground:               #ed6e6e;
+
+
+// Wells
+// -------------------------
+
+@wellBorderRadius:              0;
+@wellBackground:                @orange;
+@wellText:                      @black;
+@wellLinkText:                  @wellText;
+@wellLinkTextHover:             @white;
+
+
+// Footer
+// -------------------------
+
+@footerHeight:                  30 * @u;

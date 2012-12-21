@@ -1,0 +1,368 @@
+<?php
+$config = Zend_Registry::get('config');
+?>
+<!DOCTYPE html>
+<html lang="de" itemscope itemtype="http://schema.org/Event">
+	<head>
+		<meta charset="utf-8" />
+		<!--meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /--> <!-- To be enabled when debugging for MSIE is finished -->
+		<!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
+
+		<title>Mitwirkung</title>
+
+		<meta name="description" content="TODO" />
+		<meta name="author" content="Content © 2013 DBJR" />
+		<meta name="robots" content="index, follow" />
+		<link rel="author" type="text/plain" href="humans.txt" />
+		<link rel="shortcut icon" href="images/favicon.png" />
+		<link rel="shortcut icon" href="favicon.ico" />
+
+		<!-- Styles -->
+		<link href="<?=$config->path->css->fonts?>" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="<?=$config->path->css->bootstrap?>" type="text/css" />
+		<link rel="stylesheet" href="<?=$config->path->css->main?>" type="text/css" />
+		<!--[if lte IE 7]><link rel="stylesheet" href="<?=$config->path->css->ie7?>" type="text/css" /><![endif]--> <!-- TODO -->
+
+		<!-- Scripts are linked at the bottom of the page for faster loading. -->
+
+		<!-- HTML5 shim for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+		<!-- TODO: insert Google Analytics -->
+
+	</head>
+<body>
+
+<!-- Document wrap -->
+<div class="document-wrap">
+
+
+	<!-- Header -->
+  <header>
+
+		<!-- Header region -->
+		<div role="banner" class="header-region">
+			<div class="container">
+				<div class="row">
+
+					<div class="span4">
+
+						<!-- Brand -->
+						<a href="<?=$this->url(array('controller' => 'index'))?>" rel="home" class="brand" title="Startseite">
+							<img src="images/logo.png" itemprop="image" alt="Ichmache&gt;Politik" />
+						</a>
+
+					</div>
+					<div class="span5">
+
+						<!-- Main navigation -->
+						<nav role="navigation" class="main-navigation">
+							<h2 class="hide">Hauptmenü</h2>
+
+							<!-- Menu -->
+							<ul class="nav nav-pills">
+								<li><a href="">Was</a></li>
+								<li><a href="">Wir</a></li>
+								<li><a href="mit-euch.html">Mit euch</a></li>
+								<li><a href="">Machen</a></li>
+							</ul>
+						</nav><!-- .main-navigation -->
+
+					</div>
+					<div class="span3">
+
+						<!-- Search -->
+						<form method="get" action="" class="form-search">
+							<div class="input-append">
+								<input type="text" name="q" placeholder="Suchebegriff…" class="input-medium search-query" value="" />
+								<button type="submit" class="btn"><i class="icon-search"></i></button>
+							</div>
+						</form>
+
+						<!-- Login -->
+						<a href="#login" class="btn btn-block" role="button" data-toggle="modal">Login</a>
+
+						<!-- Login form in a modified modal -->
+						<div id="login" class="login modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="loginLabel">Login</h3>
+							</div><!-- .modal-header -->
+							<div class="modal-body">
+
+								<!-- Login form -->
+								<form name="login" action="" method="post" class="login-form">
+									<fieldset>
+										<div class="control-group">
+											<div class="control-label">
+												<label for="username">E-Mail Adresse:</label>
+											</div>
+											<div class="controls">
+												<input type="email" name="username" id="username" placeholder="@" value="" />
+											</div>
+										</div>
+										<div class="control-group">
+											<div class="control-label">
+												<label for="password">Passwort:</label>
+											</div>
+											<div class="controls">
+												<input type="password" name="password" id="password" value="" />
+											</div>
+										</div>
+										<div class="form-actions">
+											<button type="submit" name="login" class="btn">Login</button>
+										</div>
+									</fieldset>
+									<hr />
+									<fieldset>
+										<p><strong>Passwort vergessen?</strong></p>
+										<div class="control-label">
+											<label for="username">Per E-Mail neu zuschicken:</label>
+										</div>
+										<div class="controls">
+											<input type="email" name="email" id="email" placeholder="@" value="" />
+										</div>
+										<div class="form-actions">
+											<button type="submit" name="lostPassword" class="btn">Absenden</button>
+										</div>
+									</fieldset>
+								</form>
+
+							</div><!-- .modal-body -->
+						</div><!-- #login -->
+
+
+						<!-- User box (user is logged in) -->
+						<div class="user-box">
+							<div class="user pull-left">
+								Eingeloggt als Marischka Lutz mit
+								<a href="mailto:marischka.langernachname@gmx.de">marischka.langernachname@gmx.de</a>
+							</div>
+							<a href="#user-info" class="btn pull-right" role="button" data-toggle="modal"><i class="icon-chevron-down"></i></a>
+						</div><!-- .user-box -->
+
+						<!-- User info in a modified modal -->
+						<div id="user-info" class="user-info modal hide fade" tabindex="-1" role="dialog" aria-labelledby="userInfoLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="userInfoLabel">User Info</h3>
+							</div><!-- .modal-header -->
+							<div class="modal-body">
+
+								<a href=""><i class="icon-chevron-right"></i> Alle meine Beiträge ansehen</a>
+								<hr />
+
+								<!-- Change user login or password -->
+								<form name="userEdit" action="" method="post" class="user-edit-form">
+									<p><i class="icon-chevron-right"></i> Name und Passwort ändern</p>
+									<div class="control-group">
+										<div class="control-label hide">
+											<label for="username">E-Mail Adresse:</label>
+										</div>
+										<div class="controls">
+											<input type="email" name="username" id="username" placeholder="E-mail Adresse" value="" />
+										</div>
+									</div>
+									<div class="control-group">
+										<div class="control-label hide">
+											<label for="password">Passwort:</label>
+										</div>
+										<div class="controls">
+											<input type="password" name="password" id="password" placeholder="Passwort" value="" />
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" name="userEditSubmit" class="btn">Absenden</button>
+									</div>
+								</form>
+								<hr />
+
+								<a href=""><i class="icon-chevron-right"></i> Neue Gruppenmitglieder zum Freischalten</a>
+
+							</div><!-- .modal-body -->
+						</div><!-- #user-info -->
+
+					</div><!-- .span3 -->
+
+				</div><!-- .row -->
+
+
+				<!-- Hero unit -->
+				<div class="hero-unit">
+
+					<h1><a href="index.html" rel="home" itemprop="name">Mitwirkung</a></h1>
+					<p itemprop="description">Was ist eine Konsultation in einem langen, langen,
+						langen, langen Satz erklärt. Kurz und prägnant
+						geschrieben. Für den ersten Überblick und das erste
+						Verständnis. Und noch einen zweiten Satz. Nur für den
+						ersten Überblick und das erste Verständnis.
+					</p>
+
+					<!-- Teaser -->
+					<ul class="nav nav-list teaser">
+						<li>
+							<a href="konsultation-infos.html">
+								<h2>Orientierung¿ Los!:</h2>
+								Jetzt kannst du Deinen Beitrag einstellen! Vom 04.09.bis 18.11.2012 …
+								<i class="icon-chevron-right"></i>
+							</a>
+						</li>
+						<li>
+							<a href="konsultation-infos.html">
+								<h2>Mitmischen Possible?:</h2>
+								Jetzt ist nun Abstimmen über die wichtisten Beiträge angesagt! …
+								<i class="icon-chevron-right"></i>
+							</a>
+						</li>
+						<li>
+							<a href="konsultation-infos.html">
+								<h2>Ausreichend wertgeschätzt?:</h2>
+								Bei dieser Beitragsrunde gibt es ein neue Wirkung! …
+								<i class="icon-chevron-right"></i>
+							</a>
+						</li>
+						<li>
+							<a href="index.html">
+								<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Überischt ansehen …</strong>
+								<i class="icon-chevron-right"></i>
+							</a>
+						</li>
+					</ul>
+
+				</div><!-- .hero-unit -->
+
+				<!-- Introduction -->
+				<div class="introduction lead">
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+						Aenean commodo ligula eget dolor. Aenean massa.</p>
+				</div><!-- .introduction -->
+
+			</div><!-- .container -->
+		</div><!-- .header-region -->
+
+	</header>
+
+	<hr class="hide" />
+
+
+
+	<!-- Body copy -->
+	<div role="main" class="list body-copy">
+		<div class="container">
+
+			<!-- Flash messages -->
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>Fehler!</h4>
+				<strong>Oh snap!</strong> Change a few things up and try submitting again.
+			</div>
+
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>Erfolg!</h4>
+				<strong>Well done!</strong> You successfully read this important alert message.
+			</div>
+
+			<div class="alert alert-info">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>Info</h4>
+				<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+			</div>
+
+
+
+<!-- Content start -->
+
+<?php echo $this->layout()->content; ?>
+
+<!-- Content end -->
+
+
+
+		</div><!-- .container -->
+	</div><!-- #body-copy -->
+</div><!-- .document-wrap -->
+
+<hr class="hide" />
+
+
+
+<!-- Footer -->
+<footer>
+
+	<!-- Footer navigation -->
+	<nav role="navigation" class="footer-navigation navbar navbar-static">
+		<div class="navbar-inner">
+			<div class="container">
+
+				<ul class="nav">
+					<li><a href="">Impressum</a></li>
+					<li class="active"><a href="">Über uns</a></li>
+					<li><a href="">Häufige Fragen</a></li>
+					<li><a href="">Datenschutz</a></li>
+					<li><a href="">Kontakt</a></li>
+				</ul>
+
+				<img src="http://placehold.it/98x34" alt="Lizenz" />
+
+			</div><!-- .container -->
+		</div><!-- .navbar-inner -->
+	</nav><!-- .footer-navigation -->
+
+	<!-- About -->
+	<section role="contentinfo" class="footer-about">
+		<div class="container">
+			<div class="row">
+
+				<div class="span3">
+					<h3>Projektträger</h3>
+					<a href="" rel="external" target="_blank">
+						<img src="http://placehold.it/140x65" alt="" />
+					</a>
+				</div>
+				<div class="span3">
+					<h3>Gefördert vom</h3>
+					<a href="" rel="external" target="_blank">
+						<img src="http://placehold.it/140x65" alt="" />
+					</a>
+				</div>
+				<div class="span3">
+					<h3>Das Tool für ePartizipation</h3>
+					<a href="" rel="external" target="_blank">
+						<img src="http://placehold.it/140x65" alt="" />
+					</a>
+				</div>
+				<div class="span3 contact">
+					<p>Projektbüro Ichmache&gt;Politik<br />
+						Jugendbeteiligung an der Entwicklung<br />
+						einer Eigenständigen Jugendpolitik</p>
+					<p>Mühlendamm 3<br />
+						10178 Berlin<br />
+						<a href="mailto:ichmache-politik@dbjr.de">ichmache-politik@dbjr.de</a><br />
+						<a href="http://www.ichmache-politik.de" rel="external" target="_blank">www.ichmache-politik.de</a></p>
+				</div>
+
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section><!-- .footer-about -->
+
+</footer>
+
+<!-- Debug-Info -->
+<pre>
+<?php
+$request = Zend_Controller_Front::getInstance()->getRequest();
+echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
+echo ('Application environment: ' . APPLICATION_ENVIRONMENT . '<br />');
+echo ('Module: ' . $request->getModuleName() . '<br />');
+echo ('Controller: ' . $request->getControllerName() . '<br />');
+echo ('Action: ' . $request->getActionName() . '<br />');
+?>
+</pre>
+
+<!-- Scripts -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+/*!
+ * Strukturierter Dialog
+ * www.strukturierter-dialog.de
+ *
+ * HTML & LESS/CSS © 2012 Adam Kudrna
+ *
+ */
+
+
+/*
+ * Stylesheet Index
+ * ==============================================================================
+ *
+ *   SCREEN STYLES
+ *       DESKTOP
+ *       TABLET
+ *       MOBILE
+ *
+ *   PRINT STYLES
+ *
+ *
+ * Rule Properties Structure
+ * ==============================================================================
+ *
+ *	1. Content:
+ *		- content
+ *	2. Position:
+ *		- position
+ *		- top/right/bottom/left
+ *		- z-index
+ *	3. Box Model:
+ *		- display
+ *		- box-sizing
+ *		- (min-/max-)width
+ *		- (min-/max-)height
+ *		- float
+ *		- clear
+ *		- visibility
+ *		- overflow
+ *		- margin
+ *		- padding
+ *		- vertical-align
+ *	4. Typography:
+ *		- font
+ *		- text(-...)
+ *	5. Decoration:
+ *		- border
+ *		- background
+ *		- color
+ *		- box-shadow
+ *	6. Other:
+ *		- cursor
+ *
+ */
+
+
+// Screen styles
+// -------------------------
+
+// Bootstrap mix-ins for later use
+@import '../plugins/bootstrap/less/variables.less'; // required in mixins since v2.2.1 (w)
+@import '../plugins/bootstrap/less/mixins.less';
+
+
+@media screen, projection, handheld, tv {
+
+	// Variables
+	@import 'variables.less';
+	@import 'mixins.less';
+
+	// Base styles
+	@import 'typography.less';
+	//@import 'tables.less';
+	//@import 'buttons.less';
+	//@import 'forms.less';
+
+	// Layout and page structure
+	@import 'layout.less';
+
+	// Components: common
+	//@import 'sprites.less';
+	//@import 'navbar.less';
+	//@import 'wells.less';
+
+	// Components
+	//@import 'sticky.less';
+	//@import 'modals.less';
+	@import 'consultation.less';
+
+	// Responsive
+	//@import 'responsive.less';
+
+}
+
+
+// Print styles
+// -------------------------
+
+// Not yet

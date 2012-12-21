@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>DBJR - Administration</title>
+<!-- add your meta tags here -->
+
+<link href="/css/backend/style.css" rel="stylesheet" type="text/css" />
+<!--[if lte IE 7]>
+<link href="css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+  <div class="page_margins">
+    <!-- start: skip link navigation -->
+    <!-- end: skip link navigation -->
+    <div class="page">
+      <div id="header">
+        <h1><a href="/admin">Administration</a></h1>
+        <div id="topnav">
+          <a href="/">Startseite</a><br />
+          <a href="/admin">Startseite Administration</a><br />
+        </div>
+      </div>
+      <div id="main">
+        <div id="col1">
+          <div id="col1_content" class="clearfix">
+            <!-- Navigation -->
+            <?php
+//echo ($this->action('navigation', 'admin'));
+            ?>
+          </div>
+        </div>
+        <div id="col3">
+          <div id="col3_content" class="clearfix">
+            <!-- Content -->
+            <?php
+echo $this->layout()->content;
+            ?>
+          </div>
+          <!-- IE Column Clearing -->
+          <div id="ie_clearing"> &#160; </div>
+        </div>
+      </div>
+      <!-- begin: #footer -->
+      <div id="footer">
+      
+      </div>
+    </div>
+  </div>
+</body>
+</html>

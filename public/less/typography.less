@@ -1,0 +1,226 @@
+//
+// Typography
+// --------------------------------------------------
+
+
+// FontFace
+// -------------------------
+
+// Using Paytone One and Yanone Kaffeesatz via Google Webfonts
+// http://www.google.com/webfonts#UsePlace:use/Collection:Paytone+One|Yanone+Kaffeesatz
+// Settings:
+//     - Normal 400
+
+
+// Body
+// -------------------------
+
+body {
+	//font: normal @baseFontSize~'/'@baseLineHeight @baseFontFamily; // IE7 doesn't use the font family
+	font: normal @baseFontSize @baseFontFamily;
+	line-height: @baseLineHeight;
+	color: @bodyText;
+}
+
+
+// Headings
+// -------------------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	margin-top: 0;
+
+	// Icons
+	i {
+		margin-right: .5ex;
+	}
+}
+
+h1,
+.h1 {
+	margin-bottom: 1.25em;
+	font-family: @headingFontFamily;
+	font-weight: bold;
+	font-size: 2em; // 21px
+	line-height: 1.5em;
+	text-transform: uppercase;
+	color: @turqoise;
+}
+
+h2,
+.h2,
+legend {
+	margin-bottom: .75em;
+	font-weight: bold;
+	font-size: 1.23em; // 16px
+	line-height: 1.3em;
+	color: @blue;
+}
+
+h3,
+.h3 {
+	margin-bottom: .5em;
+	font-weight: bold;
+	font-size: 1.1em;
+	line-height: 1.5em;
+}
+
+h4,
+.h4 {
+	margin-bottom: .5em;
+	font-weight: bold;
+	font-size: 1em;
+	line-height: 1.6em;
+}
+
+hgroup {
+	h1 {
+		margin-bottom: .28em;
+		color: @blue;
+	}
+	h2 {
+		color: @blue;
+	}
+}
+
+
+// Text
+// -------------------------
+
+p {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+small {
+	font-size: .9em; // 12px
+}
+
+figure {
+	margin: 0;
+
+	img {
+		margin-bottom: 1.25em;
+	}
+
+	figcaption {
+		font-style: italic;
+		line-height: 135%;
+	}
+}
+
+// Selection
+//::selection {
+//	background-color: @brandColor;
+//	color: @white;
+//}
+
+// Lead text
+.lead {
+	font-size: 1.23em; // 16px
+	line-height: 1.5em;
+}
+
+// Light text
+.light {
+	font-weight: normal;
+}
+
+
+// Links
+// -------------------------
+
+a {
+	color: @linkText;
+	//text-decoration: underline;
+}
+
+a:hover {
+	color: @linkTextHover;
+	//text-decoration: underline;
+}
+
+h1 a {
+	color: @black;
+
+	// Hover state
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+
+// Lists
+// -------------------------
+
+ul, ol, dl {
+	margin-bottom: 2em;
+}
+
+// Lead
+ul, ol {
+	&.lead {
+		margin-bottom: 3.5em;
+
+		& > li {
+			margin-bottom: .5em;
+		}
+	}
+}
+
+// Custom bullets
+.bullets-custom {
+	// Remove bullets and prepare for images
+	margin-left: 0;
+	list-style-type: none;
+
+	// List item
+	& > li {
+		padding-left: 3 * @u;
+		background-repeat: no-repeat;
+	}
+}
+
+// Check bullets
+.bullets-check > li {
+	//background-image: url('@{basePath}/images/sprites-source/icon-orange-check.png');
+	background-position: left 3px;
+}
+
+
+// Hero unit
+// -------------------------
+
+.hero-unit {
+	margin-top: 1em;
+	padding: 4 * @u;
+	font-size: 1em;
+
+	h1 {
+		font-size: 6.666em; // 85px; 666!
+		line-height: 120%;
+		text-align: center;
+		color: @black;
+	}
+
+	p {
+		margin: 1em 0 3em;
+		line-height: 150%;
+	}
+}
+
+
+// Other
+// -------------------------
+
+// Horizontal divider
+hr {
+	margin: 0;
+	border-top-color: fade(@gray, 25%);
+}
+
+// Images
+img.pull-left {
+	margin-right: 2 * @u;
+	margin-bottom: 1.5em;
+}
