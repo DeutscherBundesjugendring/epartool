@@ -1,12 +1,12 @@
 <?php
 /**
- * Consultation
+ * Media Delete
  *
- * @description   Form of consultation
+ * @description   Form for Media deletion
  * @author        Markus Hackel
  */
-class Admin_Form_Consultation extends Zend_Form {
-  protected $_iniFile = '/application/modules/admin/forms/Consultation.ini';
+class Admin_Form_Media_Delete extends Zend_Form {
+  protected $_iniFile = '/application/modules/admin/forms/Media/Delete.ini';
   /**
    * Initialisieren des Formulars
    *

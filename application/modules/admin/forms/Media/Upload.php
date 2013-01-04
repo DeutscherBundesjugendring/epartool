@@ -1,12 +1,12 @@
 <?php
 /**
- * Consultation
+ * Media Upload
  *
- * @description   Form of consultation
+ * @description   Form for Media upload
  * @author        Markus Hackel
  */
-class Admin_Form_Consultation extends Zend_Form {
-  protected $_iniFile = '/application/modules/admin/forms/Consultation.ini';
+class Admin_Form_Media_Upload extends Zend_Form {
+  protected $_iniFile = '/application/modules/admin/forms/Media/Upload.ini';
   /**
    * Initialisieren des Formulars
    *

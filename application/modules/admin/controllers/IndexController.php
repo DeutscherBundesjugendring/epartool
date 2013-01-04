@@ -29,7 +29,7 @@ class Admin_IndexController extends Zend_Controller_Action {
       ),
       'mediaAdmin' => array(
         'url' => array(
-          'action' => 'media'
+          'controller' => 'media'
         ),
         'text' => 'Medienverwaltung'
       ),

@@ -238,7 +238,7 @@
     color: #666;
     padding: 10px;
     margin-bottom: 0.5em;
-    font-size: 91.7%;
+    /*font-size: 91.7%;*/
   }
   .note {
     background: #efe;
@@ -340,6 +340,16 @@
   *
   * @section content-misc
   */
+  ul#galerie {
+    overflow: hidden;
+    list-style: none;
+  }
+  ul#galerie li {
+    float: left;
+  }
+  ul#galerie li img {
+    display: block;
+  }
 
   /**
   * (en) Emphasizing external Hyperlinks via CSS

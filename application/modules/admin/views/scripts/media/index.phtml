@@ -1,0 +1,63 @@
+<?php
+/**
+ * index
+ *
+ * @description   Media Dashboard
+ * @author        Markus Hackel
+ */
+$gfx_test = array("jpg", "jpeg", "gif", "png", "svg"); // nur diese werden als Vorschau gezeigt
+$doc_test = array("doc", "docx", "dot", "dotx", "odt", "ott", "rtf", "txt");
+$clc_test = array("xls", "xlsx", "xlst", "ods", "ots", "csv");
+$vid_test = array("avi", "divx", "flv", "mkv", "mov", "mpg", "mp4", "mp4v", "m4v", "ogv", "webm", "wmv", "3gp", "3g2");
+$aud_test = array("aac", "au", "flac", "mid", "mka", "mp3", "m4a", "m4b", "ogg", "snd", "wav", "wma");
+$prs_test = array("ppt", "pptx", "odp", "otp");
+$pdf_test = array("pdf", "epub", "mobi");
+$pck_test = array("zip", "rar", "tar", "7z");
+?>
+
+<?php foreach ($this->messages as $level => $messages):?>
+  <?php foreach ($messages as $message):?>
+<p class="<?php echo $level?>"><?php echo $message?></p>
+  <?php endforeach;?>
+<?php endforeach;?>
+
+<h2>Medienverwaltung<?php echo ($this->consultation ? ' f&uuml;r '
+  . $this->consultation->titl : '')?></h2>
+<div class="info">
+  <h3>Verzeichnis: <?php echo $this->directory;?></h3>
+</div>
+<?php if (!empty($this->files)):?>
+<div>
+<ul id="galerie">
+<?php foreach ($this->files as $file):?>
+<li>
+  <a href="<?php echo $this->directory . $file['basename'];?>" title="Klicken zum Ansehen">
+  <?php
+  if (in_array($file['extension'], $gfx_test)) {
+  	echo '<img src="'.$this->directory.$file['basename'].'" width="140" alt="Vorschau" />';
+  } else {
+  	echo '<img src="';
+  		if (in_array($file['extension'], $pdf_test)) { echo '/images/cystal_clear_mimetype_pdf.png';
+  	} elseif (in_array($file['extension'], $pck_test)) {  echo '/images/crystal_clear_filesystem_folder_tar.png';
+  	} elseif (in_array($file['extension'], $doc_test)) {  echo '/images/crystal_clear_mimetype_txt.png';
+  	} elseif (in_array($file['extension'], $prs_test)) {  echo '/images/crystal_clear_app_display.png';
+  	} elseif (in_array($file['extension'], $vid_test)) {  echo '/images/crystal_clear_mimetype_video.png';
+  	} elseif (in_array($file['extension'], $aud_test)) {  echo '/images/crystal_clear_app_xmms.png';
+  	} elseif (in_array($file['extension'], $clc_test)) {  echo '/images/crystal_clear_mimetype_spreadsheet.png';
+  	} else { echo '/images/crystal_clear_mimetype_encrypted.png'; }
+  	
+  	echo '" width="140" alt="Vorschau" />';
+  }
+  ?>
+  </a>
+  <span><?php echo $file['filename'].'.'.$file['extension']; ?><br />(<?php echo $file['size']; ?>kb)</span>
+  <?php
+  echo $file['deleteform'];
+  ?>
+</li>
+<?php endforeach;?>
+</ul>
+</div>
+<?php endif;?>
+
+<div><?php echo $this->form?></div>

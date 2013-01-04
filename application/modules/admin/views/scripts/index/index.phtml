@@ -41,6 +41,15 @@
             Grundeinstellungen
           </a>
         </li>
+        <li>
+          <a href="<?php echo $this->url(
+            array(
+              'controller' => 'media',
+              'kid' => $consultation->kid
+            ))?>">
+            Medienverwaltung
+          </a>
+        </li>
       </ul>
     </div>
   <?php endforeach;?>
