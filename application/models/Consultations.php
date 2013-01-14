@@ -19,6 +19,7 @@ class Consultations extends Zend_Db_Table_Abstract {
    * @return array
    */
   public function getById($id) {
+    $result = array();
     // is int?
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($id)) {
@@ -27,14 +28,16 @@ class Consultations extends Zend_Db_Table_Abstract {
 
     // find current consultation
     $row = $this->find($id)->current();
-    // find Voting-Rights (see model Articles.php)
-    $subrow1 = $row->findArticles()->toArray();
-    // find Voting-Rights (see model Questions.php)
-    $subrow2 = $row->findQuestions()->toArray();
-
-    $result = $row->toArray();
-    $result['articles'] = $subrow1;
-    $result['questions'] = $subrow2;
+    if (!empty($row)) {
+      // find Articles
+      $subrow1 = $row->findArticles()->toArray();
+      // find Questions
+      $subrow2 = $row->findQuestions()->toArray();
+  
+      $result = $row->toArray();
+      $result['articles'] = $subrow1;
+      $result['questions'] = $subrow2;
+    }
 
     return $result;
   }

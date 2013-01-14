@@ -1,0 +1,22 @@
+<?php
+/**
+ * Article edit
+ *
+ * @description   Article edit view
+ * @author        Markus Hackel
+ */
+?>
+<?php foreach ($this->messages as $level => $messages):?>
+  <?php foreach ($messages as $message):?>
+<p class="<?php echo $level?>"><?php echo $message?></p>
+  <?php endforeach;?>
+<?php endforeach;?>
+<h2>Artikel f&uuml;r <?php echo !empty($this->consultation) ? 'Konsultation ' . $this->consultation['titl'] : 'Allgemein';?> bearbeiten</h2>
+<?php echo $this->form;?>
+<p>
+  <a href="/admin/article/index/kid/<?php echo $this->kid?>">Zur&uuml;ck</a>
+</p>
+<script>
+    CKEDITOR.replace( 'artcl' );
+    CKEDITOR.replace( 'sidebar' );
+</script>

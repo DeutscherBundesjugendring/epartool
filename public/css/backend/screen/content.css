@@ -240,7 +240,7 @@
     margin-bottom: 0.5em;
     /*font-size: 91.7%;*/
   }
-  .note {
+  .note, .success {
     background: #efe;
     color: #040;
     border: 2px #484 solid;
@@ -254,7 +254,7 @@
     padding: 10px;
     margin-bottom: 1em;
   }
-  .warning {
+  .warning, .error {
     background: #fee;
     color: #400;
     border: 2px #844 solid;

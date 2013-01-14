@@ -145,6 +145,11 @@ class Users extends Zend_Db_Table_Abstract {
   public function register($data) {
     return 0;
   }
+  
+  public function getAdmins() {
+    $select = $this->select()->where('lvl = ?', 'adm')->order('name');
+    return $this->fetchAll($select);
+  }
 
   /**
    * recoverPassword

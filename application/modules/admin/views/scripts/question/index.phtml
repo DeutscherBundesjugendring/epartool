@@ -1,0 +1,50 @@
+<?php
+/**
+ * index
+ *
+ * @description   Questions
+ * @author        Markus Hackel
+ */
+?>
+<?php foreach ($this->messages as $level => $messages):?>
+  <?php foreach ($messages as $message):?>
+<p class="<?php echo $level?>"><?php echo $message?></p>
+  <?php endforeach;?>
+<?php endforeach;?>
+<h2>Fragen f&uuml;r Konsultation <?php echo $this->consultation['titl'];?> bearbeiten</h2>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'create',
+  'kid' => $this->consultation['kid']
+))?>">Neue Frage</a></p>
+<table>
+  <tr>
+    <th>Nr.</th>
+    <th>Frage</th>
+    <th>Erkl&auml;rung</th>
+    <th>Votingfrage</th>
+    <th>Aktionen</th>
+  </tr>
+<?php foreach ($this->consultation['questions'] as $quest):?>
+  <tr>
+    <td><?php echo $quest['nr']?></td>
+    <td><?php echo $quest['q']?></td>
+    <td><?php echo $quest['q_xpl']?></td>
+    <td><?php echo $quest['vot_q']?></td>
+    <td><a href="<?php echo $this->url(array(
+  'action' => 'edit',
+  'kid' => $this->consultation['kid'],
+  'qid' => $quest['qi']
+    ));?>">Bearbeiten</a>
+    &nbsp;
+    <a href="<?php echo $this->url(array(
+  'action' => 'delete',
+  'kid' => $this->consultation['kid'],
+  'qid' => $quest['qi']
+    ));?>" title="Frage löschen (wird nur gelöscht, wenn noch keine Beiträge)">Löschen</a>
+  </tr>
+<?php endforeach;?>
+</table>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'create',
+  'kid' => $this->consultation['kid']
+))?>">Neue Frage</a></p>

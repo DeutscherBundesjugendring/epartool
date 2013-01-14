@@ -121,5 +121,13 @@ class Questions extends Zend_Db_Table_Abstract {
     $result = $this->fetchAll($select);
     return $result->toArray();
   }
+  
+  public function getMaxId() {
+    $row = $this->fetchAll(
+            $this->select()
+                ->from($this, array(new Zend_Db_Expr('max(qi) as maxId')))
+            )->current();
+    return $row->maxId;
+  }
 }
 

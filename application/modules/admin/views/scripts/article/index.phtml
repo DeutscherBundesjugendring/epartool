@@ -1,0 +1,46 @@
+<?php
+/**
+ * index
+ *
+ * @description   Articles
+ * @author        Markus Hackel
+ */
+?>
+<?php foreach ($this->messages as $level => $messages):?>
+  <?php foreach ($messages as $message):?>
+<p class="<?php echo $level?>"><?php echo $message?></p>
+  <?php endforeach;?>
+<?php endforeach;?>
+<h2>Artikel f&uuml;r <?php echo !empty($this->consultation) ? $this->consultation['titl'] : 'Allgemein';?> bearbeiten</h2>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'create',
+  'kid' => isset($this->consultation) ? $this->consultation['kid'] : 0
+))?>">Neuer Artikel</a></p>
+<table class="full">
+  <tr>
+    <th>Id</th>
+    <th>Inhalt</th>
+    <th>Aktionen</th>
+  </tr>
+<?php foreach ($this->articles as $article):?>
+  <tr>
+    <td><?php echo $article['art_id']?></td>
+    <td><?php echo $article['artcl']?></td>
+    <td><a href="<?php echo $this->url(array(
+  'action' => 'edit',
+  'kid' => $this->consultation['kid'],
+  'aid' => $article['art_id']
+    ));?>">Bearbeiten</a>
+    &nbsp;
+    <a href="<?php echo $this->url(array(
+  'action' => 'delete',
+  'kid' => $this->consultation['kid'],
+  'aid' => $article['art_id']
+    ));?>" title="Artikel löschen">Löschen</a>
+  </tr>
+<?php endforeach;?>
+</table>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'create',
+  'kid' => $this->consultation['kid']
+))?>">Neuer Artikel</a></p>

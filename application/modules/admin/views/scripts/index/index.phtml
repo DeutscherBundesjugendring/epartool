@@ -6,6 +6,13 @@
  * @author        Markus Hackel
  */
 ?>
+<?php if (isset($this->messages)):?>
+<?php foreach ($this->messages as $level => $messages):?>
+  <?php foreach ($messages as $message):?>
+<p class="<?php echo $level?>"><?php echo $message?></p>
+  <?php endforeach;?>
+<?php endforeach;?>
+<?php endif;?>
 <h2>Dashboard</h2>
 <div>
   <h3>Grundeinstellungen</h3>
@@ -48,6 +55,24 @@
               'kid' => $consultation->kid
             ))?>">
             Medienverwaltung
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo $this->url(
+            array(
+              'controller' => 'question',
+              'kid' => $consultation->kid
+            ))?>">
+            Fragestellungen f&uuml;r Beitr&auml;ge und Abstimmung
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo $this->url(
+            array(
+              'controller' => 'article',
+              'kid' => $consultation->kid
+            ))?>">
+            Artikel und Infotexte bearbeiten
           </a>
         </li>
       </ul>

@@ -30,6 +30,7 @@ class Articles extends Zend_Db_Table_Abstract {
       return array();
     }
     $row = $this->find($id)->current();
+//    $row->artcl = html_entity_decode($row->artcl);
     $result = $row->toArray();
 
     return $result;
@@ -98,6 +99,11 @@ class Articles extends Zend_Db_Table_Abstract {
         ->quoteInto($this->_primary[1] . '=?', $id);
     $result = $this->delete($where);
     return $result;
+  }
+  
+  public function getAllWithoutConsultation() {
+    $select = $this->select()->where('kid = ?', 0)->order('art_id');
+    return $this->fetchAll($select);
   }
 }
 

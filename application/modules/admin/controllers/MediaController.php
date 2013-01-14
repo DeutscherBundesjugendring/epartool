@@ -81,8 +81,8 @@ class Admin_MediaController extends Zend_Controller_Action {
     )));
     
     $aMessages = array(
-      'note' => $this->_flashMessenger->getMessages('note'),
-      'warning' => $this->_flashMessenger->getMessages('warning')
+      'success' => $this->_flashMessenger->getMessages('success'),
+      'error' => $this->_flashMessenger->getMessages('error')
     );
     $this->view->assign(array(
       'messages' => $aMessages,
@@ -122,19 +122,19 @@ class Admin_MediaController extends Zend_Controller_Action {
           // upload received file(s)
           if ($upload->receive()) {
             $this->_helper->flashMessenger
-              ->addMessage('Die Datei »'.$originalFilename['basename'].'« wurde erfolgreich hinzugefügt.', 'note');
+              ->addMessage('Die Datei »'.$originalFilename['basename'].'« wurde erfolgreich hinzugefügt.', 'success');
           } else {
             $this->_helper->flashMessenger
-              ->addMessage('Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.', 'warning');
+              ->addMessage('Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.', 'error');
           }
         } catch (Zend_File_Transfer_Exception $e) {
           $this->_helper->flashMessenger
-            ->addMessage($e->getMessage(), 'warning');
+            ->addMessage($e->getMessage(), 'error');
         }
       }
     } else {
       $this->_helper->flashMessenger
-        ->addMessage('Upload fehlgeschlagen.', 'warning');
+        ->addMessage('Upload fehlgeschlagen.', 'error');
     }
     $uploadedData = $form->getValues();
 //    Zend_Debug::dump($upload->get(), 'Upload Object:');
@@ -165,18 +165,18 @@ class Admin_MediaController extends Zend_Controller_Action {
       if (is_file($deleteFilename)) {
         if (unlink($deleteFilename)) {
           $this->_helper->flashMessenger
-              ->addMessage('Die Datei »'.$originalFilename.'« wurde erfolgreich gelöscht.', 'note');
+              ->addMessage('Die Datei »'.$originalFilename.'« wurde erfolgreich gelöscht.', 'success');
         } else {
           $this->_helper->flashMessenger
-              ->addMessage('Datei konnte nicht gelöscht werden.', 'warning');
+              ->addMessage('Datei konnte nicht gelöscht werden.', 'error');
         }
       } else {
         $this->_helper->flashMessenger
-              ->addMessage('Datei ' . $deleteFilename . ' ist keine gültige Datei.', 'warning');
+              ->addMessage('Datei ' . $deleteFilename . ' ist keine gültige Datei.', 'error');
       }
     } else {
       $this->_helper->flashMessenger
-                ->addMessage('Formulardaten ungültig', 'warning');
+                ->addMessage('Formulardaten ungültig', 'error');
     }
     $this->_redirect($this->view->url(array(
       'action' => 'index',

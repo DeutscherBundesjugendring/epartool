@@ -23,7 +23,7 @@ class Admin_IndexController extends Zend_Controller_Action {
     $basic_settings = array(
       'editArticlesInfotexts' => array(
         'url' => array(
-          'action' => 'articles'
+          'controller' => 'article'
         ),
         'text' => 'Artikel & Infotexte bearbeiten'
       ),
@@ -33,36 +33,36 @@ class Admin_IndexController extends Zend_Controller_Action {
         ),
         'text' => 'Medienverwaltung'
       ),
-      'tagAdmin' => array(
-        'url' => array(
-          'action' => 'tags'
-        ),
-        'text' => 'Schlagwörter verwalten'
-      ),
-      'userAdmin' => array(
-        'url' => array(
-          'action' => 'users'
-        ),
-        'text' => 'User_innen & Zugangsberechtigungen'
-      ),
-      'emailSend' => array(
-        'url' => array(
-          'action' => 'sendmail'
-        ),
-        'text' => 'E-Mail versenden'
-      ),
-      'emailDraft' => array(
-        'url' => array(
-          'action' => 'emaildraft'
-        ),
-        'text' => 'E-Mailvorlagen bearbeiten'
-      ),
-      'sentMails' => array(
-        'url' => array(
-          'action' => 'sentmails'
-        ),
-        'text' => 'Vom System versandte E-Mails'
-      ),
+//      'tagAdmin' => array(
+//        'url' => array(
+//          'controller' => 'tags'
+//        ),
+//        'text' => 'Schlagwörter verwalten'
+//      ),
+//      'userAdmin' => array(
+//        'url' => array(
+//          'controller' => 'users'
+//        ),
+//        'text' => 'User_innen & Zugangsberechtigungen'
+//      ),
+//      'emailSend' => array(
+//        'url' => array(
+//          'controller' => 'sendmail'
+//        ),
+//        'text' => 'E-Mail versenden'
+//      ),
+//      'emailDraft' => array(
+//        'url' => array(
+//          'controller' => 'emaildraft'
+//        ),
+//        'text' => 'E-Mailvorlagen bearbeiten'
+//      ),
+//      'sentMails' => array(
+//        'url' => array(
+//          'controller' => 'sentmails'
+//        ),
+//        'text' => 'Vom System versandte E-Mails'
+//      ),
     );
     
     // get last 3 consultations
