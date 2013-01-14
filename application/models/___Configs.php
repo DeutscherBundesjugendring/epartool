@@ -10,21 +10,21 @@ class Configs extends Zend_Db_Table_Abstract {
   protected $_primary = 'configs_id';
 
   /**
-   * Finde Pizza und lade Zutaten
+   * Finde Config und lade Werte
    *
-   * @param $id integer Primärschlüssel der zu ladenden Pizza
+   * @param $id integer Primärschlüssel der zu ladenden Config
    */
   public function get($id) {
     /*
     // Filtere Parameter, so dass nur Ziffern übrig bleiben
     $id = Zend_Filter::get($id, 'Int');
     
-    // Lade Daten für Pizza
+    // Lade Daten für Config
     $data = $this->find($id)->current();
     
     // Prüfe auf fehlenden Datensatz
     if (empty($data)) {
-        throw new Zend_Db_Exception('Pizza ID "' . $id . '" ist ungültig');
+        throw new Zend_Db_Exception('Config ID "' . $id . '" ist ungültig');
     }
     
     // Konvertiere Daten ins Array-Format
@@ -34,9 +34,9 @@ class Configs extends Zend_Db_Table_Abstract {
     $select = $this->getAdapter()->select();
     $select->from('ingredients');
     $select->join(
-        'pizza_ingredients', 'pi2in_ingredient_id = ingredient_id', array()
+        'config_ingredients', 'pi2in_ingredient_id = ingredient_id', array()
     );
-    $select->where('pi2in_pizza_id = ?', $id);
+    $select->where('pi2in_config_id = ?', $id);
     
     // Hole Daten
     $data['ingredients'] = $this->getAdapter()->fetchAll($select);
