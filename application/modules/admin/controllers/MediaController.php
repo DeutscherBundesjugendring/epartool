@@ -32,49 +32,47 @@ class Admin_MediaController extends Zend_Controller_Action {
   public function indexAction() {
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
-    $directory = APPLICATION_PATH . '/public/media/';
-    $dir_ws = '/media/';
+    $directory = realpath(APPLICATION_PATH . '/../public/media');
+    $dir_ws = '/media';
     if ($kid > 0) {
-      $consultationModel = new Consultations();
+      $consultationModel = new Model_Consultations();
       $consultation = $consultationModel->find($kid)->current();
       if ($consultation) {
-        $directory.= 'consultations/' . $kid . '/';
-        $dir_ws.= 'consultations/' . $kid . '/';
+        $directory.= '/consultations/' . $kid;
+        $dir_ws.= '/consultations/' . $kid;
         if (!is_dir($directory)) {
           mkdir($directory);
         }
       }
 //      Zend_Debug::dump($directory);
     } else {
-      $directory.= 'misc/';
-      $dir_ws.= 'misc/';
+      $directory.= '/misc';
+      $dir_ws.= '/misc';
     }
     $files = scandir($directory);
-    $formClass = Zend_Registry::get('formloader')->load('Media_Delete');
-    $deleteForm = new $formClass();
     $action = $this->view->url(array(
       'action' => 'delete',
       'kid' =>$kid
     ));
-    $deleteForm->setAction($action);
     $i = 0;
     $aFileinfo = array();
     if (!empty($files)) {
       foreach ($files as $filename) {
-        if (is_file($directory . $filename)) {
+        if (is_file($directory . '/' . $filename)) {
           $i++;
+          $deleteForm = new Admin_Form_Media_Delete();
+          $deleteForm->setAction($action);
           $deleteForm->setAttrib('name', 'delete_' . $i)
             ->setAttrib('id', 'delete_' . $i);
-          $deleteForm->getElement('filename')->setValue($filename);
-          $aFileinfo[$filename] = pathinfo($directory . $filename);
-          $aFileinfo[$filename]['size'] = ceil(filesize($directory . $filename)/1024);
+          $deleteForm->getElement('file')->setValue($filename);
+          $aFileinfo[$filename] = pathinfo($directory . '/' . $filename);
+          $aFileinfo[$filename]['size'] = ceil(filesize($directory . '/' . $filename)/1024);
           $aFileinfo[$filename]['deleteform'] = $deleteForm;
         }
       }
     }
 //    Zend_Debug::dump($aFileinfo);
-    $formClass = Zend_Registry::get('formloader')->load('Media_Upload');
-    $form = new $formClass();
+    $form = new Admin_Form_Media_Upload();
     $form->setAction($this->view->url(array(
       'action' => 'upload',
       'kid' =>$kid
@@ -101,15 +99,14 @@ class Admin_MediaController extends Zend_Controller_Action {
   public function uploadAction() {
     $kid = (int)$this->getRequest()->getParam('kid', 0);
     $formData = $this->_request->getUserParams();
-    $formClass = Zend_Registry::get('formloader')->load('Media_Upload');
-    $form = new $formClass();
+    $form = new Admin_Form_Media_Upload();
     if ($form->isValid($formData)) {
       $originalFilename = pathinfo($form->file->getFileName());
       if ($kid > 0) {
 //        Zend_Debug::dump($originalFilename);exit();
-        $uploadDir = APPLICATION_PATH . '/public/media/consultations/' . $kid;
+        $uploadDir = realpath(APPLICATION_PATH . '/../public/media/consultations/' . $kid);
       } else {
-        $uploadDir = APPLICATION_PATH . '/public/media/misc';
+        $uploadDir = realpath(APPLICATION_PATH . '/../public/media/misc');
       }
       $uploadFilename = $uploadDir . '/' . $originalFilename['basename'];
       if (is_dir($uploadDir)) {
@@ -151,15 +148,14 @@ class Admin_MediaController extends Zend_Controller_Action {
   public function deleteAction() {
     $kid = (int)$this->getRequest()->getParam('kid', 0);
     $formData = $this->_request->getParams();
-    $formClass = Zend_Registry::get('formloader')->load('Media_Delete');
-    $form = new $formClass();
+    $form = new Admin_Form_Media_Delete();
     if ($form->isValid($formData)) {
-      $originalFilename = $form->getElement('filename')->getValue();
+      $originalFilename = $form->getElement('file')->getValue();
       if ($kid > 0) {
 //        Zend_Debug::dump($originalFilename);exit();
-        $deleteDir = APPLICATION_PATH . '/public/media/consultations/' . $kid;
+        $deleteDir = realpath(APPLICATION_PATH . '/../public/media/consultations/' . $kid);
       } else {
-        $deleteDir = APPLICATION_PATH . '/public/media/misc';
+        $deleteDir = realpath(APPLICATION_PATH . '/../public/media/misc');
       }
       $deleteFilename = $deleteDir . '/' . $originalFilename;
       if (is_file($deleteFilename)) {

@@ -6,7 +6,7 @@
  * @author        Markus Hackel
  */
 class Admin_Form_Consultation extends Zend_Form {
-  protected $_iniFile = '/application/modules/admin/forms/Consultation.ini';
+  protected $_iniFile = '/modules/admin/forms/Consultation.ini';
   /**
    * Initialisieren des Formulars
    *
@@ -15,7 +15,7 @@ class Admin_Form_Consultation extends Zend_Form {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
     
-    $consultationModel = new Consultations();
+    $consultationModel = new Model_Consultations();
     $lastId = $consultationModel->getLastId();
     $highestId = $lastId + 1;
     $this->getElement('ord')->setDescription(

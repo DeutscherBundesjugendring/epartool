@@ -4,13 +4,13 @@
  * @desc    Class of Tags,
  * @author  Jan Suchandt
  */
-class Tags extends Zend_Db_Table_Abstract {
+class Model_Tags extends Zend_Db_Table_Abstract {
   protected $_name = 'tgs';
   protected $_primary = 'tg_nr';
 
   protected $_referenceMap = array(
     'Questions' => array(
-      'columns' => 'qi', 'refTableClass' => 'Questions', 'refColumns' => 'qi'
+      'columns' => 'qi', 'refTableClass' => 'Model_Questions', 'refColumns' => 'qi'
     )
   );
   /**

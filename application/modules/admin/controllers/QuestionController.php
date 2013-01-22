@@ -35,7 +35,7 @@ class Admin_QuestionController extends Zend_Controller_Action {
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
     if ($kid > 0) {
-      $consultationModel = new Consultations();
+      $consultationModel = new Model_Consultations();
       $consultation = $consultationModel->getById($kid);
       if (!empty($consultation)) {
         $this->view->consultation = $consultation;
@@ -58,15 +58,14 @@ class Admin_QuestionController extends Zend_Controller_Action {
     $consultation = null;
     $form = null;
     if ($kid > 0) {
-      $consultationModel = new Consultations();
+      $consultationModel = new Model_Consultations();
       $consultation = $consultationModel->getById($kid);
       if (!empty($consultation)) {
-        $formClass = Zend_Registry::get('formloader')->load('Question');
-        $form = new $formClass();
+        $form = new Admin_Form_Question();
         $form->setAction('/admin/question/create/kid/' . $kid);
         if ($this->getRequest()->isPost()) {
           if ($form->isValid($this->getRequest()->getPost())) {
-            $questionModel = new Questions();
+            $questionModel = new Model_Questions();
             // get max qi:
             $maxId = $questionModel->getMaxId();
             // create new qi:
@@ -103,15 +102,14 @@ class Admin_QuestionController extends Zend_Controller_Action {
     $consultation = null;
     $form = null;
     if ($kid > 0) {
-      $consultationModel = new Consultations();
+      $consultationModel = new Model_Consultations();
       $consultation = $consultationModel->getById($kid);
       if (!empty($consultation)) {
         $qid = $this->getRequest()->getParam('qid', 0);
         if ($qid > 0) {
-          $questionModel = new Questions();
+          $questionModel = new Model_Questions();
           $questionRow = $questionModel->find($qid)->current();
-          $formClass = Zend_Registry::get('formloader')->load('Question');
-          $form = new $formClass();
+          $form = new Admin_Form_Question();
           if ($this->getRequest()->isPost()) {
             // Formular wurde abgeschickt und muss verarbeitet werden
             $params = $this->getRequest()->getPost();
@@ -151,8 +149,8 @@ class Admin_QuestionController extends Zend_Controller_Action {
     $kid = $this->getRequest()->getParam('kid', 0);
     $qid = $this->getRequest()->getParam('qid', 0);
     if ($kid > 0 && $qid > 0) {
-      $questionModel = new Questions();
-      $inputsModel = new Inputs();
+      $questionModel = new Model_Questions();
+      $inputsModel = new Model_Inputs();
       $relatedInputs = $inputsModel->getByQuestion($qid);
       if (empty($relatedInputs)) {
         $nrDeleted = $questionModel->deleteById($qid);

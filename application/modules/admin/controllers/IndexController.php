@@ -66,7 +66,7 @@ class Admin_IndexController extends Zend_Controller_Action {
     );
     
     // get last 3 consultations
-    $con = new Consultations();
+    $con = new Model_Consultations();
     $conList = $con->getLast();
 
     $this->view

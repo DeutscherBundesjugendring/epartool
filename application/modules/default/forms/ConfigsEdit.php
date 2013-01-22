@@ -6,7 +6,7 @@
  * @author        Jan Suchandt
  */
 class Form_ConfigsEdit extends Zend_Form {
-  protected $_iniFile = '/application/forms/Login.ini';
+  protected $_iniFile = '/forms/Login.ini';
   /**
    * Initialisieren des Formulars
    *

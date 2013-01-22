@@ -4,7 +4,7 @@
  * @desc    Class of voting-rights
  * @author  Jan Suchandt
  */
-class Votes_Rights extends Zend_Db_Table_Abstract {
+class Model_Votes_Rights extends Zend_Db_Table_Abstract {
   protected $_name = 'vt_rights';
   protected $_primary = array(
     'uid', 'kid'
@@ -16,7 +16,7 @@ class Votes_Rights extends Zend_Db_Table_Abstract {
     ),
     'Consultations' => array(
       'columns' => 'kid',
-      'refTableClass' => 'Consultations',
+      'refTableClass' => 'Model_Consultations',
       'refColumns' => 'kid'
     ),
   );

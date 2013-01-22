@@ -4,7 +4,7 @@
  * @desc    Class of relation between inputs and tags
  * @author  Jan Suchandt
  */
-class InputsTags extends Zend_Db_Table_Abstract {
+class Model_InputsTags extends Zend_Db_Table_Abstract {
   protected $_name = 'inpt_tgs';
   protected $_primary = array(
     'tid', 'tg_nr'
@@ -12,10 +12,10 @@ class InputsTags extends Zend_Db_Table_Abstract {
 
   protected $_referenceMap = array(
     'Inputs' => array(
-      'columns' => 'tid', 'refTableClass' => 'Inputs', 'refColumns' => 'tid'
+      'columns' => 'tid', 'refTableClass' => 'Model_Inputs', 'refColumns' => 'tid'
     ),
     'Tags' => array(
-      'columns' => 'tg_nr', 'refTableClass' => 'Tags', 'refColumns' => 'tg_nr'
+      'columns' => 'tg_nr', 'refTableClass' => 'Model_Tags', 'refColumns' => 'tg_nr'
     ),
   );
 }

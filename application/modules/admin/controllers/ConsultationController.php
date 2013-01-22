@@ -29,8 +29,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
   }
 
   public function newAction() {
-    $formClass = Zend_Registry::get('formloader')->load('Consultation');
-    $form = new $formClass();
+    $form = new Admin_Form_Consultation();
     
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {
@@ -56,11 +55,10 @@ class Admin_ConsultationController extends Zend_Controller_Action {
   public function editAction() {
     $kid = $this->getRequest()->getParam('kid');
     
-    $consultationModel = new Consultations();
+    $consultationModel = new Model_Consultations();
     $consultationRow = $consultationModel->find($kid)->current();
 
-    $formClass = Zend_Registry::get('formloader')->load('Consultation');
-    $form = new $formClass();
+    $form = new Admin_Form_Consultation();
     $form->setAction('/admin/consultation/edit/kid/' . $kid);
     
     if ($this->getRequest()->isPost()

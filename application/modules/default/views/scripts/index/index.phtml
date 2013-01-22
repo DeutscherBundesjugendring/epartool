@@ -2,14 +2,72 @@
 /**
  * index
  *
- * @description   Startseite
- * @author        Jan Suchandt
+ * @description   Startseite, Übersicht neueste Konsultationen
+ * @author        Jan Suchandt/Markus Hackel
  */
 ?>
-<h2>Startseite</h2>
+<?php $date = new Zend_Date();?>
+<?php foreach ($this->consultations as $con):?>
 <?php
-Zend_Debug::dump($this->data);
-
-echo($this->loginForm);
-Zend_Debug::dump($this->consultations);
+$disabled = array(
+  'input' => ($date->isEarlier($con->inp_fr) || $date->isLater($con->inp_to)),
+  'voting' => ($date->isEarlier($con->vot_fr) || $date->isLater($con->vot_to)),
+  'follow-up' => (!$date->isLater($con->vot_to)),
+);
 ?>
+<!--//<?php Zend_Debug::dump($con)?>-->
+<div class="consultation consultation-preview">
+	<hgroup>
+		<h1><?php echo $con->titl?></h1>
+		<h2><?php echo $con->titl_sub?></h2>
+	</hgroup>
+
+	<span class="label label-mitmachen">Mitmachen</span>
+
+	<ul class="nav nav-pills">
+		<li>
+			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid))?>" class="title">
+<!--				<img src="http://placehold.it/144x217" alt="" />-->
+				<img src="/media/consultations/<?php echo $con->kid . '/' . $con->img_file;?>" width="144" alt="<?php echo $con->img_expl?>" />
+				<span class="description"><?php echo $con->expl?></span>
+			</a>
+		</li>
+		<li>
+			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid))?>">
+				<h2>Infos</h2>
+			</a>
+		</li>
+		<li>
+			<a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid))?>">
+				<h2>Fragen</h2>
+			</a>
+		</li>
+		<li<?php echo $disabled['input'] ? ' class="disabled"' : '';?>>
+			<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid))?>">
+				<h2>Beiträge</h2>
+				<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?><br />
+				bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?></small>
+				<!-- Bubble -->
+				<div class="bubble">
+					<h3>Headline zweizeilig!</h3>
+					<span>Unterzeile optional ebenfalls zweizeilig</span>
+				</div>
+
+			</a>
+		</li>
+		<li<?php echo $disabled['voting'] ? ' class="disabled"' : '';?>>
+			<a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid))?>">
+				<h2>Abstimmung</h2>
+				<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?><br />
+				bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?></small>
+			</a>
+		</li>
+		<li<?php echo $disabled['follow-up'] ? ' class="disabled"' : '';?>>
+			<div>
+				<h2>Reaktionen & Wirkung</h2>
+				
+			</div>
+		</li>
+	</ul>
+</div><!-- .consultation -->
+<?php endforeach;?>

@@ -31,7 +31,7 @@ class ErrorController extends Zend_Controller_Action {
     }
 
     // Übergebe die aktuelle Umgebung sowie die Ausnahme an den View
-    $this->view->environment = APPLICATION_ENVIRONMENT;
+    $this->view->environment = APPLICATION_ENV;
     $this->view->exception = $errors->exception;
   }
 }

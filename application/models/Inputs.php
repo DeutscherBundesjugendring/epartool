@@ -4,13 +4,13 @@
  * @desc    Class of Inputs, userentries to questions of a consultation
  * @author  Jan Suchandt
  */
-class Inputs extends Zend_Db_Table_Abstract {
+class Model_Inputs extends Zend_Db_Table_Abstract {
   protected $_name = 'inpt';
   protected $_primary = 'tid';
 
   protected $_referenceMap = array(
     'Questions' => array(
-      'columns' => 'qi', 'refTableClass' => 'Questions', 'refColumns' => 'qi'
+      'columns' => 'qi', 'refTableClass' => 'Model_Questions', 'refColumns' => 'qi'
     )
   );
 
@@ -128,20 +128,73 @@ class Inputs extends Zend_Db_Table_Abstract {
    * @desc returns entry by question-id
    * @name getByQuestion
    * @param integer $qid id of question (qi in mysql-table)
+   * @param string $order [optional] MySQL Order Expression, e.g. 'votes DESC'
+   * @param integer $limit [optional] Number of records to return
    * @return array
    */
-  public function getByQuestion($qid) {
+  public function getByQuestion($qid, $order = 'tid ASC', $limit = null) {
     // is int?
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($qid)) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($qid)) {
       return array();
     }
 
     // fetch
-    $select = $this->select();
-    $select->where('qi=?', $qid);
+    $select = $this->getSelectByQuestion($qid, $order, $limit);
+    
     $result = $this->fetchAll($select);
     return $result->toArray();
+  }
+  
+  /**
+   * Returns number of inputs for a consultation
+   *
+   * @param integer $kid
+   * @return integer
+   */
+  public function getCountByConsultation($kid) {
+    $row = $this->fetchAll(
+            $this->select()
+              ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+              ->where('kid = ?', $kid)
+            )->current();
+    return $row->count;
+  }
+  
+	/**
+   * Returns number of inputs for a question
+   *
+   * @param integer $qid
+   * @return integer
+   */
+  public function getCountByQuestion($qid) {
+    $row = $this->fetchAll(
+            $this->select()
+              ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+              ->where('qi = ?', $qid)
+            )->current();
+    return $row->count;
+  }
+  
+  /**
+   * Returns Zend_Db_Table_Select for use in e.g. Paginator
+   *
+   * @param integer $qid
+   * @param string $order
+   * @param integer $limit
+   */
+  public function getSelectByQuestion($qid, $order = 'tid ASC', $limit = null) {
+    $intVal = new Zend_Validate_Int();
+    $select = $this->select();
+    $select->where('qi=?', $qid);
+    if (is_string($order)) {
+      $select->order($order);
+    }
+    if ($intVal->isValid($limit)) {
+      $select->limit($limit);
+    }
+    
+    return $select;
   }
 }
 

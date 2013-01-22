@@ -6,7 +6,7 @@
  * @author        Markus Hackel
  */
 class Admin_Form_Question extends Zend_Form {
-  protected $_iniFile = '/application/modules/admin/forms/Question.ini';
+  protected $_iniFile = '/modules/admin/forms/Question.ini';
   /**
    * Initialisieren des Formulars
    *

@@ -6,7 +6,7 @@
  * @author        Markus Hackel
  */
 class Admin_Form_Media_Delete extends Zend_Form {
-  protected $_iniFile = '/application/modules/admin/forms/Media/Delete.ini';
+  protected $_iniFile = '/modules/admin/forms/Media/Delete.ini';
   /**
    * Initialisieren des Formulars
    *

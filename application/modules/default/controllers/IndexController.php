@@ -14,7 +14,7 @@ class IndexController extends Zend_Controller_Action {
    * @return void
    */
   public function init() {
-    $usr = new Users();
+    $usr = new Model_Users();
 
   }
   /**
@@ -23,25 +23,21 @@ class IndexController extends Zend_Controller_Action {
    * @return void
    */
   public function indexAction() {
-    // init formloader
-    $formClass = Zend_Registry::get('formloader')->load('Login');
-    // Formular-Klasse erstellen
-    $form = new $formClass();
-
     // get last 3 consultations
-    $con = new Consultations();
+    $con = new Model_Consultations();
     $conList = $con->getLast();
 
     $this->view
         ->assign(
             array(
-              'consultations' => $conList, 'loginForm' => $form
+              'consultations' => $conList,
+//              'loginForm' => $form
             ));
 
-    $data = $con->getVotingResults(12);
-    $this->view->assign(array(
-          'data' => $data
-        ));
+//    $data = $con->getVotingResults(12);
+//    $this->view->assign(array(
+//          'data' => $data
+//        ));
   }
 
   /**
@@ -50,4 +46,13 @@ class IndexController extends Zend_Controller_Action {
    * @return void
    */
   public function loginAction() {}
+  
+  public function searchformAction() {
+    // Prüfen ob Aktion direkt aufgerufen wurde
+    if ($this->getRequest()->getParam('action') == 'searchform') {
+      // leite auf Startseite weiter
+      $this->_redirect('/');
+    }
+  }
+  
 }

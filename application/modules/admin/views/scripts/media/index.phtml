@@ -31,10 +31,10 @@ $pck_test = array("zip", "rar", "tar", "7z");
 <ul id="galerie">
 <?php foreach ($this->files as $file):?>
 <li>
-  <a href="<?php echo $this->directory . $file['basename'];?>" title="Klicken zum Ansehen">
+  <a href="<?php echo $this->directory . '/' . $file['basename'];?>" title="Klicken zum Ansehen">
   <?php
   if (in_array($file['extension'], $gfx_test)) {
-  	echo '<img src="'.$this->directory.$file['basename'].'" width="140" alt="Vorschau" />';
+  	echo '<img src="'.$this->directory . '/' . $file['basename'].'" width="140" alt="Vorschau" />';
   } else {
   	echo '<img src="';
   		if (in_array($file['extension'], $pdf_test)) { echo '/images/cystal_clear_mimetype_pdf.png';

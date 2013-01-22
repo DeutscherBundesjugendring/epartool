@@ -4,14 +4,14 @@
  * @desc    Class of articles
  * @author  Jan Suchandt
  */
-class Articles extends Zend_Db_Table_Abstract {
+class Model_Articles extends Zend_Db_Table_Abstract {
   protected $_name = 'articles';
   protected $_primary = 'art_id';
 
   protected $_referenceMap = array(
     'Consultations' => array(
       'columns' => 'kid',
-      'refTableClass' => 'Consultations',
+      'refTableClass' => 'Model_Consultations',
       'refColumns' => 'kid'
     )
   );
@@ -30,7 +30,6 @@ class Articles extends Zend_Db_Table_Abstract {
       return array();
     }
     $row = $this->find($id)->current();
-//    $row->artcl = html_entity_decode($row->artcl);
     $result = $row->toArray();
 
     return $result;
@@ -101,8 +100,31 @@ class Articles extends Zend_Db_Table_Abstract {
     return $result;
   }
   
-  public function getAllWithoutConsultation() {
-    $select = $this->select()->where('kid = ?', 0)->order('art_id');
+  /**
+   * Get all Articles that are not assigned to any Consultation, i.e. general Articles
+   * Liefert alle Artikel, die zu keiner Konsultation gehören, d.h. allg. Artikel
+   * @param string $orderBy [optional] Fieldname
+   *
+   * @return Zend_Db_Table_Rowset
+   */
+  public function getAllWithoutConsultation($orderBy = 'art_id') {
+    return $this->getByConsultation(0, $orderBy);
+  }
+  
+  /**
+   * Get all Articles of a consultation
+   *
+   * @param integer $kid Id of consultation
+   * @param string $orderBy [optional] Fieldname
+   * @return Zend_Db_Table_Rowset or false
+   */
+  public function getByConsultation($kid = null, $orderBy = 'art_id') {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($kid)) {
+      throw new Zend_Exception('Given kid must be integer!');
+      return false;
+    }
+    $select = $this->select()->where('kid = ?', $kid)->order($orderBy);
     return $this->fetchAll($select);
   }
 }

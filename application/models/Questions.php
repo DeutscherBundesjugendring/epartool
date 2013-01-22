@@ -4,16 +4,21 @@
  * @desc    Class of questions, every consultation has questions (count n), users can write entries for every question
  * @author  Jan Suchandt
  */
-class Questions extends Zend_Db_Table_Abstract {
+class Model_Questions extends Zend_Db_Table_Abstract {
   protected $_name = 'quests';
   protected $_primary = 'qi';
 
   protected $_referenceMap = array(
     'Consultations' => array(
       'columns' => 'kid',
-      'refTableClass' => 'Consultations',
+      'refTableClass' => 'Model_Consultations',
       'refColumns' => 'kid'
-    )
+    ),
+    'Inputs' => array(
+      'columns' => 'qi',
+      'refTableClass' => 'Model_Inputs',
+      'refColumns' => 'qi'
+    ),
   );
 
   /**
@@ -31,9 +36,12 @@ class Questions extends Zend_Db_Table_Abstract {
     }
 
     $row = $this->find($id)->current();
-    $result = $row->toArray();
+//    $subRow = $row->findDependentRowset('Model_Inputs');
+    
+    $aQuestion = $row->toArray();
+//    $aQuestion['inputs'] = $subRow->toArray();
 
-    return $result;
+    return $aQuestion;
   }
 
   /**
@@ -103,25 +111,29 @@ class Questions extends Zend_Db_Table_Abstract {
 
   /**
    * getByConsultation
-   * @desc returns entry by consultations-id
+   * @desc returns entries by consultations-id
    * @name getByConsultation
    * @param integer $kid id of consultation
-   * @return array
+   * @return Zend_Db_Table_Rowset
    */
   public function getByConsultation($kid) {
     // is int?
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($kid)) {
-      return array();
+      throw new Zend_Exception('Given kid must be integer!');
     }
 
     // fetch
     $select = $this->select();
     $select->where('kid=?', $kid);
-    $result = $this->fetchAll($select);
-    return $result->toArray();
+    return $this->fetchAll($select);
   }
   
+  /**
+   * Get max qi
+   *
+   * @return integer
+   */
   public function getMaxId() {
     $row = $this->fetchAll(
             $this->select()

@@ -4,12 +4,12 @@
  * @desc    Class of consultation
  * @author  Jan Suchandt
  */
-class Consultations extends Zend_Db_Table_Abstract {
+class Model_Consultations extends Zend_Db_Table_Abstract {
   protected $_name = 'cnslt';
   protected $_primary = 'kid';
 
   protected $_dependentTables = array(
-    'Articles', 'Questions', 'Votes', 'Votes_Rights'
+    'Model_Articles', 'Model_Questions', 'Model_Votes', 'Model_Votes_Rights'
   );
 
   /**
@@ -30,9 +30,9 @@ class Consultations extends Zend_Db_Table_Abstract {
     $row = $this->find($id)->current();
     if (!empty($row)) {
       // find Articles
-      $subrow1 = $row->findArticles()->toArray();
+      $subrow1 = $row->findModel_Articles()->toArray();
       // find Questions
-      $subrow2 = $row->findQuestions()->toArray();
+      $subrow2 = $row->findModel_Questions()->toArray();
   
       $result = $row->toArray();
       $result['articles'] = $subrow1;
@@ -108,7 +108,7 @@ class Consultations extends Zend_Db_Table_Abstract {
    * getLast
    * @desc returns the last consultations by sort
    * @param integer $limit count of consultations
-   * @return array
+   * @return Zend_Db_Table_Rowset_Abstract
    * @todo check if all conditions which needed (e.g. expire dates => show expired consultations?) are implemented
    */
   public function getLast($limit = 3) {

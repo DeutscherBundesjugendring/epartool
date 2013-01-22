@@ -15,7 +15,7 @@
 
 	php_admin_flag display_errors On
 	DirectoryIndex index.html index.php default.php
-	SetEnv DEVELOPER_MODE ""
+	SetEnv APPLICATION_ENV "development"
 
 	ErrorLog /var/log/apache2/error.log
     LogLevel warn

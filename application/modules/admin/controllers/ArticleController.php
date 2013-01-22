@@ -36,7 +36,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $consultation = null;
     $articles = null;
     if ($kid > 0) {
-      $consultationModel = new Consultations();
+      $consultationModel = new Model_Consultations();
       $consultation = $consultationModel->getById($kid);
       if (!empty($consultation)) {
         $this->view->consultation = $consultation;
@@ -45,7 +45,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $this->_redirect($this->_adminIndexURL);
       }
     } else {
-      $articleModel = new Articles();
+      $articleModel = new Model_Articles();
       $articles = $articleModel->getAllWithoutConsultation();
 //      $this->_redirect($this->_adminIndexURL);
     }
@@ -60,16 +60,13 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $form = null;
 //    if ($kid > 0) {
 //    }
-    $consultationModel = new Consultations();
+    $consultationModel = new Model_Consultations();
     $consultation = $consultationModel->getById($kid);
-//    if (!empty($consultation)) {
-//    }
-    $formClass = Zend_Registry::get('formloader')->load('Article');
-    $form = new $formClass();
+    $form = new Admin_Form_Article();
     $form->setAction('/admin/article/create/kid/' . $kid);
     if ($this->getRequest()->isPost()) {
       if ($form->isValid($this->getRequest()->getPost())) {
-        $articleModel = new Articles();
+        $articleModel = new Model_Articles();
         $articleRow = $articleModel->createRow($form->getValues());
         $articleRow->kid = $kid;
         $newId = $articleRow->save();
@@ -102,16 +99,15 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $form = null;
 //    if ($kid > 0) {
 //    }
-    $consultationModel = new Consultations();
+    $consultationModel = new Model_Consultations();
     $consultation = $consultationModel->getById($kid);
 //    if (!empty($consultation)) {
 //    }
     $aid = $this->getRequest()->getParam('aid', 0);
     if ($aid > 0) {
-      $articleModel = new Articles();
+      $articleModel = new Model_Articles();
       $articleRow = $articleModel->find($aid)->current();
-      $formClass = Zend_Registry::get('formloader')->load('Article');
-      $form = new $formClass();
+      $form = new Admin_Form_Article();
       if ($this->getRequest()->isPost()) {
         // Formular wurde abgeschickt und muss verarbeitet werden
         $params = $this->getRequest()->getPost();
@@ -142,7 +138,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $kid = $this->getRequest()->getParam('kid', 0);
     $aid = $this->getRequest()->getParam('aid', 0);
     if ($aid > 0) {
-      $articleModel = new Articles();
+      $articleModel = new Model_Articles();
       $articleRow = $articleModel->getById($aid);
       if ($articleRow['kid'] == $kid) {
         $nrDeleted = $articleModel->deleteById($aid);

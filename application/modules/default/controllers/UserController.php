@@ -40,4 +40,5 @@ class UserController extends Zend_Controller_Action {
    * @return void
    */
   public function registerAction() {}
+  
 }

@@ -50,10 +50,8 @@ class AdminController extends Zend_Controller_Action {
     if (!empty($id)) {
       // Konfigurations-Model laden
       $configs = new Configs();
-      // Loader aus Registry beziehen
-      $formClass = Zend_Registry::get('formloader')->load('ConfigsEdit');
       // Formular-Klasse erstellen
-      $form = new $formClass();
+      $form = new Form_ConfigsEdit();
       // Formular konfigurieren
       $form->setAction('/admin/configsedit/id/' . $id);
 

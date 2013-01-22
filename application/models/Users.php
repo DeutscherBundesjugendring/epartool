@@ -4,12 +4,12 @@
  * @desc    Class of user
  * @author  Jan Suchandt
  */
-class Users extends Zend_Db_Table_Abstract {
+class Model_Users extends Zend_Db_Table_Abstract {
   protected $_name = 'users';
   protected $_primary = 'uid';
 
   protected $_dependentTables = array(
-    'Votes_Rights'
+    'Model_Votes_Rights'
   );
   /**
    * getById

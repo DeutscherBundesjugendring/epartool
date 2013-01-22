@@ -4,7 +4,7 @@
  * @desc    Class of votings, final voting result of consultation
  * @author  Jan Suchandt
  */
-class Votes extends Zend_Db_Table_Abstract {
+class Model_Votes extends Zend_Db_Table_Abstract {
   protected $_name = 'vt_final';
   protected $_primary = array(
     'uid', 'tid'
@@ -13,7 +13,7 @@ class Votes extends Zend_Db_Table_Abstract {
   protected $_referenceMap = array(
     'Consultations' => array(
       'columns' => 'kid',
-      'refTableClass' => 'Consultations',
+      'refTableClass' => 'Model_Consultations',
       'refColumns' => 'kid'
     ),
   );
