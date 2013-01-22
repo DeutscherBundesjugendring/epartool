@@ -1,0 +1,155 @@
+<?php
+/**
+ * Header
+ */
+?>
+<header>
+
+		<!-- Header region -->
+		<div role="banner" class="header-region">
+			<div class="container">
+				<div class="row">
+
+					<div class="span4">
+
+						<!-- Brand -->
+						<a href="<?=$this->url(array('controller' => 'index'), null, true)?>" rel="home" class="brand" title="Startseite">
+							<img src="/images/logo.png" itemprop="image" alt="Ichmache&gt;Politik" />
+						</a>
+
+					</div>
+					<div class="span5">
+
+						<!-- Main navigation -->
+						<nav role="navigation" class="main-navigation">
+							<h2 class="hide">Hauptmenü</h2>
+
+							<!-- Menu -->
+							<ul class="nav nav-pills">
+								<li><a href="">Was</a></li>
+								<li><a href="">Wir</a></li>
+								<li><a href="mit-euch.html">Mit euch</a></li>
+								<li><a href="">Machen</a></li>
+							</ul>
+						</nav><!-- .main-navigation -->
+
+					</div>
+					<div class="span3">
+
+						<!-- Search -->
+						
+						<?php echo $this->action('searchform', 'index', 'default')?>
+
+						<!-- Login -->
+						<a href="#login" class="btn btn-block" role="button" data-toggle="modal">Login</a>
+
+						<!-- Login form in a modified modal -->
+						<div id="login" class="login modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="loginLabel">Login</h3>
+							</div><!-- .modal-header -->
+							<div class="modal-body">
+
+								<!-- Login form -->
+								<form name="login" action="" method="post" class="login-form">
+									<fieldset>
+										<div class="control-group">
+											<div class="control-label">
+												<label for="username">E-Mail Adresse:</label>
+											</div>
+											<div class="controls">
+												<input type="email" name="username" id="username" placeholder="@" value="" />
+											</div>
+										</div>
+										<div class="control-group">
+											<div class="control-label">
+												<label for="password">Passwort:</label>
+											</div>
+											<div class="controls">
+												<input type="password" name="password" id="password" value="" />
+											</div>
+										</div>
+										<div class="form-actions">
+											<button type="submit" name="login" class="btn">Login</button>
+										</div>
+									</fieldset>
+									<hr />
+									<fieldset>
+										<p><strong>Passwort vergessen?</strong></p>
+										<div class="control-label">
+											<label for="username">Per E-Mail neu zuschicken:</label>
+										</div>
+										<div class="controls">
+											<input type="email" name="email" id="email" placeholder="@" value="" />
+										</div>
+										<div class="form-actions">
+											<button type="submit" name="lostPassword" class="btn">Absenden</button>
+										</div>
+									</fieldset>
+								</form>
+
+							</div><!-- .modal-body -->
+						</div><!-- #login -->
+
+
+						<!-- User box (user is logged in) -->
+						<div class="user-box">
+							<div class="user pull-left">
+								Eingeloggt als Marischka Lutz mit
+								<a href="mailto:marischka.langernachname@gmx.de">marischka.langernachname@gmx.de</a>
+							</div>
+							<a href="#user-info" class="btn pull-right" role="button" data-toggle="modal"><i class="icon-chevron-down"></i></a>
+						</div><!-- .user-box -->
+
+						<!-- User info in a modified modal -->
+						<div id="user-info" class="user-info modal hide fade" tabindex="-1" role="dialog" aria-labelledby="userInfoLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="userInfoLabel">User Info</h3>
+							</div><!-- .modal-header -->
+							<div class="modal-body">
+
+								<a href=""><i class="icon-chevron-right"></i> Alle meine Beiträge ansehen</a>
+								<hr />
+
+								<!-- Change user login or password -->
+								<form name="userEdit" action="" method="post" class="user-edit-form">
+									<p><i class="icon-chevron-right"></i> Name und Passwort ändern</p>
+									<div class="control-group">
+										<div class="control-label hide">
+											<label for="username">E-Mail Adresse:</label>
+										</div>
+										<div class="controls">
+											<input type="email" name="username" id="username" placeholder="E-mail Adresse" value="" />
+										</div>
+									</div>
+									<div class="control-group">
+										<div class="control-label hide">
+											<label for="password">Passwort:</label>
+										</div>
+										<div class="controls">
+											<input type="password" name="password" id="password" placeholder="Passwort" value="" />
+										</div>
+									</div>
+									<div class="form-actions">
+										<button type="submit" name="userEditSubmit" class="btn">Absenden</button>
+									</div>
+								</form>
+								<hr />
+
+								<a href=""><i class="icon-chevron-right"></i> Neue Gruppenmitglieder zum Freischalten</a>
+
+							</div><!-- .modal-body -->
+						</div><!-- #user-info -->
+
+					</div><!-- .span3 -->
+
+				</div><!-- .row -->
+
+				<?php echo $this->partial('_herounit.phtml', $this)?>
+				
+			</div><!-- .container -->
+		</div><!-- .header-region -->
+
+	</header>

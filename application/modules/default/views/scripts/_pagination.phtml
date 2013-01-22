@@ -1,0 +1,41 @@
+<?php
+/**
+ * Partial for Pagination
+ */
+?>
+<?php if ($this->pageCount): ?>
+<nav class="pagination pagination-centered">
+	<ul>
+		<?php if (isset($this->previous)): ?>
+		<li>
+			<a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+				<i class="icon-chevron-left"></i> <?php echo $this->titlePrev;?>
+			</a>
+		</li>
+		<?php else: ?>
+		<li class="disabled"><span><i class="icon-chevron-left"></i> <?php echo $this->titlePrev;?></span></li>
+		<?php endif;?>
+		
+		<!-- Anzahl an Seitenlinks -->
+    <?php foreach ($this->pagesInRange as $page): ?>
+      <?php if ($page != $this->current): ?>
+        <li><a href="<?php echo $this->url(array('page' => $page)); ?>">
+          <?php echo $page; ?>
+        </a></li>
+      <?php else: ?>
+        <li class="active"><span><?php echo $page; ?></span></li>
+      <?php endif; ?>
+    <?php endforeach; ?>
+		
+		<?php if (isset($this->next)): ?>
+		<li>
+			<a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+				<?php echo $this->titleNext;?> <i class="icon-chevron-right"></i>
+			</a>
+		</li>
+		<?php else: ?>
+		<li class="disabled"><span><?php echo $this->titleNext;?> <i class="icon-chevron-right"></i></span></li>
+		<?php endif;?>
+	</ul>
+</nav>
+<?php endif;?>

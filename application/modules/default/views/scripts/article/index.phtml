@@ -1,0 +1,37 @@
+<?php
+/**
+ * index
+ *
+ * @description   Übersicht der Artikel
+ * @author        Markus Hackel
+ */
+//Zend_Debug::dump($this->consultation);
+?>
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('article')?>
+<!-- .secondary-navigation -->
+
+<!-- Content start -->
+
+<div class="content-holder row">
+	<aside class="span3">
+
+		<!-- Tertiary navigation -->
+<?php echo $this->articleNavigation();?>
+		<!-- .tertiary-navigation -->
+		
+	</aside>
+	<section class="main-content span6">
+		<p>Hier finden Sie Informationen zu dieser Konsultation.</p>
+	</section>
+	<aside class="span3">
+	
+	</aside>
+</div><!-- .row -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
+</div>

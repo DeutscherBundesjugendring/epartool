@@ -1,0 +1,92 @@
+<?php
+/**
+ * Hero Unit
+ *
+ * @description   Header des Inhaltsbereiches
+ * @author        Markus Hackel
+ */
+?>
+<?php
+if (isset($this->consultation)):
+?>
+
+<!-- Main title -->
+<div class="main-title">
+	<h1><a href="/" rel="home" itemprop="name">Mitwirkung</a></h1>
+</div><!-- .title -->
+
+<!-- Hero unit -->
+<div class="consultation hero-unit">
+
+	<hgroup>
+		<h1><?php echo $this->escape($this->consultation->titl)?></h1>
+		<h2><?php echo $this->escape($this->consultation->titl_sub)?></h2>
+	</hgroup>
+
+	<span class="label label-mitmachen">Mitmachen</span>
+
+	<img src="/media/consultations/<?php echo $this->consultation->kid . '/'
+	  . $this->consultation->img_file;?>" width="144" class="title-image"
+	  alt="<?php echo $this->consultation->img_expl;?>" />
+
+	<a href="/" rel="home">Zur Startseite … <i class="icon-chevron-right"></i></a>
+
+	<a href="#" class="share btn"><i class="icon-share"></i> Share</a>
+
+</div>
+<!-- .hero-unit -->
+
+<?php else:?>
+
+<!-- Hero unit -->
+<div class="hero-unit">
+
+	<h1><a href="<?php echo $this->url(array('controller' => 'index'), null, true)?>" rel="home" itemprop="name">Mitwirkung</a></h1>
+	<p itemprop="description">Was ist eine Konsultation in einem langen, langen,
+		langen, langen Satz erklärt. Kurz und prägnant
+		geschrieben. Für den ersten Überblick und das erste
+		Verständnis. Und noch einen zweiten Satz. Nur für den
+		ersten Überblick und das erste Verständnis.
+	</p>
+
+	<!-- Teaser -->
+	<ul class="nav nav-list teaser">
+		<li>
+			<a href="konsultation-infos.html">
+				<h2>Orientierung¿ Los!:</h2>
+				Jetzt kannst du Deinen Beitrag einstellen! Vom 04.09.bis 18.11.2012 …
+				<i class="icon-chevron-right"></i>
+			</a>
+		</li>
+		<li>
+			<a href="konsultation-infos.html">
+				<h2>Mitmischen Possible?:</h2>
+				Jetzt ist nun Abstimmen über die wichtisten Beiträge angesagt! …
+				<i class="icon-chevron-right"></i>
+			</a>
+		</li>
+		<li>
+			<a href="konsultation-infos.html">
+				<h2>Ausreichend wertgeschätzt?:</h2>
+				Bei dieser Beitragsrunde gibt es ein neue Wirkung! …
+				<i class="icon-chevron-right"></i>
+			</a>
+		</li>
+		<li>
+			<a href="index.html">
+				<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Überischt ansehen …</strong>
+				<i class="icon-chevron-right"></i>
+			</a>
+		</li>
+	</ul>
+
+</div>
+<!-- .hero-unit -->
+
+<!-- Introduction -->
+<div class="introduction lead">
+	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+		Aenean commodo ligula eget dolor. Aenean massa.</p>
+</div><!-- .introduction -->
+
+<?php endif;?>

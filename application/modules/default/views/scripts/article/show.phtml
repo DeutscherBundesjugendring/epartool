@@ -1,0 +1,38 @@
+<?php
+/**
+ * Article
+ *
+ * @description   Detailansicht Artikel
+ * @author        Markus Hackel
+ */
+?>
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('article')?>
+<!-- .secondary-navigation -->
+
+<!-- Content start -->
+
+<div class="content-holder row">
+	<aside class="span3">
+
+		<!-- Tertiary navigation -->
+<?php echo $this->articleNavigation($this->article['art_id']);?>
+		<!-- .tertiary-navigation -->
+		
+	</aside>
+	<section class="main-content span6">
+<?php echo $this->article['artcl']?>
+		<!-- Print -->
+		<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+	</section>
+	<aside class="span3">
+<?php echo $this->article['sidebar']?>
+	</aside>
+</div><!-- .row -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
+</div>

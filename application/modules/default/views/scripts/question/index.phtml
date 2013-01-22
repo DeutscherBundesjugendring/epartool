@@ -1,0 +1,36 @@
+<?php
+/**
+ * index
+ *
+ * @description   Übersicht der Fragen zur Konsultation
+ * @author        Markus Hackel
+ */
+?>
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('question')?>
+<!-- .secondary-navigation -->
+
+<!-- Content start -->
+
+<div class="content-holder row">
+	<aside class="span3">
+
+		<!-- Tertiary navigation -->
+<?php echo $this->questionNavigation();?>
+		<!-- .tertiary-navigation -->
+		
+	</aside>
+	<section class="main-content span6">
+		<p>Hier können Sie sich die Fragen zu dieser Konsultation ansehen.</p>
+	</section>
+	<aside class="span3">
+	
+	</aside>
+</div><!-- .row -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
+</div>
