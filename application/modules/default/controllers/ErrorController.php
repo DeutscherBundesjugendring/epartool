@@ -19,7 +19,7 @@ class ErrorController extends Zend_Controller_Action {
     switch ($errors->type) {
       case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
       case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
-      // Controller oder Aktion nicht gefunden, somit 404 Fehler 
+      // Controller oder Aktion nicht gefunden, somit 404 Fehler
         $this->getResponse()->setHttpResponseCode(404);
         $this->view->message = 'Seite konnte nicht gefunden werden';
         break;
@@ -33,5 +33,9 @@ class ErrorController extends Zend_Controller_Action {
     // Übergebe die aktuelle Umgebung sowie die Ausnahme an den View
     $this->view->environment = APPLICATION_ENV;
     $this->view->exception = $errors->exception;
+  }
+  
+  public function noAccessAction() {
+    
   }
 }

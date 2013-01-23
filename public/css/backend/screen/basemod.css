@@ -25,7 +25,7 @@
   /* (en) Marginal areas & page background */
   /* (de) Randbereiche & Seitenhintergrund */
   body {
-    background: #4d87c7 url("images/bg_blue.gif") repeat-x top left fixed;
+    background: #4d87c7/* url("images/bg_blue.gif") repeat-x top left fixed*/;
     padding: 10px 10px;
   }
 

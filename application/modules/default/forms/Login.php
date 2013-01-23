@@ -5,7 +5,7 @@
  * @description   Form of login for user
  * @author        Jan Suchandt
  */
-class Form_Login extends Zend_Form {
+class Default_Form_Login extends Zend_Form {
   protected $_iniFile = '/modules/default/forms/Login.ini';
   /**
    * Initialisieren des Formulars

@@ -40,7 +40,7 @@ class Admin_Form_Consultation extends Zend_Form {
     $options = array(
         0 => 'keiner ausgewählt'
       );
-    $userModel = new Users();
+    $userModel = new Model_Users();
     $admins = $userModel->getAdmins();
     foreach ($admins as $admin) {
       $options[$admin->uid] = $admin->email;

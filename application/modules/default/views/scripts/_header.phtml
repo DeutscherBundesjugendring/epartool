@@ -38,69 +38,19 @@
 
 						<!-- Search -->
 						
-						<?php echo $this->action('searchform', 'index', 'default')?>
+						<form method="get" action="" class="form-search">
+            	<div class="input-append">
+            		<input type="text" name="q" placeholder="Suchebegriff…" class="input-medium search-query" value="" />
+            		<button type="submit" class="btn"><i class="icon-search"></i></button>
+            	</div>
+            </form>
 
 						<!-- Login -->
-						<a href="#login" class="btn btn-block" role="button" data-toggle="modal">Login</a>
-
-						<!-- Login form in a modified modal -->
-						<div id="login" class="login modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 id="loginLabel">Login</h3>
-							</div><!-- .modal-header -->
-							<div class="modal-body">
-
-								<!-- Login form -->
-								<form name="login" action="" method="post" class="login-form">
-									<fieldset>
-										<div class="control-group">
-											<div class="control-label">
-												<label for="username">E-Mail Adresse:</label>
-											</div>
-											<div class="controls">
-												<input type="email" name="username" id="username" placeholder="@" value="" />
-											</div>
-										</div>
-										<div class="control-group">
-											<div class="control-label">
-												<label for="password">Passwort:</label>
-											</div>
-											<div class="controls">
-												<input type="password" name="password" id="password" value="" />
-											</div>
-										</div>
-										<div class="form-actions">
-											<button type="submit" name="login" class="btn">Login</button>
-										</div>
-									</fieldset>
-									<hr />
-									<fieldset>
-										<p><strong>Passwort vergessen?</strong></p>
-										<div class="control-label">
-											<label for="username">Per E-Mail neu zuschicken:</label>
-										</div>
-										<div class="controls">
-											<input type="email" name="email" id="email" placeholder="@" value="" />
-										</div>
-										<div class="form-actions">
-											<button type="submit" name="lostPassword" class="btn">Absenden</button>
-										</div>
-									</fieldset>
-								</form>
-
-							</div><!-- .modal-body -->
-						</div><!-- #login -->
-
+						<?php echo $this->login(); ?>
 
 						<!-- User box (user is logged in) -->
-						<div class="user-box">
-							<div class="user pull-left">
-								Eingeloggt als Marischka Lutz mit
-								<a href="mailto:marischka.langernachname@gmx.de">marischka.langernachname@gmx.de</a>
-							</div>
-							<a href="#user-info" class="btn pull-right" role="button" data-toggle="modal"><i class="icon-chevron-down"></i></a>
-						</div><!-- .user-box -->
+						<?php echo $this->userBox(); ?>
+						<!-- .user-box -->
 
 						<!-- User info in a modified modal -->
 						<div id="user-info" class="user-info modal hide fade" tabindex="-1" role="dialog" aria-labelledby="userInfoLabel" aria-hidden="true">

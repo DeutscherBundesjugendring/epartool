@@ -6,7 +6,7 @@
  */
 class IndexController extends Zend_Controller_Action {
 
-  protected $_user = null;
+  protected $_flashMessenger = null;
 
   /**
    * Construct
@@ -14,8 +14,7 @@ class IndexController extends Zend_Controller_Action {
    * @return void
    */
   public function init() {
-    $usr = new Model_Users();
-
+    $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
   }
   /**
    * home
@@ -45,14 +44,18 @@ class IndexController extends Zend_Controller_Action {
    * @desc action you reach with login-form
    * @return void
    */
-  public function loginAction() {}
+//  public function loginAction() {
+//    $form = new Form_Login();
+//    $auth = Zend_Auth::getInstance();
+//    if ($auth->hasIdentity()) {
+//      return $this->_forward('index');
+//    }
+//  }
   
-  public function searchformAction() {
-    // Prüfen ob Aktion direkt aufgerufen wurde
-    if ($this->getRequest()->getParam('action') == 'searchform') {
-      // leite auf Startseite weiter
-      $this->_redirect('/');
-    }
+  public function logoutAction() {
+    Zend_Auth::getInstance()->clearIdentity();
+    $this->_flashMessenger->addMessage('Logout erfolgreich!', 'info');
+    $this->_redirect('/');
   }
   
 }
