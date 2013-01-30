@@ -6,6 +6,8 @@
  */
 class IndexController extends Zend_Controller_Action {
 
+  protected $_auth = null;
+  
   protected $_flashMessenger = null;
 
   /**
@@ -14,6 +16,7 @@ class IndexController extends Zend_Controller_Action {
    * @return void
    */
   public function init() {
+    $this->_auth = Zend_Auth::getInstance();
     $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
   }
   /**
@@ -51,11 +54,4 @@ class IndexController extends Zend_Controller_Action {
 //      return $this->_forward('index');
 //    }
 //  }
-  
-  public function logoutAction() {
-    Zend_Auth::getInstance()->clearIdentity();
-    $this->_flashMessenger->addMessage('Logout erfolgreich!', 'info');
-    $this->_redirect('/');
-  }
-  
 }

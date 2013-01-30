@@ -13,6 +13,15 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       'columns' => 'qi', 'refTableClass' => 'Model_Questions', 'refColumns' => 'qi'
     )
   );
+  
+  protected $_flashMessenger = null;
+  
+  protected $_auth = null;
+  
+  public function init() {
+    $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
+    $this->_auth = Zend_Auth::getInstance();
+  }
 
   /**
    * getById
@@ -44,11 +53,11 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * @param array $data
    * @return integer primary key of inserted entry
    *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function add($data) {
+    $row = $this->createRow($data);
 
-    return (int)$this->insert($data);
+    return (int)$row->save();
   }
 
   /**
@@ -118,7 +127,7 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
 
     // fetch
     $select = $this->select();
-    $select->where('by=?', $uid);
+    $select->where('uid=?', $uid);
     $result = $this->fetchAll($select);
     return $result->toArray();
   }
@@ -172,6 +181,10 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
             $this->select()
               ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
               ->where('qi = ?', $qid)
+              // nur nicht geblockte:
+              ->where('block<>?', 'y')
+              // nur bestätigte:
+              ->where('user_conf=?', 'c')
             )->current();
     return $row->count;
   }
@@ -183,10 +196,10 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * @param string $order
    * @param integer $limit
    */
-  public function getSelectByQuestion($qid, $order = 'tid ASC', $limit = null) {
+  public function getSelectByQuestion($qid, $order = 'tid DESC', $limit = null) {
     $intVal = new Zend_Validate_Int();
     $select = $this->select();
-    $select->where('qi=?', $qid);
+    $select->where('qi=?', $qid)->where('block<>?', 'y')->where('user_conf=?', 'c');
     if (is_string($order)) {
       $select->order($order);
     }
@@ -195,6 +208,73 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     }
     
     return $select;
+  }
+  
+  public function storeSessionInputsInDb($uid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($uid)) {
+      throw new Zend_Validate_Exception('Given uid must be integer!');
+    }
+    $inputCollection = new Zend_Session_Namespace('inputCollection');
+    if (!empty($inputCollection)) {
+      foreach ($inputCollection->inputs as $input) {
+        // mit uid speichern
+        $input['uid'] = $uid;
+        $this->add($input);
+      }
+      // Session inputs löschen
+      unset($inputCollection->inputs);
+    }
+  }
+  
+  public function getUnconfirmedByUser($uid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($uid)) {
+      throw new Zend_Exception('Given user id has to be integer!');
+      return null;
+    }
+    $select = $this->select();
+    $select->where('uid=?', $uid)->where('user_conf=?', 'u');
+    $select->order('when');
+    
+    return $this->fetchAll($select);
+  }
+  
+  public function generateConfirmationKey($id) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($id)) {
+      throw new Zend_Exception('Given tid must be integer!');
+      return null;
+    }
+    $row = $this->find($id)->current();
+    if (!empty($row) && $row->user_conf != 'c') {
+      $key = md5($id . time() . getenv('REMOTE_ADDR') . mt_rand());
+      $row->confirm_key = $key;
+      $row->save();
+      return $key;
+    } else {
+      return null;
+    }
+  }
+  
+  public function confirmByCkey($ckey) {
+    $return = false;
+    $alnumVal = new Zend_Validate_Alnum();
+    if (!$alnumVal->isValid($ckey)) {
+      throw new Zend_Validate_Exception();
+      return $return;
+    }
+    $select = $this->select();
+    $select->where('confirm_key = ?', $ckey);
+    $row = $this->fetchAll($select)->current();
+    if (!empty($row)) {
+      $return = true;
+      $row->user_conf = 'c';
+      $row->confirm_key = '';
+      $row->save();
+      $this->_flashMessenger->addMessage('Vielen Dank! Dein Beitrag wurde bestätigt!', 'success');
+    }
+    return $return;
   }
 }
 

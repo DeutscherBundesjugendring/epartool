@@ -111,7 +111,7 @@ class Model_Tags extends Zend_Db_Table_Abstract {
 
     // fetch
     $select = $this->select();
-    $select->where('by=?', $uid);
+    $select->where('uid=?', $uid);
     $result = $this->fetchAll($select);
     return $result->toArray();
   }

@@ -26,7 +26,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     $registry = Zend_Registry::getInstance();
     $config = new Zend_Config($this->getOptions());
     $registry->configuration = $config;
-//    Zend_Debug::dump($registry->configuration);
     $registry->dbAdapter = $this->getResource('db');
     return $registry;
   }
@@ -38,6 +37,27 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     $this->getResource('frontController')
       ->registerPlugin(new Plugin_Auth_AccessControl($auth, $acl))
       ->setParam('auth', $auth);
+  }
+  
+  protected function _initLog() {
+    if ($this->hasPluginResource("log")) {
+      $r = $this->getPluginResource("log");
+      $log = $r->getLog();
+
+      Zend_Registry::set("log", $log);
+    }
+  }
+  
+  protected function _initTitle() {
+    $view = $this->bootstrap('view')->getResource('view');
+    $view->headTitle()->setSeparator(' - ');
+    $view->headTitle('Strukturierter Dialog in Deutschland');
+  }
+  
+  protected function _initBaseUrl() {
+    $this->bootstrap('frontController');
+    $request = $this->getResource('frontController')
+      ->registerPlugin(new Plugin_BaseUrl());
   }
 }
 ?>

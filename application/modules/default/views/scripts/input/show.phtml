@@ -29,28 +29,8 @@ $date = new Zend_Date();
 		<p><?php echo $this->question['q_xpl']?></p>
 		
 		<!-- New contribution -->
-		<form name="" action="" method="post" class="form-contribution well">
-			<span class="label label-mitmachen">Mitmachen</span>
-			<h2>Beiträge verfassen</h2>
-			<p>Hierzu solltest du dich spätestens am Ende einloggen oder
-				registrieren (Abfrage erfolgt automatisch bei „Beenden“).</p>
-
-			<div class="control-group">
-				<textarea name="" class="input-block-level" placeholder="Hier könnt ihr euren Beitrag bis zu 300 Buchstaben eintragen"></textarea>
-				<div class="char-count">003</div>
-				<textarea id="x_new[0]" name="" class="extension input-block-level" placeholder="Hier könnt ihr euren Beitrag bis zu 300 Buchstaben eintragen" style="display: none;"></textarea>
-				<a id="tab_new[0]" href="" class="btn btn-block"
-					onclick="javascript:if (document.getElementById('x_new[0]').style.display == 'none') { document.getElementById('x_new[0]').style.display = 'inline'; document.getElementById('tab_new[0]').innerHTML = 'Wieder einklappen';} else { document.getElementById('x_new[0]').style.display = 'none'; document.getElementById('tab_new[0]').innerHTML = 'Klicken, um Eintrag zu erläutern';} return false;"><i class="icon-chevron-down"></i> Klicken, um Eintrag zu erläutern <i class="icon-chevron-down"></i></a>
-				<button class="btn">-</button>
-			</div>
-
-			<div class="form-actions">
-				<button class="btn">+</button><p class="hint">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-				<button type="submit" class="btn">Speichern und nächste Frage <i class="icon-chevron-right"></i></button>
-				<button class="btn pull-right">Beenden</button>
-			</div>
-		</form><!-- .form-contribution -->
-
+		<?php echo $this->inputform; ?>
+		
 		<hr />
 		
 		<!-- Contributions -->

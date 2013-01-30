@@ -126,7 +126,25 @@ class Model_Questions extends Zend_Db_Table_Abstract {
     // fetch
     $select = $this->select();
     $select->where('kid=?', $kid);
+    $select->order('nr');
     return $this->fetchAll($select);
+  }
+  
+  public function getNext($qid) {
+    // is int?
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($qid)) {
+      throw new Zend_Exception('Given qid must be integer!');
+    }
+    
+    $current = $this->find($qid)->current();
+    
+    // fetch
+    $select = $this->select();
+    $select->where('kid=?', $current->kid)->where('nr>?', $current->nr);
+    $select->order('nr');
+    $select->limit(1);
+    return $this->fetchRow($select);
   }
   
   /**

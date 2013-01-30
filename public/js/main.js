@@ -17,6 +17,9 @@ $(document).ready(function () {
 	// -------------------------
 
 	$('*[rel="popover"]').popover();
-
+	
+	// Buttons
+	// -------------------------
+	$('button.arrow-right').append(' <i class="icon-chevron-right"></i>');
 
 });
