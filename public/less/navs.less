@@ -1,0 +1,87 @@
+//
+// Navigations
+// --------------------------------------------------
+
+
+// Main navigation
+// -------------------------
+
+.main-navigation {
+
+	// Menu
+	.nav {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+	}
+
+	// Item
+	.nav > li {
+		display: inline;
+		float: none;
+	}
+
+	// Link
+	.nav > li > a {
+		display: inline-block;
+		margin: 0;
+		margin-right: -1px; // decrease whitespace
+		padding: .3em .5ex;
+		font: normal 2em @subheadingFontFamily;
+		text-transform: uppercase;
+		color: @bodyText;
+		.border-radius(0);
+		background-color: @blue2;
+
+		// Hover state
+		&:hover {
+			background-color: @orange;
+		}
+	}
+
+	// Active item
+	.nav > .active > a {
+		color: @grayLightest;
+		background-color: @black;
+	}
+}
+
+
+// Teaser navigation
+// -------------------------
+
+.teaser {
+	z-index: 1;
+	margin: 0 6em -6.5em;
+
+	// Item
+	& > li > a {
+		//min-height: 2.8em;
+		margin: 0;
+		padding: .15em 1em;
+		text-shadow: none;
+		color: @bodyText;
+		border-bottom: 1px solid @white;
+		background-color: @orange;
+
+		// Title
+		h2 {
+			font: normal 1.308em @headingFontFamily; // 17px
+			text-transform: uppercase;
+			color: inherit;
+		}
+
+		// Icon
+		i {
+			float: right;
+			margin-top: .8em;
+		}
+
+		// Hover state
+		&:hover {
+			background-color: @blue2;
+		}
+	}
+}

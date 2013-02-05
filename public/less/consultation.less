@@ -5,33 +5,231 @@
 
 // Consultation preview
 .consultation-preview {
+	position: relative;
 	margin-bottom: 1.5em;
+	padding: .3em @u @u;
+	background-color: @grayLightest;
 
-	// Title description
+	// Consultation title
+	hgroup {
+		text-align: center;
+
+		h1 {
+			margin-bottom: 0;
+			font-size: 2.538em; // 33px
+			line-height: 135%;
+		}
+		h2 {
+			font-size: 1.923em; // 25px
+			line-height: 135%;
+		}
+	}
+
+	// Linked consultation title
 	.title {
-		position: relative;
+		text-decoration: none;
+
+		// Hover state
+		&:hover {
+			h1, h2 {
+				text-decoration: none;
+				color: @orange;
+			}
+		}
+	}
+
+	// Label
+	.label {
+		.hide-text();
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 110px;
+		height: 90px;
 		display: block;
+		.border-radius(0);
+		background-color: transparent;
+		background-repeat: no-repeat;
+
+		// Labels
+		&.label-bald-abstimmen {
+			background-image: url('@{basePath}/images/label_baldabstimmen.png');
+		}
+		&.label-ergebnisse {
+			background-image: url('@{basePath}/images/label_ergebnisse.png');
+		}
+		&.label-mitmachen {
+			background-image: url('@{basePath}/images/label_mitmachen.png');
+		}
+		&.label-nur-noch-heute {
+			background-image: url('@{basePath}/images/label_nurnochheute.png');
+		}
+		&.label-reaktion {
+			background-image: url('@{basePath}/images/label_reaktion.png');
+		}
+	}
+
+	// Navigation
+	.nav {
+		margin: 0 -8px 0 0;
+
+		// Item
+		& > li {
+			position: relative;
+		}
+	}
+
+	// Default item
+	.nav > li > * {
+		position: relative;
+		width: 144px;
+		height: 217px;
+		.box-sizing(border-box);
+		margin: 0 8px 0 0;
+		padding: .4em .75em;
+		.border-radius(0);
+		color: @grayLightest;
+		background-color: @black;
+		.box-shadow(none);
+
+		// Title
+		h2 {
+			font: normal 2.154em/110% @subheadingFontFamily; // 28px
+			text-transform: uppercase;
+			color: @grayLightest;
+		}
+
+		// Info
+		.info {
+			position: absolute;
+			right: .75em;
+			bottom: .5em;
+			display: block;
+			line-height: 135%;
+			text-align: right;
+		}
+
+		// Bubble
+		.bubble {
+			left: 1.5em;
+			bottom: -0.3em;
+		}
+	}
+
+	// Remove right margin of the last item
+	.nav > li:last-child > * {
+		margin-right: 0;
+	}
+
+	// Add decoration to items
+	.nav > li > * {
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			display: block;
+			margin-top: -1.5em;
+		}
+		&:before {
+			left: 0;
+			z-index: 0;
+			border-left: .7em solid @grayLightest;
+			border-top: 1.4em solid transparent;
+			border-bottom: 1.4em solid transparent;
+		}
+		&:after {
+			left: 100%;
+			z-index: 1;
+			border-left: .7em solid @black;
+			border-top: 1.4em solid transparent;
+			border-bottom: 1.4em solid transparent;
+		}
+	}
+
+	// Remove decoration of the first, second and the last item
+	.nav > li:first-child > *:before,
+	.nav > li:first-child > *:after,
+	.nav > li:nth-child(2) > *:before,
+	.nav > li:last-child > *:after {
+		display: none;
+	}
+
+	// Linked item
+	.nav > li > a {
+		//.transition(background @normal linear);
+
+		// Hover state
+		&:hover {
+			background-color: @orange;
+
+			// Decoration
+			&:after {
+				border-left-color: @orange;
+			}
+		}
+	}
+
+	// Title item
+	.nav > .item-title > a {
+		position: relative;
+		overflow: hidden;
 		padding: 0;
 
 		// Description
 		.description {
 			position: absolute;
 			left: 0;
-			top: 0;
+			top: 100%;
 			z-index: 1;
 			width: 100%;
 			height: 100%;
 			.box-sizing(border-box);
-			display: none;
 			padding: 1em;
-			background-color: @grayLighter;
+			.opacity(0);
+			line-height: 135%;
+			color: @bodyText;
+			background-color: @orange;
+			.transition(all @normal ease-out);
 		}
 
 		// Hover state
 		&:hover {
 			.description {
-				display: block;
+				top: 0;
+				.opacity(100);
+				color: @bodyText;
+				background-color: @orange;
 			}
+		}
+	}
+
+	// Access item
+	.nav > .item-access {
+
+		// Input
+		input[type="text"],
+		input[type="password"] {
+			width: 6.2em;
+			padding-left: .25em;
+			padding-right: .25em;
+			border-color: @grayLighter;
+
+			// Focus state
+			&:focus {
+				border-color: @inputFocusBorder;
+			}
+		}
+	}
+
+	// Inactive item
+	.nav > .item-disabled > div {
+		background-color: @grayLighter;
+		cursor: not-allowed;
+
+		// Decoration
+		&:after {
+			border-left-color: @grayLighter;
 		}
 	}
 }
@@ -44,7 +242,7 @@
 
 	// Title
 	hgroup {
-		margin: 1em 160px;
+		margin: 0 160px 1em;
 		text-align: center;
 
 		h1 {
@@ -52,7 +250,6 @@
 			font-size: 3.5em; // 45px
 			line-height: 100%;
 		}
-
 		h2 {
 			font-size: 1.95em; // 25px
 			line-height: 120%;
@@ -90,7 +287,7 @@
 	}
 }
 
-// Consultation
+// Consultation detail
 .consultation {
 
 }

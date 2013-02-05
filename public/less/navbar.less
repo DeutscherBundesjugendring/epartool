@@ -1,0 +1,68 @@
+//
+// Component: Navbar
+// --------------------------------------------------
+
+
+// Navbar container
+.navbar {
+	margin-bottom: 0;
+
+	// Navbar
+	.navbar-inner {
+		min-height: @navbarHeight;
+		.border-radius(0);
+		border-style: none;
+		background: @navbarBackground none;
+		.reset-filter();
+		.box-shadow(none);
+	}
+
+	// Navbar content
+	.container {
+		width: 940px;
+	}
+
+	// Navbar navigation
+	.nav {
+		float: none;
+		text-align: center;
+		white-space: nowrap;
+
+		// Item
+		& > li {
+			display: inline-block;
+			float: none;
+		}
+	}
+
+	// Navbar item link
+	.nav > li > a {
+		display: inline-block;
+		margin-right: -0.4ex; // remove whitespace between items
+		padding: @navbarItemVerticalPadding @navbarItemHorizontalPadding;
+		font: normal 1.538em/120% @subheadingFontFamily; // 20px;
+		text-transform: uppercase;
+		text-shadow: none;
+		color: @navbarText;
+
+		// Hover state
+		&:hover {
+			color: @navbarTextHover;
+			background-color: @orange;
+		}
+	}
+
+	// Active item
+	.nav > .active > a,
+	.nav > .active > a:hover {
+		color: @grayLightest;
+		background-color: @black;
+		.box-shadow(none);
+	}
+
+	// Licence
+	.nav > .licence {
+		margin: .2em 0 0 1.2em;
+		vertical-align: top;
+	}
+}

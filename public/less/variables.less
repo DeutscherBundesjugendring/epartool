@@ -10,7 +10,7 @@
 @basePath:                      '..';
 
 // Base unit
-@u:                             10px;
+@u:                             1.538462em; // 20px for 13px base font size
 
 
 // Colors
@@ -22,13 +22,14 @@
 @grayDark:                      #444;
 @gray:                          #666;
 @grayLight:                     #999;
-@grayLighter:                   #ccc;
-@grayLightest:                  #DBDBDB;
+@grayLighter:                   #a69f9f;
+@grayLightest:                  #f7f7f7;
 @white:                         #fff;
 
 // Accent colors
 @orange:                        #fc9026;
 @blue:                          #02afdb;
+@blue2:                         #00cbff;
 @blueDark:                      #0196bc;
 @turqoise:                      #5fa4a0;
 
@@ -45,27 +46,22 @@
 
 // Links
 @linkText:                      @blueDark;
-@linkTextHover:                 @black;
+@linkTextHover:                 @orange;
 
 // Highlight
 @highlightColor:                fade(@white, 40%);
 
-// Footer
-@footerBackground:              @bodyBackground;
-@footerText:                    @bodyText;
-@footerLinkText:                @linkText;
-@footerLinkTextHover:           @linkTextHover;
-
 
 // Typography
 // -------------------------
+
 @sansFontFamily:                Arial, sans-serif;
 @serifFontFamily:               Georgia, "Times New Roman", Times, serif;
 @monoFontFamily:                Monaco, Menlo, Consolas, "Courier New", monospace;
 @headingFontFamily:             "Paytone One", sans-serif;
 @subheadingFontFamily:          "Yanone Kaffeesatz", sans-serif;
 
-@baseFontSize:                  .8em; // 13px
+@baseFontSize:                  .8em; // 13px (intentionally changed from original 12px to improve legibility)
 @baseFontFamily:                @sansFontFamily;
 @baseLineHeight:                1.565em; //20px
 
@@ -78,41 +74,38 @@
 @slow:                          500ms;
 
 
+
 // Component variables
 // --------------------------------------------------
+
+
+// Footer
+// -------------------------
+
+@footerHeight:                  11 * @u;
+@footerBackground:              @bodyBackground;
+@footerText:                    @bodyText;
+@footerLinkText:                @linkText;
+@footerLinkTextHover:           @linkTextHover;
 
 
 // Buttons
 // -------------------------
 
 @btnText:                       @black;
-@btnTextHover:                  @white;
+@btnTextHover:                  @black;
 @btnBorderRadius:               0;
-@btnBackground:                 @blue;
+@btnBackground:                 @blue2;
 @btnBackgroundHover:            @orange;
 
-@btnPrimaryBackground:          @grayDarker;
-
-@btnInfoBackground:             #5bc0de;
-@btnInfoBackgroundHighlight:    #2f96b4;
-
-@btnSuccessBackground:          #62c462;
-@btnSuccessBackgroundHighlight: #51a351;
-
-@btnWarningBackground:          lighten(#f89406, 15%);
-@btnWarningBackgroundHighlight: #f89406;
-
-@btnDangerBackground:           #ee5f5b;
-@btnDangerBackgroundHighlight:  #bd362f;
-
-@btnInverseBackground:          #444;
-@btnInverseBackgroundHighlight: @grayDarker;
+@btnPrimaryBackground:          @orange;
+@btnPrimaryBackgroundHover:     @blue2;
 
 
 // Tables
 // -------------------------
-@tableVerticalPadding:          1.5 * @u;
-@tableHorizontalPadding:        2 * @u;
+@tableVerticalPadding:          1em;
+@tableHorizontalPadding:        @u;
 @tableFontSize:                 @baseFontSize;
 
 @tableBackground:               fade(@white, 15%); // overall background-color
@@ -133,36 +126,35 @@
 // Navbar
 // -------------------------
 
-@navbarHeight:                  6 * @u;
-@navbarItemVerticalPadding:     2 * @u;
-@navbarItemHorizontalPadding:   2.5 * @u;
+@navbarHeight:                  2 * @u;
+@navbarItemVerticalPadding:     .4em;
+@navbarItemHorizontalPadding:   1ex;
 
 //@navbarBorderColor:             @white;
-@navbarBackground:              @brandColor;
-@navbarText:                    @white;
-@navbarTextHover:               @white;
+@navbarBackground:              @blue2;
+@navbarText:                    @black;
+@navbarTextHover:               @black;
 
 
 // Forms
 // -------------------------
 
 @inputText:                     @bodyText;
-@inputBorderColor:              darken(@grayLight, 7%) transparent lighten(@grayLight, 18%) @grayLight;
+@inputBorderColor:              @black;
 @inputBorderRadius:             0;
 @inputBackground:               @white;
 @inputReadonlyBackground:       fade(@inputBackground, 50%);
 @inputUneditableBackground:     transparent;
+
 @inputFocusBorder:              @brandColor;
 @inputFocusGlow:                transparent;
-
-@confirmationRowBackground:     rgba(255, 211, 0, 0.2);
 
 
 // Form Field States and Warnings
 // -------------------------
 
-@errorText:                     #ed6e6e;
-@errorBackground:               #ed6e6e;
+@errorText:                     @white;
+@errorBackground:               #c00;
 
 
 // Wells
@@ -173,9 +165,3 @@
 @wellText:                      @black;
 @wellLinkText:                  @wellText;
 @wellLinkTextHover:             @white;
-
-
-// Footer
-// -------------------------
-
-@footerHeight:                  30 * @u;
