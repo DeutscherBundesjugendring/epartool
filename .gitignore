@@ -1,3 +1,13 @@
 /.settings
 /.buildpath
 /.project
+
+# Ignore filesystem files
+.DS_Store
+
+# Ignore IDE files
+nbproject
+
+# Always follow configs
+!.gitignore
+!.htaccess
