@@ -13,9 +13,9 @@ $config = Zend_Registry::get('config');
 		<meta name="description" content="TODO" />
 		<meta name="author" content="Content © 2013 DBJR" />
 		<meta name="robots" content="index, follow" />
-		<link rel="author" type="text/plain" href="humans.txt" />
-		<link rel="shortcut icon" href="images/favicon.png" />
-		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="author" type="text/plain" href="<?php echo $this->baseUrl(); ?>/humans.txt" />
+		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/images/favicon.png" />
+		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/favicon.ico" />
 
 		<!-- Styles -->
 		<link href="<?=$config->path->css->fonts?>" rel="stylesheet" type="text/css" />
@@ -105,8 +105,8 @@ $config = Zend_Registry::get('config');
 ?>
 
 <!-- Scripts -->
-
 <script src="<?php echo $config->path->js->bootstrap?>"></script>
 <script src="<?php echo $config->path->js->main?>"></script>
-</body>
+
+	</body>
 </html>
