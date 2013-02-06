@@ -644,7 +644,6 @@
     margin-bottom: 0;
   }
   .navbar .navbar-inner {
-    min-height: 3.076924em;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -670,8 +669,8 @@
   .navbar .nav > li > a {
     display: inline-block;
     margin-right: -0.4ex;
-    padding: 0.4em 1ex;
-    font: normal 1.538em/120% "Yanone Kaffeesatz", sans-serif;
+    padding: 0.5em 1ex;
+    font: normal 1.538em/100% "Yanone Kaffeesatz", sans-serif;
     text-transform: uppercase;
     text-shadow: none;
     color: #000000;

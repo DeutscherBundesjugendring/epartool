@@ -48,7 +48,7 @@ $config = Zend_Registry::get('config');
 	<!-- Body copy -->
 	<div role="main" class="list body-copy">
 		<div class="container">
-		
+
 		<!-- Flash messages -->
 		<?php if(!empty($this->layout()->messages)): ?>
 		<?php foreach ($this->layout()->messages as $level => $messages):?>
@@ -92,17 +92,17 @@ $config = Zend_Registry::get('config');
 <!-- Footer -->
 <?php echo $this->render('_footer.phtml')?>
 
-<!-- Debug-Info -->
-<pre>
 <?php
+//echo '<!-- Debug-Info -->';
+//echo '<pre>';
 //$request = Zend_Controller_Front::getInstance()->getRequest();
 //echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
 //echo ('Application environment: ' . APPLICATION_ENV . '<br />');
 //echo ('Module: ' . $request->getModuleName() . '<br />');
 //echo ('Controller: ' . $request->getControllerName() . '<br />');
 //echo ('Action: ' . $request->getActionName() . '<br />');
+//echo '</pre>';
 ?>
-</pre>
 
 <!-- Scripts -->
 
