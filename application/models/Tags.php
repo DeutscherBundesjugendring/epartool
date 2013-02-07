@@ -7,12 +7,15 @@
 class Model_Tags extends Zend_Db_Table_Abstract {
   protected $_name = 'tgs';
   protected $_primary = 'tg_nr';
+  
+  protected $_dependentTables = array('Model_InputsTags');
 
   protected $_referenceMap = array(
     'Questions' => array(
       'columns' => 'qi', 'refTableClass' => 'Model_Questions', 'refColumns' => 'qi'
     )
   );
+  
   /**
    * getById
    * @desc returns entry by id
@@ -27,7 +30,7 @@ class Model_Tags extends Zend_Db_Table_Abstract {
       return array();
     }
 
-    return $this->find($id)->toArray();
+    return $this->find($id)->current()->toArray();
   }
 
   /**
@@ -114,5 +117,22 @@ class Model_Tags extends Zend_Db_Table_Abstract {
     $select->where('uid=?', $uid);
     $result = $this->fetchAll($select);
     return $result->toArray();
+  }
+  
+  /**
+   * Returns array of options for use in Zend_Form_Element_MultiCheckbox
+   * i.e. array of all available Tags
+   *
+   * @return array
+   */
+  public function getAdminInputFormMulticheckboxOptions() {
+    $options = array();
+    $select = $this->select();
+    $select->order('tg_de');
+    $rowset = $this->fetchAll($select);
+    foreach ($rowset as $row) {
+      $options[$row->tg_nr] = $row->tg_de;
+    }
+    return $options;
   }
 }

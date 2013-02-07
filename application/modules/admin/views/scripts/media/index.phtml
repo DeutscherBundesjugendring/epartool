@@ -15,14 +15,13 @@ $pdf_test = array("pdf", "epub", "mobi");
 $pck_test = array("zip", "rar", "tar", "7z");
 ?>
 
-<?php foreach ($this->messages as $level => $messages):?>
-  <?php foreach ($messages as $message):?>
-<p class="<?php echo $level?>"><?php echo $message?></p>
-  <?php endforeach;?>
-<?php endforeach;?>
-
-<h2>Medienverwaltung<?php echo ($this->consultation ? ' f&uuml;r '
-  . $this->consultation->titl : '')?></h2>
+<h1><?php echo ($this->consultation ? $this->consultation->titl : 'Allgemein')?></h1>
+<?php
+if ($this->consultation) {
+  echo $this->consultationNavigation('Medienverwaltung');
+}
+?>
+<h2>Medienverwaltung</h2>
 <div class="info">
   <h3>Verzeichnis: <?php echo $this->directory;?></h3>
 </div>

@@ -6,12 +6,11 @@
  * @author        Markus Hackel
  */
 ?>
-<?php foreach ($this->messages as $level => $messages):?>
-  <?php foreach ($messages as $message):?>
-<p class="<?php echo $level?>"><?php echo $message?></p>
-  <?php endforeach;?>
-<?php endforeach;?>
-<h2>Artikel f&uuml;r <?php echo !empty($this->consultation) ? $this->consultation['titl'] : 'Allgemein';?> bearbeiten</h2>
+<h1><?php echo !empty($this->consultation) ? $this->consultation['titl'] : 'Allgemein';?></h1>
+<?php
+echo $this->consultationNavigation('Artikel');
+?>
+<h2>Artikelübersicht</h2>
 <p><a href="<?php echo $this->url(array(
   'action' => 'create',
   'kid' => isset($this->consultation) ? $this->consultation['kid'] : 0

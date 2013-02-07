@@ -31,6 +31,7 @@
     border-top: 1px #333 solid;
     border-bottom: 1px #333 solid;
     line-height: 0;
+    margin-bottom: 20px;
   }
   .hlist ul {
     margin: 0;
@@ -79,7 +80,11 @@
     border-left: 1px #444 solid;
     border-right: 1px #888 solid;
   }
-  .hlist ul li.active strong,.hlist ul li.active a:focus,.hlist ul li.active a:hover,.hlist ul li.active a:active
+  .hlist ul li.active strong,
+  .hlist ul li.active a,
+  .hlist ul li.active a:focus,
+  .hlist ul li.active a:hover,
+  .hlist ul li.active a:active
     {
     background: transparent;
     color: #fff;

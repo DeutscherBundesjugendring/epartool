@@ -12,10 +12,48 @@ class Model_InputsTags extends Zend_Db_Table_Abstract {
 
   protected $_referenceMap = array(
     'Inputs' => array(
-      'columns' => 'tid', 'refTableClass' => 'Model_Inputs', 'refColumns' => 'tid'
+      'columns' => 'tid',
+      'refTableClass' => 'Model_Inputs',
+      'refColumns' => 'tid',
+      'onDelete' => self::CASCADE,
+      'onUpdate' => self::CASCADE
     ),
     'Tags' => array(
-      'columns' => 'tg_nr', 'refTableClass' => 'Model_Tags', 'refColumns' => 'tg_nr'
+      'columns' => 'tg_nr',
+      'refTableClass' => 'Model_Tags',
+      'refColumns' => 'tg_nr',
+      'onDelete' => self::CASCADE,
+      'onUpdate' => self::CASCADE
     ),
   );
+  
+  /**
+   * Deletes entries by Inputs ID
+   *
+   * @param integer $tid
+   * @return integer Number of rows deleted
+   */
+  public function deleteByInputsId($tid) {
+    $where = $this->getDefaultAdapter()
+      ->quoteInto($this->_primary[0] . ' = ?', $tid);
+    return $this->delete($where);
+  }
+  
+  /**
+   * Inserts entries by Inputs ID
+   *
+   * @param integer $tid Inputs ID
+   * @param array $data Array of Tag IDs
+   * @return integer Number of rows inserted
+   */
+  public function insertByInputsId($tid, $data) {
+    $inserted = array();
+    foreach ($data as $tag_nr) {
+      $inserted[] = $this->insert(array(
+        'tid' => $tid,
+        'tg_nr' => $tag_nr
+      ));
+    }
+    return count($inserted);
+  }
 }

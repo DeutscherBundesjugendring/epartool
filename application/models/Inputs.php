@@ -7,6 +7,8 @@
 class Model_Inputs extends Zend_Db_Table_Abstract {
   protected $_name = 'inpt';
   protected $_primary = 'tid';
+  
+  protected $_dependentTables = array('Model_InputsTags');
 
   protected $_referenceMap = array(
     'Questions' => array(
@@ -28,9 +30,10 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * @desc returns entry by id
    * @name getById
    * @param integer $id
+   * @param integer $tag [optional] Filter nach Tag
    * @return array
    */
-  public function getById($id) {
+  public function getById($id, $tag = 0) {
     // is int?
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($id)) {
@@ -38,10 +41,22 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     }
 
     $row = $this->find($id)->current();
-    $subrow1 = $row->findTagsViaInputsTags()->toArray();
+    $subrow1 = $row->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
 
     $result = $row->toArray();
     $result['tags'] = $subrow1;
+    if ($tag > 0) {
+      // Ergebnisdatensatz nur zurückliefern, wenn dieser den angegebenen Tag zugeordnet hat
+      $deliverRecord = false;
+      foreach ($result['tags'] as $value) {
+        if ($tag == $value['tg_nr']) {
+          $deliverRecord = true;
+        }
+      }
+      if (!$deliverRecord) {
+        $result = null;
+      }
+    }
 
     return $result;
   }
@@ -62,13 +77,10 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
 
   /**
    * updateById
-   * @desc update entry by id
-   * @name updateById
    * @param integer $id
    * @param array $data
    * @return integer
    *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function updateById($id, $data) {
     // is int?
@@ -80,10 +92,17 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     if ($this->find($id)->count() < 1) {
       return 0;
     }
-
-    $where = $this->getDefaultAdapter()
-        ->quoteInto($this->_primary[1] . '=?', $id);
-    return $this->update($data, $where);
+    
+    if (isset($data['tags']) && !empty($data['tags'])) {
+      // Tag Zuordnungen speichern
+      $modelInputsTags = new Model_InputsTags();
+      $modelInputsTags->deleteByInputsId($id);
+      $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
+    }
+    
+    $row = $this->find($id)->current();
+    $row->setFromArray($data);
+    return $row->save();
   }
 
   /**
@@ -131,13 +150,41 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     $result = $this->fetchAll($select);
     return $result->toArray();
   }
+  
+  /**
+   * Returns entries by user and consultation
+   *
+   * @param integer $uid User ID
+   * @param integer $kid Consultation ID
+   * @param string|array $order [optional] Order specification
+   */
+  public function getByUserAndConsultation($uid, $kid, $order = null) {
+    // is int?
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($uid)) {
+      return 0;
+    }
+    if (!$validator->isValid($kid)) {
+      return 0;
+    }
+
+    // fetch
+    $select = $this->select();
+    $select->where('uid=?', $uid);
+    $select->where('kid=?', $kid);
+    if ($order) {
+      $select->order($order);
+    }
+    $result = $this->fetchAll($select);
+    return $result->toArray();
+  }
 
   /**
    * getByQuestion
    * @desc returns entry by question-id
    * @name getByQuestion
    * @param integer $qid id of question (qi in mysql-table)
-   * @param string $order [optional] MySQL Order Expression, e.g. 'votes DESC'
+   * @param string|array $order [optional] MySQL Order Expression, e.g. 'votes DESC'
    * @param integer $limit [optional] Number of records to return
    * @return array
    */
@@ -200,7 +247,7 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     $intVal = new Zend_Validate_Int();
     $select = $this->select();
     $select->where('qi=?', $qid)->where('block<>?', 'y')->where('user_conf=?', 'c');
-    if (is_string($order)) {
+    if (!empty($order)) {
       $select->order($order);
     }
     if ($intVal->isValid($limit)) {
@@ -210,6 +257,13 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     return $select;
   }
   
+  /**
+   * Stores inputs from session into database
+   *
+   * @param integer $uid
+   * @throws Zend_Validate_Exception
+   * @return void
+   */
   public function storeSessionInputsInDb($uid) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
@@ -227,10 +281,17 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     }
   }
   
+  /**
+   * Retruns all unconfirmed inputs by user
+   *
+   * @param integer $uid
+   * @throws Zend_Validate_Exception
+   * @return Zend_Db_Table_Rowset
+   */
   public function getUnconfirmedByUser($uid) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
-      throw new Zend_Exception('Given user id has to be integer!');
+      throw new Zend_Validate_Exception('Given user id has to be integer!');
       return null;
     }
     $select = $this->select();
@@ -240,6 +301,13 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     return $this->fetchAll($select);
   }
   
+  /**
+   * Generates, saves and returns a key for input confirmation
+   *
+   * @param integer $id Input ID
+   * @throws Zend_Exception
+   * @return string
+   */
   public function generateConfirmationKey($id) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($id)) {
@@ -257,6 +325,13 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     }
   }
   
+  /**
+   * Processes input confirmation request
+   *
+   * @param string $ckey
+   * @throws Zend_Validate_Exception
+   * @return boolean true on success
+   */
   public function confirmByCkey($ckey) {
     $return = false;
     $alnumVal = new Zend_Validate_Alnum();
@@ -275,6 +350,38 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       $this->_flashMessenger->addMessage('Vielen Dank! Dein Beitrag wurde bestätigt!', 'success');
     }
     return $return;
+  }
+  
+  /**
+   * Deletes several entries at once
+   *
+   * @param array $ids Array of integer values (Input IDs)
+   * @return integer Number of deleted entries
+   */
+  public function deleteBulk($ids) {
+    $nrDeleted = 0;
+    if (is_array($ids) && !empty($ids)) {
+      foreach ($ids as $id) {
+        $nr = $this->deleteById($id);
+        $nrDeleted+= $nr;
+      }
+    }
+    return $nrDeleted;
+  }
+  
+  /**
+   * Saves changes for several entries at once
+   *
+   * @param array $ids Array of integer values (Input IDs)
+   * @param array $data Key value pairs
+   * @return void
+   */
+  public function editBulk($ids, $data) {
+    if (is_array($ids) && !empty($ids)) {
+      foreach ($ids as $id) {
+        $this->updateById($id, $data);
+      }
+    }
   }
 }
 

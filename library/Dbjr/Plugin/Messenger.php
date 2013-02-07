@@ -16,12 +16,15 @@ class Plugin_Messenger extends Zend_Controller_Plugin_Abstract {
     $messages = array();
     $messages['success'] = $messenger->getMessages('success');
     $messagesCurrent['success'] = $messenger->setNamespace('success')->getCurrentMessages();
+    $messenger->setNamespace('success')->clearCurrentMessages();
     $messages['success'] = array_merge($messages['success'], $messagesCurrent['success']);
     $messages['error'] = $messenger->getMessages('error');
     $messagesCurrent['error'] = $messenger->setNamespace('error')->getCurrentMessages();
+    $messenger->setNamespace('error')->clearCurrentMessages();
     $messages['error'] = array_merge($messages['error'], $messagesCurrent['error']);
     $messages['info'] = $messenger->getMessages('info');
     $messagesCurrent['info'] = $messenger->setNamespace('info')->getCurrentMessages();
+    $messenger->setNamespace('info')->clearCurrentMessages();
     $messages['info'] = array_merge($messages['info'], $messagesCurrent['info']);
     $layout->messages = $messages;
   }

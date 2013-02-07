@@ -9,6 +9,8 @@ class Admin_ConsultationController extends Zend_Controller_Action {
   
   protected $_flashMessenger = null;
   
+  protected $_consultation = null;
+  
   /**
    * @desc Construct
    * @return void
@@ -19,6 +21,11 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     $this->_flashMessenger =
         $this->_helper->getHelper('FlashMessenger');
     $this->initView();
+    
+    $kid = $this->getRequest()->getParam('kid');
+    $consultationModel = new Model_Consultations();
+    $this->_consultation = $consultationModel->find($kid)->current();
+    $this->view->consultation = $this->_consultation;
   }
 
   /**
@@ -47,57 +54,31 @@ class Admin_ConsultationController extends Zend_Controller_Action {
             $form->populate($this->getRequest()->getPost());
           }
     }
-    $this->view->messages = $this->getCollectedMessages();
 
     $this->view->form = $form;
   }
 
   public function editAction() {
-    $kid = $this->getRequest()->getParam('kid');
-    
-    $consultationModel = new Model_Consultations();
-    $consultationRow = $consultationModel->find($kid)->current();
-
     $form = new Admin_Form_Consultation();
-    $form->setAction('/admin/consultation/edit/kid/' . $kid);
+    $form->setAction('/admin/consultation/edit/kid/' . $this->_consultation->kid);
     
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {
           if ($form->isValid($this->getRequest()->getPost())) {
-            $consultationRow->setFromArray($form->getValues());
-            $consultationRow->save();
+            $this->_consultation->setFromArray($form->getValues());
+            $this->_consultation->save();
             $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
             
-            $this->_redirect('admin/consultation/edit/kid/' . $consultationRow->kid);
+            $this->_redirect('admin/consultation/edit/kid/' . $this->_consultation->kid);
           } else {
             $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
             $form->populate($form->getValues());
           }
     } else {
-      $form->populate($consultationRow->toArray());
+      $form->populate($this->_consultation->toArray());
     }
-    
-    $this->view->messages = $this->getCollectedMessages();
     
     $this->view->form = $form;
-  }
-  
-  protected function getCollectedMessages($clearCurrent = true) {
-    $aMessages = array(
-      'success' => $this->_flashMessenger->getMessages('success'),
-      'error' => $this->_flashMessenger->getMessages('error')
-    );
-    $aCurrentMessages['success'] = $this->_flashMessenger->getCurrentMessages('success');
-    $aMessages['success'] = array_merge($aMessages['success'], $aCurrentMessages['success']);
-    $aCurrentMessages['error'] = $this->_flashMessenger->getCurrentMessages('error');
-    $aMessages['error'] = array_merge($aMessages['error'], $aCurrentMessages['error']);
-    if ($clearCurrent) {
-      // clear current messages to prevent them from showing in next request
-      $this->_flashMessenger->setNamespace('success')->clearCurrentMessages();
-      $this->_flashMessenger->setNamespace('error')->clearCurrentMessages();
-    }
-    
-    return $aMessages;
   }
 }
 ?>

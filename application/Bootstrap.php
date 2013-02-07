@@ -59,5 +59,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     $request = $this->getResource('frontController')
       ->registerPlugin(new Plugin_BaseUrl());
   }
+  
+  protected function _initMessenger() {
+    $this->bootstrap('frontController');
+    $this->getResource('frontController')
+      ->registerPlugin(new Plugin_Messenger());
+  }
 }
 ?>

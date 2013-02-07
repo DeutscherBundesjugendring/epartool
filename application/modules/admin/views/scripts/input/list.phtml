@@ -1,0 +1,71 @@
+<?php
+$date = new Zend_Date();
+?>
+<h1><?php echo $this->consultation['titl']; ?></h1>
+<?php
+echo $this->consultationNavigation('Beiträge');
+?>
+
+<table>
+	<tr>
+		<td class="tbl_lab">User</td>
+		<td class="tbl_det">
+			<a href="/admin/user/edit/uid/<?php echo $this->user['uid'];?>">
+				<h2>
+				<?php if (!empty($this->user['name'])):?>
+				<?php echo $this->user['name']; ?><br />
+				<?php endif;?>
+				<?php echo $this->user['email']; ?>
+				</h2>
+			</a>
+		<td>
+	</tr>
+	<tr>
+		<td class="tbl_lab">Letzte Aktivität</td>
+		<td class="tbl_det">
+		<?php echo $date->set($this->user['last_act'])->get(Zend_Date::DATETIME_MEDIUM);?>
+		<td>
+	</tr>
+</table>
+<form name="inp_edit" id="inp_edit" action="/admin/input/editbulk" method="POST">
+<input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
+<?php foreach ($this->questions as $question): ?>
+<div style="color: #ffffff; padding: 6px; background-color: #6a9dbc;">
+  <b><?php echo $question['nr']; ?> <?php echo $question['q']; ?></b><br />
+  <?php echo $question['q_xpl']; ?>
+</div>
+<div style="color: #000000; padding: 6px; background-color: #d9e8ef;">
+  <table>
+  <?php foreach ($question['inputs'] as $input): ?>
+  <?php
+  if ($input['block']=="n") {
+    $block_tm="text-decoration: none";
+  } elseif ($input['block']=="y") {
+    $block_tm="text-decoration: line-through";
+  } else {
+    $block_tm="color: #ff0000";
+  }
+  ?>
+    <tr>
+      <td><input type="checkbox" value="<?php echo $input['tid'];?>" name="inp_list[]" />&nbsp;&nbsp;</td>
+      <td>
+        <a href="/admin/input/edit/kid/<?php echo $this->kid; ?>/qid/<?php echo $question['qi'];?>/tid/<?php echo $input['tid']; ?>">
+          <span style="<?php echo $block_tm; ?>; font-weight: normal;"><?php echo $input['thes'];?><br />
+          <?php echo $input['expl'];?></span>
+        </a>
+      </td>
+    </tr>
+  <?php endforeach;?>
+  </table>
+</div>
+<?php endforeach;?>
+<br />Markierte Einträge: <select name="action">
+  <option value="" class="quest" selected="selected">Aktion auswählen...</option>
+  <option value="delete" class="quest">Löschen</option>
+  <option value="block" class="quest">Sperren</option>
+  <option value="publish" class="quest">Freigeben</option>
+  </select> <button type="submit">Ausführen</button>
+</form>
+<br/>
+<br/>
+<a href="/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle User anzeigen, die sich an dieser Konsultation beteiligt haben</a>

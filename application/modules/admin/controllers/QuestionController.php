@@ -42,15 +42,9 @@ class Admin_QuestionController extends Zend_Controller_Action {
       } else {
         $this->_redirect($this->_adminIndexURL);
       }
-//      Zend_Debug::dump($directory);
     } else {
       $this->_redirect($this->_adminIndexURL);
     }
-    $aMessages = array(
-      'success' => $this->_flashMessenger->getMessages('success'),
-      'error' => $this->_flashMessenger->getMessages('error')
-    );
-    $this->view->messages = $aMessages;
   }
   
   public function createAction() {
@@ -129,17 +123,8 @@ class Admin_QuestionController extends Zend_Controller_Action {
         }
       }
     }
-    // add current messages to view
-    $aMessages = array(
-      'success' => $this->_flashMessenger->getCurrentMessages('success'),
-      'error' => $this->_flashMessenger->getCurrentMessages('error')
-    );
-    // clear current messages to prevent them from showing in next request
-    $this->_flashMessenger->setNamespace('success')->clearCurrentMessages();
-    $this->_flashMessenger->setNamespace('error')->clearCurrentMessages();
     
     $this->view->assign(array(
-      'messages' => $aMessages,
       'consultation' => $consultation,
       'form' => $form
     ));

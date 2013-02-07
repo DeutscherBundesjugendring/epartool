@@ -36,7 +36,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
     }
 
     $row = $this->find($id)->current();
-    $subrow1 = $row->findVotes_Rights()->toArray();
+    $subrow1 = $row->findModel_Votes_Rights()->toArray();
 
     $result = $row->toArray();
     $result['votingrights'] = $subrow1;
@@ -187,6 +187,11 @@ class Model_Users extends Zend_Db_Table_Abstract {
     }
   }
   
+  /**
+   * Returns all Users that are Admins
+   *
+   * @return Zend_Db_Table_Rowset
+   */
   public function getAdmins() {
     $select = $this->select()->where('lvl = ?', 'adm')->order('name');
     return $this->fetchAll($select);
@@ -200,7 +205,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
    *
    * @todo implement
    */
-  private function recoverPassword() {
+  protected function recoverPassword() {
     $newPassword = $this->generatePassword();
     return 0;
   }
@@ -213,10 +218,17 @@ class Model_Users extends Zend_Db_Table_Abstract {
    *
    * @todo implement
    */
-  private function generatePassword() {
+  protected function generatePassword() {
     return 0;
   }
   
+  /**
+   * Sends E-Mail for Registration Confirmation
+   *
+   * @param integer $uid User ID
+   * @throws Zend_Exception
+   * @return boolean
+   */
   protected function sendRegisterConfirmationMail($uid) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
@@ -236,7 +248,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
         $mail = new Zend_Mail();
         $mail->setBodyText($mailBody);
         $mail->setFrom('somebody@example.com', 'DBJR - Strukturierter Dialog');
-        $mail->addTo($identity->email, $identity->name);
+        $mail->addTo($userRow->email, $userRow->name);
         $mail->setSubject('DBJR: Beitragsbestätigung');
         $mail->send();
       }
@@ -296,6 +308,13 @@ class Model_Users extends Zend_Db_Table_Abstract {
     }
   }
   
+  /**
+   * Processes Registration Confirmation
+   *
+   * @param string $ckey
+   * @throws Zend_Validate_Exception
+   * @return boolean
+   */
   public function confirmByCkey($ckey) {
     $return = false;
     $alnumVal = new Zend_Validate_Alnum();
@@ -313,8 +332,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
       $row->save();
       // Nutzer einloggen
       $authStorage = $this->_auth->getStorage();
-      // die gesamte Tabellenzeile in der Session speichern,
-      // wobei das Passwort unterdrückt wird
+      // die gesamte Tabellenzeile in der Session speichern
       $row->pwd = null;
       $row->setReadOnly(true);
       $authStorage->write($row);
@@ -324,6 +342,12 @@ class Model_Users extends Zend_Db_Table_Abstract {
     return $return;
   }
   
+  /**
+   * Checks if given email address already exists in database
+   *
+   * @param string $email
+   * @return boolean
+   */
   public function emailExists($email) {
     $select = $this->select();
     $select->from($this, array(new Zend_Db_Expr('COUNT(*) as count')));
@@ -334,6 +358,39 @@ class Model_Users extends Zend_Db_Table_Abstract {
     } else {
       return false;
     }
+  }
+  
+  /**
+   * Updates value of last activity with current timestamp
+   *
+   * @param integer $uid
+   * @throws Zend_Exception
+   */
+  public function ping($uid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($uid)) {
+      throw new Zend_Exception('Given uid must be integer!');
+    }
+    $data = array('last_act' => new Zend_Db_Expr('NOW()'));
+    $this->updateById($uid, $data);
+  }
+  
+  /**
+   * Returns all participants of given consultation
+   *
+   * @param integer $kid Consultation ID
+   * @return array
+   */
+  public function getParticipantsByConsultation($kid) {
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select->distinct()->from(array('u' => $this->_name));
+    $select->joinInner(array('i' => 'inpt'), 'u.uid = i.uid', array());
+    $select->where('i.kid = ?', $kid);
+    $select->order(array('u.name', 'u.uid'));
+    $stmt = $db->query($select);
+    
+    return $stmt->fetchAll();
   }
 }
 

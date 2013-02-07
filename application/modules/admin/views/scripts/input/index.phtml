@@ -1,0 +1,92 @@
+<?php
+
+?>
+<h1><?php echo $this->consultation['titl']; ?></h1>
+<?php
+echo $this->consultationNavigation('Beiträge');
+?>
+<p>
+<?php foreach ($this->consultation['questions'] as $question): ?>
+<a href="/admin/input/index/kid/<?php echo $this->consultation['kid'];
+?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
+?> class="active"<?php endif;?>>
+  <?php echo $question['q'];?>
+</a>&emsp;
+<?php endforeach;?>
+</p>
+<?php if (!empty($this->question)): ?>
+<h2>Beitragsübersicht: <?php echo $this->question['q']; ?></h2>
+<?php if ($this->tag['tg_nr'] > 0): ?>
+<p>Es werden nur Beiträge mit dem Schlagwort „<?php echo $this->tag['tg_de']; ?>“ angezeigt.</p>
+<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen &raquo;</a></p>
+<?php endif;?>
+<form name="inp_edit" id="inp_edit" action="/admin/input/editbulk" method="POST">
+<input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
+<table>
+<?php foreach ($this->question['inputs'] as $input): ?>
+<?php
+  if ($input['block']=="n") {
+    $block_tm="text-decoration: none";
+  } elseif ($input['block']=="y") {
+    $block_tm="text-decoration: line-through";
+  } elseif ($input['tid']==$this->tid) {
+    $block_tm="text-decoration: blink; color: #990000";
+  } elseif ($input['block']=="u") {
+    $block_tm="color: #ff0000";
+  }
+?>
+<tr>
+	<td>
+		<input type="checkbox" value="<?php echo $input["tid"]; ?>" name="inp_list[]" />
+	</td>
+	<td style="padding: 4px; margin-bottom: 4px; border-top: 1px solid grey;">
+		<a href="<?php echo $this->url(array('action' => 'edit', 'tid' => $input['tid']));
+		?>" title="Anklicken, um diesen Beitrag zu bearbeiten">
+			<span style="<?php echo $block_tm; ?>;"><?php echo $input["thes"]; ?></span>
+		</a><br />
+		<span style="<?php echo $block_tm; ?>;"><?php echo $input["expl"]; ?></span>
+		<div style="text-align: right;">
+      <p>
+      <?php foreach ($input['tags'] as $tag): ?>
+      	<div style="border: 1px solid grey; float: right; padding: 4px; margin: 4px;">
+      		<a href="<?php echo $this->url(array('tag' => $tag['tg_nr']));
+      		?>" title="Anklicken, um nur Beiträge mit diesem Schlagwort zu sehen" style="color: grey;">
+      			<?php echo $tag['tg_de']; ?>
+      		</a>
+      	</div> &nbsp;
+      <?php endforeach; ?>
+      </p>
+    </div>
+  </td>
+  <td>
+  	<a href="/admin/input/list/kid/<?php echo $this->consultation['kid'];
+  	?>/uid/<?php echo $input['uid'];?>" title="Anklicken, um alle Beiträge dieses Users zu sehen">
+  		<img src="/images/user.gif">
+  	</a><br />
+<?php
+	if ($input["user_conf"]=='u') {
+	  echo '<a href="' . $this->url(array('action' => 'edit', 'tid' => $input['tid'])) . '" style="font-size: 7pt; border: 1px solid blue; color: blue; padding: 1px 3px 1px 3px;" title="Beitrag ist noch nicht vom Eintragenden bestätigt worden / Klicken für weitere Optionen">U</a><br />';
+	} elseif ($input["user_conf"]=='c') {
+	  echo '<a href="' . $this->url(array('action' => 'edit', 'tid' => $input['tid'])) . '" style="font-size: 7pt; border: 1px solid grey; color: grey; padding: 1px 3px 1px 3px;" title="Beitrag ist vom Eintragenden bestätigt worden / Klicken für weitere Optionen">C</a><br />';
+	}
+	if ($input["block"]=='y') {
+	  echo '<a href="' . $this->url(array('action' => 'edit', 'tid' => $input['tid'])) . '" style="font-size: 7pt; border: 1px solid red; color: red; padding: 1px 3px 1px 3px;" title="Beitrag wurde geblockt / Klicken für weitere Optionen">B</a><br />';
+	} elseif ($input["block"]=='n') {
+	  echo '<a href="' . $this->url(array('action' => 'edit', 'tid' => $input['tid'])) . '" style="font-size: 7pt; border: 1px solid grey; color: grey; padding: 1px 3px 1px 3px;" title="Beitrag wurde gesichtet / Klicken für weitere Optionen">P</a><br />';
+	}
+	if ($input["vot"]=='y') {
+	  echo '<a href="' . $this->url(array('action' => 'edit', 'tid' => $input['tid'])) . '" style="font-size: 7pt; border: 1px solid grey; color: grey; padding: 1px 3px 1px 3px;" title="Beitrag wurde zur Abstimmung freigegeben / Klicken für weitere Optionen">V</a><br />';
+	}
+?>
+	</td>
+</tr>
+<?php endforeach;?>
+</table>
+<br />Markierte Einträge: <select name="action">
+  <option value="" class="quest" selected="selected">Aktion auswählen...</option>
+  <option value="delete" class="quest">Löschen</option>
+  <option value="block" class="quest">Sperren</option>
+  <option value="publish" class="quest">Freigeben</option>
+  </select> <button type="submit">Ausführen</button>
+</form>
+<?php endif;?>

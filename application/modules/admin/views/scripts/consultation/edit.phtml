@@ -6,15 +6,16 @@
  * @author        Markus Hackel
  */
 ?>
-<?php foreach ($this->messages as $level => $messages):?>
-  <?php foreach ($messages as $message):?>
-<p class="<?php echo $level?>"><?php echo $message?></p>
-  <?php endforeach;?>
-<?php endforeach;?>
-<h2>Konsultation bearbeiten</h2>
+<h1><?php echo $this->consultation->titl; ?></h1>
+<?php
+echo $this->consultationNavigation('Grundeinstellungen');
+?>
+<p>
+  <a href="/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
+</p>
 <?php echo $this->form?>
 <p>
-  <a href="/admin/index">Zur&uuml;ck</a>
+  <a href="/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
 </p>
 <script>
     CKEDITOR.replace( 'expl' );

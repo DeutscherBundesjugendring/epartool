@@ -26,9 +26,10 @@ class Model_Questions extends Zend_Db_Table_Abstract {
    * @desc returns entry by id
    * @name getById
    * @param integer $id
+   * @param integer $tag [optional] Filter Beiträge nach Tag
    * @return array
    */
-  public function getById($id) {
+  public function getById($id, $tag = 0) {
     // is int?
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($id)) {
@@ -36,10 +37,22 @@ class Model_Questions extends Zend_Db_Table_Abstract {
     }
 
     $row = $this->find($id)->current();
-//    $subRow = $row->findDependentRowset('Model_Inputs');
+    // ohne Tags
+    $subRow = $row->findDependentRowset('Model_Inputs');
+    
+    // hole zu jedem Input noch die zugeordneten Tags mit
+    $modelInputs = new Model_Inputs();
+    $inputs = array();
+    $tmpInputs = $subRow->toArray();
+    foreach ($tmpInputs as $tmpInput) {
+      $input = $modelInputs->getById($tmpInput['tid'], $tag);
+      if (!empty($input)) {
+        $inputs[] = $input;
+      }
+    }
     
     $aQuestion = $row->toArray();
-//    $aQuestion['inputs'] = $subRow->toArray();
+    $aQuestion['inputs'] = $inputs;
 
     return $aQuestion;
   }
@@ -130,6 +143,13 @@ class Model_Questions extends Zend_Db_Table_Abstract {
     return $this->fetchAll($select);
   }
   
+  /**
+   * Returns next question of consultation, specified by field 'nr'
+   *
+   * @param integer $qid
+   * @throws Zend_Exception
+   * @return Zend_Db_Table_Rowset|null
+   */
   public function getNext($qid) {
     // is int?
     $validator = new Zend_Validate_Int();
@@ -158,6 +178,64 @@ class Model_Questions extends Zend_Db_Table_Abstract {
                 ->from($this, array(new Zend_Db_Expr('max(qi) as maxId')))
             )->current();
     return $row->maxId;
+  }
+  
+  /**
+   * Returns array of multioptions for use in Zend_Form_Element_Select
+   * i.e. array of Questions suitable for the given Consultation ID
+   *
+   * @param integer $kid Consultation ID
+   * @return array
+   */
+  public function getAdminInputFormSelectOptions($kid = 0) {
+    $options = array();
+    $select = $this->select();
+    if ($kid > 0) {
+      $select->where('kid = ?', $kid);
+    }
+    $rowset = $this->fetchAll($select);
+    foreach ($rowset as $row) {
+      $options[$row->qi] = $row->q;
+    }
+    return $options;
+  }
+  
+  /**
+   * Liefert ein Array mit Fragen inkl. Beiträgen, die ein bestimmter Nutzer ($uid)
+   * verfasst hat. Es werden nur Fragen zurückgeliefert, für welche Beiträge des
+   * Nutzers existieren
+   *
+   * @param integer $uid User ID
+   * @param integer $kid Consultation ID
+   * @return array
+   */
+  public function getWithInputsByUser($uid, $kid) {
+    // is int?
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($uid)) {
+      throw new Zend_Exception('Given uid must be integer!');
+    }
+    if (!$validator->isValid($kid)) {
+      throw new Zend_Exception('Given kid must be integer!');
+    }
+    
+    $inputsModel = new Model_Inputs();
+    $order = array('when ASC');
+    $userInputs = $inputsModel->getByUserAndConsultation($uid, $kid, $order);
+    $questions = array();
+    foreach ($userInputs as $input) {
+      if (!array_key_exists($input['qi'], $questions)) {
+        $questions[$input['qi']] = $this->find($input['qi'])->current()->toArray();
+      }
+      $questions[$input['qi']]['inputs'][] = $input;
+    }
+    // Sortieren nach nr
+    $aReturn = array();
+    foreach ($questions as $question) {
+      $aReturn[$question['nr']] = $question;
+    }
+    
+    return $aReturn;
   }
 }
 

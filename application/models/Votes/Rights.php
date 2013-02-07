@@ -12,7 +12,7 @@ class Model_Votes_Rights extends Zend_Db_Table_Abstract {
 
   protected $_referenceMap = array(
     'Users' => array(
-      'columns' => 'uid', 'refTableClass' => 'Users', 'refColumns' => 'uid'
+      'columns' => 'uid', 'refTableClass' => 'Model_Users', 'refColumns' => 'uid'
     ),
     'Consultations' => array(
       'columns' => 'kid',

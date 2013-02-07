@@ -26,5 +26,7 @@
 
 @import url(navigation/nav_vlist.css);
 
+@import url(navigation/nav_shinybuttons.css);
+
 /* import print layout | Druck-Layout einbinden */
 /* @import url(/css/print/print_003.css); */

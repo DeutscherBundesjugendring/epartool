@@ -44,7 +44,6 @@ class Admin_MediaController extends Zend_Controller_Action {
           mkdir($directory);
         }
       }
-//      Zend_Debug::dump($directory);
     } else {
       $directory.= '/misc';
       $dir_ws.= '/misc';
@@ -71,19 +70,13 @@ class Admin_MediaController extends Zend_Controller_Action {
         }
       }
     }
-//    Zend_Debug::dump($aFileinfo);
     $form = new Admin_Form_Media_Upload();
     $form->setAction($this->view->url(array(
       'action' => 'upload',
       'kid' =>$kid
     )));
     
-    $aMessages = array(
-      'success' => $this->_flashMessenger->getMessages('success'),
-      'error' => $this->_flashMessenger->getMessages('error')
-    );
     $this->view->assign(array(
-      'messages' => $aMessages,
       'kid' => $kid,
       'consultation' => $consultation,
       'directory' => $dir_ws,
@@ -103,7 +96,6 @@ class Admin_MediaController extends Zend_Controller_Action {
     if ($form->isValid($formData)) {
       $originalFilename = pathinfo($form->file->getFileName());
       if ($kid > 0) {
-//        Zend_Debug::dump($originalFilename);exit();
         $uploadDir = realpath(APPLICATION_PATH . '/../public/media/consultations/' . $kid);
       } else {
         $uploadDir = realpath(APPLICATION_PATH . '/../public/media/misc');
@@ -118,23 +110,22 @@ class Admin_MediaController extends Zend_Controller_Action {
         try {
           // upload received file(s)
           if ($upload->receive()) {
-            $this->_helper->flashMessenger
+            $this->_flashMessenger
               ->addMessage('Die Datei »'.$originalFilename['basename'].'« wurde erfolgreich hinzugefügt.', 'success');
           } else {
-            $this->_helper->flashMessenger
+            $this->_flashMessenger
               ->addMessage('Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.', 'error');
           }
         } catch (Zend_File_Transfer_Exception $e) {
-          $this->_helper->flashMessenger
+          $this->_flashMessenger
             ->addMessage($e->getMessage(), 'error');
         }
       }
     } else {
-      $this->_helper->flashMessenger
+      $this->_flashMessenger
         ->addMessage('Upload fehlgeschlagen.', 'error');
     }
     $uploadedData = $form->getValues();
-//    Zend_Debug::dump($upload->get(), 'Upload Object:');
     $this->_redirect($this->view->url(array(
       'action' => 'index',
       'kid' =>$kid
@@ -152,7 +143,6 @@ class Admin_MediaController extends Zend_Controller_Action {
     if ($form->isValid($formData)) {
       $originalFilename = $form->getElement('file')->getValue();
       if ($kid > 0) {
-//        Zend_Debug::dump($originalFilename);exit();
         $deleteDir = realpath(APPLICATION_PATH . '/../public/media/consultations/' . $kid);
       } else {
         $deleteDir = realpath(APPLICATION_PATH . '/../public/media/misc');
@@ -160,18 +150,18 @@ class Admin_MediaController extends Zend_Controller_Action {
       $deleteFilename = $deleteDir . '/' . $originalFilename;
       if (is_file($deleteFilename)) {
         if (unlink($deleteFilename)) {
-          $this->_helper->flashMessenger
+          $this->_flashMessenger
               ->addMessage('Die Datei »'.$originalFilename.'« wurde erfolgreich gelöscht.', 'success');
         } else {
-          $this->_helper->flashMessenger
+          $this->_flashMessenger
               ->addMessage('Datei konnte nicht gelöscht werden.', 'error');
         }
       } else {
-        $this->_helper->flashMessenger
+        $this->_flashMessenger
               ->addMessage('Datei ' . $deleteFilename . ' ist keine gültige Datei.', 'error');
       }
     } else {
-      $this->_helper->flashMessenger
+      $this->_flashMessenger
                 ->addMessage('Formulardaten ungültig', 'error');
     }
     $this->_redirect($this->view->url(array(

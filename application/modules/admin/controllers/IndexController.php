@@ -6,6 +6,8 @@
  * @author        Jan Suchandt
  */
 class Admin_IndexController extends Zend_Controller_Action {
+  
+  protected $_flashMessenger = null;
   /**
    * @desc Construct
    * @return void
@@ -13,6 +15,8 @@ class Admin_IndexController extends Zend_Controller_Action {
   public function init() {
     // Setzen des Standardlayouts
     $this->_helper->layout->setLayout('backend');
+    $this->_flashMessenger =
+        $this->_helper->getHelper('FlashMessenger');
   }
 
   /**

@@ -50,16 +50,12 @@ class Admin_ArticleController extends Zend_Controller_Action {
 //      $this->_redirect($this->_adminIndexURL);
     }
     $this->view->articles = $articles;
-
-    $this->view->messages = $this->getCollectedMessages();
   }
   
   public function createAction() {
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
     $form = null;
-//    if ($kid > 0) {
-//    }
     $consultationModel = new Model_Consultations();
     $consultation = $consultationModel->getById($kid);
     $form = new Admin_Form_Article();
@@ -86,7 +82,6 @@ class Admin_ArticleController extends Zend_Controller_Action {
       }
     }
     $this->view->assign(array(
-      'messages' => $this->getCollectedMessages(),
       'kid' => $kid,
       'consultation' => $consultation,
       'form' => $form
@@ -97,12 +92,8 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
     $form = null;
-//    if ($kid > 0) {
-//    }
     $consultationModel = new Model_Consultations();
     $consultation = $consultationModel->getById($kid);
-//    if (!empty($consultation)) {
-//    }
     $aid = $this->getRequest()->getParam('aid', 0);
     if ($aid > 0) {
       $articleModel = new Model_Articles();
@@ -127,7 +118,6 @@ class Admin_ArticleController extends Zend_Controller_Action {
     }
     
     $this->view->assign(array(
-      'messages' => $this->getCollectedMessages(),
       'kid' => $kid,
       'consultation' => $consultation,
       'form' => $form
@@ -148,24 +138,6 @@ class Admin_ArticleController extends Zend_Controller_Action {
       }
     }
     $this->_redirect('/admin/article/index/kid/' . $kid);
-  }
-  
-  protected function getCollectedMessages($clearCurrent = true) {
-    $aMessages = array(
-      'success' => $this->_flashMessenger->getMessages('success'),
-      'error' => $this->_flashMessenger->getMessages('error')
-    );
-    $aCurrentMessages['success'] = $this->_flashMessenger->getCurrentMessages('success');
-    $aMessages['success'] = array_merge($aMessages['success'], $aCurrentMessages['success']);
-    $aCurrentMessages['error'] = $this->_flashMessenger->getCurrentMessages('error');
-    $aMessages['error'] = array_merge($aMessages['error'], $aCurrentMessages['error']);
-    if ($clearCurrent) {
-      // clear current messages to prevent them from showing in next request
-      $this->_flashMessenger->setNamespace('success')->clearCurrentMessages();
-      $this->_flashMessenger->setNamespace('error')->clearCurrentMessages();
-    }
-    
-    return $aMessages;
   }
 }
 ?>

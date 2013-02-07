@@ -150,8 +150,8 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
   }
 
   /**
-   * getVotingRights
-   * @desc return the rights of
+   * getVotingResults
+   * @desc return the results of
    * @param integer $id consultations-id
    * @return array
    */
@@ -169,11 +169,37 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
     return $subrow1;
   }
   
+  /**
+   * Returns highest ID from database
+   * @return integer
+   */
   public function getLastId() {
     $row = $this->fetchRow(
             $this->select()
                 ->from($this, array(new Zend_Db_Expr('max(kid) as maxId'))));
     return $row->maxId;
+  }
+  
+  /**
+   * Returns array of entries for use as pages in Zend_Navigation
+   * @return array
+   */
+  public function getNavigationEntries() {
+    $entries = array();
+    $select = $this->select();
+    $rowSet = $this->fetchAll($select);
+    foreach ($rowSet as $row) {
+      $entries[] = array(
+        'label' => $row->titl,
+        'module' => 'admin',
+        'action' => 'index',
+        'controller' => 'consultation',
+        'params' => array (
+          'kid' => $row->kid
+        ),
+      );
+    }
+    return $entries;
   }
 }
 

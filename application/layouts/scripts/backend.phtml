@@ -29,12 +29,25 @@
           <div id="col1_content" class="clearfix">
             <!-- Navigation -->
             <?php
-//echo ($this->action('navigation', 'admin'));
+echo $this->navigation()->menu();
             ?>
           </div>
         </div>
         <div id="col3">
           <div id="col3_content" class="clearfix">
+            <!-- Flash Messages -->
+		<?php if(!empty($this->layout()->messages)): ?>
+		<?php foreach ($this->layout()->messages as $level => $messages):?>
+		<?php if (!empty($messages)):?>
+		<?php foreach ($messages as $message):?>
+  		<p class="<?php echo $level; ?>">
+  			<?php echo $message; ?>
+  		</p>
+  	<?php endforeach;?>
+  	<?php endif;?>
+		<?php endforeach;?>
+		<?php endif;?>
+            
             <!-- Content -->
             <?php
 echo $this->layout()->content;
