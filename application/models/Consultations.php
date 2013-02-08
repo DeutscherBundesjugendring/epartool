@@ -201,5 +201,14 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
     }
     return $entries;
   }
+  
+  /**
+   * Returns all rows with public = 'y'
+   * @return Zend_Db_Table_Rowset
+   */
+  public function getPublic() {
+    $select = $this->select()->where('public = ?', 'y')->order('ord DESC');
+    return $this->fetchAll($select);
+  }
 }
 

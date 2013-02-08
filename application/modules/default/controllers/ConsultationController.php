@@ -1,8 +1,7 @@
 <?php
 /**
  * ConsultationController
- * @desc     Konsultationen im Allgemeinen
- * @author        Markus Hackel
+ *
  */
 class ConsultationController extends Zend_Controller_Action {
 
@@ -17,11 +16,17 @@ class ConsultationController extends Zend_Controller_Action {
     
   }
   /**
-   * index
-   * @desc allg. Infos zur Konsultation
-   * @return void
+   * List all public consultations or redirect to index page of specific
+   * consultation if kid given
+   *
    */
   public function indexAction() {
+    $kid = $this->_request->getParam('kid', 0);
+    if ($kid > 0) {
+      $this->redirect('/article/index/kid/' . $kid);
+    }
+    $consultationModel = new Model_Consultations();
     
+    $this->view->consultations = $consultationModel->getPublic();
   }
 }
