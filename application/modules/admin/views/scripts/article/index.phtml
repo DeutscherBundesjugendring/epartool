@@ -17,13 +17,13 @@ echo $this->consultationNavigation('Artikel');
 ))?>">Neuer Artikel</a></p>
 <table class="full">
   <tr>
-    <th>Id</th>
+    <th>Seite</th>
     <th>Inhalt</th>
     <th>Aktionen</th>
   </tr>
 <?php foreach ($this->articles as $article):?>
   <tr>
-    <td><?php echo $article['art_id']?></td>
+    <td><?php echo $article['desc']?></td>
     <td><?php echo $article['artcl']?></td>
     <td><a href="<?php echo $this->url(array(
   'action' => 'edit',
