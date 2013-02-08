@@ -38,6 +38,7 @@ class InputController extends Zend_Controller_Action {
    * @return void
    */
   public function indexAction() {
+    $kid = $this->_request->getParam('kid', 0);
     $inputModel = new Model_Inputs();
     $questionModel = new Model_Questions();
     $tagModel = new Model_Tags();
@@ -50,7 +51,7 @@ class InputController extends Zend_Controller_Action {
     }
     $this->view->questions = $questions;
     
-//    $this->view->tags = $tagModel->
+    $this->view->tags = $tagModel->getAllByConsultation($kid);
   }
   
   /**

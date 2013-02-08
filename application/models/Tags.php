@@ -135,4 +135,43 @@ class Model_Tags extends Zend_Db_Table_Abstract {
     }
     return $options;
   }
+  
+  /**
+   * Returns array of tags used within given consultation incl. number of usage
+   *
+   * @param integer $kid
+   * @throws Zend_Validate_Exception
+   * @return array
+   */
+  public function getAllByConsultation($kid) {
+    $return = array();
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given kid must be integer!');
+    }
+    
+    // Fetch all tags
+    $tags = $this->fetchAll();
+    
+    foreach ($tags as $tag) {
+      $db = $this->getAdapter();
+      $select = $db->select();
+      
+      // count number of assignments per tag and consultation over all inputs
+      $select->from(array('it' => 'inpt_tgs'), array(new Zend_Db_Expr('COUNT(it.tg_nr) AS count')));
+      $select->join(array('i' => 'inpt'), 'i.tid = it.tid', array());
+      $select->where('i.kid = ?', $kid)->where('it.tg_nr = ?', $tag->tg_nr);
+      $select->group('it.tg_nr');
+      
+      $stmt = $db->query($select);
+      $result = $stmt->fetchAll();
+      
+      if ($result[0]['count'] > 0) {
+        $return[$tag->tg_nr] = $tag->toArray();
+        $return[$tag->tg_nr]['count'] = $result[0]['count'];
+      }
+    }
+    
+    return $return;
+  }
 }

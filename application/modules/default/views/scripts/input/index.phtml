@@ -25,16 +25,24 @@ $locale = new Zend_Locale();
 
 	<!-- Questions -->
 	<ul class="questions thumbnails">
+		<?php if (!empty($this->tags)): ?>
 		<li class="span4">
 			<div class="thumbnail">
 				<h2>Beiträge sortiert nach Schlagwörtern</h2>
-				<ul class="tag-cloud">
+				<!-- <ul class="tag-cloud">
 					<li class="tag-rare"><a href="">Less frequent keyword</a></li>
 					<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
 					<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
+				</ul> -->
+				<ul class="tag-cloud">
+				<?php foreach ($this->tags as $tag): ?>
+				<?php //TODO: Defining frequency & Linking and appropriate view ?>
+					<li class="tag-medium"><a href=""><?php echo $tag['tg_de']; ?></a></li>
+				<?php endforeach;?>
 				</ul>
 			</div>
 		</li>
+		<?php endif; ?>
 <?php
 $i = 1;
 foreach ($this->questions as $question):
