@@ -13,7 +13,7 @@
 					<div class="span4">
 
 						<!-- Brand -->
-						<a href="<?=$this->url(array('controller' => 'index'), null, true)?>" rel="home" class="brand" title="Startseite">
+						<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>" rel="home" class="brand" title="Startseite">
 							<img src="/images/logo.png" itemprop="image" alt="Ichmache&gt;Politik" />
 						</a>
 
@@ -26,10 +26,10 @@
 
 							<!-- Menu -->
 							<ul class="nav nav-pills">
-								<li><a href="">Was</a></li>
-								<li><a href="">Wir</a></li>
-								<li><a href="mit-euch.html">Mit euch</a></li>
-								<li><a href="">Machen</a></li>
+								<li><a href="<?php echo $this->url(array(), 'about'); ?>#what">Was</a></li>
+								<li><a href="<?php echo $this->url(array(), 'about'); ?>#us">Wir</a></li>
+								<li><a href="<?php echo $this->url(array(), 'about'); ?>#you">Mit euch</a></li>
+								<li><a href="<?php echo $this->url(array(), 'about'); ?>#vision">Machen</a></li>
 							</ul>
 						</nav><!-- .main-navigation -->
 

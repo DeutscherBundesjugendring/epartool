@@ -6,7 +6,7 @@
  * @author        Markus Hackel
  */
 ?>
-<h1><?php echo !empty($this->consultation) ? $this->consultation['titl'] : 'Allgemein';?></h1>
+<h1><?php echo !empty($this->consultation) ? $this->consultation['titl'] : 'Allgemeine Seiten';?></h1>
 <?php
 echo $this->consultationNavigation('Artikel');
 ?>
@@ -14,7 +14,7 @@ echo $this->consultationNavigation('Artikel');
 <p><a href="<?php echo $this->url(array(
   'action' => 'create',
   'kid' => isset($this->consultation) ? $this->consultation['kid'] : 0
-))?>">Neuer Artikel</a></p>
+));?>">Neuer Artikel</a></p>
 <table class="full">
   <tr>
     <th>Seite</th>
@@ -23,8 +23,8 @@ echo $this->consultationNavigation('Artikel');
   </tr>
 <?php foreach ($this->articles as $article):?>
   <tr>
-    <td><?php echo $article['desc']?></td>
-    <td><?php echo $article['artcl']?></td>
+    <td><?php echo $article['desc']; ?></td>
+    <td><?php echo substr(strip_tags($article['artcl']), 0, 200); ?></td>
     <td><a href="<?php echo $this->url(array(
   'action' => 'edit',
   'kid' => $this->consultation['kid'],
@@ -42,4 +42,4 @@ echo $this->consultationNavigation('Artikel');
 <p><a href="<?php echo $this->url(array(
   'action' => 'create',
   'kid' => $this->consultation['kid']
-))?>">Neuer Artikel</a></p>
+));?>">Neuer Artikel</a></p>

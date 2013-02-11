@@ -121,11 +121,9 @@ class InputController extends Zend_Controller_Action {
         $nextQuestion = $questionModel->getNext($qid);
         if (!empty($nextQuestion) && $data['submitmode'] == 'save_next') {
           // Gehe zur nächsten Frage
-          $this->_flashMessenger->addMessage('Super! Weiter mit der nächsten Frage!', 'success');
           $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $nextQuestion->qi;
         } elseif (empty($nextQuestion) || $data['submitmode'] == 'save_finish') {
           // Gehe zur Bestätigung
-          $this->_flashMessenger->addMessage('Ok, also machen wir Schluss für heute!', 'success');
           $redirectURL = '/input/confirm/kid/' . $kid;
         }
       } else {

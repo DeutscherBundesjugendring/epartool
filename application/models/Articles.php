@@ -29,8 +29,11 @@ class Model_Articles extends Zend_Db_Table_Abstract {
     if (!$validator->isValid($id)) {
       return array();
     }
+    $result = array();
     $row = $this->find($id)->current();
-    $result = $row->toArray();
+    if ($row) {
+      $result = $row->toArray();
+    }
 
     return $result;
   }
@@ -126,6 +129,24 @@ class Model_Articles extends Zend_Db_Table_Abstract {
     }
     $select = $this->select()->where('kid = ?', $kid)->order($orderBy);
     return $this->fetchAll($select);
+  }
+  
+  /**
+   * Returns article by given RefName, e.g. 'about', 'imprint' etc.
+   * used for static pages
+   *
+   * @param string $ref
+   * @return array
+   */
+  public function getByRefName($ref) {
+    $result = array();
+    $select = $this->select();
+    $select->where('ref_nm = ?', $ref);
+    $row = $this->fetchAll($select)->current();
+    if (!empty($row)) {
+      $result = $row->toArray();
+    }
+    return $result;
   }
 }
 
