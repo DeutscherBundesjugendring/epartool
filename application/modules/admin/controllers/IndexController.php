@@ -37,12 +37,12 @@ class Admin_IndexController extends Zend_Controller_Action {
         ),
         'text' => 'Medienverwaltung'
       ),
-//      'tagAdmin' => array(
-//        'url' => array(
-//          'controller' => 'tags'
-//        ),
-//        'text' => 'Schlagwörter verwalten'
-//      ),
+      'tagAdmin' => array(
+        'url' => array(
+          'controller' => 'tag'
+        ),
+        'text' => 'Schlagwörter verwalten'
+      ),
 //      'userAdmin' => array(
 //        'url' => array(
 //          'controller' => 'users'

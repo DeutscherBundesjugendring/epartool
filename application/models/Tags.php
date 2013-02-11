@@ -43,8 +43,10 @@ class Model_Tags extends Zend_Db_Table_Abstract {
    * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function add($data) {
-
-    return (int)$this->insert($data);
+    $row = $this->createRow();
+    $row->setFromArray($data);
+    
+    return $row->save();
   }
 
   /**
@@ -173,5 +175,9 @@ class Model_Tags extends Zend_Db_Table_Abstract {
     }
     
     return $return;
+  }
+  
+  public function getAll() {
+    return $this->fetchAll($this->select()->order('tg_de'));
   }
 }

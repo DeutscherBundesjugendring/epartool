@@ -56,4 +56,21 @@ class Model_InputsTags extends Zend_Db_Table_Abstract {
     }
     return count($inserted);
   }
+  
+  /**
+   * Checks whether a tag (tg_nr) is already used with inputs
+   *
+   * @param integer $tg_nr
+   * @return boolean
+   */
+  public function tagExists($tg_nr) {
+    $select = $this->select();
+    $select->where('tg_nr = ?', $tg_nr);
+    $rowSet = $this->fetchAll($select);
+    if ($rowSet->count() > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
