@@ -168,9 +168,11 @@ class Model_Tags extends Zend_Db_Table_Abstract {
       $stmt = $db->query($select);
       $result = $stmt->fetchAll();
       
-      if ($result[0]['count'] > 0) {
-        $return[$tag->tg_nr] = $tag->toArray();
-        $return[$tag->tg_nr]['count'] = $result[0]['count'];
+      if (!empty($result)) {
+        if ($result[0]['count'] > 0) {
+          $return[$tag->tg_nr] = $tag->toArray();
+          $return[$tag->tg_nr]['count'] = $result[0]['count'];
+        }
       }
     }
     

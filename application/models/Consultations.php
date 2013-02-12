@@ -210,5 +210,56 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
     $select = $this->select()->where('public = ?', 'y')->order('ord DESC');
     return $this->fetchAll($select);
   }
+  
+  /**
+   * Returns entries for the teaser view helper
+   *
+   * @return array
+   */
+  public function getTeaserEntries() {
+    $entries = array();
+    
+    $select = $this->select();
+    $select->where('public = ?', 'y');
+    $select->order(array(
+      'ord DESC',
+    ));
+    $rowSet = $this->fetchAll($select);
+    
+    $date = new Zend_Date();
+    foreach ($rowSet as $row) {
+      // Berechne die Zeitabstände der einzelnen Datumsfelder zum aktuellen Zeitpunkt
+      $timeDiff = array(
+        'inp_fr' => Zend_Date::now()->sub($date->set($row->inp_fr))->toValue(),
+        'inp_to' => Zend_Date::now()->sub($date->set($row->inp_to))->toValue(),
+        'vot_fr' => Zend_Date::now()->sub($date->set($row->vot_fr))->toValue(),
+        'vot_to' => Zend_Date::now()->sub($date->set($row->vot_to))->toValue(),
+      );
+      $relevantField = 'inp_fr';
+      foreach ($timeDiff as $field => $value) {
+        if ($value > 0) {
+          // relevantes Datumsfeld darf nicht in der Zukunft liegen
+          if ($value < $timeDiff[$relevantField]) {
+            // relevantes Feld ist dasjenige mit dem kleinsten positiven Abstand
+            $relevantField = $field;
+          }
+        }
+      }
+      if ($timeDiff[$relevantField] < 0) {
+        // wenn relevantes Feld in Zukunft liegt, fällt der Datensatz raus
+        continue;
+      }
+      // Datensatz im entries Array ablegen, key ist der Rang
+      $entries[$row->ord] = $row->toArray();
+      $entries[$row->ord]['relevantField'] = $relevantField;
+    }
+    
+    // Sortiere nach Rang in absteigender Reihenfolge
+    krsort($entries);
+    // Nur die ersten drei Einträge werden benötigt
+    $entries = array_slice($entries, 0, 3);
+    
+    return $entries;
+  }
 }
 

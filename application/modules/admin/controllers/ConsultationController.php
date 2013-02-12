@@ -40,6 +40,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {
+          $consultationModel = new Model_Consultations();
           if ($form->isValid($this->getRequest()->getPost())) {
             $consultationRow = $consultationModel->createRow($form->getValues());
             $newId = $consultationRow->save();
