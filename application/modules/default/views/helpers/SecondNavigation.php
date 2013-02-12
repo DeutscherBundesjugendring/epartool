@@ -9,13 +9,14 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
   
   public function secondNavigation ($activeItem = null) {
     $date = new Zend_Date();
+    $nowDate = Zend_Date::now();
     $con = $this->view->consultation;
     $disabled = array(
       'article' => false,
       'question' => false,
-      'input' => ($date->isEarlier($con->inp_fr) || $date->isLater($con->inp_to)),
-      'voting' => ($date->isEarlier($con->vot_fr) || $date->isLater($con->vot_to)),
-      'follow-up' => (!$date->isLater($con->vot_to)),
+      'input' => ($nowDate->isEarlier($con->inp_fr) || $nowDate->isLater($con->inp_to)),
+      'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
+      'follow-up' => (!$nowDate->isLater($con->vot_to)),
     );
     $items = array(
       'article' => array('url' => '/article/index/kid/' . $con->kid, 'text' => 'Infos'),

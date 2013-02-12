@@ -6,16 +6,18 @@
  * @author        Jan Suchandt/Markus Hackel
  */
 ?>
-<?php $date = new Zend_Date();?>
+<?php
+$date = new Zend_Date();
+$nowDate = Zend_Date::now();
+?>
 <?php foreach ($this->consultations as $con):?>
 <?php
 $disabled = array(
-  'input' => ($date->isEarlier($con->inp_fr) || $date->isLater($con->inp_to)),
-  'voting' => ($date->isEarlier($con->vot_fr) || $date->isLater($con->vot_to)),
-  'follow-up' => (!$date->isLater($con->vot_to)),
+  'input' => ($nowDate->isEarlier($con->inp_fr) || $nowDate->isLater($con->inp_to)),
+  'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
+  'follow-up' => (!$nowDate->isLater($con->vot_to)),
 );
 ?>
-<!--//<?php Zend_Debug::dump($con)?>-->
 <div class="consultation consultation-preview">
 	<hgroup>
 		<h1><?php echo $con->titl?></h1>
@@ -27,7 +29,6 @@ $disabled = array(
 	<ul class="nav nav-pills">
 		<li>
 			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid))?>" class="title">
-<!--				<img src="http://placehold.it/144x217" alt="" />-->
 				<img src="/media/consultations/<?php echo $con->kid . '/' . $con->img_file;?>" width="144" alt="<?php echo $con->img_expl?>" />
 				<span class="description"><?php echo $con->expl?></span>
 			</a>
