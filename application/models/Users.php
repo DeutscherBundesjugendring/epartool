@@ -36,11 +36,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
     }
 
     $row = $this->find($id)->current();
-    $subrow1 = $row->findModel_Votes_Rights()->toArray();
-
-    $result = $row->toArray();
-    $result['votingrights'] = $subrow1;
-    return $result;
+    return $row;
   }
 
   /**
@@ -98,7 +94,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
       return 0;
     }
     // exists?
-    if ($this->exists($id)) {
+    if (!$this->exists($id)) {
       return 0;
     }
 
@@ -391,6 +387,13 @@ class Model_Users extends Zend_Db_Table_Abstract {
     $stmt = $db->query($select);
     
     return $stmt->fetchAll();
+  }
+  
+  /**
+   * Return all users
+   */
+  public function getAll() {
+    return $this->fetchAll($this->select()->order('name'));
   }
 }
 

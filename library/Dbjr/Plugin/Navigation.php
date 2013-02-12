@@ -28,6 +28,15 @@ class Plugin_Navigation extends Zend_Controller_Plugin_Abstract {
         }
       }
     }
+    
+    // JSU set user to active page if uid exists
+    if($this->getRequest()->controller == 'user') {
+      $pageUser = $view->navigation()->findOneByLabel('Benutzerverwaltung');
+      if ($pageUser) {
+        $pageUser->setActive();
+      }
+    }
+    
   }
 }
 ?>
