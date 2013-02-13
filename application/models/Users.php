@@ -141,20 +141,17 @@ class Model_Users extends Zend_Db_Table_Abstract {
   }
 
   /**
-   * register
-   * @desc register user (insert entry) and send e-mail to user
-   * @name register
-   * @param array $data
-   * @return integer uid of registered user
+   * register user (insert entry) and send e-mail to user
    *
-   * @todo implement
+   * @param array $data
+   * @return boolean
    */
   public function register($data) {
-    // Nachschauen, ob eingetragene E-Mail-Adresse schon existiert
+    // check if email address exists already
     if (!$this->emailExists($data['email'])) {
-      // E-Mail-Adresse existiert noch nicht
+      // email does not exist yet
       $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
-      // Datensatz eintragen
+      // prepare insert record
       $insertData = array(
         'block' => 'u',
         'ip' => getenv('REMOTE_ADDR'),
@@ -162,13 +159,27 @@ class Model_Users extends Zend_Db_Table_Abstract {
         'name' => $data['name'],
         'email' => $data['email'],
         'pwd' => md5($data['register_password']),
-        'newsl_subscr' => $data['newsl_subscr'],
         'confirm_key' => $confirm_key,
+        'group_type' => $data['group_type'],
+        'age_group' => $data['age_group'],
+        'regio_pax' => $data['regio_pax'],
+        'cnslt_results' => $data['cnslt_results'],
+        'newsl_subscr' => $data['newsl_subscr'],
       );
-      // Nutzer in DB schreiben
+      // if group then also save group specifications
+      if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
+        $insertData = array_merge($insertData, array(
+          'source' => implode(',', $data['group_specs']['source']),
+          'src_misc' => $data['group_specs']['src_misc'],
+          'group_size' => $data['group_specs']['group_size'],
+          'name_group' => $data['group_specs']['name_group'],
+          'name_pers' => $data['group_specs']['name_pers'],
+        ));
+      }
+      // write record to database
       $id = $this->add($insertData);
       
-      // Beiträge aus Session in DB schreiben
+      // write inputs from session to database
       $inputModel = new Model_Inputs();
       $inputModel->storeSessionInputsInDb($id);
       
@@ -240,7 +251,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
         $logger = Zend_Registry::get('log');
         $logger->debug('E-Mail: ' . $mailBody);
       } else {
-        // E-Mail verschicken
+        // send email
         $mail = new Zend_Mail();
         $mail->setBodyText($mailBody);
         $mail->setFrom('somebody@example.com', 'DBJR - Strukturierter Dialog');

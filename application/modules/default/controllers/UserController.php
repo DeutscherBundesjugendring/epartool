@@ -2,8 +2,6 @@
 /**
  * UserController
  *
- * @description   Benutzerbereich zu Verwalten des Benutzeraccounts
- * @author        Jan Suchandt
  */
 class UserController extends Zend_Controller_Action {
   
@@ -48,22 +46,26 @@ class UserController extends Zend_Controller_Action {
   }
 
   /**
-   * Registrierung
+   * Register
    *
    * @return void
    */
   public function registerAction() {
     if (!$this->_request->isPost()) {
-      // kein Formular abgeschickt
+      // no form sent
       $this->redirect('/');
     } else {
       $form = new Default_Form_Register();
       if (!$this->_auth->hasIdentity()) {
-        // wenn nicht schon eingeloggt
+        // if not already logged in
         if ($form->isValid($this->_request->getPost())) {
           $userModel = new Model_Users();
-          if ($userModel->register($form->getValues())) {
-            // Registrierungsbestätigung wird angefordert
+          $data = $form->getValues();
+          if ($data['group_type'] != 'group') {
+            unset($data['group_specs']);
+          }
+          if ($userModel->register($data)) {
+            // register confirmation requested
             $this->_flashMessenger
               ->addMessage('Eine Mail zur Bestätigung der Registrierung wurde an die angegebene E-Mail-Adresse gesendet.'
                 . '<br/>Nach Bestätigung der Registrierung wird eine weitere E-Mail zur Bestätigung der Beiträge verschickt werden.', 'success');
@@ -80,7 +82,7 @@ class UserController extends Zend_Controller_Action {
           $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
         }
       } else {
-        // Nutzer bereits eingeloggt
+        // user already logged in
         $this->_flashMessenger->addMessage('Du bist bereits eingeloggt!', 'info');
         $this->redirect('/');
       }
