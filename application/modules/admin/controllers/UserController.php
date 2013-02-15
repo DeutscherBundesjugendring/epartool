@@ -38,16 +38,14 @@ class Admin_UserController extends Zend_Controller_Action {
         $emailAddress =$form->getValue('email');
         if(!$userModel->emailExists($emailAddress)) {
           $userRow = $userModel->createRow($form->getValues());
-          $newId = $userRow->save();
-          if ($newId > 0) {
-            $this->_flashMessenger->addMessage('Neuer Benutzer wurde erstellt.', 'success');
-          } else {
-            $this->_flashMessenger->addMessage('Erstellen eines neuen Benutzers fehlgeschlagen!', 'error');
+          $userPasswort = $form->getValue('pwd');
+          if(!empty($userPasswort)) {
+            $userRow->pwd = md5($userPasswort);
           }
-          
-          $this->_redirect($this->view->url(array(
-            'action' => 'index'
-          )));
+          $userRow->save();
+          $this->_flashMessenger->addMessage('Neuer Benutzer wurde erstellt.', 'success');
+          // @todo Nutzer muss über Passwortwechsel informiert werden.
+          $this->_redirect($this->view->url(array('action' => 'index')));
         }
         else {
           $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Wählen Sie eine andere.', 'error');
@@ -79,18 +77,39 @@ class Admin_UserController extends Zend_Controller_Action {
             if ($form->isValid($params)) {
               // Prüfe ob E-Mail bereits existiert
               $emailAddress =$form->getValue('email');
-              if(!$userModel->emailExists($emailAddress)) {
+              if($user->email!=$emailAddress && $userModel->emailExists($emailAddress)) {
+                $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Wählen Sie eine andere.', 'error');
+                $params = $this->getRequest()->getPost();
+                $params['email'] = $user->email;
+                $form->populate($params);
+              }
+              else {
                 $row = $userModel->find($uid)->current();
                 $row->setFromArray($form->getValues());
+                $userPasswort = $form->getValue('pwd');
+                if(!empty($userPasswort)) {
+                  $userRow->pwd = md5($userPasswort);
+                  $emailModel = new Model_Emails();
+                  $emailSuccess = $emailModel->send(
+                    'Ihr Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
+                    $params['email'],
+                    'Passwort-Aktualisierung',
+                    '',
+                    '',
+                    '',
+                    '',
+                    'pwdalter',
+                    array(
+                     '{{USER}}'=>$params['name'],
+                     '{{EMAIL}}'=>$params['email'],
+                     '{{PWD}}' =>$userPasswort
+                    )
+                  );
+                }
                 $row->save();
                 $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
                 $form->populate($this->getRequest()->getPost());
               }
-              else {
-                $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Wählen Sie eine andere.', 'error');
-                $form->populate($this->getRequest()->getPost());
-              }
-
             } else {
               $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
               $form->populate($this->getRequest()->getPost());

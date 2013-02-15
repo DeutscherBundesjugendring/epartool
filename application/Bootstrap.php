@@ -9,6 +9,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     
     // Speichere Konfiguration in der Registry
     Zend_Registry::set('config', $config);
+    
+    // Lade Konfiguration
+    $config = new Zend_Config_Ini(
+        APPLICATION_PATH . '/configs/config.ini',
+        APPLICATION_ENV);
+    
+    // Speichere Konfiguration in der Registry
+    Zend_Registry::set('systemconfig', $config);
   }
   
   protected function _initDefaultModuleAutoloader() {

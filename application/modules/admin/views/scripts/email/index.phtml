@@ -1,0 +1,55 @@
+<?php
+/**
+ * index
+ *
+ * @description   Emails
+ * @author        Jan Suchandt
+ */
+?>
+<h1>E-Mail-Verwaltung</h1>
+
+<h2>Übersicht der System-E-Mails</h2>
+<table>
+  <tr>
+    <th>Datum</th>
+    <th>Empf&auml;nger</th>
+    <th>Absender</th>
+    <th>Betreff</th>
+    <th>Aktionen</th>
+  </tr>
+<?php
+  $i=1;
+  foreach ($this->emaillist as $email):?>
+  <tr rel="email-<?php echo $email->id;?>">
+    <td><?php
+      $zendDate = new Zend_Date($email->when);
+      echo($zendDate->get('dd.MM.yy'));
+    ?></td>
+    <td><?php echo $email->rec; ?></td>
+    <td><?php echo (empty($email->sender))? '<i>n/a</i>' : $email->sender; ?></td>
+    <td><?php echo (empty($email->subj))? '<i>n/a</i>' : $email->subj; ?></td>
+    <td>
+    <a class="icon icon-delete" href="<?php echo $this->url(array(
+  'action' => 'delete',
+  'id' => $email->id
+    ));?>" title="E-Mail löschen">L&ouml;schen</a>
+  </tr>
+<?php
+  $i++;
+  endforeach;?>
+</table>
+
+<script type="text/javascript">
+  $(function() {
+    // Confirm at row-delete
+    $('.icon.icon-delete').click(function(ele){
+      var check = confirm('Wollen Sie den Benutzer wirklich löschen?');
+      if(check) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    });
+  });
+</script>

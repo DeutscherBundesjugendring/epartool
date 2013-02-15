@@ -176,7 +176,8 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       $select->order($order);
     }
     $result = $this->fetchAll($select);
-    return $result->toArray();
+//    return $result->toArray();
+    return $result;
   }
 
   /**
@@ -383,5 +384,146 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       }
     }
   }
+  
+  /**
+   * Returns inputs by user and consultation grouped by question
+   * for the user inputs overview
+   *
+   * @param integer $uid
+   * @param integer $kid
+   * @return array
+   */
+  public function getUserEntriesOverview($uid, $kid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($uid)) {
+      throw new Zend_Validate_Exception('Given kid must be integer!');
+    }
+    if (!$intVal->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given uid must be integer!');
+    }
+    $entries = array();
+    $entriesRaw = $this->getByUserAndConsultation($uid, $kid);
+    
+    $questionModel = new Model_Questions();
+    $questions = $questionModel->getByConsultation($kid);
+    foreach ($questions as $question) {
+      $entries[$question['qi']] = $question->toArray();
+    }
+    foreach ($entriesRaw as $rawEntry) {
+      $entries[$rawEntry['qi']]['inputs'][] = $rawEntry->toArray();
+    }
+    
+    return $entries;
+  }
+  
+  /**
+   * Returns entries ordered by input date descending
+   *
+   * @param integer $limit
+   * @throws Zend_Validate_Exception
+   * @return Zend_Db_Table_Rowset
+   */
+  public function getLast($limit = 10) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($limit)) {
+      throw new Zend_Validate_Exception('Given limit has to be integer!');
+    }
+    $select = $this->select();
+    $select
+      ->order('when DESC')
+      ->limit($limit);
+    return $this->fetchAll($select);
+  }
+  
+  /**
+   * Returns formatted CSV string
+   *
+   * @param integer $kid
+   * @param integer $qid
+   * @param string $mod
+   * @param integer $tag [optional]
+   * @throws Zend_Validate_Exception
+   * @return string
+   */
+  public function getCSV($kid, $qid, $mod, $tag = null) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+    }
+    if (!$validator->isValid($qid)) {
+      throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+    }
+    if (!empty($tag)) {
+      if (!$validator->isValid($tag)) {
+        throw new Zend_Validate_Exception('Given parameter tag must be integer!');
+      }
+    }
+    $csv = '';
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select->from(array('i' => 'inpt'));
+    $select->where('kid = ?', $kid);
+    $select->where('qi = ?', $qid);
+    switch ($mod) {
+      case 'cnf':
+        $select->where('i.user_conf = ?', 'c');
+        break;
+      case 'unc':
+        $select->where('i.user_conf = ?', 'u');
+        break;
+      case 'all':
+        $select->where('i.uid > ?', 1);
+        break;
+      case 'vot':
+        $select->where('i.vot = ?', 'y');
+        break;
+      case 'edt':
+        $select->where('i.uid = ?', 1);
+        break;
+    }
+    $select->joinLeft(
+      array('it' => 'inpt_tgs'),
+      'i.tid = it.tid',
+      array()
+    );
+    $select->joinLeft(
+      array('t' => 'tgs'),
+      'it.tg_nr = t.tg_nr',
+      array('tags' => "GROUP_CONCAT(t.tg_de ORDER BY t.tg_de SEPARATOR ',')")
+    );
+    $select->group('i.tid');
+    
+    if (!empty($tag)) {
+      $select->where('it.tg_nr = ?', $tag);
+    }
+    
+    $consultationModel = new Model_Consultations();
+    $consultation = $consultationModel->find($kid)->current()->toArray();
+    if (!empty($consultation)) {
+      $csv.= '"Konsultation";"' . $consultation['titl'] . '"' . "\r\n";
+    } else {
+      return 'Konsultation nicht gefunden!';
+    }
+    
+    $questionModel = new Model_Questions();
+    $question = $questionModel->find($qid)->current()->toArray();
+    if (!empty($question)) {
+      $csv.= '"' .$question['nr'] . '";"' . $question['q'] . '"' . "\r\n\r\n";
+    } else {
+      return 'Frage nicht gefunden!';
+    }
+    
+    $csv.='"THESEN-ID";"BEITRAG";"ERKLÄRUNG";"SCHLAGWÖRTER";"NOTIZEN"' . "\r\n";
+    
+    $stmt = $db->query($select);
+    $rowSet = $stmt->fetchAll();
+    foreach ($rowSet as $row) {
+      $csv.='"' . $row['tid'] . '";"'
+        . $row['thes'] . '";"'
+        . $row['expl'] . '";"'
+        . $row['tags'] . '"' . "\r\n";
+    }
+    
+    return $csv;
+  }
 }
-

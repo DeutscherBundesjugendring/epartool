@@ -205,28 +205,83 @@ class Model_Users extends Zend_Db_Table_Abstract {
   }
 
   /**
-   * recoverPassword
-   * @desc generate a new password and send e-mail to user
-   * @name recoverPassword
-   * @return string
+   * generate a new password and send e-mail to user
    *
-   * @todo implement
+   * @param string $email
+   * @return boolean
+   *
+   * @todo add use of email template
    */
-  protected function recoverPassword() {
-    $newPassword = $this->generatePassword();
-    return 0;
+  public function recoverPassword($email) {
+    $validator = new Zend_Validate_EmailAddress();
+    if ($validator->isValid($email)) {
+      if ($this->emailExists($email)) {
+        $newPassword = $this->generatePassword();
+        $row = $this->getByEmail($email);
+        if ($row) {
+          $row->pwd = md5($newPassword);
+          $row->save();
+          
+          $toName = $row->name;
+          $toEmail = $email;
+          $subject = "Neues Passwort für den Strukturierten Dialog";
+          $text = "Hallo {$row->name},\n"
+            . "du hast ein neues Passwort angefordert.\n"
+            . "Mit folgendem Passwort und deiner E-Mail-Adresse kannst du dich anmelden:\n"
+            . "\n"
+            . "Kennwort: $newPassword";
+            
+          $mailModel = new Model_Emails();
+          
+          return $mailModel->send($text, $toEmail, $subject);
+        }
+      } else {
+        $this->_flashMessenger->addMessage('Kein Nutzer zur angegebenen E-Mail-Adresse vorhanden!', 'error');
+      }
+    }
+    return false;
   }
 
   /**
-   * generatePassword
-   * @desc generate a password for user
-   * @name generatePassword
-   * @return string
+   * generate a password for user
    *
-   * @todo implement
+   * @param integer $length
+   * @return string
    */
-  protected function generatePassword() {
-    return 0;
+  protected function generatePassword($length = 8) {
+    $password="";
+    // define possible characters - any character in this string can be
+    // picked for use in the password, so if you want to put vowels back in
+    // or add special characters such as exclamation marks, this is where
+    // you should do it
+    $possible = "2346789abcdfghjkmnpqrtvwxyzABCDEFGHJKLMNPQRTVWXYZ";
+
+    // we refer to the length of $possible a few times, so let's grab it now
+    $maxlength = strlen($possible);
+  
+    // check for length overflow and truncate if necessary
+    if ($length > $maxlength) {
+      $length = $maxlength;
+    }
+	
+    // set up a counter for how many characters are in the password so far
+    $i = 0;
+    
+    // add random characters to $password until $length is reached
+    while ($i < $length) {
+      // pick a random character from the possible ones
+      $char = substr($possible, mt_rand(0, $maxlength-1), 1);
+        
+      // have we already used this character in $password?
+      if (!strstr($password, $char)) {
+        // no, so it's OK to add it onto the end of whatever we've already got...
+        $password .= $char;
+        // ... and increase the counter by one
+        $i++;
+      }
+    }
+    
+    return $password;
   }
   
   /**
@@ -247,19 +302,11 @@ class Model_Users extends Zend_Db_Table_Abstract {
       $mailBody = 'Herzlich willkommen ' . $userRow->name . '!' . "\n\n"
         . 'Bitte bestätige deine Registrierung auf ' . Zend_Registry::get('httpHost') . ':' . "\n\n"
         . Zend_Registry::get('baseUrl') . '/user/registerconfirm/ckey/' . $userRow->confirm_key . "\n\n";
-      if (APPLICATION_ENV == 'development') {
-        $logger = Zend_Registry::get('log');
-        $logger->debug('E-Mail: ' . $mailBody);
-      } else {
-        // send email
-        $mail = new Zend_Mail();
-        $mail->setBodyText($mailBody);
-        $mail->setFrom('somebody@example.com', 'DBJR - Strukturierter Dialog');
-        $mail->addTo($userRow->email, $userRow->name);
-        $mail->setSubject('DBJR: Beitragsbestätigung');
-        $mail->send();
-      }
-      return true;
+      
+      $mailObj = new Model_Emails();
+      
+      return $mailObj->send($mailBody, $userRow->email,
+        'Strukturierter Dialog: Registrierungsbestätigung');
     }
     return false;
   }
@@ -270,7 +317,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
    *
    * @param integer|object $identity
    * @return boolean
-   * @todo Text, Betreff, Absender anpassen
+   * @todo add use of email template
    */
   public function sendInputsConfirmationMail($identity) {
     $intVal = new Zend_Validate_Int();
@@ -292,19 +339,10 @@ class Model_Users extends Zend_Db_Table_Abstract {
             . Zend_Registry::get('baseUrl') . '/input/mailconfirm/kid/' . $input->kid . '/ckey/'
             . $inputModel->generateConfirmationKey($input->tid) . "\n\n";
         }
-        if (APPLICATION_ENV == 'development') {
-          $logger = Zend_Registry::get('log');
-          $logger->debug('E-Mail: ' . $mailBody);
-        } else {
-          // E-Mail verschicken
-          $mail = new Zend_Mail();
-          $mail->setBodyText($mailBody);
-          $mail->setFrom('somebody@example.com', 'DBJR - Strukturierter Dialog');
-          $mail->addTo($identity->email, $identity->name);
-          $mail->setSubject('DBJR: Beitragsbestätigung');
-          $mail->send();
-        }
-        return true;
+        
+        $mailObj = new Model_Emails();
+        
+        return $mailObj->send($mailBody, $identity->email, 'Strukturierter Dialog: Beitragsbestätigung');
       } else {
         // keine zu bestätigenden Beiträge
         return false;
@@ -405,6 +443,16 @@ class Model_Users extends Zend_Db_Table_Abstract {
    */
   public function getAll() {
     return $this->fetchAll($this->select()->order('name'));
+  }
+  
+  public function getByEmail($email) {
+    $validator = new Zend_Validate_EmailAddress();
+    if ($validator->isValid($email)) {
+      $select = $this->select();
+      $select->where('email = ?', $email);
+      return $this->fetchAll($select)->current();
+    }
+    return null;
   }
 }
 

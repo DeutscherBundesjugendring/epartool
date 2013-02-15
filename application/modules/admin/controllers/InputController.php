@@ -148,5 +148,57 @@ class Admin_InputController extends Zend_Controller_Action {
     }
     $this->redirect($url);
   }
+  
+  /**
+   * Export inputs as CSV file
+   *
+   */
+  public function exportAction() {
+    // retrieve params
+    $qid = $this->_request->getParam('qid', 0);
+    $kid = $this->_request->getParam('kid', 0);
+    $cod = $this->_request->getParam('cod', 'utf8');
+    $mod = $this->_request->getParam('mod', 'cnf');
+    $tag = $this->_request->getParam('tg');
+    
+    if ($kid == 0) {
+      $this->_flashMessenger->addMessage('Keine Konsultation angegeben.', 'error');
+      $this->redirect('/admin');
+    }
+    if ($qid == 0) {
+      $this->_flashMessenger->addMessage('Keine Frage angegeben.', 'error');
+      $this->redirect('/admin');
+    }
+    
+    $questionModel = new Model_Questions();
+    $question = $questionModel->find($qid)->current()->toArray();
+    
+    $inputModel = new Model_Inputs();
+    $csv = $inputModel->getCSV($kid, $qid, $mod, $tag);
+    
+    if ($cod == 'xls') {
+      $charset =  mb_detect_encoding($csv, "UTF-8, ISO-8859-1, ISO-8859-15", true);
+      if ($charset) {
+        $csv =  mb_convert_encoding($csv, "Windows-1252", $charset);
+        $cod = "windows-1252";
+      }
+    } else {
+      $cod = "utf-8";
+    }
+    
+    // disable layout and view
+    $this->_helper->layout->disableLayout();
+    $this->_helper->viewRenderer->setNoRender();
+    
+    // set Headers
+    header("Content-type: text/csv");
+    header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+    header('Content-Disposition: attachment; filename=inputs_'
+      . $question['nr'] . '_qid' . $qid . '_' . $mod . '_'
+      . gmdate('Y-m-d_H\hi\m') . '_' . $cod . '.csv');
+    header('Pragma: no-cache');
+    
+    echo $csv;
+  }
 }
 ?>

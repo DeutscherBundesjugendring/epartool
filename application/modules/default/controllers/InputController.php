@@ -63,25 +63,32 @@ class InputController extends Zend_Controller_Action {
     $questionModel = new Model_Questions();
     $kid = $this->_getParam('kid', 0);
     $qid = $this->_getParam('qid', 0);
+    $nowDate = Zend_Date::now();
     
     $this->view->numberInputs = $inputModel->getCountByQuestion($qid);
     
     $this->view->question = $questionModel->getById($qid);
     
-    $form = new Default_Form_Input();
-    // falls Formular in save Action nicht validiert werden konnte:
-    // -> wurde in Session gespeichert und kann nun hier wiedergeholt werden
-    $populateForm = new Zend_Session_Namespace('populateForm');
-    if (isset($populateForm->input)) {
-      // Klassendefinition sicherstellen
-      if (class_exists('Default_Form_Input', true)) {
-        // Formular aus Session holen
-        $form = unserialize($populateForm->input);
-        // Formular in Session löschen
-        unset($populateForm->input);
+    if ($nowDate->isEarlier($this->_consultation->inp_fr)) {
+      $form = '<p>Die Beitragsphase hat noch nicht begonnen.</p>';
+    } elseif ($nowDate->isLater($this->_consultation->inp_to)) {
+      $form = '<p>Die Beitragsphase ist bereits vorbei.</p>';
+    } else {
+      $form = new Default_Form_Input();
+      // falls Formular in save Action nicht validiert werden konnte:
+      // -> wurde in Session gespeichert und kann nun hier wiedergeholt werden
+      $populateForm = new Zend_Session_Namespace('populateForm');
+      if (isset($populateForm->input)) {
+        // Klassendefinition sicherstellen
+        if (class_exists('Default_Form_Input', true)) {
+          // Formular aus Session holen
+          $form = unserialize($populateForm->input);
+          // Formular in Session löschen
+          unset($populateForm->input);
+        }
       }
+      $form->setAction('/input/save/kid/' . $kid . '/qid/' . $qid);
     }
-    $form->setAction('/input/save/kid/' . $kid . '/qid/' . $qid);
     $this->view->inputform = $form;
     
     $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid));

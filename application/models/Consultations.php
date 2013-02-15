@@ -261,5 +261,43 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
     
     return $entries;
   }
+  
+  /**
+   * Get all consultations where given user has participated in
+   *
+   * @param integer $uid
+   */
+  public function getByUser($uid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($uid)) {
+      throw new Zend_Validate_Exception('Given uid must be integer!');
+    }
+    
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select
+      ->from(array('i' => 'inpt'), 'i.kid')
+      ->distinct()
+      ->where('i.uid = ?', $uid);
+    $stmt = $db->query($select);
+    $rowSet = $stmt->fetchAll();
+    $kidArray = array();
+    foreach ($rowSet as $row) {
+      $kidArray[] = $row['kid'];
+    }
+    
+    $select2 = $this->select()
+      ->where('kid IN (?)', $kidArray)
+      ->order('ord DESC');
+      
+    return $this->fetchAll($select2);
+  }
+  
+  /**
+   * Return all
+   */
+  public function getAll() {
+    return $this->fetchAll($this->select()->order('ord DESC'));
+  }
 }
 

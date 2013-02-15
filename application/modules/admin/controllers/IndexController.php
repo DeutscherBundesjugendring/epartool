@@ -72,12 +72,16 @@ class Admin_IndexController extends Zend_Controller_Action {
     // get last 3 consultations
     $con = new Model_Consultations();
     $conList = $con->getLast();
+    
+    $inputsModel = new Model_Inputs();
+    $inputs = $inputsModel->getLast(20);
 
     $this->view
         ->assign(
             array(
               'basic_settings' => $basic_settings,
-              'consultations' => $conList
+              'consultations' => $conList,
+              'inputs' => $inputs,
             ));
     
   }

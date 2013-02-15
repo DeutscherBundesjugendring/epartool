@@ -179,6 +179,10 @@ class Model_Tags extends Zend_Db_Table_Abstract {
     return $return;
   }
   
+  /**
+   * Returns all rows ordered by tg_de
+   * @return Zend_Db_Table_Rowset
+   */
   public function getAll() {
     return $this->fetchAll($this->select()->order('tg_de'));
   }

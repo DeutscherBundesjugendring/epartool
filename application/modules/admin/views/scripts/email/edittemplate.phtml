@@ -1,0 +1,33 @@
+<?php
+/**
+ * edit
+ *
+ * @description   E-Mail-Vorlage bearbeiten/erstellen Forumlaransicht
+ * @author        Jan Suchandt
+ */
+?>
+<h2>E-Mail-Vorlage bearbeiten</h2>
+<p>
+  <a href="/admin/email/template/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
+</p>
+<?php echo $this->form;?>
+<p>
+  <b>Platzhalter</b>
+  <ul>
+    <li>{{USER}} - Benutzername</li>
+    <li>{{CNSLT_TITLE}} - Konsultationstitel</li>
+    <li>{{CNSLT_TITLE_SHORT}} - Konsultationstitel kurz</li>
+    <li>{{SITEURL}} - URL zur Webseite</li>
+    <li>{{CID}} - Konsultations-ID</li>
+    <li>{{INPUT_TO}} - Enddatum der Eintragung einer Konsultation</li>
+    <li>{{USER_INPUTS}} - Eintr&auml;ge der Nutzer in Kurzform</li>
+    <li>{{EMAIL}} - E-Mail-Adresse des Nutzers</li>
+    <li>{{PWD}} - Passwort des Nutzers</li>
+  </ul>
+</p>
+<p>
+  <a href="/admin/email/template/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
+</p>
+<script type="text/javascript">
+    CKEDITOR.replace('html');
+</script>

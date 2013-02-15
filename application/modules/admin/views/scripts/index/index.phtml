@@ -7,73 +7,105 @@
  */
 ?>
 <h2>Dashboard</h2>
-<div>
-  <h3>Grundeinstellungen</h3>
-  <ul>
-  <?php foreach ($this->basic_settings as $setting):?>
-    <li><a href="<?php echo $this->url($setting['url'])?>"><?php echo $setting['text']?></a></li>
-  <?php endforeach;?>
-  </ul>
-  <h3>Konsultationen verwalten</h3>
-  <p>
-    <a href="<?php echo $this->url(array('controller' => 'consultation', 'action' => 'new'))?>">Neue Konsultation anlegen</a>
-  </p>
-  <?php if (!empty($this->consultations)): ?>
-  <div>
-  <?php foreach ($this->consultations as $consultation):?>
-    <div>
-      <h4><a href="<?php echo $this->url(
-        array(
-          'controller' => 'consultation',
-          'action' => 'edit',
-          'kid' => $consultation->kid
-        ))?>">
-      <?php echo $consultation->titl?>
-      </a></h4>
+<div class="subcolumns">
+  <div class="c60l">
+    <div class="subcl">
+      <h3>Grundeinstellungen</h3>
       <ul>
-        <li>
-          <a href="<?php echo $this->url(
+      <?php foreach ($this->basic_settings as $setting):?>
+        <li><a href="<?php echo $this->url($setting['url'])?>"><?php echo $setting['text']?></a></li>
+      <?php endforeach;?>
+      </ul>
+      <h3>Konsultationen verwalten</h3>
+      <p>
+        <a href="<?php echo $this->url(array('controller' => 'consultation', 'action' => 'new'))?>">Neue Konsultation anlegen</a>
+      </p>
+      <?php if (!empty($this->consultations)): ?>
+      <div>
+      <?php foreach ($this->consultations as $consultation):?>
+        <div>
+          <h4><a href="<?php echo $this->url(
             array(
               'controller' => 'consultation',
               'action' => 'edit',
               'kid' => $consultation->kid
             ))?>">
-            Grundeinstellungen
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo $this->url(
-            array(
-              'controller' => 'media',
-              'kid' => $consultation->kid
-            ))?>">
-            Medienverwaltung
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo $this->url(
-            array(
-              'controller' => 'question',
-              'kid' => $consultation->kid
-            ))?>">
-            Fragestellungen f&uuml;r Beitr&auml;ge und Abstimmung
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo $this->url(
-            array(
-              'controller' => 'article',
-              'kid' => $consultation->kid
-            ))?>">
-            Artikel und Infotexte bearbeiten
-          </a>
-        </li>
-        <li><a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $consultation->kid))?>">
-            Beiträge sichten
-          </a></li>
-      </ul>
+          <?php echo $consultation->titl?>
+          </a></h4>
+          <ul>
+            <li>
+              <a href="<?php echo $this->url(
+                array(
+                  'controller' => 'consultation',
+                  'action' => 'edit',
+                  'kid' => $consultation->kid
+                ))?>">
+                Grundeinstellungen
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo $this->url(
+                array(
+                  'controller' => 'media',
+                  'kid' => $consultation->kid
+                ))?>">
+                Medienverwaltung
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo $this->url(
+                array(
+                  'controller' => 'question',
+                  'kid' => $consultation->kid
+                ))?>">
+                Fragestellungen f&uuml;r Beitr&auml;ge und Abstimmung
+              </a>
+            </li>
+            <li>
+              <a href="<?php echo $this->url(
+                array(
+                  'controller' => 'article',
+                  'kid' => $consultation->kid
+                ))?>">
+                Artikel und Infotexte bearbeiten
+              </a>
+            </li>
+            <li><a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $consultation->kid))?>">
+                Beiträge sichten
+              </a></li>
+          </ul>
+        </div>
+      <?php endforeach;?>
+      </div>
+      <?php endif;?>
     </div>
-  <?php endforeach;?>
   </div>
-  <?php endif;?>
+  
+  <div class="c40r">
+    <div class="subcr">
+      <h3>Neue Inputs</h3>
+      <?php if (!empty($this->inputs)): ?>
+        <ul>
+        <?php foreach ($this->inputs as $input): ?>
+        <?php $url = $this->url(array(
+            'module' => 'admin',
+            'controller' => 'input',
+            'action' => 'index',
+            'kid' => $input['kid'],
+            'qid' => $input['qi'],
+          ), null, true); ?>
+          <li>
+            <a href="<?php echo $url; ?>">
+              <?php echo $input['thes']; ?>
+            </a>&nbsp;<a href="<?php echo $url; ?>">
+              <img src="<?php echo $this->baseUrl(); ?>/images/edit.png" alt="Bearbeiten"/>
+            </a>
+          </li>
+        <?php endforeach; ?>
+        </ul>
+      <?php else: ?>
+        <p class="note">Noch keine Beiträge vorhanden.</p>
+      <?php endif; ?>
+    </div>
+  </div>
 </div>

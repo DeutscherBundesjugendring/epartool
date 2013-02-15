@@ -1,0 +1,48 @@
+<?php
+/**
+ * User inputs overview
+ */
+?>
+<?php if (isset($this->consultationList)): ?>
+
+<h2>Zu folgenden Konsultationen wurden Beiträge abgegeben:</h2>
+<?php foreach ($this->consultationList as $consultation): ?>
+<h3>
+	<a href="<?php echo $this->url(array(
+  'kid' => $consultation['kid']
+	)); ?>" title="Zeige meine Beiträge zu dieser Konsultation">
+	<?php echo $consultation['titl']; ?>
+	</a>
+</h3>
+<?php endforeach; ?>
+
+<?php elseif(isset($this->consultation)): ?>
+
+<h2>Meine Beiträge zur Konsultation <?php echo $this->consultation->titl; ?></h2>
+<?php if (!empty($this->inputs)): ?>
+<?php foreach ($this->inputs as $question): ?>
+	<h3>Frage: <a href="<?php echo $this->url(array(
+	'controller' => 'input',
+	'action' => 'show',
+	'kid' => $this->consultation->kid,
+	'qid' => $question['qi']
+	), null, true); ?>"><?php echo $question['q']; ?></a></h3>
+	<?php if (!empty($question['inputs'])): ?>
+	<h4>Beiträge:</h4>
+	<ul>
+	<?php foreach ($question['inputs'] as $input): ?>
+		<li>
+			<h5><?php echo $input['thes']; ?></h5>
+			<?php if (!empty($input['expl'])): ?>
+			<p><?php echo $input['expl']; ?></p>
+			<?php endif; ?>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+	<?php else: ?>
+	<p>keine Beiträge</p>
+	<?php endif; ?>
+<?php endforeach; ?>
+<?php endif; ?>
+
+<?php endif; ?>

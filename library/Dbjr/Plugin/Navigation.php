@@ -37,6 +37,14 @@ class Plugin_Navigation extends Zend_Controller_Plugin_Abstract {
       }
     }
     
+    // JSU set user to active page if uid exists
+    if($this->getRequest()->controller == 'email' && $this->getRequest()->action=='edittemplate') {
+      $pageUser = $view->navigation()->findOneByLabel('E-Mail Vorlagen');
+      if ($pageUser) {
+        $pageUser->setActive();
+      }
+    }
+    
   }
 }
 ?>

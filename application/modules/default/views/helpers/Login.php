@@ -24,6 +24,9 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract {
         . '  </div><!-- .modal-header -->'
         . '<div class="modal-body">'
         . $form
+        . '<p><a href="'
+        . $this->view->url(array('controller' => 'user', 'action' => 'passwordrecover'), null, true)
+        . '">Passwort vergessen?</a></p>'
         . '</div><!-- .modal-body -->'
         . '</div><!-- #login -->';
     }

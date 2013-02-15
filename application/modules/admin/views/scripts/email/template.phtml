@@ -1,0 +1,41 @@
+<?php
+/**
+ * index
+ *
+ * @description   E-Mail-Templates
+ * @author        Jan Suchandt
+ */
+?>
+<h1>E-Mail-Verwaltung</h1>
+
+<h2>Übersicht der E-Mail-Vorlagen</h2>
+<p><a class="icon icon-plus" href="<?php echo $this->url(array(
+  'action' => 'edittemplate'
+)); ?>">Neuer Vorlage</a>
+</p>
+<table>
+  <tr>
+    <th>Referenz</th>
+    <th>Betreff</th>
+    <th>Aktionen</th>
+  </tr>
+<?php
+  $i=1;
+  foreach ($this->templateList as $template):?>
+  <tr rel="template-<?php echo $template->mid;?>">
+    <td><?php echo $template->refnm; ?></td>
+    <td><?php echo $template->subj; ?></td>
+    <td>
+    <a class="icon icon-edit" href="<?php echo $this->url(array(
+  'action' => 'edittemplate',
+  'mid' => $template->mid
+    ));?>" title="Vorlage bearbeiten">Bearbeiten</a>
+  </tr>
+<?php
+  $i++;
+  endforeach;?>
+</table>
+<p><a class="icon icon-plus" href="<?php echo $this->url(array(
+  'action' => 'edittemplate'
+)); ?>">Neuer Vorlage</a>
+</p>

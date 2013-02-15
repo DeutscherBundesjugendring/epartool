@@ -53,6 +53,7 @@
 						<!-- .user-box -->
 
 						<!-- User info in a modified modal -->
+						<?php //echo $this->userInfo(); ?>
 						<div id="user-info" class="user-info modal hide fade" tabindex="-1" role="dialog" aria-labelledby="userInfoLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -60,11 +61,15 @@
 							</div><!-- .modal-header -->
 							<div class="modal-body">
 
-								<a href=""><i class="icon-chevron-right"></i> Alle meine Beiträge ansehen</a>
+								<a href="<?php echo $this->url(array(
+								  'controller' => 'user',
+								  'action' => 'inputlist'
+								), null, true); ?>"><i class="icon-chevron-right"></i> Alle meine Beiträge ansehen</a>
 								<hr />
 
 								<!-- Change user login or password -->
-								<form name="userEdit" action="" method="post" class="user-edit-form">
+								<?php echo $this->userEditSimple(); ?>
+								<!-- <form name="userEdit" action="" method="post" class="user-edit-form">
 									<p><i class="icon-chevron-right"></i> Name und Passwort ändern</p>
 									<div class="control-group">
 										<div class="control-label hide">
@@ -85,10 +90,10 @@
 									<div class="form-actions">
 										<button type="submit" name="userEditSubmit" class="btn">Absenden</button>
 									</div>
-								</form>
+								</form> -->
 								<hr />
 
-								<a href=""><i class="icon-chevron-right"></i> Neue Gruppenmitglieder zum Freischalten</a>
+								<!-- <a href=""><i class="icon-chevron-right"></i> Neue Gruppenmitglieder zum Freischalten</a> -->
 
 							</div><!-- .modal-body -->
 						</div><!-- #user-info -->

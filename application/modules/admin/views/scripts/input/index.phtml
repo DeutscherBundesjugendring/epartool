@@ -5,24 +5,30 @@
 <?php
 echo $this->consultationNavigation('Beiträge');
 ?>
+
 <p>
 <?php foreach ($this->consultation['questions'] as $question): ?>
-<a href="/admin/input/index/kid/<?php echo $this->consultation['kid'];
-?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
-?> class="active"<?php endif;?>>
-  <?php echo $question['q'];?>
-</a>&emsp;
+  <a href="/admin/input/index/kid/<?php echo $this->consultation['kid'];
+  ?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
+  ?> class="active"<?php endif;?>>
+    <?php echo $question['q'];?>
+  </a>&emsp;
 <?php endforeach;?>
 </p>
+
 <?php if (!empty($this->question)): ?>
+
 <h2>Beitragsübersicht: <?php echo $this->question['q']; ?></h2>
+
 <?php if ($this->tag['tg_nr'] > 0): ?>
 <p>Es werden nur Beiträge mit dem Schlagwort „<?php echo $this->tag['tg_de']; ?>“ angezeigt.</p>
 <p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen &raquo;</a></p>
 <?php endif;?>
+
 <form name="inp_edit" id="inp_edit" action="/admin/input/editbulk" method="POST">
 <input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
 <table>
+
 <?php foreach ($this->question['inputs'] as $input): ?>
 <?php
   if ($input['block']=="n") {
@@ -81,6 +87,7 @@ echo $this->consultationNavigation('Beiträge');
 	</td>
 </tr>
 <?php endforeach;?>
+
 </table>
 <br />Markierte Einträge: <select name="action">
   <option value="" class="quest" selected="selected">Aktion auswählen...</option>
@@ -89,4 +96,52 @@ echo $this->consultationNavigation('Beiträge');
   <option value="publish" class="quest">Freigeben</option>
   </select> <button type="submit">Ausführen</button>
 </form>
+
+<p>&nbsp;</p>
+<p class="boxmsc"><b>Folgende Datensätze als CSV exportieren:</b><br />
+<a href="<?php echo $this->url(array(
+  'action' => 'export',
+  'kid' => $this->consultation['kid'],
+  'qid' => $this->question['qi'],
+  'cod' => 'utf8',
+  'mod' => 'cnf',
+)); ?>">&raquo; Bestätigte Beiträge</a><br />
+<a href="<?php echo $this->url(array(
+  'action' => 'export',
+  'kid' => $this->consultation['kid'],
+  'qid' => $this->question['qi'],
+  'cod' => 'utf8',
+  'mod' => 'unc',
+)); ?>">&raquo; Unbestätigte Beiträge</a><br />
+<a href="<?php echo $this->url(array(
+  'action' => 'export',
+  'kid' => $this->consultation['kid'],
+  'qid' => $this->question['qi'],
+  'cod' => 'utf8',
+  'mod' => 'all',
+)); ?>">&raquo; Alle Userbeiträge</a><br />
+<a href="<?php echo $this->url(array(
+  'action' => 'export',
+  'kid' => $this->consultation['kid'],
+  'qid' => $this->question['qi'],
+  'cod' => 'utf8',
+  'mod' => 'vot',
+)); ?>">&raquo; Abstimmungsthesen</a><br />
+<a href="<?php echo $this->url(array(
+  'action' => 'export',
+  'kid' => $this->consultation['kid'],
+  'qid' => $this->question['qi'],
+  'cod' => 'utf8',
+  'mod' => 'edt',
+)); ?>">&raquo; Redaktionelle Abstimmungsthesen</a><br />
+<a href="<?php echo $this->url(array(
+  'action' => 'export',
+  'kid' => $this->consultation['kid'],
+  'qid' => $this->question['qi'],
+  'cod' => 'xls',
+  'mod' => 'all',
+)); ?>">&raquo; Alle Userbeiträge (westeuropäisches MS Excel)</a><br />
+</p>
+<p>&nbsp;</p>
+<p><a href="#">nach oben</a></p>
 <?php endif;?>

@@ -14,7 +14,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
     $disabled = array(
       'article' => false,
       'question' => false,
-      'input' => ($nowDate->isEarlier($con->inp_fr) || $nowDate->isLater($con->inp_to)),
+      'input' => ($nowDate->isEarlier($con->inp_fr)),
       'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
       'follow-up' => (!$nowDate->isLater($con->vot_to)),
     );

@@ -111,4 +111,46 @@ class UserController extends Zend_Controller_Action {
     }
     $this->redirect('/');
   }
+  
+  public function editAction() {
+    
+    $this->_flashMessenger->addMessage('Noch nicht implementiert!', 'info');
+    $this->redirect('/');
+  }
+  
+  public function inputlistAction() {
+    $kid = $this->_request->getParam('kid', 0);
+    $consultationModel = new Model_Consultations();
+    if ($this->_auth->hasIdentity()) {
+      $identity = $this->_auth->getIdentity();
+      if ($kid == 0) {
+        $this->view->consultationList = $consultationModel->getByUser($identity->uid);
+      } elseif ($kid > 0) {
+        $this->view->consultation = $consultationModel->find($kid)->current();
+        $inputModel = new Model_Inputs();
+        $this->view->inputs = $inputModel->getUserEntriesOverview($identity->uid, $kid);
+      }
+    } else {
+      $this->_flashMessenger->addMessage('Bitte erst anmelden!', 'error');
+    }
+  }
+  
+  public function passwordrecoverAction() {
+    $form = new Default_Form_PasswordRecover();
+    if ($this->_request->isPost()) {
+      $data = $this->_request->getPost();
+      if ($form->isValid($data)) {
+        $userModel = new Model_Users();
+        if ($userModel->recoverPassword($data['email'])) {
+          $this->_flashMessenger->addMessage('Eine E-Mail mit einem neuen Passwort wurde an die angegebene E-Mail-Adresse verschickt!', 'success');
+        } else {
+          $this->_flashMessenger->addMessage('Passwortwiederherstellung fehlgeschlagen!', 'error');
+        }
+        $this->redirect('/');
+      } else {
+        $this->_flashMessenger->addMessage('Bitte prüfe deine Eingaben!', 'error');
+      }
+    }
+    $this->view->form = $form;
+  }
 }
