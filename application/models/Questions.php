@@ -237,5 +237,26 @@ class Model_Questions extends Zend_Db_Table_Abstract {
     
     return $aReturn;
   }
+  
+  /**
+   * Search in questions by consultations
+   * @param string $needle
+   * @param integer $consultationId
+   * @param integer $limit
+   */
+  public function search($needle, $consultationId, $limit=30) {
+    $result = array();
+    if($needle !== '' && !empty($consultationId) && is_int($limit)) {
+      $select = $this->select();
+      $select ->where("q LIKE '%$needle%' OR q_xpl LIKE '%$needle%'");
+      // if no consultation is set, search in generell articles
+      $select->where('kid = ?', $consultationId);
+      $select->limit($limit);
+      
+      $result = $this->fetchAll($select)->toArray();
+      
+    }
+    return $result;
+  }
 }
 

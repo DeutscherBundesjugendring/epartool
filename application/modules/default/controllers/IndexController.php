@@ -54,4 +54,43 @@ class IndexController extends Zend_Controller_Action {
 //      return $this->_forward('index');
 //    }
 //  }
+
+  /**
+   * Search-Page
+   */
+  public function searchAction() {
+    
+    $needle = $this->getRequest()->getParam('q',0);
+    // Filter search-needle
+    if($needle) {
+      // filters
+      $filterChain = new Zend_Filter();
+      $filterChain->appendFilter(new Zend_Filter_StringTrim());
+      $filterChain->appendFilter(new Zend_Filter_StringToLower());
+      $filterChain->appendFilter(new Zend_Filter_HtmlEntities());
+      // apply filters
+      $needle = $filterChain->filter($needle);
+      
+      // Search in articles with no consultations ("grundinformationen")
+      $articles = new Model_Articles();
+      $consultation = new Model_Consultations();
+      
+      $generelResults = $articles->search($needle);
+      $consultationResults = $consultation->search($needle);
+      
+      $this->view->needle = $needle;
+      $this->view->resultsGeneral = $generelResults;
+      $this->view->resultsConsultations = $consultationResults;
+    }
+    else {
+      // no search-request, redirect
+      $this->redirect('');
+    }
+    
+    
+    
+    // search in articles
+    // search in consultation (inputs, tags, consultationtexts)
+    
+  }
 }

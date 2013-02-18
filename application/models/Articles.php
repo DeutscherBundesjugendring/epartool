@@ -148,5 +148,26 @@ class Model_Articles extends Zend_Db_Table_Abstract {
     }
     return $result;
   }
+  
+  /**
+   * Search in articles by consultations
+   * @param string $needle
+   * @param integer $consultationId
+   * @param integer $limit
+   */
+  public function search($needle, $consultationId=0, $limit=30) {
+    $result = array();
+    if($needle !== '' && is_int($consultationId) && is_int($limit)) {
+      $select = $this->select();
+      $select->where('artcl LIKE ?', '%'.$needle.'%');
+      // if no consultation is set, search in generell articles
+      $select->where('kid = ?', $consultationId);
+      $select->limit($limit);
+      
+      $result = $this->fetchAll($select)->toArray();
+      
+    }
+    return $result;
+  }
 }
 

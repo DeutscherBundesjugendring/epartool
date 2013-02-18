@@ -527,6 +527,13 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     return $csv;
   }
   
+  /**
+   * Adds one point to support counter of given inputs ID
+   * and returns the new number of supports
+   *
+   * @param integer $tid
+   * @return integer
+   */
   public function addSupport($tid) {
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($tid)) {
@@ -546,5 +553,29 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     }
     
     return $countSupports;
+  }
+  
+  /**
+   * Search in questions by consultations
+   * @param string $needle
+   * @param integer $consultationId
+   * @param integer $limit
+   * @return array
+   */
+  public function search($needle, $consultationId, $limit=30) {
+    $result = array();
+    if($needle !== '' && !empty($consultationId) && is_int($limit)) {
+      $select = $this->select();
+      $select ->where("thes LIKE '%$needle%' OR expl LIKE '%$needle%'");
+      $select ->where("`block`!= 'y'");
+      $select ->where("`user_conf`='c'");
+      // if no consultation is set, search in generell articles
+      $select->where('kid = ?', $consultationId);
+      $select->limit($limit);
+      
+      $result = $this->fetchAll($select)->toArray();
+      
+    }
+    return $result;
   }
 }

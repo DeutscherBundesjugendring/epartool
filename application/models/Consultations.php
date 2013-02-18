@@ -299,5 +299,44 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
   public function getAll() {
     return $this->fetchAll($this->select()->order('ord DESC'));
   }
+  
+  /**
+   * Search for inputs, questions and articles of consultations
+   */
+  public function search($needle) {
+    $result = array();
+    
+    if($needle==='') {
+      return $result;
+    }
+    
+    $select = $this->select();
+    $select->from(
+        array('c'=>'cnslt'),
+        array(
+          'cid'=>'kid',
+          'titel'=>'titl'
+        )
+      );
+    $select->where('proj="sd"');
+    $select->order('ord DESC');
+    $rows = $this->fetchAll($select);
+    $i = 0;
+    foreach($rows AS $consultation) {
+      $result[$i] = $consultation->toArray();
+      // search articles
+      $articles = new Model_Articles();
+      $result[$i]['articles'] = $articles->search($needle, $consultation->cid);
+      // search questions
+      $questions = new Model_Questions();
+      $result[$i]['questions'] = $questions->search($needle, $consultation->cid);
+      // search questions
+      $inputs = new Model_Inputs();
+      $result[$i]['inputs'] = $inputs->search($needle, $consultation->cid);
+      $i++;
+    }
+    
+    return $result;
+  }
 }
 
