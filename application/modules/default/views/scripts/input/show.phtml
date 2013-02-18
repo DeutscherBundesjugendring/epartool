@@ -6,6 +6,11 @@
  * @author        Markus Hackel
  */
 $date = new Zend_Date();
+$supports = new Zend_Session_Namespace('supports');
+$supportsDisabled = (
+  Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
+  || Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
+);
 ?>
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('input')?>
@@ -36,17 +41,24 @@ $date = new Zend_Date();
 		<!-- Contributions -->
 		<?php if (count($this->paginator)): ?>
 		<?php foreach ($this->paginator as $input):?>
+		<a name="input-<?php echo $input['tid']; ?>"></a>
 		<article class="media">
 			<time pubdate datetime="<?php echo $date->set($input['when'])
 						  ->get('y-MM-dd')?>">verfasst am <?php echo $date
 						  ->get(Zend_Date::DATE_MEDIUM)?></time>
 			<p class="lead"><?php echo $input['thes']?></p>
 			<p><?php echo $input['expl']?></p>
-			<a href="#">
+			
+			<?php if ($this->consultation->spprt_show == 'y'): ?>
+			<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support<?php
+			  if (in_array($input['tid'], $supports->clicks) || $supportsDisabled):
+			  ?> disabled<?php endif;?>" rel="<?php echo $input['tid']; ?>">
 				<i class="icon-ok-sign"></i>
-				<span class="badge">(<?php echo $input['spprts']?>)</span>
+				<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']?>)</span>
 				<span class="label">Dieser Meinung bin ich auch!</span>
 			</a>
+			<?php endif; ?>
+			
 			<a href="#">
 				<i class="icon-comment"></i>
 				<span class="badge">(<?php echo $input['pts']?>)</span>
@@ -79,3 +91,23 @@ $date = new Zend_Date();
 <div class="top-link">
 	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.click-support').click(function(event) {
+    event.preventDefault();
+    var tid = $(this).attr('rel');
+    if ($(this).hasClass('disabled')) {
+      //alert('Entweder hast du diesen Beitrag schon unterstützt oder unterstützen ist derzeit nicht möglich.');
+    } else {
+      $.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo
+        $this->consultation->kid; ?>/format/json", { "tid": tid })
+      .done(function(data) {
+        if (data.count) {
+          $('#badge-' + tid).html("(" + data.count + ")");
+        }
+        $('#click-support-' + tid).addClass('disabled');
+      });
+    }
+  });
+});
+</script>

@@ -526,4 +526,25 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     
     return $csv;
   }
+  
+  public function addSupport($tid) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($tid)) {
+      throw new Zend_Validate_Exception('Given parameter tid must be integer!');
+    }
+    $countSupports = 0;
+    $row = $this->find($tid)->current();
+    if ($row) {
+      $consultationModel = new Model_Consultations();
+      $consultation = $consultationModel->find($row->kid)->current();
+      if (Zend_Date::now()->isLater($consultation->spprt_fr)
+        && Zend_Date::now()->isEarlier($consultation->spprt_to)) {
+        $row->spprts++;
+        $row->save();
+      }
+      $countSupports = $row->spprts;
+    }
+    
+    return $countSupports;
+  }
 }

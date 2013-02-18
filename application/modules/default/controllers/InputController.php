@@ -28,9 +28,16 @@ class InputController extends Zend_Controller_Action {
       $this->_consultation = $consultation;
       $this->view->consultation = $consultation;
     } else {
-      $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
-      $this->_redirect('/');
+      $action = $this->_request->getActionName();
+      if ($action != 'support') {
+        $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
+        $this->_redirect('/');
+      }
     }
+    
+    $ajaxContext = $this->_helper->getHelper('AjaxContext');
+    $ajaxContext->addActionContext('support', 'json')
+                ->initContext();
   }
   /**
    * index
@@ -213,5 +220,22 @@ class InputController extends Zend_Controller_Action {
       $this->_flashMessenger->addMessage('Der eingegebene Bestätigungslink ist ungültig!', 'error');
     }
     $this->redirect('/');
+  }
+  
+  /**
+   * Called by Ajax request, switches context to json
+   *
+   */
+  public function supportAction() {
+    $data = $this->_request->getPost();
+    if (empty($data['tid'])) {
+      $this->redirect('/');
+    }
+    $supports = new Zend_Session_Namespace('supports');
+    $inputsModel = new Model_Inputs();
+    if (!in_array($data['tid'], $supports->clicks)) {
+      $this->view->count = $inputsModel->addSupport($data['tid']);
+      $supports->clicks[] = $data['tid'];
+    }
   }
 }
