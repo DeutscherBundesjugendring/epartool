@@ -70,9 +70,21 @@ class InputController extends Zend_Controller_Action {
     $questionModel = new Model_Questions();
     $kid = $this->_getParam('kid', 0);
     $qid = $this->_getParam('qid', 0);
+    $tag = $this->_getParam('tag', null);
     $nowDate = Zend_Date::now();
     
-    $this->view->numberInputs = $inputModel->getCountByQuestion($qid);
+    if (empty($qid)) {
+      // get first question of this consultation
+      $questionRow = $questionModel->getByConsultation($kid)->current();
+      $qid = $questionRow->qi;
+    }
+    
+    if (!empty($tag)) {
+      $tagModel = new Model_Tags();
+      $this->view->tag = $tagModel->getById($tag);
+    }
+    
+    $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
     
     $this->view->question = $questionModel->getById($qid);
     
@@ -98,11 +110,17 @@ class InputController extends Zend_Controller_Action {
     }
     $this->view->inputform = $form;
     
-    $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid));
+    $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, null, null, $tag));
     $paginator->setCurrentPageNumber($this->_getParam('page', 1));
     $this->view->paginator = $paginator;
   }
   
+  /**
+   * Saves input in database if user is logged in or in session if not logged in
+   * Redirects to next question or input confirmation page
+   * (with login/register form, @see confirmAction())
+   *
+   */
   public function saveAction() {
     $questionModel = new Model_Questions();
     $inputModel = new Model_Inputs();
@@ -153,6 +171,10 @@ class InputController extends Zend_Controller_Action {
     $this->redirect($redirectURL);
   }
   
+  /**
+   * Login or register to save inputs into database
+   *
+   */
   public function confirmAction() {
     $userModel = new Model_Users();
     $inputModel = new Model_Inputs();
@@ -206,6 +228,10 @@ class InputController extends Zend_Controller_Action {
     }
   }
   
+  /**
+   * Process input confirmation from email link
+   *
+   */
   public function mailconfirmAction() {
     $ckey = $this->_getParam('ckey');
     $alnumVal = new Zend_Validate_Alnum();
@@ -223,7 +249,7 @@ class InputController extends Zend_Controller_Action {
   }
   
   /**
-   * Called by Ajax request, switches context to json
+   * Called by ajax request, switches context to json
    *
    */
   public function supportAction() {

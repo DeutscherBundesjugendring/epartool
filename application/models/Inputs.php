@@ -187,20 +187,22 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * @param integer $qid id of question (qi in mysql-table)
    * @param string|array $order [optional] MySQL Order Expression, e.g. 'votes DESC'
    * @param integer $limit [optional] Number of records to return
+   * @param integer $tag [optional] id of tag (tg_nr)
    * @return array
    */
-  public function getByQuestion($qid, $order = 'tid ASC', $limit = null) {
+  public function getByQuestion($qid, $order = 'i.tid ASC', $limit = null, $tag = null) {
     // is int?
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($qid)) {
       return array();
     }
 
-    // fetch
-    $select = $this->getSelectByQuestion($qid, $order, $limit);
+    // get select obj
+    $select = $this->getSelectByQuestion($qid, $order, $limit, $tag);
     
-    $result = $this->fetchAll($select);
-    return $result->toArray();
+    $stmt = $this->getDefaultAdapter()->query($select);
+    $result = $stmt->fetchAll();
+    return $result;
   }
   
   /**
@@ -214,6 +216,8 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
             $this->select()
               ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
               ->where('kid = ?', $kid)
+              ->where('block<>?', 'y')
+              ->where('user_conf=?', 'c')
             )->current();
     return $row->count;
   }
@@ -224,33 +228,59 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * @param integer $qid
    * @return integer
    */
-  public function getCountByQuestion($qid) {
-    $row = $this->fetchAll(
-            $this->select()
-              ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
-              ->where('qi = ?', $qid)
-              // nur nicht geblockte:
-              ->where('block<>?', 'y')
-              // nur bestätigte:
-              ->where('user_conf=?', 'c')
-            )->current();
-    return $row->count;
+  public function getCountByQuestion($qid, $tag = null) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($qid)) {
+      throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+    }
+    
+    $db = $this->getDefaultAdapter();
+    $select = $db->select();
+    $select->from(array('i' => $this->_name),
+      array(new Zend_Db_Expr('COUNT(*) as count')))
+      ->where('i.qi = ?', $qid)
+      // nur nicht geblockte:
+      ->where('i.block<>?', 'y')
+      // nur bestätigte:
+      ->where('i.user_conf=?', 'c');
+    
+    if ($intVal->isValid($tag)) {
+      $select->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array());
+      $select->where('it.tg_nr = ?', $tag);
+    }
+    
+    $stmt = $db->query($select);
+    $row = $stmt->fetch();
+    
+    return $row['count'];
   }
   
   /**
-   * Returns Zend_Db_Table_Select for use in e.g. Paginator
+   * Returns Zend_Db_Select for use in e.g. Paginator
    *
    * @param integer $qid
-   * @param string $order
+   * @param string|array $order
    * @param integer $limit
+   * @param integer $tag [optional] id of tag (tg_nr)
+   * @return Zend_Db_Select
    */
-  public function getSelectByQuestion($qid, $order = 'tid DESC', $limit = null) {
+  public function getSelectByQuestion($qid, $order = 'i.tid DESC', $limit = null, $tag = null) {
     $intVal = new Zend_Validate_Int();
-    $select = $this->select();
-    $select->where('qi=?', $qid)->where('block<>?', 'y')->where('user_conf=?', 'c');
+    $db = $this->getDefaultAdapter();
+    $select = $db->select();
+    $select->from(array('i' => $this->_name));
+    
+    if ($intVal->isValid($tag)) {
+      $select->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array());
+      $select->where('it.tg_nr = ?', $tag);
+    }
+    
+    $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c');
+    
     if (!empty($order)) {
       $select->order($order);
     }
+    
     if ($intVal->isValid($limit)) {
       $select->limit($limit);
     }

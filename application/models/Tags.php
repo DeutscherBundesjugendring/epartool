@@ -152,6 +152,10 @@ class Model_Tags extends Zend_Db_Table_Abstract {
       throw new Zend_Validate_Exception('Given kid must be integer!');
     }
     
+    // Get number of all inputs of this consultation
+    $inputsModel = new Model_Inputs();
+    $nrInputs = $inputsModel->getCountByConsultation($kid);
+    
     // Fetch all tags
     $tags = $this->fetchAll();
     
@@ -172,6 +176,14 @@ class Model_Tags extends Zend_Db_Table_Abstract {
         if ($result[0]['count'] > 0) {
           $return[$tag->tg_nr] = $tag->toArray();
           $return[$tag->tg_nr]['count'] = $result[0]['count'];
+          $weight = 100*$result[0]['count']/$nrInputs;
+          if ($weight < 33) {
+            $return[$tag->tg_nr]['frequency'] = 'rare';
+          } elseif ($weight >= 33 && $weight < 66) {
+            $return[$tag->tg_nr]['frequency'] = 'medium';
+          } elseif ($weight >= 66) {
+            $return[$tag->tg_nr]['frequency'] = 'frequent';
+          }
         }
       }
     }

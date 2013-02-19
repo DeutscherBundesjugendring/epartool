@@ -13,7 +13,7 @@ $supportsDisabled = (
 );
 ?>
 <!-- Secondary navigation -->
-<?php echo $this->secondNavigation('input')?>
+<?php echo $this->secondNavigation('input'); ?>
 <!-- .secondary-navigation -->
 
 <!-- Content start -->
@@ -28,10 +28,14 @@ $supportsDisabled = (
 	</aside>
 	
 	<section class="main-content span9">
-		<p class="count"><?php echo $this->numberInputs?> Beiträge</p>
+		<?php if (isset($this->tag) && !empty($this->tag)): ?>
+		<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
+		<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
+		<?php endif; ?>
+		<p class="count"><?php echo $this->numberInputs; ?> Beiträge</p>
 		
-		<h3><?php echo $this->question['q']?></h3>
-		<p><?php echo $this->question['q_xpl']?></p>
+		<h3><?php echo $this->question['q']; ?></h3>
+		<p><?php echo $this->question['q_xpl']; ?></p>
 		
 		<!-- New contribution -->
 		<?php echo $this->inputform; ?>
@@ -45,7 +49,7 @@ $supportsDisabled = (
 		<article class="media">
 			<time pubdate datetime="<?php echo $date->set($input['when'])
 						  ->get('y-MM-dd')?>">verfasst am <?php echo $date
-						  ->get(Zend_Date::DATE_MEDIUM)?></time>
+						  ->get(Zend_Date::DATE_MEDIUM); ?></time>
 			<p class="lead"><?php echo $input['thes']?></p>
 			<p><?php echo $input['expl']?></p>
 			
@@ -54,14 +58,14 @@ $supportsDisabled = (
 			  if (in_array($input['tid'], $supports->clicks) || $supportsDisabled):
 			  ?> disabled<?php endif;?>" rel="<?php echo $input['tid']; ?>">
 				<i class="icon-ok-sign"></i>
-				<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']?>)</span>
+				<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
 				<span class="label">Dieser Meinung bin ich auch!</span>
 			</a>
 			<?php endif; ?>
 			
 			<a href="#">
 				<i class="icon-comment"></i>
-				<span class="badge">(<?php echo $input['pts']?>)</span>
+				<span class="badge">(<?php echo $input['pts']; ?>)</span>
 				<span class="label">Das möchte ich gerne diskutieren!</span>
 			</a>
 		</article>
