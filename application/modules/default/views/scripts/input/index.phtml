@@ -36,7 +36,6 @@ $locale = new Zend_Locale();
 				</ul> -->
 				<ul class="tag-cloud">
 				<?php foreach ($this->tags as $tag): ?>
-				<?php //TODO: Linking and appropriate view ?>
 					<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php
 					echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>"><?php echo $tag['tg_de']; ?></a></li>
 				<?php endforeach;?>

@@ -35,6 +35,10 @@ class Admin_ConsultationController extends Zend_Controller_Action {
   public function indexAction() {
   }
 
+  /**
+   * create new Consultation
+   *
+   */
   public function newAction() {
     $form = new Admin_Form_Consultation();
     
@@ -46,7 +50,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
             $newId = $consultationRow->save();
             if ($newId > 0) {
               $this->_flashMessenger->addMessage('Neue Konsultation wurde erstellt.', 'success');
-              $this->_redirect('admin/consultation/edit/kid/' . $consultationRow->kid);
+              $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
             } else {
               $this->_flashMessenger->addMessage('Erstellen der neuen Konsultation fehlgeschlagen!', 'error');
             }
@@ -59,6 +63,10 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     $this->view->form = $form;
   }
 
+  /**
+   * edit Consultation settings
+   *
+   */
   public function editAction() {
     $form = new Admin_Form_Consultation();
     $form->setAction('/admin/consultation/edit/kid/' . $this->_consultation->kid);
@@ -70,7 +78,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
             $this->_consultation->save();
             $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
             
-            $this->_redirect('admin/consultation/edit/kid/' . $this->_consultation->kid);
+            $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
           } else {
             $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
             $form->populate($form->getValues());
@@ -80,6 +88,57 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     }
     
     $this->view->form = $form;
+  }
+  
+  /**
+   * statistical Report
+   *
+   */
+  public function reportAction() {
+    $kid = $this->_request->getParam('kid', 0);
+    if (empty($kid)) {
+      $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
+      $this->redirect('/admin');
+    }
+    $inputsModel = new Model_Inputs();
+    $questionModel = new Model_Questions();
+    
+    $questionRowset = $questionModel->getByConsultation($kid);
+    $questions = array();
+    foreach ($questionRowset as $question) {
+      $question = $question->toArray();
+      $questions[$question['qi']] = $question;
+      $questions[$question['qi']]['nrInputsConfirmed'] = $inputsModel
+        ->getCountByQuestionFiltered($question['qi'], array(
+          array(
+            'field' => 'user_conf',
+            'operator' => '=',
+            'value' => 'c'
+          )
+        ));
+      $questions[$question['qi']]['nrInputsVoting'] = $inputsModel
+        ->getCountByQuestionFiltered($question['qi'], array(
+          array(
+            'field' => 'vot',
+            'operator' => '=',
+            'value' => 'y'
+          )
+        ));
+    }
+    
+    $this->view->assign(array(
+      'nrParticipants' => $inputsModel->getCountParticipantsByConsultation($kid),
+      'nrInputs' => $inputsModel->getCountByConsultation($kid, false),
+      'nrInputsConfirmed' => $inputsModel->getCountByConsultationFiltered($kid,
+        array(array('field' => 'user_conf', 'operator' => '=', 'value' => 'c'))),
+      'nrInputsUnconfirmed' => $inputsModel->getCountByConsultationFiltered($kid,
+        array(array('field' => 'user_conf', 'operator' => '=', 'value' => 'u'))),
+      'nrInputsBlocked' => $inputsModel->getCountByConsultationFiltered($kid,
+        array(array('field' => 'block', 'operator' => '=', 'value' => 'y'))),
+      'nrInputsVoting' => $inputsModel->getCountByConsultationFiltered($kid,
+        array(array('field' => 'vot', 'operator' => '=', 'value' => 'y'))),
+      'questions' => $questions
+    ));
   }
 }
 ?>

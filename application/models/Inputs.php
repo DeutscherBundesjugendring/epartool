@@ -209,16 +209,47 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * Returns number of inputs for a consultation
    *
    * @param integer $kid
+   * @param boolean $excludeInvisible [optional], Default: true
    * @return integer
    */
-  public function getCountByConsultation($kid) {
-    $row = $this->fetchAll(
-            $this->select()
-              ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
-              ->where('kid = ?', $kid)
-              ->where('block<>?', 'y')
-              ->where('user_conf=?', 'c')
-            )->current();
+  public function getCountByConsultation($kid, $excludeInvisible = true) {
+    $select = $this->select()
+      ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+      ->where('kid = ?', $kid)
+      ->where('uid <> ?', 1);
+      
+    if ($excludeInvisible) {
+      $select->where('block<>?', 'y')
+        ->where('user_conf=?', 'c');
+    }
+    
+    $row = $this->fetchAll($select)->current();
+    return $row->count;
+  }
+  
+  /**
+   * Returns number of inputs for a consultation, filtered by given conditions
+   *
+   * @param integer $kid
+   * @param array $filter [optional] array(array('field' => $field, 'operator' => $operator, 'value' => $value)[, ...])
+   * @return integer
+   */
+  public function getCountByConsultationFiltered($kid, $filter = array()) {
+    $select = $this->select()
+      ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+      ->where('kid = ?', $kid)
+      ->where('uid <> ?', 1);
+      
+    foreach ($filter as $condition) {
+      if (is_array($condition)) {
+        $select->where(
+          $this->getDefaultAdapter()->quoteIdentifier($condition['field']) . ' '
+          . $condition['operator'] . ' ?',
+          $condition['value']);
+      }
+    }
+      
+    $row = $this->fetchAll($select)->current();
     return $row->count;
   }
   
@@ -226,9 +257,11 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
    * Returns number of inputs for a question
    *
    * @param integer $qid
+   * @param integer $tag [optional]
+   * @param boolean $excludeInvisible [optional], Default: true
    * @return integer
    */
-  public function getCountByQuestion($qid, $tag = null) {
+  public function getCountByQuestion($qid, $tag = null, $excludeInvisible = true) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($qid)) {
       throw new Zend_Validate_Exception('Given parameter qid must be integer!');
@@ -238,11 +271,13 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     $select = $db->select();
     $select->from(array('i' => $this->_name),
       array(new Zend_Db_Expr('COUNT(*) as count')))
-      ->where('i.qi = ?', $qid)
+      ->where('i.qi = ?', $qid);
+    if ($excludeInvisible) {
       // nur nicht geblockte:
-      ->where('i.block<>?', 'y')
-      // nur bestätigte:
-      ->where('i.user_conf=?', 'c');
+      $select->where('i.block<>?', 'y')
+        // nur bestätigte:
+        ->where('i.user_conf=?', 'c');
+    }
     
     if ($intVal->isValid($tag)) {
       $select->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array());
@@ -253,6 +288,39 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     $row = $stmt->fetch();
     
     return $row['count'];
+  }
+  
+  /**
+   * Returns number of inputs for a question, filtered by given conditions
+   *
+   * @param integer $qid
+   * @param array $filter [optional] array(array('field' => $field, 'operator' => $operator, 'value' => $value)[, ...])
+   * @return integer
+   */
+  public function getCountByQuestionFiltered($qid, $filter = array()) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($qid)) {
+      throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+    }
+    
+    $select = $this->select()
+      ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+      ->where('qi = ?', $qid)
+      ->where('uid <> ?', 1);
+    
+    if (!empty($filter)) {
+      foreach ($filter as $condition) {
+        if (is_array($condition)) {
+          $select->where(
+            $this->getDefaultAdapter()->quoteIdentifier($condition['field']) . ' '
+            . $condition['operator'] . ' ?',
+            $condition['value']);
+        }
+      }
+    }
+      
+    $row = $this->fetchAll($select)->current();
+    return $row->count;
   }
   
   /**
@@ -607,5 +675,19 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       
     }
     return $result;
+  }
+  
+  public function getCountParticipantsByConsultation($kid) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+    }
+    return $this->fetchAll(
+        $this->select()
+          ->distinct()
+          ->from($this, array('uid'))
+          ->where('kid = ?', $kid)
+          ->where('uid > ?', 1)
+      )->count();
   }
 }

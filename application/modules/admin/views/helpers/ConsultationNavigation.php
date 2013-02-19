@@ -34,6 +34,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'label' => 'Beiträge',
           'href' => '/admin/input/index/kid/' . $kid
         ),
+        array(
+          'label' => 'Statistik',
+          'href' => '/admin/consultation/report/kid/' . $kid
+        ),
       );
       $html.= '<div class="hlist"><ul>';
       foreach ($items as $item) {
