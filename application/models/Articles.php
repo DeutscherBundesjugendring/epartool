@@ -95,6 +95,11 @@ class Model_Articles extends Zend_Db_Table_Abstract {
     if ($this->find($id)->count() < 1) {
       return 0;
     }
+    
+    $children = $this->getChildren($id);
+    if (!empty($children)) {
+      return 0;
+    }
 
     // where
     $where = $this->getDefaultAdapter()
@@ -115,11 +120,11 @@ class Model_Articles extends Zend_Db_Table_Abstract {
   }
   
   /**
-   * Get all Articles of a consultation
+   * Get all Articles incl. subpages of a consultation
    *
    * @param integer $kid Id of consultation
    * @param string $orderBy [optional] Fieldname
-   * @return Zend_Db_Table_Rowset or false
+   * @return array
    */
   public function getByConsultation($kid = null, $orderBy = 'art_id') {
     $validator = new Zend_Validate_Int();
@@ -128,7 +133,29 @@ class Model_Articles extends Zend_Db_Table_Abstract {
       return false;
     }
     $select = $this->select()->where('kid = ?', $kid)->order($orderBy);
-    return $this->fetchAll($select);
+    $articles = $this->fetchAll($select)->toArray();
+    
+    // check for subpages
+    $subpages = array();
+    foreach ($articles as $key => $value) {
+      $articles[$key]['subpages'] = array();
+      if (!empty($value['parent_id'])) {
+        // collect subpages in separate array
+        $subpages[$value['parent_id']][$value['art_id']] = $value;
+        // remove subpage entries from first level
+        unset($articles[$key]);
+      }
+    }
+    // assign subpages to their parents
+    if (!empty($subpages)) {
+      foreach ($articles as $key => $value) {
+        if (array_key_exists($value['art_id'], $subpages)) {
+          $articles[$key]['subpages'] = $subpages[$value['art_id']];
+        }
+      }
+    }
+    
+    return $articles;
   }
   
   /**
@@ -168,6 +195,25 @@ class Model_Articles extends Zend_Db_Table_Abstract {
       
     }
     return $result;
+  }
+  
+  public function getFirstLevelEntries($kid) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($kid)) {
+      throw new Zend_Exception('Given parameter kid must be integer!');
+    }
+    $select = $this->select();
+    $select->where('kid = ?', $kid)
+      ->where('parent_id IS NULL OR parent_id = 0');
+    
+    return $this->fetchAll($select);
+  }
+  
+  public function getChildren($id) {
+    $select = $this->select();
+    $select->where('parent_id = ?', $id);
+    
+    return $this->fetchAll($select);
   }
 }
 

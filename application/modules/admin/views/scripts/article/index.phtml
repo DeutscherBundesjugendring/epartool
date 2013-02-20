@@ -37,6 +37,26 @@ echo $this->consultationNavigation('Artikel');
   'aid' => $article['art_id']
     ));?>" title="Artikel löschen">Löschen</a>
   </tr>
+  <?php if (!empty($article['subpages'])): ?>
+    <tr><td colspan="3"><small>Unterseiten:</small></td></tr>
+    <?php foreach ($article['subpages'] as $subpage): ?>
+    <tr class="subpage">
+      <td><?php echo $subpage['desc']; ?></td>
+      <td><?php echo substr(strip_tags($subpage['artcl']), 0, 200); ?></td>
+      <td><a href="<?php echo $this->url(array(
+    'action' => 'edit',
+    'kid' => $this->consultation['kid'],
+    'aid' => $subpage['art_id']
+      ));?>">Bearbeiten</a>
+      &nbsp;
+      <a href="<?php echo $this->url(array(
+    'action' => 'delete',
+    'kid' => $this->consultation['kid'],
+    'aid' => $subpage['art_id']
+      ));?>" title="Artikel löschen">Löschen</a>
+    </tr>
+    <?php endforeach; ?>
+  <?php endif; ?>
 <?php endforeach;?>
 </table>
 <p><a href="<?php echo $this->url(array(

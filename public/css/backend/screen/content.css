@@ -336,6 +336,12 @@
   tbody tr:hover td {
     background: #fff8f8;
   }
+  tbody tr.subpage {
+    background: #f0f0f0;
+  }
+  tbody tr.subpage td:first-child {
+    padding-left: 20px;
+  }
 
   /**
   * ------------------------------------------------------------------------------------------------- #

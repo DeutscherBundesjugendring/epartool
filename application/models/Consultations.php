@@ -29,13 +29,14 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
     // find current consultation
     $row = $this->find($id)->current();
     if (!empty($row)) {
-      // find Articles
-      $subrow1 = $row->findModel_Articles()->toArray();
       // find Questions
       $subrow2 = $row->findModel_Questions()->toArray();
   
       $result = $row->toArray();
-      $result['articles'] = $subrow1;
+      
+      $articleModel = new Model_Articles();
+      $result['articles'] = $articleModel->getByConsultation($id);
+      
       $result['questions'] = $subrow2;
     }
 
@@ -105,11 +106,9 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
   }
 
   /**
-   * getLast
-   * @desc returns the last consultations by sort
+   * returns the last consultations
    * @param integer $limit count of consultations
    * @return Zend_Db_Table_Rowset_Abstract
-   * @todo check if all conditions which needed (e.g. expire dates => show expired consultations?) are implemented
    */
   public function getLast($limit = 3) {
     // is int?

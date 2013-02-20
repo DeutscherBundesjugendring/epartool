@@ -60,6 +60,19 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $consultation = $consultationModel->getById($kid);
     $form = new Admin_Form_Article();
     $form->setAction('/admin/article/create/kid/' . $kid);
+    if ($kid > 0) {
+      // remove options for static pages
+      $form->getElement('ref_nm')->setMultioptions(array(0 => 'Bitte auswählen...'));
+    }
+    $articleModel = new Model_Articles();
+    $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
+    $parentOptions = array(
+      0 => 'Keine'
+    );
+    foreach ($firstLevelPages as $page) {
+      $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
+    }
+    $form->getElement('parent_id')->setMultiOptions($parentOptions);
     if ($this->getRequest()->isPost()) {
       if ($form->isValid($this->getRequest()->getPost())) {
         $articleModel = new Model_Articles();
@@ -99,6 +112,20 @@ class Admin_ArticleController extends Zend_Controller_Action {
       $articleModel = new Model_Articles();
       $articleRow = $articleModel->find($aid)->current();
       $form = new Admin_Form_Article();
+      if ($kid > 0) {
+        // remove options for static pages
+        $form->getElement('ref_nm')->setMultioptions(array(0 => 'Bitte auswählen...'));
+      }
+      $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
+      $parentOptions = array(
+        0 => 'Keine'
+      );
+      foreach ($firstLevelPages as $page) {
+        if ($page['art_id'] != $aid) {
+          $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
+        }
+      }
+      $form->getElement('parent_id')->setMultiOptions($parentOptions);
       if ($this->getRequest()->isPost()) {
         // Formular wurde abgeschickt und muss verarbeitet werden
         $params = $this->getRequest()->getPost();
@@ -134,6 +161,8 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $nrDeleted = $articleModel->deleteById($aid);
         if ($nrDeleted > 0) {
           $this->_flashMessenger->addMessage('Der Artikel wurde gelöscht.', 'success');
+        } else {
+          $this->_flashMessenger->addMessage('Artikel konnte nicht gelöscht werden. Eventuell existieren Unterseiten. Dann bitte zuerst diese löschen!', 'error');
         }
       }
     }

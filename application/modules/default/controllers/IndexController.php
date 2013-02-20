@@ -33,13 +33,7 @@ class IndexController extends Zend_Controller_Action {
         ->assign(
             array(
               'consultations' => $conList,
-//              'loginForm' => $form
             ));
-
-//    $data = $con->getVotingResults(12);
-//    $this->view->assign(array(
-//          'data' => $data
-//        ));
   }
 
   /**

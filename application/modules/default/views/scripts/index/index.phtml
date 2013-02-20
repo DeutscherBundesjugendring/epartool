@@ -17,50 +17,65 @@ $disabled = array(
   'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
   'follow-up' => (!$nowDate->isLater($con->vot_to)),
 );
+$bubbles = array();
+if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
+  $bubbles['input'] = '<div class="bubble">'
+    . '<h3>Jetzt mitmachen!</h3>'
+    . '<span>vom ' . $date->set($con->inp_fr)->get(Zend_Date::DATETIME_MEDIUM) . '<br />'
+    . 'bis ' . $date->set($con->inp_to)->get(Zend_Date::DATETIME_MEDIUM) . '</span>'
+    . '</div>';
+}
+if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
+  $bubbles['voting'] = '<div class="bubble">'
+    . '<h3>Jetzt abstimmen!</h3>'
+    . '<span>vom ' . $date->set($con->vot_fr)->get(Zend_Date::DATETIME_MEDIUM) . '<br />'
+    . 'bis ' . $date->set($con->vot_to)->get(Zend_Date::DATETIME_MEDIUM) . '</span>'
+    . '</div>';
+}
 ?>
 <div class="consultation consultation-preview">
 	<hgroup>
-		<h1><?php echo $con->titl?></h1>
-		<h2><?php echo $con->titl_sub?></h2>
+		<h1><?php echo $con->titl; ?></h1>
+		<h2><?php echo $con->titl_sub; ?></h2>
 	</hgroup>
 
 	<span class="label label-mitmachen">Mitmachen</span>
 
 	<ul class="nav nav-pills">
 		<li>
-			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid))?>" class="title">
-				<img src="/media/consultations/<?php echo $con->kid . '/' . $con->img_file;?>" width="144" alt="<?php echo $con->img_expl?>" />
-				<span class="description"><?php echo $con->expl?></span>
+			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>" class="title">
+				<img src="/media/consultations/<?php echo $con->kid . '/' . $con->img_file;?>" width="144" alt="<?php echo $con->img_expl; ?>" />
+				<span class="description"><?php echo $con->expl; ?></span>
 			</a>
 		</li>
 		<li>
-			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid))?>">
+			<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
 				<h2>Infos</h2>
 			</a>
 		</li>
 		<li>
-			<a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid))?>">
+			<a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid)); ?>">
 				<h2>Fragen</h2>
 			</a>
 		</li>
 		<li<?php echo $disabled['input'] ? ' class="disabled"' : '';?>>
-			<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid))?>">
+			<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>">
 				<h2>Beiträge</h2>
-				<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?><br />
-				bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?></small>
-				<!-- Bubble -->
-				<div class="bubble">
-					<h3>Headline zweizeilig!</h3>
-					<span>Unterzeile optional ebenfalls zweizeilig</span>
-				</div>
-
+				<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATETIME_MEDIUM); ?><br />
+				bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATETIME_MEDIUM); ?></small>
+				<?php if (isset($bubbles['input'])): ?>
+				<?php echo $bubbles['input']; ?>
+				<?php endif; ?>
 			</a>
 		</li>
 		<li<?php echo $disabled['voting'] ? ' class="disabled"' : '';?>>
-			<a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid))?>">
+			<a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid)); ?>">
 				<h2>Abstimmung</h2>
-				<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?><br />
-				bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATETIME_MEDIUM, new Zend_Locale())?></small>
+				<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATETIME_MEDIUM); ?><br />
+				bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATETIME_MEDIUM); ?></small>
+				<?php if (isset($bubbles['voting'])): ?>
+				<?php echo $bubbles['voting']; ?>
+				<?php endif; ?>
 			</a>
 		</li>
 		<li<?php echo $disabled['follow-up'] ? ' class="disabled"' : '';?>>
