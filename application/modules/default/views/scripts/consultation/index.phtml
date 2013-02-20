@@ -47,7 +47,7 @@ if ($consultation['vot_show']=='y'
   && (strtotime(date('d.m.Y H:i'))<strtotime($consultation['vot_to']))) {
   echo '<p style="text-align: center;"><a href="' . $this->baseUrl()
     . '/voting/index/kid/' . $consultation['kid'] . '" title="Abstimmen möglich vom '
-    .$consultation['vote_fr'].' bis '.$consultation['vote_to'].'" class="cnslt">&raquo; Abstimmen</a></p>';
+    .$consultation['vot_fr'].' bis '.$consultation['vot_to'].'" class="cnslt">&raquo; Abstimmen</a></p>';
 }
 
 echo '<p style="text-align: right;">';
