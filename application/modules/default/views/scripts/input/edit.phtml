@@ -1,0 +1,16 @@
+<?php
+/**
+ * edit user inputs
+ */
+?>
+<h2>Beitrag bearbeiten</h2>
+<?php if (isset($this->form)): ?>
+<?php echo $this->form; ?>
+<?php endif; ?>
+<?php if (isset($this->message)): ?>
+<p><?php echo $this->message; ?></p>
+<?php endif; ?>
+<p><a href="<?php echo $this->url(array(
+  'controller' => 'user',
+  'action' => 'inputlist'
+)); ?>">&laquo; Zurück</a></p>

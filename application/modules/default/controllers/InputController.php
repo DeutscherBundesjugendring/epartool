@@ -264,4 +264,65 @@ class InputController extends Zend_Controller_Action {
       $supports->clicks[] = $data['tid'];
     }
   }
+  
+  /**
+   * Edit user inputs
+   *
+   */
+  public function editAction() {
+    $kid = $this->_request->getParam('kid', 0);
+    $tid = $this->_request->getParam('tid', 0);
+    $validator = new Zend_Validate_Int();
+    
+    // parameter validation
+    $error = false;
+    if (!$validator->isValid($kid)) {
+      $error = true;
+    }
+    if (!$validator->isValid($tid)) {
+      $error = true;
+    }
+    $inputsModel = new Model_Inputs();
+    $input = $inputsModel->getById($tid);
+    if (empty($input) || $input['kid'] != $kid) {
+      $error = true;
+    }
+    if ($error) {
+      $this->_flashMessenger->addMessage('Seite nicht gefunden!', 'error');
+      $this->redirect('/');
+    }
+    if (Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
+      // allow editing only BEFORE inputs period is over
+      $form = new Default_Form_Input_Edit();
+      if ($this->_request->isPost()) {
+        // form submitted
+        $data = $this->_request->getPost();
+        if ($form->isValid($data)) {
+          $key = $inputsModel->updateById($tid, $data);
+          if ($key > 0) {
+            $this->_flashMessenger->addMessage('Beitrag aktualisiert.', 'success');
+          } else {
+            $this->_flashMessenger->addMessage('Etwas lief schief: Beitrag konnte nicht aktualisiert werden.', 'error');
+          }
+          $this->redirect($this->view->url(array(
+            'controller' => 'user',
+            'action' => 'inputlist',
+            'kid' => $kid
+          )));
+        } else {
+          $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
+          $form->populate($data);
+        }
+      } else {
+        // form not submitted, show original data
+        $form->getElement('thes')->setValue($input['thes']);
+        $form->getElement('expl')->setValue($input['expl']);
+      }
+      $this->view->form = $form;
+    } else {
+      // inputs period is already over
+      $this->view->message = 'Die Beitragszeit für diese Konsultation ist leider vorbei.'
+        . ' Beiträge können nur innerhalb der Beitragszeit geändert werden.';
+    }
+  }
 }

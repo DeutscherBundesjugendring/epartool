@@ -101,7 +101,7 @@ $(document).ready(function() {
     event.preventDefault();
     var tid = $(this).attr('rel');
     if ($(this).hasClass('disabled')) {
-      //alert('Entweder hast du diesen Beitrag schon unterstützt oder unterstützen ist derzeit nicht möglich.');
+      alert('Entweder hast du diesen Beitrag schon unterstützt oder unterstützen ist derzeit nicht möglich, weil z.B. der Unterstützungszeitraum bereits vorbei ist.');
     } else {
       $.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo
         $this->consultation->kid; ?>/format/json", { "tid": tid })

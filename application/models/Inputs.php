@@ -677,6 +677,13 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
     return $result;
   }
   
+  /**
+   * Returns number of users who added at least one input to given consultation
+   *
+   * @param integer $kid
+   * @throws Zend_Validate_Exception
+   * @return integer
+   */
   public function getCountParticipantsByConsultation($kid) {
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($kid)) {
