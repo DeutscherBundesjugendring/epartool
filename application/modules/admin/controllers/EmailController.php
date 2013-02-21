@@ -51,7 +51,7 @@ class Admin_EmailController extends Zend_Controller_Action {
             $cc = $this->getRequest()->getParam('mailcc');
             $bcc = $this->getRequest()->getParam('mailbcc');
 
-            $mailsended = $emailModel->send($message, $receiver, $subject, '', '', $cc, $bcc);
+            $mailsended = $emailModel->send($receiver, $subject, $message, null, null, null, null, $cc, $bcc);
             
             Zend_Debug::dump($mailsended);
             if ($mailsended) {

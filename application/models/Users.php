@@ -45,8 +45,6 @@ class Model_Users extends Zend_Db_Table_Abstract {
    * @name add
    * @param array $data
    * @return integer primary key of inserted entry
-   *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function add($data) {
     $row = $this->createRow($data);
@@ -61,8 +59,6 @@ class Model_Users extends Zend_Db_Table_Abstract {
    * @param integer $id
    * @param array $data
    * @return integer
-   *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function updateById($id, $data) {
     // is int?
@@ -124,20 +120,6 @@ class Model_Users extends Zend_Db_Table_Abstract {
     else {
       return true;
     }
-  }
-
-  /**
-   * login
-   * @desc try to login
-   * @name login
-   * @param string $name
-   * @param string $password
-   * @return integer
-   *
-   * @todo implement
-   */
-  public function login($name, $password) {
-    return 0;
   }
 
   /**
@@ -209,8 +191,6 @@ class Model_Users extends Zend_Db_Table_Abstract {
    *
    * @param string $email
    * @return boolean
-   *
-   * @todo add use of email template
    */
   public function recoverPassword($email) {
     $validator = new Zend_Validate_EmailAddress();
@@ -233,7 +213,14 @@ class Model_Users extends Zend_Db_Table_Abstract {
             
           $mailModel = new Model_Emails();
           
-          return $mailModel->send($text, $toEmail, $subject);
+          // appropriate template has to be configured in database!
+          $template = 'pwdrequest';
+          $replace = array(
+            '{{USER}}' => $row->name,
+            '{{PWD}}' => $newPassword,
+          );
+          
+          return $mailModel->send($toEmail, $subject, $text, 'pwdrequest', $replace);
         }
       } else {
         $this->_flashMessenger->addMessage('Kein Nutzer zur angegebenen E-Mail-Adresse vorhanden!', 'error');
@@ -244,6 +231,7 @@ class Model_Users extends Zend_Db_Table_Abstract {
 
   /**
    * generate a password for user
+   * (function adopted from old system)
    *
    * @param integer $length
    * @return string
@@ -305,8 +293,8 @@ class Model_Users extends Zend_Db_Table_Abstract {
       
       $mailObj = new Model_Emails();
       
-      return $mailObj->send($mailBody, $userRow->email,
-        'Strukturierter Dialog: Registrierungsbestätigung');
+      return $mailObj->send($userRow->email,
+        'Strukturierter Dialog: Registrierungsbestätigung', $mailBody);
     }
     return false;
   }
@@ -317,7 +305,6 @@ class Model_Users extends Zend_Db_Table_Abstract {
    *
    * @param integer|object $identity
    * @return boolean
-   * @todo add use of email template
    */
   public function sendInputsConfirmationMail($identity) {
     $intVal = new Zend_Validate_Int();
@@ -332,17 +319,26 @@ class Model_Users extends Zend_Db_Table_Abstract {
       $inputModel = new Model_Inputs();
       $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid);
       if (!empty($unconfirmedInputs)) {
-        $mailBody = 'Zu bestätigende Beiträge:' . "\n\n";
+        // appropriate template has to be configured in database!
+        $template = 'inpt_conf';
+        $replace = array(
+          '{{USER}}' => $userRow->name
+        );
+        
+        $mailBody = 'Hallo ' . $userRow->name . "\n\n"
+          . 'Bitte bestätige folgende Beiträge:' . "\n\n";
         foreach ($unconfirmedInputs as $input) {
-          $mailBody.= '(Id: ' . $input->tid . '): ' . $input->thes . "\n"
+          $inputText = '(Id: ' . $input->tid . '): ' . $input->thes . "\n"
             . 'Bitte diesen Link klicken oder diesen URL in die Adresszeile des Browsers kopieren, um den Beitrag zu bestätigen:' . "\n"
             . Zend_Registry::get('baseUrl') . '/input/mailconfirm/kid/' . $input->kid . '/ckey/'
             . $inputModel->generateConfirmationKey($input->tid) . "\n\n";
+          $mailBody.= $inputText;
+          $replace['{{USER_INPUTS}}'].= $inputText;
         }
         
         $mailObj = new Model_Emails();
         
-        return $mailObj->send($mailBody, $identity->email, 'Strukturierter Dialog: Beitragsbestätigung');
+        return $mailObj->send($identity->email, 'Strukturierter Dialog: Beitragsbestätigung', $mailBody, $template, $replace);
       } else {
         // keine zu bestätigenden Beiträge
         return false;

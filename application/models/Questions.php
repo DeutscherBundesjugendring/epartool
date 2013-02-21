@@ -63,8 +63,6 @@ class Model_Questions extends Zend_Db_Table_Abstract {
    * @name add
    * @param array $data
    * @return integer primary key of inserted entry
-   *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function add($data) {
 
@@ -78,8 +76,6 @@ class Model_Questions extends Zend_Db_Table_Abstract {
    * @param integer $id
    * @param array $data
    * @return integer
-   *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function updateById($id, $data) {
     // is int?

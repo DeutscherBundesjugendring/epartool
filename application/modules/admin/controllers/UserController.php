@@ -91,13 +91,9 @@ class Admin_UserController extends Zend_Controller_Action {
                   $userRow->pwd = md5($userPasswort);
                   $emailModel = new Model_Emails();
                   $emailSuccess = $emailModel->send(
-                    'Ihr Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
                     $params['email'],
                     'Passwort-Aktualisierung',
-                    '',
-                    '',
-                    '',
-                    '',
+                    'Ihr Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
                     'pwdalter',
                     array(
                      '{{USER}}'=>$params['name'],

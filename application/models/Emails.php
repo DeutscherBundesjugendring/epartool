@@ -41,8 +41,6 @@ class Model_Emails extends Zend_Db_Table_Abstract {
    * @name add
    * @param array $data
    * @return integer primary key of inserted entry
-   *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function add($data) {
     $row = $this->createRow($data);
@@ -57,8 +55,6 @@ class Model_Emails extends Zend_Db_Table_Abstract {
    * @param integer $id
    * @param array $data
    * @return integer
-   *
-   * @todo add validators for table-specific data (e.g. date-validator)
    */
   public function updateById($id, $data) {
     // is int?
@@ -132,27 +128,27 @@ class Model_Emails extends Zend_Db_Table_Abstract {
   
   /**
    * send a email and put into database
-   * @param string $message
-   * @param string $receiver
+   * @param string $receiver email address
    * @param string $subject
+   * @param string $message
+   * @param string $templateReference Name of template (see DB-Table "mail_def" col "refnm")
+   * @param array $templateReplace array({{MARKER}} => <VALUE>[, ...])
    * @param string $senderEmail
    * @param string $senderName
    * @param string $cc
    * @param string $bcc
-   * @param string $templateReference Name of template (see DB-Table "mail_def" col "refnm")
-   * @param array $templateReplace
    *
    * @return boolean
    */
-  public function send($message,
-    $receiver,
+  public function send($receiver,
     $subject,
+    $message,
+    $templateReference = '',
+    $templateReplace = '',
     $senderEmail='',
     $senderName='',
     $cc='',
-    $bcc='',
-    $templateReference = '',
-    $templateReplace = ''
+    $bcc=''
   ) {
     $success = false;
     $logger = Zend_Registry::get('log');
@@ -180,7 +176,6 @@ class Model_Emails extends Zend_Db_Table_Abstract {
         $message = $template->txt;
         $subject = $template->subj;
         foreach($templateReplace AS $pattern => $replace) {
-          $logger->debug($message);
           $logger->debug($pattern . ' mit ' . $replace);
           $message = str_replace($pattern, $replace, $message);
         }
@@ -204,11 +199,11 @@ class Model_Emails extends Zend_Db_Table_Abstract {
         $message = preg_replace('~\{\{([A-Za-z0-9-_]*)\}\}~i', '', $message);
       }
       else {
-        $logger->debug('E-Mail-Template-ERROR: konnte Template ('.$templateReference.') nicht finden.');
+        $logger->err('E-Mail-Template-ERROR: konnte Template ('.$templateReference.') nicht finden.');
       }
     }
     else {
-      $logger->debug('E-Mail-Template: Kein Template angegeben oder Ersetzung im falschen Format.');
+      $logger->notice('E-Mail-Template: Kein Template angegeben oder Ersetzung im falschen Format.');
     }
 
     if (APPLICATION_ENV == 'development') {
@@ -227,11 +222,17 @@ class Model_Emails extends Zend_Db_Table_Abstract {
       $mail->setFrom($senderEmail, $senderName);
       $mail->addTo($receiver);
       $mail->setSubject($subject);
+      if (!empty($cc)) {
+        $mail->addCc($cc);
+      }
+      if (!empty($bcc)) {
+        $mail->addBcc($bcc);
+      }
       try {
         $mail->send();
       }
       catch( Zend_Mail_Transport_Exception $e ) {
-        $logger->debug('E-Mail-ERROR: E-Mail-Versand:' . $e->getMessage());
+        $logger->err('E-Mail-ERROR: E-Mail-Versand:' . $e->getMessage());
         $success = false;
       }
     }
