@@ -22,7 +22,7 @@
 		
 	</aside>
 	<section class="main-content span6">
-		<?php echo $this->consultation->expl; ?>
+		<?php echo html_entity_decode($this->consultation->expl); ?>
 		<!-- Print -->
 		<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
 	</section>

@@ -59,6 +59,11 @@ class Admin_ConsultationController extends Zend_Controller_Action {
             $form->populate($this->getRequest()->getPost());
           }
     }
+    
+    foreach ($form->getElements() as $element) {
+      $element->clearFilters();
+      $element->setValue(html_entity_decode($element->getValue()));
+    }
 
     $this->view->form = $form;
   }
@@ -85,6 +90,11 @@ class Admin_ConsultationController extends Zend_Controller_Action {
           }
     } else {
       $form->populate($this->_consultation->toArray());
+    }
+    
+    foreach ($form->getElements() as $element) {
+      $element->clearFilters();
+      $element->setValue(html_entity_decode($element->getValue()));
     }
     
     $this->view->form = $form;

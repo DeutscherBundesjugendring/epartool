@@ -94,6 +94,12 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $form->populate($form->getValues());
       }
     }
+    
+    foreach ($form->getElements() as $element) {
+      $element->clearFilters();
+      $element->setValue(html_entity_decode($element->getValue()));
+    }
+    
     $this->view->assign(array(
       'kid' => $kid,
       'consultation' => $consultation,
@@ -142,6 +148,11 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $article = $articleModel->getById($aid);
       }
       $form->populate($article);
+    }
+    
+    foreach ($form->getElements() as $element) {
+      $element->clearFilters();
+      $element->setValue(html_entity_decode($element->getValue()));
     }
     
     $this->view->assign(array(

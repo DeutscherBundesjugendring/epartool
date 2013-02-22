@@ -23,12 +23,12 @@
 		
 	</aside>
 	<section class="main-content span6">
-<?php echo $this->article['artcl']?>
+<?php echo html_entity_decode($this->article['artcl']);?>
 		<!-- Print -->
 		<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
 	</section>
 	<aside class="span3">
-<?php echo $this->article['sidebar']?>
+<?php echo html_entity_decode($this->article['sidebar']);?>
 	</aside>
 </div><!-- .row -->
 
