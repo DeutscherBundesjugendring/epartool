@@ -1,0 +1,31 @@
+//
+// Wells
+// --------------------------------------------------
+
+
+// Well
+.well {
+	.box-sizing(border-box);
+	margin-bottom: 2 * @u;
+	padding: (2 * @u) (2 * @u) @u;
+	border-style: none;
+	.border-radius(@wellBorderRadius);
+	background-color: @wellBackground;
+	color: @wellText;
+
+	// Headings
+	h2,
+	h3 {
+		color: @orangeLight;
+	}
+
+	// Links
+	a {
+		color: @wellLinkText;
+
+		// Hover state
+		&:hover {
+			color: @wellLinkTextHover;
+		}
+	}
+}

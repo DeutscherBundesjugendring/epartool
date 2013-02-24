@@ -5,14 +5,14 @@
  *
  */
 class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
-  
+
   public function teaser() {
     $date = new Zend_Date();
     $html = '<ul class="nav nav-list teaser">';
-    
+
     $consultationModel = new Model_Consultations();
     $items = $consultationModel->getTeaserEntries();
-    
+
     foreach ($items as $item) {
       $html.= '<li>';
       switch ($item['relevantField']) {
@@ -63,21 +63,21 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
       $html.= '<a href="' . $url . '">'
         . '<h2>' . $item['titl'] . ':</h2> '
         . $text
-        . '<i class="icon-chevron-right"></i>'
+        . '<i class="icon-chevron-right icon-white"></i>'
         . '</a>'
         . '</li>';
     }
-    
+
     // Link to consultation overview
     $html.= '<li><a href="' . $this->view->url(array(
         'controller' => 'consultation'
       ), null, true) . '">'
       . '<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Überischt ansehen …</strong>'
-      . '<i class="icon-chevron-right"></i>'
+      . '<i class="icon-chevron-right icon-white"></i>'
       . '</a></li>';
-      
+
     $html.= '</ul>';
-    
+
     return $html;
   }
 }

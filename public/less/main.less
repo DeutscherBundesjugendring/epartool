@@ -2,7 +2,7 @@
  * Strukturierter Dialog
  * www.strukturierter-dialog.de
  *
- * HTML & LESS/CSS © 2012 Adam Kudrna
+ * HTML & LESS/CSS © 2013 Adam Kudrna
  *
  */
 
@@ -57,7 +57,7 @@
 // Screen styles
 // -------------------------
 
-// Bootstrap mix-ins for later use
+// Bootstrap variables and mix-ins for later use
 @import '../plugins/bootstrap/less/variables.less'; // required in mixins since v2.2.1 (w)
 @import '../plugins/bootstrap/less/mixins.less';
 
@@ -71,21 +71,22 @@
 	// Base styles
 	@import 'typography.less';
 	//@import 'tables.less';
-	//@import 'buttons.less';
-	//@import 'forms.less';
+	@import 'buttons.less';
+	@import 'forms.less';
 
 	// Layout and page structure
 	@import 'layout.less';
 
 	// Components: common
 	//@import 'sprites.less';
-	//@import 'navbar.less';
+	@import 'navs.less';
+	@import 'navbar.less';
 	//@import 'wells.less';
 
 	// Components
-	//@import 'sticky.less';
-	//@import 'modals.less';
+	@import 'bubbles.less';
 	@import 'consultation.less';
+	//@import 'modals.less';
 
 	// Responsive
 	//@import 'responsive.less';

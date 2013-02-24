@@ -1,0 +1,80 @@
+//
+// Buttons
+// --------------------------------------------------
+
+
+// Base styles
+// --------------------------------------------------
+
+// Base button
+.btn {
+	.reset-filter();
+	min-width: 30px;
+	min-height: 30px;
+	padding: .25em .5em; // base height 30px
+	font: normal 1.538em/100% @subheadingFontFamily; // 20px; force the font family on <button>
+	text-transform: uppercase;
+	text-decoration: none;
+	text-shadow: none;
+	color: @btnText;
+	border-style: none;
+	.border-radius(@btnBorderRadius);
+	background: @btnBackground none;
+
+	// Icons
+	i {
+		margin-right: .4em;
+		vertical-align: baseline;
+	}
+
+	// Hover state
+	&:hover {
+		color: @btnTextHover;
+		background: @btnBackgroundHover none;
+	}
+
+	// Active state
+	&:active,
+	&.active {
+		padding-top: .35em;
+		padding-bottom: .15em;
+		color: @btnText;
+		background: @btnBackgroundHover none;
+		.box-shadow(inset 0 .2em 0 fade(@black, 20%));
+	}
+
+	// Multiple buttons in row
+	& + .btn {
+		margin-left: @u;
+	}
+}
+
+// Button in paragraph
+p .btn {
+	margin-top: .5em;
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+
+// Primary button
+.btn-primary {
+	background-color: @btnPrimaryBackground;
+	text-shadow: 0 -1px 0 @black;
+
+	// Hover state
+	&:hover {
+		background-color: @btnPrimaryBackgroundHover;
+	}
+
+	// Active state
+	&:active,
+	&.active {
+		padding-top: .35em;
+		padding-bottom: .15em;
+		color: @btnText;
+		background: @btnPrimaryBackgroundHover none;
+		.box-shadow(inset 0 .2em 0 fade(@black, 20%));
+	}
+}

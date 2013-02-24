@@ -13,9 +13,9 @@ $config = Zend_Registry::get('config');
 		<meta name="description" content="TODO" />
 		<meta name="author" content="Content © 2013 DBJR" />
 		<meta name="robots" content="index, follow" />
-		<link rel="author" type="text/plain" href="humans.txt" />
-		<link rel="shortcut icon" href="images/favicon.png" />
-		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="author" type="text/plain" href="<?php echo $this->baseUrl(); ?>/humans.txt" />
+		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/images/favicon.png" />
+		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/favicon.ico" />
 
 		<!-- Styles -->
 		<link href="<?=$config->path->css->fonts?>" rel="stylesheet" type="text/css" />
@@ -48,7 +48,7 @@ $config = Zend_Registry::get('config');
 	<!-- Body copy -->
 	<div role="main" class="list body-copy">
 		<div class="container">
-		
+
 		<!-- Flash messages -->
 		<?php if(!empty($this->layout()->messages)): ?>
 		<?php foreach ($this->layout()->messages as $level => $messages):?>
@@ -92,21 +92,21 @@ $config = Zend_Registry::get('config');
 <!-- Footer -->
 <?php echo $this->render('_footer.phtml')?>
 
-<!-- Debug-Info -->
-<pre>
 <?php
+//echo '<!-- Debug-Info -->';
+//echo '<pre>';
 //$request = Zend_Controller_Front::getInstance()->getRequest();
 //echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
 //echo ('Application environment: ' . APPLICATION_ENV . '<br />');
 //echo ('Module: ' . $request->getModuleName() . '<br />');
 //echo ('Controller: ' . $request->getControllerName() . '<br />');
 //echo ('Action: ' . $request->getActionName() . '<br />');
+//echo '</pre>';
 ?>
-</pre>
 
 <!-- Scripts -->
-
 <script src="<?php echo $config->path->js->bootstrap?>"></script>
 <script src="<?php echo $config->path->js->main?>"></script>
-</body>
+
+	</body>
 </html>

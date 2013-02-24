@@ -12,7 +12,7 @@ if (isset($this->consultation)):
 
 <!-- Main title -->
 <div class="main-title">
-	<h1><a href="/" rel="home" itemprop="name">Mitwirkung</a></h1>
+	<h1><a href="<?php echo $this->url(array('controller' => 'index'), null, true)?>" rel="home" itemprop="name">Mitwirkung</a></h1>
 </div><!-- .title -->
 
 <!-- Hero unit -->
@@ -25,11 +25,11 @@ if (isset($this->consultation)):
 
 	<span class="label label-mitmachen">Mitmachen</span>
 
-	<img src="/media/consultations/<?php echo $this->consultation->kid . '/'
+	<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $this->consultation->kid . '/'
 	  . $this->consultation->img_file;?>" width="144" class="title-image"
 	  alt="<?php echo $this->consultation->img_expl;?>" />
 
-	<a href="/" rel="home">Zur Startseite … <i class="icon-chevron-right"></i></a>
+	<a href="<?php echo $this->url(array('controller' => 'index'), null, true)?>" rel="home">Zur Startseite … <i class="icon-chevron-right"></i></a>
 
 	<a href="#" class="share btn"><i class="icon-share"></i> Share</a>
 
@@ -56,7 +56,7 @@ if (isset($this->consultation)):
 <!-- .hero-unit -->
 
 <!-- Introduction -->
-<div class="introduction lead">
+<!--div class="introduction lead">
 	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 		Aenean commodo ligula eget dolor. Aenean massa.</p>
 </div><!-- .introduction -->
