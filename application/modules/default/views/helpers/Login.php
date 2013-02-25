@@ -10,7 +10,7 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract {
     if ($auth->hasIdentity()) {
       // user is logged in, show logout button
       $html = '<a href="'
-        . $this->view->url(array('controller' => 'user', 'action' => 'logout'), null, true)
+        . $this->view->url(array('controller' => 'user', 'action' => 'logout'), 'default', true)
         . '" class="btn btn-block" role="button" data-toggle="modal">Logout</a>';
     } else {
       // not logged in, show login button and form
@@ -25,7 +25,7 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract {
         . '<div class="modal-body">'
         . $form
         . '<p><a href="'
-        . $this->view->url(array('controller' => 'user', 'action' => 'passwordrecover'), null, true)
+        . $this->view->url(array('controller' => 'user', 'action' => 'passwordrecover'), 'default', true)
         . '">Passwort vergessen?</a></p>'
         . '</div><!-- .modal-body -->'
         . '</div><!-- #login -->';
