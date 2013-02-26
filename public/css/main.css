@@ -542,12 +542,17 @@
     position: relative;
   }
   .document-wrap > .body-copy .main-content {
+    color: #444444;
     background-color: #ffffff;
   }
   .document-wrap > .body-copy .print {
     position: absolute;
     right: 0;
     top: 0;
+  }
+  .document-wrap > .body-copy aside {
+    color: #444444;
+    background-color: #ffffff;
   }
   .document-wrap > .body-copy section + aside {
     padding-top: 3em;
