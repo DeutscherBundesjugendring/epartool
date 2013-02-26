@@ -1,0 +1,21 @@
+<?php
+/**
+ * Edit Voting Rights
+ */
+?>
+<h1><?php echo $this->consultation['titl']; ?></h1>
+<?php
+echo $this->consultationNavigation('Votingberechtigungen');
+?>
+<h2>Voting-Berechtigungen für <?php echo $this->user['email']; ?> bearbeiten</h2>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'index',
+  'uid' => null,
+)); ?>">&laquo; Zurück</a></p>
+
+<?php echo $this->form; ?>
+
+<p><a href="<?php echo $this->url(array(
+  'action' => 'index',
+  'uid' => null,
+)); ?>">&laquo; Zurück</a></p>
