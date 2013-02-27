@@ -8,7 +8,7 @@ echo $this->consultationNavigation('Beiträge');
 
 <p>
 <?php foreach ($this->consultation['questions'] as $question): ?>
-  <a href="/admin/input/index/kid/<?php echo $this->consultation['kid'];
+  <a href="<?php echo $this->baseUrl(); ?>/admin/input/index/kid/<?php echo $this->consultation['kid'];
   ?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
   ?> class="active"<?php endif;?>>
     <?php echo $question['q'];?>
@@ -25,7 +25,7 @@ echo $this->consultationNavigation('Beiträge');
 <p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen &raquo;</a></p>
 <?php endif;?>
 
-<form name="inp_edit" id="inp_edit" action="/admin/input/editbulk" method="POST">
+<form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl(); ?>/admin/input/editbulk" method="POST">
 <input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
 <table>
 
@@ -65,9 +65,9 @@ echo $this->consultationNavigation('Beiträge');
     </div>
   </td>
   <td>
-  	<a href="/admin/input/list/kid/<?php echo $this->consultation['kid'];
+  	<a href="<?php echo $this->baseUrl(); ?>/admin/input/list/kid/<?php echo $this->consultation['kid'];
   	?>/uid/<?php echo $input['uid'];?>" title="Anklicken, um alle Beiträge dieses Users zu sehen">
-  		<img src="/images/user.gif">
+  		<img src="<?php echo $this->baseUrl(); ?>/images/user.gif">
   	</a><br />
 <?php
 	if ($input["user_conf"]=='u') {

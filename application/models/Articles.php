@@ -92,8 +92,8 @@ class Model_Articles extends Zend_Db_Table_Abstract {
       return 0;
     }
     
-    $children = $this->getChildren($id);
-    if (!empty($children)) {
+    $children = $this->getChildren($id)->count();
+    if ($children > 0) {
       return 0;
     }
 

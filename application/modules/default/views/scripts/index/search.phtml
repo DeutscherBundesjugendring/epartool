@@ -18,7 +18,7 @@ if(count($this->resultsGeneral)>0) {
   );
   echo('<ul>');
   foreach($this->resultsGeneral AS $article) {
-    $url = (in_array($article['ref_nm'], $staticArticles)) ? '/'.$article['ref_nm'] : '/article/show/aid/'.$article['art_id'] ;
+    $url = (in_array($article['ref_nm'], $staticArticles)) ? $this->baseUrl() . '/'.$article['ref_nm'] : $this->baseUrl() . '/article/show/aid/'.$article['art_id'] ;
     echo('<li><a href="'.$url.'" title="'.$article['desc'].'">'.$article['desc'].'</a></li>');
   }
   echo('</ul>');
@@ -39,7 +39,7 @@ if(count($this->resultsConsultations)>0) {
       if(count($consultation['articles'])>0) {
         echo('<h3>Informationsseiten</h3><ul>');
         foreach($consultation['articles'] AS $article) {
-          echo('<li><a href="/article/show/aid/'.$article['art_id'].'" title="'.$article['desc'].'">'.$article['desc'].'</a></li>');
+          echo('<li><a href="' . $this->baseUrl() . '/article/show/aid/'.$article['art_id'].'" title="'.$article['desc'].'">'.$article['desc'].'</a></li>');
         }
         echo('</ul>');
       }
@@ -47,7 +47,7 @@ if(count($this->resultsConsultations)>0) {
       if(count($consultation['questions'])>0) {
         echo('<h3>Konsultationsfragen</h3><ul>');
         foreach($consultation['questions'] AS $question) {
-          $url = '/question/show/kid/'.$consultation['cid'].'/qid/'.$question['qi'];
+          $url = $this->baseUrl() . '/question/show/kid/'.$consultation['cid'].'/qid/'.$question['qi'];
           $explenation = substr($question['q_xpl'], 0, 100). '...';
           echo('<li><a href="'.$url.'" title="'.$question['q'].'">'.$question['q'].'</a><br />'.$explenation.'</li>');
         }
@@ -57,7 +57,7 @@ if(count($this->resultsConsultations)>0) {
       if(count($consultation['inputs'])>0) {
         echo('<h3>Benutzer-Beitr&auml;ge</h3><ul>');
         foreach($consultation['inputs'] AS $input) {
-          $url = '/input/show/kid/'.$consultation['cid'].'/qid/'.$input['qi'].'#input-'.$input['tid'];
+          $url = $this->baseUrl() . '/input/show/kid/'.$consultation['cid'].'/qid/'.$input['qi'].'#input-'.$input['tid'];
           $explenation = substr($input['expl'], 0, 100). '...';
           echo('<li><a href="'.$url.'" title="'.$input['thes'].'">'.$input['thes'].'</a><br />'.$explenation.'</li>');
         }

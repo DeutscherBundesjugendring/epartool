@@ -14,6 +14,8 @@ class Default_Form_Input extends Zend_Form {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
     
+    $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/input/save');
+    
     $this->setDecorators(array('FormElements', 'Form'));
     
     // für alle per ini gesetzten Elemente:

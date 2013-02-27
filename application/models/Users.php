@@ -289,7 +289,9 @@ class Model_Users extends Zend_Db_Table_Abstract {
     if ($userRow->block == 'u' && !empty($userRow->confirm_key)) {
       $mailBody = 'Herzlich willkommen ' . $userRow->name . '!' . "\n\n"
         . 'Bitte bestätige deine Registrierung auf ' . Zend_Registry::get('httpHost') . ':' . "\n\n"
-        . Zend_Registry::get('baseUrl') . '/user/registerconfirm/ckey/' . $userRow->confirm_key . "\n\n";
+        . Zend_Registry::get('baseUrl')
+        . Zend_Controller_Front::getInstance()->getBaseUrl()
+        . '/user/registerconfirm/ckey/' . $userRow->confirm_key . "\n\n";
       
       $mailObj = new Model_Emails();
       
@@ -330,7 +332,9 @@ class Model_Users extends Zend_Db_Table_Abstract {
         foreach ($unconfirmedInputs as $input) {
           $inputText = '(Id: ' . $input->tid . '): ' . $input->thes . "\n"
             . 'Bitte diesen Link klicken oder diesen URL in die Adresszeile des Browsers kopieren, um den Beitrag zu bestätigen:' . "\n"
-            . Zend_Registry::get('baseUrl') . '/input/mailconfirm/kid/' . $input->kid . '/ckey/'
+            . Zend_Registry::get('baseUrl')
+            . Zend_Controller_Front::getInstance()->getBaseUrl()
+            . '/input/mailconfirm/kid/' . $input->kid . '/ckey/'
             . $inputModel->generateConfirmationKey($input->tid) . "\n\n";
           $mailBody.= $inputText;
           $replace['{{USER_INPUTS}}'].= $inputText;

@@ -9,7 +9,7 @@
 <h2>Neuen Artikel f&uuml;r <?php echo !empty($this->consultation) ? 'Konsultation ' . $this->consultation['titl'] : 'Allgemein';?> erstellen</h2>
 <?php echo $this->form;?>
 <p>
-  <a href="/admin/article/index/kid/<?php echo $this->kid?>">Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/article/index/kid/<?php echo $this->kid?>">Zur&uuml;ck</a>
 </p>
 <script>
     CKEDITOR.replace( 'artcl' );

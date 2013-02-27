@@ -33,7 +33,7 @@ class Admin_MediaController extends Zend_Controller_Action {
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
     $directory = realpath(APPLICATION_PATH . '/../public/media');
-    $dir_ws = '/media';
+    $dir_ws = $this->view->baseUrl() . '/media';
     if ($kid > 0) {
       $consultationModel = new Model_Consultations();
       $consultation = $consultationModel->find($kid)->current();
@@ -126,10 +126,10 @@ class Admin_MediaController extends Zend_Controller_Action {
         ->addMessage('Upload fehlgeschlagen.', 'error');
     }
     $uploadedData = $form->getValues();
-    $this->_redirect($this->view->url(array(
+    $this->redirect($this->view->url(array(
       'action' => 'index',
       'kid' =>$kid
-    )));
+    )), array('prependBase' => false));
   }
   
   /**
@@ -164,10 +164,10 @@ class Admin_MediaController extends Zend_Controller_Action {
       $this->_flashMessenger
                 ->addMessage('Formulardaten ungültig', 'error');
     }
-    $this->_redirect($this->view->url(array(
+    $this->redirect($this->view->url(array(
       'action' => 'index',
       'kid' =>$kid
-    )));
+    )), array('prependBase' => false));
   }
 }
 ?>

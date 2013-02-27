@@ -74,7 +74,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
    */
   public function editAction() {
     $form = new Admin_Form_Consultation();
-    $form->setAction('/admin/consultation/edit/kid/' . $this->_consultation->kid);
+    $form->setAction($this->view->baseUrl() . '/admin/consultation/edit/kid/' . $this->_consultation->kid);
     
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {

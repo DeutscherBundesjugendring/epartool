@@ -9,9 +9,9 @@ echo $this->consultationNavigation('Beiträge');
 <ol>
 <?php foreach ($this->users as $user): ?>
   <li>
-    <a href="/admin/input/list/kid/<?php echo $this->consultation['kid']?>/uid/<?php echo $user['uid']; ?>">
+    <a href="<?php echo $this->baseUrl(); ?>/admin/input/list/kid/<?php echo $this->consultation['kid']?>/uid/<?php echo $user['uid']; ?>">
       <?php echo $user['name'];?>&nbsp;·&nbsp;<?php echo $user['email']; ?>&nbsp;<?php echo $user['uid']; ?>
     </a>
-    <a href="mailto:<?php echo $user['email'];?>" title="Mail in externem Programm schreiben"><img src="/images/mail.gif" alt="E-Mail" /></a>
+    <a href="mailto:<?php echo $user['email'];?>" title="Mail in externem Programm schreiben"><img src="<?php echo $this->baseUrl(); ?>/images/mail.gif" alt="E-Mail" /></a>
 <?php endforeach;?>
 </ol>

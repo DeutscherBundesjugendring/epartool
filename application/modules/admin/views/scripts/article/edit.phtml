@@ -12,11 +12,11 @@ echo $this->consultationNavigation('Artikel');
 ?>
 <h2>Artikel bearbeiten</h2>
 <p>
-  <a href="/admin/article/index/kid/<?php echo $this->kid?>">&laquo; Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/article/index/kid/<?php echo $this->kid?>">&laquo; Zur&uuml;ck</a>
 </p>
 <?php echo $this->form;?>
 <p>
-  <a href="/admin/article/index/kid/<?php echo $this->kid?>">&laquo; Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/article/index/kid/<?php echo $this->kid?>">&laquo; Zur&uuml;ck</a>
 </p>
 <script>
     CKEDITOR.replace( 'artcl' );

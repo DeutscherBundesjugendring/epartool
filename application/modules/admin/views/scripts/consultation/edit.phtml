@@ -11,11 +11,11 @@
 echo $this->consultationNavigation('Grundeinstellungen');
 ?>
 <p>
-  <a href="/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
 </p>
 <?php echo $this->form?>
 <p>
-  <a href="/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
 </p>
 <script>
     CKEDITOR.replace( 'expl' );

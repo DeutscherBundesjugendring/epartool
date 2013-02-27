@@ -42,12 +42,12 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $this->view->consultation = $consultation;
         $articles = $consultation['articles'];
       } else {
-        $this->_redirect($this->_adminIndexURL);
+        $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
       }
     } else {
       $articleModel = new Model_Articles();
       $articles = $articleModel->getAllWithoutConsultation();
-//      $this->_redirect($this->_adminIndexURL);
+//      $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
     }
     $this->view->articles = $articles;
   }
@@ -59,7 +59,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $consultationModel = new Model_Consultations();
     $consultation = $consultationModel->getById($kid);
     $form = new Admin_Form_Article();
-    $form->setAction('/admin/article/create/kid/' . $kid);
+    $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
     if ($kid > 0) {
       // remove options for static pages
       $form->getElement('ref_nm')->setMultioptions(array(0 => 'Bitte auswählen...'));
@@ -88,7 +88,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $this->_redirect($this->view->url(array(
           'action' => 'index',
           'kid' => $kid
-        )));
+        )), array('prependBase' => false));
       } else {
         $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
         $form->populate($form->getValues());

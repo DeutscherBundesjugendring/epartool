@@ -15,6 +15,8 @@ class Admin_Form_User_Create extends Zend_Form {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
     
+    $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user/create');
+    
     // JSU options für select-feld setzen
     $options = array(
       'usr'=>'Benutzer',

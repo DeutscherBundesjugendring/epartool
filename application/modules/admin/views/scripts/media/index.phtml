@@ -36,14 +36,14 @@ if ($this->consultation) {
   	echo '<img src="'.$this->directory . '/' . $file['basename'].'" width="140" alt="Vorschau" />';
   } else {
   	echo '<img src="';
-  		if (in_array($file['extension'], $pdf_test)) { echo '/images/cystal_clear_mimetype_pdf.png';
-  	} elseif (in_array($file['extension'], $pck_test)) {  echo '/images/crystal_clear_filesystem_folder_tar.png';
-  	} elseif (in_array($file['extension'], $doc_test)) {  echo '/images/crystal_clear_mimetype_txt.png';
-  	} elseif (in_array($file['extension'], $prs_test)) {  echo '/images/crystal_clear_app_display.png';
-  	} elseif (in_array($file['extension'], $vid_test)) {  echo '/images/crystal_clear_mimetype_video.png';
-  	} elseif (in_array($file['extension'], $aud_test)) {  echo '/images/crystal_clear_app_xmms.png';
-  	} elseif (in_array($file['extension'], $clc_test)) {  echo '/images/crystal_clear_mimetype_spreadsheet.png';
-  	} else { echo '/images/crystal_clear_mimetype_encrypted.png'; }
+  		if (in_array($file['extension'], $pdf_test)) { echo $this->baseUrl() . '/images/cystal_clear_mimetype_pdf.png';
+  	} elseif (in_array($file['extension'], $pck_test)) {  echo $this->baseUrl() . '/images/crystal_clear_filesystem_folder_tar.png';
+  	} elseif (in_array($file['extension'], $doc_test)) {  echo $this->baseUrl() . '/images/crystal_clear_mimetype_txt.png';
+  	} elseif (in_array($file['extension'], $prs_test)) {  echo $this->baseUrl() . '/images/crystal_clear_app_display.png';
+  	} elseif (in_array($file['extension'], $vid_test)) {  echo $this->baseUrl() . '/images/crystal_clear_mimetype_video.png';
+  	} elseif (in_array($file['extension'], $aud_test)) {  echo $this->baseUrl() . '/images/crystal_clear_app_xmms.png';
+  	} elseif (in_array($file['extension'], $clc_test)) {  echo $this->baseUrl() . '/images/crystal_clear_mimetype_spreadsheet.png';
+  	} else { echo $this->baseUrl() . '/images/crystal_clear_mimetype_encrypted.png'; }
   	
   	echo '" width="140" alt="Vorschau" />';
   }

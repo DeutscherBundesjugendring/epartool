@@ -77,11 +77,11 @@ class Admin_EmailController extends Zend_Controller_Action {
     $templateModel = new Model_Emails_Templates();
     
     $mid = $this->getRequest()->getParam('mid');
-    $form->setAction('/admin/email/edittemplate/');
-    $redirect = 'admin/email/template/';
+    $form->setAction($this->view->baseUrl() . '/admin/email/edittemplate/');
+    $redirect = '/admin/email/template/';
     $values=array();
     if(!empty($mid)) {
-      $form->setAction('/admin/email/edittemplate/mid/' . $mid);
+      $form->setAction($this->view->baseUrl() . '/admin/email/edittemplate/mid/' . $mid);
       $redirect.='mid/'.$mid;
       $template = $templateModel->getById($mid);
       $values = $template->toArray();

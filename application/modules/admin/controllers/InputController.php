@@ -144,9 +144,9 @@ class Admin_InputController extends Zend_Controller_Action {
     
     $url = $data['return_url'];
     if (empty($url)) {
-      $url = '/admin';
+      $url = $this->view->baseUrl() . '/admin';
     }
-    $this->redirect($url);
+    $this->redirect($url, array('prependBase' => false));
   }
   
   /**

@@ -63,7 +63,7 @@ class Admin_VotingController extends Zend_Controller_Action {
           $this->redirect($this->view->url(array(
             'action' => 'index',
             'uid' => null,
-          )));
+          )), array('prependBase' => false));
         } else {
           $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
         }

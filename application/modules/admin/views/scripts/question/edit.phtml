@@ -12,9 +12,9 @@ echo $this->consultationNavigation('Fragen');
 ?>
 <h2>Frage bearbeiten</h2>
 <p>
-  <a href="/admin/question/index/kid/<?php echo $this->consultation['kid']?>">&laquo; Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/question/index/kid/<?php echo $this->consultation['kid']?>">&laquo; Zur&uuml;ck</a>
 </p>
 <?php echo $this->form;?>
 <p>
-  <a href="/admin/question/index/kid/<?php echo $this->consultation['kid']?>">&laquo; Zur&uuml;ck</a>
+  <a href="<?php echo $this->baseUrl(); ?>/admin/question/index/kid/<?php echo $this->consultation['kid']?>">&laquo; Zur&uuml;ck</a>
 </p>

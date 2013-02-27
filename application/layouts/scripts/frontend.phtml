@@ -19,9 +19,9 @@ $config = Zend_Registry::get('config');
 
 		<!-- Styles -->
 		<link href="<?=$config->path->css->fonts?>" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="<?=$config->path->css->bootstrap?>" type="text/css" />
-		<link rel="stylesheet" href="<?=$config->path->css->main?>" type="text/css" />
-		<!--[if lte IE 7]><link rel="stylesheet" href="<?=$config->path->css->ie7?>" type="text/css" /><![endif]--> <!-- TODO -->
+		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->bootstrap?>" type="text/css" />
+		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->main?>" type="text/css" />
+		<!--[if lte IE 7]><link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->ie7?>" type="text/css" /><![endif]--> <!-- TODO -->
 
 		<script src="<?php echo $config->path->js->jquery?>"></script>
 		<!-- Scripts are linked at the bottom of the page for faster loading. -->
@@ -105,8 +105,8 @@ $config = Zend_Registry::get('config');
 ?>
 
 <!-- Scripts -->
-<script src="<?php echo $config->path->js->bootstrap?>"></script>
-<script src="<?php echo $config->path->js->main?>"></script>
+<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap?>"></script>
+<script src="<?php echo $this->baseUrl() . $config->path->js->main?>"></script>
 
 	</body>
 </html>

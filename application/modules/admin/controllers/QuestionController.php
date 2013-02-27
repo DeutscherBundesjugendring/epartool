@@ -40,10 +40,10 @@ class Admin_QuestionController extends Zend_Controller_Action {
       if (!empty($consultation)) {
         $this->view->consultation = $consultation;
       } else {
-        $this->_redirect($this->_adminIndexURL);
+        $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
       }
     } else {
-      $this->_redirect($this->_adminIndexURL);
+      $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
     }
   }
   
@@ -56,7 +56,7 @@ class Admin_QuestionController extends Zend_Controller_Action {
       $consultation = $consultationModel->getById($kid);
       if (!empty($consultation)) {
         $form = new Admin_Form_Question();
-        $form->setAction('/admin/question/create/kid/' . $kid);
+        $form->setAction($this->view->baseUrl() . '/admin/question/create/kid/' . $kid);
         if ($this->getRequest()->isPost()) {
           if ($form->isValid($this->getRequest()->getPost())) {
             $questionModel = new Model_Questions();
@@ -78,7 +78,7 @@ class Admin_QuestionController extends Zend_Controller_Action {
             $this->_redirect($this->view->url(array(
               'action' => 'index',
               'kid' => $kid
-            )));
+            )), array('prependBase' => false));
           } else {
             $form->populate($form->getValues());
           }

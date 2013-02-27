@@ -11,6 +11,8 @@ class Default_Form_UserEditSimple extends Zend_Form {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
     
+    $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/edit');
+    
   }
 }
 ?>

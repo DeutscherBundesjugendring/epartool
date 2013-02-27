@@ -16,7 +16,7 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract {
         . 'Eingeloggt als ' . $identity->name . ' mit '
         . '<a href="mailto:' . $identity->email . '">' . $identity->email . '</a>';
         if ($identity->lvl == 'adm' || $identity->lvl == 'edt') {
-          $html.= '<br/><a href="/admin">Zum Adminbereich &raquo;</a>';
+          $html.= '<br/><a href="' . $this->view->baseUrl() . '/admin">Zum Adminbereich &raquo;</a>';
         }
       $html.= '</div>'
         . '<a href="#user-info" class="btn pull-right" role="button" data-toggle="modal"><i class="icon-chevron-down"></i></a>'

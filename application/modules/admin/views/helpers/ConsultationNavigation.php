@@ -16,43 +16,43 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
       $items = array(
         array(
           'label' => 'Grundeinstellungen',
-          'href' => '/admin/consultation/edit/kid/' . $kid
+          'href' => $this->view->baseUrl() . '/admin/consultation/edit/kid/' . $kid
         ),
         array(
           'label' => 'Medienverwaltung',
-          'href' => '/admin/media/index/kid/' . $kid
+          'href' => $this->view->baseUrl() . '/admin/media/index/kid/' . $kid
         ),
         array(
           'label' => 'Fragen',
-          'href' => '/admin/question/index/kid/' . $kid
+          'href' => $this->view->baseUrl() . '/admin/question/index/kid/' . $kid
         ),
         array(
           'label' => 'Artikel',
-          'href' => '/admin/article/index/kid/' . $kid
+          'href' => $this->view->baseUrl() . '/admin/article/index/kid/' . $kid
         ),
         array(
           'label' => 'Beiträge',
-          'href' => '/admin/input/index/kid/' . $kid
+          'href' => $this->view->baseUrl() . '/admin/input/index/kid/' . $kid
         ),
         array(
           'label' => 'Votingberechtigungen',
-          'href' => '/admin/voting/index/kid/' . $kid
+          'href' => $this->view->baseUrl() . '/admin/voting/index/kid/' . $kid
         ),
 //        array(
 //          'label' => 'Votingeinladungen',
-//          'href' => '/admin/voting/invitations/kid/' . $kid
+//          'href' => $this->view->baseUrl() . '/admin/voting/invitations/kid/' . $kid
 //        ),
 //        array(
 //          'label' => 'Votingteilnehmende',
-//          'href' => '/admin/voting/participants/kid/' . $kid
+//          'href' => $this->view->baseUrl() . '/admin/voting/participants/kid/' . $kid
 //        ),
 //        array(
 //          'label' => 'Votingergebnisse',
-//          'href' => '/admin/voting/results/kid/' . $kid
+//          'href' => $this->view->baseUrl() . '/admin/voting/results/kid/' . $kid
 //        ),
 //        array(
 //          'label' => 'Statistik',
-//          'href' => '/admin/consultation/report/kid/' . $kid
+//          'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
 //        ),
       );
       $html.= '<div class="hlist"><ul>';

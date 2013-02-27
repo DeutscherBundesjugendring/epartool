@@ -5,7 +5,7 @@ echo $this->consultationNavigation('Beiträge');
 <p>
 <?php foreach ($this->consultation['questions'] as $question): ?>
 
-<a href="/admin/input/index/kid/<?php echo $this->consultation['kid'];
+<a href="<?php echo $this->baseUrl(); ?>/admin/input/index/kid/<?php echo $this->consultation['kid'];
 ?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
 ?> class="active"<?php endif;?>>
   <?php echo $question['q'];?>

@@ -45,7 +45,7 @@ class Admin_UserController extends Zend_Controller_Action {
           $userRow->save();
           $this->_flashMessenger->addMessage('Neuer Benutzer wurde erstellt.', 'success');
           // @todo Nutzer muss über Passwortwechsel informiert werden.
-          $this->_redirect($this->view->url(array('action' => 'index')));
+          $this->_redirect($this->view->url(array('action' => 'index')), array('prependBase' => false));
         }
         else {
           $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Wählen Sie eine andere.', 'error');
@@ -70,7 +70,7 @@ class Admin_UserController extends Zend_Controller_Action {
       $user = $userModel->getById($uid);
       if (!empty($user)) {
           $form = new Admin_Form_User_Edit();
-          $form->setAction('/admin/user/edit/uid/' . $uid);
+          $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
           if ($this->getRequest()->isPost()) {
             // Formular wurde abgeschickt und muss verarbeitet werden
             $params = $this->getRequest()->getPost();

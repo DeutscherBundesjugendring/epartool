@@ -19,15 +19,15 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'follow-up' => (!$nowDate->isLater($con->vot_to)),
     );
     $items = array(
-      'article' => array('url' => '/article/index/kid/' . $con->kid, 'text' => 'Infos'),
-      'question' => array('url' => '/question/index/kid/' . $con->kid, 'text' => 'Fragen'),
+      'article' => array('url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid, 'text' => 'Infos'),
+      'question' => array('url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid, 'text' => 'Fragen'),
       'input' => array(
-        'url' => '/input/index/kid/' . $con->kid,
+        'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid,
         'text' => 'Beiträge <small class="info">vom '
           . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
       ),
       'voting' => array(
-        'url' => '/voting/index/kid/' . $con->kid,
+        'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
         'text' => 'Abstimmung <small class="info">vom '
           . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
       ),

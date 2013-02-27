@@ -106,7 +106,7 @@ class InputController extends Zend_Controller_Action {
           unset($populateForm->input);
         }
       }
-      $form->setAction('/input/save/kid/' . $kid . '/qid/' . $qid);
+      $form->setAction($this->view->baseUrl() . '/input/save/kid/' . $kid . '/qid/' . $qid);
     }
     $this->view->inputform = $form;
     
@@ -308,7 +308,7 @@ class InputController extends Zend_Controller_Action {
             'controller' => 'user',
             'action' => 'inputlist',
             'kid' => $kid
-          )));
+          )), array('prependBase' => false));
         } else {
           $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
           $form->populate($data);
