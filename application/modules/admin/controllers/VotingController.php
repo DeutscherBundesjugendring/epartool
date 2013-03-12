@@ -23,7 +23,7 @@ class Admin_VotingController extends Zend_Controller_Action {
       $this->view->consultation = $consultation;
     } else {
       $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
-      $this->redirect('/admin/voting');
+      $this->redirect('/admin');
     }
   }
   
@@ -88,8 +88,172 @@ class Admin_VotingController extends Zend_Controller_Action {
     }
   }
   
+  /**
+   * List paricipants for invitation
+   *
+   */
   public function invitationsAction() {
+    $userModel = new Model_Users();
+    $votingRightsModel = new Model_Votes_Rights();
+    $participants = $userModel->getParticipantsByConsultation(
+      $this->_consultation['kid'],
+      array('u.email', 'u.name')
+    );
+    $emailList = '';
+    foreach($participants as $key => $value) {
+      if (!empty($value['email'])) {
+        $emailList.= $value['email'] . ';';
+      }
+      $votingRights = $votingRightsModel
+        ->getByUserAndConsultation($value['uid'], $this->_consultation['kid']);
+      if (!empty($votingRights)) {
+        $participants[$key]['votingRights'] = $votingRights;
+      }
+    }
+    $this->view->assign(array(
+      'participants' => $participants,
+      'emailList' => $emailList,
+    ));
+  }
+  
+  /**
+   * Send voting invitation by email via preview or directly
+   *
+   */
+  public function sendinvitationAction() {
+    $uid = $this->_request->getParam('uid', 0);
+    $mode = $this->_request->getParam('mode');
     
+    if ($uid > 0) {
+      $date = new Zend_Date();
+      $userModel = new Model_Users();
+      $votingRightsModel = new Model_Votes_Rights();
+      $emailModel = new Model_Emails();
+      $emailTemplateModel = new Model_Emails_Templates();
+      $form = new Admin_Form_Email_Send();
+      $form->setAction($this->view->url());
+      $formSent = false;
+      $sentFromPreview = false;
+      $systemconfig = Zend_Registry::get('systemconfig');
+      $grp_siz_def = $systemconfig->group_size_def->toArray();
+      
+      // set defaults for given user:
+      $user = $userModel->getById($uid);
+      $votingRights = $votingRightsModel->getByUserAndConsultation($uid, $this->_consultation['kid']);
+      $receiver = $user['email'];
+      $cc = '';
+      $bcc = '';
+      if ($votingRights['vt_weight'] != 1) {
+        // group type is group
+        $templateRef = 'vt_invit_group';
+      } else {
+        // group type is single
+        $templateRef = 'vt_invit_single';
+      }
+      // prepare marker array
+      $templateReplace = array(
+        '{{USER}}' => (empty($user['name']) ? $user['email'] : $user['name']),
+        '{{CNSLT_TITLE}}' => $this->_consultation['titl'],
+        '{{VOTE_FROM}}' => $date->set($this->_consultation['vot_fr'])->get(Zend_Date::DATE_MEDIUM),
+        '{{VOTE_TO}}' => $date->set($this->_consultation['vot_to'])->get(Zend_Date::DATE_MEDIUM),
+        '{{SITEURL}}' => Zend_Registry::get('baseUrl') . '/voting/index/authcode/',
+        '{{VTC}}' => $votingRights['vt_code'],
+        '{{GROUP_CATEGORY}}' => $grp_siz_def[$votingRights['grp_siz']],
+        '{{VOTING_WEIGHT}}' => $votingRights['vt_weight'],
+      );
+      $templateRow = $emailTemplateModel->getByName($templateRef);
+      $subject = '';
+      $message = '';
+      if (!empty($templateRow)) {
+        // work with email template
+        $subject = $templateRow->subj;
+        $message = $templateRow->txt;
+        // replace markers
+        foreach ($templateReplace as $search => $replace) {
+          $subject = str_replace($search, $replace, $subject);
+          $message = str_replace($search, $replace, $message);
+        }
+        // use head-Area
+        if($templateRow->head=='y') {
+          $templateHeader = $emailTemplateModel->getByName('header');
+          // if head-template exists
+          if($templateHeader) {
+            $message = $templateHeader->txt . $message;
+          }
+        }
+        // use footer-Area
+        if($templateRow->foot=='y') {
+          $templateFooter = $emailTemplateModel->getByName('footer');
+          // if head-template exists
+          if($templateFooter) {
+            $message.= $templateFooter->txt;
+          }
+        }
+      } else {
+        // no template found, give chance to write email manually
+        $mode = 'preview';
+        $this->_flashMessenger->addMessage('Kein E-Mail Template gefunden!', 'error');
+      }
+      
+      // check if form from preview is submitted
+      if ($this->_request->isPost()) {
+        $formSent = true;
+        // sent from preview
+        $data = $this->_request->getPost();
+        if ($form->isValid($data)) {
+          // mail can be sent directly
+          $mode = 'instantsend';
+          $sentFromPreview = true;
+        } else {
+          $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+          $form->populate($data);
+        }
+      }
+      
+      switch ($mode) {
+        case 'instantsend':
+          // send mail directly
+          if ($sentFromPreview) {
+            // use data from preview
+            $mailData = $form->getValues();
+            $receiver = $mailData['empfaenger'];
+            $cc = $mailData['mailcc'];
+            $bcc = $mailData['mailbcc'];
+            $subject = $mailData['subject'];
+            $message = $mailData['message'];
+            $templateRef = null;
+            $templateReplace = null;
+          } else {
+            // use user defaults, see above
+          }
+          
+          $sent = $emailModel->send($receiver, $subject, $message, $templateRef, $templateReplace, null, null, $cc, $bcc);
+          // redirect to overview
+          if ($sent) {
+            $this->_flashMessenger->addMessage('Votingeinladung an <b>' . $receiver . '</b> versendet.', 'success');
+          } else {
+            $this->_flashMessenger->addMessage('Beim Senden der E-Mail ist ein Fehler aufgetreten.', 'error');
+          }
+          $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation['kid']);
+          break;
+          
+        case 'preview':
+        default:
+          if (!$formSent) {
+            // show form for the first time, fill with default data (see above)
+            $form->getElement('empfaenger')->setValue($receiver);
+            $form->getElement('subject')->setValue($subject);
+            $form->getElement('message')->setValue($message);
+          }
+          // assign view variables and render view script for this action
+          $this->view->form = $form;
+          break;
+      }
+      
+    } else {
+      $this->_flashMessenger->addMessage('Kein Nutzer angegeben!', 'error');
+      $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation['kid']);
+    }
   }
   
   public function participantsAction() {

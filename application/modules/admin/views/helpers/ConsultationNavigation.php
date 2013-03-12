@@ -38,10 +38,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'label' => 'Votingberechtigungen',
           'href' => $this->view->baseUrl() . '/admin/voting/index/kid/' . $kid
         ),
-//        array(
-//          'label' => 'Votingeinladungen',
-//          'href' => $this->view->baseUrl() . '/admin/voting/invitations/kid/' . $kid
-//        ),
+        array(
+          'label' => 'Votingeinladungen',
+          'href' => $this->view->baseUrl() . '/admin/voting/invitations/kid/' . $kid
+        ),
 //        array(
 //          'label' => 'Votingteilnehmende',
 //          'href' => $this->view->baseUrl() . '/admin/voting/participants/kid/' . $kid
@@ -50,10 +50,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
 //          'label' => 'Votingergebnisse',
 //          'href' => $this->view->baseUrl() . '/admin/voting/results/kid/' . $kid
 //        ),
-//        array(
-//          'label' => 'Statistik',
-//          'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
-//        ),
+        array(
+          'label' => 'Statistik',
+          'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
+        ),
       );
       $html.= '<div class="hlist"><ul>';
       foreach ($items as $item) {

@@ -424,15 +424,19 @@ class Model_Users extends Zend_Db_Table_Abstract {
    * Returns all participants of given consultation
    *
    * @param integer $kid Consultation ID
+   * @param string|array $order [optional] order by spec, Defaults to array('u.name', 'u.uid')
    * @return array
    */
-  public function getParticipantsByConsultation($kid) {
+  public function getParticipantsByConsultation($kid, $order = '') {
+    if (empty($order)) {
+      $order = array('u.name', 'u.uid');
+    }
     $db = $this->getAdapter();
     $select = $db->select();
     $select->distinct()->from(array('u' => $this->_name));
     $select->joinInner(array('i' => 'inpt'), 'u.uid = i.uid', array());
     $select->where('i.kid = ?', $kid);
-    $select->order(array('u.name', 'u.uid'));
+    $select->order($order);
     $stmt = $db->query($select);
     
     return $stmt->fetchAll();

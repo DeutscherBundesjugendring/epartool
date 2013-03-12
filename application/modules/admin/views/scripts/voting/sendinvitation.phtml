@@ -1,0 +1,14 @@
+<?php
+
+?>
+<h1><?php echo $this->consultation['titl']; ?></h1>
+<?php
+echo $this->consultationNavigation('Votingeinladungen');
+?>
+<h2>Voting-Einladung senden</h2>
+<?php echo $this->form; ?>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'invitations',
+  'uid' => null,
+  'mode' => null,
+)); ?>">&laquo; Zurück zur Übersicht</a></p>

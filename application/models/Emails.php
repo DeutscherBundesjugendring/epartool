@@ -177,6 +177,7 @@ class Model_Emails extends Zend_Db_Table_Abstract {
         $subject = $template->subj;
         foreach($templateReplace AS $pattern => $replace) {
           $logger->debug($pattern . ' mit ' . $replace);
+          $subject = str_replace($pattern, $replace, $subject);
           $message = str_replace($pattern, $replace, $message);
         }
         // use head-Area
@@ -196,6 +197,7 @@ class Model_Emails extends Zend_Db_Table_Abstract {
           }
         }
         // replace all unused patterns
+        $subject = preg_replace('~\{\{([A-Za-z0-9-_]*)\}\}~i', '', $subject);
         $message = preg_replace('~\{\{([A-Za-z0-9-_]*)\}\}~i', '', $message);
       }
       else {

@@ -221,9 +221,14 @@ class Model_Questions extends Zend_Db_Table_Abstract {
     $questions = array();
     foreach ($userInputs as $input) {
       if (!array_key_exists($input['qi'], $questions)) {
-        $questions[$input['qi']] = $this->find($input['qi'])->current()->toArray();
+        $question = $this->find($input['qi'])->current();
+        if (!empty($question)) {
+          $questions[$input['qi']] = $question->toArray();
+        }
       }
-      $questions[$input['qi']]['inputs'][] = $input;
+      if (array_key_exists($input['qi'], $questions)) {
+        $questions[$input['qi']]['inputs'][] = $input;
+      }
     }
     // Sortieren nach nr
     $aReturn = array();
