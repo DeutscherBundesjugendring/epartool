@@ -256,8 +256,68 @@ class Admin_VotingController extends Zend_Controller_Action {
     }
   }
   
+  /**
+   * List voters
+   *
+   */
   public function participantsAction() {
+    $groupsModel = new Model_Votes_Groups();
     
+    $this->view->groups = $groupsModel->getByConsultation($this->_consultation['kid']);
+  }
+  
+  /**
+   * Deny voter
+   *
+   */
+  public function participantdenyAction() {
+    $uid = $this->_request->getParam('uid', 0);
+    $sub_uid = $this->_request->getParam('sub_uid', 0);
+    $votesGroupsModel = new Model_Votes_Groups();
+    
+    if ($votesGroupsModel->denyVoter($this->_consultation['kid'], $uid, $sub_uid)) {
+      $this->_flashMessenger->addMessage('Teilnehmer wurde abgelehnt.', 'success');
+    } else {
+      $this->_flashMessenger->addMessage('Ablehnen fehlgeschlagen.', 'error');
+    }
+     
+    $this->redirect('/admin/voting/participants/kid/' . $this->_consultation['kid']);
+  }
+  
+  /**
+   * Confirm voter
+   *
+   */
+  public function participantconfirmAction() {
+    $uid = $this->_request->getParam('uid', 0);
+    $sub_uid = $this->_request->getParam('sub_uid', 0);
+    $votesGroupsModel = new Model_Votes_Groups();
+    
+    if ($votesGroupsModel->confirmVoter($this->_consultation['kid'], $uid, $sub_uid)) {
+      $this->_flashMessenger->addMessage('Teilnehmer wurde bestätigt.', 'success');
+    } else {
+      $this->_flashMessenger->addMessage('Bestätigen fehlgeschlagen.', 'error');
+    }
+    
+    $this->redirect('/admin/voting/participants/kid/' . $this->_consultation['kid']);
+  }
+  
+  /**
+   * Delete voter
+   *
+   */
+  public function participantdeleteAction() {
+    $uid = $this->_request->getParam('uid', 0);
+    $sub_uid = $this->_request->getParam('sub_uid', 0);
+    $votesGroupsModel = new Model_Votes_Groups();
+    
+    if ($votesGroupsModel->deleteVoter($this->_consultation['kid'], $uid, $sub_uid) > 0) {
+      $this->_flashMessenger->addMessage('Teilnehmer wurde gelöscht.', 'success');
+    } else {
+      $this->_flashMessenger->addMessage('Löschen fehlgeschlagen.', 'error');
+    }
+    
+    $this->redirect('/admin/voting/participants/kid/' . $this->_consultation['kid']);
   }
   
   public function resultsAction() {
