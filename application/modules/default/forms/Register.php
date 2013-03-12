@@ -24,12 +24,16 @@ class Default_Form_Register extends Zend_Form {
     $group = $this->getElement('group_type');
     $group->removeDecorator('Label');
     
+    $systemconfig = Zend_Registry::get('systemconfig');
+    $grp_siz_def = $systemconfig->group_size_def->toArray();
+    unset($grp_siz_def['0']);
+    
     // subform for group_type == "group"
     $groupSpecs = new Zend_Form_SubForm();
     $groupSpecs->addElements(array(
       $this->getElement('source'),
       $this->getElement('src_misc'),
-      $this->getElement('group_size'),
+      $this->getElement('group_size')->setMultioptions($grp_siz_def),
       $this->getElement('name_group'),
       $this->getElement('name_pers'),
     ));
