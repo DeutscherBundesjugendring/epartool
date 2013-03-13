@@ -46,10 +46,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'label' => 'Votingteilnehmende',
           'href' => $this->view->baseUrl() . '/admin/voting/participants/kid/' . $kid
         ),
-//        array(
-//          'label' => 'Votingergebnisse',
-//          'href' => $this->view->baseUrl() . '/admin/voting/results/kid/' . $kid
-//        ),
+        array(
+          'label' => 'Votingergebnisse',
+          'href' => $this->view->baseUrl() . '/admin/voting/results/kid/' . $kid
+        ),
         array(
           'label' => 'Statistik',
           'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid

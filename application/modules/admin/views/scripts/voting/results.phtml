@@ -1,0 +1,32 @@
+<?php
+
+?>
+<h1><?php echo $this->consultation['titl']; ?></h1>
+<?php
+echo $this->consultationNavigation('Votingergebnisse');
+?>
+<h2>Abstimmungsergebnisse</h2>
+<h3>Fragen:</h3>
+<ul>
+<?php foreach ($this->questions as $question): ?>
+<?php if ($question['qi'] == $this->currentQuestion['qi']): ?>
+  <li><strong><?php echo $question['nr'] . ' ' . $question['q']; ?></strong></li>
+<?php else: ?>
+  <li><a href="<?php echo $this->url(array(
+    'qid' => $question['qi']
+  )); ?>"><?php echo $question['nr'] . ' ' . $question['q']; ?></a></li>
+<?php endif; ?>
+<?php endforeach; ?>
+</ul>
+<h3><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h3>
+<?php foreach ($this->theses_votes as $rank => $theses): ?>
+<?php $diag_lngth = round(($rank*600)/$this->highest_rank, 0); ?>
+<?php foreach ($theses as $thesis): ?>
+<p><?php echo $thesis['thes']; ?></p>
+<div style="background-color: #d9e8ef; color: #3f6f8d; font-size: smaller; margin-bottom: 2em; padding: 4px; width: <?php
+  echo $diag_lngth; ?>px;" title="(Gewichtete Punkte: <?php
+  echo round($thesis['points'], 2); ?> bei <?php echo $thesis['cast'];
+  ?> Stimmen)">&nbsp;<?php echo round($rank, 2); ?> Punkte</div>
+<?php endforeach; ?>
+<?php endforeach; ?>
+<p><a href="#">&uarr; Nach oben</a></p>

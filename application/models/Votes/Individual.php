@@ -105,5 +105,61 @@ class Model_Votes_Individual extends Zend_Db_Table_Abstract {
     }
     
   }
+  
+  /**
+   * Returns array of voting values
+   *
+   * @param integer $tid
+   * @param integer $kid
+   * @throws Zend_Validate_Exception
+   * @return array Array of voting values array(
+   *   'points' => $points,
+   *   'cast' => $cast,
+   *   'rank' => $rank,
+   *  );
+   */
+  public function getVotingValuesByThesis($tid, $kid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($tid)) {
+      throw new Zend_Validate_Exception('Given parameter tid must be integer!');
+    }
+    if (!$intVal->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+    }
+    $votesRightsModel = new Model_Votes_Rights();
+    $points = 0;
+    $cast = 0;
+    $rank = 0;
+    
+    $indiv_votes = $this->fetchAll(
+      $this->select()
+        ->where('tid = ?', $tid)
+        ->where('pts < ?', 4)
+    );
+    $cast = count($indiv_votes);
+    
+    if ($cast > 0) {
+      foreach ($indiv_votes as $indiv_vote) {
+        $countIndivByUid = $this->fetchRow(
+          $this->select()->from($this->_name, new Zend_Db_Expr('COUNT(*) AS count'))
+            ->where('tid = ?', $tid)
+            ->where('pts < ?', 4)
+            ->where('uid = ?', $indiv_vote['uid'])
+        );
+        $votesRights = $votesRightsModel->getByUserAndConsultation($indiv_vote['uid'], $kid);
+        $indiv_points = ($votesRights['vt_weight']/$countIndivByUid['count']) * $indiv_vote['pts'];
+        
+        $points += $indiv_points;
+      }
+      
+      $rank = $points / $cast;
+    }
+    
+    return array(
+      'points' => $points,
+      'cast' => $cast,
+      'rank' => (string)$rank,
+    );
+  }
 }
 
