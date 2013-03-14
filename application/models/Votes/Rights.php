@@ -151,5 +151,28 @@ class Model_Votes_Rights extends Zend_Db_Table_Abstract {
     
     return $password;
   }
+  
+  /**
+   * Returns the counted and grouped voting weights by consultation
+   *
+   * @param integer $kid
+   * @throws Zend_Validate_Exception
+   * @return Zend_Db_Table_Rowset
+   */
+  public function getWeightCountsByConsultation($kid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+    }
+    $select = $this->select();
+    $select->from($this->_name, array(
+      'vt_weight',
+      new Zend_Db_Expr('COUNT(vt_weight) AS weight_count')
+    ))
+      ->where('kid = ?', $kid)
+      ->group('vt_weight');
+      
+    return $this->fetchAll($select);
+  }
 }
 

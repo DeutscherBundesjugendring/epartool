@@ -136,6 +136,9 @@ class Admin_ConsultationController extends Zend_Controller_Action {
         ));
     }
     
+    $votesIndivModel = new Model_Votes_Individual();
+    $votesRightsModel = new Model_Votes_Rights();
+    
     $this->view->assign(array(
       'nrParticipants' => $inputsModel->getCountParticipantsByConsultation($kid),
       'nrInputs' => $inputsModel->getCountByConsultation($kid, false),
@@ -147,7 +150,9 @@ class Admin_ConsultationController extends Zend_Controller_Action {
         array(array('field' => 'block', 'operator' => '=', 'value' => 'y'))),
       'nrInputsVoting' => $inputsModel->getCountByConsultationFiltered($kid,
         array(array('field' => 'vot', 'operator' => '=', 'value' => 'y'))),
-      'questions' => $questions
+      'questions' => $questions,
+      'votingCountIndiv' => $votesIndivModel->getCountByConsultation($kid),
+      'weightCounts' => $votesRightsModel->getWeightCountsByConsultation($kid)
     ));
   }
 }

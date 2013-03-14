@@ -43,7 +43,33 @@ echo $this->consultationNavigation('Statistik');
 
 <hr />
 
-<p><b>Anzahl abgegebener Stimmen: <?php // TODO: insert Voting count ?></b></p>
+<p><a href="<?php echo $this->url(array(
+  'controller' => 'voting',
+  'action' => 'participants'
+)); ?>" title="Übersicht über Abstimmungsteilnehmende"><b>Anzahl abgegebener Stimmen: <?php echo $this->votingCountIndiv; ?></b></a>
+<br/>(ohne Berücksichtigung unterschiedlicher Stimmengewichte)
+</p>
 
-<p><b>Übersicht über abstimmungsberechtigte Gruppen</b></p>
-<?php // TODO: insert Voting Defs ?>
+<p><a href="<?php echo $this->url(array(
+  'controller' => 'voting',
+  'action' => 'index'
+)); ?>" title="Übersicht über abstimmungsberechtigte Einzelpersonen und Gruppen">
+<b>Übersicht über abstimmungsberechtigte Gruppen</b></a></p>
+<table>
+<?php foreach ($this->weightCounts as $weight): ?>
+  <tr>
+    <th scope="row"><?php switch ($weight['vt_weight']) {
+      case 0:
+        echo 'Testzugänge:';
+        break;
+      case 1:
+        echo 'Einzelpersonen:';
+        break;
+      default:
+        echo 'Gruppenstimmgewicht '.$weight["vt_weight"].':';
+        break;
+    }?></th>
+    <td><?php echo $weight['weight_count']; ?></td>
+  </tr>
+<?php endforeach; ?>
+</table>

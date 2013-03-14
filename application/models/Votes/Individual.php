@@ -161,5 +161,28 @@ class Model_Votes_Individual extends Zend_Db_Table_Abstract {
       'rank' => (string)$rank,
     );
   }
+  
+  /**
+   * Returns count of individual votes by consultation
+   *
+   * @param integer $kid
+   * @throws Zend_Validate_Exception
+   * @return integer
+   */
+  public function getCountByConsultation($kid) {
+    $intVal = new Zend_Validate_Int();
+    if (!$intVal->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+    }
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select->from(array('vi' => $this->_name), new Zend_Db_Expr('COUNT(*) AS count'))
+      ->join(array('i' => 'inpt'), 'vi.tid = i.tid', array())
+      ->where('i.kid = ?', $kid)
+      ->where('vi.pts < ?', 4);
+    $stmt = $db->query($select);
+    
+    return $stmt->fetchColumn();
+  }
 }
 
