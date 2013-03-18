@@ -249,11 +249,14 @@
 			margin-bottom: .25em;
 			font-size: 3.5em; // 45px
 			line-height: 100%;
+			color: @orange;
 		}
+
 		h2 {
 			font-size: 1.95em; // 25px
 			line-height: 120%;
 			color: @black;
+			color: @orange;
 		}
 	}
 
@@ -275,15 +278,20 @@
 	// Home link
 	a[rel="home"] {
 		position: absolute;
-		right: 2 * @u;
-		top: 2 * @u;
+		right: @u;
+		top: @u;
+		color: @bodyText;
+
+		&:hover {
+			color: @linkTextHover;
+		}
 	}
 
 	// Share
 	.share {
 		position: absolute;
-		right: 2 * @u;
-		top: 6 * @u;
+		right: -0.5em;
+		top: 2 * @u;
 	}
 }
 

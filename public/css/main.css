@@ -928,11 +928,13 @@
     margin-bottom: .25em;
     font-size: 3.5em;
     line-height: 100%;
+    color: #fc9026;
   }
   .consultation.hero-unit hgroup h2 {
     font-size: 1.95em;
     line-height: 120%;
     color: #000000;
+    color: #fc9026;
   }
   .consultation.hero-unit .title-image {
     position: absolute;
@@ -947,12 +949,16 @@
   }
   .consultation.hero-unit a[rel="home"] {
     position: absolute;
-    right: 3.076924em;
-    top: 3.076924em;
+    right: 1.538462em;
+    top: 1.538462em;
+    color: #000000;
+  }
+  .consultation.hero-unit a[rel="home"]:hover {
+    color: #fc9026;
   }
   .consultation.hero-unit .share {
     position: absolute;
-    right: 3.076924em;
-    top: 9.230772em;
+    right: -0.5em;
+    top: 3.076924em;
   }
 }
