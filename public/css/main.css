@@ -493,6 +493,9 @@
     -moz-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
   }
+  .document-wrap > .body-copy > .container {
+    padding-bottom: 0;
+  }
   .document-wrap > header .header-region .container {
     padding-top: 1.2em;
   }
@@ -562,8 +565,16 @@
     padding-top: 3em;
   }
   .document-wrap > .body-copy .top-link {
-    margin: 1em 0;
+    padding: 1em 1.538462em;
     text-align: center;
+    background-color: #ffffff;
+  }
+  .document-wrap > .body-copy .top-link a {
+    color: #000000;
+  }
+  .document-wrap > .body-copy .top-link a:hover {
+    text-decoration: none;
+    color: #fc9026;
   }
   body > footer {
     position: absolute;

@@ -38,6 +38,10 @@ body {
 	.box-shadow(0 .5em 1em fade(@black, 40%));
 }
 
+.document-wrap > .body-copy > .container {
+	padding-bottom: 0;
+}
+
 
 // Header
 // -------------------------
@@ -151,8 +155,18 @@ body {
 
 	// Top link
 	.top-link {
-		margin: 1em 0;
+		padding: 1em @u;
 		text-align: center;
+		background-color: @white;
+
+		a {
+			color: @bodyText;
+
+			&:hover {
+				text-decoration: none;
+				color: @linkTextHover;
+			}
+		}
 	}
 }
 
