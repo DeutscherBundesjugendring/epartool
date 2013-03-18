@@ -548,6 +548,7 @@
     background-color: #ffffff;
   }
   .document-wrap > .body-copy .main-content {
+    padding: 3em 0;
     color: #444444;
   }
   .document-wrap > .body-copy .main-content.content-holder {
@@ -555,10 +556,16 @@
   }
   .document-wrap > .body-copy .print {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 1.538462em;
+    top: 3em;
+    color: #000000;
+  }
+  .document-wrap > .body-copy .print:hover {
+    text-decoration: none;
+    color: #fc9026;
   }
   .document-wrap > .body-copy aside {
+    padding: 3em 1.538462em;
     color: #444444;
   }
   .document-wrap > .body-copy section + aside {

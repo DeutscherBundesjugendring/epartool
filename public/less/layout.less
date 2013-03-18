@@ -128,6 +128,7 @@ body {
 
 	// Main content TODO
 	.main-content {
+		padding: 3em 0;
 		color: @textColor;
 
 		&.content-holder {
@@ -138,12 +139,19 @@ body {
 	// Print
 	.print {
 		position: absolute;
-		right: 0;
-		top: 0;
+		right: @u;
+		top: 3em;
+		color: @bodyText;
+
+		&:hover {
+			text-decoration: none;
+			color: @linkTextHover;
+		}
 	}
 
 	// Sidebars
 	aside {
+		padding: 3em @u;
 		color: @textColor;
 		//background-color: @white;
 	}
