@@ -6,7 +6,7 @@
  * @author Markus Hackel
  */
 class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract {
-  
+
   public function questionNavigation ($activeItem = null) {
     $con = $this->view->consultation;
     $questionModel = new Model_Questions();

@@ -6,7 +6,7 @@
  * @author Markus Hackel
  */
 class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
-  
+
   public function secondNavigation ($activeItem = null) {
     $date = new Zend_Date();
     $nowDate = Zend_Date::now();
@@ -19,24 +19,24 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'follow-up' => (!$nowDate->isLater($con->vot_to)),
     );
     $items = array(
-      'article' => array('url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid, 'text' => 'Infos'),
-      'question' => array('url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid, 'text' => 'Fragen'),
+      'article' => array('url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid, 'text' => '<h2>Infos</h2>'),
+      'question' => array('url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid, 'text' => '<h2>Fragen</h2>'),
       'input' => array(
         'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid,
-        'text' => 'Beiträge <small class="info">vom '
+        'text' => '<h2>Beiträge</h2> <small class="info">vom '
           . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
       ),
       'voting' => array(
         'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
-        'text' => 'Abstimmung <small class="info">vom '
+        'text' => '<h2>Abstimmung</h2> <small class="info">vom '
           . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
       ),
       'follow-up' => array(
         'url' => '',
-        'text' => 'Reaktionen & Wirkung <small class="info">nach Ende der Abstimmung</small>'
+        'text' => '<h2>Reaktionen & Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
       ),
     );
-    $html = '<nav role="navigation" class="secondary-navigation">'
+    $html = '<nav role="navigation" class="consultation-nav secondary-navigation">'
       . '<ul class="nav nav-tabs">';
     foreach ($items as $item => $val) {
       $liClasses = array();
@@ -44,7 +44,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
         $liClasses[] = 'active';
       }
       if ($disabled[$item]) {
-        $liClasses[] = 'disabled';
+        $liClasses[] = 'item-disabled';
       }
       $html.= '<li class="' . implode(' ', $liClasses) . '">';
       if (!empty($val['url']) && !in_array('disabled', $liClasses)) {

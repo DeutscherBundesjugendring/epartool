@@ -85,3 +85,220 @@
 		}
 	}
 }
+
+
+// Consultation navigation
+// -------------------------
+.consultation-nav {
+	overflow: hidden;
+
+	.nav {
+		margin: 0 -8px 0 0;
+
+		// Item
+		& > li {
+			position: relative;
+		}
+	}
+
+	.nav-tabs {
+		border-bottom-style: none;
+	}
+
+	// Default item
+	.nav > li > * {
+		position: relative;
+		width: 182px;
+		height: 75px;
+		.box-sizing(border-box);
+		margin: 0 8px 0 0;
+		padding: .4em @u;
+		.border-radius(0);
+		border-style: none;
+		color: @grayLightest;
+		background-color: @black;
+		.box-shadow(none);
+
+		// Title
+		h2 {
+			font: normal 1.923em/90% @subheadingFontFamily; // 28px
+			text-transform: uppercase;
+			color: @grayLightest;
+		}
+
+		// Info
+		.info {
+			position: absolute;
+			right: .75em;
+			bottom: .5em;
+			display: block;
+			line-height: 135%;
+			text-align: right;
+		}
+
+		// Bubble
+		.bubble {
+			left: 1.5em;
+			bottom: -0.3em;
+		}
+	}
+
+	// Remove right margin of the last item
+	.nav > li:last-child > * {
+		margin-right: 0;
+	}
+
+	// Add decoration to items
+	.nav > li > * {
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			display: block;
+			margin-top: -1.5em;
+		}
+		&:before {
+			left: 0;
+			z-index: 0;
+			border-left: .7em solid @turqoise;
+			border-top: 1.4em solid transparent;
+			border-bottom: 1.4em solid transparent;
+		}
+		&:after {
+			left: 100%;
+			z-index: 1;
+			border-left: .7em solid @black;
+			border-top: 1.4em solid transparent;
+			border-bottom: 1.4em solid transparent;
+		}
+	}
+
+	// Remove decoration of the first and the last item
+	.nav > li:first-child > *:before,
+	.nav > li:last-child > *:after {
+		display: none;
+	}
+
+	// Linked item
+	.nav > li > a {
+		//.transition(background @normal linear);
+
+		// Hover state
+		&:hover {
+			background-color: @orange;
+
+			// Decoration
+			&:after {
+				border-left-color: @orange;
+			}
+		}
+	}
+
+	// Title item
+	.nav > .item-title > a {
+		position: relative;
+		overflow: hidden;
+		padding: 0;
+
+		// Description
+		.description {
+			position: absolute;
+			left: 0;
+			top: 100%;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			.box-sizing(border-box);
+			padding: 1em;
+			.opacity(0);
+			line-height: 135%;
+			color: @bodyText;
+			background-color: @orange;
+			.transition(all @normal ease-out);
+		}
+
+		// Hover state
+		&:hover {
+			.description {
+				top: 0;
+				.opacity(100);
+				color: @bodyText;
+				background-color: @orange;
+			}
+		}
+	}
+
+	// Access item
+	.nav > .item-access {
+
+		// Input
+		input[type="text"],
+		input[type="password"] {
+			width: 6.2em;
+			padding-left: .25em;
+			padding-right: .25em;
+			border-color: @grayLighter;
+
+			// Focus state
+			&:focus {
+				border-color: @inputFocusBorder;
+			}
+		}
+	}
+
+	// Active item
+	.nav > .active > a,
+	.nav > .active > a:hover {
+		color: @white;
+		border-style: none;
+		background-color: @white;
+
+		h2,
+		small {
+			color: @bodyText;
+		}
+
+		&:after {
+			border-left-color: @white;
+		}
+	}
+
+	// Inactive item
+	.nav > .item-disabled > *,
+	.nav > .item-disabled > a:hover {
+		background-color: @grayLighter;
+		cursor: not-allowed;
+
+		// Decoration
+		&:after {
+			border-left-color: @grayLighter;
+		}
+	}
+}
+
+// Consultation nav in consultation preview
+.consultation-preview .consultation-nav {
+
+	.nav > li > * {
+		width: 144px;
+		height: 217px;
+		padding-left: .75em;
+		padding-right: .75em;
+
+		h2 {
+			font-size: 2.154em;
+			line-height: 110%;
+		}
+	}
+
+	.nav > li > *:before {
+		border-left-color: @grayLightest;
+	}
+
+	// Remove decorations
+	.nav > li:first-child > *:after,
+	.nav > li:nth-child(2) > *:before {
+		display: none;
+	}
+}

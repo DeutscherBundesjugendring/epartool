@@ -13,23 +13,25 @@
 
 <!-- Content start -->
 
-<div class="content-holder row">
-	<aside class="span3">
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
 
-		<!-- Tertiary navigation -->
+			<!-- Tertiary navigation -->
 <?php echo $this->articleNavigation();?>
-		<!-- .tertiary-navigation -->
-		
-	</aside>
-	<section class="main-content span6">
-		<?php echo html_entity_decode($this->consultation->expl); ?>
-		<!-- Print -->
-		<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
-	</section>
-	<aside class="span3">
-	
-	</aside>
-</div><!-- .row -->
+			<!-- .tertiary-navigation -->
+
+		</aside>
+		<section class="main-content span6">
+			<?php echo html_entity_decode($this->consultation->expl); ?>
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+		<aside class="span3">
+
+		</aside>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
 
 <!-- Content end -->
 

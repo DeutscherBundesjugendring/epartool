@@ -69,12 +69,15 @@ body {
 
 	// Hero unit
 	.hero-unit {
-		margin-bottom: 6.5em; // make place for teaser navigation
 		padding: 2em;
 		text-align: center;
 		color: @bodyText;
 		.border-radius(0);
 		background: @grayLightest;
+
+		&.with-teaser {
+			margin-bottom: 6.5em; // make place for teaser navigation
+		}
 	}
 }
 
@@ -116,12 +119,16 @@ body {
 	// Content holder
 	.content-holder {
 		position: relative; // for positioning of print link
+		background-color: @white;
 	}
 
 	// Main content TODO
 	.main-content {
 		color: @textColor;
-		background-color: @white;
+
+		&.content-holder {
+			padding: 3em @u;
+		}
 	}
 
 	// Print
@@ -134,7 +141,7 @@ body {
 	// Sidebars
 	aside {
 		color: @textColor;
-		background-color: @white;
+		//background-color: @white;
 	}
 
 	// Right sidebar

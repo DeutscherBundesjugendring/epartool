@@ -12,24 +12,26 @@
 
 <!-- Content start -->
 
-<div class="content-holder row">
-	<aside class="span3">
+<div class="content-holder">
+	<div class="content-holder">
+		<aside class="span3">
 
-		<!-- Tertiary navigation -->
+			<!-- Tertiary navigation -->
 <?php echo $this->questionNavigation($this->question['qi']);?>
-		<!-- .tertiary-navigation -->
-		
-	</aside>
-	<section class="main-content span6">
-		<h3><?php echo $this->question['q']?></h3>
-		<p><?php echo $this->question['q_xpl']?></p>
-		<!-- Print -->
-		<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
-	</section>
-	<aside class="span3">
-		<p><?php echo $this->question['vot_q']?></p>
-	</aside>
-</div><!-- .row -->
+			<!-- .tertiary-navigation -->
+
+		</aside>
+		<section class="main-content span6">
+			<h3><?php echo $this->question['q']?></h3>
+			<p><?php echo $this->question['q_xpl']?></p>
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+		<aside class="span3">
+			<p><?php echo $this->question['vot_q']?></p>
+		</aside>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
 
 <!-- Content end -->
 
