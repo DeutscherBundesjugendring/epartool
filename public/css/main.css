@@ -568,8 +568,17 @@
     padding: 3em 0;
     color: #444444;
   }
+  .document-wrap > .body-copy aside > * {
+    margin-left: 1.538462em;
+  }
   .document-wrap > .body-copy section + aside {
-    padding-top: 3em;
+    padding-top: 6em;
+  }
+  .document-wrap > .body-copy .offset-left {
+    margin-left: 1.538462em;
+  }
+  .document-wrap > .body-copy .offset-right {
+    margin-right: 1.538462em;
   }
   .document-wrap > .body-copy .top-link {
     padding: 1em 1.538462em;
@@ -837,6 +846,43 @@
   .consultation-preview .consultation-nav .nav > li:first-child > *:after,
   .consultation-preview .consultation-nav .nav > li:nth-child(2) > *:before {
     display: none;
+  }
+  .tertiary-navigation .nav {
+    margin: 0;
+    padding: 0;
+  }
+  .tertiary-navigation .nav > li > a {
+    margin: 0 0 2px;
+    padding: 0.4em 1.1538465em;
+    font: normal 1.5em/120% "Yanone Kaffeesatz", sans-serif;
+    text-transform: uppercase;
+    text-shadow: none;
+    color: #000000;
+    background-color: #02afdb;
+  }
+  .tertiary-navigation .nav > li > a:hover,
+  .tertiary-navigation .nav > li > a:focus {
+    background-color: #fc9026;
+  }
+  .tertiary-navigation .nav > .active > a,
+  .tertiary-navigation .nav > .active > a:hover {
+    color: #000000;
+    background-color: #fc9026;
+  }
+  .tertiary-navigation .nav > li > ul {
+    margin: 0 0 2px;
+    list-style: none;
+    background-color: #000000;
+  }
+  .tertiary-navigation .nav > li > ul > li > a {
+    padding: 0.5em 1.538462em;
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  .tertiary-navigation .nav ul > .active > a,
+  .tertiary-navigation .nav ul > .active > a:hover {
+    color: #fc9026;
   }
   .navbar {
     margin-bottom: 0;

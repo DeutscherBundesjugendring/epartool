@@ -89,6 +89,7 @@
 
 // Consultation navigation
 // -------------------------
+
 .consultation-nav {
 	overflow: hidden;
 
@@ -301,5 +302,56 @@
 	.nav > li:first-child > *:after,
 	.nav > li:nth-child(2) > *:before {
 		display: none;
+	}
+}
+
+
+// Tertiary (sidebar) navigation
+// -------------------------
+
+.tertiary-navigation {
+	.nav {
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav > li > a {
+		margin: 0 0 2px;
+		padding: .4em (.75 * @u);
+		font: normal 1.5em/120% @subheadingFontFamily;
+		text-transform: uppercase;
+		text-shadow: none;
+		color: @bodyText;
+		background-color: @blue;
+
+		&:hover,
+		&:focus {
+			background-color: @orange;
+		}
+	}
+
+	.nav > .active > a,
+	.nav > .active > a:hover {
+		color: @bodyText;
+		background-color: @orange;
+	}
+
+	// Second level
+	.nav > li > ul {
+		margin: 0 0 2px;
+		list-style: none;
+		background-color: @black;
+	}
+
+	.nav > li > ul > li > a {
+		padding: .5em @u;
+		display: block;
+		text-decoration: none;
+		color: @white;
+	}
+
+	.nav ul > .active > a,
+	.nav ul > .active > a:hover {
+		color: @orange;
 	}
 }

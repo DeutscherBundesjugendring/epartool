@@ -153,12 +153,23 @@ body {
 	aside {
 		padding: 3em 0;
 		color: @textColor;
-		//background-color: @white;
+
+		> * {
+			margin-left: @u;
+		}
 	}
 
 	// Right sidebar
 	section + aside {
-		padding-top: 3em; // make place for print link
+		padding-top: 6em; // make place for print link
+	}
+
+	.offset-left {
+		margin-left: @u;
+	}
+
+	.offset-right {
+		margin-right: @u;
 	}
 
 	// Top link
