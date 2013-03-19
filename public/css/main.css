@@ -565,7 +565,7 @@
     color: #fc9026;
   }
   .document-wrap > .body-copy aside {
-    padding: 3em 1.538462em;
+    padding: 3em 0;
     color: #444444;
   }
   .document-wrap > .body-copy section + aside {
@@ -810,11 +810,13 @@
   .consultation-nav .nav > .active > a:hover:after {
     border-left-color: #ffffff;
   }
+  .consultation-nav .nav > li > div,
   .consultation-nav .nav > .item-disabled > *,
   .consultation-nav .nav > .item-disabled > a:hover {
     background-color: #a69f9f;
     cursor: not-allowed;
   }
+  .consultation-nav .nav > li > div:after,
   .consultation-nav .nav > .item-disabled > *:after,
   .consultation-nav .nav > .item-disabled > a:hover:after {
     border-left-color: #a69f9f;
