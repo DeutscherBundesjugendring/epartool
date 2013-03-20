@@ -338,9 +338,39 @@
 
 	// Second level
 	.nav > li > ul {
+		position: relative;
 		margin: 0 0 2px;
+		padding-top: .75em;
 		list-style: none;
 		background-color: @black;
+
+		// Add decoration to items
+		& > li > * {
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				display: block;
+			}
+			&:before {
+				left: 50%;
+				z-index: 0;
+				margin-left: -1.55em;
+				border-left: 1.5em solid transparent;
+				border-right: 1.5em solid transparent;
+				border-top: .75em solid @white;
+			}
+			&:after {
+				left: 50%;
+				top: -2px;
+				z-index: 1;
+				margin-left: -1.4em;
+				border-left: 1.4em solid transparent;
+				border-right: 1.4em solid transparent;
+				border-top: .7em solid @orange;
+			}
+		}
 	}
 
 	.nav > li > ul > li > a {
@@ -348,6 +378,10 @@
 		display: block;
 		text-decoration: none;
 		color: @white;
+
+		&:hover {
+			color: @grayLight;
+		}
 	}
 
 	.nav ul > .active > a,
