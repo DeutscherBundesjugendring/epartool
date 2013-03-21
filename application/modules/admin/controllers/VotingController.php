@@ -156,8 +156,11 @@ class Admin_VotingController extends Zend_Controller_Action {
         '{{CNSLT_TITLE}}' => $this->_consultation['titl'],
         '{{VOTE_FROM}}' => $date->set($this->_consultation['vot_fr'])->get(Zend_Date::DATE_MEDIUM),
         '{{VOTE_TO}}' => $date->set($this->_consultation['vot_to'])->get(Zend_Date::DATE_MEDIUM),
-        '{{SITEURL}}' => Zend_Registry::get('baseUrl') . '/voting/index/authcode/',
-        '{{VTC}}' => $votingRights['vt_code'],
+//         '{{SITEURL}}' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
+//           . $this->_consultation['kid'] . '/authcode/',
+//         '{{VTC}}' => $votingRights['vt_code'],
+        '{{VOTINGURL}}' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
+          . $this->_consultation['kid'] . '/authcode/' . $votingRights['vt_code'],
         '{{GROUP_CATEGORY}}' => $grp_siz_def[$votingRights['grp_siz']],
         '{{VOTING_WEIGHT}}' => $votingRights['vt_weight'],
       );
