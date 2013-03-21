@@ -791,4 +791,24 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       
     }
   }
+  
+  /**
+   * Returns voting theses by question
+   *
+   * @param integer $qid
+   * @throws Zend_Validate_Exception
+   * @return Zend_Db_Table_Rowset
+   */
+  public function getVotingthesesByQuestion($qid) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($qid)) {
+      throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+    }
+    
+    return $this->fetchAll(
+      $this->select()
+        ->where('qi = ?', $qid)
+        ->where('vot = ?', 'y')
+    );
+  }
 }
