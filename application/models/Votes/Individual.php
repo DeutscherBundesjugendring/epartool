@@ -184,5 +184,119 @@ class Model_Votes_Individual extends Zend_Db_Table_Abstract {
     
     return $stmt->fetchColumn();
   }
+  
+  /**
+   * Return the last tid of a subuser
+   * @param string $subUid (md5-hash)
+   * @return array
+   */
+  public function getLastBySubuser($subUid) {
+    $result = array();
+    
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select->from(array('vi' => 'vt_indiv'));
+    $select->joinLeft(array('i' => 'inpt'), 'vi.tid = i.tid');
+    $select->where('sub_uid = ?', $subUid);
+    $select->order('upd DESC');
+    $select->limit(1);
+    
+
+    $stmt = $db->query($select);
+    $row = $stmt->fetchAll();
+    
+    if($row) {
+      $result = $row;
+    }
+
+    return $result;
+  }
+  
+  /**
+   * returns the count of voted thesis of a subuser
+   * @param string $subUid (md5-hash)
+   * @return integer
+   */
+  public function countVotesBySubuser($subUid) {
+    $result = 0;
+    
+    if(empty($subUid)) {
+      return $result;
+    }
+    
+    $select = $this->select()
+      ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+      ->where('sub_uid = ?', $subUid);
+    $row = $this->fetchAll($select)->current();
+    if($row) {
+      return $row->count;
+    }
+  }
+  
+  /**
+   * update status of vote of a subuser
+   * @param integer $uid
+   * @param string $subuid (md5-hash)
+   * @param string $status (v = voted, s = skipped, c = confirmed)
+   * @param string $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
+   */
+  public function setStatusForSubuser($uid, $subuid, $status, $statusBefore = '') {
+    if(empty($uid) || empty($subuid) || empty($status)) {
+      return false;
+    }
+    if($status != 'v' && $status != 's' && $status != 'c') {
+      return false;
+    }
+    $db = $this->getAdapter();
+    
+    $data = array(
+      'status' => $status,
+      'upd'    => new Zend_Db_Expr('NOW()')
+    );
+    $where = array(
+      'uid = ?'  => $uid,
+      'sub_uid = ?' => $subuid
+    );
+    if(!empty($statusBefore) && ($statusBefore=='v' || $statusBefore=='s' || $statusBefore=='c')) {
+      $where['status = ?'] = $statusBefore;
+    }
+//    $db->getProfiler()->setEnabled(true);
+    $result = $db->update($this->_name, $data, $where);
+//    Zend_Debug::dump($db->getProfiler()->getLastQueryProfile()->getQuery());
+//    Zend_Debug::dump($db->getProfiler()->getLastQueryProfile()->getQueryParams());
+//    $db->getProfiler()->setEnabled(false);
+    if($result) {
+      return true;
+    }
+    return false;
+  }
+  
+  /**
+   * Delete votes for user by status
+   * @param string $subuid (md5-hash)
+   * @param string $status (v = voted, s = skipped, c = confirmed)
+   * @param string $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
+   */
+  public function deleteByStatusForSubuser($uid, $subuid, $status) {
+    if(empty($uid) || empty($subuid) || empty($status)) {
+      return false;
+    }
+    if($status != 'v' && $status != 's' && $status != 'c') {
+      return false;
+    }
+    
+    $db = $this->getAdapter();
+    $where = array(
+      'uid = ?'  => $uid,
+      'sub_uid = ?' => $subuid,
+      'status = ?' => $status,
+    );
+    $result = $db->delete($this->_name, $where);
+    if($result) {
+      return true;
+    }
+    return false;
+    
+  }
 }
 

@@ -155,7 +155,7 @@ class Model_Emails extends Zend_Db_Table_Abstract {
     // check if needed data exists (min receiver & subject)
     if(empty($message)
     || empty($receiver)
-    || empty($subject)) {
+    || empty($subject) ) {
       $success = false;
     }
     

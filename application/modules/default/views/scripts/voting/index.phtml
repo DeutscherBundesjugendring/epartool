@@ -3,9 +3,26 @@
  * index
  *
  * @description   Startseite Abstimmung
- * @author        Markus Hackel
+ * @author        Markus Hackel, Jan Suchandt
  */
 ?>
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('voting')?>
 <!-- .secondary-navigation -->
+<section class="main-content content-holder">
+<h1>Anmelden zur Abstimmung zu &quot;<?php echo $this->consultationTitle; ?>&quot;</h1>
+<p>
+  Hier k&ouml;nnt Ihr dar&uuml;ber abstimmen, welche der Beitr&auml;ge zum Thema &quot;<?php echo $this->consultation['titl_short']; ?>&quot;
+  Ihr besonders wichtig findet! Bei den Beitr&auml;gen handelt es sich um Meinungen, Positionen und Vorschl&auml;ge, die uns
+  Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.
+</p>
+<p>
+  Die Abstimmung ist anonym. Deine E-Mail-Adresse nutzen wir nur, um zu überpr&uuml;fen, ob Du berechtigt bist, an der
+  Abstimmung teilzunehmen.
+</p>
+<?php
+echo $this->authform;
+
+echo (!empty($this->votingExplanation)) ? '<p>'.$this->votingExplanation.'</p>':'';
+?>
+</section>

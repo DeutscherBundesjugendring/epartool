@@ -237,8 +237,9 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
   public function getCountByConsultationFiltered($kid, $filter = array()) {
     $select = $this->select()
       ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
-      ->where('kid = ?', $kid)
-      ->where('uid <> ?', 1);
+      ->where('kid = ?', $kid);
+      // JSU Superadmin wird eigentlich ausgenommen, im Altsystem ist es aber nicht so
+      //->where('uid <> ?', 1);
       
     foreach ($filter as $condition) {
       if (is_array($condition)) {
@@ -248,7 +249,6 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
           $condition['value']);
       }
     }
-      
     $row = $this->fetchAll($select)->current();
     return $row->count;
   }
@@ -699,22 +699,96 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
   }
   
   /**
-   * Returns voting theses by question
-   *
-   * @param integer $qid
-   * @throws Zend_Validate_Exception
-   * @return Zend_Db_Table_Rowset
+   * Liefert eine CSV-Liste aller abzustimmenen Beiträge einer Konsultation
+   * @param inter $kid
+   * @return array
    */
-  public function getVotingthesesByQuestion($qid) {
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($qid)) {
-      throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+  public function getVotingchain($kid) {
+    if(empty($kid)) {
+      return array();
     }
     
-    return $this->fetchAll(
-      $this->select()
-        ->where('qi = ?', $qid)
-        ->where('vot = ?', 'y')
+    $select = $this->select();
+    $select->from($this, array('tid'=>'tid', 'qi'=>'qi'));
+    $select->where('kid=?', $kid);
+    $select->where('vot=?', 'y');
+    
+    $rows = $this->fetchAll($select)->toArray();
+    $tlist = array();
+    $qlist = array();
+    foreach($rows AS $inpt) {
+      $tlist[]=$inpt['tid'];
+      $qlist[]=$inpt['qi'];
+    }
+    $list = array(
+      'tid'=>$tlist,
+      'qi' =>$qlist
     );
+    return $list;
+  }
+  
+  public function getThesisbyQuestion($kid, $qid) {
+    if(empty($kid) || empty($qid)) {
+      return array();
+    }
+    
+    $result = array();
+    
+    $select = $this->select();
+    $select->where('kid=?', $kid);
+    $select->where('qi=?', $qid);
+    $select->where('vot=?', 'y');
+    
+    $rowSet = $this->fetchAll($select)->toArray();
+    foreach($rowSet AS $row) {
+      $result[$row['tid']] = $row;
+    }
+    
+    return $result;
+  }
+  
+  public function getThesisbyTag($kid, $tagId) {
+    if(empty($kid) || empty($tagId)) {
+      return array();
+    }
+    
+    $result = array();
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select->from(array('it' => 'inpt_tgs'));
+    $select->joinLeft(array('i' => 'inpt'), 'i.tid = it.tid');
+    $select->where('i.kid=?', $kid);
+    $select->where('i.vot=?', 'y');
+    $select->where('it.tg_nr = ?', (int)$tagId);
+
+    $stmt = $db->query($select);
+    $rowSet = $stmt->fetchAll();
+
+    if($rowSet) {
+      $result = $rowSet;
+    }
+    return $result;
+
+  }
+  
+  /**
+   * Migrate tags in csv-form from table inputs
+   * to db-relation table inpt_tgs
+   * DONT USE IN LIVE-SYSTEM
+   */
+  public function migrateTags() {
+    $inputTagsModel = new Model_InputsTags();
+    
+    $select = $this->select();
+    $rowset = $this->fetchAll($select)->toArray();
+    
+    foreach($rowset AS $input) {
+      if(!empty($input['tg_nrs'])) {
+        $tags = explode(',', $input['tg_nrs']);
+        $inputTagsModel->insertByInputsId($input['tid'], $tags);
+        echo($input['tid'] . ':' .$input['tg_nrs'] . '<br />');
+      }
+      
+    }
   }
 }

@@ -138,10 +138,11 @@ class Model_Tags extends Zend_Db_Table_Abstract {
    * Returns array of tags used within given consultation incl. number of usage
    *
    * @param integer $kid
+   * @param string $vot 'y' for inputs that confirmed for voting
    * @throws Zend_Validate_Exception
    * @return array
    */
-  public function getAllByConsultation($kid) {
+  public function getAllByConsultation($kid, $vot='') {
     $return = array();
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($kid)) {
@@ -161,8 +162,12 @@ class Model_Tags extends Zend_Db_Table_Abstract {
       
       // count number of assignments per tag and consultation over all inputs
       $select->from(array('it' => 'inpt_tgs'), array(new Zend_Db_Expr('COUNT(it.tg_nr) AS count')));
-      $select->join(array('i' => 'inpt'), 'i.tid = it.tid', array());
-      $select->where('i.kid = ?', $kid)->where('it.tg_nr = ?', $tag->tg_nr);
+      $select->joinLeft(array('i' => 'inpt'), 'i.tid = it.tid', array());
+      $select->where('i.kid = ?', $kid)
+        ->where('it.tg_nr = ?', $tag->tg_nr);
+      if(!empty($vot)) {
+        $select->where('i.vot = ?', $vot);
+      }
       $select->group('it.tg_nr');
       
       $stmt = $db->query($select);
@@ -193,5 +198,28 @@ class Model_Tags extends Zend_Db_Table_Abstract {
    */
   public function getAll() {
     return $this->fetchAll($this->select()->order('tg_de'));
+  }
+  
+  /**
+   * returns name by id
+   * @param integer $id
+   * @return string
+   */
+  public function getNameById($id) {
+    // is int?
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($id)) {
+      return array();
+    }
+
+    $row = $this->find($id)->current();
+    if($row) {
+      return $row->tg_de;
+    }
+    else {
+      return '';
+    }
+    
+
   }
 }

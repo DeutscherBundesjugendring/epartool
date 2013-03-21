@@ -1,0 +1,48 @@
+<?php
+/**
+ * index
+ *
+ * @description   Bestätigungsseite für Abstimmung (durch Aufruf des Links in E-mail)
+ * @author        Markus Hackel, Jan Suchandt
+ */
+?>
+<section class="main-content content-holder">
+<?php
+if($this->act == 'acc'):
+  ?>
+  <h1>Deine Bewertungen sind jetzt bestätigt.</h1>
+  <p>
+    Vielen Dank für die Bestätigung Deiner Abstimmung. Falls Du noch nicht über alle Beiträge abgestimmt hast,
+    kannst Du mit Hilfe des Zugangscodes jederzeit zurückkehren und die Abstimmung fortsetzen.
+  </p>
+  <?php
+endif;
+
+if($this->memberstatus == 'u' && $this->act == 'acc'):
+  ?>
+  <p>
+    Der/die Verantwortliche für Deine Gruppe muss noch bestätigen, dass Du abstimmungsberechtigt bist.
+    Dabei sieht er/sie nur Deine E-Mail-Adresse, nicht aber wie Du abgestimmt hast.
+    Erst danach fließen Deine Bewertungen endgültig in das Abstimmungsergebnis ein.
+  </p>
+  <?php
+elseif($this->memberstatus == 'y' && $this->act == 'acc'):
+  ?>
+  <p>
+    Der/die Verantwortliche Deiner Gruppe hat Deine E-Mail-Adresse bereits bestätigt.
+    Deine Bewertungen werden jetzt anonymisiert und fließen damit endgültig in das Abstimmungsergebnis ein.
+  </p>
+  <?php
+elseif($this->act == 'rej'):
+  ?>
+  <h1>Die Bewertungen wurden gelöscht.</h1>
+  <p>
+    Die mit Deiner E-Mail-Adresse abgegebenen Bewertungen fließen nicht in das Endergebnis ein.
+    Dies betrifft keine Bewertungen, die Du ggf. schon früher bestätigt hast.
+    Du kannst aber mit Hilfe des Zugangscodes jederzeit zurückkehren und wieder an der Abstimmung teilnehmen.
+  </p>
+  <?php
+endif;
+?>
+<p><a href="<?php echo Zend_Registry::get('baseUrl'); ?>">Zur&uuml;ck zur Startseite</a></p>
+</section>

@@ -36,6 +36,21 @@ class IndexController extends Zend_Controller_Action {
             ));
   }
 
+  /** Migrate tags in csv-form from table inputs
+   * to db-relation table inpt_tgs
+   * DONT USE IN LIVE-SYSTEM
+   */
+  /*
+  public function migrateTagsAction() {
+    echo('Tag-Input-Relation von CSV-Format zur DB-Relation migrieren');
+    
+    $this->_helper->layout()->disableLayout();
+    $this->_helper->viewRenderer->setNoRender(true);
+    $inputModel = new Model_Inputs();
+    $inputModel->migrateTags();
+  }
+  */
+  
   /**
    * Loginform
    * @desc action you reach with login-form
@@ -80,11 +95,6 @@ class IndexController extends Zend_Controller_Action {
       // no search-request, redirect
       $this->redirect('');
     }
-    
-    
-    
-    // search in articles
-    // search in consultation (inputs, tags, consultationtexts)
     
   }
 }
