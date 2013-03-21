@@ -156,15 +156,15 @@ class Model_Articles extends Zend_Db_Table_Abstract {
   
   /**
    * Returns article by given RefName, e.g. 'about', 'imprint' etc.
-   * used for static pages
    *
    * @param string $ref
+   * @param integer $kid Consultation ID if any, Default: 0
    * @return array
    */
-  public function getByRefName($ref) {
+  public function getByRefName($ref, $kid = 0) {
     $result = array();
     $select = $this->select();
-    $select->where('ref_nm = ?', $ref);
+    $select->where('ref_nm = ?', $ref)->where('kid = ?', $kid);
     $row = $this->fetchAll($select)->current();
     if (!empty($row)) {
       $result = $row->toArray();

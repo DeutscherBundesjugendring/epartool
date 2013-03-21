@@ -8,6 +8,7 @@ class VotingController extends Zend_Controller_Action {
 
   protected $_user = null;
   protected $_consultation = null;
+  protected $_flashMessenger = null;
 
   /**
    * Construct
@@ -485,5 +486,22 @@ class VotingController extends Zend_Controller_Action {
     
     $this->view->subuser = $votingGroup['sub_user'];
     
+  }
+  
+  public function resultsAction() {
+    if ($this->_consultation->vot_res_show == 'n') {
+      $this->_flashMessenger->addMessage('Abstimmungsergebnisse können noch nicht gezeigt werden!', 'error');
+      $this->redirect('/voting/index/kid/' . $this->_consultation->kid);
+    }
+    
+    $articlesModel = new Model_Articles();
+    $this->view->articleGeneral = $articlesModel->getByRefName('vot_res', 0);
+    $this->view->articleConsultation = $articlesModel->getByRefName('vot_res', $this->_consultation->kid);
+    
+    $qid = $this->_request->getParam('qid', 0);
+    $votesModel = new Model_Votes();
+    $votingResultsValues = $votesModel->getResultsValues($this->_consultation->kid, $qid);
+    
+    $this->view->assign($votingResultsValues);
   }
 }

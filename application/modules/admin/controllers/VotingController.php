@@ -325,53 +325,11 @@ class Admin_VotingController extends Zend_Controller_Action {
   
   public function resultsAction() {
     $qid = $this->_request->getParam('qid', 0);
-    $theses_votes = array();
-    $theses_votes_order = array();
-    $theses_values = array();
-    $questionModel = new Model_Questions();
-    $questions = $questionModel->getByConsultation($this->_consultation['kid']);
-    foreach ($questions as $question) {
-      if ($qid == 0) {
-        // no question given, so take the first one
-        $currentQuestion = $question;
-        break;
-      } elseif ($qid == $question['qi']) {
-        $currentQuestion = $question;
-        break;
-      }
-    }
     
-    // get the voting theses
-    $inputsModel = new Model_Inputs();
-    $theses = $inputsModel->getVotingthesesByQuestion($currentQuestion['qi']);
+    $votesModel = new Model_Votes();
+    $votingResultsValues = $votesModel->getResultsValues($this->_consultation['kid'], $qid);
     
-    // get voting values and build helper arrays
-    $votesIndivModel = new Model_Votes_Individual();
-    foreach ($theses as $thesis) {
-      $theses_votes_order[$thesis['tid']] = $votesIndivModel
-        ->getVotingValuesByThesis($thesis['tid'], $this->_consultation['kid']);
-      $theses_values[$thesis['tid']] = $thesis->toArray();
-    }
-    
-    // build the $theses_votes array
-    foreach ($theses_votes_order as $thesisId => $votingValues) {
-      $theses_votes[$votingValues['rank']][$thesisId] = $theses_values[$thesisId];
-      $theses_votes[$votingValues['rank']][$thesisId]['points'] = $votingValues['points'];
-      $theses_votes[$votingValues['rank']][$thesisId]['cast'] = $votingValues['cast'];
-    }
-    
-    // sort the $theses_votes array descending by key (i.e. rank)
-    krsort($theses_votes);
-    
-    // reset pointer to get the highest key (see below)
-    reset($theses_votes);
-    
-    $this->view->assign(array(
-      'currentQuestion' => $currentQuestion,
-      'questions' => $questions,
-      'theses_votes' => $theses_votes,
-      'highest_rank' => key($theses_votes)
-    ));
+    $this->view->assign($votingResultsValues);
   }
   
 }

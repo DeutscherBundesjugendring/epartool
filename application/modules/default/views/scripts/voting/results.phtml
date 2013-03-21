@@ -1,0 +1,37 @@
+<?php
+/**
+ * results
+ *
+ * @description   Voting Results
+ * @author        Markus Hackel
+ */
+?>
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('voting')?>
+<!-- .secondary-navigation -->
+<div class="content-holder">
+  <div class="row">
+    <aside class="span3">
+    <?php echo $this->questionNavigation($this->currentQuestion['qi']); ?>
+    </aside>
+    <section class="main-content span9">
+      <h2>Abstimmungsergebnisse</h2>
+      <?php if (!empty($this->articleGeneral)): ?>
+      <?php echo html_entity_decode($this->articleGeneral['artcl']); ?>
+      <?php endif; ?>
+      <?php if (!empty($this->articleConsultation)): ?>
+      <?php echo html_entity_decode($this->articleConsultation['artcl']); ?>
+      <?php endif; ?>
+      <h3><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h3>
+      <?php foreach ($this->theses_votes as $rank => $theses): ?>
+      <?php $diag_lngth = round(($rank*600)/$this->highest_rank, 0); ?>
+      <?php foreach ($theses as $thesis): ?>
+      <p><?php echo $thesis['thes']; ?></p>
+      <div style="background-color: #d9e8ef; color: #3f6f8d; font-size: smaller; margin-bottom: 2em; padding: 4px; width: <?php
+        echo $diag_lngth; ?>px;">&nbsp;<?php echo round($rank, 2); ?> Punkte</div>
+      <?php endforeach; ?>
+      <?php endforeach; ?>
+      <p><a href="#">&uarr; Nach oben</a></p>
+    </section>
+  </div>
+</div>

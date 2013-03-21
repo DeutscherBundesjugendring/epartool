@@ -25,4 +25,10 @@ echo $this->authform;
 
 echo (!empty($this->votingExplanation)) ? '<p>'.$this->votingExplanation.'</p>':'';
 ?>
+<?php if ($this->consultation->vot_res_show == 'y'): ?>
+<p><a href="<?php echo $this->url(array(
+  'action' => 'results',
+  'authcode' => null
+)); ?>">Votingergebnisse ansehen &raquo;</a></p>
+<?php endif; ?>
 </section>
