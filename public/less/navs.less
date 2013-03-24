@@ -88,6 +88,14 @@
 }
 
 
+// Tabs
+// -------------------------
+
+.nav-tabs > .active > a:hover {
+	cursor: pointer; // don't pretend it's not a link
+}
+
+
 // Consultation navigation
 // -------------------------
 
@@ -114,21 +122,19 @@
 		height: 75px;
 		.box-sizing(border-box);
 		margin: 0 8px 0 0;
-		padding: .4em @u;
+		padding: .5em @u;
 		.border-radius(0);
 		border-style: none;
 		color: @grayLightest;
 		background-color: @black;
 		.box-shadow(none);
 
-		// Title
 		h2 {
 			font: normal 1.923em/90% @subheadingFontFamily; // 28px
 			text-transform: uppercase;
 			color: @grayLightest;
 		}
 
-		// Info
 		.info {
 			position: absolute;
 			right: .75em;
@@ -138,7 +144,6 @@
 			text-align: right;
 		}
 
-		// Bubble
 		.bubble {
 			left: 1.5em;
 			bottom: -0.3em;
@@ -160,6 +165,7 @@
 			display: block;
 			margin-top: -1.5em;
 		}
+
 		&:before {
 			left: 0;
 			z-index: 0;
@@ -167,6 +173,7 @@
 			border-top: 1.4em solid transparent;
 			border-bottom: 1.4em solid transparent;
 		}
+
 		&:after {
 			left: 100%;
 			z-index: 1;
@@ -186,7 +193,6 @@
 	.nav > li > a {
 		//.transition(background @normal linear);
 
-		// Hover state
 		&:hover {
 			background-color: @orange;
 

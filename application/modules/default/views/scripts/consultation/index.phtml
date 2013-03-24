@@ -4,13 +4,13 @@
  *
  */
 ?>
-<h2>Alle Konsultationen im Überblick</h2>
+
+<div class="content-holder main-content">
+
+	<h1>Alle Konsultationen im Überblick</h1>
+
 <ul>
 <?php foreach ($this->consultations as $consultation): ?>
-
-<div class="grid_10" style="background-color: #ffffff; padding-top: 12px;
-padding-bottom: 12px; border-radius: 0.8em; -moz-border-radius: 0.8em; -webkit-border-radius: 0.8em;">
-<div id="cnslt_core" class="grid_6">
 
 <p>Konsultation zu</p>
 <?php
@@ -68,10 +68,16 @@ echo '</p>';
 
 ?>
 
-</div>
-
-</div>
-<div class="clear">&nbsp;</div><div class="grid_10"><p>&nbsp;</p></div>
-
 <?php endforeach;?>
 </ul>
+
+	<!-- Print -->
+	<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+</div><!-- .content-holder -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-chevron-up"></i> nach oben</a>
+</div>
