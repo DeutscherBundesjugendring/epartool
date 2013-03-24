@@ -17,9 +17,21 @@ $(document).ready(function () {
 	// -------------------------
 
 	$('*[rel="popover"]').popover();
-	
+
+
 	// Buttons
 	// -------------------------
+
 	$('button.arrow-right').append(' <i class="icon-chevron-right"></i>');
+
+
+	// Scroll to ID
+	// -------------------------
+
+	$('.js-scroll').click(function() {
+		$('html, body').animate({ scrollTop: $(this.hash).offset().top}, 500);
+		return false;
+		e.preventDefault();
+	});
 
 });
