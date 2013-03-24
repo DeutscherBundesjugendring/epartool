@@ -71,6 +71,28 @@ body {
 		text-align: left;
 	}
 
+	.main-title {
+		text-align: center;
+
+		h1 {
+			position: relative;
+			margin-bottom: 0;
+			font-size: 3.5em; // 45px
+			line-height: 120%;
+
+			&:after {
+				content: '';
+				position: absolute;
+				left: 67%;
+				top: -0.666em;
+				width: 83px;
+				height: 74px;
+				display: block;
+				background: transparent url('@{basePath}/images/bubble_mitwirkung.png') no-repeat;
+			}
+		}
+	}
+
 	// Hero unit
 	.hero-unit {
 		padding: 2em;
