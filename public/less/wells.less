@@ -5,25 +5,31 @@
 
 // Well
 .well {
-	.box-sizing(border-box);
-	margin-bottom: 2 * @u;
-	padding: (2 * @u) (2 * @u) @u;
+	margin-bottom: 1em;
+	padding: 1.5em @u;
+	color: @wellText;
 	border-style: none;
 	.border-radius(@wellBorderRadius);
 	background-color: @wellBackground;
-	color: @wellText;
 
-	// Headings
 	h2,
-	h3 {
-		color: @orangeLight;
+	h3,
+	h4 {
+		color: @white;
 	}
 
-	// Links
+	h2 {
+		font-size: 1.6em;
+		line-height: 120%;
+	}
+
+	p {
+		line-height: 135%;
+	}
+
 	a {
 		color: @wellLinkText;
 
-		// Hover state
 		&:hover {
 			color: @wellLinkTextHover;
 		}
