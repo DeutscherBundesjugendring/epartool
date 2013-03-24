@@ -150,16 +150,20 @@ body {
 	// Content holder
 	.content-holder {
 		position: relative; // for positioning of print link
+		color: @textColor;
 		background-color: @white;
 	}
 
 	// Main content
 	.main-content {
 		padding: 3em 0;
-		color: @textColor;
 
 		&.content-holder {
 			padding: 3em @u;
+		}
+
+		&.span9 {
+			width: 680px;
 		}
 	}
 

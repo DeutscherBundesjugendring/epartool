@@ -33,9 +33,9 @@ $supportsDisabled = (
 			<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
 			<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
 			<?php endif; ?>
-			<p class="count"><?php echo $this->numberInputs; ?> Beiträge</p>
+			<small class="count muted"><?php echo $this->numberInputs; ?> Beiträge</small>
 
-			<h3><?php echo $this->question['q']; ?></h3>
+			<h1><?php echo $this->question['q']; ?></h1>
 			<p><?php echo $this->question['q_xpl']; ?></p>
 
 			<!-- New contribution -->
@@ -64,11 +64,11 @@ $supportsDisabled = (
 				</a>
 				<?php endif; ?>
 
-				<a href="#">
-					<i class="icon-comment"></i>
-					<span class="badge">(<?php echo $input['pts']; ?>)</span>
-					<span class="label">Das möchte ich gerne diskutieren!</span>
-				</a>
+				<p class="actions">
+					<i class="icon-comments icon-orange icon-2x"></i>
+					<small>(<?php echo $input['pts']; ?>)</small>
+					<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+				</p>
 			</article>
 
 			<hr />
