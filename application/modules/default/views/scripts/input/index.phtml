@@ -12,16 +12,20 @@ $locale = new Zend_Locale();
 <?php echo $this->secondNavigation('input')?>
 <!-- .secondary-navigation -->
 
+<!-- Content start -->
+
 <section class="main-content content-holder">
 
-	<p class="count"><?php echo $this->inputCount?> Beiträge</p>
+	<div class="text-center">
+		<p class="count"><?php echo $this->inputCount?> Beiträge</p>
 
-	<h1>Lorem ipsum Headline, die auch zweizeilig sein kann wenn denn nötig</h1>
-	<p>Bildung findet nicht nur in der (Hoch-)Schule oder am Ausbildungsplatz
-		statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
-		man auch außerhalb des sogenannten formalen Bildungssystems. Eine
-		besondere Rolle spielen dabei außerschulisch organisierte
-		Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
+		<h1>Lorem ipsum Headline, die auch zweizeilig sein kann wenn denn nötig</h1>
+		<p>Bildung findet nicht nur in der (Hoch-)Schule oder am Ausbildungsplatz
+			statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
+			man auch außerhalb des sogenannten formalen Bildungssystems. Eine
+			besondere Rolle spielen dabei außerschulisch organisierte
+			Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
+	</div>
 
 	<!-- Questions -->
 	<ul class="questions thumbnails">
@@ -50,8 +54,8 @@ foreach ($this->questions as $question):
 ?>
 		<li class="span4">
 			<div class="thumbnail">
+				<span class="badge badge-tag badge-tag-small"><?php echo $i?>.</span>
 				<h2>
-					<span class="badge badge-tag badge-tag-small"><?php echo $i?>.</span>
 					<a href="<?php echo $url?>"><?php echo $question['q']?></a>
 				</h2>
 				<?php foreach ($question['inputs'] as $input):?>
@@ -64,7 +68,7 @@ foreach ($this->questions as $question):
 					</article>
 				</a>
 				<?php endforeach;?>
-				<a href="<?php echo $url?>" class="btn btn-block">Zur Beitragsseite der Frage <?php echo $i?></a>
+				<a href="<?php echo $url?>" class="btn">Zur Beitragsseite der Frage <?php echo $i?></a>
 			</div>
 		</li>
 <?php
@@ -77,3 +81,10 @@ endforeach;
 	<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
 
 </section>
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-chevron-up"></i> nach oben</a>
+</div>
