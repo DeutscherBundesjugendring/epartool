@@ -7,34 +7,34 @@
 <nav class="pagination pagination-centered">
 	<ul>
 		<?php if (isset($this->previous)): ?>
-		<li>
-			<a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
-				<i class="icon-chevron-left"></i> <?php echo $this->titlePrev;?>
+		<li class="prev">
+			<a href="<?php echo $this->url(array('page' => $this->previous)); ?>" class="btn">
+				<i class="icon-angle-left"></i> <?php echo $this->titlePrev;?>
 			</a>
 		</li>
 		<?php else: ?>
-		<li class="disabled"><span><i class="icon-chevron-left"></i> <?php echo $this->titlePrev;?></span></li>
+		<li class="disabled prev"><span class="btn"><i class="icon-angle-left"></i> <?php echo $this->titlePrev;?></span></li>
 		<?php endif;?>
-		
+
 		<!-- Anzahl an Seitenlinks -->
     <?php foreach ($this->pagesInRange as $page): ?>
       <?php if ($page != $this->current): ?>
-        <li><a href="<?php echo $this->url(array('page' => $page)); ?>">
+        <li><a href="<?php echo $this->url(array('page' => $page)); ?>" class="btn">
           <?php echo $page; ?>
         </a></li>
       <?php else: ?>
-        <li class="active"><span><?php echo $page; ?></span></li>
+        <li class="active"><span class="btn"><?php echo $page; ?></span></li>
       <?php endif; ?>
     <?php endforeach; ?>
-		
+
 		<?php if (isset($this->next)): ?>
-		<li>
-			<a href="<?php echo $this->url(array('page' => $this->next)); ?>">
-				<?php echo $this->titleNext;?> <i class="icon-chevron-right"></i>
+		<li class="next">
+			<a href="<?php echo $this->url(array('page' => $this->next)); ?>" class="btn">
+				<?php echo $this->titleNext;?> <i class="icon-angle-right"></i>
 			</a>
 		</li>
 		<?php else: ?>
-		<li class="disabled"><span><?php echo $this->titleNext;?> <i class="icon-chevron-right"></i></span></li>
+		<li class="disabled next"><span class="btn"><?php echo $this->titleNext;?> <i class="icon-angle-right"></i></span></li>
 		<?php endif;?>
 	</ul>
 </nav>
