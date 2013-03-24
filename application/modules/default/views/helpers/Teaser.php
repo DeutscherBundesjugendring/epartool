@@ -63,7 +63,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
       $html.= '<a href="' . $url . '">'
         . '<h2>' . $item['titl'] . ':</h2> '
         . $text
-        . '<i class="icon-chevron-right icon-white"></i>'
+        . '<i class="icon-angle-right icon-white icon-2x"></i>'
         . '</a>'
         . '</li>';
     }
@@ -73,7 +73,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
         'controller' => 'consultation'
       ), 'default', true) . '">'
       . '<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Überischt ansehen …</strong>'
-      . '<i class="icon-chevron-right icon-white"></i>'
+      . '<i class="icon-angle-right icon-white icon-2x"></i>'
       . '</a></li>';
 
     $html.= '</ul>';

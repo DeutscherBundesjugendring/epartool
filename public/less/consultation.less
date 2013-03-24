@@ -118,7 +118,14 @@
 		top: @u;
 		color: @bodyText;
 
-		&:hover {
+		i {
+			position: relative;
+			top: .1em;
+			text-decoration: none;
+		}
+
+		&:hover,
+		&:focus {
 			color: @linkTextHover;
 		}
 	}
@@ -127,7 +134,7 @@
 	.share {
 		position: absolute; //relative;
 		right: -0.5em;
-		top: 2.5em;
+		top: 2.75em;
 		padding-right: .75em;
 
 		i {
