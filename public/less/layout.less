@@ -151,17 +151,14 @@ body {
 
 	// Sidebars
 	aside {
-		padding: 3em 0;
+		.box-sizing(border-box);
+		padding: 3em 0 3em @u;
 		color: @textColor;
-
-		> * {
-			margin-left: @u;
-		}
 	}
 
 	// Right sidebar
 	section + aside {
-		padding-top: 6em; // make place for print link
+		padding: 6em @u 3em 0; // make place for print link
 	}
 
 	.offset-left {
