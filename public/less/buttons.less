@@ -36,7 +36,9 @@
 	&:hover,
 	&:focus {
 		color: @btnTextHover;
+		outline: none;
 		background: @btnBackgroundHover none;
+		.box-shadow(none);
 	}
 
 	&:active,
@@ -114,4 +116,12 @@ p .btn {
 	.btn {
 		font-size: 1rem; // TODO mixin for rem
 	}
+}
+
+
+// Other
+// --------------------------------------------------
+
+.login input[type="submit"] {
+	.btn();
 }

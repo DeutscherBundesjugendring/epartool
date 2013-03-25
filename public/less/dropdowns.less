@@ -1,0 +1,51 @@
+//
+// Component: Dropdown
+// --------------------------------------------------
+
+
+.dropdown-menu {
+	padding: 1em;
+	color: @white;
+	border-style: none;
+	.border-radius(0);
+	background-color: @grayLighter;
+	.box-shadow(0 .2em .75em fade(@black, 40%));
+
+	h3 {
+		font: normal 2em/150% @subheadingFontFamily;
+		text-transform: uppercase;
+	}
+
+	a {
+		color: @grayLightest;
+
+		&:hover,
+		&:focus {
+			color: @white;
+		}
+	}
+
+	> li > a {
+		margin-left: -0.5em;
+		margin-right: -0.5em;
+		padding: .5em;
+		color: @white;
+	}
+
+	hr {
+		margin: 1em 0;
+	}
+}
+
+// Hover/focus state
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+	background: lighten(@grayLighter, 10%) none;
+	.reset-filter();
+}
+
+.user-box .dropdown-menu {
+	min-width: 195px;
+}

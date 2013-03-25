@@ -23,7 +23,7 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract {
       if ($identity->lvl == 'adm' || $identity->lvl == 'edt') {
           $html.= '<li><a href="' . $this->view->baseUrl() . '/admin">Zum Adminbereich</a></li>';
         }
-      $html .= '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'logout'), 'default', true) . '">Logout</a></li>'
+      $html .= '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'logout'), 'default', true) . '"><i class="icon-signout"></i> Logout</a></li>'
         . '</ul>'
         . '</div>'
         . '</div>';
