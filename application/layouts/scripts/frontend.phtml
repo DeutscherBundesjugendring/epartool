@@ -37,6 +37,7 @@ $config = Zend_Registry::get('config');
 
 <!-- Document wrap -->
 <div class="document-wrap" id="top">
+	<div class="container">
 
 	<!-- Header -->
   <?php
@@ -44,37 +45,36 @@ $config = Zend_Registry::get('config');
   echo $this->partial('_header.phtml', $this->layout()->getView());
   ?>
 
-	<hr class="hide" />
+		<hr class="hide" />
 
-	<!-- Body copy -->
-	<div role="main" class="list body-copy">
-		<div class="container">
+		<!-- Body copy -->
+		<div role="main" class="main">
 
 		<!-- Flash messages -->
 		<?php if(!empty($this->layout()->messages)): ?>
 		<?php foreach ($this->layout()->messages as $level => $messages):?>
 		<?php if (!empty($messages)):?>
 		<?php foreach ($messages as $message):?>
-  		<div class="alert alert-<?php echo $level; ?>">
-  			<button type="button" class="close" data-dismiss="alert">&times;</button>
-  			<h4>
-  			<?php switch ($level) {
-  			  case 'error':
-  			    echo 'Fehler!';
-  			    break;
-  			  case 'success':
-  			    echo 'Erfolg!';
-  			    break;
-  			  case 'info':
-  			  default:
-  			    echo 'Info';
-  			    break;
-  			}?>
-  			</h4>
-  			<?php echo $message; ?>
-  		</div>
-  	<?php endforeach;?>
-  	<?php endif;?>
+			<div class="alert alert-<?php echo $level; ?>">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>
+				<?php switch ($level) {
+				  case 'error':
+					echo 'Fehler!';
+					break;
+				  case 'success':
+					echo 'Erfolg!';
+					break;
+				  case 'info':
+				  default:
+					echo 'Info';
+					break;
+				}?>
+				</h4>
+				<?php echo $message; ?>
+			</div>
+		<?php endforeach;?>
+		<?php endif;?>
 		<?php endforeach;?>
 		<?php endif;?>
 
@@ -84,8 +84,8 @@ $config = Zend_Registry::get('config');
 
 <!-- Content end -->
 
-		</div><!-- .container -->
-	</div><!-- #body-copy -->
+		</div><!-- .main -->
+	</div><!-- .container -->
 </div><!-- .document-wrap -->
 
 <hr class="hide" />

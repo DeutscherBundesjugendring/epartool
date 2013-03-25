@@ -16,7 +16,6 @@
 // -------------------------
 
 body {
-	//font: normal @baseFontSize~'/'@baseLineHeight @baseFontFamily; // IE7 doesn't use the font family
 	font: normal @baseFontSize @baseFontFamily;
 	line-height: @baseLineHeight;
 	color: @bodyText;
@@ -30,7 +29,6 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
 	margin-top: 0;
 
-	// Icons
 	i {
 		margin-right: .5ex;
 	}
@@ -40,7 +38,7 @@ h1,
 .h1 {
 	margin-bottom: 1.25em;
 	font-family: @headingFontFamily;
-	font-weight: bold;
+	font-weight: normal;
 	font-size: 2em; // 21px
 	line-height: 1.4em;
 	text-transform: uppercase;
@@ -78,6 +76,7 @@ hgroup {
 		margin-bottom: .28em;
 		color: @blue;
 	}
+
 	h2 {
 		color: @blue;
 	}
@@ -114,19 +113,16 @@ figure {
 	}
 }
 
-// Selection
 ::selection {
 	background-color: @brandColor;
 	color: @white;
 }
 
-// Lead text
 .lead {
 	font-size: 1.23em; // 16px
 	line-height: 1.5em;
 }
 
-// Light text
 .light {
 	font-weight: normal;
 }
@@ -222,13 +218,11 @@ ul, ol {
 // Other
 // -------------------------
 
-// Horizontal divider
 hr {
 	margin: 0;
 	border-top-color: fade(@gray, 25%);
 }
 
-// Images
 img.pull-left {
 	margin-right: 1.5em;
 	margin-bottom: 1.5em;
