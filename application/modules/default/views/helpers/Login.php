@@ -6,13 +6,9 @@
  */
 class Zend_View_Helper_Login extends Zend_View_Helper_Abstract {
   public function login() {
+    $html = '';
     $auth = Zend_Auth::getInstance();
-    if ($auth->hasIdentity()) {
-      // user is logged in, show logout button
-      $html = '<a href="'
-        . $this->view->url(array('controller' => 'user', 'action' => 'logout'), 'default', true)
-        . '" class="btn btn-block" role="button" data-toggle="modal">Logout</a>';
-    } else {
+    if (!$auth->hasIdentity()) {
       // not logged in, show login button and form
       $html = '<a href="#login" class="btn btn-block" role="button" data-toggle="modal">Login</a>';
       $form = new Default_Form_Login();

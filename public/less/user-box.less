@@ -1,0 +1,29 @@
+//
+// Component: User box
+// --------------------------------------------------
+
+
+.user-box {
+	.user {
+		width: 77%;
+		overflow: hidden;
+		font-size: .9em;
+		line-height: 130%;
+		text-align: right;
+
+		a {
+			color: @grayLightest;
+
+			&:hover,
+			&:focus {
+				color: @white;
+			}
+		}
+
+		&:hover,
+		&:focus {
+			z-index: 1;
+			overflow: visible;
+		}
+	}
+}

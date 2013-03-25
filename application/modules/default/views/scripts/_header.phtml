@@ -40,7 +40,7 @@
 						<form method="get" action="<?php echo $this->baseUrl(); ?>/index/search" class="form-search">
 							<div class="input-append">
 								<input type="text" name="q" placeholder="Suchbegriff…" class="input-medium search-query" value="" />
-								<button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
+								<button type="submit" class="btn btn-primary btn-icon"><i class="icon-search icon-white"></i></button>
 							</div>
 						</form>
 
@@ -59,12 +59,6 @@
 								<h3 id="userInfoLabel">User Info</h3>
 							</div><!-- .modal-header -->
 							<div class="modal-body">
-
-								<a href="<?php echo $this->url(array(
-								  'controller' => 'user',
-								  'action' => 'inputlist'
-								), 'default', true); ?>"><i class="icon-chevron-right"></i> Alle meine Beiträge ansehen</a>
-								<hr />
 
 								<!-- Change user login or password -->
 								<?php echo $this->userEditSimple(); ?>
