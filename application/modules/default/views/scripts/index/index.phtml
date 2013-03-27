@@ -12,6 +12,9 @@ $nowDate = Zend_Date::now();
 ?>
 <?php foreach ($this->consultations as $con):?>
 <?php
+
+// TODO move to a separate partial template (eg. _consultationPreview.phtml).
+
 $disabled = array(
   'input' => ($nowDate->isEarlier($con->inp_fr)),
   'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
