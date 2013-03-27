@@ -6,9 +6,11 @@
  * @author        Jan Suchandt
  */
 ?>
-<hgroup>
-	<h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
-</hgroup>
+
+<div class="content-holder main-content">
+
+<h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
+
 <h2>Suche in Grundinformationen</h2>
 <?php
 // Generell articles
@@ -27,6 +29,7 @@ else {
   echo('<ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>');
 }
 ?>
+
 <h2>Suche in Konsultationen</h2>
 <?php
 // consultations
@@ -63,9 +66,11 @@ if(count($this->resultsConsultations)>0) {
         }
         echo('</ul>');
       }
-      
+
     }
-    
+
   }
 }
 ?>
+
+</div><!-- .main-content -->
