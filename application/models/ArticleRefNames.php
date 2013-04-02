@@ -3,7 +3,7 @@
  * Model ArticleRefNames
  *
  */
-class Model_ArticleRefNames extends Zend_Db_Table_Abstract {
+class Model_ArticleRefNames extends Model_DbjrBase {
   protected $_name = 'articles_refnm';
   protected $_primary = array('ref_nm', 'lng');
 

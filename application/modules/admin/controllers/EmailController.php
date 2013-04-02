@@ -93,11 +93,13 @@ class Admin_EmailController extends Zend_Controller_Action {
             // edit entry
             if(!empty($mid)) {
               $template->setFromArray($form->getValues());
+              $template->proj = implode(',', $form->getElement('proj')->getValue());
               $template->save();
             }
             // add new entry
             else {
               $templateRow = $templateModel->createRow($form->getValues());
+              $templateRow->proj = implode(',', $form->getElement('proj')->getValue());
               $success = $templateRow->save();
             }
             $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
@@ -109,6 +111,9 @@ class Admin_EmailController extends Zend_Controller_Action {
           }
     } else {
       $form->populate($values);
+      if (isset($values['proj'])) {
+        $form->getElement('proj')->setValue(explode(',', $values['proj']));
+      }
     }
     $this->view->form = $form;
   }

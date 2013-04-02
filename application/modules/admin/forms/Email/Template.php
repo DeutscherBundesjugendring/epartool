@@ -29,5 +29,15 @@ class Admin_Form_Email_Template extends Zend_Form {
       $consultationsArr[$val['kid']] = $val['titl'];
     }
     $this->getElement('kid')->setMultioptions($consultationsArr);
+    
+    $projectModel = new Model_Projects();
+    $projects = $projectModel->getAll();
+    $options = array();
+    foreach ($projects as $project) {
+      $options[$project['proj']] = $project['titl_short'];
+    }
+    $this->getElement('proj')->setMultiOptions($options);
+    // current project has to be checked always:
+    $this->getElement('proj')->setValue(array(Zend_Registry::get('systemconfig')->project));
   }
 }

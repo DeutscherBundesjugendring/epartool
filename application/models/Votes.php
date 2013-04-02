@@ -4,7 +4,7 @@
  * @desc    Class of votings, final voting result of consultation
  * @author  Jan Suchandt, Markus Hackel
  */
-class Model_Votes extends Zend_Db_Table_Abstract {
+class Model_Votes extends Model_DbjrBase {
   protected $_name = 'vt_final';
   protected $_primary = array(
     'uid', 'tid'

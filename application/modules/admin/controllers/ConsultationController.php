@@ -47,6 +47,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
           $consultationModel = new Model_Consultations();
           if ($form->isValid($this->getRequest()->getPost())) {
             $consultationRow = $consultationModel->createRow($form->getValues());
+            $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
             $newId = $consultationRow->save();
             if ($newId > 0) {
               $this->_flashMessenger->addMessage('Neue Konsultation wurde erstellt.', 'success');
@@ -62,7 +63,9 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
-      $element->setValue(html_entity_decode($element->getValue()));
+      if ($element->getName() != 'proj') {
+        $element->setValue(html_entity_decode($element->getValue()));
+      }
     }
 
     $this->view->form = $form;
@@ -80,6 +83,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
         && false !== $this->getRequest()->getPost('submit', false)) {
           if ($form->isValid($this->getRequest()->getPost())) {
             $this->_consultation->setFromArray($form->getValues());
+            $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
             $this->_consultation->save();
             $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
             
@@ -90,11 +94,14 @@ class Admin_ConsultationController extends Zend_Controller_Action {
           }
     } else {
       $form->populate($this->_consultation->toArray());
+      $form->getElement('proj')->setValue(explode(',', $this->_consultation['proj']));
     }
     
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
-      $element->setValue(html_entity_decode($element->getValue()));
+      if ($element->getName() != 'proj') {
+        $element->setValue(html_entity_decode($element->getValue()));
+      }
     }
     
     $this->view->form = $form;

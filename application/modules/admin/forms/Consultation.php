@@ -46,5 +46,15 @@ class Admin_Form_Consultation extends Zend_Form {
       $options[$admin->uid] = $admin->email;
     }
     $this->getElement('adm')->setMultioptions($options);
+    
+    $projectModel = new Model_Projects();
+    $projects = $projectModel->getAll();
+    $options = array();
+    foreach ($projects as $project) {
+      $options[$project['proj']] = $project['titl_short'];
+    }
+    $this->getElement('proj')->setMultiOptions($options);
+    // current project has to be checked always:
+    $this->getElement('proj')->setValue(array(Zend_Registry::get('systemconfig')->project));
   }
 }

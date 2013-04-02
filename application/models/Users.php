@@ -4,7 +4,7 @@
  * @desc    Class of user
  * @author  Jan Suchandt
  */
-class Model_Users extends Zend_Db_Table_Abstract {
+class Model_Users extends Model_DbjrBase {
   protected $_name = 'users';
   protected $_primary = 'uid';
 

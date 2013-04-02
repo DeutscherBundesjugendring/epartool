@@ -4,7 +4,7 @@
  * @desc    Class of articles
  * @author  Jan Suchandt
  */
-class Model_Articles extends Zend_Db_Table_Abstract {
+class Model_Articles extends Model_DbjrBase {
   protected $_name = 'articles';
   protected $_primary = 'art_id';
 
@@ -46,6 +46,9 @@ class Model_Articles extends Zend_Db_Table_Abstract {
    * @return integer primary key of inserted entry
    */
   public function add($data) {
+    if (!isset($data['proj'])) {
+      $data['proj'] = Zend_Registry::get('systemconfig')->project;
+    }
 
     return (int)$this->insert($data);
   }

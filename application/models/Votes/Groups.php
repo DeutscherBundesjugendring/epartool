@@ -4,7 +4,7 @@
  * @author Markus Hackel
  *
  */
-class Model_Votes_Groups extends Zend_Db_Table_Abstract {
+class Model_Votes_Groups extends Model_DbjrBase {
   protected $_name = 'vt_grps';
   protected $_primary = array(
     'uid', 'sub_uid', 'kid'

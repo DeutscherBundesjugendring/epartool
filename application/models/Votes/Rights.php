@@ -3,7 +3,7 @@
  * Votes_Rights
  * @author  Jan Suchandt, Markus Hackel
  */
-class Model_Votes_Rights extends Zend_Db_Table_Abstract {
+class Model_Votes_Rights extends Model_DbjrBase {
   protected $_name = 'vt_rights';
   protected $_primary = array(
     'kid', 'uid'

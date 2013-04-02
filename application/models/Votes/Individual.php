@@ -3,7 +3,7 @@
  * Votes_Individual
  * @author  Jan Suchandt, Markus Hackel
  */
-class Model_Votes_Individual extends Zend_Db_Table_Abstract {
+class Model_Votes_Individual extends Model_DbjrBase {
   protected $_name = 'vt_indiv';
   
   /**

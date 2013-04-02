@@ -4,7 +4,7 @@
  * @desc    Class of emails
  * @author  Jan Suchandt
  */
-class Model_Emails_Templates extends Zend_Db_Table_Abstract {
+class Model_Emails_Templates extends Model_DbjrBase {
   protected $_name = 'ml_def';
   protected $_primary = 'mid';
   

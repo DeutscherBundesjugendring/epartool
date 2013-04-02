@@ -78,6 +78,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $articleModel = new Model_Articles();
         $articleRow = $articleModel->createRow($form->getValues());
         $articleRow->kid = $kid;
+        $articleRow->proj = implode(',', $form->getElement('proj')->getValue());
         $newId = $articleRow->save();
         if ($newId > 0) {
           $this->_flashMessenger->addMessage('Neuer Artikel wurde erstellt.', 'success');
@@ -97,7 +98,9 @@ class Admin_ArticleController extends Zend_Controller_Action {
     
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
-      $element->setValue(html_entity_decode($element->getValue()));
+      if ($element->getName() != 'proj') {
+        $element->setValue(html_entity_decode($element->getValue()));
+      }
     }
     
     $this->view->assign(array(
@@ -132,11 +135,13 @@ class Admin_ArticleController extends Zend_Controller_Action {
         }
       }
       $form->getElement('parent_id')->setMultiOptions($parentOptions);
+      
       if ($this->getRequest()->isPost()) {
         // Formular wurde abgeschickt und muss verarbeitet werden
         $params = $this->getRequest()->getPost();
         if ($form->isValid($params)) {
           $articleRow->setFromArray($form->getValues());
+          $articleRow->proj = implode(',', $form->getElement('proj')->getValue());
           $articleRow->save();
           $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
           $article = $articleRow->toArray();
@@ -148,11 +153,14 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $article = $articleModel->getById($aid);
       }
       $form->populate($article);
+      $form->getElement('proj')->setValue(explode(',', $article['proj']));
     }
     
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
-      $element->setValue(html_entity_decode($element->getValue()));
+      if ($element->getName() != 'proj') {
+        $element->setValue(html_entity_decode($element->getValue()));
+      }
     }
     
     $this->view->assign(array(

@@ -9,7 +9,7 @@
 	<div class="">
 		<input name="tg_de[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" />
 		<a href="<?php echo $this->baseUrl(); ?>/admin/tag/delete/tag/<?php echo $tag['tg_nr']; ?>">
-		  <img src="<?php echo $this->baseUrl(); ?>/images/sd/delete.png"
+		  <img src="<?php echo $this->baseUrl(); ?>/images/<?php echo Zend_Registry::get('systemconfig')->project; ?>/delete.png"
 		    alt="Löschen" title="Schlagwort löschen (wird nur gelöscht, falls nicht verwendet)" />
 		</a>
 		<input name="tag_old[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" type="hidden" />

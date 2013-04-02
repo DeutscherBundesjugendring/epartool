@@ -4,7 +4,7 @@
  * @desc    Class of Inputs, userentries to questions of a consultation
  * @author  Jan Suchandt
  */
-class Model_Inputs extends Zend_Db_Table_Abstract {
+class Model_Inputs extends Model_DbjrBase {
   protected $_name = 'inpt';
   protected $_primary = 'tid';
   

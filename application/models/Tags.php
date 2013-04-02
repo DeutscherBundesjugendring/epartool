@@ -4,7 +4,7 @@
  * @desc    Class of Tags,
  * @author  Jan Suchandt
  */
-class Model_Tags extends Zend_Db_Table_Abstract {
+class Model_Tags extends Model_DbjrBase {
   protected $_name = 'tgs';
   protected $_primary = 'tg_nr';
   

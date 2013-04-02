@@ -4,7 +4,7 @@
  * @desc    Class of consultation
  * @author  Jan Suchandt
  */
-class Model_Consultations extends Zend_Db_Table_Abstract {
+class Model_Consultations extends Model_DbjrBase {
   protected $_name = 'cnslt';
   protected $_primary = 'kid';
 
@@ -313,7 +313,6 @@ class Model_Consultations extends Zend_Db_Table_Abstract {
           'titel'=>'titl'
         )
       );
-    $select->where('proj="sd"');
     $select->order('ord DESC');
     $rows = $this->fetchAll($select);
     $i = 0;

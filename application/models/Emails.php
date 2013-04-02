@@ -4,7 +4,7 @@
  * @desc    Class of emails
  * @author  Jan Suchandt
  */
-class Model_Emails extends Zend_Db_Table_Abstract {
+class Model_Emails extends Model_DbjrBase {
   protected $_name = 'ml_sent';
   protected $_primary = 'id';
   
@@ -243,7 +243,7 @@ class Model_Emails extends Zend_Db_Table_Abstract {
       $addData = array(
         'sender'=>$sender,
         'subj'=>$subject,
-        'proj'=>'sd',
+        'proj'=>Zend_Registry::get('systemconfig')->project,
         'rec'=>$receiver
       );
       $dbsuccess = $this->add($addData);
