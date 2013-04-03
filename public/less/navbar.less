@@ -27,15 +27,13 @@
 		float: none;
 		text-align: center;
 		white-space: nowrap;
-
-		// Item
-		& > li {
-			display: inline-block;
-			float: none;
-		}
 	}
 
-	// Navbar item link
+	.nav > li {
+		display: inline-block;
+		float: none;
+	}
+
 	.nav > li > a {
 		display: inline-block;
 		margin-right: -0.4ex; // remove whitespace between items
@@ -45,8 +43,8 @@
 		text-shadow: none;
 		color: @navbarText;
 
-		// Hover state
-		&:hover {
+		&:hover,
+		&:focus {
 			color: @navbarTextHover;
 			background-color: @orange;
 		}
@@ -54,7 +52,8 @@
 
 	// Active item
 	.nav > .active > a,
-	.nav > .active > a:hover {
+	.nav > .active > a:hover,
+	.nav > .active > a:focus {
 		color: @grayLightest;
 		background-color: @black;
 		.box-shadow(none);

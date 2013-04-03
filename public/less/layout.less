@@ -2,26 +2,11 @@
 // Layout
 // --------------------------------------------------
 
-// Using sticky footer by Mystrdat:
-// http://mystrd.at/modern-clean-css-sticky-footer/
-
-
 
 // HTML & body
 // -------------------------
 
-html {
-	// Prepare for sticky footer
-	position: relative;
-	min-height: 100%;
-	// end of sticky declarations
-}
-
 body {
-	// Prepare for sticky footer
-	width: 100%;
-	margin: 0 0 @footerHeight;
-	// end of sticky declarations
 	background-color: @bodyBackground;
 }
 
@@ -75,40 +60,18 @@ body {
 		margin-bottom: 0;
 		font-size: 3.5em; // 45px
 		line-height: 120%;
+
+		a {
+			color: @black;
+
+			&:hover,
+			&:focus {
+				color: @orange;
+			}
+		}
 	}
 }
 
-// Headings with bubble
-.main-title h1,
-.main-header h1 {
-	position: relative;
-
-	&:after {
-		content: '';
-		position: absolute;
-		display: block;
-		background-color: transparent;
-		background-repeat: no-repeat;
-	}
-}
-
-.main-header h1:after {
-	left: 83%;
-	bottom: .25em;
-	width: 147px;
-	height: 128px;
-	background-image: url('@{basePath}/images/bubble_mitwirkung-large.png');
-}
-
-.main-title h1:after {
-	left: 67%;
-	top: -0.666em;
-	width: 83px;
-	height: 74px;
-	background-image: url('@{basePath}/images/bubble_mitwirkung.png');
-}
-
-// Introduction
 .introduction {
 	margin: 0 10% 1.2em;
 	font-weight: bold;
@@ -152,7 +115,8 @@ body {
 		top: 3em;
 		color: @bodyText;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			text-decoration: none;
 			color: @linkTextHover;
 		}
@@ -211,14 +175,7 @@ body {
 // Footer
 // -------------------------
 
-// Sticky footer
 body > footer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	min-height: @footerHeight;
-	// end of sticky declarations
 	background-color: @footerBackground;
 	color: @footerText;
 
@@ -237,7 +194,8 @@ body > footer {
 		text-decoration: underline;
 		color: @footerLinkText;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			color: @footerLinkTextHover;
 		}
 	}

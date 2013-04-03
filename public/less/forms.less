@@ -31,7 +31,6 @@ input[type="color"],
 	background-color: @inputBackground;
 	.box-shadow(none);
 
-	// Active state
 	&:focus {
 		border-color: @inputFocusBorder;
 		.box-shadow(none);
@@ -49,7 +48,6 @@ select:focus:required:invalid {
 	border-color: @inputBorderColor;
 	color: @bodyText;
 
-	// Focus state
 	&:focus {
 		border-color: @inputFocusBorder;
 		.box-shadow(none);
@@ -67,7 +65,6 @@ select:focus:required:invalid {
 	select,
 	textarea {
 
-		// Focus state
 		&:focus {
 			.box-shadow(none);
 		}
@@ -81,19 +78,16 @@ select:focus:required:invalid {
 // Vertical form
 .form-vertical {
 
-	// Control group
 	.control-group {
 		margin-bottom: .25em;
 	}
 
-	// Form actions
 	.form-actions {
 		margin: 0;
 		padding: .25em 0 0;
 		border-top-style: none;
 		background: none;
 
-		// Inline actions
 		.inline-actions {
 			display: inline-block;
 			margin-left: 2 * @u;

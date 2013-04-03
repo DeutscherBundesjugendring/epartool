@@ -5,11 +5,6 @@
 
 .alt-design {
 
-	// Layout
-	.document-wrap > .container {
-		background-color: @green;
-	}
-
 	// Typography
 	h2,
 	.h2,
@@ -26,6 +21,11 @@
 		}
 	}
 
+	// Layout
+	.document-wrap > .container {
+		background-color: @green;
+	}
+
 	.container > header .main-title h1 a,
 	.container > header .hero-unit h1 a {
 		color: @black;
@@ -37,7 +37,8 @@
 
 	// Navigation
 	.navbar-inner,
-	.teaser > li > a:hover {
+	.teaser > li > a:hover,
+	.teaser > li > a:focus {
 		color: @bodyText;
 		background-color: @blue3;
 	}
@@ -92,27 +93,29 @@
 	}
 
 	// Pagination
-	.pagination ul > li > a,
-	.pagination ul > li > span {
-		color: @bodyText;
-		background-color: @blue3;
-	}
+	.pagination {
+		ul > li > a,
+		ul > li > span {
+			color: @bodyText;
+			background-color: @blue3;
+		}
 
-	.pagination ul > li > a:hover,
-	.pagination ul > li > a:focus {
-		color: @bodyText;
-		background-color: @orange;
-	}
+		ul > li > a:hover,
+		ul > li > a:focus {
+			color: @bodyText;
+			background-color: @orange;
+		}
 
-	.pagination ul > .active > a,
-	.pagination ul > .active > span {
-		color: @white;
-		background-color: @orange;
-	}
+		ul > .active > a,
+		ul > .active > span {
+			color: @white;
+			background-color: @orange;
+		}
 
-	.pagination ul > .disabled > a,
-	.pagination ul > .disabled > span {
-		color: @grayLight;
-		background-color: lighten(@grayLighter, 27%);
+		ul > .disabled > a,
+		ul > .disabled > span {
+			color: @grayLight;
+			background-color: lighten(@grayLighter, 27%);
+		}
 	}
 }

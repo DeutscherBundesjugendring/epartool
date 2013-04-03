@@ -37,12 +37,9 @@ h1, h2, h3, h4, h5, h6,
 h1,
 .h1 {
 	margin-bottom: 1.25em;
-	font-family: @headingFontFamily;
-	font-weight: normal;
-	font-size: 2em; // 21px
-	line-height: 1.4em;
+	font: normal 2em/1.4em @headingFontFamily; // 21px
 	text-transform: uppercase;
-	color: @orange; //@turqoise;
+	color: @orange;
 }
 
 h2,
@@ -140,18 +137,15 @@ a {
 	//text-decoration: underline;
 }
 
-a:hover {
+a:hover,
+a:focus {
 	color: @linkTextHover;
 	//text-decoration: underline;
 }
 
-h1 a {
-	color: @black;
-
-	// Hover state
-	&:hover {
-		text-decoration: none;
-	}
+h1 a:hover,
+h1 a:focus {
+	text-decoration: none;
 }
 
 
@@ -160,36 +154,6 @@ h1 a {
 
 ul, ol, dl {
 	margin-bottom: 2em;
-}
-
-// Lead
-ul, ol {
-	&.lead {
-		margin-bottom: 3.5em;
-
-		& > li {
-			margin-bottom: .5em;
-		}
-	}
-}
-
-// Custom bullets
-.bullets-custom {
-	// Remove bullets and prepare for images
-	margin-left: 0;
-	list-style-type: none;
-
-	// List item
-	& > li {
-		padding-left: 2.5em;
-		background-repeat: no-repeat;
-	}
-}
-
-// Check bullets
-.bullets-check > li {
-	//background-image: url('@{basePath}/images/sprites-source/icon-orange-check.png');
-	background-position: left 3px;
 }
 
 

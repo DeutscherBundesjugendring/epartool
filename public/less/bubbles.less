@@ -27,7 +27,8 @@
 	}
 
 	// Hover state
-	&:hover {
+	&:hover,
+	&:focus {
 		margin-bottom: 1.5em;
 	}
 
@@ -42,4 +43,34 @@
 		padding: 1.8em 2em 4em;
 		background-image: url('@{basePath}/images/bubble-large.png');
 	}
+}
+
+// Headings with bubble
+.main-title h1,
+.main-header h1 {
+	position: relative;
+
+	&:after {
+		content: '';
+		position: absolute;
+		display: block;
+		background-color: transparent;
+		background-repeat: no-repeat;
+	}
+}
+
+.main-header h1:after {
+	left: 83%;
+	bottom: .25em;
+	width: 147px;
+	height: 128px;
+	background-image: url('@{basePath}/images/bubble_mitwirkung-large.png');
+}
+
+.main-title h1:after {
+	left: 67%;
+	top: -0.666em; // 666!
+	width: 83px;
+	height: 74px;
+	background-image: url('@{basePath}/images/bubble_mitwirkung.png');
 }

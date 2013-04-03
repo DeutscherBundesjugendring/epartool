@@ -17,13 +17,11 @@
 		text-align: center;
 	}
 
-	// Item
 	.nav > li {
 		display: inline;
 		float: none;
 	}
 
-	// Link
 	.nav > li > a {
 		display: inline-block;
 		margin: 0;
@@ -35,8 +33,8 @@
 		.border-radius(0);
 		background-color: @blue2;
 
-		// Hover state
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: @orange;
 		}
 	}
@@ -56,7 +54,6 @@
 	z-index: 1;
 	margin: 0 6em -6.5em;
 
-	// Item
 	& > li > a {
 		//min-height: 2.8em;
 		margin: 0;
@@ -67,7 +64,6 @@
 		border-bottom: 1px solid @white;
 		background-color: @orange;
 
-		// Title
 		h2 {
 			display: inline;
 			font: normal 1.308em @headingFontFamily; // 17px
@@ -75,7 +71,6 @@
 			color: inherit;
 		}
 
-		// Icon
 		i {
 			float: right;
 			margin-top: .05em;
@@ -83,8 +78,8 @@
 			color: @white;
 		}
 
-		// Hover state
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: @blue2;
 		}
 	}
@@ -94,7 +89,8 @@
 // Tabs
 // -------------------------
 
-.nav-tabs > .active > a:hover {
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
 	cursor: pointer; // don't pretend it's not a link
 }
 
@@ -107,11 +103,10 @@
 
 	.nav {
 		margin: 0 -8px 0 0;
+	}
 
-		// Item
-		& > li {
-			position: relative;
-		}
+	.nav > li {
+		position: relative;
 	}
 
 	.nav-tabs {
@@ -186,7 +181,7 @@
 		}
 	}
 
-	// Remove decoration of the first and the last item
+	// Remove decoration from the first and the last item
 	.nav > li:first-child > *:before,
 	.nav > li:last-child > *:after {
 		display: none;
@@ -194,9 +189,8 @@
 
 	// Linked item
 	.nav > li > a {
-		//.transition(background @normal linear);
-
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: @orange;
 
 			// Decoration
@@ -229,8 +223,8 @@
 			.transition(all @normal ease-out);
 		}
 
-		// Hover state
-		&:hover {
+		&:hover,
+		&:focus {
 			.description {
 				top: 0;
 				.opacity(100);
@@ -251,7 +245,6 @@
 			padding-right: .25em;
 			border-color: @grayLighter;
 
-			// Focus state
 			&:focus {
 				border-color: @inputFocusBorder;
 			}
@@ -260,7 +253,8 @@
 
 	// Active item
 	.nav > .active > a,
-	.nav > .active > a:hover {
+	.nav > .active > a:hover,
+	.nav > .active > a:focus {
 		color: @white;
 		border-style: none;
 		background-color: @white;
@@ -278,7 +272,8 @@
 	// Inactive item
 	.nav > li > div,
 	.nav > .item-disabled > *,
-	.nav > .item-disabled > a:hover {
+	.nav > .item-disabled > a:hover,
+	.nav > .item-disabled > a:focus {
 		background-color: @grayLighter;
 		cursor: not-allowed;
 
@@ -341,7 +336,8 @@
 	}
 
 	.nav > .active > a,
-	.nav > .active > a:hover {
+	.nav > .active > a:hover,
+	.nav > .active > a:focus {
 		color: @bodyText;
 		background-color: @orange;
 	}
@@ -389,13 +385,15 @@
 		text-decoration: none;
 		color: @white;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			color: @grayLight;
 		}
 	}
 
 	.nav ul > .active > a,
-	.nav ul > .active > a:hover {
+	.nav ul > .active > a:hover,
+	.nav ul > .active > a:focus {
 		color: @orange;
 	}
 }
