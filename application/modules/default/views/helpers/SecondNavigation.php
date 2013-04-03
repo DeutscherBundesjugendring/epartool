@@ -24,12 +24,18 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'input' => array(
         'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid,
         'text' => '<h2>Beiträge</h2> <small class="info">vom '
-          . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
+          . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM)
+          . ' bis '
+          . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM)
+          . '</small>'
       ),
       'voting' => array(
         'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
         'text' => '<h2>Abstimmung</h2> <small class="info">vom '
-          . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
+          . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM)
+          . ' bis '
+          . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM)
+          . '</small>'
       ),
       'follow-up' => array(
         'url' => '',
