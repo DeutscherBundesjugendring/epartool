@@ -66,57 +66,55 @@ body {
 	.btn-block {
 		text-align: left;
 	}
+}
 
-	.main-title {
-		text-align: center;
+.main-title {
+	text-align: center;
 
-		h1 {
-			position: relative;
-			margin-bottom: 0;
-			font-size: 3.5em; // 45px
-			line-height: 120%;
-
-			&:after {
-				content: '';
-				position: absolute;
-				left: 67%;
-				top: -0.666em;
-				width: 83px;
-				height: 74px;
-				display: block;
-				background: transparent url('@{basePath}/images/bubble_mitwirkung.png') no-repeat;
-			}
-		}
-	}
-
-	.hero-unit {
-		padding: 2em;
-		text-align: center;
-		color: @bodyText;
-		.border-radius(0);
-		background: @grayLightest;
-
-		&.with-teaser {
-			margin-bottom: 6.5em; // make place for teaser navigation
-		}
+	h1 {
+		margin-bottom: 0;
+		font-size: 3.5em; // 45px
+		line-height: 120%;
 	}
 }
 
+// Headings with bubble
+.main-title h1,
+.main-header h1 {
+	position: relative;
+
+	&:after {
+		content: '';
+		position: absolute;
+		display: block;
+		background-color: transparent;
+		background-repeat: no-repeat;
+	}
+}
+
+.main-header h1:after {
+	left: 83%;
+	bottom: .25em;
+	width: 147px;
+	height: 128px;
+	background-image: url('@{basePath}/images/bubble_mitwirkung-large.png');
+}
+
+.main-title h1:after {
+	left: 67%;
+	top: -0.666em;
+	width: 83px;
+	height: 74px;
+	background-image: url('@{basePath}/images/bubble_mitwirkung.png');
+}
+
+// Introduction
 .introduction {
 	margin: 0 10% 1.2em;
 	font-weight: bold;
 	font-size: 1.923em; // 25px
 	line-height: 115%;
 	text-align: center;
-}
-
-// Teaser
-.teaser > li a {
-	text-align: center;
-
-	h2 {
-		display: inline;
-	}
 }
 
 
@@ -178,32 +176,32 @@ body {
 	.offset-right {
 		margin-right: @u;
 	}
+}
 
-	.top-link {
-		padding: 1em @u;
-		text-align: center;
-		background-color: @white;
+.top-link {
+	padding: 1em @u;
+	text-align: center;
+	background-color: @white;
+
+	a {
+		color: @bodyText;
+
+		&:hover,
+		&:focus {
+			text-decoration: none;
+			color: @linkTextHover;
+		}
+	}
+
+	&.transparent {
+		background-color: transparent;
 
 		a {
-			color: @bodyText;
+			color: white;
 
 			&:hover,
 			&:focus {
-				text-decoration: none;
-				color: @linkTextHover;
-			}
-		}
-
-		&.transparent {
-			background-color: transparent;
-
-			a {
-				color: white;
-
-				&:hover,
-				&:focus {
-					color: @bodyText;
-				}
+				color: @bodyText;
 			}
 		}
 	}

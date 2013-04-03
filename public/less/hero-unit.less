@@ -1,0 +1,38 @@
+//
+// Component: Hero unit
+// --------------------------------------------------
+
+
+.hero-unit {
+	margin-top: 1em;
+	padding: 2em;
+	font-size: 1em;
+	text-align: center;
+	color: @bodyText;
+	.border-radius(0);
+	background: @grayLightest;
+
+	h1 {
+		font-size: 6.666em; // 85px; 666!
+		line-height: 120%;
+		text-align: center;
+		color: @black;
+	}
+
+	p {
+		margin: 1em 0 1.5em;
+		line-height: 150%;
+	}
+
+	&.main-header {
+		margin-top: 1.85em;
+	}
+
+	&.with-teaser {
+		margin-bottom: 6.5em; // make place for teaser navigation
+
+		p {
+			margin-bottom: 2.6em;
+		}
+	}
+}
