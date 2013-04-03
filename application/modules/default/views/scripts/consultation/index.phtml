@@ -9,73 +9,7 @@
 
 	<h1>Alle Konsultationen im Überblick</h1>
 
-<ul>
-<?php foreach ($this->consultations as $consultation): ?>
-
-<?php
-
-// TODO render consultation previews with partial template, the same layout as on index page.
-
-?>
-
-<p>Konsultation zu</p>
-<?php
-if (trim($consultation['img_file'])!="") {
-	if(strpos($consultation['img_file'],"/")!==false) { // Wenn img-Angabe in DB mit Pfadangabe/URL
-		echo '<img src="'.$consultation['img_file'].'" alt="'.$consultation['img_expl']
-		  .'" title="'.$consultation['img_expl'].'" style="float: left; margin-bottom: 6px;">';
-	} else { // Wenn img-Angabe in DB ganz ohne Pfad, dann suche in media/#kid/
-		echo '<img src="' . $this->baseUrl() . '/media/consultations/'
-		  .$consultation['kid'].'/'.$consultation['img_file'].'" alt="'
-		  .$consultation['img_expl'].'" title="'.$consultation['img_expl']
-		  .'" style="float: left; margin-bottom: 6px;width: 150px;">';
-	}
-} else {
-  echo '<img src="css/blank.png" alt="Leer">';
-}
-echo '<h2><a href="' . $this->baseUrl() . '/consultation/index/kid/'
-  . $consultation['kid'] . '" class="cnslt" title="Zur Startseite dieser Konsultation">„'.$consultation['titl'].'“</a></h2>';
-
-
-// wenn Eintragszeitraum, dann Eintragen anzeigen
-if ($consultation['inp_show']=='y'
-  && (strtotime(date('d.m.Y H:i'))>strtotime($consultation['inp_fr']))
-  && (strtotime(date('d.m.Y H:i'))<strtotime($consultation['inp_to']))) {
-	echo '<p style="text-align: center;"><a href="' . $this->baseUrl()
-	  . '/input/index/kid/' . $consultation['kid'] . '" title="Eintragen möglich vom '
-	  .$consultation['inp_fr'].' bis '.$consultation['inp_to']
-	  .'" class="cnslt"><b>&raquo; Eintragen starten</b></a></p>';
-}
-
-// wenn Votingzeitraum, dann Voting anzeigen
-if ($consultation['vot_show']=='y'
-  && (strtotime(date('d.m.Y H:i'))>strtotime($consultation['vot_fr']))
-  && (strtotime(date('d.m.Y H:i'))<strtotime($consultation['vot_to']))) {
-  echo '<p style="text-align: center;"><a href="' . $this->baseUrl()
-    . '/voting/index/kid/' . $consultation['kid'] . '" title="Abstimmen möglich vom '
-    .$consultation['vot_fr'].' bis '.$consultation['vot_to'].'" class="cnslt">&raquo; Abstimmen</a></p>';
-}
-
-echo '<p style="text-align: right;">';
-
-echo '<a href="' . $this->baseUrl() . '/input/index/kid/'
-  . $consultation['kid'] . '" class="cnslt">&raquo; Alle Beiträge ansehen</a><br />';
-if($consultation['vot_res_show']=='y'){
-  echo '<a href="' . $this->baseUrl() . '/voting/results/kid/'
-    . $consultation['kid'] . '" class="cnslt">&raquo; Abstimmungsergebnisse</a><br />';
-}
-if($consultation['summ_show']=='y'){
-//  echo '<a href="" class="cnslt">&raquo; Zusammenfassung</a><br />';
-}
-if($consultation['follup_show']=='y'){
-//TODO  echo '<a href="" class="cnslt">&raquo; Reaktionen &amp; Follow-up</a><br />';
-}
-echo '</p>';
-
-?>
-
-<?php endforeach;?>
-</ul>
+<?php echo $this->render('_consultationPreview.phtml'); ?>
 
 	<!-- Print -->
 	<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
