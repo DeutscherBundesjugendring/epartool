@@ -102,6 +102,14 @@ body {
 	}
 }
 
+.introduction {
+	margin: 0 10% 1.2em;
+	font-weight: bold;
+	font-size: 1.923em; // 25px
+	line-height: 115%;
+	text-align: center;
+}
+
 // Teaser
 .teaser > li a {
 	text-align: center;
@@ -179,9 +187,23 @@ body {
 		a {
 			color: @bodyText;
 
-			&:hover {
+			&:hover,
+			&:focus {
 				text-decoration: none;
 				color: @linkTextHover;
+			}
+		}
+
+		&.transparent {
+			background-color: transparent;
+
+			a {
+				color: white;
+
+				&:hover,
+				&:focus {
+					color: @bodyText;
+				}
 			}
 		}
 	}

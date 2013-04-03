@@ -7,6 +7,12 @@
  */
 ?>
 <?php
+
+$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+//$action = Zend_Controller_Front::getInstance()->getRequest()->getParam('action');
+
+?>
+<?php
 if (isset($this->consultation)):
 ?>
 
@@ -39,7 +45,7 @@ if (isset($this->consultation)):
 <?php else:?>
 
 <!-- Hero unit -->
-<div class="hero-unit with-teaser">
+<div class="hero-unit<?php echo $controller == 'index' ? ' with-teaser' : ''; ?>">
 
 	<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true)?>" rel="home" itemprop="name">Mitwirkung</a></h1>
 	<p itemprop="description">Was ist eine Konsultation in einem langen, langen,
@@ -49,16 +55,14 @@ if (isset($this->consultation)):
 		ersten Überblick und das erste Verständnis.
 	</p>
 
+	<?php if ($controller == 'index'): ?>
+
 	<!-- Teaser -->
 	<?php echo $this->teaser(); ?>
 
+	<?php endif; ?>
+
 </div>
 <!-- .hero-unit -->
-
-<!-- Introduction -->
-<!--div class="introduction lead">
-	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-		Aenean commodo ligula eget dolor. Aenean massa.</p>
-</div><!-- .introduction -->
 
 <?php endif;?>
