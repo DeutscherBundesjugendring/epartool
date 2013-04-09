@@ -41,7 +41,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       ),
       'follow-up' => array(
         'url' => '',
-        'text' => '<h2>Reaktionen & Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
+        'text' => '<h2>Reaktionen &&nbsp;Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
       ),
     );
     $html = '<nav role="navigation" class="consultation-nav secondary-navigation">'
