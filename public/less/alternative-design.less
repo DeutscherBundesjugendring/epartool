@@ -1,121 +1,123 @@
-//
-// Component: Alternative Design
-// --------------------------------------------------
+/*!
+ * DBJR
+ * Design modifications for Eigenständige Jugendpolitik
+ *
+ */
 
 
-.alt-design {
+@import 'variables.less';
 
-	// Typography
-	h2,
-	.h2,
-	legend {
-		color: @blueDark2;
-	}
 
-	a {
-		color: @blueDark2;
+// Typography
+h2,
+.h2,
+legend {
+	color: @blueDark2;
+}
 
-		&:hover,
-		&:focus {
-			color: @orange;
-		}
-	}
+a {
+	color: @blueDark2;
 
-	// Layout
-	.document-wrap > .container {
-		background-color: @green;
-	}
-
-	.container > header .main-title h1 a,
-	.container > header .hero-unit h1 a {
-		color: @black;
-	}
-
-	.container > header .hero-unit h1 a:hover {
+	&:hover,
+	&:focus {
 		color: @orange;
 	}
+}
 
-	// Navigation
-	.navbar-inner,
-	.teaser > li > a:hover,
-	.teaser > li > a:focus {
+// Layout
+.document-wrap > .container {
+	background-color: @green;
+}
+
+.container > header .main-title h1 a,
+.container > header .hero-unit h1 a {
+	color: @black;
+}
+
+.container > header .hero-unit h1 a:hover {
+	color: @orange;
+}
+
+// Navigation
+.navbar-inner,
+.teaser > li > a:hover,
+.teaser > li > a:focus {
+	color: @bodyText;
+	background-color: @blue3;
+}
+
+.main-navigation .nav > li > a,
+.tertiary-navigation .nav > li > a {
+	background-color: @blue3;
+
+	&:hover,
+	&:focus {
+		background-color: @orange;
+	}
+}
+
+.tertiary-navigation .nav > .active > a {
+	background-color: @orange;
+}
+
+.consultation-nav {
+	.nav > li > * {
+		color: @grayLightest;
+	}
+
+	.nav > li > *:before {
+		border-left-color: @green;
+	}
+}
+
+.consultation-preview .consultation-nav .nav > li > *:before {
+	border-left-color: @grayLightest;
+}
+
+// Buttons
+.btn {
+	color: @btnText;
+	background-color: @blue3;
+
+	&:hover,
+	&:focus {
+		color: @btnTextHover;
+		background-color: @orange;
+	}
+}
+
+.btn-primary {
+	background-color: @orange;
+
+	&:hover,
+	&:focus {
+		background-color: @blue3;
+	}
+}
+
+// Pagination
+.pagination {
+	ul > li > a,
+	ul > li > span {
 		color: @bodyText;
 		background-color: @blue3;
 	}
 
-	.main-navigation .nav > li > a,
-	.tertiary-navigation .nav > li > a {
-		background-color: @blue3;
-
-		&:hover,
-		&:focus {
-			background-color: @orange;
-		}
-	}
-
-	.tertiary-navigation .nav > .active > a {
+	ul > li > a:hover,
+	ul > li > a:focus {
+		color: @bodyText;
 		background-color: @orange;
 	}
 
-	.consultation-nav {
-		.nav > li > * {
-			color: @grayLightest;
-		}
-
-		.nav > li > *:before {
-			border-left-color: @green;
-		}
-	}
-
-	.consultation-preview .consultation-nav .nav > li > *:before {
-		border-left-color: @grayLightest;
-	}
-
-	// Buttons
-	.btn {
-		color: @btnText;
-		background-color: @blue3;
-
-		&:hover,
-		&:focus {
-			color: @btnTextHover;
-			background-color: @orange;
-		}
-	}
-
-	.btn-primary {
+	ul > .active > a,
+	ul > .active > span {
+		color: @white;
 		background-color: @orange;
-
-		&:hover,
-		&:focus {
-			background-color: @blue3;
-		}
 	}
 
-	// Pagination
-	.pagination {
-		ul > li > a,
-		ul > li > span {
-			color: @bodyText;
-			background-color: @blue3;
-		}
-
-		ul > li > a:hover,
-		ul > li > a:focus {
-			color: @bodyText;
-			background-color: @orange;
-		}
-
-		ul > .active > a,
-		ul > .active > span {
-			color: @white;
-			background-color: @orange;
-		}
-
-		ul > .disabled > a,
-		ul > .disabled > span {
-			color: @grayLight;
-			background-color: lighten(@grayLighter, 27%);
-		}
+	ul > .disabled > a,
+	ul > .disabled > span {
+		color: @grayLight;
+		background-color: lighten(@grayLighter, 27%);
 	}
 }
