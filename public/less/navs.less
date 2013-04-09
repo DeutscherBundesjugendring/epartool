@@ -55,7 +55,6 @@
 	margin: 0 6em -6.5em;
 
 	& > li > a {
-		//min-height: 2.8em;
 		margin: 0;
 		padding: .15em 0 .15em 1em;
 		text-shadow: none;
@@ -63,6 +62,12 @@
 		color: @bodyText;
 		border-bottom: 1px solid @white;
 		background-color: @orange;
+
+		.title {
+			.text-overflow();
+			max-width: 93%;
+			display: inline-block;
+		}
 
 		h2 {
 			display: inline;

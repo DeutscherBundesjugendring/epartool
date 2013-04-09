@@ -60,9 +60,10 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
           ), 'default', true);
           $text = 'Jetzt informieren …';
       }
-      $html.= '<a href="' . $url . '">'
+      $html.= '<a href="' . $url . '"><span class="title">'
         . '<h2>' . $item['titl'] . ':</h2> '
         . $text
+        . '</span>'
         . '<i class="icon-angle-right icon-white icon-2x"></i>'
         . '</a>'
         . '</li>';
