@@ -458,5 +458,14 @@ class Model_Users extends Model_DbjrBase {
     }
     return null;
   }
+  
+  /**
+   * Return all users which are confirmed
+   */
+  public function getAllConfirmed() {
+    $select = $this->select();
+    $select->where("block ='c'");
+    return $this->fetchAll($select)->toArray();
+  }
 }
 

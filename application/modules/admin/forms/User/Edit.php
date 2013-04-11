@@ -37,5 +37,14 @@ class Admin_Form_User_Edit extends Zend_Form {
       'c'=>'Bestätigt'
     );
     $this->getElement('block')->setMultioptions($options);
+//    $userModel = new Model_Users();
+//    $transferOptions = array(0=>'Bitte auswählen');
+//    $users = $userModel->getAllConfirmed();
+//    foreach($users As $user) {
+//      if(!empty($user['email'])) {
+//        $transferOptions[$user['uid']] = $user['email'];
+//      }
+//    }
+//    $this->getElement('transfer')->setMultioptions($transferOptions);
   }
 }

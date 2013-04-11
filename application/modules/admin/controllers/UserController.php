@@ -67,10 +67,37 @@ class Admin_UserController extends Zend_Controller_Action {
     $uid = $this->getRequest()->getParam('uid', 0);
     if ($uid > 0) {
       $userModel = new Model_Users();
+      $inputModel = new Model_Inputs();
       $user = $userModel->getById($uid);
       if (!empty($user)) {
           $form = new Admin_Form_User_Edit();
           $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
+          // remove transfer if user has no input
+          $countInputByUser = $inputModel->getCountByUser($uid);
+          if($countInputByUser<1) {
+            $transerElement = $form->removeElement('transfer');
+          }
+          else {
+            // generate selects for every consultation
+            $consultationModel = new Model_Consultations();
+            $consultations = $consultationModel->getByUserinputs($uid);
+            foreach($consultations AS $consultation) {
+              $form->addElement('select', 'transfer_'.$consultation["kid"],array(
+                'label'=>$consultation['titl'] . ': Beiträge übertragen',
+                'required'=>false,
+                'options'=>array(0=>'...')
+              ));
+              $transferOptions = array(0=>'Bitte auswählen');
+              $users = $userModel->getAllConfirmed();
+              foreach($users As $tmpuser) {
+                if(!empty($tmpuser['email'])) {
+                  $transferOptions[$tmpuser['uid']] = $tmpuser['email'];
+                }
+              }
+              $form->getElement('transfer_'.$consultation["kid"])->setMultioptions($transferOptions);
+              
+            }
+          }
           if ($this->getRequest()->isPost()) {
             // Formular wurde abgeschickt und muss verarbeitet werden
             $params = $this->getRequest()->getPost();
@@ -103,8 +130,17 @@ class Admin_UserController extends Zend_Controller_Action {
                   );
                 }
                 $row->save();
+                
+                // transfer userinputs
+                $consultations = $consultationModel->getByUserinputs($uid);
+                foreach($consultations AS $consultation) {
+                  if(!empty($params['transfer_'. $consultation["kid"]])) {
+                    $inputModel->transferInputs($uid, $params['transfer_'. $consultation["kid"]], $consultation["kid"]);
+                  }
+                }
+                
                 $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
-                $form->populate($this->getRequest()->getPost());
+                //$form->populate($this->getRequest()->getPost());
               }
             } else {
               $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
