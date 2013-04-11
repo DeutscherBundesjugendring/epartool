@@ -228,6 +228,21 @@ class Model_Inputs extends Model_DbjrBase {
   }
   
   /**
+   * Returns number of inputs for a user
+   *
+   * @param integer $uid
+   * @return integer
+   */
+  public function getCountByUser($uid) {
+    $select = $this->select()
+      ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+      ->where('uid = ?', $uid);
+    
+    $row = $this->fetchAll($select)->current();
+    return $row->count;
+  }
+  
+  /**
    * Returns number of inputs for a consultation, filtered by given conditions
    *
    * @param integer $kid
@@ -664,11 +679,15 @@ class Model_Inputs extends Model_DbjrBase {
     $result = array();
     if($needle !== '' && !empty($consultationId) && is_int($limit)) {
       $select = $this->select();
-      $select ->where("thes LIKE '%$needle%' OR expl LIKE '%$needle%'");
-      $select ->where("`block`!= 'y'");
-      $select ->where("`user_conf`='c'");
+      $select->from(
+        array('inp'=>'inpt'),
+        array('expl'=>'SUBSTRING(expl,1,100)', 'qi', 'tid', 'thes')
+      );
+      $select ->where("inp.thes LIKE '%$needle%' OR inp.expl LIKE '%$needle%'");
+      $select ->where("inp.`block`!= 'y'");
+      $select ->where("inp.`user_conf`='c'");
       // if no consultation is set, search in generell articles
-      $select->where('kid = ?', $consultationId);
+      $select->where('inp.kid = ?', $consultationId);
       $select->limit($limit);
       
       $result = $this->fetchAll($select)->toArray();
@@ -810,5 +829,29 @@ class Model_Inputs extends Model_DbjrBase {
         ->where('qi = ?', $qid)
         ->where('vot = ?', 'y')
     );
+  }
+  
+  /**
+   * set a new owner of written input by a user and consultation
+   * @param integer $uid
+   * @param integer $targetUid
+   * @param integer $kid
+   */
+  public function transferInputs($uid, $targetUid, $kid) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($uid) || !$validator->isValid($targetUid) || !$validator->isValid($kid)) {
+      throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+    }
+    $select = $this->select();
+    $select->where('uid = ?', $uid);
+    $select->where('kid = ?', $kid);
+    
+    $rowset = $this->fetchAll($select);
+    foreach($rowset AS $input) {
+      $input->uid = $targetUid;
+      $input->save();
+    }
+    return true;
+    
   }
 }

@@ -249,9 +249,13 @@ class Model_Questions extends Model_DbjrBase {
     $result = array();
     if($needle !== '' && !empty($consultationId) && is_int($limit)) {
       $select = $this->select();
-      $select ->where("q LIKE '%$needle%' OR q_xpl LIKE '%$needle%'");
+      $select->from(
+        array('qu'=>'quests'),
+        array('q_xpl'=>'SUBSTRING(q_xpl,1,100)', 'q', 'qi')
+      );
+      $select ->where("LOWER(qu.q) LIKE '%$needle%' OR LOWER(qu.q_xpl) LIKE '%$needle%'");
       // if no consultation is set, search in generell articles
-      $select->where('kid = ?', $consultationId);
+      $select->where('qu.kid = ?', $consultationId);
       $select->limit($limit);
       
       $result = $this->fetchAll($select)->toArray();

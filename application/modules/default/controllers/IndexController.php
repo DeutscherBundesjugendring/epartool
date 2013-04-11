@@ -75,7 +75,7 @@ class IndexController extends Zend_Controller_Action {
       // filters
       $filterChain = new Zend_Filter();
       $filterChain->appendFilter(new Zend_Filter_StringTrim());
-      $filterChain->appendFilter(new Zend_Filter_StringToLower());
+      $filterChain->appendFilter(new Zend_Filter_StringToLower(array('encoding' => 'UTF-8')));
       $filterChain->appendFilter(new Zend_Filter_HtmlEntities());
       // apply filters
       $needle = $filterChain->filter($needle);
@@ -83,13 +83,16 @@ class IndexController extends Zend_Controller_Action {
       // Search in articles with no consultations ("grundinformationen")
       $articles = new Model_Articles();
       $consultation = new Model_Consultations();
-      
+
       $generelResults = $articles->search($needle);
+
       $consultationResults = $consultation->search($needle);
-      
+
+
       $this->view->needle = $needle;
       $this->view->resultsGeneral = $generelResults;
       $this->view->resultsConsultations = $consultationResults;
+      
     }
     else {
       // no search-request, redirect

@@ -310,17 +310,26 @@ class Model_Consultations extends Model_DbjrBase {
         array('c'=>'cnslt'),
         array(
           'cid'=>'kid',
-          'titel'=>'titl'
+          'titel'=>'titl',
+          'expl'=>'LOWER(expl)'
         )
       );
+      
     $select->order('ord DESC');
     $rows = $this->fetchAll($select);
     $i = 0;
+    
     foreach($rows AS $consultation) {
+      
       $result[$i] = $consultation->toArray();
+      // check if the needle is in consultation-explenation
+      if(strpos($consultation->expl, htmlentities($needle))!==false) {
+        $result[$i]['inExpl'] = true;
+      }
       // search articles
       $articles = new Model_Articles();
-      $result[$i]['articles'] = $articles->search($needle, $consultation->cid);
+      $result[$i]['articles'] = $articles->search($needle, (int)$consultation->cid);
+
       // search questions
       $questions = new Model_Questions();
       $result[$i]['questions'] = $questions->search($needle, $consultation->cid);
@@ -331,6 +340,20 @@ class Model_Consultations extends Model_DbjrBase {
     }
     
     return $result;
+  }
+  
+  public function getByUserinputs($uid) {
+    $db = $this->getAdapter();
+    $select = $db->select();
+    $select->from(array('i' => 'inpt'), 'i.kid');
+    $select->joinLeft(array('c'=>'cnslt'), 'i.kid=c.kid', array('titl'=>'c.titl'));
+    $select->where('i.uid = ?',$uid);
+    $select->group('i.kid');
+    
+    $stmt = $db->query($select);
+    $rowSet = $stmt->fetchAll();
+    
+    return $rowSet;
   }
 }
 

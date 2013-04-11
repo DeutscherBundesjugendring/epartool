@@ -185,9 +185,13 @@ class Model_Articles extends Model_DbjrBase {
     $result = array();
     if($needle !== '' && is_int($consultationId) && is_int($limit)) {
       $select = $this->select();
-      $select->where('artcl LIKE ?', '%'.$needle.'%');
+      $select->from(
+        array('ar'=>'articles'),
+        array('art_id', 'desc', 'ref_nm')
+      );
+      $select->where('LOWER(ar.artcl) LIKE ?', '%'.htmlentities($needle).'%');
       // if no consultation is set, search in generell articles
-      $select->where('kid = ?', $consultationId);
+      $select->where('ar.kid = ?', $consultationId);
       $select->limit($limit);
       
       $result = $this->fetchAll($select)->toArray();
