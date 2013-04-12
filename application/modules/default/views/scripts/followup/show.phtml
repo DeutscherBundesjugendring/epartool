@@ -1,0 +1,34 @@
+<?php
+/**
+ * Question
+ *
+ * @description   
+ * @author        
+ */
+
+$date = new Zend_Date();
+$locale = new Zend_Locale();
+?>
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('follow-up')?>
+<!-- .secondary-navigation -->
+
+<div class="content-holder">
+    <div class="row">
+        <aside class="span3">
+            <?php echo $this->questionNavigation();?>
+            
+        </aside>
+        <section class="main-content span8">
+            
+            <h3><?php echo $this->question['q']?></h3>
+            <p><?php echo $this->question['q_xpl']?></p>
+            <!-- Print -->
+            <a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+        </section>
+    </div>
+</div>
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
+</div>

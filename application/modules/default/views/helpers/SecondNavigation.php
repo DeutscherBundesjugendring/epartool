@@ -16,8 +16,9 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'question' => false,
       'input' => ($nowDate->isEarlier($con->inp_fr)),
       'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
-      'follow-up' => (!$nowDate->isLater($con->vot_to)),
+      'follow-up' => (!$nowDate->isLater($con->vot_to))
     );
+
     $items = array(
       'article' => array('url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid, 'text' => '<h2>Infos</h2>'),
       'question' => array('url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid, 'text' => '<h2>Fragen</h2>'),
@@ -32,7 +33,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
           . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM, new Zend_Locale()) . '</small>'
       ),
       'follow-up' => array(
-        'url' => '',
+        'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
         'text' => '<h2>Reaktionen & Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
       ),
     );
