@@ -1,0 +1,15 @@
+{
+    "author": "http://www.xima.de",
+    "name": "dbjr",
+    "description": "Mitwirkung",
+    "homepage": "http://www.strukturierter-dialog.de",
+    "version": "0.0.1",
+    "engines": {
+        "node": ">= 0.6.11"
+    },
+    "dependencies": {
+        "grunt": ">= 0.3.17 <0.4.X",
+        "grunt-recess": ">=0.1.4 <0.2.x",
+        "bower": "~0.7.0"
+    }
+}
