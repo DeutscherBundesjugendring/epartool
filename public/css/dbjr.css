@@ -851,6 +851,55 @@ body > footer {
           border-radius: 0;
 }
 
+.label.sticker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 110px;
+  height: 90px;
+  padding: 0;
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+.label.sticker.label-bald-abstimmen {
+  background-image: url('../images/label_baldabstimmen.png');
+}
+
+.label.sticker.label-ergebnisse {
+  background-image: url('../images/label_ergebnisse.png');
+}
+
+.label.sticker.label-mitmachen {
+  background-image: url('../images/label_mitmachen.png');
+}
+
+.label.sticker.label-nur-noch-heute {
+  background-image: url('../images/label_nurnochheute.png');
+}
+
+.label.sticker.label-reaktion {
+  background-image: url('../images/label_reaktion.png');
+}
+
+.label.sticker.label-mitmachen-black {
+  right: 0;
+  left: auto;
+  width: 104px;
+  height: 126px;
+  font-size: 1em;
+  background-image: url('../images/label_mitmachen-black.png');
+}
+
 .badge-tag {
   padding-left: .5em;
   font-family: "Yanone Kaffeesatz", sans-serif;
@@ -1611,6 +1660,7 @@ article.media .actions i {
 }
 
 .well-large {
+  position: relative;
   padding: 1em 1.5em;
   margin: 2em 0;
   color: #ffffff;
@@ -1634,6 +1684,11 @@ article.media .actions i {
 .well-large h2 {
   font-size: 2.692em;
   line-height: 120%;
+}
+
+.well-large .label.sticker {
+  top: -0.8em;
+  right: -0.8em;
 }
 
 .well-large .btn {
@@ -1770,45 +1825,6 @@ article.media .actions i {
   text-decoration: none;
 }
 
-.consultation-preview .label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  display: block;
-  width: 110px;
-  height: 90px;
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: 0;
-  -webkit-border-radius: 0;
-     -moz-border-radius: 0;
-          border-radius: 0;
-}
-
-.consultation-preview .label.label-bald-abstimmen {
-  background-image: url('../images/label_baldabstimmen.png');
-}
-
-.consultation-preview .label.label-ergebnisse {
-  background-image: url('../images/label_ergebnisse.png');
-}
-
-.consultation-preview .label.label-mitmachen {
-  background-image: url('../images/label_mitmachen.png');
-}
-
-.consultation-preview .label.label-nur-noch-heute {
-  background-image: url('../images/label_nurnochheute.png');
-}
-
-.consultation-preview .label.label-reaktion {
-  background-image: url('../images/label_reaktion.png');
-}
-
 .consultation.hero-unit {
   position: relative;
   min-height: 217px;
@@ -1838,13 +1854,6 @@ article.media .actions i {
   position: absolute;
   top: 3.076924em;
   left: 3.076924em;
-}
-
-.consultation.hero-unit .label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
 }
 
 .consultation.hero-unit a[rel="home"] {
