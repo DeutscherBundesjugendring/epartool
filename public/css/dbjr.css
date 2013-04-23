@@ -1192,6 +1192,11 @@ body > footer {
   border-left-color: #f7f7f7;
 }
 
+.consultation-preview .consultation-nav .nav > li > a:hover .bubble,
+.consultation-preview .consultation-nav .nav > li > a:focus .bubble {
+  margin-bottom: 1.5em;
+}
+
 .consultation-preview .consultation-nav .nav > .item-title > a {
   padding: 0;
 }
@@ -1617,11 +1622,6 @@ article.media .actions i {
 
 .bubble span {
   line-height: 125%;
-}
-
-.bubble:hover,
-.bubble:focus {
-  margin-bottom: 1.5em;
 }
 
 .bubble.bubble-large {
