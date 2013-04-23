@@ -714,6 +714,10 @@ body {
   width: 720px;
 }
 
+.container > .main .main-content.span9 h1 {
+  margin-right: 5em;
+}
+
 .container > .main .print {
   position: absolute;
   top: 3em;
