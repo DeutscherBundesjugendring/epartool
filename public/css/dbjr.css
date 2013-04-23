@@ -615,7 +615,8 @@ form dd {
 }
 
 .form-inline dd {
-  display: inline;
+  display: inline-block;
+  margin-right: .75ex;
 }
 
 .login #submit-label {
