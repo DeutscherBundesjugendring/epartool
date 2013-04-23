@@ -36,3 +36,29 @@
 		}
 	}
 }
+
+// Large well
+.well-large {
+	.decoratedBox();
+	margin: 2em 0;
+	padding: 1em 1.5em;
+	color: @white;
+	#gradient > .horizontal(darken(@orange, 11%), lighten(@orange, 5%));
+
+	h2 {
+		font-size: 2.692em; // 35px
+		line-height: 120%;
+	}
+
+	.btn {
+		.box-shadow(.15em .2em .2em fade(@black, 50%));
+
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			color: @btnBackground;
+			background-color: @black;
+		}
+	}
+}

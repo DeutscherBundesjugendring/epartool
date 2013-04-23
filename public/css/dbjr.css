@@ -610,6 +610,14 @@ form dd {
   margin-left: 0;
 }
 
+.form-inline dt {
+  display: none;
+}
+
+.form-inline dd {
+  display: inline;
+}
+
 .login #submit-label {
   display: none;
 }
@@ -1600,6 +1608,46 @@ article.media .actions i {
 .well a:hover,
 .well a:focus {
   color: #000000;
+}
+
+.well-large {
+  padding: 1em 1.5em;
+  margin: 2em 0;
+  color: #ffffff;
+  background-color: #fc9d3f;
+  background-image: -moz-linear-gradient(left, #e77403, #fc9d3f);
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#e77403), to(#fc9d3f));
+  background-image: -webkit-linear-gradient(left, #e77403, #fc9d3f);
+  background-image: -o-linear-gradient(left, #e77403, #fc9d3f);
+  background-image: linear-gradient(to right, #e77403, #fc9d3f);
+  background-repeat: repeat-x;
+  border: 0.8em solid #e8e6e6;
+  -webkit-border-radius: 1.5em;
+     -moz-border-radius: 1.5em;
+          border-radius: 1.5em;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe77403', endColorstr='#fffc9d3f', GradientType=1);
+  -webkit-box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+     -moz-box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+          box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+}
+
+.well-large h2 {
+  font-size: 2.692em;
+  line-height: 120%;
+}
+
+.well-large .btn {
+  -webkit-box-shadow: 0.15em 0.2em 0.2em rgba(0, 0, 0, 0.5);
+     -moz-box-shadow: 0.15em 0.2em 0.2em rgba(0, 0, 0, 0.5);
+          box-shadow: 0.15em 0.2em 0.2em rgba(0, 0, 0, 0.5);
+}
+
+.well-large .btn:hover,
+.well-large .btn:focus,
+.well-large .btn:active,
+.well-large .btn.active {
+  color: #00cbff;
+  background-color: #000000;
 }
 
 .bubble {

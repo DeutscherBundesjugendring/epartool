@@ -19,6 +19,12 @@
 			<?php
 			// @todo Sidebar navigation
 			?>
+			<?php if ($this->consultation->vot_res_show == 'y'): ?>
+			<p><a href="<?php echo $this->url(array(
+			  'action' => 'results',
+			  'authcode' => null
+			)); ?>">Votingergebnisse ansehen</a></p>
+			<?php endif; ?>
 
 		</aside>
 		<section class="main-content span9">
@@ -29,21 +35,18 @@
 			  Ihr besonders wichtig findet! Bei den Beitr&auml;gen handelt es sich um Meinungen, Positionen und Vorschl&auml;ge, die uns
 			  Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.
 			</p>
-			<p>
-			  Die Abstimmung ist anonym. Deine E-Mail-Adresse nutzen wir nur, um zu überpr&uuml;fen, ob Du berechtigt bist, an der
-			  Abstimmung teilzunehmen.
-			</p>
-			<?php
-			echo $this->authform;
 
-			echo (!empty($this->votingExplanation)) ? '<p>'.$this->votingExplanation.'</p>':'';
-			?>
-			<?php if ($this->consultation->vot_res_show == 'y'): ?>
-			<p><a href="<?php echo $this->url(array(
-			  'action' => 'results',
-			  'authcode' => null
-			)); ?>">Votingergebnisse ansehen &raquo;</a></p>
-			<?php endif; ?>
+			<!-- Access form -->
+			<div class="well well-large text-center">
+				<h2>Stimme jetzt ab!</h2>
+				<p>Die Abstimmung ist anonym. Deine E-Mail-Adresse nutzen wir nur, um zu überprüfen,
+					ob Du berechtigt bist, an der Abstimmung teilzunehmen.
+				</p>
+				<div class="form-inline">
+				<?php echo $this->authform; ?>
+				</div>
+				<? echo (!empty($this->votingExplanation)) ? '<p>'.$this->votingExplanation.'</p>':''; ?>
+			</div>
 
 			<!-- Print -->
 			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
