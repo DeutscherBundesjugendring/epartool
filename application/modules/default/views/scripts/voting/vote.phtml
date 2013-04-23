@@ -9,73 +9,88 @@
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('voting')?>
 <!-- .secondary-navigation -->
-<section class="main-content content-holder">
-	<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
-	<?php
-	if($this->noMoreThesis):
-	  ?>
-	  <p>In dieser Kategorie befinden sich keine Beitr&auml;ge zum abstimmen mehr.</p>
-	  <a href="
-	    <?php echo $this->url(array('controller'=>'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>
-	  " name="button button-change">Frage / Schlagwort wechseln</a>
-	  <?php
-	else:
-	  ?>
-	  <h2><?php echo $this->question; ?>
-	  <?php
-	  if(!empty($this->keyword)) {
-	    echo('(Schlagwort: ' . $this->keyword . ')');
-	  }
-	  ?>
-	  </h2>
-	  <p class="thesis"><?php echo $this->thesis['thes']; ?></p>
-	  <p class="votingHeadline">Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?</p>
-  	<ul class="points">
-  	  <?php
-  	  $votingLink = array();
-  	  for($i=0; $i<6; $i++) {
-  	    $linkOptions = array(
-  	      'action' => 'thesisvote',
-  	      'tid' => $this->thesis['tid'],
-  	      'pts' => $i
-  	    );
-  	    if(!empty($this->qid)) {
-  	      $linkOptions['qid'] = $this->qid;
-  	    }
-  	    else {
-  	      $linkOptions['tag'] = $this->tag;
-  	    }
-  	    $votingLink[$i] = $this->url($linkOptions);
-  	  }
-  	  ?>
-  	  
-  	  <li><a href="<?php echo $votingLink[3]; ?>" class="very-important" href="">Sehr wichtig</a></li>
-  	  <li><a href="<?php echo $votingLink[2]; ?>" class="important">Wichtig</a></li>
-  	  <li><a href="<?php echo $votingLink[1]; ?>" class="not-important">Nicht wichtig</a></li>
-  	  <li><a href="<?php echo $votingLink[0]; ?>" class="not-my-opinion">Stimme nicht zu</a></li>
-  	  <li><a href="<?php echo $votingLink[5]; ?>" class="no-opinion">Keine Meinung</a></li>
-  	</ul>
-	  <?php
-	endif;
-	?>
-	
-	
 
-	<p class="center">
-	  
-	  <?php
-	  // Show back-button
-	  if(!empty($this->LastVote)) {
-	    if($this->thesis['tid'] != $this->LastVote[0]['tid']) {
-  	    ?>
-  	    <a href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid'=>$this->LastVote[0]['tid'], 'qid'=>$this->LastVote[0]['qi'])); ?>" class="button button-back">R&uuml;ckg&auml;ngig</a>
-  	    <?php
-	    }
-	  }
-	  ?>
-	  <!--  @TODO change url to last input of voting -->
-	  <span><?php echo $this->thesisCountVoted; ?> von <?php echo $this->thesisCount; ?> Beitr&auml;gen zu dieser Frage abgestimmt.</span>
-	  <a href="<?php echo $this->url(array('controller'=>'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>" id="buttonChangeKeyword" name="button button-change">Frage / Schlagwort wechseln</a>
-	</p>
-	<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden">Abstimmung beenden</a>
-</section>
+<!-- Content start -->
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<?php
+			// @todo Sidebar navigation
+			?>
+			<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a>
+
+		</aside>
+		<section class="main-content span9">
+
+			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+			<?php if ($this->noMoreThesis): ?>
+				<p>In dieser Kategorie befinden sich keine Beitr&auml;ge zum abstimmen mehr.</p>
+				<a href="
+				<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>
+				" name="button button-change">Frage / Schlagwort wechseln</a>
+				<?php else: ?>
+				<h2><?php echo $this->question; ?>
+					<?php
+					if (!empty($this->keyword)) {
+						echo('(Schlagwort: ' . $this->keyword . ')');
+					}
+					?>
+				</h2>
+				<p class="thesis"><?php echo $this->thesis['thes']; ?></p>
+				<p class="votingHeadline">Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?</p>
+				<ul class="points">
+					<?php
+					$votingLink = array();
+					for ($i = 0; $i < 6; $i++) {
+						$linkOptions = array(
+							'action' => 'thesisvote',
+							'tid' => $this->thesis['tid'],
+							'pts' => $i
+						);
+						if (!empty($this->qid)) {
+							$linkOptions['qid'] = $this->qid;
+						} else {
+							$linkOptions['tag'] = $this->tag;
+						}
+						$votingLink[$i] = $this->url($linkOptions);
+					}
+					?>
+
+					<li><a href="<?php echo $votingLink[3]; ?>" class="very-important" href="">Sehr wichtig</a></li>
+					<li><a href="<?php echo $votingLink[2]; ?>" class="important">Wichtig</a></li>
+					<li><a href="<?php echo $votingLink[1]; ?>" class="not-important">Nicht wichtig</a></li>
+					<li><a href="<?php echo $votingLink[0]; ?>" class="not-my-opinion">Stimme nicht zu</a></li>
+					<li><a href="<?php echo $votingLink[5]; ?>" class="no-opinion">Keine Meinung</a></li>
+				</ul>
+			<?php endif; ?>
+
+			<p>
+				<?php
+				// Show back-button
+				if (!empty($this->LastVote)) {
+					if ($this->thesis['tid'] != $this->LastVote[0]['tid']) {
+						?>
+						<a href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>" class="button button-back">R&uuml;ckg&auml;ngig</a>
+						<?php
+					}
+				}
+				?>
+				<!--  @TODO change url to last input of voting -->
+				<span><?php echo $this->thesisCountVoted; ?> von <?php echo $this->thesisCount; ?> Beitr&auml;gen zu dieser Frage abgestimmt.</span>
+				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>" id="buttonChangeKeyword" name="button button-change">Frage / Schlagwort wechseln</a>
+			</p>
+
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
+</div>

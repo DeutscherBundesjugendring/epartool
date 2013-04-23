@@ -9,44 +9,71 @@
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('voting')?>
 <!-- .secondary-navigation -->
-<section class="main-content content-holder">
-	<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
-  <p>Du kannst Dir die Meinungen, Positionen und Vorschl&auml;ge, die von Dir bewertet werden k&ouml;nnen,
-  nach Fragen oder nach Stichworten sortiert anzeigen lassen.<br/>
-  Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit m&ouml;glich.
-  Du kannst so viele Beitr&auml;ge bearbeiten, wie Du m&ouml;chtest. Unterbrechungen sind problemlos m&ouml;glich.</p>
-	<!-- Questions -->
-	<ul>
-    <?php
-    $i = 1;
-    foreach ($this->questions as $question):
-      $url = $this->url(array('action' => 'vote', 'qid' => $question['qi']));
-      ?>
-    	<li><h2><a href="<?php echo $url?>"><?php echo $question['q']?></a></h2></li>
-      <?php
-      $i++;
-    endforeach;
-    ?>
-	</ul>
-	<!-- Tags -->
-<?php if (!empty($this->tags)): ?>
-	<!-- <ul class="tag-cloud">
-		<li class="tag-rare"><a href="">Less frequent keyword</a></li>
-		<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
-		<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
-	</ul> -->
-	<ul class="tag-cloud">
-	<?php foreach ($this->tags as $tag): ?>
-		<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid'=>null)); ?>">
-		<?php echo $tag['tg_de']; ?></a></li>
-	<?php endforeach;?>
-	</ul>
-<?php endif; ?>
-  <?php
-  // @todo JSU Die anzahl der bereits abgestimmten beiträge muss noch ermittelt werden
-  ?>
-	<p class="center">Du hast schon über <?php echo $this->votedInputs; ?> von
-	insgesamt <?php echo $this->votableInputs; ?> Beiträgen abgestimmt.</p>
-	<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden">Abstimmung beenden</a>
 
-</section>
+<!-- Content start -->
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<?php
+			// @todo Sidebar navigation
+			?>
+			<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a>
+
+		</aside>
+		<section class="main-content span9">
+
+			<?php
+			// @todo JSU Die anzahl der bereits abgestimmten beiträge muss noch ermittelt werden
+			?>
+			<small class="muted">Du hast schon über <?php echo $this->votedInputs; ?> von
+				insgesamt <?php echo $this->votableInputs; ?> Beiträgen abgestimmt.</small>
+
+			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+
+			<p>Du kannst Dir die Meinungen, Positionen und Vorschl&auml;ge, die von Dir bewertet werden k&ouml;nnen,
+			nach Fragen oder nach Stichworten sortiert anzeigen lassen.<br/>
+			Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit m&ouml;glich.
+			Du kannst so viele Beitr&auml;ge bearbeiten, wie Du m&ouml;chtest. Unterbrechungen sind problemlos m&ouml;glich.</p>
+			<!-- Questions -->
+			<ul>
+			<?php
+			$i = 1;
+			foreach ($this->questions as $question):
+			  $url = $this->url(array('action' => 'vote', 'qid' => $question['qi']));
+			  ?>
+				<li><h2><a href="<?php echo $url?>"><?php echo $question['q']?></a></h2></li>
+			  <?php
+			  $i++;
+			endforeach;
+			?>
+			</ul>
+			<!-- Tags -->
+			<?php if (!empty($this->tags)): ?>
+			<!-- <ul class="tag-cloud">
+				<li class="tag-rare"><a href="">Less frequent keyword</a></li>
+				<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
+				<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
+			</ul> -->
+			<ul class="tag-cloud">
+			<?php foreach ($this->tags as $tag): ?>
+				<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid'=>null)); ?>">
+				<?php echo $tag['tg_de']; ?></a></li>
+			<?php endforeach;?>
+			</ul>
+			<?php endif; ?>
+
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
+</div>
+

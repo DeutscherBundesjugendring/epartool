@@ -9,26 +9,52 @@
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('voting')?>
 <!-- .secondary-navigation -->
-<section class="main-content content-holder">
-<h1>Anmelden zur Abstimmung zu &quot;<?php echo $this->consultationTitle; ?>&quot;</h1>
-<p>
-  Hier k&ouml;nnt Ihr dar&uuml;ber abstimmen, welche der Beitr&auml;ge zum Thema &quot;<?php echo $this->consultation['titl_short']; ?>&quot;
-  Ihr besonders wichtig findet! Bei den Beitr&auml;gen handelt es sich um Meinungen, Positionen und Vorschl&auml;ge, die uns
-  Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.
-</p>
-<p>
-  Die Abstimmung ist anonym. Deine E-Mail-Adresse nutzen wir nur, um zu überpr&uuml;fen, ob Du berechtigt bist, an der
-  Abstimmung teilzunehmen.
-</p>
-<?php
-echo $this->authform;
 
-echo (!empty($this->votingExplanation)) ? '<p>'.$this->votingExplanation.'</p>':'';
-?>
-<?php if ($this->consultation->vot_res_show == 'y'): ?>
-<p><a href="<?php echo $this->url(array(
-  'action' => 'results',
-  'authcode' => null
-)); ?>">Votingergebnisse ansehen &raquo;</a></p>
-<?php endif; ?>
-</section>
+<!-- Content start -->
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<?php
+			// @todo Sidebar navigation
+			?>
+
+		</aside>
+		<section class="main-content span9">
+
+			<h1>Anmelden zur Abstimmung zu &quot;<?php echo $this->consultationTitle; ?>&quot;</h1>
+			<p>
+			  Hier k&ouml;nnt Ihr dar&uuml;ber abstimmen, welche der Beitr&auml;ge zum Thema &quot;<?php echo $this->consultation['titl_short']; ?>&quot;
+			  Ihr besonders wichtig findet! Bei den Beitr&auml;gen handelt es sich um Meinungen, Positionen und Vorschl&auml;ge, die uns
+			  Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.
+			</p>
+			<p>
+			  Die Abstimmung ist anonym. Deine E-Mail-Adresse nutzen wir nur, um zu überpr&uuml;fen, ob Du berechtigt bist, an der
+			  Abstimmung teilzunehmen.
+			</p>
+			<?php
+			echo $this->authform;
+
+			echo (!empty($this->votingExplanation)) ? '<p>'.$this->votingExplanation.'</p>':'';
+			?>
+			<?php if ($this->consultation->vot_res_show == 'y'): ?>
+			<p><a href="<?php echo $this->url(array(
+			  'action' => 'results',
+			  'authcode' => null
+			)); ?>">Votingergebnisse ansehen &raquo;</a></p>
+			<?php endif; ?>
+
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
+</div>
+
