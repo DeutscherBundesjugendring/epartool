@@ -65,6 +65,11 @@
     margin: 10px 0;
     background: #fff;
   }
+  #footer {
+    color: #000;
+    background: #efefef;
+    padding: 10px;
+  }
 
   /*-------------------------------------------------------------------------*/
 
