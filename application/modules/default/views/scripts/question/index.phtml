@@ -12,23 +12,14 @@
 
 <!-- Content start -->
 
-<div class="content-holder">
-	<div class="row">
-		<aside class="span3">
-
-			<!-- Tertiary navigation -->
-<?php echo $this->questionNavigation();?>
-			<!-- .tertiary-navigation -->
-
-		</aside>
-		<section class="main-content span6">
-			<p>Hier können Sie sich die Fragen zu dieser Konsultation ansehen.</p>
-		</section>
-		<aside class="span3">
-
-		</aside>
-	</div><!-- .row -->
-</div><!-- .content-holder -->
+<section class="main-content content-holder">
+	<?php foreach ($this->questions as $question): ?>
+  <h3><?php echo $question['q']?></h3>
+  <?php echo $question['q_xpl']?>
+  <?php endforeach; ?>
+  <!-- Print -->
+  <a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+</section><!-- .content-holder -->
 
 <!-- Content end -->
 
