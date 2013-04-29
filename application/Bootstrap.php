@@ -38,6 +38,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     return $registry;
   }
   
+  protected function _initSessions() {
+    $this->bootstrap('session');
+  }
+  
   protected function _initAuth() {
     $this->bootstrap('frontController');
     $auth = Zend_Auth::getInstance();
