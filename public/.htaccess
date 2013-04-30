@@ -5,6 +5,7 @@
 
 # Rewrite URL
 RewriteEngine On
+#RewriteBase /myapp
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d

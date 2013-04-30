@@ -30,7 +30,7 @@ etc. */
 	<?php if(!empty($this->groupmember)): ?>
 		<p>Eine E-Mail zur Bestätigung wurde an <b><?php echo $this->groupmember; ?></b> versandt. Bitte den Posteingang checken!</p>
 	<?php endif; ?>
-	<p><a href="<?php echo Zend_Registry::get('baseUrl'); ?>">Zur&uuml;ck zur Startseite</a></p>
+	<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
 
 </section>
 
