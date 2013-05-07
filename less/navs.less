@@ -1,0 +1,415 @@
+//
+// Component: Navigations
+// --------------------------------------------------
+
+
+// Main navigation
+// -------------------------
+
+.main-navigation {
+
+	// Menu
+	.nav {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+	}
+
+	.nav > li {
+		display: inline;
+		float: none;
+	}
+
+	.nav > li > a {
+		display: inline-block;
+		margin: 0;
+		margin-right: -1px; // decrease whitespace
+		padding: .3em .5ex;
+		font: normal 2em @subheadingFontFamily;
+		text-transform: uppercase;
+		color: @bodyText;
+		.border-radius(0);
+		background-color: @blue2;
+
+		&:hover,
+		&:focus {
+			background-color: @orange;
+		}
+	}
+
+	// Active item
+	.nav > .active > a {
+		color: @grayLightest;
+		background-color: @black;
+	}
+}
+
+
+// Teaser navigation
+// -------------------------
+
+.teaser {
+	z-index: 1;
+	margin: 0 6em -6.5em;
+
+	& > li > a {
+		margin: 0;
+		padding: .15em 0 .15em 1em;
+		text-shadow: none;
+		text-align: center;
+		color: @bodyText;
+		border-bottom: 1px solid @white;
+		background-color: @orange;
+
+		.title {
+			.text-overflow();
+			max-width: 93%;
+			display: inline-block;
+		}
+
+		h2 {
+			display: inline;
+			font: normal 1.308em @headingFontFamily; // 17px
+			text-transform: uppercase;
+			color: inherit;
+		}
+
+		i {
+			float: right;
+			margin-top: .05em;
+			margin-right: 0;
+			color: @white;
+		}
+
+		&:hover,
+		&:focus {
+			background-color: @blue2;
+		}
+	}
+}
+
+
+// Tabs
+// -------------------------
+
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+	cursor: pointer; // don't pretend it's not a link
+}
+
+
+// Consultation navigation
+// -------------------------
+
+.consultation-nav {
+	overflow: hidden;
+
+	.nav {
+		margin: 0 -8px 0 0;
+	}
+
+	.nav > li {
+		position: relative;
+	}
+
+	.nav-tabs {
+		border-bottom-style: none;
+	}
+
+	// Default item
+	.nav > li > * {
+		position: relative;
+		width: 182px;
+		height: 75px;
+		.box-sizing(border-box);
+		margin: 0 8px 0 0;
+		padding: .5em @u;
+		.border-radius(0);
+		border-style: none;
+		color: @grayLightest;
+		background-color: @black;
+		.box-shadow(none);
+
+		h2 {
+			font: normal 1.923em/90% @subheadingFontFamily; // 28px
+			text-transform: uppercase;
+			color: @grayLightest;
+		}
+
+		.info {
+			position: absolute;
+			right: .75em;
+			bottom: .5em;
+			display: block;
+			line-height: 135%;
+			text-align: right;
+		}
+
+		.bubble {
+			left: 1.5em;
+			bottom: -0.3em;
+		}
+	}
+
+	// Remove right margin of the last item
+	.nav > li:last-child > * {
+		margin-right: 0;
+	}
+
+	// Add decoration to items
+	.nav > li > * {
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			display: block;
+			margin-top: -1.5em;
+		}
+
+		&:before {
+			left: 0;
+			z-index: 0;
+			border-left: .7em solid @turqoise;
+			border-top: 1.4em solid transparent;
+			border-bottom: 1.4em solid transparent;
+		}
+
+		&:after {
+			left: 100%;
+			z-index: 1;
+			border-left: .7em solid @black;
+			border-top: 1.4em solid transparent;
+			border-bottom: 1.4em solid transparent;
+		}
+	}
+
+	// Remove decoration from the first and the last item
+	.nav > li:first-child > *:before,
+	.nav > li:last-child > *:after {
+		display: none;
+	}
+
+	// Linked item
+	.nav > li > a {
+		&:hover,
+		&:focus {
+			background-color: @orange;
+
+			// Decoration
+			&:after {
+				border-left-color: @orange;
+			}
+		}
+	}
+
+	// Title item
+	.nav > .item-title > a {
+		position: relative;
+		overflow: hidden;
+		padding: 0;
+
+		// Description
+		.description {
+			position: absolute;
+			left: 0;
+			top: 100%;
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			.box-sizing(border-box);
+			padding: 1em;
+			line-height: 135%;
+			color: @bodyText;
+			background-color: @orange;
+			.opacity(0);
+			.transition(all @normal ease-out);
+		}
+
+		&:hover,
+		&:focus {
+			.description {
+				top: 0;
+				color: @bodyText;
+				background-color: @orange;
+				.opacity(100);
+			}
+		}
+	}
+
+	// Access item
+	.nav > .item-access {
+
+		// Input
+		input[type="text"],
+		input[type="password"] {
+			width: 6.2em;
+			padding-left: .25em;
+			padding-right: .25em;
+			border-color: @grayLighter;
+
+			&:focus {
+				border-color: @inputFocusBorder;
+			}
+		}
+	}
+
+	// Active item
+	.nav > .active > a,
+	.nav > .active > a:hover,
+	.nav > .active > a:focus {
+		color: @white;
+		border-style: none;
+		background-color: @white;
+
+		h2,
+		small {
+			color: @bodyText;
+		}
+
+		&:after {
+			border-left-color: @white;
+		}
+	}
+
+	// Inactive item
+	.nav > li > div,
+	.nav > .item-disabled > *,
+	.nav > .item-disabled > a:hover,
+	.nav > .item-disabled > a:focus {
+		background-color: @grayLighter;
+		cursor: not-allowed;
+
+		// Decoration
+		&:after {
+			border-left-color: @grayLighter;
+		}
+	}
+}
+
+// Consultation nav in consultation preview
+.consultation-preview .consultation-nav {
+
+	.nav > li > * {
+		width: 144px;
+		height: 217px;
+		padding-left: .75em;
+		padding-right: .75em;
+
+		h2 {
+			font-size: 2.154em;
+			line-height: 110%;
+		}
+	}
+
+	.nav > li > *:before {
+		border-left-color: @grayLightest;
+	}
+
+	.nav > li > a {
+		&:hover .bubble,
+		&:focus .bubble {
+			margin-bottom: 1.5em;
+		}
+	}
+
+	.nav > .item-title > a {
+		padding: 0;
+	}
+
+	// Remove decorations
+	.nav > li:first-child > *:after,
+	.nav > li:nth-child(2) > *:before {
+		display: none;
+	}
+}
+
+
+// Tertiary (sidebar) navigation
+// -------------------------
+
+.tertiary-navigation {
+	.nav {
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav > li > a {
+		margin: 0 0 2px;
+		padding: .4em .5em;
+		font: normal 1.5em/120% @subheadingFontFamily;
+		text-transform: uppercase;
+		text-shadow: none;
+		color: @bodyText;
+		background-color: @blue;
+
+		&:hover,
+		&:focus {
+			background-color: @orange;
+		}
+	}
+
+	.nav > .active > a,
+	.nav > .active > a:hover,
+	.nav > .active > a:focus {
+		color: @bodyText;
+		background-color: @orange;
+	}
+
+	// Second level
+	.nav > li > ul {
+		position: relative;
+		margin: 0 0 2px;
+		padding-top: .75em;
+		list-style: none;
+		background-color: @black;
+
+		// Add decoration to items
+		& > li > * {
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				display: block;
+			}
+			&:before {
+				left: 50%;
+				z-index: 0;
+				margin-left: -1.55em;
+				border-left: 1.5em solid transparent;
+				border-right: 1.5em solid transparent;
+				border-top: .75em solid @white;
+			}
+			&:after {
+				left: 50%;
+				top: -2px;
+				z-index: 1;
+				margin-left: -1.4em;
+				border-left: 1.4em solid transparent;
+				border-right: 1.4em solid transparent;
+				border-top: .7em solid @orange;
+			}
+		}
+	}
+
+	.nav > li > ul > li > a {
+		padding: .5em @u;
+		display: block;
+		text-decoration: none;
+		color: @white;
+
+		&:hover,
+		&:focus {
+			color: @grayLight;
+		}
+	}
+
+	.nav ul > .active > a,
+	.nav ul > .active > a:hover,
+	.nav ul > .active > a:focus {
+		color: @orange;
+	}
+}
