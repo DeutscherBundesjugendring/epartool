@@ -42,7 +42,7 @@ $locale = new Zend_Locale();
             <div class="box">
                 <h2>Reaktionen und Feedback auf einzelne Beiträge</h2>
                 <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
-                <?php echo $this->questionNavigation();?>
+                <?php echo $this->questionNavigation( NULL, 'follow-up', TRUE);?>
                 <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>">Sortiert nach Schlagwörtern</a>
             </div>
         </section>

@@ -7,7 +7,7 @@
  */
 class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract {
     
-     public function followupNavigation ($activeItem = null, $activeTtemQ = null) {
+     public function followupNavigation ($activeItem = null, $activeItemQ = null) {
          
         $html = '';
         $con = $this->view->consultation;
@@ -18,9 +18,8 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract {
             $navItems = array(
                 
               'overview' => array('title'=>'Übersicht Reaktionen & Wirkungen','url'=>array('action' => 'index', 'page' => null)),
-              'byQuestion' => array('title'=>'Beiträge sortiert nach Fragen','url'=>array('action' => 'show', 'page' => null)),
-              'byKeywords' => array('title'=>'Beiträge sortiert nach Schlagwörtern','url'=>array('action' => 'show', 'page' => null)),
-        
+              'by-question' => array('title'=>'Beiträge sortiert nach Fragen','url'=>array('action' => 'by-question', 'page' => null)),
+              'byKeywords' => array('title'=>'Beiträge sortiert nach Schlagwörtern','url'=>array('action' => 'show', 'page' => null))
                 
             );
             
@@ -36,8 +35,8 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract {
                 $html.= '<a href="'.$this->view->url($val['url']).'">';
                 $html.= $val['title'];
                 $html.= '</a>';                
-                if($key == 'byQuestion') {
-                     $this->view->QuestionNavigation($activeTtemQ);
+                if($key == 'by-question' && $activeItem == 'by-question') {
+                    $html.= $this->view->QuestionNavigation($activeItemQ, 'follow-up');
                 }
                 $html.= '</li>';            
                  

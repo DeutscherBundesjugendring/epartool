@@ -791,4 +791,23 @@ class Model_Inputs extends Zend_Db_Table_Abstract {
       
     }
   }
+  
+  public function getRelatedWithVotesById( $tid ) {
+      
+       $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($tid)) {
+            return array();
+        }
+      
+      $select = $this->select();
+      $select ->where("rel_tid LIKE '%$tid%'");
+      $select ->where("`vot` LIKE 'y'");      
+      
+      $result = $this->fetchAll($select)->toArray();
+      
+      return $result;
+      
+      
+  }
+  
 }

@@ -1,0 +1,75 @@
+<?php
+/**
+ *  byQuestion.phtml
+ * 
+ *  @description   
+ *  @author             Marco Dinnbier
+ */
+$date = new Zend_Date();
+$locale = new Zend_Locale();
+?>
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('follow-up')?>
+<!-- .secondary-navigation -->
+
+<div class="content-holder">
+    <div class="row">
+        <aside class="span3">
+            <?php echo $this->followupNavigation( 'by-question', $this->question['qi'])?>
+            
+        </aside>
+        <section class="main-content span8">
+           <p class="count"><?php echo $this->numberInputs; ?> Beiträge</p> 
+           <h3><?php echo $this->question['q']; ?></h3>
+           <p><?php echo $this->question['q_xpl']; ?></p>
+           
+           <hr />
+
+            <!-- Contributions -->
+            <?php if (count($this->paginator)): ?>
+            <?php foreach ($this->paginator as $input):?>
+            <a name="input-<?php echo $input['tid']; ?>"></a>
+            <article class="media">
+                    <time pubdate datetime="<?php echo $date->set($input['when'])
+                                              ->get('y-MM-dd')?>">verfasst am <?php echo $date
+                                              ->get(Zend_Date::DATE_MEDIUM); ?></time>
+                    <p class="lead"><?php echo $input['thes']?></p>
+                    <p><?php echo $input['expl']?></p>
+
+                    <?php if ($this->consultation->spprt_show == 'y'): ?>
+                    <a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support<?php
+                      if (in_array($input['tid'], $supports->clicks) || $supportsDisabled):
+                      ?> disabled<?php endif;?>" rel="<?php echo $input['tid']; ?>">
+                            <i class="icon-ok-sign"></i>
+                            <span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
+                            <span class="label">Dieser Meinung bin ich auch!</span>
+                    </a>
+                    <?php endif; ?>
+
+                    <a href="#">
+                            <i class="icon-comment"></i>
+                            <span class="badge">(<?php echo $input['pts']; ?>)</span>
+                            <span class="label">Das möchte ich gerne diskutieren!</span>
+                    </a>
+                    <a href="<?php echo $this->url(array('action' => 'show','qid' => $this->question['qi'], 'tid' => $input['tid'], 'page' => null)) ?>">Reaktionen ansehen</a>
+            </article>
+
+            <hr />
+            <?php endforeach;?>
+            <?php endif;?>
+            <!-- Paging -->
+            <?php
+            echo $this->paginationControl($this->paginator,
+                'Jumping',
+                '_pagination.phtml',
+                        array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
+            ); ?>
+
+            <hr />
+        </section>
+    </div>
+</div>
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
+</div>

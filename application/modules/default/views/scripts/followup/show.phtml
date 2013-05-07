@@ -10,25 +10,41 @@ $date = new Zend_Date();
 $locale = new Zend_Locale();
 ?>
 <!-- Secondary navigation -->
-<?php echo $this->secondNavigation('follow-up')?>
+
 <!-- .secondary-navigation -->
 
 <div class="content-holder">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->questionNavigation();?>
-            
-        </aside>
         <section class="main-content span8">
             
-            <h3><?php echo $this->question['q']?></h3>
-            <p><?php echo $this->question['q_xpl']?></p>
-            <!-- Print -->
-            <a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+            <h3><?php echo $this->question['q']; ?></h3>
+            <div class="timeline-box">
+                <h3>Box 1</h3>
+                <p><?php echo $this->input['thes']; ?></p>
+                <?php if (!empty($this->input['expl'])): ?>                    
+                    <p><?php echo $this->input['expl']; ?></p>
+                <?php endif; ?>
+            </div>
+            <?php if ($this->input['vot'] == 'y'): ?>
+                <div class="timeline-countlink">
+                    <a href="<?php echo $this->url(array('action' => 'json','tid' => $this->input['tid'], 'page' => null)) ?>"><?php echo $this->input['relFowupCount']; ?></a>-->
+                </div>                
+            <?php endif; ?>
+            <?php if ($this->input['vot'] != 'y'): ?>   
+                <div class="timeline-countlink">
+                    <!--  <a href="<?php echo $this->url(array('action' => 'getData','tid' => $this->input['tid'], 'page' => null)) ?>"><?php echo count($this->relInput); ?></a>-->
+                    <?php echo count($this->relInput); ?>
+                </div>
+                <?php foreach ($this->relInput as $relInput):?>
+                    <div class="timeline-box">
+                        <p><?php echo $relInput['thes']; ?></p>     
+                        <p>X. Rang</p>
+                    </div>
+                    <div class="timeline-countlink">
+                        <a class="ajaxclick" href="<?php echo $this->url(array('action' => 'json','tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>                    
+                    </div>
+                <?php endforeach;?>
+            <?php endif; ?>
         </section>
     </div>
-</div>
-<!-- Top link -->
-<div class="top-link">
-	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
 </div>
