@@ -41,6 +41,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
   protected function _initSessions() {
     $this->bootstrap('session');
   }
+
+  protected function _initiCache() {
+    $manager = $this
+      ->getPluginResource('cachemanager')
+      ->getCacheManager();
+    $cache = $manager->getCache('database');
+    Zend_Locale::setCache($cache);
+  }
   
   protected function _initAuth() {
     $this->bootstrap('frontController');
