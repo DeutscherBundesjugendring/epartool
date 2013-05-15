@@ -319,7 +319,7 @@ class Model_Users extends Model_DbjrBase {
       // Hole alle nicht bestätigten Beiträge
       $inputModel = new Model_Inputs();
       $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid);
-      if (!empty($unconfirmedInputs)) {
+      if (count($unconfirmedInputs) > 0) {
         // appropriate template has to be configured in database!
         $template = 'inpt_conf';
         $replace = array(

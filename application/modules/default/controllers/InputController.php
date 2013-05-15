@@ -137,17 +137,20 @@ class InputController extends Zend_Controller_Action {
         $data2store = $form->getValues();
         $data2store['kid'] = $kid;
         $data2store['qi'] = $qid;
-        if ($auth->hasIdentity()) {
-          $identity = $auth->getIdentity();
-          // mit uid speichern
-          $data2store['uid'] = $identity->uid;
-          $inputModel->add($data2store);
-        } else {
-          // Beiträge in Session sammeln und nach Registrierung oder Login speichern
-          $inputCollection = new Zend_Session_Namespace('inputCollection');
-          $tmpCollection = $inputCollection->inputs;
-          $tmpCollection[] = $data2store;
-          $inputCollection->inputs = $tmpCollection;
+        if (!empty($data2store['thes'])) {
+          // Only save Input if form field 'thes' is filled, else simply go to next step
+          if ($auth->hasIdentity()) {
+            $identity = $auth->getIdentity();
+            // mit uid speichern
+            $data2store['uid'] = $identity->uid;
+            $inputModel->add($data2store);
+          } else {
+            // Beiträge in Session sammeln und nach Registrierung oder Login speichern
+            $inputCollection = new Zend_Session_Namespace('inputCollection');
+            $tmpCollection = $inputCollection->inputs;
+            $tmpCollection[] = $data2store;
+            $inputCollection->inputs = $tmpCollection;
+          }
         }
         // welche Action als nächstes?
         $nextQuestion = $questionModel->getNext($qid);
