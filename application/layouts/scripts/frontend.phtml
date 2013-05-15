@@ -23,7 +23,7 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->bootstrap?>" type="text/css" />
 		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->fontAwesome?>" type="text/css" />
 		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->main?>" type="text/css" />
-		<?php if ($sysconfig->project !== 'sd'): ?>
+		<?php if ($sysconfig->project == 'sd'): ?>
 		<?php if (file_exists(realpath(APPLICATION_PATH . '/../' . $config->path->css->rootdir . $sysconfig->project . '.css'))): ?>
 		<link rel="stylesheet" href="<?=$this->baseUrl($config->path->css->rootdir . $sysconfig->project . '.css')?>" type="text/css" />
 		<?php endif; ?>
