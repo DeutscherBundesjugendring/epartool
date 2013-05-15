@@ -3,23 +3,23 @@ module.exports = function(grunt) {
     grunt.initConfig({
         recess: {
             compile: {
-                src: ['public/less/main.less'],
-                dest: 'public/css/dbjr.css',
+                src: ['less/main.less'],
+                dest: 'css/dbjr.css',
                 options: {
                     compile: true
                 }
             },
             dist: {
-                src: ['public/less/main.less'],
-                dest: 'public/css/dbjr.min.css',
+                src: ['less/main.less'],
+                dest: 'css/dbjr.min.css',
                 options: {
                     compile: true,
                     compress: true
                 }
             },
 			ej: {
-				src: ['public/less/alternative-design.less'],
-				dest: 'public/css/ej.css',
+				src: ['less/alternative-design.less'],
+				dest: 'css/sd.css',
 				options: {
 					compile: true,
 					compress: true
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         },
         watch: {
             less: {
-                files: ['public/less/*.less'],
+                files: ['less/*.less'],
                 tasks: 'recess'
             }
         }
