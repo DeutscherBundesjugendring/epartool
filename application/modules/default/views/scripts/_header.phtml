@@ -13,7 +13,11 @@
 
 					<!-- Brand -->
 					<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>" rel="home" class="brand" title="Startseite">
-						<img src="<?php echo $this->baseUrl(); ?>/images/logo.png" itemprop="image" alt="Ichmache&gt;Politik" />
+						<?php if(Zend_Registry::get('systemconfig')->project == 'ej'): ?>
+						<img src="<?php echo $this->baseUrl(); ?>/images/logo_ej.png" itemprop="image" width="177" height="50" alt="Strukturierter Dialog" />
+						<?php else: ?>
+						<img src="<?php echo $this->baseUrl(); ?>/images/logo.png" itemprop="image" width="205" height="46" alt="Ichmache&gt;Politik" />
+						<?php endif; ?>
 					</a>
 
 				</div>
