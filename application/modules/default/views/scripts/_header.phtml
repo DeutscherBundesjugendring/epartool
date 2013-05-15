@@ -8,12 +8,15 @@
 	<!-- Header region -->
 	<div role="banner" class="header-region">
 			<div class="row">
-
 				<div class="span4">
 
 					<!-- Brand -->
 					<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>" rel="home" class="brand" title="Startseite">
-						<img src="<?php echo $this->baseUrl(); ?>/images/logo.png" itemprop="image" alt="Ichmache&gt;Politik" />
+						<?php if(Zend_Registry::get('systemconfig')->project == 'sd'): ?>
+						<img src="<?php echo $this->baseUrl(); ?>/images/logo_sd.png" itemprop="image" width="177" height="50" alt="Strukturierter Dialog" />
+						<?php else: ?>
+						<img src="<?php echo $this->baseUrl(); ?>/images/logo.png" itemprop="image" width="205" height="46" alt="Ichmache&gt;Politik" />
+						<?php endif; ?>
 					</a>
 
 				</div>
@@ -91,7 +94,6 @@
 					</div><!-- #user-info -->
 
 				</div><!-- .span3 -->
-
 			</div><!-- .row -->
 
 			<?php echo $this->partial('_herounit.phtml', $this)?>
