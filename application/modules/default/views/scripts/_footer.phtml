@@ -50,6 +50,12 @@
 					<a href="" class="logo" rel="external" target="_blank" title="ePartool">
 						<img src="<?php echo $this->baseUrl(); ?>/images/logo/epartool.png" alt="ePartool" />
 					</a>
+					<?php if(Zend_Registry::get('systemconfig')->project == 'sd'): ?>
+					<br /><br />
+					<a href="" class="logo" rel="external" target="_blank" title="EU Jugend Strategie">
+						<img src="<?php echo $this->baseUrl(); ?>/images/logo/js.png" alt="EU Jugend Strategie" />
+					</a>
+					<?php endif; ?>
 				</div>
 				<div class="span3 contact">
 					<p><strong>Projektbüro Ichmache&gt;Politik</strong><br />
