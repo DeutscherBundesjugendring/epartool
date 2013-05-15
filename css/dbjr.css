@@ -224,6 +224,10 @@ h1 a:focus {
   text-decoration: none;
 }
 
+a.logo {
+  text-decoration: none;
+}
+
 ul,
 ol,
 dl {
