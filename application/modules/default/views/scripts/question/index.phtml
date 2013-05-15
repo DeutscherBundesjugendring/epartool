@@ -5,6 +5,12 @@
  * @description   Übersicht der Fragen zur Konsultation
  * @author        Markus Hackel
  */
+$date = new Zend_Date();
+$linkHeadlineToInputs = false;
+if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
+      && $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())) {
+  $linkHeadlineToInputs = true;
+}
 ?>
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('question')?>
@@ -14,7 +20,19 @@
 
 <section class="main-content content-holder">
 	<?php foreach ($this->questions as $question): ?>
-  <h3><?php echo $question['q']?></h3>
+  <h3>
+  <?php if ($linkHeadlineToInputs): ?>
+  <a href="<?php echo $this->url(array(
+      'controller' => 'input',
+      'action' => 'show',
+      'kid' => $this->consultation->kid,
+      'qid' => $question['qi'])); ?>" title="Zum Beantworten hier klicken">
+  <?php endif; ?>
+  <?php echo $question['q']?>
+  <?php if ($linkHeadlineToInputs): ?>
+  </a>
+  <?php endif; ?>
+  </h3>
   <?php echo $question['q_xpl']?>
   <?php endforeach; ?>
   <!-- Print -->
