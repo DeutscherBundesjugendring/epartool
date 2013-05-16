@@ -19,6 +19,16 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 <!-- Content start -->
 
 <section class="main-content content-holder">
+  <div class="row">
+		<div class="text-center span10 offset1">
+			<h1>Lorem ipsum Headline, die auch zweizeilig sein kann wenn denn nötig</h1>
+			<p>Bildung findet nicht nur in der (Hoch-)Schule oder am Ausbildungsplatz
+				statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
+				man auch außerhalb des sogenannten formalen Bildungssystems. Eine
+				besondere Rolle spielen dabei außerschulisch organisierte
+				Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
+		</div>
+	</div>
 	<?php foreach ($this->questions as $question): ?>
   <h3>
   <?php if ($linkHeadlineToInputs): ?>
@@ -28,7 +38,7 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
       'kid' => $this->consultation->kid,
       'qid' => $question['qi'])); ?>" title="Zum Beantworten hier klicken">
   <?php endif; ?>
-  <?php echo $question['q']?>
+  <?php echo (!empty($question['nr']) ? $question['nr'] . ' ' : '') . $question['q']?>
   <?php if ($linkHeadlineToInputs): ?>
   </a>
   <?php endif; ?>
