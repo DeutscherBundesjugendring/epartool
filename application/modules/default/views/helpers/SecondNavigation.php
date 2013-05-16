@@ -19,31 +19,43 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'follow-up' => (!$nowDate->isLater($con->vot_to)),
     );
     $items = array(
-      'article' => array('url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid, 'text' => '<h2>Infos</h2>'),
-      'question' => array('url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid, 'text' => '<h2>Fragen</h2>'),
+      'article' => array(
+        'url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid,
+        'text' => '<h2>Infos</h2>'
+      ),
+      'question' => array(
+        'url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid,
+        'text' => '<h2>Fragen</h2>'
+      ),
       'input' => array(
         'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid,
-        'text' => '<h2>Beiträge</h2> <small class="info">vom '
-          . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM)
-          . '<br />'
-          . 'bis '
-          . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM)
-          . '</small>'
+        'text' => '<h2>Beiträge</h2>'
       ),
       'voting' => array(
         'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
-        'text' => '<h2>Abstimmung</h2> <small class="info">vom '
-          . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM)
-          . '<br />'
-          . 'bis '
-          . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM)
-          . '</small>'
+        'text' => '<h2>Abstimmung</h2>'
       ),
       'follow-up' => array(
         'url' => '',
         'text' => '<h2>Reaktionen &&nbsp;Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
       ),
     );
+    if ($con->inp_show == 'y') {
+      $items['input']['text'].= ' <small class="info">vom '
+          . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM)
+          . '<br />'
+          . 'bis '
+          . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM)
+          . '</small>';
+    }
+    if ($con->vot_show == 'y') {
+      $items['voting']['text'].= ' <small class="info">vom '
+          . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM)
+          . '<br />'
+          . 'bis '
+          . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM)
+          . '</small>';
+    }
     $html = '<nav role="navigation" class="consultation-nav secondary-navigation">'
       . '<ul class="nav nav-tabs">';
     foreach ($items as $item => $val) {
