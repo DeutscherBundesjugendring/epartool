@@ -292,10 +292,16 @@ class Model_Users extends Model_DbjrBase {
         . Zend_Registry::get('baseUrl')
         . '/user/registerconfirm/ckey/' . $userRow->confirm_key . "\n\n";
       
+      $template = 'register';
+      $aReplace = array(
+          '{{USER}}' => $userRow->name,
+          '{{CONFIRMLINK}}' => Zend_Registry::get('baseUrl') . '/user/registerconfirm/ckey/' . $userRow->confirm_key
+      );
+      
       $mailObj = new Model_Emails();
       
       return $mailObj->send($userRow->email,
-        'Strukturierter Dialog: Registrierungsbestätigung', $mailBody);
+        'Registrierungsbestätigung', $mailBody, $template, $aReplace);
     }
     return false;
   }
