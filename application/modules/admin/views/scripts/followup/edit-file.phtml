@@ -51,6 +51,17 @@
         <?php foreach ($this->followups as $followup): ?>
             <tr>                
                 <td>
+                    <?php 
+                   
+                       $popupurl = $this->url(array(
+                            'action' => 'reference',
+                            'kid' => $this->consultation['kid'],
+                            'fid' => $followup['fid'],
+                            'ffid' => $this->ffid
+                              ));
+                       
+                       echo $this->Popuplink( $popupurl, 'Follow-up Referenzen zuweisen', 1100, 600, $followup['relFowupCount'] ); ?>
+                    <br />
                     <?php if($followup['hlvl'] < 6): ?>
                     <a href="<?php echo $this->url(array(
                             'action' => 'hierarchy',

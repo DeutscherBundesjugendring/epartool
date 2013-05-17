@@ -25,7 +25,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
         $kid = $this->_request->getParam('kid', 0);
         if ($kid > 0) {
           $consultationModel = new Model_Consultations();
-          $this->_consultation = $consultationModel->getById($kid);
+          $this->_consultation = $consultationModel->find($kid)->current();
           $this->kid = $kid;
           $this->view->consultation = $this->_consultation;
         }
@@ -231,16 +231,25 @@ class Admin_FollowupController extends Zend_Controller_Action {
         $movefollowup = NULL;
         if ($ffid > 0) {
             
-          if ($movefid > 0) {
-               $followup = new Model_Followups();
-               $movefollowup = $followup->getById($movefid);
-          }  
-          
-          $followupFiles = new Model_FollowupFiles();
-          $followupFilesRow = $followupFiles->find($ffid)->current();
+          $Model_Followups = new Model_Followups();
+          $Model_FollowupFiles = new Model_FollowupFiles();
+          $followupFilesRow = $Model_FollowupFiles->find($ffid)->current();
           $form = new Admin_Form_Followup_File();
           
-          $followups = $followupFiles->getFollowupsById($ffid, 'docorg ASC')->toArray();
+          
+          if ($movefid > 0) {
+               $movefollowup = $Model_Followups->getById($movefid);
+          }  
+          
+          $followups = array();
+          $result = $Model_FollowupFiles->getFollowupsById($ffid, 'docorg ASC')->toArray();
+          foreach ($result as $followup) {
+              $rel = $Model_Followups->getRelated($followup['fid']);
+              $snippet = $followup;
+              $snippet['relFowupCount'] = $rel['count'];
+              $followups[] = $snippet;              
+          }
+         
           
           if ($this->getRequest()->isPost()) {
             // Formular wurde abgeschickt und muss verarbeitet werden
@@ -255,7 +264,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
               $followupFile = $params;
             }
           } else {
-            $followupFile = $followupFiles->getById($ffid);
+            $followupFile = $Model_FollowupFiles->getById($ffid);
           }
           $form->populate($followupFile);
         }
@@ -435,6 +444,50 @@ class Admin_FollowupController extends Zend_Controller_Action {
                 'ffid' => $ffid
                 
               )), array('prependBase' => false));
+    }
+    
+    public function referenceAction(){
+        
+        $this->_helper->layout->setLayout('popup');
+        $Model_Followups = new Model_Followups();
+        $Model_Inputs = new Model_Inputs();
+        $Model_FollowupFiles = new Model_FollowupFiles();
+        $kid = $this->getRequest()->getParam('kid', 0);
+        $fid = $this->getRequest()->getParam('fid', 0);
+         $Model_Questions = new Model_Questions();   
+        
+        if ($this->getRequest()->isPost()) {
+            
+            $params = $this->getRequest()->getPost();
+            
+            if (!empty($params['question'])) {
+               
+                $question = $Model_Questions->getById($params['question']);
+            }
+            if (!empty($params['inp_list'])) {
+                $Model_FollowupsRef = new Model_FollowupsRef();
+                $inserted = $Model_FollowupsRef->insertBulk($params['inp_list'], $fid, 'tid');
+                $message = "$inserted Beiträge wurden zugeordnet.";
+                 $this->_flashMessenger->addMessage($message, 'success');
+               
+            }
+        }
+        
+        $related = $Model_Followups->getRelated($fid);
+        $followup = $Model_Followups->getById($fid);
+        Zend_Debug::dump($related);
+        if (empty($question)) {
+           // get first question of this consultation
+           $questionRow = $Model_Questions->getByConsultation($kid)->current();
+           $question = $Model_Questions->getById($questionRow->qi);
+        }
+       // Zend_Debug::dump($question);
+        $this->view->assign(array(
+          'kid' => $kid,
+          'followup' => $followup,          
+          'related' => $related,
+          'question' => $question
+        ));
     }
 }
 

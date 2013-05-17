@@ -54,27 +54,55 @@ class Model_Followups extends Zend_Db_Table_Abstract {
     * @param integer $id
     * @return array
     */
-     public function getRelated($id) {
+     public function getRelated($id, $where = NULL) {
          
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
           return array();
         }
     
+        
         $depTable = new Model_FollowupsRef();    
         $depTableSelect = $depTable->select();
-        $depTableSelect->where('tid IS NULL');
-       
+        if ($where) {            
+            $depTableSelect->where($where);
+        }
+        
         $result = array();
+        $result['inputs'] = array();
+        $result['snippets'] = array();
+        $result['docs'] = array();
+        $result['count'] = 0;
         $row = $this->find($id)->current(); 
         if($row){
             
-        $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect );
-    
-        $result = $rowset->toArray();
+            $Model_Inputs = new Model_Inputs();
+            $Model_FollowupFiles = new Model_FollowupFiles();
+            
+            $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect );
+
+            $refs = $rowset->toArray();
+            
+            $inputs = array();
+            $snippets = array();
+            $docs = array();
+
+            foreach ($refs as $ref) {
+
+                if ($ref['tid']) $inputs[] = $ref['tid'];
+                if ($ref['fid']) $snippets[] = $ref['fid'];
+                if ($ref['ffid']) $docs[] = $ref['ffid'];
+
+            }
+            
+           
+            $result['inputs'] = $Model_Inputs->find($inputs)->toArray();
+            $result['snippets'] = $this->find($snippets)->toArray();
+            $result['docs'] = $Model_FollowupFiles->find($docs)->toArray();
+            $result['count'] = count($refs);
             
         }
-      //   Zend_Debug::dump($result);
+
         return $result; 
          
      }
@@ -96,6 +124,25 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         if ($row) {
           $result = $row->toArray();
         }
+
+        return $result;
+    }
+    /**
+    * getById
+    * get followup by fowups.fid
+    * @param integer $fid
+    * @return array 
+    */
+    public function getByIdArray( $idarray ) {
+       /*
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($id)) {
+          return array();
+        }
+        */ 
+        $this->select->where('fid IN(?)', $idarray);
+        $fowups = $this->fetchAll($select)->toArray();
+        return $fowups;
 
         return $result;
     }

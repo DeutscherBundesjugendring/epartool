@@ -112,7 +112,7 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 
 			<?php if(!$disabled['follow-up']): ?>
 			<li>
-				<a href="<?php // TODO echo $this->url(array('controller' => 'followup', 'kid' => $con->kid))?>">
+				<a href="<?php echo $this->url(array('controller' => 'followup', 'kid' => $con->kid))?>">
 					<h2>Reaktionen & Wirkung</h2>
 				</a>
 			</li>

@@ -1,0 +1,175 @@
+<?php
+/**
+ *  reference.phtml
+ * 
+ *  @description   
+ *  @author             Marco Dinnbier
+ */
+?>
+
+<h2>Follow-up Referenzen bearbeiten</h2>
+
+<p><?php echo $this->followup['expl'] ?></p>
+
+<h3>Zugewiesene Beiträge (Gesamt: <?php echo count($this->related['inputs']); ?>)</h3>
+<form id="qDropdownForm" action="" method="POST"> 
+    <?php 
+        if ($this->question){
+            echo $this->QuestionDropdown( $this->question['qi'], 'question');    
+        } else {
+            echo $this->QuestionDropdown( NULL, 'question'); 
+        }
+    ?>
+</form>
+<?php if(count($this->related['inputs']) > 0): ?>
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <th style="width: 55%">These</th>
+            <th style="text-align: right;">Aktionen</th>
+        </tr>
+        <?php foreach ($this->related['inputs'] as $input): ?>
+            <?php if($input['qi'] == $this->question["qi"]): ?>
+            <?php $inptids[] = $input['tid']; ?>
+                <tr>                
+                    <td><?php echo substr(strip_tags(html_entity_decode($input['thes'])), 0, 400).'...'; ?></td>
+
+                    <td style="text-align: right;">
+                        <a href="<?php echo $this->url(array(
+                                'action' => 'delete-reference',
+                                'kid' => $this->consultation['kid'],
+                                'fid_ref' => $this->followup['fid'],
+                                'tid' => $input['tid']  
+                                ));?>">Diese Referenz entfernen</a>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; ?>        
+    </tbody>
+</table>
+<?php endif; ?>
+<h3>Beiträge zuweisen: </h3>
+<?php if ($this->question): ?>
+<form id="iChooseForm" action="" method="POST">
+    <div style="height:200px;overflow-y: scroll;">
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>These</th>
+                </tr>
+                <?php foreach ($this->question["inputs"] as $input): ?>
+                    <?php if($input['vot'] === 'y' && !in_array($input['tid'],$inptids)): ?>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="inp_list[]" value="<?php echo $input['tid'] ?>">
+                            </td>
+                            <td><?php echo $input['thes']; ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <input type="submit" value="Beiträge zuordnen" />
+</form>
+
+<?php endif; ?>
+<?php if(count($this->input_list) > 0): ?>
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <th></th>
+            <th style="width: 55%">These</th>           
+        </tr>
+    <?php foreach($this->input_list as $input): ?>
+        <tr>
+            <td>
+                <input type="checkbox" name="inp_list[]" value="<?php echo $input['tid']; ?>">
+            </td>           
+            <td>
+               <?php echo $input['thes']; ?>
+            </td>           
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>
+<br /><br />
+<h3>Zugewiesene Follow-up-Snippets (<?php echo count($this->related['snippets']); ?>)</h3>
+<?php if(count($this->related['snippets']) > 0): ?>
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <th style="width: 55%">Erläuterung</th>
+            <th style="text-align: right;">Aktionen</th>
+        </tr>
+        <?php foreach ($this->related['snippets'] as $snippet): ?>
+            <tr>                
+                <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...'; ?></td>
+                
+                <td style="text-align: right;">
+                    <a href="<?php echo $this->url(array(
+                            'action' => 'delete-reference',
+                            'kid' => $this->consultation['kid'],
+                            'fid_ref' => $this->followup['fid'],
+                            'fid' => $snippet['fid']  
+                            ));?>">Diese Referenz entfernen</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>        
+    </tbody>
+</table>
+<?php endif; ?>
+<a href="<?php echo $this->url(array(
+                            'action' => 'create-reference',
+                            'kid' => $this->consultation['kid'],
+                            'fid_ref' => $this->followup['fid'],
+                            'mode' => 'snippet'
+                            ));?>">Neues Follow-up-Snippet zuweisen</a>
+
+<br /><br />
+<h3>Zugewiesene Follow-up-Dokumente (<?php echo count($this->related['docs']); ?>)</h3>
+<?php if(count($this->related['docs']) > 0): ?>
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <th style="width: 55%">Titel</th>
+            <th style="text-align: right;">Aktionen</th>
+        </tr>
+        <?php foreach ($this->related['docs'] as $doc): ?>
+            <tr>                
+                <td><?php echo substr(strip_tags(html_entity_decode($doc['titl'])), 0, 400); ?></td>
+                
+                <td style="text-align: right;">
+                    <a href="<?php echo $this->url(array(
+                            'action' => 'delete-reference',
+                            'kid' => $this->consultation['kid'],
+                            'fid_ref' => $this->followup['fid'],
+                            'ffid' => $doc['ffid']  
+                            ));?>">Diese Referenz entfernen</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>        
+    </tbody>
+</table>
+<?php endif; ?>
+<a href="<?php echo $this->url(array(
+                            'action' => 'create-reference',
+                            'kid' => $this->consultation['kid'],
+                            'fid_ref' => $this->followup['fid'],
+                            'mode' => 'doc'
+                            ));?>">Neues Follow-up-Dokument zuweisen</a>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        
+       jQuery("#qDropdownForm select").on("change",function(){
+           
+           jQuery("#qDropdownForm").submit();
+       }) 
+        
+    });
+
+
+</script>
+

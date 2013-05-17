@@ -148,28 +148,22 @@ class FollowupController extends Zend_Controller_Action {
             
             $Model_Followups = new Model_Followups();
             $Model_FollowupFiles = new Model_FollowupFiles();
-            $related= $Model_Followups->getRelated($fid);
-            $docs = array();
-            $snippets = array();
-            
-            foreach ($related as $item) {
-                
-                if($item['fid']){
-                    $snippet = $Model_Followups->getById ($item['fid']);
-                    $snippet['relFowupCount'] = count($Model_Followups->getRelated($item['fid']));
-                    $snippets[] = $snippet;
-                } 
-                if($item['ffid']) $docs[] = $Model_FollowupFiles->getById ($item['ffid']);
+            $related = $Model_Followups->getRelated($fid);
+            Zend_Debug::dump($related);
+
+            foreach ($related['snippets'] as $key => $snippet) {
+                $rel = $Model_Followups->getRelated($snippet['fid'], 'tid IS NULL');
+                $related['snippets'][$key]['relFowupCount'] = $rel['count'];
             }
-            $data['refs']['snippets'] = $snippets;
-            $data['refs']['docs'] = $docs;
+            $data['refs']['snippets'] =  $related['snippets'];
+            $data['refs']['docs'] = $related['docs'];
         }
 
         //show followup_fls by followup_fls.ffid
         if ($ffid > 0) {
             
             $Model_FollowupFiles = new Model_FollowupFiles();
-            $data['bydoc'] = $Model_FollowupFiles->getById($ffid);
+            $data['doc'] = $Model_FollowupFiles->getById($ffid);
             $data['mediafolder'] = $this->view->baseUrl().'/media/consultations/'.$kid.'/';
            
         }

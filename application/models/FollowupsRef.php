@@ -34,6 +34,26 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract {
     ),
   );
   
+  public function insertBulk( $array, $fid, $type ) {
+      $inserted = 0;
+      
+      foreach ($array as $id) {        
+
+         $data = array( 'fid_ref' => $fid, $type => $id);
+         try {
+              $this->insert($data);
+              $inserted++;
+         } catch (Zend_Db_Exception $e) {
+            //ignore 
+            //throw new Zend_Exception("Can't insert row. Message:".$e->getMessage());
+         }
+      }
+      return $inserted;
+      
+  }
+  
+  
+  
   
   
   

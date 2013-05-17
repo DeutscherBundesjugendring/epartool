@@ -19,12 +19,22 @@
     <div class="page">
 
       <div id="main">
-        
-          <div class="clearfix">
-   <!-- Content -->
-   <?php echo $this->layout()->content; ?>
-          </div>
-        
+         <!-- Flash Messages -->
+        <?php if(!empty($this->layout()->messages)): ?>
+            <?php foreach ($this->layout()->messages as $level => $messages):?>
+                <?php if (!empty($messages)):?>
+                    <?php foreach ($messages as $message):?>
+                        <p class="<?php echo $level; ?>">
+                                <?php echo $message; ?>
+                        </p>
+                    <?php endforeach;?>
+                <?php endif;?>
+            <?php endforeach;?>
+        <?php endif;?>
+        <div class="clearfix">
+            <!-- Content -->
+            <?php echo $this->layout()->content; ?>
+        </div>        
       </div>
     </div>
   </div>   
