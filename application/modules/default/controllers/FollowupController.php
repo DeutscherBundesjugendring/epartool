@@ -112,7 +112,7 @@ class FollowupController extends Zend_Controller_Action {
         $countarr = $Model_FollowupsRef->getFollowupCountByTids($inputids);
          
         foreach ($relInputs as $key => $relInput) {
-            $relInputs[$key]['relFowupCount'] = $countarr[$relInput['tid']];
+            $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']]) ? $countarr[$relInput['tid']] : 0;
         }
        
         
@@ -154,7 +154,7 @@ class FollowupController extends Zend_Controller_Action {
            $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
             
            foreach ($snippets as $key => $snippet) {
-               $snippets[$key]['relFowupCount'] = $countarr[$snippet['fid']];
+                $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
            }
            $data['byinput']['snippets'] = $snippets;
             
@@ -165,19 +165,19 @@ class FollowupController extends Zend_Controller_Action {
             
             $Model_Followups = new Model_Followups();
             $Model_FollowupsRef = new Model_FollowupsRef();
-            $related = $Model_Followups->getRelated($fid);
+            $related = $Model_Followups->getRelated($fid, 'tid = 0');
             $snippetids = array();
 
             foreach ($related['snippets'] as $snippet) {
                 $snippetids[] = $snippet['fid'];
             }
-            
+          
             $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
             
             foreach ($related['snippets'] as $key => $snippet) {
-                $related['snippets'][$key]['relFowupCount'] = $countarr[$snippet['fid']];
+                $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
             }
-            
+          
             $data['refs']['snippets'] =  $related['snippets'];
             $data['refs']['docs'] = $related['docs'];
         }

@@ -60,6 +60,13 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract {
   * @return array 
   */
   public function getFollowupCountByFids( $fidarray, $where = NULL ) {
+      
+      if (count($fidarray) == 0) {
+          
+          return array();
+          
+      }
+      
       $select = $this->select();
       $select->from ($this, array("fid_ref", "count" => new Zend_Db_Expr("count(*)")));
       $select->where('fid_ref IN(?)', $fidarray);
@@ -84,6 +91,13 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract {
   * @return array 
   */  
   public function getFollowupCountByTids( $tidarray, $where = NULL ) {
+      
+      if (count($tidarray) == 0) {
+          
+          return array();
+          
+      }
+      
       $select = $this->select();
       $select->from ($this, array("tid", "count" => new Zend_Db_Expr("count(*)")));
       $select->where('tid IN(?)', $tidarray);

@@ -140,6 +140,11 @@ class Model_Followups extends Zend_Db_Table_Abstract {
     public function getByIdArray( $idarray ) {
 
   
+         if (count($idarray) == 0) {
+          
+          return array();
+          
+      }
         $result = array();
         $select = $this->select();
         $select->where('fid IN(?)', $idarray);
