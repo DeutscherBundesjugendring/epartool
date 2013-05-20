@@ -94,23 +94,28 @@ class FollowupController extends Zend_Controller_Action {
         $Model_Inputs = new Model_Inputs();
         $Model_Questions = new Model_Questions();
         $Model_Followups = new Model_Followups();
+        $Model_FollowupsRef = new Model_FollowupsRef();
         
       
         $question = $Model_Questions->getById($qid);
 
-
-            
-            $input = $Model_Inputs->getById($tid);
-            $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
-
+        $input = $Model_Inputs->getById($tid);
+        $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
         
-        $result = $Model_Inputs->getRelatedWithVotesById($tid);
-        $relInputs = array();
-        foreach ($result as $relInput) {
-            $relInput['relFowupCount'] = count($Model_Followups->getByInput($relInput['tid']));
-            $relInputs[] = $relInput;
+        $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
+        $inputids = array();
+
+        foreach ($relInputs as $relInput) {
+            $inputids[] = $relInput['tid'];
         }
-    
+        
+        $countarr = $Model_FollowupsRef->getFollowupCountByTids($inputids);
+         
+        foreach ($relInputs as $key => $relInput) {
+            $relInputs[$key]['relFowupCount'] = $countarr[$relInput['tid']];
+        }
+       
+        
         $this->view->assign(array(
           'question' => $question,
           'input' => $input,
@@ -138,23 +143,41 @@ class FollowupController extends Zend_Controller_Action {
         //show followups by fowup_rid.tid
         if ($tid > 0) {
             
-            $Model_Followups = new Model_Followups();
-            $followups = $Model_Followups->getByInput($tid);
-            $data['byinput'] = $followups;
+           $Model_Inputs = new Model_Inputs();
+           $Model_FollowupsRef = new Model_FollowupsRef();
+           $snippets = $Model_Inputs->getFollowups($tid);
+           $snippetids = array();
+
+           foreach ($snippets as $snippet) {
+               $snippetids[] = $snippet['fid'];
+           }
+           $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
+            
+           foreach ($snippets as $key => $snippet) {
+               $snippets[$key]['relFowupCount'] = $countarr[$snippet['fid']];
+           }
+           $data['byinput']['snippets'] = $snippets;
             
         }
+        
         //show References by fowups.fid
         if ($fid > 0) {
             
             $Model_Followups = new Model_Followups();
-            $Model_FollowupFiles = new Model_FollowupFiles();
+            $Model_FollowupsRef = new Model_FollowupsRef();
             $related = $Model_Followups->getRelated($fid);
-            Zend_Debug::dump($related);
+            $snippetids = array();
 
-            foreach ($related['snippets'] as $key => $snippet) {
-                $rel = $Model_Followups->getRelated($snippet['fid'], 'tid IS NULL');
-                $related['snippets'][$key]['relFowupCount'] = $rel['count'];
+            foreach ($related['snippets'] as $snippet) {
+                $snippetids[] = $snippet['fid'];
             }
+            
+            $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
+            
+            foreach ($related['snippets'] as $key => $snippet) {
+                $related['snippets'][$key]['relFowupCount'] = $countarr[$snippet['fid']];
+            }
+            
             $data['refs']['snippets'] =  $related['snippets'];
             $data['refs']['docs'] = $related['docs'];
         }
@@ -167,7 +190,9 @@ class FollowupController extends Zend_Controller_Action {
             $data['mediafolder'] = $this->view->baseUrl().'/media/consultations/'.$kid.'/';
            
         }
-        
+        $response = $this->getResponse();
+        $response->setHeader('Content-type', 'application/json', true);
+        //$this->setHeader('Content-type', 'application/json', true);
         $this->_helper->json->sendJson($data);        
     }
     

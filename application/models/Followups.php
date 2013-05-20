@@ -106,6 +106,9 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         return $result; 
          
      }
+     
+     
+  
     
     /**
     * getById
@@ -127,24 +130,24 @@ class Model_Followups extends Zend_Db_Table_Abstract {
 
         return $result;
     }
+    
     /**
-    * getById
-    * get followup by fowups.fid
-    * @param integer $fid
+    * getByIdArray
+    * get followup by fowups.fid array
+    * @param array $idarray
     * @return array 
     */
     public function getByIdArray( $idarray ) {
-       /*
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-          return array();
-        }
-        */ 
-        $this->select->where('fid IN(?)', $idarray);
-        $fowups = $this->fetchAll($select)->toArray();
-        return $fowups;
+
+  
+        $result = array();
+        $select = $this->select();
+        $select->where('fid IN(?)', $idarray);
+        
+        $result = $this->fetchAll($select)->toArray();
 
         return $result;
+        
     }
     
     /**

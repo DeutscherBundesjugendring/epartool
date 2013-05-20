@@ -243,6 +243,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
           
           $followups = array();
           $result = $Model_FollowupFiles->getFollowupsById($ffid, 'docorg ASC')->toArray();
+          
           foreach ($result as $followup) {
               $rel = $Model_Followups->getRelated($followup['fid']);
               $snippet = $followup;

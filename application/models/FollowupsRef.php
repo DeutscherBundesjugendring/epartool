@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Model Followups
+ * Description of Model FollowupsRef
  *
  * @author Marco Dinnbier
  */
@@ -50,6 +50,54 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract {
       }
       return $inserted;
       
+  }
+  
+  /**
+  * getFollowupCountByFids
+  * get the reference count of the fids in a given array
+  * @param array $fidarray
+  * @param string $where
+  * @return array 
+  */
+  public function getFollowupCountByFids( $fidarray, $where = NULL ) {
+      $select = $this->select();
+      $select->from ($this, array("fid_ref", "count" => new Zend_Db_Expr("count(*)")));
+      $select->where('fid_ref IN(?)', $fidarray);
+      if ($where) {            
+          $select->where($where);
+      }
+      $select->group ( array ("fid_ref") );
+      //return (string) $select;
+      $counts = $this->fetchAll($select)->toArray();
+      $result = array();
+      foreach ($counts as $count) {
+          $result[$count['fid_ref']]  = $count['count'];
+      }
+      return $result;
+  }
+    
+  /**
+  * getFollowupCountByTids
+  * get the reference count of the tids in a given array
+  * @param array $tidarray
+  * @param string $where
+  * @return array 
+  */  
+  public function getFollowupCountByTids( $tidarray, $where = NULL ) {
+      $select = $this->select();
+      $select->from ($this, array("tid", "count" => new Zend_Db_Expr("count(*)")));
+      $select->where('tid IN(?)', $tidarray);
+      if ($where) {            
+          $select->where($where);
+      }
+      $select->group ( array ("tid") );
+      //return (string) $select;
+      $counts = $this->fetchAll($select)->toArray();
+      $result = array();
+      foreach ($counts as $count) {
+          $result[$count['tid']]  = $count['count'];
+      }
+      return $result;
   }
   
   
