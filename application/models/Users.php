@@ -129,6 +129,10 @@ class Model_Users extends Model_DbjrBase {
    * @return boolean
    */
   public function register($data) {
+    $kid = 0;
+    if (isset($data['kid'])) {
+      $kid = $data['kid'];
+    }
     // check if email address exists already
     if (!$this->emailExists($data['email'])) {
       // email does not exist yet
@@ -165,7 +169,7 @@ class Model_Users extends Model_DbjrBase {
       $inputModel = new Model_Inputs();
       $inputModel->storeSessionInputsInDb($id);
       
-      $this->sendRegisterConfirmationMail($id);
+      $this->sendRegisterConfirmationMail($id, $kid);
     } else {
       $this->_flashMessenger->addMessage('Die angegebene E-Mail-Adresse existiert schon!', 'error');
     }
@@ -276,10 +280,11 @@ class Model_Users extends Model_DbjrBase {
    * Sends E-Mail for Registration Confirmation
    *
    * @param integer $uid User ID
+   * @param integer $kid
    * @throws Zend_Exception
    * @return boolean
    */
-  protected function sendRegisterConfirmationMail($uid) {
+  protected function sendRegisterConfirmationMail($uid, $kid) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
       throw new Zend_Exception('Given uid must be integer!');
@@ -290,12 +295,15 @@ class Model_Users extends Model_DbjrBase {
       $mailBody = 'Herzlich willkommen ' . $userRow->name . '!' . "\n\n"
         . 'Bitte bestätige deine Registrierung auf ' . Zend_Registry::get('httpHost') . ':' . "\n\n"
         . Zend_Registry::get('baseUrl')
-        . '/user/registerconfirm/ckey/' . $userRow->confirm_key . "\n\n";
+        . '/user/registerconfirm/ckey/' . $userRow->confirm_key
+        . '/kid/' . $kid . "\n\n";
       
       $template = 'register';
       $aReplace = array(
           '{{USER}}' => $userRow->name,
-          '{{CONFIRMLINK}}' => Zend_Registry::get('baseUrl') . '/user/registerconfirm/ckey/' . $userRow->confirm_key
+          '{{CONFIRMLINK}}' => Zend_Registry::get('baseUrl')
+          . '/user/registerconfirm/ckey/' . $userRow->confirm_key
+          . '/kid/' . $kid
       );
       
       $mailObj = new Model_Emails();
@@ -311,9 +319,10 @@ class Model_Users extends Model_DbjrBase {
    * an den Nutzer, welche Links zur Bestätigung der Beiträge enthält
    *
    * @param integer|object $identity
+   * @param integer $kid
    * @return boolean
    */
-  public function sendInputsConfirmationMail($identity) {
+  public function sendInputsConfirmationMail($identity, $kid) {
     $intVal = new Zend_Validate_Int();
     $userRow = null;
     if ($intVal->isValid($identity)) {
@@ -322,31 +331,46 @@ class Model_Users extends Model_DbjrBase {
       $userRow = $identity;
     }
     if (!empty($userRow)) {
+      $consultationModel = new Model_Consultations();
+      $consultation = $consultationModel->getById($kid);
       // Hole alle nicht bestätigten Beiträge
       $inputModel = new Model_Inputs();
-      $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid);
+      $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid, $kid);
       if (count($unconfirmedInputs) > 0) {
         // appropriate template has to be configured in database!
         $template = 'inpt_conf';
         $replace = array(
-          '{{USER}}' => $userRow->name
+          '{{USER}}' => $userRow->name,
+          '{{CNSLT_TITLE_SHORT}}' => '',
+          '{{CNSLT_TITLE}}' => '',
+          '{{INPUT_TO}}' => ''
         );
+        if (!empty($consultation)) {
+          $date = new Zend_Date();
+          $replace['{{CNSLT_TITLE_SHORT}}'] = $consultation['titl_short'];
+          $replace['{{CNSLT_TITLE}}'] = $consultation['titl'];
+          $replace['{{INPUT_TO}}'] = $date->set($consultation['inp_to'])->get(Zend_Date::DATE_MEDIUM);
+        }
         
         $mailBody = 'Hallo ' . $userRow->name . "\n\n"
           . 'Bitte bestätige folgende Beiträge:' . "\n\n";
+        
+        $inputIds = array();
         foreach ($unconfirmedInputs as $input) {
-          $inputText = '(Id: ' . $input->tid . '): ' . $input->thes . "\n"
-            . 'Bitte diesen Link klicken oder diesen URL in die Adresszeile des Browsers kopieren, um den Beitrag zu bestätigen:' . "\n"
-            . Zend_Registry::get('baseUrl')
-            . '/input/mailconfirm/kid/' . $input->kid . '/ckey/'
-            . $inputModel->generateConfirmationKey($input->tid) . "\n\n";
+          $inputIds[] = $input->tid;
+          $inputText = $input->thes . "\n\n";
+          
           $mailBody.= $inputText;
           $replace['{{USER_INPUTS}}'].= $inputText;
         }
         
+        $ckey = $inputModel->generateConfirmationKeyBulk($inputIds);
+        $replace['{{CONFIRMLINK}}'] = Zend_Registry::get('baseUrl')
+            . '/input/mailconfirm/kid/' . $input->kid . '/ckey/' . $ckey;
+        
         $mailObj = new Model_Emails();
         
-        return $mailObj->send($identity->email, 'Strukturierter Dialog: Beitragsbestätigung', $mailBody, $template, $replace);
+        return $mailObj->send($identity->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
       } else {
         // keine zu bestätigenden Beiträge
         return false;

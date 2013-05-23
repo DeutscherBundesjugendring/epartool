@@ -270,7 +270,7 @@ class InputController extends Zend_Controller_Action {
         $inputModel->storeSessionInputsInDb($identity->uid);
       }
       // Bestätigungsmail senden
-      $sent = $userModel->sendInputsConfirmationMail($identity);
+      $sent = $userModel->sendInputsConfirmationMail($identity, $kid);
       if ($sent) {
         $this->_flashMessenger->addMessage('Eine E-Mail zur Bestätigung der Beiträge wurde an die hinterlegte Adresse gesendet.', 'success');
       } else {
