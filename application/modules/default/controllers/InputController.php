@@ -105,6 +105,21 @@ class InputController extends Zend_Controller_Action {
           // Formular in Session löschen
           unset($populateForm->input);
         }
+      } else {
+        $inputCollection = new Zend_Session_Namespace('inputCollection');
+        $theses = array();
+        if (!empty($inputCollection->inputs)) {
+          foreach ($inputCollection->inputs as $input) {
+            if ($input['kid'] == $kid && $input['qi'] == $qid) {
+              $theses[] = array(
+                  'thes' => $input['thes'],
+                  'expl' => $input['expl']
+              );
+            }
+          }
+        }
+        // add form fields for inputs and prefill it with session data
+        $form->generate($theses);
       }
       $form->setAction($this->view->baseUrl() . '/input/save/kid/' . $kid . '/qid/' . $qid);
     }
@@ -113,6 +128,7 @@ class InputController extends Zend_Controller_Action {
     $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, null, null, $tag));
     $paginator->setCurrentPageNumber($this->_getParam('page', 1));
     $this->view->paginator = $paginator;
+    
   }
   
   /**
@@ -133,41 +149,100 @@ class InputController extends Zend_Controller_Action {
     if ($this->_request->isPost()) {
       // Wenn Formular abgeschickt wurde
       $data = $this->_request->getPost();
-      if ($form->isValid($data)) {
-        $data2store = $form->getValues();
-        $data2store['kid'] = $kid;
-        $data2store['qi'] = $qid;
-        if (!empty($data2store['thes'])) {
-          // Only save Input if form field 'thes' is filled, else simply go to next step
-          if ($auth->hasIdentity()) {
-            $identity = $auth->getIdentity();
-            // mit uid speichern
-            $data2store['uid'] = $identity->uid;
-            $inputModel->add($data2store);
-          } else {
-            // Beiträge in Session sammeln und nach Registrierung oder Login speichern
-            $inputCollection = new Zend_Session_Namespace('inputCollection');
+      
+      if (isset($data['thes']) && isset($data['expl'])) {
+        $data2store = $data;
+        
+        if (!$auth->hasIdentity()) {
+          // Beiträge in Session sammeln und nach Registrierung oder Login speichern
+          $inputCollection = new Zend_Session_Namespace('inputCollection');
+          if (isset($inputCollection->inputs)) {
             $tmpCollection = $inputCollection->inputs;
-            $tmpCollection[] = $data2store;
+            // delete former inputs for this question from session:
+            foreach ($tmpCollection as $key => $item) {
+              if ($item['qi'] == $qid) {
+                unset($tmpCollection[$key]);
+              }
+            }
             $inputCollection->inputs = $tmpCollection;
+          } else {
+            $tmpCollection = array();
           }
         }
-        // welche Action als nächstes?
-        $nextQuestion = $questionModel->getNext($qid);
-        if (!empty($nextQuestion) && $data['submitmode'] == 'save_next') {
-          // Gehe zur nächsten Frage
-          $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $nextQuestion->qi;
-        } elseif (empty($nextQuestion) || $data['submitmode'] == 'save_finish') {
-          // Gehe zur Bestätigung
-          $redirectURL = '/input/confirm/kid/' . $kid;
+        
+        $i = 0;
+        foreach ($data2store['thes'] as $thes) {
+          if (!empty($thes)) {
+            // Only save Input if form field 'thes' is filled, else simply go to next step
+            if ($auth->hasIdentity()) {
+              $identity = $auth->getIdentity();
+              // mit uid in DB speichern
+              $inputModel->add(array(
+                  'kid' => $kid,
+                  'qi' => $qid,
+                  'uid' => $identity->uid,
+                  'thes' => $thes,
+                  'expl' => $data2store['expl']['expl_' . $i]
+              ));
+            } else {
+              // Beiträge in Session sammeln und nach Registrierung oder Login speichern
+              $tmpCollection[] = array(
+                  'kid' => $kid,
+                  'qi' => $qid,
+                  'thes' => $thes,
+                  'expl' => $data2store['expl']['expl_' . $i]
+              );
+              $inputCollection->inputs = $tmpCollection;
+            }
+          }
+          $i++;
         }
+        
+        // welche Action als nächstes?
+        switch ($data['submitmode']) {
+          case 'save_plus':
+            // show form for current question again
+            break;
+            
+          case 'save_next':
+            $nextQuestion = $questionModel->getNext($qid);
+            if (!empty($nextQuestion)) {
+              // Gehe zur nächsten Frage
+              $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $nextQuestion->qi;
+            } else {
+              // Gehe zur Bestätigung
+              $redirectURL = '/input/confirm/kid/' . $kid;
+            }
+            break;
+            
+          case 'save_finish':
+            // Gehe zur Bestätigung
+            $redirectURL = '/input/confirm/kid/' . $kid;
+            break;
+        }
+        
       } else {
+        $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+        $form = new Default_Form_Input();
+        $inputCollection = new Zend_Session_Namespace('inputCollection');
+        $theses = array();
+        if (!empty($inputCollection->inputs)) {
+          foreach ($inputCollection->inputs as $input) {
+            if ($input['kid'] == $kid && $input['qi'] == $qid) {
+              $theses[] = array(
+                  'thes' => $input['thes'],
+                  'expl' => $input['expl']
+              );
+            }
+          }
+        }
+        $form->generate($theses);
+        $form->setAction($this->view->baseUrl() . '/input/save/kid/' . $kid . '/qid/' . $qid);
         // Speichere Formular mit aktuellen Werten in Session um es nach Redirect
         // zur show Action inkl. Fehlermeldungen anzeigen zu können
         $populateForm = new Zend_Session_Namespace('populateForm');
-        $populateForm->input = serialize($form->populate($form->getValues()));
+        $populateForm->input = serialize($form);
         
-        $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
       }
     }
     
@@ -328,4 +403,5 @@ class InputController extends Zend_Controller_Action {
         . ' Beiträge können nur innerhalb der Beitragszeit geändert werden.';
     }
   }
+  
 }

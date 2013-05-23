@@ -37,58 +37,142 @@ class Default_Form_Input extends Zend_Form {
       ),
     ));
     
-    // Umschalter für Erläuterungsfeld
-    $toggle = $this->getElement('toggle');
-    $toggle->setDescription('<a id="toggle_expl" href="" class="btn btn-block"'
-      . 'onclick="javascript:if (document.getElementById(\'expl\').style.display == \'none\')'
-      . ' { document.getElementById(\'expl\').style.display = \'inline\';'
-      . ' document.getElementById(\'toggle_expl\').innerHTML = \'Wieder einklappen\';}'
-      . ' else { document.getElementById(\'expl\').style.display = \'none\';'
-      . ' document.getElementById(\'toggle_expl\').innerHTML = \'Klicken, um Eintrag zu erläutern\';}'
-      . ' return false;"><i class="icon-chevron-down"></i>'
-      . ' Klicken, um Eintrag zu erläutern <i class="icon-chevron-down"></i></a>');
-    $toggle->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
+  }
+  
+  /**
+   * Generate the dynamic fields for thes and expl
+   *
+   * @param array $theses Array of inputs that are already in the session
+   */
+  public function generate($theses = array()) {
+    
+    $i = 0;
+    if (!empty($theses)) {
+      // add fields for every input from the session
+      foreach ($theses as $thes_item) {
+        
+        // add dynamic elements
+        
+        $this->addDynamicThesFields($i, $thes_item);
+        
+        $i++;
+      };
+    }
+    
+    // add empty field for next new input
+    $this->addDynamicThesFields($i);
     
     $this->addDisplayGroup(array(
-        $this->getElement('thes'),
-        $this->getElement('toggle'),
-        $this->getElement('expl')
-      ),
-      'controlgroup1',
-      array(
-        'Decorators' => array(
-          'FormElements',
-          array('HtmlTag', array('tag' => 'div', 'class' => 'control-group'))
-        )
-      )
-    );
-    
-    $this->addDisplayGroup(array(
+        $this->getElement('plus'),
         $this->getElement('submit'),
         $this->getElement('finish')
-      ),
-      'controlgroup2',
-      array(
-        'Decorators' => array(
-          'FormElements',
-          array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions'))
+    ),
+        'controlgroup99',
+        array(
+            'Decorators' => array(
+                'FormElements',
+                array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions'))
+            )
         )
-      )
     );
     
     // Script Tag für zusätzliches Javascript
     $this->addElement('hidden', 'script', array(
-      'description' => '<script type="text/javascript">' . "\n"
+        'description' => '<script type="text/javascript">' . "\n"
         . '$(document).ready(function() {' . "\n"
         . '  $("#finish").click(function(){' . "\n"
         . '    $("#submitmode").val(\'save_finish\');' . "\n"
         . '  });' . "\n"
+        . '  $("#plus").click(function(){' . "\n"
+        . '    $("#submitmode").val(\'save_plus\');' . "\n"
+        . '  });' . "\n"
         . '});' . "\n"
         . '</script>',
-      'ignore' => true,
-      'decorators' => array(
-        array('Description', array('escape'=>false, 'tag'=>'')),
-      ),
+        'ignore' => true,
+        'decorators' => array(
+            array('Description', array('escape'=>false, 'tag'=>'')),
+        ),
     ));
+  }
+  
+  /**
+   * Adds the needed number of input fields for the theses
+   *
+   * @param integer $i Position of element
+   * @param array $thes_item
+   */
+  protected function addDynamicThesFields($i, $thes_item = array()) {
+    // thes
+    $thes = null;
+    $thes = $this->createElement('textarea', 'thes_' . $i);
+    $thesOptions = array(
+        'label' => '',
+        'cols' => 85,
+        'rows' => 2,
+        'required' => false,
+        'belongsTo' => 'thes',
+        //           'isArray' => true,
+        'attribs' => array(
+            'class' => 'input-block-level',
+            'placeholder' => 'Hier könnt ihr euren Beitrag bis zu 300 Buchstaben schreiben',
+            'id' => 'thes_' . $i
+        )
+    );
+    $thes->setOptions($thesOptions);
+    
+    // toggle
+    $toggle = null;
+    $toggle = $this->createElement('hidden', 'toggle_' . $i);
+    $toggleOptions = array(
+        'ignore' => true,
+        'description' => '<a id="toggle_expl_' . $i . '" href="" class="btn btn-block"'
+        . 'onclick="javascript:if (document.getElementById(\'expl_' . $i . '\').style.display == \'none\')'
+        . ' { document.getElementById(\'expl_' . $i . '\').style.display = \'inline\';'
+        . ' document.getElementById(\'toggle_expl_' . $i . '\').innerHTML = \'Wieder einklappen\';}'
+        . ' else { document.getElementById(\'expl_' . $i . '\').style.display = \'none\';'
+        . ' document.getElementById(\'toggle_expl_' . $i . '\').innerHTML = \'Klicken, um Eintrag zu erläutern\';}'
+        . ' return false;"><i class="icon-chevron-down"></i>'
+        . ' Klicken, um Eintrag zu erläutern <i class="icon-chevron-down"></i></a>'
+    );
+    $toggle->setOptions($toggleOptions);
+    $toggle->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
+    
+    // expl
+    $expl = null;
+    $expl = $this->createElement('textarea', 'expl_' . $i);
+    $explOptions = array(
+        'label' => '',
+        'cols' => 85,
+        'rows' => 5,
+        'required' => false,
+        'belongsTo' => 'expl',
+        //           'isArray' => true,
+        'attribs' => array(
+            'class' => 'extension input-block-level',
+            'style' => 'display: none;',
+            'placeholder' => 'Hier könnt ihr euren Beitrag bis zu 300 Buchstaben schreiben',
+            'id' => 'expl_' . $i
+        )
+    );
+    $expl->setOptions($explOptions);
+    
+    if (!empty($thes_item)) {
+      $thes->setValue($thes_item['thes']);
+      $expl->setValue($thes_item['expl']);
+    }
+    
+    $this->addDisplayGroup(array(
+        $thes,
+        $toggle,
+        $expl
+    ),
+        'controlgroup' . $i,
+        array(
+            'Decorators' => array(
+                'FormElements',
+                array('HtmlTag', array('tag' => 'div', 'class' => 'control-group'))
+            )
+        )
+    );
   }
 }
