@@ -327,6 +327,27 @@ class InputController extends Zend_Controller_Action {
   }
   
   /**
+   * Process input confirmation from email link
+   * reject inputs in this case
+   *
+   */
+  public function mailrejectAction() {
+    $ckey = $this->_getParam('ckey');
+    $alnumVal = new Zend_Validate_Alnum();
+    $error = false;
+    if (!$alnumVal->isValid($ckey)) {
+      $error = true;
+    } else {
+      $inputModel = new Model_Inputs();
+      $error = !$inputModel->confirmByCkey($ckey, true);
+    }
+    if ($error) {
+      $this->_flashMessenger->addMessage('Der eingegebene Bestätigungslink ist ungültig!', 'error');
+    }
+    $this->redirect('/');
+  }
+  
+  /**
    * Called by ajax request, switches context to json
    *
    */

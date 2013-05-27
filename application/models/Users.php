@@ -371,7 +371,7 @@ class Model_Users extends Model_DbjrBase {
       $consultation = $consultationModel->getById($kid);
       // Hole alle nicht bestätigten Beiträge
       $inputModel = new Model_Inputs();
-      $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid, $kid);
+      $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid, $kid, false);
       if (count($unconfirmedInputs) > 0) {
         // appropriate template has to be configured in database!
         $template = 'inpt_conf';
@@ -403,6 +403,9 @@ class Model_Users extends Model_DbjrBase {
         $ckey = $inputModel->generateConfirmationKeyBulk($inputIds);
         $replace['{{CONFIRMLINK}}'] = Zend_Registry::get('baseUrl')
             . '/input/mailconfirm/kid/' . $input->kid . '/ckey/' . $ckey;
+        
+        $replace['{{REJECTLINK}}'] = Zend_Registry::get('baseUrl')
+        . '/input/mailreject/kid/' . $input->kid . '/ckey/' . $ckey;
         
         $mailObj = new Model_Emails();
         

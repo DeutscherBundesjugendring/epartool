@@ -400,10 +400,11 @@ class Model_Inputs extends Model_DbjrBase {
    *
    * @param integer $uid
    * @param integer $kid
+   * @param boolean $includeWithCkey
    * @throws Zend_Validate_Exception
    * @return Zend_Db_Table_Rowset
    */
-  public function getUnconfirmedByUser($uid, $kid = null) {
+  public function getUnconfirmedByUser($uid, $kid = null, $includeWithCkey = true) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
       throw new Zend_Validate_Exception('Given user id has to be integer!');
@@ -411,6 +412,9 @@ class Model_Inputs extends Model_DbjrBase {
     }
     $select = $this->select();
     $select->where('uid=?', $uid)->where('user_conf=?', 'u');
+    if (!$includeWithCkey) {
+      $select->where('confirm_key = ?', '');
+    }
     if ($intVal->isValid($kid) && $kid > 0) {
       $select->where('kid = ?', $kid);
     }
