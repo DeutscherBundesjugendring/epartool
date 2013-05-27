@@ -399,10 +399,11 @@ class Model_Inputs extends Model_DbjrBase {
    * Retruns all unconfirmed inputs by user
    *
    * @param integer $uid
+   * @param integer $kid
    * @throws Zend_Validate_Exception
    * @return Zend_Db_Table_Rowset
    */
-  public function getUnconfirmedByUser($uid) {
+  public function getUnconfirmedByUser($uid, $kid = null) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
       throw new Zend_Validate_Exception('Given user id has to be integer!');
@@ -410,6 +411,9 @@ class Model_Inputs extends Model_DbjrBase {
     }
     $select = $this->select();
     $select->where('uid=?', $uid)->where('user_conf=?', 'u');
+    if ($intVal->isValid($kid) && $kid > 0) {
+      $select->where('kid = ?', $kid);
+    }
     $select->order('when');
     
     return $this->fetchAll($select);
@@ -440,6 +444,29 @@ class Model_Inputs extends Model_DbjrBase {
   }
   
   /**
+   * Generates, saves and returns a key for several inputs
+   *
+   * @param array $ids
+   * @return string|NULL
+   */
+  public function generateConfirmationKeyBulk(array $ids = array()) {
+    
+    if (!empty($ids)) {
+      $key = md5(implode('', $ids) . time() . getenv('REMOTE_ADDR') . mt_rand());
+      
+      foreach ($ids as $tid) {
+        $row = $this->find($tid)->current();
+        $row->confirm_key = $key;
+        $row->save();
+      }
+      
+      return $key;
+    } else {
+      return null;
+    }
+  }
+  
+  /**
    * Processes input confirmation request
    *
    * @param string $ckey
@@ -455,13 +482,15 @@ class Model_Inputs extends Model_DbjrBase {
     }
     $select = $this->select();
     $select->where('confirm_key = ?', $ckey);
-    $row = $this->fetchAll($select)->current();
-    if (!empty($row)) {
+    $rowSet = $this->fetchAll($select);
+    if (count($rowSet) > 0) {
       $return = true;
-      $row->user_conf = 'c';
-      $row->confirm_key = '';
-      $row->save();
-      $this->_flashMessenger->addMessage('Vielen Dank! Dein Beitrag wurde bestätigt!', 'success');
+      foreach ($rowSet as $row) {
+        $row->user_conf = 'c';
+        $row->confirm_key = '';
+        $row->save();
+      }
+      $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
     }
     return $return;
   }

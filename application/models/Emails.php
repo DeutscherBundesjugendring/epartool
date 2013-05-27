@@ -220,7 +220,7 @@ class Model_Emails extends Model_DbjrBase {
     } else {
       
       // E-Mail verschicken
-      $mail = new Zend_Mail();
+      $mail = new Zend_Mail('UTF-8');
       $mail->setBodyText($message);
       $mail->setFrom($senderEmail, $senderName);
       $mail->addTo($receiver);

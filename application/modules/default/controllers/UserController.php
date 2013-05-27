@@ -90,7 +90,8 @@ class UserController extends Zend_Controller_Action {
   }
   
   public function registerconfirmAction() {
-    $ckey = $this->_getParam('ckey');
+    $ckey = $this->_request->getParam('ckey');
+    $kid = $this->_request->getParam('kid');
     $alnumVal = new Zend_Validate_Alnum();
     $error = false;
     if (!$alnumVal->isValid($ckey)) {
@@ -103,7 +104,7 @@ class UserController extends Zend_Controller_Action {
       if (!$error) {
         // Bestätigungsmail für Beiträge senden
         $identity = $this->_auth->getIdentity();
-        $userModel->sendInputsConfirmationMail($identity);
+        $userModel->sendInputsConfirmationMail($identity, $kid);
       }
     }
     if ($error) {

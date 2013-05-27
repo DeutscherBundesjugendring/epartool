@@ -1,7 +1,8 @@
 <?php
 /**
- * Enter description here ...
- * @author Markus
+ * Registers baseUrl including scheme and host in the registry,
+ * used in links in emails
+ * @author Markus Hackel
  *
  */
 class Plugin_BaseUrl extends Zend_Controller_Plugin_Abstract {
@@ -11,7 +12,7 @@ class Plugin_BaseUrl extends Zend_Controller_Plugin_Abstract {
     $baseUrl = '';
     if ($request instanceof Zend_Controller_Request_Http) {
       $host = $request->getHttpHost();
-      $baseUrl = $request->getScheme() . '://' . $host;
+      $baseUrl = $request->getScheme() . '://' . $host . $request->getBaseUrl();
     }
     Zend_Registry::set('httpHost', $host);
     Zend_Registry::set('baseUrl', $baseUrl);

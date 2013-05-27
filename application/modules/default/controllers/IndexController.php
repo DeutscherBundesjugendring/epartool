@@ -41,7 +41,7 @@ class IndexController extends Zend_Controller_Action {
    * DONT USE IN LIVE-SYSTEM
    */
   /*
-  public function migrateTagsAction() {
+  public function migratetagsAction() {
     echo('Tag-Input-Relation von CSV-Format zur DB-Relation migrieren');
     
     $this->_helper->layout()->disableLayout();

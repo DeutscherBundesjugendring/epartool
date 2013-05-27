@@ -5,6 +5,12 @@
  * @description   Übersicht der Fragen zur Konsultation
  * @author        Markus Hackel
  */
+$date = new Zend_Date();
+$linkHeadlineToInputs = false;
+if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
+      && $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())) {
+  $linkHeadlineToInputs = true;
+}
 ?>
 <!-- Secondary navigation -->
 <?php echo $this->secondNavigation('question')?>
@@ -12,23 +18,36 @@
 
 <!-- Content start -->
 
-<div class="content-holder">
-	<div class="row">
-		<aside class="span3">
-
-			<!-- Tertiary navigation -->
-<?php echo $this->questionNavigation();?>
-			<!-- .tertiary-navigation -->
-
-		</aside>
-		<section class="main-content span6">
-			<p>Hier können Sie sich die Fragen zu dieser Konsultation ansehen.</p>
-		</section>
-		<aside class="span3">
-
-		</aside>
-	</div><!-- .row -->
-</div><!-- .content-holder -->
+<section class="main-content content-holder">
+  <div class="row">
+		<div class="text-center span10 offset1">
+			<h1>Lorem ipsum Headline, die auch zweizeilig sein kann wenn denn nötig</h1>
+			<p>Bildung findet nicht nur in der (Hoch-)Schule oder am Ausbildungsplatz
+				statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
+				man auch außerhalb des sogenannten formalen Bildungssystems. Eine
+				besondere Rolle spielen dabei außerschulisch organisierte
+				Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
+		</div>
+	</div>
+	<?php foreach ($this->questions as $question): ?>
+  <h3>
+  <?php if ($linkHeadlineToInputs): ?>
+  <a href="<?php echo $this->url(array(
+      'controller' => 'input',
+      'action' => 'show',
+      'kid' => $this->consultation->kid,
+      'qid' => $question['qi'])); ?>" title="Zum Beantworten hier klicken">
+  <?php endif; ?>
+  <?php echo (!empty($question['nr']) ? $question['nr'] . ' ' : '') . $question['q']?>
+  <?php if ($linkHeadlineToInputs): ?>
+  </a>
+  <?php endif; ?>
+  </h3>
+  <?php echo $question['q_xpl']?>
+  <?php endforeach; ?>
+  <!-- Print -->
+  <a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+</section><!-- .content-holder -->
 
 <!-- Content end -->
 

@@ -74,11 +74,20 @@ class Admin_ArticleController extends Zend_Controller_Action {
     }
     $form->getElement('parent_id')->setMultiOptions($parentOptions);
     if ($this->getRequest()->isPost()) {
-      if ($form->isValid($this->getRequest()->getPost())) {
+      $data = $this->getRequest()->getPost();
+      if (!isset($data['proj']) || empty($data['proj'])) {
+        // project should not be empty
+        $data['proj'] = array(Zend_Registry::get('systemconfig')->project);
+      }
+      if (!in_array(Zend_Registry::get('systemconfig')->project, $data['proj'])) {
+        // current project always has to be set!
+        $data['proj'][] = Zend_Registry::get('systemconfig')->project;
+      }
+      if ($form->isValid($data)) {
         $articleModel = new Model_Articles();
         $articleRow = $articleModel->createRow($form->getValues());
         $articleRow->kid = $kid;
-        $articleRow->proj = implode(',', $form->getElement('proj')->getValue());
+        $articleRow->proj = implode(',', $data['proj']);
         $newId = $articleRow->save();
         if ($newId > 0) {
           $this->_flashMessenger->addMessage('Neuer Artikel wurde erstellt.', 'success');
@@ -93,6 +102,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
       } else {
         $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
         $form->populate($form->getValues());
+        $form->getElement('proj')->setValue($data['proj']);
       }
     }
     
@@ -139,21 +149,30 @@ class Admin_ArticleController extends Zend_Controller_Action {
       if ($this->getRequest()->isPost()) {
         // Formular wurde abgeschickt und muss verarbeitet werden
         $params = $this->getRequest()->getPost();
+        if (!isset($params['proj']) || empty($params['proj'])) {
+          // project should not be empty
+          $params['proj'] = array(Zend_Registry::get('systemconfig')->project);
+        }
+        if (!in_array(Zend_Registry::get('systemconfig')->project, $params['proj'])) {
+          // current project always has to be set!
+          $params['proj'][] = Zend_Registry::get('systemconfig')->project;
+        }
         if ($form->isValid($params)) {
           $articleRow->setFromArray($form->getValues());
-          $articleRow->proj = implode(',', $form->getElement('proj')->getValue());
+          $articleRow->proj = implode(',', $params['proj']);
           $articleRow->save();
           $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
           $article = $articleRow->toArray();
+          $article['proj'] = explode(',', $article['proj']);
         } else {
           $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
           $article = $params;
         }
       } else {
         $article = $articleModel->getById($aid);
+        $article['proj'] = explode(',', $article['proj']);
       }
       $form->populate($article);
-      $form->getElement('proj')->setValue(explode(',', $article['proj']));
     }
     
     foreach ($form->getElements() as $element) {

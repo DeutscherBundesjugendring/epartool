@@ -27,5 +27,5 @@ elseif($this->act == 'reject'):
   <?php
 endif;
 ?>
-<p><a href="<?php echo Zend_Registry::get('baseUrl'); ?>">Zur&uuml;ck zur Startseite</a></p>
+<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
 </section>

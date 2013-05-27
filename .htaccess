@@ -1,0 +1,19 @@
+# Allow PHP short tags
+<IfModule mod_php5.c>
+	php_flag short_open_tag on
+	
+	# turn off magic quotes
+	php_value magic_quotes 0
+  php_flag magic_quotes off
+  php_value magic_quotes_gpc 0
+  php_flag magic_quotes_gpc off
+</IfModule>
+
+# Rewrite URL
+RewriteEngine On
+#RewriteBase /myapp
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]

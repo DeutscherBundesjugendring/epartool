@@ -41,6 +41,8 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract {
       $urlParams['qid'] = $item->qi;
       $html.= '<a href="'
         . $this->view->url($urlParams) . '">'
+        // Number
+        . (!empty($item->nr) ? $item->nr . ' ' : '')
         // Frage als Seitentitel im Menü
         . (empty($item->q) ? 'Frage ' . $i : $item->q)
         . '</a>';

@@ -1,5 +1,6 @@
 <?php
 $config = Zend_Registry::get('config');
+$sysconfig = Zend_Registry::get('systemconfig');
 ?>
 <!DOCTYPE html>
 <html lang="de" itemscope itemtype="http://schema.org/Event">
@@ -22,6 +23,11 @@ $config = Zend_Registry::get('config');
 		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->bootstrap?>" type="text/css" />
 		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->fontAwesome?>" type="text/css" />
 		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->main?>" type="text/css" />
+		<?php if ($sysconfig->project == 'sd'): ?>
+		<?php if (file_exists(realpath(APPLICATION_PATH . '/../' . $config->path->css->rootdir . $sysconfig->project . '.css'))): ?>
+		<link rel="stylesheet" href="<?=$this->baseUrl($config->path->css->rootdir . $sysconfig->project . '.css')?>" type="text/css" />
+		<?php endif; ?>
+		<?php endif; ?>
 		<!--[if lte IE 7]><link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->ie7?>" type="text/css" /><![endif]--> <!-- TODO -->
 
 		<script src="<?php echo $config->path->js->jquery?>"></script>

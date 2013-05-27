@@ -32,17 +32,19 @@ class QuestionController extends Zend_Controller_Action {
    * @return void
    */
   public function indexAction() {
-    
+    $questionModel = new Model_Questions();
+    $questions = $questionModel->getByConsultation($this->_consultation->kid);
+    $this->view->questions = $questions;
   }
   
   /**
    * Show single Question
    *
    */
-  public function showAction() {
-    $qid = $this->getRequest()->getParam('qid', 0);
-    $questionModel = new Model_Questions();
-    $question = $questionModel->getById($qid);
-    $this->view->question = $question;
-  }
+//   public function showAction() {
+//     $qid = $this->getRequest()->getParam('qid', 0);
+//     $questionModel = new Model_Questions();
+//     $question = $questionModel->getById($qid);
+//     $this->view->question = $question;
+//   }
 }
