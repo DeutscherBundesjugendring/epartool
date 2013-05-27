@@ -91,7 +91,7 @@
     background-color: #f8f8f8;
     color: #333;
   }
-<<<<<<< HEAD
+
   .vlist li.active ul li a,.vlist li.active ul li a:visited {
     color: #333;
   }
@@ -99,13 +99,6 @@
     {
     background-color: #a88;
     color: #fff !important;
-=======
-  .vlist li ul li a:focus,.vlist li ul li a:hover,.vlist li ul li a:active
-    {
-    background-color: #a88;
-    color: #fff;
->>>>>>> branch 'master' of https://jsuxima@bitbucket.org/dmirtschink/dbjr.git
-  }
   
   /* active list element */
   .vlist li.active ul li.active a {
