@@ -9,7 +9,8 @@ class Model_Users extends Model_DbjrBase {
   protected $_primary = 'uid';
 
   protected $_dependentTables = array(
-    'Model_Votes_Rights'
+      'Model_User_Info',
+      'Model_Votes_Rights'
   );
   
   protected $_flashMessenger = null;
@@ -124,19 +125,27 @@ class Model_Users extends Model_DbjrBase {
 
   /**
    * register user (insert entry) and send e-mail to user
+   * if already registered only add new record to user info table
    *
    * @param array $data
-   * @return boolean
+   * @return array ('uid' => <uid>, 'newlyRegistered' => boolean)
    */
   public function register($data) {
     $kid = 0;
     if (isset($data['kid'])) {
       $kid = $data['kid'];
     }
+    $userInfoModel = new Model_User_Info();
+    $newlyRegistered = false;
+    
     // check if email address exists already
     if (!$this->emailExists($data['email'])) {
       // email does not exist yet
       $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
+      
+      // password has to be generated because user should not be allowed to choose his own (it's a requirement):
+      $password = $this->generatePassword();
+      
       // prepare insert record
       $insertData = array(
         'block' => 'u',
@@ -144,7 +153,7 @@ class Model_Users extends Model_DbjrBase {
         'agt' => getenv('HTTP_USER_AGENT'),
         'name' => $data['name'],
         'email' => $data['email'],
-        'pwd' => md5($data['register_password']),
+        'pwd' => md5($password),
         'confirm_key' => $confirm_key,
         'group_type' => $data['group_type'],
         'age_group' => $data['age_group'],
@@ -152,32 +161,58 @@ class Model_Users extends Model_DbjrBase {
         'cnslt_results' => $data['cnslt_results'],
         'newsl_subscr' => $data['newsl_subscr'],
       );
-      // if group then also save group specifications
-      if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
-        $insertData = array_merge($insertData, array(
+      // write record to database
+      $id = $this->add($insertData);
+      
+      $this->sendRegisterConfirmationMail($id, $kid, $password);
+      
+      $newlyRegistered = true;
+    } else {
+      $userRow = $this->getByEmail($data['email']);
+      $id = $userRow->uid;
+//       $this->_flashMessenger->addMessage('Die angegebene E-Mail-Adresse existiert schon!', 'error');
+    }
+    
+    // store user info
+    // prepare insert record
+    $insertDataUserInfo = array(
+        'uid' => $id,
+        'kid' => $kid,
+        'ip' => getenv('REMOTE_ADDR'),
+        'agt' => getenv('HTTP_USER_AGENT'),
+        'name' => $data['name'],
+        'group_type' => $data['group_type'],
+        'age_group' => $data['age_group'],
+        'regio_pax' => $data['regio_pax'],
+        'cnslt_results' => $data['cnslt_results'],
+        'newsl_subscr' => $data['newsl_subscr'],
+        'date_added' => new Zend_Db_Expr('NOW()')
+    );
+    // if group then also save group specifications
+    if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
+      $insertDataUserInfo = array_merge($insertDataUserInfo, array(
           'source' => implode(',', $data['group_specs']['source']),
           'src_misc' => $data['group_specs']['src_misc'],
           'group_size' => $data['group_specs']['group_size'],
           'name_group' => $data['group_specs']['name_group'],
           'name_pers' => $data['group_specs']['name_pers'],
-        ));
-      }
-      // write record to database
-      $id = $this->add($insertData);
-      
-      // write inputs from session to database
-      $inputModel = new Model_Inputs();
-      $inputModel->storeSessionInputsInDb($id);
-      
-      $this->sendRegisterConfirmationMail($id, $kid);
-    } else {
-      $this->_flashMessenger->addMessage('Die angegebene E-Mail-Adresse existiert schon!', 'error');
+      ));
     }
-    if (isset($id) && $id > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    
+    $rowUserInfo = $userInfoModel->createRow($insertDataUserInfo);
+    $user_info_id = $rowUserInfo->save();
+    
+    // write inputs from session to database
+    $inputModel = new Model_Inputs();
+    $inputModel->storeSessionInputsInDb($id);
+    
+    // register time for last activity
+    $this->ping($id);
+    
+    return array(
+        'uid' => $id,
+        'newlyRegistered' => $newlyRegistered
+    );
   }
   
   /**
@@ -284,7 +319,7 @@ class Model_Users extends Model_DbjrBase {
    * @throws Zend_Exception
    * @return boolean
    */
-  protected function sendRegisterConfirmationMail($uid, $kid) {
+  protected function sendRegisterConfirmationMail($uid, $kid, $password) {
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($uid)) {
       throw new Zend_Exception('Given uid must be integer!');
@@ -303,7 +338,8 @@ class Model_Users extends Model_DbjrBase {
           '{{USER}}' => $userRow->name,
           '{{CONFIRMLINK}}' => Zend_Registry::get('baseUrl')
           . '/user/registerconfirm/ckey/' . $userRow->confirm_key
-          . '/kid/' . $kid
+          . '/kid/' . $kid,
+          '{{PASSWORD}}' => $password
       );
       
       $mailObj = new Model_Emails();
@@ -370,7 +406,7 @@ class Model_Users extends Model_DbjrBase {
         
         $mailObj = new Model_Emails();
         
-        return $mailObj->send($identity->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
+        return $mailObj->send($userRow->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
       } else {
         // keine zu bestätigenden Beiträge
         return false;
