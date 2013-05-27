@@ -81,6 +81,38 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {
+          // if date-inputs not checked, remove validators and set default values
+          $posts = $this->getRequest()->getPost();
+          if($posts['inp_show'] === 'n') {
+            Zend_Debug::dump('Remove valids');
+            $form->getElement('inp_fr')->removeValidator('NotEmpty');
+            $form->getElement('inp_fr')->removeValidator('Date');
+            $form->getElement('inp_fr')->setOptions(array('required'=>false));
+            $form->getElement('inp_to')->removeValidator('NotEmpty');
+            $form->getElement('inp_to')->removeValidator('Date');
+            $form->getElement('inp_to')->setOptions(array('required'=>false));
+          }
+          if($posts['spprt_show'] === 'n') {
+            Zend_Debug::dump('Remove valids');
+            $form->getElement('spprt_fr')->removeValidator('NotEmpty');
+            $form->getElement('spprt_fr')->removeValidator('Date');
+            $form->getElement('spprt_fr')->setOptions(array('required'=>false));
+            $form->getElement('spprt_to')->removeValidator('NotEmpty');
+            $form->getElement('spprt_to')->removeValidator('Date');
+            $form->getElement('spprt_to')->setOptions(array('required'=>false));
+          }
+          if($posts['vot_show'] === 'n') {
+            Zend_Debug::dump('Remove valids');
+            $form->getElement('vot_fr')->removeValidator('NotEmpty');
+            $form->getElement('vot_fr')->removeValidator('Date');
+            $form->getElement('vot_fr')->setOptions(array('required'=>false));
+            $form->getElement('vot_to')->removeValidator('NotEmpty');
+            $form->getElement('vot_to')->removeValidator('Date');
+            $form->getElement('vot_to')->setOptions(array('required'=>false));
+          }
+// JSU debug
+Zend_Debug::dump($posts);
+//exit();
           if ($form->isValid($this->getRequest()->getPost())) {
             $this->_consultation->setFromArray($form->getValues());
             $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
