@@ -218,6 +218,7 @@ class Model_Emails extends Model_DbjrBase {
       $logger->debug('-------Nachricht:' . $message);
       $success = true;
     } else {
+      
       // E-Mail verschicken
       $mail = new Zend_Mail('UTF-8');
       $mail->setBodyText($message);
@@ -232,6 +233,8 @@ class Model_Emails extends Model_DbjrBase {
       }
       try {
         $mail->send();
+        $success = true;
+        
       }
       catch( Zend_Mail_Transport_Exception $e ) {
         $logger->err('E-Mail-ERROR: E-Mail-Versand:' . $e->getMessage());

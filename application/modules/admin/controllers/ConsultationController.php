@@ -81,6 +81,38 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {
+          // if date-inputs not checked, remove validators and set default values
+          $posts = $this->getRequest()->getPost();
+          if($posts['inp_show'] === 'n') {
+            Zend_Debug::dump('Remove valids');
+            $form->getElement('inp_fr')->removeValidator('NotEmpty');
+            $form->getElement('inp_fr')->removeValidator('Date');
+            $form->getElement('inp_fr')->setOptions(array('required'=>false));
+            $form->getElement('inp_to')->removeValidator('NotEmpty');
+            $form->getElement('inp_to')->removeValidator('Date');
+            $form->getElement('inp_to')->setOptions(array('required'=>false));
+          }
+          if($posts['spprt_show'] === 'n') {
+            Zend_Debug::dump('Remove valids');
+            $form->getElement('spprt_fr')->removeValidator('NotEmpty');
+            $form->getElement('spprt_fr')->removeValidator('Date');
+            $form->getElement('spprt_fr')->setOptions(array('required'=>false));
+            $form->getElement('spprt_to')->removeValidator('NotEmpty');
+            $form->getElement('spprt_to')->removeValidator('Date');
+            $form->getElement('spprt_to')->setOptions(array('required'=>false));
+          }
+          if($posts['vot_show'] === 'n') {
+            Zend_Debug::dump('Remove valids');
+            $form->getElement('vot_fr')->removeValidator('NotEmpty');
+            $form->getElement('vot_fr')->removeValidator('Date');
+            $form->getElement('vot_fr')->setOptions(array('required'=>false));
+            $form->getElement('vot_to')->removeValidator('NotEmpty');
+            $form->getElement('vot_to')->removeValidator('Date');
+            $form->getElement('vot_to')->setOptions(array('required'=>false));
+          }
+// JSU debug
+Zend_Debug::dump($posts);
+//exit();
           if ($form->isValid($this->getRequest()->getPost())) {
             $this->_consultation->setFromArray($form->getValues());
             $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
@@ -161,6 +193,76 @@ class Admin_ConsultationController extends Zend_Controller_Action {
       'votingCountIndiv' => $votesIndivModel->getCountByConsultation($kid),
       'weightCounts' => $votesRightsModel->getWeightCountsByConsultation($kid)
     ));
+  }
+  
+  /**
+   * Ajax-Delete Action (no view)
+   * Need param integer kid in request-object
+   */
+  public function deleteAction() {
+    // Deaktiviere Layout und View
+    $this->_helper->layout()->disableLayout();
+    $this->_helper->viewRenderer->setNoRender(true);
+    
+    $return = array(
+      'success'=>true,
+      'message'=>'',
+      'params'=>array(),
+      'return'=>array()
+    );
+
+    $params = $this->getRequest()->getParams();
+    $return['params'] = $params;
+
+    // Validation userlevel
+    $current_user = Zend_Auth::getInstance()->getIdentity();
+    if($current_user->lvl !== 'adm') {
+      $return['success'] = false;
+      $return['message'] = 'ungültige Konsultation';
+    }
+
+    // Validation kid
+    if(empty($params['kid'])) {
+      $return['success'] = false;
+      $return['message'] = 'ungültige Konsultation';
+    }
+
+    // Validation consultation exists
+    $consultationModel = new Model_Consultations();
+    $consultation = $consultationModel->getById($params['kid']);
+    if(!$consultation) {
+      $return['success'] = false;
+      $return['message'] = 'Konsultation nicht gefunden';
+    }
+
+    // Validation successful
+    if($return['success']) {
+      $kid = $params['kid'];
+
+      // Delete articles by consultation
+      $articleModel = new Model_Articles();
+      $articles = $articleModel->getByConsultation($kid);
+      if($articles) {
+        foreach($articles As $article) {
+          $articleModel->deleteById($article['art_id']);
+        }
+      }
+
+      // Delete E-Mail-Templates
+      $mailtemplateModel = new Model_Emails_Templates();
+      $templates = $mailtemplateModel->getByConsultation($kid);
+      if($templates) {
+        foreach($templates As $template) {
+          $mailtemplateModel->deleteById($template['mid']);
+        }
+      }
+
+      // Delete Consultation
+      $consultationModel->deleteById($kid);
+
+    }
+
+    $this->_redirect('/admin/consultation/index/');
   }
 }
 ?>

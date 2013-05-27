@@ -171,5 +171,27 @@ class Model_Emails_Templates extends Model_DbjrBase {
     return $row;
   }
   
+  /**
+   * getByName
+   * @desc returns entry by id
+   * @name getByName
+   * @param string $name
+   * @return tablerowset
+   * @author JSU
+   */
+  public function getByConsultation($kid) {
+    $validator = new Zend_Validate_Int();
+    if (!$validator->isValid($kid)) {
+      throw new Zend_Exception('Given kid must be integer!');
+      return false;
+    }
+    $select = $this->select()->where('kid = ?', $kid);
+    $templates = $this->fetchAll($select)->toArray();
+    if(!$templates) {
+      return array();
+    }
+    return $templates;
+  }
+  
 }
 

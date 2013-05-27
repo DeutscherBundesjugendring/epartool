@@ -54,14 +54,26 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'label' => 'Statistik',
           'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
         ),
+        array(
+          'label' => 'Löschen',
+          'href' => $this->view->baseUrl() . '/admin/consultation/delete/kid/' . $kid,
+          'class' => 'button_red delete-action',
+          'required_userlevel' => 'adm'
+        ),
       );
       $html.= '<div class="hlist"><ul>';
       foreach ($items as $item) {
-        if ($item['label'] == $activeItem) {
-//          $html.= '<li class="active"><strong>' . $item['label'] . '</strong></li>';
-          $html.= '<li class="active"><a href="' . $item['href'] . '">' . $item['label'] . '</a></li>';
-        } else {
-          $html.= '<li><a href="' . $item['href'] . '">' . $item['label'] . '</a></li>';
+      // JSU check if required userlevel is given, otherwise dont show this entry
+        $current_user = Zend_Auth::getInstance()->getIdentity();
+        if(!array_key_exists('required_userlevel', $item) || $current_user->lvl === $item['required_userlevel']) {
+          // JSU add class-option to html
+          $additionalClass = (array_key_exists('class', $item)) ? $item['class'] : '' ;
+          if ($item['label'] == $activeItem) {
+  //          $html.= '<li class="active"><strong>' . $item['label'] . '</strong></li>';
+            $html.= '<li class="active '.$additionalClass.'"><a href="' . $item['href'] . '">' . $item['label'] . '</a></li>';
+          } else {
+            $html.= '<li class="'.$additionalClass.'"><a href="' . $item['href'] . '">' . $item['label'] . '</a></li>';
+          }
         }
       }
       $html.= '</ul></div>';

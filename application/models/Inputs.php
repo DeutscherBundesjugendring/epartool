@@ -471,7 +471,7 @@ class Model_Inputs extends Model_DbjrBase {
   }
   
   /**
-   * Processes input confirmation request (confirms or rejects inputs)
+   * Processes input confirmation request
    *
    * @param string $ckey
    * @param boolean $reject
@@ -492,6 +492,12 @@ class Model_Inputs extends Model_DbjrBase {
     $rowSet = $this->fetchAll($select);
     if (count($rowSet) > 0) {
       $return = true;
+      foreach ($rowSet as $row) {
+        $row->user_conf = 'c';
+        $row->confirm_key = '';
+        $row->save();
+      }
+      $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
       foreach ($rowSet as $row) {
         $row->user_conf = ($reject ? 'r' : 'c');
         $row->confirm_key = '';

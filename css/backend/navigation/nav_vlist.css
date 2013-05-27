@@ -91,11 +91,14 @@
     background-color: #f8f8f8;
     color: #333;
   }
+
+  .vlist li.active ul li a,.vlist li.active ul li a:visited {
+    color: #333;
+  }
   .vlist li ul li a:focus,.vlist li ul li a:hover,.vlist li ul li a:active
     {
     background-color: #a88;
-    color: #fff;
-  }
+    color: #fff !important;
   
   /* active list element */
   .vlist li.active ul li.active a {
