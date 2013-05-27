@@ -90,4 +90,26 @@
     color: #fff;
     text-decoration: none;
   }
+  
+  .hlist ul li.button_red  {
+    border-left: 1px solid #DDBEBE;
+    border-right: 1px solid #4C1010;
+    background: #d15757; /* Old browsers */
+    background: -moz-linear-gradient(top,  #d15757 1%, #b53939 50%, #d66b6b 50%, #d34141 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d15757), color-stop(50%,#b53939), color-stop(50%,#d66b6b), color-stop(99%,#d34141)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #d15757 1%,#b53939 50%,#d66b6b 50%,#d34141 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #d15757 1%,#b53939 50%,#d66b6b 50%,#d34141 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #d15757 1%,#b53939 50%,#d66b6b 50%,#d34141 99%); /* IE10+ */
+    background: linear-gradient(to bottom,  #d15757 1%,#b53939 50%,#d66b6b 50%,#d34141 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d15757', endColorstr='#d34141',GradientType=0 ); /* IE6-9 */
+  }
+  .hlist ul li.button_red a {
+    background: url('../../../../images/cross-button.png') no-repeat 4px center ;
+    padding-left: 25px;
+    color: #fff;
+  }
+  .hlist ul li.button_red a:hover {
+    background-color: transparent;
+    color: #fee;
+  }
 }

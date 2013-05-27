@@ -162,5 +162,75 @@ class Admin_ConsultationController extends Zend_Controller_Action {
       'weightCounts' => $votesRightsModel->getWeightCountsByConsultation($kid)
     ));
   }
+  
+  /**
+   * Ajax-Delete Action (no view)
+   * Need param integer kid in request-object
+   */
+  public function deleteAction() {
+    // Deaktiviere Layout und View
+    $this->_helper->layout()->disableLayout();
+    $this->_helper->viewRenderer->setNoRender(true);
+    
+    $return = array(
+      'success'=>true,
+      'message'=>'',
+      'params'=>array(),
+      'return'=>array()
+    );
+
+    $params = $this->getRequest()->getParams();
+    $return['params'] = $params;
+
+    // Validation userlevel
+    $current_user = Zend_Auth::getInstance()->getIdentity();
+    if($current_user->lvl !== 'adm') {
+      $return['success'] = false;
+      $return['message'] = 'ungültige Konsultation';
+    }
+
+    // Validation kid
+    if(empty($params['kid'])) {
+      $return['success'] = false;
+      $return['message'] = 'ungültige Konsultation';
+    }
+
+    // Validation consultation exists
+    $consultationModel = new Model_Consultations();
+    $consultation = $consultationModel->getById($params['kid']);
+    if(!$consultation) {
+      $return['success'] = false;
+      $return['message'] = 'Konsultation nicht gefunden';
+    }
+
+    // Validation successful
+    if($return['success']) {
+      $kid = $params['kid'];
+
+      // Delete articles by consultation
+      $articleModel = new Model_Articles();
+      $articles = $articleModel->getByConsultation($kid);
+      if($articles) {
+        foreach($articles As $article) {
+          $articleModel->deleteById($article['art_id']);
+        }
+      }
+
+      // Delete E-Mail-Templates
+      $mailtemplateModel = new Model_Emails_Templates();
+      $templates = $mailtemplateModel->getByConsultation($kid);
+      if($templates) {
+        foreach($templates As $template) {
+          $mailtemplateModel->deleteById($template['mid']);
+        }
+      }
+
+      // Delete Consultation
+      $consultationModel->deleteById($kid);
+
+    }
+
+    $this->_redirect('/admin/consultation/index/');
+  }
 }
 ?>
