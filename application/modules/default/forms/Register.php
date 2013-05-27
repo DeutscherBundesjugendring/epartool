@@ -16,10 +16,10 @@ class Default_Form_Register extends Zend_Form {
     $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
     
     // set options for stringlength validator
-    $password = $this->getElement('register_password');
-    $password->getValidator('StringLength')
-      ->setMin(6)
-      ->setMessage('Ihr Kennwort ist zu kurz.', 'stringLengthTooShort');
+//     $password = $this->getElement('register_password');
+//     $password->getValidator('StringLength')
+//       ->setMin(6)
+//       ->setMessage('Ihr Kennwort ist zu kurz.', 'stringLengthTooShort');
       
     $group = $this->getElement('group_type');
     $group->removeDecorator('Label');

@@ -467,30 +467,39 @@ class Model_Inputs extends Model_DbjrBase {
   }
   
   /**
-   * Processes input confirmation request
+   * Processes input confirmation request (confirms or rejects inputs)
    *
    * @param string $ckey
+   * @param boolean $reject
    * @throws Zend_Validate_Exception
    * @return boolean true on success
    */
-  public function confirmByCkey($ckey) {
+  public function confirmByCkey($ckey, $reject = false) {
     $return = false;
     $alnumVal = new Zend_Validate_Alnum();
     if (!$alnumVal->isValid($ckey)) {
       throw new Zend_Validate_Exception();
       return $return;
     }
+    $userModel = new Model_Users();
+    
     $select = $this->select();
     $select->where('confirm_key = ?', $ckey);
     $rowSet = $this->fetchAll($select);
     if (count($rowSet) > 0) {
       $return = true;
       foreach ($rowSet as $row) {
-        $row->user_conf = 'c';
+        $row->user_conf = ($reject ? 'r' : 'c');
         $row->confirm_key = '';
         $row->save();
+        // set timestamp last activity
+        $userModel->ping($row->uid);
       }
-      $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
+      if ($reject) {
+        $this->_flashMessenger->addMessage('Die Beiträge wurden als abgelehnt markiert!', 'success');
+      } else {
+        $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
+      }
     }
     return $return;
   }

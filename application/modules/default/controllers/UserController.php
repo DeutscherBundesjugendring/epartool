@@ -56,25 +56,46 @@ class UserController extends Zend_Controller_Action {
       $this->redirect('/');
     } else {
       $form = new Default_Form_Register();
+      $raw_data = $this->_request->getPost();
+      
       if (!$this->_auth->hasIdentity()) {
         // if not already logged in
-        if ($form->isValid($this->_request->getPost())) {
-          $userModel = new Model_Users();
+        
+        // check if email is valid
+        // if it exists already: store inputs
+        // for the already registered user with new user info data
+        $emailValidator = new Zend_Validate_EmailAddress();
+        if (!$emailValidator->isValid($raw_data['email'])) {
+          $populateForm = new Zend_Session_Namespace('populateForm');
+          $form->populate($raw_data);
+          $populateForm->register = serialize($form);
+          $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
+          $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
+        }
+        
+        $userModel = new Model_Users();
+        
+        if ($form->isValid($raw_data)) {
           $data = $form->getValues();
           if ($data['group_type'] != 'group') {
             unset($data['group_specs']);
           }
-          if ($userModel->register($data)) {
-            // register confirmation requested
+          
+          $registerInfo = $userModel->register($data);
+          
+          if ($registerInfo['newlyRegistered']) {
+            // new user registered
             $this->_flashMessenger
               ->addMessage('Eine Mail zur Bestätigung der Registrierung wurde an die angegebene E-Mail-Adresse gesendet.'
                 . '<br/>Nach Bestätigung der Registrierung wird eine weitere E-Mail zur Bestätigung der Beiträge verschickt werden.', 'success');
-            $this->redirect('/');
           } else {
-            $populateForm = new Zend_Session_Namespace('populateForm');
-            $populateForm->register = serialize($form);
-            $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
+            // new inputs for registered user with new user info data commited
+            $userModel->sendInputsConfirmationMail($registerInfo['uid'], $form->getValue('kid'));
+            $this->_flashMessenger
+            ->addMessage('Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-Adresse gesendet.', 'success');
           }
+          $this->redirect('/');
+          
         } else {
           $populateForm = new Zend_Session_Namespace('populateForm');
           $populateForm->register = serialize($form);
