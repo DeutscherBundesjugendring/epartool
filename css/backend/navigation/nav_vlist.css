@@ -91,6 +91,10 @@
     background-color: #f8f8f8;
     color: #333;
   }
+  .vlist li ul li.active a {
+    background-color: transparent;
+    color: #fff !important;
+  }
 
   .vlist li.active ul li a,.vlist li.active ul li a:visited {
     color: #333;
