@@ -34,7 +34,10 @@ $locale = new Zend_Locale();
                         <div class="content">
                             <p><?php echo $this->input['thes']; ?></p>
                             <?php if (!empty($this->input['expl'])): ?>
-                                <p><?php echo $this->input['expl']; ?></p>
+                                <div class="explbutton">Show Expl</div>
+                                <div class="toggleexpl">
+                                    <p><?php echo $this->input['expl']; ?></p>
+                                </div>
                             <?php endif; ?>
                         </div>
                         <?php if ($this->input['vot'] == 'y'): ?>
@@ -45,7 +48,8 @@ $locale = new Zend_Locale();
                         <?php endif; ?>
                         <?php if ($this->input['vot'] != 'y'): ?>
                             <div class="timeline-countlink sprite">
-                                  <a class="ajaxclick reset" href="<?php echo $this->url(array('action' => 'show','tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo count($this->relInput); ?></a>
+                                <a class="ajaxclick reset"
+                                   href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo count($this->relInput); ?></a>
                                 <!--<p><?php echo count($this->relInput); ?></p>-->
                             </div>
                         <?php endif; ?>

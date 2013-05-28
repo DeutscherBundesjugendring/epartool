@@ -102,6 +102,12 @@
             })
 
 
+            $('.explbutton').click(function(){
+                $('.toggleexpl').toggle()
+                _setVerticalAlign()
+            })
+
+
         }
 
         /**
@@ -200,7 +206,7 @@
                     _html += '<div class="timeline-box">' +
                         ' <div class="content">' +
                         '     <p>' + data.byinput.snippets[i].expl + '</p>' +
-                        '     <p class="score">Ergebnis der Abstimmung: X. Rang</p>' +
+
                         ' </div>' +
                         ' <div class="timeline-countlink sprite">' +
                         _link +
