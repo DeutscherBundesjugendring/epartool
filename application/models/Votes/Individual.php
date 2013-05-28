@@ -61,7 +61,7 @@ class Model_Votes_Individual extends Model_DbjrBase {
   }
   
   public function updateVote($tid, $subUid, $uid, $pts) {
-    if(empty($tid) || empty($subUid) || empty($pts) || empty($uid)) {
+    if(empty($tid) || empty($subUid) || ((int)$pts < 0 || (int)$pts > 5) || empty($uid)) {
       return false;
     }
 
