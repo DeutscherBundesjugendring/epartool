@@ -114,8 +114,9 @@ class Default_Form_Input extends Zend_Form {
         //           'isArray' => true,
         'attribs' => array(
             'class' => 'input-block-level',
-            'placeholder' => 'Hier könnt ihr euren Beitrag bis zu 300 Buchstaben schreiben',
-            'id' => 'thes_' . $i
+            'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
+            'id' => 'thes_' . $i,
+            'maxlength' => '300'
         )
     );
     $thes->setOptions($thesOptions);
@@ -150,8 +151,9 @@ class Default_Form_Input extends Zend_Form {
         'attribs' => array(
             'class' => 'extension input-block-level',
             'style' => 'display: none;',
-            'placeholder' => 'Hier könnt ihr euren Beitrag bis zu 300 Buchstaben schreiben',
-            'id' => 'expl_' . $i
+            'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
+            'id' => 'expl_' . $i,
+            'maxlength' => '2000'
         )
     );
     $expl->setOptions($explOptions);
