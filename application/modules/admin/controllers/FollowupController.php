@@ -455,28 +455,53 @@ class Admin_FollowupController extends Zend_Controller_Action {
         $Model_FollowupFiles = new Model_FollowupFiles();
         $kid = $this->getRequest()->getParam('kid', 0);
         $fid = $this->getRequest()->getParam('fid', 0);
-         $Model_Questions = new Model_Questions();   
+        $Model_Questions = new Model_Questions();   
+        $docs = array();
+        $snippets = array();
+        
+        if ($kid > 0) {
+            $ffid_array = array();
+            
+            $docs = $Model_FollowupFiles->getByKid($kid,'when DESC');
+            foreach ($docs as $doc) {
+                $ffid_array[] = $doc['ffid'];
+            }
+            $snippets = $Model_Followups->getByDocIdArray($ffid_array);
+        }
         
         if ($this->getRequest()->isPost()) {
             
             $params = $this->getRequest()->getPost();
-            
+            Zend_Debug::dump($params);
             if (!empty($params['question'])) {
                
                 $question = $Model_Questions->getById($params['question']);
             }
-            if (!empty($params['inp_list'])) {
-                $Model_FollowupsRef = new Model_FollowupsRef();
+            
+            $Model_FollowupsRef = new Model_FollowupsRef();
+            
+            if (!empty($params['inp_list']) && !empty($params['insert_inputs'])) {
                 $inserted = $Model_FollowupsRef->insertBulk($params['inp_list'], $fid, 'tid');
-                $message = "$inserted Beiträge wurden zugeordnet.";
-                 $this->_flashMessenger->addMessage($message, 'success');
-               
+                $message = "$inserted Beiträge wurden zugeordnet.";               
             }
+            if (!empty($params['doc_list']) && !empty($params['insert_docs'])) {
+                
+                $inserted = $Model_FollowupsRef->insertBulk($params['doc_list'], $fid, 'ffid');
+                $message = "$inserted Dokumente wurden zugeordnet.";     
+            }
+            if (!empty($params['snippet_list']) && !empty($params['insert_snippets'])) {
+                
+                $inserted = $Model_FollowupsRef->insertBulk($params['snippet_list'], $fid, 'fid');
+                $message = "$inserted Snippets wurden zugeordnet.";
+            }
+            
+            $this->_flashMessenger->addMessage($message, 'success');
+           
         }
         
         $related = $Model_Followups->getRelated($fid);
         $followup = $Model_Followups->getById($fid);
-        Zend_Debug::dump($related);
+      
         if (empty($question)) {
            // get first question of this consultation
            $questionRow = $Model_Questions->getByConsultation($kid)->current();
@@ -487,6 +512,8 @@ class Admin_FollowupController extends Zend_Controller_Action {
           'kid' => $kid,
           'followup' => $followup,          
           'related' => $related,
+          'snippets' => $snippets,
+          'docs' => $docs,
           'question' => $question
         ));
     }

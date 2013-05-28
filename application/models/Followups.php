@@ -17,6 +17,31 @@ class Model_Followups extends Zend_Db_Table_Abstract {
       )
     );
   
+    public function getByKid($kid, $order = NULL, $limit = NULL)
+    {
+        //$result = array();
+
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($kid)) {
+            return array();
+        }
+        $select = $this->select();
+        $select->where('kid=?', $kid);
+
+        if ($order) {
+            $select->order($order);
+        }
+        if ($limit) {
+
+            $select->limit($limit);
+        }
+        $result = $this->fetchAll($select);
+
+        return $result->toArray();
+
+    }
+    
+    
     /**
     * getFollowupsbyInput
     * get followup-files by inpt.tid
@@ -140,7 +165,7 @@ class Model_Followups extends Zend_Db_Table_Abstract {
     public function getByIdArray( $idarray ) {
 
   
-         if (count($idarray) == 0) {
+         if (!is_array($idarray) || count($idarray) == 0) {
           
           return array();
           
@@ -153,6 +178,22 @@ class Model_Followups extends Zend_Db_Table_Abstract {
 
         return $result;
         
+    }
+    
+     public function getByDocIdArray($ffid_array) {
+         
+        if (!is_array($ffid_array) || count($ffid_array) == 0) {
+          
+          return array();
+          
+        }
+        $result = array();
+        $select = $this->select();
+        $select->where('ffid IN(?)', $ffid_array);
+        $select->order('ffid ASC');
+        $result = $this->fetchAll($select)->toArray();
+
+        return $result;
     }
     
     /**

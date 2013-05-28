@@ -6,7 +6,7 @@
  *  @author             Marco Dinnbier
  */
 ?>
-
+<?php $inptids = array(); $docids = array(); $snippetids = array(); ?>
 <h2>Follow-up Referenzen bearbeiten</h2>
 
 <p><?php echo $this->followup['expl'] ?></p>
@@ -71,31 +71,13 @@
             </tbody>
         </table>
     </div>
-    <input type="submit" value="Beiträge zuordnen" />
+    <input type="submit" name="insert_inputs" value="Beiträge zuordnen" />
 </form>
 
 <?php endif; ?>
-<?php if(count($this->input_list) > 0): ?>
-<table style="width: 100%">
-    <tbody>
-        <tr>
-            <th></th>
-            <th style="width: 55%">These</th>           
-        </tr>
-    <?php foreach($this->input_list as $input): ?>
-        <tr>
-            <td>
-                <input type="checkbox" name="inp_list[]" value="<?php echo $input['tid']; ?>">
-            </td>           
-            <td>
-               <?php echo $input['thes']; ?>
-            </td>           
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
-<?php endif; ?>
+
 <br /><br />
+
 <h3>Zugewiesene Follow-up-Snippets (<?php echo count($this->related['snippets']); ?>)</h3>
 <?php if(count($this->related['snippets']) > 0): ?>
 <table style="width: 100%">
@@ -105,6 +87,7 @@
             <th style="text-align: right;">Aktionen</th>
         </tr>
         <?php foreach ($this->related['snippets'] as $snippet): ?>
+         <?php $snippetids[] = $snippet['fid']; ?>
             <tr>                
                 <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...'; ?></td>
                 
@@ -121,14 +104,34 @@
     </tbody>
 </table>
 <?php endif; ?>
-<a href="<?php echo $this->url(array(
-                            'action' => 'create-reference',
-                            'kid' => $this->consultation['kid'],
-                            'fid_ref' => $this->followup['fid'],
-                            'mode' => 'snippet'
-                            ));?>">Neues Follow-up-Snippet zuweisen</a>
+<h3>Follow-up-Snippets zuweisen: </h3>
+<form id="snChooseForm" action="" method="POST">
+    <div style="height:200px;overflow-y: scroll;">
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>Erläuterung</th>
+                </tr>
+                <?php foreach ($this->snippets as $snippet): ?>
+                    <?php if(!in_array($snippet['fid'], $snippetids) && $snippet['ffid'] != $this->followup['ffid']): ?>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="snippet_list[]" value="<?php echo $snippet['fid'] ?>">
+                            </td>
+                            <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...'; ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <input type="submit" name="insert_snippets" value="Snippets zuordnen" />
+</form>
+
 
 <br /><br />
+
 <h3>Zugewiesene Follow-up-Dokumente (<?php echo count($this->related['docs']); ?>)</h3>
 <?php if(count($this->related['docs']) > 0): ?>
 <table style="width: 100%">
@@ -138,6 +141,7 @@
             <th style="text-align: right;">Aktionen</th>
         </tr>
         <?php foreach ($this->related['docs'] as $doc): ?>
+            <?php $docids[] = $doc['ffid']; ?>
             <tr>                
                 <td><?php echo substr(strip_tags(html_entity_decode($doc['titl'])), 0, 400); ?></td>
                 
@@ -154,12 +158,33 @@
     </tbody>
 </table>
 <?php endif; ?>
-<a href="<?php echo $this->url(array(
-                            'action' => 'create-reference',
-                            'kid' => $this->consultation['kid'],
-                            'fid_ref' => $this->followup['fid'],
-                            'mode' => 'doc'
-                            ));?>">Neues Follow-up-Dokument zuweisen</a>
+<?php if(count($docids) != count($this->docs)-1): ?>
+<h3>Follow-up-Dokumente zuweisen: </h3>
+<form id="flsChooseForm" action="" method="POST">
+    <div style="">
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>Titel</th>
+                </tr>
+                <?php foreach ($this->docs as $doc): ?>
+                    <?php if(!in_array($doc['ffid'], $docids) && $doc['ffid'] != $this->followup['ffid']): ?>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="doc_list[]" value="<?php echo $doc['ffid'] ?>">
+                            </td>
+                            <td><?php echo $doc['titl']; ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <input type="submit" name="insert_docs" value="Dokumente zuordnen" />
+</form>
+<?php endif; ?>
+
 <script type="text/javascript">
     jQuery(document).ready(function(){
         
