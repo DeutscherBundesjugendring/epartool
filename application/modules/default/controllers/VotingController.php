@@ -238,9 +238,8 @@ class VotingController extends Zend_Controller_Action {
       $this->view->thesis = $thesis;
       // get question
       $question = $questionModel->getById($thesis['qi']);
-      $questionTitle = $question['q'];
 
-      $this->view->question = $questionTitle;
+      $this->view->question = $question;
     }
     
     // Check last voted thesis and append to view

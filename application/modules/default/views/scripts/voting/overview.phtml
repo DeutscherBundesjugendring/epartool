@@ -43,7 +43,8 @@
 			foreach ($this->questions as $question):
 			  $url = $this->url(array('action' => 'vote', 'qid' => $question['qi']));
 			  ?>
-				<li><h2><a href="<?php echo $url?>"><?php echo $question['q']?></a></h2></li>
+				<li><h2><a href="<?php echo $url?>"><?php echo $question['nr'] . ' '
+				  . $question['q']?></a></h2></li>
 			  <?php
 			  $i++;
 			endforeach;

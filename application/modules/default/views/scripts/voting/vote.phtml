@@ -31,7 +31,7 @@
 				<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>
 				" name="button button-change">Frage / Schlagwort wechseln</a>
 				<?php else: ?>
-				<h2><?php echo $this->question; ?>
+				<h2><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
 					<?php
 					if (!empty($this->keyword)) {
 						echo('(Schlagwort: ' . $this->keyword . ')');
