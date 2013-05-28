@@ -81,7 +81,8 @@
 
                 _getAjaxData(_obj, function (data, status, obj) {
                     var _amount = data.lkyea || data.lknay;
-                    obj.target.innerText = '(' + _amount + ')';
+                    // obj.target.innerText = '(' + _amount + ')';
+                    $(obj.target).text('(' + _amount + ')');
                 })
 
             })
@@ -260,7 +261,13 @@
 
                 }
                 for (var i in data.refs.snippets) {
-                    _link = '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a>';
+                    if (data.refs.snippets[i].relFowupCount != 0) {
+
+                        _link = '<div class="timeline-countlink sprite"><a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a></div>';
+                    } else {
+                        _link = '';
+                    }
+
                     _likeYes = '<a class="voting like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lkyea + ')</span><span class="icon"></span></a>';
                     _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span> <span class="icon"></span></a>';
 
@@ -273,9 +280,9 @@
                         _likeYes +
                         _likeNo +
                         ' </div>' +
-                        ' <div class="timeline-countlink sprite">' +
+
                         _link +
-                        ' </div>' +
+
                         '</div>';
 
                 }
