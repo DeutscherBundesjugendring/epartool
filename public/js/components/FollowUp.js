@@ -89,12 +89,13 @@
             $('.openoverlay').live('click', function () {
                 console.log('content click')
                 var _request = $(this).data('href');
+                var _highlightElement = $(this).data('elementid')
                 var _obj = {'request': _request}
 
                 _getAjaxData(_obj, function (data, status, obj) {
 
                     console.log(data)
-                    _addOverlay(data)
+                    _addOverlay(data, _highlightElement)
                 })
             })
             $('.overlayclose').live('click', function () {
@@ -102,7 +103,7 @@
             })
 
 
-            $('.explbutton').click(function(){
+            $('.explbutton').click(function () {
                 $('.toggleexpl').toggle()
                 _setVerticalAlign()
             })
@@ -201,12 +202,18 @@
 
                 for (var i in data.byinput.snippets) {
                     //followup/json/kid/8/fid/1
+                    _likeYes = '<a class="voting like" href="' + _host + '/followup/like/fid/' + data.byinput.snippets[i].fid + '"><span class="amount">(' + data.byinput.snippets[i].lkyea + ')</span><span class="icon"></span></a>';
+                    _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.byinput.snippets[i].fid + '"><span class="amount">(' + data.byinput.snippets[i].lknay + ')</span> <span class="icon"></span></a>';
+
+                    _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.byinput.snippets[i].ffid;
+
                     _link = '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">xx</a>';
 
-                    _html += '<div class="timeline-box">' +
+                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.byinput.snippets[i].fid + '">' +
                         ' <div class="content">' +
                         '     <p>' + data.byinput.snippets[i].expl + '</p>' +
-
+                        _likeYes +
+                        _likeNo +
                         ' </div>' +
                         ' <div class="timeline-countlink sprite">' +
                         _link +
@@ -232,8 +239,6 @@
                         _when = '';
                     }
 
-                    _likeYes = '<a class="voting like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lkyea + ')</span><span class="icon"></span></a>';
-                    _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span> <span class="icon"></span></a>';
 
                     if (data.refs.docs.length != 0) {
                         _img = '<img class="refimg" src="' + _host + data.mediafolder + data.refs.docs[i].gfx_who + '" />'
@@ -242,13 +247,12 @@
                     }
 
 
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '">' +
+                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.refs.docs[i].ffid + '">' +
                         ' <div class="content">' +
                         _img +
-                        '     <p class="refteaser">' + data.refs.docs[i].titl + '</p>' +
+                        '     <p class="">' + data.refs.docs[i].titl + '</p>' +
                         _when +
-                        _likeYes +
-                        _likeNo +
+
 
                         ' </div>' +
 
@@ -257,13 +261,17 @@
                 }
                 for (var i in data.refs.snippets) {
                     _link = '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a>';
+                    _likeYes = '<a class="voting like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lkyea + ')</span><span class="icon"></span></a>';
+                    _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span> <span class="icon"></span></a>';
 
+                    _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
 
-                    _html += '<div class="timeline-box">' +
+                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.refs.snippets[i].fid + '">' +
                         ' <div class="content">' +
 
-                        '     <p class="refteaser">' + data.refs.snippets[i].expl + '</p>' +
-
+                        '     <p class="">' + data.refs.snippets[i].expl + '</p>' +
+                        _likeYes +
+                        _likeNo +
                         ' </div>' +
                         ' <div class="timeline-countlink sprite">' +
                         _link +
@@ -277,8 +285,14 @@
             return _html;
         }
 
-        function _addOverlay(data) {
+        function _addOverlay(data, id) {
             var _snippets = '';
+
+            var _id = id;
+            console.log(_id)
+
+            var _activeSnippetClass = '';
+            var _activeDocClass = '';
 
             /**
              *
@@ -289,7 +303,18 @@
                 var _likeYes = '<a class="voting like" href="http://dev.dbjr/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lkyea + ')</span><span class="icon"></span></a>';
                 var _likeNo = '<a class="voting dislike" href="http://dev.dbjr/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lknay + ')</span> <span class="icon"></span></a>';
 
-                _snippets += '<div class="snippet">' +
+                if (data.doc.fowups[i].fid == _id) {
+                    _activeSnippetClass = 'active';
+                } else {
+                    _activeSnippetClass = '';
+                }
+                if (data.doc.ffid == _id) {
+                    _activeDocClass = 'active';
+                } else {
+                    _activeDocClass = '';
+                }
+
+                _snippets += '<div class="snippet ' + _activeSnippetClass + '">' +
                     '<div>' + data.doc.fowups[i].expl + '</div>' +
                     _likeYes +
                     _likeNo +
@@ -305,13 +330,15 @@
              * doc + Snippets
              *
              */
+
+
             var _content = '<div class="overlayclose overlayclosebutton"></div><div class="overlaycontent">' +
 
                 '<div class="">' +
                 '<h1>' + data.doc.titl + '</h1>' +
-                '<div class="docs">' +
+                '<div class="docs ' + _activeDocClass + '">' +
                 '<p>' + data.doc.who + '</p>' +
-                '<p>' + _dateConverter(data.doc.when,'dmy') + '</p>' +
+                '<p>' + _dateConverter(data.doc.when, 'dmy') + '</p>' +
                 '<a class="" target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '">' + data.doc.ref_doc + '</a>' +
 
                 '</div>' +
