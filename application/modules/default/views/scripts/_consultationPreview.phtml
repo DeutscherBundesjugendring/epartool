@@ -13,7 +13,7 @@ $nowDate = Zend_Date::now();
 $disabled = array(
   'input' => ($nowDate->isEarlier($con->inp_fr)),
   'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
-  'follow-up' => (!$nowDate->isLater($con->vot_to)),
+  'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->follup_show == 'n'),
 );
 $bubbles = array();
 if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {

@@ -16,7 +16,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'question' => false,
       'input' => ($nowDate->isEarlier($con->inp_fr)),
       'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
-      'follow-up' => (!$nowDate->isLater($con->vot_to)),
+      'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->follup_show == 'n'),
     );
     $items = array(
       'article' => array(
