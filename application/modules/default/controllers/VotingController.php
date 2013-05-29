@@ -136,7 +136,7 @@ class VotingController extends Zend_Controller_Action {
         $authcodeElement->setValue($authcode);
       }
     }
-    $this->view->votingExplanation = html_entity_decode($this->_consultation->vot_expl);
+    $this->view->votingExplanation = html_entity_decode($this->_consultation->vot_expl, ENT_COMPAT, 'UTF-8');
     $this->view->authform = $form;
     $this->view->consultationTitle = $this->_consultation->titl;
   }

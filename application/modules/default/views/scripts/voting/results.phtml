@@ -27,10 +27,10 @@
 
 			<h1>Abstimmungsergebnisse</h1>
 			<?php if (!empty($this->articleGeneral)): ?>
-				<?php echo html_entity_decode($this->articleGeneral['artcl']); ?>
+				<?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
 			<?php endif; ?>
 			<?php if (!empty($this->articleConsultation)): ?>
-				<?php echo html_entity_decode($this->articleConsultation['artcl']); ?>
+				<?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
 			<?php endif; ?>
 
 			<h3><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h3>

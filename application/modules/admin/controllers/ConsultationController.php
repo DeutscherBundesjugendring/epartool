@@ -64,7 +64,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
       if ($element->getName() != 'proj') {
-        $element->setValue(html_entity_decode($element->getValue()));
+        $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
       }
     }
 
@@ -132,7 +132,7 @@ Zend_Debug::dump($posts);
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
       if ($element->getName() != 'proj') {
-        $element->setValue(html_entity_decode($element->getValue()));
+        $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
       }
     }
     

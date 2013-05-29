@@ -109,7 +109,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
       if ($element->getName() != 'proj') {
-        $element->setValue(html_entity_decode($element->getValue()));
+        $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
       }
     }
     
@@ -178,7 +178,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
     foreach ($form->getElements() as $element) {
       $element->clearFilters();
       if ($element->getName() != 'proj') {
-        $element->setValue(html_entity_decode($element->getValue()));
+        $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
       }
     }
     

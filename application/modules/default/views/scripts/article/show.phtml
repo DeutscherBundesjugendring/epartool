@@ -24,12 +24,12 @@
 
 		</aside>
 		<section class="main-content span6">
-<?php echo html_entity_decode($this->article['artcl']);?>
+<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8');?>
 			<!-- Print -->
 			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
 		</section>
 		<aside class="span3">
-<?php echo html_entity_decode($this->article['sidebar']);?>
+<?php echo html_entity_decode($this->article['sidebar'], ENT_COMPAT, 'UTF-8');?>
 		</aside>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
