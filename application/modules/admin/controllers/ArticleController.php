@@ -57,12 +57,25 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $consultation = null;
     $form = null;
     $consultationModel = new Model_Consultations();
+    $refNameModel = new Model_ArticleRefNames();
     $consultation = $consultationModel->getById($kid);
     $form = new Admin_Form_Article();
+    
     $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
+    $multiOptions = array(0 => 'Bitte auswählen...');
     if ($kid > 0) {
-      // remove options for static pages
-      $form->getElement('ref_nm')->setMultioptions(array(0 => 'Bitte auswählen...'));
+      // set multiOptions for ref_nm
+      foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
+        $multiOptions[$key] = $value;
+      }
+      $form->getElement('ref_nm')->setMultioptions($multiOptions);
+      $form->getElement('ref_nm')->setDescription('Bei Unterseiten gilt der Referenzname der Elternseite!');
+    } else {
+      // set multiOptions for ref_nm
+      foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
+        $multiOptions[$key] = $value;
+      }
+      $form->getElement('ref_nm')->setMultioptions($multiOptions);
     }
     $articleModel = new Model_Articles();
     $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
@@ -125,15 +138,27 @@ class Admin_ArticleController extends Zend_Controller_Action {
     $consultation = null;
     $form = null;
     $consultationModel = new Model_Consultations();
+    $refNameModel = new Model_ArticleRefNames();
     $consultation = $consultationModel->getById($kid);
     $aid = $this->getRequest()->getParam('aid', 0);
     if ($aid > 0) {
       $articleModel = new Model_Articles();
       $articleRow = $articleModel->find($aid)->current();
       $form = new Admin_Form_Article();
+      $multiOptions = array(0 => 'Bitte auswählen...');
       if ($kid > 0) {
-        // remove options for static pages
-        $form->getElement('ref_nm')->setMultioptions(array(0 => 'Bitte auswählen...'));
+        // set multiOptions for ref_nm
+        foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
+          $multiOptions[$key] = $value;
+        }
+        $form->getElement('ref_nm')->setMultioptions($multiOptions);
+        $form->getElement('ref_nm')->setDescription('Bei Unterseiten gilt der Referenzname der Elternseite!');
+      } else {
+        // set multiOptions for ref_nm
+        foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
+          $multiOptions[$key] = $value;
+        }
+        $form->getElement('ref_nm')->setMultioptions($multiOptions);
       }
       $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
       $parentOptions = array(

@@ -7,13 +7,13 @@
  */
 class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract {
   
-  public function articleNavigation ($activeItem = null) {
+  public function articleNavigation ($activeItem = null, $scope = 'info') {
     $html = '';
     $con = $this->view->consultation;
     if (!empty($con)) {
       // consultation is set -> show appropriate articles/pages
       $articleModel = new Model_Articles();
-      $items = $articleModel->getByConsultation($con->kid);
+      $items = $articleModel->getByConsultation($con->kid, $scope);
       $html = '<nav role="navigation" class="tertiary-navigation">'
         . '<ul class="nav nav-list">';
       $i = 1;

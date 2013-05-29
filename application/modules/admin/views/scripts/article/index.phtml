@@ -18,12 +18,14 @@ echo $this->consultationNavigation('Artikel');
 <table class="full">
   <tr>
     <th>Seite</th>
+    <th>Ref</th>
     <th>Inhalt</th>
     <th>Aktionen</th>
   </tr>
 <?php foreach ($this->articles as $article):?>
   <tr>
     <td><?php echo $article['desc']; ?></td>
+    <td><?php echo $article['ref_nm']; ?></td>
     <td><?php echo substr(strip_tags(html_entity_decode($article['artcl'], ENT_COMPAT, 'UTF-8')), 0, 200); ?></td>
     <td><a href="<?php echo $this->url(array(
   'action' => 'edit',
@@ -42,6 +44,7 @@ echo $this->consultationNavigation('Artikel');
     <?php foreach ($article['subpages'] as $subpage): ?>
     <tr class="subpage">
       <td><?php echo $subpage['desc']; ?></td>
+      <td></td>
       <td><?php echo substr(strip_tags(html_entity_decode($subpage['artcl'], ENT_COMPAT, 'UTF-8')), 0, 200); ?></td>
       <td><a href="<?php echo $this->url(array(
     'action' => 'edit',

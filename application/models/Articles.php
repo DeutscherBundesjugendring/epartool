@@ -115,42 +115,43 @@ class Model_Articles extends Model_DbjrBase {
    * @return Zend_Db_Table_Rowset
    */
   public function getAllWithoutConsultation($orderBy = 'art_id') {
-    return $this->getByConsultation(0, $orderBy);
+    return $this->getByConsultation(0, null, $orderBy);
   }
   
   /**
    * Get all Articles incl. subpages of a consultation
    *
    * @param integer $kid Id of consultation
+   * @param string $scope Scope, e.g. 'info', 'followup' etc.
    * @param string $orderBy [optional] Fieldname
    * @return array
    */
-  public function getByConsultation($kid = null, $orderBy = 'art_id') {
+  public function getByConsultation($kid = null, $scope = null, $orderBy = 'art_id') {
     $validator = new Zend_Validate_Int();
     if (!$validator->isValid($kid)) {
       throw new Zend_Exception('Given kid must be integer!');
       return false;
     }
-    $select = $this->select()->where('kid = ?', $kid)->order($orderBy);
+    
+    // first all first level pages
+    $select = $this->select()
+      ->where('kid = ?', $kid)
+      ->where('parent_id IS NULL OR parent_id = 0')
+      ->order($orderBy);
+    
+    $refNameModel = new Model_ArticleRefNames();
+    if (isset($scope) && $refNameModel->scopeExists($scope)) {
+      $select->where('ref_nm IN (?)', $refNameModel->getRefNamesByScope($scope));
+    }
+    
     $articles = $this->fetchAll($select)->toArray();
     
-    // check for subpages
-    $subpages = array();
-    foreach ($articles as $key => $value) {
+    // then their subpages
+    foreach ($articles as $key => $article) {
+      $subpages = $this->getChildren($article['art_id'])->toArray();
       $articles[$key]['subpages'] = array();
-      if (!empty($value['parent_id'])) {
-        // collect subpages in separate array
-        $subpages[$value['parent_id']][$value['art_id']] = $value;
-        // remove subpage entries from first level
-        unset($articles[$key]);
-      }
-    }
-    // assign subpages to their parents
-    if (!empty($subpages)) {
-      foreach ($articles as $key => $value) {
-        if (array_key_exists($value['art_id'], $subpages)) {
-          $articles[$key]['subpages'] = $subpages[$value['art_id']];
-        }
+      foreach ($subpages as $subpage) {
+        $articles[$key]['subpages'][$subpage['art_id']] = $subpage;
       }
     }
     
