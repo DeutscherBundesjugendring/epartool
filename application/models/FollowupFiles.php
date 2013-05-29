@@ -21,7 +21,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * @return array
      *
      */
-    public function getByKid($kid, $order = NULL, $limit = NULL)
+    public function getByKid($kid, $order = NULL, $limit = NULL, $excludeFfid = NULL)
     {
         //$result = array();
 
@@ -38,6 +38,10 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         if ($limit) {
 
             $select->limit($limit);
+        }
+        if ($excludeFfid) {
+            $select->where('ffid!=?', $excludeFfid);
+            
         }
         $result = $this->fetchAll($select);
 

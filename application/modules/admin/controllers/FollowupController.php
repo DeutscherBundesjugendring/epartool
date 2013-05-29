@@ -453,9 +453,11 @@ class Admin_FollowupController extends Zend_Controller_Action {
         $Model_Followups = new Model_Followups();
         $Model_Inputs = new Model_Inputs();
         $Model_FollowupFiles = new Model_FollowupFiles();
+        $Model_Questions = new Model_Questions();   
+        
         $kid = $this->getRequest()->getParam('kid', 0);
         $fid = $this->getRequest()->getParam('fid', 0);
-        $Model_Questions = new Model_Questions();   
+        
         $docs = array();
         $snippets = array();
         
@@ -477,35 +479,47 @@ class Admin_FollowupController extends Zend_Controller_Action {
                
                 $question = $Model_Questions->getById($params['question']);
             }
+            if (!empty($params['chosenDoc'])) {
+               
+                $chosenDoc = $params['chosenDoc'];
+            }
             
             $Model_FollowupsRef = new Model_FollowupsRef();
             
             if (!empty($params['inp_list']) && !empty($params['insert_inputs'])) {
                 $inserted = $Model_FollowupsRef->insertBulk($params['inp_list'], $fid, 'tid');
                 $message = "$inserted Beiträge wurden zugeordnet.";               
+                $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($params['doc_list']) && !empty($params['insert_docs'])) {
                 
                 $inserted = $Model_FollowupsRef->insertBulk($params['doc_list'], $fid, 'ffid');
                 $message = "$inserted Dokumente wurden zugeordnet.";     
+                $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($params['snippet_list']) && !empty($params['insert_snippets'])) {
                 
                 $inserted = $Model_FollowupsRef->insertBulk($params['snippet_list'], $fid, 'fid');
                 $message = "$inserted Snippets wurden zugeordnet.";
+                $this->_flashMessenger->addMessage($message, 'success');
             }
             
-            $this->_flashMessenger->addMessage($message, 'success');
            
         }
         
         $related = $Model_Followups->getRelated($fid);
         $followup = $Model_Followups->getById($fid);
-      
+        
         if (empty($question)) {
            // get first question of this consultation
            $questionRow = $Model_Questions->getByConsultation($kid)->current();
            $question = $Model_Questions->getById($questionRow->qi);
+        }
+        if (empty($chosenDoc)) {
+           // get first question of this consultation
+           $followupFile = $Model_FollowupFiles->getByKid($kid,'when DESC',NULL, $followup['ffid']);
+           $chosenDoc = $followupFile[0]['ffid'];
+
         }
        // Zend_Debug::dump($question);
         $this->view->assign(array(
@@ -514,8 +528,46 @@ class Admin_FollowupController extends Zend_Controller_Action {
           'related' => $related,
           'snippets' => $snippets,
           'docs' => $docs,
-          'question' => $question
+          'question' => $question,
+          'chosenDoc' => $chosenDoc
         ));
+    }
+    
+    public function delReferenceAction () {
+        $kid = $this->getRequest()->getParam('kid', 0);
+        $fid_ref = $this->getRequest()->getParam('fid_ref', 0);
+        $fid = $this->getRequest()->getParam('fid', 0);
+        $tid = $this->getRequest()->getParam('tid', 0);
+        $ffid = $this->getRequest()->getParam('ffid', 0);
+        
+        if ($fid > 0) {
+            
+            $reftype = 'fid';
+            $refkey = $fid;
+        }
+        if ($tid > 0) {
+            
+            $reftype = 'tid';
+            $refkey = $tid;
+        }
+        if ($ffid > 0) {
+            
+            $reftype = 'ffid';
+            $refkey = $ffid;
+        }
+        
+        
+       $Model_FollowupsRef = new Model_FollowupsRef();
+       $Model_FollowupsRef->deleteRef($fid_ref, $reftype, $refkey);
+       
+         
+        $this->_redirect($this->view->url(array(
+                'module' => 'admin',
+                'controller' => 'followup',
+                'action' => 'reference',
+                'kid' => $kid,
+                'fid' => $fid_ref
+              ),null,true));
     }
 }
 

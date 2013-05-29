@@ -114,6 +114,16 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract {
       return $result;
   }
   
+  public function deleteRef ($fid_ref, $reftype, $refid ) {
+      
+      $db = $this->getDefaultAdapter();
+      $where = $db->quoteInto('fid_ref = ?', $fid_ref).' AND '. $db->quoteInto($reftype.' = ?', $refid);         
+      $this->delete($where);
+      
+      
+      
+  }
+  
   
   
   

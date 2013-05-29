@@ -213,8 +213,8 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         }    
 
         // where
-        $followup = $this->find($fid)->current();
-        $result = $followup->delete();
+        $snippet = $this->find($fid)->current();
+        $result = $snippet->delete();
        /* $where = $this->getDefaultAdapter()
             ->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);*/
@@ -242,23 +242,23 @@ class Model_Followups extends Zend_Db_Table_Abstract {
             return 0;
           }
           
-          $followup = $this->find($fid)->current();
-          $count = $followup[$field];
+          $snippet = $this->find($fid)->current();
+          $count = $snippet[$field];
 
-          $followupSupports = new Model_FollowupsSupports;
-          $isLiked = $followupSupports->find($fid, $tmphash)->current();
+          $Model_FollowupsSupports = new Model_FollowupsSupports;
+          $isLiked = $Model_FollowupsSupports->find($fid, $tmphash)->current();
 
           if (!$isLiked ) {
 
-                  $followupSupportsRow = $followupSupports->createRow();
+                  $followupSupportsRow = $Model_FollowupsSupports->createRow();
                   $followupSupportsRow->fid = $fid;
                   $followupSupportsRow->tmphash = $tmphash;
                   $followupSupportsRow->save();
 
-                  $followup = $this->find($fid)->current();
-                  $count = $followup[$field] + 1;
-                  $followup[$field] = $count;
-                  $followup->save();                
+                  $snippet = $this->find($fid)->current();
+                  $count = $snippet[$field] + 1;
+                  $snippet[$field] = $count;
+                  $snippet->save();                
           };
 
           return (int)$count;

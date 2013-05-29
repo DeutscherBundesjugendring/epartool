@@ -12,7 +12,7 @@
 <p><?php echo $this->followup['expl'] ?></p>
 
 <h3>Zugewiesene Beiträge (Gesamt: <?php echo count($this->related['inputs']); ?>)</h3>
-<form id="qDropdownForm" action="" method="POST"> 
+Frage wählen: <form style="display:inline;" id="qDropdownForm" action="" method="POST"> 
     <?php 
         if ($this->question){
             echo $this->QuestionDropdown( $this->question['qi'], 'question');    
@@ -25,22 +25,26 @@
 <table style="width: 100%">
     <tbody>
         <tr>
+          
             <th style="width: 55%">These</th>
             <th style="text-align: right;">Aktionen</th>
         </tr>
         <?php foreach ($this->related['inputs'] as $input): ?>
             <?php if($input['qi'] == $this->question["qi"]): ?>
             <?php $inptids[] = $input['tid']; ?>
-                <tr>                
+                <tr>    
+   
                     <td><?php echo substr(strip_tags(html_entity_decode($input['thes'])), 0, 400).'...'; ?></td>
 
                     <td style="text-align: right;">
                         <a href="<?php echo $this->url(array(
-                                'action' => 'delete-reference',
-                                'kid' => $this->consultation['kid'],
-                                'fid_ref' => $this->followup['fid'],
-                                'tid' => $input['tid']  
-                                ));?>">Diese Referenz entfernen</a>
+                            'module' => 'admin',
+                            'controller' => 'followup',
+                            'action' => 'del-reference',
+                            'kid' => $this->consultation['kid'],
+                            'fid_ref' => $this->followup['fid'],
+                            'tid' => $input['tid'] 
+                            ),null,true);?>">Diese Referenz entfernen</a>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -48,10 +52,13 @@
     </tbody>
 </table>
 <?php endif; ?>
-<h3>Beiträge zuweisen: </h3>
+
+<hr />
+<a class="toggleBox" href="#" data-box="chooseInput">Beiträge zuweisen</a>
+<div id="chooseInput" style="display:none;">
 <?php if ($this->question): ?>
 <form id="iChooseForm" action="" method="POST">
-    <div style="height:200px;overflow-y: scroll;">
+    <div>
         <table style="width: 100%">
             <tbody>
                 <tr>
@@ -71,14 +78,26 @@
             </tbody>
         </table>
     </div>
+    <input type="hidden" name="question" value="<?php echo $this->question['qi']; ?>" />
     <input type="submit" name="insert_inputs" value="Beiträge zuordnen" />
 </form>
 
 <?php endif; ?>
+</div>
+
 
 <br /><br />
 
 <h3>Zugewiesene Follow-up-Snippets (<?php echo count($this->related['snippets']); ?>)</h3>
+Dokument wählen: <form style="display:inline;" id="dDropdownForm" action="" method="POST"> 
+    <?php 
+        if ($this->chosenDoc){
+            echo $this->FollowupFlsDropdown( $this->chosenDoc, 'chosenDoc', $this->followup['ffid']);    
+        } else {
+            echo $this->FollowupFlsDropdown( NULL, 'chosenDoc', $this->followup['ffid']); 
+        }
+    ?>
+</form>
 <?php if(count($this->related['snippets']) > 0): ?>
 <table style="width: 100%">
     <tbody>
@@ -87,26 +106,33 @@
             <th style="text-align: right;">Aktionen</th>
         </tr>
         <?php foreach ($this->related['snippets'] as $snippet): ?>
+        <?php if($snippet['ffid'] == $this->chosenDoc): ?>
          <?php $snippetids[] = $snippet['fid']; ?>
             <tr>                
                 <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...'; ?></td>
                 
                 <td style="text-align: right;">
                     <a href="<?php echo $this->url(array(
-                            'action' => 'delete-reference',
+                            'module' => 'admin',
+                            'controller' => 'followup',
+                            'action' => 'del-reference',
                             'kid' => $this->consultation['kid'],
                             'fid_ref' => $this->followup['fid'],
                             'fid' => $snippet['fid']  
-                            ));?>">Diese Referenz entfernen</a>
+                            ),null,true);?>">Diese Referenz entfernen</a>
                 </td>
             </tr>
+            <?php endif; ?>
         <?php endforeach; ?>        
     </tbody>
 </table>
 <?php endif; ?>
-<h3>Follow-up-Snippets zuweisen: </h3>
+
+<hr />
+<a class="toggleBox" href="#" data-box="chooseSnippet">Follow-up-Snippets zuweisen</a>
+<div id="chooseSnippet" style="display:none;">
 <form id="snChooseForm" action="" method="POST">
-    <div style="height:200px;overflow-y: scroll;">
+    <div>
         <table style="width: 100%">
             <tbody>
                 <tr>
@@ -114,7 +140,7 @@
                     <th>Erläuterung</th>
                 </tr>
                 <?php foreach ($this->snippets as $snippet): ?>
-                    <?php if(!in_array($snippet['fid'], $snippetids) && $snippet['ffid'] != $this->followup['ffid']): ?>
+                    <?php if(!in_array($snippet['fid'], $snippetids) && $snippet['ffid'] == $this->chosenDoc): ?>
                         <tr>
                             <td>
                                 <input type="checkbox" name="snippet_list[]" value="<?php echo $snippet['fid'] ?>">
@@ -128,10 +154,10 @@
     </div>
     <input type="submit" name="insert_snippets" value="Snippets zuordnen" />
 </form>
+</div>
 
 
 <br /><br />
-
 <h3>Zugewiesene Follow-up-Dokumente (<?php echo count($this->related['docs']); ?>)</h3>
 <?php if(count($this->related['docs']) > 0): ?>
 <table style="width: 100%">
@@ -147,21 +173,27 @@
                 
                 <td style="text-align: right;">
                     <a href="<?php echo $this->url(array(
-                            'action' => 'delete-reference',
+                            'module' => 'admin',
+                            'controller' => 'followup',
+                            'action' => 'del-reference',
                             'kid' => $this->consultation['kid'],
                             'fid_ref' => $this->followup['fid'],
                             'ffid' => $doc['ffid']  
-                            ));?>">Diese Referenz entfernen</a>
+                            ),null,true);?>">Diese Referenz entfernen</a>
                 </td>
             </tr>
         <?php endforeach; ?>        
     </tbody>
 </table>
 <?php endif; ?>
+
+
+<hr />
 <?php if(count($docids) != count($this->docs)-1): ?>
-<h3>Follow-up-Dokumente zuweisen: </h3>
+<a class="toggleBox" href="#" data-box="chooseDoc">Follow-up-Dokumente zuweisen</a>
+<div id="chooseDoc" style="display:none;">
 <form id="flsChooseForm" action="" method="POST">
-    <div style="">
+    <div>
         <table style="width: 100%">
             <tbody>
                 <tr>
@@ -183,14 +215,24 @@
     </div>
     <input type="submit" name="insert_docs" value="Dokumente zuordnen" />
 </form>
+</div>
 <?php endif; ?>
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
-        
+       jQuery(".toggleBox").on("click",function(){
+           
+         var id = $(this).attr('data-box');
+         $("#"+id).toggle();
+         return false;
+       });
        jQuery("#qDropdownForm select").on("change",function(){
            
            jQuery("#qDropdownForm").submit();
+       }) 
+       jQuery("#dDropdownForm select").on("change",function(){
+           
+           jQuery("#dDropdownForm").submit();
        }) 
         
     });

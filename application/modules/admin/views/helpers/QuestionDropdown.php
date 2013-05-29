@@ -15,7 +15,7 @@ class Zend_View_Helper_QuestionDropdown extends Zend_View_Helper_Abstract {
     $name = $name ? 'name="'.$name.'"' : '';
     
     $html = '<select '.$name.'>';
-    $html.= '<option>Frage wählen ...</option>';
+   
     
     foreach ($items as $item) {
      

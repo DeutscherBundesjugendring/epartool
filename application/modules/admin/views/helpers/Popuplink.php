@@ -6,7 +6,7 @@
  */
 class Admin_View_Helper_Popuplink extends Zend_View_Helper_Abstract {
   
-  public function Popuplink( $url , $title = 'Neues Fenster', $width = 200, $height = 200, $text = 'Fenster öffnen' ) {
+  public function Popuplink( $url , $title = 'Neues Fenster', $width = 200, $height = 200, $text = 'Fenster öffnen' , $linktitle='Popup öffnen') {
    
      //if (!$urlarray) return   
      
@@ -16,7 +16,7 @@ class Admin_View_Helper_Popuplink extends Zend_View_Helper_Abstract {
     
     $onclick = "window.open('$url','$title','width=$width,height=$height, scrollbars=yes');return false;";  
       
-    $html = '<a href="#" onclick="'.$onclick.'">'.$text.'</a>';
+    $html = '<a href="#" title="'.$linktitle.'" onclick="'.$onclick.'">'.$text.'</a>';
    
     return $html;
   }
