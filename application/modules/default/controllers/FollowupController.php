@@ -180,7 +180,8 @@ class FollowupController extends Zend_Controller_Action
             $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($snippets as $key => $snippet) {
-                $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
+                $snippets[$key]['expl'] = html_entity_decode($snippets[$key]['expl']);
+                $snippets[$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
             }
             $data['byinput']['snippets'] = $snippets;
 
@@ -201,6 +202,7 @@ class FollowupController extends Zend_Controller_Action
             $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($related['snippets'] as $key => $snippet) {
+                $related['snippets'][$key]['expl'] = html_entity_decode($related['snippets'][$key]['expl']);
                 $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
             }
 
@@ -214,6 +216,10 @@ class FollowupController extends Zend_Controller_Action
 
             $Model_FollowupFiles = new Model_FollowupFiles();
             $data['doc'] = $Model_FollowupFiles->getById($ffid);
+            foreach ($data['doc']['fowups'] as $key => $snippet) {
+                
+                $data['doc']['fowups'][$key]['expl'] = html_entity_decode($snippet['expl']);
+            }
             $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
 
         }
@@ -238,11 +244,9 @@ class FollowupController extends Zend_Controller_Action
 
         $followups = new Model_Followups();
         $result = $followups->supportById($fid, 'lkyea');
-        if ($result == 0) {
-            $data = array('error' => 'Follow-up ID nicht korrekt.');
-        } else {
-            $data = array('lkyea' => $result);
-        }
+        
+        $data = array('lkyea' => $result);
+        
         $this->_helper->json->sendJson($data);
 
     }
@@ -262,11 +266,8 @@ class FollowupController extends Zend_Controller_Action
 
         $followups = new Model_Followups();
         $result = $followups->supportById($fid, 'lknay');
-        if ($result == 0) {
-            $data = array('error' => 'Follow-up ID nicht korrekt.(unlike Action)');
-        } else {
-            $data = array('lknay' => $result);
-        }
+        $data = array('lknay' => $result);
+        
         $this->_helper->json->sendJson($data);
 
     }

@@ -24,7 +24,7 @@
 
     function FollowUp(kid) {
 
-        console.log(kid)
+    //    console.log(kid)
 
         var _instance = this;
         var _colWidth;
@@ -35,7 +35,7 @@
         _init();
 
         function _init() {
-            console.log('followUp')
+          //  console.log('followUp')
             _setVerticalAlign()
             _initEventListener()
 
@@ -71,7 +71,7 @@
             })
 
             $('a.voting').live('click', function (el) {
-                console.log('voting click')
+              //  console.log('voting click')
                 el.preventDefault()
                 el.stopPropagation()
                 var _thisEl = $(this);
@@ -88,14 +88,14 @@
             })
 
             $('.openoverlay').live('click', function () {
-                console.log('content click')
+              //  console.log('content click')
                 var _request = $(this).data('href');
                 var _highlightElement = $(this).data('elementid')
                 var _obj = {'request': _request}
 
                 _getAjaxData(_obj, function (data, status, obj) {
 
-                    console.log(data)
+              //      console.log(data)
                     _addOverlay(data, _highlightElement)
                 })
             })
@@ -149,9 +149,9 @@
             var _colId = obj.colid;
             var _statusCode = statuscode;
             if (_statusCode === 200) {
-                console.log(_jsonData)
+            //    console.log(_jsonData)
                 $('#followup .wrapper').children('.col').each(function (index, element) {
-                    console.log(index)
+                 //   console.log(index)
                     if (index == _colId) {
                         var _newCol = '<div class="col" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>'
 
@@ -188,7 +188,7 @@
          */
         function _buildNewCol(data) {
 
-            console.log(data)
+           // console.log(data)
             var _html = "";
 
             var _link = "";
@@ -208,7 +208,7 @@
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.byinput.snippets[i].ffid;
 
-                    _link = '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">xx</a>';
+                    _link = '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">'+data.byinput.snippets[i]['relFowupCount']+'</a>';
 
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.byinput.snippets[i].fid + '">' +
                         ' <div class="content">' +
@@ -229,8 +229,8 @@
 
                 for (var i in data.refs.docs) {
                     //followup/json/kid/8/fid/1
-                    console.log('docs')
-                    console.log(data)
+                   // console.log('docs')
+                   // console.log(data)
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
                         _when = '<p>' + data.refs.docs[i].when + '</p>'
@@ -276,7 +276,7 @@
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.refs.snippets[i].fid + '">' +
                         ' <div class="content">' +
 
-                        '     <p class="">' + data.refs.snippets[i].expl + '</p>' +
+                        '     ' + data.refs.snippets[i].expl + '' +
                         _likeYes +
                         _likeNo +
                         ' </div>' +
@@ -284,6 +284,7 @@
                         _link +
 
                         '</div>';
+                        
 
                 }
 
@@ -296,7 +297,7 @@
             var _snippets = '';
 
             var _id = id;
-            console.log(_id)
+          //  console.log(_id)
 
             var _activeSnippetClass = '';
             var _activeDocClass = '';

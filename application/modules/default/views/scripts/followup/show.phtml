@@ -27,10 +27,8 @@ $locale = new Zend_Locale();
 
             <div class="wrapper">
                 <div class="col">
-
                     <div class="timeline-box">
                         <h3>1. Box Text Headline</h3>
-
                         <div class="content">
                             <p><?php echo $this->input['thes']; ?></p>
                             <?php if (!empty($this->input['expl'])): ?>
@@ -38,23 +36,25 @@ $locale = new Zend_Locale();
                                 <div class="toggleexpl">
                                     <p><?php echo $this->input['expl']; ?></p>
                                 </div>
+                                
+                            <?php endif; ?>
+                            <?php if ($this->input['vot'] == 'y'): ?>
+                                <p class="score">Ergebnis der Abstimmung: X. Rang</p>
                             <?php endif; ?>
                         </div>
-                        <?php if ($this->input['vot'] == 'y'): ?>
+                        <?php if ($this->input['vot'] == 'y' && $this->input['relFowupCount'] > 0): ?>
                             <div class="timeline-countlink sprite">
                                 <a class="ajaxclick reset"
-                                   href="<?php echo $this->url(array('action' => 'json', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo $this->input['relFowupCount']; ?></a>
+                                   href="<?php echo $this->url(array('action' => 'json', 'tid' => $this->input['tid'], 'page' => null)) ?>"><?php echo $this->input['relFowupCount']; ?></a>
                             </div>
                         <?php endif; ?>
-                        <?php if ($this->input['vot'] != 'y'): ?>
+                        <?php if ($this->input['vot'] != 'y' && $this->input['relFowupCount'] > 0): ?>
                             <div class="timeline-countlink sprite">
                                 <a class="ajaxclick reset"
                                    href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo count($this->relInput); ?></a>
                                 <!--<p><?php echo count($this->relInput); ?></p>-->
                             </div>
                         <?php endif; ?>
-
-
                     </div>
                 </div>
 
