@@ -231,9 +231,10 @@
                     //followup/json/kid/8/fid/1
                    // console.log('docs')
                    // console.log(data)
+                    var whendate = data.refs.docs[i].show_no_day == 'y' ? _dateConverter(data.refs.docs[i].when, 'my') :_dateConverter(data.refs.docs[i].when, 'dmy');
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
-                        _when = '<p>' + data.refs.docs[i].when + '</p>'
+                        _when = '<p>' + whendate + '</p>'
 
                     } else {
                         _overlayLink = '';
@@ -339,14 +340,14 @@
              *
              */
 
-
+            var when = data.doc.show_no_day == 'y' ? _dateConverter(data.doc.when, 'my') :_dateConverter(data.doc.when, 'dmy');
             var _content = '<div class="overlayclose overlayclosebutton"></div><div class="overlaycontent">' +
 
                 '<div class="">' +
                 '<h1>' + data.doc.titl + '</h1>' +
                 '<div class="docs ' + _activeDocClass + '">' +
                 '<p>' + data.doc.who + '</p>' +
-                '<p>' + _dateConverter(data.doc.when, 'dmy') + '</p>' +
+                '<p>' + when + '</p>' +
                 '<a class="" target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '">' + data.doc.ref_doc + '</a>' +
 
                 '</div>' +
@@ -437,6 +438,9 @@
             switch (format) {
                 case "dmy":
                     return day + '. ' + month + ' ' + year;
+                    break;
+                case "my":
+                    return month + ' ' + year;
                     break;
                 case "dm":
                     var jetzt = new Date();

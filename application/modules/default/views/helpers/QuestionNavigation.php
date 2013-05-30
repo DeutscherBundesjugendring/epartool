@@ -17,6 +17,12 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract {
       case 'voting':
         $urlParams = array();
         break;
+      case 'followup':
+        $urlParams = array(
+          'action' => 'by-question',
+          'page' => null,
+        );
+        break;
       case 'question':
       case 'input':
       default:
@@ -30,7 +36,7 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract {
     $items = $questionModel->getByConsultation($con->kid);
     
     $navclass = $for == 'follow-up' ? 'level4-navigation' : 'tertiary-navigation';
-    $action = $for == 'follow-up' ? 'by-question' : 'show';
+    
     
     $html = '<nav role="navigation" class="'.$navclass.'">';
     $html.= '<ul class="nav nav-list">';

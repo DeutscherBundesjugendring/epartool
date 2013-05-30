@@ -27,7 +27,7 @@ $locale = new Zend_Locale();
 		besondere Rolle spielen dabei außerschulisch organisierte
 		Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
             
-            <div class="box">
+            <div class="box thumbnail">
                  <h2>Bisherige Reaktionen im Überblick</h2>
                 <ul>
                     <?php foreach ($this->latest_followups as $followup): ?>
@@ -39,10 +39,10 @@ $locale = new Zend_Locale();
                     <?php endforeach;?>                    
                 </ul>
             </div>
-            <div class="box">
+            <div class="box thumbnail">
                 <h2>Reaktionen und Feedback auf einzelne Beiträge</h2>
                 <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
-                <?php echo $this->questionNavigation( NULL, 'follow-up', TRUE);?>
+                <?php echo $this->questionNavigation( NULL, 'follow-up');?>
                 <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>">Sortiert nach Schlagwörtern</a>
             </div>
         </section>

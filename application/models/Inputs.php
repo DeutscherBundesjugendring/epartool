@@ -896,4 +896,67 @@ class Model_Inputs extends Model_DbjrBase {
     return true;
     
   }
+  
+  /**
+  * getRelatedWithVotesById
+  * get the referenced theses with vot = y
+  * @param int $id
+  * @return array 
+  */
+  public function getRelatedWithVotesById( $id ) {
+      
+       $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($id)) {
+            return array();
+        }
+      
+      $select = $this->select();
+      $select ->where("rel_tid LIKE '%$id%'");
+      $select ->where("`vot` LIKE 'y'");      
+      
+      $result = $this->fetchAll($select)->toArray();
+      
+      return $result;
+      
+      
+  }
+  
+  
+  
+  /**
+  * getFollowups
+  * get the followups by a given tid
+  * @param int $id
+  * @param string $where
+  * @return array 
+  */
+  public function getFollowups ($id, $where = null) {
+      
+       $validator = new Zend_Validate_Int();
+       if (!$validator->isValid($id)) {
+            return array();
+       }
+        
+       $depTable = new Model_FollowupsRef();    
+       $depTableSelect = $depTable->select();
+       if ($where) {            
+            $depTableSelect->where($where);
+       }
+       $result = array();
+       $row = $this->find($id)->current(); 
+       if($row){
+            
+            $Model_Followups = new Model_Followups();
+            $rowset = $row->findDependentRowset($depTable, 'Inputs', $depTableSelect );
+            $refs = $rowset->toArray();
+            $fids = array();
+            foreach ($refs as $ref) {
+                $fids[] = $ref['fid_ref'];
+            }
+            $result = $Model_Followups->getByIdArray($fids);
+        }
+
+        return $result; 
+      
+  }
 }

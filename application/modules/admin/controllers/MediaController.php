@@ -174,7 +174,7 @@ class Admin_MediaController extends Zend_Controller_Action {
     $this->_helper->layout->setLayout('popup');
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
-    $directory = realpath(APPLICATION_PATH . '/../public/media');
+    $directory = realpath(APPLICATION_PATH . '/../media');
     $dir_ws = $this->view->baseUrl() . '/media';
     if ($kid > 0) {
       $consultationModel = new Model_Consultations();

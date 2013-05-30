@@ -205,6 +205,9 @@ class FollowupController extends Zend_Controller_Action
                 $related['snippets'][$key]['expl'] = html_entity_decode($related['snippets'][$key]['expl']);
                 $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
             }
+            foreach ($related['docs'] as $key => $doc) {
+                $related['docs'][$key]['when'] = strtotime($related['docs'][$key]['when']);
+            }
 
             $data['refs']['snippets'] = $related['snippets'];
             $data['refs']['docs'] = $related['docs'];
@@ -225,7 +228,6 @@ class FollowupController extends Zend_Controller_Action
         }
         $response = $this->getResponse();
         $response->setHeader('Content-type', 'application/json', true);
-        //$this->setHeader('Content-type', 'application/json', true);
         $this->_helper->json->sendJson($data);
     }
 
