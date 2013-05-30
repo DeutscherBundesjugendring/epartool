@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of popuplink
+ * @description adds a Popuplink to Formelement
  *
  * @author Marco Dinnbier
  */
