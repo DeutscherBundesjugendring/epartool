@@ -48,7 +48,7 @@ $locale = new Zend_Locale();
                                    href="<?php echo $this->url(array('action' => 'json', 'tid' => $this->input['tid'], 'page' => null)) ?>"><?php echo $this->input['relFowupCount']; ?></a>
                             </div>
                         <?php endif; ?>
-                        <?php if ($this->input['vot'] != 'y' && $this->input['relFowupCount'] > 0): ?>
+                        <?php if ($this->input['vot'] != 'y' && count($this->relInput) > 0): ?>
                             <div class="timeline-countlink sprite">
                                 <a class="ajaxclick reset"
                                    href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo count($this->relInput); ?></a>
