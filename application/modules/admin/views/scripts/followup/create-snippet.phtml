@@ -1,0 +1,15 @@
+<?php
+/**
+ *  create-snippet.phtml
+ * 
+ *  @description   
+ *  @author             Marco Dinnbier
+ */
+?>
+<h1><?php echo $this->consultation['titl']; ?></h1>
+<?php echo $this->consultationNavigation('Follow-up'); ?>
+<h2>Follow-up Snippet erstellen</h2>
+<?php echo $this->form;?>
+<script>
+    CKEDITOR.replace( 'expl' );   
+</script>

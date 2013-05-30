@@ -1,6 +1,6 @@
 <h2>Uups</h2>
 <p><?php echo $this->message; ?></p>
-<?php if ('development' == $this->environment) : ?>
+<?php if ('development' == $this->environment || 'development2' == $this->environment) : ?>
 <h3>Ausnahme:</h3>
 <p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
 <h3>Stack trace:</h3>

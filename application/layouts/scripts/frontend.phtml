@@ -100,20 +100,21 @@ $sysconfig = Zend_Registry::get('systemconfig');
 <?php echo $this->render('_footer.phtml')?>
 
 <?php
-//echo '<!-- Debug-Info -->';
-//echo '<pre>';
-//$request = Zend_Controller_Front::getInstance()->getRequest();
-//echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
-//echo ('Application environment: ' . APPLICATION_ENV . '<br />');
-//echo ('Module: ' . $request->getModuleName() . '<br />');
-//echo ('Controller: ' . $request->getControllerName() . '<br />');
-//echo ('Action: ' . $request->getActionName() . '<br />');
-//echo '</pre>';
+echo '<!-- Debug-Info -->';
+echo '<pre>';
+$request = Zend_Controller_Front::getInstance()->getRequest();
+echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
+echo ('Application environment: ' . APPLICATION_ENV . '<br />');
+echo ('Module: ' . $request->getModuleName() . '<br />');
+echo ('Controller: ' . $request->getControllerName() . '<br />');
+echo ('Action: ' . $request->getActionName() . '<br />');
+echo '</pre>';
 ?>
 
 <!-- Scripts -->
 <script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap?>"></script>
 <script src="<?php echo $this->baseUrl() . $config->path->js->main?>"></script>
+<script src="<?php echo $this->baseUrl() . $config->path->js->followUp?>"></script>
 
 	</body>
 </html>

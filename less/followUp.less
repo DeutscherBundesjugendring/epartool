@@ -1,0 +1,172 @@
+@import 'variables.less';
+
+#followup {
+  position: relative;
+  width: 895px;
+  height: 515px;
+  padding: 1em 1em;
+  border: 10px solid #fff;
+  background: @orange;
+  overflow: hidden;
+
+  .wrapper {
+    position: relative;
+    overflow-x: scroll;
+    width: 100%;
+    height: 100%;
+  }
+  .sprite {
+    background: url("../images/followup-sprite.png") 0 0 no-repeat;
+  }
+
+  .followuphead {
+    height: 70px;
+    position: relative;
+  }
+  .followup-topic {
+    color: @white;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    left: 230px;
+
+  }
+  .question-mark {
+    background-position: 0 0;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    float: left;
+    p {
+      padding: 10px 17px;
+      display: block;
+    }
+  }
+  .question-h3 {
+    font-size: 0.9em;
+    width: 215px;
+  }
+
+  .col {
+    position: absolute;
+    width: 280px;
+    /*float: left;*/
+
+    .timeline-box {
+      width: 280px;
+      position: relative;
+      margin: 0 0 10px 0;
+      h3 {
+        font-size: 0.9em;
+        color: @white;
+      }
+      .content {
+        background-color: @white;
+        border: 7px solid #e9e9e9;
+        width: 200px;
+        padding: 7px;
+        p {
+          line-height: 1.2em;
+        }
+        .explbutton{
+          cursor: pointer;
+          background-color: grey;
+        }
+        .toggleexpl{
+          display:none;
+        }
+        .refimg {
+
+        }
+
+        .score {
+          color: @orange;
+        }
+        .voting{
+
+        }
+      }
+
+      .timeline-countlink {
+        position: absolute;
+        top: 42%;
+        left: 235px;
+        width: 40px;
+        height: 40px;
+        background-position: -45px 0;
+        p, a {
+          padding: 10px 17px;
+          display: block;
+        }
+      }
+
+    }
+    .openoverlay .content{
+      cursor: pointer;
+    }
+    .openoverlay .content:hover {
+      background: @blue;
+      .refteaser, .voting {
+        color: @black;
+      }
+    }
+
+  }
+  .overlaywrapper {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+
+    .overlaycontent {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      margin-left: -400px;
+      width: 800px;
+      height: auto;
+      background: @white;
+
+      h1 {
+        margin: 20px;
+      }
+      .docs,.snippet{
+        margin: 0 20px;
+        border: 1px solid @orange;
+      }
+      .active{
+        background-color: @orange;
+      }
+    }
+    .overlayclosebutton {
+      position: absolute;
+      top: 8%;
+      left: 92%;
+      z-index: 1;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+    }
+    .overlayclose{
+      cursor: pointer;
+
+    }
+  }
+
+  #followuploader{
+    width:50px;
+    height:50px;
+    background-color: @white;
+    position: absolute;
+    z-index: 3;
+    top:50%;
+    left:50%;
+    margin-left:-25px;
+    text-align: center;
+    display: none;
+
+  }
+}

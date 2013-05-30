@@ -1,0 +1,99 @@
+<?php
+/**
+ * Question
+ *
+ * @description
+ * @author
+ */
+
+$date = new Zend_Date();
+$locale = new Zend_Locale();
+?>
+<!-- Secondary navigation -->
+
+<!-- .secondary-navigation -->
+
+<div class="content-holder">
+    <div class="row">
+        <section id="followup" class="main-content span">
+
+
+            <div class="followuphead">
+                <div class="sprite question-mark"><p>?</p></div>
+                <h3 class="question-h3"><?php echo $this->question['q']; ?></h3>
+
+                <p class="followup-topic">Reaktionen und Wirkungen!</p>
+            </div>
+
+            <div class="wrapper">
+                <div class="col">
+                    <div class="timeline-box">
+                        <h3>1. Box Text Headline</h3>
+                        <div class="content">
+                            <p><?php echo $this->input['thes']; ?></p>
+                            <?php if (!empty($this->input['expl'])): ?>
+                                <div class="explbutton">Show Expl</div>
+                                <div class="toggleexpl">
+                                    <p><?php echo $this->input['expl']; ?></p>
+                                </div>
+                                
+                            <?php endif; ?>
+                            <?php if ($this->input['vot'] == 'y'): ?>
+                                <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ($this->input['vot'] == 'y' && $this->input['relFowupCount'] > 0): ?>
+                            <div class="timeline-countlink sprite">
+                                <a class="ajaxclick reset"
+                                   href="<?php echo $this->url(array('action' => 'json', 'tid' => $this->input['tid'], 'page' => null)) ?>"><?php echo $this->input['relFowupCount']; ?></a>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($this->input['vot'] != 'y' && count($this->relInput) > 0): ?>
+                            <div class="timeline-countlink sprite">
+                                <a class="ajaxclick reset"
+                                   href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo count($this->relInput); ?></a>
+                                <!--<p><?php echo count($this->relInput); ?></p>-->
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <?php if ($this->input['vot'] != 'y'): ?>
+
+
+                    <div class="col">
+
+                        <?php foreach ($this->relInput as $relInput): ?>
+                            <div class="timeline-box">
+                                <div class="content">
+                                    <p><?php echo $relInput['thes']; ?></p>
+
+                                    <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                                </div>
+                                <?php if ($relInput['relFowupCount'] != 0): ?>
+                                    <div class="timeline-countlink sprite">
+                                        <a class="ajaxclick"
+                                           href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div id="followuploader">loading</div>
+        </section>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        /**
+         * instance of followup created
+         * @type {FollowUp}
+         */
+        var followUp = new FollowUp(<?php echo $this->input['kid']; ?>);
+
+
+    });
+
+</script>

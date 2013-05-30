@@ -169,5 +169,56 @@ class Admin_MediaController extends Zend_Controller_Action {
       'kid' =>$kid
     )), array('prependBase' => false));
   }
+  
+  public function chooseAction() {
+    $this->_helper->layout->setLayout('popup');
+    $kid = $this->getRequest()->getParam('kid', 0);
+    $consultation = null;
+    $directory = realpath(APPLICATION_PATH . '/../public/media');
+    $dir_ws = $this->view->baseUrl() . '/media';
+    if ($kid > 0) {
+      $consultationModel = new Model_Consultations();
+      $consultation = $consultationModel->find($kid)->current();
+      if ($consultation) {
+        $directory.= '/consultations/' . $kid;
+        $dir_ws.= '/consultations/' . $kid;
+        if (!is_dir($directory)) {
+          mkdir($directory);
+        }
+      }
+    } else {
+      $directory.= '/misc';
+      $dir_ws.= '/misc';
+    }
+    $files = scandir($directory);
+    $action = $this->view->url(array(
+      'action' => 'delete',
+      'kid' =>$kid
+    ));
+    $i = 0;
+    $aFileinfo = array();
+    if (!empty($files)) {
+      foreach ($files as $filename) {
+        if (is_file($directory . '/' . $filename)) {
+          $i++;
+          $aFileinfo[$filename] = pathinfo($directory . '/' . $filename);
+          $aFileinfo[$filename]['size'] = ceil(filesize($directory . '/' . $filename)/1024);
+          
+        }
+      }
+    }
+    $form = new Admin_Form_Media_Upload();
+    $form->setAction($this->view->url(array(
+      'action' => 'upload',
+      'kid' =>$kid
+    )));
+    $this->view->assign(array(
+      'kid' => $kid,
+      'consultation' => $consultation,
+      'directory' => $dir_ws,
+      'files' => $aFileinfo,
+      'form' => $form
+    ));
+  }
 }
 ?>

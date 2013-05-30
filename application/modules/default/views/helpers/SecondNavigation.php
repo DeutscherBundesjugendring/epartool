@@ -18,6 +18,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
       'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->follup_show == 'n'),
     );
+
     $items = array(
       'article' => array(
         'url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid,
@@ -36,8 +37,8 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
         'text' => '<h2>Abstimmung</h2>'
       ),
       'follow-up' => array(
-        'url' => '',
-        'text' => '<h2>Reaktionen &&nbsp;Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
+        'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
+        'text' => '<h2>Reaktionen & Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>'
       ),
     );
     if ($con->inp_show == 'y') {

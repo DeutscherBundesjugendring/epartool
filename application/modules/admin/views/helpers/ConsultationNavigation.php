@@ -51,6 +51,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'href' => $this->view->baseUrl() . '/admin/voting/results/kid/' . $kid
         ),
         array(
+          'label' => 'Follow-up',
+          'href' => $this->view->baseUrl() . '/admin/followup/index/kid/' . $kid
+        ),
+        array(
           'label' => 'Statistik',
           'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
         ),
