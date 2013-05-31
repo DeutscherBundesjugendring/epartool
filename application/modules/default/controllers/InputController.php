@@ -282,8 +282,8 @@ class InputController extends Zend_Controller_Action {
       // Nutzer nicht eingeloggt
       if (!empty($inputCollection->inputs)) {
         // Beiträge in Session vorhanden
-        $loginForm = new Default_Form_Login();
-        $this->view->loginForm = $loginForm;
+//         $loginForm = new Default_Form_Login();
+//         $this->view->loginForm = $loginForm;
         
         // wenn zum ersten Mal teilgenommen:
         $registerForm = new Default_Form_Register();
