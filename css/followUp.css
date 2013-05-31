@@ -114,7 +114,8 @@
   left: 50%;
   margin-left: -400px;
   width: 800px;
-  height: auto;
+  height: 450px;
+  overflow: scroll;
   background: #ffffff;
 }
 #followup .overlaywrapper .overlaycontent h1 {
