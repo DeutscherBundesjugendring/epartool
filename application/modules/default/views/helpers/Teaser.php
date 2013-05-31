@@ -73,7 +73,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
     $html.= '<li><a href="' . $this->view->url(array(
         'controller' => 'consultation'
       ), 'default', true) . '">'
-      . '<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Überischt ansehen …</strong>'
+      . '<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Übersicht ansehen …</strong>'
       . '<i class="icon-angle-right icon-white icon-2x"></i>'
       . '</a></li>';
 
