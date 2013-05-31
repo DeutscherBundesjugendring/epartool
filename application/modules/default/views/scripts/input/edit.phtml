@@ -1,16 +1,50 @@
 <?php
 /**
- * edit user inputs
+ * Input edit
+ *
+ * @description   Edit contribution
+ * @author
  */
 ?>
-<h2>Beitrag bearbeiten</h2>
-<?php if (isset($this->form)): ?>
-<?php echo $this->form; ?>
-<?php endif; ?>
-<?php if (isset($this->message)): ?>
-<p><?php echo $this->message; ?></p>
-<?php endif; ?>
-<p><a href="<?php echo $this->url(array(
-  'controller' => 'user',
-  'action' => 'inputlist'
-)); ?>">&laquo; Zurück</a></p>
+
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('input'); ?>
+<!-- .secondary-navigation -->
+
+<!-- Content start -->
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<!-- Tertiary navigation -->
+			<?php echo $this->questionNavigation($this->question['qi']);?>
+			<!-- .tertiary-navigation -->
+
+		</aside>
+		<section class="main-content span9">
+
+			<h1>Beitrag bearbeiten</h1>
+			<?php if (isset($this->form)): ?>
+			<?php echo $this->form; ?>
+			<?php endif; ?>
+			<?php if (isset($this->message)): ?>
+			<p><?php echo $this->message; ?></p>
+			<?php endif; ?>
+			<p><a href="<?php echo $this->url(array(
+			  'controller' => 'user',
+			  'action' => 'inputlist'
+			)); ?>">&laquo; Zurück</a></p>
+
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
+</div>

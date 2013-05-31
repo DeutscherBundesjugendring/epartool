@@ -1,8 +1,49 @@
-<p>Bitte fülle das Formular aus, um deine Beiträge für diese Konsultation zu bestätigen!</p>
-<p>Wenn Du als Vertreter einer Gruppe beitragen willst und die entsprechende
- E-Mail-Adresse ist bereits registriert, trage deine Daten bitte trotzdem in das
- Registrierungsformular ein! Die Mail zur Bestätigung der Beiträge wird dann an die hinterlegte Adresse gesendet.</p>
-<p>Wenn Du schon an früheren Konsultationen teilgenommen hast und für die aktuelle
- Konsultation abweichende Angaben zu Dir oder Eurer Gruppe übermitteln willst,
- fülle bitte die Angaben zu Person/Gruppe neu aus!</p>
-<?php echo $this->registerForm; ?>
+<?php
+/**
+ * Input confirm
+ *
+ * @description   Confirm contribution
+ * @author
+ */
+?>
+
+<!-- Secondary navigation -->
+<?php echo $this->secondNavigation('input'); ?>
+<!-- .secondary-navigation -->
+
+<!-- Content start -->
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<!-- Tertiary navigation -->
+			<?php echo $this->questionNavigation($this->question['qi']);?>
+			<!-- .tertiary-navigation -->
+
+		</aside>
+		<section class="main-content span9">
+
+			<h1>Beitrag beenden</h1>
+			<p class="alert alert-info"><i class="icon-info-sign"></i> Bitte fülle das Formular aus, um deine Beiträge für diese Konsultation zu bestätigen!</p>
+			<p>Wenn Du als Vertreter einer Gruppe beitragen willst und die entsprechende
+				E-Mail-Adresse ist bereits registriert, trage deine Daten bitte trotzdem in das
+				Registrierungsformular ein! Die Mail zur Bestätigung der Beiträge wird dann an die hinterlegte Adresse gesendet.</p>
+			<p>Wenn Du schon an früheren Konsultationen teilgenommen hast und für die aktuelle
+				Konsultation abweichende Angaben zu Dir oder Eurer Gruppe übermitteln willst,
+				fülle bitte die Angaben zu Person/Gruppe neu aus!</p>
+
+			<?php echo $this->registerForm; ?>
+
+			<!-- Print -->
+			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+		</section>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<!-- Content end -->
+
+<!-- Top link -->
+<div class="top-link">
+	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
+</div>
