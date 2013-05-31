@@ -11,14 +11,14 @@ echo $this->consultationNavigation('Beiträge');
   <a href="<?php echo $this->baseUrl(); ?>/admin/input/index/kid/<?php echo $this->consultation['kid'];
   ?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
   ?> class="active"<?php endif;?>>
-    <?php echo $question['q'];?>
+    <?php echo $question['nr'] . ' ' . $question['q'];?>
   </a>&emsp;
 <?php endforeach;?>
 </p>
 
 <?php if (!empty($this->question)): ?>
 
-<h2>Beitragsübersicht: <?php echo $this->question['q']; ?></h2>
+<h2>Beitragsübersicht: <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></h2>
 
 <?php if ($this->tag['tg_nr'] > 0): ?>
 <p>Es werden nur Beiträge mit dem Schlagwort „<?php echo $this->tag['tg_de']; ?>“ angezeigt.</p>

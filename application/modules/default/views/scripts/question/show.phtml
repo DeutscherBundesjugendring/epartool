@@ -17,25 +17,26 @@
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-<?php echo $this->questionNavigation($this->question['qi']);?>
+			<?php echo $this->questionNavigation($this->question['qi']);?>
 			<!-- .tertiary-navigation -->
 
 		</aside>
 		<section class="main-content span6">
+
 			<h3><?php echo $this->question['q']?></h3>
 			<p><?php echo $this->question['q_xpl']?></p>
-			<!-- Print -->
-			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+
+			<?php echo $this->render('_partials/printLink.phtml')?>
+
 		</section>
 		<aside class="span3">
+
 			<p><?php echo $this->question['vot_q']?></p>
+
 		</aside>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
 
 <!-- Content end -->
 
-<!-- Top link -->
-<div class="top-link">
-	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
-</div>
+<?php echo $this->render('_partials/topLink.phtml')?>

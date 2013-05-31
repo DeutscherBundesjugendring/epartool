@@ -15,7 +15,6 @@
     <div class="row">
         <section id="followup" class="main-content span">
 
-
             <div class="followuphead">
                 <div class="sprite question-mark"><p>?</p></div>
                 <h3 class="question-h3"><?php echo $this->question['q']; ?></h3>
@@ -34,7 +33,7 @@
                                 <div class="toggleexpl">
                                     <p><?php echo $this->input['expl']; ?></p>
                                 </div>
-                                
+
                             <?php endif; ?>
                             <?php if ($this->input['vot'] == 'y'): ?>
                                 <p class="score">Ergebnis der Abstimmung: X. Rang</p>
@@ -80,6 +79,7 @@
                 <?php endif; ?>
             </div>
             <div id="followuploader">loading</div>
+
         </section>
     </div>
 </div>

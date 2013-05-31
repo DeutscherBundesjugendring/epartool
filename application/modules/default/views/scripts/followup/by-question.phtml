@@ -1,7 +1,7 @@
 <?php
 /**
  *  byQuestion.phtml
- * 
+ *
  *  @description   show inputs by question
  *  @author        Marco Dinnbier
  */
@@ -15,14 +15,16 @@ $locale = new Zend_Locale();
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
+
             <?php echo $this->followupNavigation( 'by-question', $this->question['qi'])?>
-            
+
         </aside>
         <section class="main-content span8">
-           <p class="count"><?php echo $this->numberInputs; ?> Beiträge</p> 
+
+           <p class="count"><?php echo $this->numberInputs; ?> Beiträge</p>
            <h3><?php echo $this->question['q']; ?></h3>
            <p><?php echo $this->question['q_xpl']; ?></p>
-           
+
            <hr />
 
             <!-- Contributions -->
@@ -57,19 +59,17 @@ $locale = new Zend_Locale();
             <hr />
             <?php endforeach;?>
             <?php endif;?>
+
             <!-- Paging -->
             <?php
             echo $this->paginationControl($this->paginator,
                 'Jumping',
-                '_pagination.phtml',
+                '_partials/pagination.phtml',
                         array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
             ); ?>
 
-            <hr />
         </section>
     </div>
 </div>
-<!-- Top link -->
-<div class="top-link">
-	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
-</div>
+
+<?php echo $this->render('_partials/topLink.phtml')?>

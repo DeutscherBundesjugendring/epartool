@@ -23,7 +23,7 @@ $supportsDisabled = (
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-<?php echo $this->questionNavigation($this->question['qi']);?>
+			<?php echo $this->questionNavigation($this->question['qi']);?>
 			<!-- .tertiary-navigation -->
 
 		</aside>
@@ -35,7 +35,7 @@ $supportsDisabled = (
 			<?php endif; ?>
 			<small class="count muted"><?php echo $this->numberInputs; ?> Beiträge</small>
 
-			<h1><?php echo $this->question['q']; ?></h1>
+			<h1><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></h1>
 			<p><?php echo $this->question['q_xpl']; ?></p>
 
 			<!-- New contribution -->
@@ -78,25 +78,22 @@ $supportsDisabled = (
 			<!-- Paging -->
 			<?php
 			echo $this->paginationControl($this->paginator,
-		  'Jumping',
-		  '_pagination.phtml',
-			  array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
+				'Jumping',
+				'_partials/pagination.phtml',
+				array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
 			); ?>
 
 			<hr />
 
-			<!-- Print -->
-			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+			<?php echo $this->render('_partials/printLink.phtml')?>
+
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
 
 <!-- Content end -->
 
-<!-- Top link -->
-<div class="top-link">
-	<a href="#top" class="js-scroll"><i class="icon-angle-up icon-large"></i> nach oben</a>
-</div>
+<?php echo $this->render('_partials/topLink.phtml')?>
 
 <script type="text/javascript">
 $(document).ready(function() {
