@@ -19,17 +19,20 @@
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-<?php echo $this->articleNavigation($this->article['art_id'], 'info');?>
-			<!-- .tertiary-navigation -->
+			<?php echo $this->articleNavigation($this->article['art_id'], 'info');?>
 
 		</aside>
 		<section class="main-content span6">
-<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8');?>
-			<!-- Print -->
-			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+
+			<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8');?>
+
+			<?php echo $this->render('_partials/printLink.phtml')?>
+
 		</section>
 		<aside class="span3">
-<?php echo html_entity_decode($this->article['sidebar'], ENT_COMPAT, 'UTF-8');?>
+
+			<?php echo html_entity_decode($this->article['sidebar'], ENT_COMPAT, 'UTF-8');?>
+
 		</aside>
 	</div><!-- .row -->
 </div><!-- .content-holder -->

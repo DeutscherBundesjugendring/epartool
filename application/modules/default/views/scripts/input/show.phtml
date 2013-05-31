@@ -23,7 +23,7 @@ $supportsDisabled = (
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-<?php echo $this->questionNavigation($this->question['qi']);?>
+			<?php echo $this->questionNavigation($this->question['qi']);?>
 			<!-- .tertiary-navigation -->
 
 		</aside>
@@ -85,8 +85,8 @@ $supportsDisabled = (
 
 			<hr />
 
-			<!-- Print -->
-			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+			<?php echo $this->render('_partials/printLink.phtml')?>
+
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->

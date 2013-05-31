@@ -20,29 +20,34 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 
 <section class="main-content content-holder">
   <div class="row">
-		<div class="text-center span10 offset1">
-			<h1>Alle Fragen im Überblick</h1>
-			<p>&nbsp;</p>
-		</div>
-	</div>
-	<?php foreach ($this->questions as $question): ?>
-  <h3>
-  <?php if ($linkHeadlineToInputs): ?>
-  <a href="<?php echo $this->url(array(
-      'controller' => 'input',
-      'action' => 'show',
-      'kid' => $this->consultation->kid,
-      'qid' => $question['qi'])); ?>" title="Zum Beantworten hier klicken">
-  <?php endif; ?>
-  <?php echo (!empty($question['nr']) ? $question['nr'] . ' ' : '') . $question['q']?>
-  <?php if ($linkHeadlineToInputs): ?>
-  </a>
-  <?php endif; ?>
-  </h3>
-  <?php echo $question['q_xpl']?>
-  <?php endforeach; ?>
-  <!-- Print -->
-  <a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+	  <div class="text-center span10 offset1">
+
+		  <h1>Alle Fragen im Überblick</h1>
+
+	  </div>
+  </div>
+
+  <?php foreach ($this->questions as $question): ?>
+	  <h3>
+		  <?php if ($linkHeadlineToInputs): ?>
+			  <a href="<?php
+		echo $this->url(array(
+			'controller' => 'input',
+			'action' => 'show',
+			'kid' => $this->consultation->kid,
+			'qid' => $question['qi']));
+			  ?>" title="Zum Beantworten hier klicken">
+				 <?php endif; ?>
+		  <?php echo (!empty($question['nr']) ? $question['nr'] . ' ' : '') . $question['q'] ?>
+		  <?php if ($linkHeadlineToInputs): ?>
+			  </a>
+	  <?php endif; ?>
+	  </h3>
+	  <?php echo $question['q_xpl'] ?>
+	<?php endforeach; ?>
+
+	<?php echo $this->render('_partials/printLink.phtml')?>
+
 </section><!-- .content-holder -->
 
 <!-- Content end -->

@@ -15,6 +15,7 @@ $locale = new Zend_Locale();
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
+
             <?php echo $this->followupNavigation('overview')?>
 
         </aside>
@@ -45,6 +46,7 @@ $locale = new Zend_Locale();
                 <?php echo $this->questionNavigation( NULL, 'follow-up');?>
                 <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>">Sortiert nach Schlagwörtern</a>
             </div>
+			
         </section>
     </div>
 </div>

@@ -15,10 +15,12 @@ $locale = new Zend_Locale();
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
+
             <?php echo $this->followupNavigation( 'by-question', $this->question['qi'])?>
 
         </aside>
         <section class="main-content span8">
+
            <p class="count"><?php echo $this->numberInputs; ?> Beiträge</p>
            <h3><?php echo $this->question['q']; ?></h3>
            <p><?php echo $this->question['q_xpl']; ?></p>
@@ -57,6 +59,7 @@ $locale = new Zend_Locale();
             <hr />
             <?php endforeach;?>
             <?php endif;?>
+
             <!-- Paging -->
             <?php
             echo $this->paginationControl($this->paginator,
@@ -65,7 +68,6 @@ $locale = new Zend_Locale();
                         array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
             ); ?>
 
-            <hr />
         </section>
     </div>
 </div>

@@ -18,14 +18,16 @@
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-<?php echo $this->articleNavigation(null, 'info');?>
+			<?php echo $this->articleNavigation(null, 'info');?>
 			<!-- .tertiary-navigation -->
 
 		</aside>
 		<section class="main-content span6">
+
 			<?php echo html_entity_decode($this->consultation->expl, ENT_COMPAT, 'UTF-8'); ?>
-			<!-- Print -->
-			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+
+			<?php echo $this->render('_partials/printLink.phtml')?>
+
 		</section>
 		<aside class="span3">
 

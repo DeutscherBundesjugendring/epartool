@@ -82,8 +82,8 @@
 				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>" id="buttonChangeKeyword" name="button button-change">Frage / Schlagwort wechseln</a>
 			</p>
 
-			<!-- Print -->
-			<a href="javascript:print();" class="print">Seite drucken <i class="icon-print"></i></a>
+			<?php echo $this->render('_partials/printLink.phtml')?>
+
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
