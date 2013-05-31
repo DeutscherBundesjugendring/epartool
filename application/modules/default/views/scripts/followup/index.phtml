@@ -16,17 +16,17 @@ $locale = new Zend_Locale();
     <div class="row">
         <aside class="span3">
             <?php echo $this->followupNavigation('overview')?>
-            
+
         </aside>
         <section class="main-content span8">
-            
+
             <h1>Lorem ipsum Headline, die auch zweizeilig sein kann wenn denn nötig</h1>
             <p>Bildung findet nicht nur in der (Hoch-)Schule oder am Ausbildungsplatz
 		statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
 		man auch außerhalb des sogenannten formalen Bildungssystems. Eine
 		besondere Rolle spielen dabei außerschulisch organisierte
 		Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
-            
+
             <div class="box thumbnail">
                  <h2>Bisherige Reaktionen im Überblick</h2>
                 <ul>
@@ -36,7 +36,7 @@ $locale = new Zend_Locale();
                                                 <p><?php echo $followup['when']; ?><br /><?php echo $followup['who']; ?></p>
                                                 <a href="<?php echo $this->media_cnslt_dir.$followup['ref_doc']; ?>">Ansehen</a>
                                             </li>
-                    <?php endforeach;?>                    
+                    <?php endforeach;?>
                 </ul>
             </div>
             <div class="box thumbnail">
@@ -48,7 +48,5 @@ $locale = new Zend_Locale();
         </section>
     </div>
 </div>
-<!-- Top link -->
-<div class="top-link">
-	<a href="#top"><i class="icon-chevron-up"></i> nach oben</a>
-</div>
+
+<?php echo $this->render('_partials/topLink.phtml')?>
