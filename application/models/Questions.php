@@ -191,7 +191,7 @@ class Model_Questions extends Model_DbjrBase {
     }
     $rowset = $this->fetchAll($select);
     foreach ($rowset as $row) {
-      $options[$row->qi] = $row->q;
+      $options[$row->qi] = $row->nr . ' ' . $row->q;
     }
     return $options;
   }
