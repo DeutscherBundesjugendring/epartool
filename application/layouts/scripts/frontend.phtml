@@ -49,7 +49,7 @@ $sysconfig = Zend_Registry::get('systemconfig');
 	<!-- Header -->
   <?php
 //  echo $this->layout()->header
-  echo $this->partial('_header.phtml', $this->layout()->getView());
+  echo $this->partial('_partials/header.phtml', $this->layout()->getView());
   ?>
 
 		<hr class="hide" />
@@ -98,7 +98,7 @@ $sysconfig = Zend_Registry::get('systemconfig');
 <hr class="hide" />
 
 <!-- Footer -->
-<?php echo $this->render('_footer.phtml')?>
+<?php echo $this->render('_partials/footer.phtml')?>
 
 <?php
 /*
@@ -111,7 +111,7 @@ echo ('Module: ' . $request->getModuleName() . '<br />');
 echo ('Controller: ' . $request->getControllerName() . '<br />');
 echo ('Action: ' . $request->getActionName() . '<br />');
 echo '</pre>';
- 
+
  */
 ?>
 
