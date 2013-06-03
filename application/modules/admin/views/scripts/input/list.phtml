@@ -6,6 +6,7 @@ $date = new Zend_Date();
 echo $this->consultationNavigation('Beiträge');
 ?>
 
+<?php if (!empty($this->user)): ?>
 <table>
 	<tr>
 		<td class="tbl_lab">User</td>
@@ -15,7 +16,9 @@ echo $this->consultationNavigation('Beiträge');
 				<?php if (!empty($this->user['name'])):?>
 				<?php echo $this->user['name']; ?><br />
 				<?php endif;?>
+				<?php if (!empty($this->user['email'])):?>
 				<?php echo $this->user['email']; ?>
+				<?php endif;?>
 				</h2>
 			</a>
 		<td>
@@ -23,10 +26,15 @@ echo $this->consultationNavigation('Beiträge');
 	<tr>
 		<td class="tbl_lab">Letzte Aktivität</td>
 		<td class="tbl_det">
+		<?php if (!empty($this->user['last_act'])): ?>
 		<?php echo $date->set($this->user['last_act'])->get(Zend_Date::DATETIME_MEDIUM);?>
+		<?php endif; ?>
 		<td>
 	</tr>
 </table>
+<?php else: ?>
+<p class="info">Details zum Nutzer nicht verfügbar! Möglicherweise existiert kein Nutzerdatensatz mit der angegebenen uid.</p>
+<?php endif; ?>
 <form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl(); ?>/admin/input/editbulk" method="POST">
 <input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
 <?php foreach ($this->questions as $question): ?>

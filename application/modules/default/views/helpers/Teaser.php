@@ -46,7 +46,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
           break;
         case 'vot_to':
           $url = $this->view->url(array(
-            'controller' => 'voting',
+            'controller' => 'input',
             'action' => 'index',
             'kid' => $item['kid']
           ), 'default', true);
