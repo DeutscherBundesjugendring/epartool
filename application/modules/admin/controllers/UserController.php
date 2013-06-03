@@ -74,12 +74,13 @@ class Admin_UserController extends Zend_Controller_Action {
           $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
           // remove transfer if user has no input
           $countInputByUser = $inputModel->getCountByUser($uid);
+          $consultationModel = new Model_Consultations();
           if($countInputByUser<1) {
             $transerElement = $form->removeElement('transfer');
           }
           else {
             // generate selects for every consultation
-            $consultationModel = new Model_Consultations();
+            
             $consultations = $consultationModel->getByUserinputs($uid);
             foreach($consultations AS $consultation) {
               $form->addElement('select', 'transfer_'.$consultation["kid"],array(
@@ -113,21 +114,26 @@ class Admin_UserController extends Zend_Controller_Action {
               else {
                 $row = $userModel->find($uid)->current();
                 $row->setFromArray($form->getValues());
-                $userPasswort = $form->getValue('pwd');
+                $userPasswort = $form->getValue('newpassword');
                 if(!empty($userPasswort)) {
-                  $userRow->pwd = md5($userPasswort);
-                  $emailModel = new Model_Emails();
-                  $emailSuccess = $emailModel->send(
-                    $params['email'],
-                    'Passwort-Aktualisierung',
-                    'Ihr Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
-                    'pwdalter',
-                    array(
-                     '{{USER}}'=>$params['name'],
-                     '{{EMAIL}}'=>$params['email'],
-                     '{{PWD}}' =>$userPasswort
-                    )
-                  );
+                  $row->pwd = md5($userPasswort);
+                  // if send e-mail with new pwd to user
+                  $emailsend = $form->getValue('pwdsend');
+                  if($emailsend === '1') {
+                    $emailModel = new Model_Emails();
+                    $emailSuccess = $emailModel->send(
+                      $params['email'],
+                      'Passwort-Aktualisierung',
+                      'Ihr Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
+                      'pwdalter',
+                      array(
+                       '{{USER}}'=>$params['name'],
+                       '{{EMAIL}}'=>$params['email'],
+                       '{{PWD}}' =>$userPasswort
+                      )
+                    );
+                  }
+
                 }
                 $row->save();
                 
