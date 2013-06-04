@@ -22,7 +22,9 @@ class Default_Form_Register extends Zend_Form {
 //       ->setMessage('Ihr Kennwort ist zu kurz.', 'stringLengthTooShort');
       
     $group = $this->getElement('group_type');
-    $group->removeDecorator('Label');
+    $group->removeDecorator('Label')
+      // set default:
+      ->setValue('single');
     
     $systemconfig = Zend_Registry::get('systemconfig');
     $grp_siz_def = $systemconfig->group_size_def->toArray();
