@@ -65,6 +65,7 @@ class Admin_UserController extends Zend_Controller_Action {
   
   public function editAction() {
     $uid = $this->getRequest()->getParam('uid', 0);
+    $this->view->uid = $uid;
     if ($uid > 0) {
       $userModel = new Model_Users();
       $inputModel = new Model_Inputs();
@@ -74,6 +75,9 @@ class Admin_UserController extends Zend_Controller_Action {
           $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
           // remove transfer if user has no input
           $countInputByUser = $inputModel->getCountByUser($uid);
+          // JSU array of consultation which this user has joint
+          $this->view->inputsConsultation = $inputModel->getCountByUserGroupedConsultation($uid);
+          
           $consultationModel = new Model_Consultations();
           if($countInputByUser<1) {
             $transerElement = $form->removeElement('transfer');

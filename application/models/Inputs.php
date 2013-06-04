@@ -237,9 +237,33 @@ class Model_Inputs extends Model_DbjrBase {
     $select = $this->select()
       ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
       ->where('uid = ?', $uid);
-    
+
     $row = $this->fetchAll($select)->current();
     return $row->count;
+  }
+  
+  /**
+   * Returns array with count of input of a user filtered by consultation
+   *
+   * @param integer $uid
+   * @return integer
+   */
+  public function getCountByUserGroupedConsultation($uid) {
+    $return = array();
+    $db = $this->getDefaultAdapter();
+    $select = $db->select(
+      )
+    ->from('inpt as i', array(new Zend_Db_Expr('COUNT(i.tid) as count, i.kid')))
+    ->joinLeft('cnslt as c', 'i.kid=c.kid',array('titl'))
+    ->group('i.kid')
+    ->where('i.uid = ?', $uid);
+    $stmt = $db->query($select);
+    $row = $stmt->fetchAll();
+    foreach($row AS $curRow) {
+      $return[] = $curRow;
+    }
+    
+    return $return;
   }
   
   /**
@@ -901,7 +925,7 @@ class Model_Inputs extends Model_DbjrBase {
   * getRelatedWithVotesById
   * get the referenced theses with vot = y
   * @param int $id
-  * @return array 
+  * @return array
   */
   public function getRelatedWithVotesById( $id ) {
       
@@ -912,7 +936,7 @@ class Model_Inputs extends Model_DbjrBase {
       
       $select = $this->select();
       $select ->where("rel_tid LIKE '%$id%'");
-      $select ->where("`vot` LIKE 'y'");      
+      $select ->where("`vot` LIKE 'y'");
       
       $result = $this->fetchAll($select)->toArray();
       
@@ -928,7 +952,7 @@ class Model_Inputs extends Model_DbjrBase {
   * get the followups by a given tid
   * @param int $id
   * @param string $where
-  * @return array 
+  * @return array
   */
   public function getFollowups ($id, $where = null) {
       
@@ -937,13 +961,13 @@ class Model_Inputs extends Model_DbjrBase {
             return array();
        }
         
-       $depTable = new Model_FollowupsRef();    
+       $depTable = new Model_FollowupsRef();
        $depTableSelect = $depTable->select();
-       if ($where) {            
+       if ($where) {
             $depTableSelect->where($where);
        }
        $result = array();
-       $row = $this->find($id)->current(); 
+       $row = $this->find($id)->current();
        if($row){
             
             $Model_Followups = new Model_Followups();
@@ -956,7 +980,7 @@ class Model_Inputs extends Model_DbjrBase {
             $result = $Model_Followups->getByIdArray($fids);
         }
 
-        return $result; 
+        return $result;
       
   }
 }
