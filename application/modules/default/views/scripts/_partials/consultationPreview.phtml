@@ -25,7 +25,9 @@ if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
   }
   $bubbles['input'].= '</div>';
 }
-if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
+//if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
+// JSU show voting always after startdate
+if ($nowDate->isLater($con->vot_fr)) {
   $bubbles['voting'] = '<div class="bubble bubble-large">'
     . '<h3>Jetzt abstimmen!</h3>';
   if ($con->vot_show == 'y') {
