@@ -63,13 +63,22 @@ $supportsDisabled = (
 				<p><?php echo $input['expl']?></p>
 
 				<?php if ($this->consultation->spprt_show == 'y'): ?>
-				<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support<?php
-				  if (in_array($input['tid'], $supports->clicks) || $supportsDisabled):
-				  ?> disabled<?php endif;?>" rel="<?php echo $input['tid']; ?>">
-					<i class="icon-ok-sign"></i>
-					<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
-					<span class="label">Dieser Meinung bin ich auch!</span>
-				</a>
+				<div id="click-support-wrap-<?php echo $input['tid']; ?>">
+				<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+				  <span>
+				<?php else: ?>
+				  <a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
+				<?php endif;?>
+  					<i class="icon-ok-sign"></i>
+  					<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
+  			<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+  					<span class="label">Unterstützer</span>
+  				</span>
+  			<?php else: ?>
+  			    <span class="label">Dieser Meinung bin ich auch!</span>
+  				</a>
+  			<?php endif; ?>
+				</div>
 				<?php endif; ?>
 
 				<p class="actions">
@@ -108,18 +117,15 @@ $(document).ready(function() {
   $('.click-support').click(function(event) {
     event.preventDefault();
     var tid = $(this).attr('rel');
-    if ($(this).hasClass('disabled')) {
-      alert('Entweder hast du diesen Beitrag schon unterstützt oder unterstützen ist derzeit nicht möglich, weil z.B. der Unterstützungszeitraum bereits vorbei ist.');
-    } else {
-      $.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo
-        $this->consultation->kid; ?>/format/json", { "tid": tid })
-      .done(function(data) {
-        if (data.count) {
-          $('#badge-' + tid).html("(" + data.count + ")");
-        }
-        $('#click-support-' + tid).addClass('disabled');
-      });
-    }
+    $.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo
+      $this->consultation->kid; ?>/format/json", { "tid": tid })
+    .done(function(data) {
+      if (data.count) {
+        $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign"></i>'
+            + ' <span class="badge" id="badge-' + tid + '">(' + data.count + ')</span>'
+            + ' <span class="label">Unterstützer</span></span>');
+      }
+    });
   });
 });
 </script>
