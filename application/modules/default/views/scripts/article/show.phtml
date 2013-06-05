@@ -19,7 +19,9 @@
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
+			<?php if ($this->article['ref_nm'] != 'about'): // show no tertiary navigation on "about" page ?>
 			<?php echo $this->articleNavigation($this->article['art_id'], 'info');?>
+			<?php endif; ?>
 
 		</aside>
 		<section class="main-content span6">
