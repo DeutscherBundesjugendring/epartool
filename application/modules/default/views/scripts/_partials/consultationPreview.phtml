@@ -11,11 +11,9 @@ $nowDate = Zend_Date::now();
 <?php
 
 $disabled = array(
-  'input' => ($nowDate->isEarlier($con->inp_fr)),
-  //'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
-  // JSU fixed disabled
-  'voting' => ($nowDate->isEarlier($con->vot_fr)),
-  'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->follup_show == 'n'),
+  'input' => ($nowDate->isEarlier($con->inp_fr) || $con->inp_fr == '0000-00-00 00:00:00'),
+  'voting' => ($nowDate->isEarlier($con->vot_fr) || $con->vot_fr == '0000-00-00 00:00:00'),
+  'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->vot_to == '0000-00-00 00:00:00' || $con->follup_show == 'n'),
 );
 $bubbles = array();
 if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {

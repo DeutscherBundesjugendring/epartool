@@ -10,6 +10,9 @@ $supports = new Zend_Session_Namespace('supports');
 $supportsDisabled = (
   Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
   || Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
+  || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
+  || $this->consultation->spprt_to == '0000-00-00 00:00:00'
+  || $this->consultation->spprt_show == 'n'
 );
 ?>
 <!-- Secondary navigation -->
@@ -62,7 +65,6 @@ $supportsDisabled = (
 				<p class="lead"><?php echo $input['thes']?></p>
 				<p><?php echo $input['expl']?></p>
 
-				<?php if ($this->consultation->spprt_show == 'y'): ?>
 				<div id="click-support-wrap-<?php echo $input['tid']; ?>">
 				<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
 				  <span>
@@ -79,7 +81,6 @@ $supportsDisabled = (
   				</a>
   			<?php endif; ?>
 				</div>
-				<?php endif; ?>
 
 				<p class="actions">
 					<i class="icon-comments icon-orange icon-2x"></i>
