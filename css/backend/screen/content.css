@@ -360,6 +360,18 @@
   ul#galerie li img {
     display: block;
   }
+  
+  /* JSU Edit input form */
+  .input-edit #tags-element label {
+    float: left;
+    display: inline-block;
+    width: 20%;
+    line-height: 200%;
+  }
+  /* JSU Edit input form */
+  .input-edit #tags-element input {
+    margin-right: 5px;
+  }
 
   /**
   * (en) Emphasizing external Hyperlinks via CSS

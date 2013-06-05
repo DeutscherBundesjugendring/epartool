@@ -110,9 +110,6 @@ class Admin_ConsultationController extends Zend_Controller_Action {
             $form->getElement('vot_to')->removeValidator('Date');
             $form->getElement('vot_to')->setOptions(array('required'=>false));
           }
-// JSU debug
-Zend_Debug::dump($posts);
-//exit();
           if ($form->isValid($this->getRequest()->getPost())) {
             $this->_consultation->setFromArray($form->getValues());
             $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());

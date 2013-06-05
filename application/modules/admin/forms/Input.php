@@ -31,6 +31,8 @@ class Admin_Form_Input extends Zend_Form {
       $htmlTag = $tags->getDecorator('HtmlTag');
       // css Klasse für individuelles Styling im Decorator 'HtmlTag' setzen:
       $htmlTag->setOption('class', 'multicheckbox');
+      // JSU remove the "<br />" seperator
+      $tags->setSeparator(' ');
     } else {
       // falls keine Tags definiert
       $this->removeElement('tags');

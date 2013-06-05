@@ -38,9 +38,14 @@ class VotingController extends Zend_Controller_Action {
     // check if voting is in time
     $date = new Zend_Date();
     $nowDate = Zend_Date::now();
-    if($nowDate->isEarlier($this->_consultation->vot_fr) || $nowDate->isLater($this->_consultation->vot_to)) {
+    //if($nowDate->isEarlier($this->_consultation->vot_fr) || $nowDate->isLater($this->_consultation->vot_to)) {
+    if($nowDate->isEarlier($this->_consultation->vot_fr)) {
       $this->_flashMessenger->addMessage('Derzeit ist es nicht möglich an der Abstimmung teilzunehmen.', 'info');
       $this->redirect('/');
+    }
+    elseif($nowDate->isLater($this->_consultation->vot_to)) {
+      $this->_flashMessenger->addMessage('Die Abstimmung ist bereits beendet. Im Folgenden die Ergebnisse.', 'info');
+      $this->redirect('/voting/results/kid/'.$this->_consultation->kid);
     }
     // if session is allready created, forword to overview
     elseif($votingRightsSession->access) {
