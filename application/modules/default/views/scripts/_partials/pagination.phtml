@@ -6,18 +6,19 @@
 <?php if ($this->pageCount): ?>
 <nav class="pagination pagination-centered">
 	<ul>
-		<?php if (isset($this->previous)): ?>
+		<?php if (isset($this->next)): ?>
 		<li class="prev">
-			<a href="<?php echo $this->url(array('page' => $this->previous)); ?>" class="btn">
-				<i class="icon-angle-left"></i> <?php echo $this->titlePrev;?>
+			<a href="<?php echo $this->url(array('page' => $this->next)); ?>" class="btn">
+				<i class="icon-angle-left"></i> <?php echo $this->titleNext;?>
 			</a>
 		</li>
 		<?php else: ?>
-		<li class="disabled prev"><span class="btn"><i class="icon-angle-left"></i> <?php echo $this->titlePrev;?></span></li>
+		<li class="disabled prev"><span class="btn"><i class="icon-angle-left"></i> <?php echo $this->titleNext;?></span></li>
 		<?php endif;?>
 
 		<!-- Anzahl an Seitenlinks -->
-    <?php foreach ($this->pagesInRange as $page): ?>
+		<?php $this->pagesInRange = array_reverse($this->pagesInRange); // Page Menu should be in descending order ?>
+		<?php foreach ($this->pagesInRange as $page): ?>
       <?php if ($page != $this->current): ?>
         <li><a href="<?php echo $this->url(array('page' => $page)); ?>" class="btn">
           <?php echo $page; ?>
@@ -27,14 +28,14 @@
       <?php endif; ?>
     <?php endforeach; ?>
 
-		<?php if (isset($this->next)): ?>
+		<?php if (isset($this->previous)): ?>
 		<li class="next">
-			<a href="<?php echo $this->url(array('page' => $this->next)); ?>" class="btn">
-				<?php echo $this->titleNext;?> <i class="icon-angle-right"></i>
+			<a href="<?php echo $this->url(array('page' => $this->previous)); ?>" class="btn">
+				<?php echo $this->titlePrev;?> <i class="icon-angle-right"></i>
 			</a>
 		</li>
 		<?php else: ?>
-		<li class="disabled next"><span class="btn"><?php echo $this->titleNext;?> <i class="icon-angle-right"></i></span></li>
+		<li class="disabled next"><span class="btn"><?php echo $this->titlePrev;?> <i class="icon-angle-right"></i></span></li>
 		<?php endif;?>
 	</ul>
 </nav>

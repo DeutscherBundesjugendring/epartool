@@ -45,7 +45,15 @@ $supportsDisabled = (
 
 			<!-- Contributions -->
 			<?php if (count($this->paginator)): ?>
-			<?php foreach ($this->paginator as $input):?>
+			<?php
+			  // Reverse order of entries to show latest first
+  			$inputs = array();
+  			foreach ($this->paginator as $item) {
+          $inputs[] = $item;
+        }
+        $inputs = array_reverse($inputs);
+      ?>
+      <?php foreach ($inputs as $input): ?>
 			<a name="input-<?php echo $input['tid']; ?>"></a>
 			<article class="media">
 				<time pubdate datetime="<?php echo $date->set($input['when'])
@@ -78,9 +86,9 @@ $supportsDisabled = (
 			<!-- Paging -->
 			<?php
 			echo $this->paginationControl($this->paginator,
-				'Jumping',
+        'Sliding',
 				'_partials/pagination.phtml',
-				array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
+				array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
 			); ?>
 
 			<hr />
