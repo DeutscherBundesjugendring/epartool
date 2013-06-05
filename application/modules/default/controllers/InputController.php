@@ -125,8 +125,12 @@ class InputController extends Zend_Controller_Action {
     }
     $this->view->inputform = $form;
     
-    $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, null, null, $tag));
-    $paginator->setCurrentPageNumber($this->_getParam('page', 1));
+    $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
+    
+    // Determine maximum page number and set it as default value in paginator
+    $maxPage = ceil( $paginator->getTotalItemCount() / $paginator->getItemCountPerPage() );
+    $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
+    
     $this->view->paginator = $paginator;
     
   }

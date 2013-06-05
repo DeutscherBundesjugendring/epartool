@@ -182,6 +182,7 @@ class Model_Consultations extends Model_DbjrBase {
   public function getNavigationEntries() {
     $entries = array();
     $select = $this->select();
+    $select->order('ord DESC');
     $rowSet = $this->fetchAll($select);
     foreach ($rowSet as $row) {
       $entries[] = array(
