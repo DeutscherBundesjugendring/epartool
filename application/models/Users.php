@@ -256,6 +256,7 @@ class Model_Users extends Model_DbjrBase {
           $template = 'pwdrequest';
           $replace = array(
             '{{USER}}' => $row->name,
+            '{{EMAIL}}' => $email,
             '{{PWD}}' => $newPassword,
           );
           
