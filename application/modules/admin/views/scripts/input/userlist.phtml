@@ -5,6 +5,11 @@
 <?php
 echo $this->consultationNavigation('Beiträge');
 ?>
+
+<p><a href="<?php echo $this->url(array(
+    'action' => 'index'
+)); ?>">Beiträge nach Fragen &raquo;</a></p>
+
 <h2>Alle Teilnehmenden zu „<?php echo $this->consultation['titl_short']; ?>“</h2>
 <ol>
 <?php foreach ($this->users as $user): ?>

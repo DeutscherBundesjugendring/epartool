@@ -6,6 +6,11 @@
 echo $this->consultationNavigation('Beiträge');
 ?>
 
+<p><a href="<?php echo $this->url(array(
+    'action' => 'userlist', 'qid' => null, 'tag' => null));
+?>">Liste aller Nutzer, die zu dieser Konsultation beigetragen haben &raquo;</a></p>
+
+<h2>Beiträge nach Fragen:</h2>
 <p>
 <?php foreach ($this->consultation['questions'] as $question): ?>
   <a href="<?php echo $this->baseUrl(); ?>/admin/input/index/kid/<?php echo $this->consultation['kid'];

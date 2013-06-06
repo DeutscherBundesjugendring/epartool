@@ -5,7 +5,7 @@ $date = new Zend_Date();
 <?php
 echo $this->consultationNavigation('Beiträge');
 ?>
-
+<p><a href="<?php echo $this->baseUrl(); ?>/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle User anzeigen, die sich an dieser Konsultation beteiligt haben</a></p>
 <?php if (!empty($this->user)): ?>
 <table>
 	<tr>
