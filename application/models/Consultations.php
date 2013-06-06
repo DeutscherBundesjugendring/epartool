@@ -30,7 +30,8 @@ class Model_Consultations extends Model_DbjrBase {
     $row = $this->find($id)->current();
     if (!empty($row)) {
       // find Questions
-      $subrow2 = $row->findModel_Questions()->toArray();
+      $questionModel = new Model_Questions();
+      $subrow2 = $questionModel->getByConsultation($id)->toArray();
   
       $result = $row->toArray();
       

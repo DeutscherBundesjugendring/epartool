@@ -135,7 +135,7 @@ class Model_Questions extends Model_DbjrBase {
     // fetch
     $select = $this->select();
     $select->where('kid=?', $kid);
-    $select->order('nr');
+    $select->order(array('nr ASC', 'q ASC'));
     return $this->fetchAll($select);
   }
   

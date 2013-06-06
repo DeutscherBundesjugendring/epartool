@@ -46,13 +46,12 @@ $locale = new Zend_Locale();
 		</li>
 		<?php endif; ?>
 <?php
-$i = 1;
 foreach ($this->questions as $question):
   $url = $this->url(array('action' => 'show', 'qid' => $question['qi']));
 ?>
 		<li class="span4">
 			<div class="thumbnail">
-				<span class="badge badge-tag badge-tag-small"><?php echo $i?>.</span>
+				<span class="badge badge-tag badge-tag-small"><?php echo $question['nr']?></span>
 				<h2>
 					<a href="<?php echo $url?>"><?php echo $question['q']?></a>
 				</h2>
@@ -66,11 +65,10 @@ foreach ($this->questions as $question):
 					</article>
 				</a>
 				<?php endforeach;?>
-				<a href="<?php echo $url?>" class="btn">Zur Beitragsseite der Frage <?php echo $i?></a>
+				<a href="<?php echo $url?>" class="btn">Zur Beitragsseite der <?php echo $question['nr']?> Frage</a>
 			</div>
 		</li>
 <?php
-$i++;
 endforeach;
 ?>
 	</ul><!-- .questions -->
