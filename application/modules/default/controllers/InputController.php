@@ -136,7 +136,7 @@ class InputController extends Zend_Controller_Action {
   }
   
   /**
-   * Saves input in database if user is logged in or in session if not logged in
+   * Saves input in session
    * Redirects to next question or input confirmation page
    * (with login/register form, @see confirmAction())
    *
@@ -157,47 +157,33 @@ class InputController extends Zend_Controller_Action {
       if (isset($data['thes']) && isset($data['expl'])) {
         $data2store = $data;
         
-        if (!$auth->hasIdentity()) {
-          // Beiträge in Session sammeln und nach Registrierung oder Login speichern
-          $inputCollection = new Zend_Session_Namespace('inputCollection');
-          if (isset($inputCollection->inputs)) {
-            $tmpCollection = $inputCollection->inputs;
-            // delete former inputs for this question from session:
-            foreach ($tmpCollection as $key => $item) {
-              if ($item['qi'] == $qid) {
-                unset($tmpCollection[$key]);
-              }
+        // Beiträge in Session sammeln
+        $inputCollection = new Zend_Session_Namespace('inputCollection');
+        if (isset($inputCollection->inputs)) {
+          $tmpCollection = $inputCollection->inputs;
+          // delete former inputs for this question from session:
+          foreach ($tmpCollection as $key => $item) {
+            if ($item['qi'] == $qid) {
+              unset($tmpCollection[$key]);
             }
-            $inputCollection->inputs = $tmpCollection;
-          } else {
-            $tmpCollection = array();
           }
+          $inputCollection->inputs = $tmpCollection;
+        } else {
+          $tmpCollection = array();
         }
         
         $i = 0;
         foreach ($data2store['thes'] as $thes) {
           if (!empty($thes)) {
             // Only save Input if form field 'thes' is filled, else simply go to next step
-            if ($auth->hasIdentity()) {
-              $identity = $auth->getIdentity();
-              // mit uid in DB speichern
-              $inputModel->add(array(
-                  'kid' => $kid,
-                  'qi' => $qid,
-                  'uid' => $identity->uid,
-                  'thes' => $thes,
-                  'expl' => $data2store['expl']['expl_' . $i]
-              ));
-            } else {
-              // Beiträge in Session sammeln und nach Registrierung oder Login speichern
-              $tmpCollection[] = array(
-                  'kid' => $kid,
-                  'qi' => $qid,
-                  'thes' => $thes,
-                  'expl' => $data2store['expl']['expl_' . $i]
-              );
-              $inputCollection->inputs = $tmpCollection;
-            }
+            // Beiträge in Session sammeln
+            $tmpCollection[] = array(
+                'kid' => $kid,
+                'qi' => $qid,
+                'thes' => $thes,
+                'expl' => $data2store['expl']['expl_' . $i]
+            );
+            $inputCollection->inputs = $tmpCollection;
           }
           $i++;
         }
