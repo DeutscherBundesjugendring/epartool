@@ -84,11 +84,12 @@ class Admin_UserController extends Zend_Controller_Action {
           }
           else {
             // generate selects for every consultation
-            
             $consultations = $consultationModel->getByUserinputs($uid);
             foreach($consultations AS $consultation) {
+              $url = '/admin/input/list/kid/'.$consultation["kid"].'/uid/'.$uid;
+              $label = $consultation['titl'].' ('.$consultation['count'].')';
               $form->addElement('select', 'transfer_'.$consultation["kid"],array(
-                'label'=>$consultation['titl'] . ': Beiträge übertragen',
+                'label'=>'Beiträge übertrage: <a href="'.$url.'">'.$label.'</a>',
                 'required'=>false,
                 'options'=>array(0=>'...')
               ));
@@ -100,6 +101,7 @@ class Admin_UserController extends Zend_Controller_Action {
                 }
               }
               $form->getElement('transfer_'.$consultation["kid"])->setMultioptions($transferOptions);
+              $form->getElement('transfer_'.$consultation["kid"])->getDecorator('Label')->setOption('escape',false);
               
             }
           }
@@ -150,7 +152,8 @@ class Admin_UserController extends Zend_Controller_Action {
                 }
                 
                 $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
-                //$form->populate($this->getRequest()->getPost());
+                $this->_redirect('/admin/user/edit/uid/'.$uid);
+//                $form->populate($this->getRequest()->getPost());
               }
             } else {
               $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');

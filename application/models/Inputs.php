@@ -251,8 +251,7 @@ class Model_Inputs extends Model_DbjrBase {
   public function getCountByUserGroupedConsultation($uid) {
     $return = array();
     $db = $this->getDefaultAdapter();
-    $select = $db->select(
-      )
+    $select = $db->select()
     ->from('inpt as i', array(new Zend_Db_Expr('COUNT(i.tid) as count, i.kid')))
     ->joinLeft('cnslt as c', 'i.kid=c.kid',array('titl'))
     ->group('i.kid')
