@@ -16,9 +16,15 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
       'question' => false,
       'input' => ($nowDate->isEarlier($con->inp_fr)),
       //'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
-      'voting' => ($nowDate->isEarlier($con->vot_fr)),
+      'voting' => ($nowDate->isEarlier($con->vot_fr) || $con->vot_to == '0000-00-00 00:00:00'),
       'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->follup_show == 'n'),
     );
+    
+    // Voting disable result
+    if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
+      $disabled['voting'] = true;
+    }
+    
 
     $items = array(
       'article' => array(

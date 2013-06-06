@@ -43,12 +43,12 @@ class VotingController extends Zend_Controller_Action {
       $this->_flashMessenger->addMessage('Derzeit ist es nicht möglich an der Abstimmung teilzunehmen.', 'info');
       $this->redirect('/');
     }
-    elseif($nowDate->isLater($this->_consultation->vot_to)) {
+    elseif($nowDate->isLater($this->_consultation->vot_to) && $this->_consultation->vot_to != '0000-00-00 00:00:00' && $this->_consultation->vot_res_show == 'y') {
       $this->_flashMessenger->addMessage('Die Abstimmung ist bereits beendet. Im Folgenden die Ergebnisse.', 'info');
       $this->redirect('/voting/results/kid/'.$this->_consultation->kid);
     }
     // if session is allready created, forword to overview
-    elseif($votingRightsSession->access) {
+    elseif($votingRightsSession->access == $this->_consultation->kid) {
       $this->redirect('/voting/overview/kid/'.$this->_consultation->kid);
     }
     // request sended
