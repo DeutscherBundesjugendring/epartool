@@ -192,6 +192,8 @@ class InputController extends Zend_Controller_Action {
         switch ($data['submitmode']) {
           case 'save_plus':
             // show form for current question again
+            // jump to form
+            $redirectURL.= '/#input';
             break;
             
           case 'save_next':
