@@ -6,21 +6,7 @@
 			<div class="container">
 
 				<ul class="nav">
-					<li<?php if (stristr($this->url(), 'imprint')) echo ' class="active"'; ?>>
-						<a href="<?php echo $this->url(array(), 'imprint', true); ?>">Impressum</a>
-					</li>
-					<li<?php if (stristr($this->url(), 'about')) echo ' class="active"'; ?>>
-						<a href="<?php echo $this->url(array(), 'about', true); ?>">Über uns</a>
-					</li>
-					<li<?php if (stristr($this->url(), 'faq')) echo ' class="active"'; ?>>
-						<a href="<?php echo $this->url(array(), 'faq', true); ?>">Häufige Fragen</a>
-					</li>
-					<li<?php if (stristr($this->url(), 'privacy')) echo ' class="active"'; ?>>
-						<a href="<?php echo $this->url(array(), 'privacy', true); ?>">Datenschutz</a>
-					</li>
-					<li<?php if (stristr($this->url(), 'contact')) echo ' class="active"'; ?>>
-						<a href="<?php echo $this->url(array(), 'contact', true); ?>">Kontakt</a>
-					</li>
+				  <?php echo $this->footerLinks(); ?>
 					<li class="licence">
 						<a href="http://creativecommons.org/licenses/by-nc/3.0/deed.de" class="logo" rel="license" target="_blank" title="Creative Commons Namensnennung-Nicht-kommerziell 3.0 Unported Lizenz"><img src="<?php echo $this->baseUrl(); ?>/images/licence.png" alt="CCLizenz" /></a>
 					</li>

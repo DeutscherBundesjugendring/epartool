@@ -219,5 +219,9 @@ class Model_Articles extends Model_DbjrBase {
     
     return $this->fetchAll($select);
   }
+  
+  public function getStaticPages() {
+    return $this->getByConsultation(0, 'static');
+  }
 }
 

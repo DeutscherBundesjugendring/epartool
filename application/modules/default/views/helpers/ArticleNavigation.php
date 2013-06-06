@@ -10,14 +10,30 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract {
   public function articleNavigation ($activeItem = null, $scope = 'info') {
     $html = '';
     $con = $this->view->consultation;
+    $articleModel = new Model_Articles();
     if (!empty($con)) {
       // consultation is set -> show appropriate articles/pages
-      $articleModel = new Model_Articles();
       $items = $articleModel->getByConsultation($con->kid, $scope);
+    } else {
+      $scope = 'static';
+      $items = $articleModel->getStaticPages();
+    }
       $html = '<nav role="navigation" class="tertiary-navigation">'
         . '<ul class="nav nav-list">';
       $i = 1;
       foreach ($items as $item) {
+        if ($item['ref_nm'] == 'about') {
+          // "about" page should not be visible in this menu
+          continue;
+        }
+        switch ($scope) {
+          case 'static':
+            $route = $item['ref_nm'];
+            break;
+            
+          default:
+            $route = 'default';
+        }
         $isItemInRootline = false;
         // first level
         if ($item['hid'] == 'n') {
@@ -31,7 +47,10 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract {
           }
           $html.= '<li class="' . implode(' ', $liClasses) . '">';
           $html.= '<a href="'
-            . $this->view->url(array('action' => 'show', 'aid' => $item['art_id'])) . '">'
+            . $this->view->url(array(
+                'controller' => 'article',
+                'action' => 'show',
+                'aid' => $item['art_id']), $route, null) . '">'
             // desc als Seitentitel im Menü
             . (empty($item['desc']) ? 'Seite ' . $i : $item['desc'])
             . '</a>';
@@ -48,7 +67,10 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract {
                 }
                 $html.= '<li class="' . implode(' ', $liClassesSub) . '">';
                 $html.= '<a href="'
-                  . $this->view->url(array('action' => 'show', 'aid' => $subpage['art_id'])) . '">'
+                  . $this->view->url(array(
+                      'controller' => 'article',
+                      'action' => 'show',
+                      'aid' => $subpage['art_id']), 'default', null) . '">'
                   // desc als Seitentitel im Menü
                   . (empty($subpage['desc']) ? 'Seite ' . $i . '.' . $j : $subpage['desc'])
                   . '</a>';
@@ -63,23 +85,7 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract {
         }
       }
       $html.= '</ul></nav>';
-    } else {
-      // no consultation set -> show general/static pages
-      $currentUrl = $this->view->url();
-      $html = '<nav role="navigation" class="tertiary-navigation">'
-        . '<ul class="nav nav-list">';
-      $html.= '<li' . (stristr($currentUrl, 'imprint') ? ' class="active"' : '')
-        . '><a href="' . $this->view->url(array(), 'imprint', true) . '">Impressum</a></li>';
-      $html.= '<li' . (stristr($currentUrl, 'about') ? ' class="active"' : '')
-        . '><a href="' . $this->view->url(array(), 'about', true) . '">Über uns</a></li>';
-      $html.= '<li' . (stristr($currentUrl, 'faq') ? ' class="active"' : '')
-        . '><a href="' . $this->view->url(array(), 'faq', true) . '">Häufige Fragen</a></li>';
-      $html.= '<li' . (stristr($currentUrl, 'privacy') ? ' class="active"' : '')
-        . '><a href="' . $this->view->url(array(), 'privacy', true) . '">Datenschutz</a></li>';
-      $html.= '<li' . (stristr($currentUrl, 'contact') ? ' class="active"' : '')
-        . '><a href="' . $this->view->url(array(), 'contact', true) . '">Kontakt</a></li>';
-      $html.= '</ul></nav>';
-    }
+      
     return $html;
   }
 }

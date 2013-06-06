@@ -35,7 +35,7 @@ class ArticleController extends Zend_Controller_Action {
     } elseif (!empty($ref)) {
       $this->_staticPage = $ref;
     } else {
-      $this->redirect('/');
+      // general info page (ref_nm 'static')
     }
   }
   /**
