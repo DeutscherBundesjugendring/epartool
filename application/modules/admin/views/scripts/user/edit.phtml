@@ -10,30 +10,7 @@
 <p>
   <a href="<?php echo $this->baseUrl(); ?>/admin/user/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
 </p>
-<?php echo $this->form;
-// JSU list of consultations with user-inputs
-if(!empty($this->inputsConsultation)):
-  ?>
-  <div class="yform">
-    <dl>
-     <dt><label>Beitr&auml;ge von diesen Benutzer</label></dt>
-     <dd>
-     <?php
-     foreach($this->inputsConsultation AS $consulation):
-       $url = '/admin/input/list/kid/' . $consulation['kid'] . '/uid/' . $this->uid;
-     ?>
-     <a href="<?php echo $url; ?>" title=""><?php echo $consulation['titl']; ?> (<?php echo $consulation['count']; ?>)</a><br />
-     <?php
-     endforeach;
-     ?>
-     </dd>
-    </dl>
-    
-  </div>
-  <?php
-endif;
-?>
-
+<?php echo $this->form; ?>
 <p>
   <a href="<?php echo $this->baseUrl(); ?>/admin/user/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
 </p>

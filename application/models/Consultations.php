@@ -346,7 +346,7 @@ class Model_Consultations extends Model_DbjrBase {
   public function getByUserinputs($uid) {
     $db = $this->getAdapter();
     $select = $db->select();
-    $select->from(array('i' => 'inpt'), 'i.kid');
+    $select->from(array('i' => 'inpt'), 'i.kid, count(i.thes) AS count');
     $select->joinLeft(array('c'=>'cnslt'), 'i.kid=c.kid', array('titl'=>'c.titl'));
     $select->where('i.uid = ?',$uid);
     $select->group('i.kid');

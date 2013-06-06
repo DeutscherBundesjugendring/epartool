@@ -532,7 +532,7 @@ class Model_Users extends Model_DbjrBase {
    */
   public function getAllConfirmed() {
     $select = $this->select();
-    $select->where("block ='c'");
+    $select->where("block ='c'")->order('email');
     return $this->fetchAll($select)->toArray();
   }
 }
