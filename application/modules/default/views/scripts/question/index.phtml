@@ -8,48 +8,47 @@
 $date = new Zend_Date();
 $linkHeadlineToInputs = false;
 if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
-      && $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())) {
-  $linkHeadlineToInputs = true;
+		&& $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())) {
+	$linkHeadlineToInputs = true;
 }
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('question')?>
-<!-- .secondary-navigation -->
 
-<!-- Content start -->
+<?php echo $this->secondNavigation('question') ?>
 
-<section class="main-content content-holder">
-  <div class="row">
-	  <div class="text-center span10 offset1">
+<section class="content-holder">
+	<div class="row">
+		<aside class="span3">
 
-		  <h1>Alle Fragen im Überblick</h1>
+		</aside>
+		<div class="main-content span9">
 
-	  </div>
-  </div>
+			<h1>Alle Fragen im Überblick</h1>
 
-  <?php foreach ($this->questions as $question): ?>
-	  <h3>
-		  <?php if ($linkHeadlineToInputs): ?>
-			  <a href="<?php
-		echo $this->url(array(
-			'controller' => 'input',
-			'action' => 'show',
-			'kid' => $this->consultation->kid,
-			'qid' => $question['qi']));
-			  ?>" title="Zum Beantworten hier klicken">
-				 <?php endif; ?>
-		  <?php echo (!empty($question['nr']) ? $question['nr'] . ' ' : '') . $question['q'] ?>
-		  <?php if ($linkHeadlineToInputs): ?>
-			  </a>
-	  <?php endif; ?>
-	  </h3>
-	  <?php echo $question['q_xpl'] ?>
-	<?php endforeach; ?>
+			<?php foreach ($this->questions as $question): ?>
+				<?php if(!empty($question['nr'])): ?>
+					<h2 class="alt numbered heading-with-cta">
+						<span class="numbered-number pull-left"><?=$question['nr']?></span>
+						<span class="numbered-title"><?=$question['q']?></span>
+					</h2>
+				<?php else: ?>
+					<h2 class="alt"><?=$question['q']?></h2>
+				<?php endif; ?>
+				<?php if ($linkHeadlineToInputs): ?>
+					<a href="<?php
+						echo $this->url(array(
+							'controller' => 'input',
+							'action' => 'show',
+							'kid' => $this->consultation->kid,
+							'qid' => $question['qi']));
+						?>" class="btn edit pull-right" title="Zum Beantworten hier klicken"><i class="icon-edit-alt"></i> Beitrag verfassen</a>
+				<?php endif; ?>
+				<?php echo $question['q_xpl'] ?>
+			<?php endforeach; ?>
 
-	<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
+		</div>
+	</div><!-- .row -->
 </section><!-- .content-holder -->
 
-<!-- Content end -->
-
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

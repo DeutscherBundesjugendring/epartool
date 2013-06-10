@@ -52,6 +52,24 @@ legend {
 	color: @blue;
 }
 
+h2.alt {
+	font-size: 2em;
+	line-height: 115%;
+	color: @orange;
+}
+
+.heading-with-cta {
+	margin-top: 1.5em;
+	padding-bottom: 1em;
+	padding-right: 8em; // make place for CTA
+	border-bottom: 1px solid @grayLighter;
+
+	& + .btn {
+		position: relative;
+		top: -3.5em;
+	}
+}
+
 h3,
 .h3 {
 	margin-bottom: .5em;
@@ -77,6 +95,11 @@ hgroup {
 	h2 {
 		color: @blue;
 	}
+}
+
+// Numbered headings
+.numbered-number {
+	margin-right: .5ex;
 }
 
 

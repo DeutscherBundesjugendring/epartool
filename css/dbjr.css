@@ -128,6 +128,24 @@ legend {
   color: #02afdb;
 }
 
+h2.alt {
+  font-size: 2em;
+  line-height: 115%;
+  color: #fc9026;
+}
+
+.heading-with-cta {
+  padding-right: 8em;
+  padding-bottom: 1em;
+  margin-top: 1.5em;
+  border-bottom: 1px solid #a69f9f;
+}
+
+.heading-with-cta + .btn {
+  position: relative;
+  top: -3.5em;
+}
+
 h3,
 .h3 {
   margin-bottom: .5em;
@@ -151,6 +169,10 @@ hgroup h1 {
 
 hgroup h2 {
   color: #02afdb;
+}
+
+.numbered-number {
+  margin-right: .5ex;
 }
 
 p {
@@ -589,6 +611,18 @@ p .btn {
   margin-left: 1.538462em;
 }
 
+.btn.edit {
+  position: relative;
+  padding-left: 1.25em;
+}
+
+.btn.edit i {
+  position: absolute;
+  top: -0.5em;
+  left: -0.5em;
+  display: inline-block;
+}
+
 select,
 textarea,
 input[type="text"],
@@ -832,6 +866,13 @@ body > footer {
 
 .icon-orange {
   color: #fc9026;
+}
+
+.icon-edit-alt {
+  display: inline-block;
+  width: 34px;
+  height: 50px;
+  background: transparent url('../images/edit-alt.png') no-repeat left top;
 }
 
 .label {
