@@ -9,7 +9,7 @@
 
 	// Navbar
 	.navbar-inner {
-		//min-height: @navbarHeight;
+		min-height: @navbarHeight;
 		.border-radius(0);
 		border-style: none;
 		background: @navbarBackground none;
@@ -36,7 +36,6 @@
 
 	.nav > li > a {
 		display: inline-block;
-		margin-right: -0.4ex; // remove whitespace between items
 		padding: @navbarItemVerticalPadding @navbarItemHorizontalPadding;
 		font: normal 1.538em/100% @subheadingFontFamily; // 20px;
 		text-transform: uppercase;
@@ -60,8 +59,20 @@
 	}
 
 	// Licence
-	.nav > .licence {
-		margin: .2em 0 0 1.2em;
-		vertical-align: top;
+	.nav > .licence > a {
+		margin: 0 0 0 1.2em;
+		padding: 0;
+
+		img {
+			position: relative;
+			top: -0.1em;
+			vertical-align: middle;
+			line-height: @navbarHeight;
+		}
+
+		&:hover,
+		&:focus {
+			background: none;
+		}
 	}
 }

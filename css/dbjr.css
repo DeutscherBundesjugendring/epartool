@@ -1340,6 +1340,7 @@ body > footer {
 }
 
 .navbar .navbar-inner {
+  min-height: 3.076924em;
   background: #00cbff none;
   border-style: none;
   -webkit-border-radius: 0;
@@ -1369,7 +1370,6 @@ body > footer {
 .navbar .nav > li > a {
   display: inline-block;
   padding: 0.5em 1ex;
-  margin-right: -0.4ex;
   font: normal 1.538em/100% "Yanone Kaffeesatz", sans-serif;
   color: #000000;
   text-shadow: none;
@@ -1392,9 +1392,21 @@ body > footer {
           box-shadow: none;
 }
 
-.navbar .nav > .licence {
-  margin: .2em 0 0 1.2em;
-  vertical-align: top;
+.navbar .nav > .licence > a {
+  padding: 0;
+  margin: 0 0 0 1.2em;
+}
+
+.navbar .nav > .licence > a img {
+  position: relative;
+  top: -0.1em;
+  line-height: 3.076924em;
+  vertical-align: middle;
+}
+
+.navbar .nav > .licence > a:hover,
+.navbar .nav > .licence > a:focus {
+  background: none;
 }
 
 .pagination {
