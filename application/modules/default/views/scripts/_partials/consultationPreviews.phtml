@@ -20,7 +20,7 @@ $disabled = array(
 if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
   $disabled['voting'] = true;
 }
-    
+
 $bubbles = array();
 if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
   $bubbles['input'] = '<div class="bubble bubble-large">'
@@ -56,7 +56,9 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 			<li class="item-title">
 				<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
 					<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $con->kid . '/' . $con->img_file;?>" width="144" alt="<?php echo $con->img_expl; ?>" />
-					<span class="description"><?php echo strip_tags(htmlspecialchars_decode($con->expl)); ?></span>
+					<div class="description">
+						<p><?php echo strip_tags(htmlspecialchars_decode($con->expl)); ?></p>
+					</div>
 				</a>
 			</li>
 			<li>

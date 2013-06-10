@@ -1151,6 +1151,7 @@ body > footer {
   width: 100%;
   height: 100%;
   padding: 1em;
+  font-size: .9em;
   line-height: 135%;
   color: #000000;
   background-color: #fc9026;
@@ -1163,6 +1164,11 @@ body > footer {
      -moz-transition: all 250ms ease-out;
        -o-transition: all 250ms ease-out;
           transition: all 250ms ease-out;
+}
+
+.consultation-nav .nav > .item-title > a .description p {
+  max-height: 97%;
+  overflow: hidden;
 }
 
 .consultation-nav .nav > .item-title > a:hover .description,

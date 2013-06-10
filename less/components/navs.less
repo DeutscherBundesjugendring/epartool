@@ -217,15 +217,21 @@
 			left: 0;
 			top: 100%;
 			z-index: 1;
+			.box-sizing(border-box);
 			width: 100%;
 			height: 100%;
-			.box-sizing(border-box);
 			padding: 1em;
+			font-size: .9em;
 			line-height: 135%;
 			color: @bodyText;
 			background-color: @orange;
 			.opacity(0);
 			.transition(all @normal ease-out);
+
+			p {
+				max-height: 97%;
+				overflow: hidden;
+			}
 		}
 
 		&:hover,
