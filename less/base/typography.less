@@ -49,25 +49,13 @@ legend {
 	font-weight: bold;
 	font-size: 1.23em; // 16px
 	line-height: 1.3em;
-	color: @blue;
-}
-
-h2.alt {
-	font-size: 2em;
-	line-height: 115%;
 	color: @orange;
 }
 
-.heading-with-cta {
-	margin-top: 1.5em;
-	padding-bottom: 1em;
-	padding-right: 8em; // make place for CTA
-	border-bottom: 1px solid @grayLighter;
-
-	& + .btn {
-		position: relative;
-		top: -3.5em;
-	}
+h2.alt {
+	font-size: 2em; // 21px
+	line-height: 115%;
+	color: @orange;
 }
 
 h3,
@@ -100,6 +88,19 @@ hgroup {
 // Numbered headings
 .numbered-number {
 	margin-right: .5ex;
+}
+
+// Heading with CTA
+.heading-with-cta {
+	margin-top: 1.5em;
+	padding-bottom: 1em;
+	padding-right: 8em; // make place for CTA
+	border-bottom: 1px solid @grayLighter;
+
+	& + .btn {
+		position: relative;
+		top: -3.5em;
+	}
 }
 
 

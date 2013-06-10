@@ -125,25 +125,13 @@ legend {
   font-size: 1.23em;
   font-weight: bold;
   line-height: 1.3em;
-  color: #02afdb;
+  color: #fc9026;
 }
 
 h2.alt {
   font-size: 2em;
   line-height: 115%;
   color: #fc9026;
-}
-
-.heading-with-cta {
-  padding-right: 8em;
-  padding-bottom: 1em;
-  margin-top: 1.5em;
-  border-bottom: 1px solid #a69f9f;
-}
-
-.heading-with-cta + .btn {
-  position: relative;
-  top: -3.5em;
 }
 
 h3,
@@ -173,6 +161,18 @@ hgroup h2 {
 
 .numbered-number {
   margin-right: .5ex;
+}
+
+.heading-with-cta {
+  padding-right: 8em;
+  padding-bottom: 1em;
+  margin-top: 1.5em;
+  border-bottom: 1px solid #a69f9f;
+}
+
+.heading-with-cta + .btn {
+  position: relative;
+  top: -3.5em;
 }
 
 p {
