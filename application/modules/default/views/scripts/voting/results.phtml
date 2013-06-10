@@ -6,11 +6,8 @@
  * @author        Markus Hackel
  */
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('voting')?>
-<!-- .secondary-navigation -->
 
-<!-- Content start -->
+<?php echo $this->secondNavigation('voting') ?>
 
 <div class="content-holder">
 	<div class="row">
@@ -42,12 +39,10 @@
 				<?php endforeach; ?>
 			<?php endforeach; ?>
 
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
 
-<!-- Content end -->
-
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

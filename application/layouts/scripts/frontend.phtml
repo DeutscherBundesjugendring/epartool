@@ -9,7 +9,7 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		<!--meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /--> <!-- To be enabled when debugging for MSIE is finished -->
 		<!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
 
-		<?php echo $this->headTitle();?>
+		<?php echo $this->headTitle(); ?>
 
 		<meta name="description" content="TODO" />
 		<meta name="author" content="Content © 2013 DBJR" />
@@ -19,19 +19,19 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/favicon.ico" />
 
 		<!-- Styles -->
-		<link href="<?=$config->path->css->fonts?>" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->bootstrap?>" type="text/css" />
-		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->fontAwesome?>" type="text/css" />
-		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->main?>" type="text/css" />
-		<link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->followUp?>" type="text/css" />
+		<link href="<?= $config->path->css->fonts ?>" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->bootstrap ?>" type="text/css" />
+		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fontAwesome ?>" type="text/css" />
+		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->main ?>" type="text/css" />
+		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->followUp ?>" type="text/css" />
 		<?php if ($sysconfig->project == 'sd'): ?>
-		<?php if (file_exists(realpath(APPLICATION_PATH . '/../' . $config->path->css->rootdir . $sysconfig->project . '.css'))): ?>
-		<link rel="stylesheet" href="<?=$this->baseUrl($config->path->css->rootdir . $sysconfig->project . '.css')?>" type="text/css" />
+			<?php if (file_exists(realpath(APPLICATION_PATH . '/../' . $config->path->css->rootdir . $sysconfig->project . '.css'))): ?>
+				<link rel="stylesheet" href="<?= $this->baseUrl($config->path->css->rootdir . $sysconfig->project . '.css') ?>" type="text/css" />
+			<?php endif; ?>
 		<?php endif; ?>
-		<?php endif; ?>
-		<!--[if lte IE 7]><link rel="stylesheet" href="<?=$this->baseUrl() . $config->path->css->ie7?>" type="text/css" /><![endif]--> <!-- TODO -->
+		<!--[if lte IE 7]><link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->ie7 ?>" type="text/css" /><![endif]--> <!-- TODO -->
 
-		<script src="<?php echo $config->path->js->jquery?>"></script>
+		<script src="<?php echo $config->path->js->jquery ?>"></script>
 		<!-- Scripts are linked at the bottom of the page for faster loading. -->
 
 		<!-- HTML5 shim for IE6-8 support of HTML5 elements -->
@@ -42,83 +42,81 @@ $sysconfig = Zend_Registry::get('systemconfig');
 	</head>
 	<body>
 
-<!-- Document wrap -->
-<div class="document-wrap" id="top">
-	<div class="container">
+		<!-- Document wrap -->
+		<div class="document-wrap" id="top">
+			<div class="container">
 
-	<!-- Header -->
-  <?php
-//  echo $this->layout()->header
-  echo $this->partial('_partials/header.phtml', $this->layout()->getView());
-  ?>
+				<!-- Header -->
+				<?php echo $this->partial('_partials/header.phtml', $this->layout()->getView()); ?>
+				<hr class="hide" />
+
+				<!-- Body copy -->
+				<div role="main" class="main">
+
+					<!-- Flash messages -->
+					<?php if (!empty($this->layout()->messages)): ?>
+						<?php foreach ($this->layout()->messages as $level => $messages): ?>
+							<?php if (!empty($messages)): ?>
+								<?php foreach ($messages as $message): ?>
+									<div class="alert alert-<?php echo $level; ?>">
+										<button type="button" class="close" data-dismiss="alert">&times;</button>
+										<h4>
+											<?php
+											switch ($level) {
+												case 'error':
+													echo 'Fehler!';
+													break;
+												case 'success':
+													echo 'Erfolg!';
+													break;
+												case 'info':
+												default:
+													echo 'Info';
+													break;
+											}
+											?>
+										</h4>
+									<?php echo $message; ?>
+									</div>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
+
+					<!-- Content start -->
+
+					<?php echo $this->layout()->content; ?>
+
+					<!-- Content end -->
+
+				</div><!-- .main -->
+			</div><!-- .container -->
+		</div><!-- .document-wrap -->
 
 		<hr class="hide" />
 
-		<!-- Body copy -->
-		<div role="main" class="main">
+		<!-- Footer -->
+		<?php echo $this->render('_partials/footer.phtml') ?>
 
-		<!-- Flash messages -->
-		<?php if(!empty($this->layout()->messages)): ?>
-		<?php foreach ($this->layout()->messages as $level => $messages):?>
-		<?php if (!empty($messages)):?>
-		<?php foreach ($messages as $message):?>
-			<div class="alert alert-<?php echo $level; ?>">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				<h4>
-				<?php switch ($level) {
-				  case 'error':
-					echo 'Fehler!';
-					break;
-				  case 'success':
-					echo 'Erfolg!';
-					break;
-				  case 'info':
-				  default:
-					echo 'Info';
-					break;
-				}?>
-				</h4>
-				<?php echo $message; ?>
-			</div>
-		<?php endforeach;?>
-		<?php endif;?>
-		<?php endforeach;?>
-		<?php endif;?>
+		<?php
+		/*
+		  echo '<!-- Debug-Info -->';
+		  echo '<pre>';
+		  $request = Zend_Controller_Front::getInstance()->getRequest();
+		  echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
+		  echo ('Application environment: ' . APPLICATION_ENV . '<br />');
+		  echo ('Module: ' . $request->getModuleName() . '<br />');
+		  echo ('Controller: ' . $request->getControllerName() . '<br />');
+		  echo ('Action: ' . $request->getActionName() . '<br />');
+		  echo '</pre>';
 
-<!-- Content start -->
+		 */
+		?>
 
-<?php echo $this->layout()->content; ?>
-
-<!-- Content end -->
-
-		</div><!-- .main -->
-	</div><!-- .container -->
-</div><!-- .document-wrap -->
-
-<hr class="hide" />
-
-<!-- Footer -->
-<?php echo $this->render('_partials/footer.phtml')?>
-
-<?php
-/*
-echo '<!-- Debug-Info -->';
-echo '<pre>';
-$request = Zend_Controller_Front::getInstance()->getRequest();
-echo ('Zend Version: ' . Zend_Version::VERSION . '<br />');
-echo ('Application environment: ' . APPLICATION_ENV . '<br />');
-echo ('Module: ' . $request->getModuleName() . '<br />');
-echo ('Controller: ' . $request->getControllerName() . '<br />');
-echo ('Action: ' . $request->getActionName() . '<br />');
-echo '</pre>';
-
- */
-?>
-
-<!-- Scripts -->
-<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap?>"></script>
-<script src="<?php echo $this->baseUrl() . $config->path->js->main?>"></script>
-<script src="<?php echo $this->baseUrl() . $config->path->js->followUp?>"></script>
+		<!-- Scripts -->
+		<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap ?>"></script>
+		<script src="<?php echo $this->baseUrl() . $config->path->js->main ?>"></script>
+		<script src="<?php echo $this->baseUrl() . $config->path->js->followUp ?>"></script>
 
 	</body>
 </html>

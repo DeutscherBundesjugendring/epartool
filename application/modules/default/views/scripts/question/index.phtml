@@ -25,13 +25,13 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 			<h1>Alle Fragen im Überblick</h1>
 
 			<?php foreach ($this->questions as $question): ?>
-				<?php if(!empty($question['nr'])): ?>
+				<?php if (!empty($question['nr'])): ?>
 					<h2 class="alt numbered heading-with-cta">
-						<span class="numbered-number pull-left"><?=$question['nr']?></span>
-						<span class="numbered-title"><?=$question['q']?></span>
+						<span class="numbered-number pull-left"><?= $question['nr'] ?></span>
+						<span class="numbered-title"><?= $question['q'] ?></span>
 					</h2>
 				<?php else: ?>
-					<h2 class="alt"><?=$question['q']?></h2>
+					<h2 class="alt"><?= $question['q'] ?></h2>
 				<?php endif; ?>
 				<?php if ($linkHeadlineToInputs): ?>
 					<a href="<?php
@@ -40,7 +40,7 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 							'action' => 'show',
 							'kid' => $this->consultation->kid,
 							'qid' => $question['qi']));
-						?>" class="btn edit pull-right" title="Zum Beantworten hier klicken"><i class="icon-edit-alt"></i> Beitrag verfassen</a>
+								?>" class="btn edit pull-right" title="Zum Beantworten hier klicken"><i class="icon-edit-alt"></i> Beitrag verfassen</a>
 				<?php endif; ?>
 				<?php echo $question['q_xpl'] ?>
 			<?php endforeach; ?>

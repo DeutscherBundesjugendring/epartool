@@ -7,19 +7,13 @@
  */
 ?>
 
-<!-- Secondary navigation -->
 <?php echo $this->secondNavigation('input'); ?>
-<!-- .secondary-navigation -->
-
-<!-- Content start -->
 
 <div class="content-holder">
 	<div class="row">
 		<aside class="span3">
 
-			<!-- Tertiary navigation -->
-			<?php echo $this->questionNavigation($this->question['qi']);?>
-			<!-- .tertiary-navigation -->
+			<?php echo $this->questionNavigation($this->question['qi']); ?>
 
 		</aside>
 		<section class="main-content span9">
@@ -35,12 +29,10 @@
 
 			<?php echo $this->registerForm; ?>
 
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
 
-<!-- Content end -->
-
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

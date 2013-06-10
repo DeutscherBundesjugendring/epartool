@@ -8,33 +8,28 @@
 $date = new Zend_Date();
 $supports = new Zend_Session_Namespace('supports');
 $supportsDisabled = (
-  Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
-  || Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
-  || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
-  || $this->consultation->spprt_to == '0000-00-00 00:00:00'
-  || $this->consultation->spprt_show == 'n'
-);
+		Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
+		|| Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
+		|| $this->consultation->spprt_fr == '0000-00-00 00:00:00'
+		|| $this->consultation->spprt_to == '0000-00-00 00:00:00'
+		|| $this->consultation->spprt_show == 'n'
+		);
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('input'); ?>
-<!-- .secondary-navigation -->
 
-<!-- Content start -->
+<?php echo $this->secondNavigation('input'); ?>
 
 <div class="content-holder">
 	<div class="row">
 		<aside class="span3">
 
-			<!-- Tertiary navigation -->
-			<?php echo $this->questionNavigation($this->question['qi']);?>
-			<!-- .tertiary-navigation -->
+			<?php echo $this->questionNavigation($this->question['qi']); ?>
 
 		</aside>
-
 		<section class="main-content span9">
+
 			<?php if (isset($this->tag) && !empty($this->tag)): ?>
-			<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
-			<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
+				<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
+				<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
 			<?php endif; ?>
 			<small class="count muted"><?php echo $this->numberInputs; ?> Beiträge</small>
 
@@ -48,62 +43,59 @@ $supportsDisabled = (
 
 			<!-- Contributions -->
 			<?php if (count($this->paginator)): ?>
-			<?php
-			  // Reverse order of entries to show latest first
-  			$inputs = array();
-  			foreach ($this->paginator as $item) {
-          $inputs[] = $item;
-        }
-        $inputs = array_reverse($inputs);
-      ?>
-      <?php foreach ($inputs as $input): ?>
-			<a name="input-<?php echo $input['tid']; ?>"></a>
-			<article class="media">
-				<time pubdate datetime="<?php echo $date->set($input['when'])
-							  ->get('y-MM-dd')?>">verfasst am <?php echo $date
-							  ->get(Zend_Date::DATE_MEDIUM); ?></time>
-				<p class="lead"><?php echo $input['thes']?></p>
-				<p><?php echo $input['expl']?></p>
+				<?php
+				// Reverse order of entries to show latest first
+				$inputs = array();
+				foreach ($this->paginator as $item) {
+					$inputs[] = $item;
+				}
+				$inputs = array_reverse($inputs);
+				?>
+				<?php foreach ($inputs as $input): ?>
+					<a name="input-<?php echo $input['tid']; ?>"></a>
+					<article class="media">
+						<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
+							verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
+						</time>
+						<p class="lead"><?php echo $input['thes'] ?></p>
+						<p><?php echo $input['expl'] ?></p>
 
-				<div id="click-support-wrap-<?php echo $input['tid']; ?>">
-				<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-				  <span>
-				<?php else: ?>
-				  <a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
-				<?php endif;?>
-  					<i class="icon-ok-sign"></i>
-  					<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
-  			<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-  					<span class="label">Unterstützer</span>
-  				</span>
-  			<?php else: ?>
-  			    <span class="label">Dieser Meinung bin ich auch!</span>
-  				</a>
-  			<?php endif; ?>
-				</div>
+						<div id="click-support-wrap-<?php echo $input['tid']; ?>">
+							<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+								<span>
+									<?php else: ?>
+									<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
+									<?php endif; ?>
+									<i class="icon-ok-sign"></i>
+									<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
+								<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+										<span class="label">Unterstützer</span>
+								</span>
+							<?php else: ?>
+								<span class="label">Dieser Meinung bin ich auch!</span>
+								</a>
+							<?php endif; ?>
+						</div>
 
-				<p class="actions">
-					<i class="icon-comments icon-orange icon-2x"></i>
-					<small>(<?php echo $input['pts']; ?>)</small>
-					<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
-				</p>
-			</article>
-
-			<hr />
-			<?php endforeach;?>
-			<?php endif;?>
+						<p class="actions">
+							<i class="icon-comments icon-orange icon-2x"></i>
+							<small>(<?php echo $input['pts']; ?>)</small>
+							<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+						</p>
+					</article>
+					<hr />
+				<?php endforeach; ?>
+			<?php endif; ?>
 
 			<!-- Paging -->
 			<?php
-			echo $this->paginationControl($this->paginator,
-        'Sliding',
-				'_partials/pagination.phtml',
-				array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
-			); ?>
+			echo $this->paginationControl($this->paginator, 'Sliding', '_partials/pagination.phtml', array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
+			);
+			?>
 
 			<hr />
 
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 	</div><!-- .row -->
@@ -111,22 +103,21 @@ $supportsDisabled = (
 
 <!-- Content end -->
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>
 
 <script type="text/javascript">
-$(document).ready(function() {
-  $('.click-support').click(function(event) {
-    event.preventDefault();
-    var tid = $(this).attr('rel');
-    $.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo
-      $this->consultation->kid; ?>/format/json", { "tid": tid })
-    .done(function(data) {
-      if (data.count) {
-        $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign"></i>'
-            + ' <span class="badge" id="badge-' + tid + '">(' + data.count + ')</span>'
-            + ' <span class="label">Unterstützer</span></span>');
-      }
-    });
-  });
-});
+	$(document).ready(function() {
+		$('.click-support').click(function(event) {
+			event.preventDefault();
+			var tid = $(this).attr('rel');
+			$.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json", { "tid": tid })
+				  .done(function(data) {
+					  if (data.count) {
+						  $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign"></i>'
+							  + ' <span class="badge" id="badge-' + tid + '">(' + data.count + ')</span>'
+							  + ' <span class="label">Unterstützer</span></span>');
+					  }
+				  });
+			  });
+		  });
 </script>

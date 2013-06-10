@@ -8,47 +8,46 @@
 $date = new Zend_Date();
 $locale = new Zend_Locale();
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('follow-up')?>
-<!-- .secondary-navigation -->
+
+<?php echo $this->secondNavigation('follow-up') ?>
 
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
 
-            <?php echo $this->followupNavigation('overview')?>
+			<?php echo $this->followupNavigation('overview') ?>
 
         </aside>
         <section class="main-content span8">
 
             <h1>Lorem ipsum Headline, die auch zweizeilig sein kann wenn denn nötig</h1>
             <p>Bildung findet nicht nur in der (Hoch-)Schule oder am Ausbildungsplatz
-		statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
-		man auch außerhalb des sogenannten formalen Bildungssystems. Eine
-		besondere Rolle spielen dabei außerschulisch organisierte
-		Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
+				statt. Wissen, neue Kenntnisse, Fähigkeiten und Fertigkeiten erwirbt
+				man auch außerhalb des sogenannten formalen Bildungssystems. Eine
+				besondere Rolle spielen dabei außerschulisch organisierte
+				Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
 
             <div class="box thumbnail">
-                 <h2>Bisherige Reaktionen im Überblick</h2>
+				<h2>Bisherige Reaktionen im Überblick</h2>
                 <ul>
-                    <?php foreach ($this->latest_followups as $followup): ?>
-                                            <li>
-                                                <img src="<?php echo $this->media_cnslt_dir.$followup['gfx_who']; ?>" />
-                                                <p><?php echo $followup['when']; ?><br /><?php echo $followup['who']; ?></p>
-                                                <a href="<?php echo $this->media_cnslt_dir.$followup['ref_doc']; ?>">Ansehen</a>
-                                            </li>
-                    <?php endforeach;?>
+					<?php foreach ($this->latest_followups as $followup): ?>
+						<li>
+							<img src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
+							<p><?php echo $followup['when']; ?><br /><?php echo $followup['who']; ?></p>
+							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>">Ansehen</a>
+						</li>
+					<?php endforeach; ?>
                 </ul>
             </div>
             <div class="box thumbnail">
                 <h2>Reaktionen und Feedback auf einzelne Beiträge</h2>
                 <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
-                <?php echo $this->questionNavigation( NULL, 'follow-up');?>
+				<?php echo $this->questionNavigation(NULL, 'follow-up'); ?>
                 <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>">Sortiert nach Schlagwörtern</a>
             </div>
-			
+
         </section>
     </div>
 </div>
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

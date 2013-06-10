@@ -8,7 +8,7 @@
 //Zend_Debug::dump($this->consultation);
 ?>
 <!-- Secondary navigation -->
-<?php echo $this->secondNavigation('article')?>
+<?php echo $this->secondNavigation('article') ?>
 <!-- .secondary-navigation -->
 
 <!-- Content start -->
@@ -18,7 +18,7 @@
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-			<?php echo $this->articleNavigation(null, 'info');?>
+			<?php echo $this->articleNavigation(null, 'info'); ?>
 			<!-- .tertiary-navigation -->
 
 		</aside>
@@ -26,7 +26,7 @@
 
 			<?php echo html_entity_decode($this->consultation->expl, ENT_COMPAT, 'UTF-8'); ?>
 
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 		<aside class="span3">
@@ -37,4 +37,4 @@
 
 <!-- Content end -->
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

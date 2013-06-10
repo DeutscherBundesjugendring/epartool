@@ -6,11 +6,8 @@
  * @author        Markus Hackel, Jan Suchandt
  */
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('voting')?>
-<!-- .secondary-navigation -->
 
-<!-- Content start -->
+<?php echo $this->secondNavigation('voting') ?>
 
 <div class="content-holder">
 	<div class="row">
@@ -33,44 +30,44 @@
 			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
 
 			<p>Du kannst Dir die Meinungen, Positionen und Vorschl&auml;ge, die von Dir bewertet werden k&ouml;nnen,
-			nach Fragen oder nach Stichworten sortiert anzeigen lassen.<br/>
-			Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit m&ouml;glich.
-			Du kannst so viele Beitr&auml;ge bearbeiten, wie Du m&ouml;chtest. Unterbrechungen sind problemlos m&ouml;glich.</p>
+				nach Fragen oder nach Stichworten sortiert anzeigen lassen.<br/>
+				Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit m&ouml;glich.
+				Du kannst so viele Beitr&auml;ge bearbeiten, wie Du m&ouml;chtest. Unterbrechungen sind problemlos m&ouml;glich.</p>
+
 			<!-- Questions -->
 			<ul>
-			<?php
-			$i = 1;
-			foreach ($this->questions as $question):
-			  $url = $this->url(array('action' => 'vote', 'qid' => $question['qi']));
-			  ?>
-				<li><h2><a href="<?php echo $url?>"><?php echo $question['nr'] . ' '
-				  . $question['q']?></a></h2></li>
-			  <?php
-			  $i++;
-			endforeach;
-			?>
+				<?php
+				$i = 1;
+				foreach ($this->questions as $question):
+					$url = $this->url(array('action' => 'vote', 'qid' => $question['qi']));
+					?>
+					<li><h2><a href="<?php echo $url ?>"><?php echo $question['nr'] . ' '
+				. $question['q']
+					?></a></h2></li>
+					<?php
+					$i++;
+				endforeach;
+				?>
 			</ul>
 			<!-- Tags -->
 			<?php if (!empty($this->tags)): ?>
-			<!-- <ul class="tag-cloud">
-				<li class="tag-rare"><a href="">Less frequent keyword</a></li>
-				<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
-				<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
-			</ul> -->
-			<ul class="tag-cloud">
-			<?php foreach ($this->tags as $tag): ?>
-				<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid'=>null)); ?>">
-				<?php echo $tag['tg_de']; ?></a></li>
-			<?php endforeach;?>
-			</ul>
+				<!-- <ul class="tag-cloud">
+					<li class="tag-rare"><a href="">Less frequent keyword</a></li>
+					<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
+					<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
+				</ul> -->
+				<ul class="tag-cloud">
+							<?php foreach ($this->tags as $tag): ?>
+						<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>">
+								<?php echo $tag['tg_de']; ?></a></li>
+				<?php endforeach; ?>
+				</ul>
 			<?php endif; ?>
 
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
 
-<!-- Content end -->
-
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

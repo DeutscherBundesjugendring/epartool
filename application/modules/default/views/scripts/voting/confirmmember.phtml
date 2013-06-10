@@ -7,25 +7,22 @@
  */
 ?>
 <section class="main-content content-holder">
-<?php
-if($this->act == 'confirm'):
-  ?>
-  <h1>Dieses Gruppenmitglied ist jetzt bestätigt.</h1>
-  <p>
-    Vielen Dank für die Bestätigung des Gruppenmitglieds mit der E-Mail-Adresse
-    &quot;<?php echo $this->subuser; ?>&quot;.
-    Die Stimmen werden nun für die Gruppe gezählt.
-  </p>
-  <?php
-elseif($this->act == 'reject'):
-  ?>
-  <h1>Der/die Abstimmende wurde nicht in die Gruppe aufgenommen.</h1>
-  <p>
-    Die mit der E-Mail-Adresse &quot;<?php echo $this->subuser; ?>&quot; abgegebenen Stimmen fließen nicht in das Endergebnis Eurer Gruppe ein.
-    Über Eure Entscheidung wird die Person nicht informiert, aber Du kannst diese Person gerne kontaktieren.
-  </p>
-  <?php
-endif;
-?>
-<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
-</section>
+
+	<?php if ($this->act == 'confirm'): ?>
+		<h1>Dieses Gruppenmitglied ist jetzt bestätigt.</h1>
+		<p>
+			Vielen Dank für die Bestätigung des Gruppenmitglieds mit der E-Mail-Adresse
+			&quot;<?php echo $this->subuser; ?>&quot;.
+			Die Stimmen werden nun für die Gruppe gezählt.
+		</p>
+	<?php elseif ($this->act == 'reject'): ?>
+		<h1>Der/die Abstimmende wurde nicht in die Gruppe aufgenommen.</h1>
+		<p>
+			Die mit der E-Mail-Adresse &quot;<?php echo $this->subuser; ?>&quot; abgegebenen Stimmen fließen nicht in das Endergebnis Eurer Gruppe ein.
+			Über Eure Entscheidung wird die Person nicht informiert, aber Du kannst diese Person gerne kontaktieren.
+		</p>
+	<?php endif; ?>
+
+	<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
+
+</section><!-- .main-content -->

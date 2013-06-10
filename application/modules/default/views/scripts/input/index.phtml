@@ -8,75 +8,69 @@
 $date = new Zend_Date();
 $locale = new Zend_Locale();
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('input')?>
-<!-- .secondary-navigation -->
 
-<!-- Content start -->
+<?php echo $this->secondNavigation('input') ?>
 
 <section class="main-content content-holder">
-
 	<div class="row">
 		<div class="text-center span10 offset1">
-			<small class="count muted"><?php echo $this->inputCount?> Beiträge</small>
 
+			<small class="count muted"><?php echo $this->inputCount ?> Beiträge</small>
 			<h1>Alle Beiträge im Überblick</h1>
 			<p>Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.</p>
+
 		</div>
 	</div>
 
 	<!-- Questions -->
 	<ul class="questions thumbnails">
 		<?php if (!empty($this->tags)): ?>
-		<li class="span4">
-			<div class="thumbnail">
-				<h2>Beiträge sortiert nach Schlagwörtern</h2>
-				<!-- <ul class="tag-cloud">
-					<li class="tag-rare"><a href="">Less frequent keyword</a></li>
-					<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
-					<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
-				</ul> -->
-				<ul class="tag-cloud">
-				<?php foreach ($this->tags as $tag): ?>
-					<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php
-					echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>"><?php echo $tag['tg_de']; ?></a></li>
-				<?php endforeach;?>
-				</ul>
-			</div>
-		</li>
+			<li class="span4">
+				<div class="thumbnail">
+					<h2>Beiträge sortiert nach Schlagwörtern</h2>
+					<!-- <ul class="tag-cloud">
+						<li class="tag-rare"><a href="">Less frequent keyword</a></li>
+						<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
+						<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
+					</ul> -->
+					<ul class="tag-cloud">
+						<?php foreach ($this->tags as $tag): ?>
+							<li class="tag-<?php echo $tag['frequency']; ?>">
+								<a href="<?php echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>"><?php echo $tag['tg_de']; ?></a>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</li>
 		<?php endif; ?>
-<?php
-foreach ($this->questions as $question):
-  $url = $this->url(array('action' => 'show', 'qid' => $question['qi']));
-?>
-		<li class="span4">
-			<div class="thumbnail">
-				<span class="badge badge-tag badge-tag-small"><?php echo $question['nr']?></span>
-				<h2>
-					<a href="<?php echo $url?>"><?php echo $question['q']?></a>
-				</h2>
-				<?php foreach ($question['inputs'] as $input):?>
-				<a href="<?php echo $url?>">
-					<article class="media">
-						<time pubdate datetime="<?php echo $date->set($input['when'])
-						  ->get('y-MM-dd')?>">verfasst am <?php echo $date
-						  ->get(Zend_Date::DATE_MEDIUM, $locale)?></time>
-						<p><?php echo mb_substr($input['thes'], 0, 120)?></p>
-					</article>
-				</a>
-				<?php endforeach;?>
-				<a href="<?php echo $url?>" class="btn">Zur Beitragsseite der <?php echo $question['nr']?> Frage</a>
-			</div>
-		</li>
-<?php
-endforeach;
-?>
+		<?php
+		foreach ($this->questions as $question):
+			$url = $this->url(array('action' => 'show', 'qid' => $question['qi']));
+			?>
+			<li class="span4">
+				<div class="thumbnail">
+					<span class="badge badge-tag badge-tag-small"><?php echo $question['nr'] ?></span>
+					<h2>
+						<a href="<?php echo $url ?>"><?php echo $question['q'] ?></a>
+					</h2>
+					<?php foreach ($question['inputs'] as $input): ?>
+						<a href="<?php echo $url ?>">
+							<article class="media">
+								<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
+									verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM, $locale)?>
+								</time>
+								<p><?php echo mb_substr($input['thes'], 0, 120) ?></p>
+							</article>
+						</a>
+					<?php endforeach; ?>
+					<a href="<?php echo $url ?>" class="btn">Zur Beitragsseite der <?php echo $question['nr'] ?> Frage</a>
+				</div>
+			</li>
+		<?php endforeach; ?>
 	</ul><!-- .questions -->
 
-	<?php echo $this->render('_partials/printLink.phtml')?>
+<?php echo $this->render('_partials/printLink.phtml') ?>
 
 </section>
 
-<!-- Content end -->
-
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>

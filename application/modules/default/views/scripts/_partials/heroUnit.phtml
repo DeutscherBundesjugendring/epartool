@@ -7,58 +7,51 @@
  */
 ?>
 <?php
-
 $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 //$action = Zend_Controller_Front::getInstance()->getRequest()->getParam('action');
-
 ?>
-<?php
-if (isset($this->consultation)):
-?>
+<?php if (isset($this->consultation)): ?>
 
-<!-- Main title -->
-<div class="main-title">
-	<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true)?>" rel="home" itemprop="name">Mitwirkung</a></h1>
-</div><!-- .title -->
+	<!-- Main title -->
+	<div class="main-title">
+		<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">Mitwirkung</a></h1>
+	</div><!-- .title -->
 
-<!-- Hero unit -->
-<div class="consultation consultation-preview hero-unit">
+	<!-- Hero unit -->
+	<div class="consultation consultation-preview hero-unit">
 
-	<hgroup>
-		<h1><?php /* TODO add link */ echo $this->escape($this->consultation->titl)?></h1>
-		<h2><?php echo $this->escape($this->consultation->titl_sub)?></h2>
-	</hgroup>
+		<hgroup>
+			<h1><?php /* TODO add link */ echo $this->escape($this->consultation->titl) ?></h1>
+			<h2><?php echo $this->escape($this->consultation->titl_sub) ?></h2>
+		</hgroup>
 
-	<span class="label sticker label-mitmachen">Mitmachen</span>
+		<span class="label sticker label-mitmachen">Mitmachen</span>
 
-	<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $this->consultation->kid . '/'
-	  . $this->consultation->img_file;?>" width="144" class="title-image"
-	  alt="<?php echo $this->consultation->img_expl;?>" />
+		<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $this->consultation->kid . '/'
+			. $this->consultation->img_file;
+			?>" width="144" class="title-image"
+			 alt="<?php echo $this->consultation->img_expl; ?>" />
 
-	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true)?>" rel="home">Zur Startseite … <i class="icon-angle-right icon-2x"></i></a>
+		<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home">Zur Startseite … <i class="icon-angle-right icon-2x"></i></a>
+		<a href="#" class="share btn"><i class="icon-share-alt icon-white icon-large"></i> Share</a>
 
-	<a href="#" class="share btn"><i class="icon-share-alt icon-white icon-large"></i> Share</a>
+	</div><!-- .hero-unit -->
 
-</div>
-<!-- .hero-unit -->
+<?php else: ?>
 
-<?php else:?>
+	<!-- Hero unit -->
+	<div class="main-header hero-unit<?php echo $controller == 'index' ? ' with-teaser' : ''; ?>">
 
-<!-- Hero unit -->
-<div class="main-header hero-unit<?php echo $controller == 'index' ? ' with-teaser' : ''; ?>">
+		<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">Mitwirkung</a></h1>
+		<p itemprop="description">Ichmache>Politik ermöglicht die Mitwirkung an der eigenständigen Jugendpolitik: Ihr diskutiert vor Ort die FRAGEN > Ihr kommentiert den Fachdiskurs in euren BEITRÄGEN > Ihr entscheidet in der ABSTIMMUNG was am wichtigsten ist > Ihr verfolgt die WIRKUNG eurer MITWIRKUNG!</p>
 
-	<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true)?>" rel="home" itemprop="name">Mitwirkung</a></h1>
-	<p itemprop="description">Ichmache>Politik ermöglicht die Mitwirkung an der eigenständigen Jugendpolitik: Ihr diskutiert vor Ort die FRAGEN > Ihr kommentiert den Fachdiskurs in euren BEITRÄGEN > Ihr entscheidet in der ABSTIMMUNG was am wichtigsten ist > Ihr verfolgt die WIRKUNG eurer MITWIRKUNG!
-	</p>
+		<?php if ($controller == 'index'): ?>
 
-	<?php if ($controller == 'index'): ?>
+			<!-- Teaser -->
+			<?php echo $this->teaser(); ?>
 
-	<!-- Teaser -->
-	<?php echo $this->teaser(); ?>
+		<?php endif; ?>
 
-	<?php endif; ?>
+	</div><!-- .hero-unit -->
 
-</div>
-<!-- .hero-unit -->
-
-<?php endif;?>
+<?php endif; ?>

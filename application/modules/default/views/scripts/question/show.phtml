@@ -6,37 +6,31 @@
  * @author        Markus Hackel
  */
 ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('question')?>
-<!-- .secondary-navigation -->
 
-<!-- Content start -->
+<?php echo $this->secondNavigation('question') ?>
 
 <div class="content-holder">
 	<div class="row">
 		<aside class="span3">
 
-			<!-- Tertiary navigation -->
-			<?php echo $this->questionNavigation($this->question['qi']);?>
-			<!-- .tertiary-navigation -->
+			<?php echo $this->questionNavigation($this->question['qi']); ?>
 
 		</aside>
 		<section class="main-content span6">
 
-			<h3><?php echo $this->question['q']?></h3>
-			<p><?php echo $this->question['q_xpl']?></p>
-
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<h3><?php echo $this->question['q'] ?></h3>
+			<p><?php echo $this->question['q_xpl'] ?></p>
+			
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 		<aside class="span3">
 
-			<p><?php echo $this->question['vot_q']?></p>
+			<p><?php echo $this->question['vot_q'] ?></p>
 
 		</aside>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
 
-<!-- Content end -->
-
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php
+echo $this->render('_partials/topLink.phtml')?>

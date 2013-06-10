@@ -9,75 +9,72 @@
 
 <div class="content-holder main-content">
 
-<h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
+	<h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
 
-<h2>Suche in Grundinformationen</h2>
-<?php
-// Generell articles
-if(count($this->resultsGeneral)>0) {
-  $staticArticles = array(
-    'about','imprint','faq','privacy','contact'
-  );
-  echo('<ul>');
-  foreach($this->resultsGeneral AS $article) {
-    $url = (in_array($article['ref_nm'], $staticArticles)) ? $this->baseUrl() . '/'.$article['ref_nm'] : $this->baseUrl() . '/article/show/aid/'.$article['art_id'] ;
-    echo('<li><a href="'.$url.'" title="'.$article['desc'].'">'.$article['desc'].'</a></li>');
-  }
-  echo('</ul>');
-}
-else {
-  echo('<ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>');
-}
-?>
+	<h2>Suche in Grundinformationen</h2>
+	<?php
+	// Generell articles
+	if (count($this->resultsGeneral) > 0) {
+		$staticArticles = array(
+			'about', 'imprint', 'faq', 'privacy', 'contact'
+		);
+		echo('<ul>');
+		foreach ($this->resultsGeneral AS $article) {
+			$url = (in_array($article['ref_nm'], $staticArticles)) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id'];
+			echo('<li><a href="' . $url . '" title="' . $article['desc'] . '">' . $article['desc'] . '</a></li>');
+		}
+		echo('</ul>');
+	} else {
+		echo('<ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>');
+	}
+	?>
 
-<h2>Suche in Konsultationen</h2>
-<?php
-// consultations
-if(count($this->resultsConsultations)>0) {
-  foreach($this->resultsConsultations AS $consultation) {
-    if(count($consultation['articles'])>0
-    || count($consultation['questions'])>0
-    || count($consultation['inputs'])>0
-    || isset($consultation['inExpl'])) {
-      echo('<h3>'.$consultation['titel'].'</h3>');
-      // articles
-      if(count($consultation['articles'])>0 || isset($consultation['inExpl'])) {
-        echo('<h4>Informationsseiten</h4><ul>');
-        if(isset($consultation['inExpl'])) {
-          echo('<li><a href="' . $this->baseUrl() . '/article/index/kid/'.$consultation['cid'].'" title="Übersichtsseite">Übersichtsseite</li>');
-        }
-        foreach($consultation['articles'] AS $article) {
-          echo('<li><a href="' . $this->baseUrl() . '/article/show/kid/'.$consultation['cid'].'/aid/'.$article['art_id'].'" title="'.$article['desc'].'">'.$article['desc'].'</a></li>');
-        }
-        echo('</ul>');
-      }
-      // questions
-      if(count($consultation['questions'])>0) {
-        echo('<h4>Konsultationsfragen</h4><ul>');
-        foreach($consultation['questions'] AS $question) {
-          $url = $this->baseUrl() . '/question/show/kid/'.$consultation['cid'].'/qid/'.$question['qi'];
-          $explenation = substr($question['q_xpl'], 0, 100). '...';
-          echo('<li><a href="'.$url.'" title="'.$question['q'].'">'.$question['q'].'</a><br />'.strip_tags($question['q_xpl']).'...</li>');
-        }
-        echo('</ul>');
-      }
-      // inputs
-      if(count($consultation['inputs'])>0) {
-        echo('<h4>Benutzer-Beitr&auml;ge</h4><ul>');
-        foreach($consultation['inputs'] AS $input) {
-          $thes = stripslashes(strip_tags($input['thes']));
-          $expl = stripslashes(strip_tags($input['expl']));
-          $expl.= (empty($expl)) ? '' : '...' ;
-          $url = $this->baseUrl() . '/input/show/kid/'.$consultation['cid'].'/qid/'.$input['qi'].'#input-'.$input['tid'];
-          echo('<li><a href="'.$url.'" title="'.$thes.'">'.$thes.'</a><br />'.$expl.'</li>');
-        }
-        echo('</ul>');
-      }
-
-    }
-
-  }
-}
-?>
+	<h2>Suche in Konsultationen</h2>
+	<?php
+	// consultations
+	if (count($this->resultsConsultations) > 0) {
+		foreach ($this->resultsConsultations AS $consultation) {
+			if (count($consultation['articles']) > 0
+					|| count($consultation['questions']) > 0
+					|| count($consultation['inputs']) > 0
+					|| isset($consultation['inExpl'])) {
+				echo('<h3>' . $consultation['titel'] . '</h3>');
+				// articles
+				if (count($consultation['articles']) > 0 || isset($consultation['inExpl'])) {
+					echo('<h4>Informationsseiten</h4><ul>');
+					if (isset($consultation['inExpl'])) {
+						echo('<li><a href="' . $this->baseUrl() . '/article/index/kid/' . $consultation['cid'] . '" title="Übersichtsseite">Übersichtsseite</li>');
+					}
+					foreach ($consultation['articles'] AS $article) {
+						echo('<li><a href="' . $this->baseUrl() . '/article/show/kid/' . $consultation['cid'] . '/aid/' . $article['art_id'] . '" title="' . $article['desc'] . '">' . $article['desc'] . '</a></li>');
+					}
+					echo('</ul>');
+				}
+				// questions
+				if (count($consultation['questions']) > 0) {
+					echo('<h4>Konsultationsfragen</h4><ul>');
+					foreach ($consultation['questions'] AS $question) {
+						$url = $this->baseUrl() . '/question/show/kid/' . $consultation['cid'] . '/qid/' . $question['qi'];
+						$explenation = substr($question['q_xpl'], 0, 100) . '...';
+						echo('<li><a href="' . $url . '" title="' . $question['q'] . '">' . $question['q'] . '</a><br />' . strip_tags($question['q_xpl']) . '...</li>');
+					}
+					echo('</ul>');
+				}
+				// inputs
+				if (count($consultation['inputs']) > 0) {
+					echo('<h4>Benutzer-Beitr&auml;ge</h4><ul>');
+					foreach ($consultation['inputs'] AS $input) {
+						$thes = stripslashes(strip_tags($input['thes']));
+						$expl = stripslashes(strip_tags($input['expl']));
+						$expl.= (empty($expl)) ? '' : '...';
+						$url = $this->baseUrl() . '/input/show/kid/' . $consultation['cid'] . '/qid/' . $input['qi'] . '#input-' . $input['tid'];
+						echo('<li><a href="' . $url . '" title="' . $thes . '">' . $thes . '</a><br />' . $expl . '</li>');
+					}
+					echo('</ul>');
+				}
+			}
+		}
+	}
+	?>
 
 </div><!-- .main-content -->

@@ -7,9 +7,9 @@
  */
 ?>
 <?php if ($this->consultation): ?>
-<!-- Secondary navigation -->
-<?php echo $this->secondNavigation('article')?>
-<!-- .secondary-navigation -->
+	<!-- Secondary navigation -->
+	<?php echo $this->secondNavigation('article') ?>
+	<!-- .secondary-navigation -->
 <?php endif; ?>
 
 <!-- Content start -->
@@ -20,20 +20,20 @@
 
 			<!-- Tertiary navigation -->
 			<?php if ($this->article['ref_nm'] != 'about'): // show no tertiary navigation on "about" page ?>
-			<?php echo $this->articleNavigation($this->article['art_id'], 'info');?>
+				<?php echo $this->articleNavigation($this->article['art_id'], 'info'); ?>
 			<?php endif; ?>
 
 		</aside>
 		<section class="main-content span6">
 
-			<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8');?>
+			<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8'); ?>
 
-			<?php echo $this->render('_partials/printLink.phtml')?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
 		<aside class="span3">
 
-			<?php echo html_entity_decode($this->article['sidebar'], ENT_COMPAT, 'UTF-8');?>
+			<?php echo html_entity_decode($this->article['sidebar'], ENT_COMPAT, 'UTF-8'); ?>
 
 		</aside>
 	</div><!-- .row -->
@@ -41,4 +41,4 @@
 
 <!-- Content end -->
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+<?php echo $this->render('_partials/topLink.phtml') ?>
