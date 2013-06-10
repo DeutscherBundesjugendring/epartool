@@ -1346,7 +1346,7 @@ body > footer {
 }
 
 .navbar .navbar-inner {
-  min-height: 3.076924em;
+  height: 40px;
   background: #00cbff none;
   border-style: none;
   -webkit-border-radius: 0;
@@ -1375,11 +1375,15 @@ body > footer {
 
 .navbar .nav > li > a {
   display: inline-block;
+  height: 40px;
   padding: 0.5em 1ex;
   font: normal 1.538em/100% "Yanone Kaffeesatz", sans-serif;
   color: #000000;
   text-shadow: none;
   text-transform: uppercase;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .navbar .nav > li > a:hover,
@@ -1406,7 +1410,7 @@ body > footer {
 .navbar .nav > .licence > a img {
   position: relative;
   top: -0.1em;
-  line-height: 3.076924em;
+  line-height: 40px;
   vertical-align: middle;
 }
 

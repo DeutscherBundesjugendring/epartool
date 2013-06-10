@@ -3,13 +3,14 @@
 // --------------------------------------------------
 
 
+// Refactored navbar with no floating to allow align items to center
 // Navbar container
 .navbar {
 	margin-bottom: 0;
 
 	// Navbar
 	.navbar-inner {
-		min-height: @navbarHeight;
+		height: @navbarHeight;
 		.border-radius(0);
 		border-style: none;
 		background: @navbarBackground none;
@@ -35,7 +36,9 @@
 	}
 
 	.nav > li > a {
+		height: @navbarHeight;
 		display: inline-block;
+		.box-sizing(border-box);
 		padding: @navbarItemVerticalPadding @navbarItemHorizontalPadding;
 		font: normal 1.538em/100% @subheadingFontFamily; // 20px;
 		text-transform: uppercase;
