@@ -611,6 +611,17 @@ p .btn {
   margin-left: 1.538462em;
 }
 
+.btn.share {
+  position: relative;
+  padding-right: .75em;
+}
+
+.btn.share i {
+  position: relative;
+  top: .2em;
+  margin-right: .3em;
+}
+
 .btn.edit {
   position: relative;
   padding-left: 1.25em;
@@ -1912,13 +1923,6 @@ article.media .actions i {
   position: absolute;
   top: 2.75em;
   right: -0.5em;
-  padding-right: .75em;
-}
-
-.consultation.hero-unit .share i {
-  position: relative;
-  top: .2em;
-  margin-right: .3em;
 }
 
 @media print {
