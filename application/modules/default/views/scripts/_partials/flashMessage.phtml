@@ -1,0 +1,20 @@
+<div class="alert alert-<?php echo $this->level; ?>">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<h4>
+		<?php
+		switch ($this->level) {
+			case 'error':
+				echo 'Fehler!';
+				break;
+			case 'success':
+				echo 'Erfolg!';
+				break;
+			case 'info':
+			default:
+				echo 'Info';
+				break;
+		}
+		?>
+	</h4>
+	<?php echo $this->message; ?>
+</div>

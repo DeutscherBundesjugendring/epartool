@@ -671,7 +671,7 @@ select:focus:required:invalid:focus {
 .control-group.error .control-label,
 .control-group.error .help-block,
 .control-group.error .help-inline {
-  color: #ffffff;
+  color: #cc0000;
 }
 
 .control-group.error .checkbox,
@@ -679,13 +679,13 @@ select:focus:required:invalid:focus {
 .control-group.error input,
 .control-group.error select,
 .control-group.error textarea {
-  color: #ffffff;
+  color: #cc0000;
 }
 
 .control-group.error input,
 .control-group.error select,
 .control-group.error textarea {
-  border-color: #ffffff;
+  border-color: #cc0000;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -694,17 +694,17 @@ select:focus:required:invalid:focus {
 .control-group.error input:focus,
 .control-group.error select:focus,
 .control-group.error textarea:focus {
-  border-color: #e6e6e6;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ffffff;
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ffffff;
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ffffff;
+  border-color: #990000;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ff3333;
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ff3333;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ff3333;
 }
 
 .control-group.error .input-prepend .add-on,
 .control-group.error .input-append .add-on {
-  color: #ffffff;
-  background-color: #cc0000;
-  border-color: #ffffff;
+  color: #cc0000;
+  background-color: #ffcccc;
+  border-color: #cc0000;
 }
 
 .control-group.error .checkbox:focus,
@@ -839,6 +839,29 @@ body > footer {
   left: 0;
   width: 100%;
   min-height: 16.923082em;
+}
+
+.alert {
+  padding: 1em 3.076924em 1em 1.538462em;
+  text-shadow: none;
+  border-style: none;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+.alert .close {
+  right: -1em;
+}
+
+.alert-error {
+  color: #cc0000;
+  background-color: #ffcccc;
+  border-color: #cc0000;
+}
+
+.alert-error h4 {
+  color: #cc0000;
 }
 
 .icon-orange {
