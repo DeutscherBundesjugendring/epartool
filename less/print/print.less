@@ -1,0 +1,212 @@
+//
+// Print styles
+// --------------------------------------------------
+
+
+@media print {
+
+
+	// Typography
+	// -------------------------
+
+	body {
+		margin: 0;
+		padding: 0;
+		font: normal 1em/150% @serifFontFamily;
+	}
+
+	// Hide link URL's in top headlines
+	h1,
+	h2 {
+		a:after {
+			display: none;
+		}
+	}
+
+
+	// Layout
+	// -------------------------
+
+	@page {
+		margin: 2cm 2.5cm 2.5cm;
+	}
+
+	// Destroy grid
+	.container {
+		width: 100%;
+	}
+
+	.document-wrap {
+		padding-top: 0;
+
+		> .container {
+			padding: 0;
+		}
+	}
+
+	// Hide some layout components
+	footer,
+	aside,
+	.login,
+	.user-box,
+	.share,
+	.print,
+	.top-link,
+	.secondary-navigation {
+		display: none;
+	}
+
+	// Header
+	.container > header {
+		.header-region {
+			padding: 0;
+		}
+
+		.brand img {
+			width: 4cm;
+		}
+
+		.hero-unit h1 {
+			margin-bottom: .75em;
+		}
+	}
+
+	// Re-position main title on consultation subpages
+	.main-title {
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		h1 {
+			font-size: 1.75em;
+		}
+	}
+
+	// Hide links in header
+	.header-region a:after {
+		display: none;
+	}
+
+	// Main
+	.container > .main {
+		min-height: 0;
+	}
+
+	.content-holder > .row,
+	.content-holder > .row > [class*="span"] {
+		margin: 0 !important;
+	}
+
+	.main-content {
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+
+	// Components
+	// -------------------------
+
+	// Reset navs
+	.nav {
+		margin: 0 0 1.5em !important;
+		padding: 0 !important;
+
+		> li > a {
+			margin: 0 0 .75em !important;
+			padding: 0 !important;
+		}
+	}
+
+	.nav-pills > li {
+		float: none;
+	}
+
+	// Teaser
+	.teaser {
+		margin: 3em 0 1.5em;
+
+		> li > a {
+			line-height: @baseLineHeight;
+
+			.title {
+				max-width: none;
+				overflow: visible;
+				white-space: normal;
+			}
+
+			i {
+				display: none !important;
+			}
+		}
+	}
+
+	// Hide bubbles
+	.bubble,
+	.main-title h1:after,
+	.main-header h1:after {
+		display: none;
+	}
+
+	// Hero unit
+	.hero-unit {
+		margin: 8em 0 4em !important;
+		padding: 0 !important;
+
+		h1 {
+			font-size: 4em;
+		}
+	}
+
+	// Consultation preview
+	.consultation-preview {
+		margin: 0 0 1.5em;
+		padding: 0;
+
+		// Navigation
+		.consultation-nav {
+			.nav {
+				margin: 0;
+			}
+
+			.nav > li > * {
+				width: auto;
+				height: auto;
+				margin: 0;
+				padding: 0;
+
+				h2 {
+					font-size: 1.5em;
+				}
+			}
+		}
+
+		// Hide decorations
+		a:after,
+		.consultation-nav .nav > li > *:before,
+		.consultation-nav .nav > li > *:after,
+		.consultation-nav img {
+			display: none;
+		}
+	}
+
+	// Consultation detail header
+	.consultation.hero-unit {
+		min-height: 0;
+		margin-bottom: 6em !important;
+
+		hgroup {
+			margin: 0;
+
+			h1 {
+				font-size: 3em;
+			}
+		}
+
+		.title-image,
+		a[rel="home"] {
+			display: none;
+		}
+	}
+
+}

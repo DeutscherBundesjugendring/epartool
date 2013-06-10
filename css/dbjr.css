@@ -1879,3 +1879,142 @@ article.media .actions i {
   top: .2em;
   margin-right: .3em;
 }
+
+@media print {
+  body {
+    padding: 0;
+    margin: 0;
+    font: normal 1em/150% Georgia, "Times New Roman", Times, serif;
+  }
+  h1 a:after,
+  h2 a:after {
+    display: none;
+  }
+  @page  {
+    margin: 2cm 2.5cm 2.5cm;
+  }
+  .container {
+    width: 100%;
+  }
+  .document-wrap {
+    padding-top: 0;
+  }
+  .document-wrap > .container {
+    padding: 0;
+  }
+  footer,
+  aside,
+  .login,
+  .user-box,
+  .share,
+  .print,
+  .top-link,
+  .secondary-navigation {
+    display: none;
+  }
+  .container > header .header-region {
+    padding: 0;
+  }
+  .container > header .brand img {
+    width: 4cm;
+  }
+  .container > header .hero-unit h1 {
+    margin-bottom: .75em;
+  }
+  .main-title {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .main-title h1 {
+    font-size: 1.75em;
+  }
+  .header-region a:after {
+    display: none;
+  }
+  .container > .main {
+    min-height: 0;
+  }
+  .content-holder > .row,
+  .content-holder > .row > [class*="span"] {
+    margin: 0 !important;
+  }
+  .main-content {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .nav {
+    padding: 0 !important;
+    margin: 0 0 1.5em !important;
+  }
+  .nav > li > a {
+    padding: 0 !important;
+    margin: 0 0 .75em !important;
+  }
+  .nav-pills > li {
+    float: none;
+  }
+  .teaser {
+    margin: 3em 0 1.5em;
+  }
+  .teaser > li > a {
+    line-height: 1.565em;
+  }
+  .teaser > li > a .title {
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+  }
+  .teaser > li > a i {
+    display: none !important;
+  }
+  .bubble,
+  .main-title h1:after,
+  .main-header h1:after {
+    display: none;
+  }
+  .hero-unit {
+    padding: 0 !important;
+    margin: 8em 0 4em !important;
+  }
+  .hero-unit h1 {
+    font-size: 4em;
+  }
+  .consultation-preview {
+    padding: 0;
+    margin: 0 0 1.5em;
+  }
+  .consultation-preview .consultation-nav .nav {
+    margin: 0;
+  }
+  .consultation-preview .consultation-nav .nav > li > * {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  .consultation-preview .consultation-nav .nav > li > * h2 {
+    font-size: 1.5em;
+  }
+  .consultation-preview a:after,
+  .consultation-preview .consultation-nav .nav > li > *:before,
+  .consultation-preview .consultation-nav .nav > li > *:after,
+  .consultation-preview .consultation-nav img {
+    display: none;
+  }
+  .consultation.hero-unit {
+    min-height: 0;
+    margin-bottom: 6em !important;
+  }
+  .consultation.hero-unit hgroup {
+    margin: 0;
+  }
+  .consultation.hero-unit hgroup h1 {
+    font-size: 3em;
+  }
+  .consultation.hero-unit .title-image,
+  .consultation.hero-unit a[rel="home"] {
+    display: none;
+  }
+}
