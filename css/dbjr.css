@@ -244,6 +244,29 @@ dl {
   margin-bottom: 2em;
 }
 
+.main-content ul {
+  margin: 0 0 1.565em;
+  list-style: none;
+}
+
+.main-content ul > li {
+  margin-left: 1.25em;
+}
+
+.main-content ul > li:before {
+  float: left;
+  margin-left: -1.25em;
+  content: '>';
+}
+
+.main-content ul > li > ul {
+  margin: .5em 0;
+}
+
+.main-content ul > li > ul > li:before {
+  content: '»';
+}
+
 hr {
   margin: 0;
   border-top-color: rgba(102, 102, 102, 0.25);

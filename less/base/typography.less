@@ -185,6 +185,34 @@ ul, ol, dl {
 	margin-bottom: 2em;
 }
 
+// Custom bullets of user content
+.main-content {
+	ul {
+		margin: 0 0 @baseLineHeight;
+		list-style: none;
+	}
+
+	// First level
+	ul > li {
+		margin-left: 1.25em;
+
+		&:before {
+			content: '>';
+			float: left;
+			margin-left: -1.25em;
+		}
+	}
+
+	// Second level
+	ul > li > ul {
+		margin: .5em 0;
+
+		> li:before {
+			content: '»';
+		}
+	}
+}
+
 
 // Other
 // -------------------------
