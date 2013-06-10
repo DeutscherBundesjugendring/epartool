@@ -6,17 +6,6 @@
  */
 
 /*
- * Stylesheet Index
- * ==============================================================================
- *
- *   SCREEN STYLES
- *       DESKTOP
- *       TABLET
- *       MOBILE
- *
- *   PRINT STYLES
- *
- *
  * Rule Properties Structure
  * ==============================================================================
  *
@@ -51,7 +40,6 @@
  *		- opacity
  *	7. Animations:
  *		- transition
- *
  */
 
 .clearfix {
@@ -242,6 +230,203 @@ hr {
 img.pull-left {
   margin-right: 1.5em;
   margin-bottom: 1.5em;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.document-wrap {
+  padding-top: 1.2em;
+}
+
+.document-wrap > .container {
+  padding: 0 1.538462em;
+  color: #ffffff;
+  background-color: #5fa4a0;
+  -webkit-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
+     -moz-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
+}
+
+.container > header .header-region {
+  padding-top: 1.2em;
+}
+
+.container > header .form-search,
+.container > header .btn-block {
+  margin-right: -0.769231em;
+}
+
+.container > header .form-search {
+  position: relative;
+  margin: -1.9em 0 0.5em;
+}
+
+.container > header .btn-block {
+  text-align: left;
+}
+
+.main-title {
+  text-align: center;
+}
+
+.main-title h1 {
+  margin-bottom: 0;
+  font-size: 3.5em;
+  line-height: 120%;
+}
+
+.main-title h1 a {
+  color: #000000;
+}
+
+.main-title h1 a:hover,
+.main-title h1 a:focus {
+  color: #fc9026;
+}
+
+.introduction {
+  margin: 0 10% 1.2em;
+  font-size: 1.923em;
+  font-weight: bold;
+  line-height: 115%;
+  text-align: center;
+}
+
+.container > .main {
+  min-height: 25em;
+}
+
+.container > .main .span3 {
+  width: 180px;
+}
+
+.container > .main .span6 {
+  width: 540px;
+}
+
+.container > .main .span9 {
+  width: 710px;
+}
+
+.container > .main section {
+  padding: 1.5em 0;
+}
+
+.container > .main .content-holder {
+  position: relative;
+  color: #444444;
+  background-color: #ffffff;
+}
+
+.container > .main .main-content {
+  padding: 3em 0;
+}
+
+.container > .main .main-content.content-holder {
+  padding: 3em 1.538462em;
+}
+
+.container > .main .main-content.span9 {
+  width: 720px;
+}
+
+.container > .main .main-content.span9 h1 {
+  margin-right: 5em;
+}
+
+.container > .main .print {
+  position: absolute;
+  top: 3em;
+  right: 1.538462em;
+  color: #000000;
+}
+
+.container > .main .print:hover,
+.container > .main .print:focus {
+  color: #fc9026;
+  text-decoration: none;
+}
+
+.container > .main aside {
+  padding: 3em 0 3em 1.538462em;
+  color: #444444;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.container > .main section + aside {
+  padding: 6em 1.538462em 3em 0;
+}
+
+.container > .main .offset-left {
+  margin-left: 1.538462em;
+}
+
+.container > .main .offset-right {
+  margin-right: 1.538462em;
+}
+
+.top-link {
+  padding: 1em 1.538462em;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.top-link a {
+  color: #000000;
+}
+
+.top-link a:hover,
+.top-link a:focus {
+  color: #fc9026;
+  text-decoration: none;
+}
+
+.top-link.transparent {
+  background-color: transparent;
+}
+
+.top-link.transparent a {
+  color: white;
+}
+
+.top-link.transparent a:hover,
+.top-link.transparent a:focus {
+  color: #000000;
+}
+
+body > footer {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+body > footer h3 {
+  margin-bottom: 1.5em;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 135%;
+}
+
+body > footer section {
+  padding: 1.5em 0;
+}
+
+body > footer a {
+  color: #0196bc;
+  text-decoration: underline;
+}
+
+body > footer a:hover,
+body > footer a:focus {
+  color: #fc9026;
+}
+
+body > footer .contact {
+  line-height: 135%;
+  text-align: right;
 }
 
 .btn {
@@ -625,203 +810,6 @@ form dd {
 
 .login #submit-label {
   display: none;
-}
-
-body {
-  background-color: #ffffff;
-}
-
-.document-wrap {
-  padding-top: 1.2em;
-}
-
-.document-wrap > .container {
-  padding: 0 1.538462em;
-  color: #ffffff;
-  background-color: #5fa4a0;
-  -webkit-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
-     -moz-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
-          box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.4);
-}
-
-.container > header .header-region {
-  padding-top: 1.2em;
-}
-
-.container > header .form-search,
-.container > header .btn-block {
-  margin-right: -0.769231em;
-}
-
-.container > header .form-search {
-  position: relative;
-  margin: -1.9em 0 0.5em;
-}
-
-.container > header .btn-block {
-  text-align: left;
-}
-
-.main-title {
-  text-align: center;
-}
-
-.main-title h1 {
-  margin-bottom: 0;
-  font-size: 3.5em;
-  line-height: 120%;
-}
-
-.main-title h1 a {
-  color: #000000;
-}
-
-.main-title h1 a:hover,
-.main-title h1 a:focus {
-  color: #fc9026;
-}
-
-.introduction {
-  margin: 0 10% 1.2em;
-  font-size: 1.923em;
-  font-weight: bold;
-  line-height: 115%;
-  text-align: center;
-}
-
-.container > .main {
-  min-height: 25em;
-}
-
-.container > .main .span3 {
-  width: 180px;
-}
-
-.container > .main .span6 {
-  width: 540px;
-}
-
-.container > .main .span9 {
-  width: 710px;
-}
-
-.container > .main section {
-  padding: 1.5em 0;
-}
-
-.container > .main .content-holder {
-  position: relative;
-  color: #444444;
-  background-color: #ffffff;
-}
-
-.container > .main .main-content {
-  padding: 3em 0;
-}
-
-.container > .main .main-content.content-holder {
-  padding: 3em 1.538462em;
-}
-
-.container > .main .main-content.span9 {
-  width: 720px;
-}
-
-.container > .main .main-content.span9 h1 {
-  margin-right: 5em;
-}
-
-.container > .main .print {
-  position: absolute;
-  top: 3em;
-  right: 1.538462em;
-  color: #000000;
-}
-
-.container > .main .print:hover,
-.container > .main .print:focus {
-  color: #fc9026;
-  text-decoration: none;
-}
-
-.container > .main aside {
-  padding: 3em 0 3em 1.538462em;
-  color: #444444;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.container > .main section + aside {
-  padding: 6em 1.538462em 3em 0;
-}
-
-.container > .main .offset-left {
-  margin-left: 1.538462em;
-}
-
-.container > .main .offset-right {
-  margin-right: 1.538462em;
-}
-
-.top-link {
-  padding: 1em 1.538462em;
-  text-align: center;
-  background-color: #ffffff;
-}
-
-.top-link a {
-  color: #000000;
-}
-
-.top-link a:hover,
-.top-link a:focus {
-  color: #fc9026;
-  text-decoration: none;
-}
-
-.top-link.transparent {
-  background-color: transparent;
-}
-
-.top-link.transparent a {
-  color: white;
-}
-
-.top-link.transparent a:hover,
-.top-link.transparent a:focus {
-  color: #000000;
-}
-
-body > footer {
-  color: #000000;
-  background-color: #ffffff;
-}
-
-body > footer h3 {
-  margin-bottom: 1.5em;
-  font-size: 1em;
-  font-weight: normal;
-  line-height: 135%;
-}
-
-body > footer section {
-  padding: 1.5em 0;
-}
-
-body > footer a {
-  color: #0196bc;
-  text-decoration: underline;
-}
-
-body > footer a:hover,
-body > footer a:focus {
-  color: #fc9026;
-}
-
-body > footer .contact {
-  line-height: 135%;
-  text-align: right;
 }
 
 html {

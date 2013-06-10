@@ -7,17 +7,6 @@
 
 
 /*
- * Stylesheet Index
- * ==============================================================================
- *
- *   SCREEN STYLES
- *       DESKTOP
- *       TABLET
- *       MOBILE
- *
- *   PRINT STYLES
- *
- *
  * Rule Properties Structure
  * ==============================================================================
  *
@@ -52,54 +41,47 @@
  *		- opacity
  *	7. Animations:
  *		- transition
- *
  */
 
-
-// Screen styles
-// -------------------------
 
 // Bootstrap variables and mix-ins for later use
 @import '../plugins/bootstrap/less/variables.less'; // required in mixins since v2.2.1 (w)
 @import '../plugins/bootstrap/less/mixins.less';
 
-// Variables and mix-ins
+// Project variables and mix-ins
 @import 'variables.less';
 @import 'mixins.less';
 
 // Base styles
-@import 'typography.less';
-//@import 'tables.less';
-@import 'buttons.less';
-@import 'forms.less';
+@import 'base/typography.less';
+@import 'base/layout.less';
+//@import 'base/tables.less';
+@import 'base/buttons.less';
+@import 'base/forms.less';
 
-// Layout and page structure
-@import 'layout.less';
-@import 'sticky-footer.less';
+// Library - shared across projects
+@import 'library/sticky-footer.less';
 
 // Components: common
-@import 'icons.less';
-@import 'labels.less';
-@import 'hero-unit.less';
-@import 'navs.less';
-@import 'navbar.less';
-@import 'pagination.less';
-@import 'dropdowns.less';
-@import 'media.less';
-@import 'thumbnails.less';
-@import 'wells.less';
+@import 'components/icons.less';
+@import 'components/labels.less';
+@import 'components/hero-unit.less';
+@import 'components/navs.less';
+@import 'components/navbar.less';
+@import 'components/pagination.less';
+@import 'components/dropdowns.less';
+@import 'components/media.less';
+//@import 'components/modals.less';
+@import 'components/thumbnails.less';
+@import 'components/wells.less';
 
 // Components: custom
-@import 'bubbles.less';
-@import 'user-box.less';
-@import 'consultation.less';
-//@import 'modals.less';
+@import 'components/bubbles.less';
+@import 'components/user-box.less';
+@import 'components/consultation.less';
 
 // Responsive
-//@import 'responsive.less';
-
+//@import 'responsive/responsive.less';
 
 // Print styles
-// -------------------------
-
-// Not yet
+// @import 'print/print.less';
