@@ -76,12 +76,13 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 			<li>
 				<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>">
 					<h2>Beiträge</h2>
-					<?php if ($con->inp_show == 'y'): ?>
-					<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-					bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-					<?php endif; ?>
 					<?php if (isset($bubbles['input'])): ?>
-					<?php echo $bubbles['input']; ?>
+						<?php echo $bubbles['input']; ?>
+					<?php else: ?>
+						<?php if ($con->inp_show == 'y'): ?>
+							<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+							bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+						<?php endif; ?>
 					<?php endif; ?>
 				</a>
 			</li>
@@ -89,12 +90,13 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 			<li class="item-disabled">
 				<div>
 					<h2>Beiträge</h2>
-					<?php if ($con->inp_show == 'y'): ?>
-					<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-					bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-					<?php endif; ?>
 					<?php if (isset($bubbles['input'])): ?>
-					<?php echo $bubbles['input']; ?>
+						<?php echo $bubbles['input']; ?>
+					<?php else: ?>
+						<?php if ($con->inp_show == 'y'): ?>
+							<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+							bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+						<?php endif; ?>
 					<?php endif; ?>
 				</div>
 			</li>
@@ -105,12 +107,12 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 				<a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid)); ?>">
 					<h2>Abstimmung</h2>
 					<?php if (isset($bubbles['voting'])): ?>
-					<?php echo $bubbles['voting']; ?>
+						<?php echo $bubbles['voting']; ?>
 					<?php else: ?>
-					<?php if ($con->vot_show == 'y'): ?>
-					<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-					bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-					<?php endif; ?>
+						<?php if ($con->vot_show == 'y'): ?>
+							<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+							bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+						<?php endif; ?>
 					<?php endif; ?>
 				</a>
 			</li>
@@ -119,12 +121,12 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 				<div>
 					<h2>Abstimmung</h2>
 					<?php if (isset($bubbles['voting'])): ?>
-					<?php echo $bubbles['voting']; ?>
+						<?php echo $bubbles['voting']; ?>
 					<?php else: ?>
-					<?php if ($con->vot_show == 'y'): ?>
-					<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-					bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-					<?php endif; ?>
+						<?php if ($con->vot_show == 'y'): ?>
+							<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+							bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+						<?php endif; ?>
 					<?php endif; ?>
 				</div>
 			</li>
