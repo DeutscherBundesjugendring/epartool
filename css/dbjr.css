@@ -244,29 +244,6 @@ dl {
   margin-bottom: 2em;
 }
 
-.main-content ul {
-  margin: 0 0 1.565em;
-  list-style: none;
-}
-
-.main-content ul > li {
-  margin-left: 1.25em;
-}
-
-.main-content ul > li:before {
-  float: left;
-  margin-left: -1.25em;
-  content: '>';
-}
-
-.main-content ul > li > ul {
-  margin: .5em 0;
-}
-
-.main-content ul > li > ul > li:before {
-  content: '»';
-}
-
 hr {
   margin: 0;
   border-top-color: rgba(102, 102, 102, 0.25);
@@ -862,6 +839,29 @@ body > footer {
 
 .alert-error h4 {
   color: #cc0000;
+}
+
+.article ul {
+  margin: 0 0 1.565em;
+  list-style: none;
+}
+
+.article ul > li {
+  margin-left: 1.25em;
+}
+
+.article ul > li:before {
+  float: left;
+  margin-left: -1.25em;
+  content: '>';
+}
+
+.article ul > li > ul {
+  margin: .5em 0;
+}
+
+.article ul > li > ul > li:before {
+  content: '»';
 }
 
 .icon-orange {
@@ -1593,21 +1593,8 @@ article.media .actions i {
   bottom: -0.15em;
 }
 
-.thumbnails,
-ul.thumbnails {
+.thumbnails {
   margin-top: 3em;
-}
-
-ul.thumbnails {
-  margin-left: -20px;
-}
-
-ul.thumbnails > li {
-  margin-left: 20px;
-}
-
-ul.thumbnails > li:before {
-  display: none;
 }
 
 .thumbnail {
