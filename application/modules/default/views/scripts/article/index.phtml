@@ -17,14 +17,14 @@
 	<div class="row">
 		<aside class="span3">
 
-			<!-- Tertiary navigation -->
 			<?php echo $this->articleNavigation(null, 'info'); ?>
-			<!-- .tertiary-navigation -->
 
 		</aside>
 		<section class="main-content span6">
 
-			<?php echo html_entity_decode($this->consultation->expl, ENT_COMPAT, 'UTF-8'); ?>
+			<article class="article article-detail">
+				<?php echo html_entity_decode($this->consultation->expl, ENT_COMPAT, 'UTF-8'); ?>
+			</article>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 

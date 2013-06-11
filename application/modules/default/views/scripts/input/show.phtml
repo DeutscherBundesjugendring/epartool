@@ -33,8 +33,10 @@ $supportsDisabled = (
 			<?php endif; ?>
 			<small class="count muted"><?php echo $this->numberInputs; ?> Beiträge</small>
 
-			<h1><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></h1>
-			<p><?php echo $this->question['q_xpl']; ?></p>
+			<article class="article article-details">
+				<h1><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></h1>
+				<p><?php echo $this->question['q_xpl']; ?></p>
+			</article>
 
 			<!-- New contribution -->
 			<?php echo $this->inputform; ?>
@@ -63,16 +65,16 @@ $supportsDisabled = (
 						<div id="click-support-wrap-<?php echo $input['tid']; ?>">
 							<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
 								<span>
-									<?php else: ?>
-									<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
-									<?php endif; ?>
+							<?php else: ?>
+								<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
+							<?php endif; ?>
 									<i class="icon-ok-sign"></i>
 									<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
-								<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-										<span class="label">Unterstützer</span>
+							<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+									<span class="label">Unterstützer</span>
 								</span>
 							<?php else: ?>
-								<span class="label">Dieser Meinung bin ich auch!</span>
+									<span class="label">Dieser Meinung bin ich auch!</span>
 								</a>
 							<?php endif; ?>
 						</div>
@@ -88,10 +90,7 @@ $supportsDisabled = (
 			<?php endif; ?>
 
 			<!-- Paging -->
-			<?php
-			echo $this->paginationControl($this->paginator, 'Sliding', '_partials/pagination.phtml', array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
-			);
-			?>
+			<?php echo $this->paginationControl($this->paginator, 'Sliding', '_partials/pagination.phtml', array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')); ?>
 
 			<hr />
 
@@ -100,8 +99,6 @@ $supportsDisabled = (
 		</section>
 	</div><!-- .row -->
 </div><!-- .content-holder -->
-
-<!-- Content end -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
 

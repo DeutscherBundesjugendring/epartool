@@ -19,14 +19,16 @@
 		<aside class="span3">
 
 			<!-- Tertiary navigation -->
-			<?php if ($this->article['ref_nm'] != 'about'): // show no tertiary navigation on "about" page ?>
+			<?php if ($this->article['ref_nm'] != 'about'): // do not show tertiary navigation on "about" page ?>
 				<?php echo $this->articleNavigation($this->article['art_id'], 'info'); ?>
 			<?php endif; ?>
 
 		</aside>
 		<section class="main-content span6">
 
-			<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+			<article class="article article-detail">
+				<?php echo html_entity_decode($this->article['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+			</article>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 

@@ -18,9 +18,11 @@
 		</aside>
 		<section class="main-content span6">
 
-			<h3><?php echo $this->question['q'] ?></h3>
-			<p><?php echo $this->question['q_xpl'] ?></p>
-			
+			<article class="article article-detail">
+				<h1><?php echo $this->question['q'] ?></h1>
+				<p><?php echo $this->question['q_xpl'] ?></p>
+			</article>
+
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 
 		</section>
