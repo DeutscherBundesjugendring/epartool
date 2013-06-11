@@ -4,8 +4,22 @@
 
 
 // Base thumbnails
-.thumbnails {
+.thumbnails,
+ul.thumbnails {
 	margin-top: 3em;
+}
+
+// Remove bullets for content area
+ul.thumbnails {
+	margin-left: -20px;
+}
+
+ul.thumbnails > li {
+	margin-left: 20px;
+
+	&:before {
+		display: none;
+	}
 }
 
 .thumbnail {

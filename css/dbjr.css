@@ -1593,8 +1593,21 @@ article.media .actions i {
   bottom: -0.15em;
 }
 
-.thumbnails {
+.thumbnails,
+ul.thumbnails {
   margin-top: 3em;
+}
+
+ul.thumbnails {
+  margin-left: -20px;
+}
+
+ul.thumbnails > li {
+  margin-left: 20px;
+}
+
+ul.thumbnails > li:before {
+  display: none;
 }
 
 .thumbnail {
