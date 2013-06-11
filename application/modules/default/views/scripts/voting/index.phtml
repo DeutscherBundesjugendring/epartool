@@ -43,9 +43,9 @@
 					ob Du berechtigt bist, an der Abstimmung teilzunehmen.
 				</p>
 				<div class="form-inline">
-				<?php echo $this->authform; ?>
+					<?php echo $this->authform; ?>
 				</div>
-			<? echo (!empty($this->votingExplanation)) ? '<p>' . $this->votingExplanation . '</p>' : ''; ?>
+				<?php echo (!empty($this->votingExplanation)) ? '<p>' . $this->votingExplanation . '</p>' : ''; ?>
 			</div>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>

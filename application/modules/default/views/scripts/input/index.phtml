@@ -11,7 +11,7 @@ $locale = new Zend_Locale();
 
 <?php echo $this->secondNavigation('input') ?>
 
-<section class="main-content content-holder">
+<div class="main-content content-holder">
 	<div class="row">
 		<div class="text-center span10 offset1">
 
@@ -20,7 +20,7 @@ $locale = new Zend_Locale();
 			<p>Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.</p>
 
 		</div>
-	</div>
+	</div><!-- .row -->
 
 	<!-- Questions -->
 	<ul class="questions thumbnails">
@@ -71,6 +71,6 @@ $locale = new Zend_Locale();
 
 	<?php echo $this->render('_partials/printLink.phtml') ?>
 
-</section>
+</div>
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

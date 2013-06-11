@@ -9,11 +9,11 @@
 	<?php foreach ($this->consultationList as $consultation): ?>
 		<h3>
 			<a href="<?php
-		echo $this->url(array(
-			'kid' => $consultation['kid']
-		));
-		?>" title="Zeige meine Beiträge zu dieser Konsultation">
-		<?php echo $consultation['titl']; ?>
+				echo $this->url(array(
+					'kid' => $consultation['kid']
+				));
+				?>" title="Zeige meine Beiträge zu dieser Konsultation">
+				<?php echo $consultation['titl']; ?>
 			</a>
 		</h3>
 	<?php endforeach; ?>
@@ -24,31 +24,31 @@
 		<?php if (!empty($this->inputs)): ?>
 			<?php foreach ($this->inputs as $question): ?>
 			<h3>Frage: <a href="<?php
-			echo $this->url(array(
-				'controller' => 'input',
-				'action' => 'show',
-				'kid' => $this->consultation->kid,
-				'qid' => $question['qi']
-					), 'default', true);
-			?>"><?php echo $question['q']; ?></a></h3>
+				echo $this->url(array(
+					'controller' => 'input',
+					'action' => 'show',
+					'kid' => $this->consultation->kid,
+					'qid' => $question['qi']
+						), 'default', true);
+				?>"><?php echo $question['q']; ?></a></h3>
 			<?php if (!empty($question['inputs'])): ?>
 				<h4>Beiträge:</h4>
 				<ul>
-							<?php foreach ($question['inputs'] as $input): ?>
+					<?php foreach ($question['inputs'] as $input): ?>
 						<li>
 							<h5><a href="<?php
-					echo $this->url(array(
-						'controller' => 'input',
-						'action' => 'edit',
-						'kid' => $this->consultation->kid,
-						'tid' => $input['tid']
-					));
+								echo $this->url(array(
+									'controller' => 'input',
+									'action' => 'edit',
+									'kid' => $this->consultation->kid,
+									'tid' => $input['tid']
+								));
 								?>" title="Klicken zum Bearbeiten"><?php echo $input['thes']; ?></a></h5>
-					<?php if (!empty($input['expl'])): ?>
-								<p><?php echo $input['expl']; ?></p>
-					<?php endif; ?>
+							<?php if (!empty($input['expl'])): ?>
+										<p><?php echo $input['expl']; ?></p>
+							<?php endif; ?>
 						</li>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
 				</ul>
 			<?php else: ?>
 				<p>keine Beiträge</p>

@@ -15,7 +15,7 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 
 <?php echo $this->secondNavigation('question') ?>
 
-<section class="content-holder">
+<div class="content-holder">
 	<div class="row">
 		<aside class="span3">
 
@@ -51,6 +51,6 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 
 		</div>
 	</div><!-- .row -->
-</section><!-- .content-holder -->
+</div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

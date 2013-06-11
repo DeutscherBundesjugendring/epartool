@@ -20,7 +20,7 @@
   etc. */
 ?>
 
-<section class="main-content content-holder">
+<div class="main-content content-holder">
 
 	<h1>Danke für die Beteiligung an der Abstimmung!</h1>
 	<p>Falls Du heute noch nicht über alle Beiträge abgestimmt hast, kannst Du jederzeit zurückkehren und über die verbleibenden Beiträge abstimmen.</p>
@@ -29,6 +29,6 @@
 	<?php endif; ?>
 	<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
 
-</section><!-- .main-content -->
+</div><!-- .main-content -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
