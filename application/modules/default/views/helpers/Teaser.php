@@ -22,7 +22,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
             'action' => 'index',
             'kid' => $item['kid']
           ), 'default', true);
-          $text = 'Jetzt kannst du Deinen Beitrag einstellen! Vom '
+          $text = 'Jetzt kannst du deinen Beitrag einstellen! Vom '
           . $date->set($item['inp_fr'])->get('dd.MM.yyyy') . ' bis '
           . $date->set($item['inp_to'])->get('dd.MM.yyyy') . ' …';
           break;
