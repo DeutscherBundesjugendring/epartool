@@ -249,6 +249,11 @@ hr {
   border-top-color: rgba(102, 102, 102, 0.25);
 }
 
+.hr-alt {
+  margin: 1em 0;
+  border-top-color: #999999;
+}
+
 img.pull-left {
   margin-right: 1.5em;
   margin-bottom: 1.5em;
@@ -1674,6 +1679,35 @@ article.media .actions i {
   right: .5em;
   bottom: .5em;
   left: .5em;
+}
+
+.voting-result {
+  position: relative;
+  z-index: 0;
+  padding: 1em .5em;
+  margin-right: 6em;
+}
+
+.voting-result-number {
+  position: absolute;
+  top: 50%;
+  right: -2em;
+  width: 2em;
+  margin-top: -0.5em;
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 100%;
+  color: #fc9026;
+  text-align: right;
+}
+
+.voting-result-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  height: 100%;
+  background-color: #feddbd;
 }
 
 .well {

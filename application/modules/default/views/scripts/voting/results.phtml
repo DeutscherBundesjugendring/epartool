@@ -30,13 +30,22 @@
 				<?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
 			<?php endif; ?>
 
-			<h3><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h3>
+			<h2 class="alt"><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h2>
+
+			<hr class="hr-alt" />
+
+			<?php $i = 1; ?>
 			<?php foreach ($this->theses_votes as $rank => $theses): ?>
-				<?php $diag_lngth = round(($rank * 600) / $this->highest_rank, 0); ?>
+				<?php $diag_lngth = round(($rank * 100) / $this->highest_rank, 0); ?>
 				<?php foreach ($theses as $thesis): ?>
-					<p><?php echo $thesis['thes']; ?></p>
-					<div style="background-color: #d9e8ef; color: #3f6f8d; font-size: smaller; margin-bottom: 2em; padding: 4px; width: <?php echo $diag_lngth; ?>px;">&nbsp;<?php echo round($rank, 2); ?> Punkte</div>
+					<div class="voting-result">
+						<span class="voting-result-number"><?php echo $i; ?>.</span>
+						<p><strong><?php echo $thesis['thes']; ?></strong></p>
+						<div class="voting-result-bar" style="width: <?php echo $diag_lngth; ?>%;"></div>
+					</div>
+					<hr class="hr-alt" />
 				<?php endforeach; ?>
+				<?php $i++; ?>
 			<?php endforeach; ?>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>

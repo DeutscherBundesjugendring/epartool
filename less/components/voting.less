@@ -1,0 +1,34 @@
+//
+// Component: Voting
+// --------------------------------------------------
+
+
+// Results
+.voting-result {
+	position: relative;
+	z-index: 0;
+	margin-right: 6em;
+	padding: 1em .5em;
+}
+
+.voting-result-number {
+	position: absolute;
+	right: -2em;
+	top: 50%;
+	width: 2em;
+	margin-top: -0.5em;
+	font-weight: bold;
+	font-size: 3em;
+	line-height: 100%;
+	text-align: right;
+	color: @orange;
+}
+
+.voting-result-bar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1; // send to background
+	height: 100%;
+	background-color: #feddbd;
+}
