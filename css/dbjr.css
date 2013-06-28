@@ -1727,9 +1727,9 @@ article.media .actions i {
 
 .questions .thumbnail .btn {
   position: absolute;
-  right: .5em;
+  right: .45em;
   bottom: .5em;
-  left: .5em;
+  left: .45em;
   z-index: 2;
 }
 
