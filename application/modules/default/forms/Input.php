@@ -13,21 +13,21 @@ class Default_Form_Input extends Zend_Form {
   public function init() {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-    
+
     $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/input/save');
-    
+
     $this->setDecorators(array('FormElements', 'Form'));
-    
+
     // für alle per ini gesetzten Elemente:
     // nur die Dekoratoren ViewHelper, Errors und Description verwenden
     $this->setElementDecorators(array('ViewHelper', 'Errors', 'Description'));
-    
+
     // hidden Felder brauchen nur den ViewHelper Dekorator:
     $this->setElementDecorators(array('ViewHelper'), array('submitmode'));
-    
+
     // Element für zusätzliches Markup:
     $this->addElement('hidden', 'plaintext', array(
-      'description' => '<span class="label label-mitmachen">Mitmachen</span>'
+      'description' => '<span class="label sticker label-mitmachen-black">Mitmachen</span>'
         . '<h2>Beiträge verfassen</h2>'
         . '<p>Mit der [+]-Schaltfläche kannst du weitere Felder hinzufügen, wenn du mehr als einen Vorschlag/Beitrag schreiben möchtest. Bei „Beenden“ kannst du eine E-Mail-Adresse hinterlegen: So können wir nachvollziehen, von wem die Beiträge stammen.</p>',
       'ignore' => true,
@@ -36,32 +36,32 @@ class Default_Form_Input extends Zend_Form {
         array('Description', array('escape'=>false, 'tag'=>'')),
       ),
     ));
-    
+
   }
-  
+
   /**
    * Generate the dynamic fields for thes and expl
    *
    * @param array $theses Array of inputs that are already in the session
    */
   public function generate($theses = array()) {
-    
+
     $i = 0;
     if (!empty($theses)) {
       // add fields for every input from the session
       foreach ($theses as $thes_item) {
-        
+
         // add dynamic elements
-        
+
         $this->addDynamicThesFields($i, $thes_item);
-        
+
         $i++;
       };
     }
-    
+
     // add empty field for next new input
     $this->addDynamicThesFields($i);
-    
+
     $this->addDisplayGroup(array(
         $this->getElement('plus'),
         $this->getElement('submit'),
@@ -71,11 +71,11 @@ class Default_Form_Input extends Zend_Form {
         array(
             'Decorators' => array(
                 'FormElements',
-                array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions'))
+                array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions form-actions-unstyled text-left'))
             )
         )
     );
-    
+
     // Script Tag für zusätzliches Javascript
     $this->addElement('hidden', 'script', array(
         'description' => '<script type="text/javascript">' . "\n"
@@ -94,7 +94,7 @@ class Default_Form_Input extends Zend_Form {
         ),
     ));
   }
-  
+
   /**
    * Adds the needed number of input fields for the theses
    *
@@ -113,14 +113,14 @@ class Default_Form_Input extends Zend_Form {
         'belongsTo' => 'thes',
         //           'isArray' => true,
         'attribs' => array(
-            'class' => 'input-block-level',
+            'class' => 'input-block-level input-alt',
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
             'id' => 'thes_' . $i,
             'maxlength' => '300'
         )
     );
     $thes->setOptions($thesOptions);
-    
+
     // toggle
     $toggle = null;
     $toggle = $this->createElement('hidden', 'toggle_' . $i);
@@ -137,7 +137,7 @@ class Default_Form_Input extends Zend_Form {
     );
     $toggle->setOptions($toggleOptions);
     $toggle->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
-    
+
     // expl
     $expl = null;
     $expl = $this->createElement('textarea', 'expl_' . $i);
@@ -149,7 +149,7 @@ class Default_Form_Input extends Zend_Form {
         'belongsTo' => 'expl',
         //           'isArray' => true,
         'attribs' => array(
-            'class' => 'extension input-block-level',
+            'class' => 'extension input-block-level input-alt',
             'style' => 'display: none;',
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
             'id' => 'expl_' . $i,
@@ -157,12 +157,12 @@ class Default_Form_Input extends Zend_Form {
         )
     );
     $expl->setOptions($explOptions);
-    
+
     if (!empty($thes_item)) {
       $thes->setValue($thes_item['thes']);
       $expl->setValue($thes_item['expl']);
     }
-    
+
     $this->addDisplayGroup(array(
         $thes,
         $toggle,

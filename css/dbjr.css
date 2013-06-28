@@ -634,6 +634,15 @@ input[type="color"]:focus,
           box-shadow: none;
 }
 
+.input-alt {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.input-alt:focus {
+  border-color: #ffffff;
+}
+
 input:focus:required:invalid,
 textarea:focus:required:invalid,
 select:focus:required:invalid {
@@ -713,6 +722,13 @@ select:focus:required:invalid:focus {
 .form-vertical .form-actions .inline-actions {
   display: inline-block;
   margin-left: 3.076924em;
+}
+
+.form-actions-unstyled {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
 }
 
 .input-prepend input,

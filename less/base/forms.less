@@ -37,6 +37,15 @@ input[type="color"],
 	}
 }
 
+.input-alt {
+	color: @white;
+	background-color: @black;
+
+	&:focus {
+		border-color: @white;
+	}
+}
+
 
 // Form Field States
 // -------------------------
@@ -93,6 +102,13 @@ select:focus:required:invalid {
 			margin-left: 2 * @u;
 		}
 	}
+}
+
+.form-actions-unstyled {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
 }
 
 
