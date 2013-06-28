@@ -1,0 +1,40 @@
+//
+// Component: Tag Cloud
+// --------------------------------------------------
+
+
+// Tag cloud
+.tag-cloud {
+	margin-left: 0;
+	padding-left: 0;
+	list-style: none;
+	text-align: center;
+
+	// Tags
+	& > li {
+		display: inline-block;
+	}
+
+	& > li > a {
+		padding: 0 .5ex;
+		color: @bodyText;
+
+		&:hover,
+		&:focus {
+			color: @linkTextHover;
+		}
+	}
+}
+
+// Tag sizes
+.tag-rare {
+	font-size: 1em;
+}
+
+.tag-medium {
+	font-size: 1.25em;
+}
+
+.tag-frequented {
+	font-size: 1.5em;
+}

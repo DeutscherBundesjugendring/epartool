@@ -1598,6 +1598,39 @@ article.media .actions i {
   bottom: -0.15em;
 }
 
+.tag-cloud {
+  padding-left: 0;
+  margin-left: 0;
+  text-align: center;
+  list-style: none;
+}
+
+.tag-cloud > li {
+  display: inline-block;
+}
+
+.tag-cloud > li > a {
+  padding: 0 .5ex;
+  color: #000000;
+}
+
+.tag-cloud > li > a:hover,
+.tag-cloud > li > a:focus {
+  color: #fc9026;
+}
+
+.tag-rare {
+  font-size: 1em;
+}
+
+.tag-medium {
+  font-size: 1.25em;
+}
+
+.tag-frequented {
+  font-size: 1.5em;
+}
+
 .thumbnails {
   margin-top: 3em;
 }
