@@ -1671,7 +1671,7 @@ article.media .actions i {
 
 .questions .thumbnail:before {
   position: absolute;
-  bottom: 3.5em;
+  bottom: 3em;
   left: 0;
   z-index: 1;
   display: block;
@@ -1702,7 +1702,7 @@ article.media .actions i {
 }
 
 .questions .thumbnail .article-list {
-  max-height: 21.2307756em;
+  max-height: 21.538468em;
   overflow: hidden;
 }
 
