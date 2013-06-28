@@ -53,16 +53,18 @@ $locale = new Zend_Locale();
 					<h2>
 						<a href="<?php echo $url ?>"><?php echo $question['q'] ?></a>
 					</h2>
-					<?php foreach ($question['inputs'] as $input): ?>
-						<a href="<?php echo $url ?>">
-							<article class="media">
-								<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-									verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM, $locale)?>
-								</time>
-								<p><?php echo mb_substr($input['thes'], 0, 120) ?></p>
-							</article>
-						</a>
-					<?php endforeach; ?>
+					<div class="article-list">
+						<?php foreach ($question['inputs'] as $input): ?>
+							<a href="<?php echo $url ?>">
+								<article class="media">
+									<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
+										verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM, $locale)?>
+									</time>
+									<p><?php echo mb_substr($input['thes'], 0, 120) ?></p>
+								</article>
+							</a>
+						<?php endforeach; ?>
+					</div>
 					<a href="<?php echo $url ?>" class="btn">Zur Beitragsseite der <?php echo $question['nr'] ?> Frage</a>
 				</div>
 			</li>

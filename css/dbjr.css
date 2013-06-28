@@ -1637,18 +1637,17 @@ article.media .actions i {
   left: .5em;
 }
 
-.questions .thumbnail h2 {
-  max-height: 4.3em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .questions .thumbnail .badge + h2 {
   text-indent: 4em;
 }
 
 .questions .thumbnail a {
   text-decoration: none;
+}
+
+.questions .thumbnail .article-list {
+  max-height: 20.3076984em;
+  overflow: hidden;
 }
 
 .questions .thumbnail a article {
@@ -1662,10 +1661,7 @@ article.media .actions i {
 }
 
 .questions .thumbnail a article p {
-  max-height: 3em;
-  overflow: hidden;
   font-weight: bold;
-  text-overflow: ellipsis;
 }
 
 .questions .thumbnail a:hover article,
