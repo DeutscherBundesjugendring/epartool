@@ -1636,6 +1636,24 @@ article.media .actions i {
   height: 32.307702em;
 }
 
+.questions .thumbnail:before {
+  position: absolute;
+  bottom: 3.5em;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 4em;
+  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(75%, #ffffff), color-stop(100%, #ffffff));
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+  background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+  background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+  content: '';
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0);
+}
+
 .questions .thumbnail .badge {
   position: absolute;
   top: -1.2em;
@@ -1651,7 +1669,7 @@ article.media .actions i {
 }
 
 .questions .thumbnail .article-list {
-  max-height: 20.3076984em;
+  max-height: 21.2307756em;
   overflow: hidden;
 }
 
@@ -1679,6 +1697,7 @@ article.media .actions i {
   right: .5em;
   bottom: .5em;
   left: .5em;
+  z-index: 2;
 }
 
 .voting-result {
