@@ -7,6 +7,9 @@
  */
 $date = new Zend_Date();
 $supports = new Zend_Session_Namespace('supports');
+if (empty($supports->clicks)) {
+  $supports->clicks = array();
+}
 $supportsDisabled = (
 		Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
 		|| Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))

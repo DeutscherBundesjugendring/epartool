@@ -349,6 +349,9 @@ class InputController extends Zend_Controller_Action {
       $this->redirect('/');
     }
     $supports = new Zend_Session_Namespace('supports');
+    if (empty($supports->clicks)) {
+      $supports->clicks = array();
+    }
     $inputsModel = new Model_Inputs();
     if (!in_array($data['tid'], $supports->clicks)) {
       $this->view->count = $inputsModel->addSupport($data['tid']);
