@@ -61,6 +61,13 @@ class Default_Form_Input extends Zend_Form {
 
     // add empty field for next new input
     $this->addDynamicThesFields($i);
+    
+    if ($i == 0) {
+      // in the beginning if no input is written to session yet:
+      // add another field
+      $i++;
+      $this->addDynamicThesFields($i);
+    }
 
     $this->addDisplayGroup(array(
         $this->getElement('plus'),
