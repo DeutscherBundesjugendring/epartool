@@ -59,34 +59,41 @@ $supportsDisabled = (
 				<?php foreach ($inputs as $input): ?>
 					<a name="input-<?php echo $input['tid']; ?>"></a>
 					<article class="media">
-						<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-							verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
-						</time>
-						<p class="lead"><?php echo $input['thes'] ?></p>
-						<p><?php echo $input['expl'] ?></p>
-
-						<div id="click-support-wrap-<?php echo $input['tid']; ?>">
-							<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-								<span>
-							<?php else: ?>
-								<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
-							<?php endif; ?>
-									<i class="icon-ok-sign"></i>
-									<span class="badge" id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
-							<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-									<span class="label">Unterstützende</span>
-								</span>
-							<?php else: ?>
-									<span class="label">Dieser Meinung bin ich auch!</span>
-								</a>
-							<?php endif; ?>
+						<header class="article-header">
+							<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
+								verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
+							</time>
+						</header>
+						<div class="article-body">
+							<p class="lead"><?php echo $input['thes'] ?></p>
+							<p><?php echo $input['expl'] ?></p>
 						</div>
 
-						<p class="actions">
-							<i class="icon-comments icon-orange icon-2x"></i>
-							<small>(<?php echo $input['pts']; ?>)</small>
-							<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
-						</p>
+						<!-- Actions -->
+						<section class="article-actions">
+							<span class="article-action" id="click-support-wrap-<?php echo $input['tid']; ?>">
+								<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+									<span>
+								<?php else: ?>
+									<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
+								<?php endif; ?>
+										<i class="icon-ok-sign icon-orange icon-2x"></i>
+										<span id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
+								<?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+										<span class="label">Unterstützende</span>
+									</span>
+								<?php else: ?>
+										<span class="label">Dieser Meinung bin ich auch!</span>
+									</a>
+								<?php endif; ?>
+							</span>
+							<span class="article-action">
+								<i class="icon-comments icon-orange icon-2x"></i>
+								<small>(<?php echo $input['pts']; ?>)</small>
+								<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+							</span>
+						</section><!-- .actions -->
+
 					</article>
 					<hr />
 				<?php endforeach; ?>
@@ -113,8 +120,8 @@ $supportsDisabled = (
 			$.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json", { "tid": tid })
 				  .done(function(data) {
 					  if (data.count) {
-						  $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign"></i>'
-							  + ' <span class="badge" id="badge-' + tid + '">(' + data.count + ')</span>'
+						  $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign icon-orange icon-2x"></i>'
+							  + ' <span class="article-action" id="badge-' + tid + '">(' + data.count + ')</span>'
 							  + ' <span class="label">Unterstützer</span></span>');
 					  }
 				  });
