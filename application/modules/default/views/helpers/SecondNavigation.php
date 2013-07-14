@@ -73,8 +73,6 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
 		}
 
 		// Add bubbles
-		$bubble = '<span class="bubble bubble-middle"><h3>Jetzt mitmachen!</h3></span>';
-
 		if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
 			$items['input']['showBubble'] = TRUE;
 		}
@@ -97,7 +95,15 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
 			if (!empty($val['url']) && !in_array('disabled', $liClasses)) {
 				$html .= '<a href="' . $val['url'] . '">';
 				$html .= $val['text'];
-				$html .= $val['showBubble']? $bubble : '';
+				if ($val['showBubble']) {
+					$html .= '<span class="bubble bubble-middle"><h3>';
+					if ($item == 'input') {
+						$html .= 'Jetzt mitmachen!';
+					} elseif ($item == 'voting') {
+						$html .= 'Jetzt abstimmen!';
+					}
+					$html .= '</h3></span>';
+				}
 				$html .= '</a>';
 			} else {
 				$html .= '<div>' . $val['text'] . '</div>';
