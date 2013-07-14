@@ -19,18 +19,27 @@
 		<section class="main-content span9">
 
 			<h1>Beitrag bearbeiten</h1>
-			<?php if (isset($this->form)): ?>
-				<?php echo $this->form; ?>
-			<?php endif; ?>
 			<?php if (isset($this->message)): ?>
 				<p><?php echo $this->message; ?></p>
+				<p><a href="<?php
+					echo $this->url(array(
+						'controller' => 'user',
+						'action' => 'inputlist'
+					));
+				?>">&laquo; Zurück</a></p>
 			<?php endif; ?>
-			<p><a href="<?php
-				echo $this->url(array(
-					'controller' => 'user',
-					'action' => 'inputlist'
-				));
-			?>">&laquo; Zurück</a></p>
+
+			<?php if (isset($this->form)): ?>
+			<div class="well well-large text-right">
+				<?php echo $this->form; ?>
+				<a href="<?php
+					echo $this->url(array(
+						'controller' => 'user',
+						'action' => 'inputlist'
+					));
+				?>"><i class="icon-angle-left"></i> Zurück</a>
+			</div><!-- .well -->
+			<?php endif; ?>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 

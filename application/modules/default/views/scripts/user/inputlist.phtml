@@ -47,14 +47,14 @@
 							<ul>
 								<?php foreach ($question['inputs'] as $input): ?>
 									<li>
-										<h5><a href="<?php
+										<a href="<?php
 											echo $this->url(array(
 												'controller' => 'input',
 												'action' => 'edit',
 												'kid' => $this->consultation->kid,
 												'tid' => $input['tid']
 											));
-											?>" title="Klicken zum Bearbeiten"><?php echo $input['thes']; ?></a></h5>
+											?>" title="Klicken zum Bearbeiten"><h5><?php echo $input['thes']; ?></h5></a>
 											<?php if (!empty($input['expl'])): ?>
 											<p><?php echo $input['expl']; ?></p>
 										<?php endif; ?>
