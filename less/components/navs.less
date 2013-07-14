@@ -104,8 +104,6 @@
 // -------------------------
 
 .consultation-nav {
-	overflow: hidden;
-
 	.nav {
 		margin: 0 -8px 0 0;
 	}
@@ -121,10 +119,10 @@
 	// Default item
 	.nav > li > * {
 		position: relative;
-		width: 182px;
+		width: 180px;
 		height: 75px;
 		.box-sizing(border-box);
-		margin: 0 8px 0 0;
+		margin: 0 10px 0 0;
 		padding: .5em @u;
 		.border-radius(0);
 		border-style: none;
@@ -210,6 +208,7 @@
 		position: relative;
 		overflow: hidden;
 		padding: 0;
+		background-color: @white;
 
 		// Description
 		.description {
@@ -225,8 +224,7 @@
 			line-height: 135%;
 			color: @bodyText;
 			background-color: @orange;
-			.opacity(0);
-			.transition(all @normal ease-out);
+			.transition(top @normal ease-out);
 
 			p {
 				max-height: 97%;
@@ -236,11 +234,11 @@
 
 		&:hover,
 		&:focus {
+			background-color: @white;
+
 			.description {
 				top: 0;
 				color: @bodyText;
-				background-color: @orange;
-				.opacity(100);
 			}
 		}
 	}
@@ -297,10 +295,10 @@
 
 // Consultation nav in consultation preview
 .consultation-preview .consultation-nav {
-
 	.nav > li > * {
-		width: 144px;
+		width: 145px;
 		height: 217px;
+		margin-right: 6px;
 		padding-left: .75em;
 		padding-right: .75em;
 
@@ -329,6 +327,33 @@
 	.nav > li:first-child > *:after,
 	.nav > li:nth-child(2) > *:before {
 		display: none;
+	}
+}
+
+
+// Secondary navigation
+// -------------------------
+
+.consultation-nav.secondary-navigation {
+
+	// Bubble
+	.nav > li > * .bubble {
+		left: 30%;
+		bottom: 90%;
+	}
+
+	.nav > li > a,
+	.nav > li > a {
+		.bubble {
+			//.transition(all);
+		}
+
+		&:hover,
+		&:focus {
+			.bubble {
+				//bottom: 100%;
+			}
+		}
 	}
 }
 

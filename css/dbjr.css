@@ -958,9 +958,6 @@ body > footer {
 .nav-tabs > .active > a:focus {
   cursor: pointer;
 }
-.consultation-nav {
-  overflow: hidden;
-}
 .consultation-nav .nav {
   margin: 0 -8px 0 0;
 }
@@ -972,12 +969,12 @@ body > footer {
 }
 .consultation-nav .nav > li > * {
   position: relative;
-  width: 182px;
+  width: 180px;
   height: 75px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0 8px 0 0;
+  margin: 0 10px 0 0;
   padding: 0.5em 1.538462em;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -1047,6 +1044,7 @@ body > footer {
   position: relative;
   overflow: hidden;
   padding: 0;
+  background-color: #ffffff;
 }
 .consultation-nav .nav > .item-title > a .description {
   position: absolute;
@@ -1063,24 +1061,23 @@ body > footer {
   line-height: 135%;
   color: #000000;
   background-color: #fc9026;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -webkit-transition: all 250ms ease-out;
-  -moz-transition: all 250ms ease-out;
-  -o-transition: all 250ms ease-out;
-  transition: all 250ms ease-out;
+  -webkit-transition: top 250ms ease-out;
+  -moz-transition: top 250ms ease-out;
+  -o-transition: top 250ms ease-out;
+  transition: top 250ms ease-out;
 }
 .consultation-nav .nav > .item-title > a .description p {
   max-height: 97%;
   overflow: hidden;
 }
+.consultation-nav .nav > .item-title > a:hover,
+.consultation-nav .nav > .item-title > a:focus {
+  background-color: #ffffff;
+}
 .consultation-nav .nav > .item-title > a:hover .description,
 .consultation-nav .nav > .item-title > a:focus .description {
   top: 0;
   color: #000000;
-  background-color: #fc9026;
-  opacity: 1;
-  filter: alpha(opacity=100);
 }
 .consultation-nav .nav > .item-access input[type="text"],
 .consultation-nav .nav > .item-access input[type="password"] {
@@ -1127,8 +1124,9 @@ body > footer {
   border-left-color: #a69f9f;
 }
 .consultation-preview .consultation-nav .nav > li > * {
-  width: 144px;
+  width: 145px;
   height: 217px;
+  margin-right: 6px;
   padding-left: .75em;
   padding-right: .75em;
 }
@@ -1149,6 +1147,10 @@ body > footer {
 .consultation-preview .consultation-nav .nav > li:first-child > *:after,
 .consultation-preview .consultation-nav .nav > li:nth-child(2) > *:before {
   display: none;
+}
+.consultation-nav.secondary-navigation .nav > li > * .bubble {
+  left: 30%;
+  bottom: 90%;
 }
 .tertiary-navigation .nav {
   margin: 0;
@@ -1657,6 +1659,12 @@ article.media .article-action i {
 }
 .bubble span {
   line-height: 125%;
+}
+.bubble.bubble-middle {
+  width: 148px;
+  height: 103px;
+  padding: 1.8em 2em;
+  background-image: url('../images/bubble-middle.png');
 }
 .bubble.bubble-large {
   width: 167px;
