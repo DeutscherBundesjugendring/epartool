@@ -27,23 +27,32 @@ $locale = new Zend_Locale();
 				besondere Rolle spielen dabei außerschulisch organisierte
 				Gruppenaktivitäten, bei denen die Teilnahme freiwillig ist.</p>
 
-            <div class="box thumbnail">
+            <div class="well-large-alt">
 				<h2>Bisherige Reaktionen im Überblick</h2>
-                <ul>
+                <ul class="unstyled">
 					<?php foreach ($this->latest_followups as $followup): ?>
-						<li>
-							<img src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
-							<p><?php echo $followup['when']; ?><br /><?php echo $followup['who']; ?></p>
-							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>">Ansehen</a>
+						<li class="media">
+							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left">
+								<img src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
+							</a>
+							<div class="media-body">
+								<p>
+									<time class="muted"><?php echo $followup['when']; ?></time>
+									<br />
+									<h4 class="media-heading"><?php echo $followup['who']; ?></h4>
+								</p>
+								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>">Ansehen <i class="icon-angle-right"></i></a>
+							</div>
 						</li>
 					<?php endforeach; ?>
                 </ul>
             </div>
-            <div class="box thumbnail">
+            <div class="well-large-alt">
                 <h2>Reaktionen und Feedback auf einzelne Beiträge</h2>
                 <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
 				<?php echo $this->questionNavigation(NULL, 'follow-up'); ?>
-                <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>">Sortiert nach Schlagwörtern</a>
+				<br />
+                <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>" class="btn">Sortiert nach Schlagwörtern</a>
             </div>
 
         </section>

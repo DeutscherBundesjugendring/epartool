@@ -1413,6 +1413,8 @@ article.media .article-action {
   display: inline-block;
   margin-right: 1em;
 }
+article.media .article-action:hover,
+article.media .article-action:focus,
 article.media .article-action a:hover,
 article.media .article-action a:focus {
   text-decoration: none;
@@ -1728,6 +1730,22 @@ article.media .article-action i {
 .well-large .btn-light:active {
   color: #ffffff;
   background-color: #a69f9f;
+}
+.well-large-alt {
+  border: 0.8em solid #e8e6e6;
+  -webkit-border-radius: 1.5em;
+  -moz-border-radius: 1.5em;
+  border-radius: 1.5em;
+  -webkit-box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+  box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+  margin: 2em 0;
+  padding: .75em;
+}
+.well-large-alt h2 {
+  font-size: 1.6em;
+  line-height: 110%;
+  color: #02afdb;
 }
 .bubble {
   position: absolute;

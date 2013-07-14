@@ -18,10 +18,10 @@ $locale = new Zend_Locale();
 			<?php echo $this->followupNavigation('by-question', $this->question['qi']) ?>
 
         </aside>
-        <section class="main-content span8">
+        <section class="main-content span9">
 
-			<p class="count"><?php echo $this->numberInputs; ?> Beiträge</p>
-			<h3><?php echo $this->question['q']; ?></h3>
+			<small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
+			<h1><?php echo $this->question['q']; ?></h1>
 			<p><?php echo $this->question['q_xpl']; ?></p>
 
 			<hr />
@@ -47,12 +47,14 @@ $locale = new Zend_Locale();
 								 </a>
 						 <?php endif; ?>
 
-						<a href="#">
-							<i class="icon-comment"></i>
-							<span class="badge">(<?php echo $input['pts']; ?>)</span>
-							<span class="label">Das möchte ich gerne diskutieren!</span>
-						</a>
-						<a href="<?php echo $this->url(array('action' => 'show', 'qid' => $this->question['qi'], 'tid' => $input['tid'], 'page' => null)) ?>">Reaktionen ansehen</a>
+						<p class="article-actions">
+							<a href="#" class="article-action">
+								<i class="icon-comment icon-orange icon-2x"></i>
+								(<?php echo $input['pts']; ?>)
+								<span class="label">Das möchte ich gerne diskutieren!</span>
+							</a>
+							<a href="<?php echo $this->url(array('action' => 'show', 'qid' => $this->question['qi'], 'tid' => $input['tid'], 'page' => null)) ?>">Reaktionen ansehen <i class="icon-angle-right"></i></a>
+						</p>
 		            </article>
 		            <hr />
 				<?php endforeach; ?>
