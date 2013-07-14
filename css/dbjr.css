@@ -462,6 +462,11 @@ p .btn {
   color: #999999;
   background-color: grayLight;
 }
+.btn-small {
+  min-height: 0;
+  font-size: 1.25em;
+  line-height: 100%;
+}
 .input-append .btn,
 .input-prepend .btn,
 .btn-group .btn {
@@ -485,6 +490,20 @@ p .btn {
   top: -0.5em;
   left: -0.5em;
   display: inline-block;
+}
+.btn.btn-extend {
+  font: normal 1em/100% Arial, sans-serif;
+  text-transform: none;
+  border-top: 1px solid #f7f7f7;
+  background-color: #666666;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.btn.btn-extend:active,
+.btn.btn-extend.active {
+  padding-top: .25em;
+  padding-bottom: .25em;
 }
 select,
 textarea,
@@ -542,6 +561,9 @@ input[type="color"]:focus,
 }
 .input-alt:focus {
   border-color: #ffffff;
+}
+textarea.input-block-level {
+  min-height: 6.5em;
 }
 input:focus:required:invalid,
 textarea:focus:required:invalid,
@@ -690,6 +712,9 @@ form dd {
 .form-inline dd {
   display: inline-block;
   margin-right: .75ex;
+}
+.input-extensible {
+  margin-bottom: 0;
 }
 .login #submit-label {
   display: none;
@@ -1368,6 +1393,10 @@ article.media .article-action {
   display: inline-block;
   margin-right: 1em;
 }
+article.media .article-action a:hover,
+article.media .article-action a:focus {
+  text-decoration: none;
+}
 article.media .article-action i {
   position: relative;
   bottom: -0.15em;
@@ -1592,6 +1621,18 @@ article.media .article-action i {
 .well-large .btn.active {
   color: #00cbff;
   background-color: #000000;
+}
+.well-large .btn.btn-extend {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.well-large .btn.btn-extend:hover,
+.well-large .btn.btn-extend:focus,
+.well-large .btn.btn-extend:active,
+.well-large .btn.btn-extend.active {
+  color: #ffffff;
+  background-color: #999999;
 }
 .bubble {
   position: absolute;

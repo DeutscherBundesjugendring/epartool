@@ -22,7 +22,7 @@ $(document).ready(function () {
 	// Buttons
 	// -------------------------
 
-	$('button.arrow-right').append(' <i class="icon-chevron-right"></i>');
+	$('button.arrow-right').append(' <i class="icon-angle-right"></i>');
 
 
 	// Scroll to ID

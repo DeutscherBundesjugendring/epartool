@@ -61,7 +61,7 @@ class Default_Form_Input extends Zend_Form {
 
     // add empty field for next new input
     $this->addDynamicThesFields($i);
-    
+
     if ($i == 0) {
       // in the beginning if no input is written to session yet:
       // add another field
@@ -78,7 +78,7 @@ class Default_Form_Input extends Zend_Form {
         array(
             'Decorators' => array(
                 'FormElements',
-                array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions form-actions-unstyled text-left'))
+                array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions form-actions-unstyled text-center'))
             )
         )
     );
@@ -120,7 +120,7 @@ class Default_Form_Input extends Zend_Form {
         'belongsTo' => 'thes',
         //           'isArray' => true,
         'attribs' => array(
-            'class' => 'input-block-level input-alt',
+            'class' => 'input-block-level input-extensible input-alt',
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
             'id' => 'thes_' . $i,
             'maxlength' => '300'
@@ -133,14 +133,9 @@ class Default_Form_Input extends Zend_Form {
     $toggle = $this->createElement('hidden', 'toggle_' . $i);
     $toggleOptions = array(
         'ignore' => true,
-        'description' => '<a id="toggle_expl_' . $i . '" href="" class="btn btn-block"'
-        . 'onclick="javascript:if (document.getElementById(\'expl_' . $i . '\').style.display == \'none\')'
-        . ' { document.getElementById(\'expl_' . $i . '\').style.display = \'inline\';'
-        . ' document.getElementById(\'toggle_expl_' . $i . '\').innerHTML = \'Wieder einklappen\';}'
-        . ' else { document.getElementById(\'expl_' . $i . '\').style.display = \'none\';'
-        . ' document.getElementById(\'toggle_expl_' . $i . '\').innerHTML = \'Klicken, um Eintrag zu erläutern\';}'
-        . ' return false;"><i class="icon-chevron-down"></i>'
-        . ' Klicken, um Eintrag zu erläutern <i class="icon-chevron-down"></i></a>'
+        'description' => '<a href="#" class="btn btn-block btn-small btn-extend js-toggle-extended-input">'
+		. '<i class="icon-angle-down icon-large"></i> Klicken, um Eintrag zu erläutern <i class="icon-angle-down icon-large"></i>'
+		. '</a>'
     );
     $toggle->setOptions($toggleOptions);
     $toggle->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
@@ -156,7 +151,7 @@ class Default_Form_Input extends Zend_Form {
         'belongsTo' => 'expl',
         //           'isArray' => true,
         'attribs' => array(
-            'class' => 'extension input-block-level input-alt',
+            'class' => 'extension input-block-level input-extensible input-alt',
             'style' => 'display: none;',
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
             'id' => 'expl_' . $i,

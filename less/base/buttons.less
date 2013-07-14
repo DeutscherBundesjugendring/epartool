@@ -106,6 +106,16 @@ p .btn {
 }
 
 
+// Button sizes
+// -------------------------
+
+.btn-small {
+	min-height: 0;
+	font-size: 1.25em;
+	line-height: 100%;
+}
+
+
 // Button groups
 // --------------------------------------------------
 
@@ -144,5 +154,20 @@ p .btn {
 		top: -0.5em;
 		left: -0.5em;
 		display: inline-block;
+	}
+}
+
+// Extend button
+.btn.btn-extend {
+	font: normal ~"1em/100%" @baseFontFamily;
+	text-transform: none;
+	border-top: 1px solid @grayLightest;
+	background-color: @gray;
+	.box-shadow(none);
+
+	&:active,
+	&.active {
+		padding-top: .25em;
+		padding-bottom: .25em;
 	}
 }
