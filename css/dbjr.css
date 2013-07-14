@@ -155,6 +155,11 @@ hgroup h2 {
   position: relative;
   top: -3.5em;
 }
+.heading-centered {
+  margin-left: 5em;
+  margin-right: 5em;
+  text-align: center;
+}
 p {
   margin-top: 0;
   margin-bottom: 1em;

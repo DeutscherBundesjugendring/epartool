@@ -9,19 +9,12 @@
 
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder">
+<div class="content-holder main-content">
+
+	<h1 class="heading-centered">Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+
 	<div class="row">
-		<aside class="span3">
-
-			<?php
-			// @todo Sidebar navigation
-			?>
-			<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a>
-
-		</aside>
-		<section class="main-content span9">
-
-			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+		<div class="span9 offset1">
 
 			<?php if ($this->noMoreThesis): ?>
 
@@ -104,16 +97,22 @@
 							</a></li>
 					</ul>
 
-					<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
-					   id="buttonChangeKeyword" class="btn">Frage / Schlagwort wechseln</a>
+					<p>
+						<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
+						   id="buttonChangeKeyword" class="btn">Frage / Schlagwort wechseln</a>
+					</p>
+
+					<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a>
+
 				</div><!-- .well -->
 
 			<?php endif; ?>
 
-			<?php echo $this->render('_partials/printLink.phtml') ?>
-
-		</section>
+		</div>
 	</div><!-- .row -->
+
+	<?php echo $this->render('_partials/printLink.phtml') ?>
+
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
