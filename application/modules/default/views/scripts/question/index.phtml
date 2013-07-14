@@ -41,7 +41,7 @@ if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 								'action' => 'show',
 								'kid' => $this->consultation->kid,
 								'qid' => $question['qi']));
-									?>" class="btn edit pull-right" title="Zum Beantworten hier klicken"><i class="icon-edit-alt"></i> Beitrag verfassen</a>
+									?>" class="btn edit pull-right hidden-print" title="Zum Beantworten hier klicken"><i class="icon-edit-alt"></i> Beitrag verfassen</a>
 					<?php endif; ?>
 					<?php echo $question['q_xpl'] ?>
 				</article>

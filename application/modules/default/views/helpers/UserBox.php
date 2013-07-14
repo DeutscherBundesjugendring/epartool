@@ -11,7 +11,7 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract {
     $auth = Zend_Auth::getInstance();
     if ($auth->hasIdentity()) {
       $identity = $auth->getIdentity();
-      $html = '<div class="user-box">'
+      $html = '<div class="user-box hidden-print">'
         . '<div class="user pull-left">'
         . 'Eingeloggt als <strong>' . $identity->name . '</strong> mit '
         . '<a href="mailto:' . $identity->email . '">' . $identity->email . '</a>'

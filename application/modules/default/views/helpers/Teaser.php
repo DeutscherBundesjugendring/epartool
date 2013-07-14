@@ -8,7 +8,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
 
   public function teaser() {
     $date = new Zend_Date();
-    $html = '<ul class="nav nav-list teaser">';
+    $html = '<ul class="nav nav-list teaser hidden-print">';
 
     $consultationModel = new Model_Consultations();
     $items = $consultationModel->getTeaserEntries();

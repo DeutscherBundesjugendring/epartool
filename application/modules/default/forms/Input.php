@@ -27,7 +27,7 @@ class Default_Form_Input extends Zend_Form {
 
     // Element für zusätzliches Markup:
     $this->addElement('hidden', 'plaintext', array(
-      'description' => '<span class="label sticker label-mitmachen-black">Mitmachen</span>'
+      'description' => '<span class="label sticker label-mitmachen-black hidden-print">Mitmachen</span>'
         . '<h2>Beiträge verfassen</h2>'
         . '<p>Mit der [+]-Schaltfläche kannst du weitere Felder hinzufügen, wenn du mehr als einen Vorschlag/Beitrag schreiben möchtest. Bei „Beenden“ kannst du eine E-Mail-Adresse hinterlegen: So können wir nachvollziehen, von wem die Beiträge stammen.</p>',
       'ignore' => true,
