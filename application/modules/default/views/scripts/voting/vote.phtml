@@ -22,22 +22,48 @@
 		<section class="main-content span9">
 
 			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+
 			<?php if ($this->noMoreThesis): ?>
-				<p>In dieser Kategorie befinden sich keine Beitr&auml;ge zum abstimmen mehr.</p>
-				<a href="
-				<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>
-				   " name="button button-change">Frage / Schlagwort wechseln</a>
-				<?php else: ?>
-				<h2><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
-					<?php
-					if (!empty($this->keyword)) {
-						echo('(Schlagwort: ' . $this->keyword . ')');
-					}
-					?>
-				</h2>
-				<p class="thesis"><?php echo $this->thesis['thes']; ?></p>
-				<p class="votingHeadline">Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?</p>
-				<ul class="points">
+
+				<p>In dieser Kategorie befinden sich keine Beiträge zum abstimmen mehr.</p>
+				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
+				   class="btn">Frage / Schlagwort wechseln</a>
+
+			<?php else: ?>
+
+				<div class="well well-large voting text-center">
+					<span class="label sticker label-mitmachen-black">Mitmachen!</span>
+					<!--  @TODO change url to last input of voting -->
+					<span class="voting-counter"><?php echo $this->thesisCountVoted; ?> von <?php echo $this->thesisCount; ?> Beiträgen<br />
+						zu dieser Frage abgestimmt</span>
+
+					<h2>Stimme jetzt ab!</h2>
+
+					<h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
+						<?php
+						if (!empty($this->keyword)) {
+							echo('(Schlagwort: ' . $this->keyword . ')');
+						}
+						?>
+					</h3>
+					<p class="voting-thesis"><?php echo $this->thesis['thes']; ?></p>
+
+					<div class="voting-rating-bar">
+						<?php
+						// Show back-button
+						if (!empty($this->LastVote)) {
+							if ($this->thesis['tid'] !== $this->LastVote[0]['tid']) {
+								?>
+								<a href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>"
+								   class="btn btn-small btn-light voting-prev"><i class="icon-angle-left icon-large"></i> Rückgängig</a>
+								<?php
+							}
+						}
+						?>
+
+						<p><strong>Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?</strong></p>
+					</div>
+
 					<?php
 					$votingLink = array();
 					for ($i = 0; $i < 6; $i++) {
@@ -55,29 +81,34 @@
 					}
 					?>
 
-					<li><a href="<?php echo $votingLink[3]; ?>" class="very-important" href="">Sehr wichtig</a></li>
-					<li><a href="<?php echo $votingLink[2]; ?>" class="important">Wichtig</a></li>
-					<li><a href="<?php echo $votingLink[1]; ?>" class="not-important">Nicht wichtig</a></li>
-					<li><a href="<?php echo $votingLink[0]; ?>" class="not-my-opinion">Stimme nicht zu</a></li>
-					<li><a href="<?php echo $votingLink[5]; ?>" class="no-opinion">Keine Meinung</a></li>
-				</ul>
-			<?php endif; ?>
+					<ul class="inline voting-rating">
+						<li><a href="<?php echo $votingLink[3]; ?>" class="very-important">
+								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-5.png" alt="" /><br />
+								<strong>Sehr<br />wichtig</strong>
+							</a></li>
+						<li><a href="<?php echo $votingLink[2]; ?>" class="important">
+								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-4.png" alt="" /><br />
+								<strong>Wichtig</strong>
+							</a></li>
+						<li><a href="<?php echo $votingLink[1]; ?>" class="not-important">
+								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-2.png" alt="" /><br />
+								<strong>Nicht<br />wichtig</strong>
+							</a></li>
+						<li><a href="<?php echo $votingLink[0]; ?>" class="not-my-opinion">
+								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-1.png" alt="" /><br />
+								<strong>Stimme<br />nicht zu</strong>
+							</a></li>
+						<li><a href="<?php echo $votingLink[5]; ?>" class="no-opinion">
+								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-0.png" alt="" /><br />
+								<strong>Keine<br />Meinung</strong>
+							</a></li>
+					</ul>
 
-			<p>
-				<?php
-				// Show back-button
-				if (!empty($this->LastVote)) {
-					if ($this->thesis['tid'] != $this->LastVote[0]['tid']) {
-						?>
-						<a href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>" class="button button-back">R&uuml;ckg&auml;ngig</a>
-						<?php
-					}
-				}
-				?>
-				<!--  @TODO change url to last input of voting -->
-				<span><?php echo $this->thesisCountVoted; ?> von <?php echo $this->thesisCount; ?> Beitr&auml;gen zu dieser Frage abgestimmt.</span>
-				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>" id="buttonChangeKeyword" name="button button-change">Frage / Schlagwort wechseln</a>
-			</p>
+					<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
+					   id="buttonChangeKeyword" class="btn">Frage / Schlagwort wechseln</a>
+				</div><!-- .well -->
+
+			<?php endif; ?>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 

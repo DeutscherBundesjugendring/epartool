@@ -456,11 +456,23 @@ p .btn {
   -moz-box-shadow: inset 0 0.2em 0 rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0.2em 0 rgba(0, 0, 0, 0.2);
 }
+.btn-light {
+  background-color: #999999;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+  color: #ffffff;
+  background-color: #a69f9f;
+}
 .disabled .btn,
 .btn.disabled,
 .btn[disabled] {
   color: #999999;
-  background-color: grayLight;
+  background-color: #999999;
 }
 .btn-small {
   min-height: 0;
@@ -1529,6 +1541,76 @@ article.media .article-action i {
   bottom: .5em;
   z-index: 2;
 }
+.voting-counter {
+  position: absolute;
+  left: 1.538462em;
+  top: 1.4em;
+  line-height: 120%;
+  text-align: left;
+  color: #000000;
+}
+.voting-thesis {
+  padding: 1.5em 1em;
+  text-align: left;
+  color: #000000;
+  background-color: #ffffff;
+}
+.voting-rating-bar {
+  position: relative;
+  margin: 0 -4.838462em;
+  padding: .5em 5em 1.5em;
+  color: #ffffff;
+  background-color: #000000;
+}
+.voting-rating-bar:before,
+.voting-rating-bar:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: block;
+  border-top: 1.25em solid #666666;
+  border-left: 2.5em solid transparent;
+}
+.voting-rating-bar:after {
+  left: auto;
+  right: 0;
+  border-left: none;
+  border-right: 2.5em solid transparent;
+}
+.voting-prev,
+.voting-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: .4em;
+  padding-top: .8em;
+}
+.voting-prev:active,
+.voting-next:active {
+  padding-top: .8em;
+}
+.voting-prev {
+  left: 0;
+}
+.voting-next {
+  right: 0;
+}
+.voting-rating {
+  position: relative;
+  z-index: 1;
+}
+.voting-rating li {
+  margin-top: -1.5em;
+  vertical-align: top;
+  line-height: 120%;
+}
+.voting-rating li a {
+  display: inline-block;
+}
+.voting-rating li img {
+  margin-bottom: .5em;
+}
 .voting-result {
   position: relative;
   z-index: 0;
@@ -1625,17 +1707,22 @@ article.media .article-action i {
   color: #00cbff;
   background-color: #000000;
 }
-.well-large .btn.btn-extend {
+.well-large .btn-extend {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-.well-large .btn.btn-extend:hover,
-.well-large .btn.btn-extend:focus,
-.well-large .btn.btn-extend:active,
-.well-large .btn.btn-extend.active {
+.well-large .btn-extend:hover,
+.well-large .btn-extend:focus,
+.well-large .btn-extend:active {
   color: #ffffff;
   background-color: #999999;
+}
+.well-large .btn-light:hover,
+.well-large .btn-light:focus,
+.well-large .btn-light:active {
+  color: #ffffff;
+  background-color: #a69f9f;
 }
 .bubble {
   position: absolute;

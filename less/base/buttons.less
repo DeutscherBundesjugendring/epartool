@@ -94,6 +94,18 @@ p .btn {
 	}
 }
 
+.btn-light {
+	background-color: @grayLight;
+	.box-shadow(none);
+
+	&:hover,
+	&:focus,
+	&:active {
+		color: @white;
+		background-color: @grayLighter;
+	}
+}
+
 
 // Button states
 // --------------------------------------------------
@@ -102,7 +114,7 @@ p .btn {
 .btn.disabled,
 .btn[disabled] {
 	color: @grayLight;
-	background-color: grayLight;
+	background-color: @grayLight;
 }
 
 

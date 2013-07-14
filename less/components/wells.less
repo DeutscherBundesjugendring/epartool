@@ -69,15 +69,23 @@
 		}
 	}
 
-	.btn.btn-extend {
+	.btn-extend {
 		.box-shadow(none);
 
 		&:hover,
 		&:focus,
-		&:active,
-		&.active {
+		&:active {
 			color: @white;
 			background-color: @grayLight;
+		}
+	}
+
+	.btn-light {
+		&:hover,
+		&:focus,
+		&:active {
+			color: @white;
+			background-color: @grayLighter;
 		}
 	}
 }
