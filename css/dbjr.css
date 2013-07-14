@@ -1160,6 +1160,7 @@ body > footer {
   font: normal 1.5em/120% "Yanone Kaffeesatz", sans-serif;
   text-transform: uppercase;
   text-shadow: none;
+  word-wrap: break-word;
   color: #000000;
   background-color: #02afdb;
 }
