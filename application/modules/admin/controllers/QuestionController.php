@@ -113,7 +113,7 @@ class Admin_QuestionController extends Zend_Controller_Action {
               $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
               $question = $questionRow->toArray();
             } else {
-              $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
+              $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben und versuche es noch einmal!', 'error');
               $question = $params;
             }
           } else {
