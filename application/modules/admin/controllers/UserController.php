@@ -43,12 +43,12 @@ class Admin_UserController extends Zend_Controller_Action {
             $userRow->pwd = md5($userPasswort);
           }
           $userRow->save();
-          $this->_flashMessenger->addMessage('Neuer Benutzer wurde erstellt.', 'success');
+          $this->_flashMessenger->addMessage('Neue_r Benutzer_in wurde erstellt.', 'success');
           // @todo Nutzer muss über Passwortwechsel informiert werden.
           $this->_redirect($this->view->url(array('action' => 'index')), array('prependBase' => false));
         }
         else {
-          $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Wählen Sie eine andere.', 'error');
+          $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Bitte wähle eine andere.', 'error');
           $form->populate($form->getValues());
         }
         
@@ -112,7 +112,7 @@ class Admin_UserController extends Zend_Controller_Action {
               // Prüfe ob E-Mail bereits existiert
               $emailAddress =$form->getValue('email');
               if($user->email!=$emailAddress && $userModel->emailExists($emailAddress)) {
-                $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Wählen Sie eine andere.', 'error');
+                $this->_flashMessenger->addMessage('Diese E-Mail-Adresse existiert bereits! Bitte wähle eine andere.', 'error');
                 $params = $this->getRequest()->getPost();
                 $params['email'] = $user->email;
                 $form->populate($params);
@@ -130,7 +130,7 @@ class Admin_UserController extends Zend_Controller_Action {
                     $emailSuccess = $emailModel->send(
                       $params['email'],
                       'Passwort-Aktualisierung',
-                      'Ihr Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
+                      'Dein Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
                       'pwdalter',
                       array(
                        '{{USER}}'=>$params['name'],
@@ -156,7 +156,7 @@ class Admin_UserController extends Zend_Controller_Action {
 //                $form->populate($this->getRequest()->getPost());
               }
             } else {
-              $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
+              $this->_flashMessenger->addMessage('Bitte prüfe deine Eingaben und versuche es erneut!', 'error');
               $form->populate($this->getRequest()->getPost());
             }
           }
@@ -165,12 +165,12 @@ class Admin_UserController extends Zend_Controller_Action {
           }
       }
       else {
-        $this->_flashMessenger->addMessage('Benutzer nicht gefunden!', 'error');
+        $this->_flashMessenger->addMessage('Benutzer_in nicht gefunden!', 'error');
         $this->_redirect('/admin/user/index');
       }
     }
     else {
-      $this->_flashMessenger->addMessage('Benutzer nicht gefunden!', 'error');
+      $this->_flashMessenger->addMessage('Benutzer_in nicht gefunden!', 'error');
       $this->_redirect('/admin/user/index');
     }
     
@@ -188,10 +188,10 @@ class Admin_UserController extends Zend_Controller_Action {
       //$this->_helper->layout()->disableLayout();
       //$this->_helper->viewRenderer->setNoRender(true);
       if ($deleted > 0) {
-        $this->_flashMessenger->addMessage('Der Benutzer wurde gelöscht.', 'success');
+        $this->_flashMessenger->addMessage('Benutze_inr wurde gelöscht.', 'success');
       }
       else {
-        $this->_flashMessenger->addMessage('Fehler beim Löschen des Benutzers. Bitte versuchen Sie es erneut.', 'error');
+        $this->_flashMessenger->addMessage('Fehler beim Löschen von Benutzer_in. Bitte versuche es erneut.', 'error');
       }
     }
     $this->_redirect('/admin/user/index');
