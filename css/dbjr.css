@@ -736,6 +736,25 @@ form dd {
 .login #submit-label {
   display: none;
 }
+.form-contribution .form-actions .btn {
+  margin: 0;
+}
+.form-contribution .form-actions #submit {
+  margin-left: 1.9em;
+}
+.form-contribution .form-actions #submit i {
+  margin-left: .5ex;
+  margin-right: 0;
+}
+.form-contribution .form-actions .hint {
+  position: absolute;
+  left: 4.5em;
+  bottom: .9em;
+  width: 10em;
+  margin: 0;
+  line-height: 120%;
+  text-align: left;
+}
 html {
   position: relative;
   min-height: 100%;
