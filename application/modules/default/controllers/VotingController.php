@@ -89,7 +89,7 @@ class VotingController extends Zend_Controller_Action {
                 'vt_rel_qid'=>$questionList
               );
               if(!$votingGroupModel->add($data)) {
-                throw new Exception('Fehler im Abstimmung. Bitte kontaktieren Sie den Administrator.');
+                throw new Exception('Fehler bei der Abstimmung. Bitte kontaktiere den Administrator.');
               }
             }
             // we got a subuser
@@ -116,19 +116,19 @@ class VotingController extends Zend_Controller_Action {
             $this->redirect('/voting/overview/kid/'.$this->_consultation->kid);
           }
           else {
-            $this->_flashMessenger->addMessage('Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese.', 'error');
+            $this->_flashMessenger->addMessage('Die Eingaben sind nicht korrekt. Bitte überprüfe diese noch einmal.', 'error');
             $form->populate($data);
           }
         }
         // no access for voting
         else {
-          $this->_flashMessenger->addMessage('Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese.', 'error');
+          $this->_flashMessenger->addMessage('Die Eingaben sind nicht korrekt. Bitte überprüfe diese noch einmal.', 'error');
           $form->populate($data);
         }
       }
       // invalid form
       else {
-        $this->_flashMessenger->addMessage('Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese.', 'error');
+        $this->_flashMessenger->addMessage('Die Eingaben sind nicht korrekt. Bitte überprüfe diese noch einmal.', 'error');
         $form->populate($data);
       }
     }
@@ -185,7 +185,7 @@ class VotingController extends Zend_Controller_Action {
     // no access, redirect back
     $votingRightsSession = new Zend_Session_Namespace('votingRights');
     if($votingRightsSession->access != $this->_consultation->kid) {
-      $this->_flashMessenger->addMessage('In dieser Konsultation kann derzeit nicht abgestimmt werden.', 'error');
+      $this->_flashMessenger->addMessage('Zu dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden.', 'error');
       $this->redirect('/');
     }
     
@@ -258,7 +258,7 @@ class VotingController extends Zend_Controller_Action {
     // no access, redirect back
     $votingRightsSession = new Zend_Session_Namespace('votingRights');
     if($votingRightsSession->access != $this->_consultation->kid) {
-      $this->_flashMessenger->addMessage('In dieser Konsultation kann derzeit nicht abgestimmt werden.', 'error');
+      $this->_flashMessenger->addMessage('Zu dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden.', 'error');
       $this->redirect('/');
     }
     // no view and layout
@@ -335,7 +335,7 @@ class VotingController extends Zend_Controller_Action {
       $result = $emailModel->send($subuser['sub_user'], '-','-','vot_conf',$templateReplace);
       if(!$result) {
         $logger = Zend_Registry::get('log');
-        $logger->debug('E-Mail für Voting-Bestätigung konnte nicht gesendet werden.');
+        $logger->debug('E-Mail für Abstimmungsbestätigung konnte nicht gesendet werden.');
       }
       
       $this->view->groupmember = $subuser['sub_user'];
@@ -365,7 +365,7 @@ class VotingController extends Zend_Controller_Action {
     
     // action or subuid is not given
     if(($act != 'acc' && $act != 'rej') || empty($subuid) || empty($authcode)) {
-      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
     
@@ -375,7 +375,7 @@ class VotingController extends Zend_Controller_Action {
     
     // No access
     if(!$votingRights) {
-      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
     
@@ -430,7 +430,7 @@ class VotingController extends Zend_Controller_Action {
       $result = $emailModel->send($leader['email'], '-','-','vot_grpmem_conf',$templateReplace);
       if(!$result) {
         $logger = Zend_Registry::get('log');
-        $logger->debug('E-Mail für Gruppenmitglieds-Bestätigung konnte nicht gesendet werden.');
+        $logger->debug('Leider ist ein Fehler beim E-Mail-Versand an die Gruppenverantwortliche(n) aufgetreten. Bitte kontaktiere sie direkt.');
       }
     }
     
@@ -447,7 +447,7 @@ class VotingController extends Zend_Controller_Action {
     $authcode = $this->getRequest()->getParam('authcode');
     
     if(empty($act) || empty($subuid) || empty($authcode)) {
-      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
     
@@ -457,7 +457,7 @@ class VotingController extends Zend_Controller_Action {
     
       // No access
     if(!$votingRights) {
-      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
     
@@ -494,7 +494,7 @@ class VotingController extends Zend_Controller_Action {
   
   public function resultsAction() {
     if ($this->_consultation->vot_res_show == 'n') {
-      $this->_flashMessenger->addMessage('Abstimmungsergebnisse können noch nicht gezeigt werden!', 'error');
+      $this->_flashMessenger->addMessage('Die Abstimmungsergebnisse können leider noch nicht gezeigt werden.', 'error');
       $this->redirect('/voting/index/kid/' . $this->_consultation->kid);
     }
     
