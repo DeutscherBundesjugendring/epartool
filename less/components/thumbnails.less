@@ -36,6 +36,12 @@
 	position: relative;
 	height: 21 * @u;
 
+	// Clip overflow
+	.thumbnail-content {
+		max-height: 100%;
+		overflow: hidden;
+	}
+
 	// Fade out overflowing lines
 	&:before {
 		content: '';
@@ -62,7 +68,7 @@
 		top: -1.2em;
 	}
 
-	.badge + h2 {
+	h2 {
 		text-indent: 4em; // make place for badge
 	}
 
@@ -71,11 +77,6 @@
 	}
 
 	// Articles
-	.article-list {
-		max-height: 14 * @u;
-		overflow: hidden;
-	}
-
 	a article {
 		line-height: 140%;
 		color: @bodyText;

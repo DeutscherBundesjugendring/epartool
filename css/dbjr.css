@@ -1499,6 +1499,10 @@ article.media .article-action i {
   position: relative;
   height: 32.307702em;
 }
+.questions .thumbnail .thumbnail-content {
+  max-height: 100%;
+  overflow: hidden;
+}
 .questions .thumbnail:before {
   content: '';
   position: absolute;
@@ -1535,15 +1539,11 @@ article.media .article-action i {
   left: .5em;
   top: -1.2em;
 }
-.questions .thumbnail .badge + h2 {
+.questions .thumbnail h2 {
   text-indent: 4em;
 }
 .questions .thumbnail a {
   text-decoration: none;
-}
-.questions .thumbnail .article-list {
-  max-height: 21.538468em;
-  overflow: hidden;
 }
 .questions .thumbnail a article {
   line-height: 140%;
