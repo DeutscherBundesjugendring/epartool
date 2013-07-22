@@ -27,7 +27,7 @@ $locale = new Zend_Locale();
 		<?php if (!empty($this->tags)): ?>
 			<li class="span4">
 				<div class="thumbnail">
-					<h2>Beiträge sortiert nach Schlagwörtern</h2>
+					<h2>Beiträge sortiert nach Schlagwörtern:</h2>
 					<ul class="tag-cloud">
 						<?php foreach ($this->tags as $tag): ?>
 							<li class="tag-<?php echo $tag['frequency']; ?>">
@@ -61,7 +61,7 @@ $locale = new Zend_Locale();
 								</a>
 							<?php endforeach; ?>
 						</div>
-						<a href="<?php echo $url ?>" class="btn">Zur Beitragsseite der <?php echo $question['nr'] ?> Frage</a>
+						<a href="<?php echo $url ?>" class="btn">Alle Beitr&auml;ge zu Frage <?php echo $question['nr'] ?></a>
 					</div>
 				</div><!-- .thumbnail -->
 			</li>
