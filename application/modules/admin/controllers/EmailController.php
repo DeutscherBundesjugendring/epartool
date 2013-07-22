@@ -62,7 +62,7 @@ class Admin_EmailController extends Zend_Controller_Action {
               $form->populate($this->getRequest()->getPost());
             }
           } else {
-            $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+            $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
             $form->populate($this->getRequest()->getPost());
           }
     }
@@ -106,7 +106,7 @@ class Admin_EmailController extends Zend_Controller_Action {
             
             $this->_redirect($redirect);
           } else {
-            $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+            $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
             $form->populate($form->getValues());
           }
     } else {
@@ -132,7 +132,7 @@ class Admin_EmailController extends Zend_Controller_Action {
         $this->_flashMessenger->addMessage('Der E-Mail-Eintrag wurde gelöscht.', 'success');
       }
       else {
-        $this->_flashMessenger->addMessage('Fehler beim Löschen des E-Mail-Eintrags. Bitte versuchen Sie es erneut.', 'error');
+        $this->_flashMessenger->addMessage('Fehler beim Löschen des E-Mail-Eintrags. Bitte versuche es erneut.', 'error');
       }
     }
     $this->_redirect('/admin/email/index');

@@ -11,14 +11,14 @@
 
 <div class="content-holder main-content">
 
-	<h1 class="heading-centered">Abstimmung zur Konsultation &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+	<h1 class="heading-centered">Abstimmung zu &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
 
 	<div class="row">
 		<div class="span9 offset1">
 
 			<?php if ($this->noMoreThesis): ?>
 
-				<p>In dieser Kategorie befinden sich keine Beiträge zum abstimmen mehr.</p>
+				<p>In dieser Kategorie gibt es keine Beiträge mehr zum Abstimmen. Bitte wechsle zu einer anderen Frage oder einem anderen Schlagwort.</p>
 				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
 				   class="btn">Frage / Schlagwort wechseln</a>
 
@@ -54,7 +54,7 @@
 						}
 						?>
 
-						<p><strong>Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?</strong></p>
+						<p><strong>Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion zum Thema?</strong></p>
 					</div>
 
 					<?php

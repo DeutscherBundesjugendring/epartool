@@ -56,7 +56,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
               $this->_flashMessenger->addMessage('Erstellen der neuen Konsultation fehlgeschlagen!', 'error');
             }
           } else {
-            $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+            $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
             $form->populate($this->getRequest()->getPost());
           }
     }
@@ -118,7 +118,7 @@ class Admin_ConsultationController extends Zend_Controller_Action {
             
             $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
           } else {
-            $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+            $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
             $form->populate($form->getValues());
           }
     } else {

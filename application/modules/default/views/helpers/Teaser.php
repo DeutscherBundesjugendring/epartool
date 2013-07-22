@@ -42,7 +42,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract {
             'action' => 'index',
             'kid' => $item['kid']
           ), 'default', true);
-          $text = 'Jetzt ist nun Abstimmen über die wichtigsten Beiträge angesagt! …';
+          $text = 'Jetzt ist Abstimmen über die wichtigsten Beiträge angesagt! …';
           break;
         case 'vot_to':
           $url = $this->view->url(array(

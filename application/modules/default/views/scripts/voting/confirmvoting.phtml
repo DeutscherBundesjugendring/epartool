@@ -11,28 +11,27 @@
 	<?php if ($this->act == 'acc'): ?>
 		<h1>Deine Bewertungen sind jetzt bestätigt.</h1>
 		<p>
-			Vielen Dank für die Bestätigung Deiner Abstimmung. Falls Du noch nicht über alle Beiträge abgestimmt hast,
-			kannst Du mit Hilfe des Zugangscodes jederzeit zurückkehren und die Abstimmung fortsetzen.
+			Vielen Dank für die Bestätigung deiner Abstimmung. Falls du noch nicht über alle Beiträge abgestimmt hast,
+			kannst du mit Hilfe des Zugangscodes jederzeit zurückkehren und die Abstimmung fortsetzen.
 		</p>
 	<?php endif; ?>
 
 	<?php if ($this->memberstatus == 'u' && $this->act == 'acc'): ?>
 		<p>
-			Der/die Verantwortliche für Deine Gruppe muss noch bestätigen, dass Du abstimmungsberechtigt bist.
-			Dabei sieht er/sie nur Deine E-Mail-Adresse, nicht aber wie Du abgestimmt hast.
-			Erst danach fließen Deine Bewertungen endgültig in das Abstimmungsergebnis ein.
+			Der/die Verantwortliche für deine Gruppe muss noch bestätigen, dass du abstimmungsberechtigt bist.
+			Dabei sieht er/sie nur deine E-Mail-Adresse, nicht aber wie du abgestimmt hast.
+			Erst danach fließen deine Bewertungen endgültig in das Abstimmungsergebnis ein.
 		</p>
 	<?php elseif ($this->memberstatus == 'y' && $this->act == 'acc'): ?>
 		<p>
-			Der/die Verantwortliche Deiner Gruppe hat Deine E-Mail-Adresse bereits bestätigt.
+			Der/die Verantwortliche deiner Gruppe hat deine E-Mail-Adresse bereits bestätigt.
 			Deine Bewertungen werden jetzt anonymisiert und fließen damit endgültig in das Abstimmungsergebnis ein.
 		</p>
 	<?php elseif ($this->act == 'rej'): ?>
 		<h1>Die Bewertungen wurden gelöscht.</h1>
 		<p>
-			Die mit Deiner E-Mail-Adresse abgegebenen Bewertungen fließen nicht in das Endergebnis ein.
-			Dies betrifft keine Bewertungen, die Du ggf. schon früher bestätigt hast.
-			Du kannst aber mit Hilfe des Zugangscodes jederzeit zurückkehren und wieder an der Abstimmung teilnehmen.
+			Die mit deiner E-Mail-Adresse abgegebenen Bewertungen fließen nicht in das Endergebnis ein.
+			Dies betrifft keine Bewertungen, die du ggf. schon früher bestätigt hast.
 		</p>
 	<?php endif; ?>
 

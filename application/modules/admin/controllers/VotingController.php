@@ -65,7 +65,7 @@ class Admin_VotingController extends Zend_Controller_Action {
             'uid' => null,
           )), array('prependBase' => false));
         } else {
-          $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+          $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
         }
       } else {
         // form not submitted, initial request
@@ -83,7 +83,7 @@ class Admin_VotingController extends Zend_Controller_Action {
         'user' => $user
       ));
     } else {
-      $this->_flashMessenger->addMessage('Keine User ID angegeben!', 'error');
+      $this->_flashMessenger->addMessage('Keine User-ID angegeben!', 'error');
       $this->redirect('/admin/voting');
     }
   }
@@ -195,7 +195,7 @@ class Admin_VotingController extends Zend_Controller_Action {
       } else {
         // no template found, give chance to write email manually
         $mode = 'preview';
-        $this->_flashMessenger->addMessage('Kein E-Mail Template gefunden!', 'error');
+        $this->_flashMessenger->addMessage('Keine E-Mail-Vorlage gefunden!', 'error');
       }
       
       // check if form from preview is submitted
@@ -208,7 +208,7 @@ class Admin_VotingController extends Zend_Controller_Action {
           $mode = 'instantsend';
           $sentFromPreview = true;
         } else {
-          $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+          $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
           $form->populate($data);
         }
       }
@@ -254,7 +254,7 @@ class Admin_VotingController extends Zend_Controller_Action {
       }
       
     } else {
-      $this->_flashMessenger->addMessage('Kein Nutzer angegeben!', 'error');
+      $this->_flashMessenger->addMessage('Kein_e Nutzer_in angegeben!', 'error');
       $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation['kid']);
     }
   }
@@ -279,7 +279,7 @@ class Admin_VotingController extends Zend_Controller_Action {
     $votesGroupsModel = new Model_Votes_Groups();
     
     if ($votesGroupsModel->denyVoter($this->_consultation['kid'], $uid, $sub_uid)) {
-      $this->_flashMessenger->addMessage('Teilnehmer wurde abgelehnt.', 'success');
+      $this->_flashMessenger->addMessage('Teilnehmer_in wurde abgelehnt.', 'success');
     } else {
       $this->_flashMessenger->addMessage('Ablehnen fehlgeschlagen.', 'error');
     }
@@ -297,7 +297,7 @@ class Admin_VotingController extends Zend_Controller_Action {
     $votesGroupsModel = new Model_Votes_Groups();
     
     if ($votesGroupsModel->confirmVoter($this->_consultation['kid'], $uid, $sub_uid)) {
-      $this->_flashMessenger->addMessage('Teilnehmer wurde bestätigt.', 'success');
+      $this->_flashMessenger->addMessage('Teilnehmer_in wurde bestätigt.', 'success');
     } else {
       $this->_flashMessenger->addMessage('Bestätigen fehlgeschlagen.', 'error');
     }
@@ -315,7 +315,7 @@ class Admin_VotingController extends Zend_Controller_Action {
     $votesGroupsModel = new Model_Votes_Groups();
     
     if ($votesGroupsModel->deleteVoter($this->_consultation['kid'], $uid, $sub_uid) > 0) {
-      $this->_flashMessenger->addMessage('Teilnehmer wurde gelöscht.', 'success');
+      $this->_flashMessenger->addMessage('Teilnehmer_in wurde gelöscht.', 'success');
     } else {
       $this->_flashMessenger->addMessage('Löschen fehlgeschlagen.', 'error');
     }
