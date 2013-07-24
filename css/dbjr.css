@@ -279,13 +279,13 @@ body {
 .container > .main {
   min-height: 25em;
 }
-.container > .main .span3 {
+.container > .main .content-holder > .row > .span3 {
   width: 180px;
 }
-.container > .main .span6 {
+.container > .main .content-holder > .row > .span6 {
   width: 540px;
 }
-.container > .main .span9 {
+.container > .main .content-holder > .row > .span9 {
   width: 710px;
 }
 .container > .main section {
