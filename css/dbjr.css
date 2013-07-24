@@ -1539,7 +1539,7 @@ article.media .article-action i {
   left: .5em;
   top: -1.2em;
 }
-.questions .thumbnail h2 {
+.questions .thumbnail .badge + .thumbnail-content > h2 {
   text-indent: 4em;
 }
 .questions .thumbnail a {
