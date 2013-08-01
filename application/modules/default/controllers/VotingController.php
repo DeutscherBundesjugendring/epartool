@@ -44,7 +44,7 @@ class VotingController extends Zend_Controller_Action {
       $this->redirect('/');
     }
     elseif($nowDate->isLater($this->_consultation->vot_to) && $this->_consultation->vot_to != '0000-00-00 00:00:00' && $this->_consultation->vot_res_show == 'y') {
-      $this->_flashMessenger->addMessage('Die Abstimmung ist bereits beendet. Im Folgenden die Ergebnisse.', 'info');
+      $this->_flashMessenger->addMessage('Die Abstimmung ist beendet. Unten k&ouml;nnt ihr euch die Ergebnisse ansehen.', 'info');
       $this->redirect('/voting/results/kid/'.$this->_consultation->kid);
     }
     // if session is allready created, forword to overview
