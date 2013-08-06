@@ -21,7 +21,7 @@
 				<p>In dieser Kategorie gibt es keine Beiträge mehr zum Abstimmen. Bitte wechsle zu einer anderen Frage oder einem anderen Schlagwort.</p>
 				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
 				   class="btn">Frage / Schlagwort wechseln</a>
-				   
+
 				<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">Beenden</a>
 
 			<?php else: ?>
@@ -29,11 +29,12 @@
 				<div class="well well-large voting text-center">
 					<span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
 					<!--  @TODO change url to last input of voting -->
+
 					<span class="voting-counter">
 						<?php
 						// Add leading zeros to count voted
-						$countTotal = $this->thesisCount;
-						$countVoted = $this->thesisCountVoted;
+						$countTotal = $this->thesesCount;
+						$countVoted = $this->thesesCountVoted;
 
 						if (strlen($countTotal) > strlen($countVoted)) {
 							$format = '%0' . strlen($countTotal) . 'd';
@@ -54,12 +55,15 @@
 
 					<h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
 						<?php
-						if (!empty($this->keyword)) {
-							echo('(Schlagwort: ' . $this->keyword . ')');
+						if (!empty($this->thesis['tagname_de'])) {
+							echo('(Schlagwort: ' . $this->thesis['tagname_de']. ')');
 						}
 						?>
 					</h3>
 					<p class="voting-thesis"><?php echo $this->thesis['thes']; ?></p>
+					<?php if (!empty($this->thesis['expl'])): ?>
+					<p class="voting-expl"><?php echo $this->escape($this->thesis['expl']); ?></p>
+					<?php endif ?>
 
 					<div class="voting-rating-bar">
 						<?php
@@ -76,53 +80,18 @@
 
 						<p><strong>Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion zum Thema?</strong></p>
 					</div>
-
 					<?php
-					$votingLink = array();
-					for ($i = 0; $i < 6; $i++) {
-						$linkOptions = array(
-							'action' => 'thesisvote',
-							'tid' => $this->thesis['tid'],
-							'pts' => $i
-						);
-						if (!empty($this->qid)) {
-							$linkOptions['qid'] = $this->qid;
-						} else {
-							$linkOptions['tag'] = $this->tag;
-						}
-						$votingLink[$i] = $this->url($linkOptions);
-					}
-					?>
-
-					<ul class="inline voting-rating">
-						<li><a href="<?php echo $votingLink[3]; ?>" class="very-important">
-								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-5.png" alt="" /><br />
-								<strong>Sehr<br />wichtig</strong>
-							</a></li>
-						<li><a href="<?php echo $votingLink[2]; ?>" class="important">
-								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-4.png" alt="" /><br />
-								<strong>Wichtig</strong>
-							</a></li>
-						<li><a href="<?php echo $votingLink[1]; ?>" class="not-important">
-								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-2.png" alt="" /><br />
-								<strong>Nicht<br />wichtig</strong>
-							</a></li>
-						<li><a href="<?php echo $votingLink[0]; ?>" class="not-my-opinion">
-								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-1.png" alt="" /><br />
-								<strong>Stimme<br />nicht zu</strong>
-							</a></li>
-						<li><a href="<?php echo $votingLink[5]; ?>" class="no-opinion">
-								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-0.png" alt="" /><br />
-								<strong>Keine<br />Meinung</strong>
-							</a></li>
-					</ul>
-
+					$settings = $this->settings;
+					$this->layout()->settings = $settings;
+					$this->layout()->lables = $array = explode (',', $settings['btn_lables']);
+					echo $this ->partial('_partials/voting/votingButtons.phtml', $this); ?>
 					<p>
 						<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
 						   id="buttonChangeKeyword" class="btn">Frage / Schlagwort wechseln</a>
 					</p>
 
-					<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">Beenden</a>
+					<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a>
+					<a href="<?php echo $this -> url(array('action' => 'preview')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Vorschau Abstimmung</a>
 
 				</div><!-- .well -->
 
