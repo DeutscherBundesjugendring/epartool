@@ -34,6 +34,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'label' => 'Beiträge',
           'href' => $this->view->baseUrl() . '/admin/input/index/kid/' . $kid
         ),
+         array(
+          'label' => 'Votingeinstellungen',
+          'href' => $this->view->baseUrl() . '/admin/voting/settings/kid/' . $kid
+        ),
         array(
           'label' => 'Votingberechtigungen',
           'href' => $this->view->baseUrl() . '/admin/voting/index/kid/' . $kid
