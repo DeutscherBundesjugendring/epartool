@@ -1,0 +1,22 @@
+<?php 
+$settings = $this->layout()->settings;
+$lables = $this->layout()->lables;
+$styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
+?>
+	<? if ($settings['btn_important'] == 'y'):
+	?>
+		 <li><a href="#" rel="<? echo $this -> tid; ?>" data="y" class="voting-particularly-important voting-superbtn"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>
+      			<? echo $this->escape($settings['btn_important_lable']); ?>
+      			</a>
+      	</li> 
+	<?
+		endif
+	?>
+	<?php for ($i = $settings['btn_numbers']; $i >= 0; $i--) : ?>
+      <li><a href="#" rel="<? echo $this -> tid; ?>" data="<? echo $i; ?>" 
+      			class="voting-statement <? echo $styles["$i"]; ?>" <? if ($this->points!= null && $this->points == $i ) echo 'style="color: red!important"'; ?>>
+      			<? echo $this->escape($lables["$i"]); ?>
+      			</a>
+      	</li>  
+	<?php endfor; ?>
+	<li><a href="#" rel="<?php echo $this->escape($this -> tid); ?>" data="5" class="voting-statement no-opinion" <?php if ($this->points == '5') echo 'style="color: red!important"'; ?>>Keine Meinung</a></li>
