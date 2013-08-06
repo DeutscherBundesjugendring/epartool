@@ -1,0 +1,105 @@
+<?php
+/**
+ * index
+ *
+ * @description   Vorschauseite Abstimmung
+ * @author        Karsten Tackmann info@seitenmeister.com
+ * by change css-classes for in _partial votingPreviewButtons don't forget update the classes  in jquery
+ *  $(document).on("click",".YOUR-CSS-CLASS", function (event) ...
+ */
+?>
+<?php
+$this -> headScript() -> appendFile('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
+?>
+<?
+$settings = $this->settings;
+$this->layout()->settings = $settings;
+$this->layout()->lables = $array = explode (',', $settings['btn_lables']);
+?>
+<script type="text/javascript">
+
+$(document).ready(function() {
+$(document).on("click",".voting-statement", function (event) {		
+	event.preventDefault();
+	var statementId = $(this).attr('rel');
+	var points = $(this).attr('data');
+
+  $.ajax({
+  	url: "/voting/previewfeedback/kid/13/id/"+statementId+"/points/"+points+"",
+	type: "POST",
+	data: "format=html",
+	cache: false,
+	async: "true",
+	error: function(){
+		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!"; 
+	},
+	beforeSend: function(){
+    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !"; 
+	},
+	success:function(response){
+		document.getElementById('statement-'+statementId).innerHTML = response ; 
+	}
+	});
+	});
+	
+	$(document).on("click",".voting-particularly-important", function (event) {		
+	event.preventDefault();
+	var statementId = $(this).attr('rel');
+	var points = $(this).attr('data');
+
+
+  $.ajax({
+  	url: "/voting/previewfeedbackpi/kid/13/id/"+statementId+"/points/"+points+"",
+	type: "POST",
+	data: "format=html",
+	cache: false,
+	async: "true",
+	error: function(){
+		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!"; 
+	},
+	beforeSend: function(){
+    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !"; 
+	},
+	success:function(response){
+		document.getElementById('statement-'+statementId).innerHTML = response ; 
+	}
+	});
+	});
+	
+	
+	});
+</script>
+
+<?php echo $this->secondNavigation('voting') ?>
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<?php
+			// @todo Sidebar navigation
+			?>
+			<a href="<?php echo $this -> url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a><br>
+			<a href="<?php echo $this -> url(array('action' => 'preview')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Vorschau Abstimmung</a>
+
+		</aside>
+		<section class="main-content span9">
+
+			<small class="muted">Du hast schon über <?php echo $this->escape($this -> votedInputs); ?> von
+				insgesamt <?php echo $this->escape($this -> votableInputs); ?> Beiträgen abgestimmt.</small>
+
+			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->escape($this -> consultation -> titl); ?>&quot;</h1>
+			
+				<!-- questions -->
+				<?php  
+				echo $this ->partialLoop('_partials/voting/votingPreviewItem.phtml', $this->questions); ?>
+				<!-- // questions -->
+
+
+			<?php echo $this->render('_partials/printLink.phtml') ?>
+
+		</section>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<?php echo $this->render('_partials/topLink.phtml') ?>
