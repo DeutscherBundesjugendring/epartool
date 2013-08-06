@@ -1,0 +1,10 @@
+<?php 
+$settings = $this->settings;
+$this->layout()->settings = $settings;
+$this->layout()->lables = $array = explode (',', $settings['btn_lables']);
+?>
+<? if ($this->error == 1): ?>
+<li><p class="error"><? echo $this->error_comment ;?></p></li>
+<? else: ?>
+<?php echo $this ->partial('_partials/voting/votingPreviewButtons.phtml', $this->feedback); ?>
+<? endif; ?>
