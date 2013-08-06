@@ -1,0 +1,37 @@
+<?php
+$settings = $this->layout()->settings;
+$lables = $this->layout()->lables;
+$styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
+$linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
+if (!empty($this->qid)) $linkOptions['qid'] = $this->qid;
+if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
+?>
+
+					<ul class="inline voting-rating">
+						<? if ($settings['btn_important'] == 'y'): 
+								$linkOptions['pts'] = 'y';
+						?>
+		 				<li><a href="<?  echo $this->url($linkOptions); ?>" class="voting-particularly-important"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>
+      						<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->escape($settings['btn_important_lable']); ?>" title="<? echo $this->escape($settings['btn_important_lable']); ?>" /><br />
+      						<strong><? echo $this->escape($settings['btn_important_lable']); ?></strong>
+      						</a>
+      					</li> 
+						<? endif ; ?>
+						
+						<?php 
+								$linkOptions['action'] = 'thesisvote';
+								for ($i = $settings['btn_numbers']; $i >= 0; $i--) : 
+								$linkOptions['pts'] = $i;
+						?>
+      					<li><a href="<? echo $this->url($linkOptions); ?>" class="<? echo $styles["$i"]; ?>" <? if ($this->points!= null && $this->points == $i ) echo 'style="color: red!important"'; ?>>
+      							<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<? echo $i; ?>.png" alt="<? echo $this->escape($lables["$i"]); ?>" title="<? echo $this->escape($lables["$i"]); ?>" /><br />
+      							<strong><? echo $this->escape($lables["$i"]); ?></strong>
+      							</a></li>  
+						<?php endfor; ?>
+						
+						<li><a href="<?php $linkOptions['pts'] = 5;  echo $this->url($linkOptions); ?>" class="no-opinion">
+								<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" /><br />
+								<strong>Keine<br />Meinung</strong>
+							</a></li>
+					</ul>
+
