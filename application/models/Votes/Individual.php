@@ -4,6 +4,7 @@
  * @author  Jan Suchandt, Markus Hackel
  */
 class Model_Votes_Individual extends Model_DbjrBase {
+  	
   protected $_name = 'vt_indiv';
   
   /**
@@ -49,7 +50,7 @@ class Model_Votes_Individual extends Model_DbjrBase {
     );
     $select->where('sub_uid=?', $subuid);
     $select->where('tid=?', $tid);
-    $select->where('status = ?', 'v');
+    //$select->where('status = ?', 'v');
     
     $row = $this->fetchAll($select)->current();
     if($row->count >0) {
@@ -60,13 +61,21 @@ class Model_Votes_Individual extends Model_DbjrBase {
     }
   }
   
-  public function updateVote($tid, $subUid, $uid, $pts) {
+  public function updateVote($tid, $subUid, $uid, $pts, $particular = null) {
+  	
     if(empty($tid) || empty($subUid) || ((int)$pts < 0 || (int)$pts > 5) || empty($uid)) {
       return false;
     }
-
+	
+	if (!is_null($particular)) { //set points and flag for superbutton
+		$pts = $particular;
+		$pimp ="y";
+	} else {
+		$pimp = 'n';
+	}
     // check if user has allready votet by this thesis
     if($this->allreadyVoted($tid, $subUid)) {
+    	
       // Update vote
       $date = new Zend_Date();
 
@@ -76,14 +85,19 @@ class Model_Votes_Individual extends Model_DbjrBase {
 
       $row = $this->fetchRow($select);
       $row->pts = $pts;
-      $row->upd = $date->get('YYYY-MM-dd HH:mm:ss');
+	  $row-> pimp=  $pimp;
+      $row->upd = new Zend_Db_Expr('NOW()');
       if($row->save()) {
-        return true;
+      			 
+        return array (
+			'points' => $row->pts,
+			'pimp' => $row->pimp
+		);
+
       }
       else {
         return false;
       }
-
     }
     else {
       // Add vote
@@ -92,12 +106,17 @@ class Model_Votes_Individual extends Model_DbjrBase {
         'tid' => $tid,
         'sub_uid' => $subUid,
         'pts' => $pts,
-        'status'=>'v'
+        'pimp' => $pimp,
+        'status'=>'v',
+        'upd' =>new Zend_Db_Expr('NOW()')
       );
       $row = $this->createRow($data);
       $row->save();
       if($row) {
-        return true;
+        return array (
+			'points' => $row->pts,
+			'pimp' => $row->pimp
+		);
       }
       else {
         return false;
@@ -298,5 +317,54 @@ class Model_Votes_Individual extends Model_DbjrBase {
     return false;
     
   }
-}
+  
+  /* counts how much user clicks on superbutton */
+  public function countParticularImportantVote ($subUid) {
+  	
+	$rowset = $this->fetchAll(
+    $this->select()
+        ->where('sub_uid = ?', $subUid)
+		->where('pimp = ?', 'y')
+    );
+    $rowCount = count($rowset);
+    return $rowCount;	
+  }
+  
+  /* initalize update for click on superbutton */ 
+	public function updateParticularImportantVote ($tid, $subUid, $uid, $maxpoints, $factor, $max) {
+	
+		if ($this->countParticularImportantVote ($subUid) < $max) {
+		
+			$particular = $maxpoints * $factor;
+			$updateVoteSuccess = $this->updateVote($tid, $subUid, $uid, 0, $particular);
+		
+			if ($updateVoteSuccess) {
+				return array(
+						'points' => $updateVoteSuccess['points'],
+						'pimp' => $updateVoteSuccess['pimp']
+						);
+			} else {
+				return false;
+			}
+			
+		} else {
+			return  array('max' =>$max);
+			}
+	}
 
+	public function getCurrentVote($tid, $subuid) {
+
+		if(empty($subuid) || empty($tid)) {
+			return false;
+		}
+
+		$select = $this->select();
+		$select->where('sub_uid = ?', $subuid);
+		$select->where('tid = ?',$tid);
+		$row = $this->fetchRow($select);
+		return $row;
+
+	}
+
+}
+		
