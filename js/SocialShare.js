@@ -29,22 +29,7 @@
             
         };
         
-        $(window).bind("sampleObject", function() {
-            _init();	
-        });
-        
-        // public methods
-        
-        this.refresh = function() {		
-            //set new values ore ...
-        };		
-        
-        this.deleteGlobalEvents = function() {	
-            $(window).unbind("sampleObject", _instance, function() {
-                _init();	
-                
-            });
-        };
+       
         _init();
         
         // private methods
@@ -54,20 +39,17 @@
         }
         
         function _initEventlistener() {
-            $("a.share").on('click', insertButtons);
+            $("a.share").on('click', toggleButtons);
            
         }
         
-        function getFacebookBtn() {
-            var uri = getURI();
-         
+        function getFacebookBtn(uri) {
             
-            var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.facebook.language + '&amp;href=' + uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:145px; height:21px;" allowTransparency="true"></iframe>';
+            var fb_code = '<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.facebook.language + '&amp;href=' + uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none;" allowTransparency="true"></iframe>';
             
             return fb_code;
         }
-        function getTwitterBtn() {
-            var uri = getURI();
+        function getTwitterBtn(uri) {
                        
             var enc_uri = encodeURIComponent(uri);
             var text = getTweetText();
@@ -75,22 +57,22 @@
             
             return twitter_code;
         }
-        function getGPlusBtn() {
-           var uri = getURI();
+        function getGPlusBtn(uri) {           
                       
            var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
                       
            return gplus_code;
         }
         
-        function insertButtons() {
+        function toggleButtons() {
             if (!$(this).hasClass("active")) {
                 
                 $(this).addClass("active");
-
-                var fb = getFacebookBtn();
-                var tw = getTwitterBtn();
-                var gp = getGPlusBtn();
+                var uri = getURI();
+                //uri = 'http://tool-dev.ichmache-politik.de/input/index/kid/17';
+                var fb = getFacebookBtn(uri);
+                var tw = getTwitterBtn(uri);
+                var gp = getGPlusBtn(uri);
 
                 $("#sharebtn-holder").append('<div class="social-share-btn">'+fb+'</div>');
                 $("#sharebtn-holder").append('<div class="social-share-btn">'+tw+'</div>');
@@ -102,7 +84,6 @@
             }
             
         }
-       
         
         function getTweetText() {
             var title = getMeta('DC.title');
