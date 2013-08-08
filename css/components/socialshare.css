@@ -1,0 +1,22 @@
+#sharebtn-holder {
+  text-align: right;
+  position: relative;
+  right: 0;
+}
+.social-share-btn {
+  position: absolute;
+  height: 21px;
+  right: 0;
+}
+.social-share-btn.fb {
+  width: 90px;
+  top: -11px;
+}
+.social-share-btn.tw {
+  top: 20px;
+  width: 68px;
+}
+.social-share-btn.gp {
+  top: 52px;
+  width: 39px;
+}
