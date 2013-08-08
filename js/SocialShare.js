@@ -79,14 +79,16 @@
                 var tw = getTwitterBtn(uri);
                 var gp = getGPlusBtn(uri);
 
-                $("#sharebtn-holder").append('<div class="social-share-btn fb">'+fb+'</div>');
                 $("#sharebtn-holder").append('<div class="social-share-btn tw">'+tw+'</div>');
                 $("#sharebtn-holder").append('<div class="social-share-btn gp">'+gp+'</div>');
-                
+                $("#sharebtn-holder").append('<div class="social-share-btn fb">'+fb+'</div>');
+
             } else {
                 $(this).removeClass("active");
                  $("#sharebtn-holder").html('');
             }
+            return false;
+
             
         }
         
@@ -105,6 +107,7 @@
         
         function getURI() {
             var uri = document.location.href;
+            uri = uri.split('#')[0];
             var canonical = $("link[rel=canonical]").attr("href");
 
             if (canonical && canonical.length > 0) {
@@ -113,6 +116,7 @@
                 }
                 uri = canonical;
             }
+
 
             return uri;
         }

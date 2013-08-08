@@ -1,7 +1,8 @@
 #sharebtn-holder {
   text-align: right;
-  position: relative;
-  right: 0;
+  position: absolute;
+  right: 28px;
+  top: 120px;
 }
 .social-share-btn {
   position: absolute;
