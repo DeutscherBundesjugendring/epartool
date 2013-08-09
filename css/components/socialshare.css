@@ -3,6 +3,7 @@
   position: absolute;
   right: 28px;
   top: 120px;
+  
 }
 .social-share-btn {
   position: absolute;
@@ -10,8 +11,11 @@
   right: 0;
 }
 .social-share-btn.fb {
-  width: 90px;
+  width: 110px;
   top: -11px;
+  right:-25px;
+  overflow:hidden;
+  
 }
 .social-share-btn.tw {
   top: 20px;

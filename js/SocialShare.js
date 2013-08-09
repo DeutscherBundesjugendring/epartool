@@ -45,7 +45,7 @@
         
         function getFacebookBtn(uri) {
             
-            var fb_code='<iframe src="http://www.facebook.com/plugins/like.php?locale=' + options.facebook.language + '&amp;href=' + uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none;" allowTransparency="true"></iframe>';
+            var fb_code='<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.facebook.language + '&amp;href=' + uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none;background:transparent;" allowTransparency="true"></iframe>';
 
 /*            fb_code ='<script src="https://connect.facebook.net/de_DE/all.js#xfbml=1" type="text/javascript"></script>'+
                      '<fb:like href="'+uri+'" layout="button_count" colorscheme="light" action="like" font="verdana"></fb:like>'
@@ -57,7 +57,7 @@
                        
             var enc_uri = encodeURIComponent(uri);
             var text = getTweetText();
-            var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=' + enc_uri + '&amp;counturl=' + enc_uri + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.twitter.language + '" style="width:130px; height:25px;"></iframe>';
+            var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + enc_uri + '&amp;counturl=' + enc_uri + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.twitter.language + '" style="width:130px; height:25px;"></iframe>';
             
             return twitter_code;
         }
