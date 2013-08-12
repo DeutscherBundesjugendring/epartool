@@ -21,13 +21,11 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 	<div class="consultation consultation-preview hero-unit">
 
 		<hgroup>
-			<a href="<?=$this->baseUrl()?>/article/index/kid/<?=$this->consultation->kid?>">
-				<h1><?php echo $this->escape($this->consultation->titl) ?></h1>
-			</a>
+			<h1><?php /* TODO add link */ echo $this->escape($this->consultation->titl) ?></h1>
 			<h2><?php echo $this->escape($this->consultation->titl_sub) ?></h2>
 		</hgroup>
 
-		<?=$this->ribbonImage($this->consultation)?>
+		<span class="label sticker label-mitmachen hidden-print">Mitmachen</span>
 
 		<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $this->consultation->kid . '/'
 			. $this->consultation->img_file;
@@ -36,7 +34,6 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 
 		<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="hidden-print" rel="home">Zur Startseite … <i class="icon-angle-right icon-2x"></i></a>
 		<a href="#" class="share btn hidden-print"><i class="icon-share-alt icon-white icon-large"></i> Share</a>
-		<div class="share-dropdown" id="sharebtn-holder"></div>
 
 	</div><!-- .hero-unit -->
 

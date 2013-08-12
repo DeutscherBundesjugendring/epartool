@@ -1,0 +1,34 @@
+<?php
+/**
+ * index
+ *
+ * @description   Abstimmung durch Abstimmenden bestätigen
+ * @author        Markus Hackel, Jan Suchandt
+ */
+?>
+
+<?php echo $this->secondNavigation('voting') ?>
+
+<?php
+/* @todo Fix warnings and notices being shown on every refresh of the page.
+  Notice: Undefined index: sub_user in ...
+  Warning: date(): It is not safe to rely on the system's timezone settings.
+  You are *required* to use the date.timezone setting or the date_default_timezone_set()
+  function. In case you used any of those methods and you are still getting this warning,
+  you most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for
+  'CEST/2.0/DST' instead in ...
+  etc. */
+?>
+
+<div class="main-content content-holder">
+
+	<h1>Danke für die Teilnahme an der Abstimmung!</h1>
+	<p>Falls du heute noch nicht über alle Beiträge abgestimmt hast, kannst du jederzeit zurückkehren und über die verbleibenden Beiträge abstimmen.</p>
+	<?php if (!empty($this->groupmember)): ?>
+		<p>Eine E-Mail zur Bestätigung wurde an <b><?php echo $this->groupmember; ?></b> versandt. Bitte den Posteingang checken!</p>
+	<?php endif; ?>
+	<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
+
+</div><!-- .main-content -->
+
+<?php echo $this->render('_partials/topLink.phtml') ?>

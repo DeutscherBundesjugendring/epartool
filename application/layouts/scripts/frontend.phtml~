@@ -1,0 +1,117 @@
+<?php
+$config = Zend_Registry::get('config');
+$sysconfig = Zend_Registry::get('systemconfig');
+?>
+<!DOCTYPE html>
+<html lang="de" itemscope itemtype="http://schema.org/Event">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
+
+		<?php echo $this -> headTitle(); ?>
+
+		<meta name="description" content="Ichmache>Politik ermöglicht die Mitwirkung an der eigenständigen Jugendpolitik: Ihr diskutiert vor Ort die FRAGEN > Ihr kommentiert den Fachdiskurs in euren BEITRÄGEN > Ihr entscheidet in der ABSTIMMUNG was am wichtigsten ist > Ihr verfolgt die WIRKUNG eurer MITWIRKUNG!" />
+		<meta name="author" content="Content © 2013 DBJR" />
+		<!--link rel="author" type="text/plain" href="<?php echo $this->baseUrl(); ?>/humans.txt" /-->
+
+		<link rel="shortcut icon" href="<?php echo $this -> baseUrl(); ?>/favicon.ico" />
+
+		<link href="<?= $config -> path -> css -> fonts ?>" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="<?= $this -> baseUrl() . $config -> path -> css -> bootstrap ?>" type="text/css" />
+		<link rel="stylesheet" href="<?= $this -> baseUrl() . $config -> path -> css -> fontAwesome ?>" type="text/css" />
+		<link rel="stylesheet" href="<?= $this -> baseUrl() . $config -> path -> css -> main ?>" type="text/css" />
+		<link rel="stylesheet" href="<?= $this -> baseUrl() . $config -> path -> css -> followUp ?>" type="text/css" />
+		<?php if ($sysconfig->project == 'sd'): ?>
+		<?php if (file_exists(realpath(APPLICATION_PATH . '/../' . $config->path->css->rootdir . $sysconfig->project . '.css'))): ?>
+		<link rel="stylesheet" href="<?= $this -> baseUrl($config -> path -> css -> rootdir . $sysconfig -> project . '.css') ?>" type="text/css" />
+		<?php endif; ?>
+		<?php endif; ?>
+		<!--[if lte IE 7]><link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->ie7 ?>" type="text/css" /><![endif]-->
+		<!-- TODO -->
+
+		
+		<?php echo $this -> headScript(); ?>
+
+		<!-- HTML5 shim for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+		<!-- TODO: insert Google Analytics -->
+
+	</head>
+	<body>
+
+		<!-- Document wrap -->
+		<div class="document-wrap" id="top">
+			<div class="container">
+
+				<!-- Header -->
+				<?php echo $this -> partial('_partials/header.phtml', $this -> layout() -> getView()); ?>
+
+				<!-- Body copy -->
+				<div role="main" class="main">
+
+					<!-- Flash messages -->
+					<?php if (!empty($this->layout()->messages)): ?>
+					<?php foreach ($this->layout()->messages as $level => $messages): ?>
+					<?php if (!empty($messages)): ?>
+					<?php foreach ($messages as $message): ?>
+					<?php echo $this->partial('_partials/flashMessage.phtml', array('message' => $message, 'level' => $level))?>
+					<?php endforeach; ?>
+					<?php endif; ?>
+					<?php endforeach; ?>
+					<?php endif; ?>
+
+					<!-- Content start -->
+
+					<?php echo $this -> layout() -> content; ?>
+
+					<!-- Content end -->
+
+				</div>
+				<!-- .main -->
+			</div>
+			<!-- .container -->
+		</div>
+		<!-- .document-wrap -->
+		<hr class="hide" />
+
+		<!-- Footer -->
+		<?php echo $this->render('_partials/footer.phtml') ?>
+
+		<?php
+		// echo '<!-- Debug-Info -->';
+		// echo '<pre>';
+		// $request = Zend_Controller_Front::getInstance() -> getRequest();
+		// echo('<dt>Zend Version: </dt><dd>' . Zend_Version::VERSION . '</dd>');
+		// echo('<dt>Application environment: </dt><dd>' . APPLICATION_ENV . '</dd>');
+		// echo('<dt>Module:</dt><dd> ' . $request -> getModuleName() . '</dd>');
+		// echo('<dt>Controller: </dt><dd>' . $request -> getControllerName() . '</dd>');
+		// echo('<dt>Action:</dt><dd> ' . $request -> getActionName() . '</dd>');
+		// $params = $request -> getParams();
+		// echo '<dl>';
+		// foreach ($params as $key => $value) {
+			// switch ($key) {
+				// case 'module' :
+				// case 'controller' :
+				// case 'action' :
+					// continue;
+// 
+				// default :
+					// echo "<dt>" . $key . "</dt><dd>" . $value . "</dd>";
+			// }
+		// }
+		// echo '</dl></pre>';
+		// echo '<pre>';
+		// print_r($_SESSION);
+// 		
+		// echo '</pre>';
+		?>
+
+		<!-- Scripts -->
+		<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap ?>"></script>
+		<script src="<?php echo $this->baseUrl() . $config->path->js->main ?>"></script>
+		<script src="<?php echo $this->baseUrl() . $config->path->js->followUp ?>"></script>
+		
+	</body>
+</html>

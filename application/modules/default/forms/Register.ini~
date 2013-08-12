@@ -1,0 +1,126 @@
+
+; General Form Information
+method = "post"
+id = "register"
+class = ""
+
+; Value Element
+elements.name.type = "text"
+elements.name.options.label = "Name"
+elements.name.options.required = false
+elements.name.options.attribs.placeholder = "Vorname Nachname"
+;elements.name.options.validators.notempty.validator = "NotEmpty"
+
+; Value Element
+elements.email.type = "text"
+elements.email.options.label = "E-Mail Adresse"
+elements.email.options.required = true
+elements.email.options.attribs.placeholder = "@"
+elements.email.options.validators.notempty.validator = "NotEmpty"
+elements.email.options.validators.email.validator = "EmailAddress"
+
+; Value Element
+;elements.register_password.type = "password"
+;elements.register_password.options.label = "Passwort"
+;elements.register_password.options.required = true
+;elements.register_password.options.validators.notempty.validator = "NotEmpty"
+;elements.register_password.options.validators.alnum.validator = "Alnum"
+;elements.register_password.options.validators.stringlength.validator = "StringLength"
+;elements.register_password.options.validators.stringlength.validator.options.min = "6"
+;elements.register_password.options.validators.stringlength.validator.options.messages.stringLengthTooShort = "Ihr Kennwort ist zu kurz." 
+
+; Value Element
+;elements.register_password_confirm.type = "password"
+;elements.register_password_confirm.options.label = "Passwort Wiederholung"
+;elements.register_password_confirm.options.required = true
+;elements.register_password_confirm.options.validators.notempty.validator = "NotEmpty"
+;elements.register_password_confirm.options.validators.notempty.options.messages.isEmpty = "Sie haben Ihre Kennwortwiederholung nicht angegeben."
+;elements.register_password_confirm.options.validators.identical.validator = "Identical"
+;elements.register_password_confirm.options.validators.identical.options.token = register_password
+;elements.register_password_confirm.options.validators.identical.options.messages.notSame = "Die Kennwortwiederholung stimmt nicht überein."
+
+; Text Element
+elements.hint.type = "hidden"
+elements.hint.options.description = "<hr /><p>Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick zu geben, welche Zielgruppen im Rahmen des Strukturierten Dialogs erreicht werden.</p>"
+elements.hint.options.ignore = true
+elements.hint.options.decorators.description.decorator = "Description"
+elements.hint.options.decorators.description.options.escape = false
+elements.hint.options.decorators.description.options.tag = ""
+
+; Radio Element Group
+elements.group_type.type = "radio"
+elements.group_type.options.label = ""
+elements.group_type.options.multioptions.single = "Ich antworte als Einzelperson"
+elements.group_type.options.multioptions.group = "Ich antworte für eine Gruppe"
+
+; Subform elements for group_type "group" [Begin]
+
+; Select Source
+elements.source.type = "multiCheckbox"
+elements.source.options.label = "Bitte beschreibt, woher Eure Beiträge stammen:"
+elements.source.options.multioptions.d = "Ergebnisse aus einer Veranstaltung/einem Projekt zum Strukturierten Dialog"
+elements.source.options.multioptions.g = "Intern in der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)"
+elements.source.options.multioptions.p = "Positionspapier/Beschluss unserer Organisation"
+elements.source.options.multioptions.m = "Sonstiges, und zwar:"
+
+; Value Element
+elements.src_misc.type = "textarea"
+elements.src_misc.options.cols = 50
+elements.src_misc.options.rows = 3
+
+; Select Group Size
+elements.group_size.type = "select"
+elements.group_size.options.label = "Wie viele Personen waren beteiligt?"
+; values set in init method
+
+; Value Name Group
+elements.name_group.type = "text"
+elements.name_group.options.label = "Gruppenbezeichnung"
+
+; Value Name Pers
+elements.name_pers.type = "text"
+elements.name_pers.options.label = "Ansprechpartner"
+
+; Subform elements for group_type "group" [End]
+
+; Text Element (Script)
+elements.script.type = "hidden"
+elements.script.options.description = ""
+elements.script.options.ignore = true
+elements.script.options.decorators.description.decorator = "Description"
+elements.script.options.decorators.description.options.escape = false
+elements.script.options.decorators.description.options.tag = ""
+
+; Select Age
+elements.age_group.type = "select"
+elements.age_group.options.label = "Alter"
+elements.age_group.options.multioptions.5 = "keine Angabe"
+elements.age_group.options.multioptions.1 = "bis 17 Jahre"
+elements.age_group.options.multioptions.2 = "bis 26 Jahre"
+elements.age_group.options.multioptions.3 = "ab 27 Jahre"
+
+; Value Element Bundesland
+elements.regio_pax.type = "text"
+elements.regio_pax.options.label = "Bundesland"
+
+; Checkbox Element Results
+elements.cnslt_results.type = "checkbox"
+elements.cnslt_results.options.label = "Ich möchte über die Ergebnisse der Konsultation informiert werden."
+elements.cnslt_results.options.checkedvalue = "y"
+elements.cnslt_results.options.uncheckedvalue = "n"
+
+; Checkbox Element Newsletter
+elements.newsl_subscr.type = "checkbox"
+elements.newsl_subscr.options.label = "Ich möchte den Newsletter erhalten."
+elements.newsl_subscr.options.checkedvalue = "y"
+elements.newsl_subscr.options.uncheckedvalue = "n"
+
+; Hidden Element
+elements.kid.type = "hidden"
+elements.kid.options.decorators.viewhelper.decorator = "ViewHelper"
+
+; submit element
+elements.submit.type = "submit"
+elements.submit.options.label = "Absenden"
+elements.submit.options.ignore = true
+
