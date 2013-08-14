@@ -1,8 +1,21 @@
-<h2>Uups</h2>
-<p><?php echo $this->message; ?></p>
-<?php if ('development' == $this->environment || 'development2' == $this->environment) : ?>
-<h3>Ausnahme:</h3>
-<p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
-<h3>Stack trace:</h3>
-<pre><?php echo $this->exception->getTraceAsString(); ?></pre>
-<?php endif; ?>
+<!-- Content start -->
+
+<div class="main-content content-holder">
+	<div class="row">
+		<div class="span9">
+
+			<h1>Uups</h1>
+			<p><?php echo $this->message; ?></p>
+
+			<?php if ('development' == $this->environment) : ?>
+				<h2>Ausnahme:</h2>
+				<p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
+				<h2>Stack trace:</h2>
+				<pre><?php echo $this->exception->getTraceAsString(); ?></pre>
+			<?php endif; ?>
+
+		</div>
+	</div><!-- .row -->
+</div><!-- .main-content -->
+
+<!-- Content end -->
