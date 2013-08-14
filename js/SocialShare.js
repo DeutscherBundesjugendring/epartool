@@ -15,7 +15,7 @@
             facebook: {
                 
                 language: 'de_DE',
-                action: 'like'
+                action: 'recommend'
             },
             twitter: {
                 
@@ -40,16 +40,18 @@
         
         function _initEventlistener() {
             $("a.share").on('click', toggleButtons);
+            $("a#facebookshare").live('click', function(){
+               var enc_uri = $(this).attr('href');
+                var popupurl = 'https://www.facebook.com/sharer/sharer.php?u='+enc_uri;
+                window.open(popupurl,'facebook-share-dialog', 'width=626,height=436'); 
+                return false;
+            });
            
         }
         
         function getFacebookBtn(uri) {
             
-            var fb_code='<iframe src="https://www.facebook.com/plugins/like.php?locale=' + options.facebook.language + '&amp;href=' + uri + '&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=' + options.facebook.action + '&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none;background:transparent;" allowTransparency="true"></iframe>';
-
-/*            fb_code ='<script src="https://connect.facebook.net/de_DE/all.js#xfbml=1" type="text/javascript"></script>'+
-                     '<fb:like href="'+uri+'" layout="button_count" colorscheme="light" action="like" font="verdana"></fb:like>'
-*/
+            var fb_code = '<a href="'+encodeURIComponent(uri)+'" id="facebookshare"><img src="/images/facebook_share_button.png" /></a>';
 
             return fb_code;
         }
@@ -57,13 +59,13 @@
                        
             var enc_uri = encodeURIComponent(uri);
             var text = getTweetText();
-            var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + enc_uri + '&amp;counturl=' + enc_uri + '&amp;text=' + text + '&amp;count=horizontal&amp;lang=' + options.twitter.language + '" style="width:130px; height:25px;"></iframe>';
+            var twitter_code = '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?url=' + enc_uri + '&amp;counturl=' + enc_uri + '&amp;text=' + text + '&amp;count=horizontal&amp;count=none&amp;lang=' + options.twitter.language + '" style="width:130px; height:25px;"></iframe>';
             
             return twitter_code;
         }
         function getGPlusBtn(uri) {           
                       
-           var gplus_code = '<div class="g-plusone" data-size="medium" data-href="' + uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
+           var gplus_code = '<div class="g-plusone" data-annotation="none" data-size="tall" data-href="' + uri + '"></div><script type="text/javascript">window.___gcfg = {lang: "' + options.gplus.language + '"}; (function() { var po = document.createElement("script"); po.type = "text/javascript"; po.async = true; po.src = "https://apis.google.com/js/plusone.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s); })(); </script>';
                       
            return gplus_code;
         }
@@ -74,7 +76,7 @@
                 $(this).addClass("active");
                 var uri = getURI();
                 //Dev Uri for normal behavior behind firewalls
-                //uri = 'http://tool-dev.ichmache-politik.de/input/index/kid/17';
+               // uri = 'http://tool-dev.ichmache-politik.de/input/index/kid/17';
                 var fb = getFacebookBtn(uri);
                 var tw = getTwitterBtn(uri);
                 var gp = getGPlusBtn(uri);
