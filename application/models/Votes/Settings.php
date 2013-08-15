@@ -20,6 +20,10 @@ class Model_Votes_Settings extends Model_DbjrBase {
 			$row = $this -> find($id) -> current();
 			if ($row) {
 				$result = $row -> toArray();
+			} else {
+				$this ->add($id);
+				$row = $this -> find($id) -> current();
+				$result = $row -> toArray();
 			}
 		return $result;
 	}
