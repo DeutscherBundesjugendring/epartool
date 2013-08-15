@@ -25,7 +25,7 @@ $(document).on("click",".voting-statement", function (event) {
 	var points = $(this).attr('data');
 
   $.ajax({
-  	url: "/voting/previewfeedback/kid/13/id/"+statementId+"/points/"+points+"",
+  	url: "/voting/previewfeedback/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/"+statementId+"/points/"+points+"",
 	type: "POST",
 	data: "format=html",
 	cache: false,
@@ -49,7 +49,7 @@ $(document).on("click",".voting-statement", function (event) {
 
 
   $.ajax({
-  	url: "/voting/previewfeedbackpi/kid/13/id/"+statementId+"/points/"+points+"",
+  	url: "/voting/previewfeedbackpi/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/"+statementId+"/points/"+points+"",
 	type: "POST",
 	data: "format=html",
 	cache: false,
