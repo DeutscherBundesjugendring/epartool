@@ -22,7 +22,7 @@ $sysconfig = Zend_Registry::get('systemconfig');
 
 		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/favicon.ico" />
 
-		<link href="<?= $config->path->css->fonts ?>" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fonts ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->bootstrap ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fontAwesome ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->main ?>" type="text/css" />
