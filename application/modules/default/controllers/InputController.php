@@ -420,4 +420,14 @@ class InputController extends Zend_Controller_Action {
     }
   }
   
+  public function tagsAction() {
+    $kid = $this->_request->getParam('kid', 0);
+    $inputModel = new Model_Inputs();
+    $tagModel = new Model_Tags();
+    
+    $this->view->inputCount = $inputModel->getCountByConsultation($this->_consultation->kid);
+    
+    $this->view->tags = $tagModel->getAllByConsultation($kid);
+  }
+  
 }
