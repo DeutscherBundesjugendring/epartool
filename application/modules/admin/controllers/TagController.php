@@ -37,7 +37,7 @@ class Admin_TagController extends Zend_Controller_Action {
   public function editAction() {
     if ($this->_request->isPost()) {
       $data = $this->_request->getPost();
-      $validator = new Zend_Validate_Alnum(true);
+      $validator = new Zend_Validate_NotEmpty();
       $tagModel = new Model_Tags();
       $nrUpdated = 0;
       foreach ($data['tg_de'] as $tg_nr => $tg_de) {
