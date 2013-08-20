@@ -29,6 +29,7 @@ class Default_Form_Register extends Zend_Form {
     $systemconfig = Zend_Registry::get('systemconfig');
     $grp_siz_def = $systemconfig->group_size_def->toArray();
     unset($grp_siz_def['0']);
+    unset($grp_siz_def['1']);
     
     // subform for group_type == "group"
     $groupSpecs = new Zend_Form_SubForm();
@@ -60,8 +61,10 @@ class Default_Form_Register extends Zend_Form {
       . '    groupTypeChecked = $(\'input[name="group_type"]:checked\').val();' . "\n"
       . '    if (groupTypeChecked == "group") {' . "\n"
       . '      container.slideDown();' . "\n"
+      . '      $(\'select#age_group\').append($(\'<option></option>\').val(\'4\').html(\'Alle Altersgruppen\'));' . "\n"
       . '    } else {' . "\n"
       . '      container.slideUp();' . "\n"
+      . '      $(\'select#age_group option\').filter("[value=\'4\']").remove();' . "\n"
       . '    }' . "\n"
       . '  });' . "\n"
       . '});' . "\n"

@@ -186,7 +186,8 @@ class Model_Users extends Model_DbjrBase {
         'regio_pax' => $data['regio_pax'],
         'cnslt_results' => $data['cnslt_results'],
         'newsl_subscr' => $data['newsl_subscr'],
-        'date_added' => new Zend_Db_Expr('NOW()')
+        'date_added' => new Zend_Db_Expr('NOW()'),
+        'cmnt_ext' => $data['cmnt_ext']
     );
     // if group then also save group specifications
     if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
