@@ -500,7 +500,7 @@ class VotingController extends Zend_Controller_Action {
     
     $articlesModel = new Model_Articles();
     $this->view->articleGeneral = $articlesModel->getByRefName('vot_res', 0);
-    $this->view->articleConsultation = $articlesModel->getByRefName('vot_res', $this->_consultation->kid);
+    $this->view->articleConsultation = $articlesModel->getByRefName('vot_res_cnslt', $this->_consultation->kid);
     
     $qid = $this->_request->getParam('qid', 0);
     $votesModel = new Model_Votes();
