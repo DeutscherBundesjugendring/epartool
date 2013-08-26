@@ -113,6 +113,7 @@ class Model_Tags extends Model_DbjrBase {
     // fetch
     $select = $this->select();
     $select->where('uid=?', $uid);
+    $select->order('tg_de');
     $result = $this->fetchAll($select);
     return $result->toArray();
   }
@@ -154,7 +155,10 @@ class Model_Tags extends Model_DbjrBase {
     $nrInputs = $inputsModel->getCountByConsultation($kid);
     
     // Fetch all tags
-    $tags = $this->fetchAll();
+    $select = $this->select();
+    // sorted alphabetically
+    $select->order('tg_de');
+    $tags = $this->fetchAll($select);
     
     foreach ($tags as $tag) {
       $db = $this->getAdapter();
