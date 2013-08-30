@@ -70,6 +70,11 @@ class Model_Votes_Rights extends Model_DbjrBase {
       throw new Zend_Validate_Exception('Given parameter kid must be integer!');
     }
     $db = $this->getDefaultAdapter();
+    
+    $subselect = $db->select();
+    $subselect->from('user_info', array(new Zend_Db_Expr('MAX(user_info_id)')));
+    $subselect->where('uid=vr.uid')->where('kid=?', $kid);
+    
     $select = $db->select();
     $select->from(array('vr' => $this->_name), array(
         'uid' => 'vr.uid',
@@ -78,12 +83,15 @@ class Model_Votes_Rights extends Model_DbjrBase {
         'grp_siz' => 'vr.grp_siz',
       ))
       ->joinUsing(array('u' => 'users'), 'uid', array(
-        'email' => 'u.email',
-        'group_size_user' => 'u.group_size',
+        'email' => 'u.email'
+      ))
+      ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', array(
+        'group_size_user' => 'ui.group_size'
       ))
       ->where('vr.kid = ?', $kid)
       ->where('vr.uid > ?', 1)
       ->where('u.email != ?', '')
+      ->where('ui.user_info_id = (?)', $subselect)
       ->order('u.email ASC');
     $stmt = $db->query($select);
     return $stmt->fetchAll();
