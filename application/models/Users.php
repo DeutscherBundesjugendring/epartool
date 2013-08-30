@@ -198,6 +198,10 @@ class Model_Users extends Model_DbjrBase {
           'name_group' => $data['group_specs']['name_group'],
           'name_pers' => $data['group_specs']['name_pers'],
       ));
+    } else {
+      $insertDataUserInfo = array_merge($insertDataUserInfo, array(
+          'group_size' => 10
+      ));
     }
     
     $rowUserInfo = $userInfoModel->createRow($insertDataUserInfo);
