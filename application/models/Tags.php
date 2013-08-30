@@ -143,7 +143,7 @@ class Model_Tags extends Model_DbjrBase {
    * @throws Zend_Validate_Exception
    * @return array
    */
-  public function getAllByConsultation($kid, $vot='') {
+  public function getAllByConsultation($kid, $vot='', $order='tg_de') {
     $return = array();
     $intVal = new Zend_Validate_Int();
     if (!$intVal->isValid($kid)) {
@@ -156,8 +156,10 @@ class Model_Tags extends Model_DbjrBase {
     
     // Fetch all tags
     $select = $this->select();
-    // sorted alphabetically
-    $select->order('tg_de');
+    // sort by $order
+    if (!empty($order)) {
+      $select->order($order);
+    }
     $tags = $this->fetchAll($select);
     
     foreach ($tags as $tag) {
