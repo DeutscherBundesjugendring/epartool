@@ -381,7 +381,9 @@ class Model_Inputs extends Model_DbjrBase {
       $select->where('it.tg_nr = ?', $tag);
     }
     
-    $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c');
+    $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c')
+      // no inputs from user with uid = 1:
+      ->where('i.uid<>?', 1);
     
     if (!empty($order)) {
       $select->order($order);
