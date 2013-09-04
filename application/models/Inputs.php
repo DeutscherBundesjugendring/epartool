@@ -309,7 +309,8 @@ class Model_Inputs extends Model_DbjrBase {
     $select = $db->select();
     $select->from(array('i' => $this->_name),
       array(new Zend_Db_Expr('COUNT(*) as count')))
-      ->where('i.qi = ?', $qid);
+      ->where('i.qi = ?', $qid)
+      ->where('i.uid <> ?', 1);
     if ($excludeInvisible) {
       // nur nicht geblockte:
       $select->where('i.block<>?', 'y')
