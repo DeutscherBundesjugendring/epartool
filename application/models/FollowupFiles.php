@@ -66,7 +66,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         $row = $this->find($ffid)->current();
         if ($row) {
             $result = $row->toArray();
-            $result['when'] = strtotime($result['when']);
+            //$result['when'] = strtotime($result['when']);
 
             $depTable = new Model_Followups();
             $depTableSelect = $depTable->select();

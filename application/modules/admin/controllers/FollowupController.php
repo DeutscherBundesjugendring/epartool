@@ -272,7 +272,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
     
         foreach ($form->getElements() as $element) {
           $element->clearFilters();
-          $element->setValue(html_entity_decode($element->getValue()));
+          $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
         }
 
         $this->view->assign(array(

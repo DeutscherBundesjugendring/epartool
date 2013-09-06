@@ -7,6 +7,7 @@
 class FollowupController extends Zend_Controller_Action
 {
 
+    protected $_consultation = null;
     /**
      * Construct
      * @see Zend_Controller_Action::init()
@@ -21,7 +22,15 @@ class FollowupController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
 
         if ($consultation) {
-
+            
+            $nowDate = Zend_Date::now();
+        
+            if(!$nowDate->isLater($consultation->vot_to) || $consultation->follup_show == 'n') {
+                $this->_flashMessenger->addMessage('Für diese Konsultation gibt es derzeit keine Reaktionen.', 'info');
+                $this->redirect('/');
+            }
+            
+            $this->_consultation = $consultation;
             $this->view->consultation = $consultation;
             $this->view->media_cnslt_dir = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
 
@@ -32,6 +41,8 @@ class FollowupController extends Zend_Controller_Action
                 $this->_redirect('/');
             }
         }
+        
+        
     }
 
     /**
@@ -44,6 +55,8 @@ class FollowupController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        
+        
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
         $this->view->latest_followups = $followupModel->getByKid($kid, 'when DESC', 5);
@@ -74,7 +87,15 @@ class FollowupController extends Zend_Controller_Action
 
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid);
         $this->view->question = $questionModel->getById($qid);
-
+        
+        $inputs = $inputModel->getSelectByQuestion($qid);
+        
+//        foreach ($inputs as &$input) {
+//            $input['hasfollowup'] = count($inputModel->getFollowups ($input['tid']));
+//        }
+        
+//        Zend_Debug::dump($inputs);
+        
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
         $this->view->paginator = $paginator;
