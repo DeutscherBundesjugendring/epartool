@@ -59,7 +59,7 @@ $locale = new Zend_Locale();
 										<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
 											verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM, $locale)?>
 										</time>
-										<p><?php echo mb_substr($input['thes'], 0, 120) ?></p>
+										<p><?php echo mb_substr($input['thes'], 0, 120, 'UTF-8') ?></p>
 									</article>
 								</a>
 							<?php endforeach; ?>
