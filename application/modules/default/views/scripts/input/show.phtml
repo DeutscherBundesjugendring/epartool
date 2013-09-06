@@ -31,7 +31,11 @@ $supportsDisabled = (
 		<section class="main-content span9">
 
 			<?php if (isset($this->tag) && !empty($this->tag)): ?>
+				<?php if ($this->numberInputs > 0):?>
 				<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
+				<?php else: ?>
+				<h3>Zu dieser Frage gibt es keine mit <em>"<?php echo $this->tag['tg_de']; ?>"</em> verschlagworteten Beiträge.</h3>
+				<?php endif; ?>
 				<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
 			<?php endif; ?>
 			<small class="count muted"><?php echo $this->numberInputs; ?> Beiträge</small>
