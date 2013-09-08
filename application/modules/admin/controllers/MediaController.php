@@ -90,7 +90,11 @@ class Admin_MediaController extends Zend_Controller_Action {
    * @return void
    */
   public function uploadAction() {
+
+    $popup = ( bool ) $this->getRequest()->getParam('popup', 0);
     $kid = (int)$this->getRequest()->getParam('kid', 0);
+    $elemid = $this->getRequest()->getParam('elemid', 0);
+    
     $formData = $this->_request->getUserParams();
     $form = new Admin_Form_Media_Upload();
     if ($form->isValid($formData)) {
@@ -125,11 +129,22 @@ class Admin_MediaController extends Zend_Controller_Action {
       $this->_flashMessenger
         ->addMessage('Upload fehlgeschlagen.', 'error');
     }
+    
     $uploadedData = $form->getValues();
-    $this->redirect($this->view->url(array(
-      'action' => 'index',
-      'kid' =>$kid
-    )), array('prependBase' => false));
+    $urlarr =  array(
+                    'action' => 'index',
+                    'kid' =>$kid
+                  );  
+    if ($popup) {
+      $urlarr =  array(
+                    'action' => 'choose',
+                    'kid' =>$kid,
+                    'elemid' => $elemid
+                  );  
+      
+    }    
+    
+    $this->redirect($this->view->url($urlarr), array('prependBase' => false));
   }
   
   /**
@@ -138,6 +153,7 @@ class Admin_MediaController extends Zend_Controller_Action {
    */
   public function deleteAction() {
     $kid = (int)$this->getRequest()->getParam('kid', 0);
+ 
     $formData = $this->_request->getParams();
     $form = new Admin_Form_Media_Delete();
     if ($form->isValid($formData)) {
@@ -171,7 +187,10 @@ class Admin_MediaController extends Zend_Controller_Action {
   }
   
   public function chooseAction() {
+      
     $this->_helper->layout->setLayout('popup');
+    $elemid = $this->getRequest()->getParam('elemid', 0);
+    $formid = $this->getRequest()->getParam('formid', 0);
     $kid = $this->getRequest()->getParam('kid', 0);
     $consultation = null;
     $directory = realpath(APPLICATION_PATH . '/../media');
@@ -202,7 +221,8 @@ class Admin_MediaController extends Zend_Controller_Action {
         if (is_file($directory . '/' . $filename)) {
           $i++;
           $aFileinfo[$filename] = pathinfo($directory . '/' . $filename);
-          $aFileinfo[$filename]['size'] = ceil(filesize($directory . '/' . $filename)/1024);
+          
+          $aFileinfo[$filename]['size'] = number_format ( filesize($directory . '/' . $filename) / 1024 / 1024 , 1 ,  ',' , '.' );
           
         }
       }
@@ -210,10 +230,13 @@ class Admin_MediaController extends Zend_Controller_Action {
     $form = new Admin_Form_Media_Upload();
     $form->setAction($this->view->url(array(
       'action' => 'upload',
-      'kid' =>$kid
+      'kid' =>$kid,
+      'popup' => 1,
+      'elemid' => $elemid
     )));
     $this->view->assign(array(
       'kid' => $kid,
+      'elemid' => $elemid,
       'consultation' => $consultation,
       'directory' => $dir_ws,
       'files' => $aFileinfo,

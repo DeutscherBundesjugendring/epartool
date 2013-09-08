@@ -326,7 +326,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
         $kid = $this->getRequest()->getParam('kid', 0);
         $fid = $this->getRequest()->getParam('fid', 0);
         $ffid = $this->getRequest()->getParam('ffid', 0);
-        
+       
         if ($fid > 0) {
           $followups = new Model_Followups();          
           $nrDeleted = $followups->deleteById($fid);
@@ -371,48 +371,83 @@ class Admin_FollowupController extends Zend_Controller_Action {
         $fid = $this->getRequest()->getParam('fid', 0);
         $ffid = $this->getRequest()->getParam('ffid', 0);
         $movefid = $this->getRequest()->getParam('movefid', 0);
+        $moveto = $this->getRequest()->getParam('moveto', 0);
         $prev = $this->getRequest()->getParam('prev');
         
-        if ($movefid > 0) {        
-            
-            $Model_Followup = new Model_Followups();
+        
+        if ($moveto) {
             $followupFiles = new Model_FollowupFiles();
-            $followupsByFile = $followupFiles->getFollowupsById($ffid, 'docorg ASC')->toArray();
-            $arr = array();
-            if ($prev == 0) array_push ($arr, $Model_Followup->find($movefid)->current()->toArray());
-            foreach ($followupsByFile as $followup) {
-                           
-                if ($followup['fid'] != $movefid) array_push ($arr, $followup);
-                if ($followup['docorg'] == $prev) array_push ($arr, $Model_Followup->find($movefid)->current()->toArray());
-            }
-            $i=1;
-            foreach ($arr as $followup) {
-               $followupsRow = $Model_Followup->find($followup['fid'])->current();
-               $followupsRow->docorg = $i;
-               $followupsRow->save();               
-               $i++;                   
-            }
+            $Model_Followup = new Model_Followups();
+            $followupsByFile = $followupFiles->getFollowupsById($ffid, 'docorg ASC');
             
-               $this->_redirect($this->view->url(array(
-                'module' => 'admin',
-                'controller' => 'followup',
-                'action' => 'edit-file',
-                'kid' => $this->kid,
-                'ffid' => $ffid
+            $movedfollowup = $Model_Followup->find($fid)->current();
+            
+            foreach ($followupsByFile as $followup) {                
                 
-              ),null,true), array('prependBase' => false));    
+                if ($followup->docorg === $moveto) {
+                    $followup->docorg = $movedfollowup->docorg;
+                    $movedfollowup->docorg = $moveto;
+                    $movedfollowup->save();
+                    $followup->save();
+                }
+            }
             
-        } else {
-
-        $this->_redirect($this->view->url(array(
-                'action' => 'edit-file',
-                'kid' => $this->kid,
-                'ffid' => $ffid,
-                'movefid' => $fid 
-                
-              )), array('prependBase' => false));
+         
             
-        }    
+        }
+        
+        $this->_forward('edit-file') ;
+            
+//        $this->_redirect($this->view->url(array(
+//                'action' => 'edit-file',
+//                'kid' => $this->kid,
+//                'ffid' => $ffid,
+//                'fid' => $fid
+//                
+//              )), array('prependBase' => false));
+            
+           
+        
+//        if ($movefid) {        
+//            
+//            $Model_Followup = new Model_Followups();
+//            $followupFiles = new Model_FollowupFiles();
+//            $followupsByFile = $followupFiles->getFollowupsById($ffid, 'docorg ASC')->toArray();
+//            $arr = array();
+//            if ($prev == 0) array_push ($arr, $Model_Followup->find($movefid)->current()->toArray());
+//            foreach ($followupsByFile as $followup) {
+//                           
+//                if ($followup['fid'] != $movefid) array_push ($arr, $followup);
+//                if ($followup['docorg'] == $prev) array_push ($arr, $Model_Followup->find($movefid)->current()->toArray());
+//            }
+//            $i=1;
+//            foreach ($arr as $followup) {
+//               $followupsRow = $Model_Followup->find($followup['fid'])->current();
+//               $followupsRow->docorg = $i;
+//               $followupsRow->save();               
+//               $i++;                   
+//            }
+//            
+//               $this->_redirect($this->view->url(array(
+//                'module' => 'admin',
+//                'controller' => 'followup',
+//                'action' => 'edit-file',
+//                'kid' => $this->kid,
+//                'ffid' => $ffid
+//                
+//              ),null,true), array('prependBase' => false));    
+//            
+//        } else {
+//
+//        $this->_redirect($this->view->url(array(
+//                'action' => 'edit-file',
+//                'kid' => $this->kid,
+//                'ffid' => $ffid,
+//                'movefid' => $fid 
+//                
+//              )), array('prependBase' => false));
+//            
+//        }    
     }
     
     /*
@@ -474,7 +509,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             
             $params = $this->getRequest()->getPost();
-            Zend_Debug::dump($params);
+            //Zend_Debug::dump($params);
             if (!empty($params['question'])) {
                
                 $question = $Model_Questions->getById($params['question']);

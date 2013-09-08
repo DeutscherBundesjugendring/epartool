@@ -86,17 +86,9 @@ class FollowupController extends Zend_Controller_Action
         }
 
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid);
-        $this->view->question = $questionModel->getById($qid);
-        
-        $inputs = $inputModel->getSelectByQuestion($qid);
-        
-//        foreach ($inputs as &$input) {
-//            $input['hasfollowup'] = count($inputModel->getFollowups ($input['tid']));
-//        }
-        
-//        Zend_Debug::dump($inputs);
-        
-        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid));
+        $this->view->question = $questionModel->getById($qid);        
+  
+        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.uid ASC'));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
         $this->view->paginator = $paginator;
 
