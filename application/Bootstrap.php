@@ -93,7 +93,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
       	$view->headTitle('Strukturierter Dialog in Deutschland');
     	}
 		#$view->headLink()->appendStylesheet('/Pfad/zur Stylesheet/datei');
-		$view-> headScript() -> appendFile('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
+		$view-> headScript() -> appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
 	}
 
   protected function _initSetupBaseUrl() {

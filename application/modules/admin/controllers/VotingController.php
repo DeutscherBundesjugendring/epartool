@@ -386,9 +386,9 @@ class Admin_VotingController extends Zend_Controller_Action {
 				$this -> _consultation -> save();
 
 				$this -> _settings -> btn_important = $values['btn_important'];
-				$this -> _settings -> btn_important_lable = $values['btn_important_lable'];
+				$this -> _settings -> btn_important_label = $values['btn_important_label'];
 				$this -> _settings -> btn_numbers = $values['btn_numbers'];
-				$this -> _settings -> btn_lables = $values['btn_lables'];
+				$this -> _settings -> btn_labels = $values['btn_labels'];
 				$this -> _settings -> btn_important_max= $values['btn_important_max'];
 
 				$this -> _settings -> save();

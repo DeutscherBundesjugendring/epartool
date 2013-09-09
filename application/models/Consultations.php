@@ -32,13 +32,16 @@ class Model_Consultations extends Model_DbjrBase {
       // find Questions
       $questionModel = new Model_Questions();
       $subrow2 = $questionModel->getByConsultation($id)->toArray();
+	  foreach ($subrow2 as $key => $value) {
+	  		$sub[$value["qi"]] = $value;
+	  }
   
       $result = $row->toArray();
       
       $articleModel = new Model_Articles();
       $result['articles'] = $articleModel->getByConsultation($id);
       
-      $result['questions'] = $subrow2;
+      $result['questions'] = $sub;
     }
 
     return $result;

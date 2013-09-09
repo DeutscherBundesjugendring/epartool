@@ -83,7 +83,7 @@
 					<?php
 					$settings = $this->settings;
 					$this->layout()->settings = $settings;
-					$this->layout()->lables = $array = explode (',', $settings['btn_lables']);
+					$this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 					echo $this ->partial('_partials/voting/votingButtons.phtml', $this); ?>
 					<p>
 						<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"

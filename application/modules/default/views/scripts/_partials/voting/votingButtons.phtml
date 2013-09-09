@@ -1,6 +1,6 @@
 <?php
 $settings = $this->layout()->settings;
-$lables = $this->layout()->lables;
+$labels = $this->layout()->labels;
 $styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
 $linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
 if (!empty($this->qid)) $linkOptions['qid'] = $this->qid;
@@ -12,8 +12,8 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
 								$linkOptions['pts'] = 'y';
 						?>
 		 				<li><a href="<?  echo $this->url($linkOptions); ?>" class="voting-particularly-important"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>
-      						<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->escape($settings['btn_important_lable']); ?>" title="<? echo $this->escape($settings['btn_important_lable']); ?>" /><br />
-      						<strong><? echo $this->escape($settings['btn_important_lable']); ?></strong>
+      						<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->escape($settings['btn_important_label']); ?>" title="<? echo $this->escape($settings['btn_important_label']); ?>" /><br />
+      						<strong><? echo $this->escape($settings['btn_important_label']); ?></strong>
       						</a>
       					</li> 
 						<? endif ; ?>
@@ -24,8 +24,8 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
 								$linkOptions['pts'] = $i;
 						?>
       					<li><a href="<? echo $this->url($linkOptions); ?>" class="<? echo $styles["$i"]; ?>" <? if ($this->points!= null && $this->points == $i ) echo 'style="color: red!important"'; ?>>
-      							<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<? echo $i; ?>.png" alt="<? echo $this->escape($lables["$i"]); ?>" title="<? echo $this->escape($lables["$i"]); ?>" /><br />
-      							<strong><? echo $this->escape($lables["$i"]); ?></strong>
+      							<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<? echo $i; ?>.png" alt="<? echo $this->escape($labels["$i"]); ?>" title="<? echo $this->escape($labels["$i"]); ?>" /><br />
+      							<strong><? echo $this->escape($labels["$i"]); ?></strong>
       							</a></li>  
 						<?php endfor; ?>
 						

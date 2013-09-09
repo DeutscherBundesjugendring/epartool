@@ -9,6 +9,8 @@
 <!--[if lte IE 7]>
 <link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
 <![endif]-->
+<?php echo $this->headScript(); ?>
+
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/ajaxloader.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/plugins/ckeditor/ckeditor.js"></script>
@@ -29,30 +31,26 @@
         <div id="col1">
           <div id="col1_content" class="clearfix">
             <!-- Navigation -->
-            <?php
-echo $this->navigation()->menu();
-            ?>
+            <?php echo $this->navigation()->menu(); ?>
           </div>
         </div>
         <div id="col3">
           <div id="col3_content" class="clearfix">
             <!-- Flash Messages -->
-		<?php if(!empty($this->layout()->messages)): ?>
-		<?php foreach ($this->layout()->messages as $level => $messages):?>
-		<?php if (!empty($messages)):?>
-		<?php foreach ($messages as $message):?>
-  		<p class="<?php echo $level; ?>">
-  			<?php echo $message; ?>
-  		</p>
-  	<?php endforeach;?>
-  	<?php endif;?>
-		<?php endforeach;?>
-		<?php endif;?>
-            
+    <?php if(!empty($this->layout()->messages)): ?>
+    <?php foreach ($this->layout()->messages as $level => $messages):?>
+    <?php if (!empty($messages)):?>
+    <?php foreach ($messages as $message):?>
+      <p class="<?php echo $level; ?>">
+        <?php echo $message; ?>
+      </p>
+    <?php endforeach;?>
+    <?php endif;?>
+    <?php endforeach;?>
+    <?php endif;?>
+
             <!-- Content -->
-            <?php
-echo $this->layout()->content;
-            ?>
+            <?php echo $this->layout()->content; ?>
           </div>
           <!-- IE Column Clearing -->
           <div id="ie_clearing"> &#160; </div>
@@ -66,3 +64,4 @@ echo $this->layout()->content;
   </div>
 </body>
 </html>
+

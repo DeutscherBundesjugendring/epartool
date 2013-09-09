@@ -1,12 +1,12 @@
 <?php 
 $settings = $this->layout()->settings;
-$lables = $this->layout()->lables;
+$labels = $this->layout()->labels;
 $styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
 ?>
 	<? if ($settings['btn_important'] == 'y'):
 	?>
 		 <li><a href="#" rel="<? echo $this -> tid; ?>" data="y" class="voting-particularly-important voting-superbtn"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>
-      			<? echo $this->escape($settings['btn_important_lable']); ?>
+      			<? echo $this->escape($settings['btn_important_label']); ?>
       			</a>
       	</li> 
 	<?
@@ -15,7 +15,7 @@ $styles = array ('not-my-opinion','not-important','important', 'very-important',
 	<?php for ($i = $settings['btn_numbers']; $i >= 0; $i--) : ?>
       <li><a href="#" rel="<? echo $this -> tid; ?>" data="<? echo $i; ?>" 
       			class="voting-statement <? echo $styles["$i"]; ?>" <? if ($this->points!= null && $this->points == $i ) echo 'style="color: red!important"'; ?>>
-      			<? echo $this->escape($lables["$i"]); ?>
+      			<? echo $this->escape($labels["$i"]); ?>
       			</a>
       	</li>  
 	<?php endfor; ?>

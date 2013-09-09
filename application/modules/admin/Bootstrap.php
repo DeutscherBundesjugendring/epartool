@@ -4,6 +4,7 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap {
   protected function _initNavigation() {
     $layout = Zend_Layout::getMvcInstance();
     $view = $layout->getView();
+	$view-> headScript() -> appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
     $config = new Zend_Config_Ini(
       APPLICATION_PATH . '/modules/admin/config/navigation.ini');
 
@@ -28,4 +29,6 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap {
     $fc = Zend_Controller_Front::getInstance();
     $fc->registerPlugin(new Plugin_Navigation());
   }
+
+  
 }

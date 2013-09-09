@@ -929,7 +929,7 @@ class Model_Inputs extends Model_DbjrBase {
   * @param int $id
   * @return array
   */
-  public function getRelatedWithVotesById( $id ) {
+  public function getRelatedWithVotesById($id ) {
       
        $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
@@ -984,6 +984,281 @@ class Model_Inputs extends Model_DbjrBase {
         }
 
         return $result;
-      
   }
+  
+  /**
+	 * fetchAllInputs
+	 * get all inputs with tags and related inputs by given question
+  	 * @see DashboardController|admin:overviewAction()
+	 * @param $kid consultation
+	 * @param $qid question
+	 * @param $dir directory
+	 * @return array
+	 * 
+	 **/
+  public function fetchAllInputs ($options) {
+  	
+		# parameters #
+		$kid = $options['kid'];
+		$qid = $options['qid'];
+		(isset($options['dir'])) ? $dir = (int)$options['dir']  : $dir=0;
+		
+		# validate #
+		$intVal = new Zend_Validate_Int();
+		if (!$intVal->isValid($qid)) throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+		if (!$intVal->isValid($kid)) throw new Zend_Validate_Exception('Given parameter qid must be integer!');
+		if (!$intVal->isValid($dir)) throw new Zend_Validate_Exception('Given parameter dir must be integer!');
+		 
+		 # default select #
+			$db = $this -> getDefaultAdapter();
+			$select = $db -> select();
+			$select -> from(array('inputs' => 'inpt')) 
+						-> where('inputs.kid = ?', $kid) 
+						-> where('inputs.qi = ?', $qid);
+			if ($dir != 0)
+				$select -> where('inputs.dir = ?', $dir);
+		
+		#params for inputs on merge #
+		if (isset($options['inputIDs']) && !empty($options['inputIDs'])) {
+			$inputphrases = array();
+			$inputphrases = implode("' OR inputs.tid= '", $options['inputIDs']);
+			$inputwhere= " inputs.tid= '" . $inputphrases."'";
+			$select ->where("$inputwhere");
+		}
+		
+		# params for tagsearch #
+		if (isset($options['tags']) && !empty($options['tags'])) {
+				$tagphrase = implode("' OR tags.tg_nr= '", $options['tags']);
+				$tagwhere = " AND (tags.tg_nr= '" . $tagphrase . "')";
+				#echo $tagwhere;
+				$select -> join(array('tags' => 'inpt_tgs'), '(inputs.tid = tags.tid  ' . $tagwhere . ')', array('tags.tg_nr AS number')) -> group('inputs.tid');
+		}
+
+		 # params for searchphrase #
+		if (isset($options['search-phrase']) && !empty($options['search-phrase'])) {
+			$searchphrases = array();
+			$searchphrases = explode(" ", $options['search-phrase']);
+			$searchphrases = implode("%' ".$options['combine']." thes LIKE '%", $searchphrases);
+			$where =  "thes LIKE '%".$searchphrases."%'";
+			$select ->where("$where");
+		}
+
+		$resultSet = $db->query($select);
+		
+		# add related inputs and tags to $resultSet #
+		$inputs = array();	
+		foreach ($resultSet as $row) {
+			$id= $row["tid"];
+			$inputs["$id"] = $row;
+			# inputs #
+			if (!empty ($row["rel_tid"])) {
+				$thesisRows = $this->fetchAll("tid IN (".$row["rel_tid"].")")->toArray();	 
+				foreach ($thesisRows as $thesisRow) {
+					$inputs["$id"]["related"][]= $thesisRow;
+				}
+			}
+			# tags #
+			$rowone = $this->find($row["tid"])->current();
+			$tags =array();
+			$tagRows = $rowone -> findManyToManyRowset (
+							'Model_Tags', 
+							'Model_InputsTags')->toArray();
+			foreach ($tagRows as $tagRow) {
+				$inputs["$id"]["tags"][]= $tagRow;
+			}
+		}
+		return $inputs;	
+		
+	}
+	
+	
+	
+	/**
+	 * mergeInputs
+	 * Insert a new Input from Admin
+	 * @see DashboardController|admin: mergeAction();
+	 * @param Post params
+	 * @param $relIDs
+	 * @return row
+	 * 
+	 **/
+	 public function addInputs($data) {
+	 	
+		
+    		$row = $this->createRow($data);
+    		$newInput =  (int)$row->save();
+			
+			if (isset($data['tags']) && !empty($data['tags'])) {
+      			// Tag Zuordnungen speichern
+      			$modelInputsTags = new Model_InputsTags();
+      			$modelInputsTags->deleteByInputsId($newInput);
+      			$inserted = $modelInputsTags->insertByInputsId($newInput,$data['tags']);
+   			 }
+    
+   			 $row = $this->find($newInput)->current();
+    		#$row->setFromArray($data);
+			#$newRow->save();
+			return ($row);
+  	}
+	 
+	 /**
+	 * getAppendInputs
+	 * filters the given ids and get the inputs to append to a  given input
+	 * @see DashboardController|admin: appendinputsAction() 
+	 * @param $tid 
+	 * @param inputIDs given new inputs
+	 * @return array of updated inputs
+	 * 
+	 **/
+	public function getAppendInputs($tid,$inputIDs) {
+		
+		$row = $this->find($tid)->current();
+		$relIDs =array();
+		(!empty($row["rel_tid"])) ? $relIDsA = explode(",",$row["rel_tid"]) : $relIDsA = array();
+		$relIDsB = explode(",",$inputIDs);
+		$relIDs = array_merge($relIDsA, $relIDsB);
+		# make the old and new entries unique #
+		$relIDs = array_unique($relIDs); 
+
+		# filter the new Ids from the ids wich are in the DB #
+		$oldIDs = $relIDsA;
+		$inputIDs = array_diff ($relIDs,$oldIDs );
+		$inputIDs= implode(",", $inputIDs);
+		
+		# update the database #
+		$relIDs= implode(",", $relIDs);
+		$this -> setAppendInputsByID($relIDs,$tid);
+		
+		# get the added inputs #
+		$thesisRows = array();
+		if (!empty($inputIDs)) $thesisRows = $this->fetchAll("tid IN (".$inputIDs.")")->toArray();
+		return $thesisRows;
+	}
+	
+	/**
+	 * setAppendInputsByID
+	 * Sets the new related inputs for a given input
+	 * @see Models|Inputs: getAppendInputs 
+	 * @param $tid 
+	 * @param $relIDs
+	 * @return nothing
+	 * 
+	 **/
+	private function setAppendInputsByID($relIDs,$tid) {
+    	$data = array('rel_tid' => $relIDs);
+		$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
+		$this->update($data, $where);
+	}
+			
+
+	/**
+	 * getNumByDirectory
+	 * Count inputs from a given directory
+	 * @see DashboardController|admin: overviewAction() 
+	 * @param $kid consultation
+	 * @param $qid question
+	 * @param $dir directory
+	 * @return number
+	 * 
+	 **/
+	public function getNumByDirectory($kid,$qid,$dir){
+		
+        $select = $this->select();
+        $select
+        		->from(array('inputs' => 'inpt'),'COUNT(tid) as count')
+				->where('inputs.kid = ?', $kid)
+				->where('inputs.qi = ?', $qid)
+				->where('inputs.dir = ?', $dir);
+        $resultSet = $this->fetchRow($select);
+        return $resultSet['count'];
+    }
+	 
+	/**
+	 * setDirectory
+	 * Move inputs to virtual directory
+	 * @see DashboardController|admin: setdirectoryAction()
+	 * @param $options (dir, thesis) 
+	 * @return nothing
+	 * 
+	 **/
+	 public function setDirectory($options) {
+
+		$dir = $options['dir'];
+		$thesis= $options['thesis'];
+    	$data = array(
+       	 	'dir' => (int)$dir
+    	);
+		$this->update($data, 'tid IN ('.$thesis.')');
+	}
+
+	 /**
+	 *  setBlockStatus
+	 * enable/disable many inputs for public-viewing in frontend
+	 * @see DashboardController|admin: updateAction()
+	 * @param $options (thesis) 
+	 * @return nothing
+	 * 
+	 **/
+	 public function setBlockStatus($thesis,$status) {
+    	$data = array('block' => $status);
+		$this->update($data, 'tid IN ('.$thesis.')');
+	}
+	 	 /**
+	 *  setBlockStatusByID
+	 *  enable/disable one input for public-viewing in frontend
+	 * @see DashboardController|admin: blockstatusAction() 
+	 * @param $tid ID from input
+	 * @param $status y or n
+	 * @return nothing
+	 * 
+	 **/
+	  public function setBlockStatusByID($status,$tid) {
+    	$data = array('block' => $status);
+		$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
+		$this->update($data, $where);
+	}
+	 
+	 /**
+	 *  setVotingStatus
+	 * enable/disable many inputs for voting in frontend
+	 * @see DashboardController|admin: updateAction()
+	 * @param $thesis ID as comma separated list
+	 * @param $status y or n
+	 * @return nothing
+	 * 
+	 **/
+	 public function setVotingStatus($thesis,$status) {
+    	$data = array('vot' => $status);
+		$this->update($data, 'tid IN ('.$thesis.')');
+	}
+	 
+	 /**
+	 *  setVotingStatusByID
+	 *  enable/disable one input for voting in frontend
+	 * @see DashboardController|admin: votingstatusAction()
+	 * @param $tid ID from input
+	 * @param $status y or n
+	 * @return nothing
+	 * 
+	 **/
+	 public function setVotingStatusByID($status,$tid) {
+    	$data = array('vot' => $status);
+		$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
+		$this->update($data, $where);
+	}
+	
+	/**
+	 *  deleteInputs
+	 *  remove inputs from the database
+	 * @see DashboardController|admin: updateAction()
+	 * @param $thesis ID as comma separated list
+	 * @return nothing
+	 * 
+	 **/
+	public function deleteInputs($thesis) {
+		$this->delete('tid IN ('.$thesis.')');
+	}
+
+
+  
 }

@@ -29,28 +29,37 @@ class VotingController extends Zend_Controller_Action {
   }
 
   /**
-   *  get Voting Right of User
-   */
-  private function getVotingRightsSession () {
+  * getVotingRightsSession()
+  * @param session params
+  * @return bool or redirect
+  **/
+  private function getVotingRightsSession() {
     $votingRightsSession = new Zend_Session_Namespace('votingRights');
-    if ($votingRightsSession -> access != $this -> _consultation -> kid) {
-      $this -> _flashMessenger -> addMessage('In dieser Konsultation kann derzeit nicht abgestimmt werden.', 'error');
-      $this -> redirect('/');
+    if ($votingRightsSession->access != $this->_consultation->kid) {
+      $this->_flashMessenger->addMessage('In dieser Konsultation kann derzeit nicht abgestimmt werden.', 'error');
+      $this->redirect('/');
     }
     return $votingRightsSession;
   }
 
   /**
-   * returns the setting for this voting (number of buttons, labels for buttons etc.)
-   */
+  * getVotingSettings()
+  * @param kid
+  * @return array
+  **/
   private function getVotingSettings() {
 
-      $kid = $this -> _consultation -> kid;
+      $kid = $this->_consultation->kid;
       $settingsModel = new Model_Votes_Settings();
-      $votingSettings = $settingsModel -> getById($kid);
+      $votingSettings = $settingsModel->getById($kid);
       return $votingSettings;
   }
 
+  /**
+  *  checkVotingDate()
+  * @param $this->_consultation from init()
+  * @return redirect
+  **/
   function checkVotingDate () {
     $date = new Zend_Date();
     $nowDate = Zend_Date::now();
@@ -206,7 +215,7 @@ class VotingController extends Zend_Controller_Action {
     // no access, redirect back
     $votingRightsSession = $this->getVotingRightsSession ();
 
-        $this->view->settings = $this ->getVotingSettings();
+    $this->view->settings = $this->getVotingSettings();
 
     $uid = $votingRightsSession->uid;
     $subUid = $votingRightsSession->subUid;
@@ -299,8 +308,8 @@ class VotingController extends Zend_Controller_Action {
         $this->view->error_comment = "Die Auswahl des Superbuttons ist nicht erlaubt";
         return;
       }
-       // count max possibility click on particularly important button
-       // returns comment for user or action and return buttons
+      // count max possibility click on particularly important button
+      // returns comment for user or action and return buttons
       $kid = $this->_consultation->kid;
       $param = $this->getRequest()->getParams();
       $votingIndividualModel = new Model_Votes_Individual();
@@ -318,7 +327,7 @@ class VotingController extends Zend_Controller_Action {
 
           $feedback = array('points' => $votingSuccess['points'], 'tid' => $param['id'], 'pimp' => $votingSuccess['pimp']);
 
-       } elseif (isset($votingSuccess['max'])) {
+      } elseif (isset($votingSuccess['max'])) {
 
           $this->view->error = "1";
           $this->view->error_comment = "Du hast schon zu oft diesen Button benutzt, bitte ändere zunächst andere Votings. Diese Abstimmung wurde nicht gezählt!";
@@ -461,81 +470,73 @@ class VotingController extends Zend_Controller_Action {
     }
   }
 
-public function thesissupervoteAction() {
-    // no access, redirect back
-    $votingRightsSession = $this -> getVotingRightsSession ();
-    // no view and layout
-    $this -> _helper -> layout() -> disableLayout();
-    $this -> _helper -> viewRenderer -> setNoRender(true);
-    $this -> settings = $this -> getVotingSettings();
+  public function thesissupervoteAction() {
+      // no access, redirect back
+      $votingRightsSession = $this -> getVotingRightsSession ();
+      // no view and layout
+      $this -> _helper -> layout() -> disableLayout();
+      $this -> _helper -> viewRenderer -> setNoRender(true);
+      $this -> settings = $this -> getVotingSettings();
 
-    $param = $this -> getRequest() -> getParams();
-    $backParam = (!empty($param['qid'])) ? '/qid/' . $param['qid'] : '/tag/' . $param['tag'];
-    $pts = (string)$param['pts'];
-    $subUid = $votingRightsSession -> subUid;
-    $uid = $votingRightsSession -> uid;
+      $param = $this -> getRequest() -> getParams();
+      $backParam = (!empty($param['qid'])) ? '/qid/' . $param['qid'] : '/tag/' . $param['tag'];
+      $pts = (string)$param['pts'];
+      $subUid = $votingRightsSession -> subUid;
+      $uid = $votingRightsSession -> uid;
 
-    if ( $this -> settings['btn_important'] == 'n' ) {
-        $this -> _flashMessenger -> addMessage('Die Auswahl des Superbuttons ist nicht erlaubt', 'info');
+      if ( $this -> settings['btn_important'] == 'n' ) {
+          $this -> _flashMessenger -> addMessage('Die Auswahl des Superbuttons ist nicht erlaubt', 'info');
+          $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid );
+          return;
+      }
+
+      // check if the points are correct
+      if ($pts != 'y') {
+        $this -> _flashMessenger -> addMessage('Die vergebenen Punkte sind nicht korrekt', 'info');
         $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid );
-        return;
-    }
+      }
 
-    // check if the points are correct
-    if ($pts != 'y') {
-      $this -> _flashMessenger -> addMessage('Die vergebenen Punkte sind nicht korrekt', 'info');
-      $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid );
-    }
+      // check if a tid is given
+      if (empty($param['tid']) || (empty($param['qid']) && empty($param['tag']))) {
+        $this -> _flashMessenger -> addMessage('Bitte wähle ein Frage oder ein Schlagwort aus.', 'info');
+        $this -> redirect('/voting/overview');
+      }
 
-    // check if a tid is given
-    if (empty($param['tid']) || (empty($param['qid']) && empty($param['tag']))) {
-      $this -> _flashMessenger -> addMessage('Bitte wähle ein Frage oder ein Schlagwort aus.', 'info');
-      $this -> redirect('/voting/overview');
-    }
+      $votingIndividualModel = new Model_Votes_Individual();
+       $votingSuccess = $votingIndividualModel
+                       -> updateParticularImportantVote (
+                           $param['tid'],
+                           $votingRightsSession -> subUid,
+                           (int)$votingRightsSession -> uid,
+                           $this -> settings['btn_numbers'],
+                           $this -> settings['btn_important_factor'],
+                           $this -> settings['btn_important_max']
+                      );
 
-    $votingIndividualModel = new Model_Votes_Individual();
-     $votingSuccess = $votingIndividualModel
-                     -> updateParticularImportantVote (
-                         $param['tid'],
-                         $votingRightsSession -> subUid,
-                         (int)$votingRightsSession -> uid,
-                         $this -> settings['btn_numbers'],
-                         $this -> settings['btn_important_factor'],
-                         $this -> settings['btn_important_max']
-                    );
+      if (!$votingSuccess) {
+        $this->_flashMessenger->addMessage('Abstimmung konnte nicht eingetragen werden (1)', 'info');
+        $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . '/tid/' . $param['tid'] . $backParam);
 
-    if (!$votingSuccess) {
-      $this->_flashMessenger->addMessage('Abstimmung konnte nicht eingetragen werden (1)', 'info');
-      $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . '/tid/' . $param['tid'] . $backParam);
+      } elseif (!isset($votingSuccess['max'])) {
 
-    } elseif (!isset($votingSuccess['max'])) {
-
-        //Todo auslagern wenns gebraucht wird
-        #$this -> votingChainSuccess($this -> _consultation -> kid, $subUid, $param['tid'], $backParam);
-        $votGroupModel = new Model_Votes_Groups();
-        $votingChainSuccess = $votGroupModel -> excludeThesisFromVotingchain($this -> _consultation -> kid, $subUid, $param['tid'], $backParam);
-        if ($votingChainSuccess) {
-            $this -> _flashMessenger -> addMessage('Eingetragen', 'info');
+          //Todo auslagern wenns gebraucht wird
+          #$this -> votingChainSuccess($this -> _consultation -> kid, $subUid, $param['tid'], $backParam);
+          $votGroupModel = new Model_Votes_Groups();
+          $votingChainSuccess = $votGroupModel -> excludeThesisFromVotingchain($this -> _consultation -> kid, $subUid, $param['tid'], $backParam);
+          if ($votingChainSuccess) {
+              $this -> _flashMessenger -> addMessage('Eingetragen', 'info');
+              $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
+          } else {
+            $this -> _flashMessenger -> addMessage('Abstimmung konnte nicht eingetragen werden (0)', 'info');
             $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
-        } else {
-          $this -> _flashMessenger -> addMessage('Abstimmung konnte nicht eingetragen werden (0)', 'info');
-          $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
-        }
-    }
-    if (isset($votingSuccess['max'])) {
-        $this -> _flashMessenger -> addMessage('Du hast schon zu oft diesen Button benutzt, bitte ändere zunächst folgende Votings. Diese Abstimmung wurde nicht gezählt!', 'info');
-        $this -> redirect('/voting/preview/kid/' . $this -> _consultation -> kid. $backParam);
-    }
+          }
+      }
+      if (isset($votingSuccess['max'])) {
+          $this -> _flashMessenger -> addMessage('Du hast schon zu oft diesen Button benutzt, bitte ändere zunächst folgende Votings. Diese Abstimmung wurde nicht gezählt!', 'info');
+          $this -> redirect('/voting/preview/kid/' . $this -> _consultation -> kid. $backParam);
+      }
+  }
 
-}
-
-
-
-  // function getBackparams () {
-    // $param = $this -> getRequest() -> getParams();
-    // $backParam = (!empty($param['qid'])) ? '/qid/' . $param['qid'] : '/tag/' . $param['tag'];
-    // return $backParam;
-  // }
 
   /**
    * update subusers votinglist
@@ -545,13 +546,13 @@ public function thesissupervoteAction() {
       // update subusers votinglist normal voting
       #if (!$ajax) {
         $votGroupModel = new Model_Votes_Groups();
-        $votingChainSuccess = $votGroupModel -> excludeThesisFromVotingchain($kid,$subUid,$tid);
+        $votingChainSuccess = $votGroupModel->excludeThesisFromVotingchain($kid,$subUid,$tid);
         if ($votingChainSuccess) {
 
-          $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
+          $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . $backParam);
         } else {
-          $this -> _flashMessenger -> addMessage('Abstimmung konnte nicht eingetragen werden (0)', 'info');
-          $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
+          $this->_flashMessenger->addMessage('Abstimmung konnte nicht eingetragen werden (0)', 'info');
+          $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . $backParam);
         }
       #} else {
         // update subusers votinglist voting preview
@@ -570,7 +571,7 @@ public function thesissupervoteAction() {
     $subUid = $votingRightsSession->subUid;
     $user = $userModel->getById($uid);
     // user is member of group, send mail for his confirmation
-    if($votingRightsSession->weight > 1 || $votingRightsSession->weight == 0) {
+    if ($votingRightsSession->weight > 1 || $votingRightsSession->weight == 0) {
       $votingGroup = new Model_Votes_Groups();
       $subuser = $votingGroup->getByUser($uid, $subUid);
 
@@ -590,7 +591,7 @@ public function thesissupervoteAction() {
       $result = $emailModel->send($subuser['sub_user'], '-', '-', 'vot_conf', $templateReplace);
       if (!$result) {
         $logger = Zend_Registry::get('log');
-        $logger -> debug('E-Mail für Voting-Bestätigung konnte nicht gesendet werden.');
+        $logger->debug('E-Mail für Voting-Bestätigung konnte nicht gesendet werden.');
       }
 
       $this->view->groupmember = $subuser['sub_user'];
@@ -618,7 +619,7 @@ public function thesissupervoteAction() {
 
     // action or subuid is not given
     if (($act != 'acc' && $act != 'rej') || empty($subuid) || empty($authcode)) {
-      $this -> _flashMessenger -> addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
 
@@ -628,7 +629,7 @@ public function thesissupervoteAction() {
 
     // No access
     if (!$votingRights) {
-      $this -> _flashMessenger -> addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+      $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
 
@@ -682,7 +683,7 @@ public function thesissupervoteAction() {
       $result = $emailModel->send($leader['email'], '-', '-', 'vot_grpmem_conf', $templateReplace);
       if (!$result) {
         $logger = Zend_Registry::get('log');
-        $logger -> debug('E-Mail für Gruppenmitglieds-Bestätigung konnte nicht gesendet werden.');
+        $logger->debug('E-Mail für Gruppenmitglieds-Bestätigung konnte nicht gesendet werden.');
       }
     }
 
@@ -698,7 +699,7 @@ public function thesissupervoteAction() {
     $subuid = $this->getRequest()->getParam('user');
     $authcode = $this->getRequest()->getParam('authcode');
 
-    if(empty($act) || empty($subuid) || empty($authcode)) {
+    if (empty($act) || empty($subuid) || empty($authcode)) {
       $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
       $this->redirect('/');
     }
@@ -707,7 +708,7 @@ public function thesissupervoteAction() {
     $votingRightModel = new Model_Votes_Rights();
     $votingRights = $votingRightModel->findByCode($authcode);
 
-      // No access
+    // No access
     if (!$votingRights) {
       $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
       $this->redirect('/');
@@ -724,11 +725,10 @@ public function thesissupervoteAction() {
     if ($act == $confirmCode) {
       // set status of sub_user to 'y'
       $result = $votingGroupModel->confirmVoter($this->_consultation->kid, $votingRights['uid'], $subuid);
-      if($result) {
+      if ($result) {
         $this->view->act = 'confirm';
       }
-    }
-    elseif($act == $rejectCode) {
+    } elseif ($act == $rejectCode) {
       // set status of sub_user to 'n'
       $result = $votingGroupModel->denyVoter($this->_consultation->kid, $votingRights['uid'], $subuid);
       if ($result) {
@@ -759,5 +759,4 @@ public function thesissupervoteAction() {
 
     $this->view->assign($votingResultsValues);
   }
-
 }

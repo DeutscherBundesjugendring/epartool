@@ -8,10 +8,10 @@
 class Model_Votes_Settings extends Model_DbjrBase {
 
 	protected $_name = 'vt_settings';
-	protected $_primary = 'cnslt_id';
+	protected $_primary = 'kid';
 	
 	public function add($consultationID) {
-		$data = array('cnslt_id' => $consultationID);
+		$data = array('kid' => $consultationID);
 		return (int)$this -> insert($data);
 	}
 	public function getById($id) {
