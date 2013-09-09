@@ -19,7 +19,7 @@ class Model_Votes_Rights extends Model_DbjrBase {
       'refColumns' => 'kid'
     ),
   );
-  
+
   /**
    * Sets initial voting rights for all participants of given consultation
    * (if not already done)
@@ -53,10 +53,10 @@ class Model_Votes_Rights extends Model_DbjrBase {
         }
       }
     }
-    
+
     return $count;
   }
-  
+
   /**
    * Returns voting rights for all participants of given consultation
    *
@@ -70,11 +70,11 @@ class Model_Votes_Rights extends Model_DbjrBase {
       throw new Zend_Validate_Exception('Given parameter kid must be integer!');
     }
     $db = $this->getDefaultAdapter();
-    
+
     $subselect = $db->select();
     $subselect->from('user_info', array(new Zend_Db_Expr('MAX(user_info_id)')));
     $subselect->where('uid=vr.uid')->where('kid=?', $kid);
-    
+
     $select = $db->select();
     $select->from(array('vr' => $this->_name), array(
         'uid' => 'vr.uid',
@@ -85,8 +85,8 @@ class Model_Votes_Rights extends Model_DbjrBase {
       ->joinUsing(array('u' => 'users'), 'uid', array(
         'email' => 'u.email'
       ))
-      ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', array(
-        'group_size_user' => 'ui.group_size'
+  	  ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', array(
+			  'group_size_user' => 'ui.group_size'
       ))
       ->where('vr.kid = ?', $kid)
       ->where('vr.uid > ?', 1)
@@ -96,7 +96,7 @@ class Model_Votes_Rights extends Model_DbjrBase {
     $stmt = $db->query($select);
     return $stmt->fetchAll();
   }
-  
+
   /**
    * Returns voting rights for a given user and consultation
    *
@@ -113,10 +113,10 @@ class Model_Votes_Rights extends Model_DbjrBase {
     if (!$intVal->isValid($kid)) {
       throw new Zend_Validate_Exception('Given parameter kid must be integer!');
     }
-    
+
     return $this->find($kid, $uid)->current();
   }
-  
+
   /**
    * Generates and returns a voting code,
    * logically adopted from old system
@@ -134,20 +134,20 @@ class Model_Votes_Rights extends Model_DbjrBase {
 
     // we refer to the length of $possible a few times, so let's grab it now
     $maxlength = strlen($possible);
-  
+
     // check for length overflow and truncate if necessary
     if ($length > $maxlength) {
       $length = $maxlength;
     }
-	
+
     // set up a counter for how many characters are in the password so far
     $i = 0;
-    
+
     // add random characters to $password until $length is reached
     while ($i < $length) {
       // pick a random character from the possible ones
       $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-        
+
       // have we already used this character in $password?
       if (!strstr($password, $char)) {
         // no, so it's OK to add it onto the end of whatever we've already got...
@@ -156,10 +156,10 @@ class Model_Votes_Rights extends Model_DbjrBase {
         $i++;
       }
     }
-    
+
     return $password;
   }
-  
+
 
   /**
    * return rights of a voting user by authcode
@@ -167,14 +167,14 @@ class Model_Votes_Rights extends Model_DbjrBase {
    * @return array
    */
   public function findByCode($code) {
-    
+
     if(empty($code)) {
       return array();
     }
-    
+
     $select = $this->select();
     $select->where('vt_code = ?', $code);
-    
+
     $result = array();
     $result = $this->fetchRow($select);
     if($result) {
@@ -183,9 +183,9 @@ class Model_Votes_Rights extends Model_DbjrBase {
     else {
       return array();
     }
-    
+
   }
-  
+
   /**
    * Returns the counted and grouped voting weights by consultation
    *
@@ -205,7 +205,7 @@ class Model_Votes_Rights extends Model_DbjrBase {
     ))
       ->where('kid = ?', $kid)
       ->group('vt_weight');
-      
+
     return $this->fetchAll($select);
   }
 }

@@ -33,6 +33,9 @@ class Admin_ConsultationController extends Zend_Controller_Action {
    * @return void
    */
   public function indexAction() {
+  		
+		$this -> _helper -> viewRenderer -> setNoRender(true);
+		$this->_redirect('/admin/dashboard/index/kid/' . $this->_consultation->kid);
   }
 
   /**

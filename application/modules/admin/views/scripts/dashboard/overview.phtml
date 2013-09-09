@@ -1,0 +1,425 @@
+<? $this -> headScript() -> appendFile('http://code.jquery.com/ui/1.10.3/jquery-ui.js'); ?>
+<script type="text/javascript">
+		$(document).ready(function() {
+		$( document ).tooltip(
+			{
+
+position: {
+my: "center bottom-10",
+at: "center top",
+using: function( position, feedback ) {
+$( this ).css( position );
+$( "<div>" )
+.addClass( "arrow" )
+.addClass( feedback.vertical )
+.addClass( feedback.horizontal )
+.appendTo( this );
+}
+}
+}
+		);
+		$('li.inputs').show('blind', '', 500);
+			
+		$('#inputAnchors input').change(function() {
+			var checkbox_status = $(this).attr("class");
+			var checkbox_obj = $(this).attr("id");
+			
+			// anzeigen nicht/anzeigen ganze liste
+			if ($(this).is(":checked")) {
+				$('li.' + checkbox_status).show('blind', '', 500);
+				$(checkbox_obj).attr("checked", true); //einblenden
+			} else {
+				$(checkbox_obj).removeAttr("checked");
+			}
+			$('div.input-list').find("input:checkbox").removeAttr("checked"); // alle deaktiviere wenn rechts was ausgeählt wird
+			
+			$('li.' + checkbox_status).hide(); //ausblenden
+			
+			// Auswahl beibehalten
+			if ($('#block-n').is(":checked")) {
+				$('li.block-n').show('blind', '', 500);
+			}
+			if ($('#block-y').is(":checked")) {
+				$('li.block-y').show('blind', '', 500);
+			}
+			if ($('#unfinished').is(":checked")) {
+				$('li.unfinished').show('blind', '', 500);
+			}
+			if ($('#finished').is(":checked")) {
+				$('li.finished').show('blind', '', 500);
+			}
+			if ($('#org-o').is(":checked")) {
+				$('li.org-o').show('blind', '', 500);
+			}
+			if ($('#inputs').is(":checked")) {
+				$('li.inputs').show('blind', '', 500);
+			}
+			if ($('#org-r').is(":checked")) {
+				$('li.org-r').show('blind', '', 500);
+			}
+			if ($('#vot-y').is(":checked")) {
+				$('li.vot-y').show('blind', '', 500);
+			}
+			if ($('#vot-n').is(":checked")) {
+				$('li.vot-n').show('blind', '', 500);
+			}
+			if ($('#vot-u').is(":checked")) {
+				$('li.vot-u').show('blind', '', 500);
+			}
+			if ($('#vot-orb').is(":checked")) {
+				$('li.vot-orb').show('blind', '', 500);
+			}
+		});
+		
+		// Toggles 
+		$('div.expl-header a').click(function() {
+			var css_class = $(this).attr("class");
+			$('div.'+css_class).slideToggle("slow");
+		});
+		$('div.notice-header a').click(function() {
+			var css_class = $(this).attr("class");
+			$('div.'+css_class).slideToggle("slow");
+		});
+		$('div.related-header a').click(function() {
+			var css_class = $(this).attr("class");
+			$('div.'+css_class).slideToggle("slow");
+		});
+		
+		$('#viewAnchors input').change(function() {
+			var css_class = $(this).attr("class");
+			$('div.'+css_class).slideToggle("slow");
+		});
+		
+		$('#inputAnchors h3').click(function() {
+			$('#inputAnchors form').slideToggle("slow");
+		});
+		$('#viewAnchors h3').click(function() {
+			$('#viewAnchors form').slideToggle("slow");
+		});
+		$('#directoryAnchors h3').click(function() {
+			$('#directoryAnchors ul').slideToggle("slow");
+		});
+		$('#questionAnchors h3').click(function() {
+			$('#questionAnchors  ul').slideToggle("slow");
+		});
+		$('#actionAnchors h3').click(function() {
+			$('#actionAnchors ul').slideToggle("slow");
+		});
+		
+		// change directories //
+		$('a.moveto').click(function() {
+			var action = $(this).attr("rel");
+			$("#thesis-form").attr("action", action);
+			$("#thesis-form").submit();
+        	return false;
+		});
+		
+		// change blockstatus //
+		$('a.enable').click(function() {
+			var action = $(this).attr("rel");
+			$("#thesis-form").attr("action", action);
+			$("#thesis-form").submit();
+        	return false;
+		});
+		
+		$('a.disable').click(function() {
+			var action = $(this).attr("rel");
+			$("#thesis-form").attr("action", action);
+			$("#thesis-form").submit();
+        	return false;
+		});
+		
+		$('a.edit').click(function() {
+			var url = $(this).attr("rel");
+			var inputIDs = [];
+		 	 $('input.cbx-th:checked').each(function() {
+       				 inputIDs.push($(this).val());
+     		 });
+			$("a.edit").attr("href", url+'/tid/'+inputIDs+'');
+        	return true;
+		});
+		$('a.split').click(function() {
+			var url = $(this).attr("rel");
+			var inputIDs = [];
+		 	 $('input.cbx-th:checked').each(function() {
+       				 inputIDs.push($(this).val());
+     		 });
+			$("a.split").attr("href", url+'/tid/'+inputIDs+'');
+        	return true;
+		});
+		$('a.merge').click(function() {
+			var url = $(this).attr("rel");
+			var inputIDs = [];
+		 	 $('input.cbx-th:checked').each(function() {
+       				 inputIDs.push($(this).val());
+     		 });
+			$("a.merge").attr("href", url+'/inputs/'+inputIDs+'');
+        	return true;
+		});
+		
+		$('a.del').click(function() {
+			if(confirm('Die ausgewählten Beiträge endgültig löschen?')) {
+			var action = $(this).attr("rel");
+			$("#thesis-form").attr("action", action);
+			$("#thesis-form").submit();
+        	return false;
+        	}
+		});
+		
+		// tag and option box
+		$('div.tag').click(function() {
+			var tagID = $(this).attr("rel");
+			$('#option-'+tagID).attr("selected", true);
+        	return false;
+		});
+		
+		$(document).on("click","span.vot-box", function (event) {		
+			event.preventDefault();
+			var elementID = $(this).attr('rel');
+
+  			$.ajax({
+  				url: "/admin/dashboard/votingstatus/<?php echo $this->getParams ?>/tid/"+elementID+"",
+				type: "POST",
+				data: "format=html",
+				cache: false,
+				async: "true",
+				error: function(){
+				document.getElementById('vot-box-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
+				},
+				beforeSend: function(){
+				document.getElementById('vot-box-'+elementID).innerHTML = " ... ";
+				},
+				success:function(response){
+				document.getElementById('vot-box-'+elementID).innerHTML = response ;
+				}
+			});
+		 });
+		 
+		 $(document).on("click","span.block-box", function (event) {		
+			event.preventDefault();
+			var elementID = $(this).attr('rel');
+
+  			$.ajax({
+  				url: "/admin/dashboard/blockstatus/<?php echo $this->getParams ?>/tid/"+elementID+"",
+				type: "POST",
+				data: "format=html",
+				cache: false,
+				async: "true",
+				error: function(){
+				document.getElementById('block-box-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
+				},
+				beforeSend: function(){
+				document.getElementById('block-box-'+elementID).innerHTML = " ... ";
+				},
+				success:function(response){
+				document.getElementById('block-box-'+elementID).innerHTML = response ;
+				}
+			});
+		 });
+		 
+		 $(document).on("click","div.append-inputs", function (event) {	
+		 	event.preventDefault();
+			var elementID = $(this).attr('rel');
+		 	
+		 	 var inputIDs = [];
+		 	 $('input.cbx-th:checked').each(function() {
+       				 inputIDs.push($(this).val());
+     		 });
+		 	
+		 	$.ajax({
+  				url: "/admin/dashboard/appendinputs/<?php echo $this->getParams ?>/tid/"+elementID+"/inputIDs/"+inputIDs+"",
+				type: "POST",
+				data: "format=html",
+				cache: false,
+				async: "true",
+				error: function(){
+				document.getElementById('append-inputs-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
+				},
+				beforeSend: function(){
+				document.getElementById('append-inputs-'+elementID).innerHTML = " ... ";
+				},
+				success:function(response){
+				document.getElementById('append-inputs-'+elementID).innerHTML = response ;
+				}
+			});
+			$("#append-inputs-"+elementID).removeClass("append-inputs");
+		 });
+
+		 
+}); 
+</script>
+<h1>Dashboard: <?php echo $this -> consultation['titl']; ?></h1>
+<?php
+echo $this -> consultationNavigation('Dashboard');
+?>
+
+<div class="input-list c66l">
+	<h3><? echo $this -> question["q"] . '<br />Beiträge gesamt: ' . count($this -> inputs); ?></h3>
+	<form id="thesis-form" method="post">
+		<ul>
+			<?php echo $this -> partialLoop('_partials/dashboard/inputs.phtml', $this -> inputs); ?>
+		</ul>
+	</form>
+</div>
+
+<div class="c33l">
+	<div id="suche" class="yform">
+		<h3>Suche:</h3>
+		<form id="search" action="/admin/dashboard/overview/<?php echo $this->getParams ?>" method="post">
+			<ul>
+				<li>
+					<input id ="search-phrase" name="search-phrase" type="text"  placeholder="Suchwörter" value="<?php echo $this->searchphrase; ?>" />
+				</li>
+				<li>
+					<label for="c-and">UND</label> 
+					<input id="c-and" name="combine" type="radio"  value="AND" <?php if ($this->combine=="AND") echo 'checked="checked"'; ?>/>
+				</li>
+				<li>
+					<label for="c-or">ODER</label> 
+					<input id="c-or" name="combine" type="radio"  value="OR" <?php if ($this->combine=="OR") echo 'checked="checked"'; ?>/>
+				</li>
+				<? if($this -> directory): ?>
+				<li>
+					<label for="t-directory">In diesem Ordner</label> 
+					<input id="t-directory" name="directory" type="radio"  value="<? echo $this -> directory; ?>" <?php if ($this->dirs==$this -> directory) echo 'checked="checked"'; ?> />
+				</li>
+				<? endif; ?>
+				<li>
+					<label for="a-directory">In allen Ordnern</label> 
+					<input id="a-directory" name="directory" type="radio"  value="0" <?php if ($this->dirs=="0") echo 'checked="checked"'; ?> />
+				</li>
+				<li class="tags">
+					<label for="tags">Tags [Mehrfachauswahl: PC -> STRG, MAC -> Apfel]</label> 
+					<select name="tags[]"  id="tags "size="20" multiple>
+						
+						<?php if (!empty($this->tags)) echo $this -> partialLoop('_partials/dashboard/tags-selectbox.phtml', $this->tags); ?>
+				    </select>
+				</li>
+				<li>
+					<input type="submit" value="go &raquo;">
+				</li>
+				<!--
+				 <label for="search-tags">Tags: </label>
+				<input id="search-tags" />
+				-->
+			</ul>
+			
+		</form>
+	</div>
+	
+	<div id="inputAnchors" class="yform">
+		<h3 title="Klicken zum aus-/einklappen">Anzeigen:</h3>
+		<form>
+			<ul>
+				<li><label for="inputs">Alle Beiträge</label>
+					<input id="inputs" class="inputs" type="checkbox" checked="checked">
+				</li>
+			</ul>
+			<ul>
+				<li><label for="unfinished">Unerledigte Beiträge</label>
+					<input id="unfinished" class="unfinished" type="checkbox">
+				</li>
+				<li><label for="finished">Erledigte Beiträge</label>
+					<input id="finished" class="finished" type="checkbox">
+				</li>
+				<div class="clearfix" style="clear: both;">
+					&nbsp;
+				</div>
+			</ul>
+			<ul>
+				<li><label for="org-hidden">Ausgeblendete Originale</label>
+					<input id="org-hidden" class="org-hidden" type="checkbox">
+				</li>
+				<li><label for="org-o">Originale:</label>
+					<input id="org-o" class="org-o" type="checkbox">
+				</li>
+				<li><label for="org-r">Redaktionsbeiträge:</label>
+					<input id="org-r" class="org-r" type="checkbox">
+				</li>
+				<div class="clearfix" style="clear: both;">
+					&nbsp;
+				</div>
+			</ul>
+			<ul class="voting">
+				<li><label for="vot-y">Zur Abstimmung freigegegeben:</label>
+					<input id="vot-y" class="vot-y" type="checkbox">
+				</li>
+				<li><label for="vot-n">Zur Abstimmung nicht freigegeben:</label>
+					<input id="vot-n" class="vot-n" type="checkbox">
+				</li>
+				<li><label for="vot-orb">Abstimmungsfreigaben ohne redaktionelle Beiträge:</label>
+					<input id="vot-orb" class="vot-orb" type="checkbox">
+				</li>
+				<div class="clearfix" style="clear: both;">
+					&nbsp;
+				</div>
+			</ul>
+			<ul>
+				<li><label for="block-y">Blockierte:</label>
+					<input id="block-y" class="block-y" type="checkbox">
+				</li>
+				<li><label for="block-n">Nicht-Blockierte:</label>
+					<input id="block-n" class="block-n" type="checkbox">
+				</li>
+				<li><label for="vot-u">Unbearbeitete Beiträge: (vot-u)</label>
+					<input id="vot-u" class="vot-u" type="checkbox">
+				</li>
+				<div class="clearfix" style="clear: both;">
+					&nbsp;
+				</div>
+			</ul>
+		</form>
+	</div>
+
+	<div id="viewAnchors" class="yform">
+		<h3 title="Klicken zum aus-/einklappen">Einblenden:</h3>
+		<form>
+			<ul>
+				<li><label for="expl-content">Erläuterungen</label>
+					<input id="expl-content" class="expl-content" type="checkbox">
+				</li>
+				<li><label for="related-content">Original-Beiträge</label>
+					<input id="related-content" class="related-content" type="checkbox">
+				</li>
+				<li><label for="notice-content">Interne Kommentare</label>
+					<input id="notice-content" class="notice-content" type="checkbox">
+				</li>
+			</ul>
+		</form>
+	</div>
+	
+	<div id="actionAnchors" class="yform">
+		<h3 title="Klicken zum aus-/einklappen">Aktionen markierte Beiträge:</h3>
+		<ul>
+			<li><b>Bearbeiten</b></li>
+			<li><a class="split" rel="/admin/dashboard/split/<?php echo $this->getParams; ?>" title="Ausgewählten Beitrag aufteilen">&#8883; auftteilen (nur eine Auswahl)</a></li>
+			<li><a class="edit" rel="/admin/dashboard/edit/<?php echo $this->getParams; ?>" title="Ausgewählten Beitrag bearbeiten">&#8883; bearbeiten (nur eine Auswahl)</a></li>
+			<li><a class="merge" rel="/admin/dashboard/merge/<?php echo $this->getParams; ?>" title="Ausgewählte Beiträge zusammenlegen">&#8883; zusammenlegen</li>
+			<li><b>Freigabe</b></li>
+			<li><a class="enable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/enable" title="Ausgewählte Beiträge zur Anzeige freigeben">&#8883; Beiträge anzeigen</a></li>
+			<li><a class="disable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/disable" title="Ausgewählte Beiträge zur Anzeige sperren">&#8883; Beiträge nicht anzeigen</a></li>
+			<li><b>Voting</b></li>
+			<li><a class="enable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/enable-voting" title="Ausgewählte Beiträge zum Voting freigeben">&#8883; Beiträge zum voten freigeben</a></li>
+			<li><a class="disable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/disable-voting" title="Ausgewählte Beiträge zum Voting freigeben">&#8883; Beiträge zum voten sperren</a></li>
+			<li><b>Löschen</b></li>
+			<li><a class="del" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/delete" title="Ausgewählte Beiträge löschen">! Beiträge löschen !</a></li>
+		</ul>
+	</div>
+
+	<div id="directoryAnchors" class="yform">
+		<h3 title="Klicken zum aus-/einklappen">Ordner:</h3>
+		<ul class="levels">
+			<? echo $this -> partialLoop('_partials/dashboard/directories.phtml', $this -> directories);?>
+		</ul>
+	</div>
+
+	<div  id="questionAnchors" class="yform">
+		<h3 title="Klicken zum aus-/einklappen">Fragen:</h3>
+		<ul>
+			<?php echo $this -> partialLoop('_partials/dashboard/questions.phtml', $this -> consultation["questions"]); ?>
+		</ul>
+	</div>
+
+</div>
+
+

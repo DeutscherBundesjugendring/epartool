@@ -1,0 +1,8 @@
+<? if ($this -> response == "success"): ?>
+<p class="success">Der Beitrag wurde hinzugefügt!</p>
+<p><b><?php echo $this -> inputs['thes'] ?></b></p>
+<?	
+else:
+?>
+<p class="error">Der Eintrag schlug fehl!</p>
+<? endif; ?>

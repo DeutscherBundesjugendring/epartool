@@ -19,6 +19,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
           'href' => $this->view->baseUrl() . '/admin/consultation/edit/kid/' . $kid
         ),
         array(
+          'label' => 'Dashboard',
+          'href' => $this->view->baseUrl() . '/admin/dashboard/index/kid/' . $kid
+        ),
+        array(
           'label' => 'Medienverwaltung',
           'href' => $this->view->baseUrl() . '/admin/media/index/kid/' . $kid
         ),
@@ -57,6 +61,10 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
         array(
           'label' => 'Follow-up',
           'href' => $this->view->baseUrl() . '/admin/followup/index/kid/' . $kid
+        ),
+         array(
+          'label' => 'Ordnerverwaltung',
+          'href' => $this->view->baseUrl() . '/admin/directories/index/kid/' . $kid
         ),
         array(
           'label' => 'Statistik',

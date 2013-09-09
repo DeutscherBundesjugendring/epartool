@@ -7,7 +7,7 @@
 			<h1>Uups</h1>
 			<p><?php echo $this->message; ?></p>
 
-			<?php if ('development' == $this->environment) : ?>
+			<?php if ('development' == $this->environment || 'development2' == $this->environment || 'development_karsten' == $this->environment) : ?>
 				<h2>Ausnahme:</h2>
 				<p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
 				<h2>Stack trace:</h2>
