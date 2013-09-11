@@ -138,9 +138,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
                 $followupFiles = new Model_FollowupFiles();
                 $followupFilesRow = $followupFiles->createRow($form->getValues());
                 $followupFilesRow->kid = $this->kid;
-               // Zend_Debug::dump($followupFilesRow);
                 $newId = $followupFilesRow->save();
-               // Zend_Debug::dump($newId);
                 if ($newId > 0) {
                   $this->_flashMessenger->addMessage('Neues Follow-up-Dokument wurde erstellt.', 'success');
                 } else {
@@ -552,7 +550,6 @@ class Admin_FollowupController extends Zend_Controller_Action {
         if ($this->getRequest()->isPost()) {
             
             $params = $this->getRequest()->getPost();
-            //Zend_Debug::dump($params);
             if (!empty($params['question'])) {
                
                 $question = $Model_Questions->getById($params['question']);
@@ -599,7 +596,6 @@ class Admin_FollowupController extends Zend_Controller_Action {
            $chosenDoc = $followupFile[0]['ffid'];
 
         }
-       // Zend_Debug::dump($question);
         $this->view->assign(array(
           'kid' => $kid,
           'followup' => $followup,          

@@ -24,7 +24,6 @@
 
     function FollowUp(kid) {
 
-        //    console.log(kid)
 
         var _instance = this;
         var _colWidth;
@@ -35,7 +34,6 @@
         _init();
 
         function _init() {
-            //  console.log('followUp')
             _setVerticalAlign()
             _initEventListener()
             $('.ajaxclick').trigger('click')
@@ -71,7 +69,6 @@
             })
 
             $('a.voting').live('click', function (el) {
-                //  console.log('voting click')
                 el.preventDefault()
                 el.stopPropagation()
                 var _thisEl = $(this);
@@ -88,14 +85,12 @@
             })
 
             $('.openoverlay').live('click', function () {
-                //  console.log('content click')
                 var _request = $(this).data('href');
                 var _highlightElement = $(this).data('elementid')
                 var _obj = {'request': _request}
 
                 _getAjaxData(_obj, function (data, status, obj) {
 
-                    //      console.log(data)
                     _addOverlay(data, _highlightElement)
                 })
             })
@@ -143,8 +138,6 @@
             $('#followup').removeAttr('style')
             $('#followup .wrapper').children('.col').each(function (index, element) {
                 var _tempHeight = $(element).height();
-               // console.log('wrapperheight: '+wrapperHeight)
-               // console.log('tempheight: '+_tempHeight)
                 if (_tempHeight > wrapperHeight) {
                     wrapperHeight = _tempHeight;
                 } else {
@@ -154,11 +147,8 @@
             })
 
 
-            // console.log(wrapperHeight)
             $('#followup').height(wrapperHeight + 200);
             
-           // console.log("wrapperHeightAfter: "+ wrapperHeight)
-           // console.log("followupHeightAfter: "+ $('#followup').height())
             _setVerticalAlign()
         }
 
@@ -176,9 +166,7 @@
             var _colId = obj.colid;
             var _statusCode = statuscode;
             if (_statusCode === 200) {
-                //    console.log(_jsonData)
                 $('#followup .wrapper').children('.col').each(function (index, element) {
-                    //   console.log(index)
                     if (index == _colId) {
                         var _newCol = '<div class="col" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>'
 
@@ -224,7 +212,6 @@
          */
         function _buildNewCol(data) {
 
-            // console.log(data)
             var _html = "";
 
             var _link = "";
@@ -264,9 +251,6 @@
             else if (data.refs) {
 
                 for (var i in data.refs.docs) {
-                    //followup/json/kid/8/fid/1
-                    // console.log('docs')
-                    // console.log(data)
                     var whendate = data.refs.docs[i].show_no_day == 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
@@ -335,7 +319,6 @@
             var _snippets = '';
 
             var _id = id;
-            //  console.log(_id)
 
             var _activeSnippetClass = '';
             var _activeDocClass = '';
@@ -378,8 +361,6 @@
              */
 
             var when = data.doc.show_no_day == 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
-            console.log(_dateConverter(data.doc.when, 'my'))
-            console.log(_dateConverter(data.doc.when, 'dmy'))
             var _content = '<div class="overlayclose overlayclosebutton"></div><div class="overlaycontent">' +
 
                 '<div class="">' +
