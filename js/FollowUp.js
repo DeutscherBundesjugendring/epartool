@@ -38,7 +38,7 @@
             //  console.log('followUp')
             _setVerticalAlign()
             _initEventListener()
-
+            $('.ajaxclick').trigger('click')
 
         }
 
@@ -143,11 +143,12 @@
             $('#followup').removeAttr('style')
             $('#followup .wrapper').children('.col').each(function (index, element) {
                 var _tempHeight = $(element).height();
-                console.log(_tempHeight)
+               // console.log('wrapperheight: '+wrapperHeight)
+               // console.log('tempheight: '+_tempHeight)
                 if (_tempHeight > wrapperHeight) {
                     wrapperHeight = _tempHeight;
                 } else {
-                    wrapperHeight = 0;
+                    //wrapperHeight = 0;
                 }
 
             })
@@ -155,6 +156,9 @@
 
             // console.log(wrapperHeight)
             $('#followup').height(wrapperHeight + 200);
+            
+           // console.log("wrapperHeightAfter: "+ wrapperHeight)
+           // console.log("followupHeightAfter: "+ $('#followup').height())
             _setVerticalAlign()
         }
 
@@ -294,7 +298,8 @@
 
                 }
                 for (var i in data.refs.snippets) {
-                    if (data.refs.snippets[i].relFowupCount != 0) {
+                    var snippet = data.refs.snippets[i];
+                    if (snippet.relFowupCount != 0 && snippet.typ !== "r" && snippet.typ !== "e") {
 
                         _link = '<div class="timeline-countlink sprite"><a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a></div>';
                     } else {
@@ -373,6 +378,8 @@
              */
 
             var when = data.doc.show_no_day == 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
+            console.log(_dateConverter(data.doc.when, 'my'))
+            console.log(_dateConverter(data.doc.when, 'dmy'))
             var _content = '<div class="overlayclose overlayclosebutton"></div><div class="overlaycontent">' +
 
                 '<div class="">' +

@@ -111,51 +111,70 @@ class FollowupController extends Zend_Controller_Action
         $tid = $this->_getParam('tid', 0);
 
         $foreset = $this->_getParam('foreset', 0);
+        
+        if ($kid && $tid && $qid) {
+            
+            if ($foreset) {
+                $Model_Inputs = new Model_Inputs();
+                $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
 
-        if ($foreset) {
-            $Model_Inputs = new Model_Inputs();
-            $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
+                $data['inputs'] = $relInputs;
+                $this->_helper->json->sendJson($data);
 
-            $data['inputs'] = $relInputs;
-            $this->_helper->json->sendJson($data);
+            } else {
 
+
+                $Model_Inputs = new Model_Inputs();
+                $Model_Questions = new Model_Questions();
+                $Model_Followups = new Model_Followups();
+                $Model_FollowupsRef = new Model_FollowupsRef();
+
+
+                $question = $Model_Questions->getById($qid);
+
+                $input = $Model_Inputs->getById($tid);
+                $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
+
+                $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
+                $inputids = array();
+
+                foreach ($relInputs as $relInput) {
+                    $inputids[] = $relInput['tid'];
+                }
+
+                $countarr = $Model_FollowupsRef->getFollowupCountByTids($inputids);
+
+                foreach ($relInputs as $key => $relInput) {
+                    $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']]) ? $countarr[$relInput['tid']] : 0;
+                }
+
+                // result via json for followoptool
+
+                $this->view->assign(array(
+                    'question' => $question,
+                    'input' => $input,
+                    'relInput' => $relInputs,
+                    'kid' => $kid
+                ));
+
+            }
+            
         } else {
-
-
-            $Model_Inputs = new Model_Inputs();
-            $Model_Questions = new Model_Questions();
-            $Model_Followups = new Model_Followups();
-            $Model_FollowupsRef = new Model_FollowupsRef();
-
-
-            $question = $Model_Questions->getById($qid);
-
-            $input = $Model_Inputs->getById($tid);
-            $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
-
-            $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
-            $inputids = array();
-
-            foreach ($relInputs as $relInput) {
-                $inputids[] = $relInput['tid'];
+            
+            if ($kid) {
+                
+                $this->_redirect($this->view->url(array(               
+                    'action' => 'index',
+                    'kid' => $kid,
+                  ),null,true));
+                
+            } else {
+                $this->_redirect('/');
+                
             }
-
-            $countarr = $Model_FollowupsRef->getFollowupCountByTids($inputids);
-
-            foreach ($relInputs as $key => $relInput) {
-                $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']]) ? $countarr[$relInput['tid']] : 0;
-            }
-
-            // result via json for followoptool
-
-            $this->view->assign(array(
-                'question' => $question,
-                'input' => $input,
-                'relInput' => $relInputs,
-                'kid' => $kid
-            ));
-
+            
         }
+        
 
 
     }
@@ -194,7 +213,7 @@ class FollowupController extends Zend_Controller_Action
 
             foreach ($snippets as $key => $snippet) {
                 $snippets[$key]['expl'] = html_entity_decode($snippets[$key]['expl']);
-                $snippets[$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
+                $snippets[$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
             $data['byinput']['snippets'] = $snippets;
 
@@ -216,7 +235,7 @@ class FollowupController extends Zend_Controller_Action
 
             foreach ($related['snippets'] as $key => $snippet) {
                 $related['snippets'][$key]['expl'] = html_entity_decode($related['snippets'][$key]['expl']);
-                $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? $countarr[$snippet['fid']] : 0;
+                $related['snippets'][$key]['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
             foreach ($related['docs'] as $key => $doc) {
                 $related['docs'][$key]['when'] = strtotime($related['docs'][$key]['when']);
@@ -232,6 +251,7 @@ class FollowupController extends Zend_Controller_Action
 
             $Model_FollowupFiles = new Model_FollowupFiles();
             $data['doc'] = $Model_FollowupFiles->getById($ffid);
+            $data['doc']['when'] = strtotime($data['doc']['when']);
             foreach ($data['doc']['fowups'] as $key => $snippet) {
                 
                 $data['doc']['fowups'][$key]['expl'] = html_entity_decode($snippet['expl']);

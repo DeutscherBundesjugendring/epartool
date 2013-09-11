@@ -94,6 +94,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
                   }
                 
                 } else {
+                  
                   $this->_flashMessenger->addMessage('Erstellen eines neuen Follow-up-Dokuments fehlgeschlagen!', 'error');
                 }
 
@@ -103,6 +104,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
                   'ffid' => $ffid
                 )), array('prependBase' => false));
             } else {
+                  header('HTTP/ 422 Unprocessable Entity'); 
               $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
               $form->populate($form->getValues());
             }
@@ -175,6 +177,12 @@ class Admin_FollowupController extends Zend_Controller_Action {
           $followups = new Model_Followups();
           $followupsRow = $followups->find($fid)->current();
           $form = new Admin_Form_Followup_Snippet();
+          $form->setAction($this->view->url(array(
+            'action' => 'edit-snippet',
+            'kid' =>$kid,
+            'fid' => $fid,
+            'ffid' => $ffid
+          )));
           
            if ($this->getRequest()->isPost()) {
             // Formular wurde abgeschickt und muss verarbeitet werden
@@ -191,6 +199,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
                 'ffid' => $ffid
               )), array('prependBase' => false));
             } else {
+              header('HTTP/ 422 Unprocessable Entity'); 
               $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
               $followup = $params;
             }
@@ -232,6 +241,7 @@ class Admin_FollowupController extends Zend_Controller_Action {
         if ($ffid > 0) {
             
           $Model_Followups = new Model_Followups();
+          $Model_FollowupsRef = new Model_FollowupsRef();
           $Model_FollowupFiles = new Model_FollowupFiles();
           $followupFilesRow = $Model_FollowupFiles->find($ffid)->current();
           $form = new Admin_Form_Followup_File();
@@ -246,8 +256,11 @@ class Admin_FollowupController extends Zend_Controller_Action {
           
           foreach ($result as $followup) {
               $rel = $Model_Followups->getRelated($followup['fid']);
+              $reltothis = $Model_FollowupsRef->getRelatedFollowupByFid( $followup['fid'] );
               $snippet = $followup;
               $snippet['relFowupCount'] = $rel['count'];
+              $snippet['reltothisFowupCount'] = count($reltothis);
+              
               $followups[] = $snippet;              
           }
          
@@ -284,6 +297,36 @@ class Admin_FollowupController extends Zend_Controller_Action {
           'movefollowup' => $movefollowup
         ));
         
+    }
+    
+    function showRelatedSnippetsAction () {
+          $this->_helper->layout->setLayout('popup');
+        $fid = $this->getRequest()->getParam('fid',0);
+        if ($fid) {
+            $fidarr = array();
+            $Model_FollowupsRef = new Model_FollowupsRef();
+            $Model_Followups = new Model_Followups();
+            $Model_FollowupFiles = new Model_FollowupFiles();
+            
+            $reltothis = $Model_FollowupsRef->getRelatedFollowupByFid( $fid );
+            foreach ($reltothis as $value) {
+                array_push($fidarr, (int) $value['fid_ref']);
+            }
+            $snippets = $Model_Followups->getByIdArray($fidarr);
+            $snippetsgrouped = array();
+            foreach ($snippets as $snippet) {
+                $snippetsgrouped[$snippet['ffid']][] = $snippet;
+            }
+            
+            foreach ($snippetsgrouped as $ffid => $snippets) {
+                $snippetsgrouped[$ffid]['doc'] = $Model_FollowupFiles->getById($ffid, true);
+            }
+            $snippet = $Model_Followups->getById($fid);
+            $this->view->assign(array(
+                    'snippet' => $snippet,
+                    'relsnippets' => $snippetsgrouped
+            ));
+        }
     }
     
     /*

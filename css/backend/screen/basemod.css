@@ -41,6 +41,11 @@
     max-width: none;
     background: #fff;
   }
+  .page_margins.popup {
+   
+    min-width: 100%;
+    
+  }
   .page {
     padding: 10px;
   }

@@ -21,7 +21,7 @@ $locale = new Zend_Locale();
         <section class="main-content span9">
 
 			<small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
-			<h1><?php echo $this->question['q']; ?></h1>
+			<h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
 			<p><?php echo $this->question['q_xpl']; ?></p>
 
 			<hr />
@@ -53,8 +53,7 @@ $locale = new Zend_Locale();
 								(<?php echo $input['pts']; ?>)
 								<span class="label">Das möchte ich gerne diskutieren!</span>
 							</a>
-                                                       
-							<a href="<?php echo $this->url(array('action' => 'show', 'qid' => $this->question['qi'], 'tid' => $input['tid'], 'page' => null)) ?>">Reaktionen ansehen <i class="icon-angle-right"></i></a>
+                                                       <?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
                                                       
                                                      
 						</p>

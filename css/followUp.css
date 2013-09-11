@@ -153,3 +153,44 @@
   text-align: center;
   display: none;
 }
+
+.recent-followup img {
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+}
+ul.recent-followup {
+    
+    
+}
+.recent-followup li.media {
+   width: 120px;
+   margin: 0 10px 0 0;
+}
+.recent-followup li.media:first-child{
+   margin: 0 10px 0 10px;
+}
+.recent-followup li {
+   float: left;
+}
+.recent-followup li .media-body {
+   float:left;
+}
+
+.followup h2 {
+    text-align:center;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}

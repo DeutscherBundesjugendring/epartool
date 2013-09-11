@@ -334,7 +334,10 @@
     background: #f0e8e8;
   }
   tbody tr:hover td {
-    background: #fff8f8;
+      background: #fff8f8;
+  }
+  .followup tbody tr:hover td {
+      background: inherit;
   }
   tbody tr.subpage {
     background: #f0f0f0;
@@ -357,8 +360,34 @@
   ul#galerie li {
     float: left;
   }
+  .choosepopup ul#galerie li {
+    margin: 5px;
+    padding: 10px;
+    border: 1px dashed #ddd;
+    max-width: 80px;
+    text-align: center;
+    word-wrap: break-word;
+    height: 170px;
+    width: 80px;
+  }
   ul#galerie li img {
     display: block;
+  }
+  .choosepopup ul#galerie li img {
+    display: block;
+    max-width:80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+  }
+  .chooselink {
+      display: block;
+      height: 80px;
+  }
+  .choosepopup ul#galerie li span {
+      display:block;
+      height: 45px;
   }
   
   /* JSU Edit input form */
@@ -372,6 +401,44 @@
   .input-edit #tags-element input {
     margin-right: 5px;
   }
+  
+  a.movefowup, a.hlvlarrow {
+      font-size:12px;
+      color:#fff;
+  }
+  a.movefowup:hover, a.hlvlarrow:hover {
+      
+      text-decoration: none;
+      color:#000;
+  }
+  
+  .followup tbody tr:hover td {
+      background: inherit;
+  }
+
+  
+  .fowup-related-link {
+      
+      background: none repeat scroll 0 0 #4D87C7;
+      border-radius:9px;
+      color: #FFFFFF !important;
+      display: block;
+      margin-bottom: 1px;
+      padding: 3px;
+      text-align: center;
+      outline:0 none;
+      
+  }
+  a.fowup-related-link:hover, a.fowup-related-link:focus {
+      outline: 0 none;
+      background: none repeat scroll 0 0 #fff;
+      border: 1px solid #4D87C7;
+      color: #4D87C7 !important;
+      text-decoration: none;
+      
+  }
+  
+   
 
   /**
   * (en) Emphasizing external Hyperlinks via CSS
