@@ -28,16 +28,30 @@ $locale = new Zend_Locale();
                 <ul class="unstyled recent-followup clearfix">
 					<?php foreach ($this->latest_followups as $followup): ?>
 						<li class="media">
-							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left">
-								<img src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
+                                                    <p><?php echo $followup['titl'] ?></p>
+							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left" target="_blank" title="Dokument ansehen">
+								<img alt="Vorschau <?php echo $followup['titl'] ?>" src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
 							</a>
 							<div class="media-body">
 								<p>
-									<time class="muted"><b>vom <?php echo strftime("%d.%m.%Y", strtotime($followup['when'])) ; ?></b></time>
-									<br />
-									<h4 class="media-heading"><?php echo $followup['who']; ?></h4>
+                                                                    <time class="muted">
+                                                                        <b><?php 
+                                                                                    if ($followup['show_no_day'] === "y") {
+                                                                                        echo strftime("%m/%Y", strtotime($followup['when'])) ; 
+                                                                                    } else
+                                                                                        echo strftime("%d.%m.%Y", strtotime($followup['when'])) ; 
+                                                                        ?></b>
+                                                                    </time>
+                                                                    <br />
+                                                                    <span class="media-heading"><strong><?php echo $followup['who']; ?></strong></span>
 								</p>
-								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>">Ansehen <i class="icon-angle-right"></i></a>
+                                                                <form class="followup-download" method="POST" action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>">
+                                                                    <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
+                                                                    <span class="lightblue">
+                                                                        <input class="submitaslink" type="submit" title="Dokument herunterladen" value="Download"><i class="icon-angle-right"></i>
+                                                                    </span>
+                                                                </form>
+								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" target="_blank" title="Dokument ansehen" >Ansehen<i class="icon-angle-right"></i></a>
 							</div>
 						</li>
 					<?php endforeach; ?>
@@ -48,7 +62,7 @@ $locale = new Zend_Locale();
                 <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
 				<?php echo $this->questionNavigation(NULL, 'follow-up'); ?>
 				<br />
-                <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>" class="btn">Sortiert nach Schlagwörtern</a>
+                <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">Sortiert nach Schlagwörtern</a>
             </div>
 
         </section>

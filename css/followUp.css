@@ -182,6 +182,32 @@ ul.recent-followup {
     text-align:center;
 }
 
+.level4-navigation > .nav  > .active > a {
+    color: #000 !important;
+}
+form.followup-download {
+    margin-bottom: 2px;
+}
+.submitaslink {
+      background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #489FCA;
+    font: 0.9em/1.565em Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+span.lightblue {
+    color: #489FCA;
+}
+form.followup-download span.lightblue:hover,
+form.followup-download span.lightblue:hover input,
+form.followup-download span.lightblue:focus input,
+form.followup-download span.lightblue:focus
+{
+    color: #FC9026 !important;
+    text-decoration: underline;
+}
+
 .clearfix:before, .clearfix:after {
     content: "";
     display: table;
