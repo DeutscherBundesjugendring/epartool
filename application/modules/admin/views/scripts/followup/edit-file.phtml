@@ -76,7 +76,7 @@ foreach ($this->followups as $followup): ?>
                             'ffid' => $this->ffid
                               ));
                        echo $this->Popuplink( $popupurl, 
-                                                'Follow-up Referenzen zuweisen', 
+                                                'Followup_Referenzen_zuweisen', 
                                                 800, 
                                                 600, 
                                                 $followup['relFowupCount'], 
@@ -128,7 +128,7 @@ foreach ($this->followups as $followup): ?>
                  <?php
                     else:
                     echo $this->Popuplink( $this->url(array('action' => 'show-related-snippets','fid' => $followup['fid'] )), 
-                                            'Follow-up Referenzen zuweisen', 
+                                            'Followup_Referenzen_zuweisen', 
                                             800, 
                                             600, 
                                             $followup['reltothisFowupCount'], 
