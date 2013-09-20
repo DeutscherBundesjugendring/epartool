@@ -56,6 +56,7 @@ class Default_Form_Register extends Zend_Form {
       . '  var groupTypeChecked = $(\'input[name="group_type"]:checked\').val();' . "\n"
       . '  if (groupTypeChecked != "group") {' . "\n"
       . '    container.hide();' . "\n"
+      . '    $(\'select#age_group option\').filter("[value=\'4\']").remove();' . "\n"
       . '  }' . "\n"
       . '  $(\'input[name="group_type"]\').change(function() {' . "\n"
       . '    groupTypeChecked = $(\'input[name="group_type"]:checked\').val();' . "\n"
