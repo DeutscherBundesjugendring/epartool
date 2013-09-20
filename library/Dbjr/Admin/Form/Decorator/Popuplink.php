@@ -12,11 +12,11 @@ class Admin_Form_Decorator_Popuplink extends Zend_Form_Decorator_Abstract {
 
     public function render($content) {
         $url = $this->getOption('url');
-        $title = $this->getOption('title') ?: 'Neues Fenster';
-        $width = $this->getOption('width') ?: 600;
-        $height = $this->getOption('height') ?: 600;
+        $title = $this->getOption('title') ?: 'Neues_Fenster';
+        $width = $this->getOption('width') ?: 640;
+        $height = $this->getOption('height') ?: 720; 
         $text = $this->getOption('text') ?: 'Fenster öffnen';
-        $onclick = "window.open('$url','$title','width=$width,height=$height');return false;";
+        $onclick = "window.open('$url','$title','width=$width,height=$height,resizable=yes,scrollbars=yes');return false;";
        
         $output = '<a href="#" onclick="'.$onclick.'">'.$text.'</a>';
         $placement = $this->getPlacement();

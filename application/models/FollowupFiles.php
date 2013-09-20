@@ -55,7 +55,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * @param integer $ffid
      * @return array
      */
-    public function getById($ffid)
+    public function getById($ffid, $withoutsnippets = false)
     {
         // is int?
         $validator = new Zend_Validate_Int();
@@ -66,15 +66,17 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         $row = $this->find($ffid)->current();
         if ($row) {
             $result = $row->toArray();
-            $result['when'] = strtotime($result['when']);
+            //$result['when'] = strtotime($result['when']);
+            if(!$withoutsnippets) {
+                $depTable = new Model_Followups();
+                $depTableSelect = $depTable->select();
+                $depTableSelect->order('docorg ASC');
 
-            $depTable = new Model_Followups();
-            $depTableSelect = $depTable->select();
-            $depTableSelect->order('docorg ASC');
+                $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
 
-            $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
-
-            $result['fowups'] = $rowset->toArray();
+                $result['fowups'] = $rowset->toArray();
+                
+            }
         }
         return $result;
     }

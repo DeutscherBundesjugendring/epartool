@@ -15,13 +15,20 @@ $locale = new Zend_Locale();
     <div class="row">
         <aside class="span3">
 
-			<?php echo $this->followupNavigation('by-question', $this->question['qi']) ?>
+			<?php echo $this->followupNavigation('inputs-by-question', $this->question['qi']) ?>
 
         </aside>
         <section class="main-content span9">
-
+                        <?php if (isset($this->tag) && !empty($this->tag)): ?>
+				<?php if ($this->numberInputs > 0):?>
+				<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
+				<?php else: ?>
+				<h3>Zu dieser Frage gibt es keine mit <em>"<?php echo $this->tag['tg_de']; ?>"</em> verschlagworteten Beiträge.</h3>
+				<?php endif; ?>
+				<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
+			<?php endif; ?>
 			<small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
-			<h1><?php echo $this->question['q']; ?></h1>
+			<h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
 			<p><?php echo $this->question['q_xpl']; ?></p>
 
 			<hr />
@@ -53,7 +60,9 @@ $locale = new Zend_Locale();
 								(<?php echo $input['pts']; ?>)
 								<span class="label">Das möchte ich gerne diskutieren!</span>
 							</a>
-							<a href="<?php echo $this->url(array('action' => 'show', 'qid' => $this->question['qi'], 'tid' => $input['tid'], 'page' => null)) ?>">Reaktionen ansehen <i class="icon-angle-right"></i></a>
+                                                       <?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
+                                                      
+                                                     
 						</p>
 		            </article>
 		            <hr />

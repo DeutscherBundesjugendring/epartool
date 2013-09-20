@@ -18,26 +18,40 @@ $locale = new Zend_Locale();
 			<?php echo $this->followupNavigation('overview') ?>
 
         </aside>
-        <section class="main-content span8">
+        <section class="main-content span9 followup">
 
-            <h1>Reaktionen und Wirkung</h1>
+            <h1>Wie's weiterging:<br />Reaktionen und Wirkung</h1>
             <p>Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.</p>
 
             <div class="well-large-alt">
 				<h2>Bisherige Reaktionen im Überblick</h2>
-                <ul class="unstyled">
+                <ul class="unstyled recent-followup clearfix">
 					<?php foreach ($this->latest_followups as $followup): ?>
 						<li class="media">
-							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left">
-								<img src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
+                                                    <p><?php echo $followup['titl'] ?></p>
+							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left" target="_blank" title="Dokument ansehen">
+								<img alt="Vorschau <?php echo $followup['titl'] ?>" src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
 							</a>
 							<div class="media-body">
 								<p>
-									<time class="muted"><?php echo $followup['when']; ?></time>
-									<br />
-									<h4 class="media-heading"><?php echo $followup['who']; ?></h4>
+                                                                    <time class="muted">
+                                                                        <b><?php 
+                                                                                    if ($followup['show_no_day'] === "y") {
+                                                                                        echo strftime("%m/%Y", strtotime($followup['when'])) ; 
+                                                                                    } else
+                                                                                        echo strftime("%d.%m.%Y", strtotime($followup['when'])) ; 
+                                                                        ?></b>
+                                                                    </time>
+                                                                    <br />
+                                                                    <span class="media-heading"><strong><?php echo $followup['who']; ?></strong></span>
 								</p>
-								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>">Ansehen <i class="icon-angle-right"></i></a>
+                                                                <form class="followup-download" method="POST" action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>">
+                                                                    <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
+                                                                    <span class="lightblue">
+                                                                        <input class="submitaslink" type="submit" title="Dokument herunterladen" value="Download"><i class="icon-angle-right"></i>
+                                                                    </span>
+                                                                </form>
+								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" target="_blank" title="Dokument ansehen" >Ansehen<i class="icon-angle-right"></i></a>
 							</div>
 						</li>
 					<?php endforeach; ?>
@@ -48,7 +62,7 @@ $locale = new Zend_Locale();
                 <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
 				<?php echo $this->questionNavigation(NULL, 'follow-up'); ?>
 				<br />
-                <a href="<?php echo $this->url(array('action' => 'show', 'page' => null)); ?>" class="btn">Sortiert nach Schlagwörtern</a>
+                <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">Sortiert nach Schlagwörtern</a>
             </div>
 
         </section>

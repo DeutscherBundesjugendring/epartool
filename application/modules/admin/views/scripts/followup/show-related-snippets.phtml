@@ -1,0 +1,28 @@
+<h2><u>Follow-up Referenzen</u></h2>
+
+<p><?php echo html_entity_decode($this->snippet['expl']); ?></p>
+<hr />
+<br />
+<?php foreach ($this->relsnippets as $snippetdoc): ?>
+    <h3><?php echo $snippetdoc['doc']['titl']; ?></h3>
+    <?php foreach ($snippetdoc as $key => $snippet): ?>
+        <?php if ($key !== 'doc'): ?>
+            <table style="width:100%;">
+                <tbody>
+                    <tr>                
+
+                        <td style="width:60%;">    
+                            <?php 
+                                if (strlen (html_entity_decode($snippet['expl'])) > 400 ) 
+                                    echo substr(html_entity_decode($snippet['expl']), 0, 400).'...';
+                                else echo html_entity_decode($snippet['expl']);
+                            ?>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <br /><br />
+<?php endforeach; ?>

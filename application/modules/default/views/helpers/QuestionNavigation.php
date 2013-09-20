@@ -19,7 +19,7 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract {
         break;
       case 'followup':
         $urlParams = array(
-          'action' => 'by-question',
+          'action' => 'inputs-by-question',
           'page' => null,
         );
         break;
