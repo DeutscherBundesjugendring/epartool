@@ -700,8 +700,8 @@ class Model_Inputs extends Model_DbjrBase {
     $rowSet = $stmt->fetchAll();
     foreach ($rowSet as $row) {
       $csv.='"' . $row['tid'] . '";"'
-        . $row['thes'] . '";"'
-        . $row['expl'] . '";"'
+        . html_entity_decode($row['thes'], ENT_COMPAT, 'UTF-8') . '";"'
+        . html_entity_decode($row['expl'], ENT_COMPAT, 'UTF-8') . '";"'
         . $row['tags'] . '"' . "\r\n";
     }
     
