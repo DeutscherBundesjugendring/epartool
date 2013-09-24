@@ -10,9 +10,17 @@
 	position: absolute;
 	left: @u;
 	top: 1.4em;
-	line-height: 120%;
+	line-height: 140%;
 	text-align: left;
 	color: @bodyText;
+
+	// Digits
+	&-digit {
+		margin-right: .2ex;
+		padding: .15em .3em;
+		color: @orange;
+		background-color: #000;
+	}
 }
 
 .voting-thesis {
@@ -82,6 +90,11 @@
 
 		a {
 			display: inline-block;
+
+			&:hover,
+			&:focus {
+				text-decoration: none;
+			}
 		}
 
 		img {

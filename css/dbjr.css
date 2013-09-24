@@ -908,9 +908,15 @@ article.media .article-action i {
   position: absolute;
   left: 1.538462em;
   top: 1.4em;
-  line-height: 120%;
+  line-height: 140%;
   text-align: left;
   color: #000000;
+}
+.voting-counter-digit {
+  margin-right: .2ex;
+  padding: .15em .3em;
+  color: #fc9026;
+  background-color: #000;
 }
 .voting-thesis {
   padding: 1.5em 1em;
@@ -970,6 +976,10 @@ article.media .article-action i {
 }
 .voting-rating li a {
   display: inline-block;
+}
+.voting-rating li a:hover,
+.voting-rating li a:focus {
+  text-decoration: none;
 }
 .voting-rating li img {
   margin-bottom: .5em;
