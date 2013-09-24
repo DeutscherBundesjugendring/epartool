@@ -391,7 +391,7 @@
 	}
 
 	// Second level
-	.nav > li > ul {
+	.nav > li > .nav {
 		position: relative;
 		margin: 0 0 2px;
 		padding-top: .75em;
@@ -427,11 +427,12 @@
 		}
 	}
 
-	.nav > li > ul > li > a {
-		padding: .5em @u;
+	.nav > li > .nav > li > a {
+		padding: .5em;
 		display: block;
 		text-decoration: none;
 		color: @white;
+		background-color: @black;
 
 		&:hover,
 		&:focus {
@@ -439,9 +440,10 @@
 		}
 	}
 
-	.nav ul > .active > a,
-	.nav ul > .active > a:hover,
-	.nav ul > .active > a:focus {
+	.nav > li > .nav > .active > a,
+	.nav > li > .nav > .active > a:hover,
+	.nav > li > .nav > .active > a:focus {
 		color: @orange;
+		background-color: @black;
 	}
 }

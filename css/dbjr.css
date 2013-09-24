@@ -1410,21 +1410,21 @@ article.media .article-action i {
   color: #000000;
   background-color: #fc9026;
 }
-.tertiary-navigation .nav > li > ul {
+.tertiary-navigation .nav > li > .nav {
   position: relative;
   margin: 0 0 2px;
   padding-top: .75em;
   list-style: none;
   background-color: #000000;
 }
-.tertiary-navigation .nav > li > ul > li > *:before,
-.tertiary-navigation .nav > li > ul > li > *:after {
+.tertiary-navigation .nav > li > .nav > li > *:before,
+.tertiary-navigation .nav > li > .nav > li > *:after {
   content: '';
   position: absolute;
   top: 0;
   display: block;
 }
-.tertiary-navigation .nav > li > ul > li > *:before {
+.tertiary-navigation .nav > li > .nav > li > *:before {
   left: 50%;
   z-index: 0;
   margin-left: -1.55em;
@@ -1432,7 +1432,7 @@ article.media .article-action i {
   border-right: 1.5em solid transparent;
   border-top: 0.75em solid #ffffff;
 }
-.tertiary-navigation .nav > li > ul > li > *:after {
+.tertiary-navigation .nav > li > .nav > li > *:after {
   left: 50%;
   top: -2px;
   z-index: 1;
@@ -1441,20 +1441,22 @@ article.media .article-action i {
   border-right: 1.4em solid transparent;
   border-top: 0.7em solid #fc9026;
 }
-.tertiary-navigation .nav > li > ul > li > a {
-  padding: 0.5em 1.538462em;
+.tertiary-navigation .nav > li > .nav > li > a {
+  padding: .5em;
   display: block;
   text-decoration: none;
   color: #ffffff;
+  background-color: #000000;
 }
-.tertiary-navigation .nav > li > ul > li > a:hover,
-.tertiary-navigation .nav > li > ul > li > a:focus {
+.tertiary-navigation .nav > li > .nav > li > a:hover,
+.tertiary-navigation .nav > li > .nav > li > a:focus {
   color: #999999;
 }
-.tertiary-navigation .nav ul > .active > a,
-.tertiary-navigation .nav ul > .active > a:hover,
-.tertiary-navigation .nav ul > .active > a:focus {
+.tertiary-navigation .nav > li > .nav > .active > a,
+.tertiary-navigation .nav > li > .nav > .active > a:hover,
+.tertiary-navigation .nav > li > .nav > .active > a:focus {
   color: #fc9026;
+  background-color: #000000;
 }
 .navbar {
   margin-bottom: 0;
