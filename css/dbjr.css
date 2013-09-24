@@ -88,6 +88,21 @@
   border-bottom-style: solid;
   border-bottom-color: #000000;
 }
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  width: 100%;
+  margin: 0 0 16.923082em;
+}
+body > footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 16.923082em;
+}
 body {
   font: normal 0.8em Arial, sans-serif;
   line-height: 1.565em;
@@ -404,6 +419,43 @@ body > footer .contact {
   line-height: 135%;
   text-align: right;
 }
+.alert {
+  padding: 1em 3.076924em 1em 1.538462em;
+  text-shadow: none;
+  border-style: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.alert .close {
+  right: -1em;
+}
+.alert-error {
+  color: #cc0000;
+  border-color: #cc0000;
+  background-color: #ffcccc;
+}
+.alert-error h4 {
+  color: #cc0000;
+}
+.article ul {
+  margin: 0 0 1.565em;
+  list-style: none;
+}
+.article ul > li {
+  margin-left: 1.25em;
+}
+.article ul > li:before {
+  content: '>';
+  float: left;
+  margin-left: -1.25em;
+}
+.article ul > li > ul {
+  margin: .5em 0;
+}
+.article ul > li > ul > li:before {
+  content: '»';
+}
 .btn {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   -webkit-box-sizing: border-box;
@@ -542,6 +594,48 @@ p .btn {
 .btn.btn-extend.active {
   padding-top: .25em;
   padding-bottom: .25em;
+}
+.dropdown-menu {
+  padding: 1em;
+  color: #ffffff;
+  border-style: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: #a69f9f;
+  -webkit-box-shadow: 0 0.2em 0.75em rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0.2em 0.75em rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.2em 0.75em rgba(0, 0, 0, 0.4);
+}
+.dropdown-menu h3 {
+  font: normal 2em/150% "Yanone Kaffeesatz", sans-serif;
+  text-transform: uppercase;
+}
+.dropdown-menu a {
+  color: #f7f7f7;
+}
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+  color: #ffffff;
+}
+.dropdown-menu > li > a {
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+  padding: .5em;
+  color: #ffffff;
+}
+.dropdown-menu hr {
+  margin: 1em 0;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  background: #bfb9b9 none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.user-box .dropdown-menu {
+  min-width: 195px;
 }
 select,
 textarea,
@@ -776,57 +870,41 @@ form dd {
   line-height: 120%;
   text-align: left;
 }
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  width: 100%;
-  margin: 0 0 16.923082em;
-}
-body > footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  min-height: 16.923082em;
-}
-.alert {
-  padding: 1em 3.076924em 1em 1.538462em;
-  text-shadow: none;
-  border-style: none;
+.hero-unit {
+  margin-top: 1em;
+  padding: 2em;
+  font-size: 1em;
+  text-align: center;
+  color: #000000;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+  background: #f7f7f7;
 }
-.alert .close {
-  right: -1em;
+.hero-unit h1 {
+  font-size: 6.666em;
+  line-height: 120%;
+  text-align: center;
 }
-.alert-error {
-  color: #cc0000;
-  border-color: #cc0000;
-  background-color: #ffcccc;
+.hero-unit h1 a {
+  color: #000000;
 }
-.alert-error h4 {
-  color: #cc0000;
+.hero-unit h1 a:hover,
+.hero-unit h1 a:focus {
+  color: #fc9026;
 }
-.article ul {
-  margin: 0 0 1.565em;
-  list-style: none;
+.hero-unit p {
+  margin: 1em 0 1.5em;
+  line-height: 150%;
 }
-.article ul > li {
-  margin-left: 1.25em;
+.hero-unit.main-header {
+  margin-top: 1.85em;
 }
-.article ul > li:before {
-  content: '>';
-  float: left;
-  margin-left: -1.25em;
+.hero-unit.with-teaser {
+  margin-bottom: 6.5em;
 }
-.article ul > li > ul {
-  margin: .5em 0;
-}
-.article ul > li > ul > li:before {
-  content: '»';
+.hero-unit.with-teaser p {
+  margin-bottom: 2.6em;
 }
 .icon-orange {
   color: #fc9026;
@@ -906,84 +984,6 @@ body > footer {
   width: 73px;
   height: 52px;
   background-image: url('../images/bubble-small.png');
-}
-.hero-unit {
-  margin-top: 1em;
-  padding: 2em;
-  font-size: 1em;
-  text-align: center;
-  color: #000000;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  background: #f7f7f7;
-}
-.hero-unit h1 {
-  font-size: 6.666em;
-  line-height: 120%;
-  text-align: center;
-}
-.hero-unit h1 a {
-  color: #000000;
-}
-.hero-unit h1 a:hover,
-.hero-unit h1 a:focus {
-  color: #fc9026;
-}
-.hero-unit p {
-  margin: 1em 0 1.5em;
-  line-height: 150%;
-}
-.hero-unit.main-header {
-  margin-top: 1.85em;
-}
-.hero-unit.with-teaser {
-  margin-bottom: 6.5em;
-}
-.hero-unit.with-teaser p {
-  margin-bottom: 2.6em;
-}
-.dropdown-menu {
-  padding: 1em;
-  color: #ffffff;
-  border-style: none;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  background-color: #a69f9f;
-  -webkit-box-shadow: 0 0.2em 0.75em rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 0.2em 0.75em rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0.2em 0.75em rgba(0, 0, 0, 0.4);
-}
-.dropdown-menu h3 {
-  font: normal 2em/150% "Yanone Kaffeesatz", sans-serif;
-  text-transform: uppercase;
-}
-.dropdown-menu a {
-  color: #f7f7f7;
-}
-.dropdown-menu a:hover,
-.dropdown-menu a:focus {
-  color: #ffffff;
-}
-.dropdown-menu > li > a {
-  margin-left: -0.5em;
-  margin-right: -0.5em;
-  padding: .5em;
-  color: #ffffff;
-}
-.dropdown-menu hr {
-  margin: 1em 0;
-}
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.dropdown-submenu:hover > a,
-.dropdown-submenu:focus > a {
-  background: #bfb9b9 none;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-}
-.user-box .dropdown-menu {
-  min-width: 195px;
 }
 article.media time {
   display: block;
@@ -1848,25 +1848,6 @@ article.media .article-action i {
   height: 74px;
   background-image: url('../images/bubble_mitwirkung.png');
 }
-.user-box .user {
-  width: 77%;
-  overflow: hidden;
-  font-size: .9em;
-  line-height: 130%;
-  text-align: right;
-}
-.user-box .user a {
-  color: #f7f7f7;
-}
-.user-box .user a:hover,
-.user-box .user a:focus {
-  color: #ffffff;
-}
-.user-box .user:hover,
-.user-box .user:focus {
-  z-index: 1;
-  overflow: visible;
-}
 .consultation-preview {
   position: relative;
   margin-bottom: 1.5em;
@@ -1983,6 +1964,25 @@ article.media .article-action i {
 .share-btn {
   height: 22px;
   margin-bottom: 0.5216666666666666em;
+}
+.user-box .user {
+  width: 77%;
+  overflow: hidden;
+  font-size: .9em;
+  line-height: 130%;
+  text-align: right;
+}
+.user-box .user a {
+  color: #f7f7f7;
+}
+.user-box .user a:hover,
+.user-box .user a:focus {
+  color: #ffffff;
+}
+.user-box .user:hover,
+.user-box .user:focus {
+  z-index: 1;
+  overflow: visible;
 }
 @media print {
   body {

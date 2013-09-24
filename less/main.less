@@ -49,26 +49,26 @@
 @import '../plugins/bootstrap/less/mixins.less';
 
 // Project variables and mix-ins
-@import 'variables.less';
-@import 'mixins.less';
+@import 'config/variables';
+@import 'modules/mixins';
+
+// Library - shared across projects
+@import 'library/sticky-footer.less';
 
 // Base styles
 @import 'base/typography.less';
 @import 'base/layout.less';
 //@import 'base/tables.less';
-@import 'base/buttons.less';
-@import 'base/forms.less';
-
-// Library - shared across projects
-@import 'library/sticky-footer.less';
 
 // Components: Common
 @import 'components/alerts.less';
 @import 'components/articles.less';
+@import 'components/buttons';
+@import 'components/dropdowns.less';
+@import 'components/forms';
+@import 'components/hero-unit.less';
 @import 'components/icons.less';
 @import 'components/labels.less';
-@import 'components/hero-unit.less';
-@import 'components/dropdowns.less';
 @import 'components/media.less';
 //@import 'components/modals.less';
 @import 'components/tag-cloud.less';
@@ -83,12 +83,9 @@
 
 // Components: Custom
 @import 'components/bubbles.less';
-@import 'components/user-box.less';
 @import 'components/consultation.less';
 @import 'components/share.less';
-
-// Responsive
-//@import 'responsive/responsive.less';
+@import 'components/user-box.less';
 
 // Print styles
 @import 'print/print.less';
