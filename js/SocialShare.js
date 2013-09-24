@@ -81,9 +81,9 @@
                 var tw = getTwitterBtn(uri);
                 var gp = getGPlusBtn(uri);
 
-                $("#sharebtn-holder").append('<div class="social-share-btn tw">'+tw+'</div>');
-                $("#sharebtn-holder").append('<div class="social-share-btn gp">'+gp+'</div>');
-                $("#sharebtn-holder").append('<div class="social-share-btn fb">'+fb+'</div>');
+                $("#sharebtn-holder").append('<div class="share-btn">'+tw+'</div>');
+                $("#sharebtn-holder").append('<div class="share-btn">'+gp+'</div>');
+                $("#sharebtn-holder").append('<div class="share-btn">'+fb+'</div>');
 
             } else {
                 $(this).removeClass("active");

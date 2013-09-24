@@ -67,6 +67,27 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.caret,
+.caret-up {
+  content: '';
+  width: 0;
+  height: 0;
+  display: inline-block;
+  vertical-align: top;
+  border-width: .4em;
+  border-style: solid;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.caret {
+  border-top-color: #000000;
+  border-bottom-style: none;
+}
+.caret-up {
+  border-top-style: none;
+  border-bottom-style: solid;
+  border-bottom-color: #000000;
+}
 body {
   font: normal 0.8em Arial, sans-serif;
   line-height: 1.565em;
@@ -1921,34 +1942,47 @@ article.media .article-action i {
   right: -0.5em;
   top: 2.75em;
 }
-#sharebtn-holder {
-  text-align: right;
+.share-dropdown {
   position: absolute;
-  right: 28px;
-  top: 120px;
+  right: -1.8461543999999999em;
+  top: 7.69231em;
+  width: 8em;
+  padding: 1em;
+  text-align: left;
+  background-color: #a69f9f;
+  -webkit-box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.3);
 }
-.social-share-btn {
+.share-dropdown:empty {
+  display: none;
+}
+.share-dropdown:before {
+  content: '';
+  width: 0;
+  height: 0;
+  display: inline-block;
+  vertical-align: top;
+  border-width: .4em;
+  border-style: solid;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: #000000;
+  border-bottom-style: none;
+  border-width: 0.75em;
+  border-top-width: 1em;
+  border-top-color: #a69f9f;
   position: absolute;
-  height: 21px;
-  right: 0;
+  left: 50%;
+  bottom: 100%;
+  margin-left: -0.5em;
+  border-top-style: none;
+  border-bottom-style: solid;
+  border-bottom-color: #a69f9f;
 }
-.social-share-btn a {
-  outline: 0 none;
-}
-.social-share-btn.fb {
-  width: 110px;
-  top: -18px;
-  right: -10px;
-}
-.social-share-btn.tw {
-  top: 20px;
-  right: -7px;
-  width: 68px;
-}
-.social-share-btn.gp {
-  top: 52px;
-  width: 39px;
-  right: 3px;
+.share-btn {
+  height: 22px;
+  margin-bottom: 0.5216666666666666em;
 }
 @media print {
   body {

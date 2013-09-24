@@ -3,39 +3,35 @@
 // --------------------------------------------------
 
 
-#sharebtn-holder {
-	text-align: right;
+.share-dropdown {
+	@dropdownBackground: @grayLighter;
 	position: absolute;
-	right: 28px;
-	top: 120px;
+	right: -1.2 * @u;
+	top: 5 * @u;
+	width: 8em;
+	padding: 1em;
+	text-align: left;
+	background-color: @dropdownBackground;
+	.box-shadow(0 .2em .8em fade(#000, 30%));
 
+	&:empty {
+		display: none;
+	}
+
+	&:before {
+		.caretResizable(1.5em, 1em, @dropdownBackground);
+		position: absolute;
+		left: 50%;
+		bottom: 100%;
+		margin-left: -0.5em;
+		// Rotate upwards
+		border-top-style: none;
+		border-bottom-style: solid;
+		border-bottom-color: @dropdownBackground;
+	}
 }
 
-.social-share-btn {
-	position: absolute;
-	height: 21px;
-	right: 0;
-}
-
-.social-share-btn a {
-	outline: 0 none;
-}
-
-.social-share-btn.fb {
-	width: 110px;
-	top: -18px;
-	right: -10px;
-
-}
-
-.social-share-btn.tw {
-	top: 20px;
-	right: -7px;
-	width: 68px;
-}
-
-.social-share-btn.gp {
-	top: 52px;
-	width: 39px;
-	right: 3px;
+.share-btn {
+	height: 22px;
+	margin-bottom: @baseLineHeight / 3;
 }
