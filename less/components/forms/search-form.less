@@ -1,0 +1,27 @@
+//
+// Component: Forms: Search Form
+// --------------------------------------------------
+
+
+.form-search {
+
+	// Input
+	input.search-query {
+		.placeholder(@grayLightest);
+		width: 170px;
+		padding: .34em .75em;
+		color: @bodyText;
+		border-style: none;
+		border-right: 1px solid @white;
+		background-color: @orange;
+	}
+
+	// Remove border radius
+	input.search-query,
+	.input-append .search-query,
+	.input-prepend .search-query,
+	.input-append .btn,
+	.input-prepend .btn {
+		.border-radius(0);
+	}
+}
