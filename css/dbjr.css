@@ -1029,6 +1029,13 @@ article.media .article-action i {
 .well a:focus {
   color: #000000;
 }
+.well .btn {
+  color: #000000;
+}
+.well .btn:hover,
+.well .btn:focus {
+  color: #000000;
+}
 .well-large {
   border: 0.8em solid #e8e6e6;
   -webkit-border-radius: 1.5em;
