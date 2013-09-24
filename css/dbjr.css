@@ -1557,6 +1557,14 @@ article.media .article-action i {
   color: #999999;
   background-color: #e8e6e6;
 }
+label,
+input,
+button,
+select,
+textarea {
+  font-size: 13px;
+  line-height: 1.565em;
+}
 select,
 textarea,
 input[type="text"],
@@ -1574,7 +1582,9 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-  padding: .28em .75em;
+  padding: .3em .8em;
+  font-size: 13px;
+  line-height: 20px;
   color: #000000;
   border-color: #000000;
   -webkit-border-radius: 0;
@@ -1686,8 +1696,19 @@ select:focus:required:invalid:focus {
 form dl {
   margin-bottom: 1em;
 }
+form dt:empty {
+  display: none;
+}
 form dd {
   margin-left: 0;
+}
+form dd label > input[type="radio"],
+form dd label > input[type="checkbox"] {
+  margin-right: 1ex;
+  vertical-align: baseline;
+}
+form dd label + br {
+  display: none;
 }
 .form-inline dt {
   display: none;

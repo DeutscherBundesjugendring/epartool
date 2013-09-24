@@ -5,7 +5,6 @@
 
 // Vertical form
 .form-vertical {
-
 	.control-group {
 		margin-bottom: .25em;
 	}
@@ -35,8 +34,23 @@ form dl {
 	margin-bottom: 1em;
 }
 
+form dt:empty {
+	display: none;
+}
+
 form dd {
 	margin-left: 0;
+
+	label > input[type="radio"],
+	label > input[type="checkbox"] {
+		margin-right: 1ex;
+		vertical-align: baseline;
+	}
+
+	// HOTFIX: hide line breaks
+	label + br {
+		display: none;
+	}
 }
 
 // Inline DL form

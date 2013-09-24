@@ -3,6 +3,15 @@
 // --------------------------------------------------
 
 
+label,
+input,
+button,
+select,
+textarea {
+	font-size: 13px;
+	line-height: @baseLineHeight;
+}
+
 // General input fields
 select,
 textarea,
@@ -21,7 +30,9 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-	padding: .28em .75em; // base height 30px
+	padding: .3em .8em; // base height 30px
+	font-size: 13px;
+	line-height: 20px;
 	color: @inputText;
 	border-color: @inputBorderColor;
 	.border-radius(@inputBorderRadius);
