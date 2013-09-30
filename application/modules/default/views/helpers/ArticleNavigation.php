@@ -55,7 +55,7 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract {
             . (empty($item['desc']) ? 'Seite ' . $i : $item['desc'])
             . '</a>';
           if (!empty($item['subpages']) && $isItemInRootline) {
-            $html.= '<ul>';
+            $html.= '<ul class="nav nav-list">';
             $j = 1;
             foreach ($item['subpages'] as $subpage) {
               // second level (subpages)

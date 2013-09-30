@@ -23,7 +23,7 @@
   <tr rel="email-<?php echo $email->id;?>">
     <td><?php
       $zendDate = new Zend_Date($email->when);
-      echo($zendDate->get('dd.MM.yy'));
+      echo($zendDate->get(Zend_Date::DATETIME_MEDIUM));
     ?></td>
     <td><?php echo $email->rec; ?></td>
     <td><?php echo (empty($email->sender))? '<i>n/a</i>' : $email->sender; ?></td>

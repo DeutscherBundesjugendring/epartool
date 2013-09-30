@@ -1,0 +1,66 @@
+//
+// Component: Forms: Form Layouts
+// --------------------------------------------------
+
+
+// Vertical form
+.form-vertical {
+	.control-group {
+		margin-bottom: .25em;
+	}
+
+	.form-actions {
+		margin: 0;
+		padding: .25em 0 0;
+		border-top-style: none;
+		background: none;
+
+		.inline-actions {
+			display: inline-block;
+			margin-left: 2 * @u;
+		}
+	}
+}
+
+.form-actions-unstyled {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+// DL form
+form dl {
+	margin-bottom: 1em;
+}
+
+form dt:empty {
+	display: none;
+}
+
+form dd {
+	margin-left: 0;
+
+	label > input[type="radio"],
+	label > input[type="checkbox"] {
+		margin-right: 1ex;
+		vertical-align: baseline;
+	}
+
+	// HOTFIX: hide line breaks
+	label + br {
+		display: none;
+	}
+}
+
+// Inline DL form
+.form-inline {
+	dt {
+		display: none;
+	}
+
+	dd {
+		display: inline-block;
+		margin-right: .75ex;
+	}
+}

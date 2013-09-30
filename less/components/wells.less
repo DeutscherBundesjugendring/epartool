@@ -35,6 +35,16 @@
 			color: @wellLinkTextHover;
 		}
 	}
+
+	// Redeclare due to specificity
+	.btn {
+		color: @btnText;
+
+		&:hover,
+		&:focus {
+			color: @btnTextHover;
+		}
+	}
 }
 
 

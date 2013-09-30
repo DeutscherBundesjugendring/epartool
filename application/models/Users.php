@@ -200,7 +200,7 @@ class Model_Users extends Model_DbjrBase {
       ));
     } else {
       $insertDataUserInfo = array_merge($insertDataUserInfo, array(
-          'group_size' => 10
+          'group_size' => 1
       ));
     }
     
