@@ -153,6 +153,20 @@
   text-align: center;
   display: none;
 }
+#followup a.whitelink, #followup a.whitelink:focus{
+    
+    color: #ffffff;
+}
+#followup a.whitelink:hover {
+    
+   text-decoration: underline;
+}
+#followup .gfx_who_thumb {
+    max-width: 50px;
+    height:auto;
+    float:left;
+    margin-right: 10px;
+}
 
 .recent-followup img {
     max-width: 120px;

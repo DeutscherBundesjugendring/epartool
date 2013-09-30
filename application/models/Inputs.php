@@ -975,6 +975,7 @@ class Model_Inputs extends Model_DbjrBase {
             $Model_Followups = new Model_Followups();
             $rowset = $row->findDependentRowset($depTable, 'Inputs', $depTableSelect );
             $refs = $rowset->toArray();
+            
             $fids = array();
             foreach ($refs as $ref) {
                 $fids[] = $ref['fid_ref'];

@@ -80,6 +80,28 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         }
         return $result;
     }
+    /**
+     * getById
+     * returns entry by fowup_fls.ffid
+     * @param integer $ffid
+     * @return array
+     */
+    public function getByIdArray($idarray)
+    {
+        // is int?
+       if (!is_array($idarray) || count($idarray) == 0) {
+          
+          return array();
+          
+        }
+        
+        $select = $this->select();
+        $select->where('ffid IN(?)', $idarray);
+
+        return $this->fetchAll($select)->toArray();
+        
+       
+    }
 
     /**
      * deleteById
@@ -140,8 +162,6 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
 
         }
 
-
-        // Zend_Debug::dump($result);
 
     }
 

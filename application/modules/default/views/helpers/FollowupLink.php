@@ -12,6 +12,7 @@ class Zend_View_Helper_FollowupLink extends Zend_View_Helper_Abstract {
     $con = $this->view->consultation;
     $inputModel = new Model_Inputs();
     $hasFollowup = count($inputModel->getFollowups($inputid) );
+    $hasFollowup += count($inputModel->getRelatedWithVotesById( $inputid ));
     
     if ( $hasFollowup ) {
         
