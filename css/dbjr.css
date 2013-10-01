@@ -723,12 +723,20 @@ p .btn {
   background-image: url('../images/label_reaktion.png');
 }
 .label.sticker.label-mitmachen-black {
-  width: 104px;
-  height: 126px;
   left: auto;
   right: 0;
+  width: 104px;
+  height: 126px;
   font-size: 1em;
   background-image: url('../images/label_mitmachen-black.png');
+}
+.label.sticker.label-reaktion-alt {
+  left: auto;
+  right: -0.85em;
+  top: -0.85em;
+  width: 104px;
+  height: 126px;
+  background-image: url('../images/label_reaktion-alt.png');
 }
 .badge-tag {
   -webkit-box-sizing: border-box;
@@ -1115,6 +1123,7 @@ article.media .article-action i {
   -webkit-box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
   box-shadow: 0.2em 0.3em 0.5em rgba(0, 0, 0, 0.5);
+  position: relative;
   margin: 2em 0;
   padding: .75em;
 }
@@ -1122,6 +1131,14 @@ article.media .article-action i {
   font-size: 1.6em;
   line-height: 110%;
   color: #02afdb;
+}
+.well-large-alt h2.alt {
+  max-width: 17em;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2em;
+  line-height: 115%;
+  color: #fc9026;
 }
 .main-navigation .nav {
   position: absolute;

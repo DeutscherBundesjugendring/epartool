@@ -24,8 +24,9 @@ $locale = new Zend_Locale();
 			<p>Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie
 				eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.</p>
 
-			<div class="well-large-alt">
-				<h2>Bisherige Reaktionen im Überblick</h2>
+			<div class="well-large-alt text-center">
+				<span class="label sticker label-reaktion-alt">Reaktion</span>
+				<h2 class="alt">Bisherige Reaktionen im Überblick</h2>
 				<ul class="unstyled recent-followup clearfix">
 					<?php foreach ($this->latest_followups as $followup): ?>
 						<li class="media">
@@ -67,8 +68,9 @@ $locale = new Zend_Locale();
 				</ul>
 			</div><!-- .well-large-alt -->
 
-			<div class="well-large-alt">
-				<h2>Reaktionen und Feedback auf einzelne Beiträge</h2>
+			<div class="well-large-alt text-center">
+				<span class="label sticker label-reaktion-alt">Reaktion</span>
+				<h2 class="alt">Reaktionen und Feedback auf einzelne Beiträge</h2>
 
 				<p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
 				<?php echo $this->questionNavigation(NULL, 'follow-up'); ?>
