@@ -262,6 +262,9 @@ img.pull-left {
   margin-right: 1.5em;
   margin-bottom: 1.5em;
 }
+.no-offset {
+  margin-bottom: 0;
+}
 body {
   background-color: #ffffff;
 }

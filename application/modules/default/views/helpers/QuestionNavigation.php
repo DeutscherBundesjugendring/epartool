@@ -38,33 +38,54 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
 		$items = $questionModel->getByConsultation($con->kid);
 
 		$html = '';
-		if ($for !== 'follow-up') {
-			$html .= '<nav role="navigation" class="tertiary-navigation">';
+
+		if ($for !== 'follow-up-box') {
+			if ($for !== 'follow-up') {
+				$html .= '<nav role="navigation" class="tertiary-navigation">';
+			}
+			$html .= '<ul class="nav nav-list">';
 		}
-		$html .= '<ul class="nav nav-list">';
+
 		$i = 1;
 		foreach ($items as $item) {
 			$number = $numbered ? $i . '. ' : '';
 			$liClasses = array();
+
 			if ($item->qi == $activeItem /* || (empty($activeItem) && $i == 1)*/) {
 				$liClasses[] = 'active';
 			}
-			$html .= '<li class="' . implode(' ', $liClasses) . '">';
+
+			if ($for == 'follow-up-box') {
+				$html .= '<p class="no-offset">';
+			} else {
+				$html .= '<li class="' . implode(' ', $liClasses) . '">';
+			}
 
 			$urlParams['qid'] = $item->qi;
 			$html .= '<a href="'
-				. $this->view->url($urlParams) . '">'
+				. $this->view->url($urlParams) . '"'
+				. ($for == 'follow-up-box'? ' class="btn"' : '')
+				. '>'
 				// Number
 				. (!empty($item->nr) ? $item->nr . ' ' : '')
 				// Frage als Seitentitel im Menü
 				. (empty($item->q) ? 'Frage ' . $i : $number . $item->q)
 				. '</a>';
-			$html .= '</li>';
+
+			if ($for == 'follow-up-box') {
+				$html .= '</p>';
+			} else {
+				$html .= '</li>';
+			}
+
 			$i++;
 		}
-		$html .= '</ul>';
-		if ($for !== 'follow-up') {
-			'</nav>';
+
+		if ($for !== 'follow-up-box') {
+			$html .= '</ul>';
+			if ($for !== 'follow-up') {
+				$html .= '</nav>';
+			}
 		}
 
 		return $html;
