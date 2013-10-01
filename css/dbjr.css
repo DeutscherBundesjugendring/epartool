@@ -1820,6 +1820,21 @@ form dd label + br {
 #group_type-element {
   margin: 2em 0;
 }
+#regio_pax-element {
+  margin-bottom: 1em;
+}
+#cnslt_results-label,
+#newsl_subscr-label {
+  margin-left: 1.5em;
+  margin-bottom: -2.25em;
+}
+#cnslt_results-element,
+#newsl_subscr-element {
+  margin-bottom: .5em;
+}
+#cmnt_ext-label {
+  margin-top: 1.565em;
+}
 .form-search input.search-query {
   width: 170px;
   padding: .34em .75em;
