@@ -1696,6 +1696,13 @@ select:focus:required:invalid:focus {
   -moz-border-radius: 0;
   border-radius: 0;
 }
+label.required:after {
+  content: ' *';
+  position: relative;
+  bottom: -0.2em;
+  font-size: 1.5em;
+  color: #9d261d;
+}
 .form-vertical .control-group {
   margin-bottom: .25em;
 }
