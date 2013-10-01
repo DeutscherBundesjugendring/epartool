@@ -1746,6 +1746,9 @@ form dd label + br {
   display: inline-block;
   margin-right: .75ex;
 }
+.help-block-offset {
+  margin-top: 1.565em;
+}
 .control-group.error .control-label,
 .control-group.error .help-block,
 .control-group.error .help-inline {
