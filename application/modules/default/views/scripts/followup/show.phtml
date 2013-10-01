@@ -8,22 +8,30 @@
 ?>
 
 <div class="content-holder">
-    <div class="row">
-        <section id="followup" class="main-content span">
+	<div class="row">
+		<section id="followup" class="main-content span">
 
-            <div class="followuphead">
-                <a title="Zurück zur Übersicht Reaktionen & Wirkungen" href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"><div class="sprite question-mark"><p>?</p></div></a>
-                <h3 class="question-h3">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.</h3>
+			<div class="followuphead">
+				<a title="Zurück zur Übersicht Reaktionen & Wirkungen"
+				   href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>">
+					<div class="sprite question-mark"><p>?</p></div>
+				</a>
 
-                <p class="followup-topic">Reaktionen und Wirkungen!</p>
-            </div>
+				<h3 class="question-h3">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+					eirmod.</h3>
 
-            <div class="wrapper">
-                <div class="col">
-                    <div class="timeline-box">
-                        <h3><a class="whitelink" title="Zurück zur Übersicht der Beiträge sortiert nach Fragen" href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"><?php echo $this->question['nr'] .' '. $this->question['q']; ?></a></h3>
-                        <div class="content">
-                            <p><?php echo $this->input['thes']; ?></p>
+				<p class="followup-topic">Reaktionen und Wirkungen!</p>
+			</div>
+
+			<div class="wrapper">
+				<div class="col">
+					<div class="timeline-box">
+						<h3><a class="whitelink" title="Zurück zur Übersicht der Beiträge sortiert nach Fragen"
+							   href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></a>
+						</h3>
+
+						<div class="content">
+							<p><?php echo $this->input['thes']; ?></p>
 							<?php if (!empty($this->input['expl'])): ?>
 								<div class="explbutton">Show Expl</div>
 								<div class="toggleexpl">
@@ -34,7 +42,7 @@
 							<?php if ($this->input['vot'] == 'y'): ?>
 								<p class="score">Ergebnis der Abstimmung: X. Rang</p>
 							<?php endif; ?>
-                        </div>
+						</div>
 						<?php if ($this->input['vot'] == 'y' && $this->input['relFowupCount'] > 0): ?>
 							<div class="timeline-countlink sprite">
 								<a class="ajaxclick reset"
@@ -48,12 +56,10 @@
 								<!--<p><?php echo count($this->relInput); ?></p>-->
 							</div>
 						<?php endif; ?>
-                    </div>
-                </div>
+					</div>
+				</div>
 
 				<?php if ($this->input['vot'] != 'y'): ?>
-
-
 					<div class="col">
 
 						<?php foreach ($this->relInput as $relInput): ?>
@@ -71,23 +77,23 @@
 								<?php endif; ?>
 							</div>
 						<?php endforeach; ?>
-					</div>
+
+					</div><!-- .col -->
 				<?php endif; ?>
-            </div>
-            <div id="followuploader">loading</div>
+			</div>
+			<div id="followuploader">loading</div>
 
-        </section>
-    </div><!-- .row -->
+		</section>
+	</div>
+	<!-- .row -->
 </div><!-- .content-holder -->
+
 <script type="text/javascript">
-    $(document).ready(function () {
-        /**
-         * instance of followup created
-         * @type {FollowUp}
-         */
-        var followUp = new FollowUp(<?php echo $this->input['kid']; ?>);
-
-
-    });
-
+	$(document).ready(function () {
+		/**
+		 * instance of followup created
+		 * @type {FollowUp}
+		 */
+		var followUp = new FollowUp(<?php echo $this->input['kid']; ?>);
+	});
 </script>

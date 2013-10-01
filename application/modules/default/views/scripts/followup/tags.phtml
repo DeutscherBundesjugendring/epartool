@@ -11,43 +11,48 @@
 
 <div class="content-holder">
 	<div class="row">
-            <aside class="span3">
+		<aside class="span3">
 
 			<?php echo $this->followupNavigation('tags') ?>
 
-            </aside>
-            <div class="main-content span9">
+		</aside>
+		<div class="main-content span9">
 
-                    <small class="count muted"><?php echo $this->inputCount ?> bestätigte Beiträge</small>
-                    <h1>Alle Beiträge im Überblick</h1>
-                    <p>Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.</p>
-                    <!-- Questions -->
-                    <ul class="questions thumbnails">
-                        <?php if (!empty($this->tags)): ?>
-                            <li class="span9">
-                                <div class="thumbnail">
-                                    <div class="thumbnail-content text-center">
-                                        <h2>Beiträge sortiert nach Schlagwörtern:</h2>
-                                        <ul class="tag-cloud">
-                                            <?php foreach ($this->tags as $tag): ?>
-                                                <li class="tag-<?php echo $tag['frequency']; ?>">
-                                                    <a href="<?php echo $this->url(array('action' => 'inputs-by-question', 'tag' => $tag['tg_nr'])); ?>"><?php echo $tag['tg_de']; ?></a>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                        <a href="<?php echo $this->url(array('action' => 'inputs-by-question')); ?>" class="btn">Zurück zur Fragenübersicht</a>
-                                    </div>
-                                </div><!-- .thumbnail -->
-                            </li>
-                        <?php endif; ?>
-                    </ul><!-- .questions -->
+			<small class="count muted"><?php echo $this->inputCount ?> bestätigte Beiträge</small>
+			<h1>Alle Beiträge im Überblick</h1>
+			<p>Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine
+				Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr
+				nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.</p>
 
-            </div>
+			<!-- Questions -->
+			<ul class="questions thumbnails">
+				<?php if (!empty($this->tags)): ?>
+					<li class="span9">
+
+						<div class="thumbnail">
+							<div class="thumbnail-content text-center">
+								<h2>Beiträge sortiert nach Schlagwörtern:</h2>
+								<ul class="tag-cloud">
+									<?php foreach ($this->tags as $tag): ?>
+										<li class="tag-<?php echo $tag['frequency']; ?>">
+											<a href="<?php echo $this->url(array('action' => 'inputs-by-question', 'tag' => $tag['tg_nr'])); ?>"><?php echo $tag['tg_de']; ?></a>
+										</li>
+									<?php endforeach; ?>
+								</ul>
+								<a href="<?php echo $this->url(array('action' => 'inputs-by-question')); ?>"
+								   class="btn">Zurück zur Fragenübersicht</a>
+							</div>
+						</div><!-- .thumbnail -->
+
+					</li>
+				<?php endif; ?>
+			</ul><!-- .questions -->
+
+		</div><!-- .main-content -->
 	</div><!-- .row -->
-
 
 	<?php echo $this->render('_partials/printLink.phtml') ?>
 
-</div>
+</div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
