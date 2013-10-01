@@ -1046,6 +1046,9 @@ article.media .article-action i {
 .well .btn:focus {
   color: #000000;
 }
+.well .btn.btn-extend {
+  color: #ffffff;
+}
 .well-large {
   border: 0.8em solid #e8e6e6;
   -webkit-border-radius: 1.5em;
