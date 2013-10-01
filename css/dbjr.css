@@ -809,9 +809,6 @@ article.media .article-action i {
 .tag-cloud > li > a:focus {
   color: #fc9026;
 }
-.tag-cloud-full {
-  text-align: left;
-}
 .tag-cloud-full > li > a {
   padding: .2em 1ex .2em 0;
 }
