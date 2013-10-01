@@ -1817,6 +1817,9 @@ form dd label + br {
 .login #submit-label {
   display: none;
 }
+#group_type-element {
+  margin: 2em 0;
+}
 .form-search input.search-query {
   width: 170px;
   padding: .34em .75em;
