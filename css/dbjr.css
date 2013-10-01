@@ -1459,6 +1459,7 @@ article.media .article-action i {
 .tertiary-navigation .nav > .active > a,
 .tertiary-navigation .nav > .active > a:hover,
 .tertiary-navigation .nav > .active > a:focus {
+  text-shadow: none;
   color: #000000;
   background-color: #fc9026;
 }
