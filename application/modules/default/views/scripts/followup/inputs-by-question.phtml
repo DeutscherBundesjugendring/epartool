@@ -1,0 +1,85 @@
+<?php
+/**
+ *  byQuestion.phtml
+ *
+ * @description   show inputs by question
+ * @author        Marco Dinnbier
+ */
+$date = new Zend_Date();
+$locale = new Zend_Locale();
+?>
+
+<?php echo $this->secondNavigation('follow-up') ?>
+
+<div class="content-holder">
+	<div class="row">
+		<aside class="span3">
+
+			<?php echo $this->followupNavigation('inputs-by-question', $this->question['qi']) ?>
+
+		</aside>
+		<section class="main-content span9">
+			<?php if (isset($this->tag) && !empty($this->tag)): ?>
+				<?php if ($this->numberInputs > 0): ?>
+					<h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em>
+						angezeigt.</h3>
+				<?php else: ?>
+					<h3>Zu dieser Frage gibt es keine mit <em>"<?php echo $this->tag['tg_de']; ?>"</em>
+						verschlagworteten Beiträge.</h3>
+				<?php endif; ?>
+				<p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
+			<?php endif; ?>
+			<small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
+			<h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
+
+			<p><?php echo $this->question['q_xpl']; ?></p>
+
+			<hr/>
+
+			<!-- Contributions -->
+			<?php if (count($this->paginator)): ?>
+				<?php foreach ($this->paginator as $input): ?>
+					<a name="input-<?php echo $input['tid']; ?>"></a>
+					<article class="media">
+						<time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
+							verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
+						</time>
+						<p class="lead"><?php echo $input['thes'] ?></p>
+
+						<p><?php echo $input['expl'] ?></p>
+
+						<?php if ($this->consultation->spprt_show == 'y'): ?>
+							<a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support<?php
+							if (in_array($input['tid'], $supports->clicks) || $supportsDisabled):
+								?> disabled<?php endif; ?>" rel="<?php echo $input['tid']; ?>">
+								<i class="icon-ok-sign"></i>
+								<span class="badge"
+									  id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
+								<span class="label">Dieser Meinung bin ich auch!</span>
+							</a>
+						<?php endif; ?>
+
+						<p class="article-actions">
+							<a href="#" class="article-action">
+								<i class="icon-comment icon-orange icon-2x"></i>
+								(<?php echo $input['pts']; ?>)
+								<span class="label">Das möchte ich gerne diskutieren!</span>
+							</a>
+							<?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
+
+
+						</p>
+					</article>
+					<hr/>
+				<?php endforeach; ?>
+			<?php endif; ?>
+
+			<!-- Paging -->
+			<?php echo $this->paginationControl($this->paginator, 'Jumping', '_partials/pagination.phtml', array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')); ?>
+
+		</section>
+	</div>
+	<!-- .row -->
+</div><!-- content-holder -->
+
+<?php echo $this->render('_partials/topLink.phtml') ?>

@@ -47,10 +47,12 @@ class Admin_VotingController extends Zend_Controller_Action {
     $uid = $this->_request->getParam('uid', 0);
     if ($uid > 0) {
       $userModel = new Model_Users();
+      $userInfoModel = new Model_User_Info();
       $votingRightsModel = new Model_Votes_Rights();
       $form = new Admin_Form_Voting_Rights();
       
       $user = $userModel->getById($uid);
+      $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
       $votingRights = $votingRightsModel
         ->getByUserAndConsultation($uid, $this->_consultation['kid']);
       
@@ -73,7 +75,7 @@ class Admin_VotingController extends Zend_Controller_Action {
           'vt_weight' => $votingRights['vt_weight'],
           'vt_code' => $votingRights['vt_code'],
           'grp_siz' => $votingRights['grp_siz'],
-          'group_size_user' => $user['group_size'],
+          'group_size_user' => $userInfo['group_size'],
         );
       }
       $form->populate($data);

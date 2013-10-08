@@ -153,3 +153,84 @@
   text-align: center;
   display: none;
 }
+#followup a.whitelink, #followup a.whitelink:focus{
+    
+    color: #ffffff;
+}
+#followup a.whitelink:hover {
+    
+   text-decoration: underline;
+}
+#followup .gfx_who_thumb {
+    max-width: 50px;
+    height:auto;
+    float:left;
+    margin-right: 10px;
+}
+
+.recent-followup img {
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+}
+ul.recent-followup {
+    
+    
+}
+.recent-followup li.media {
+   width: 120px;
+   margin: 0 10px 0 0;
+}
+.recent-followup li.media:first-child{
+   margin: 0 10px 0 10px;
+}
+.recent-followup li {
+   float: left;
+}
+.recent-followup li .media-body {
+   float:left;
+}
+
+.followup h2 {
+    text-align:center;
+}
+
+.level4-navigation > .nav  > .active > a {
+    color: #000 !important;
+}
+form.followup-download {
+    margin-bottom: 2px;
+}
+.submitaslink {
+      background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #489FCA;
+    font: 0.9em/1.565em Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+span.lightblue {
+    color: #489FCA;
+}
+form.followup-download span.lightblue:hover,
+form.followup-download span.lightblue:hover input,
+form.followup-download span.lightblue:focus input,
+form.followup-download span.lightblue:focus
+{
+    color: #FC9026 !important;
+    text-decoration: underline;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}

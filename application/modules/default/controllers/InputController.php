@@ -58,7 +58,7 @@ class InputController extends Zend_Controller_Action {
     }
     $this->view->questions = $questions;
     
-    $this->view->tags = $tagModel->getAllByConsultation($kid);
+    $this->view->tags = $tagModel->getAllByConsultation($kid, '', new Zend_Db_Expr('RAND()'));
   }
   
   /**

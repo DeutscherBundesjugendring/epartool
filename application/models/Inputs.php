@@ -309,7 +309,8 @@ class Model_Inputs extends Model_DbjrBase {
     $select = $db->select();
     $select->from(array('i' => $this->_name),
       array(new Zend_Db_Expr('COUNT(*) as count')))
-      ->where('i.qi = ?', $qid);
+      ->where('i.qi = ?', $qid)
+      ->where('i.uid <> ?', 1);
     if ($excludeInvisible) {
       // nur nicht geblockte:
       $select->where('i.block<>?', 'y')
@@ -381,7 +382,9 @@ class Model_Inputs extends Model_DbjrBase {
       $select->where('it.tg_nr = ?', $tag);
     }
     
-    $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c');
+    $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c')
+      // no inputs from user with uid = 1:
+      ->where('i.uid<>?', 1);
     
     if (!empty($order)) {
       $select->order($order);
@@ -697,8 +700,8 @@ class Model_Inputs extends Model_DbjrBase {
     $rowSet = $stmt->fetchAll();
     foreach ($rowSet as $row) {
       $csv.='"' . $row['tid'] . '";"'
-        . $row['thes'] . '";"'
-        . $row['expl'] . '";"'
+        . html_entity_decode($row['thes'], ENT_COMPAT, 'UTF-8') . '";"'
+        . html_entity_decode($row['expl'], ENT_COMPAT, 'UTF-8') . '";"'
         . $row['tags'] . '"' . "\r\n";
     }
     
@@ -972,6 +975,7 @@ class Model_Inputs extends Model_DbjrBase {
             $Model_Followups = new Model_Followups();
             $rowset = $row->findDependentRowset($depTable, 'Inputs', $depTableSelect );
             $refs = $rowset->toArray();
+            
             $fids = array();
             foreach ($refs as $ref) {
                 $fids[] = $ref['fid_ref'];

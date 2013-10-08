@@ -49,29 +49,25 @@
 @import '../plugins/bootstrap/less/mixins.less';
 
 // Project variables and mix-ins
-@import 'variables.less';
-@import 'mixins.less';
+@import 'config/variables';
+@import 'modules/mixins';
+
+// Library - shared across projects
+@import 'library/sticky-footer.less';
 
 // Base styles
 @import 'base/typography.less';
 @import 'base/layout.less';
 //@import 'base/tables.less';
-@import 'base/buttons.less';
-@import 'base/forms.less';
 
-// Library - shared across projects
-@import 'library/sticky-footer.less';
-
-// Components: common
+// Components: Common
 @import 'components/alerts.less';
 @import 'components/articles.less';
+@import 'components/buttons.less';
+@import 'components/dropdowns.less';
+@import 'components/hero-unit.less';
 @import 'components/icons.less';
 @import 'components/labels.less';
-@import 'components/hero-unit.less';
-@import 'components/navs.less';
-@import 'components/navbar.less';
-@import 'components/pagination.less';
-@import 'components/dropdowns.less';
 @import 'components/media.less';
 //@import 'components/modals.less';
 @import 'components/tag-cloud.less';
@@ -79,13 +75,27 @@
 @import 'components/voting.less';
 @import 'components/wells.less';
 
-// Components: custom
-@import 'components/bubbles.less';
-@import 'components/user-box.less';
-@import 'components/consultation.less';
+// Components: Navigation
+@import 'components/navigation/navs.less';
+@import 'components/navigation/navbar.less';
+@import 'components/navigation/pagination.less';
 
-// Responsive
-//@import 'responsive/responsive.less';
+// Components: Forms
+@import 'components/forms/inputs.less';
+@import 'components/forms/input-groups.less';
+@import 'components/forms/form-layouts.less';
+@import 'components/forms/help.less';
+@import 'components/forms/validation.less';
+@import 'components/forms/contribution-form.less';
+@import 'components/forms/login-form.less';
+@import 'components/forms/registration-form.less';
+@import 'components/forms/search-form.less';
+
+// Components: Custom
+@import 'components/bubbles.less';
+@import 'components/consultation.less';
+@import 'components/share.less';
+@import 'components/user-box.less';
 
 // Print styles
 @import 'print/print.less';

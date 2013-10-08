@@ -31,6 +31,90 @@ echo $this->consultationNavigation('Beiträge');
 		<?php endif; ?>
 		<td>
 	</tr>
+	<tr>
+	  <td class="tbl_lab">Kontaktperson</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['name_pers']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Gruppenbezeichnung</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['name_group']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Quelle</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['source']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Beschreibung</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['src_misc']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Gruppengröße</td>
+		<td class="tbl_det">
+		<?php $siz_tm = array(
+        "0" => "keine Information",
+        "1" => "1 (Einzelperson)",
+        "10" => "bis 10",
+        "30" => "bis 30",
+        "80" => "bis 80",
+        "150" => "bis 150",
+        "200" => "über 150"
+      ); ?>
+		<?php if (array_key_exists($this->user_info['group_size'], $siz_tm)) {
+		   echo $siz_tm[$this->user_info['group_size']];
+		} else {
+      echo 'k.A.';
+    } ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Region</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['regio_pax']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Altersgruppe</td>
+		<td class="tbl_det">
+		<?php $age_tm = array(
+        "1" => "bis 17 Jahre",
+        "2" => "bis 26 Jahre",
+        "3" => "ab 27 Jahre",
+        "4" => "Alle Altersgruppen",
+        "5" => "keine Angabe"
+      );?>
+		<?php if (array_key_exists($this->user_info['age_group'], $age_tm)) {
+		  echo $age_tm[$this->user_info['age_group']];
+		} else {
+      echo 'k.A.';
+    }?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Newsletter abonnieren</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['newsl_subscr']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Informieren über Konsultationsergebnisse</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['cnslt_results']); ?>
+		</td>
+	</tr>
+	<tr>
+	  <td class="tbl_lab">Übermittelter Kommentar</td>
+		<td class="tbl_det">
+		<?php echo $this->escape($this->user_info['cmnt_ext']); ?>
+		</td>
+	</tr>
 </table>
 <?php else: ?>
 <p class="info">Details zum Nutzer nicht verfügbar! Möglicherweise existiert kein Nutzerdatensatz mit der angegebenen uid.</p>

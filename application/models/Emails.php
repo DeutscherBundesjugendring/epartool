@@ -123,7 +123,7 @@ class Model_Emails extends Model_DbjrBase {
    * Return all users
    */
   public function getAll() {
-    return $this->fetchAll($this->select()->order('when'));
+    return $this->fetchAll($this->select()->order('when DESC'));
   }
   
   /**

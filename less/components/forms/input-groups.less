@@ -1,0 +1,64 @@
+//
+// Component: Forms: Input Groups
+// --------------------------------------------------
+
+
+// Prepended and appended elements
+.input-prepend,
+.input-append {
+	.add-on,
+	.btn {
+		//.buttonBackground(#eae5e4, #dbd3d0, @bodyText, 0 1px 1px @white); // same settings as large button
+	}
+}
+
+// Prepended
+.input-prepend {
+
+	// Input
+	input,
+	select,
+	.uneditable-input {
+		.border-radius(0);
+	}
+
+	// Collapse border of prepended elements
+	.add-on,
+	.btn {
+		//margin-right: -1px;
+	}
+
+	// The first prepended element
+	.add-on:first-child,
+	.btn:first-child {
+		.border-radius(0);
+	}
+}
+
+// Appended
+.input-append {
+
+	// Input
+	input,
+	select,
+	.uneditable-input {
+		.border-radius(0);
+	}
+
+	// The last appended element
+	.add-on:last-child,
+	.btn:last-child {
+		.border-radius(0);
+	}
+}
+
+// Both prepended and appended
+.input-prepend.input-append {
+
+	// Input
+	input,
+	select,
+	.uneditable-input {
+		.border-radius(0);
+	}
+}

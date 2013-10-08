@@ -8,17 +8,6 @@
 	margin-top: 3em;
 }
 
-.thumbnail {
-	.decoratedBox();
-	padding: .75em;
-
-	h2 {
-		font-size: 1.6em;
-		line-height: 110%;
-		color: @blue;
-	}
-}
-
 // Contributions / questions
 .questions {
 	margin-bottom: 0;
@@ -33,8 +22,16 @@
 }
 
 .questions .thumbnail {
+	.decoratedBox();
 	position: relative;
 	height: 21 * @u;
+	padding: .75em;
+
+	h2 {
+		font-size: 1.6em;
+		line-height: 110%;
+		color: @blue;
+	}
 
 	// Clip overflow
 	.thumbnail-content {
@@ -105,5 +102,32 @@
 		right: .45em;
 		bottom: .5em;
 		z-index: 2;
+	}
+}
+
+// Follow up
+.thumbnails-follow-up {
+	margin-bottom: 0;
+
+	.thumbnail {
+		border: none;
+		padding: 0;
+		overflow: hidden;
+		line-height: 135%;
+		text-align: left;
+		.box-shadow(none);
+
+		img {
+			margin-bottom: .5em;
+		}
+
+		h3 {
+			font-size: 1em;
+			line-height: 135%;
+		}
+
+		form {
+			margin-bottom: 0;
+		}
 	}
 }

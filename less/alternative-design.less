@@ -5,7 +5,7 @@
  */
 
 
-@import 'variables.less';
+@import 'config/variables';
 
 
 // Typography
@@ -51,6 +51,10 @@ a {
 	}
 }
 
+.tertiary-navigation .nav > li > a {
+	background-color: @blue2;
+}
+
 .tertiary-navigation .nav > .active > a {
 	background-color: @orange;
 }
@@ -86,6 +90,15 @@ a {
 	&:hover,
 	&:focus {
 		background-color: @blue2;
+	}
+}
+
+.btn-link {
+	color: @blueDark2;
+
+	&:hover,
+	&:focus {
+		color: @orange;
 	}
 }
 

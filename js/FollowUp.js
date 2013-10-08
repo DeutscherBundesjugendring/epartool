@@ -13,101 +13,101 @@
  */
 
 ;
-(function ($, window, document) {
+(function($, window, document) {
     /**
-     * all PageManager stuff
-     * @class PageManager
-     * @param pageArr
-     * @required pageArr
+     * Followup Tool
+     * @param kid Konsultationsid
      * @constructor
      */
 
     function FollowUp(kid) {
 
-        //    console.log(kid)
 
         var _instance = this;
         var _colWidth;
         var _kid = kid;
-        var _host = 'http://' + window.location.host;
+        var _host = window.location.protocol + "//" + window.location.host;
 
         var _$followup = $('#followup');
         _init();
 
         function _init() {
-            //  console.log('followUp')
-            _setVerticalAlign()
-            _initEventListener()
-
+            _setVerticalAlign();
+            _initEventListener();
+           if ($("#followup .col").length === 1) $('.ajaxclick').trigger('click');
 
         }
 
         function _initEventListener() {
-            $('.ajaxclick').live('click', function (el) {
-                el.preventDefault()
-                el.stopPropagation()
+            $('.ajaxclick').live('click', function(el) {
+                el.preventDefault();
+                el.stopPropagation();
                 var _request = $(this).attr('href');
                 var _colId = parseInt($(this).parent().parent().parent().attr('data-id'));
                 var _reset;
 
-                if ($(this).hasClass('reset')) _reset = true;
+                if ($(this).hasClass('reset'))
+                    _reset = true;
 
-                var _obj = {'request': _request, 'colid': _colId, 'reset': _reset}
+                var _obj = {'request': _request, 'colid': _colId, 'reset': _reset};
 
 
                 if (!$(this).hasClass('active')) {
-                    _getAjaxData(_obj, _addItemCallback)
+                    _getAjaxData(_obj, _addItemCallback);
 
                 }
 
 
-                $('.ajaxclick').removeClass('active')
-                $(this).addClass('active')
+                $('.ajaxclick').removeClass('active');
+                $(this).addClass('active');
 
 
-                $(this).parent().parent().parent().find('.timeline-box').hide()
-                $(this).parent().parent('.timeline-box').show()
+                $(this).parent().parent().parent().find('.timeline-box').hide();
+                $(this).parent().parent('.timeline-box').show();
 
             })
 
-            $('a.voting').live('click', function (el) {
-                //  console.log('voting click')
-                el.preventDefault()
-                el.stopPropagation()
+            $('a.voting').live('click', function(el) {
+                el.preventDefault();
+                el.stopPropagation();
                 var _thisEl = $(this);
                 var _request = $(this).attr('href');
                 var _target = el.target;
-                var _obj = {'request': _request, 'target': _target}
+                var _obj = {'request': _request, 'target': _target};
 
-                _getAjaxData(_obj, function (data, status, obj) {
+                _getAjaxData(_obj, function(data, status, obj) {
+                    
                     var _amount = data.lkyea || data.lknay;
                     // obj.target.innerText = '(' + _amount + ')';
                     $(obj.target).text('(' + _amount + ')');
+                    var spanclass = $(obj.target).parent().hasClass("like") ? ".like" : ".dislike";
+                    var fid = $(obj.target).parents(".snippet").data('fid');                    
+                    $("#followup .wrapper .timeline-box[data-fid="+fid+"] "+spanclass).text('(' + _amount + ')');
                 })
 
             })
 
-            $('.openoverlay').live('click', function () {
-                //  console.log('content click')
+            $('.openoverlay').live('click', function() {
                 var _request = $(this).data('href');
-                var _highlightElement = $(this).data('elementid')
-                var _obj = {'request': _request}
+                var params = {};
+                params.fid = $(this).data('fid');
+                params.ffid = $(this).data('ffid');
+                var _obj = {'request': _request};
 
-                _getAjaxData(_obj, function (data, status, obj) {
+                _getAjaxData(_obj, function(data, status, obj) {
 
-                    //      console.log(data)
-                    _addOverlay(data, _highlightElement)
-                })
-            })
-            $('.overlayclose').live('click', function () {
-                $('.overlaywrapper').remove()
-            })
+                    _addOverlay(data, params);
+                });
+            });
+            $('.overlayclose').live('click', function() {
+                $('.overlaywrapper').remove();
+            });
 
 
-            $('.explbutton').click(function () {
-                $('.toggleexpl').toggle()
-                _setVerticalAlign()
-            })
+            $('.explbutton').click(function() {
+                $('.toggleexpl').toggle();
+                _setVerticalAlign();
+            });
 
 
         }
@@ -124,15 +124,15 @@
             var _followUpHeight = $('#followup').height() - 70; //maxHeight 458
             var _itemHeight;
 
-            $('#followup .wrapper').children('.col').each(function (index, element) {
-                $(this).attr('data-id', index)
+            $('#followup .wrapper').children('.col').each(function(index, element) {
+                $(this).attr('data-id', index);
                 _colHeight = $(this).height();
                 _colWidth = $(this).width();
                 _posTop = ((_followUpHeight / 2) - (_colHeight / 2));
-                $(this).css('top', _posTop)
-                $(this).css('left', index * _colWidth)
+                $(this).css('top', _posTop);
+                $(this).css('left', index * _colWidth);
 
-            })
+            });
 
         }
 
@@ -140,22 +140,21 @@
 
         function _setHorizontalAlign() {
 
-            $('#followup').removeAttr('style')
-            $('#followup .wrapper').children('.col').each(function (index, element) {
+            $('#followup').removeAttr('style');
+            $('#followup .wrapper').children('.col').each(function(index, element) {
                 var _tempHeight = $(element).height();
-                console.log(_tempHeight)
                 if (_tempHeight > wrapperHeight) {
                     wrapperHeight = _tempHeight;
                 } else {
-                    wrapperHeight = 0;
+                    //wrapperHeight = 0;
                 }
 
-            })
+            });
 
 
-            // console.log(wrapperHeight)
             $('#followup').height(wrapperHeight + 200);
-            _setVerticalAlign()
+
+            _setVerticalAlign();
         }
 
 
@@ -164,6 +163,7 @@
          * @method _addItemCallback
          * @param data
          * @param statuscode
+         * @param obj
          * @private
          */
         function _addItemCallback(data, statuscode, obj) {
@@ -172,42 +172,40 @@
             var _colId = obj.colid;
             var _statusCode = statuscode;
             if (_statusCode === 200) {
-                //    console.log(_jsonData)
-                $('#followup .wrapper').children('.col').each(function (index, element) {
-                    //   console.log(index)
+                $('#followup .wrapper').children('.col').each(function(index, element) {
                     if (index == _colId) {
-                        var _newCol = '<div class="col" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>'
+                        var _newCol = '<div class="col" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>';
 
 
-                        $('#followup .wrapper').append($(_newCol).html(_buildNewCol(_jsonData)).hide().fadeIn())
+                        $('#followup .wrapper').append($(_newCol).html(_buildNewCol(_jsonData)).hide().fadeIn());
 
                         $('#followup .wrapper').animate({
                             scrollLeft: _colWidth * _colId
-                        })
+                        });
 
 
                     } else if (index >= _colId) {
-                        $('#el-' + index).remove()
+                        $('#el-' + index).remove();
 
                         //  $(this).append(_buildNewCol(_jsonData))
                     }
-                })
+                });
 
                 if (obj.reset) {
-                    $('.timeline-box').fadeIn()
+                    $('.timeline-box').fadeIn();
                 }
 
 
-                _setVerticalAlign()
+                _setVerticalAlign();
 
-                window.setTimeout(function () {
-                    _setHorizontalAlign()
+                window.setTimeout(function() {
+                    _setHorizontalAlign();
 
-                }, 300)
+                }, 300);
 
 
             } else {
-                alert('Ups, die Anfrage lieferte kein Ergebnis')
+                alert('Ups, die Anfrage lieferte kein Ergebnis');
             }
         }
 
@@ -220,7 +218,6 @@
          */
         function _buildNewCol(data) {
 
-            // console.log(data)
             var _html = "";
 
             var _link = "";
@@ -240,18 +237,24 @@
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.byinput.snippets[i].ffid;
 
-                    _link = '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">' + data.byinput.snippets[i]['relFowupCount'] + '</a>';
+                    if (data.byinput.snippets[i].relFowupCount > 0 && data.byinput.snippets[i].typ !== "r" && data.byinput.snippets[i].typ !== "e") {
 
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.byinput.snippets[i].fid + '">' +
-                        ' <div class="content">' +
-                        '     <p>' + data.byinput.snippets[i].expl + '</p>' +
-                        _likeYes +
-                        _likeNo +
-                        ' </div>' +
-                        ' <div class="timeline-countlink sprite">' +
-                        _link +
-                        ' </div>' +
-                        '</div>';
+                        _link = '<div class="timeline-countlink sprite">';
+                        _link += '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">' + data.byinput.snippets[i].relFowupCount + '</a>';
+                        _link += ' </div>';
+
+                    } else
+                        _link = '';
+
+                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.byinput.snippets[i].fid + '">' +
+                            ' <div class="content">' +
+                            ' <img class="gfx_who_thumb" src="'+data.mediafolder+data.byinput.snippets[i].gfx_who+'" />' +
+                              data.byinput.snippets[i].expl  +
+                            _likeYes +
+                            _likeNo +
+                            ' </div>' +
+                            _link +
+                            '</div>';
 
                 }
             } else if (data.inputs) {
@@ -260,10 +263,7 @@
             else if (data.refs) {
 
                 for (var i in data.refs.docs) {
-                    //followup/json/kid/8/fid/1
-                    // console.log('docs')
-                    // console.log(data)
-                    var whendate = data.refs.docs[i].show_no_day == 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
+                    var whendate = data.refs.docs[i].show_no_day === 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
                         _when = '<p>' + whendate + '</p>'
@@ -275,26 +275,24 @@
 
 
                     if (data.refs.docs.length != 0) {
-                        _img = '<img class="refimg" src="' + _host + data.mediafolder + data.refs.docs[i].gfx_who + '" />'
+                        _img = '<img class="gfx_who_thumb refimg" src="' + data.mediafolder + data.refs.docs[i].gfx_who + '" />';
                     } else {
                         _img = '';
                     }
 
 
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.refs.docs[i].ffid + '">' +
-                        ' <div class="content">' +
-                        _img +
-                        '     <p class="">' + data.refs.docs[i].titl + '</p>' +
-                        _when +
-
-
-                        ' </div>' +
-
-                        '</div>';
+                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-ffid="' + data.refs.docs[i].ffid + '">' +
+                            ' <div class="content">' +
+                            _img +
+                            '     <p class="">' + data.refs.docs[i].titl + '</p>' +
+                            _when +
+                            ' </div>' +
+                            '</div>';
 
                 }
                 for (var i in data.refs.snippets) {
-                    if (data.refs.snippets[i].relFowupCount != 0) {
+                    var snippet = data.refs.snippets[i];
+                    if (snippet.relFowupCount > 0 && snippet.typ !== "r" && snippet.typ !== "e") {
 
                         _link = '<div class="timeline-countlink sprite"><a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a></div>';
                     } else {
@@ -306,17 +304,15 @@
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
 
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-elementid="' + data.refs.snippets[i].fid + '">' +
-                        ' <div class="content">' +
-
-                        '     ' + data.refs.snippets[i].expl + '' +
-                        _likeYes +
-                        _likeNo +
-                        ' </div>' +
-
-                        _link +
-
-                        '</div>';
+                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.refs.snippets[i].fid + '">' +
+                            ' <div class="content">' +
+                             ' <img class="gfx_who_thumb" src="'+data.mediafolder+snippet.gfx_who+'" />' +
+                            '     ' + data.refs.snippets[i].expl + '' +
+                            _likeYes +
+                            _likeNo +
+                            ' </div>' +
+                            _link +
+                            '</div>';
 
 
                 }
@@ -326,12 +322,8 @@
             return _html;
         }
 
-        function _addOverlay(data, id) {
+        function _addOverlay(data, params) {
             var _snippets = '';
-
-            var _id = id;
-            //  console.log(_id)
-
             var _activeSnippetClass = '';
             var _activeDocClass = '';
 
@@ -344,25 +336,15 @@
                 var _likeYes = '<a class="voting like" href="http://dev.dbjr/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lkyea + ')</span><span class="icon"></span></a>';
                 var _likeNo = '<a class="voting dislike" href="http://dev.dbjr/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lknay + ')</span> <span class="icon"></span></a>';
 
-                if (data.doc.fowups[i].fid == _id) {
-                    _activeSnippetClass = 'active';
-                } else {
-                    _activeSnippetClass = '';
-                }
-                if (data.doc.ffid == _id) {
-                    _activeDocClass = 'active';
-                } else {
-                    _activeDocClass = '';
-                }
+                _activeSnippetClass = typeof params.fid != "undefined"  && data.doc.fowups[i].fid == params.fid ? 'active' : '';
+                _activeDocClass = typeof params.ffid != "undefined"  && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';              
 
-                _snippets += '<div class="snippet ' + _activeSnippetClass + '">' +
-                    '<div>' + data.doc.fowups[i].expl + '</div>' +
-                    _likeYes +
-                    _likeNo +
-                    '<div class="overlayclose"><p>Zurück zur Zeitleiste</p></div>' +
-
-
-                    '</div>'
+                _snippets += '<div class="snippet ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
+                        '<div>' + data.doc.fowups[i].expl + '</div>' +
+                        _likeYes +
+                        _likeNo +
+                        '<div class="overlayclose"><p>Zurück zur Zeitleiste</p></div>' +
+                        '</div>';
             }
 
 
@@ -372,36 +354,41 @@
              *
              */
 
-            var when = data.doc.show_no_day == 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
+            var when = data.doc.show_no_day === 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
             var _content = '<div class="overlayclose overlayclosebutton"></div><div class="overlaycontent">' +
+                    '<div class="">' +
+                    '<h1>' + data.doc.titl + '</h1>' +
+                    '<div class="docs ' + _activeDocClass + '">' +
+                    '<p>' + data.doc.who + '</p>' +
+                    '<p>' + when + '</p>' +
+                    '<a class="" target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '">' + data.doc.ref_doc + '</a>' +
+                    '</div>' +
+                    _snippets +
+                    '</div>';
 
-                '<div class="">' +
-                '<h1>' + data.doc.titl + '</h1>' +
-                '<div class="docs ' + _activeDocClass + '">' +
-                '<p>' + data.doc.who + '</p>' +
-                '<p>' + when + '</p>' +
-                '<a class="" target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '">' + data.doc.ref_doc + '</a>' +
-
-                '</div>' +
-                _snippets +
-
-                '</div>'
-
-
-            '</div>'
+            '</div>';
 
             var _overlay = '<div class="overlaywrapper">' +
-                _content +
-                '</div>'
-            _$followup.append(_overlay)
-            $('.overlaywrapper').fadeIn()
+                    _content +
+                    '</div>';
+            _$followup.append(_overlay);
+            $('.overlaywrapper').fadeIn(function() {
+                try {
+                    var top = $(".overlaycontent .snippet.active").position().top - 30 || 0;
+                    $(".overlaycontent").scrollTop(top);
+                    
+                } catch(e) {
+                    
+                }
+            });
+            
         }
 
 
         /**
          * AjaxRequest for Data
          * @method _getAjaxData
-         * @param action
+         * @param obj
          * @param callback
          * @private
          */
@@ -414,35 +401,35 @@
                 url: _action,
                 crossDomain: false,
                 dataType: 'json',
-                success: function () {
+                success: function() {
                     $('#followuploader').hide();
                 },
                 statusCode: {
-                    200: function (_json) {
+                    200: function(_json) {
 
-                        _callback(_json, 200, obj)
-
-                    },
-                    400: function (_json) {
-
+                        _callback(_json, 200, obj);
 
                     },
-                    403: function (_json) {
+                    400: function(_json) {
 
 
                     },
-                    404: function (_json) {
-                        _callback(_json, 404)
+                    403: function(_json) {
+
 
                     },
-                    410: function (_json) {
-                        _callback(_json, 410)
+                    404: function(_json) {
+                        _callback(_json, 404);
 
                     },
-                    409: function (_json) {
+                    410: function(_json) {
+                        _callback(_json, 410);
 
                     },
-                    500: function () {
+                    409: function(_json) {
+
+                    },
+                    500: function() {
 
                     }
                 }
@@ -476,10 +463,10 @@
                     break;
                 case "dm":
                     var jetzt = new Date();
-                    var time1 = Date.UTC(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate())
-                    var time2 = Date.UTC(year, a.getMonth(), day)
-                    var dayDiff = (time2 - time1) / 1000 / 3600 / 24
-                    var mfDays = ['Gestern', 'Heute', 'Morgen']
+                    var time1 = Date.UTC(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate());
+                    var time2 = Date.UTC(year, a.getMonth(), day);
+                    var dayDiff = (time2 - time1) / 1000 / 3600 / 24;
+                    var mfDays = ['Gestern', 'Heute', 'Morgen'];
                     return mfDays[dayDiff + 1] || day + '. ' + month;
                     break;
                 case "d":
@@ -508,10 +495,10 @@
                     break;
                 case "mfDays-dm|hm":
                     var jetzt = new Date();
-                    var time1 = Date.UTC(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate())
-                    var time2 = Date.UTC(year, a.getMonth(), day)
-                    var dayDiff = (time2 - time1) / 1000 / 3600 / 24
-                    var mfDays = ['Gestern', 'Heute', 'Morgen']
+                    var time1 = Date.UTC(jetzt.getFullYear(), jetzt.getMonth(), jetzt.getDate());
+                    var time2 = Date.UTC(year, a.getMonth(), day);
+                    var dayDiff = (time2 - time1) / 1000 / 3600 / 24;
+                    var mfDays = ['Gestern', 'Heute', 'Morgen'];
                     return mfDays[dayDiff + 1] || day + '. ' + month + ' | ' + hour + ':' + min;
                     break;
             }

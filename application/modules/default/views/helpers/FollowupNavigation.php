@@ -18,8 +18,8 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract {
             $navItems = array(
                 
               'overview' => array('title'=>'Übersicht Reaktionen & Wirkungen','url'=>array('action' => 'index', 'page' => null)),
-              'by-question' => array('title'=>'Beiträge sortiert nach Fragen','url'=>array('action' => 'by-question', 'page' => null)),
-              'byKeywords' => array('title'=>'Beiträge sortiert nach Schlagwörtern','url'=>array('action' => 'show', 'page' => null))
+              'inputs-by-question' => array('title'=>'Beiträge sortiert nach Fragen','url'=>array('action' => 'inputs-by-question', 'page' => null)),
+              'tags' => array('title'=>'Beiträge sortiert nach Schlagwörtern','url'=>array('action' => 'tags', 'page' => null))
                 
             );
             
@@ -35,7 +35,7 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract {
                 $html.= '<a href="'.$this->view->url($val['url']).'">';
                 $html.= $val['title'];
                 $html.= '</a>';                
-                if($key == 'by-question' && $activeItem == 'by-question') {
+                if($key == 'inputs-by-question' && $activeItem == 'inputs-by-question') {
                     $html.= $this->view->QuestionNavigation($activeItemQ, 'follow-up');
                 }
                 $html.= '</li>';            

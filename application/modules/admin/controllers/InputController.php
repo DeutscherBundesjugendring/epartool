@@ -49,11 +49,13 @@ class Admin_InputController extends Zend_Controller_Action {
     $kid = $this->_request->getParam('kid', 0);
     $uid = $this->_request->getParam('uid', 0);
     $userModel = new Model_Users();
+    $userInfoModel = new Model_User_Info();
     $questionModel = new Model_Questions();
     
     $this->view->assign(array(
       'kid' => $kid,
       'user' => $userModel->getById($uid),
+      'user_info' => $userInfoModel->getLatestByUserAndConsultation($uid, $kid),
       'questions' => $questionModel->getWithInputsByUser($uid, $kid),
     ));
   }
