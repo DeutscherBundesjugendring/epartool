@@ -88,14 +88,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $form->getElement('parent_id')->setMultiOptions($parentOptions);
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
-            if (!isset($data['proj']) || empty($data['proj'])) {
-                // project should not be empty
-                $data['proj'] = array(Zend_Registry::get('systemconfig')->project);
-            }
-            if (!in_array(Zend_Registry::get('systemconfig')->project, $data['proj'])) {
-                // current project always has to be set!
-                $data['proj'][] = Zend_Registry::get('systemconfig')->project;
-            }
+            $data = $this->setProject($data);
             if ($form->isValid($data)) {
                 $articleModel = new Model_Articles();
                 $articleRow = $articleModel->createRow($form->getValues());
@@ -174,14 +167,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
             if ($this->getRequest()->isPost()) {
                 // Formular wurde abgeschickt und muss verarbeitet werden
                 $params = $this->getRequest()->getPost();
-                if (!isset($params['proj']) || empty($params['proj'])) {
-                    // project should not be empty
-                    $params['proj'] = array(Zend_Registry::get('systemconfig')->project);
-                }
-                if (!in_array(Zend_Registry::get('systemconfig')->project, $params['proj'])) {
-                    // current project always has to be set!
-                    $params['proj'][] = Zend_Registry::get('systemconfig')->project;
-                }
+                $params = $this->setProject($params);
                 if ($form->isValid($params)) {
                     $articleRow->setFromArray($form->getValues());
                     $articleRow->proj = implode(',', $params['proj']);
@@ -230,6 +216,25 @@ class Admin_ArticleController extends Zend_Controller_Action {
             }
         }
         $this->_redirect('/admin/article/index/kid/' . $kid);
+    }
+
+    /**
+     * Sats the project in case it is not set or the current project is not set
+     * @param array $data   The data to be adjusted
+     * @return  array       The adjsuted data
+     */
+    protected function setProject($data)
+    {
+        if (!isset($params['proj']) || empty($params['proj'])) {
+            // project should not be empty
+            $data['proj'] = array(Zend_Registry::get('systemconfig')->project);
+        }
+        if (!in_array(Zend_Registry::get('systemconfig')->project, $data['proj'])) {
+            // current project always has to be set!
+            $data['proj'][] = Zend_Registry::get('systemconfig')->project;
+        }
+
+        return $data;
     }
 }
 ?>
