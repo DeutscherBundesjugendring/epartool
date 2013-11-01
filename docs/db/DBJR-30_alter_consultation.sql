@@ -1,0 +1,1 @@
+ALTER TABLE  `cnslt` ADD  `expl_short` TEXT NOT NULL AFTER  `expl`;
