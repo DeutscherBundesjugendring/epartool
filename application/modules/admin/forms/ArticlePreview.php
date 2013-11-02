@@ -7,5 +7,10 @@ class Admin_Form_ArticlePreview extends Zend_Form {
 
     public function init() {
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+
+        $elements = $this->getElements();
+        foreach ($elements as $element) {
+        	$element->setDecorators(array('ViewHelper'));
+       }
     }
 }
