@@ -120,8 +120,14 @@ class Admin_ArticleController extends Zend_Controller_Action {
             }
             elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
                 $article = $this->getRequest()->getPost();
-                $article['proj'] = unserialize($article['proj']);
-                $form->populate($article);
+                    $articlePreviewForm = new Admin_Form_ArticlePreview();
+                    if($articlePreviewForm->isValid($article)) {
+                        $article['proj'] = unserialize($article['proj']);
+                        $form->populate($article);
+                    }
+                    else {
+                        $this->_redirect('admin');
+                    }
             }
 
             foreach ($form->getElements() as $element) {
@@ -200,7 +206,13 @@ class Admin_ArticleController extends Zend_Controller_Action {
                 }
                 elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
                     $article = $this->getRequest()->getPost();
-                    $article['proj'] = unserialize($article['proj']);
+                    $articlePreviewForm = new Admin_Form_ArticlePreview();
+                    if($articlePreviewForm->isValid($article)) {
+                        $article['proj'] = unserialize($article['proj']);
+                    }
+                    else {
+                        $this->_redirect('admin');
+                    }
                 }
                 else {
                     $article = $articleModel->getById($aid);
