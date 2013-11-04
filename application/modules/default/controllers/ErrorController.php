@@ -12,6 +12,11 @@ class ErrorController extends Zend_Controller_Action {
     // Hole das Fehlerobjekt aus dem Request-Objekt
     $errors = $this->getRequest()->getParam('error_handler');
 
+    if(APPLICATION_ENV != 'production') {
+      Zend_Registry::get('log')->crit($errors->exception);
+    }
+
+
     // Prüfe den Fehlertyp
     switch ($errors->type) {
       case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
@@ -31,8 +36,8 @@ class ErrorController extends Zend_Controller_Action {
     $this->view->environment = APPLICATION_ENV;
     $this->view->exception = $errors->exception;
   }
-  
+
   public function noAccessAction() {
-    
+
   }
 }
