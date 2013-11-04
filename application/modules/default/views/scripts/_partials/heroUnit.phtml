@@ -21,7 +21,9 @@ $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerN
 	<div class="consultation consultation-preview hero-unit">
 
 		<hgroup>
-			<h1><?php /* TODO add link */ echo $this->escape($this->consultation->titl) ?></h1>
+			<a href="<?=$this->baseUrl()?>/article/index/kid/<?=$this->consultation->kid?>">
+				<h1><?php echo $this->escape($this->consultation->titl) ?></h1>
+			</a>
 			<h2><?php echo $this->escape($this->consultation->titl_sub) ?></h2>
 		</hgroup>
 
