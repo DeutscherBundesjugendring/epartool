@@ -3,6 +3,7 @@
 /.project
 /node_modules
 /public/components
+deployment.*.log
 
 # Ignore filesystem files
 .DS_Store
