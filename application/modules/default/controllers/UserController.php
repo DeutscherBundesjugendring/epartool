@@ -4,11 +4,11 @@
  *
  */
 class UserController extends Zend_Controller_Action {
-  
+
   protected $_auth = null;
-  
+
   protected $_flashMessenger = null;
-  
+
   public function init() {
     $this->_auth = Zend_Auth::getInstance();
     $this->_flashMessenger = $this->_helper->getHelper('flashMessenger');
@@ -57,10 +57,10 @@ class UserController extends Zend_Controller_Action {
     } else {
       $form = new Default_Form_Register();
       $raw_data = $this->_request->getPost();
-      
+
       if (!$this->_auth->hasIdentity()) {
         // if not already logged in
-        
+
         // check if email is valid
         // if it exists already: store inputs
         // for the already registered user with new user info data
@@ -72,17 +72,17 @@ class UserController extends Zend_Controller_Action {
           $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
           $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
         }
-        
+
         $userModel = new Model_Users();
-        
+
         if ($form->isValid($raw_data)) {
           $data = $form->getValues();
           if ($data['group_type'] != 'group') {
             unset($data['group_specs']);
           }
-          
+
           $registerInfo = $userModel->register($data);
-          
+
           if ($registerInfo['newlyRegistered']) {
             // new user registered
             $this->_flashMessenger
@@ -95,7 +95,7 @@ class UserController extends Zend_Controller_Action {
             ->addMessage('Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-Adresse gesendet.', 'success');
           }
           $this->redirect('/');
-          
+
         } else {
           $populateForm = new Zend_Session_Namespace('populateForm');
           $populateForm->register = serialize($form);
@@ -109,7 +109,7 @@ class UserController extends Zend_Controller_Action {
       }
     }
   }
-  
+
   public function registerconfirmAction() {
     $ckey = $this->_request->getParam('ckey');
     $kid = $this->_request->getParam('kid');
@@ -133,13 +133,13 @@ class UserController extends Zend_Controller_Action {
     }
     $this->redirect('/');
   }
-  
+
   public function editAction() {
-    
+
     $this->_flashMessenger->addMessage('Noch nicht implementiert!', 'info');
     $this->redirect('/');
   }
-  
+
   public function inputlistAction() {
     $kid = $this->_request->getParam('kid', 0);
     $consultationModel = new Model_Consultations();
@@ -156,7 +156,7 @@ class UserController extends Zend_Controller_Action {
       $this->_flashMessenger->addMessage('Bitte erst anmelden!', 'error');
     }
   }
-  
+
   public function passwordrecoverAction() {
     $form = new Default_Form_PasswordRecover();
     if ($this->_request->isPost()) {
