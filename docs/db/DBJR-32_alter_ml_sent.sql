@@ -1,0 +1,1 @@
+ALTER TABLE  `ml_sent` ADD  `message` TEXT NOT NULL;
