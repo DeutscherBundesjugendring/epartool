@@ -91,11 +91,13 @@ $supportsDisabled = (
 									</a>
 								<?php endif; ?>
 							</span>
-							<span class="article-action">
-								<i class="icon-comments icon-orange icon-2x"></i>
-								<small>(<?php echo $input['pts']; ?>)</small>
-								<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
-							</span>
+							<?php if ($this->consultation->is_discussion_active == true): ?>
+								<span class="article-action">
+									<i class="icon-comments icon-orange icon-2x"></i>
+									<small>(<?php echo $input['pts']; ?>)</small>
+									<a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+								</span>
+							<?php endif?>
 						</section><!-- .actions -->
 
 					</article>
