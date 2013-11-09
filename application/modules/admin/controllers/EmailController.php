@@ -171,11 +171,12 @@ class Admin_EmailController extends Zend_Controller_Action {
               ->query()
               ->fetch();
 
-              $emailModel->send(
-                $email['rec'],
-                $email['subj'],
-                $email['message']
-              );
+            $emailModel->send(
+              $email['rec'],
+              $email['subj'],
+              $email['message']
+            );
+            $this->_flashMessenger->addMessage('Email was resent.', 'success');
           }
         }
       }
