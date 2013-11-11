@@ -1,5 +1,6 @@
 <?=$this->prevView->partial('article/show.phtml', array('article' => $this->article))?>
 
-<div style="position: fixed; width: 300px; top: 0; left: 50%; margin-left: -150px; spadding: 5px 10px;z-index: 9999; background-color: red; padding: 10px">
+<div class="admin-preview-toolbar">
+	<h2><i class="icon-warning-sign"></i> Warning: this is just a preview, no changes have been saved yet.</h2>
 	<?=$this->articlePreviewForm?>
 </div>
