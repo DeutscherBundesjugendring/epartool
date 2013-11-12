@@ -48,7 +48,10 @@ class Default_Form_Register extends Zend_Form {
     $this->removeElement('name_pers');
     $this->addSubForm($groupSpecs, 'group_specs', 6);
 
+    $validator = new Zend_Validate_InArray(array(1));
+    $validator->setMessage('You must agree');
     $this->getElement('is_contrib_under_cc');
+    $this->getElement('is_contrib_under_cc')->addValidator($validator);
     $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
     $this->getElement('is_contrib_under_cc')->setLabel(
       'Contributions are licenced under <a href="'
