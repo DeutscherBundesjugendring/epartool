@@ -4,6 +4,7 @@
 /node_modules
 /public/components
 deployment.*.log
+.htdeployment
 
 # Ignore filesystem files
 .DS_Store
