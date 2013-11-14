@@ -21,58 +21,68 @@
             <div class="wrapper">
                 <div class="col">
                     <div class="timeline-box">
-                        <h3><a class="whitelink" title="Zurück zur Übersicht der Beiträge sortiert nach Fragen" href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"><?php echo $this->question['nr'] .' '. $this->question['q']; ?></a></h3>
+                        <h3><a class="whitelink" title="Zurück zur Übersicht der Beiträge sortiert nach Fragen" href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></a></h3>
                         <div class="content">
                             <p><?php echo $this->input['thes']; ?></p>
-							<?php if (!empty($this->input['expl'])): ?>
-								<div class="explbutton">Show Expl</div>
-								<div class="toggleexpl">
-									<p><?php echo $this->input['expl']; ?></p>
-								</div>
+                            <?php if (!empty($this->input['expl'])): ?>
+                                <div class="explbutton">Show Expl</div>
+                                <div class="toggleexpl">
+                                    <p><?php echo $this->input['expl']; ?></p>
+                                </div>
 
-							<?php endif; ?>
-							<?php if ($this->input['vot'] == 'y'): ?>
-								<p class="score">Ergebnis der Abstimmung: X. Rang</p>
-							<?php endif; ?>
+                            <?php endif; ?>
+                            <?php if ($this->input['vot'] == 'y'): ?>
+                                <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                            <?php endif; ?>
                         </div>
-						<?php if ($this->input['vot'] == 'y' && $this->input['relFowupCount'] > 0): ?>
-							<div class="timeline-countlink sprite">
-								<a class="ajaxclick reset"
-								   href="<?php echo $this->url(array('action' => 'json', 'tid' => $this->input['tid'], 'page' => null)) ?>"><?php echo $this->input['relFowupCount']; ?></a>
-							</div>
-						<?php endif; ?>
-						<?php if ($this->input['vot'] != 'y' && count($this->relInput) > 0): ?>
-							<div class="timeline-countlink sprite">
-								<a class="ajaxclick reset"
-								   href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo count($this->relInput); ?></a>
-								<!--<p><?php echo count($this->relInput); ?></p>-->
-							</div>
-						<?php endif; ?>
+                        <?php if ($this->relatedCount): ?>
+                            <div class="timeline-countlink sprite">
+                                <a class="ajaxclick reset"
+                                   href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo $this->relatedCount; ?></a>
+                                <!--<p><?php echo count($this->relInput); ?></p>-->
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-				<?php if ($this->input['vot'] != 'y'): ?>
-
-
-					<div class="col">
-
-						<?php foreach ($this->relInput as $relInput): ?>
-							<div class="timeline-box">
-								<div class="content">
-									<p><?php echo $relInput['thes']; ?></p>
-
-									<p class="score">Ergebnis der Abstimmung: X. Rang</p>
-								</div>
-								<?php if ($relInput['relFowupCount'] != 0): ?>
-									<div class="timeline-countlink sprite">
-										<a class="ajaxclick"
-										   href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
-									</div>
-								<?php endif; ?>
-							</div>
-						<?php endforeach; ?>
-					</div>
-				<?php endif; ?>
+                <div class="col">
+                    <?php if ($this->input['vot'] != 'y'): ?>
+                        <?php if (count($this->relInput)): ?>
+                            <?php foreach ($this->relInput as $relInput): ?>
+                                <div class="timeline-box">
+                                    <div class="content">
+                                        <p><?php echo $relInput['thes']; ?></p>
+                                        <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                                    </div>
+                                    <?php if ($relInput['relFowupCount'] != 0): ?>
+                                        <div class="timeline-countlink sprite">
+                                            <a class="ajaxclick"
+                                               href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if (count($this->relSnippets)): ?>
+                        <?php foreach ($this->relSnippets as $snippet): ?> 
+                            <div class="timeline-box openoverlay" data-href="<?php echo $this->url(array('action' => 'json', 'ffid' => (int) $snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null)) ?>"  data-fid="<?php echo $snippet['fid'] ?>">
+                                <div class="content clearfix">
+                                    <img class="gfx_who_thumb" src="<?php echo $snippet['gfx_who'] ?>" />
+                                    <?php echo $snippet['expl'] ?>
+                                    <a class="voting like" href="<?php echo $this->url(array('action' => 'like', 'fid' => (int) $snippet['fid'], 'page' => null)) ?>"><span class="amount">(<?php echo $snippet['lkyea']; ?>)</span><span class="thumb-up"></span></a>
+                                    <a class="voting dislike" href="<?php echo $this->url(array('action' => 'unlike', 'fid' => (int) $snippet['fid'], 'page' => null)) ?>"><span class="amount">(<?php echo $snippet['lknay']; ?>)</span><span class="thumb-down"></span></a>
+                                </div>
+                                <?php if ($snippet['relFowupCount'] != 0): ?>
+                                    <div class="timeline-countlink sprite">
+                                        <a class="ajaxclick"
+                                           href="<?php echo $this->url(array('action' => 'json', 'fid' => $snippet['fid'], 'ffid' => null, 'tid' => null, 'page' => null)) ?>"><?php echo $snippet['relFowupCount']; ?></a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </div>
             <div id="followuploader">loading</div>
 
@@ -80,7 +90,7 @@
     </div><!-- .row -->
 </div><!-- .content-holder -->
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         /**
          * instance of followup created
          * @type {FollowUp}

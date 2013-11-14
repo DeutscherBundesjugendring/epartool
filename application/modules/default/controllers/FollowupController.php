@@ -125,16 +125,17 @@ class FollowupController extends Zend_Controller_Action {
                 $Model_Questions = new Model_Questions();
                 $Model_Followups = new Model_Followups();
                 $Model_FollowupsRef = new Model_FollowupsRef();
+                $Model_FollowupFiles = new Model_FollowupFiles();
 
 
                 $question = $Model_Questions->getById($qid);
 
                 $input = $Model_Inputs->getById($tid);
                 $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
-
+                
                 $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
                 $inputids = array();
-
+                
                 foreach ($relInputs as $relInput) {
                     $inputids[] = $relInput['tid'];
                 }
@@ -144,13 +145,41 @@ class FollowupController extends Zend_Controller_Action {
                 foreach ($relInputs as $key => $relInput) {
                     $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']]) ? $countarr[$relInput['tid']] : 0;
                 }
+                //getgfx_who
+                //getthecount of the follows
+                $relSnippets = $Model_Followups->getByInput($tid);
+
+                foreach ($relSnippets as $snippet) {
+                    $snippetids[] = $snippet['fid'];
+                    $ffids[] = (int) $snippet['ffid'];
+                }
+
+                $uniqueffids = array_unique($ffids);
+                $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
+                $indexeddocs = array();
+                foreach ($docs as $doc) {
+                    $indexeddocs[(int) $doc['ffid']] = $doc;
+                }
+
+                $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
+
+                foreach ($relSnippets as &$snippet) {
+                    $snippet['expl'] = html_entity_decode($snippet['expl']);
+                    $snippet['gfx_who'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/'.$indexeddocs[(int) $snippet['ffid']]['gfx_who'];
+                    $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
+                }
+
+                $relatedCount = count($relSnippets) + count($relInputs);
+                
 
                 // result via json for followoptool
 
                 $this->view->assign(array(
                     'question' => $question,
                     'input' => $input,
+                    'relatedCount' => $relatedCount,
                     'relInput' => $relInputs,
+                    'relSnippets' => $relSnippets,
                     'kid' => $kid
                 ));
             }
@@ -188,15 +217,15 @@ class FollowupController extends Zend_Controller_Action {
         $data = array();
 
         //show followups by fowup_rid.tid
-        
+
         $Model_Inputs = new Model_Inputs();
         $Model_Followups = new Model_Followups();
         $Model_FollowupsRef = new Model_FollowupsRef();
         $Model_FollowupFiles = new Model_FollowupFiles();
-        
+
         $snippetids = array();
         $ffids = array();
-        
+
         if ($tid) {
 
             $snippets = $Model_Inputs->getFollowups($tid);
@@ -205,14 +234,14 @@ class FollowupController extends Zend_Controller_Action {
                 $snippetids[] = $snippet['fid'];
                 $ffids[] = (int) $snippet['ffid'];
             }
-            
+
             $uniqueffids = array_unique($ffids);
             $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
             $indexeddocs = array();
             foreach ($docs as $doc) {
                 $indexeddocs[(int) $doc['ffid']] = $doc;
             }
-            
+
             $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($snippets as &$snippet) {
@@ -226,14 +255,14 @@ class FollowupController extends Zend_Controller_Action {
 
         //show References by fowups.fid
         if ($fid) {
-           
+
             $related = $Model_Followups->getRelated($fid, 'tid = 0');
 
             foreach ($related['snippets'] as $snippet) {
                 $snippetids[] = $snippet['fid'];
                 $ffids[] = (int) $snippet['ffid'];
             }
-            
+
             $uniqueffids = array_unique($ffids);
             $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
             $indexeddocs = array();
@@ -264,12 +293,12 @@ class FollowupController extends Zend_Controller_Action {
             $data['doc']['when'] = strtotime($data['doc']['when']);
             foreach ($data['doc']['fowups'] as $key => &$snippet) {
 
-               $snippet['expl'] = html_entity_decode($snippet['expl']);
+                $snippet['expl'] = html_entity_decode($snippet['expl']);
             }
         }
         $response = $this->getResponse();
         $response->setHeader('Content-type', 'application/json', true);
-        
+
         $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
         $this->_helper->json->sendJson($data);
     }

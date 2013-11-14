@@ -28,7 +28,7 @@ $locale = new Zend_Locale();
                 <ul class="unstyled recent-followup clearfix">
 					<?php foreach ($this->latest_followups as $followup): ?>
 						<li class="media">
-                                                    <p><?php echo $followup['titl'] ?></p>
+                                                    <!--<p><?php echo $followup['titl'] ?></p>-->
 							<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left" target="_blank" title="Dokument ansehen">
 								<img alt="Vorschau <?php echo $followup['titl'] ?>" src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>" />
 							</a>

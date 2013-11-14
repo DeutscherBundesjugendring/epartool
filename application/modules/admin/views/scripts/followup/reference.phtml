@@ -67,12 +67,12 @@ Frage wählen: <form style="display:inline;" id="qDropdownForm" action="" method
                     <th>These</th>
                 </tr>
                 <?php foreach ($this->question["inputs"] as $input): ?>
-                    <?php if($input['vot'] === 'y' && !in_array($input['tid'],$inptids)): ?>
+                    <?php if(!in_array($input['tid'],$inptids)): ?>
                         <tr>
                             <td>
                                 <input type="checkbox" name="inp_list[]" value="<?php echo $input['tid'] ?>">
                             </td>
-                            <td><?php echo $input['thes']; ?></td>
+                            <td><?php echo $input['thes']; ?> <?php echo $input['vot']; ?></td>
                         </tr>
                     <?php endif; ?>
                 <?php endforeach; ?>

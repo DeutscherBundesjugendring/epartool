@@ -8,8 +8,10 @@
   overflow: hidden;
 }
 #followup .wrapper {
-  position: relative;
-  overflow-x: scroll;
+/*  position: relative;*/
+position: absolute;
+top: 0;
+  overflow-x: hidden;
   width: 100%;
   height: 100%;
 }
@@ -44,7 +46,7 @@
 }
 #followup .col {
   position: absolute;
-  width: 280px;
+  width: 300px;
   /*float: left;*/
 
 }
@@ -78,15 +80,22 @@
 }
 #followup .col .timeline-box .timeline-countlink {
   position: absolute;
-  top: 42%;
-  left: 235px;
-  width: 40px;
+  top: 50%;
+  margin-top: -20px;
+  left: 238px;
+  width: 43px;
   height: 40px;
   background-position: -45px 0;
 }
+#followup .col .timeline-box .timeline-countlink a{
+  outline: 0 none;
+  text-decoration: none;
+  color:#000;
+  font-size:19px;
+}
 #followup .col .timeline-box .timeline-countlink p,
 #followup .col .timeline-box .timeline-countlink a {
-  padding: 10px 17px;
+  padding: 10px 17px 10px 15px;
   display: block;
 }
 #followup .col .openoverlay .content {
@@ -140,6 +149,8 @@
 }
 #followup .overlaywrapper .overlayclose {
   cursor: pointer;
+  
+  clear:left;
 }
 #followup #followuploader {
   width: 50px;
@@ -147,9 +158,9 @@
   background-color: #ffffff;
   position: absolute;
   z-index: 3;
-  top: 50%;
-  left: 50%;
-  margin-left: -25px;
+  top: 20px;
+  right: 20px;
+  
   text-align: center;
   display: none;
 }
@@ -169,8 +180,8 @@
 }
 
 .recent-followup img {
-    max-width: 120px;
-    max-height: 120px;
+    max-width: 150px;
+    max-height: 150px;
     width: auto;
     height: auto;
 }
@@ -179,7 +190,7 @@ ul.recent-followup {
     
 }
 .recent-followup li.media {
-   width: 120px;
+   width: 155px;
    margin: 0 10px 0 0;
 }
 .recent-followup li.media:first-child{
@@ -220,6 +231,25 @@ form.followup-download span.lightblue:focus
 {
     color: #FC9026 !important;
     text-decoration: underline;
+}
+.thumb-up, .thumb-down{
+    display: block;
+    float: left;
+    height: 20px;
+    width: 20px;
+    padding-left: 3px;
+}
+#followup .voting .amount {
+    float: left;
+    font-size: 11px;
+}
+.thumb-up{
+     background: url("../images/thumb_up.png") -11px -12px no-repeat;
+     margin-right: 7px;
+}
+.thumb-down{
+    margin-top: 2px;
+     background: url("../images/thumb_down.png") -11px -12px no-repeat;
 }
 
 .clearfix:before, .clearfix:after {
