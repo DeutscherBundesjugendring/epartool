@@ -1871,12 +1871,21 @@ form dd label + br {
   margin-bottom: 1em;
 }
 #cnslt_results-label,
-#newsl_subscr-label {
+#newsl_subscr-label,
+#is_contrib_under_cc-label {
   margin-left: 1.5em;
   margin-bottom: -2.25em;
 }
 #cnslt_results-element,
-#newsl_subscr-element {
+#newsl_subscr-element,
+#is_contrib_under_cc-element {
+  margin-bottom: .5em;
+}
+label[for="is_contrib_under_cc"] {
+  margin-left: 1.5em;
+  margin-bottom: -1.6em;
+}
+#is_contrib_under_cc {
   margin-bottom: .5em;
 }
 #cmnt_ext-label {
