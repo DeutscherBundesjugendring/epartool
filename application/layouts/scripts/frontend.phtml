@@ -13,11 +13,11 @@ $sysconfig = Zend_Registry::get('systemconfig');
 
 		<meta name="description" content="Ichmache>Politik ermöglicht die Mitwirkung an der eigenständigen Jugendpolitik: Ihr diskutiert vor Ort die FRAGEN > Ihr kommentiert den Fachdiskurs in euren BEITRÄGEN > Ihr entscheidet in der ABSTIMMUNG was am wichtigsten ist > Ihr verfolgt die WIRKUNG eurer MITWIRKUNG!" />
 		<meta name="author" content="Content © 2013 DBJR" />
-                <meta name="DC.title" content="Mitwirkung mit Wirkung" />
-                <meta name="DC.creator" content="" />
-                <meta property="og:title" content="Mitwirkung mit Wirkung" />
-                <meta property="og:image" content="" />
-                <meta property="og:description" content="Ichmache>Politik! Und was machst du?" />
+		<meta name="DC.title" content="Mitwirkung mit Wirkung" />
+		<meta name="DC.creator" content="" />
+		<meta property="og:title" content="Mitwirkung mit Wirkung" />
+		<meta property="og:image" content="" />
+		<meta property="og:description" content="Ichmache>Politik! Und was machst du?" />
 		<!--link rel="author" type="text/plain" href="<?php echo $this->baseUrl(); ?>/humans.txt" /-->
 
 		<link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/favicon.ico" />
@@ -26,7 +26,6 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->bootstrap ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fontAwesome ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->main ?>" type="text/css" />
-		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->followUp ?>" type="text/css" />
 		<?php if ($sysconfig->project == 'sd'): ?>
 			<?php if (file_exists(realpath(APPLICATION_PATH . '/../' . $config->path->css->rootdir . $sysconfig->project . '.css'))): ?>
 				<link rel="stylesheet" href="<?= $this->baseUrl($config->path->css->rootdir . $sysconfig->project . '.css') ?>" type="text/css" />

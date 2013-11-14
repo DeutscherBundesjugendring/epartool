@@ -12,16 +12,16 @@ class Model_Users extends Model_DbjrBase {
       'Model_User_Info',
       'Model_Votes_Rights'
   );
-  
+
   protected $_flashMessenger = null;
-  
+
   protected $_auth = null;
-  
+
   public function init() {
     $this->_auth = Zend_Auth::getInstance();
     $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
   }
-  
+
   /**
    * getById
    * @desc returns entry by id
@@ -137,15 +137,15 @@ class Model_Users extends Model_DbjrBase {
     }
     $userInfoModel = new Model_User_Info();
     $newlyRegistered = false;
-    
+
     // check if email address exists already
     if (!$this->emailExists($data['email'])) {
       // email does not exist yet
       $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
-      
+
       // password has to be generated because user should not be allowed to choose his own (it's a requirement):
       $password = $this->generatePassword();
-      
+
       // prepare insert record
       $insertData = array(
         'block' => 'u',
@@ -160,19 +160,20 @@ class Model_Users extends Model_DbjrBase {
         'regio_pax' => $data['regio_pax'],
         'cnslt_results' => $data['cnslt_results'],
         'newsl_subscr' => $data['newsl_subscr'],
+        'is_contrib_under_cc' => $data['is_contrib_under_cc'],
       );
       // write record to database
       $id = $this->add($insertData);
-      
+
       $this->sendRegisterConfirmationMail($id, $kid, $password);
-      
+
       $newlyRegistered = true;
     } else {
       $userRow = $this->getByEmail($data['email']);
       $id = $userRow->uid;
 //       $this->_flashMessenger->addMessage('Die angegebene E-Mail-Adresse existiert schon!', 'error');
     }
-    
+
     // store user info
     // prepare insert record
     $insertDataUserInfo = array(
@@ -203,23 +204,23 @@ class Model_Users extends Model_DbjrBase {
           'group_size' => 1
       ));
     }
-    
+
     $rowUserInfo = $userInfoModel->createRow($insertDataUserInfo);
     $user_info_id = $rowUserInfo->save();
-    
+
     // write inputs from session to database
     $inputModel = new Model_Inputs();
     $inputModel->storeSessionInputsInDb($id);
-    
+
     // register time for last activity
     $this->ping($id);
-    
+
     return array(
         'uid' => $id,
         'newlyRegistered' => $newlyRegistered
     );
   }
-  
+
   /**
    * Returns all Users that are Admins
    *
@@ -245,7 +246,7 @@ class Model_Users extends Model_DbjrBase {
         if ($row) {
           $row->pwd = md5($newPassword);
           $row->save();
-          
+
           $toName = $row->name;
           $toEmail = $email;
           $subject = "Neues Passwort für den Strukturierten Dialog";
@@ -254,9 +255,9 @@ class Model_Users extends Model_DbjrBase {
             . "Mit folgendem Passwort und deiner E-Mail-Adresse kannst du dich anmelden:\n"
             . "\n"
             . "Kennwort: $newPassword";
-            
+
           $mailModel = new Model_Emails();
-          
+
           // appropriate template has to be configured in database!
           $template = 'pwdrequest';
           $replace = array(
@@ -264,7 +265,7 @@ class Model_Users extends Model_DbjrBase {
             '{{EMAIL}}' => $email,
             '{{PWD}}' => $newPassword,
           );
-          
+
           return $mailModel->send($toEmail, $subject, $text, 'pwdrequest', $replace);
         }
       } else {
@@ -291,20 +292,20 @@ class Model_Users extends Model_DbjrBase {
 
     // we refer to the length of $possible a few times, so let's grab it now
     $maxlength = strlen($possible);
-  
+
     // check for length overflow and truncate if necessary
     if ($length > $maxlength) {
       $length = $maxlength;
     }
-	
+
     // set up a counter for how many characters are in the password so far
     $i = 0;
-    
+
     // add random characters to $password until $length is reached
     while ($i < $length) {
       // pick a random character from the possible ones
       $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-        
+
       // have we already used this character in $password?
       if (!strstr($password, $char)) {
         // no, so it's OK to add it onto the end of whatever we've already got...
@@ -313,10 +314,10 @@ class Model_Users extends Model_DbjrBase {
         $i++;
       }
     }
-    
+
     return $password;
   }
-  
+
   /**
    * Sends E-Mail for Registration Confirmation
    *
@@ -338,7 +339,7 @@ class Model_Users extends Model_DbjrBase {
         . Zend_Registry::get('baseUrl')
         . '/user/registerconfirm/ckey/' . $userRow->confirm_key
         . '/kid/' . $kid . "\n\n";
-      
+
       $template = 'register';
       $aReplace = array(
           '{{USER}}' => $userRow->name,
@@ -347,15 +348,15 @@ class Model_Users extends Model_DbjrBase {
           . '/kid/' . $kid,
           '{{PASSWORD}}' => $password
       );
-      
+
       $mailObj = new Model_Emails();
-      
+
       return $mailObj->send($userRow->email,
         'Registrierungsbestätigung', $mailBody, $template, $aReplace);
     }
     return false;
   }
-  
+
   /**
    * Holt unbestätigte Beiträge aus der Datenbank und verschickt eine E-Mail
    * an den Nutzer, welche Links zur Bestätigung der Beiträge enthält
@@ -393,28 +394,28 @@ class Model_Users extends Model_DbjrBase {
           $replace['{{CNSLT_TITLE}}'] = $consultation['titl'];
           $replace['{{INPUT_TO}}'] = $date->set($consultation['inp_to'])->get(Zend_Date::DATE_MEDIUM);
         }
-        
+
         $mailBody = 'Hallo ' . $userRow->name . "\n\n"
           . 'Bitte bestätige folgende Beiträge:' . "\n\n";
-        
+
         $inputIds = array();
         foreach ($unconfirmedInputs as $input) {
           $inputIds[] = $input->tid;
           $inputText = $input->thes . "\n\n";
-          
+
           $mailBody.= $inputText;
           $replace['{{USER_INPUTS}}'].= $inputText;
         }
-        
+
         $ckey = $inputModel->generateConfirmationKeyBulk($inputIds);
         $replace['{{CONFIRMLINK}}'] = Zend_Registry::get('baseUrl')
             . '/input/mailconfirm/kid/' . $input->kid . '/ckey/' . $ckey;
-        
+
         $replace['{{REJECTLINK}}'] = Zend_Registry::get('baseUrl')
         . '/input/mailreject/kid/' . $input->kid . '/ckey/' . $ckey;
-        
+
         $mailObj = new Model_Emails();
-        
+
         return $mailObj->send($userRow->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
       } else {
         // keine zu bestätigenden Beiträge
@@ -425,7 +426,7 @@ class Model_Users extends Model_DbjrBase {
       return false;
     }
   }
-  
+
   /**
    * Processes Registration Confirmation
    *
@@ -459,7 +460,7 @@ class Model_Users extends Model_DbjrBase {
     }
     return $return;
   }
-  
+
   /**
    * Checks if given email address already exists in database
    *
@@ -477,7 +478,7 @@ class Model_Users extends Model_DbjrBase {
       return false;
     }
   }
-  
+
   /**
    * Updates value of last activity with current timestamp
    *
@@ -492,7 +493,7 @@ class Model_Users extends Model_DbjrBase {
     $data = array('last_act' => new Zend_Db_Expr('NOW()'));
     $this->updateById($uid, $data);
   }
-  
+
   /**
    * Returns all participants of given consultation
    *
@@ -511,17 +512,17 @@ class Model_Users extends Model_DbjrBase {
     $select->where('i.kid = ?', $kid);
     $select->order($order);
     $stmt = $db->query($select);
-    
+
     return $stmt->fetchAll();
   }
-  
+
   /**
    * Return all users
    */
   public function getAll() {
     return $this->fetchAll($this->select()->order('name'));
   }
-  
+
   public function getByEmail($email) {
     $validator = new Zend_Validate_EmailAddress();
     if ($validator->isValid($email)) {
@@ -531,7 +532,7 @@ class Model_Users extends Model_DbjrBase {
     }
     return null;
   }
-  
+
   /**
    * Return all users which are confirmed
    */

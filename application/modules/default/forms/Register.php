@@ -12,25 +12,25 @@ class Default_Form_Register extends Zend_Form {
   public function init() {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-    
+
     $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
-    
+
     // set options for stringlength validator
 //     $password = $this->getElement('register_password');
 //     $password->getValidator('StringLength')
 //       ->setMin(6)
 //       ->setMessage('Ihr Kennwort ist zu kurz.', 'stringLengthTooShort');
-      
+
     $group = $this->getElement('group_type');
     $group->removeDecorator('Label')
       // set default:
       ->setValue('single');
-    
+
     $systemconfig = Zend_Registry::get('systemconfig');
     $grp_siz_def = $systemconfig->group_size_def->toArray();
     unset($grp_siz_def['0']);
     unset($grp_siz_def['1']);
-    
+
     // subform for group_type == "group"
     $groupSpecs = new Zend_Form_SubForm();
     $groupSpecs->addElements(array(
@@ -47,7 +47,15 @@ class Default_Form_Register extends Zend_Form {
     $this->removeElement('name_group');
     $this->removeElement('name_pers');
     $this->addSubForm($groupSpecs, 'group_specs', 6);
-    
+
+    $this->getElement('is_contrib_under_cc');
+    $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
+    $this->getElement('is_contrib_under_cc')->setLabel(
+      'Contributions are licenced under <a href="'
+      . Zend_Registry::get('systemconfig')->license->creative_commons->link
+      . '" target="_blank">creative commons</a> licence.'
+    );
+
     // add javascript for toggling subform
     $script = $this->getElement('script');
     $code = '<script type="text/javascript">' . "\n"

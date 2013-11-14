@@ -7,16 +7,16 @@
 class Model_Emails extends Model_DbjrBase {
   protected $_name = 'ml_sent';
   protected $_primary = 'id';
-  
+
   protected $_flashMessenger = null;
-  
+
   protected $_auth = null;
-  
+
   public function init() {
     $this->_auth = Zend_Auth::getInstance();
     $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
   }
-  
+
   /**
    * getById
    * @desc returns entry by id
@@ -118,14 +118,14 @@ class Model_Emails extends Model_DbjrBase {
     }
   }
 
-  
+
   /**
    * Return all users
    */
   public function getAll() {
     return $this->fetchAll($this->select()->order('when DESC'));
   }
-  
+
   /**
    * send a email and put into database
    * @param string $receiver email address
@@ -158,14 +158,14 @@ class Model_Emails extends Model_DbjrBase {
     || empty($subject) ) {
       $success = false;
     }
-    
-    
+
+
     $systemconfig = Zend_Registry::get('systemconfig');
     $sender = $systemconfig->systemEmailaddress;
-    
+
     $senderEmail = (empty($senderEmail))? $systemconfig->systemEmailaddress : $senderEmail;
     $senderName = (empty($senderName))? $systemconfig->systemEmailname : $senderName;
-    
+
     // use Template
     if(!empty($templateReference) && !empty($templateReplace) && is_array($templateReplace)) {
       /// fetch template by name
@@ -208,7 +208,7 @@ class Model_Emails extends Model_DbjrBase {
       $logger->notice('E-Mail-Template: Kein Template angegeben oder Ersetzung im falschen Format.');
     }
 
-    if (APPLICATION_ENV == 'development') {
+    if (APPLICATION_ENV == 'development_mbo') {
       $logger->debug('E-Mail:');
       $logger->debug('-------Absender:' . $senderName . ' <' . $senderEmail . '>');
       $logger->debug('-------Empfänger:' . $receiver);
@@ -218,7 +218,7 @@ class Model_Emails extends Model_DbjrBase {
       $logger->debug('-------Nachricht:' . $message);
       $success = true;
     } else {
-      
+
       // E-Mail verschicken
       $mail = new Zend_Mail('UTF-8');
       $mail->setBodyText($message);
@@ -234,20 +234,21 @@ class Model_Emails extends Model_DbjrBase {
       try {
         $mail->send();
         $success = true;
-        
+
       }
       catch( Zend_Mail_Transport_Exception $e ) {
         $logger->err('E-Mail-ERROR: E-Mail-Versand:' . $e->getMessage());
         $success = false;
       }
     }
-    
+
     if($success) {
       $addData = array(
         'sender'=>$sender,
         'subj'=>$subject,
         'proj'=>Zend_Registry::get('systemconfig')->project,
-        'rec'=>$receiver
+        'rec'=>$receiver,
+        'message' => $message,
       );
       $dbsuccess = $this->add($addData);
       if(!$dbsuccess) {

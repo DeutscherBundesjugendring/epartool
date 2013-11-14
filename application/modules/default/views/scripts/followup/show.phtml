@@ -7,16 +7,21 @@
  */
 ?>
 
+<style type="text/css">
+@import url(<?php echo $this->baseUrl() . '/css/followUp.css'; ?>);
+</style>
+
 <div class="content-holder">
-    <div class="row">
-        <section id="followup" class="main-content span">
+	<div class="row">
+		<section id="followup" class="main-content span">
 
-            <div class="followuphead">
-                <a title="Zurück zur Übersicht Reaktionen & Wirkungen" href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"><div class="sprite question-mark"><p>?</p></div></a>
-                <h3 class="question-h3">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.</h3>
+			<div class="followuphead">
+				<a title="Zurück zur Übersicht Reaktionen & Wirkungen"
+				   href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>">
+					<div class="sprite question-mark"><p>?</p></div>
+				</a>
 
-                <p class="followup-topic">Reaktionen und Wirkungen!</p>
-            </div>
+				<h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
 
             <div class="wrapper">
                 <div class="col">
@@ -86,9 +91,11 @@
             </div>
             <div id="followuploader">loading</div>
 
-        </section>
-    </div><!-- .row -->
+		</section>
+	</div>
+	<!-- .row -->
 </div><!-- .content-holder -->
+
 <script type="text/javascript">
     $(document).ready(function() {
         /**

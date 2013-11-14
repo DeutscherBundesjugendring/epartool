@@ -44,6 +44,10 @@
 		&:focus {
 			color: @btnTextHover;
 		}
+
+		&.btn-extend {
+			color: @white;
+		}
 	}
 }
 
@@ -103,6 +107,7 @@
 
 .well-large-alt {
 	.decoratedBox();
+	position: relative;
 	margin: 2em 0;
 	padding: .75em;
 
@@ -110,5 +115,14 @@
 		font-size: 1.6em;
 		line-height: 110%;
 		color: @blue;
+
+		&.alt {
+			max-width: 17em;
+			margin-left: auto;
+			margin-right: auto;
+			font-size: 2em; // 21px
+			line-height: 115%;
+			color: @orange;
+		}
 	}
 }

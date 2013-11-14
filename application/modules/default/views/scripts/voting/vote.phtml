@@ -21,6 +21,8 @@
 				<p>In dieser Kategorie gibt es keine Beiträge mehr zum Abstimmen. Bitte wechsle zu einer anderen Frage oder einem anderen Schlagwort.</p>
 				<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
 				   class="btn">Frage / Schlagwort wechseln</a>
+				   
+				<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">Beenden</a>
 
 			<?php else: ?>
 

@@ -49,7 +49,7 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 			</hgroup>
 		</a>
 
-		<span class="label sticker label-mitmachen hidden-print">Mitmachen</span>
+		<?=$this->ribbonImage($con)?>
 
 		<nav role="navigation" class="consultation-nav">
 			<ul class="nav nav-pills">
@@ -57,7 +57,7 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 					<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
 						<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $con->kid . '/' . $con->img_file; ?>" width="144" alt="<?php echo $con->img_expl; ?>" />
 						<div class="description">
-							<p><?php echo strip_tags(htmlspecialchars_decode($con->expl)); ?></p>
+							<p><?php echo nl2br(strip_tags(htmlspecialchars_decode($con->expl_short)))?></p>
 						</div>
 					</a>
 				</li>

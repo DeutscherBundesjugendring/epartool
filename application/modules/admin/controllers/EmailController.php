@@ -4,9 +4,9 @@
  *
  */
 class Admin_EmailController extends Zend_Controller_Action {
-  
+
   protected $_flashMessenger = null;
-  
+
   /**
    * @desc Construct
    * @return void
@@ -24,9 +24,24 @@ class Admin_EmailController extends Zend_Controller_Action {
    */
   public function indexAction() {
     $emailModel = new Model_Emails();
-    $this->view->emaillist = $emailModel->getAll();
+    $emails = $emailModel->getAll();
+
+    $listControlForm = new Admin_Form_Email_ListControl();
+
+    foreach ($emails as $email) {
+      // Previously message body wasnt being saved.
+      // We dont want the "Resend" button for emails for which the message body wasnt saved.
+      if(!empty($email['message'])) {
+        $element = new Zend_Form_Element_Submit('resend' . $email->id);
+        $element->setLabel('Resend');
+        $listControlForm->addElement($element);
+      }
+    }
+
+    $this->view->emaillist = $emails;
+    $this->view->listControlForm = $listControlForm;
   }
-  
+
   /**
    * @desc overview of e-mail-templates
    * @return void
@@ -52,7 +67,7 @@ class Admin_EmailController extends Zend_Controller_Action {
             $bcc = $this->getRequest()->getParam('mailbcc');
 
             $mailsended = $emailModel->send($receiver, $subject, $message, null, null, null, null, $cc, $bcc);
-            
+
             Zend_Debug::dump($mailsended);
             if ($mailsended) {
               $this->_flashMessenger->addMessage('E-Mail wurde versendet.', 'success');
@@ -68,14 +83,14 @@ class Admin_EmailController extends Zend_Controller_Action {
     }
     $this->view->form = $form;
   }
-  
+
   /**
    * Template edit/new
    */
   public function edittemplateAction() {
     $form = new Admin_Form_Email_Template();
     $templateModel = new Model_Emails_Templates();
-    
+
     $mid = $this->getRequest()->getParam('mid');
     $form->setAction($this->view->baseUrl() . '/admin/email/edittemplate/');
     $redirect = '/admin/email/template/';
@@ -85,8 +100,9 @@ class Admin_EmailController extends Zend_Controller_Action {
       $redirect.='mid/'.$mid;
       $template = $templateModel->getById($mid);
       $values = $template->toArray();
+
     }
-    
+
     if ($this->getRequest()->isPost()
         && false !== $this->getRequest()->getPost('submit', false)) {
           if ($form->isValid($this->getRequest()->getPost())) {
@@ -103,7 +119,7 @@ class Admin_EmailController extends Zend_Controller_Action {
               $success = $templateRow->save();
             }
             $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
-            
+
             $this->_redirect($redirect);
           } else {
             $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
@@ -117,7 +133,7 @@ class Admin_EmailController extends Zend_Controller_Action {
     }
     $this->view->form = $form;
   }
-  
+
   /**
    * delete sended e-mail-log
    */
@@ -133,6 +149,36 @@ class Admin_EmailController extends Zend_Controller_Action {
       }
       else {
         $this->_flashMessenger->addMessage('Fehler beim Löschen des E-Mail-Eintrags. Bitte versuche es erneut.', 'error');
+      }
+    }
+    $this->_redirect('/admin/email/index');
+  }
+
+  public function listControlAction()
+  {
+    $request = $this->getRequest();
+    $form = new Admin_Form_Email_ListControl();
+    if($request->isPost()) {
+      $data = $request->getPost();
+      if ($form->isValid($data)) {
+        foreach ($data as $key => $value) {
+          if (substr($key, 0, 6) == 'resend') {
+            $emailId = substr($key, 6);
+            $emailModel = new Model_Emails();
+            $email = $emailModel
+              ->select()
+              ->where('id = ?', $emailId)
+              ->query()
+              ->fetch();
+
+            $emailModel->send(
+              $email['rec'],
+              $email['subj'],
+              $email['message']
+            );
+            $this->_flashMessenger->addMessage('Email was resent.', 'success');
+          }
+        }
       }
     }
     $this->_redirect('/admin/email/index');
