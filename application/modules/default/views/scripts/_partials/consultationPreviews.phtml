@@ -23,22 +23,22 @@ if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $
 
 $bubbles = array();
 if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
-  $bubbles['input'] = '<div class="bubble bubble-large">'
-    . '<h3>Jetzt mitmachen!</h3>';
   if ($con->inp_show == 'y') {
+    $bubbles['input'] = '<div class="bubble bubble-large">'
+      . '<h3>Jetzt mitmachen!</h3>';
     $bubbles['input'].= '<span>vom ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
       . 'bis ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+    $bubbles['input'].= '</div>';
   }
-  $bubbles['input'].= '</div>';
 }
 if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
-  $bubbles['voting'] = '<div class="bubble bubble-large">'
-    . '<h3>Jetzt abstimmen!</h3>';
   if ($con->vot_show == 'y') {
+    $bubbles['voting'] = '<div class="bubble bubble-large">'
+      . '<h3>Jetzt abstimmen!</h3>';
     $bubbles['voting'].= '<span>vom ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
     . 'bis ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+    $bubbles['voting'].= '</div>';
   }
-  $bubbles['voting'].= '</div>';
 }
 ?>
 	<div class="consultation consultation-preview">

@@ -9,7 +9,9 @@ $date = new Zend_Date();
 $linkHeadlineToInputs = false;
 if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
 		&& $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())) {
-	$linkHeadlineToInputs = true;
+  if ($this->consultation->inp_show == 'y') {
+      $linkHeadlineToInputs = true;
+  }
 }
 ?>
 

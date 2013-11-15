@@ -74,10 +74,14 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract {
 
 		// Add bubbles
 		if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
-			$items['input']['showBubble'] = TRUE;
+		  if ($con->inp_show == 'y') {
+		      $items['input']['showBubble'] = TRUE;
+		  }
 		}
 		if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
-			$items['voting']['showBubble'] = TRUE;
+		  if ($con->vot_show == 'y') {
+		      $items['voting']['showBubble'] = TRUE;
+		  }
 		}
 
 		// Render
