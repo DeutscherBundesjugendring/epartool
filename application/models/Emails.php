@@ -208,7 +208,7 @@ class Model_Emails extends Model_DbjrBase {
       $logger->notice('E-Mail-Template: Kein Template angegeben oder Ersetzung im falschen Format.');
     }
 
-    if (APPLICATION_ENV == 'development_mbo') {
+    if (APPLICATION_ENV == 'development' || APPLICATION_ENV == 'development_mbo') {
       $logger->debug('E-Mail:');
       $logger->debug('-------Absender:' . $senderName . ' <' . $senderEmail . '>');
       $logger->debug('-------Empfänger:' . $receiver);
