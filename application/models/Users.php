@@ -160,7 +160,6 @@ class Model_Users extends Model_DbjrBase {
         'regio_pax' => $data['regio_pax'],
         'cnslt_results' => $data['cnslt_results'],
         'newsl_subscr' => $data['newsl_subscr'],
-        'is_contrib_under_cc' => $data['is_contrib_under_cc'],
       );
       // write record to database
       $id = $this->add($insertData);

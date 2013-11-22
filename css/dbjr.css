@@ -422,6 +422,35 @@ body > footer .contact {
   line-height: 135%;
   text-align: right;
 }
+.admin-preview-toolbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  padding: 2em 3.076924em;
+  text-align: center;
+  background-color: rgba(255, 221, 85, 0.95);
+  -webkit-box-shadow: 0 0 1.5em #000000;
+  -moz-box-shadow: 0 0 1.5em #000000;
+  box-shadow: 0 0 1.5em #000000;
+}
+.admin-preview-toolbar h2 {
+  margin-bottom: 0;
+  color: #000;
+}
+.admin-preview-toolbar h2 i {
+  color: #fc9026;
+}
+.admin-preview-toolbar form,
+.admin-preview-toolbar form dl {
+  margin: 0;
+}
+.admin-preview-form {
+  position: absolute;
+  right: 3.076924em;
+  top: 1.565em;
+}
 .alert {
   padding: 1em 3.076924em 1em 1.538462em;
   text-shadow: none;
@@ -518,7 +547,6 @@ p .btn {
 }
 .btn-primary {
   background-color: #fc9026;
-  text-shadow: 0 -1px 0 #000000;
 }
 .btn-primary i {
   text-shadow: none;
@@ -1871,12 +1899,21 @@ form dd label + br {
   margin-bottom: 1em;
 }
 #cnslt_results-label,
-#newsl_subscr-label {
+#newsl_subscr-label,
+#is_contrib_under_cc-label {
   margin-left: 1.5em;
   margin-bottom: -2.25em;
 }
 #cnslt_results-element,
-#newsl_subscr-element {
+#newsl_subscr-element,
+#is_contrib_under_cc-element {
+  margin-bottom: .5em;
+}
+label[for="is_contrib_under_cc"] {
+  margin-left: 1.5em;
+  margin-bottom: -1.6em;
+}
+#is_contrib_under_cc {
   margin-bottom: .5em;
 }
 #cmnt_ext-label {
