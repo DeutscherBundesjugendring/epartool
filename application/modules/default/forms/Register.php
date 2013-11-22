@@ -51,9 +51,9 @@ class Default_Form_Register extends Zend_Form {
     $this->getElement('is_contrib_under_cc');
     $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
     $this->getElement('is_contrib_under_cc')->setLabel(
-      'Contributions are licenced under <a href="'
+      'Die Beiträge werden unter einer <a href="'
       . Zend_Registry::get('systemconfig')->license->creative_commons->link
-      . '" target="_blank">creative commons</a> licence.'
+      . '" target="_blank">Creative-Commons-Lizenz</a> veröffentlicht.'
     );
 
     // add javascript for toggling subform
