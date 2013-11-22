@@ -53,7 +53,7 @@ class Default_Form_Register extends Zend_Form {
     $this->getElement('is_contrib_under_cc')->setLabel(
       'Die Beiträge werden unter einer <a href="'
       . Zend_Registry::get('systemconfig')->license->creative_commons->link
-      . '" target="_blank">Creative-Commons-Lizenz</a> veröffentlicht.'
+      . '" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">Creative-Commons-Lizenz</a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung als Quelle nur diese Website genannt werden.'
     );
 
     // add javascript for toggling subform
