@@ -53,7 +53,7 @@
   clear: both;
 }
 .hide-text {
-  font: NaN a;
+  font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -728,7 +728,7 @@ p .btn {
   background-color: #00cbff;
 }
 .label.sticker {
-  font: NaN a;
+  font: 0/0 a;
   color: transparent;
   text-shadow: none;
   border: 0;
