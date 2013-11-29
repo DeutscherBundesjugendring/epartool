@@ -209,6 +209,9 @@
             var _when = "";
             var _likeYes = "";
             var _likeNo = "";
+            var _edgeLeft = "";
+            var _gfxwho_overlay = "";
+            var _hasTypOverlay = "";
 
 
             if (data.byinput) {
@@ -219,7 +222,9 @@
                     _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.byinput.snippets[i].fid + '"><span class="amount">(' + data.byinput.snippets[i].lknay + ')</span> <span class="thumb-down"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.byinput.snippets[i].ffid;
-
+                    _edgeLeft = data.byinput.snippets[i].typ !== 'g' ? '<div class="followup-typ edge-left followup-typ-'+data.byinput.snippets[i].typ+'"> </div>' : '';
+                    _gfxwho_overlay = data.byinput.snippets[i].typ !== 'g' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+data.byinput.snippets[i].typ+'"> </div>' : '';
+                    _hasTypOverlay = data.byinput.snippets[i].typ !== 'g' ? 'has-typ-overlay' : '';
                     if (data.byinput.snippets[i].relFowupCount > 0 && data.byinput.snippets[i].typ !== "r" && data.byinput.snippets[i].typ !== "e") {
 
                         _link = '<div class="timeline-countlink sprite">';
@@ -230,8 +235,9 @@
                         _link = '';
 
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.byinput.snippets[i].fid + '">' +
-                            ' <div class="content clearfix">' +
-                            ' <img class="gfx_who_thumb" src="'+data.mediafolder+data.byinput.snippets[i].gfx_who+'" />' +
+                            ' <div class="content clearfix '+_hasTypOverlay+'">' +
+                            _edgeLeft + _gfxwho_overlay +
+                            ' <div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb" src="'+data.mediafolder+data.byinput.snippets[i].gfx_who+'" /></div>' +
                               data.byinput.snippets[i].expl  +
                             _likeYes +
                             _likeNo +
@@ -262,7 +268,7 @@
                     } else {
                         _img = '';
                     }
-
+                    
 
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-ffid="' + data.refs.docs[i].ffid + '">' +
                             ' <div class="content">' +
@@ -286,10 +292,15 @@
                     _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span><span class="thumb-down"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
-
+                    
+                    _edgeLeft = snippet.typ !== 'g' ? '<div class="followup-typ edge-left followup-typ-'+snippet.typ+'"> </div>' : '';
+                    _gfxwho_overlay = snippet.typ !== 'g' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+snippet.typ+'"> </div>' : '';
+                    _hasTypOverlay = snippet.typ !== 'g' ? 'has-typ-overlay' : '';
+                             
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.refs.snippets[i].fid + '">' +
-                            ' <div class="content clearfix">' +
-                             ' <img class="gfx_who_thumb" src="'+data.mediafolder+snippet.gfx_who+'" />' +
+                            ' <div class="content clearfix '+_hasTypOverlay+'">' +
+                            _edgeLeft + _gfxwho_overlay +
+                             ' <div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb" src="'+data.mediafolder+snippet.gfx_who+'" /></div>' +
                             '     ' + data.refs.snippets[i].expl + '' +
                             _likeYes +
                             _likeNo +
@@ -309,6 +320,8 @@
             var _snippets = '';
             var _activeSnippetClass = '';
             var _activeDocClass = '';
+            var _activeSnippet;
+            var _edgeRight = "";
 
             /**
              *
@@ -318,14 +331,18 @@
 
                 var _likeYes = '<a class="voting like" href="http://dev.dbjr/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lkyea + ')</span><span class="thumb-up"></span></a>';
                 var _likeNo = '<a class="voting dislike" href="http://dev.dbjr/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lknay + ')</span><span class="thumb-down"></span></a>';
-
-                _activeSnippetClass = typeof params.fid != "undefined"  && data.doc.fowups[i].fid == params.fid ? 'active' : '';
+                _activeSnippet = typeof params.fid != "undefined"  && data.doc.fowups[i].fid == params.fid ? true : false;
+                _activeSnippetClass = _activeSnippet ? 'active' : '';
                 _activeDocClass = typeof params.ffid != "undefined"  && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';              
-
+               
+                _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ+'"> </div>' : '';
+                        
                 _snippets += '<div class="snippet ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
+                        _edgeRight +
                         '<div>' + data.doc.fowups[i].expl + '</div>' +
                         _likeYes +
                         _likeNo +
+                        
                         '<div class="overlayclose"><p>Zurück zur Zeitleiste</p></div>' +
                         '</div>';
             }

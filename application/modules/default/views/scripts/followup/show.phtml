@@ -8,22 +8,20 @@
 ?>
 
 <style type="text/css">
-@import url(<?php echo $this->baseUrl() . '/css/followUp.css'; ?>);
+    @import url(<?php echo $this->baseUrl() . '/css/followUp.css'; ?>);
 </style>
 
 <div class="content-holder">
-	<div class="row">
-		<section id="followup" class="main-content span">
+    <div class="row">
+        <section id="followup" class="main-content span">
 
-			<div class="followuphead">
-				<a title="Zurück zur Übersicht Reaktionen & Wirkungen"
-				   href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>">
-					<div class="sprite question-mark"><p>?</p></div>
-				</a>
-
-				<h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
-                        </div>
-
+            <div class="followuphead">
+                <a title="Zurück zur Übersicht Reaktionen & Wirkungen"
+                   href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>">
+                    <div class="sprite question-mark"><p>?</p></div>
+                </a>
+                <h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
+            </div>
             <div class="wrapper">
                 <div class="col">
                     <div class="timeline-box">
@@ -73,8 +71,14 @@
                     <?php if (count($this->relSnippets)): ?>
                         <?php foreach ($this->relSnippets as $snippet): ?> 
                             <div class="timeline-box openoverlay" data-href="<?php echo $this->url(array('action' => 'json', 'ffid' => (int) $snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null)) ?>"  data-fid="<?php echo $snippet['fid'] ?>">
-                                <div class="content clearfix">
-                                    <img class="gfx_who_thumb" src="<?php echo $snippet['gfx_who'] ?>" />
+                                <div class="content clearfix <?php echo $snippet['typ'] !== 'g' ? 'has-typ-overlay' : '' ?>">
+                                    <?php if ($snippet['typ'] !== 'g') : ?>
+                                        <div class="followup-typ edge-left followup-typ-<?php echo $snippet['typ'] ?>"> </div>
+                                        <div class="followup-typ gfx-who-overlay followup-typ-<?php echo $snippet['typ'] ?>"> </div>
+                                    <?php endif; ?>
+                                        <div class="followup-gfx-who-wrapper">                                            
+                                            <img class="gfx_who_thumb" src="<?php echo $snippet['gfx_who'] ?>" />
+                                        </div>
                                     <?php echo $snippet['expl'] ?>
                                     <a class="voting like" href="<?php echo $this->url(array('action' => 'like', 'fid' => (int) $snippet['fid'], 'page' => null)) ?>"><span class="amount">(<?php echo $snippet['lkyea']; ?>)</span><span class="thumb-up"></span></a>
                                     <a class="voting dislike" href="<?php echo $this->url(array('action' => 'unlike', 'fid' => (int) $snippet['fid'], 'page' => null)) ?>"><span class="amount">(<?php echo $snippet['lknay']; ?>)</span><span class="thumb-down"></span></a>
@@ -92,9 +96,9 @@
             </div>
             <div id="followuploader">loading</div>
 
-		</section>
-	</div>
-	<!-- .row -->
+        </section>
+    </div>
+    <!-- .row -->
 </div><!-- .content-holder -->
 
 <script type="text/javascript">
