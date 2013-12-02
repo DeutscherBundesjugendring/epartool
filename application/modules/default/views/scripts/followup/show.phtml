@@ -1,6 +1,6 @@
 <?php
 /**
- * Question
+ * shows the initial timeline for followups by chosen input
  *
  * @description show Followup Timeline
  * @author Marco Dinnbier
@@ -70,26 +70,9 @@
                     <?php endif; ?>
                     <?php if (count($this->relSnippets)): ?>
                         <?php foreach ($this->relSnippets as $snippet): ?> 
-                            <div class="timeline-box openoverlay" data-href="<?php echo $this->url(array('action' => 'json', 'ffid' => (int) $snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null)) ?>"  data-fid="<?php echo $snippet['fid'] ?>">
-                                <div class="content clearfix <?php echo $snippet['typ'] !== 'g' ? 'has-typ-overlay' : '' ?>">
-                                    <?php if ($snippet['typ'] !== 'g') : ?>
-                                        <div class="followup-typ edge-left followup-typ-<?php echo $snippet['typ'] ?>"> </div>
-                                        <div class="followup-typ gfx-who-overlay followup-typ-<?php echo $snippet['typ'] ?>"> </div>
-                                    <?php endif; ?>
-                                        <div class="followup-gfx-who-wrapper">                                            
-                                            <img class="gfx_who_thumb" src="<?php echo $snippet['gfx_who'] ?>" />
-                                        </div>
-                                    <?php echo $snippet['expl'] ?>
-                                    <a class="voting like" href="<?php echo $this->url(array('action' => 'like', 'fid' => (int) $snippet['fid'], 'page' => null)) ?>"><span class="amount">(<?php echo $snippet['lkyea']; ?>)</span><span class="thumb-up"></span></a>
-                                    <a class="voting dislike" href="<?php echo $this->url(array('action' => 'unlike', 'fid' => (int) $snippet['fid'], 'page' => null)) ?>"><span class="amount">(<?php echo $snippet['lknay']; ?>)</span><span class="thumb-down"></span></a>
-                                </div>
-                                <?php if ($snippet['relFowupCount'] != 0): ?>
-                                    <div class="timeline-countlink sprite">
-                                        <a class="ajaxclick"
-                                           href="<?php echo $this->url(array('action' => 'json', 'fid' => $snippet['fid'], 'ffid' => null, 'tid' => null, 'page' => null)) ?>"><?php echo $snippet['relFowupCount']; ?></a>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
+                    
+                            <?php echo $this->snippetBox($snippet) ?>
+                    
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>

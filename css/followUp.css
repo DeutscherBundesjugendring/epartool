@@ -104,6 +104,7 @@ top: 0;
   border-radius: 15px;
   box-shadow: 2px 2px 3px #444444;  
   cursor: pointer;
+  min-height: 71px;
 }
 #followup .col .openoverlay .content:hover {
   background: #02afdb;
@@ -141,15 +142,24 @@ top: 0;
 #followup .overlaywrapper .overlaycontent .docs,
 #followup .overlaywrapper .overlaycontent .snippet {
   margin: 10px 20px;
-   padding: 8px 10px;
-       position:relative;
-  
-}
-#followup .overlaywrapper .overlaycontent .snippet {
+  padding: 8px 10px;
+  position:relative;
   background-color: #DFDFDF;
- 
-  
+  min-height: 100px;
 }
+#followup .overlaywrapper .overlaycontent .snippet .btn{
+
+    bottom: 10px;
+    position: absolute;
+    right: 15px;
+}
+#followup .overlaywrapper .overlaycontent .snippet .likeyes_likeno{
+
+    bottom: 50px;
+    position: absolute;
+    right: 15px;
+}
+
 #followup .overlaywrapper .overlaycontent .active {
   background-color: #FDDEBB;
 }
@@ -271,8 +281,10 @@ form.followup-download span.lightblue:focus
     position: relative;
     height: 70px;
     width: 79px;
-    margin-right: 10px;    
+    margin-right: 10px;   
+    margin-bottom: 10px;
 }
+
 .followup-typ {
      background: url("../images/followup-sprite.png");
      background-repeat: no-repeat;
@@ -366,4 +378,7 @@ form.followup-download span.lightblue:focus
 
 .clearfix {
     zoom: 1;
+}
+.clearleft {
+    clear: left;
 }

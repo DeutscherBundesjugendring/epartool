@@ -102,6 +102,7 @@
             });
             $('.overlayclose').live('click', function() {
                 $('.overlaywrapper').remove();
+                return false;
             });
 
 
@@ -153,7 +154,6 @@
          * @private
          */
         function _addItemCallback(data, statuscode, obj) {
-
             var _jsonData = data;
             var _colId = obj.colid;
             var _statusCode = statuscode;
@@ -172,8 +172,7 @@
 
                     } else if (index >= _colId) {
                         $('#el-' + index).remove();
-
-                        //  $(this).append(_buildNewCol(_jsonData))
+                          $(this).append(_buildNewCol(_jsonData))
                     }
                 });
 
@@ -239,8 +238,7 @@
                             _edgeLeft + _gfxwho_overlay +
                             ' <div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb" src="'+data.mediafolder+data.byinput.snippets[i].gfx_who+'" /></div>' +
                               data.byinput.snippets[i].expl  +
-                            _likeYes +
-                            _likeNo +
+                            '<div class="clearleft">'+_likeYes + _likeNo +'</div>'+
                             ' </div>' +
                             _link +
                             '</div>';
@@ -255,7 +253,7 @@
                     var whendate = data.refs.docs[i].show_no_day === 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
-                        _when = '<p>' + whendate + '</p>'
+                        _when = '<p class="clearleft">' + whendate + '</p>';
 
                     } else {
                         _overlayLink = '';
@@ -264,7 +262,7 @@
 
 
                     if (data.refs.docs.length != 0) {
-                        _img = '<img class="gfx_who_thumb refimg" src="' + data.mediafolder + data.refs.docs[i].gfx_who + '" />';
+                        _img = '<div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb refimg" src="' + data.mediafolder + data.refs.docs[i].gfx_who + '" /></div>';
                     } else {
                         _img = '';
                     }
@@ -288,8 +286,8 @@
                         _link = '';
                     }
 
-                    _likeYes = '<a class="voting like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lkyea + ')</span><span class="thumb-up"></span></a>';
-                    _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span><span class="thumb-down"></span></a>';
+                    _likeYes = '<a class="clearleft voting like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lkyea + ')</span><span class="thumb-up"></span></a>';
+                    _likeNo = '<a class="clearleft voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span><span class="thumb-down"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
                     
@@ -302,8 +300,7 @@
                             _edgeLeft + _gfxwho_overlay +
                              ' <div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb" src="'+data.mediafolder+snippet.gfx_who+'" /></div>' +
                             '     ' + data.refs.snippets[i].expl + '' +
-                            _likeYes +
-                            _likeNo +
+                            '<div class="clearleft">'+_likeYes + _likeNo +'</div>' +
                             ' </div>' +
                             _link +
                             '</div>';
@@ -322,6 +319,7 @@
             var _activeDocClass = '';
             var _activeSnippet;
             var _edgeRight = "";
+            var _show_in_timeline_link = "";
 
             /**
              *
@@ -333,17 +331,20 @@
                 var _likeNo = '<a class="voting dislike" href="http://dev.dbjr/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lknay + ')</span><span class="thumb-down"></span></a>';
                 _activeSnippet = typeof params.fid != "undefined"  && data.doc.fowups[i].fid == params.fid ? true : false;
                 _activeSnippetClass = _activeSnippet ? 'active' : '';
-                _activeDocClass = typeof params.ffid != "undefined"  && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';              
-               
+                _activeDocClass = typeof params.ffid != "undefined"  && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
+                if (_activeSnippet) {
+                    _show_in_timeline_link = '<a class="btn overlayclose" href="'+data.doc.fowups[i].show_in_timeline_link+'">Zurück zur Zeitleiste</a>';
+                } else {
+                    _show_in_timeline_link = '<a class="btn" href="'+data.doc.fowups[i].show_in_timeline_link+'">Diesem Pfad folgen.</a>';
+                    
+                }
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ+'"> </div>' : '';
                         
-                _snippets += '<div class="snippet ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
+                _snippets += '<div class="clearfix snippet ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
                         _edgeRight +
-                        '<div>' + data.doc.fowups[i].expl + '</div>' +
-                        _likeYes +
-                        _likeNo +
-                        
-                        '<div class="overlayclose"><p>Zurück zur Zeitleiste</p></div>' +
+                        '<div class="span6">' + data.doc.fowups[i].expl + '</div>' +
+                        '<div class="likeyes_likeno">'+_likeYes + _likeNo + '</div>' +                                              
+                        _show_in_timeline_link +
                         '</div>';
             }
 

@@ -986,4 +986,22 @@ class Model_Inputs extends Model_DbjrBase {
         return $result;
       
   }
+  
+  /**
+   * getByIdArray
+   * @desc returns entries by an idArray
+   * @name getByIdArray
+   * @param array $tids
+   * @return array
+   */
+  public function getByIdArray ($tids) {
+        if (!is_array($tids) || !count($tids)) {
+          return array();
+        }
+        $select = $this->select();
+        $select->where('tid IN(?)', $tids);
+        
+        return $this->fetchAll($select)->toArray();
+  }
+  
 }
