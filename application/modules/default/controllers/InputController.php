@@ -211,6 +211,11 @@ class InputController extends Zend_Controller_Action {
             // Gehe zur Bestätigung
             $redirectURL = '/input/confirm/kid/' . $kid;
             break;
+            
+          case 'save_goto':
+            if ($data['goto'] > 0) {
+              $redirectURL = '/input/show/kid/' . $kid . '/qid/' . (int)$data['goto'];
+            }
         }
         
       } else {

@@ -37,6 +37,8 @@ $sysconfig = Zend_Registry::get('systemconfig');
 
 		<!-- HTML5 shim for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]><script src="<?= $this->baseUrl() . $config->path->js->html5shim ?>"></script><![endif]-->
+		
+		<?php echo $this->headScript(); ?>
 
 	</head>
 	<body>

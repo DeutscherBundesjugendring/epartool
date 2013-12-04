@@ -17,6 +17,22 @@ $supportsDisabled = (
 		|| $this->consultation->spprt_to == '0000-00-00 00:00:00'
 		|| $this->consultation->spprt_show == 'n'
 		);
+
+$script = '
+    $(document).ready(function() {
+      var inputform = $("#input");
+      if (inputform.length > 0) {
+        $(\'.question-nav-item\').click(function(event) {
+          event.preventDefault();
+          $("#submitmode").val(\'save_goto\');
+          $("#goto").val($(this).data("qid"));
+          inputform.submit();
+        });
+      }
+    });
+    ';
+$this->headScript()->appendScript($script);
+
 ?>
 
 <?php echo $this->secondNavigation('input'); ?>
