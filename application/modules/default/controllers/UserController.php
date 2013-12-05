@@ -82,18 +82,11 @@ class UserController extends Zend_Controller_Action {
           }
 
           $registerInfo = $userModel->register($data);
-
-          if ($registerInfo['newlyRegistered']) {
-            // new user registered
-            $this->_flashMessenger
-              ->addMessage('Eine Mail zur Bestätigung der Registrierung wurde an die angegebene E-Mail-Adresse gesendet.'
-                . '<br/>Nach Bestätigung der Registrierung wird eine weitere E-Mail zur Bestätigung der Beiträge verschickt werden.', 'success');
-          } else {
-            // new inputs for registered user with new user info data commited
-            $userModel->sendInputsConfirmationMail($registerInfo['uid'], $form->getValue('kid'));
-            $this->_flashMessenger
+          
+          $userModel->sendInputsConfirmationMail($registerInfo['uid'], $form->getValue('kid'), $registerInfo['password']);
+          $this->_flashMessenger
             ->addMessage('Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-Adresse gesendet.', 'success');
-          }
+
           $this->redirect('/');
 
         } else {
@@ -110,6 +103,10 @@ class UserController extends Zend_Controller_Action {
     }
   }
 
+  /**
+   * @deprecated User Registration will now be implicitly confirmed when inputs are confirmed
+   *
+   */
   public function registerconfirmAction() {
     $ckey = $this->_request->getParam('ckey');
     $kid = $this->_request->getParam('kid');

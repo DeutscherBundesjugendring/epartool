@@ -137,11 +137,14 @@ class Model_Users extends Model_DbjrBase {
     }
     $userInfoModel = new Model_User_Info();
     $newlyRegistered = false;
+    $password = '';
 
     // check if email address exists already
     if (!$this->emailExists($data['email'])) {
       // email does not exist yet
-      $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
+//       $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
+      // confirm key not needed, user will be confirmed when he confirms his inputs
+      $confirm_key = '';
 
       // password has to be generated because user should not be allowed to choose his own (it's a requirement):
       $password = $this->generatePassword();
@@ -164,7 +167,9 @@ class Model_Users extends Model_DbjrBase {
       // write record to database
       $id = $this->add($insertData);
 
-      $this->sendRegisterConfirmationMail($id, $kid, $password);
+      // no need for the register confirmation mail
+      // but we should send him his password with the inputs confirmation mail!
+//       $this->sendRegisterConfirmationMail($id, $kid, $password);
 
       $newlyRegistered = true;
     } else {
@@ -216,7 +221,8 @@ class Model_Users extends Model_DbjrBase {
 
     return array(
         'uid' => $id,
-        'newlyRegistered' => $newlyRegistered
+        'newlyRegistered' => $newlyRegistered,
+        'password' => $password
     );
   }
 
@@ -362,9 +368,10 @@ class Model_Users extends Model_DbjrBase {
    *
    * @param integer|object $identity
    * @param integer $kid
+   * @param string $password for newly registered users
    * @return boolean
    */
-  public function sendInputsConfirmationMail($identity, $kid) {
+  public function sendInputsConfirmationMail($identity, $kid, $password = '') {
     $intVal = new Zend_Validate_Int();
     $userRow = null;
     if ($intVal->isValid($identity)) {
@@ -385,7 +392,8 @@ class Model_Users extends Model_DbjrBase {
           '{{USER}}' => $userRow->name,
           '{{CNSLT_TITLE_SHORT}}' => '',
           '{{CNSLT_TITLE}}' => '',
-          '{{INPUT_TO}}' => ''
+          '{{INPUT_TO}}' => '',
+          '{{PASSWORD_TEXT}}' => ''
         );
         if (!empty($consultation)) {
           $date = new Zend_Date();
@@ -404,6 +412,13 @@ class Model_Users extends Model_DbjrBase {
 
           $mailBody.= $inputText;
           $replace['{{USER_INPUTS}}'].= $inputText;
+        }
+        
+        if (!empty($password)) {
+          $replace['{{PASSWORD_TEXT}}'] = 'Deine E-Mail-Adresse war noch nicht bei uns im System hinterlegt.'
+              . ' Wir haben deshalb ein Passwort für dich generiert, mit dem du dich in Zukunft am System anmelden kannst: '
+              . "\n\n" . $password;
+          $mailBody.= "\n\n" . $replace['{{PASSWORD_TEXT}}'];
         }
 
         $ckey = $inputModel->generateConfirmationKeyBulk($inputIds);
@@ -428,6 +443,8 @@ class Model_Users extends Model_DbjrBase {
 
   /**
    * Processes Registration Confirmation
+   * @deprecated User Confirmation now is done within Inputs Confirmation
+   * @see Model_Inputs::confirmByCkey()
    *
    * @param string $ckey
    * @throws Zend_Validate_Exception
