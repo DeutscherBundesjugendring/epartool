@@ -497,7 +497,7 @@ class Model_Inputs extends Model_DbjrBase {
   }
   
   /**
-   * Processes input confirmation request
+   * Processes input confirmation request, also confirms user registration if applicable
    *
    * @param string $ckey
    * @param boolean $reject
@@ -512,6 +512,7 @@ class Model_Inputs extends Model_DbjrBase {
       return $return;
     }
     $userModel = new Model_Users();
+    $uid = 0;
     
     $select = $this->select();
     $select->where('confirm_key = ?', $ckey);
@@ -524,11 +525,22 @@ class Model_Inputs extends Model_DbjrBase {
         $row->save();
         // set timestamp last activity
         $userModel->ping($row->uid);
+        $uid = $row->uid;
       }
       if ($reject) {
         $this->_flashMessenger->addMessage('Die Beiträge wurden als abgelehnt markiert!', 'success');
       } else {
         $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
+        
+        // also confirm user, if not already done
+        if ($uid > 0) {
+          $user = $userModel->find($uid)->current();
+          if ($user->block == 'u') {
+            $user->block = 'c';
+            $user->confirm_key = '';
+            $user->save();
+          }
+        }
       }
     }
     return $return;
