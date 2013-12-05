@@ -71,7 +71,7 @@ class Default_Form_Input extends Zend_Form {
 
     $this->addDisplayGroup(array(
         $this->getElement('plus'),
-        $this->getElement('submit'),
+        $this->getElement('submitbutton'),
         $this->getElement('finish')
     ),
         'controlgroup99',
