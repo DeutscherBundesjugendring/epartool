@@ -14,8 +14,6 @@ class Default_Form_Input extends Zend_Form {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 
-    $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/input/save');
-
     $this->setDecorators(array('FormElements', 'Form'));
 
     // für alle per ini gesetzten Elemente:
@@ -36,6 +34,14 @@ class Default_Form_Input extends Zend_Form {
         array('Description', array('escape'=>false, 'tag'=>'')),
       ),
     ));
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_input', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    if (is_numeric((Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl))) {
+      $hash->setTimeout(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl);
+    }
+    $this->addElement($hash);
 
   }
 

@@ -90,5 +90,10 @@ class Default_Form_Register extends Zend_Form {
       . '});' . "\n"
       . '</script>' . "\n";
     $script->setDescription($code);
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_register', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    $this->addElement($hash);
   }
 }

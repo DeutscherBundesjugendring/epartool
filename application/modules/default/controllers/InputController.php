@@ -11,6 +11,8 @@ class InputController extends Zend_Controller_Action {
   protected $_consultation = null;
   
   protected $_flashMessenger = null;
+  
+  protected $_inputform = null;
 
   /**
    * Construct
@@ -73,6 +75,11 @@ class InputController extends Zend_Controller_Action {
     $tag = $this->_getParam('tag', null);
     $nowDate = Zend_Date::now();
     
+    if ($this->getRequest()->isPost()) {
+      // if input form is submitted
+      $this->_handleInputRequest();
+    }
+    
     if (empty($qid)) {
       // get first question of this consultation
       $questionRow = $questionModel->getByConsultation($kid)->current();
@@ -93,35 +100,22 @@ class InputController extends Zend_Controller_Action {
     } elseif ($nowDate->isLater($this->_consultation->inp_to)) {
       $form = '<p>Die Beitragsphase ist bereits vorbei.</p>';
     } else {
-      $form = new Default_Form_Input();
-      // falls Formular in save Action nicht validiert werden konnte:
-      // -> wurde in Session gespeichert und kann nun hier wiedergeholt werden
-      $populateForm = new Zend_Session_Namespace('populateForm');
-      if (isset($populateForm->input)) {
-        // Klassendefinition sicherstellen
-        if (class_exists('Default_Form_Input', true)) {
-          // Formular aus Session holen
-          $form = unserialize($populateForm->input);
-          // Formular in Session löschen
-          unset($populateForm->input);
-        }
-      } else {
-        $inputCollection = new Zend_Session_Namespace('inputCollection');
-        $theses = array();
-        if (!empty($inputCollection->inputs)) {
-          foreach ($inputCollection->inputs as $input) {
-            if ($input['kid'] == $kid && $input['qi'] == $qid) {
-              $theses[] = array(
-                  'thes' => $input['thes'],
-                  'expl' => $input['expl']
-              );
-            }
+      $form = $this->_getInputform();
+      $inputCollection = new Zend_Session_Namespace('inputCollection');
+      $theses = array();
+      if (!empty($inputCollection->inputs)) {
+        foreach ($inputCollection->inputs as $input) {
+          if ($input['kid'] == $kid && $input['qi'] == $qid) {
+            $theses[] = array(
+                'thes' => $input['thes'],
+                'expl' => $input['expl']
+            );
           }
         }
-        // add form fields for inputs and prefill it with session data
-        $form->generate($theses);
       }
-      $form->setAction($this->view->baseUrl() . '/input/save/kid/' . $kid . '/qid/' . $qid);
+      // add form fields for inputs and prefill it with session data
+      $form->generate($theses);
+      $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
     }
     $this->view->inputform = $form;
     
@@ -136,15 +130,15 @@ class InputController extends Zend_Controller_Action {
   }
   
   /**
-   * Saves input in session
-   * Redirects to next question or input confirmation page
+   * Saves input in session, called in showAction() if form submitted.
+   * Redirects to next question or input confirmation page if form is valid
    * (with login/register form, @see confirmAction())
    *
    */
-  public function saveAction() {
+  protected function _handleInputRequest() {
     $questionModel = new Model_Questions();
     $inputModel = new Model_Inputs();
-    $form = new Default_Form_Input();
+    $form = $this->_getInputform();
     $kid = $this->_getParam('kid', 0);
     $qid = $this->_getParam('qid', 0);
     $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
@@ -154,7 +148,7 @@ class InputController extends Zend_Controller_Action {
       // Wenn Formular abgeschickt wurde
       $data = $this->_request->getPost();
       
-      if (isset($data['thes']) && isset($data['expl'])) {
+      if ($form->isValid($data)) {
         $data2store = $data;
         
         // Beiträge in Session sammeln
@@ -217,33 +211,14 @@ class InputController extends Zend_Controller_Action {
               $redirectURL = '/input/show/kid/' . $kid . '/qid/' . (int)$data['goto'];
             }
         }
-        
+        $this->redirect($redirectURL);
       } else {
-        $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
-        $form = new Default_Form_Input();
-        $inputCollection = new Zend_Session_Namespace('inputCollection');
-        $theses = array();
-        if (!empty($inputCollection->inputs)) {
-          foreach ($inputCollection->inputs as $input) {
-            if ($input['kid'] == $kid && $input['qi'] == $qid) {
-              $theses[] = array(
-                  'thes' => $input['thes'],
-                  'expl' => $input['expl']
-              );
-            }
-          }
-        }
-        $form->generate($theses);
-        $form->setAction($this->view->baseUrl() . '/input/save/kid/' . $kid . '/qid/' . $qid);
-        // Speichere Formular mit aktuellen Werten in Session um es nach Redirect
-        // zur show Action inkl. Fehlermeldungen anzeigen zu können
-        $populateForm = new Zend_Session_Namespace('populateForm');
-        $populateForm->input = serialize($form);
-        
+        $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale Bearbeitungszeit von '
+            . number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
+            . ' Minuten überschritten hast.', 'error');
       }
     }
     
-    $this->redirect($redirectURL);
   }
   
   /**
@@ -435,4 +410,10 @@ class InputController extends Zend_Controller_Action {
     $this->view->tags = $tagModel->getAllByConsultation($kid);
   }
   
+  protected function _getInputform() {
+    if (null === $this->_inputform) {
+     $this->_inputform = new Default_Form_Input();
+    }
+    return $this->_inputform;
+  }
 }
