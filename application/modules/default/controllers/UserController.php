@@ -168,8 +168,6 @@ class UserController extends Zend_Controller_Action {
         $this->redirect('/');
       } else {
         $this->_flashMessenger->addMessage('Bitte prüfe deine Eingaben!', 'error');
-        Zend_Debug::dump($data);
-        Zend_Debug::dump($form->getElement('csrf_token_pwrecover')->getValidator('Identical')->getMessages());
       }
     }
     $this->view->form = $form;
