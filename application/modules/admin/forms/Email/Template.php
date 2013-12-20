@@ -39,5 +39,13 @@ class Admin_Form_Email_Template extends Zend_Form {
     $this->getElement('proj')->setMultiOptions($options);
     // current project has to be checked always:
     $this->getElement('proj')->setValue(array(Zend_Registry::get('systemconfig')->project));
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_mailtemplate', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
+      $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
+    }
+    $this->addElement($hash);
   }
 }
