@@ -130,7 +130,11 @@ class Default_Form_Input extends Zend_Form {
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
             'id' => 'thes_' . $i,
             'maxlength' => '300'
-        )
+        ),
+        'filters' => array(
+            'striptags' => 'StripTags',
+            'htmlentities' => 'HtmlEntities',
+        ),
     );
     $thes->setOptions($thesOptions);
 
@@ -162,7 +166,11 @@ class Default_Form_Input extends Zend_Form {
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
             'id' => 'expl_' . $i,
             'maxlength' => '2000'
-        )
+        ),
+        'filters' => array(
+            'striptags' => 'StripTags',
+            'htmlentities' => 'HtmlEntities',
+        ),
     );
     $expl->setOptions($explOptions);
 
