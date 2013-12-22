@@ -19,5 +19,13 @@ class Default_Form_Input_Edit extends Zend_Form {
     // für alle per ini gesetzten Elemente:
     // nur die Dekoratoren ViewHelper, Errors und Description verwenden
     $this->setElementDecorators(array('ViewHelper', 'Errors', 'Description'));
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_inputedit', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    if (is_numeric((Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl))) {
+      $hash->setTimeout(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl);
+    }
+    $this->addElement($hash);
   }
 }

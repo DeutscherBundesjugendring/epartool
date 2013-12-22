@@ -126,6 +126,19 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract {
       $result = $this->fetchAll($select)->toArray();
       return $result;
   }
+  public function getRelatedInputsByFid( $fid ) {
+      $validator = new Zend_Validate_Int();
+      if (!$validator->isValid($fid)) {
+            throw new Zend_Exception('Given fid must be integer!');
+      }
+      $select = $this->select();
+      $select->from ($this, array("tid"));
+      $select->where('fid_ref=?', $fid);
+      $select->where('tid<>?', 0);
+      
+      $result = $this->fetchAll($select)->toArray();
+      return $result;
+  }
   
   public function deleteRef ($fid_ref, $reftype, $refid ) {
       

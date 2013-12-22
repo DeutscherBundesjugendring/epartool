@@ -7,7 +7,7 @@
 class Model_Inputs extends Model_DbjrBase {
   protected $_name = 'inpt';
   protected $_primary = 'tid';
-  
+
   protected $_dependentTables = array('Model_InputsTags');
 
   protected $_referenceMap = array(
@@ -15,11 +15,11 @@ class Model_Inputs extends Model_DbjrBase {
       'columns' => 'qi', 'refTableClass' => 'Model_Questions', 'refColumns' => 'qi'
     )
   );
-  
+
   protected $_flashMessenger = null;
-  
+
   protected $_auth = null;
-  
+
   public function init() {
     $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
     $this->_auth = Zend_Auth::getInstance();
@@ -92,14 +92,14 @@ class Model_Inputs extends Model_DbjrBase {
     if ($this->find($id)->count() < 1) {
       return 0;
     }
-    
+
     if (isset($data['tags']) && !empty($data['tags'])) {
       // Tag Zuordnungen speichern
       $modelInputsTags = new Model_InputsTags();
       $modelInputsTags->deleteByInputsId($id);
       $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
     }
-    
+
     $row = $this->find($id)->current();
     $row->setFromArray($data);
     return $row->save();
@@ -150,7 +150,7 @@ class Model_Inputs extends Model_DbjrBase {
     $result = $this->fetchAll($select);
     return $result->toArray();
   }
-  
+
   /**
    * Returns entries by user and consultation
    *
@@ -199,12 +199,12 @@ class Model_Inputs extends Model_DbjrBase {
 
     // get select obj
     $select = $this->getSelectByQuestion($qid, $order, $limit, $tag);
-    
+
     $stmt = $this->getDefaultAdapter()->query($select);
     $result = $stmt->fetchAll();
     return $result;
   }
-  
+
   /**
    * Returns number of inputs for a consultation
    *
@@ -217,16 +217,16 @@ class Model_Inputs extends Model_DbjrBase {
       ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
       ->where('kid = ?', $kid)
       ->where('uid <> ?', 1);
-      
+
     if ($excludeInvisible) {
       $select->where('block<>?', 'y')
         ->where('user_conf=?', 'c');
     }
-    
+
     $row = $this->fetchAll($select)->current();
     return $row->count;
   }
-  
+
   /**
    * Returns number of inputs for a user
    *
@@ -241,7 +241,7 @@ class Model_Inputs extends Model_DbjrBase {
     $row = $this->fetchAll($select)->current();
     return $row->count;
   }
-  
+
   /**
    * Returns array with count of input of a user filtered by consultation
    *
@@ -261,10 +261,10 @@ class Model_Inputs extends Model_DbjrBase {
     foreach($row AS $curRow) {
       $return[] = $curRow;
     }
-    
+
     return $return;
   }
-  
+
   /**
    * Returns number of inputs for a consultation, filtered by given conditions
    *
@@ -278,7 +278,7 @@ class Model_Inputs extends Model_DbjrBase {
       ->where('kid = ?', $kid);
       // JSU Superadmin wird eigentlich ausgenommen, im Altsystem ist es aber nicht so
       //->where('uid <> ?', 1);
-      
+
     foreach ($filter as $condition) {
       if (is_array($condition)) {
         $select->where(
@@ -290,7 +290,7 @@ class Model_Inputs extends Model_DbjrBase {
     $row = $this->fetchAll($select)->current();
     return $row->count;
   }
-  
+
 	/**
    * Returns number of inputs for a question
    *
@@ -304,7 +304,7 @@ class Model_Inputs extends Model_DbjrBase {
     if (!$intVal->isValid($qid)) {
       throw new Zend_Validate_Exception('Given parameter qid must be integer!');
     }
-    
+
     $db = $this->getDefaultAdapter();
     $select = $db->select();
     $select->from(array('i' => $this->_name),
@@ -317,18 +317,18 @@ class Model_Inputs extends Model_DbjrBase {
         // nur bestätigte:
         ->where('i.user_conf=?', 'c');
     }
-    
+
     if ($intVal->isValid($tag)) {
       $select->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array());
       $select->where('it.tg_nr = ?', $tag);
     }
-    
+
     $stmt = $db->query($select);
     $row = $stmt->fetch();
-    
+
     return $row['count'];
   }
-  
+
   /**
    * Returns number of inputs for a question, filtered by given conditions
    *
@@ -341,12 +341,12 @@ class Model_Inputs extends Model_DbjrBase {
     if (!$intVal->isValid($qid)) {
       throw new Zend_Validate_Exception('Given parameter qid must be integer!');
     }
-    
+
     $select = $this->select()
       ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
       ->where('qi = ?', $qid)
       ->where('uid <> ?', 1);
-    
+
     if (!empty($filter)) {
       foreach ($filter as $condition) {
         if (is_array($condition)) {
@@ -357,11 +357,11 @@ class Model_Inputs extends Model_DbjrBase {
         }
       }
     }
-      
+
     $row = $this->fetchAll($select)->current();
     return $row->count;
   }
-  
+
   /**
    * Returns Zend_Db_Select for use in e.g. Paginator
    *
@@ -376,27 +376,27 @@ class Model_Inputs extends Model_DbjrBase {
     $db = $this->getDefaultAdapter();
     $select = $db->select();
     $select->from(array('i' => $this->_name));
-    
+
     if ($intVal->isValid($tag)) {
       $select->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array());
       $select->where('it.tg_nr = ?', $tag);
     }
-    
+
     $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c')
       // no inputs from user with uid = 1:
       ->where('i.uid<>?', 1);
-    
+
     if (!empty($order)) {
       $select->order($order);
     }
-    
+
     if ($intVal->isValid($limit)) {
       $select->limit($limit);
     }
-    
+
     return $select;
   }
-  
+
   /**
    * Stores inputs from session into database
    *
@@ -420,7 +420,7 @@ class Model_Inputs extends Model_DbjrBase {
       unset($inputCollection->inputs);
     }
   }
-  
+
   /**
    * Retruns all unconfirmed inputs by user
    *
@@ -445,10 +445,10 @@ class Model_Inputs extends Model_DbjrBase {
       $select->where('kid = ?', $kid);
     }
     $select->order('when');
-    
+
     return $this->fetchAll($select);
   }
-  
+
   /**
    * Generates, saves and returns a key for input confirmation
    *
@@ -472,7 +472,7 @@ class Model_Inputs extends Model_DbjrBase {
       return null;
     }
   }
-  
+
   /**
    * Generates, saves and returns a key for several inputs
    *
@@ -480,24 +480,24 @@ class Model_Inputs extends Model_DbjrBase {
    * @return string|NULL
    */
   public function generateConfirmationKeyBulk(array $ids = array()) {
-    
+
     if (!empty($ids)) {
       $key = md5(implode('', $ids) . time() . getenv('REMOTE_ADDR') . mt_rand());
-      
+
       foreach ($ids as $tid) {
         $row = $this->find($tid)->current();
         $row->confirm_key = $key;
         $row->save();
       }
-      
+
       return $key;
     } else {
       return null;
     }
   }
-  
+
   /**
-   * Processes input confirmation request
+   * Processes input confirmation request, also confirms user registration if applicable
    *
    * @param string $ckey
    * @param boolean $reject
@@ -512,7 +512,8 @@ class Model_Inputs extends Model_DbjrBase {
       return $return;
     }
     $userModel = new Model_Users();
-    
+    $uid = 0;
+
     $select = $this->select();
     $select->where('confirm_key = ?', $ckey);
     $rowSet = $this->fetchAll($select);
@@ -524,16 +525,27 @@ class Model_Inputs extends Model_DbjrBase {
         $row->save();
         // set timestamp last activity
         $userModel->ping($row->uid);
+        $uid = $row->uid;
       }
       if ($reject) {
         $this->_flashMessenger->addMessage('Die Beiträge wurden als abgelehnt markiert!', 'success');
       } else {
         $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
+
+        // also confirm user, if not already done
+        if ($uid > 0) {
+          $user = $userModel->find($uid)->current();
+          if ($user->block == 'u') {
+            $user->block = 'c';
+            $user->confirm_key = '';
+            $user->save();
+          }
+        }
       }
     }
     return $return;
   }
-  
+
   /**
    * Deletes several entries at once
    *
@@ -550,7 +562,7 @@ class Model_Inputs extends Model_DbjrBase {
     }
     return $nrDeleted;
   }
-  
+
   /**
    * Saves changes for several entries at once
    *
@@ -565,7 +577,7 @@ class Model_Inputs extends Model_DbjrBase {
       }
     }
   }
-  
+
   /**
    * Returns inputs by user and consultation grouped by question
    * for the user inputs overview
@@ -584,7 +596,7 @@ class Model_Inputs extends Model_DbjrBase {
     }
     $entries = array();
     $entriesRaw = $this->getByUserAndConsultation($uid, $kid);
-    
+
     $questionModel = new Model_Questions();
     $questions = $questionModel->getByConsultation($kid);
     foreach ($questions as $question) {
@@ -593,10 +605,10 @@ class Model_Inputs extends Model_DbjrBase {
     foreach ($entriesRaw as $rawEntry) {
       $entries[$rawEntry['qi']]['inputs'][] = $rawEntry->toArray();
     }
-    
+
     return $entries;
   }
-  
+
   /**
    * Returns entries ordered by input date descending
    *
@@ -615,7 +627,7 @@ class Model_Inputs extends Model_DbjrBase {
       ->limit($limit);
     return $this->fetchAll($select);
   }
-  
+
   /**
    * Returns formatted CSV string
    *
@@ -673,11 +685,11 @@ class Model_Inputs extends Model_DbjrBase {
       array('tags' => "GROUP_CONCAT(t.tg_de ORDER BY t.tg_de SEPARATOR ',')")
     );
     $select->group('i.tid');
-    
+
     if (!empty($tag)) {
       $select->where('it.tg_nr = ?', $tag);
     }
-    
+
     $consultationModel = new Model_Consultations();
     $consultation = $consultationModel->find($kid)->current()->toArray();
     if (!empty($consultation)) {
@@ -685,7 +697,7 @@ class Model_Inputs extends Model_DbjrBase {
     } else {
       return 'Konsultation nicht gefunden!';
     }
-    
+
     $questionModel = new Model_Questions();
     $question = $questionModel->find($qid)->current()->toArray();
     if (!empty($question)) {
@@ -693,9 +705,9 @@ class Model_Inputs extends Model_DbjrBase {
     } else {
       return 'Frage nicht gefunden!';
     }
-    
+
     $csv.='"THESEN-ID";"BEITRAG";"ERKLÄRUNG";"SCHLAGWÖRTER";"NOTIZEN"' . "\r\n";
-    
+
     $stmt = $db->query($select);
     $rowSet = $stmt->fetchAll();
     foreach ($rowSet as $row) {
@@ -704,10 +716,10 @@ class Model_Inputs extends Model_DbjrBase {
         . html_entity_decode($row['expl'], ENT_COMPAT, 'UTF-8') . '";"'
         . $row['tags'] . '"' . "\r\n";
     }
-    
+
     return $csv;
   }
-  
+
   /**
    * Adds one point to support counter of given inputs ID
    * and returns the new number of supports
@@ -732,10 +744,10 @@ class Model_Inputs extends Model_DbjrBase {
       }
       $countSupports = $row->spprts;
     }
-    
+
     return $countSupports;
   }
-  
+
   /**
    * Search in questions by consultations
    * @param string $needle
@@ -757,13 +769,13 @@ class Model_Inputs extends Model_DbjrBase {
       // if no consultation is set, search in generell articles
       $select->where('inp.kid = ?', $consultationId);
       $select->limit($limit);
-      
+
       $result = $this->fetchAll($select)->toArray();
-      
+
     }
     return $result;
   }
-  
+
   /**
    * Returns number of users who added at least one input to given consultation
    *
@@ -784,7 +796,7 @@ class Model_Inputs extends Model_DbjrBase {
           ->where('uid > ?', 1)
       )->count();
   }
-  
+
   /**
    * Liefert eine CSV-Liste aller abzustimmenen Beiträge einer Konsultation
    * @param inter $kid
@@ -794,12 +806,12 @@ class Model_Inputs extends Model_DbjrBase {
     if(empty($kid)) {
       return array();
     }
-    
+
     $select = $this->select();
     $select->from($this, array('tid'=>'tid', 'qi'=>'qi'));
     $select->where('kid=?', $kid);
     $select->where('vot=?', 'y');
-    
+
     $rows = $this->fetchAll($select)->toArray();
     $tlist = array();
     $qlist = array();
@@ -813,32 +825,32 @@ class Model_Inputs extends Model_DbjrBase {
     );
     return $list;
   }
-  
+
   public function getThesisbyQuestion($kid, $qid) {
     if(empty($kid) || empty($qid)) {
       return array();
     }
-    
+
     $result = array();
-    
+
     $select = $this->select();
     $select->where('kid=?', $kid);
     $select->where('qi=?', $qid);
     $select->where('vot=?', 'y');
-    
+
     $rowSet = $this->fetchAll($select)->toArray();
     foreach($rowSet AS $row) {
       $result[$row['tid']] = $row;
     }
-    
+
     return $result;
   }
-  
+
   public function getThesisbyTag($kid, $tagId) {
     if(empty($kid) || empty($tagId)) {
       return array();
     }
-    
+
     $result = array();
     $db = $this->getAdapter();
     $select = $db->select();
@@ -857,7 +869,7 @@ class Model_Inputs extends Model_DbjrBase {
     return $result;
 
   }
-  
+
   /**
    * Migrate tags in csv-form from table inputs
    * to db-relation table inpt_tgs
@@ -865,20 +877,20 @@ class Model_Inputs extends Model_DbjrBase {
    */
   public function migrateTags() {
     $inputTagsModel = new Model_InputsTags();
-    
+
     $select = $this->select();
     $rowset = $this->fetchAll($select)->toArray();
-    
+
     foreach($rowset AS $input) {
       if(!empty($input['tg_nrs'])) {
         $tags = explode(',', $input['tg_nrs']);
         $inputTagsModel->insertByInputsId($input['tid'], $tags);
         echo($input['tid'] . ':' .$input['tg_nrs'] . '<br />');
       }
-      
+
     }
   }
-  
+
   /**
    * Returns voting theses by question
    *
@@ -891,14 +903,14 @@ class Model_Inputs extends Model_DbjrBase {
     if (!$validator->isValid($qid)) {
       throw new Zend_Validate_Exception('Given parameter qid must be integer!');
     }
-    
+
     return $this->fetchAll(
       $this->select()
         ->where('qi = ?', $qid)
         ->where('vot = ?', 'y')
     );
   }
-  
+
   /**
    * set a new owner of written input by a user and consultation
    * @param integer $uid
@@ -913,16 +925,16 @@ class Model_Inputs extends Model_DbjrBase {
     $select = $this->select();
     $select->where('uid = ?', $uid);
     $select->where('kid = ?', $kid);
-    
+
     $rowset = $this->fetchAll($select);
     foreach($rowset AS $input) {
       $input->uid = $targetUid;
       $input->save();
     }
     return true;
-    
+
   }
-  
+
   /**
   * getRelatedWithVotesById
   * get the referenced theses with vot = y
@@ -930,25 +942,25 @@ class Model_Inputs extends Model_DbjrBase {
   * @return array
   */
   public function getRelatedWithVotesById($id ) {
-      
+
        $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return array();
         }
-      
+
       $select = $this->select();
       $select ->where("rel_tid LIKE '%$id%'");
       $select ->where("`vot` LIKE 'y'");
-      
+
       $result = $this->fetchAll($select)->toArray();
-      
+
       return $result;
-      
-      
+
+
   }
-  
-  
-  
+
+
+
   /**
   * getFollowups
   * get the followups by a given tid
@@ -957,12 +969,12 @@ class Model_Inputs extends Model_DbjrBase {
   * @return array
   */
   public function getFollowups ($id, $where = null) {
-      
+
        $validator = new Zend_Validate_Int();
        if (!$validator->isValid($id)) {
             return array();
        }
-        
+
        $depTable = new Model_FollowupsRef();
        $depTableSelect = $depTable->select();
        if ($where) {
@@ -971,11 +983,11 @@ class Model_Inputs extends Model_DbjrBase {
        $result = array();
        $row = $this->find($id)->current();
        if($row){
-            
+
             $Model_Followups = new Model_Followups();
             $rowset = $row->findDependentRowset($depTable, 'Inputs', $depTableSelect );
             $refs = $rowset->toArray();
-            
+
             $fids = array();
             foreach ($refs as $ref) {
                 $fids[] = $ref['fid_ref'];
@@ -985,39 +997,39 @@ class Model_Inputs extends Model_DbjrBase {
 
         return $result;
   }
-  
+
   /**
 	 * fetchAllInputs
 	 * get all inputs with tags and related inputs by given question
-  	 * @see DashboardController|admin:overviewAction()
+   * @see DashboardController|admin:overviewAction()
 	 * @param $kid consultation
 	 * @param $qid question
 	 * @param $dir directory
 	 * @return array
-	 * 
+	 *
 	 **/
   public function fetchAllInputs ($options) {
-  	
+
 		# parameters #
 		$kid = $options['kid'];
 		$qid = $options['qid'];
 		(isset($options['dir'])) ? $dir = (int)$options['dir']  : $dir=0;
-		
+
 		# validate #
 		$intVal = new Zend_Validate_Int();
 		if (!$intVal->isValid($qid)) throw new Zend_Validate_Exception('Given parameter kid must be integer!');
 		if (!$intVal->isValid($kid)) throw new Zend_Validate_Exception('Given parameter qid must be integer!');
 		if (!$intVal->isValid($dir)) throw new Zend_Validate_Exception('Given parameter dir must be integer!');
-		 
+
 		 # default select #
 			$db = $this -> getDefaultAdapter();
 			$select = $db -> select();
-			$select -> from(array('inputs' => 'inpt')) 
-						-> where('inputs.kid = ?', $kid) 
+			$select -> from(array('inputs' => 'inpt'))
+						-> where('inputs.kid = ?', $kid)
 						-> where('inputs.qi = ?', $qid);
 			if ($dir != 0)
 				$select -> where('inputs.dir = ?', $dir);
-		
+
 		#params for inputs on merge #
 		if (isset($options['inputIDs']) && !empty($options['inputIDs'])) {
 			$inputphrases = array();
@@ -1025,7 +1037,7 @@ class Model_Inputs extends Model_DbjrBase {
 			$inputwhere= " inputs.tid= '" . $inputphrases."'";
 			$select ->where("$inputwhere");
 		}
-		
+
 		# params for tagsearch #
 		if (isset($options['tags']) && !empty($options['tags'])) {
 				$tagphrase = implode("' OR tags.tg_nr= '", $options['tags']);
@@ -1044,15 +1056,15 @@ class Model_Inputs extends Model_DbjrBase {
 		}
 
 		$resultSet = $db->query($select);
-		
+
 		# add related inputs and tags to $resultSet #
-		$inputs = array();	
+		$inputs = array();
 		foreach ($resultSet as $row) {
 			$id= $row["tid"];
 			$inputs["$id"] = $row;
 			# inputs #
 			if (!empty ($row["rel_tid"])) {
-				$thesisRows = $this->fetchAll("tid IN (".$row["rel_tid"].")")->toArray();	 
+				$thesisRows = $this->fetchAll("tid IN (".$row["rel_tid"].")")->toArray();
 				foreach ($thesisRows as $thesisRow) {
 					$inputs["$id"]["related"][]= $thesisRow;
 				}
@@ -1061,18 +1073,18 @@ class Model_Inputs extends Model_DbjrBase {
 			$rowone = $this->find($row["tid"])->current();
 			$tags =array();
 			$tagRows = $rowone -> findManyToManyRowset (
-							'Model_Tags', 
+							'Model_Tags',
 							'Model_InputsTags')->toArray();
 			foreach ($tagRows as $tagRow) {
 				$inputs["$id"]["tags"][]= $tagRow;
 			}
 		}
-		return $inputs;	
-		
+		return $inputs;
+
 	}
-	
-	
-	
+
+
+
 	/**
 	 * mergeInputs
 	 * Insert a new Input from Admin
@@ -1080,89 +1092,89 @@ class Model_Inputs extends Model_DbjrBase {
 	 * @param Post params
 	 * @param $relIDs
 	 * @return row
-	 * 
+	 *
 	 **/
 	 public function addInputs($data) {
-	 	
-		
+
+
     		$row = $this->createRow($data);
     		$newInput =  (int)$row->save();
-			
+
 			if (isset($data['tags']) && !empty($data['tags'])) {
       			// Tag Zuordnungen speichern
       			$modelInputsTags = new Model_InputsTags();
       			$modelInputsTags->deleteByInputsId($newInput);
       			$inserted = $modelInputsTags->insertByInputsId($newInput,$data['tags']);
    			 }
-    
+
    			 $row = $this->find($newInput)->current();
     		#$row->setFromArray($data);
 			#$newRow->save();
 			return ($row);
   	}
-	 
+
 	 /**
 	 * getAppendInputs
 	 * filters the given ids and get the inputs to append to a  given input
-	 * @see DashboardController|admin: appendinputsAction() 
-	 * @param $tid 
+	 * @see DashboardController|admin: appendinputsAction()
+	 * @param $tid
 	 * @param inputIDs given new inputs
 	 * @return array of updated inputs
-	 * 
+	 *
 	 **/
 	public function getAppendInputs($tid,$inputIDs) {
-		
+
 		$row = $this->find($tid)->current();
 		$relIDs =array();
 		(!empty($row["rel_tid"])) ? $relIDsA = explode(",",$row["rel_tid"]) : $relIDsA = array();
 		$relIDsB = explode(",",$inputIDs);
 		$relIDs = array_merge($relIDsA, $relIDsB);
 		# make the old and new entries unique #
-		$relIDs = array_unique($relIDs); 
+		$relIDs = array_unique($relIDs);
 
 		# filter the new Ids from the ids wich are in the DB #
 		$oldIDs = $relIDsA;
 		$inputIDs = array_diff ($relIDs,$oldIDs );
 		$inputIDs= implode(",", $inputIDs);
-		
+
 		# update the database #
 		$relIDs= implode(",", $relIDs);
 		$this -> setAppendInputsByID($relIDs,$tid);
-		
+
 		# get the added inputs #
 		$thesisRows = array();
 		if (!empty($inputIDs)) $thesisRows = $this->fetchAll("tid IN (".$inputIDs.")")->toArray();
 		return $thesisRows;
 	}
-	
+
 	/**
 	 * setAppendInputsByID
 	 * Sets the new related inputs for a given input
-	 * @see Models|Inputs: getAppendInputs 
-	 * @param $tid 
+	 * @see Models|Inputs: getAppendInputs
+	 * @param $tid
 	 * @param $relIDs
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	private function setAppendInputsByID($relIDs,$tid) {
     	$data = array('rel_tid' => $relIDs);
 		$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
 		$this->update($data, $where);
 	}
-			
+
 
 	/**
 	 * getNumByDirectory
 	 * Count inputs from a given directory
-	 * @see DashboardController|admin: overviewAction() 
+	 * @see DashboardController|admin: overviewAction()
 	 * @param $kid consultation
 	 * @param $qid question
 	 * @param $dir directory
 	 * @return number
-	 * 
+	 *
 	 **/
 	public function getNumByDirectory($kid,$qid,$dir){
-		
+
         $select = $this->select();
         $select
         		->from(array('inputs' => 'inpt'),'COUNT(tid) as count')
@@ -1172,14 +1184,14 @@ class Model_Inputs extends Model_DbjrBase {
         $resultSet = $this->fetchRow($select);
         return $resultSet['count'];
     }
-	 
+
 	/**
 	 * setDirectory
 	 * Move inputs to virtual directory
 	 * @see DashboardController|admin: setdirectoryAction()
-	 * @param $options (dir, thesis) 
+	 * @param $options (dir, thesis)
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	 public function setDirectory($options) {
 
@@ -1195,9 +1207,9 @@ class Model_Inputs extends Model_DbjrBase {
 	 *  setBlockStatus
 	 * enable/disable many inputs for public-viewing in frontend
 	 * @see DashboardController|admin: updateAction()
-	 * @param $options (thesis) 
+	 * @param $options (thesis)
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	 public function setBlockStatus($thesis,$status) {
     	$data = array('block' => $status);
@@ -1206,18 +1218,18 @@ class Model_Inputs extends Model_DbjrBase {
 	 	 /**
 	 *  setBlockStatusByID
 	 *  enable/disable one input for public-viewing in frontend
-	 * @see DashboardController|admin: blockstatusAction() 
+	 * @see DashboardController|admin: blockstatusAction()
 	 * @param $tid ID from input
 	 * @param $status y or n
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	  public function setBlockStatusByID($status,$tid) {
     	$data = array('block' => $status);
 		$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
 		$this->update($data, $where);
 	}
-	 
+
 	 /**
 	 *  setVotingStatus
 	 * enable/disable many inputs for voting in frontend
@@ -1225,13 +1237,13 @@ class Model_Inputs extends Model_DbjrBase {
 	 * @param $thesis ID as comma separated list
 	 * @param $status y or n
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	 public function setVotingStatus($thesis,$status) {
     	$data = array('vot' => $status);
 		$this->update($data, 'tid IN ('.$thesis.')');
 	}
-	 
+
 	 /**
 	 *  setVotingStatusByID
 	 *  enable/disable one input for voting in frontend
@@ -1239,26 +1251,40 @@ class Model_Inputs extends Model_DbjrBase {
 	 * @param $tid ID from input
 	 * @param $status y or n
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	 public function setVotingStatusByID($status,$tid) {
     	$data = array('vot' => $status);
 		$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
 		$this->update($data, $where);
 	}
-	
+
 	/**
 	 *  deleteInputs
 	 *  remove inputs from the database
 	 * @see DashboardController|admin: updateAction()
 	 * @param $thesis ID as comma separated list
 	 * @return nothing
-	 * 
+	 *
 	 **/
 	public function deleteInputs($thesis) {
 		$this->delete('tid IN ('.$thesis.')');
 	}
 
+   /* getByIdArray
+   * @desc returns entries by an idArray
+   * @name getByIdArray
+   * @param array $tids
+   * @return array
+   */
+  public function getByIdArray ($tids) {
+        if (!is_array($tids) || !count($tids)) {
+          return array();
+        }
+        $select = $this->select();
+        $select->where('tid IN(?)', $tids);
 
-  
+        return $this->fetchAll($select)->toArray();
+  }
+
 }

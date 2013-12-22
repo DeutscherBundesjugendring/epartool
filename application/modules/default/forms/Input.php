@@ -14,8 +14,6 @@ class Default_Form_Input extends Zend_Form {
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 
-    $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/input/save');
-
     $this->setDecorators(array('FormElements', 'Form'));
 
     // für alle per ini gesetzten Elemente:
@@ -36,6 +34,14 @@ class Default_Form_Input extends Zend_Form {
         array('Description', array('escape'=>false, 'tag'=>'')),
       ),
     ));
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_input', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    if (is_numeric((Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl))) {
+      $hash->setTimeout(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl);
+    }
+    $this->addElement($hash);
 
   }
 
@@ -71,7 +77,7 @@ class Default_Form_Input extends Zend_Form {
 
     $this->addDisplayGroup(array(
         $this->getElement('plus'),
-        $this->getElement('submit'),
+        $this->getElement('submitbutton'),
         $this->getElement('finish')
     ),
         'controlgroup99',
@@ -124,7 +130,11 @@ class Default_Form_Input extends Zend_Form {
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
             'id' => 'thes_' . $i,
             'maxlength' => '300'
-        )
+        ),
+        'filters' => array(
+            'striptags' => 'StripTags',
+            'htmlentities' => 'HtmlEntities',
+        ),
     );
     $thes->setOptions($thesOptions);
 
@@ -156,7 +166,11 @@ class Default_Form_Input extends Zend_Form {
             'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
             'id' => 'expl_' . $i,
             'maxlength' => '2000'
-        )
+        ),
+        'filters' => array(
+            'striptags' => 'StripTags',
+            'htmlentities' => 'HtmlEntities',
+        ),
     );
     $expl->setOptions($explOptions);
 

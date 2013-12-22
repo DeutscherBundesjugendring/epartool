@@ -97,7 +97,7 @@ class Admin_MediaController extends Zend_Controller_Action {
         $kid = (int) $this->getRequest()->getParam('kid', 0);
         $elemid = $this->getRequest()->getParam('elemid', 0);
 
-        $formData = $this->_request->getUserParams();
+        $formData = $this->_request->getParams();
         $form = new Admin_Form_Media_Upload();
         if ($form->isValid($formData)) {
             $originalFilename = pathinfo($form->file->getFileName());

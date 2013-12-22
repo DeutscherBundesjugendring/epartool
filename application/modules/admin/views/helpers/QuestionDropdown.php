@@ -26,7 +26,7 @@ class Zend_View_Helper_QuestionDropdown extends Zend_View_Helper_Abstract {
           
         $html.= '<option value="'.$item->qi.'">';
       }
-      $html.= $item->q;
+      $html.= $item->nr.' '.$item->q;
       
       $html.= '</option>';
       

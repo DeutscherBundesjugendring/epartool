@@ -94,7 +94,7 @@ class FollowupController extends Zend_Controller_Action {
     }
 
     /*
-     * shows the initial timeline for followups
+     * shows the initial timeline for followups by chosen input
      * 
      * @param $_GET['kid'] consultation id
      * @param $_GET['qid'] question id 
@@ -125,16 +125,17 @@ class FollowupController extends Zend_Controller_Action {
                 $Model_Questions = new Model_Questions();
                 $Model_Followups = new Model_Followups();
                 $Model_FollowupsRef = new Model_FollowupsRef();
+                $Model_FollowupFiles = new Model_FollowupFiles();
 
 
                 $question = $Model_Questions->getById($qid);
 
                 $input = $Model_Inputs->getById($tid);
                 $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
-
+                
                 $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
                 $inputids = array();
-
+                
                 foreach ($relInputs as $relInput) {
                     $inputids[] = $relInput['tid'];
                 }
@@ -144,15 +145,148 @@ class FollowupController extends Zend_Controller_Action {
                 foreach ($relInputs as $key => $relInput) {
                     $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']]) ? $countarr[$relInput['tid']] : 0;
                 }
+             
+                $relSnippets = $Model_Followups->getByInput($tid);
+
+                foreach ($relSnippets as $snippet) {
+                    $snippetids[] = $snippet['fid'];
+                    $ffids[] = (int) $snippet['ffid'];
+                }
+
+                $uniqueffids = array_unique($ffids);
+                $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
+                $indexeddocs = array();
+                foreach ($docs as $doc) {
+                    $indexeddocs[(int) $doc['ffid']] = $doc;
+                }
+
+                $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
+
+                foreach ($relSnippets as &$snippet) {
+                    $snippet['expl'] = html_entity_decode($snippet['expl']);
+                    $snippet['gfx_who'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/'.$indexeddocs[(int) $snippet['ffid']]['gfx_who'];
+                    $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
+                }
+
+                $relatedCount = count($relSnippets) + count($relInputs);
+                
 
                 // result via json for followoptool
 
                 $this->view->assign(array(
                     'question' => $question,
                     'input' => $input,
+                    'relatedCount' => $relatedCount,
                     'relInput' => $relInputs,
+                    'relSnippets' => $relSnippets,
                     'kid' => $kid
                 ));
+            }
+        } else {
+
+            if ($kid) {
+
+                $this->_redirect($this->view->url(array(
+                            'action' => 'index',
+                            'kid' => $kid,
+                                ), null, true));
+            } else {
+                $this->_redirect('/');
+            }
+        }
+    }
+    /*
+     * shows the initial timeline for followups by chosen snippet
+     * 
+     * @param $_GET['kid'] consultation id
+     * @param $_GET['qid'] question id 
+     * @param $_GET['fid'] followup id
+     * 
+     * @return void
+     */
+
+    public function showBySnippetAction() {
+        $kid = $this->_getParam('kid', 0);
+        $fid = $this->_getParam('fid', 0);
+
+        $foreset = $this->_getParam('foreset', 0);
+
+        if ($kid && $fid) {
+
+            if ($foreset) {
+                $Model_Inputs = new Model_Inputs();
+                $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
+
+                $data['inputs'] = $relInputs;
+                $this->_helper->json->sendJson($data);
+            } else {
+                
+                $Model_Inputs = new Model_Inputs();
+                $Model_Followups = new Model_Followups();
+                $Model_FollowupsRef = new Model_FollowupsRef();
+                $Model_FollowupFiles = new Model_FollowupFiles();
+
+                $current_snippet = $Model_Followups->getById($fid);                
+                
+                $rel_tids = $Model_FollowupsRef->getRelatedInputsByFid( $fid );                
+                $fid_ref_result = $Model_FollowupsRef->getRelatedFollowupByFid( $fid );                
+                
+                $rel_fids = array();
+                foreach ($fid_ref_result as $value) {
+                    $rel_fids[] = (int) $value['fid_ref'];
+                }
+                
+                $reltothis_inputs = $Model_Inputs->getByIdArray ($rel_tids);
+                $reltothis_snippets = $Model_Followups->getByIdArray($rel_fids);
+                
+                $snippetids = array();
+                $ffids = array();
+                
+                foreach ($reltothis_snippets as $snippet) {
+                    $snippetids[] = $snippet['fid'];
+                    $ffids[] = (int) $snippet['ffid'];
+                }
+                
+                $ffids[] = (int) $current_snippet["ffid"];
+                
+                $uniqueffids = array_unique($ffids);
+                
+                $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
+                
+                $indexeddocs = array();
+                
+                foreach ($docs as $doc) {
+                    $indexeddocs[(int) $doc['ffid']] = $doc;
+                }
+                $fids_to_count = $rel_fids;
+                $fids_to_count[] = $fid;
+                
+                $countarr_snippets = $Model_FollowupsRef->getFollowupCountByFids($fids_to_count, 'tid = 0');
+
+                foreach ($reltothis_snippets as &$snippet) {
+                    $snippet['expl'] = html_entity_decode($snippet['expl']);
+                    $snippet['gfx_who'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/'.$indexeddocs[(int) $snippet['ffid']]['gfx_who'];
+                    $snippet['relFowupCount'] = isset($countarr_snippets[$snippet['fid']]) ? (int) $countarr_snippets[$snippet['fid']] : 0;
+                }
+                
+                $current_snippet['expl'] = html_entity_decode($current_snippet['expl']);
+                $current_snippet['gfx_who'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/'.$indexeddocs[(int) $current_snippet['ffid']]['gfx_who'];
+                $current_snippet['relFowupCount'] = isset($countarr_snippets[$current_snippet['fid']]) ? (int) $countarr_snippets[$current_snippet['fid']] : 0;
+                
+                $countarr_inputs = $Model_FollowupsRef->getFollowupCountByTids($rel_tids);
+
+                foreach ($reltothis_inputs as &$relInput) {
+                    $relInput['relFowupCount'] = isset($countarr_inputs[$relInput['tid']]) ? $countarr_inputs[$relInput['tid']] : 0;
+                }
+                
+                
+                $this->view->assign(array(
+                    'snippet' => $current_snippet,
+                    'reltothis_snippets' => $reltothis_snippets,
+                    'reltothis_inputs' => $reltothis_inputs,
+                    'kid' => $kid
+                ));
+                
             }
         } else {
 
@@ -188,15 +322,15 @@ class FollowupController extends Zend_Controller_Action {
         $data = array();
 
         //show followups by fowup_rid.tid
-        
+
         $Model_Inputs = new Model_Inputs();
         $Model_Followups = new Model_Followups();
         $Model_FollowupsRef = new Model_FollowupsRef();
         $Model_FollowupFiles = new Model_FollowupFiles();
-        
+
         $snippetids = array();
         $ffids = array();
-        
+
         if ($tid) {
 
             $snippets = $Model_Inputs->getFollowups($tid);
@@ -205,14 +339,14 @@ class FollowupController extends Zend_Controller_Action {
                 $snippetids[] = $snippet['fid'];
                 $ffids[] = (int) $snippet['ffid'];
             }
-            
+
             $uniqueffids = array_unique($ffids);
             $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
             $indexeddocs = array();
             foreach ($docs as $doc) {
                 $indexeddocs[(int) $doc['ffid']] = $doc;
             }
-            
+
             $countarr = $Model_FollowupsRef->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($snippets as &$snippet) {
@@ -226,14 +360,14 @@ class FollowupController extends Zend_Controller_Action {
 
         //show References by fowups.fid
         if ($fid) {
-           
+
             $related = $Model_Followups->getRelated($fid, 'tid = 0');
 
             foreach ($related['snippets'] as $snippet) {
                 $snippetids[] = $snippet['fid'];
                 $ffids[] = (int) $snippet['ffid'];
             }
-            
+
             $uniqueffids = array_unique($ffids);
             $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
             $indexeddocs = array();
@@ -262,14 +396,20 @@ class FollowupController extends Zend_Controller_Action {
 
             $data['doc'] = $Model_FollowupFiles->getById($ffid);
             $data['doc']['when'] = strtotime($data['doc']['when']);
-            foreach ($data['doc']['fowups'] as $key => &$snippet) {
+            foreach ($data['doc']['fowups'] as &$snippet) {
 
-               $snippet['expl'] = html_entity_decode($snippet['expl']);
+                $snippet['expl'] = html_entity_decode($snippet['expl']);
+                $snippet['show_in_timeline_link'] = $this->view->url(array(
+                            'action' => 'show-by-snippet',
+                            'controller' => 'followup',
+                            'kid' => $kid,
+                            'fid' => $snippet['fid']
+                                ), null, true);
             }
         }
         $response = $this->getResponse();
         $response->setHeader('Content-type', 'application/json', true);
-        
+
         $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
         $this->_helper->json->sendJson($data);
     }

@@ -54,9 +54,9 @@ class Default_Form_Register extends Zend_Form {
     $this->getElement('is_contrib_under_cc')->addValidator($validator);
     $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
     $this->getElement('is_contrib_under_cc')->setLabel(
-      'Contributions are licenced under <a href="'
+      'Die Beiträge werden unter einer <a href="'
       . Zend_Registry::get('systemconfig')->license->creative_commons->link
-      . '" target="_blank">creative commons</a> licence.'
+      . '" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">Creative-Commons-Lizenz</a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung als Quelle nur diese Website genannt werden.'
     );
 
     // add javascript for toggling subform
@@ -90,5 +90,10 @@ class Default_Form_Register extends Zend_Form {
       . '});' . "\n"
       . '</script>' . "\n";
     $script->setDescription($code);
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_register', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    $this->addElement($hash);
   }
 }

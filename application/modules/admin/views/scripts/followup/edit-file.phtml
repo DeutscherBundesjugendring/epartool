@@ -160,7 +160,7 @@ foreach ($this->followups as $followup): ?>
                     <?php endif; ?>
                     Hierarchy Level: <?php echo $hlvl[$followup['hlvl']]; ?> &nbsp;&bull;&nbsp;
                     <!--Likes / Unlikes: <?php echo $followup['lkyea']; ?> / <?php echo $followup['lknay']; ?> &nbsp;&bull;&nbsp;-->
-                    Typ: <?php $typ = array('g' => 'general', 'a'=>'action','r'=>'rejected','e'=>'end'); echo $typ[$followup['typ']]; ?> 
+                    Typ: <?php $typ = array('g' => 'general', 's'=>'supporting', 'a'=>'action','r'=>'rejected','e'=>'end'); echo $typ[$followup['typ']]; ?> 
                     
                 </td>
                 <td colspan="1" align="right">

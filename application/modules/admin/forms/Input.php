@@ -12,6 +12,7 @@ class Admin_Form_Input extends Zend_Form {
    *
    */
   public function init() {
+    $this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
     // set form-config
     $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
     
@@ -37,5 +38,13 @@ class Admin_Form_Input extends Zend_Form {
       // falls keine Tags definiert
       $this->removeElement('tags');
     }
+    
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_inputadmin', array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
+      $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
+    }
+    $this->addElement($hash);
   }
 }

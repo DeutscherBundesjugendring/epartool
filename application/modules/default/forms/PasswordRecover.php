@@ -13,6 +13,11 @@ class Default_Form_PasswordRecover extends Zend_Form {
     
     $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/passwordrecover');
     
+    // CSRF Protection
+    $hash = $this->createElement('hash', 'csrf_token_pwrecover',
+        array('salt' => 'unique'));
+    $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+    $this->addElement($hash);
   }
 }
 ?>
