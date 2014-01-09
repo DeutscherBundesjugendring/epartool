@@ -1,0 +1,1 @@
+ALTER TABLE  `cnslt` ADD  `is_discussion_active` BOOLEAN NOT NULL DEFAULT  '1';

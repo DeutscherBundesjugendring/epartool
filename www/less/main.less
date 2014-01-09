@@ -1,0 +1,102 @@
+/*!
+ * DBJR
+ *
+ * HTML & LESS/CSS © 2013 Adam Kudrna
+ *
+ */
+
+
+/*
+ * Rule Properties Structure
+ * ==============================================================================
+ *
+ *	1. Content:
+ *		- content
+ *	2. Position:
+ *		- position
+ *		- top/right/bottom/left
+ *		- z-index
+ *	3. Box Model:
+ *		- display
+ *		- box-sizing
+ *		- (min-/max-)width
+ *		- (min-/max-)height
+ *		- float
+ *		- clear
+ *		- visibility
+ *		- overflow
+ *		- margin
+ *		- padding
+ *		- vertical-align
+ *	4. Typography:
+ *		- font(-...)
+ *		- text(-...)
+ *		- color
+ *	5. Decoration:
+ *		- border
+ *		- background
+ *		- box-shadow
+ *	6. Other:
+ *		- cursor
+ *		- opacity
+ *	7. Animations:
+ *		- transition
+ */
+
+
+// Bootstrap variables and mix-ins for later use
+@import '../plugins/bootstrap/less/variables.less'; // required in mixins since v2.2.1 (w)
+@import '../plugins/bootstrap/less/mixins.less';
+
+// Project variables and mix-ins
+@import 'config/variables';
+@import 'modules/mixins';
+
+// Library - shared across projects
+@import 'library/sticky-footer.less';
+
+// Base styles
+@import 'base/typography.less';
+@import 'base/layout.less';
+//@import 'base/tables.less';
+
+// Components: Common
+@import 'components/admin.less';
+@import 'components/alerts.less';
+@import 'components/articles.less';
+@import 'components/buttons.less';
+@import 'components/dropdowns.less';
+@import 'components/hero-unit.less';
+@import 'components/icons.less';
+@import 'components/labels.less';
+@import 'components/media.less';
+//@import 'components/modals.less';
+@import 'components/tag-cloud.less';
+@import 'components/thumbnails.less';
+@import 'components/voting.less';
+@import 'components/wells.less';
+
+// Components: Navigation
+@import 'components/navigation/navs.less';
+@import 'components/navigation/navbar.less';
+@import 'components/navigation/pagination.less';
+
+// Components: Forms
+@import 'components/forms/inputs.less';
+@import 'components/forms/input-groups.less';
+@import 'components/forms/form-layouts.less';
+@import 'components/forms/help.less';
+@import 'components/forms/validation.less';
+@import 'components/forms/contribution-form.less';
+@import 'components/forms/login-form.less';
+@import 'components/forms/registration-form.less';
+@import 'components/forms/search-form.less';
+
+// Components: Custom
+@import 'components/bubbles.less';
+@import 'components/consultation.less';
+@import 'components/share.less';
+@import 'components/user-box.less';
+
+// Print styles
+@import 'print/print.less';

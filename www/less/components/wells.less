@@ -1,0 +1,128 @@
+//
+// Component: Wells
+// --------------------------------------------------
+
+
+// Well
+.well {
+	margin-bottom: 1em;
+	padding: 1.5em @u;
+	color: @wellText;
+	border-style: none;
+	.border-radius(@wellBorderRadius);
+	background-color: @wellBackground;
+
+	h2,
+	h3,
+	h4 {
+		color: @white;
+	}
+
+	h2 {
+		font-size: 1.6em;
+		line-height: 120%;
+	}
+
+	p {
+		line-height: 135%;
+	}
+
+	a {
+		color: @wellLinkText;
+
+		&:hover,
+		&:focus {
+			color: @wellLinkTextHover;
+		}
+	}
+
+	// Redeclare due to specificity
+	.btn {
+		color: @btnText;
+
+		&:hover,
+		&:focus {
+			color: @btnTextHover;
+		}
+
+		&.btn-extend {
+			color: @white;
+		}
+	}
+}
+
+
+// Large well
+.well-large {
+	.decoratedBox();
+	position: relative; // for positioning of label
+	margin: 2em 0;
+	padding: 1em 1.5em;
+	color: @white;
+	#gradient > .horizontal(darken(@orange, 11%), lighten(@orange, 5%));
+
+	h2 {
+		font-size: 2.692em; // 35px
+		line-height: 120%;
+	}
+
+	// Position label over the well border
+	.label.sticker {
+		right: -0.8em;
+		top: -0.8em;
+	}
+
+	.btn {
+		.box-shadow(.15em .2em .2em fade(@black, 50%));
+
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			color: @btnBackground;
+			background-color: @black;
+		}
+	}
+
+	.btn-extend {
+		.box-shadow(none);
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: @white;
+			background-color: @grayLight;
+		}
+	}
+
+	.btn-light {
+		&:hover,
+		&:focus,
+		&:active {
+			color: @white;
+			background-color: @grayLighter;
+		}
+	}
+}
+
+.well-large-alt {
+	.decoratedBox();
+	position: relative;
+	margin: 2em 0;
+	padding: .75em;
+
+	h2 {
+		font-size: 1.6em;
+		line-height: 110%;
+		color: @blue;
+
+		&.alt {
+			max-width: 17em;
+			margin-left: auto;
+			margin-right: auto;
+			font-size: 2em; // 21px
+			line-height: 115%;
+			color: @orange;
+		}
+	}
+}

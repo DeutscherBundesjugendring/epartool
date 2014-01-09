@@ -1,0 +1,1 @@
+ALTER TABLE  `users` DROP COLUMN `is_contrib_under_cc`;

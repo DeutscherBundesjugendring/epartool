@@ -1,7 +1,7 @@
 # Allow PHP short tags
 <IfModule mod_php5.c>
 	php_flag short_open_tag on
-	
+
 	# turn off magic quotes
 	php_value magic_quotes 0
   php_flag magic_quotes off
@@ -9,11 +9,20 @@
   php_flag magic_quotes_gpc off
 </IfModule>
 
-# Rewrite URL
+DirectoryIndex /www/index.php
 RewriteEngine On
-#RewriteBase /myapp
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
-RewriteRule ^.*$ index.php [NC,L]
+RewriteRule ^js/(.*)$           www/js/$1 [L]
+RewriteRule ^images/(.*)$       www/images/$1 [L]
+RewriteRule ^components/(.*)$   www/components/$1 [L]
+RewriteRule ^plugins/(.*)$      www/plugins/$1 [L]
+RewriteRule ^css/(.*)$          www/css/$1 [L]
+RewriteRule ^font/(.*)$         www/font/$1 [L]
+RewriteRule ^media/(.*)$        www/media/$1 [L]
+RewriteRule ^favicon.ico$       www/favicon.ico [L]
+RewriteRule ^humans.txt$        www/humans.txt [L]
+RewriteRule ^robots.txt$        www/robots.txt [L]
+RewriteRule !\.(js|ico|gif|jpg|png|css)$   www/index.php  [NC,L]
