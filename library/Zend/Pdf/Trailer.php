@@ -19,7 +19,6 @@
  * @version    $Id: Trailer.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * PDF file trailer
  *
@@ -41,7 +40,7 @@ abstract class Zend_Pdf_Trailer
     /**
      * Check if key is correct
      *
-     * @param string $key
+     * @param  string             $key
      * @throws Zend_Pdf_Exception
      */
     private function _checkDictKey($key)
@@ -52,7 +51,6 @@ abstract class Zend_Pdf_Trailer
             throw new Zend_Pdf_Exception("Unknown trailer dictionary key: '$key'.");
         }
     }
-
 
     /**
      * Object constructor
@@ -71,7 +69,7 @@ abstract class Zend_Pdf_Trailer
     /**
      * Get handler
      *
-     * @param string $property
+     * @param  string $property
      * @return mixed
      */
     public function __get($property)
@@ -83,7 +81,7 @@ abstract class Zend_Pdf_Trailer
      * Set handler
      *
      * @param string $property
-     * @param  mixed $value
+     * @param mixed  $value
      */
     public function __set($property, $value)
     {
@@ -100,7 +98,6 @@ abstract class Zend_Pdf_Trailer
     {
         return "trailer\n" . $this->_dict->toString() . "\n";
     }
-
 
     /**
      * Get length of source PDF

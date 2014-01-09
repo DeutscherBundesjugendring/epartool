@@ -86,6 +86,7 @@ class Zend_Controller_Action_HelperBroker
                 'Zend_Controller_Action_Helper' => 'Zend/Controller/Action/Helper/',
             ));
         }
+
         return self::$_pluginLoader;
     }
 
@@ -94,7 +95,7 @@ class Zend_Controller_Action_HelperBroker
      *
      * @param string $prefix
      */
-    static public function addPrefix($prefix)
+    public static function addPrefix($prefix)
     {
         $prefix = rtrim($prefix, '_');
         $path   = str_replace('_', DIRECTORY_SEPARATOR, $prefix);
@@ -104,11 +105,11 @@ class Zend_Controller_Action_HelperBroker
     /**
      * addPath() - Add path to repositories where Action_Helpers could be found.
      *
-     * @param string $path
-     * @param string $prefix Optional; defaults to 'Zend_Controller_Action_Helper'
+     * @param  string $path
+     * @param  string $prefix Optional; defaults to 'Zend_Controller_Action_Helper'
      * @return void
      */
-    static public function addPath($path, $prefix = 'Zend_Controller_Action_Helper')
+    public static function addPath($path, $prefix = 'Zend_Controller_Action_Helper')
     {
         self::getPluginLoader()->addPrefixPath($prefix, $path);
     }
@@ -116,12 +117,13 @@ class Zend_Controller_Action_HelperBroker
     /**
      * addHelper() - Add helper objects
      *
-     * @param Zend_Controller_Action_Helper_Abstract $helper
+     * @param  Zend_Controller_Action_Helper_Abstract $helper
      * @return void
      */
-    static public function addHelper(Zend_Controller_Action_Helper_Abstract $helper)
+    public static function addHelper(Zend_Controller_Action_Helper_Abstract $helper)
     {
         self::getStack()->push($helper);
+
         return;
     }
 
@@ -130,9 +132,10 @@ class Zend_Controller_Action_HelperBroker
      *
      * @return void
      */
-    static public function resetHelpers()
+    public static function resetHelpers()
     {
         self::$_stack = null;
+
         return;
     }
 
@@ -143,7 +146,7 @@ class Zend_Controller_Action_HelperBroker
      * does not already exist in the stack. Always returns a helper, unless
      * the helper class cannot be found.
      *
-     * @param  string $name
+     * @param  string                                 $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public static function getStaticHelper($name)
@@ -169,7 +172,7 @@ class Zend_Controller_Action_HelperBroker
      * stack; use {@link hasHelper()} to check if the helper is registered
      * prior to retrieving it.
      *
-     * @param  string $name
+     * @param  string                                 $name
      * @return Zend_Controller_Action_Helper_Abstract
      * @throws Zend_Controller_Action_Exception
      */
@@ -199,19 +202,20 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Is a particular helper loaded in the broker?
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public static function hasHelper($name)
     {
         $name = self::_normalizeHelperName($name);
+
         return isset(self::getStack()->{$name});
     }
 
     /**
      * Remove a particular helper from the broker
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public static function removeHelper($name)
@@ -242,7 +246,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Constructor
      *
-     * @param Zend_Controller_Action $actionController
+     * @param  Zend_Controller_Action $actionController
      * @return void
      */
     public function __construct(Zend_Controller_Action $actionController)
@@ -281,7 +285,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * getHelper() - get helper by name
      *
-     * @param  string $name
+     * @param  string                                 $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public function getHelper($name)
@@ -313,8 +317,8 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Method overloading
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string                           $method
+     * @param  array                            $args
      * @return mixed
      * @throws Zend_Controller_Action_Exception if helper does not have a direct() method
      */
@@ -325,13 +329,14 @@ class Zend_Controller_Action_HelperBroker
             require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Helper "' . $method . '" does not support overloading via direct()');
         }
+
         return call_user_func_array(array($helper, 'direct'), $args);
     }
 
     /**
      * Retrieve helper by name as object property
      *
-     * @param  string $name
+     * @param  string                                 $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public function __get($name)

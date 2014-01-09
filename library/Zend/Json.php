@@ -26,7 +26,6 @@
  */
 require_once 'Zend/Json/Expr.php';
 
-
 /**
  * Class for encoding to and decoding from JSON.
  *
@@ -64,8 +63,8 @@ class Zend_Json
      *
      * Uses ext/json's json_decode if available.
      *
-     * @param string $encodedValue Encoded in JSON format
-     * @param int $objectDecodeType Optional; flag indicating how to decode
+     * @param string $encodedValue     Encoded in JSON format
+     * @param int    $objectDecodeType Optional; flag indicating how to decode
      * objects. See {@link Zend_Json_Decoder::decode()} for details.
      * @return mixed
      */
@@ -100,6 +99,7 @@ class Zend_Json
         }
 
         require_once 'Zend/Json/Decoder.php';
+
         return Zend_Json_Decoder::decode($encodedValue, $objectDecodeType);
     }
 
@@ -118,10 +118,10 @@ class Zend_Json
      *
      * @see Zend_Json_Expr
      *
-     * @param  mixed $valueToEncode
-     * @param  boolean $cycleCheck Optional; whether or not to check for object recursion; off by default
-     * @param  array $options Additional options used during encoding
-     * @return string JSON encoded object
+     * @param  mixed   $valueToEncode
+     * @param  boolean $cycleCheck    Optional; whether or not to check for object recursion; off by default
+     * @param  array   $options       Additional options used during encoding
+     * @return string  JSON encoded object
      */
     public static function encode($valueToEncode, $cycleCheck = false, $options = array())
     {
@@ -141,7 +141,7 @@ class Zend_Json
             /**
              * @see Zend_Json_Encoder
              */
-            require_once "Zend/Json/Encoder.php";
+            require_once 'Zend/Json/Encoder.php';
             $valueToEncode = self::_recursiveJsonExprFinder($valueToEncode, $javascriptExpressions);
         }
 
@@ -156,7 +156,7 @@ class Zend_Json
         //only do post-proccessing to revert back the Zend_Json_Expr if any.
         if (count($javascriptExpressions) > 0) {
             $count = count($javascriptExpressions);
-            for($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 $magicKey = $javascriptExpressions[$i]['magicKey'];
                 $value    = $javascriptExpressions[$i]['value'];
 
@@ -183,9 +183,9 @@ class Zend_Json
      * NOTE: This method is used internally by the encode method.
      *
      * @see encode
-     * @param array|object|Zend_Json_Expr $value a string - object property to be encoded
-     * @param array $javascriptExpressions
-     * @param null $currentKey
+     * @param array|object|Zend_Json_Expr $value                 a string - object property to be encoded
+     * @param array                       $javascriptExpressions
+     * @param null                        $currentKey
      *
      * @internal param mixed $valueToCheck
      * @return void
@@ -211,6 +211,7 @@ class Zend_Json
                 $value->$k = self::_recursiveJsonExprFinder($value->$k, $javascriptExpressions, $k);
             }
         }
+
         return $value;
     }
 
@@ -222,10 +223,11 @@ class Zend_Json
      * matchs the pattern that try to detect if it is a new Zend_Json_Expr
      * if it matches, we return a new Zend_Json_Expr instead of a text node
      *
-     * @param SimpleXMLElement $simpleXmlElementObject
+     * @param  SimpleXMLElement      $simpleXmlElementObject
      * @return Zend_Json_Expr|string
      */
-    protected static function _getXmlValue($simpleXmlElementObject) {
+    protected static function _getXmlValue($simpleXmlElementObject)
+    {
         $pattern = '/^[\s]*new Zend_Json_Expr[\s]*\([\s]*[\"\']{1}(.*)[\"\']{1}[\s]*\)[\s]*$/';
         $matchings = array();
         $match = preg_match ($pattern, $simpleXmlElementObject, $matchings);
@@ -251,9 +253,9 @@ class Zend_Json
      *
      * Throws a Zend_Json_Exception if the XML tree is deeper than the allowed limit.
      *
-     * @param SimpleXMLElement $simpleXmlElementObject
-     * @param boolean $ignoreXmlAttributes
-     * @param integer $recursionDepth
+     * @param  SimpleXMLElement $simpleXmlElementObject
+     * @param  boolean          $ignoreXmlAttributes
+     * @param  integer          $recursionDepth
      * @return array
      */
     protected static function _processXml($simpleXmlElementObject, $ignoreXmlAttributes, $recursionDepth=0)
@@ -279,7 +281,8 @@ class Zend_Json
                 }
                 if (!empty($value)) {
                     $attributes['@text'] = $value;
-                } 
+                }
+
                 return array($name => $attributes);
             } else {
                return array($name => $value);
@@ -308,6 +311,7 @@ class Zend_Json
             if (!empty($value)) {
                 $childArray['@text'] = $value;
             }
+
             return array($name => $childArray);
         }
     }
@@ -332,10 +336,10 @@ class Zend_Json
      *
      * @static
      * @access public
-     * @param string $xmlStringContents XML String to be converted
+     * @param string  $xmlStringContents   XML String to be converted
      * @param boolean $ignoreXmlAttributes Include or exclude XML attributes in
      * the xml2json conversion process.
-     * @return mixed - JSON formatted string on success
+     * @return mixed               - JSON formatted string on success
      * @throws Zend_Json_Exception
      */
     public static function fromXml($xmlStringContents, $ignoreXmlAttributes=true)
@@ -357,10 +361,11 @@ class Zend_Json
         // Convert the PHP array to JSON using Zend_Json encode method.
         // It is just that simple.
         $jsonStringOutput = self::encode($resultArray);
+
         return($jsonStringOutput);
     }
 
-    
+
 
     /**
      * Pretty-print JSON string
@@ -368,8 +373,8 @@ class Zend_Json
      * Use 'format' option to select output format - currently html and txt supported, txt is default
      * Use 'indent' option to override the indentation string set in the format - by default for the 'txt' format it's a tab
      *
-     * @param string $json Original JSON string
-     * @param array $options Encoding options
+     * @param  string $json    Original JSON string
+     * @param  array  $options Encoding options
      * @return string
      */
     public static function prettyPrint($json, $options = array())
@@ -404,8 +409,8 @@ class Zend_Json
         }
 
         $inLiteral = false;
-        foreach($tokens as $token) {
-            if($token == '') {
+        foreach ($tokens as $token) {
+            if ($token == '') {
                 continue;
             }
 
@@ -424,15 +429,16 @@ class Zend_Json
                 $result .= $token . $lineBreak;
             } else {
                 $result .= ( $inLiteral ? '' : $prefix ) . $token;
-                
+
                 // Count # of unescaped double-quotes in token, subtract # of
-                // escaped double-quotes and if the result is odd then we are 
+                // escaped double-quotes and if the result is odd then we are
                 // inside a string literal
                 if ((substr_count($token, "\"")-substr_count($token, "\\\"")) % 2 != 0) {
                     $inLiteral = !$inLiteral;
                 }
             }
         }
+
         return $result;
    }
 }

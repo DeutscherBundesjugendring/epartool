@@ -69,6 +69,7 @@ class Zend_Feed_Writer_Deleted
         if (!array_key_exists('encoding', $this->_data)) {
             return 'UTF-8';
         }
+
         return $this->_data['encoding'];
     }
 
@@ -120,6 +121,7 @@ class Zend_Feed_Writer_Deleted
         if (!array_key_exists('reference', $this->_data)) {
             return null;
         }
+
         return $this->_data['reference'];
     }
 
@@ -130,7 +132,7 @@ class Zend_Feed_Writer_Deleted
             $zdate = new Zend_Date;
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
-        } elseif (ctype_digit((string)$date)) {
+        } elseif (ctype_digit((string) $date)) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
@@ -144,6 +146,7 @@ class Zend_Feed_Writer_Deleted
         if (!array_key_exists('when', $this->_data)) {
             return null;
         }
+
         return $this->_data['when'];
     }
 
@@ -183,6 +186,7 @@ class Zend_Feed_Writer_Deleted
         if (!array_key_exists('by', $this->_data)) {
             return null;
         }
+
         return $this->_data['by'];
     }
 
@@ -196,6 +200,7 @@ class Zend_Feed_Writer_Deleted
         if (!array_key_exists('comment', $this->_data)) {
             return null;
         }
+
         return $this->_data['comment'];
     }
 

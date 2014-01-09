@@ -93,7 +93,7 @@ class Zend_XmlRpc_Request
      * Create a new XML-RPC request
      *
      * @param string $method (optional)
-     * @param array $params  (optional)
+     * @param array  $params (optional)
      */
     public function __construct($method = null, $params = null)
     {
@@ -106,17 +106,17 @@ class Zend_XmlRpc_Request
         }
     }
 
-
     /**
      * Set encoding to use in request
      *
-     * @param string $encoding
+     * @param  string              $encoding
      * @return Zend_XmlRpc_Request
      */
     public function setEncoding($encoding)
     {
         $this->_encoding = $encoding;
         Zend_XmlRpc_Value::setEncoding($encoding);
+
         return $this;
     }
 
@@ -133,7 +133,7 @@ class Zend_XmlRpc_Request
     /**
      * Set method to call
      *
-     * @param string $method
+     * @param  string  $method
      * @return boolean Returns true on success, false if method name is invalid
      */
     public function setMethod($method)
@@ -141,10 +141,12 @@ class Zend_XmlRpc_Request
         if (!is_string($method) || !preg_match('/^[a-z0-9_.:\/]+$/i', $method)) {
             $this->_fault = new Zend_XmlRpc_Fault(634, 'Invalid method name ("' . $method . '")');
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
         $this->_method = $method;
+
         return true;
     }
 
@@ -164,8 +166,8 @@ class Zend_XmlRpc_Request
      * Adds a parameter to the parameter stack, associating it with the type
      * $type if provided
      *
-     * @param mixed $value
-     * @param string $type Optional; type hinting
+     * @param  mixed  $value
+     * @param  string $type  Optional; type hinting
      * @return void
      */
     public function addParam($value, $type = null)
@@ -250,6 +252,7 @@ class Zend_XmlRpc_Request
                 }
                 $this->_xmlRpcParams = $xmlRpcParams;
             }
+
             return;
         }
 
@@ -292,7 +295,7 @@ class Zend_XmlRpc_Request
     /**
      * Load XML and parse into request components
      *
-     * @param string $request
+     * @param  string  $request
      * @return boolean True on success, false if an error occurred.
      */
     public function loadXml($request)
@@ -300,6 +303,7 @@ class Zend_XmlRpc_Request
         if (!is_string($request)) {
             $this->_fault = new Zend_XmlRpc_Fault(635);
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
@@ -323,6 +327,7 @@ class Zend_XmlRpc_Request
             $this->_fault = new Zend_XmlRpc_Fault(631);
             $this->_fault->setEncoding($this->getEncoding());
             libxml_disable_entity_loader($loadEntities);
+
             return false;
         }
 
@@ -331,6 +336,7 @@ class Zend_XmlRpc_Request
             // Missing method name
             $this->_fault = new Zend_XmlRpc_Fault(632);
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
@@ -344,6 +350,7 @@ class Zend_XmlRpc_Request
                 if (!isset($param->value)) {
                     $this->_fault = new Zend_XmlRpc_Fault(633);
                     $this->_fault->setEncoding($this->getEncoding());
+
                     return false;
                 }
 
@@ -354,6 +361,7 @@ class Zend_XmlRpc_Request
                 } catch (Exception $e) {
                     $this->_fault = new Zend_XmlRpc_Fault(636);
                     $this->_fault->setEncoding($this->getEncoding());
+
                     return false;
                 }
             }

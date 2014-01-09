@@ -20,12 +20,10 @@
  * @version    $Id: NonPersistent.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Auth_Storage_Interface
  */
 require_once 'Zend/Auth/Storage/Interface.php';
-
 
 /**
  * Non-Persistent Auth Storage
@@ -73,7 +71,7 @@ class Zend_Auth_Storage_NonPersistent implements Zend_Auth_Storage_Interface
     /**
      * Writes $contents to storage
      *
-     * @param  mixed $contents
+     * @param  mixed                       $contents
      * @throws Zend_Auth_Storage_Exception If writing $contents to storage is impossible
      * @return void
      */

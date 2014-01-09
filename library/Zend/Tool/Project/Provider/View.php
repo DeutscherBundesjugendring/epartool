@@ -37,10 +37,10 @@ class Zend_Tool_Project_Provider_View extends Zend_Tool_Project_Provider_Abstrac
     /**
      * createResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $actionName
-     * @param string $controllerName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $actionName
+     * @param  string                             $controllerName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function createResource(Zend_Tool_Project_Profile $profile, $actionName, $controllerName, $moduleName = null)

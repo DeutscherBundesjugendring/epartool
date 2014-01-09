@@ -76,6 +76,7 @@ abstract class Zend_Dojo_Form_Decorator_DijitContainer extends Zend_Form_Decorat
             require_once 'Zend/Form/Decorator/Exception.php';
             throw new Zend_Form_Decorator_Exception('No view helper specified fo DijitContainer decorator');
         }
+
         return $this->_helper;
     }
 
@@ -93,6 +94,7 @@ abstract class Zend_Dojo_Form_Decorator_DijitContainer extends Zend_Form_Decorat
             }
             $this->_attribs = $attribs;
         }
+
         return $this->_attribs;
     }
 

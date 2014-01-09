@@ -77,22 +77,24 @@ class Zend_Tool_Framework_Loader_BasicLoader
      * setRegistry() - required by the enabled interface to get an instance of
      * the registry
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return Zend_Tool_Framework_Loader_Abstract
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
     /**
-     * @param  array $classesToLoad
+     * @param  array                               $classesToLoad
      * @return Zend_Tool_Framework_Loader_Abstract
      */
     public function setClassesToLoad(array $classesToLoad)
     {
         $this->_classesToLoad = $classesToLoad;
+
         return $this;
     }
 

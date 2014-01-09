@@ -71,14 +71,14 @@ class Zend_Filter_Encrypt implements Zend_Filter_Interface
     /**
      * Sets new encryption options
      *
-     * @param  string|array $options (Optional) Encryption options
+     * @param  string|array        $options (Optional) Encryption options
      * @return Zend_Filter_Encrypt
      */
     public function setAdapter($options = null)
     {
         if (is_string($options)) {
             $adapter = $options;
-        } else if (isset($options['adapter'])) {
+        } elseif (isset($options['adapter'])) {
             $adapter = $options['adapter'];
             unset($options['adapter']);
         } else {

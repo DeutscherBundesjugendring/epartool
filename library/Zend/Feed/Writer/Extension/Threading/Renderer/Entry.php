@@ -76,7 +76,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
      * Set comment link
      *
      * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param  DOMElement  $root
      * @return void
      */
     protected function _setCommentLink(DOMDocument $dom, DOMElement $root)
@@ -101,7 +101,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
      * Set comment feed links
      *
      * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param  DOMElement  $root
      * @return void
      */
     protected function _setCommentFeedLinks(DOMDocument $dom, DOMElement $root)
@@ -128,7 +128,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
      * Set entry comment count
      *
      * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param  DOMElement  $root
      * @return void
      */
     protected function _setCommentCount(DOMDocument $dom, DOMElement $root)

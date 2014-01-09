@@ -63,26 +63,28 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
     /**
      * Set a dijit parameter
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string                       $key
+     * @param  mixed                        $value
      * @return Zend_Dojo_Form_Element_Dijit
      */
     public function setDijitParam($key, $value)
     {
         $key = (string) $key;
         $this->dijitParams[$key] = $value;
+
         return $this;
     }
 
     /**
      * Set multiple dijit params at once
      *
-     * @param  array $params
+     * @param  array                        $params
      * @return Zend_Dojo_Form_Element_Dijit
      */
     public function setDijitParams(array $params)
     {
         $this->dijitParams = array_merge($this->dijitParams, $params);
+
         return $this;
     }
 
@@ -109,6 +111,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
         if ($this->hasDijitParam($key)) {
             return $this->dijitParams[$key];
         }
+
         return null;
     }
 
@@ -125,7 +128,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
     /**
      * Remove a single dijit parameter
      *
-     * @param  string $key
+     * @param  string                       $key
      * @return Zend_Dojo_Form_Element_Dijit
      */
     public function removeDijitParam($key)
@@ -134,6 +137,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
         if (array_key_exists($key, $this->dijitParams)) {
             unset($this->dijitParams[$key]);
         }
+
         return $this;
     }
 
@@ -145,6 +149,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
     public function clearDijitParams()
     {
         $this->dijitParams = array();
+
         return $this;
     }
 
@@ -174,7 +179,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
      *
      * Ensures that the view object has the dojo view helper path set.
      *
-     * @param  Zend_View_Interface $view
+     * @param  Zend_View_Interface          $view
      * @return Zend_Dojo_Form_Element_Dijit
      */
     public function setView(Zend_View_Interface $view = null)
@@ -184,6 +189,7 @@ abstract class Zend_Dojo_Form_Element_Dijit extends Zend_Form_Element
                 $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
             }
         }
+
         return parent::setView($view);
     }
 }

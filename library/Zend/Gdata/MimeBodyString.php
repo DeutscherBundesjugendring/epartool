@@ -60,15 +60,15 @@ class Zend_Gdata_MimeBodyString
     /**
      * Read the next chunk of the string.
      *
-     * @param integer $bytesRequested The size of the chunk that is to be read.
-     * @return string A corresponding piece of the string.
+     * @param  integer $bytesRequested The size of the chunk that is to be read.
+     * @return string  A corresponding piece of the string.
      */
     public function read($bytesRequested)
     {
       $len = strlen($this->_sourceString);
-      if($this->_bytesRead == $len) {
+      if ($this->_bytesRead == $len) {
           return FALSE;
-      } else if($bytesRequested > $len - $this->_bytesRead) {
+      } elseif ($bytesRequested > $len - $this->_bytesRead) {
           $bytesRequested = $len - $this->_bytesRead;
       }
 
@@ -87,6 +87,5 @@ class Zend_Gdata_MimeBodyString
     {
       return strlen($this->_sourceString);
     }
-
 
 }

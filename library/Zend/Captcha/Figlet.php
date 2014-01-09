@@ -66,14 +66,15 @@ class Zend_Captcha_Figlet extends Zend_Captcha_Word
     public function generate()
     {
         $this->_useNumbers = false;
+
         return parent::generate();
     }
 
     /**
      * Display the captcha
      *
-     * @param Zend_View_Interface $view
-     * @param mixed $element
+     * @param  Zend_View_Interface $view
+     * @param  mixed               $element
      * @return string
      */
     public function render(Zend_View_Interface $view = null, $element = null)

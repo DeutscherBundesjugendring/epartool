@@ -20,7 +20,6 @@
  * @version    $Id: Db.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Class for connecting to SQL databases and performing common operations.
  *
@@ -191,8 +190,8 @@ class Zend_Db
      * If the first argument is of type Zend_Config, it is assumed to contain
      * all parameters, and the second argument is ignored.
      *
-     * @param  mixed $adapter String name of base adapter class, or Zend_Config object.
-     * @param  mixed $config  OPTIONAL; an array or Zend_Config object with adapter parameters.
+     * @param  mixed                    $adapter String name of base adapter class, or Zend_Config object.
+     * @param  mixed                    $config  OPTIONAL; an array or Zend_Config object with adapter parameters.
      * @return Zend_Db_Adapter_Abstract
      * @throws Zend_Db_Exception
      */

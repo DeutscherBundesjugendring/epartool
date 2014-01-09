@@ -20,12 +20,10 @@
  * @version    $Id: Mysql.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
-
 
 /**
  * Class for connecting to MySQL databases and performing common operations.
@@ -86,9 +84,10 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         if (isset($this->_config['charset'])) {
             $dsn .= ';charset=' . $this->_config['charset'];
         }
+
         return $dsn;
     }
-    
+
     /**
      * Creates a PDO object and connects to the database.
      *
@@ -151,8 +150,8 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
      * PRIMARY_POSITION => integer; position of column in primary key
      * IDENTITY         => integer; true if column is auto-generated with unique values
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -190,15 +189,15 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
             if (preg_match('/^((?:var)?char)\((\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = $matches[1];
                 $length = $matches[2];
-            } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $row[$type], $matches)) {
+            } elseif (preg_match('/^decimal\((\d+),(\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = 'decimal';
                 $precision = $matches[1];
                 $scale = $matches[2];
-            } else if (preg_match('/^float\((\d+),(\d+)\)/', $row[$type], $matches)) {
+            } elseif (preg_match('/^float\((\d+),(\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = 'float';
                 $precision = $matches[1];
                 $scale = $matches[2];
-            } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row[$type], $matches)) {
+            } elseif (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = $matches[1];
                 // The optional argument of a MySQL int type is not precision
                 // or length; it is only a hint for display width.
@@ -231,15 +230,16 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
             );
             ++$i;
         }
+
         return $desc;
     }
 
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
-     * @param  string $sql
-     * @param  integer $count
-     * @param  integer $offset OPTIONAL
+     * @param  string                    $sql
+     * @param  integer                   $count
+     * @param  integer                   $offset OPTIONAL
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */

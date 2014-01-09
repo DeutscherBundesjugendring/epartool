@@ -30,7 +30,6 @@ require_once 'Zend/Feed/Builder/Header/Itunes.php';
  */
 require_once 'Zend/Uri.php';
 
-
 /**
  * Header of a custom build feed
  *
@@ -47,8 +46,8 @@ class Zend_Feed_Builder_Header extends ArrayObject
     /**
      * Constructor
      *
-     * @param  string $title title of the feed
-     * @param  string $link canonical url of the feed
+     * @param  string $title   title of the feed
+     * @param  string $link    canonical url of the feed
      * @param  string $charset charset of the textual data
      * @return void
      */
@@ -79,8 +78,8 @@ class Zend_Feed_Builder_Header extends ArrayObject
     /**
      * Write properties accessor
      *
-     * @param string $name  name of the property to set
-     * @param mixed  $value value to set
+     * @param  string $name  name of the property to set
+     * @param  mixed  $value value to set
      * @return void
      */
     public function __set($name, $value)
@@ -91,7 +90,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
     /**
      * Isset accessor
      *
-     * @param  string $key
+     * @param  string  $key
      * @return boolean
      */
     public function __isset($key)
@@ -115,55 +114,59 @@ class Zend_Feed_Builder_Header extends ArrayObject
     /**
      * Timestamp of the update date
      *
-     * @param  int $lastUpdate
+     * @param  int                      $lastUpdate
      * @return Zend_Feed_Builder_Header
      */
     public function setLastUpdate($lastUpdate)
     {
         $this->offsetSet('lastUpdate', $lastUpdate);
+
         return $this;
     }
 
     /**
      * Timestamp of the publication date
      *
-     * @param  int $published
+     * @param  int                      $published
      * @return Zend_Feed_Builder_Header
      */
     public function setPublishedDate($published)
     {
         $this->offsetSet('published', $published);
+
         return $this;
     }
 
     /**
      * Short description of the feed
      *
-     * @param  string $description
+     * @param  string                   $description
      * @return Zend_Feed_Builder_Header
      */
     public function setDescription($description)
     {
         $this->offsetSet('description', $description);
+
         return $this;
     }
 
     /**
      * Sets the author of the feed
      *
-     * @param  string $author
+     * @param  string                   $author
      * @return Zend_Feed_Builder_Header
      */
     public function setAuthor($author)
     {
         $this->offsetSet('author', $author);
+
         return $this;
     }
 
     /**
      * Sets the author's email
      *
-     * @param  string $email
+     * @param  string                      $email
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
@@ -182,54 +185,59 @@ class Zend_Feed_Builder_Header extends ArrayObject
             throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the email property");
         }
         $this->offsetSet('email', $email);
+
         return $this;
     }
 
     /**
      * Sets the copyright notice
      *
-     * @param  string $copyright
+     * @param  string                   $copyright
      * @return Zend_Feed_Builder_Header
      */
     public function setCopyright($copyright)
     {
         $this->offsetSet('copyright', $copyright);
+
         return $this;
     }
 
     /**
      * Sets the image of the feed
      *
-     * @param  string $image
+     * @param  string                   $image
      * @return Zend_Feed_Builder_Header
      */
     public function setImage($image)
     {
         $this->offsetSet('image', $image);
+
         return $this;
     }
 
     /**
      * Sets the generator of the feed
      *
-     * @param  string $generator
+     * @param  string                   $generator
      * @return Zend_Feed_Builder_Header
      */
     public function setGenerator($generator)
     {
         $this->offsetSet('generator', $generator);
+
         return $this;
     }
 
     /**
      * Sets the language of the feed
      *
-     * @param  string $language
+     * @param  string                   $language
      * @return Zend_Feed_Builder_Header
      */
     public function setLanguage($language)
     {
         $this->offsetSet('language', $language);
+
         return $this;
     }
 
@@ -237,7 +245,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * Email address for person responsible for technical issues
      * Ignored if atom is used
      *
-     * @param  string $webmaster
+     * @param  string                      $webmaster
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
@@ -256,6 +264,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
             throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the webmaster property");
         }
         $this->offsetSet('webmaster', $webmaster);
+
         return $this;
     }
 
@@ -263,7 +272,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * How long in minutes a feed can be cached before refreshing
      * Ignored if atom is used
      *
-     * @param  int $ttl
+     * @param  int                         $ttl
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
@@ -282,6 +291,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
             throw new Zend_Feed_Builder_Exception("you have to set an integer value to the ttl property");
         }
         $this->offsetSet('ttl', $ttl);
+
         return $this;
     }
 
@@ -289,12 +299,13 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * PICS rating for the feed
      * Ignored if atom is used
      *
-     * @param  string $rating
+     * @param  string                   $rating
      * @return Zend_Feed_Builder_Header
      */
     public function setRating($rating)
     {
         $this->offsetSet('rating', $rating);
+
         return $this;
     }
 
@@ -302,9 +313,9 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * Cloud to be notified of updates of the feed
      * Ignored if atom is used
      *
-     * @param  string|Zend_Uri_Http $uri
-     * @param  string               $procedure procedure to call, e.g. myCloud.rssPleaseNotify
-     * @param  string               $protocol  protocol to use, e.g. soap or xml-rpc
+     * @param  string|Zend_Uri_Http        $uri
+     * @param  string                      $procedure procedure to call, e.g. myCloud.rssPleaseNotify
+     * @param  string                      $protocol  protocol to use, e.g. soap or xml-rpc
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
@@ -326,6 +337,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
         $this->offsetSet('cloud', array('uri' => $uri,
                                         'procedure' => $procedure,
                                         'protocol' => $protocol));
+
         return $this;
     }
 
@@ -333,10 +345,10 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * A text input box that can be displayed with the feed
      * Ignored if atom is used
      *
-     * @param  string $title       the label of the Submit button in the text input area
-     * @param  string $description explains the text input area
-     * @param  string $name        the name of the text object in the text input area
-     * @param  string $link        the URL of the CGI script that processes text input requests
+     * @param  string                   $title       the label of the Submit button in the text input area
+     * @param  string                   $description explains the text input area
+     * @param  string                   $name        the name of the text object in the text input area
+     * @param  string                   $link        the URL of the CGI script that processes text input requests
      * @return Zend_Feed_Builder_Header
      */
     public function setTextInput($title, $description, $name, $link)
@@ -345,6 +357,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
                                             'description' => $description,
                                             'name' => $name,
                                             'link' => $link));
+
         return $this;
     }
 
@@ -352,7 +365,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * Hint telling aggregators which hours they can skip
      * Ignored if atom is used
      *
-     * @param  array $hours list of hours in 24 format
+     * @param  array                       $hours list of hours in 24 format
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
@@ -375,6 +388,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
             }
         }
         $this->offsetSet('skipHours', $hours);
+
         return $this;
     }
 
@@ -382,7 +396,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * Hint telling aggregators which days they can skip
      * Ignored if atom is used
      *
-     * @param  array $days list of days to skip, e.g. Monday
+     * @param  array                       $days list of days to skip, e.g. Monday
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
@@ -406,6 +420,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
             }
         }
         $this->offsetSet('skipDays', $days);
+
         return $this;
     }
 
@@ -418,6 +433,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function setITunes(Zend_Feed_Builder_Header_Itunes $itunes)
     {
         $this->offsetSet('itunes', $itunes);
+
         return $this;
     }
 }

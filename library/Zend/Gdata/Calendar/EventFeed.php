@@ -100,6 +100,7 @@ class Zend_Gdata_Calendar_EventFeed extends Zend_Gdata_Feed
     public function setTimezone($value)
     {
         $this->_timezone = $value;
+
         return $this;
     }
 

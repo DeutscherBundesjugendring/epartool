@@ -21,12 +21,10 @@
  * @version    $Id: Rowset.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Db_Table_Rowset_Abstract
  */
 require_once 'Zend/Db/Table/Rowset/Abstract.php';
-
 
 /**
  * Reference concrete class that extends Zend_Db_Table_Rowset_Abstract.

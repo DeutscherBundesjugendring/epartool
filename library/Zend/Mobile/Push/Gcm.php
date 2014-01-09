@@ -77,7 +77,7 @@ class Zend_Mobile_Push_Gcm extends Zend_Mobile_Push_Abstract
     /**
      * Set API Key
      *
-     * @param  string $key
+     * @param  string                     $key
      * @return Zend_Mobile_Push_Gcm
      * @throws Zend_Mobile_Push_Exception
      */
@@ -87,6 +87,7 @@ class Zend_Mobile_Push_Gcm extends Zend_Mobile_Push_Abstract
             throw new Zend_Mobile_Push_Exception('The api key must be a string and not empty');
         }
         $this->_apiKey = $key;
+
         return $this;
     }
 
@@ -103,6 +104,7 @@ class Zend_Mobile_Push_Gcm extends Zend_Mobile_Push_Abstract
                 'strictredirects' => true,
             ));
         }
+
         return $this->_httpClient;
     }
 
@@ -114,13 +116,14 @@ class Zend_Mobile_Push_Gcm extends Zend_Mobile_Push_Abstract
     public function setHttpClient(Zend_Http_Client $client)
     {
         $this->_httpClient = $client;
+
         return $this;
     }
 
     /**
      * Send Message
      *
-     * @param Zend_Mobile_Push_Message_Gcm $message
+     * @param  Zend_Mobile_Push_Message_Gcm  $message
      * @return Zend_Mobile_Push_Response_Gcm
      * @throws Zend_Mobile_Push_Exception
      */
@@ -148,8 +151,7 @@ class Zend_Mobile_Push_Gcm extends Zend_Mobile_Push_Abstract
                            ->request('POST');
         $this->close();
 
-        switch ($response->getStatus())
-        {
+        switch ($response->getStatus()) {
             case 500:
                 require_once 'Zend/Mobile/Push/Exception/ServerUnavailable.php';
                 throw new Zend_Mobile_Push_Exception_ServerUnavailable('The server encountered an internal error, try again');
@@ -167,6 +169,7 @@ class Zend_Mobile_Push_Gcm extends Zend_Mobile_Push_Abstract
                 throw new Zend_Mobile_Push_Exception_InvalidPayload('The request could not be parsed as JSON or contains invalid fields');
                 break;
         }
+
         return new Zend_Mobile_Push_Response_Gcm($response->getBody(), $message);
     }
 }

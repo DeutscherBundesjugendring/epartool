@@ -20,12 +20,10 @@
  * @version    $Id: CosmosResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati Cosmos query result set.
@@ -73,8 +71,8 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
     /**
      * Parses the search response and retrieve the results for iteration.
      *
-     * @param   DomDocument $dom    the ReST fragment for this object
-     * @param   array $options      query options as associative array
+     * @param DomDocument $dom     the ReST fragment for this object
+     * @param array       $options query options as associative array
      */
     public function __construct(DomDocument $dom, $options = array())
     {
@@ -101,7 +99,7 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
                 // fetched URL often doens't include schema
                 // and this issue causes the following line to fail
                 $this->_url = Zend_Service_Technorati_Utils::normalizeUriHttp($result->item(0)->data);
-            } catch(Zend_Service_Technorati_Exception $e) {
+            } catch (Zend_Service_Technorati_Exception $e) {
                 if ($this->getWeblog() instanceof Zend_Service_Technorati_Weblog) {
                     $this->_url = $this->getWeblog()->getUrl();
                 }
@@ -125,25 +123,27 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
     /**
      * Returns the weblog URL.
      *
-     * @return  Zend_Uri_Http
+     * @return Zend_Uri_Http
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->_url;
     }
 
     /**
      * Returns the weblog.
      *
-     * @return  Zend_Service_Technorati_Weblog
+     * @return Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
     /**
      * Returns number of unique blogs linking this blog.
      *
-     * @return  integer the number of inbound blogs
+     * @return integer the number of inbound blogs
      */
     public function getInboundBlogs()
     {
@@ -153,7 +153,7 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
     /**
      * Returns number of incoming links to this blog.
      *
-     * @return  integer the number of inbound links
+     * @return integer the number of inbound links
      */
     public function getInboundLinks()
     {
@@ -171,6 +171,7 @@ class Zend_Service_Technorati_CosmosResultSet extends Zend_Service_Technorati_Re
          * @see Zend_Service_Technorati_CosmosResult
          */
         require_once 'Zend/Service/Technorati/CosmosResult.php';
+
         return new Zend_Service_Technorati_CosmosResult($this->_results->item($this->_currentIndex));
     }
 }

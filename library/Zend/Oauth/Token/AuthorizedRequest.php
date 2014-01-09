@@ -38,7 +38,7 @@ class Zend_Oauth_Token_AuthorizedRequest extends Zend_Oauth_Token
     /**
      * Constructor
      *
-     * @param  null|array $data
+     * @param  null|array                   $data
      * @param  null|Zend_Oauth_Http_Utility $utility
      * @return void
      */
@@ -80,6 +80,7 @@ class Zend_Oauth_Token_AuthorizedRequest extends Zend_Oauth_Token
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -97,6 +98,7 @@ class Zend_Oauth_Token_AuthorizedRequest extends Zend_Oauth_Token
         foreach ($this->_data as $key => $value) {
             $params[rawurldecode($key)] = rawurldecode($value);
         }
+
         return $params;
     }
 }

@@ -147,7 +147,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      *
      * @deprecated Deprecated as of Zend Framework 1.7. Use
      *             setService() instead.
-     * @param  Zend_Http_Client $httpClient
+     * @param  Zend_Http_Client               $httpClient
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setHttpClient(Zend_Http_Client $httpClient)
@@ -156,6 +156,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
             $this->_service = new Zend_Gdata_App();
         }
         $this->_service->setHttpClient($httpClient);
+
         return $this;
     }
 
@@ -173,6 +174,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
             $this->_service = new Zend_Gdata_App();
         }
         $client = $this->_service->getHttpClient();
+
         return $client;
     }
 
@@ -180,12 +182,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * Set the active service instance for this object. This will be used to
      * perform network requests, such as when calling save() and delete().
      *
-     * @param Zend_Gdata_App $instance The new service instance.
+     * @param  Zend_Gdata_App                 $instance The new service instance.
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface.
      */
     public function setService($instance)
     {
         $this->_service = $instance;
+
         return $this;
     }
 
@@ -228,6 +231,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
         if ($this->_updated != null) {
             $element->appendChild($this->_updated->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -293,12 +297,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * Sets the list of the authors of this feed/entry.  In an atom feed, each
      * author is represented by an atom:author element
      *
-     * @param array $value
+     * @param  array                          $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setAuthor($value)
     {
         $this->_author = $value;
+
         return $this;
     }
 
@@ -317,12 +322,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * Sets the array of categories that classify this feed/entry.  Each
      * category is represented in an atom feed by an atom:category element.
      *
-     * @param array $value Array of Zend_Gdata_App_Extension_Category
+     * @param  array                          $value Array of Zend_Gdata_App_Extension_Category
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setCategory($value)
     {
         $this->_category = $value;
+
         return $this;
     }
 
@@ -341,12 +347,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * Sets the array of contributors to this feed/entry.  Each contributor
      * is represented in an atom feed by an atom:contributor XML element
      *
-     * @param array $value
+     * @param  array                          $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setContributor($value)
     {
         $this->_contributor = $value;
+
         return $this;
     }
 
@@ -359,12 +366,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Id $value
+     * @param  Zend_Gdata_App_Extension_Id    $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setId($value)
     {
         $this->_id = $value;
+
         return $this;
     }
 
@@ -393,6 +401,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
                     return $link;
                 }
             }
+
             return null;
         }
     }
@@ -473,12 +482,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param array $value The array of Zend_Gdata_App_Extension_Link elements
+     * @param  array                          $value The array of Zend_Gdata_App_Extension_Link elements
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setLink($value)
     {
         $this->_link = $value;
+
         return $this;
     }
 
@@ -491,12 +501,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Rights $value
-     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Rights $value
+     * @return Zend_Gdata_App_FeedEntryParent  Provides a fluent interface
      */
     public function setRights($value)
     {
         $this->_rights = $value;
+
         return $this;
     }
 
@@ -533,12 +544,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * short textual representation of this resource and is found as
      * an atom:title element in a feed or entry
      *
-     * @param Zend_Gdata_App_Extension_Title $value
+     * @param  Zend_Gdata_App_Extension_Title $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setTitle($value)
     {
         $this->_title = $value;
+
         return $this;
     }
 
@@ -551,12 +563,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Updated $value
-     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Updated $value
+     * @return Zend_Gdata_App_FeedEntryParent   Provides a fluent interface
      */
     public function setUpdated($value)
     {
         $this->_updated = $value;
+
         return $this;
     }
 
@@ -564,11 +577,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * Set the Etag for the current entry to $value. Setting $value to null
      * unsets the Etag.
      *
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
-    public function setEtag($value) {
+    public function setEtag($value)
+    {
         $this->_etag = $value;
+
         return $this;
     }
 
@@ -577,7 +592,8 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      *
      * @return string|null
      */
-    public function getEtag() {
+    public function getEtag()
+    {
         return $this->_etag;
     }
 
@@ -587,13 +603,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * to be thrown.
      *
      * @see _majorProtocolVersion
-     * @param (int|NULL) $value The major protocol version to use.
+     * @param  (int|NULL)                              $value The major protocol version to use.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setMajorProtocolVersion($value)
     {
         if (!($value >= 1) && ($value !== null)) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Major protocol version must be >= 1');
         }
@@ -617,13 +633,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * cause a Zend_Gdata_App_InvalidArgumentException to be thrown.
      *
      * @see _minorProtocolVersion
-     * @param (int|NULL) $value The minor protocol version to use.
+     * @param  (int|NULL)                              $value The minor protocol version to use.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setMinorProtocolVersion($value)
     {
         if (!($value >= 0)) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Minor protocol version must be >= 0 or null');
         }
@@ -655,7 +671,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * $minorVersion. If the entry/fee has a null version, then the latest
      * protocol version will be used by default.
      *
-     * @param string $prefix The namespace prefix to lookup.
+     * @param string  $prefix       The namespace prefix to lookup.
      * @param integer $majorVersion The major protocol version in effect.
      *        Defaults to null (auto-select).
      * @param integer $minorVersion The minor protocol version in effect.

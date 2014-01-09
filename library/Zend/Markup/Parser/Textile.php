@@ -49,8 +49,6 @@ class Zend_Markup_Parser_Textile implements Zend_Markup_Parser_ParserInterface
     const MATCH_ATTR_LANG    = '\[(?<attr_lang>[a-zA-Z_]+)\]';
     const MATCH_ATTR_ALIGN   = '(?<attr_align>\<\>?|\>|=)';
 
-
-
     /**
      * Token tree
      *
@@ -120,7 +118,6 @@ class Zend_Markup_Parser_Textile implements Zend_Markup_Parser_ParserInterface
      * @var array
      */
     protected $_tokens = array();
-
 
     /**
      * Prepare the parsing of a Textile string, the real parsing is done in {@link _parse()}
@@ -489,7 +486,7 @@ class Zend_Markup_Parser_Textile implements Zend_Markup_Parser_ParserInterface
     /**
      * Check if a tag is a stopper
      *
-     * @param array $token
+     * @param array             $token
      * @param Zend_Markup_Token $current
      *
      * @return bool
@@ -520,6 +517,7 @@ class Zend_Markup_Parser_Textile implements Zend_Markup_Parser_ParserInterface
                 }
                 break;
         }
+
         return false;
     }
 

@@ -53,8 +53,8 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_AddConferenceTemplateP
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $templateId
+     * @param integer                                                       $environment
+     * @param string                                                        $templateId
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
      */
     public function __construct($environment, $templateId,
@@ -68,24 +68,26 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_AddConferenceTemplateP
     /**
      * set the template id
      *
-     * @param string $templateId
+     * @param  string                                                                                      $templateId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_AddConferenceTemplateParticipantRequest
      */
     public function setTemplateId($templateId)
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 
     /**
      * sets new participant
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail                               $participant
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_AddConferenceTemplateParticipantRequest
      */
     public function setParticipant(Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant)
     {
         $this->participant = $participant;
+
         return $this;
     }
 }

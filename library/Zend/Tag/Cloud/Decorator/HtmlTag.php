@@ -89,7 +89,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
     /**
      * Set a list of classes to use instead of fontsizes
      *
-     * @param  array $classList
+     * @param  array                              $classList
      * @throws Zend_Tag_Cloud_Decorator_Exception When the classlist is empty
      * @throws Zend_Tag_Cloud_Decorator_Exception When the classlist contains an invalid classname
      * @return Zend_Tag_Cloud_Decorator_HtmlTag
@@ -111,6 +111,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
         }
 
         $this->_classList = $classList;
+
         return $this;
     }
 
@@ -137,12 +138,13 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
     /**
      * Set encoding
      *
-     * @param  string $value
+     * @param  string                           $value
      * @return Zend_Tag_Cloud_Decorator_HtmlTag
      */
     public function setEncoding($value)
     {
         $this->_encoding = (string) $value;
+
         return $this;
     }
 
@@ -151,7 +153,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
      *
      * Possible values are: em, ex, px, in, cm, mm, pt, pc and %
      *
-     * @param  string $fontSizeUnit
+     * @param  string                             $fontSizeUnit
      * @throws Zend_Tag_Cloud_Decorator_Exception When an invalid fontsize unit is specified
      * @return Zend_Tag_Cloud_Decorator_HtmlTag
      */
@@ -164,6 +166,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
 
         $this->_fontSizeUnit = (string) $fontSizeUnit;
         $this->setClassList(null);
+
         return $this;
     }
 
@@ -179,12 +182,13 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
      /**
      * Set the HTML tags surrounding the <a> element
      *
-     * @param  array $htmlTags
+     * @param  array                            $htmlTags
      * @return Zend_Tag_Cloud_Decorator_HtmlTag
      */
     public function setHtmlTags(array $htmlTags)
     {
         $this->_htmlTags = $htmlTags;
+
         return $this;
     }
 
@@ -201,7 +205,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
     /**
      * Set maximum font size
      *
-     * @param  integer $maxFontSize
+     * @param  integer                            $maxFontSize
      * @throws Zend_Tag_Cloud_Decorator_Exception When fontsize is not numeric
      * @return Zend_Tag_Cloud_Decorator_HtmlTag
      */
@@ -214,6 +218,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
 
         $this->_maxFontSize = (int) $maxFontSize;
         $this->setClassList(null);
+
         return $this;
     }
 
@@ -230,7 +235,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
     /**
      * Set minimum font size
      *
-     * @param  int $minFontSize
+     * @param  int                                $minFontSize
      * @throws Zend_Tag_Cloud_Decorator_Exception When fontsize is not numeric
      * @return Zend_Tag_Cloud_Decorator_HtmlTag
      */
@@ -243,6 +248,7 @@ class Zend_Tag_Cloud_Decorator_HtmlTag extends Zend_Tag_Cloud_Decorator_Tag
 
         $this->_minFontSize = (int) $minFontSize;
         $this->setClassList(null);
+
         return $this;
     }
 

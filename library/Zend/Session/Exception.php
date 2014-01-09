@@ -20,12 +20,10 @@
  * @since      Preview Release 0.2
  */
 
-
 /**
  * @see Zend_Exception
  */
 require_once 'Zend/Exception.php';
-
 
 /**
  * Zend_Session_Exception
@@ -43,7 +41,7 @@ class Zend_Session_Exception extends Zend_Exception
      * @see http://framework.zend.com/issues/browse/ZF-1325
      * @var string PHP Error Message
      */
-    static public $sessionStartError = null;
+    public static $sessionStartError = null;
 
     /**
      * handleSessionStartError() - interface for set_error_handler()
@@ -53,7 +51,7 @@ class Zend_Session_Exception extends Zend_Exception
      * @param  string $errstr
      * @return void
      */
-    static public function handleSessionStartError($errno, $errstr, $errfile, $errline, $errcontext)
+    public static function handleSessionStartError($errno, $errstr, $errfile, $errline, $errcontext)
     {
         self::$sessionStartError = $errfile . '(Line:' . $errline . '): Error #' . $errno . ' ' . $errstr;
     }
@@ -66,9 +64,8 @@ class Zend_Session_Exception extends Zend_Exception
      * @param  string $errstr
      * @return void
      */
-    static public function handleSilentWriteClose($errno, $errstr, $errfile, $errline, $errcontext)
+    public static function handleSilentWriteClose($errno, $errstr, $errfile, $errline, $errcontext)
     {
         self::$sessionStartError .= PHP_EOL . $errfile . '(Line:' . $errline . '): Error #' . $errno . ' ' . $errstr;
     }
 }
-

@@ -55,8 +55,8 @@ class Zend_Controller_Action_Helper_AutoCompleteScriptaculous extends Zend_Contr
     /**
      * Prepare data for autocompletion
      *
-     * @param  mixed   $data
-     * @param  boolean $keepLayouts
+     * @param  mixed                            $data
+     * @param  boolean                          $keepLayouts
      * @throws Zend_Controller_Action_Exception
      * @return string
      */

@@ -53,19 +53,20 @@ class Zend_Tool_Framework_Manifest_Repository
     /**
      * setRegistry()
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return unknown
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
     /**
      * addManifest() - Add a manifest for later processing
      *
-     * @param Zend_Tool_Framework_Manifest_Interface $manifest
+     * @param  Zend_Tool_Framework_Manifest_Interface  $manifest
      * @return Zend_Tool_Framework_Manifest_Repository
      */
     public function addManifest(Zend_Tool_Framework_Manifest_Interface $manifest)
@@ -150,12 +151,13 @@ class Zend_Tool_Framework_Manifest_Repository
     /**
      * addMetadata() - add a metadata peice by peice
      *
-     * @param Zend_Tool_Framework_Manifest_Metadata $metadata
+     * @param  Zend_Tool_Framework_Manifest_Metadata   $metadata
      * @return Zend_Tool_Framework_Manifest_Repository
      */
     public function addMetadata(Zend_Tool_Framework_Metadata_Interface $metadata)
     {
         $this->_metadatas[] = $metadata;
+
         return $this;
     }
 
@@ -209,8 +211,8 @@ class Zend_Tool_Framework_Manifest_Repository
      *          'actionName' => 'show'
      *          ));
      *
-     * @param array $searchProperties
-     * @param bool $includeNonExistentProperties
+     * @param  array                                   $searchProperties
+     * @param  bool                                    $includeNonExistentProperties
      * @return Zend_Tool_Framework_Manifest_Metadata[]
      */
     public function getMetadatas(Array $searchProperties = array(), $includeNonExistentProperties = true)
@@ -251,13 +253,14 @@ class Zend_Tool_Framework_Manifest_Repository
      * getMetadata() - This will proxy to getMetadatas(), but will only return a single metadata.  This method
      * should be used in situations where the search criteria is known to only find a single metadata object
      *
-     * @param array $searchProperties
-     * @param bool $includeNonExistentProperties
+     * @param  array                                 $searchProperties
+     * @param  bool                                  $includeNonExistentProperties
      * @return Zend_Tool_Framework_Manifest_Metadata
      */
     public function getMetadata(Array $searchProperties = array(), $includeNonExistentProperties = true)
     {
         $metadatas = $this->getMetadatas($searchProperties, $includeNonExistentProperties);
+
         return array_shift($metadatas);
     }
 

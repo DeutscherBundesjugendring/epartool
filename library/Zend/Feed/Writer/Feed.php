@@ -94,6 +94,7 @@ implements Iterator, Countable
             $entry->setEncoding($this->getEncoding());
         }
         $entry->setType($this->getType());
+
         return $entry;
     }
 
@@ -122,6 +123,7 @@ implements Iterator, Countable
             $deleted->setEncoding($this->getEncoding());
         }
         $deleted->setType($this->getType());
+
         return $deleted;
     }
 
@@ -258,8 +260,8 @@ implements Iterator, Countable
     /**
      * Attempt to build and return the feed resulting from the data set
      *
-     * @param string $type             The feed type "rss" or "atom" to export as
-		 * @param bool   $ignoreExceptions
+     * @param string $type The feed type "rss" or "atom" to export as
+         * @param bool   $ignoreExceptions
      * @return string
      */
     public function export($type, $ignoreExceptions = false)
@@ -276,6 +278,7 @@ implements Iterator, Countable
         if ($ignoreExceptions) {
             $renderer->ignoreExceptions();
         }
+
         return $renderer->render()->saveXml();
     }
 

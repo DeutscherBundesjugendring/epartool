@@ -46,8 +46,8 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_TearDownCall
     /**
      * constructor give them the environment and the sessionId
      *
-     * @param integer $environment
-     * @param string $sessionId
+     * @param  integer                                              $environment
+     * @param  string                                               $sessionId
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
      */
     public function __construct($environment, $sessionId)
@@ -67,12 +67,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_TearDownCall
     /**
      * sets new sessionId
      *
-     * @param string $sessionId
+     * @param  string                                                        $sessionId
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_TearDownCall
      */
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
+
         return $this;
     }
 }

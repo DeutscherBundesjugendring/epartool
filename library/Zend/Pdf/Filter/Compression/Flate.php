@@ -19,7 +19,6 @@
  * @version    $Id: Flate.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Filter_Compression */
 require_once 'Zend/Pdf/Filter/Compression.php';
 
@@ -35,8 +34,8 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
     /**
      * Encode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -68,8 +67,8 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
     /**
      * Decode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */

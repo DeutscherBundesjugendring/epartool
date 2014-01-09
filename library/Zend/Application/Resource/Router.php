@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
-
 /**
  * Resource for initializing the locale
  *

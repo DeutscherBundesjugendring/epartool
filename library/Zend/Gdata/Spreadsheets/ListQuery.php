@@ -24,12 +24,12 @@
 /**
  * Zend_Gdata_App_util
  */
-require_once('Zend/Gdata/App/Util.php');
+require_once 'Zend/Gdata/App/Util.php';
 
 /**
  * Zend_Gdata_Query
  */
-require_once('Zend/Gdata/Query.php');
+require_once 'Zend/Gdata/Query.php';
 
 /**
  * Assists in constructing queries for Google Spreadsheets lists
@@ -64,12 +64,13 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the spreadsheet key for the query.
-     * @param string $value
+     * @param  string                            $value
      * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
      */
     public function setSpreadsheetKey($value)
     {
         $this->_spreadsheetKey = $value;
+
         return $this;
     }
 
@@ -84,12 +85,13 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the worksheet id for the query.
-     * @param string $value
+     * @param  string                            $value
      * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
      */
     public function setWorksheetId($value)
     {
         $this->_worksheetId = $value;
+
         return $this;
     }
 
@@ -104,12 +106,13 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the row id for the query.
-     * @param string $value row id
+     * @param  string                            $value row id
      * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
      */
     public function setRowId($value)
     {
         $this->_rowId = $value;
+
         return $this;
     }
 
@@ -124,23 +127,25 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the projection for the query.
-     * @param string $value Projection
+     * @param  string                            $value Projection
      * @return Zend_Gdata_Spreadsheets_ListQuery Provides a fluent interface
      */
     public function setProjection($value)
     {
         $this->_projection = $value;
+
         return $this;
     }
 
     /**
      * Sets the visibility for this query.
-     * @param string $value visibility
+     * @param  string                            $value visibility
      * @return Zend_Gdata_Spreadsheets_ListQuery Provides a fluent interface
      */
     public function setVisibility($value)
     {
         $this->_visibility = $value;
+
         return $this;
     }
 
@@ -164,7 +169,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the spreadsheet key for this query.
-     * @param string $value
+     * @param  string                                $value
      * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setSpreadsheetQuery($value)
@@ -174,6 +179,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         } else {
             unset($this->_params['sq']);
         }
+
         return $this;
     }
 
@@ -192,7 +198,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the orderby attribute for this query.
-     * @param string $value
+     * @param  string                                $value
      * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setOrderBy($value)
@@ -202,6 +208,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         } else {
             unset($this->_params['orderby']);
         }
+
         return $this;
     }
 
@@ -220,7 +227,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 
     /**
      * Sets the reverse attribute for this query.
-     * @param string $value
+     * @param  string                                $value
      * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setReverse($value)
@@ -230,6 +237,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         } else {
             unset($this->_params['reverse']);
         }
+
         return $this;
     }
 
@@ -239,7 +247,6 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
      */
     public function getReverse()
     {
-
 
         if (array_key_exists('reverse', $this->_params)) {
             return $this->_params['reverse'];
@@ -290,6 +297,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         }
 
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

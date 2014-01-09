@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for Google Apps member entries.
@@ -63,8 +63,8 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
      *
      * @param string $domain (optional) The Google Apps-hosted domain to use
      *          when constructing query URIs.
-     * @param string $groupId (optional) Value for the groupId property.
-     * @param string $memberId (optional) Value for the memberId property.
+     * @param string $groupId       (optional) Value for the groupId property.
+     * @param string $memberId      (optional) Value for the memberId property.
      * @param string $startMemberId (optional) Value for the
      *          startMemberId property.
      */
@@ -101,7 +101,6 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
     {
         return $this->_groupId;
     }
-
 
     /**
      * Set the member id to query for. When set, only users with a member id
@@ -188,6 +187,7 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
             $uri .= '/' . $this->_memberId;
         }
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

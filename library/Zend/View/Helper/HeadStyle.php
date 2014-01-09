@@ -91,9 +91,9 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
      *
      * Returns headStyle helper object; optionally, allows specifying
      *
-     * @param  string $content Stylesheet contents
-     * @param  string $placement Append, prepend, or set
-     * @param  string|array $attributes Optional attributes to utilize
+     * @param  string                     $content    Stylesheet contents
+     * @param  string                     $placement  Append, prepend, or set
+     * @param  string|array               $attributes Optional attributes to utilize
      * @return Zend_View_Helper_HeadStyle
      */
     public function headStyle($content = null, $placement = 'APPEND', $attributes = array())
@@ -126,8 +126,8 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
      * - prependStyle($content, $attributes = array())
      * - setStyle($content, $attributes = array())
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string              $method
+     * @param  array               $args
      * @return void
      * @throws Zend_View_Exception When no $content provided or invalid method
      */
@@ -175,8 +175,8 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
     /**
      * Determine if a value is a valid style tag
      *
-     * @param  mixed $value
-     * @param  string $method
+     * @param  mixed   $value
+     * @param  string  $method
      * @return boolean
      */
     protected function _isValid($value)
@@ -213,7 +213,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
      * Override offsetSet to enforce style creation
      *
      * @param  string|int $index
-     * @param  mixed $value
+     * @param  mixed      $value
      * @return void
      */
     public function offsetSet($index, $value)
@@ -267,7 +267,7 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
     /**
      * Start capture action
      *
-     * @param  mixed $captureType
+     * @param  mixed  $captureType
      * @param  string $typeOrAttrs
      * @return void
      */
@@ -315,8 +315,8 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
     /**
      * Convert content and attributes into valid style tag
      *
-     * @param  stdClass $item Item to render
-     * @param  string $indent Indentation to use
+     * @param  stdClass $item   Item to render
+     * @param  string   $indent Indentation to use
      * @return string
      */
     public function itemToString(stdClass $item, $indent)
@@ -334,14 +334,14 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
                     continue;
                 }
                 if ('media' == $key) {
-                    if(false === strpos($value, ',')) {
+                    if (false === strpos($value, ',')) {
                         if (!in_array($value, $this->_mediaTypes)) {
                             continue;
                         }
                     } else {
                         $media_types = explode(',', $value);
                         $value = '';
-                        foreach($media_types as $type) {
+                        foreach ($media_types as $type) {
                             $type = trim($type);
                             if (!in_array($type, $this->_mediaTypes)) {
                                 continue;
@@ -399,21 +399,22 @@ class Zend_View_Helper_HeadStyle extends Zend_View_Helper_Placeholder_Container_
 
         $return = $indent . implode($this->getSeparator() . $indent, $items);
         $return = preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
+
         return $return;
     }
 
     /**
      * Create data item for use in stack
      *
-     * @param  string $content
-     * @param  array $attributes
+     * @param  string   $content
+     * @param  array    $attributes
      * @return stdClass
      */
     public function createData($content, array $attributes)
     {
         if (!isset($attributes['media'])) {
             $attributes['media'] = 'screen';
-        } else if(is_array($attributes['media'])) {
+        } elseif (is_array($attributes['media'])) {
             $attributes['media'] = implode(',', $attributes['media']);
         }
 

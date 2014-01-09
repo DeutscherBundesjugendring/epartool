@@ -47,17 +47,18 @@ class Zend_Serializer_Adapter_Amf0 extends Zend_Serializer_Adapter_AdapterAbstra
     /**
      * Serialize a PHP value to AMF0 format
      *
-     * @param  mixed $value
-     * @param  array $opts
+     * @param  mixed                     $value
+     * @param  array                     $opts
      * @return string
      * @throws Zend_Serializer_Exception
      */
     public function serialize($value, array $opts = array())
     {
-        try  {
+        try {
             $stream     = new Zend_Amf_Parse_OutputStream();
             $serializer = new Zend_Amf_Parse_Amf0_Serializer($stream);
             $serializer->writeTypeMarker($value);
+
             return $stream->getStream();
         } catch (Exception $e) {
             require_once 'Zend/Serializer/Exception.php';
@@ -68,8 +69,8 @@ class Zend_Serializer_Adapter_Amf0 extends Zend_Serializer_Adapter_AdapterAbstra
     /**
      * Unserialize an AMF0 value to PHP
      *
-     * @param  mixed $value
-     * @param  array $opts
+     * @param  mixed                     $value
+     * @param  array                     $opts
      * @return void
      * @throws Zend_Serializer_Exception
      */
@@ -78,6 +79,7 @@ class Zend_Serializer_Adapter_Amf0 extends Zend_Serializer_Adapter_AdapterAbstra
         try {
             $stream       = new Zend_Amf_Parse_InputStream($value);
             $deserializer = new Zend_Amf_Parse_Amf0_Deserializer($stream);
+
             return $deserializer->readTypeMarker();
         } catch (Exception $e) {
             require_once 'Zend/Serializer/Exception.php';

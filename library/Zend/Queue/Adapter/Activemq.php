@@ -63,7 +63,7 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Constructor
      *
-     * @param  array|Zend_Config $config An array having configuration data
+     * @param array|Zend_Config $config An array having configuration data
      * @param  Zend_Queue The Zend_Queue object that created this class
      * @return void
      */
@@ -125,8 +125,8 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Create a new queue
      *
-     * @param  string  $name    queue name
-     * @param  integer $timeout default visibility timeout
+     * @param  string               $name    queue name
+     * @param  integer              $timeout default visibility timeout
      * @return void
      * @throws Zend_Queue_Exception
      */
@@ -139,7 +139,7 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Delete a queue and all of its messages
      *
-     * @param  string $name queue name
+     * @param  string               $name queue name
      * @return void
      * @throws Zend_Queue_Exception
      */
@@ -211,9 +211,9 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Return the first element in the queue
      *
-     * @param  integer    $maxMessages
-     * @param  integer    $timeout
-     * @param  Zend_Queue $queue
+     * @param  integer                     $maxMessages
+     * @param  integer                     $timeout
+     * @param  Zend_Queue                  $queue
      * @return Zend_Queue_Message_Iterator
      */
     public function receive($maxMessages=null, $timeout=null, Zend_Queue $queue=null)
@@ -232,7 +232,7 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
         $data = array();
 
         // signal that we are reading
-        if (!$this->_isSubscribed($queue)){
+        if (!$this->_isSubscribed($queue)) {
             $this->_subscribe($queue);
         }
 
@@ -272,14 +272,15 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($classname);
         }
+
         return new $classname($options);
     }
 
     /**
      * Push an element onto the end of the queue
      *
-     * @param  string     $message message to send to the queue
-     * @param  Zend_Queue $queue
+     * @param  string             $message message to send to the queue
+     * @param  Zend_Queue         $queue
      * @return Zend_Queue_Message
      */
     public function send($message, Zend_Queue $queue=null)
@@ -312,13 +313,14 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($classname);
         }
+
         return new $classname($options);
     }
 
     /**
      * Returns the length of the queue
      *
-     * @param  Zend_Queue $queue
+     * @param  Zend_Queue           $queue
      * @return integer
      * @throws Zend_Queue_Exception (not supported)
      */
@@ -331,7 +333,7 @@ class Zend_Queue_Adapter_Activemq extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Does a queue already exist?
      *
-     * @param  string $name
+     * @param  string               $name
      * @return boolean
      * @throws Zend_Queue_Exception (not supported)
      */

@@ -42,7 +42,7 @@ interface Zend_Application_Bootstrap_Bootstrapper
     /**
      * Set bootstrap options
      *
-     * @param  array $options
+     * @param  array                                   $options
      * @return Zend_Application_Bootstrap_Bootstrapper
      */
     public function setOptions(array $options);

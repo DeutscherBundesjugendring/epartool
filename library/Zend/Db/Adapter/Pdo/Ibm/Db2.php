@@ -20,13 +20,11 @@
  * @version    $Id: Db2.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** @see Zend_Db_Adapter_Pdo_Ibm */
 require_once 'Zend/Db/Adapter/Pdo/Ibm.php';
 
 /** @see Zend_Db_Statement_Pdo_Ibm */
 require_once 'Zend/Db/Statement/Pdo/Ibm.php';
-
 
 /**
  * @category   Zend
@@ -64,14 +62,15 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
     {
         $sql = "SELECT tabname "
         . "FROM SYSCAT.TABLES ";
+
         return $this->_adapter->fetchCol($sql);
     }
 
     /**
      * DB2 catalog lookup for describe table
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -157,9 +156,9 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
     /**
      * Adds a DB2-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string                    $sql
+     * @param  integer                   $count
+     * @param  integer                   $offset OPTIONAL
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
@@ -180,6 +179,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
 
             if ($offset == 0 && $count > 0) {
                 $limit_sql = $sql . " FETCH FIRST $count ROWS ONLY";
+
                 return $limit_sql;
             }
             /**
@@ -197,19 +197,21 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
               ) z2
               WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
         }
+
         return $limit_sql;
     }
 
     /**
      * DB2-specific last sequence id
      *
-     * @param string $sequenceName
+     * @param  string  $sequenceName
      * @return integer
      */
     public function lastSequenceId($sequenceName)
     {
         $sql = 'SELECT PREVVAL FOR '.$this->_adapter->quoteIdentifier($sequenceName).' AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->_adapter->fetchOne($sql);
+
         return $value;
     }
 
@@ -223,6 +225,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Db2
     {
         $sql = 'SELECT NEXTVAL FOR '.$this->_adapter->quoteIdentifier($sequenceName).' AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->_adapter->fetchOne($sql);
+
         return $value;
     }
 }

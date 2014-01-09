@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Play a movie' action
  * PDF 1.2+ feature

@@ -53,7 +53,7 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
     /**
      * Spread values in the items relative to their weight
      *
-     * @param  array $values
+     * @param  array              $values
      * @throws Zend_Tag_Exception When value list is empty
      * @return void
      */
@@ -114,7 +114,7 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
     /**
      * Seek to an absolute positio
      *
-     * @param  integer $index
+     * @param  integer              $index
      * @throws OutOfBoundsException When the seek position is invalid
      * @return void
      */
@@ -186,32 +186,35 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
     /**
      * Check if an offset exists
      *
-     * @param  mixed $offset
+     * @param  mixed   $offset
      * @return boolean
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return array_key_exists($offset, $this->_items);
     }
 
     /**
      * Get the value of an offset
      *
-     * @param  mixed $offset
+     * @param  mixed             $offset
      * @return Zend_Tag_Taggable
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return $this->_items[$offset];
     }
 
     /**
      * Append a new item
      *
-     * @param  mixed          $offset
-     * @param  Zend_Tag_Taggable $item
+     * @param  mixed                $offset
+     * @param  Zend_Tag_Taggable    $item
      * @throws OutOfBoundsException When item does not implement Zend_Tag_Taggable
      * @return void
      */
-    public function offsetSet($offset, $item) {
+    public function offsetSet($offset, $item)
+    {
         // We need to make that check here, as the method signature must be
         // compatible with ArrayAccess::offsetSet()
         if (!($item instanceof Zend_Tag_Taggable)) {
@@ -232,7 +235,8 @@ class Zend_Tag_ItemList implements Countable, SeekableIterator, ArrayAccess
      * @param  mixed $offset
      * @return void
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         unset($this->_items[$offset]);
     }
 }

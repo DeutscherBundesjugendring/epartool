@@ -20,7 +20,6 @@
  * @version    $Id: Query.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Db
@@ -149,8 +148,8 @@ class Zend_Db_Profiler_Query
     }
 
     /**
-     * @param string $param
-     * @param mixed $variable
+     * @param  string $param
+     * @param  mixed  $variable
      * @return void
      */
     public function bindParam($param, $variable)
@@ -159,7 +158,7 @@ class Zend_Db_Profiler_Query
     }
 
     /**
-     * @param array $param
+     * @param  array $param
      * @return void
      */
     public function bindParams(array $params)
@@ -203,11 +202,10 @@ class Zend_Db_Profiler_Query
      */
     public function getStartedMicrotime()
     {
-        if(null === $this->_startedMicrotime) {
+        if (null === $this->_startedMicrotime) {
             return false;
         }
 
         return $this->_startedMicrotime;
     }
 }
-

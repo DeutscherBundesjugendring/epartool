@@ -66,6 +66,7 @@ class Zend_Cloud_QueueService_Factory extends Zend_Cloud_AbstractFactory
                 'Adapter must implement \'' . self::$_adapterInterface . '\''
             );
         }
+
         return $adapter;
     }
 }

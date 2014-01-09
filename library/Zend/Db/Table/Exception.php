@@ -35,4 +35,3 @@ require_once 'Zend/Db/Exception.php';
 class Zend_Db_Table_Exception extends Zend_Db_Exception
 {
 }
-

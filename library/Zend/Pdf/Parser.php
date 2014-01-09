@@ -23,10 +23,8 @@
 require_once 'Zend/Pdf/Element.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 
-
 /** Zend_Pdf_StringParser */
 require_once 'Zend/Pdf/StringParser.php';
-
 
 /**
  * PDF file parser
@@ -57,7 +55,6 @@ class Zend_Pdf_Parser
      * @var string
      */
     private $_pdfVersion;
-
 
     /**
      * Get length of source PDF
@@ -92,7 +89,7 @@ class Zend_Pdf_Parser
     /**
      * Load XReference table and referenced objects
      *
-     * @param integer $offset
+     * @param  integer                 $offset
      * @throws Zend_Pdf_Exception
      * @return Zend_Pdf_Trailer_Keeper
      */
@@ -117,7 +114,7 @@ class Zend_Pdf_Parser
                     require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception(sprintf('PDF file syntax error. Offset - 0x%X. Cross-reference table subheader values must contain only digits.', $this->_stringParser->offset-strlen($nextLexeme)));
                 }
-                $objNum = (int)$nextLexeme;
+                $objNum = (int) $nextLexeme;
 
                 $refCount = $this->_stringParser->readLexeme();
                 if (!ctype_digit($refCount)) {
@@ -265,7 +262,7 @@ class Zend_Pdf_Parser
                 for ($count2 = 0; $count2 < $entries; $count2++) {
                     if ($entryField1Size == 0) {
                         $type = 1;
-                    } else if ($entryField1Size == 1) { // Optimyze one-byte field case
+                    } elseif ($entryField1Size == 1) { // Optimyze one-byte field case
                         $type = ord($xrefStreamData[$streamOffset++]);
                     } else {
                         $type = Zend_Pdf_StringParser::parseIntFromStream($xrefStreamData, $streamOffset, $entryField1Size);
@@ -318,11 +315,10 @@ class Zend_Pdf_Parser
             throw new Zend_Pdf_Exception('Cross-reference streams are not supported yet.');
         }
 
-
         require_once 'Zend/Pdf/Trailer/Keeper.php';
         $trailerObj = new Zend_Pdf_Trailer_Keeper($trailerDict, $context);
         if ($trailerDict->Prev instanceof Zend_Pdf_Element_Numeric ||
-            $trailerDict->Prev instanceof Zend_Pdf_Element_Reference ) {
+            $trailerDict->Prev instanceof Zend_Pdf_Element_Reference) {
             $trailerObj->setPrev($this->_loadXRefTable($trailerDict->Prev->value));
             $context->getRefTable()->setParent($trailerObj->getPrev()->getRefTable());
         }
@@ -354,9 +350,9 @@ class Zend_Pdf_Parser
      * Note: PHP duplicates string, which is sent by value, only of it's updated.
      * Thus we don't need to care about overhead
      *
-     * @param mixed $source
-     * @param Zend_Pdf_ElementFactory_Interface $factory
-     * @param boolean $load
+     * @param  mixed                             $source
+     * @param  Zend_Pdf_ElementFactory_Interface $factory
+     * @param  boolean                           $load
      * @throws Zend_Exception
      */
     public function __construct($source, Zend_Pdf_ElementFactory_Interface $factory, $load)
@@ -460,7 +456,6 @@ class Zend_Pdf_Parser
         $this->_trailer = $this->_loadXRefTable($startXref);
         $factory->setObjectCount($this->_trailer->Size->value);
     }
-
 
     /**
      * Object destructor

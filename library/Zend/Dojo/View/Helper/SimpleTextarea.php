@@ -55,8 +55,8 @@ class Zend_Dojo_View_Helper_SimpleTextarea extends Zend_Dojo_View_Helper_Dijit
      *
      * @param  string $id
      * @param  string $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function simpleTextarea($id, $value = null, array $params = array(), array $attribs = array())

@@ -21,7 +21,6 @@
  * @version    $Id: SimplePost.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Represents a publicly available post
  *
@@ -56,9 +55,9 @@ class Zend_Service_Delicious_SimplePost
     /**
      * Constructor
      *
-     * @param   array $post Post data
-     * @return  void
-     * @throws  Zend_Service_Delicious_Exception
+     * @param  array                            $post Post data
+     * @return void
+     * @throws Zend_Service_Delicious_Exception
      */
     public function __construct(array $post)
     {

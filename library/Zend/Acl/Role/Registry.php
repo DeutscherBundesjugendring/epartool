@@ -19,12 +19,10 @@
  * @version    $Id: Registry.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Acl_Role_Interface
  */
 require_once 'Zend/Acl/Role/Interface.php';
-
 
 /**
  * @category   Zend
@@ -58,7 +56,7 @@ class Zend_Acl_Role_Registry
      * @param  Zend_Acl_Role_Interface              $role
      * @param  Zend_Acl_Role_Interface|string|array $parents
      * @throws Zend_Acl_Role_Registry_Exception
-     * @return Zend_Acl_Role_Registry Provides a fluent interface
+     * @return Zend_Acl_Role_Registry               Provides a fluent interface
      */
     public function add(Zend_Acl_Role_Interface $role, $parents = null)
     {
@@ -112,7 +110,7 @@ class Zend_Acl_Role_Registry
      *
      * The $role parameter can either be a Role or a Role identifier.
      *
-     * @param  Zend_Acl_Role_Interface|string $role
+     * @param  Zend_Acl_Role_Interface|string   $role
      * @throws Zend_Acl_Role_Registry_Exception
      * @return Zend_Acl_Role_Interface
      */
@@ -164,7 +162,7 @@ class Zend_Acl_Role_Registry
      *
      * If the Role does not have any parents, then an empty array is returned.
      *
-     * @param  Zend_Acl_Role_Interface|string $role
+     * @param Zend_Acl_Role_Interface|string $role
      * @uses   Zend_Acl_Role_Registry::get()
      * @return array
      */
@@ -184,9 +182,9 @@ class Zend_Acl_Role_Registry
      * through the entire inheritance DAG to determine whether $role
      * inherits from $inherit through its ancestor Roles.
      *
-     * @param  Zend_Acl_Role_Interface|string $role
-     * @param  Zend_Acl_Role_Interface|string $inherit
-     * @param  boolean                        $onlyParents
+     * @param  Zend_Acl_Role_Interface|string   $role
+     * @param  Zend_Acl_Role_Interface|string   $inherit
+     * @param  boolean                          $onlyParents
      * @throws Zend_Acl_Role_Registry_Exception
      * @return boolean
      */
@@ -223,9 +221,9 @@ class Zend_Acl_Role_Registry
      *
      * The $role parameter can either be a Role or a Role identifier.
      *
-     * @param  Zend_Acl_Role_Interface|string $role
+     * @param  Zend_Acl_Role_Interface|string   $role
      * @throws Zend_Acl_Role_Registry_Exception
-     * @return Zend_Acl_Role_Registry Provides a fluent interface
+     * @return Zend_Acl_Role_Registry           Provides a fluent interface
      */
     public function remove($role)
     {

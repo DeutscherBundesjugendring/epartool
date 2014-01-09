@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
-
 /**
  * Resource for settings view options
  *
@@ -54,6 +53,7 @@ class Zend_Application_Resource_View extends Zend_Application_Resource_ResourceA
 
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view);
+
         return $view;
     }
 
@@ -81,6 +81,7 @@ class Zend_Application_Resource_View extends Zend_Application_Resource_ResourceA
                 $this->_view->assign($options['assign']);
             }
         }
+
         return $this->_view;
     }
 }

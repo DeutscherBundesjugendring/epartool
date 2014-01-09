@@ -20,7 +20,6 @@
  * @version    $Id: Outline.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Abstract PDF outline representation class
  *
@@ -47,7 +46,6 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      */
     public $childOutlines = array();
 
-
     /**
      * Get outline title.
      *
@@ -58,7 +56,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Set outline title
      *
-     * @param string $title
+     * @param  string           $title
      * @return Zend_Pdf_Outline
      */
     abstract public function setTitle($title);
@@ -76,12 +74,13 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Sets 'isOpen' outline flag
      *
-     * @param boolean $isOpen
+     * @param  boolean          $isOpen
      * @return Zend_Pdf_Outline
      */
     public function setIsOpen($isOpen)
     {
         $this->_open = $isOpen;
+
         return $this;
     }
 
@@ -95,7 +94,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Sets 'isItalic' outline flag
      *
-     * @param boolean $isItalic
+     * @param  boolean          $isItalic
      * @return Zend_Pdf_Outline
      */
     abstract public function setIsItalic($isItalic);
@@ -110,11 +109,10 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Sets 'isBold' outline flag
      *
-     * @param boolean $isBold
+     * @param  boolean          $isBold
      * @return Zend_Pdf_Outline
      */
     abstract public function setIsBold($isBold);
-
 
     /**
      * Get outline text color.
@@ -127,7 +125,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      * Set outline text color.
      * (null means default color which is black)
      *
-     * @param Zend_Pdf_Color_Rgb $color
+     * @param  Zend_Pdf_Color_Rgb $color
      * @return Zend_Pdf_Outline
      */
     abstract public function setColor(Zend_Pdf_Color_Rgb $color);
@@ -143,7 +141,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      * Set outline target.
      * Null means no target
      *
-     * @param Zend_Pdf_Target|string $target
+     * @param  Zend_Pdf_Target|string $target
      * @return Zend_Pdf_Outline
      */
     abstract public function setTarget($target = null);
@@ -166,7 +164,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Set outline options
      *
-     * @param array $options
+     * @param  array              $options
      * @return Zend_Pdf_Action
      * @throws Zend_Pdf_Exception
      */
@@ -272,11 +270,11 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      *
      * Returns dictionary indirect object or reference
      *
-     * @param Zend_Pdf_ElementFactory    $factory object factory for newly created indirect objects
-     * @param boolean $updateNavigation  Update navigation flag
-     * @param Zend_Pdf_Element $parent   Parent outline dictionary reference
-     * @param Zend_Pdf_Element $prev     Previous outline dictionary reference
-     * @param SplObjectStorage $processedOutlines  List of already processed outlines
+     * @param  Zend_Pdf_ElementFactory $factory           object factory for newly created indirect objects
+     * @param  boolean                 $updateNavigation  Update navigation flag
+     * @param  Zend_Pdf_Element        $parent            Parent outline dictionary reference
+     * @param  Zend_Pdf_Element        $prev              Previous outline dictionary reference
+     * @param  SplObjectStorage        $processedOutlines List of already processed outlines
      * @return Zend_Pdf_Element
      */
     abstract public function dumpOutline(Zend_Pdf_ElementFactory_Interface $factory,
@@ -284,7 +282,6 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
                                                           Zend_Pdf_Element $parent,
                                                           Zend_Pdf_Element $prev = null,
                                                           SplObjectStorage $processedOutlines = null);
-
 
     ////////////////////////////////////////////////////////////////////////
     //  RecursiveIterator interface methods
@@ -349,13 +346,12 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Implements RecursiveIterator interface.
      *
-     * @return bool  whether container has any pages
+     * @return bool whether container has any pages
      */
     public function hasChildren()
     {
         return count($this->childOutlines) > 0;
     }
-
 
     ////////////////////////////////////////////////////////////////////////
     //  Countable interface methods

@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
-
 /**
  * Resource for initializing the locale
  *
@@ -90,7 +89,7 @@ class Zend_Application_Resource_Locale
     /**
      * Set the cache
      *
-     * @param string|Zend_Cache_Core $cache
+     * @param  string|Zend_Cache_Core           $cache
      * @return Zend_Application_Resource_Locale
      */
     public function setCache($cache)

@@ -24,12 +24,12 @@
 /**
  * Zend_Gdata_Books
  */
-require_once('Zend/Gdata/Books.php');
+require_once 'Zend/Gdata/Books.php';
 
 /**
  * Zend_Gdata_Query
  */
-require_once('Zend/Gdata/Query.php');
+require_once 'Zend/Gdata/Query.php';
 
 /**
  * Assists in constructing queries for Books volumes
@@ -57,7 +57,7 @@ class Zend_Gdata_Books_VolumeQuery extends Zend_Gdata_Query
     /**
      * Sets the minimum level of viewability of volumes to return in the search results
      *
-     * @param string|null $value The minimum viewability - 'full' or 'partial'
+     * @param  string|null                  $value The minimum viewability - 'full' or 'partial'
      * @return Zend_Gdata_Books_VolumeQuery Provides a fluent interface
      */
     public function setMinViewability($value = null)
@@ -73,6 +73,7 @@ class Zend_Gdata_Books_VolumeQuery extends Zend_Gdata_Query
                 unset($this->_params['min-viewability']);
                 break;
         }
+
         return $this;
     }
 
@@ -106,6 +107,7 @@ class Zend_Gdata_Books_VolumeQuery extends Zend_Gdata_Query
             $url .= '/-/' . $this->getCategory();
         }
         $url = $url . $this->getQueryString();
+
         return $url;
     }
 

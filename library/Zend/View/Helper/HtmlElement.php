@@ -72,6 +72,7 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
     protected function _isXhtml()
     {
         $doctype = $this->view->doctype();
+
         return $doctype->isXhtml();
     }
 
@@ -83,9 +84,10 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
     protected function _isStrictDoctype()
     {
         $doctype = $this->view->doctype();
+
         return $doctype->isStrict();
     }
-    
+
     /**
      * Converts an associative array to a string of tag attributes.
      *
@@ -132,6 +134,7 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
             }
 
         }
+
         return $xhtml;
     }
 
@@ -151,6 +154,7 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
             $value = str_replace('][', '-', $value);
             $value = str_replace('[', '-', $value);
         }
+
         return $value;
     }
 }

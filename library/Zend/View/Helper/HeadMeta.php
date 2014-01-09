@@ -64,11 +64,11 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
     /**
      * Retrieve object instance; optionally add meta tag
      *
-     * @param  string $content
-     * @param  string $keyValue
-     * @param  string $keyType
-     * @param  array $modifiers
-     * @param  string $placement
+     * @param  string                    $content
+     * @param  string                    $keyValue
+     * @param  string                    $keyType
+     * @param  array                     $modifiers
+     * @param  string                    $placement
      * @return Zend_View_Helper_HeadMeta
      */
     public function headMeta($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = Zend_View_Helper_Placeholder_Container_Abstract::APPEND)
@@ -125,8 +125,8 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
      * - prependProperty($keyValue, $content, $modifiers = array())
      * - setProperty($keyValue, $content, $modifiers = array())
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string                    $method
+     * @param  array                     $args
      * @return Zend_View_Helper_HeadMeta
      */
     public function __call($method, $args)
@@ -162,6 +162,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             }
 
             $this->$action($item);
+
             return $this;
         }
 
@@ -173,7 +174,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
      *
      * Not valid in a non-HTML5 doctype
      *
-     * @param string $charset
+     * @param  string                    $charset
      * @return Zend_View_Helper_HeadMeta Provides a fluent interface
      */
     public function setCharset($charset)
@@ -184,13 +185,14 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
         $item->content = null;
         $item->modifiers = array();
         $this->set($item);
+
         return $this;
     }
 
     /**
      * Determine if item is valid
      *
-     * @param  mixed $item
+     * @param  mixed   $item
      * @return boolean
      */
     protected function _isValid($item)
@@ -221,7 +223,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
     /**
      * Append
      *
-     * @param  string $value
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -240,8 +242,8 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
     /**
      * OffsetSet
      *
-     * @param  string|int $index
-     * @param  string $value
+     * @param  string|int          $index
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -260,7 +262,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
     /**
      * OffsetUnset
      *
-     * @param  string|int $index
+     * @param  string|int          $index
      * @return void
      * @throws Zend_View_Exception
      */
@@ -279,7 +281,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
     /**
      * Prepend
      *
-     * @param  string $value
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -298,7 +300,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
     /**
      * Set
      *
-     * @param  string $value
+     * @param  string              $value
      * @return void
      * @throws Zend_View_Exception
      */
@@ -327,7 +329,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
      * @param  string $type
      * @param  string $typeValue
      * @param  string $content
-     * @param  array $modifiers
+     * @param  array  $modifiers
      * @return string
      */
     public function itemToString(stdClass $item)
@@ -376,14 +378,14 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             $this->_escape($item->content),
             $modifiersString
         );
-        
+
         if (isset($item->modifiers['conditional'])
             && !empty($item->modifiers['conditional'])
             && is_string($item->modifiers['conditional']))
         {
             $meta = '<!--[if ' . $this->_escape($item->modifiers['conditional']) . ']>' . $meta . '<![endif]-->';
         }
-        
+
         return $meta;
     }
 
@@ -407,18 +409,20 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             }
         } catch (Zend_View_Exception $e) {
             trigger_error($e->getMessage(), E_USER_WARNING);
+
             return '';
         }
+
         return $indent . implode($this->_escape($this->getSeparator()) . $indent, $items);
     }
 
     /**
      * Create data item for inserting into stack
      *
-     * @param  string $type
-     * @param  string $typeValue
-     * @param  string $content
-     * @param  array $modifiers
+     * @param  string   $type
+     * @param  string   $typeValue
+     * @param  string   $content
+     * @param  array    $modifiers
      * @return stdClass
      */
     public function createData($type, $typeValue, $content, array $modifiers)
@@ -428,6 +432,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
         $data->$type     = $typeValue;
         $data->content   = $content;
         $data->modifiers = $modifiers;
+
         return $data;
     }
 }

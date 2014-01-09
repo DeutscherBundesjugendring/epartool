@@ -55,9 +55,9 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
     /**
      * hasResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $formName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $formName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function hasResource(Zend_Tool_Project_Profile $profile, $formName, $moduleName = null)
@@ -67,14 +67,15 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         }
 
         $formsDirectory = self::_getFormsDirectoryResource($profile, $moduleName);
+
         return (($formsDirectory->search(array('formFile' => array('formName' => $formName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
     /**
      * _getFormsDirectoryResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     protected static function _getFormsDirectoryResource(Zend_Tool_Project_Profile $profile, $moduleName = null)
@@ -149,6 +150,7 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         } catch (Exception $e) {
             $response = $this->_registry->getResponse();
             $response->setException($e);
+
             return;
         }
 
@@ -175,6 +177,5 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         }
 
     }
-
 
 }

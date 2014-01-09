@@ -78,7 +78,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
      */
     protected function _init()
     {
-        if(count(self::$_constants) == 0) {
+        if (count(self::$_constants) == 0) {
             $reflect = new ReflectionClass(get_class($this));
             self::$_constants = $reflect->getConstants();
             unset($reflect);
@@ -118,12 +118,13 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
     /**
      * setValue()
      *
-     * @param mixed $value
+     * @param  mixed                                        $value
      * @return Zend_CodeGenerator_Php_Property_DefaultValue
      */
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 
@@ -140,12 +141,13 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
     /**
      * setType()
      *
-     * @param string $type
+     * @param  string                                       $type
      * @return Zend_CodeGenerator_Php_Property_DefaultValue
      */
     public function setType($type)
     {
         $this->_type = $type;
+
         return $this;
     }
 
@@ -162,12 +164,13 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
     /**
      * setArrayDepth()
      *
-     * @param int $arrayDepth
+     * @param  int                                          $arrayDepth
      * @return Zend_CodeGenerator_Php_Property_DefaultValue
      */
     public function setArrayDepth($arrayDepth)
     {
         $this->_arrayDepth = $arrayDepth;
+
         return $this;
     }
 
@@ -184,7 +187,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
     /**
      * _getValidatedType()
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     protected function _getValidatedType($type)
@@ -199,7 +202,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
     /**
      * _getAutoDeterminedType()
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     public function _getAutoDeterminedType($value)
@@ -312,7 +315,7 @@ class Zend_CodeGenerator_Php_Property_DefaultValue extends Zend_CodeGenerator_Ph
                 break;
             case self::TYPE_OTHER:
             default:
-                require_once "Zend/CodeGenerator/Php/Exception.php";
+                require_once 'Zend/CodeGenerator/Php/Exception.php';
                 throw new Zend_CodeGenerator_Php_Exception(
                     "Type '".get_class($value)."' is unknown or cannot be used as property default value."
                 );

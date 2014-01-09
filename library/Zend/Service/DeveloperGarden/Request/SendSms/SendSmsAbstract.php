@@ -130,7 +130,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
     /**
      * set a new number(s)
      *
-     * @param string $number
+     * @param  string                                         $number
      * @throws Zend_Service_DeveloperGarden_Request_Exception
      *
      * @return Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
@@ -142,6 +142,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
             require_once 'Zend/Service/DeveloperGarden/Request/Exception.php';
             throw new Zend_Service_DeveloperGarden_Request_Exception('The message is too long.');
         }
+
         return $this;
     }
 
@@ -158,7 +159,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
     /**
      * sets a new message
      *
-     * @param string $message
+     * @param  string                                         $message
      * @throws Zend_Service_DeveloperGarden_Request_Exception
      *
      * @return Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
@@ -170,6 +171,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
             require_once 'Zend/Service/DeveloperGarden/Request/Exception.php';
             throw new Zend_Service_DeveloperGarden_Request_Exception('The message is too long.');
         }
+
         return $this;
     }
 
@@ -186,12 +188,13 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
     /**
      * the originator name
      *
-     * @param string $originator
+     * @param  string                                                       $originator
      * @return Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
      */
     public function setOriginator($originator)
     {
         $this->originator = $originator;
+
         return $this;
     }
 
@@ -207,12 +210,13 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
     /**
      * sets a new accounts
      *
-     * @param int $account the $account to set
+     * @param  int                                                          $account the $account to set
      * @return Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
      */
     public function setAccount($account)
     {
         $this->account = $account;
+
         return $this;
     }
 
@@ -248,6 +252,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
         if ($smsLength > 160) {
             $retValue = ceil($smsLength / $this->_smsLength);
         }
+
         return $retValue;
     }
 
@@ -263,6 +268,7 @@ abstract class Zend_Service_DeveloperGarden_Request_SendSms_SendSmsAbstract
         if (!empty($number)) {
             $retValue = count(explode(',', $number));
         }
+
         return $retValue;
     }
 

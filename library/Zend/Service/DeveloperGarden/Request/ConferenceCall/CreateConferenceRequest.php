@@ -67,11 +67,11 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceReques
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $ownerId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
+     * @param integer                                                        $environment
+     * @param string                                                         $ownerId
+     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail   $conferenceDetails
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule
-     * @param integer $account
+     * @param integer                                                        $account
      */
     public function __construct($environment, $ownerId,
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails,
@@ -88,49 +88,53 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceReques
     /**
      * sets $schedule
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $schedule
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule              $schedule
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setSchedule(
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $schedule = null
     ) {
         $this->schedule = $schedule;
+
         return $this;
     }
 
     /**
      * sets $detail
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail                $detail
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setDetail(Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail)
     {
         $this->detail = $detail;
+
         return $this;
     }
 
     /**
      * sets $ownerId
      *
-     * @param string $ownerId
+     * @param  string                                                                      $ownerId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setOwnerId($ownerId)
     {
         $this->ownerId = $ownerId;
+
         return $this;
     }
 
     /**
      * sets $account
      *
-     * @param int $account
+     * @param  int                                                                         $account
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setAccount($account = null)
     {
         $this->account = $account;
+
         return $this;
     }
 }

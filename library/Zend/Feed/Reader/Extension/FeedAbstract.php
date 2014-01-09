@@ -29,7 +29,6 @@ require_once 'Zend/Feed/Reader.php';
  */
 require_once 'Zend/Feed/Reader/Entry/Atom.php';
 
-
 /**
  * @see Zend_Feed_Reader_Entry_Rss
  */
@@ -75,7 +74,7 @@ abstract class Zend_Feed_Reader_Extension_FeedAbstract
      * Constructor
      *
      * @param  Zend_Feed_Abstract $feed The source Zend_Feed object
-     * @param  string $type Feed type
+     * @param  string             $type Feed type
      * @return void
      */
     public function __construct(DomDocument $dom, $type = null, DOMXPath $xpath = null)
@@ -115,6 +114,7 @@ abstract class Zend_Feed_Reader_Extension_FeedAbstract
     public function getEncoding()
     {
         $assumed = $this->getDomDocument()->encoding;
+
         return $assumed;
     }
 
@@ -127,7 +127,6 @@ abstract class Zend_Feed_Reader_Extension_FeedAbstract
     {
         return $this->_data['type'];
     }
-
 
     /**
      * Return the feed as an array
@@ -142,13 +141,14 @@ abstract class Zend_Feed_Reader_Extension_FeedAbstract
     /**
      * Set the XPath query
      *
-     * @param  DOMXPath $xpath
+     * @param  DOMXPath                                 $xpath
      * @return Zend_Feed_Reader_Extension_EntryAbstract
      */
     public function setXpath(DOMXPath $xpath)
     {
         $this->_xpath = $xpath;
         $this->_registerNamespaces();
+
         return $this;
     }
 

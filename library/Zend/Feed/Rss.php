@@ -20,7 +20,6 @@
  * @version    $Id: Rss.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Abstract
  */
@@ -30,7 +29,6 @@ require_once 'Zend/Feed/Abstract.php';
  * @see Zend_Feed_Entry_Rss
  */
 require_once 'Zend/Feed/Entry/Rss.php';
-
 
 /**
  * RSS channel class
@@ -83,7 +81,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         $rdfTags = $this->_element->getElementsByTagNameNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'RDF');
         if ($rdfTags->length != 0) {
             $this->_element = $rdfTags->item(0);
-        } else  {
+        } else {
             $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
         }
         if (!$this->_element) {
@@ -98,7 +96,6 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         // simplicity.
         $this->_buildEntryCache();
     }
-
 
     /**
      * Make accessing some individual elements of the channel easier.
@@ -127,7 +124,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     /**
      * Generate the header of the feed when working in write mode
      *
-     * @param  array $array the data to use
+     * @param  array      $array the data to use
      * @return DOMElement root node
      */
     protected function _mapFeedHeaders($array)
@@ -261,7 +258,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
      * Adds the iTunes extensions to a root node
      *
      * @param  DOMElement $root
-     * @param  array $array
+     * @param  array      $array
      * @return void
      */
     private function _buildiTunes(DOMElement $root, $array)
@@ -386,8 +383,8 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
      *    <content:encoded>long version, can contain html</content:encoded>
      * </item>
      *
-     * @param  DOMElement $root the root node to use
-     * @param  array $array the data to use
+     * @param  DOMElement $root  the root node to use
+     * @param  array      $array the data to use
      * @return void
      */
     protected function _mapFeedEntries(DOMElement $root, $array)

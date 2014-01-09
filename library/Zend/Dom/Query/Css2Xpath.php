@@ -49,6 +49,7 @@ class Zend_Dom_Query_Css2Xpath
                     $expressions = array_merge($expressions, $xpath);
                 }
             }
+
             return implode('|', $expressions);
         }
 
@@ -80,6 +81,7 @@ class Zend_Dom_Query_Css2Xpath
         if (1 == count($paths)) {
             return $paths[0];
         }
+
         return implode('|', $paths);
     }
 
@@ -135,7 +137,7 @@ class Zend_Dom_Query_Css2Xpath
     /**
      * Callback for creating equality expressions
      *
-     * @param  array $matches
+     * @param  array  $matches
      * @return string
      */
     protected static function _createEqualityExpression($matches)
@@ -146,7 +148,7 @@ class Zend_Dom_Query_Css2Xpath
     /**
      * Callback for creating expressions to match one or more attribute values
      *
-     * @param  array $matches
+     * @param  array  $matches
      * @return string
      */
     protected static function _normalizeSpaceAttribute($matches)
@@ -158,7 +160,7 @@ class Zend_Dom_Query_Css2Xpath
     /**
      * Callback for creating a strict "contains" expression
      *
-     * @param  array $matches
+     * @param  array  $matches
      * @return string
      */
     protected static function _createContainsExpression($matches)

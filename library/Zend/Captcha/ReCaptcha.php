@@ -111,24 +111,26 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
     /**
      * Set ReCaptcha Private key
      *
-     * @param string $privkey
+     * @param  string                 $privkey
      * @return Zend_Captcha_ReCaptcha
      */
     public function setPrivkey($privkey)
     {
         $this->getService()->setPrivateKey($privkey);
+
         return $this;
     }
 
     /**
      * Set ReCaptcha public key
      *
-     * @param string $pubkey
+     * @param  string                 $pubkey
      * @return Zend_Captcha_ReCaptcha
      */
     public function setPubkey($pubkey)
     {
         $this->getService()->setPublicKey($pubkey);
+
         return $this;
     }
 
@@ -163,6 +165,7 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
     public function setService(Zend_Service_ReCaptcha $service)
     {
         $this->_service = $service;
+
         return $this;
     }
 
@@ -182,8 +185,8 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
      * If option is a service parameter, proxies to the service. The same
      * goes for any service options (distinct from service params)
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string                 $key
+     * @param  mixed                  $value
      * @return Zend_Captcha_ReCaptcha
      */
     public function setOption($key, $value)
@@ -191,12 +194,15 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
         $service = $this->getService();
         if (isset($this->_serviceParams[$key])) {
             $service->setParam($key, $value);
+
             return $this;
         }
         if (isset($this->_serviceOptions[$key])) {
             $service->setOption($key, $value);
+
             return $this;
         }
+
         return parent::setOption($key, $value);
     }
 
@@ -215,13 +221,14 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
      * Validate captcha
      *
      * @see    Zend_Validate_Interface::isValid()
-     * @param  mixed $value
+     * @param  mixed   $value
      * @return boolean
      */
     public function isValid($value, $context = null)
     {
         if (!is_array($value) && !is_array($context)) {
             $this->_error(self::MISSING_VALUE);
+
             return false;
         }
 
@@ -231,6 +238,7 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
 
         if (empty($value[$this->_CHALLENGE]) || empty($value[$this->_RESPONSE])) {
             $this->_error(self::MISSING_VALUE);
+
             return false;
         }
 
@@ -240,12 +248,14 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
 
         if (!$res) {
             $this->_error(self::ERR_CAPTCHA);
+
             return false;
         }
 
         if (!$res->isValid()) {
             $this->_error(self::BAD_CAPTCHA, $res->getErrorCode());
             $service->setParam('error', $res->getErrorCode());
+
             return false;
         }
 
@@ -256,7 +266,7 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
      * Render captcha
      *
      * @param  Zend_View_Interface $view
-     * @param  mixed $element
+     * @param  mixed               $element
      * @return string
      */
     public function render(Zend_View_Interface $view = null, $element = null)
@@ -265,6 +275,7 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
         if ($element instanceof Zend_Form_Element) {
             $name = $element->getBelongsTo();
         }
+
         return $this->getService()->getHTML($name);
     }
 

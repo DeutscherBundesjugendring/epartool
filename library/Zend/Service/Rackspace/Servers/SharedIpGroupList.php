@@ -53,7 +53,7 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
      * Construct
      *
      * @param  Zend_Service_Rackspace_Servers $service
-     * @param  array $list
+     * @param  array                          $list
      * @return void
      */
     public function __construct($service,$list = array())
@@ -80,18 +80,19 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
     /**
      * Add a shared Ip group
      *
-     * @param  Zend_Service_Rackspace_Servers_SharedIpGroup $shared
+     * @param  Zend_Service_Rackspace_Servers_SharedIpGroup     $shared
      * @return Zend_Service_Rackspace_Servers_SharedIpGroupList
      */
-    protected function addSharedIpGroup (Zend_Service_Rackspace_Servers_SharedIpGroup $share)
+    protected function addSharedIpGroup(Zend_Service_Rackspace_Servers_SharedIpGroup $share)
     {
         $this->shared[] = $share;
+
         return $this;
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -99,6 +100,7 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
         foreach ($this->shared as $share) {
             $array[]= $share->toArray();
         }
+
         return $array;
     }
     /**
@@ -177,8 +179,8 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
      *
      * Implement ArrayAccess::offsetExists()
      *
-     * @param   int     $offset
-     * @return  boolean
+     * @param  int     $offset
+     * @return boolean
      */
     public function offsetExists($offset)
     {
@@ -189,9 +191,9 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
      *
      * Implement ArrayAccess::offsetGet()
      *
-     * @param   int  $offset
-     * @throws  Zend_Service_Rackspace_Servers_Exception
-     * @return  Zend_Service_Rackspace_Servers_SharedIpGroup
+     * @param  int                                          $offset
+     * @throws Zend_Service_Rackspace_Servers_Exception
+     * @return Zend_Service_Rackspace_Servers_SharedIpGroup
      */
     public function offsetGet($offset)
     {
@@ -208,9 +210,9 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
      *
      * Implement ArrayAccess::offsetSet()
      *
-     * @param   int     $offset
-     * @param   string  $value
-     * @throws  Zend_Service_Rackspace_Servers_Exception
+     * @param  int                                      $offset
+     * @param  string                                   $value
+     * @throws Zend_Service_Rackspace_Servers_Exception
      */
     public function offsetSet($offset, $value)
     {
@@ -223,7 +225,7 @@ class Zend_Service_Rackspace_Servers_SharedIpGroupList implements Countable, Ite
      *
      * Implement ArrayAccess::offsetUnset()
      *
-     * @param  int $offset
+     * @param  int                                      $offset
      * @throws Zend_Service_Rackspace_Servers_Exception
      */
     public function offsetUnset($offset)

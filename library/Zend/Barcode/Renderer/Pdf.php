@@ -62,7 +62,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Set an image resource to draw the barcode inside
-     * @param resource $value
+     * @param  resource              $value
      * @return Zend_Barcode_Renderer
      * @throw Zend_Barcode_Renderer_Exception
      */
@@ -84,6 +84,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
                 Zend_Pdf_Page::SIZE_A4
             );
         }
+
         return $this;
     }
 
@@ -126,7 +127,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Draw a polygon in the rendering resource
-     * @param array $points
+     * @param array   $points
      * @param integer $color
      * @param boolean $filled
      */
@@ -167,13 +168,13 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Draw a text in the rendering resource
-     * @param string $text
-     * @param float $size
-     * @param array $position
-     * @param string $font
+     * @param string  $text
+     * @param float   $size
+     * @param array   $position
+     * @param string  $font
      * @param integer $color
-     * @param string $alignment
-     * @param float $orientation
+     * @param string  $alignment
+     * @param float   $orientation
      */
     protected function _drawText(
         $text,
@@ -222,9 +223,9 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
     /**
      * Calculate the width of a string:
      * in case of using alignment parameter in drawText
-     * @param string $text
-     * @param Zend_Pdf_Font $font
-     * @param float $fontSize
+     * @param  string        $text
+     * @param  Zend_Pdf_Font $font
+     * @param  float         $fontSize
      * @return float
      */
     public function widthForStringUsingFontSize($text, $font, $fontSize)
@@ -237,6 +238,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
         $stringWidth = (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
+
         return $stringWidth;
     }
 }

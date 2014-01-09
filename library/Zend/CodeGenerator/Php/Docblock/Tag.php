@@ -52,7 +52,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
     /**
      * fromReflection()
      *
-     * @param Zend_Reflection_Docblock_Tag $reflectionTag
+     * @param  Zend_Reflection_Docblock_Tag        $reflectionTag
      * @return Zend_CodeGenerator_Php_Docblock_Tag
      */
     public static function fromReflection(Zend_Reflection_Docblock_Tag $reflectionTag)
@@ -83,6 +83,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
     public static function setPluginLoader(Zend_Loader_PluginLoader $pluginLoader)
     {
         self::$_pluginLoader = $pluginLoader;
+
         return;
     }
 
@@ -114,18 +115,20 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
         }
 
         $tag = new $tagClass(array('name' => $tagName));
+
         return $tag;
     }
 
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string                              $name
      * @return Zend_CodeGenerator_Php_Docblock_Tag
      */
     public function setName($name)
     {
         $this->_name = ltrim($name, '@');
+
         return $this;
     }
 
@@ -142,12 +145,13 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
     /**
      * setDescription()
      *
-     * @param string $description
+     * @param  string                              $description
      * @return Zend_CodeGenerator_Php_Docblock_Tag
      */
     public function setDescription($description)
     {
         $this->_description = $description;
+
         return $this;
     }
 
@@ -172,6 +176,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag extends Zend_CodeGenerator_Php_Abstrac
         if ($this->_description) {
             $tag .= ' ' . $this->_description;
         }
+
         return $tag;
     }
 

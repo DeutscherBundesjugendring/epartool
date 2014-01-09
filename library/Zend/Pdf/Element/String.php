@@ -19,7 +19,6 @@
  * @version    $Id: String.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
 
@@ -47,9 +46,8 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
      */
     public function __construct($val)
     {
-        $this->value   = (string)$val;
+        $this->value   = (string) $val;
     }
-
 
     /**
      * Return type of the element.
@@ -61,23 +59,21 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_STRING;
     }
 
-
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)
     {
-        return '(' . self::escape((string)$this->value) . ')';
+        return '(' . self::escape((string) $this->value) . ')';
     }
-
 
     /**
      * Escape string according to the PDF rules
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public static function escape($str)
@@ -136,7 +132,7 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
                         // This code is never executed extually
                         //
                         // Don't use non-ASCII characters escaping
-                        // if ($nextCode >= 32 && $nextCode <= 126 ) {
+                        // if ($nextCode >= 32 && $nextCode <= 126) {
                         //     // Visible ASCII symbol
                         //     $chunkEntries[] = chr($nextCode);
                         // } else {
@@ -158,11 +154,10 @@ class Zend_Pdf_Element_String extends Zend_Pdf_Element
         return implode("\\\n", $outEntries);
     }
 
-
     /**
      * Unescape string according to the PDF rules
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public static function unescape($str)

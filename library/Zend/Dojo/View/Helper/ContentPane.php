@@ -51,8 +51,8 @@ class Zend_Dojo_View_Helper_ContentPane extends Zend_Dojo_View_Helper_DijitConta
      *
      * @param  string $id
      * @param  string $content
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function contentPane($id = null, $content = '', array $params = array(), array $attribs = array())

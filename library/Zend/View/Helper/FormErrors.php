@@ -25,7 +25,6 @@
  */
 require_once 'Zend/View/Helper/FormElement.php';
 
-
 /**
  * Helper to render errors for a form element
  *
@@ -53,8 +52,8 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
     /**
      * Render form errors
      *
-     * @param  string|array $errors Error(s) to render
-     * @param  array $options
+     * @param  string|array $errors  Error(s) to render
+     * @param  array        $options
      * @return string
      */
     public function formErrors($errors, array $options = null)
@@ -101,12 +100,13 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
     /**
      * Set end string for displaying errors
      *
-     * @param  string $string
+     * @param  string                      $string
      * @return Zend_View_Helper_FormErrors
      */
     public function setElementEnd($string)
     {
         $this->_htmlElementEnd = (string) $string;
+
         return $this;
     }
 
@@ -123,12 +123,13 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
     /**
      * Set separator string for displaying errors
      *
-     * @param  string $string
+     * @param  string                      $string
      * @return Zend_View_Helper_FormErrors
      */
     public function setElementSeparator($string)
     {
         $this->_htmlElementSeparator = (string) $string;
+
         return $this;
     }
 
@@ -145,12 +146,13 @@ class Zend_View_Helper_FormErrors extends Zend_View_Helper_FormElement
     /**
      * Set start string for displaying errors
      *
-     * @param  string $string
+     * @param  string                      $string
      * @return Zend_View_Helper_FormErrors
      */
     public function setElementStart($string)
     {
         $this->_htmlElementStart = (string) $string;
+
         return $this;
     }
 

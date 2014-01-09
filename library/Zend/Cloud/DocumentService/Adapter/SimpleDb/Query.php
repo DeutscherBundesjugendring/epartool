@@ -44,7 +44,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
      * Constructor
      *
      * @param  Zend_Cloud_DocumentService_Adapter_SimpleDb $adapter
-     * @param  null|string $collectionName
+     * @param  null|string                                 $collectionName
      * @return void
      */
     public function __construct(Zend_Cloud_DocumentService_Adapter_SimpleDb $adapter, $collectionName = null)
@@ -145,6 +145,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
         if (!empty($limit)) {
             $query .= " limit $limit";
         }
+
         return $query;
     }
 
@@ -153,7 +154,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
      *
      * @todo   Ensure this fulfills the entire SimpleDB query specification for WHERE
      * @param  string $where
-     * @param  array $args
+     * @param  array  $args
      * @return string
      */
     protected function _parseWhere($where, $args)
@@ -170,6 +171,7 @@ class Zend_Cloud_DocumentService_Adapter_SimpleDb_Query
         if (('(' != $where[0]) || (')' != $where[strlen($where) - 1])) {
             $where = '(' . $where . ')';
         }
+
         return $where;
     }
  }

@@ -53,12 +53,12 @@ interface Zend_Controller_Router_Interface
      *
      * Encode tells to url encode resulting path parts.
      *
-     * @param  array $userParams Options passed by a user used to override parameters
-     * @param  mixed $name The name of a Route to use
-     * @param  bool $reset Whether to reset to the route defaults ignoring URL params
-     * @param  bool $encode Tells to encode URL parts on output
+     * @param  array                            $userParams Options passed by a user used to override parameters
+     * @param  mixed                            $name       The name of a Route to use
+     * @param  bool                             $reset      Whether to reset to the route defaults ignoring URL params
+     * @param  bool                             $encode     Tells to encode URL parts on output
      * @throws Zend_Controller_Router_Exception
-     * @return string Resulting URL path
+     * @return string                           Resulting URL path
      */
     public function assemble($userParams, $name = null, $reset = false, $encode = true);
 
@@ -72,7 +72,7 @@ interface Zend_Controller_Router_Interface
     /**
      * Set Front Controller
      *
-     * @param Zend_Controller_Front $controller
+     * @param  Zend_Controller_Front            $controller
      * @return Zend_Controller_Router_Interface
      */
     public function setFrontController(Zend_Controller_Front $controller);
@@ -80,8 +80,8 @@ interface Zend_Controller_Router_Interface
     /**
      * Add or modify a parameter with which to instantiate any helper objects
      *
-     * @param string $name
-     * @param mixed $param
+     * @param  string                           $name
+     * @param  mixed                            $param
      * @return Zend_Controller_Router_Interface
      */
     public function setParam($name, $value);
@@ -89,7 +89,7 @@ interface Zend_Controller_Router_Interface
     /**
      * Set an array of a parameters to pass to helper object constructors
      *
-     * @param array $params
+     * @param  array                            $params
      * @return Zend_Controller_Router_Interface
      */
     public function setParams(array $params);
@@ -97,7 +97,7 @@ interface Zend_Controller_Router_Interface
     /**
      * Retrieve a single parameter from the controller parameter stack
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function getParam($name);

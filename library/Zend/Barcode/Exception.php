@@ -42,12 +42,13 @@ class Zend_Barcode_Exception extends Zend_Exception
     /**
      * Set renderable flag
      *
-     * @param  bool $flag
+     * @param  bool                   $flag
      * @return Zend_Barcode_Exception
      */
     public function setIsRenderable($flag)
     {
         $this->_isRenderable = (bool) $flag;
+
         return $this;
     }
 

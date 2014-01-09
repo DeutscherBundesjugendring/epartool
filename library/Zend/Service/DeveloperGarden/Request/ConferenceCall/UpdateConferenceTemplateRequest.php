@@ -60,9 +60,9 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTempla
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $templateId
-     * @param string $initiatorId
+     * @param integer                                                      $environment
+     * @param string                                                       $templateId
+     * @param string                                                       $initiatorId
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
      */
     public function __construct($environment, $templateId, $initiatorId = null,
@@ -77,37 +77,40 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTempla
     /**
      * set the template id
      *
-     * @param string $templateId
+     * @param  string                                                                              $templateId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateRequest
      */
     public function setTemplateId($templateId)
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 
     /**
      * set the initiator id
      *
-     * @param string $initiatorId
+     * @param  string                                                                              $initiatorId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateRequest
      */
     public function setInitiatorId($initiatorId)
     {
         $this->initiatorId = $initiatorId;
+
         return $this;
     }
 
     /**
      * sets $detail
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail                        $detail
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateRequest
      */
     public function setDetail(
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail = null
     ) {
         $this->detail = $detail;
+
         return $this;
     }
 }

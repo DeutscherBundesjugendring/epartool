@@ -100,7 +100,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
     /**
      * Set Certificate
      *
-     * @param  string $cert
+     * @param  string                     $cert
      * @return Zend_Mobile_Push_Apns
      * @throws Zend_Mobile_Push_Exception
      */
@@ -113,6 +113,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
             throw new Zend_Mobile_Push_Exception('$cert must be a valid path to the certificate');
         }
         $this->_certificate = $cert;
+
         return $this;
     }
 
@@ -129,7 +130,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
     /**
      * Set Certificate Passphrase
      *
-     * @param  string $passphrase
+     * @param  string                     $passphrase
      * @return Zend_Mobile_Push_Apns
      * @throws Zend_Mobile_Push_Exception
      */
@@ -139,13 +140,14 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
             throw new Zend_Mobile_Push_Exception('$passphrase must be a string');
         }
         $this->_certificatePassphrase = $passphrase;
+
         return $this;
     }
 
     /**
      * Connect to Socket
      *
-     * @param  string $uri
+     * @param  string                                       $uri
      * @return bool
      * @throws Zend_Mobile_Push_Exception_ServerUnavailable
      */
@@ -179,37 +181,41 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
 
         stream_set_blocking($this->_socket, 0);
         stream_set_write_buffer($this->_socket, 0);
+
         return true;
     }
 
     /**
     * Read from the Socket Server
-    * 
+    *
     * @param int $length
     * @return string
     */
-    protected function _read($length) {
+    protected function _read($length)
+    {
         $data = false;
         if (!feof($this->_socket)) {
             $data = fread($this->_socket, $length);
         }
+
         return $data;
     }
 
     /**
     * Write to the Socket Server
-    * 
+    *
     * @param string $payload
     * @return int
     */
-    protected function _write($payload) {
+    protected function _write($payload)
+    {
         return @fwrite($this->_socket, $payload);
     }
 
     /**
      * Connect to the Push Server
      *
-     * @param string $env
+     * @param  string                                       $env
      * @return Zend_Mobile_Push_Abstract
      * @throws Zend_Mobile_Push_Exception
      * @throws Zend_Mobile_Push_Exception_ServerUnavailable
@@ -235,6 +241,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
 
         $this->_currentEnv = $env;
         $this->_isConnected = true;
+
         return $this;
     }
 
@@ -243,7 +250,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
     /**
      * Feedback
      *
-     * @return array array w/ key = token and value = time
+     * @return array                                        array w/ key = token and value = time
      * @throws Zend_Mobile_Push_Exception
      * @throws Zend_Mobile_Push_Exception_ServerUnavailable
      */
@@ -265,13 +272,14 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
                 $tokens[$token['token']] = $token['time'];
             }
         }
+
         return $tokens;
     }
 
     /**
      * Send Message
      *
-     * @param Zend_Mobile_Push_Message_Apns $message
+     * @param  Zend_Mobile_Push_Message_Apns                $message
      * @return boolean
      * @throws Zend_Mobile_Push_Exception
      * @throws Zend_Mobile_Push_Exception_ServerUnavailable
@@ -307,7 +315,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
         }
         $payload['aps']['sound'] = $message->getSound();
 
-        foreach($message->getCustomData() as $k => $v) {
+        foreach ($message->getCustomData() as $k => $v) {
             $payload[$k] = $v;
         }
         $payload = json_encode($payload);
@@ -373,6 +381,7 @@ class Zend_Mobile_Push_Apns extends Zend_Mobile_Push_Abstract
                     break;
             }
         }
+
         return true;
     }
 

@@ -66,7 +66,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
     /**
      * Set filter setate
      *
-     * @param  array $options
+     * @param  array                $options
      * @return Zend_Filter_Compress
      */
     public function setOptions(array $options)
@@ -80,6 +80,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
                 $this->$method($value);
             }
         }
+
         return $this;
     }
 
@@ -109,6 +110,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception("Compression adapter '" . $adapter . "' does not implement Zend_Filter_Compress_CompressInterface");
         }
+
         return $this->_adapter;
     }
 
@@ -132,6 +134,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
     {
         if ($adapter instanceof Zend_Filter_Compress_CompressInterface) {
             $this->_adapter = $adapter;
+
             return $this;
         }
         if (!is_string($adapter)) {
@@ -162,6 +165,7 @@ class Zend_Filter_Compress implements Zend_Filter_Interface
     public function setAdapterOptions(array $options)
     {
         $this->_adapterOptions = $options;
+
         return $this;
     }
 

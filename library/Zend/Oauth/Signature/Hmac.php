@@ -36,9 +36,9 @@ class Zend_Oauth_Signature_Hmac extends Zend_Oauth_Signature_SignatureAbstract
     /**
      * Sign a request
      *
-     * @param  array $params
-     * @param  mixed $method
-     * @param  mixed $url
+     * @param  array  $params
+     * @param  mixed  $method
+     * @param  mixed  $url
      * @return string
      */
     public function sign(array $params, $method = null, $url = null)
@@ -49,6 +49,7 @@ class Zend_Oauth_Signature_Hmac extends Zend_Oauth_Signature_SignatureAbstract
             $this->_getBaseSignatureString($params, $method, $url),
             Zend_Crypt_Hmac::BINARY
         );
+
         return base64_encode($binaryHash);
     }
 }

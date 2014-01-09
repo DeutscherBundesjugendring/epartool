@@ -15,9 +15,9 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     /**
      * getByKid
      * @desc get followup-files by consultation id
-     * @param integer $kid
-     * @param string $order
-     * @param integer $limit
+     * @param  integer $kid
+     * @param  string  $order
+     * @param  integer $limit
      * @return array
      *
      */
@@ -41,7 +41,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         }
         if ($excludeFfid) {
             $select->where('ffid!=?', $excludeFfid);
-            
+
         }
         $result = $this->fetchAll($select);
 
@@ -52,7 +52,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     /**
      * getById
      * returns entry by fowup_fls.ffid
-     * @param integer $ffid
+     * @param  integer $ffid
      * @return array
      */
     public function getById($ffid, $withoutsnippets = false)
@@ -67,7 +67,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         if ($row) {
             $result = $row->toArray();
             //$result['when'] = strtotime($result['when']);
-            if(!$withoutsnippets) {
+            if (!$withoutsnippets) {
                 $depTable = new Model_Followups();
                 $depTableSelect = $depTable->select();
                 $depTableSelect->order('docorg ASC');
@@ -75,38 +75,37 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
                 $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
 
                 $result['fowups'] = $rowset->toArray();
-                
+
             }
         }
+
         return $result;
     }
     /**
      * getById
      * returns entry by fowup_fls.ffid
-     * @param integer $ffid
+     * @param  integer $ffid
      * @return array
      */
     public function getByIdArray($idarray)
     {
         // is int?
        if (!is_array($idarray) || count($idarray) == 0) {
-          
           return array();
-          
+
         }
-        
+
         $select = $this->select();
         $select->where('ffid IN(?)', $idarray);
 
         return $this->fetchAll($select)->toArray();
-        
-       
+
     }
 
     /**
      * deleteById
      * delete entry by id
-     * @param integer $id
+     * @param  integer $id
      * @return integer
      */
     public function deleteById($id)
@@ -125,6 +124,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         $where = $this->getDefaultAdapter()
             ->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);
+
         return $result;
     }
 
@@ -132,8 +132,8 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * getFollowupsById
      * get fowups by fowups_fls.ffid
      *
-     * @param integer $ffid
-     * @param string $order
+     * @param  integer              $ffid
+     * @param  string               $order
      * @return Zend_DB_Table_Rowset
      */
     public function getFollowupsById($ffid, $order = NULL)
@@ -155,16 +155,13 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         if ($row) {
 
             $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
+
             return $rowset;
         } else {
-
             return array();
 
         }
 
-
     }
 
 }
-
-?>

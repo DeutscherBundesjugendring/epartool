@@ -19,12 +19,10 @@
  * @version    $Id: Ini.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Config
  */
 require_once 'Zend/Config.php';
-
 
 /**
  * @category   Zend
@@ -92,9 +90,9 @@ class Zend_Config_Ini extends Zend_Config
      *     'skipExtends'        => false,
      *      );
      *
-     * @param  string        $filename
-     * @param  mixed         $section
-     * @param  boolean|array $options
+     * @param  string                $filename
+     * @param  mixed                 $section
+     * @param  boolean|array         $options
      * @throws Zend_Config_Exception
      * @return void
      */
@@ -129,7 +127,7 @@ class Zend_Config_Ini extends Zend_Config
             // Load entire file
             $dataArray = array();
             foreach ($iniArray as $sectionName => $sectionData) {
-                if(!is_array($sectionData)) {
+                if (!is_array($sectionData)) {
                     $dataArray = $this->_arrayMergeRecursive($dataArray, $this->_processKey(array(), $sectionName, $sectionData));
                 } else {
                     $dataArray[$sectionName] = $this->_processSection($iniArray, $sectionName);
@@ -163,7 +161,7 @@ class Zend_Config_Ini extends Zend_Config
      * Load the INI file from disk using parse_ini_file(). Use a private error
      * handler to convert any loading errors into a Zend_Config_Exception
      *
-     * @param string $filename
+     * @param  string                $filename
      * @throws Zend_Config_Exception
      * @return array
      */
@@ -193,7 +191,7 @@ class Zend_Config_Ini extends Zend_Config
      * never be a valid key name in an INI file that has been loaded using
      * parse_ini_file().
      *
-     * @param string $filename
+     * @param  string                $filename
      * @throws Zend_Config_Exception
      * @return array
      */
@@ -201,8 +199,7 @@ class Zend_Config_Ini extends Zend_Config
     {
         $loaded = $this->_parseIniFile($filename);
         $iniArray = array();
-        foreach ($loaded as $key => $data)
-        {
+        foreach ($loaded as $key => $data) {
             $pieces = explode($this->_sectionSeparator, $key);
             $thisSection = trim($pieces[0]);
             switch (count($pieces)) {
@@ -232,9 +229,9 @@ class Zend_Config_Ini extends Zend_Config
      * key. Passes control to _processKey() to handle the nest separator
      * sub-property syntax that may be used within the key name.
      *
-     * @param  array  $iniArray
-     * @param  string $section
-     * @param  array  $config
+     * @param  array                 $iniArray
+     * @param  string                $section
+     * @param  array                 $config
      * @throws Zend_Config_Exception
      * @return array
      */
@@ -261,6 +258,7 @@ class Zend_Config_Ini extends Zend_Config
                 $config = $this->_processKey($config, $key, $value);
             }
         }
+
         return $config;
     }
 
@@ -268,9 +266,9 @@ class Zend_Config_Ini extends Zend_Config
      * Assign the key's value to the property list. Handles the
      * nest separator for sub-properties.
      *
-     * @param  array  $config
-     * @param  string $key
-     * @param  string $value
+     * @param  array                 $config
+     * @param  string                $key
+     * @param  string                $value
      * @throws Zend_Config_Exception
      * @return array
      */
@@ -304,6 +302,7 @@ class Zend_Config_Ini extends Zend_Config
         } else {
             $config[$key] = $value;
         }
+
         return $config;
     }
 }

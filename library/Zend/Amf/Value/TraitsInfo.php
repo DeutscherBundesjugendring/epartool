@@ -53,7 +53,7 @@ class Zend_Amf_Value_TraitsInfo
     /**
      * Used to keep track of all class traits of an AMF3 object
      *
-     * @param  string $className
+     * @param  string  $className
      * @param  boolean $dynamic
      * @param  boolean $externalizable
      * @param  boolean $properties
@@ -110,31 +110,33 @@ class Zend_Amf_Value_TraitsInfo
     /**
      * Add an additional property
      *
-     * @param  string $name
+     * @param  string                    $name
      * @return Zend_Amf_Value_TraitsInfo
      */
     public function addProperty($name)
     {
         $this->_properties[] = $name;
+
         return $this;
     }
 
     /**
      * Add all properties of the class.
      *
-     * @param  array $props
+     * @param  array                     $props
      * @return Zend_Amf_Value_TraitsInfo
      */
     public function addAllProperties(array $props)
     {
         $this->_properties = $props;
+
         return $this;
     }
 
     /**
      * Get the property at a given index
      *
-     * @param  int $index
+     * @param  int    $index
      * @return string
      */
     public function getProperty($index)

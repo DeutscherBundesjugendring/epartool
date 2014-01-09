@@ -19,12 +19,10 @@
  * @version    $Id: Role.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Acl_Role_Interface
  */
 require_once 'Zend/Acl/Role/Interface.php';
-
 
 /**
  * @category   Zend

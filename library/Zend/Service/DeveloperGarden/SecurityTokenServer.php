@@ -122,6 +122,7 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer
                 $token
             );
         }
+
         return $token;
     }
 }

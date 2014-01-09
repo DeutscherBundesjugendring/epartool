@@ -88,10 +88,10 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Create a new instance of Zend_Log_Writer_Firebug
      *
-     * @param  array|Zend_Config $config
+     * @param  array|Zend_Config       $config
      * @return Zend_Log_Writer_Firebug
      */
-    static public function factory($config)
+    public static function factory($config)
     {
         return new self();
     }
@@ -99,13 +99,14 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Enable or disable the log writer.
      *
-     * @param boolean $enabled Set to TRUE to enable the log writer
+     * @param  boolean $enabled Set to TRUE to enable the log writer
      * @return boolean The previous value.
      */
     public function setEnabled($enabled)
     {
         $previous = $this->_enabled;
         $this->_enabled = $enabled;
+
         return $previous;
     }
 
@@ -122,13 +123,14 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Set the default display style for user-defined priorities
      *
-     * @param string $style The default log display style
+     * @param  string $style The default log display style
      * @return string Returns previous default log display style
      */
     public function setDefaultPriorityStyle($style)
     {
         $previous = $this->_defaultPriorityStyle;
         $this->_defaultPriorityStyle = $style;
+
         return $previous;
     }
 
@@ -145,8 +147,8 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Set a display style for a logging priority
      *
-     * @param int $priority The logging priority
-     * @param string $style The logging display style
+     * @param  int            $priority The logging priority
+     * @param  string         $style    The logging display style
      * @return string|boolean The previous logging display style if defined or TRUE otherwise
      */
     public function setPriorityStyle($priority, $style)
@@ -156,13 +158,14 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
             $previous = $this->_priorityStyles[$priority];
         }
         $this->_priorityStyles[$priority] = $style;
+
         return $previous;
     }
 
     /**
      * Get a display style for a logging priority
      *
-     * @param int $priority The logging priority
+     * @param  int            $priority The logging priority
      * @return string|boolean The logging display style if defined or FALSE otherwise
      */
     public function getPriorityStyle($priority)
@@ -170,13 +173,14 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
         if (array_key_exists($priority,$this->_priorityStyles)) {
             return $this->_priorityStyles[$priority];
         }
+
         return false;
     }
 
     /**
      * Log a message to the Firebug Console.
      *
-     * @param array $event The event data
+     * @param  array $event The event data
      * @return void
      */
     protected function _write($event)

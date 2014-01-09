@@ -109,7 +109,6 @@ class Zend_Feed_Reader_Extension_Podcast_Feed extends Zend_Feed_Reader_Extension
             }
         }
 
-
         if (!$categories) {
             $categories = null;
         }
@@ -225,7 +224,7 @@ class Zend_Feed_Reader_Extension_Podcast_Feed extends Zend_Feed_Reader_Extension
 
         if (!empty($email)) {
             $owner = $email . (empty($name) ? '' : ' (' . $name . ')');
-        } else if (!empty($name)) {
+        } elseif (!empty($name)) {
             $owner = $name;
         }
 

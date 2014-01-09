@@ -20,7 +20,6 @@
  * @version    $Id: Utils.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Collection of utilities for various Zend_Service_Technorati classes.
  *
@@ -36,9 +35,9 @@ class Zend_Service_Technorati_Utils
      * Parses, validates and returns a valid Zend_Uri object
      * from given $input.
      *
-     * @param   string|Zend_Uri_Http $input
-     * @return  null|Zend_Uri_Http
-     * @throws  Zend_Service_Technorati_Exception
+     * @param  string|Zend_Uri_Http              $input
+     * @return null|Zend_Uri_Http
+     * @throws Zend_Service_Technorati_Exception
      * @static
      */
     public static function normalizeUriHttp($input)
@@ -88,9 +87,9 @@ class Zend_Service_Technorati_Utils
      * If $input is string or int, it will be provided to Zend_Date as it is.
      * If $input is a Zend_Date object, the object instance will be returned.
      *
-     * @param   mixed|Zend_Date $input
-     * @return  null|Zend_Date
-     * @throws  Zend_Service_Technorati_Exception
+     * @param  mixed|Zend_Date                   $input
+     * @return null|Zend_Date
+     * @throws Zend_Service_Technorati_Exception
      * @static
      */
     public static function normalizeDate($input)

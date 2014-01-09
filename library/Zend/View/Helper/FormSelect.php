@@ -20,12 +20,10 @@
  * @version    $Id: FormSelect.php 25187 2013-01-08 08:21:00Z frosch $
  */
 
-
 /**
  * Abstract class for extension
  */
 require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate "select" list of options
@@ -105,7 +103,7 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
             $optionClasses = $attribs['optionClasses'];
             unset($attribs['optionClasses']);
         }
-        
+
         // now start building the XHTML.
         $disabled = '';
         if (true === $disable) {
@@ -157,12 +155,12 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
     /**
      * Builds the actual <option> tag
      *
-     * @param string $value Options Value
-     * @param string $label Options Label
-     * @param array  $selected The option value(s) to mark as 'selected'
-     * @param array|bool $disable Whether the select is disabled, or individual options are
-     * @param array $optionClasses The classes to associate with each option value
-     * @return string Option Tag XHTML
+     * @param  string     $value         Options Value
+     * @param  string     $label         Options Label
+     * @param  array      $selected      The option value(s) to mark as 'selected'
+     * @param  array|bool $disable       Whether the select is disabled, or individual options are
+     * @param  array      $optionClasses The classes to associate with each option value
+     * @return string     Option Tag XHTML
      */
     protected function _build($value, $label, $selected, $disable, $optionClasses = array())
     {

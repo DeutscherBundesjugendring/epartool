@@ -19,10 +19,8 @@
  * @version    $Id: Cli.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Controller_Response_Abstract */
 require_once 'Zend/Controller/Response/Abstract.php';
-
 
 /**
  * Zend_Controller_Response_Cli
@@ -47,7 +45,6 @@ class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
      */
     public $headersSentThrowsException = false;
 
-
     /**
      * Magic __toString functionality
      *
@@ -60,6 +57,7 @@ class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
             foreach ($this->getException() as $e) {
                 $exceptions .= $e->__toString() . "\n";
             }
+
             return $exceptions;
         }
 

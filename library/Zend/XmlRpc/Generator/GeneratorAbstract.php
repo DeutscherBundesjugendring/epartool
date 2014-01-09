@@ -48,8 +48,8 @@ abstract class Zend_XmlRpc_Generator_GeneratorAbstract
      *
      * Method opens a new XML element with an element name and an optional value
      *
-     * @param string $name XML tag name
-     * @param string $value Optional value of the XML tag
+     * @param  string                         $name  XML tag name
+     * @param  string                         $value Optional value of the XML tag
      * @return Zend_XmlRpc_Generator_Abstract Fluent interface
      */
     public function openElement($name, $value = null)
@@ -67,7 +67,7 @@ abstract class Zend_XmlRpc_Generator_GeneratorAbstract
      *
      * Method marks the end of an XML element
      *
-     * @param string $name XML tag name
+     * @param  string                         $name XML tag name
      * @return Zend_XmlRpc_Generator_Abstract Fluent interface
      */
     public function closeElement($name)
@@ -103,6 +103,7 @@ abstract class Zend_XmlRpc_Generator_GeneratorAbstract
     {
         $xml = $this->saveXml();
         $this->_init();
+
         return $xml;
     }
 
@@ -119,7 +120,7 @@ abstract class Zend_XmlRpc_Generator_GeneratorAbstract
     /**
      * Removes XML declaration from a string
      *
-     * @param string $xml
+     * @param  string $xml
      * @return string
      */
     public function stripDeclaration($xml)

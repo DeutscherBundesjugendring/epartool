@@ -95,7 +95,7 @@ class Zend_Feed_Writer
     /**
      * Get plugin loader for use with Extensions
      *
-     * @return  Zend_Loader_PluginLoader_Interface
+     * @return Zend_Loader_PluginLoader_Interface
      */
     public static function getPluginLoader()
     {
@@ -105,6 +105,7 @@ class Zend_Feed_Writer
                 'Zend_Feed_Writer_Extension_' => 'Zend/Feed/Writer/Extension/',
             ));
         }
+
         return self::$_pluginLoader;
     }
 
@@ -143,7 +144,7 @@ class Zend_Feed_Writer
     /**
      * Register an Extension by name
      *
-     * @param  string $name
+     * @param  string              $name
      * @return void
      * @throws Zend_Feed_Exception if unable to resolve Extension class
      */
@@ -196,7 +197,7 @@ class Zend_Feed_Writer
     /**
      * Is a given named Extension registered?
      *
-     * @param  string $extensionName
+     * @param  string  $extensionName
      * @return boolean
      */
     public static function isRegistered($extensionName)
@@ -212,6 +213,7 @@ class Zend_Feed_Writer
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -261,6 +263,7 @@ class Zend_Feed_Writer
     public static function lcfirst($str)
     {
         $str[0] = strtolower($str[0]);
+
         return $str;
     }
 

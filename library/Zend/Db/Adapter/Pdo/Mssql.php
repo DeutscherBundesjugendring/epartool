@@ -20,12 +20,10 @@
  * @version    $Id: Mssql.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
-
 
 /**
  * Class for connecting to Microsoft SQL Server databases and performing common operations.
@@ -123,6 +121,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         }
 
         $dsn = $this->_pdoType . ':' . implode(';', $dsn);
+
         return $dsn;
     }
 
@@ -148,6 +147,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     {
         $this->_connect();
         $this->_connection->exec('BEGIN TRANSACTION');
+
         return true;
     }
 
@@ -161,6 +161,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     {
         $this->_connect();
         $this->_connection->exec('COMMIT TRANSACTION');
+
         return true;
     }
 
@@ -170,9 +171,11 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * It is necessary to override the abstract PDO transaction functions here, as
      * the PDO driver for MSSQL does not support transactions.
      */
-    protected function _rollBack() {
+    protected function _rollBack()
+    {
         $this->_connect();
         $this->_connection->exec('ROLLBACK TRANSACTION');
+
         return true;
     }
 
@@ -184,6 +187,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     public function listTables()
     {
         $sql = "SELECT name FROM sysobjects WHERE type = 'U' ORDER BY name";
+
         return $this->fetchCol($sql);
     }
 
@@ -214,8 +218,8 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * @todo Discover column primary key position.
      * @todo Discover integer unsigned property.
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -300,6 +304,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
                 'IDENTITY'         => $identity
             );
         }
+
         return $desc;
     }
 
@@ -308,9 +313,9 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      *
      * @link http://lists.bestpractical.com/pipermail/rt-devel/2005-June/007339.html
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string                    $sql
+     * @param  integer                   $count
+     * @param  integer                   $offset OPTIONAL
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
@@ -391,15 +396,16 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      * Microsoft SQL Server does not support sequences, so the arguments to
      * this method are ignored.
      *
-     * @param string $tableName   OPTIONAL Name of table.
-     * @param string $primaryKey  OPTIONAL Name of primary key column.
+     * @param  string                    $tableName  OPTIONAL Name of table.
+     * @param  string                    $primaryKey OPTIONAL Name of primary key column.
      * @return string
      * @throws Zend_Db_Adapter_Exception
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
         $sql = 'SELECT SCOPE_IDENTITY()';
-        return (int)$this->fetchOne($sql);
+
+        return (int) $this->fetchOne($sql);
     }
 
     /**
@@ -415,6 +421,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
             if (count($result)) {
                 return $result[0][0];
             }
+
             return null;
         } catch (PDOException $e) {
             return null;

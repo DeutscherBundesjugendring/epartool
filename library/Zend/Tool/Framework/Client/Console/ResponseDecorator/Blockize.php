@@ -19,7 +19,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-require_once "Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php";
+require_once 'Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php';
 
 /**
  * Take a text and block it into several lines of a fixed length.
@@ -42,28 +42,29 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Blockize
     /**
      *
      * @param  string $content
-     * @param  int $lineLength
+     * @param  int    $lineLength
      * @return string
      */
     public function decorate($content, $lineLength)
     {
-        if(intval(strval($lineLength)) != $lineLength) {
+        if (intval(strval($lineLength)) != $lineLength) {
             $lineLength = 72;
         }
 
         // break apart the message into wrapped chunks
         $lines = explode(PHP_EOL, wordwrap($content, $lineLength, PHP_EOL, false));
         $content = array();
-        foreach($lines AS $line) {
-            if(strlen(trim($line)) == 0) {
+        foreach ($lines AS $line) {
+            if (strlen(trim($line)) == 0) {
                 continue;
             }
 
-            if(strlen($line) < $lineLength) {
+            if (strlen($line) < $lineLength) {
                 $line .= str_repeat(" ", $lineLength-strlen($line));
             }
             $content[] = $line;
         }
+
         return implode(PHP_EOL, $content);
     }
 }

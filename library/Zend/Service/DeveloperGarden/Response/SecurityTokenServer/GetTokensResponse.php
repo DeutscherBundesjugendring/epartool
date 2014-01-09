@@ -71,6 +71,7 @@ class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensRespons
                 'No valid securityToken found.'
             );
         }
+
         return $this->securityToken->getTokenData();
     }
 
@@ -89,6 +90,7 @@ class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensRespons
         ) {
             return true;
         }
+
         return false;
     }
 }

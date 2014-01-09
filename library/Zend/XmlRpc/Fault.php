@@ -118,12 +118,13 @@ class Zend_XmlRpc_Fault
     /**
      * Set the fault code
      *
-     * @param int $code
+     * @param  int               $code
      * @return Zend_XmlRpc_Fault
      */
     public function setCode($code)
     {
         $this->_code = (int) $code;
+
         return $this;
     }
 
@@ -146,6 +147,7 @@ class Zend_XmlRpc_Fault
     public function setMessage($message)
     {
         $this->_message = (string) $message;
+
         return $this;
     }
 
@@ -162,13 +164,14 @@ class Zend_XmlRpc_Fault
     /**
      * Set encoding to use in fault response
      *
-     * @param string $encoding
+     * @param  string            $encoding
      * @return Zend_XmlRpc_Fault
      */
     public function setEncoding($encoding)
     {
         $this->_encoding = $encoding;
         Zend_XmlRpc_Value::setEncoding($encoding);
+
         return $this;
     }
 
@@ -185,7 +188,7 @@ class Zend_XmlRpc_Fault
     /**
      * Load an XMLRPC fault from XML
      *
-     * @param string $fault
+     * @param  string  $fault
      * @return boolean Returns true if successfully loaded fault response, false
      * if response was not a fault response
      * @throws Zend_XmlRpc_Exception if no or faulty XML provided, or if fault
@@ -255,7 +258,7 @@ class Zend_XmlRpc_Fault
     /**
      * Determine if an XML response is an XMLRPC fault
      *
-     * @param string $xml
+     * @param  string  $xml
      * @return boolean
      */
     public static function isFault($xml)

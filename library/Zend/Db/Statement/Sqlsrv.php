@@ -55,7 +55,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Prepares statement handle
      *
-     * @param string $sql
+     * @param  string                             $sql
      * @return void
      * @throws Zend_Db_Statement_Sqlsrv_Exception
      */
@@ -76,11 +76,11 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Binds a parameter to the specified variable name.
      *
-     * @param mixed $parameter Name the parameter, either integer or string.
-     * @param mixed $variable  Reference to PHP variable containing the value.
-     * @param mixed $type      OPTIONAL Datatype of SQL parameter.
-     * @param mixed $length    OPTIONAL Length of SQL parameter.
-     * @param mixed $options   OPTIONAL Other options.
+     * @param  mixed                       $parameter Name the parameter, either integer or string.
+     * @param  mixed                       $variable  Reference to PHP variable containing the value.
+     * @param  mixed                       $type      OPTIONAL Datatype of SQL parameter.
+     * @param  mixed                       $length    OPTIONAL Length of SQL parameter.
+     * @param  mixed                       $options   OPTIONAL Other options.
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
@@ -103,6 +103,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         sqlsrv_free_stmt($this->_stmt);
         $this->_stmt = false;
+
         return true;
     }
 
@@ -170,7 +171,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Executes a prepared statement.
      *
-     * @param array $params OPTIONAL Values to bind to parameter placeholders.
+     * @param  array                       $params OPTIONAL Values to bind to parameter placeholders.
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
@@ -214,10 +215,10 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Fetches a row from the result set.
      *
-     * @param  int $style  OPTIONAL Fetch mode for this fetch operation.
-     * @param  int $cursor OPTIONAL Absolute, relative, or other.
-     * @param  int $offset OPTIONAL Number for absolute or relative cursors.
-     * @return mixed Array, object, or scalar depending on fetch mode.
+     * @param  int                         $style  OPTIONAL Fetch mode for this fetch operation.
+     * @param  int                         $cursor OPTIONAL Absolute, relative, or other.
+     * @param  int                         $offset OPTIONAL Number for absolute or relative cursors.
+     * @return mixed                       Array, object, or scalar depending on fetch mode.
      * @throws Zend_Db_Statement_Exception
      */
     public function fetch($style = null, $cursor = null, $offset = null)
@@ -281,7 +282,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Returns a single column from the next row of a result set.
      *
-     * @param int $col OPTIONAL Position of the column to fetch.
+     * @param  int                         $col OPTIONAL Position of the column to fetch.
      * @return string
      * @throws Zend_Db_Statement_Exception
      */
@@ -313,9 +314,9 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Fetches the next row and returns it as an object.
      *
-     * @param string $class  OPTIONAL Name of the class to create.
-     * @param array  $config OPTIONAL Constructor arguments for the class.
-     * @return mixed One object instance of the specified class.
+     * @param  string                      $class  OPTIONAL Name of the class to create.
+     * @param  array                       $config OPTIONAL Constructor arguments for the class.
+     * @return mixed                       One object instance of the specified class.
      * @throws Zend_Db_Statement_Exception
      */
     public function fetchObject($class = 'stdClass', array $config = array())
@@ -343,7 +344,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
     /**
      * Returns metadata for a column in a result set.
      *
-     * @param int $column
+     * @param  int                                $column
      * @return mixed
      * @throws Zend_Db_Statement_Sqlsrv_Exception
      */
@@ -376,7 +377,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
             require_once 'Zend/Db/Statement/Sqlsrv/Exception.php';
             throw new Zend_Db_Statement_Sqlsrv_Exception(sqlsrv_errors());
         }
-        
+
         // reset column keys
         $this->_keys = null;
 
@@ -388,7 +389,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
      * last INSERT, DELETE, or UPDATE statement executed by this
      * statement object.
      *
-     * @return int     The number of rows affected.
+     * @return int                         The number of rows affected.
      * @throws Zend_Db_Statement_Exception
      */
     public function rowCount()
@@ -411,12 +412,12 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
 
         return $num_rows;
     }
-    
+
     /**
      * Returns an array containing all of the result set rows.
      *
-     * @param int $style OPTIONAL Fetch mode.
-     * @param int $col   OPTIONAL Column number, if fetch mode is by column.
+     * @param  int   $style OPTIONAL Fetch mode.
+     * @param  int   $col   OPTIONAL Column number, if fetch mode is by column.
      * @return array Collection of rows, each in a format by the fetch mode.
      *
      * Behaves like parent, but if limit()
@@ -435,6 +436,7 @@ class Zend_Db_Statement_Sqlsrv extends Zend_Db_Statement
             }
             $results[] = $row;
         }
+
         return $results;
     }
 }

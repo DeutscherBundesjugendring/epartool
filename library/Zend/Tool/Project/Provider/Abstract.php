@@ -118,9 +118,9 @@ abstract class Zend_Tool_Project_Provider_Abstract
      *    - if an enpoint variable has been registered in teh client registry - key=workingDirectory
      *    - if an ENV variable with the key ZFPROJECT_PATH is found
      *
-     * @param bool   $loadProfileFlag         Whether or not to throw an exception when no profile is found
-     * @param string $projectDirectory        The project directory to use to search
-     * @param bool   $searchParentDirectories Whether or not to search upper level direcotries
+     * @param  bool                      $loadProfileFlag         Whether or not to throw an exception when no profile is found
+     * @param  string                    $projectDirectory        The project directory to use to search
+     * @param  bool                      $searchParentDirectories Whether or not to search upper level direcotries
      * @return Zend_Tool_Project_Profile
      */
     protected function _loadProfile($loadProfileFlag = self::NO_PROFILE_THROW_EXCEPTION, $projectDirectory = null, $searchParentDirectories = true)
@@ -139,6 +139,7 @@ abstract class Zend_Tool_Project_Provider_Abstract
         $profile->setAttribute('projectDirectory', $foundPath);
         $profile->loadFromFile();
         $this->_loadedProfile = $profile;
+
         return $profile;
     }
 
@@ -164,6 +165,7 @@ abstract class Zend_Tool_Project_Provider_Abstract
             $profile->setAttribute('projectDirectory', $projectDirectoryAssembled);
             if ($profile->isLoadableFromFile()) {
                 unset($profile);
+
                 return $projectDirectoryAssembled;
             }
 
@@ -190,6 +192,7 @@ abstract class Zend_Tool_Project_Provider_Abstract
             require_once 'Zend/Tool/Project/Provider/Exception.php';
             throw new Zend_Tool_Project_Provider_Exception('A project profile was not found in the current working directory.');
         }
+
         return $profile;
     }
 
@@ -238,6 +241,7 @@ abstract class Zend_Tool_Project_Provider_Abstract
         }
 
         $engine = new Zend_Tool_Project_Context_Content_Engine($storage);
+
         return $engine->getContent($context, $methodName, $parameters);
     }
 

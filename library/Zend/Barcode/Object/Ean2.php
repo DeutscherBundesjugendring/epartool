@@ -60,6 +60,7 @@ class Zend_Barcode_Object_Ean2 extends Zend_Barcode_Object_Ean5
     protected function _getParity($i)
     {
         $modulo = $this->getText() % 4;
+
         return $this->_parities[$modulo][$i];
     }
 }

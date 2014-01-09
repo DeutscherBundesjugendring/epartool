@@ -51,7 +51,7 @@ class Zend_Reflection_Docblock_Tag implements Reflector
     /**
      * Factory: Create the appropriate annotation tag object
      *
-     * @param  string $tagDocblockLine
+     * @param  string                       $tagDocblockLine
      * @return Zend_Reflection_Docblock_Tag
      */
     public static function factory($tagDocblockLine)
@@ -69,8 +69,10 @@ class Zend_Reflection_Docblock_Tag implements Reflector
             if (!class_exists($tagClass)) {
                 Zend_Loader::loadClass($tagClass);
             }
+
             return new $tagClass($tagDocblockLine);
         }
+
         return new self($tagDocblockLine);
     }
 

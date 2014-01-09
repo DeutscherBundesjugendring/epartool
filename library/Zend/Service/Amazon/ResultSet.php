@@ -21,12 +21,10 @@
  * @version    $Id: ResultSet.php 24780 2012-05-08 19:34:59Z adamlundrigan $
  */
 
-
 /**
  * @see Zend_Service_Amazon_Item
  */
 require_once 'Zend/Service/Amazon/Item.php';
-
 
 /**
  * @category   Zend
@@ -87,6 +85,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
     public function totalResults()
     {
         $result = $this->_xpath->query('//az:TotalResults/text()');
+
         return (int) $result->item(0)->data;
     }
 
@@ -98,6 +97,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
     public function totalPages()
     {
         $result = $this->_xpath->query('//az:TotalPages/text()');
+
         return (int) $result->item(0)->data;
     }
 
@@ -144,7 +144,7 @@ class Zend_Service_Amazon_ResultSet implements SeekableIterator
     /**
      * Implement SeekableIterator::seek()
      *
-     * @param  int $index
+     * @param  int                  $index
      * @throws OutOfBoundsException
      * @return void
      */

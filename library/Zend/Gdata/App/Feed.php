@@ -89,7 +89,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Retrieves the DOM model representing this object and all children
      *
-     * @param DOMDocument $doc
+     * @param  DOMDocument $doc
      * @return DOMElement
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -98,6 +98,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
         foreach ($this->_entry as $entry) {
             $element->appendChild($entry->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -199,12 +200,13 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      * Sets the array of atom:entry elements contained within this
      * atom:feed representation
      *
-     * @param array $value The array of Zend_Gdata_App_Entry elements
+     * @param  array               $value The array of Zend_Gdata_App_Entry elements
      * @return Zend_Gdata_App_Feed Provides a fluent interface
      */
     public function setEntry($value)
     {
         $this->_entry = $value;
+
         return $this;
     }
 
@@ -218,14 +220,15 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     public function addEntry($value)
     {
         $this->_entry[] = $value;
+
         return $this;
     }
 
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to set
-     * @param Zend_Gdata_App_Entry $value The value to set
+     * @param  int                  $key   The index to set
+     * @param  Zend_Gdata_App_Entry $value The value to set
      * @return void
      */
     public function offsetSet($key, $value)
@@ -236,7 +239,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to get
+     * @param int                  $key   The index to get
      * @param Zend_Gdata_App_Entry $value The value to set
      */
     public function offsetGet($key)
@@ -249,7 +252,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to set
+     * @param int                  $key   The index to set
      * @param Zend_Gdata_App_Entry $value The value to set
      */
     public function offsetUnset($key)
@@ -262,7 +265,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to check for existence
+     * @param  int     $key The index to check for existence
      * @return boolean
      */
     public function offsetExists($key)
@@ -274,7 +277,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      * Retrieve the next set of results from this feed.
      *
      * @throws Zend_Gdata_App_Exception
-     * @return mixed|null Returns the next set of results as a feed of the same
+     * @return mixed|null               Returns the next set of results as a feed of the same
      *          class as this feed, or null if no results exist.
      */
     public function getNextFeed()
@@ -295,7 +298,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      * Retrieve the previous set of results from this feed.
      *
      * @throws Zend_Gdata_App_Exception
-     * @return mixed|null Returns the previous set of results as a feed of
+     * @return mixed|null               Returns the previous set of results as a feed of
      *          the same class as this feed, or null if no results exist.
      */
     public function getPreviousFeed()
@@ -319,7 +322,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      * This value will be propogated to all child entries.
      *
      * @see _majorProtocolVersion
-     * @param (int|NULL) $value The major protocol version to use.
+     * @param  (int|NULL)                              $value The major protocol version to use.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setMajorProtocolVersion($value)
@@ -338,7 +341,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      * This value will be propogated to all child entries.
      *
      * @see _minorProtocolVersion
-     * @param (int|NULL) $value The minor protocol version to use.
+     * @param  (int|NULL)                              $value The minor protocol version to use.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setMinorProtocolVersion($value)

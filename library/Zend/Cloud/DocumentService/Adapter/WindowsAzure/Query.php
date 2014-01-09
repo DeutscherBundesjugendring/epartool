@@ -63,7 +63,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      *
      * Does nothing for Azure.
      *
-     * @param  string $select
+     * @param  string                                                $select
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
     public function select($select)
@@ -74,21 +74,22 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
     /**
      * FROM clause (table name)
      *
-     * @param string $from
+     * @param  string                                                $from
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
     public function from($from)
     {
         $this->_azureSelect->from($from);
+
         return $this;
     }
 
     /**
      * WHERE clause (conditions to be used)
      *
-     * @param string $where
-     * @param mixed $value Value or array of values to be inserted instead of ?
-     * @param string $op Operation to use to join where clauses (AND/OR)
+     * @param  string                                                $where
+     * @param  mixed                                                 $value Value or array of values to be inserted instead of ?
+     * @param  string                                                $op    Operation to use to join where clauses (AND/OR)
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
     public function where($where, $value = null, $op = 'and')
@@ -98,6 +99,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
             $value = array($value);
         }
         $this->_azureSelect->where($where, $value, $op);
+
         return $this;
     }
 
@@ -107,7 +109,7 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      * This one should be used when fetching specific rows since some adapters
      * have special syntax for primary keys
      *
-     * @param  array $value Row ID for the document (PartitionKey, RowKey)
+     * @param  array                                                 $value Row ID for the document (PartitionKey, RowKey)
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
     public function whereId($value)
@@ -117,18 +119,20 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
             throw new Zend_Cloud_DocumentService_Exception('Invalid document key');
         }
         $this->_azureSelect->wherePartitionKey($value[0])->whereRowKey($value[1]);
+
         return $this;
     }
 
     /**
      * LIMIT clause (how many rows to return)
      *
-     * @param  int $limit
+     * @param  int                                                   $limit
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      */
     public function limit($limit)
     {
         $this->_azureSelect->top($limit);
+
         return $this;
     }
 
@@ -136,8 +140,8 @@ class Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      * ORDER BY clause (sorting)
      *
      * @todo   Azure service doesn't seem to support this yet; emulate?
-     * @param  string $sort Column to sort by
-     * @param  string $direction Direction - asc/desc
+     * @param  string                                                $sort      Column to sort by
+     * @param  string                                                $direction Direction - asc/desc
      * @return Zend_Cloud_DocumentService_Adapter_WindowsAzure_Query
      * @throws Zend_Cloud_OperationNotAvailableException
      */

@@ -79,8 +79,8 @@ class Zend_Gdata_Gapps_MemberEntry extends Zend_Gdata_Entry
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      *          child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -90,6 +90,7 @@ class Zend_Gdata_Gapps_MemberEntry extends Zend_Gdata_Entry
         foreach ($this->_property as $p) {
             $element->appendChild($p->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -137,6 +138,7 @@ class Zend_Gdata_Gapps_MemberEntry extends Zend_Gdata_Entry
                     return $p;
                 }
             }
+
             return null;
         }
     }
@@ -151,9 +153,8 @@ class Zend_Gdata_Gapps_MemberEntry extends Zend_Gdata_Entry
     public function setProperty($value)
     {
         $this->_property = $value;
+
         return $this;
     }
 
 }
-
-

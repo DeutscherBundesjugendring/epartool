@@ -44,7 +44,7 @@ class Zend_Service_Amazon_SimpleDb_Page
     /**
      * Constructor
      *
-     * @param  string $data
+     * @param  string      $data
      * @param  string|null $token
      * @return void
      */

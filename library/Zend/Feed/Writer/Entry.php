@@ -77,7 +77,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set a single author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function addAuthor($name, $email = null, $uri = null)
@@ -144,7 +144,7 @@ class Zend_Feed_Writer_Entry
      */
     public function addAuthors(array $authors)
     {
-        foreach($authors as $author) {
+        foreach ($authors as $author) {
             $this->addAuthor($author);
         }
     }
@@ -173,6 +173,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('encoding', $this->_data)) {
             return 'UTF-8';
         }
+
         return $this->_data['encoding'];
     }
 
@@ -216,7 +217,7 @@ class Zend_Feed_Writer_Entry
             $zdate = new Zend_Date;
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
-        } elseif (ctype_digit((string)$date)) {
+        } elseif (ctype_digit((string) $date)) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
@@ -237,7 +238,7 @@ class Zend_Feed_Writer_Entry
             $zdate = new Zend_Date;
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
-        } elseif (ctype_digit((string)$date)) {
+        } elseif (ctype_digit((string) $date)) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
@@ -376,6 +377,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('authors', $this->_data)) {
             return null;
         }
+
         return $this->_data['authors'];
     }
 
@@ -389,6 +391,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('content', $this->_data)) {
             return null;
         }
+
         return $this->_data['content'];
     }
 
@@ -402,6 +405,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('copyright', $this->_data)) {
             return null;
         }
+
         return $this->_data['copyright'];
     }
 
@@ -415,6 +419,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('dateCreated', $this->_data)) {
             return null;
         }
+
         return $this->_data['dateCreated'];
     }
 
@@ -428,6 +433,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('dateModified', $this->_data)) {
             return null;
         }
+
         return $this->_data['dateModified'];
     }
 
@@ -441,6 +447,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('description', $this->_data)) {
             return null;
         }
+
         return $this->_data['description'];
     }
 
@@ -454,6 +461,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('id', $this->_data)) {
             return null;
         }
+
         return $this->_data['id'];
     }
 
@@ -467,6 +475,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('link', $this->_data)) {
             return null;
         }
+
         return $this->_data['link'];
     }
 
@@ -481,6 +490,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('links', $this->_data)) {
             return null;
         }
+
         return $this->_data['links'];
     }
 
@@ -494,6 +504,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('title', $this->_data)) {
             return null;
         }
+
         return $this->_data['title'];
     }
 
@@ -507,6 +518,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('commentCount', $this->_data)) {
             return null;
         }
+
         return $this->_data['commentCount'];
     }
 
@@ -520,6 +532,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('commentLink', $this->_data)) {
             return null;
         }
+
         return $this->_data['commentLink'];
     }
 
@@ -534,6 +547,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('commentFeedLinks', $this->_data)) {
             return null;
         }
+
         return $this->_data['commentFeedLinks'];
     }
 
@@ -588,6 +602,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('categories', $this->_data)) {
             return null;
         }
+
         return $this->_data['categories'];
     }
 
@@ -622,6 +637,7 @@ class Zend_Feed_Writer_Entry
         if (!array_key_exists('enclosure', $this->_data)) {
             return null;
         }
+
         return $this->_data['enclosure'];
     }
 
@@ -650,7 +666,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Return an Extension object with the matching name (postfixed with _Entry)
      *
-     * @param string $name
+     * @param  string $name
      * @return object
      */
     public function getExtension($name)
@@ -658,6 +674,7 @@ class Zend_Feed_Writer_Entry
         if (array_key_exists($name . '_Entry', $this->_extensions)) {
             return $this->_extensions[$name . '_Entry'];
         }
+
         return null;
     }
 
@@ -686,8 +703,8 @@ class Zend_Feed_Writer_Entry
     /**
      * Method overloading: call given method on first extension implementing it
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string              $method
+     * @param  array               $args
      * @return mixed
      * @throws Zend_Feed_Exception if no extensions implements the method
      */
@@ -718,6 +735,7 @@ class Zend_Feed_Writer_Entry
             $source->setEncoding($this->getEncoding());
         }
         $source->setType($this->getType());
+
         return $source;
     }
 
@@ -740,6 +758,7 @@ class Zend_Feed_Writer_Entry
         if (isset($this->_data['source'])) {
             return $this->_data['source'];
         }
+
         return null;
     }
 

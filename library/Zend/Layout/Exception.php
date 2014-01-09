@@ -19,10 +19,8 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Exception */
 require_once 'Zend/Exception.php';
-
 
 /**
  * @category   Zend
@@ -32,4 +30,3 @@ require_once 'Zend/Exception.php';
  */
 class Zend_Layout_Exception extends Zend_Exception
 {}
-

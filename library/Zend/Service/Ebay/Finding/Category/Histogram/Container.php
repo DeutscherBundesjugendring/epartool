@@ -53,7 +53,6 @@ class Zend_Service_Ebay_Finding_Category_Histogram_Container extends Zend_Servic
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-
         $nodes = $this->_xPath->query(".//$ns:categoryHistogram", $this->_dom);
         if ($nodes->length > 0) {
             /**

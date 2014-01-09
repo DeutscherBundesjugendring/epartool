@@ -69,6 +69,7 @@ class Zend_Tool_Project_Context_Zf_TestLibraryNamespaceDirectory extends Zend_To
         $this->_namespaceName  = $this->_resource->getAttribute('namespaceName');
         $this->_filesystemName = $this->_namespaceName;
         parent::init();
+
         return $this;
     }
 

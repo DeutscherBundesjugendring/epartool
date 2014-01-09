@@ -39,10 +39,10 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     /**#@+
      * @var array Character sets
      */
-    static $V  = array("a", "e", "i", "o", "u", "y");
-    static $VN = array("a", "e", "i", "o", "u", "y","2","3","4","5","6","7","8","9");
-    static $C  = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z");
-    static $CN = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z","2","3","4","5","6","7","8","9");
+    public static $V  = array("a", "e", "i", "o", "u", "y");
+    public static $VN = array("a", "e", "i", "o", "u", "y","2","3","4","5","6","7","8","9");
+    public static $C  = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z");
+    public static $CN = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z","2","3","4","5","6","7","8","9");
     /**#@-*/
 
     /**
@@ -139,12 +139,13 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     /**
      * Set session class for persistence
      *
-     * @param  string $_sessionClass
+     * @param  string            $_sessionClass
      * @return Zend_Captcha_Word
      */
     public function setSessionClass($_sessionClass)
     {
         $this->_sessionClass = $_sessionClass;
+
         return $this;
     }
 
@@ -161,12 +162,13 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     /**
      * Set word length of captcha
      *
-     * @param integer $wordlen
+     * @param  integer           $wordlen
      * @return Zend_Captcha_Word
      */
     public function setWordlen($wordlen)
     {
         $this->_wordlen = $wordlen;
+
         return $this;
     }
 
@@ -175,11 +177,12 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      *
      * @return string
      */
-    public function getId ()
+    public function getId()
     {
         if (null === $this->_id) {
             $this->_setId($this->_generateRandomId());
         }
+
         return $this->_id;
     }
 
@@ -189,21 +192,23 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      * @param string $id
      * return Zend_Captcha_Word
      */
-    protected function _setId ($id)
+    protected function _setId($id)
     {
         $this->_id = $id;
+
         return $this;
     }
 
     /**
      * Set timeout for session token
      *
-     * @param  int $ttl
+     * @param  int               $ttl
      * @return Zend_Captcha_Word
      */
     public function setTimeout($ttl)
     {
         $this->_timeout = (int) $ttl;
+
         return $this;
     }
 
@@ -220,12 +225,13 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     /**
      * Sets if session should be preserved on generate()
      *
-     * @param bool $keepSession Should session be kept on generate()?
+     * @param  bool              $keepSession Should session be kept on generate()?
      * @return Zend_Captcha_Word
      */
     public function setKeepSession($keepSession)
     {
         $this->_keepSession = $keepSession;
+
         return $this;
     }
 
@@ -242,15 +248,16 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     /**
      * Set if numbers should be included in the pattern
      *
-     * @param bool $_useNumbers numbers should be included in the pattern?
+     * @param  bool              $_useNumbers numbers should be included in the pattern?
      * @return Zend_Captcha_Word
      */
     public function setUseNumbers($_useNumbers)
     {
         $this->_useNumbers = $_useNumbers;
+
         return $this;
     }
-    
+
     /**
      * Get session object
      *
@@ -268,6 +275,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
             $this->_session->setExpirationHops(1, null, true);
             $this->_session->setExpirationSeconds($this->getTimeout());
         }
+
         return $this->_session;
     }
 
@@ -280,9 +288,10 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     public function setSession(Zend_Session_Namespace $session)
     {
         $this->_session = $session;
-        if($session) {
+        if ($session) {
             $this->_keepSession = true;
         }
+
         return $this;
     }
 
@@ -297,13 +306,14 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
             $session     = $this->getSession();
             $this->_word = $session->word;
         }
+
         return $this->_word;
     }
 
     /**
      * Set captcha word
      *
-     * @param  string $word
+     * @param  string            $word
      * @return Zend_Captcha_Word
      */
     protected function _setWord($word)
@@ -311,6 +321,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         $session       = $this->getSession();
         $session->word = $word;
         $this->_word   = $word;
+
         return $this;
     }
 
@@ -347,13 +358,14 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     public function generate()
     {
-        if(!$this->_keepSession) {
+        if (!$this->_keepSession) {
             $this->_session = null;
         }
         $id = $this->_generateRandomId();
         $this->_setId($id);
         $word = $this->_generateWord();
         $this->_setWord($word);
+
         return $id;
     }
 
@@ -366,13 +378,14 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      * Validate the word
      *
      * @see    Zend_Validate_Interface::isValid()
-     * @param  mixed $value
+     * @param  mixed   $value
      * @return boolean
      */
     public function isValid($value, $context = null)
     {
         if (!is_array($value) && !is_array($context)) {
             $this->_error(self::MISSING_VALUE);
+
             return false;
         }
         if (!is_array($value) && is_array($context)) {
@@ -387,6 +400,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
 
         if (!isset($value['input'])) {
             $this->_error(self::MISSING_VALUE);
+
             return false;
         }
         $input = strtolower($value['input']);
@@ -394,12 +408,14 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
 
         if (!isset($value['id'])) {
             $this->_error(self::MISSING_ID);
+
             return false;
         }
 
         $this->_id = $value['id'];
         if ($input !== $this->getWord()) {
             $this->_error(self::BAD_CAPTCHA);
+
             return false;
         }
 

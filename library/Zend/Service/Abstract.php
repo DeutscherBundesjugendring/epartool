@@ -19,12 +19,10 @@
  * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_Http_Client
  */
 require_once 'Zend/Http/Client.php';
-
 
 /**
  * @category   Zend
@@ -41,7 +39,6 @@ abstract class Zend_Service_Abstract
      */
     protected static $_httpClient = null;
 
-
     /**
      * Sets the HTTP client object to use for retrieving the feeds.  If none
      * is set, the default Zend_Http_Client will be used.
@@ -52,7 +49,6 @@ abstract class Zend_Service_Abstract
     {
         self::$_httpClient = $httpClient;
     }
-
 
     /**
      * Gets the HTTP client object.
@@ -68,4 +64,3 @@ abstract class Zend_Service_Abstract
         return self::$_httpClient;
     }
 }
-

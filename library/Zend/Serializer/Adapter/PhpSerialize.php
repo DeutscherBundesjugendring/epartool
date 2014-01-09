@@ -55,8 +55,8 @@ class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_Adapt
     /**
      * Serialize using serialize()
      *
-     * @param  mixed $value
-     * @param  array $opts
+     * @param  mixed                     $value
+     * @param  array                     $opts
      * @return string
      * @throws Zend_Serializer_Exception On serialize error
      */
@@ -68,6 +68,7 @@ class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_Adapt
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception($lastErr['message']);
         }
+
         return $ret;
     }
 
@@ -75,8 +76,8 @@ class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_Adapt
      * Unserialize
      *
      * @todo   Allow integration with unserialize_callback_func
-     * @param  string $serialized
-     * @param  array $opts
+     * @param  string                    $serialized
+     * @param  array                     $opts
      * @return mixed
      * @throws Zend_Serializer_Exception on unserialize error
      */
@@ -89,6 +90,7 @@ class Zend_Serializer_Adapter_PhpSerialize extends Zend_Serializer_Adapter_Adapt
             require_once 'Zend/Serializer/Exception.php';
             throw new Zend_Serializer_Exception($lastErr['message']);
         }
+
         return $ret;
     }
 }

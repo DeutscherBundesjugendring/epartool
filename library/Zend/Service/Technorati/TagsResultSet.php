@@ -20,12 +20,10 @@
  * @version    $Id: TagsResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati TopTags or BlogPostTags queries result set.
@@ -41,7 +39,7 @@ class Zend_Service_Technorati_TagsResultSet extends Zend_Service_Technorati_Resu
     /**
      * Constructs a new object object from DOM Document.
      *
-     * @param   DomDocument $dom the ReST fragment for this object
+     * @param DomDocument $dom the ReST fragment for this object
      */
     public function __construct(DomDocument $dom, $options = array())
     {
@@ -62,6 +60,7 @@ class Zend_Service_Technorati_TagsResultSet extends Zend_Service_Technorati_Resu
          * @see Zend_Service_Technorati_TagsResult
          */
         require_once 'Zend/Service/Technorati/TagsResult.php';
+
         return new Zend_Service_Technorati_TagsResult($this->_results->item($this->_currentIndex));
     }
 }

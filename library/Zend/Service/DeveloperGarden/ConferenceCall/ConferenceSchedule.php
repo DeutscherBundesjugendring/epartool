@@ -113,12 +113,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $minute
      *
-     * @param integer $minute
+     * @param  integer                                                        $minute
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setMinute($minute)
     {
         $this->minute = $minute;
+
         return $this;
     }
 
@@ -135,12 +136,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $hour
      *
-     * @param integer $hour
+     * @param  integer                                                        $hour
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setHour($hour)
     {
         $this->hour = $hour;
+
         return $this;
     }
 
@@ -157,12 +159,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $dayOfMonth
      *
-     * @param integer $dayOfMonth
+     * @param  integer                                                        $dayOfMonth
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setDayOfMonth($dayOfMonth)
     {
         $this->dayOfMonth = $dayOfMonth;
+
         return $this;
     }
 
@@ -179,12 +182,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $month
      *
-     * @param integer $month
+     * @param  integer                                                        $month
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setMonth($month)
     {
         $this->month = $month;
+
         return $this;
     }
 
@@ -201,12 +205,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $year
      *
-     * @param integer $year
+     * @param  integer                                                        $year
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setYear($year)
     {
         $this->year = $year;
+
         return $this;
     }
 
@@ -223,7 +228,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $recurring
      *
-     * @param integer $recurring
+     * @param  integer                                                        $recurring
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setRecurring($recurring)
@@ -235,6 +240,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
             );
         }
         $this->recurring = $recurring;
+
         return $this;
     }
 
@@ -251,12 +257,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
     /**
      * sets $notify
      *
-     * @param integer $notify
+     * @param  integer                                                        $notify
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule
      */
     public function setNotify($notify)
     {
         $this->notify = $notify;
+
         return $this;
     }
 }

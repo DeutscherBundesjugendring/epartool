@@ -101,7 +101,7 @@ class Zend_TimeSync_Sntp extends Zend_TimeSync_Protocol
     /**
      * Extracts the data returned from the timeserver
      *
-     * @param  string $result Data to extract
+     * @param  string  $result Data to extract
      * @return integer
      */
     protected function _extract($result)

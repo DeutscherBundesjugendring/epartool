@@ -40,10 +40,10 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
      * Convenience function to get the contents of a file on
      * the Nirvanix IMFS.  Analog to PHP's file_get_contents().
      *
-     * @param  string  $filePath    Remote path and filename
-     * @param  integer $expiration  Number of seconds that Nirvanix
+     * @param string  $filePath   Remote path and filename
+     * @param integer $expiration Number of seconds that Nirvanix
      *                              make the file available for download.
-     * @return string               Contents of file
+     * @return string Contents of file
      */
     public function getContents($filePath, $expiration = 3600)
     {
@@ -51,7 +51,7 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
         $params = array('filePath'   => $filePath,
                         'expiration' => $expiration);
         $resp = $this->getOptimalUrls($params);
-        $url = (string)$resp->Download->DownloadURL;
+        $url = (string) $resp->Download->DownloadURL;
 
         // download the file
         $this->_httpClient->resetParameters();
@@ -65,9 +65,9 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
      * Convenience function to put the contents of a string into
      * the Nirvanix IMFS.  Analog to PHP's file_put_contents().
      *
-     * @param  string  $filePath    Remote path and filename
-     * @param  integer $data        Data to store in the file
-     * @param  string  $mimeType    Mime type of data
+     * @param  string                         $filePath Remote path and filename
+     * @param  integer                        $data     Data to store in the file
+     * @param  string                         $mimeType Mime type of data
      * @return Zend_Service_Nirvanix_Response
      */
     public function putContents($filePath, $data, $mimeType = null)
@@ -75,8 +75,8 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
         // get storage node for upload
         $params = array('sizeBytes' => strlen($data));
         $resp = $this->getStorageNode($params);
-        $host        = (string)$resp->GetStorageNode->UploadHost;
-        $uploadToken = (string)$resp->GetStorageNode->UploadToken;
+        $host        = (string) $resp->GetStorageNode->UploadHost;
+        $uploadToken = (string) $resp->GetStorageNode->UploadToken;
 
         // http upload data into remote file
         $this->_httpClient->resetParameters();
@@ -93,12 +93,13 @@ class Zend_Service_Nirvanix_Namespace_Imfs extends Zend_Service_Nirvanix_Namespa
      * Convenience function to remove a file from the Nirvanix IMFS.
      * Analog to PHP's unlink().
      *
-     * @param  string  $filePath  Remove path and filename
+     * @param  string                         $filePath Remove path and filename
      * @return Zend_Service_Nirvanix_Response
      */
     public function unlink($filePath)
     {
         $params = array('filePath' => $filePath);
+
         return $this->deleteFiles($params);
     }
 

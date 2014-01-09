@@ -121,24 +121,26 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
     /**
      * setResource()
      *
-     * @param Zend_Tool_Project_Profile_Resource $resource
+     * @param  Zend_Tool_Project_Profile_Resource        $resource
      * @return Zend_Tool_Project_Context_Zf_ActionMethod
      */
     public function setResource(Zend_Tool_Project_Profile_Resource $resource)
     {
         $this->_resource = $resource;
+
         return $this;
     }
 
     /**
      * setActionName()
      *
-     * @param string $actionName
+     * @param  string                                    $actionName
      * @return Zend_Tool_Project_Context_Zf_ActionMethod
      */
     public function setActionName($actionName)
     {
         $this->_actionName = $actionName;
+
         return $this;
     }
 
@@ -166,6 +168,7 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
                 . ' with action name ' . $this->_actionName
                 );
         }
+
         return $this;
     }
 
@@ -183,9 +186,9 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
     /**
      * createAcionMethod()
      *
-     * @param string $controllerPath
-     * @param string $actionName
-     * @param string $body
+     * @param  string $controllerPath
+     * @param  string $actionName
+     * @param  string $body
      * @return true
      */
     public static function createActionMethod($controllerPath, $actionName, $body = '        // action body')
@@ -201,14 +204,15 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
             ));
 
         file_put_contents($controllerPath, $controllerCodeGenFile->generate());
+
         return true;
     }
 
     /**
      * hasActionMethod()
      *
-     * @param string $controllerPath
-     * @param string $actionName
+     * @param  string $controllerPath
+     * @param  string $actionName
      * @return bool
      */
     public static function hasActionMethod($controllerPath, $actionName)
@@ -218,6 +222,7 @@ class Zend_Tool_Project_Context_Zf_ActionMethod implements Zend_Tool_Project_Con
         }
 
         $controllerCodeGenFile = Zend_CodeGenerator_Php_File::fromReflectedFileName($controllerPath, true, true);
+
         return $controllerCodeGenFile->getClass()->hasMethod($actionName . 'Action');
     }
 

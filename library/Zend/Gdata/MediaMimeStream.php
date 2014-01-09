@@ -31,7 +31,6 @@ require_once 'Zend/Gdata/MimeFile.php';
 */
 require_once 'Zend/Gdata/MimeBodyString.php';
 
-
 /**
  * A streaming Media MIME class that allows for buffered read operations.
  *
@@ -84,7 +83,7 @@ class Zend_Gdata_MediaMimeStream
      *               of the message, typically an atom entry or feed.
      * @param string $filePath The path to the file that constitutes the binary
      *               part of the message.
-     * @param string $fileContentType The valid internet media type of the file.
+     * @param  string                     $fileContentType The valid internet media type of the file.
      * @throws Zend_Gdata_App_IOException If the file cannot be read or does
      *         not exist. Also if mbstring.func_overload has been set > 1.
      */
@@ -122,6 +121,7 @@ class Zend_Gdata_MediaMimeStream
         $wrappedEntry .= $entry;
         $wrappedEntry .= "\r\n--{$this->_boundaryString}\r\n";
         $wrappedEntry .= "Content-Type: $fileMimeType\r\n\r\n";
+
         return new Zend_Gdata_MimeBodyString($wrappedEntry);
     }
 
@@ -135,17 +135,17 @@ class Zend_Gdata_MediaMimeStream
      */
     public function read($bytesRequested)
     {
-        if($this->_currentPart >= count($this->_parts)) {
+        if ($this->_currentPart >= count($this->_parts)) {
           return FALSE;
         }
 
         $activePart = $this->_parts[$this->_currentPart];
         $buffer = $activePart->read($bytesRequested);
 
-        while(strlen($buffer) < $bytesRequested) {
+        while (strlen($buffer) < $bytesRequested) {
           $this->_currentPart += 1;
           $nextBuffer = $this->read($bytesRequested - strlen($buffer));
-          if($nextBuffer === FALSE) {
+          if ($nextBuffer === FALSE) {
             break;
           }
           $buffer .= $nextBuffer;

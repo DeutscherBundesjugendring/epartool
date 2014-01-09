@@ -123,19 +123,20 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
     /**
      * Whether or not path is a straight XPath expression
      *
-     * @param  bool $flag
+     * @param  bool                                  $flag
      * @return Zend_Test_PHPUnit_Constraint_DomQuery
      */
     public function setUseXpath($flag = true)
     {
         $this->_useXpath = (bool) $flag;
+
         return $this;
     }
 
     /**
      * Evaluate an object to see if it fits the constraints
      *
-     * @param  string $other String to examine
+     * @param string $other String to examine
      * @param  null|string Assertion type
      * @return bool
      */
@@ -172,6 +173,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No content provided against which to match');
                 }
                 $this->_content = $content = $argv[2];
+
                 return ($this->_negate)
                     ? $this->_notMatchContent($result, $content)
                     : $this->_matchContent($result, $content);
@@ -181,6 +183,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No pattern provided against which to match');
                 }
                 $this->_content = $content = $argv[2];
+
                 return ($this->_negate)
                     ? $this->_notRegexContent($result, $content)
                     : $this->_regexContent($result, $content);
@@ -192,6 +195,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No count provided against which to compare');
                 }
                 $this->_content = $content = $argv[2];
+
                 return $this->_countContent($result, $content, $assertType);
             case self::ASSERT_QUERY:
             default:
@@ -207,9 +211,9 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Report Failure
      *
      * @see    PHPUnit_Framework_Constraint for implementation details
-     * @param  mixed $other CSS selector path
-     * @param  string $description
-     * @param  bool $not
+     * @param  mixed                                        $other       CSS selector path
+     * @param  string                                       $description
+     * @param  bool                                         $not
      * @return void
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
@@ -276,8 +280,8 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
     /**
      * Register XPath namespaces
      *
-     * @param   array $xpathNamespaces
-     * @return  void
+     * @param  array $xpathNamespaces
+     * @return void
      */
     public function registerXpathNamespaces($xpathNamespaces)
     {
@@ -288,7 +292,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Check to see if content is matched in selected nodes
      *
      * @param  Zend_Dom_Query_Result $result
-     * @param  string $match Content to match
+     * @param  string                $match  Content to match
      * @return bool
      */
     protected function _matchContent($result, $match)
@@ -313,7 +317,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Check to see if content is NOT matched in selected nodes
      *
      * @param  Zend_Dom_Query_Result $result
-     * @param  string $match
+     * @param  string                $match
      * @return bool
      */
     protected function _notMatchContent($result, $match)
@@ -336,7 +340,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Check to see if content is matched by regex in selected nodes
      *
      * @param  Zend_Dom_Query_Result $result
-     * @param  string $pattern
+     * @param  string                $pattern
      * @return bool
      */
     protected function _regexContent($result, $pattern)
@@ -359,7 +363,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Check to see if content is NOT matched by regex in selected nodes
      *
      * @param  Zend_Dom_Query_Result $result
-     * @param  string $pattern
+     * @param  string                $pattern
      * @return bool
      */
     protected function _notRegexContent($result, $pattern)
@@ -382,8 +386,8 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
      * Determine if content count matches criteria
      *
      * @param  Zend_Dom_Query_Result $result
-     * @param  int $test Value against which to test
-     * @param  string $type assertion type
+     * @param  int                   $test   Value against which to test
+     * @param  string                $type   assertion type
      * @return boolean
      */
     protected function _countContent($result, $test, $type)
@@ -419,6 +423,7 @@ class Zend_Test_PHPUnit_Constraint_DomQuery extends PHPUnit_Framework_Constraint
             $content = $doc->saveXML($node);
             $tag     = $node->nodeName;
             $regex   = '|</?' . $tag . '[^>]*>|';
+
             return preg_replace($regex, '', $content);
         }
     }

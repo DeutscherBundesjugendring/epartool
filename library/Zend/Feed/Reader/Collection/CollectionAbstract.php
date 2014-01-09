@@ -36,6 +36,6 @@ abstract class Zend_Feed_Reader_Collection_CollectionAbstract extends ArrayObjec
      *
      * @return array
      */
-    public abstract function getValues();
+    abstract public function getValues();
 
 }

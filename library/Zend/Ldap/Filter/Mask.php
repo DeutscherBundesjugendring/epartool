@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Ldap/Filter/String.php';
 
-
 /**
  * Zend_Ldap_Filter_Mask provides a simple string filter to be used with a mask.
  *

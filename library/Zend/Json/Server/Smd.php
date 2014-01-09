@@ -105,7 +105,7 @@ class Zend_Json_Server_Smd
     /**
      * Set object state via options
      *
-     * @param  array $options
+     * @param  array                $options
      * @return Zend_Json_Server_Smd
      */
     public function setOptions(array $options)
@@ -117,13 +117,14 @@ class Zend_Json_Server_Smd
                 $this->$method($value);
             }
         }
+
         return $this;
     }
 
     /**
      * Set transport
      *
-     * @param  string $transport
+     * @param  string               $transport
      * @return Zend_Json_Server_Smd
      */
     public function setTransport($transport)
@@ -133,6 +134,7 @@ class Zend_Json_Server_Smd
             throw new Zend_Json_Server_Exception(sprintf('Invalid transport "%s" specified', $transport));
         }
         $this->_transport = $transport;
+
         return $this;
     }
 
@@ -149,7 +151,7 @@ class Zend_Json_Server_Smd
     /**
      * Set envelope
      *
-     * @param  string $envelopeType
+     * @param  string               $envelopeType
      * @return Zend_Json_Server_Smd
      */
     public function setEnvelope($envelopeType)
@@ -159,6 +161,7 @@ class Zend_Json_Server_Smd
             throw new Zend_Json_Server_Exception(sprintf('Invalid envelope type "%s"', $envelopeType));
         }
         $this->_envelope = $envelopeType;
+
         return $this;
     }
 
@@ -176,7 +179,7 @@ class Zend_Json_Server_Smd
     /**
      * Set content type
      *
-     * @param  string $type
+     * @param  string               $type
      * @return Zend_Json_Server_Smd
      */
     public function setContentType($type)
@@ -186,6 +189,7 @@ class Zend_Json_Server_Smd
             throw new Zend_Json_Server_Exception(sprintf('Invalid content type "%s" specified', $type));
         }
         $this->_contentType = $type;
+
         return $this;
     }
 
@@ -202,12 +206,13 @@ class Zend_Json_Server_Smd
     /**
      * Set service target
      *
-     * @param  string $target
+     * @param  string               $target
      * @return Zend_Json_Server_Smd
      */
     public function setTarget($target)
     {
         $this->_target = (string) $target;
+
         return $this;
     }
 
@@ -224,12 +229,13 @@ class Zend_Json_Server_Smd
     /**
      * Set service ID
      *
-     * @param  string $Id
+     * @param  string               $Id
      * @return Zend_Json_Server_Smd
      */
     public function setId($id)
     {
         $this->_id = (string) $id;
+
         return $this->_id;
     }
 
@@ -246,12 +252,13 @@ class Zend_Json_Server_Smd
     /**
      * Set service description
      *
-     * @param  string $description
+     * @param  string               $description
      * @return Zend_Json_Server_Smd
      */
     public function setDescription($description)
     {
         $this->_description = (string) $description;
+
         return $this->_description;
     }
 
@@ -268,12 +275,13 @@ class Zend_Json_Server_Smd
     /**
      * Indicate whether or not to generate Dojo-compatible SMD
      *
-     * @param  bool $flag
+     * @param  bool                 $flag
      * @return Zend_Json_Server_Smd
      */
     public function setDojoCompatible($flag)
     {
         $this->_dojoCompatible = (bool) $flag;
+
         return $this;
     }
 
@@ -290,7 +298,7 @@ class Zend_Json_Server_Smd
     /**
      * Add Service
      *
-     * @param Zend_Json_Server_Smd_Service|array $service
+     * @param  Zend_Json_Server_Smd_Service|array $service
      * @return void
      */
     public function addService($service)
@@ -312,13 +320,14 @@ class Zend_Json_Server_Smd
             throw new Zend_Json_Server_Exception('Attempt to register a service already registered detected');
         }
         $this->_services[$name] = $service;
+
         return $this;
     }
 
     /**
      * Add many services
      *
-     * @param  array $services
+     * @param  array                $services
      * @return Zend_Json_Server_Smd
      */
     public function addServices(array $services)
@@ -326,25 +335,27 @@ class Zend_Json_Server_Smd
         foreach ($services as $service) {
             $this->addService($service);
         }
+
         return $this;
     }
 
     /**
      * Overwrite existing services with new ones
      *
-     * @param  array $services
+     * @param  array                $services
      * @return Zend_Json_Server_Smd
      */
     public function setServices(array $services)
     {
         $this->_services = array();
+
         return $this->addServices($services);
     }
 
     /**
      * Get service object
      *
-     * @param  string $name
+     * @param  string                             $name
      * @return false|Zend_Json_Server_Smd_Service
      */
     public function getService($name)
@@ -352,6 +363,7 @@ class Zend_Json_Server_Smd
         if (array_key_exists($name, $this->_services)) {
             return $this->_services[$name];
         }
+
         return false;
     }
 
@@ -368,15 +380,17 @@ class Zend_Json_Server_Smd
     /**
      * Remove service
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function removeService($name)
     {
         if (array_key_exists($name, $this->_services)) {
             unset($this->_services[$name]);
+
             return true;
         }
+
         return false;
     }
 
@@ -464,6 +478,7 @@ class Zend_Json_Server_Smd
     public function toJson()
     {
         require_once 'Zend/Json.php';
+
         return Zend_Json::encode($this->toArray());
     }
 
@@ -477,4 +492,3 @@ class Zend_Json_Server_Smd
         return $this->toJson();
     }
 }
-

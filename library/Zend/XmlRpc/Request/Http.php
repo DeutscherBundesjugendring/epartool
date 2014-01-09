@@ -65,6 +65,7 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
         if (!$xml) {
             require_once 'Zend/XmlRpc/Fault.php';
             $this->_fault = new Zend_XmlRpc_Fault(630);
+
             return;
         }
 

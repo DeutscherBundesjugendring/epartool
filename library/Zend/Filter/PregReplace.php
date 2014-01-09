@@ -49,14 +49,14 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
      *
      * @var bool
      */
-    static protected $_unicodeSupportEnabled = null;
+    protected static $_unicodeSupportEnabled = null;
 
     /**
      * Is Unicode Support Enabled Utility function
      *
      * @return bool
      */
-    static public function isUnicodeSupportEnabled()
+    public static function isUnicodeSupportEnabled()
     {
         if (self::$_unicodeSupportEnabled === null) {
             self::_determineUnicodeSupport();
@@ -70,7 +70,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
      *
      * @return bool
      */
-    static protected function _determineUnicodeSupport()
+    protected static function _determineUnicodeSupport()
     {
         self::$_unicodeSupportEnabled = (@preg_match('/\pL/u', 'a')) ? true : false;
     }
@@ -88,7 +88,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if (!is_array($options)) {
+        } elseif (!is_array($options)) {
             $options = func_get_args();
             $temp    = array();
             if (!empty($options)) {
@@ -114,12 +114,13 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
     /**
      * Set the match pattern for the regex being called within filter()
      *
-     * @param mixed $match - same as the first argument of preg_replace
+     * @param  mixed                   $match - same as the first argument of preg_replace
      * @return Zend_Filter_PregReplace
      */
     public function setMatchPattern($match)
     {
         $this->_matchPattern = $match;
+
         return $this;
     }
 
@@ -136,12 +137,13 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
     /**
      * Set the Replacement pattern/string for the preg_replace called in filter
      *
-     * @param mixed $replacement - same as the second argument of preg_replace
+     * @param  mixed                   $replacement - same as the second argument of preg_replace
      * @return Zend_Filter_PregReplace
      */
     public function setReplacement($replacement)
     {
         $this->_replacement = $replacement;
+
         return $this;
     }
 

@@ -86,32 +86,34 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
     /**
      * Set a single dijit option parameter
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string                                  $key
+     * @param  mixed                                   $value
      * @return Zend_Dojo_Form_Decorator_DijitContainer
      */
     public function setDijitParam($key, $value)
     {
         $this->_dijitParams[(string) $key] = $value;
+
         return $this;
     }
 
     /**
      * Set dijit option parameters
      *
-     * @param  array $params
+     * @param  array                                   $params
      * @return Zend_Dojo_Form_Decorator_DijitContainer
      */
     public function setDijitParams(array $params)
     {
         $this->_dijitParams = array_merge($this->_dijitParams, $params);
+
         return $this;
     }
 
     /**
      * Retrieve a single dijit option parameter
      *
-     * @param  string $key
+     * @param  string     $key
      * @return mixed|null
      */
     public function getDijitParam($key)
@@ -133,6 +135,7 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
     public function getDijitParams()
     {
         $this->getElementAttribs();
+
         return $this->_dijitParams;
     }
 
@@ -143,7 +146,7 @@ class Zend_Dojo_Form_Decorator_DijitElement extends Zend_Form_Decorator_ViewHelp
      * the element type. Then call as
      * helper($element->getName(), $element->getValue(), $element->getAttribs())
      *
-     * @param  string $content
+     * @param  string                        $content
      * @return string
      * @throws Zend_Form_Decorator_Exception if element or view are not registered
      */

@@ -50,7 +50,6 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
      */
     private $_memContainer;
 
-
     /**
      * Object constructor
      *
@@ -68,7 +67,6 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
     {
         $this->_memContainer->destroy();
     }
-
 
     /**
      * Get string value reference
@@ -101,7 +99,6 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
         $this->_memContainer->lock();
     }
 
-
     /**
      * Unlock object
      */
@@ -126,7 +123,7 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
      * Loads object if necessary and moves it to the top of loaded objects list.
      * Swaps objects from the bottom of loaded objects list, if necessary.
      *
-     * @param string $property
+     * @param  string                $property
      * @return string
      * @throws Zend_Memory_Exception
      */
@@ -138,8 +135,8 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
     /**
      * Set handler
      *
-     * @param string $property
-     * @param  string $value
+     * @param  string         $property
+     * @param  string         $value
      * @throws Zend_Exception
      */
     public function __set($property, $value)

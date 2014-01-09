@@ -62,12 +62,13 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
     /**
      * Set view helper to use when rendering
      *
-     * @param  string $helper
+     * @param  string                                 $helper
      * @return Zend_Form_Decorator_Element_ViewHelper
      */
     public function setHelper($helper)
     {
         $this->_helper = (string) $helper;
+
         return $this;
     }
 
@@ -199,6 +200,7 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
 
                     return $element->getValue();
                 }
+
                 return $element->getLabel();
             }
         }
@@ -213,7 +215,7 @@ class Zend_Form_Decorator_ViewHelper extends Zend_Form_Decorator_Abstract
      * the element type. Then call as
      * helper($element->getName(), $element->getValue(), $element->getAttribs())
      *
-     * @param  string $content
+     * @param  string                        $content
      * @return string
      * @throws Zend_Form_Decorator_Exception if element or view are not registered
      */

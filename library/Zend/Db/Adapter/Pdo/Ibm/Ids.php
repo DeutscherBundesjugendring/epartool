@@ -20,13 +20,11 @@
  * @version    $Id: Ids.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** @see Zend_Db_Adapter_Pdo_Ibm */
 require_once 'Zend/Db/Adapter/Pdo/Ibm.php';
 
 /** @see Zend_Db_Statement_Pdo_Ibm */
 require_once 'Zend/Db/Statement/Pdo/Ibm.php';
-
 
 /**
  * @category   Zend
@@ -71,8 +69,8 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
     /**
      * IDS catalog lookup for describe table
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -140,7 +138,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
                 'NULLABLE'          => (bool) !($row[$typename] - 256 >= 0),
                 'LENGTH'            => $row[$length],
                 'SCALE'             => ($row[$typename] == 5 ? $row[$length]&255 : 0),
-                'PRECISION'         => ($row[$typename] == 5 ? (int)($row[$length]/256) : 0),
+                'PRECISION'         => ($row[$typename] == 5 ? (int) ($row[$length]/256) : 0),
                 'UNSIGNED'          => false,
                 'PRIMARY'           => $primary,
                 'PRIMARY_POSITION'  => $primaryPosition,
@@ -155,7 +153,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
      * Map number representation of a data type
      * to a string
      *
-     * @param int $typeNo
+     * @param  int    $typeNo
      * @return string
      */
     protected function _getDataType($typeNo)
@@ -199,7 +197,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
      * Helper method to retrieve primary key column
      * and column location
      *
-     * @param int $tabid
+     * @param  int   $tabid
      * @return array
      */
     protected function _getPrimaryInfo($tabid)
@@ -239,9 +237,9 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
     /**
      * Adds an IDS-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string                    $sql
+     * @param  integer                   $count
+     * @param  integer                   $offset OPTIONAL
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
@@ -252,7 +250,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
             /** @see Zend_Db_Adapter_Exception */
             require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
-        } else if ($count == 0) {
+        } elseif ($count == 0) {
               $limit_sql = str_ireplace("SELECT", "SELECT * FROM (SELECT", $sql);
               $limit_sql .= ") WHERE 0 = 1";
         } else {
@@ -268,13 +266,14 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
                 $limit_sql = str_ireplace("SELECT", "SELECT SKIP $offset LIMIT $count", $sql);
             }
         }
+
         return $limit_sql;
     }
 
     /**
      * IDS-specific last sequence id
      *
-     * @param string $sequenceName
+     * @param  string  $sequenceName
      * @return integer
      */
     public function lastSequenceId($sequenceName)
@@ -282,6 +281,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
         $sql = 'SELECT '.$this->_adapter->quoteIdentifier($sequenceName).'.CURRVAL FROM '
                .'systables WHERE tabid = 1';
         $value = $this->_adapter->fetchOne($sql);
+
         return $value;
     }
 
@@ -296,6 +296,7 @@ class Zend_Db_Adapter_Pdo_Ibm_Ids
         $sql = 'SELECT '.$this->_adapter->quoteIdentifier($sequenceName).'.NEXTVAL FROM '
                .'systables WHERE tabid = 1';
         $value = $this->_adapter->fetchOne($sql);
+
         return $value;
     }
 }

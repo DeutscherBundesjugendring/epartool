@@ -20,7 +20,6 @@
  * @version    $Id: Message.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * A message envelope that can be passed to Zend_Wildfire_Plugin_FirePhp to be
  * logged to Firebug instead of a variable.
@@ -81,11 +80,11 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     /**
      * Creates a new message with the given style and message
      *
-     * @param string $style Style of the message.
-     * @param mixed $message The message
+     * @param  string $style   Style of the message.
+     * @param  mixed  $message The message
      * @return void
      */
-    function __construct($style, $message)
+    public function __construct($style, $message)
     {
         $this->_style = $style;
         $this->_message = $message;
@@ -95,7 +94,7 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     /**
      * Set the label of the message
      *
-     * @param string $label The label to be set
+     * @param  string $label The label to be set
      * @return void
      */
     public function setLabel($label)
@@ -119,13 +118,14 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      * If a message is buffered it can be updated for the duration of the
      * request and is only flushed at the end of the request.
      *
-     * @param boolean $buffered TRUE to enable buffering FALSE otherwise
+     * @param  boolean $buffered TRUE to enable buffering FALSE otherwise
      * @return boolean Returns previous buffering value
      */
     public function setBuffered($buffered)
     {
         $previous = $this->_buffered;
         $this->_buffered = $buffered;
+
         return $previous;
     }
 
@@ -142,13 +142,14 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     /**
      * Destroy the message to prevent delivery
      *
-     * @param boolean $destroy TRUE to destroy FALSE otherwise
+     * @param  boolean $destroy TRUE to destroy FALSE otherwise
      * @return boolean Returns previous destroy value
      */
     public function setDestroy($destroy)
     {
         $previous = $this->_destroy;
         $this->_destroy = $destroy;
+
         return $previous;
     }
 
@@ -205,17 +206,18 @@ class Zend_Wildfire_Plugin_FirePhp_Message
     /**
      * Set a single option
      *
-     * @param  string $key The name of the option
-     * @param  mixed $value The value of the option
-     * @return mixed The previous value of the option
+     * @param  string $key   The name of the option
+     * @param  mixed  $value The value of the option
+     * @return mixed  The previous value of the option
      */
     public function setOption($key, $value)
     {
-      if(!array_key_exists($key,$this->_options)) {
+      if (!array_key_exists($key,$this->_options)) {
         throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
       }
       $previous = $this->_options[$key];
       $this->_options[$key] = $value;
+
       return $previous;
     }
 
@@ -223,13 +225,14 @@ class Zend_Wildfire_Plugin_FirePhp_Message
      * Retrieve a single option
      *
      * @param  string $key The name of the option
-     * @return mixed The value of the option
+     * @return mixed  The value of the option
      */
     public function getOption($key)
     {
-      if(!array_key_exists($key,$this->_options)) {
+      if (!array_key_exists($key,$this->_options)) {
         throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
       }
+
       return $this->_options[$key];
     }
 
@@ -243,4 +246,3 @@ class Zend_Wildfire_Plugin_FirePhp_Message
       return $this->_options;
     }
 }
-

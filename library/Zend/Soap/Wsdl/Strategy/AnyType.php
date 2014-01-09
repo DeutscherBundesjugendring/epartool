@@ -23,7 +23,7 @@
 /**
  * @see Zend_Soap_Wsdl_Strategy_Interface
  */
-require_once "Zend/Soap/Wsdl/Strategy/Interface.php";
+require_once 'Zend/Soap/Wsdl/Strategy/Interface.php';
 
 /**
  * Zend_Soap_Wsdl_Strategy_AnyType
@@ -49,7 +49,7 @@ class Zend_Soap_Wsdl_Strategy_AnyType implements Zend_Soap_Wsdl_Strategy_Interfa
     /**
      * Returns xsd:anyType regardless of the input.
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function addComplexType($type)

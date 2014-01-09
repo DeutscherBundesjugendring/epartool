@@ -64,12 +64,13 @@ class Zend_View_Helper_BaseUrl extends Zend_View_Helper_Abstract
     /**
      * Set BaseUrl
      *
-     * @param  string $base
+     * @param  string                   $base
      * @return Zend_View_Helper_BaseUrl
      */
     public function setBaseUrl($base)
     {
         $this->_baseUrl = rtrim($base, '/\\');
+
         return $this;
     }
 

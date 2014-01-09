@@ -111,12 +111,13 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Set XML encoding
      *
-     * @param  string $encoding
+     * @param  string           $encoding
      * @return Zend_Rest_Server
      */
     public function setEncoding($encoding)
     {
         $this->_encoding = (string) $encoding;
+
         return $this;
     }
 
@@ -135,8 +136,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
      *
      * Lowercase's a string by reference
      *
-     * @param string $value
-     * @param string $key
+     * @param  string $value
+     * @param  string $key
      * @return string Lower cased string
      */
     public static function lowerCase(&$value, &$key)
@@ -153,7 +154,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      * When 'return response' is true, {@link handle()} will not send output,
      * but will instead return the response from the dispatched function/method.
      *
-     * @param boolean $flag
+     * @param  boolean                  $flag
      * @return boolean|Zend_Rest_Server Returns Zend_Rest_Server when used to set the flag; returns boolean flag value otherwise.
      */
     public function returnResponse($flag = null)
@@ -163,13 +164,14 @@ class Zend_Rest_Server implements Zend_Server_Interface
         }
 
         $this->_returnResponse = ($flag) ? true : false;
+
         return $this;
     }
 
     /**
      * Implement Zend_Server_Interface::handle()
      *
-     * @param  array $request
+     * @param  array                      $request
      * @throws Zend_Rest_Server_Exception
      * @return string|void
      */
@@ -241,21 +243,21 @@ class Zend_Rest_Server implements Zend_Server_Interface
                         }
                     }
                 } else {
-                    require_once "Zend/Rest/Server/Exception.php";
+                    require_once 'Zend/Rest/Server/Exception.php';
                     $result = $this->fault(
                         new Zend_Rest_Server_Exception("Unknown Method '$this->_method'."),
                         404
                     );
                 }
             } else {
-                require_once "Zend/Rest/Server/Exception.php";
+                require_once 'Zend/Rest/Server/Exception.php';
                 $result = $this->fault(
                     new Zend_Rest_Server_Exception("Unknown Method '$this->_method'."),
                     404
                 );
             }
         } else {
-            require_once "Zend/Rest/Server/Exception.php";
+            require_once 'Zend/Rest/Server/Exception.php';
             $result = $this->fault(
                 new Zend_Rest_Server_Exception("No Method Specified."),
                 404
@@ -282,6 +284,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
             }
 
             echo $response;
+
             return;
         }
 
@@ -293,7 +296,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      *
      * @param string $classname Class name
      * @param string $namespace Class namespace (unused)
-     * @param array $argv An array of Constructor Arguments
+     * @param array  $argv      An array of Constructor Arguments
      */
     public function setClass($classname, $namespace = '', $argv = array())
     {
@@ -306,8 +309,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Handle an array or object result
      *
-     * @param array|object $struct Result Value
-     * @return string XML Response
+     * @param  array|object $struct Result Value
+     * @return string       XML Response
      */
     protected function _handleStruct($struct)
     {
@@ -350,9 +353,9 @@ class Zend_Rest_Server implements Zend_Server_Interface
      * Recursively iterates through an associative array or object's properties
      * to build XML response.
      *
-     * @param mixed $struct
-     * @param DOMDocument $dom
-     * @param DOMElement $parent
+     * @param  mixed       $struct
+     * @param  DOMDocument $dom
+     * @param  DOMElement  $parent
      * @return void
      */
     protected function _structValue($struct, DOMDocument $dom, DOMElement $parent)
@@ -385,8 +388,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Handle a single value
      *
-     * @param string|int|boolean $value Result value
-     * @return string XML Response
+     * @param  string|int|boolean $value Result value
+     * @return string             XML Response
      */
     protected function _handleScalar($value)
     {
@@ -436,8 +439,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
      *
      * Creates XML error response, returning DOMDocument with response.
      *
-     * @param string|Exception $fault Message
-     * @param int $code Error Code
+     * @param  string|Exception $fault Message
+     * @param  int              $code  Error Code
      * @return DOMDocument
      */
     public function fault($exception = null, $code = null)
@@ -515,7 +518,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Implement Zend_Server_Interface::addFunction()
      *
-     * @param string $function Function Name
+     * @param string $function  Function Name
      * @param string $namespace Function namespace (unused)
      */
     public function addFunction($function, $namespace = '')
@@ -568,7 +571,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      * Call a static class method and return the result
      *
      * @param  string $class
-     * @param  array $args
+     * @param  array  $args
      * @return mixed
      */
     protected function _callStaticMethod($class, array $args)
@@ -578,14 +581,15 @@ class Zend_Rest_Server implements Zend_Server_Interface
         } catch (Exception $e) {
             $result = $this->fault($e);
         }
+
         return $result;
     }
 
     /**
      * Call an instance method of an object
      *
-     * @param  string $class
-     * @param  array $args
+     * @param  string                     $class
+     * @param  array                      $args
      * @return mixed
      * @throws Zend_Rest_Server_Exception For invalid class name
      */

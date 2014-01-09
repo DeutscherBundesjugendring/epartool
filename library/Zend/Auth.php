@@ -19,7 +19,6 @@
  * @version    $Id: Auth.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Auth
@@ -98,11 +97,12 @@ class Zend_Auth
      * Sets the persistent storage handler
      *
      * @param  Zend_Auth_Storage_Interface $storage
-     * @return Zend_Auth Provides a fluent interface
+     * @return Zend_Auth                   Provides a fluent interface
      */
     public function setStorage(Zend_Auth_Storage_Interface $storage)
     {
         $this->_storage = $storage;
+
         return $this;
     }
 

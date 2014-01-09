@@ -19,7 +19,6 @@
  * @version    $Id: Result.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Auth
@@ -84,9 +83,9 @@ class Zend_Auth_Result
     /**
      * Sets the result code, identity, and failure messages
      *
-     * @param  int     $code
-     * @param  mixed   $identity
-     * @param  array   $messages
+     * @param  int   $code
+     * @param  mixed $identity
+     * @param  array $messages
      * @return void
      */
     public function __construct($code, $identity, array $messages = array())
@@ -95,7 +94,7 @@ class Zend_Auth_Result
 
         if ($code < self::FAILURE_UNCATEGORIZED) {
             $code = self::FAILURE;
-        } elseif ($code > self::SUCCESS ) {
+        } elseif ($code > self::SUCCESS) {
             $code = 1;
         }
 

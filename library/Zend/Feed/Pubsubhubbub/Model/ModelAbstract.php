@@ -19,7 +19,6 @@
  * @version    $Id: ModelAbstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** @see Zend_Db_Table */
 require_once 'Zend/Db/Table.php';
 
@@ -47,7 +46,7 @@ class Zend_Feed_Pubsubhubbub_Model_ModelAbstract
     /**
      * Constructor
      *
-     * @param  array $data
+     * @param  array                  $data
      * @param  Zend_Db_Table_Abstract $tableGateway
      * @return void
      */

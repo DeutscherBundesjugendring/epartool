@@ -39,7 +39,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      *
      * Returns true on success, false on failure
      *
-     * @param  string $filename
+     * @param  string           $filename
      * @param  Zend_Json_Server $server
      * @return boolean
      */
@@ -64,7 +64,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      * On success, returns the cached SMD (a JSON string); an failure, returns
      * boolean false.
      *
-     * @param  string $filename
+     * @param  string       $filename
      * @return string|false
      */
     public static function getSmd($filename)
@@ -75,7 +75,6 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
         {
             return false;
         }
-
 
         if (false === ($smd = @file_get_contents($filename))) {
             return false;
@@ -94,6 +93,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
     {
         if (is_string($filename) && file_exists($filename)) {
             unlink($filename);
+
             return true;
         }
 

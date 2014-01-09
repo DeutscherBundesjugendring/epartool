@@ -19,10 +19,8 @@
  * @version    $Id: Binary.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Element_String */
 require_once 'Zend/Pdf/Element/String.php';
-
 
 /**
  * PDF file 'binary string' element implementation
@@ -41,11 +39,10 @@ class Zend_Pdf_Element_String_Binary extends Zend_Pdf_Element_String
      */
     public $value;
 
-
     /**
      * Escape string according to the PDF rules
      *
-     * @param string $inStr
+     * @param  string $inStr
      * @return string
      */
     public static function escape($inStr)
@@ -53,11 +50,10 @@ class Zend_Pdf_Element_String_Binary extends Zend_Pdf_Element_String
         return strtoupper(bin2hex($inStr));
     }
 
-
     /**
      * Unescape string according to the PDF rules
      *
-     * @param string $inStr
+     * @param  string $inStr
      * @return string
      */
     public static function unescape($inStr)
@@ -84,15 +80,14 @@ class Zend_Pdf_Element_String_Binary extends Zend_Pdf_Element_String
         return pack('H*' , implode($chunks));
     }
 
-
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)
     {
-        return '<' . self::escape((string)$this->value) . '>';
+        return '<' . self::escape((string) $this->value) . '>';
     }
 }

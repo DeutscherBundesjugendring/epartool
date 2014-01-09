@@ -19,10 +19,8 @@
  * @version    $Id: Dictionary.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Name.php';
-
 
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
@@ -45,18 +43,17 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
      */
     private $_items = array();
 
-
     /**
      * Object constructor
      *
-     * @param array $val   - array of Zend_Pdf_Element objects
+     * @param  array              $val - array of Zend_Pdf_Element objects
      * @throws Zend_Pdf_Exception
      */
     public function __construct($val = null)
     {
         if ($val === null) {
             return;
-        } else if (!is_array($val)) {
+        } elseif (!is_array($val)) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Argument must be an array');
         }
@@ -74,12 +71,11 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         }
     }
 
-
     /**
      * Add element to an array
      *
      * @name Zend_Pdf_Element_Name $name
-     * @param Zend_Pdf_Element $val   - Zend_Pdf_Element object
+     * @param  Zend_Pdf_Element   $val - Zend_Pdf_Element object
      * @throws Zend_Pdf_Exception
      */
     public function add(Zend_Pdf_Element_Name $name, Zend_Pdf_Element $val)
@@ -97,11 +93,10 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         return array_keys($this->_items);
     }
 
-
     /**
      * Get handler
      *
-     * @param string $property
+     * @param  string           $property
      * @return Zend_Pdf_Element | null
      */
     public function __get($item)
@@ -116,7 +111,7 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
      * Set handler
      *
      * @param string $property
-     * @param  mixed $value
+     * @param mixed  $value
      */
     public function __set($item, $value)
     {
@@ -137,11 +132,10 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_DICTIONARY;
     }
 
-
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)
@@ -155,7 +149,7 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
                 throw new Zend_Pdf_Exception('Wrong data');
             }
 
-            if (strlen($outStr) - $lastNL > 128)  {
+            if (strlen($outStr) - $lastNL > 128) {
                 $outStr .= "\n";
                 $lastNL = strlen($outStr);
             }
@@ -171,9 +165,9 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
     /**
      * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
      *
-     * @param Zend_Pdf_ElementFactory $factory  The factory to attach
-     * @param array &$processed  List of already processed indirect objects, used to avoid objects duplication
-     * @param integer $mode  Cloning mode (defines filter for objects cloning)
+     * @param Zend_Pdf_ElementFactory $factory    The factory to attach
+     * @param array                   &$processed List of already processed indirect objects, used to avoid objects duplication
+     * @param integer                 $mode       Cloning mode (defines filter for objects cloning)
      * @returns Zend_Pdf_Element
      * @throws Zend_Pdf_Exception
      */

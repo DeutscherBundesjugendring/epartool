@@ -206,12 +206,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set the view object
      *
-     * @param  Zend_View_Interface $view
+     * @param  Zend_View_Interface                        $view
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setView(Zend_View_Interface $view)
     {
         $this->view = $view;
+
         return $this;
     }
 
@@ -249,6 +250,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
             throw new Zend_Controller_Action_Exception('ViewRenderer cannot locate module directory for module "' . $module . '"');
         }
         $this->_moduleDir = dirname($moduleDir);
+
         return $this->_moduleDir;
     }
 
@@ -292,8 +294,8 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set inflector
      *
-     * @param  Zend_Filter_Inflector $inflector
-     * @param  boolean               $reference Whether the moduleDir, target, and suffix should be set as references to ViewRenderer properties
+     * @param  Zend_Filter_Inflector                      $inflector
+     * @param  boolean                                    $reference Whether the moduleDir, target, and suffix should be set as references to ViewRenderer properties
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setInflector(Zend_Filter_Inflector $inflector, $reference = false)
@@ -304,6 +306,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
                  ->setStaticRuleReference('moduleDir', $this->_moduleDir)
                  ->setTargetReference($this->_inflectorTarget);
         }
+
         return $this;
     }
 
@@ -391,19 +394,19 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
             );
 
         $path = $inflector->filter($parts);
+
         return $path;
     }
 
     /**
      * Set options
      *
-     * @param  array $options
+     * @param  array                                      $options
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     protected function _setOptions(array $options)
     {
-        foreach ($options as $key => $value)
-        {
+        foreach ($options as $key => $value) {
             switch ($key) {
                 case 'neverRender':
                 case 'neverController':
@@ -443,9 +446,9 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
      * - viewScriptPathNoControllerSpec - specification to use for determining view script paths when noController flag is set
      * - viewSuffix - what view script filename suffix to use
      *
-     * @param  string $path
-     * @param  string $prefix
-     * @param  array  $options
+     * @param  string                           $path
+     * @param  string                           $prefix
+     * @param  array                            $options
      * @throws Zend_Controller_Action_Exception
      * @return void
      */
@@ -525,12 +528,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
      * - :action - name of current action in the request
      * - :module - name of current module in the request
      *
-     * @param  string $path
+     * @param  string                                     $path
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setViewBasePathSpec($path)
     {
         $this->_viewBasePathSpec = (string) $path;
+
         return $this;
     }
 
@@ -553,12 +557,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
      * - :action - name of current action in the request
      * - :module - name of current module in the request
      *
-     * @param  string $path
+     * @param  string                                     $path
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setViewScriptPathSpec($path)
     {
         $this->_viewScriptPathSpec = (string) $path;
+
         return $this;
     }
 
@@ -583,12 +588,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
      *
      * :controller will likely be ignored in this variant.
      *
-     * @param  string $path
+     * @param  string                                     $path
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setViewScriptPathNoControllerSpec($path)
     {
         $this->_viewScriptPathNoControllerSpec = (string) $path;
+
         return $this;
     }
 
@@ -626,7 +632,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
         } elseif (null !== $action) {
             $vars['action'] = $action;
         }
-        
+
         $replacePattern = array('/[^a-z0-9]+$/i', '/^[^a-z0-9]+/i');
         $vars['action'] = preg_replace($replacePattern, '', $vars['action']);
 
@@ -636,18 +642,20 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
         } else {
             $this->_setInflectorTarget($this->getViewScriptPathSpec());
         }
+
         return $this->_translateSpec($vars);
     }
 
     /**
      * Set the neverRender flag (i.e., globally dis/enable autorendering)
      *
-     * @param  boolean $flag
+     * @param  boolean                                    $flag
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setNeverRender($flag = true)
     {
         $this->_neverRender = ($flag) ? true : false;
+
         return $this;
     }
 
@@ -664,12 +672,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set the noRender flag (i.e., whether or not to autorender)
      *
-     * @param  boolean $flag
+     * @param  boolean                                    $flag
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setNoRender($flag = true)
     {
         $this->_noRender = ($flag) ? true : false;
+
         return $this;
     }
 
@@ -686,12 +695,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set the view script to use
      *
-     * @param  string $name
+     * @param  string                                     $name
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setScriptAction($name)
     {
         $this->_scriptAction = (string) $name;
+
         return $this;
     }
 
@@ -708,7 +718,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set the response segment name
      *
-     * @param  string $name
+     * @param  string                                     $name
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setResponseSegment($name)
@@ -735,12 +745,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set the noController flag (i.e., whether or not to render into controller subdirectories)
      *
-     * @param  boolean $flag
+     * @param  boolean                                    $flag
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setNoController($flag = true)
     {
         $this->_noController = ($flag) ? true : false;
+
         return $this;
     }
 
@@ -757,12 +768,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set the neverController flag (i.e., whether or not to render into controller subdirectories)
      *
-     * @param  boolean $flag
+     * @param  boolean                                    $flag
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setNeverController($flag = true)
     {
         $this->_neverController = ($flag) ? true : false;
+
         return $this;
     }
 
@@ -779,12 +791,13 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set view script suffix
      *
-     * @param  string $suffix
+     * @param  string                                     $suffix
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setViewSuffix($suffix)
     {
         $this->_viewSuffix = (string) $suffix;
+
         return $this;
     }
 
@@ -801,9 +814,9 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     /**
      * Set options for rendering a view script
      *
-     * @param  string  $action       View script to render
-     * @param  string  $name         Response named segment to render to
-     * @param  boolean $noController Whether or not to render within a subdirectory named after the controller
+     * @param  string                                     $action       View script to render
+     * @param  string                                     $name         Response named segment to render to
+     * @param  boolean                                    $noController Whether or not to render within a subdirectory named after the controller
      * @return Zend_Controller_Action_Helper_ViewRenderer Provides a fluent interface
      */
     public function setRender($action = null, $name = null, $noController = null)
@@ -833,7 +846,7 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
      * - :action - current action name
      * - :suffix - view script file suffix
      *
-     * @param  array $vars
+     * @param  array  $vars
      * @return string
      */
     protected function _translateSpec(array $vars = array())

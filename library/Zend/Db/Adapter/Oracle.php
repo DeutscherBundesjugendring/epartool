@@ -167,12 +167,13 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     /**
      * Activate/deactivate return of LOB as string
      *
-     * @param string $lob_as_string
+     * @param  string                 $lob_as_string
      * @return Zend_Db_Adapter_Oracle
      */
     public function setLobAsString($lobAsString)
     {
         $this->_lobAsString = (bool) $lobAsString;
+
         return $this;
     }
 
@@ -192,13 +193,14 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
                 $this->_lobAsString = false;
             }
         }
+
         return $this->_lobAsString;
     }
 
     /**
      * Returns an SQL statement for preparation.
      *
-     * @param string $sql The SQL statement with placeholders.
+     * @param  string                   $sql The SQL statement with placeholders.
      * @return Zend_Db_Statement_Oracle
      */
     public function prepare($sql)
@@ -214,14 +216,15 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
             $stmt->setLobAsString($this->getLobAsString());
         }
         $stmt->setFetchMode($this->_fetchMode);
+
         return $stmt;
     }
 
     /**
      * Quote a raw string.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param  string $value Raw string
+     * @return string Quoted string
      */
     protected function _quote($value)
     {
@@ -229,16 +232,17 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
             return $value;
         }
         $value = str_replace("'", "''", $value);
+
         return "'" . addcslashes($value, "\000\n\r\\\032") . "'";
     }
 
     /**
      * Quote a table identifier and alias.
      *
-     * @param string|array|Zend_Db_Expr $ident The identifier or expression.
-     * @param string $alias An alias for the table.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
-     * @return string The quoted identifier and alias.
+     * @param  string|array|Zend_Db_Expr $ident The identifier or expression.
+     * @param  string                    $alias An alias for the table.
+     * @param  boolean                   $auto  If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @return string                    The quoted identifier and alias.
      */
     public function quoteTableAs($ident, $alias = null, $auto = false)
     {
@@ -251,7 +255,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      * This is supported only on RDBMS brands that support sequences
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
-     * @param string $sequenceName
+     * @param  string $sequenceName
      * @return string
      */
     public function lastSequenceId($sequenceName)
@@ -259,6 +263,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
         $this->_connect();
         $sql = 'SELECT '.$this->quoteIdentifier($sequenceName, true).'.CURRVAL FROM dual';
         $value = $this->fetchOne($sql);
+
         return $value;
     }
 
@@ -267,7 +272,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      * This is supported only on RDBMS brands that support sequences
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
-     * @param string $sequenceName
+     * @param  string $sequenceName
      * @return string
      */
     public function nextSequenceId($sequenceName)
@@ -275,6 +280,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
         $this->_connect();
         $sql = 'SELECT '.$this->quoteIdentifier($sequenceName, true).'.NEXTVAL FROM dual';
         $value = $this->fetchOne($sql);
+
         return $value;
     }
 
@@ -291,8 +297,8 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      * Oracle does not support IDENTITY columns, so if the sequence is not
      * specified, this method returns null.
      *
-     * @param string $tableName   OPTIONAL Name of table.
-     * @param string $primaryKey  OPTIONAL Name of primary key column.
+     * @param  string $tableName  OPTIONAL Name of table.
+     * @param  string $primaryKey OPTIONAL Name of primary key column.
      * @return string
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
@@ -303,6 +309,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
                 $sequenceName .= "_$primaryKey";
             }
             $sequenceName .= '_seq';
+
             return $this->lastSequenceId($sequenceName);
         }
 
@@ -319,6 +326,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     {
         $this->_connect();
         $data = $this->fetchCol('SELECT table_name FROM all_tables');
+
         return $data;
     }
 
@@ -348,8 +356,8 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      *
      * @todo Discover integer unsigned property.
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -443,6 +451,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
                 'IDENTITY'         => $identity
             );
         }
+
         return $desc;
     }
 
@@ -497,7 +506,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      *
      * @todo Support FETCH_CLASS and FETCH_INTO.
      *
-     * @param integer $mode A fetch mode.
+     * @param  integer                          $mode A fetch mode.
      * @return void
      * @throws Zend_Db_Adapter_Oracle_Exception
      */
@@ -530,9 +539,9 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string                           $sql
+     * @param  integer                          $count
+     * @param  integer                          $offset OPTIONAL
      * @return string
      * @throws Zend_Db_Adapter_Oracle_Exception
      */
@@ -570,16 +579,17 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
                 ) z1
             ) z2
             WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
+
         return $limit_sql;
     }
 
     /**
-     * @param integer $mode
+     * @param  integer                          $mode
      * @throws Zend_Db_Adapter_Oracle_Exception
      */
     private function _setExecuteMode($mode)
     {
-        switch($mode) {
+        switch ($mode) {
             case OCI_COMMIT_ON_SUCCESS:
             case OCI_DEFAULT:
             case OCI_DESCRIBE_ONLY:
@@ -606,7 +616,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     /**
      * Check if the adapter supports real SQL parameters.
      *
-     * @param string $type 'positional' or 'named'
+     * @param  string $type 'positional' or 'named'
      * @return bool
      */
     public function supportsParameters($type)

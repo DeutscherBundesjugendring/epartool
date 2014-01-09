@@ -20,14 +20,12 @@
  * @version    $Id: TrueType.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 
 require_once 'Zend/Pdf/Element/Name.php';
 
 /** Zend_Pdf_Resource_Font_FontDescriptor */
 require_once 'Zend/Pdf/Resource/Font/FontDescriptor.php';
-
 
 /** Zend_Pdf_Resource_Font_CidFont */
 require_once 'Zend/Pdf/Resource/Font/CidFont.php';
@@ -56,7 +54,7 @@ class Zend_Pdf_Resource_Font_CidFont_TrueType extends Zend_Pdf_Resource_Font_Cid
      *
      * @param Zend_Pdf_FileParser_Font_OpenType_TrueType $fontParser Font parser
      *   object containing parsed TrueType file.
-     * @param integer $embeddingOptions Options for font embedding.
+     * @param  integer            $embeddingOptions Options for font embedding.
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_FileParser_Font_OpenType_TrueType $fontParser, $embeddingOptions)

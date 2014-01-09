@@ -136,9 +136,9 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
     /**
      * Zend_Measure_Abstract is an abstract class for the different measurement types
      *
-     * @param  integer            $value  Value
-     * @param  string             $type   (Optional) A Zend_Measure_Number Type
-     * @param  string|Zend_Locale $locale (Optional) A Zend_Locale
+     * @param  integer                $value  Value
+     * @param  string                 $type   (Optional) A Zend_Measure_Number Type
+     * @param  string|Zend_Locale     $locale (Optional) A Zend_Locale
      * @throws Zend_Measure_Exception When language is unknown
      * @throws Zend_Measure_Exception When type is unknown
      */
@@ -179,9 +179,9 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
     /**
      * Set a new value
      *
-     * @param  integer            $value  Value
-     * @param  string             $type   (Optional) A Zend_Measure_Number Type
-     * @param  string|Zend_Locale $locale (Optional) A Zend_Locale Type
+     * @param  integer                $value  Value
+     * @param  string                 $type   (Optional) A Zend_Measure_Number Type
+     * @param  string|Zend_Locale     $locale (Optional) A Zend_Locale Type
      * @throws Zend_Measure_Exception
      */
     public function setValue($value, $type = null, $locale = null)
@@ -195,7 +195,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
             throw new Zend_Measure_Exception('unknown type of number:' . $type);
         }
 
-        switch($type) {
+        switch ($type) {
             case 'BINARY':
                 preg_match('/[01]+/', $value, $ergebnis);
                 $value = $ergebnis[0];
@@ -319,8 +319,8 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
     /**
      * Convert input to type value string
      *
-     * @param  integer $value Input string
-     * @param  string  $type  Type to convert to
+     * @param  integer                $value Input string
+     * @param  string                 $type  Type to convert to
      * @return string
      * @throws Zend_Measure_Exception When more than 200 digits are calculated
      */
@@ -386,7 +386,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
     /**
      * Set a new type, and convert the value
      *
-     * @param  string $type New type to set
+     * @param  string                 $type New type to set
      * @throws Zend_Measure_Exception When a unknown type is given
      * @return void
      */
@@ -415,6 +415,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
     public function convertTo($type, $round = 0, $locale = null)
     {
         $this->setType($type);
+
         return $this->toString($round, $locale);
     }
 }

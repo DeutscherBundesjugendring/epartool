@@ -20,7 +20,6 @@
  * @version    $Id: Target.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * PDF target (action or destination)
  *
@@ -38,14 +37,16 @@ abstract class Zend_Pdf_Target
      * @return Zend_Pdf_Destination|
      * @throws Zend_Pdf_Exception
      */
-    public static function load(Zend_Pdf_Element $resource) {
+    public static function load(Zend_Pdf_Element $resource)
+    {
         require_once 'Zend/Pdf/Element.php';
         if ($resource->getType() == Zend_Pdf_Element::TYPE_DICTIONARY) {
             if (($resource->Type === null  ||  $resource->Type->value =='Action')  &&  $resource->S !== null) {
                 // It's a well-formed action, load it
                 require_once 'Zend/Pdf/Action.php';
+
                 return Zend_Pdf_Action::load($resource);
-            } else if ($resource->D !== null) {
+            } elseif ($resource->D !== null) {
                 // It's a destination
                 $resource = $resource->D;
             } else {
@@ -59,6 +60,7 @@ abstract class Zend_Pdf_Target
             $resource->getType() == Zend_Pdf_Element::TYPE_STRING) {
             // Resource is an array, just treat it as an explicit destination array
             require_once 'Zend/Pdf/Destination.php';
+
             return Zend_Pdf_Destination::load($resource);
         } else {
             require_once 'Zend/Pdf/Exception.php';

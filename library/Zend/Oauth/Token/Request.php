@@ -33,7 +33,7 @@ class Zend_Oauth_Token_Request extends Zend_Oauth_Token
     /**
      * Constructor
      *
-     * @param null|Zend_Http_Response $response
+     * @param null|Zend_Http_Response      $response
      * @param null|Zend_Oauth_Http_Utility $utility
      */
     public function __construct(

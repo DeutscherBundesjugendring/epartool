@@ -75,7 +75,7 @@ class Zend_Filter_Alnum implements Zend_Filter_Interface
     {
         if ($allowWhiteSpace instanceof Zend_Config) {
             $allowWhiteSpace = $allowWhiteSpace->toArray();
-        } else if (is_array($allowWhiteSpace)) {
+        } elseif (is_array($allowWhiteSpace)) {
             if (array_key_exists('allowwhitespace', $allowWhiteSpace)) {
                 $allowWhiteSpace = $allowWhiteSpace['allowwhitespace'];
             } else {
@@ -110,12 +110,13 @@ class Zend_Filter_Alnum implements Zend_Filter_Interface
     /**
      * Sets the allowWhiteSpace option
      *
-     * @param boolean $allowWhiteSpace
+     * @param  boolean           $allowWhiteSpace
      * @return Zend_Filter_Alnum Provides a fluent interface
      */
     public function setAllowWhiteSpace($allowWhiteSpace)
     {
         $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
+
         return $this;
     }
 
@@ -133,7 +134,7 @@ class Zend_Filter_Alnum implements Zend_Filter_Interface
         if (!self::$_unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z0-9 match
             $pattern = '/[^a-zA-Z0-9' . $whiteSpace . ']/';
-        } else if (self::$_meansEnglishAlphabet) {
+        } elseif (self::$_meansEnglishAlphabet) {
             //The Alphabet means english alphabet.
             $pattern = '/[^a-zA-Z0-9'  . $whiteSpace . ']/u';
         } else {

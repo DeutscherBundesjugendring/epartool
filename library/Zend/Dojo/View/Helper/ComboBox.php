@@ -55,10 +55,10 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
     /**
      * dijit.form.ComboBox
      *
-     * @param  int $id
-     * @param  mixed $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  int        $id
+     * @param  mixed      $value
+     * @param  array      $params  Parameters to use for dijit creation
+     * @param  array      $attribs HTML attributes
      * @param  array|null $options Select options
      * @return string
      */
@@ -76,6 +76,7 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
                     $html .= $store;
                 }
                 $html .= $this->_createFormElement($id, $value, $params, $attribs);
+
                 return $html;
             }
             unset($params['store']);
@@ -97,15 +98,17 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
                 }
             }
             $html .= $this->_createFormElement($id, $value, $params, $attribs);
+
             return $html;
         }
 
-        // required for correct type casting in declerative mode 
+        // required for correct type casting in declerative mode
         if (isset($params['autocomplete'])) {
             $params['autocomplete'] = ($params['autocomplete']) ? 'true' : 'false';
         }
         // do as normal select
         $attribs = $this->_prepareDijit($attribs, $params, 'element');
+
         return $this->view->formSelect($id, $value, $attribs, $options);
     }
 
@@ -114,7 +117,7 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
      *
      * Renders to dojo view helper
      *
-     * @param  array $params
+     * @param  array        $params
      * @return string|false
      */
     protected function _renderStore(array $params, $id)
@@ -144,9 +147,10 @@ class Zend_Dojo_View_Helper_ComboBox extends Zend_Dojo_View_Helper_Dijit
                     . 'new ' . $storeParams['dojoType'] . '('
                     .     Zend_Json::encode($extraParams)
                     . ");\n";
-                $js = "function() {\n$js\n}";
+                $js = "function () {\n$js\n}";
                 $this->dojo->_addZendLoad($js);
             }
+
             return true;
         }
 

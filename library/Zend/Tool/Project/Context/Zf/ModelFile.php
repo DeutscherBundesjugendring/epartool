@@ -100,8 +100,8 @@ class Zend_Tool_Project_Context_Zf_ModelFile extends Zend_Tool_Project_Context_Z
                     ))
                 )
             ));
+
         return $codeGenFile->generate();
     }
-
 
 }

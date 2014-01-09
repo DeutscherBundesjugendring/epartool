@@ -155,6 +155,7 @@ class Zend_Queue_Message_Iterator implements Iterator, Countable
         foreach ($this->_data as $i => $message) {
             $this->_data[$i] = $message->toArray();
         }
+
         return $this->_data;
     }
 

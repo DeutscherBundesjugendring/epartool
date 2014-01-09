@@ -86,6 +86,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
         foreach ($this as $item) {
             $data[] = $item;
         }
+
         return $data;
     }
 
@@ -98,6 +99,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
     {
         if ($this->count() > 0) {
             $this->rewind();
+
             return $this->current();
         } else {
             return null;
@@ -145,6 +147,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
                 }
                 $this->_cache[$this->_current] = $this->_createEntry($current);
             }
+
             return $this->_cache[$this->_current];
         } else {
             return null;
@@ -173,6 +176,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
             if ($this->_current < 0) {
                 $this->rewind();
             }
+
             return $this->_iterator->key();
         } else {
             return null;
@@ -191,6 +195,7 @@ class Zend_Ldap_Collection implements Iterator, Countable
             if ($this->_current < 0) {
                 $this->rewind();
             }
+
             return $this->_current;
         } else {
             return null;

@@ -59,6 +59,7 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
         if ($this->_version !== null) {
             $element->setAttribute('version', $this->_version);
         }
+
         return $element;
     }
 
@@ -85,12 +86,13 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Uri $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Uri $value
+     * @return Zend_Gdata_App_Entry         Provides a fluent interface
      */
     public function setUri($value)
     {
         $this->_uri = $value;
+
         return $this;
     }
 
@@ -103,12 +105,13 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Version $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Version $value
+     * @return Zend_Gdata_App_Entry             Provides a fluent interface
      */
     public function setVersion($value)
     {
         $this->_version = $value;
+
         return $this;
     }
 

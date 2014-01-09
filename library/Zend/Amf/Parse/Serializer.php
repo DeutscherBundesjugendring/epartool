@@ -53,16 +53,16 @@ abstract class Zend_Amf_Parse_Serializer
     public function __construct(Zend_Amf_Parse_OutputStream $stream)
     {
         $this->_stream = $stream;
-        $this->_mbStringFunctionsOverloaded = function_exists('mb_strlen') && (ini_get('mbstring.func_overload') !== '') && ((int)ini_get('mbstring.func_overload') & 2);
+        $this->_mbStringFunctionsOverloaded = function_exists('mb_strlen') && (ini_get('mbstring.func_overload') !== '') && ((int) ini_get('mbstring.func_overload') & 2);
     }
 
     /**
      * Find the PHP object type and convert it into an AMF object type
      *
      * @param  mixed $content
-     * @param  int $markerType
+     * @param  int   $markerType
      * @param  mixed $contentByVal
      * @return void
      */
-    public abstract function writeTypeMarker(&$content, $markerType = null, $contentByVal = false);
+    abstract public function writeTypeMarker(&$content, $markerType = null, $contentByVal = false);
 }

@@ -7,7 +7,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 require_once 'Zend/Cloud/Infrastructure/Image.php';
 
 /**
@@ -32,7 +31,7 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
 
     /**
      * The Image adapter (if exists)
-     * 
+     *
      * @var object
      */
     protected $adapter;
@@ -40,7 +39,7 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
     /**
      * Constructor
      *
-     * @param  array $list
+     * @param  array       $list
      * @param  null|object $adapter
      * @return boolean
      */
@@ -77,6 +76,7 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
     protected function addImage(Zend_Cloud_Infrastructure_Image $image)
     {
         $this->images[] = $image;
+
         return $this;
     }
 
@@ -153,6 +153,7 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
         if ($numItems > 0 && $this->iteratorKey < $numItems) {
             return true;
         }
+
         return false;
     }
 
@@ -161,8 +162,8 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
      *
      * Implement ArrayAccess::offsetExists()
      *
-     * @param   int     $offset
-     * @return  bool
+     * @param  int  $offset
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -174,9 +175,9 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
      *
      * Implement ArrayAccess::offsetGet()
      *
-     * @param   int     $offset
-     * @throws  Zend_Cloud_Infrastructure_Exception
-     * @return  Image
+     * @param  int                                 $offset
+     * @throws Zend_Cloud_Infrastructure_Exception
+     * @return Image
      */
     public function offsetGet($offset)
     {
@@ -184,6 +185,7 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
             require_once 'Zend/Cloud/Infrastructure/Exception.php';
             throw new Zend_Cloud_Infrastructure_Exception('Illegal index');
         }
+
         return $this->images[$offset];
     }
 
@@ -192,9 +194,9 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
      *
      * Implement ArrayAccess::offsetSet()
      *
-     * @param   int     $offset
-     * @param   string  $value
-     * @throws  Zend_Cloud_Infrastructure_Exception
+     * @param  int                                 $offset
+     * @param  string                              $value
+     * @throws Zend_Cloud_Infrastructure_Exception
      */
     public function offsetSet($offset, $value)
     {
@@ -207,8 +209,8 @@ class Zend_Cloud_Infrastructure_ImageList implements Countable, Iterator, ArrayA
      *
      * Implement ArrayAccess::offsetUnset()
      *
-     * @param   int     $offset
-     * @throws  Zend_Cloud_Infrastructure_Exception
+     * @param  int                                 $offset
+     * @throws Zend_Cloud_Infrastructure_Exception
      */
     public function offsetUnset($offset)
     {

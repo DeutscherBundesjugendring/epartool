@@ -134,7 +134,7 @@ class Zend_Feed_Reader
     /**
      * Set the feed cache
      *
-     * @param Zend_Cache_Core $cache
+     * @param  Zend_Cache_Core $cache
      * @return void
      */
     public static function setCache(Zend_Cache_Core $cache)
@@ -154,7 +154,6 @@ class Zend_Feed_Reader
     {
         self::$_httpClient = $httpClient;
     }
-
 
     /**
      * Gets the HTTP client object. If none is set, a new Zend_Http_Client will be used.
@@ -216,9 +215,9 @@ class Zend_Feed_Reader
     /**
      * Import a feed by providing a URL
      *
-     * @param  string $url The URL to the feed
-     * @param  string $etag OPTIONAL Last received ETag for this resource
-     * @param  string $lastModified OPTIONAL Last-Modified value for this resource
+     * @param  string                         $url          The URL to the feed
+     * @param  string                         $etag         OPTIONAL Last received ETag for this resource
+     * @param  string                         $lastModified OPTIONAL Last-Modified value for this resource
      * @return Zend_Feed_Reader_FeedInterface
      */
     public static function import($uri, $etag = null, $lastModified = null)
@@ -270,6 +269,7 @@ class Zend_Feed_Reader
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Feed failed to load, got empty response body');
             }
+
             return self::importString($responseXml);
         } elseif ($cache) {
             $data = $cache->load($cacheId);
@@ -287,6 +287,7 @@ class Zend_Feed_Reader
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Feed failed to load, got empty response body');
             }
+
             return self::importString($responseXml);
         } else {
             $response = $client->request('GET');
@@ -301,6 +302,7 @@ class Zend_Feed_Reader
             }
             $reader = self::importString($responseXml);
             $reader->setOriginalSourceUri($uri);
+
             return $reader;
         }
     }
@@ -308,7 +310,7 @@ class Zend_Feed_Reader
     /**
      * Import a feed by providing a Zend_Feed_Abstract object
      *
-     * @param  Zend_Feed_Abstract $feed A fully instantiated Zend_Feed object
+     * @param  Zend_Feed_Abstract             $feed A fully instantiated Zend_Feed object
      * @return Zend_Feed_Reader_FeedInterface
      */
     public static function importFeed(Zend_Feed_Abstract $feed)
@@ -328,7 +330,7 @@ class Zend_Feed_Reader
     /**
      * Import a feed froma string
      *
-     * @param  string $string
+     * @param  string                         $string
      * @return Zend_Feed_Reader_FeedInterface
      */
     public static function importString($string)
@@ -376,13 +378,14 @@ class Zend_Feed_Reader
             throw new Zend_Feed_Exception('The URI used does not point to a '
             . 'valid Atom, RSS or RDF feed that Zend_Feed_Reader can parse.');
         }
+
         return $reader;
     }
 
     /**
      * Imports a feed from a file located at $filename.
      *
-     * @param  string $filename
+     * @param  string                         $filename
      * @throws Zend_Feed_Exception
      * @return Zend_Feed_Reader_FeedInterface
      */
@@ -398,6 +401,7 @@ class Zend_Feed_Reader
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception("File could not be loaded: $php_errormsg");
         }
+
         return self::importString($feed);
     }
 
@@ -436,6 +440,7 @@ class Zend_Feed_Reader
         $feedSet = new Zend_Feed_Reader_FeedSet;
         $links = $dom->getElementsByTagName('link');
         $feedSet->addLinks($links, $uri);
+
         return $feedSet;
     }
 
@@ -451,9 +456,9 @@ class Zend_Feed_Reader
     {
         if ($feed instanceof Zend_Feed_Reader_FeedInterface) {
             $dom = $feed->getDomDocument();
-        } elseif($feed instanceof DOMDocument) {
+        } elseif ($feed instanceof DOMDocument) {
             $dom = $feed;
-        } elseif(is_string($feed) && !empty($feed)) {
+        } elseif (is_string($feed) && !empty($feed)) {
             @ini_set('track_errors', 1);
             $oldValue = libxml_disable_entity_loader(true);
             $dom = new DOMDocument;
@@ -491,7 +496,7 @@ class Zend_Feed_Reader
             $version = $xpath->evaluate('string(/rss/@version)');
 
             if (strlen($version) > 0) {
-                switch($version) {
+                switch ($version) {
                     case '2.0':
                         $type = self::TYPE_RSS_20;
                         break;
@@ -568,7 +573,7 @@ class Zend_Feed_Reader
     /**
      * Set plugin loader for use with Extensions
      *
-     * @param  Zend_Loader_PluginLoader_Interface $loader
+     * @param Zend_Loader_PluginLoader_Interface $loader
      */
     public static function setPluginLoader(Zend_Loader_PluginLoader_Interface $loader)
     {
@@ -578,7 +583,7 @@ class Zend_Feed_Reader
     /**
      * Get plugin loader for use with Extensions
      *
-     * @return  Zend_Loader_PluginLoader_Interface $loader
+     * @return Zend_Loader_PluginLoader_Interface $loader
      */
     public static function getPluginLoader()
     {
@@ -588,6 +593,7 @@ class Zend_Feed_Reader
                 'Zend_Feed_Reader_Extension_' => 'Zend/Feed/Reader/Extension/',
             ));
         }
+
         return self::$_pluginLoader;
     }
 
@@ -626,7 +632,7 @@ class Zend_Feed_Reader
     /**
      * Register an Extension by name
      *
-     * @param  string $name
+     * @param  string              $name
      * @return void
      * @throws Zend_Feed_Exception if unable to resolve Extension class
      */
@@ -662,7 +668,7 @@ class Zend_Feed_Reader
     /**
      * Is a given named Extension registered?
      *
-     * @param  string $extensionName
+     * @param  string  $extensionName
      * @return boolean
      */
     public static function isRegistered($extensionName)
@@ -674,6 +680,7 @@ class Zend_Feed_Reader
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -752,6 +759,7 @@ class Zend_Feed_Reader
         foreach ($array as &$value) {
             $value = unserialize($value);
         }
+
         return $array;
     }
 

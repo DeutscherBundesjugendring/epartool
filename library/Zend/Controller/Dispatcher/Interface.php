@@ -44,7 +44,7 @@ interface Zend_Controller_Dispatcher_Interface
      * object, and reformat it to a proper class name that a class extending
      * Zend_Controller_Action would use.
      *
-     * @param string $unformatted
+     * @param  string $unformatted
      * @return string
      */
     public function formatControllerName($unformatted);
@@ -55,7 +55,7 @@ interface Zend_Controller_Dispatcher_Interface
      * object, and reformat it to a proper directory/class name that a class extending
      * Zend_Controller_Action would use.
      *
-     * @param string $unformatted
+     * @param  string $unformatted
      * @return string
      */
     public function formatModuleName($unformatted);
@@ -66,7 +66,7 @@ interface Zend_Controller_Dispatcher_Interface
      * object, and reformat into a proper method name that would be found
      * inside a class extending Zend_Controller_Action.
      *
-     * @param string $unformatted
+     * @param  string $unformatted
      * @return string
      */
     public function formatActionName($unformatted);
@@ -82,8 +82,8 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Add or modify a parameter with which to instantiate an Action Controller
      *
-     * @param string $name
-     * @param mixed $value
+     * @param  string                               $name
+     * @param  mixed                                $value
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function setParam($name, $value);
@@ -91,7 +91,7 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Set an array of a parameters to pass to the Action Controller constructor
      *
-     * @param array $params
+     * @param  array                                $params
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function setParams(array $params);
@@ -99,7 +99,7 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Retrieve a single parameter from the controller parameter stack
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function getParam($name);
@@ -126,7 +126,7 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Set the response object to use, if any
      *
-     * @param Zend_Controller_Response_Abstract|null $response
+     * @param  Zend_Controller_Response_Abstract|null $response
      * @return void
      */
     public function setResponse(Zend_Controller_Response_Abstract $response = null);
@@ -141,8 +141,8 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Add a controller directory to the controller directory stack
      *
-     * @param string $path
-     * @param string $args
+     * @param  string                               $path
+     * @param  string                               $args
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function addControllerDirectory($path, $args = null);
@@ -153,7 +153,7 @@ interface Zend_Controller_Dispatcher_Interface
      * Specify a string or an array; if an array is specified, all paths will be
      * added.
      *
-     * @param string|array $dir
+     * @param  string|array                         $dir
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function setControllerDirectory($path);
@@ -169,7 +169,7 @@ interface Zend_Controller_Dispatcher_Interface
      * Dispatches a request object to a controller/action.  If the action
      * requests a forward to another action, a new request will be returned.
      *
-     * @param  Zend_Controller_Request_Abstract $request
+     * @param  Zend_Controller_Request_Abstract  $request
      * @param  Zend_Controller_Response_Abstract $response
      * @return void
      */
@@ -178,7 +178,7 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Whether or not a given module is valid
      *
-     * @param string $module
+     * @param  string  $module
      * @return boolean
      */
     public function isValidModule($module);

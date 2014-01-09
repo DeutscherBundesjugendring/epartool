@@ -20,7 +20,6 @@
  * @version    $Id: Token.php 24832 2012-05-30 13:14:44Z adamlundrigan $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
@@ -123,16 +122,17 @@ class Zend_Search_Lucene_Analysis_Token
     {
         return $this->_termText;
     }
-    
+
     /**
      * Sets the Token's term text.
-     * 
-     * @param string $text
+     *
+     * @param  string $text
      * @return this
      */
     public function setTermText($text)
     {
         $this->_termText = $text;
+
         return $this;
     }
 
@@ -163,4 +163,3 @@ class Zend_Search_Lucene_Analysis_Token
         return $this->_endOffset;
     }
 }
-

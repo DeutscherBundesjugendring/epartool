@@ -50,7 +50,7 @@ abstract class Zend_Filter_Word_Separator_Abstract extends Zend_Filter_PregRepla
     /**
      * Sets a new seperator
      *
-     * @param  string  $separator  Seperator
+     * @param string $separator Seperator
      * @return $this
      */
     public function setSeparator($separator)
@@ -60,13 +60,14 @@ abstract class Zend_Filter_Word_Separator_Abstract extends Zend_Filter_PregRepla
             throw new Zend_Filter_Exception('"' . $separator . '" is not a valid separator.');
         }
         $this->_separator = $separator;
+
         return $this;
     }
 
     /**
      * Returns the actual set seperator
      *
-     * @return  string
+     * @return string
      */
     public function getSeparator()
     {

@@ -26,7 +26,6 @@
  */
 require_once 'Zend/Gdata/Feed.php';
 
-
 /**
  * Data model for a Google Documents List feed of documents
  *

@@ -33,7 +33,7 @@ interface Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface
     /**
      * Save subscription to RDMBS
      *
-     * @param array $data The key must be stored here as a $data['id'] entry
+     * @param  array $data The key must be stored here as a $data['id'] entry
      * @return bool
      */
     public function setSubscription(array $data);
@@ -57,7 +57,7 @@ interface Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface
     /**
      * Delete a subscription
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function deleteSubscription($key);

@@ -71,18 +71,20 @@ class Zend_Form_Element_Image extends Zend_Form_Element_Xhtml
                  ->addDecorator('HtmlTag', array('tag' => 'dd'))
                  ->addDecorator('Label', array('tag' => 'dt'));
         }
+
         return $this;
     }
 
     /**
      * Set image path
      *
-     * @param  string $path
+     * @param  string                  $path
      * @return Zend_Form_Element_Image
      */
     public function setImage($path)
     {
         $this->src = (string) $path;
+
         return $this;
     }
 
@@ -99,12 +101,13 @@ class Zend_Form_Element_Image extends Zend_Form_Element_Xhtml
     /**
      * Set image value to use when submitted
      *
-     * @param  mixed $value
+     * @param  mixed                   $value
      * @return Zend_Form_Element_Image
      */
     public function setImageValue($value)
     {
         $this->_imageValue = $value;
+
         return $this;
     }
 
@@ -126,6 +129,7 @@ class Zend_Form_Element_Image extends Zend_Form_Element_Xhtml
     public function isChecked()
     {
         $imageValue = $this->getImageValue();
+
         return ((null !== $imageValue) && ($this->getValue() == $imageValue));
     }
 

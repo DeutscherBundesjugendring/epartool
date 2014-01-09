@@ -20,7 +20,6 @@
  * @version    $Id: DailyCountsResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Date
  */
@@ -35,7 +34,6 @@ require_once 'Zend/Service/Technorati/ResultSet.php';
  * @see Zend_Service_Technorati_Utils
  */
 require_once 'Zend/Service/Technorati/Utils.php';
-
 
 /**
  * Represents a Technorati Tag query result set.
@@ -67,8 +65,8 @@ class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technora
     /**
      * Parses the search response and retrieve the results for iteration.
      *
-     * @param   DomDocument $dom    the ReST fragment for this object
-     * @param   array $options      query options as associative array
+     * @param DomDocument $dom     the ReST fragment for this object
+     * @param array       $options query options as associative array
      */
     public function __construct(DomDocument $dom, $options = array())
     {
@@ -90,22 +88,23 @@ class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technora
         $this->_totalResultsAvailable = (int) $this->getDays();
     }
 
-
     /**
      * Returns the search URL for given query.
      *
-     * @return  Zend_Uri_Http
+     * @return Zend_Uri_Http
      */
-    public function getSearchUrl() {
+    public function getSearchUrl()
+    {
         return $this->_searchUrl;
     }
 
     /**
      * Returns the number of days for which counts provided.
      *
-     * @return  int
+     * @return int
      */
-    public function getDays() {
+    public function getDays()
+    {
         return $this->_days;
     }
 
@@ -120,6 +119,7 @@ class Zend_Service_Technorati_DailyCountsResultSet extends Zend_Service_Technora
          * @see Zend_Service_Technorati_DailyCountsResult
          */
         require_once 'Zend/Service/Technorati/DailyCountsResult.php';
+
         return new Zend_Service_Technorati_DailyCountsResult($this->_results->item($this->_currentIndex));
     }
 }

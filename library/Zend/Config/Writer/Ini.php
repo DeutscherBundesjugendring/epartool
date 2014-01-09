@@ -49,7 +49,7 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer_FileAbstract
     /**
      * Set the nest separator
      *
-     * @param  string $filename
+     * @param  string                 $filename
      * @return Zend_Config_Writer_Ini
      */
     public function setNestSeparator($separator)
@@ -65,12 +65,13 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer_FileAbstract
      * If set to true, the INI file is rendered without sections completely
      * into the global namespace of the INI file.
      *
-     * @param  bool $withoutSections
+     * @param  bool                   $withoutSections
      * @return Zend_Config_Writer_Ini
      */
     public function setRenderWithoutSections($withoutSections=true)
     {
-        $this->_renderWithoutSections = (bool)$withoutSections;
+        $this->_renderWithoutSections = (bool) $withoutSections;
+
         return $this;
     }
 
@@ -86,9 +87,9 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer_FileAbstract
         $extends     = $this->_config->getExtends();
         $sectionName = $this->_config->getSectionName();
 
-        if($this->_renderWithoutSections == true) {
+        if ($this->_renderWithoutSections == true) {
             $iniString .= $this->_addBranch($this->_config);
-        } else if (is_string($sectionName)) {
+        } elseif (is_string($sectionName)) {
             $iniString .= '[' . $sectionName . ']' . "\n"
                        .  $this->_addBranch($this->_config)
                        .  "\n";
@@ -144,7 +145,7 @@ class Zend_Config_Writer_Ini extends Zend_Config_Writer_FileAbstract
     /**
      * Prepare a value for INI
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _prepareValue($value)

@@ -77,6 +77,7 @@ class Zend_Controller_Request_Apache404 extends Zend_Controller_Request_Http
         }
 
         $this->_requestUri = $requestUri;
+
         return $this;
     }
 }

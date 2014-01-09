@@ -63,19 +63,20 @@ abstract class Zend_CodeGenerator_Abstract
     /**
      * setConfig()
      *
-     * @param Zend_Config $config
+     * @param  Zend_Config                 $config
      * @return Zend_CodeGenerator_Abstract
      */
     public function setConfig(Zend_Config $config)
     {
         $this->setOptions($config->toArray());
+
         return $this;
     }
 
     /**
      * setOptions()
      *
-     * @param array $options
+     * @param  array                       $options
      * @return Zend_CodeGenerator_Abstract
      */
     public function setOptions(Array $options)
@@ -86,6 +87,7 @@ abstract class Zend_CodeGenerator_Abstract
                 $this->{$methodName}($optionValue);
             }
         }
+
         return $this;
     }
 
@@ -97,6 +99,7 @@ abstract class Zend_CodeGenerator_Abstract
     public function setSourceContent($sourceContent)
     {
         $this->_sourceContent = $sourceContent;
+
         return;
     }
 

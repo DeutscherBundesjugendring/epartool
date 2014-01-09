@@ -73,6 +73,7 @@ class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
         $startCharacter  = (5 * $this->_barThinWidth) * $this->_factor;
         $middleCharacter = (2 * $this->_barThinWidth) * $this->_factor;
         $encodedData     = (7 * $this->_barThinWidth) * $this->_factor;
+
         return $quietZone + $startCharacter + ($this->_barcodeLength - 1) * $middleCharacter + $this->_barcodeLength * $encodedData + $quietZone;
     }
 
@@ -133,6 +134,7 @@ class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
     protected function _getParity($i)
     {
         $checksum = $this->getChecksum($this->getText());
+
         return $this->_parities[$checksum][$i];
     }
 

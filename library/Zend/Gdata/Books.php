@@ -105,18 +105,19 @@ class Zend_Gdata_Books extends Zend_Gdata
     {
         if ($location == null) {
             $uri = self::VOLUME_FEED_URI;
-        } else if ($location instanceof Zend_Gdata_Query) {
+        } elseif ($location instanceof Zend_Gdata_Query) {
             $uri = $location->getQueryUrl();
         } else {
             $uri = $location;
         }
+
         return parent::getFeed($uri, 'Zend_Gdata_Books_VolumeFeed');
     }
 
     /**
      * Retrieves a specific volume entry.
      *
-     * @param string|null $volumeId The volumeId of interest.
+     * @param string|null                  $volumeId The volumeId of interest.
      * @param Zend_Gdata_Query|string|null $location (optional) The URL to
      *        query or a Zend_Gdata_Query object from which a URL can be
      *        determined.
@@ -127,11 +128,12 @@ class Zend_Gdata_Books extends Zend_Gdata
     {
         if ($volumeId !== null) {
             $uri = self::VOLUME_FEED_URI . "/" . $volumeId;
-        } else if ($location instanceof Zend_Gdata_Query) {
+        } elseif ($location instanceof Zend_Gdata_Query) {
             $uri = $location->getQueryUrl();
         } else {
             $uri = $location;
         }
+
         return parent::getEntry($uri, 'Zend_Gdata_Books_VolumeEntry');
     }
 
@@ -150,6 +152,7 @@ class Zend_Gdata_Books extends Zend_Gdata
         } else {
             $uri = $location;
         }
+
         return parent::getFeed($uri, 'Zend_Gdata_Books_VolumeFeed');
     }
 
@@ -168,6 +171,7 @@ class Zend_Gdata_Books extends Zend_Gdata
         } else {
             $uri = $location;
         }
+
         return parent::getFeed($uri, 'Zend_Gdata_Books_VolumeFeed');
     }
 
@@ -186,6 +190,7 @@ class Zend_Gdata_Books extends Zend_Gdata
         } else {
             $uri = $location;
         }
+
         return parent::insertEntry(
             $entry, $uri, 'Zend_Gdata_Books_VolumeEntry');
     }
@@ -193,7 +198,7 @@ class Zend_Gdata_Books extends Zend_Gdata
     /**
      * Delete a Volume
      *
-     * @param Zend_Gdata_Books_VolumeEntry $entry
+     * @param  Zend_Gdata_Books_VolumeEntry $entry
      * @return void
      */
     public function deleteVolume($entry)

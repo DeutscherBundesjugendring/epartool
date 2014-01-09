@@ -60,9 +60,9 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTempla
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $templateId
-     * @param string $participantId
+     * @param integer                                                       $environment
+     * @param string                                                        $templateId
+     * @param string                                                        $participantId
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
      */
     public function __construct($environment, $templateId, $participantId,
@@ -77,37 +77,40 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTempla
     /**
      * set the template id
      *
-     * @param string $templateId
+     * @param  string                                                                                         $templateId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest
      */
     public function setTemplateId($templateId)
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 
     /**
      * set the participant id
      *
-     * @param string $participantId
+     * @param  string                                                                                         $participantId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest
      */
     public function setParticipantId($participantId)
     {
         $this->participantId = $participantId;
+
         return $this;
     }
 
     /**
      * sets new participant
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail                                  $participant
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceTemplateParticipantRequest
      */
     public function setParticipant(
         Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
     ) {
         $this->participant = $participant;
+
         return $this;
     }
 }

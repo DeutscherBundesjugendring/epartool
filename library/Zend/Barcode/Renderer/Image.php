@@ -91,7 +91,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Set height of the result image
-     * @param null|integer $value
+     * @param  null|integer                $value
      * @return Zend_Image_Barcode_Abstract
      * @throw Zend_Image_Barcode_Exception
      */
@@ -104,6 +104,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             );
         }
         $this->_userHeight = intval($value);
+
         return $this;
     }
 
@@ -120,7 +121,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
     /**
      * Set barcode width
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return void
      */
     public function setWidth($value)
@@ -132,6 +133,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             );
         }
         $this->_userWidth = intval($value);
+
         return $this;
     }
 
@@ -148,7 +150,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
     /**
      * Set an image resource to draw the barcode inside
      *
-     * @param resource $value
+     * @param  resource              $value
      * @return Zend_Barcode_Renderer
      * @throw Zend_Barcode_Renderer_Exception
      */
@@ -161,13 +163,14 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
             );
         }
         $this->_resource = $image;
+
         return $this;
     }
 
     /**
      * Set the image type to produce (png, jpeg, gif)
      *
-     * @param string $value
+     * @param  string                        $value
      * @return Zend_Barcode_RendererAbstract
      * @throw Zend_Barcode_Renderer_Exception
      */
@@ -186,6 +189,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
         }
 
         $this->_imageType = $value;
+
         return $this;
     }
 
@@ -349,7 +353,7 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
     /**
      * Draw a polygon in the image resource
      *
-     * @param array $points
+     * @param array   $points
      * @param integer $color
      * @param boolean $filled
      */
@@ -383,13 +387,13 @@ class Zend_Barcode_Renderer_Image extends Zend_Barcode_Renderer_RendererAbstract
     /**
      * Draw a polygon in the image resource
      *
-     * @param string $text
-     * @param float $size
-     * @param array $position
-     * @param string $font
+     * @param string  $text
+     * @param float   $size
+     * @param array   $position
+     * @param string  $font
      * @param integer $color
-     * @param string $alignment
-     * @param float $orientation
+     * @param string  $alignment
+     * @param float   $orientation
      */
     protected function _drawText($text, $size, $position, $font, $color, $alignment = 'center', $orientation = 0)
     {

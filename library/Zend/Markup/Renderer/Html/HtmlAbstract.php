@@ -44,7 +44,6 @@ abstract class Zend_Markup_Renderer_Html_HtmlAbstract implements Zend_Markup_Ren
      */
     protected $_renderer;
 
-
     /**
      * Set the HTML renderer instance
      *

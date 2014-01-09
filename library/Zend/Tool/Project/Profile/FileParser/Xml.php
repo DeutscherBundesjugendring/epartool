@@ -58,7 +58,7 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
      *
      * create an xml string from the provided profile
      *
-     * @param Zend_Tool_Project_Profile $profile
+     * @param  Zend_Tool_Project_Profile $profile
      * @return string
      */
     public function serialize(Zend_Tool_Project_Profile $profile)
@@ -136,7 +136,7 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
      * This method will be used to traverse the depths of the structure
      * when *serializing* an xml structure into a string
      *
-     * @param array $resources
+     * @param array            $resources
      * @param SimpleXmlElement $xmlNode
      */
     protected function _serializeRecurser($resources, SimpleXmlElement $xmlNode)
@@ -175,14 +175,13 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
 
     }
 
-
     /**
      * _unserializeRecurser()
      *
      * This method will be used to traverse the depths of the structure
      * as needed to *unserialize* the profile from an xmlIterator
      *
-     * @param SimpleXMLIterator $xmlIterator
+     * @param SimpleXMLIterator                  $xmlIterator
      * @param Zend_Tool_Project_Profile_Resource $resource
      */
     protected function _unserializeRecurser(SimpleXMLIterator $xmlIterator, Zend_Tool_Project_Profile_Resource $resource = null)

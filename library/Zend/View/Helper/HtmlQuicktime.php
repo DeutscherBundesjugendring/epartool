@@ -63,10 +63,10 @@ class Zend_View_Helper_HtmlQuicktime extends Zend_View_Helper_HtmlObject
     /**
      * Output a quicktime movie object tag
      *
-     * @param string $data The quicktime file
-     * @param array  $attribs Attribs for the object tag
-     * @param array  $params Params for in the object tag
-     * @param string $content Alternative content
+     * @param  string $data    The quicktime file
+     * @param  array  $attribs Attribs for the object tag
+     * @param  array  $params  Params for in the object tag
+     * @param  string $content Alternative content
      * @return string
      */
     public function htmlQuicktime($data, array $attribs = array(), array $params = array(), $content = null)

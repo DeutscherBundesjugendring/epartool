@@ -99,6 +99,7 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
         $startCharacter  = (2 * $this->_barThinWidth) * $this->_factor;
         $stopCharacter   = (1 * $this->_barThinWidth) * $this->_factor;
         $encodedData     = (8 * $this->_barThinWidth) * $this->_factor * strlen($this->getText());
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -133,6 +134,7 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
 
         // Stop character (1)
         $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
+
         return $barcodeTable;
     }
 
@@ -148,7 +150,7 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
         $values   = str_split($text);
         $rowvalue = 0;
         $colvalue = 0;
-        foreach($values as $row) {
+        foreach ($values as $row) {
             $rowvalue += $this->_rows[$row];
             $colvalue += $this->_columns[$row];
         }
@@ -158,6 +160,7 @@ class Zend_Barcode_Object_Royalmail extends Zend_Barcode_Object_ObjectAbstract
 
         $rowchkvalue = array_keys($this->_rows, $rowvalue);
         $colchkvalue = array_keys($this->_columns, $colvalue);
+
         return current(array_intersect($rowchkvalue, $colchkvalue));
     }
 }

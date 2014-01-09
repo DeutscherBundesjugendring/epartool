@@ -49,12 +49,12 @@ class Zend_Gdata_HttpAdapterStreamingSocket extends Zend_Http_Client_Adapter_Soc
     /**
      * Send request to the remote server with streaming support.
      *
-     * @param string        $method
-     * @param Zend_Uri_Http $uri
-     * @param string        $http_ver
-     * @param array         $headers
-     * @param string        $body
-     * @return string Request as string
+     * @param  string        $method
+     * @param  Zend_Uri_Http $uri
+     * @param  string        $http_ver
+     * @param  array         $headers
+     * @param  string        $body
+     * @return string        Request as string
      */
     public function write($method, $uri, $http_ver = '1.1', $headers = array(),
         $body = '')
@@ -106,6 +106,7 @@ class Zend_Gdata_HttpAdapterStreamingSocket extends Zend_Http_Client_Adapter_Soc
             $chunk = $body->read(self::CHUNK_SIZE);
         }
         $body->closeFileHandle();
+
         return 'Large upload, request is not cached.';
     }
 }

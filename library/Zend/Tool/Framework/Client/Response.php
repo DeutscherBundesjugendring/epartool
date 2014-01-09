@@ -56,7 +56,7 @@ class Zend_Tool_Framework_Client_Response
     /**
      * setContentCallback()
      *
-     * @param callback $callback
+     * @param  callback                            $callback
      * @return Zend_Tool_Framework_Client_Response
      */
     public function setContentCallback($callback)
@@ -66,13 +66,14 @@ class Zend_Tool_Framework_Client_Response
             throw new Zend_Tool_Framework_Client_Exception('The callback provided is not callable');
         }
         $this->_callback = $callback;
+
         return $this;
     }
 
     /**
      * setContent()
      *
-     * @param string $content
+     * @param  string                              $content
      * @return Zend_Tool_Framework_Client_Response
      */
     public function setContent($content, Array $decoratorOptions = array())
@@ -81,13 +82,14 @@ class Zend_Tool_Framework_Client_Response
 
         $this->_content = array();
         $this->appendContent($content);
+
         return $this;
     }
 
     /**
      * appendCallback
      *
-     * @param string $content
+     * @param  string                              $content
      * @return Zend_Tool_Framework_Client_Response
      */
     public function appendContent($content, Array $decoratorOptions = array())
@@ -106,8 +108,8 @@ class Zend_Tool_Framework_Client_Response
     /**
      * setDefaultDecoratorOptions()
      *
-     * @param array $decoratorOptions
-     * @param bool $mergeIntoExisting
+     * @param  array                               $decoratorOptions
+     * @param  bool                                $mergeIntoExisting
      * @return Zend_Tool_Framework_Client_Response
      */
     public function setDefaultDecoratorOptions(Array $decoratorOptions, $mergeIntoExisting = false)
@@ -117,6 +119,7 @@ class Zend_Tool_Framework_Client_Response
         }
 
         $this->_defaultDecoratorOptions = array_merge($this->_defaultDecoratorOptions, $decoratorOptions);
+
         return $this;
     }
 
@@ -143,12 +146,13 @@ class Zend_Tool_Framework_Client_Response
     /**
      * setException()
      *
-     * @param Exception $exception
+     * @param  Exception                           $exception
      * @return Zend_Tool_Framework_Client_Response
      */
     public function setException(Exception $exception)
     {
         $this->_exception = $exception;
+
         return $this;
     }
 
@@ -165,13 +169,14 @@ class Zend_Tool_Framework_Client_Response
     /**
      * Add Content Decorator
      *
-     * @param Zend_Tool_Framework_Client_Response_ContentDecorator_Interface $contentDecorator
+     * @param  Zend_Tool_Framework_Client_Response_ContentDecorator_Interface $contentDecorator
      * @return unknown
      */
     public function addContentDecorator(Zend_Tool_Framework_Client_Response_ContentDecorator_Interface $contentDecorator)
     {
         $decoratorName = strtolower($contentDecorator->getName());
         $this->_decorators[$decoratorName] = $contentDecorator;
+
         return $this;
     }
 
@@ -198,8 +203,8 @@ class Zend_Tool_Framework_Client_Response
     /**
      * _applyDecorators() apply a group of decorators
      *
-     * @param string $content
-     * @param array $decoratorOptions
+     * @param  string $content
+     * @param  array  $decoratorOptions
      * @return string
      */
     protected function _applyDecorators($content, Array $decoratorOptions)

@@ -42,8 +42,8 @@ class Zend_Memory
     /**
      * Factory
      *
-     * @param string $backend backend name
-     * @param array $backendOptions associative array of options for the corresponding backend constructor
+     * @param  string                $backend        backend name
+     * @param  array                 $backendOptions associative array of options for the corresponding backend constructor
      * @return Zend_Memory_Manager
      * @throws Zend_Memory_Exception
      */

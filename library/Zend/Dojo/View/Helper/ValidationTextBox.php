@@ -55,10 +55,10 @@ class Zend_Dojo_View_Helper_ValidationTextBox extends Zend_Dojo_View_Helper_Diji
     /**
      * dijit.form.ValidationTextBox
      *
-     * @param  int $id
-     * @param  mixed $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  int    $id
+     * @param  mixed  $value
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function validationTextBox($id, $value = null, array $params = array(), array $attribs = array())

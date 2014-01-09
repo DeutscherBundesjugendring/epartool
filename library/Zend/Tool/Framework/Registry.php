@@ -100,7 +100,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * Enter description here...
      *
-     * @param Zend_Tool_Framework_Client_Abstract $client
+     * @param  Zend_Tool_Framework_Client_Abstract $client
      * @return Zend_Tool_Framework_Registry
      */
     public function setClient(Zend_Tool_Framework_Client_Abstract $client)
@@ -109,6 +109,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
         if ($this->isObjectRegistryEnablable($this->_client)) {
             $this->enableRegistryOnObject($this->_client);
         }
+
         return $this;
     }
 
@@ -125,12 +126,13 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setConfig()
      *
-     * @param Zend_Tool_Framework_Client_Config $config
+     * @param  Zend_Tool_Framework_Client_Config $config
      * @return Zend_Tool_Framework_Registry
      */
     public function setConfig(Zend_Tool_Framework_Client_Config $config)
     {
         $this->_config = $config;
+
         return $this;
     }
 
@@ -152,12 +154,13 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setStorage()
      *
-     * @param Zend_Tool_Framework_Client_Storage $storage
+     * @param  Zend_Tool_Framework_Client_Storage $storage
      * @return Zend_Tool_Framework_Registry
      */
     public function setStorage(Zend_Tool_Framework_Client_Storage $storage)
     {
         $this->_storage = $storage;
+
         return $this;
     }
 
@@ -179,7 +182,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setLoader()
      *
-     * @param Zend_Tool_Framework_Loader_Interface $loader
+     * @param  Zend_Tool_Framework_Loader_Interface $loader
      * @return Zend_Tool_Framework_Registry
      */
     public function setLoader(Zend_Tool_Framework_Loader_Interface $loader)
@@ -188,6 +191,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
         if ($this->isObjectRegistryEnablable($this->_loader)) {
             $this->enableRegistryOnObject($this->_loader);
         }
+
         return $this;
     }
 
@@ -209,7 +213,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setActionRepository()
      *
-     * @param Zend_Tool_Framework_Action_Repository $actionRepository
+     * @param  Zend_Tool_Framework_Action_Repository $actionRepository
      * @return Zend_Tool_Framework_Registry
      */
     public function setActionRepository(Zend_Tool_Framework_Action_Repository $actionRepository)
@@ -218,6 +222,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
         if ($this->isObjectRegistryEnablable($this->_actionRepository)) {
             $this->enableRegistryOnObject($this->_actionRepository);
         }
+
         return $this;
     }
 
@@ -239,7 +244,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setProviderRepository()
      *
-     * @param Zend_Tool_Framework_Provider_Repository $providerRepository
+     * @param  Zend_Tool_Framework_Provider_Repository $providerRepository
      * @return Zend_Tool_Framework_Registry
      */
     public function setProviderRepository(Zend_Tool_Framework_Provider_Repository $providerRepository)
@@ -248,6 +253,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
         if ($this->isObjectRegistryEnablable($this->_providerRepository)) {
             $this->enableRegistryOnObject($this->_providerRepository);
         }
+
         return $this;
     }
 
@@ -269,7 +275,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setManifestRepository()
      *
-     * @param Zend_Tool_Framework_Manifest_Repository $manifestRepository
+     * @param  Zend_Tool_Framework_Manifest_Repository $manifestRepository
      * @return Zend_Tool_Framework_Registry
      */
     public function setManifestRepository(Zend_Tool_Framework_Manifest_Repository $manifestRepository)
@@ -278,6 +284,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
         if ($this->isObjectRegistryEnablable($this->_manifestRepository)) {
             $this->enableRegistryOnObject($this->_manifestRepository);
         }
+
         return $this;
     }
 
@@ -299,12 +306,13 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setRequest()
      *
-     * @param Zend_Tool_Framework_Client_Request $request
+     * @param  Zend_Tool_Framework_Client_Request $request
      * @return Zend_Tool_Framework_Registry
      */
     public function setRequest(Zend_Tool_Framework_Client_Request $request)
     {
         $this->_request = $request;
+
         return $this;
     }
 
@@ -326,12 +334,13 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * setResponse()
      *
-     * @param Zend_Tool_Framework_Client_Response $response
+     * @param  Zend_Tool_Framework_Client_Response $response
      * @return Zend_Tool_Framework_Registry
      */
     public function setResponse(Zend_Tool_Framework_Client_Response $response)
     {
         $this->_response = $response;
+
         return $this;
     }
 
@@ -353,7 +362,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * __get() - Get a property via property call $registry->foo
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)
@@ -370,12 +379,13 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
      * __set() - Set a property via the magic set $registry->foo = 'foo'
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($name, $value)
     {
         if (method_exists($this, 'set' . $name)) {
             $this->{'set' . $name}($value);
+
             return;
         } else {
             require_once 'Zend/Tool/Framework/Registry/Exception.php';
@@ -386,7 +396,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * isObjectRegistryEnablable() - Check whether an object is registry enablable
      *
-     * @param object $object
+     * @param  object $object
      * @return bool
      */
     public function isObjectRegistryEnablable($object)
@@ -402,7 +412,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
     /**
      * enableRegistryOnObject() - make an object registry enabled
      *
-     * @param object $object
+     * @param  object                       $object
      * @return Zend_Tool_Framework_Registry
      */
     public function enableRegistryOnObject($object)
@@ -413,6 +423,7 @@ class Zend_Tool_Framework_Registry implements Zend_Tool_Framework_Registry_Inter
         }
 
         $object->setRegistry($this);
+
         return $this;
     }
 

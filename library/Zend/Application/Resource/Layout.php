@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
-
 /**
  * Resource for settings layout options
  *
@@ -52,6 +51,7 @@ class Zend_Application_Resource_Layout
     public function init()
     {
         $this->getBootstrap()->bootstrap('FrontController');
+
         return $this->getLayout();
     }
 
@@ -65,6 +65,7 @@ class Zend_Application_Resource_Layout
         if (null === $this->_layout) {
             $this->_layout = Zend_Layout::startMvc($this->getOptions());
         }
+
         return $this->_layout;
     }
 }

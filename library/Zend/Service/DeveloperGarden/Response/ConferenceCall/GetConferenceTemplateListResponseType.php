@@ -50,6 +50,6 @@ class Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplate
      */
     public function getTemplateIds()
     {
-        return (array)$this->templateIds;
+        return (array) $this->templateIds;
     }
 }

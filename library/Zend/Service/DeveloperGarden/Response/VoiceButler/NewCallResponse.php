@@ -45,6 +45,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
         if (isset($this->return->sessionId)) {
             return $this->return->sessionId;
         }
+
         return null;
     }
 

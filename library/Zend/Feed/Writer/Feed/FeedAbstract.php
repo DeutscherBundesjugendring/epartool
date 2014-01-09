@@ -51,7 +51,6 @@ require_once 'Zend/Feed/Writer/Renderer/Feed/Rss.php';
 
 require_once 'Zend/Validate/EmailAddress.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
@@ -90,7 +89,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Set a single author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function addAuthor($name, $email = null, $uri = null)
@@ -147,7 +146,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
      */
     public function addAuthors(array $authors)
     {
-        foreach($authors as $author) {
+        foreach ($authors as $author) {
             $this->addAuthor($author);
         }
     }
@@ -178,7 +177,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             $zdate = new Zend_Date;
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
-        } elseif (ctype_digit((string)$date)) {
+        } elseif (ctype_digit((string) $date)) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
@@ -199,7 +198,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             $zdate = new Zend_Date;
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
-        } elseif (ctype_digit((string)$date)) {
+        } elseif (ctype_digit((string) $date)) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
@@ -220,7 +219,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             $zdate = new Zend_Date;
         } elseif ($date instanceof Zend_Date) {
             $zdate = $date;
-        } elseif (ctype_digit((string)$date)) {
+        } elseif (ctype_digit((string) $date)) {
             $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } else {
             require_once 'Zend/Feed/Exception.php';
@@ -314,7 +313,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Validate a URI using the tag scheme (RFC 4151)
      *
-     * @param string $id
+     * @param  string $id
      * @return bool
      */
     protected function _validateTagUri($id)
@@ -337,9 +336,11 @@ class Zend_Feed_Writer_Feed_FeedAbstract
             } else {
                 $nvalid = $validator->isValid('info@' . $matches['name']);
             }
+
             return $dvalid && $nvalid;
 
         }
+
         return false;
     }
 
@@ -543,7 +544,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Get a single author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function getAuthor($index = 0)
@@ -565,6 +566,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('authors', $this->_data)) {
             return null;
         }
+
         return $this->_data['authors'];
     }
 
@@ -578,6 +580,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('copyright', $this->_data)) {
             return null;
         }
+
         return $this->_data['copyright'];
     }
 
@@ -591,6 +594,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('dateCreated', $this->_data)) {
             return null;
         }
+
         return $this->_data['dateCreated'];
     }
 
@@ -604,6 +608,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('dateModified', $this->_data)) {
             return null;
         }
+
         return $this->_data['dateModified'];
     }
 
@@ -617,6 +622,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('lastBuildDate', $this->_data)) {
             return null;
         }
+
         return $this->_data['lastBuildDate'];
     }
 
@@ -630,6 +636,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('description', $this->_data)) {
             return null;
         }
+
         return $this->_data['description'];
     }
 
@@ -643,6 +650,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('generator', $this->_data)) {
             return null;
         }
+
         return $this->_data['generator'];
     }
 
@@ -656,6 +664,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('id', $this->_data)) {
             return null;
         }
+
         return $this->_data['id'];
     }
 
@@ -669,6 +678,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('image', $this->_data)) {
             return null;
         }
+
         return $this->_data['image'];
     }
 
@@ -682,6 +692,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('icon', $this->_data)) {
             return null;
         }
+
         return $this->_data['icon'];
     }
 
@@ -695,6 +706,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('language', $this->_data)) {
             return null;
         }
+
         return $this->_data['language'];
     }
 
@@ -708,6 +720,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('link', $this->_data)) {
             return null;
         }
+
         return $this->_data['link'];
     }
 
@@ -721,6 +734,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('feedLinks', $this->_data)) {
             return null;
         }
+
         return $this->_data['feedLinks'];
     }
 
@@ -734,6 +748,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('title', $this->_data)) {
             return null;
         }
+
         return $this->_data['title'];
     }
 
@@ -747,6 +762,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('encoding', $this->_data)) {
             return 'UTF-8';
         }
+
         return $this->_data['encoding'];
     }
 
@@ -760,6 +776,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('baseUrl', $this->_data)) {
             return null;
         }
+
         return $this->_data['baseUrl'];
     }
 
@@ -773,6 +790,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('hubs', $this->_data)) {
             return null;
         }
+
         return $this->_data['hubs'];
     }
 
@@ -786,6 +804,7 @@ class Zend_Feed_Writer_Feed_FeedAbstract
         if (!array_key_exists('categories', $this->_data)) {
             return null;
         }
+
         return $this->_data['categories'];
     }
 
@@ -836,8 +855,8 @@ class Zend_Feed_Writer_Feed_FeedAbstract
     /**
      * Method overloading: call given method on first extension implementing it
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string              $method
+     * @param  array               $args
      * @return mixed
      * @throws Zend_Feed_Exception if no extensions implements the method
      */

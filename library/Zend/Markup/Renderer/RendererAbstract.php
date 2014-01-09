@@ -111,7 +111,6 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      */
     protected static $_encoding = 'UTF-8';
 
-
     /**
      * Constructor
      *
@@ -142,12 +141,13 @@ abstract class Zend_Markup_Renderer_RendererAbstract
     /**
      * Set the parser
      *
-     * @param  Zend_Markup_Parser_ParserInterface $parser
+     * @param  Zend_Markup_Parser_ParserInterface    $parser
      * @return Zend_Markup_Renderer_RendererAbstract
      */
     public function setParser(Zend_Markup_Parser_ParserInterface $parser)
     {
         $this->_parser = $parser;
+
         return $this;
     }
 
@@ -198,7 +198,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      *
      * @param string $name
      * @param string $type
-     * @param array $options
+     * @param array  $options
      *
      * @return Zend_Markup_Renderer_RendererAbstract
      */
@@ -268,6 +268,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
                 $this->_markups[$name] = $options;
             }
         }
+
         return $this;
     }
 
@@ -376,6 +377,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
             $oldToken  = $this->_token;
             $return = $this->_filter($token->getTag()) . $this->_render($token) . $token->getStopper();
             $this->_token = $oldToken;
+
             return $return;
         }
 
@@ -393,6 +395,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
             $oldToken = $this->_token;
             $return   = $this->_filter($token->getTag()) . $this->_render($token) . $token->getStopper();
             $this->_token = $oldToken;
+
             return $return;
         }
 
@@ -465,6 +468,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
         if ($this->_filter instanceof Zend_Filter_Interface) {
             return $this->_filter->filter($value);
         }
+
         return $value;
     }
 
@@ -506,7 +510,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
     /**
      * Retrieve markup type
      *
-     * @param  string $name
+     * @param  string    $name
      * @return false|int
      */
     protected function _getMarkupType($name)
@@ -517,6 +521,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
         if (!isset($this->_markups[$name]['type'])) {
             return false;
         }
+
         return $this->_markups[$name]['type'];
     }
 
@@ -524,7 +529,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      * Execute a replace token
      *
      * @param  Zend_Markup_Token $token
-     * @param  array $tag
+     * @param  array             $tag
      * @return string
      */
     protected function _executeReplace(Zend_Markup_Token $token, $tag)
@@ -536,7 +541,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      * Execute a single replace token
      *
      * @param  Zend_Markup_Token $token
-     * @param  array $tag
+     * @param  array             $tag
      * @return string
      */
     protected function _executeSingleReplace(Zend_Markup_Token $token, $tag)
@@ -616,8 +621,8 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      * Add a filter for an existing markup
      *
      * @param Zend_Filter_Interface $filter
-     * @param string $markup
-     * @param string $placement
+     * @param string                $markup
+     * @param string                $placement
      *
      * @return Zend_Markup_Renderer_RendererAbstract
      */
@@ -651,7 +656,7 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      * Set the filter for an existing
      *
      * @param Zend_Filter_Interface $filter
-     * @param string $markup
+     * @param string                $markup
      *
      * @return Zend_Markup_Renderer_RendererAbstract
      */
@@ -668,8 +673,8 @@ abstract class Zend_Markup_Renderer_RendererAbstract
      * Add a render group
      *
      * @param string $name
-     * @param array $allowedInside
-     * @param array $allowsInside
+     * @param array  $allowedInside
+     * @param array  $allowsInside
      *
      * @return void
      */

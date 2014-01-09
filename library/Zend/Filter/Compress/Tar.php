@@ -82,7 +82,7 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
     /**
      * Sets the archive to use for de-/compression
      *
-     * @param string $archive Archive to use
+     * @param  string                   $archive Archive to use
      * @return Zend_Filter_Compress_Tar
      */
     public function setArchive($archive)
@@ -106,7 +106,7 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
     /**
      * Sets the targetpath to use
      *
-     * @param string $target
+     * @param  string                   $target
      * @return Zend_Filter_Compress_Tar
      */
     public function setTarget($target)
@@ -118,6 +118,7 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
 
         $target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $target);
         $this->_options['target'] = (string) $target;
+
         return $this;
     }
 
@@ -205,7 +206,7 @@ class Zend_Filter_Compress_Tar extends Zend_Filter_Compress_CompressAbstract
     /**
      * Decompresses the given content
      *
-     * @param  string $content
+     * @param  string  $content
      * @return boolean
      */
     public function decompress($content)

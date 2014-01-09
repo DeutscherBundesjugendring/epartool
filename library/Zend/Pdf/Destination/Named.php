@@ -24,7 +24,6 @@
 require_once 'Zend/Pdf/Element.php';
 require_once 'Zend/Pdf/Element/String.php';
 
-
 /** Zend_Pdf_Destination */
 require_once 'Zend/Pdf/Destination.php';
 
@@ -54,7 +53,7 @@ class Zend_Pdf_Destination_Named extends Zend_Pdf_Destination
     /**
      * Named destination object constructor
      *
-     * @param Zend_Pdf_Element $resource
+     * @param  Zend_Pdf_Element   $resource
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_Element $resource)
@@ -70,7 +69,7 @@ class Zend_Pdf_Destination_Named extends Zend_Pdf_Destination
     /**
      * Create named destination object
      *
-     * @param string $name
+     * @param  string                     $name
      * @return Zend_Pdf_Destination_Named
      */
     public static function create($name)

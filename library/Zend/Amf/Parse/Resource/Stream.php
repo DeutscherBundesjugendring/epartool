@@ -33,10 +33,11 @@ class Zend_Amf_Parse_Resource_Stream
     /**
      * Parse resource into string
      *
-     * @param resource $resource Stream resource
+     * @param  resource $resource Stream resource
      * @return array
      */
-    public function parse($resource) {
+    public function parse($resource)
+    {
         return stream_get_contents($resource);
     }
 }

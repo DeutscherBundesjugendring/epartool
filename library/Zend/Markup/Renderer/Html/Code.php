@@ -41,7 +41,7 @@ class Zend_Markup_Renderer_Html_Code extends Zend_Markup_Renderer_Html_HtmlAbstr
      * Convert the token
      *
      * @param Zend_Markup_Token $token
-     * @param string $text
+     * @param string            $text
      *
      * @return string
      */

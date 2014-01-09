@@ -58,7 +58,7 @@ class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
     /**
      * constructor give them the environment
      *
-     * @param integer $environment
+     * @param integer                                                 $environment
      * @param Zend_Service_DeveloperGarden_IpLocation_IpAddress|array $ip
      *
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
@@ -86,6 +86,7 @@ class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
                 'ipType'    => $ip->getVersion(),
                 'ipAddress' => $ip->getIp(),
             );
+
             return $this;
         }
 
@@ -101,6 +102,7 @@ class Zend_Service_DeveloperGarden_Request_IpLocation_LocateIPRequest
                 }
                 $this->setIp($ipObject);
             }
+
             return $this;
         }
 

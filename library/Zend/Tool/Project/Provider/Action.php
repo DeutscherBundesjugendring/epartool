@@ -44,10 +44,10 @@ class Zend_Tool_Project_Provider_Action
     /**
      * createResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $actionName
-     * @param string $controllerName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $actionName
+     * @param  string                             $controllerName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function createResource(Zend_Tool_Project_Profile $profile, $actionName, $controllerName, $moduleName = null)
@@ -71,10 +71,10 @@ class Zend_Tool_Project_Provider_Action
     /**
      * hasResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $actionName
-     * @param string $controllerName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $actionName
+     * @param  string                             $controllerName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function hasResource(Zend_Tool_Project_Profile $profile, $actionName, $controllerName, $moduleName = null)
@@ -99,9 +99,9 @@ class Zend_Tool_Project_Provider_Action
     /**
      * _getControllerFileResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $controllerName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $controllerName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     protected static function _getControllerFileResource(Zend_Tool_Project_Profile $profile, $controllerName, $moduleName = null)
@@ -123,7 +123,7 @@ class Zend_Tool_Project_Provider_Action
      *
      * @param string $name           Action name for controller, in camelCase format.
      * @param string $controllerName Controller name action should be applied to.
-     * @param bool $viewIncluded     Whether the view should the view be included.
+     * @param bool   $viewIncluded   Whether the view should the view be included.
      * @param string $module         Module name action should be applied to.
      */
     public function create($name, $controllerName = 'Index', $viewIncluded = true, $module = null)

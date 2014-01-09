@@ -4,8 +4,8 @@
  *
  * @author Marco Dinnbier
  */
-class FollowupController extends Zend_Controller_Action {
-
+class FollowupController extends Zend_Controller_Action
+{
     protected $_consultation = null;
 
     /**
@@ -13,7 +13,8 @@ class FollowupController extends Zend_Controller_Action {
      * @see Zend_Controller_Action::init()
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultationModel = new Model_Consultations();
         $consultation = $consultationModel->find($kid)->current();
@@ -49,9 +50,8 @@ class FollowupController extends Zend_Controller_Action {
      * @param $_GET['kid'] consultation id
      * @return void
      */
-    public function indexAction() {
-
-
+    public function indexAction()
+    {
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
         $this->view->latest_followups = $followupModel->getByKid($kid, 'when DESC', 4);
@@ -66,7 +66,8 @@ class FollowupController extends Zend_Controller_Action {
      *
      * @return void
      */
-    public function inputsByQuestionAction() {
+    public function inputsByQuestionAction()
+    {
         $kid = $this->_getParam('kid', 0);
         $qid = $this->getRequest()->getParam('qid', 0);
         $tag = $this->_getParam('tag', null);
@@ -95,15 +96,16 @@ class FollowupController extends Zend_Controller_Action {
 
     /*
      * shows the initial timeline for followups by chosen input
-     * 
+     *
      * @param $_GET['kid'] consultation id
-     * @param $_GET['qid'] question id 
+     * @param $_GET['qid'] question id
      * @param $_GET['tid'] input id
-     * 
+     *
      * @return void
      */
 
-    public function showAction() {
+    public function showAction()
+    {
         $kid = $this->_getParam('kid', 0);
         $qid = $this->_getParam('qid', 0);
         $tid = $this->_getParam('tid', 0);
@@ -120,22 +122,20 @@ class FollowupController extends Zend_Controller_Action {
                 $this->_helper->json->sendJson($data);
             } else {
 
-
                 $Model_Inputs = new Model_Inputs();
                 $Model_Questions = new Model_Questions();
                 $Model_Followups = new Model_Followups();
                 $Model_FollowupsRef = new Model_FollowupsRef();
                 $Model_FollowupFiles = new Model_FollowupFiles();
 
-
                 $question = $Model_Questions->getById($qid);
 
                 $input = $Model_Inputs->getById($tid);
                 $input['relFowupCount'] = count($Model_Followups->getByInput($tid));
-                
+
                 $relInputs = $Model_Inputs->getRelatedWithVotesById($tid);
                 $inputids = array();
-                
+
                 foreach ($relInputs as $relInput) {
                     $inputids[] = $relInput['tid'];
                 }
@@ -145,7 +145,7 @@ class FollowupController extends Zend_Controller_Action {
                 foreach ($relInputs as $key => $relInput) {
                     $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']]) ? $countarr[$relInput['tid']] : 0;
                 }
-             
+
                 $relSnippets = $Model_Followups->getByInput($tid);
 
                 foreach ($relSnippets as $snippet) {
@@ -169,7 +169,6 @@ class FollowupController extends Zend_Controller_Action {
                 }
 
                 $relatedCount = count($relSnippets) + count($relInputs);
-                
 
                 // result via json for followoptool
 
@@ -197,15 +196,16 @@ class FollowupController extends Zend_Controller_Action {
     }
     /*
      * shows the initial timeline for followups by chosen snippet
-     * 
+     *
      * @param $_GET['kid'] consultation id
-     * @param $_GET['qid'] question id 
+     * @param $_GET['qid'] question id
      * @param $_GET['fid'] followup id
-     * 
+     *
      * @return void
      */
 
-    public function showBySnippetAction() {
+    public function showBySnippetAction()
+    {
         $kid = $this->_getParam('kid', 0);
         $fid = $this->_getParam('fid', 0);
 
@@ -220,47 +220,47 @@ class FollowupController extends Zend_Controller_Action {
                 $data['inputs'] = $relInputs;
                 $this->_helper->json->sendJson($data);
             } else {
-                
+
                 $Model_Inputs = new Model_Inputs();
                 $Model_Followups = new Model_Followups();
                 $Model_FollowupsRef = new Model_FollowupsRef();
                 $Model_FollowupFiles = new Model_FollowupFiles();
 
-                $current_snippet = $Model_Followups->getById($fid);                
-                
-                $rel_tids = $Model_FollowupsRef->getRelatedInputsByFid( $fid );                
-                $fid_ref_result = $Model_FollowupsRef->getRelatedFollowupByFid( $fid );                
-                
+                $current_snippet = $Model_Followups->getById($fid);
+
+                $rel_tids = $Model_FollowupsRef->getRelatedInputsByFid( $fid );
+                $fid_ref_result = $Model_FollowupsRef->getRelatedFollowupByFid( $fid );
+
                 $rel_fids = array();
                 foreach ($fid_ref_result as $value) {
                     $rel_fids[] = (int) $value['fid_ref'];
                 }
-                
+
                 $reltothis_inputs = $Model_Inputs->getByIdArray ($rel_tids);
                 $reltothis_snippets = $Model_Followups->getByIdArray($rel_fids);
-                
+
                 $snippetids = array();
                 $ffids = array();
-                
+
                 foreach ($reltothis_snippets as $snippet) {
                     $snippetids[] = $snippet['fid'];
                     $ffids[] = (int) $snippet['ffid'];
                 }
-                
+
                 $ffids[] = (int) $current_snippet["ffid"];
-                
+
                 $uniqueffids = array_unique($ffids);
-                
+
                 $docs = $Model_FollowupFiles->getByIdArray($uniqueffids);
-                
+
                 $indexeddocs = array();
-                
+
                 foreach ($docs as $doc) {
                     $indexeddocs[(int) $doc['ffid']] = $doc;
                 }
                 $fids_to_count = $rel_fids;
                 $fids_to_count[] = $fid;
-                
+
                 $countarr_snippets = $Model_FollowupsRef->getFollowupCountByFids($fids_to_count, 'tid = 0');
 
                 foreach ($reltothis_snippets as &$snippet) {
@@ -268,25 +268,24 @@ class FollowupController extends Zend_Controller_Action {
                     $snippet['gfx_who'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/'.$indexeddocs[(int) $snippet['ffid']]['gfx_who'];
                     $snippet['relFowupCount'] = isset($countarr_snippets[$snippet['fid']]) ? (int) $countarr_snippets[$snippet['fid']] : 0;
                 }
-                
+
                 $current_snippet['expl'] = html_entity_decode($current_snippet['expl']);
                 $current_snippet['gfx_who'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/'.$indexeddocs[(int) $current_snippet['ffid']]['gfx_who'];
                 $current_snippet['relFowupCount'] = isset($countarr_snippets[$current_snippet['fid']]) ? (int) $countarr_snippets[$current_snippet['fid']] : 0;
-                
+
                 $countarr_inputs = $Model_FollowupsRef->getFollowupCountByTids($rel_tids);
 
                 foreach ($reltothis_inputs as &$relInput) {
                     $relInput['relFowupCount'] = isset($countarr_inputs[$relInput['tid']]) ? $countarr_inputs[$relInput['tid']] : 0;
                 }
-                
-                
+
                 $this->view->assign(array(
                     'snippet' => $current_snippet,
                     'reltothis_snippets' => $reltothis_snippets,
                     'reltothis_inputs' => $reltothis_inputs,
                     'kid' => $kid
                 ));
-                
+
             }
         } else {
 
@@ -303,7 +302,7 @@ class FollowupController extends Zend_Controller_Action {
     }
 
     /*
-     * 
+     *
      * sends jsondata
      *
      * @param $_GET['kid'] consultation id
@@ -311,10 +310,11 @@ class FollowupController extends Zend_Controller_Action {
      * @param $_GET['fid'] show References by fowups.fid
      * @param $_GET['ffid'] show followup_fls by followup_fls.ffid
      * @return void
-     * 
+     *
      */
 
-    public function jsonAction() {
+    public function jsonAction()
+    {
         $kid = $this->_getParam('kid', 0);
         $tid = $this->_getParam('tid', 0);
         $fid = $this->_getParam('fid', 0);
@@ -418,13 +418,14 @@ class FollowupController extends Zend_Controller_Action {
      * like a followup-snippet
      * checks if UserAgent+IP combination has liked/unliked
      * sends json with like/unlike count after database update
-     * 
+     *
      * @param $_GET['fid'] fowup.fid
-     * 
+     *
      * @return void
      */
 
-    public function likeAction() {
+    public function likeAction()
+    {
         $fid = $this->getRequest()->getParam('fid', 0);
 
         $followups = new Model_Followups();
@@ -439,13 +440,14 @@ class FollowupController extends Zend_Controller_Action {
      * unlike a followup-snippet
      * checks if UserAgent+IP combination has liked/unliked
      * sends json with like/unlike count after database update
-     * 
+     *
      * @param $_GET['fid'] fowup.fid
-     * 
+     *
      * @return void
      */
 
-    public function unlikeAction() {
+    public function unlikeAction()
+    {
         $fid = $this->getRequest()->getParam('fid', 0);
 
         $followups = new Model_Followups();
@@ -455,7 +457,8 @@ class FollowupController extends Zend_Controller_Action {
         $this->_helper->json->sendJson($data);
     }
 
-    public function tagsAction() {
+    public function tagsAction()
+    {
         $kid = $this->_request->getParam('kid', 0);
         $inputModel = new Model_Inputs();
         $tagModel = new Model_Tags();
@@ -465,7 +468,8 @@ class FollowupController extends Zend_Controller_Action {
         $this->view->tags = $tagModel->getAllByConsultation($kid);
     }
 
-    public function downloadAction() {
+    public function downloadAction()
+    {
         $filename = $this->getRequest()->getParam('filename', 0);
         $kid = $this->getRequest()->getParam('kid', 0);
 
@@ -500,5 +504,3 @@ class FollowupController extends Zend_Controller_Action {
     }
 
 }
-
-?>

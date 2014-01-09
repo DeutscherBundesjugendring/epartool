@@ -20,7 +20,6 @@
  * @version    $Id: Atom.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Abstract
  */
@@ -30,7 +29,6 @@ require_once 'Zend/Feed/Abstract.php';
  * @see Zend_Feed_Entry_Atom
  */
 require_once 'Zend/Feed/Entry/Atom.php';
-
 
 /**
  * Atom feed class
@@ -72,7 +70,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
      */
     protected $_defaultNamespace = 'atom';
 
-
     /**
      * Override Zend_Feed_Abstract to set up the $_element and $_entries aliases.
      *
@@ -110,7 +107,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
         // simplicity.
         $this->_buildEntryCache();
     }
-
 
     /**
      * Easy access to <link> tags keyed by "rel" attributes.
@@ -155,7 +151,6 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
         return null;
     }
 
-
     /**
      * Make accessing some individual elements of the feed easier.
      *
@@ -183,7 +178,7 @@ class Zend_Feed_Atom extends Zend_Feed_Abstract
     /**
      * Generate the header of the feed when working in write mode
      *
-     * @param  array $array the data to use
+     * @param  array      $array the data to use
      * @return DOMElement root node
      */
     protected function _mapFeedHeaders($array)

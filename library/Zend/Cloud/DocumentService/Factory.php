@@ -54,7 +54,7 @@ class Zend_Cloud_DocumentService_Factory extends Zend_Cloud_AbstractFactory
     /**
      * Retrieve an adapter instance
      *
-     * @param array $options
+     * @param  array $options
      * @return void
      */
     public static function getAdapter($options = array())
@@ -72,6 +72,7 @@ class Zend_Cloud_DocumentService_Factory extends Zend_Cloud_AbstractFactory
                 'Adapter must implement \'' . self::$_adapterInterface . '\''
             );
         }
+
         return $adapter;
     }
 }

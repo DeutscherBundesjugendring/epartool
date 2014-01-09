@@ -19,7 +19,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-require_once "Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php";
+require_once 'Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php';
 
 /**
  * Try to align a given text central on the screen.
@@ -40,19 +40,19 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_AlignCenter
     }
 
     /**
-     * @param string $content
+     * @param string  $content
      * @param integer $lineLength
      */
     public function decorate($content, $lineLength)
     {
-        if(!is_numeric($lineLength)) {
+        if (!is_numeric($lineLength)) {
             $lineLength = 72;
         }
-        if(strlen($content) < $lineLength) {
+        if (strlen($content) < $lineLength) {
             $append = false;
             $len = strlen($content);
-            for($i = $len; $i < $lineLength; $i++) {
-                if($append == true) {
+            for ($i = $len; $i < $lineLength; $i++) {
+                if ($append == true) {
                     $content = $content." ";
                     $append = false;
                 } else {
@@ -61,6 +61,7 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_AlignCenter
                 }
             }
         }
+
         return $content;
     }
 }

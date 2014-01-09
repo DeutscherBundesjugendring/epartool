@@ -60,10 +60,10 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTempla
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $ownerId
+     * @param integer                                                      $environment
+     * @param string                                                       $ownerId
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
-     * @param array $conferenceParticipants
+     * @param array                                                        $conferenceParticipants
      */
     public function __construct($environment, $ownerId,
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails,
@@ -78,36 +78,39 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTempla
     /**
      * sets $participants
      *
-     * @param array $participants
+     * @param  array                                                                               $participants
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTemplateRequest
      */
     public function setParticipants(array $participants = null)
     {
         $this->participants = $participants;
+
         return $this;
     }
 
     /**
      * sets $detail
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail                        $detail
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTemplateRequest
      */
     public function setDetail(Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail)
     {
         $this->detail = $detail;
+
         return $this;
     }
 
     /**
      * sets $ownerId
      *
-     * @param string $ownerId
+     * @param  string                                                                              $ownerId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceTemplateRequest
      */
     public function setOwnerId($ownerId)
     {
         $this->ownerId = $ownerId;
+
         return $this;
     }
 }

@@ -52,6 +52,7 @@ class Zend_Service_Ebay_Finding_Error_Data_Set extends Zend_Service_Ebay_Finding
          * @see Zend_Service_Ebay_Finding_Error_Data
          */
         require_once 'Zend/Service/Ebay/Finding/Error/Data.php';
+
         return new Zend_Service_Ebay_Finding_Error_Data($node);
     }
 }

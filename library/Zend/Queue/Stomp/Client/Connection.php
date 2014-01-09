@@ -56,11 +56,11 @@ class Zend_Queue_Stomp_Client_Connection
     /**
      * open() opens a socket to the Stomp server
      *
-     * @param  array $options ('scheme', 'host', 'port')
-     * @param  string $scheme
-     * @param  string $host
-     * @param  int $port
-     * @param  array $options Accepts "timeout_sec" and "timeout_usec" keys
+     * @param  array                $options ('scheme', 'host', 'port')
+     * @param  string               $scheme
+     * @param  string               $host
+     * @param  int                  $port
+     * @param  array                $options Accepts "timeout_sec" and "timeout_usec" keys
      * @return true;
      * @throws Zend_Queue_Exception
      */
@@ -139,6 +139,7 @@ class Zend_Queue_Stomp_Client_Connection
             require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('Not connected to Stomp server');
         }
+
         return true;
     }
 
@@ -225,6 +226,7 @@ class Zend_Queue_Stomp_Client_Connection
 
         $frame = $this->createFrame();
         $frame->fromFrame($response);
+
         return $frame;
     }
 
@@ -233,12 +235,13 @@ class Zend_Queue_Stomp_Client_Connection
      *
      * This must be a Zend_Queue_Stomp_FrameInterface.
      *
-     * @param  string $classname - class is an instance of Zend_Queue_Stomp_FrameInterface
+     * @param string $classname - class is an instance of Zend_Queue_Stomp_FrameInterface
      * @return $this;
      */
     public function setFrameClass($classname)
     {
         $this->_options['frameClass'] = $classname;
+
         return $this;
     }
 

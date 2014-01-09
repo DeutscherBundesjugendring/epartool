@@ -100,7 +100,7 @@ class Zend_Gdata extends Zend_Gdata_App
      * Create Gdata object
      *
      * @param Zend_Http_Client $client
-     * @param string $applicationId The identity of the app in the form of
+     * @param string           $applicationId The identity of the app in the form of
      *          Company-AppName-Version
      */
     public function __construct($client = null, $applicationId = 'MyCompany-MyApp-1.0')
@@ -111,9 +111,9 @@ class Zend_Gdata extends Zend_Gdata_App
     /**
      * Imports a feed located at $uri.
      *
-     * @param  string $uri
-     * @param  Zend_Http_Client $client The client used for communication
-     * @param  string $className The class which is used as the return type
+     * @param  string                     $uri
+     * @param  Zend_Http_Client           $client    The client used for communication
+     * @param  string                     $className The class which is used as the return type
      * @throws Zend_Gdata_App_Exception
      * @return string|Zend_Gdata_App_Feed Returns string only if the object
      *                                    mapping has been disabled explicitly
@@ -133,16 +133,17 @@ class Zend_Gdata extends Zend_Gdata_App
         if ($client != null) {
             $feed->setHttpClient($client);
         }
+
         return $feed;
     }
 
     /**
      * Retrieve feed as string or object
      *
-     * @param mixed $location The location as string or Zend_Gdata_Query
-     * @param string $className The class type to use for returning the feed
+     * @param  mixed                                   $location  The location as string or Zend_Gdata_Query
+     * @param  string                                  $className The class type to use for returning the feed
      * @throws Zend_Gdata_App_InvalidArgumentException
-     * @return string|Zend_Gdata_App_Feed Returns string only if the object
+     * @return string|Zend_Gdata_App_Feed              Returns string only if the object
      *                                    mapping has been disabled explicitly
      *                                    by passing false to the
      *                                    useObjectMapping() function.
@@ -159,15 +160,16 @@ class Zend_Gdata extends Zend_Gdata_App
                     'You must specify the location as either a string URI ' .
                     'or a child of Zend_Gdata_Query');
         }
+
         return parent::getFeed($uri, $className);
     }
 
     /**
      * Retrieve entry as string or object
      *
-     * @param mixed $location The location as string or Zend_Gdata_Query
+     * @param  mixed                                   $location The location as string or Zend_Gdata_Query
      * @throws Zend_Gdata_App_InvalidArgumentException
-     * @return string|Zend_Gdata_App_Entry Returns string only if the object
+     * @return string|Zend_Gdata_App_Entry             Returns string only if the object
      *                                     mapping has been disabled explicitly
      *                                     by passing false to the
      *                                     useObjectMapping() function.
@@ -184,6 +186,7 @@ class Zend_Gdata extends Zend_Gdata_App
                     'You must specify the location as either a string URI ' .
                     'or a child of Zend_Gdata_Query');
         }
+
         return parent::getEntry($uri, $className);
     }
 
@@ -200,7 +203,7 @@ class Zend_Gdata extends Zend_Gdata_App
      *                    or null if found in $data
      * @param array $headers An associative array of HTTP headers
      *                       for this request
-     * @param string $body The body of the HTTP request
+     * @param string $body        The body of the HTTP request
      * @param string $contentType The value for the content type of the
      *                            request body
      * @param int $remainingRedirects Number of redirects to follow
@@ -216,6 +219,7 @@ class Zend_Gdata extends Zend_Gdata_App
             $body = $filterResult['body'];
             $headers = $filterResult['headers'];
             $contentType = $filterResult['contentType'];
+
             return $this->_httpClient->filterHttpResponse(parent::performHttpRequest($method, $url, $headers, $body, $contentType, $remainingRedirects));
         } else {
             return parent::performHttpRequest($method, $url, $headers, $body, $contentType, $remainingRedirects);

@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Go to a destination in an embedded file' action
  *
@@ -35,4 +34,3 @@ require_once 'Zend/Pdf/Action.php';
 class Zend_Pdf_Action_GoToE extends Zend_Pdf_Action
 {
 }
-

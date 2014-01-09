@@ -60,15 +60,15 @@ require_once 'Zend/Service/WindowsAzure/Diagnostics/ConfigurationDirectories.php
  * @property	Zend_Service_WindowsAzure_Diagnostics_ConfigurationDirectories						Directories						Directories
  */
 class Zend_Service_WindowsAzure_Diagnostics_ConfigurationDataSources
-	extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
+    extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
 {
     /**
      * Constructor
-     * 
-	 * @param	int	$overallQuotaInMB				Overall quota in MB
-	 */
-    public function __construct($overallQuotaInMB = 0) 
-    {	        
+     *
+     * @param int $overallQuotaInMB Overall quota in MB
+     */
+    public function __construct($overallQuotaInMB = 0)
+    {
         $this->_data = array(
             'overallquotainmb'        		=> $overallQuotaInMB,
             'logs'             				=> new Zend_Service_WindowsAzure_Diagnostics_ConfigurationLogs(),

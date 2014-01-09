@@ -54,8 +54,8 @@ class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
     /**
      * dijit.form.Form
      *
-     * @param  string $id
-     * @param  null|array $attribs HTML attributes
+     * @param  string       $id
+     * @param  null|array   $attribs HTML attributes
      * @param  false|string $content
      * @return string
      */
@@ -87,6 +87,7 @@ class Zend_Dojo_View_Helper_Form extends Zend_Dojo_View_Helper_Dijit
             $this->_helper = new Zend_View_Helper_Form;
             $this->_helper->setView($this->view);
         }
+
         return $this->_helper;
     }
 }

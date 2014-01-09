@@ -59,7 +59,7 @@ abstract class Zend_ProgressBar_Adapter
     /**
      * Set options via a Zend_Config instance
      *
-     * @param  Zend_Config $config
+     * @param  Zend_Config              $config
      * @return Zend_ProgressBar_Adapter
      */
     public function setConfig(Zend_Config $config)
@@ -72,7 +72,7 @@ abstract class Zend_ProgressBar_Adapter
     /**
      * Set options via an array
      *
-     * @param  array $options
+     * @param  array                    $options
      * @return Zend_ProgressBar_Adapter
      */
     public function setOptions(array $options)

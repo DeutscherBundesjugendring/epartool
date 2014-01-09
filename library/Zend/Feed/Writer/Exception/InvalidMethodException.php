@@ -20,12 +20,10 @@
  * @version    $Id: InvalidMethodException.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Exception
  */
 require_once 'Zend/Feed/Exception.php';
-
 
 /**
  * Feed exceptions

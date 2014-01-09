@@ -21,7 +21,6 @@
  * @version    $Id: Flickr.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -50,7 +49,6 @@ class Zend_Service_Flickr
      */
     protected $_restClient = null;
 
-
     /**
      * Performs object initializations
      *
@@ -64,7 +62,6 @@ class Zend_Service_Flickr
     {
         $this->apiKey = (string) $apiKey;
     }
-
 
     /**
      * Find Flickr photos by tag.
@@ -80,8 +77,8 @@ class Zend_Service_Flickr
      *  # min_taken_date:  Minimum upload date to search on.  Date should be a MySQL datetime.
      *  # max_taken_date:  Maximum upload date to search on.  Date should be a MySQL datetime.
      *
-     * @param  string|array $query   A single tag or an array of tags.
-     * @param  array        $options Additional parameters to refine your query.
+     * @param  string|array                  $query   A single tag or an array of tags.
+     * @param  array                         $options Additional parameters to refine your query.
      * @return Zend_Service_Flickr_ResultSet
      * @throws Zend_Service_Exception
      */
@@ -122,9 +119,9 @@ class Zend_Service_Flickr
          * @see Zend_Service_Flickr_ResultSet
          */
         require_once 'Zend/Service/Flickr/ResultSet.php';
+
         return new Zend_Service_Flickr_ResultSet($dom, $this);
     }
-
 
     /**
      * Finds photos by a user's username or email.
@@ -138,8 +135,8 @@ class Zend_Service_Flickr
      *  # min_taken_date:  Minimum upload date to search on.  Date should be a MySQL datetime.
      *  # max_taken_date:  Maximum upload date to search on.  Date should be a MySQL datetime.
      *
-     * @param  string $query   username or email
-     * @param  array  $options Additional parameters to refine your query.
+     * @param  string                        $query   username or email
+     * @param  array                         $options Additional parameters to refine your query.
      * @return Zend_Service_Flickr_ResultSet
      * @throws Zend_Service_Exception
      */
@@ -186,14 +183,15 @@ class Zend_Service_Flickr
          * @see Zend_Service_Flickr_ResultSet
          */
         require_once 'Zend/Service/Flickr/ResultSet.php';
+
         return new Zend_Service_Flickr_ResultSet($dom, $this);
     }
 
     /**
      * Finds photos in a group's pool.
      *
-     * @param  string $query   group id
-     * @param  array  $options Additional parameters to refine your query.
+     * @param  string                        $query   group id
+     * @param  array                         $options Additional parameters to refine your query.
      * @return Zend_Service_Flickr_ResultSet
      * @throws Zend_Service_Exception
      */
@@ -241,6 +239,7 @@ class Zend_Service_Flickr
         * @see Zend_Service_Flickr_ResultSet
         */
         require_once 'Zend/Service/Flickr/ResultSet.php';
+
         return new Zend_Service_Flickr_ResultSet($dom, $this);
     }
 
@@ -251,8 +250,8 @@ class Zend_Service_Flickr
      *
      * (You can only find a user's photo with their NSID.)
      *
-     * @param  string $username the username
-     * @return string the NSID (userid)
+     * @param  string                 $username the username
+     * @return string                 the NSID (userid)
      * @throws Zend_Service_Exception
      */
     public function getIdByUsername($username)
@@ -286,17 +285,17 @@ class Zend_Service_Flickr
         $dom->loadXML($response->getBody());
         self::_checkErrors($dom);
         $xpath = new DOMXPath($dom);
+
         return (string) $xpath->query('//user')->item(0)->getAttribute('id');
     }
-
 
     /**
      * Utility function to find Flickr User IDs for emails.
      *
      * (You can only find a user's photo with their NSID.)
      *
-     * @param  string $email the email
-     * @return string the NSID (userid)
+     * @param  string                 $email the email
+     * @return string                 the NSID (userid)
      * @throws Zend_Service_Exception
      */
     public function getIdByEmail($email)
@@ -330,6 +329,7 @@ class Zend_Service_Flickr
         $dom->loadXML($response->getBody());
         self::_checkErrors($dom);
         $xpath = new DOMXPath($dom);
+
         return (string) $xpath->query('//user')->item(0)->getAttribute('id');
     }
 
@@ -337,8 +337,8 @@ class Zend_Service_Flickr
     /**
      * Returns Flickr photo details by for the given photo ID
      *
-     * @param  string $id the NSID
-     * @return array of Zend_Service_Flickr_Image, details for the specified image
+     * @param  string                 $id the NSID
+     * @return array                  of Zend_Service_Flickr_Image, details for the specified image
      * @throws Zend_Service_Exception
      */
     public function getImageDetails($id)
@@ -399,7 +399,7 @@ class Zend_Service_Flickr
     /**
      * Validate User Search Options
      *
-     * @param  array $options
+     * @param  array                  $options
      * @return void
      * @throws Zend_Service_Exception
      */
@@ -440,7 +440,7 @@ class Zend_Service_Flickr
         if ($options['extras']) {
             $extras = explode(',', $options['extras']);
             $validExtras = array('license', 'date_upload', 'date_taken', 'owner_name', 'icon_server');
-            foreach($extras as $extra) {
+            foreach ($extras as $extra) {
                 /**
                  * @todo The following does not do anything [yet], so it is commented out.
                  */
@@ -453,7 +453,7 @@ class Zend_Service_Flickr
     /**
      * Validate Tag Search Options
      *
-     * @param  array $options
+     * @param  array                  $options
      * @return void
      * @throws Zend_Service_Exception
      */
@@ -498,7 +498,7 @@ class Zend_Service_Flickr
         if ($options['extras']) {
             $extras = explode(',', $options['extras']);
             $validExtras = array('license', 'date_upload', 'date_taken', 'owner_name', 'icon_server');
-            foreach($extras as $extra) {
+            foreach ($extras as $extra) {
                 /**
                  * @todo The following does not do anything [yet], so it is commented out.
                  */
@@ -553,7 +553,7 @@ class Zend_Service_Flickr
         if (isset($options['extras'])) {
             $extras = explode(',', $options['extras']);
             $validExtras = array('license', 'date_upload', 'date_taken', 'owner_name', 'icon_server');
-            foreach($extras as $extra) {
+            foreach ($extras as $extra) {
                 /**
                 * @todo The following does not do anything [yet], so it is commented out.
                 */
@@ -566,7 +566,7 @@ class Zend_Service_Flickr
     /**
      * Throws an exception if and only if the response status indicates a failure
      *
-     * @param  DOMDocument $dom
+     * @param  DOMDocument            $dom
      * @return void
      * @throws Zend_Service_Exception
      */
@@ -591,7 +591,7 @@ class Zend_Service_Flickr
      * @param  string $method         Flickr Method to call
      * @param  array  $options        User Options
      * @param  array  $defaultOptions Default Options
-     * @return array Merged array of user and default/required options
+     * @return array  Merged array of user and default/required options
      */
     protected function _prepareOptions($method, array $options, array $defaultOptions)
     {
@@ -605,8 +605,8 @@ class Zend_Service_Flickr
     /**
      * Throws an exception if and only if any user options are invalid
      *
-     * @param  array $options      User options
-     * @param  array $validOptions Valid options
+     * @param  array                  $options      User options
+     * @param  array                  $validOptions Valid options
      * @return void
      * @throws Zend_Service_Exception
      */
@@ -622,4 +622,3 @@ class Zend_Service_Flickr
         }
     }
 }
-

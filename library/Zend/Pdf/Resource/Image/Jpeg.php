@@ -19,11 +19,9 @@
  * @version    $Id: Jpeg.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
-
 
 /** Zend_Pdf_Resource_Image */
 require_once 'Zend/Pdf/Resource/Image.php';
@@ -45,7 +43,7 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
     /**
      * Object constructor
      *
-     * @param string $imageFileName
+     * @param  string             $imageFileName
      * @throws Zend_Pdf_Exception
      */
     public function __construct($imageFileName)
@@ -92,7 +90,7 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         $imageDictionary->BitsPerComponent = new Zend_Pdf_Element_Numeric($imageInfo['bits']);
         if ($imageInfo[2] == IMAGETYPE_JPEG) {
             $imageDictionary->Filter       = new Zend_Pdf_Element_Name('DCTDecode');
-        } else if ($imageInfo[2] == IMAGETYPE_JPEG2000){
+        } elseif ($imageInfo[2] == IMAGETYPE_JPEG2000) {
             $imageDictionary->Filter       = new Zend_Pdf_Element_Name('JPXDecode');
         }
 
@@ -131,22 +129,24 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
     /**
      * Image width
      */
-    public function getPixelWidth() {
+    public function getPixelWidth()
+    {
         return $this->_width;
     }
 
     /**
      * Image height
      */
-    public function getPixelHeight() {
+    public function getPixelHeight()
+    {
         return $this->_height;
     }
 
     /**
      * Image properties
      */
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->_imageProperties;
     }
 }
-

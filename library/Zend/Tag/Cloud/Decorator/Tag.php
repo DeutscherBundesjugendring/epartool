@@ -59,7 +59,7 @@ abstract class Zend_Tag_Cloud_Decorator_Tag
     /**
      * Set options from array
      *
-     * @param  array $options Configuration for the decorator
+     * @param  array          $options Configuration for the decorator
      * @return Zend_Tag_Cloud
      */
     public function setOptions(array $options)

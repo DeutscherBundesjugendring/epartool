@@ -44,8 +44,8 @@ class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
      *
      * @param  string $id
      * @param  string $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function submitButton($id, $value = null, array $params = array(), array $attribs = array())
@@ -62,6 +62,7 @@ class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
             $value = $attribs['content'];
             unset($attribs['content']);
         }
+
         return $this->_createFormElement($id, $value, $params, $attribs);
     }
 }

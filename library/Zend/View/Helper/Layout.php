@@ -58,12 +58,13 @@ class Zend_View_Helper_Layout extends Zend_View_Helper_Abstract
     /**
      * Set layout object
      *
-     * @param  Zend_Layout $layout
+     * @param  Zend_Layout                                 $layout
      * @return Zend_Layout_Controller_Action_Helper_Layout
      */
     public function setLayout(Zend_Layout $layout)
     {
         $this->_layout = $layout;
+
         return $this;
     }
 

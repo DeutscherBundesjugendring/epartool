@@ -82,6 +82,7 @@ class Zend_Feed_Reader_Extension_Slash_Entry
         }
 
         $this->_data[$name] = $hitParade;
+
         return $hitParade;
     }
 
@@ -102,6 +103,7 @@ class Zend_Feed_Reader_Extension_Slash_Entry
 
         if (!$comments) {
             $this->_data[$name] = null;
+
             return $this->_data[$name];
         }
 

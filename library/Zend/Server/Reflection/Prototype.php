@@ -45,8 +45,8 @@ class Zend_Server_Reflection_Prototype
     /**
      * Constructor
      *
-     * @param Zend_Server_Reflection_ReturnValue $return
-     * @param array $params
+     * @param  Zend_Server_Reflection_ReturnValue $return
+     * @param  array                              $params
      * @return void
      */
     public function __construct(Zend_Server_Reflection_ReturnValue $return, $params = null)

@@ -101,8 +101,8 @@ class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
     /**
      * Set the MediaSource object (file) for this MediaEntry
      *
-     * @param Zend_Gdata_App_MediaSource $value The attached MediaSource/file
-     * @return Zend_Gdata_App_MediaEntry Provides a fluent interface
+     * @param  Zend_Gdata_App_MediaSource $value The attached MediaSource/file
+     * @return Zend_Gdata_App_MediaEntry  Provides a fluent interface
      */
     public function setMediaSource($value)
     {
@@ -113,6 +113,7 @@ class Zend_Gdata_App_MediaEntry extends Zend_Gdata_App_Entry
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'You must specify the media data as a class that conforms to Zend_Gdata_App_MediaSource.');
         }
+
         return $this;
     }
 

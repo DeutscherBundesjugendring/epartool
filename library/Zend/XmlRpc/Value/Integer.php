@@ -20,12 +20,10 @@
  * @version    $Id: Integer.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -50,7 +48,7 @@ class Zend_XmlRpc_Value_Integer extends Zend_XmlRpc_Value_Scalar
         }
 
         $this->_type = self::XMLRPC_TYPE_INTEGER;
-        $this->_value = (int)$value;    // Make sure this value is integer
+        $this->_value = (int) $value;    // Make sure this value is integer
     }
 
     /**

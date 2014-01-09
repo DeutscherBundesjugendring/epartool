@@ -52,7 +52,6 @@ abstract class Zend_Session_Validator_Abstract implements Zend_Session_Validator
         $_SESSION['__ZF']['VALID'][$validatorName] = $data;
     }
 
-
     /**
      * GetValidData() - This method should be used to retrieve the environment variables that
      * will be needed to 'validate' a session.
@@ -65,6 +64,7 @@ abstract class Zend_Session_Validator_Abstract implements Zend_Session_Validator
         if (isset($_SESSION['__ZF']['VALID'][$validatorName])) {
             return $_SESSION['__ZF']['VALID'][$validatorName];
         }
+
         return null;
     }
 

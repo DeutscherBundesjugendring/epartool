@@ -22,7 +22,7 @@
 /**
  * @see Zend_Soap_Wsdl_Strategy_DefaultComplexType
  */
-require_once "Zend/Soap/Wsdl/Strategy/DefaultComplexType.php";
+require_once 'Zend/Soap/Wsdl/Strategy/DefaultComplexType.php';
 
 /**
  * Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence
@@ -38,17 +38,17 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
     /**
      * Add an unbounded ArrayOfType based on the xsd:sequence syntax if type[] is detected in return value doc comment.
      *
-     * @param string $type
+     * @param  string $type
      * @return string tns:xsd-type
      */
     public function addComplexType($type)
     {
         $nestedCounter = $this->_getNestedCount($type);
 
-        if($nestedCounter > 0) {
+        if ($nestedCounter > 0) {
             $singularType = $this->_getSingularType($type);
 
-            for($i = 1; $i <= $nestedCounter; $i++) {
+            for ($i = 1; $i <= $nestedCounter; $i++) {
                 $complexTypeName = substr($this->_getTypeNameBasedOnNestingLevel($singularType, $i), 4);
                 $childTypeName = $this->_getTypeNameBasedOnNestingLevel($singularType, $i-1);
 
@@ -58,7 +58,7 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
             $this->getContext()->addType($complexTypeName);
 
             return "tns:$complexTypeName";
-        } else if (!in_array($type, $this->getContext()->getTypes())) {
+        } elseif (!in_array($type, $this->getContext()->getTypes())) {
             // New singular complex type
             return parent::addComplexType($type);
         } else {
@@ -76,13 +76,14 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
      */
     protected function _getTypeNameBasedOnNestingLevel($singularType, $level)
     {
-        if($level == 0) {
+        if ($level == 0) {
             // This is not an Array anymore, return the xsd simple type
             return $singularType;
         } else {
             $prefix = str_repeat("ArrayOf", $level);
             $xsdType = $this->_getStrippedXsdType($singularType);
             $arrayType = $prefix.$xsdType;
+
             return "tns:$arrayType";
         }
     }
@@ -102,19 +103,20 @@ class Zend_Soap_Wsdl_Strategy_ArrayOfTypeSequence extends Zend_Soap_Wsdl_Strateg
      * From a nested defintion with type[], get the singular xsd:type
      *
      * @throws Zend_Soap_Wsdl_Exception When no xsd:simpletype can be detected.
-     * @param  string $type
+     * @param  string                   $type
      * @return string
      */
     protected function _getSingularType($type)
     {
         $singulartype = $this->getContext()->getType(str_replace("[]", "", $type));
+
         return $singulartype;
     }
 
     /**
      * Return the array nesting level based on the type name
      *
-     * @param  string $type
+     * @param  string  $type
      * @return integer
      */
     protected function _getNestedCount($type)

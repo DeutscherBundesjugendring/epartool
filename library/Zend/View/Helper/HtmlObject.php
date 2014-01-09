@@ -37,11 +37,11 @@ class Zend_View_Helper_HtmlObject extends Zend_View_Helper_HtmlElement
     /**
      * Output an object set
      *
-     * @param string $data The data file
-     * @param string $type Data file type
-     * @param array  $attribs Attribs for the object tag
-     * @param array  $params Params for in the object tag
-     * @param string $content Alternative content for object
+     * @param  string $data    The data file
+     * @param  string $type    Data file type
+     * @param  array  $attribs Attribs for the object tag
+     * @param  array  $params  Params for in the object tag
+     * @param  string $content Alternative content for object
      * @return string
      */
     public function htmlObject($data, $type, array $attribs = array(), array $params = array(), $content = null)

@@ -41,19 +41,19 @@ class Zend_Service_Amazon_Ec2_Region extends Zend_Service_Amazon_Ec2_Abstract
      * Describes availability zones that are currently available to the account
      * and their states.
      *
-     * @param string|array $region              Name of an region.
-     * @return array                            An array that contains all the return items.  Keys: regionName and regionUrl.
+     * @param  string|array $region Name of an region.
+     * @return array        An array that contains all the return items.  Keys: regionName and regionUrl.
      */
     public function describe($region = null)
     {
         $params = array();
         $params['Action'] = 'DescribeRegions';
 
-        if(is_array($region) && !empty($region)) {
-            foreach($region as $k=>$name) {
+        if (is_array($region) && !empty($region)) {
+            foreach ($region as $k=>$name) {
                 $params['Region.' . ($k+1)] = $name;
             }
-        } elseif($region) {
+        } elseif ($region) {
             $params['Region.1'] = $region;
         }
 

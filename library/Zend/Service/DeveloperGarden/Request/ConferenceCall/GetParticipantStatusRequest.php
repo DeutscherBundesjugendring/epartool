@@ -54,8 +54,8 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetParticipantStatusRe
      * constructor
      *
      * @param integer $environment
-     * @param string $conferenceId
-     * @param string $participantId
+     * @param string  $conferenceId
+     * @param string  $participantId
      */
     public function __construct($environment, $conferenceId, $participantId)
     {
@@ -67,24 +67,26 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetParticipantStatusRe
     /**
      * set the conference id
      *
-     * @param string $conferenceId
+     * @param  string                                                                          $conferenceId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetParticipantStatusRequest
      */
     public function setConferenceId($conferenceId)
     {
         $this->conferenceId = $conferenceId;
+
         return $this;
     }
 
     /**
      * set the participant id
      *
-     * @param string $participantId
+     * @param  string                                                                          $participantId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetParticipantStatusRequest
      */
     public function setParticipantId($participantId)
     {
         $this->participantId = $participantId;
+
         return $this;
     }
 }

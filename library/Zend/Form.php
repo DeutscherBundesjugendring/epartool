@@ -225,7 +225,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Registers form view helper as decorator
      *
-     * @param mixed $options
+     * @param  mixed $options
      * @return void
      */
     public function __construct($options = null)
@@ -262,7 +262,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         $this->setSubForms($subForms);
 
         $displayGroups = array();
-        foreach ($this->_displayGroups as $group)  {
+        foreach ($this->_displayGroups as $group) {
             $clone    = clone $group;
             $elements = array();
             foreach ($clone->getElements() as $name => $e) {
@@ -303,7 +303,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set form state from options array
      *
-     * @param  array $options
+     * @param  array     $options
      * @return Zend_Form
      */
     public function setOptions(array $options)
@@ -371,7 +371,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 
             $method = 'set' . $normalized;
             if (method_exists($this, $method)) {
-                if($normalized == 'View' && !($value instanceof Zend_View_Interface)) {
+                if ($normalized == 'View' && !($value instanceof Zend_View_Interface)) {
                     continue;
                 }
                 $this->$method($value);
@@ -402,16 +402,15 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         return $this->setOptions($config->toArray());
     }
 
-
     // Loaders
 
     /**
      * Set plugin loaders for use with decorators and elements
      *
      * @param  Zend_Loader_PluginLoader_Interface $loader
-     * @param  string $type 'decorator' or 'element'
+     * @param  string                             $type   'decorator' or 'element'
      * @return Zend_Form
-     * @throws Zend_Form_Exception on invalid type
+     * @throws Zend_Form_Exception                on invalid type
      */
     public function setPluginLoader(Zend_Loader_PluginLoader_Interface $loader, $type = null)
     {
@@ -420,6 +419,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             case self::DECORATOR:
             case self::ELEMENT:
                 $this->_loaders[$type] = $loader;
+
                 return $this;
             default:
                 require_once 'Zend/Form/Exception.php';
@@ -437,7 +437,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * If a plugin loader does not exist for the given type, defaults are
      * created.
      *
-     * @param  string $type
+     * @param  string                             $type
      * @return Zend_Loader_PluginLoader_Interface
      */
     public function getPluginLoader($type = null)
@@ -484,9 +484,9 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * $prefix . '_Decorator', $path . '/Decorator/'
      * $prefix . '_Element', $path . '/Element/'
      *
-     * @param  string $prefix
-     * @param  string $path
-     * @param  string $type
+     * @param  string              $prefix
+     * @param  string              $path
+     * @param  string              $type
      * @return Zend_Form
      * @throws Zend_Form_Exception for invalid type
      */
@@ -498,6 +498,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             case self::ELEMENT:
                 $loader = $this->getPluginLoader($type);
                 $loader->addPrefixPath($prefix, $path);
+
                 return $this;
             case null:
                 $nsSeparator = (false !== strpos($prefix, '\\'))?'\\':'_';
@@ -510,6 +511,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                     $loader       = $this->getPluginLoader($type);
                     $loader->addPrefixPath($pluginPrefix, $pluginPath);
                 }
+
                 return $this;
             default:
                 require_once 'Zend/Form/Exception.php';
@@ -520,7 +522,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Add many prefix paths at once
      *
-     * @param  array $spec
+     * @param  array     $spec
      * @return Zend_Form
      */
     public function addPrefixPaths(array $spec)
@@ -544,15 +546,16 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 $this->addPrefixPath($paths['prefix'], $paths['path'], $type);
             }
         }
+
         return $this;
     }
 
     /**
      * Add prefix path for all elements
      *
-     * @param  string $prefix
-     * @param  string $path
-     * @param  string $type
+     * @param  string    $prefix
+     * @param  string    $path
+     * @param  string    $type
      * @return Zend_Form
      */
     public function addElementPrefixPath($prefix, $path, $type = null)
@@ -577,7 +580,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Add prefix paths for all elements
      *
-     * @param  array $spec
+     * @param  array     $spec
      * @return Zend_Form
      */
     public function addElementPrefixPaths(array $spec)
@@ -594,8 +597,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Add prefix path for all display groups
      *
-     * @param  string $prefix
-     * @param  string $path
+     * @param  string    $prefix
+     * @param  string    $path
      * @return Zend_Form
      */
     public function addDisplayGroupPrefixPath($prefix, $path)
@@ -615,7 +618,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Add multiple display group prefix paths at once
      *
-     * @param  array $spec
+     * @param  array     $spec
      * @return Zend_Form
      */
     public function addDisplayGroupPrefixPaths(array $spec)
@@ -646,6 +649,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return $this;
     }
 
@@ -654,21 +658,22 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set form attribute
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string    $key
+     * @param  mixed     $value
      * @return Zend_Form
      */
     public function setAttrib($key, $value)
     {
         $key = (string) $key;
         $this->_attribs[$key] = $value;
+
         return $this;
     }
 
     /**
      * Add multiple form attributes at once
      *
-     * @param  array $attribs
+     * @param  array     $attribs
      * @return Zend_Form
      */
     public function addAttribs(array $attribs)
@@ -676,6 +681,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         foreach ($attribs as $key => $value) {
             $this->setAttrib($key, $value);
         }
+
         return $this;
     }
 
@@ -684,12 +690,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Overwrites any previously set attributes.
      *
-     * @param  array $attribs
+     * @param  array     $attribs
      * @return Zend_Form
      */
     public function setAttribs(array $attribs)
     {
         $this->clearAttribs();
+
         return $this->addAttribs($attribs);
     }
 
@@ -729,6 +736,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     {
         if (isset($this->_attribs[$key])) {
             unset($this->_attribs[$key]);
+
             return true;
         }
 
@@ -743,13 +751,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     public function clearAttribs()
     {
         $this->_attribs = array();
+
         return $this;
     }
 
     /**
      * Set form action
      *
-     * @param  string $action
+     * @param  string    $action
      * @return Zend_Form
      */
     public function setAction($action)
@@ -771,6 +780,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             $action = '';
             $this->setAction($action);
         }
+
         return $action;
     }
 
@@ -779,7 +789,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Only values in {@link $_methods()} allowed
      *
-     * @param  string $method
+     * @param  string              $method
      * @return Zend_Form
      * @throws Zend_Form_Exception
      */
@@ -791,6 +801,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             throw new Zend_Form_Exception(sprintf('"%s" is an invalid form method', $method));
         }
         $this->setAttrib('method', $method);
+
         return $this;
     }
 
@@ -805,18 +816,20 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             $method = self::METHOD_POST;
             $this->setAttrib('method', $method);
         }
+
         return strtolower($method);
     }
 
     /**
      * Set encoding type
      *
-     * @param  string $value
+     * @param  string    $value
      * @return Zend_Form
      */
     public function setEnctype($value)
     {
         $this->setAttrib('enctype', $value);
+
         return $this;
     }
 
@@ -831,6 +844,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             $enctype = self::ENCTYPE_URLENCODED;
             $this->setAttrib('enctype', $enctype);
         }
+
         return $this->getAttrib('enctype');
     }
 
@@ -838,7 +852,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Filter a name to only allow valid variable characters
      *
      * @param  string $value
-     * @param  bool $allowBrackets
+     * @param  bool   $allowBrackets
      * @return string
      */
     public function filterName($value, $allowBrackets = false)
@@ -847,19 +861,20 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         if ($allowBrackets) {
             $charset .= '\[\]';
         }
+
         return preg_replace('/[' . $charset . ']/', '', (string) $value);
     }
 
     /**
      * Set form name
      *
-     * @param  string $name
+     * @param  string    $name
      * @return Zend_Form
      */
     public function setName($name)
     {
         $name = $this->filterName($name);
-        if ('' === (string)$name) {
+        if ('' === (string) $name) {
             require_once 'Zend/Form/Exception.php';
             throw new Zend_Form_Exception('Invalid name provided; must contain only valid variable characters and be non-empty');
         }
@@ -921,12 +936,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set form legend
      *
-     * @param  string $value
+     * @param  string    $value
      * @return Zend_Form
      */
     public function setLegend($value)
     {
         $this->_legend = (string) $value;
+
         return $this;
     }
 
@@ -943,12 +959,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set form description
      *
-     * @param  string $value
+     * @param  string    $value
      * @return Zend_Form
      */
     public function setDescription($value)
     {
         $this->_description = (string) $value;
+
         return $this;
     }
 
@@ -965,12 +982,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set form order
      *
-     * @param  int $index
+     * @param  int       $index
      * @return Zend_Form
      */
     public function setOrder($index)
     {
         $this->_formOrder = (int) $index;
+
         return $this;
     }
 
@@ -992,6 +1010,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     protected function _setIsRendered()
     {
         $this->_isRendered = true;
+
         return $this;
     }
 
@@ -1000,7 +1019,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     protected function _getIsRendered()
     {
-        return (bool)$this->_isRendered;
+        return (bool) $this->_isRendered;
     }
 
     // Element interaction:
@@ -1017,9 +1036,9 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * and any provided $options will be ignored.
      *
      * @param  string|Zend_Form_Element $element
-     * @param  string $name
-     * @param  array|Zend_Config $options
-     * @throws Zend_Form_Exception on invalid element
+     * @param  string                   $name
+     * @param  array|Zend_Config        $options
+     * @throws Zend_Form_Exception      on invalid element
      * @return Zend_Form
      */
     public function addElement($element, $name = null, $options = null)
@@ -1074,8 +1093,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * settings as specified in the form object (including plugin loader
      * prefix paths, default decorators, etc.).
      *
-     * @param  string $type
-     * @param  string $name
+     * @param  string            $type
+     * @param  string            $name
      * @param  array|Zend_Config $options
      * @return Zend_Form_Element
      */
@@ -1130,7 +1149,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Add multiple elements at once
      *
-     * @param  array $elements
+     * @param  array     $elements
      * @return Zend_Form
      */
     public function addElements(array $elements)
@@ -1180,25 +1199,27 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return $this;
     }
 
     /**
      * Set form elements (overwrites existing elements)
      *
-     * @param  array $elements
+     * @param  array     $elements
      * @return Zend_Form
      */
     public function setElements(array $elements)
     {
         $this->clearElements();
+
         return $this->addElements($elements);
     }
 
     /**
      * Retrieve a single element
      *
-     * @param  string $name
+     * @param  string                 $name
      * @return Zend_Form_Element|null
      */
     public function getElement($name)
@@ -1206,6 +1227,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         if (array_key_exists($name, $this->_elements)) {
             return $this->_elements[$name];
         }
+
         return null;
     }
 
@@ -1222,7 +1244,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Remove element
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function removeElement($name)
@@ -1240,6 +1262,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                     }
                 }
             }
+
             return true;
         }
 
@@ -1260,6 +1283,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
         $this->_elements     = array();
         $this->_orderUpdated = true;
+
         return $this;
     }
 
@@ -1268,7 +1292,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Sets values for all elements specified in the array of $defaults.
      *
-     * @param  array $defaults
+     * @param  array     $defaults
      * @return Zend_Form
      */
     public function setDefaults(array $defaults)
@@ -1296,14 +1320,15 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 $form->setDefaults($defaults);
             }
         }
+
         return $this;
     }
 
     /**
      * Set default value for an element
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @param  string    $name
+     * @param  mixed     $value
      * @return Zend_Form
      */
     public function setDefault($name, $value)
@@ -1320,6 +1345,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 $subForm->setDefaults($value);
             }
         }
+
         return $this;
     }
 
@@ -1344,13 +1370,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 return $subForm->getValues(true);
             }
         }
+
         return null;
     }
 
     /**
      * Retrieve all form element values
      *
-     * @param  bool $suppressArrayNotation
+     * @param  bool  $suppressArrayNotation
      * @return array
      */
     public function getValues($suppressArrayNotation = false)
@@ -1366,7 +1393,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             if (!$element->getIgnore()) {
                 $merge = array();
                 if (($belongsTo = $element->getBelongsTo()) !== $eBelongTo) {
-                    if ('' !== (string)$belongsTo) {
+                    if ('' !== (string) $belongsTo) {
                         $key = $belongsTo . '[' . $key . ']';
                     }
                 }
@@ -1402,7 +1429,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * values to persist them.
      *
      * @param  array $data
-     * @param  bool $suppressArrayNotation
+     * @param  bool  $suppressArrayNotation
      * @return array
      */
     public function getValidValues($data, $suppressArrayNotation = false)
@@ -1422,9 +1449,9 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                     $check = $this->_dissolveArrayValue($data, $belongsTo);
                 }
                 if (isset($check[$key])) {
-                    if($element->isValid($check[$key], $context)) {
+                    if ($element->isValid($check[$key], $context)) {
                         $merge = array();
-                        if ($belongsTo !== $eBelongTo && '' !== (string)$belongsTo) {
+                        if ($belongsTo !== $eBelongTo && '' !== (string) $belongsTo) {
                             $key = $belongsTo . '[' . $key . ']';
                         }
                         $merge = $this->_attachToArray($element->getValue(), $key);
@@ -1470,6 +1497,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         if ($element = $this->getElement($name)) {
             return $element->getUnfilteredValue();
         }
+
         return null;
     }
 
@@ -1491,7 +1519,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set all elements' filters
      *
-     * @param  array $filters
+     * @param  array     $filters
      * @return Zend_Form
      */
     public function setElementFilters(array $filters)
@@ -1499,13 +1527,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         foreach ($this->getElements() as $element) {
             $element->setFilters($filters);
         }
+
         return $this;
     }
 
     /**
      * Set name of array elements belong to
      *
-     * @param  string $array
+     * @param  string    $array
      * @return Zend_Form
      */
     public function setElementsBelongTo($array)
@@ -1564,22 +1593,24 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     {
         if ((null === $this->_elementsBelongTo) && $this->isArray()) {
             $name = $this->getName();
-            if ('' !== (string)$name) {
+            if ('' !== (string) $name) {
                 return $name;
             }
         }
+
         return $this->_elementsBelongTo;
     }
 
     /**
      * Set flag indicating elements belong to array
      *
-     * @param  bool $flag Value of flag
+     * @param  bool      $flag Value of flag
      * @return Zend_Form
      */
     public function setIsArray($flag)
     {
         $this->_isArray = (bool) $flag;
+
         return $this;
     }
 
@@ -1599,8 +1630,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Add a form group/subform
      *
      * @param  Zend_Form $form
-     * @param  string $name
-     * @param  int $order
+     * @param  string    $name
+     * @param  int       $order
      * @return Zend_Form
      */
     public function addSubForm(Zend_Form $form, $name, $order = null)
@@ -1643,18 +1674,19 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         $this->_subForms[$name] = $form;
         $this->_order[$name]    = $order;
         $this->_orderUpdated    = true;
+
         return $this;
     }
 
     /**
      * Add multiple form subForms/subforms at once
      *
-     * @param  array $subForms
+     * @param  array     $subForms
      * @return Zend_Form
      */
     public function addSubForms(array $subForms)
     {
-        foreach ($subForms as $key => $spec) {          
+        foreach ($subForms as $key => $spec) {
             $name = (string) $key;
             if ($spec instanceof Zend_Form) {
                 $this->addSubForm($spec, $name);
@@ -1682,25 +1714,27 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return $this;
     }
 
     /**
      * Set multiple form subForms/subforms (overwrites)
      *
-     * @param  array $subForms
+     * @param  array     $subForms
      * @return Zend_Form
      */
     public function setSubForms(array $subForms)
     {
         $this->clearSubForms();
+
         return $this->addSubForms($subForms);
     }
 
     /**
      * Retrieve a form subForm/subform
      *
-     * @param  string $name
+     * @param  string         $name
      * @return Zend_Form|null
      */
     public function getSubForm($name)
@@ -1709,6 +1743,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         if (isset($this->_subForms[$name])) {
             return $this->_subForms[$name];
         }
+
         return null;
     }
 
@@ -1725,7 +1760,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Remove form subForm/subform
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function removeSubForm($name)
@@ -1737,6 +1772,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 unset($this->_order[$name]);
                 $this->_orderUpdated = true;
             }
+
             return true;
         }
 
@@ -1757,6 +1793,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
         $this->_subForms     = array();
         $this->_orderUpdated = true;
+
         return $this;
     }
 
@@ -1766,12 +1803,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set default display group class
      *
-     * @param  string $class
+     * @param  string    $class
      * @return Zend_Form
      */
     public function setDefaultDisplayGroupClass($class)
     {
         $this->_defaultDisplayGroupClass = (string) $class;
+
         return $this;
     }
 
@@ -1792,9 +1830,9 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * If a referenced element does not yet exist in the form, it is omitted.
      *
-     * @param  array $elements
-     * @param  string $name
-     * @param  array|Zend_Config $options
+     * @param  array               $elements
+     * @param  string              $name
+     * @param  array|Zend_Config   $options
      * @return Zend_Form
      * @throws Zend_Form_Exception if no valid elements provided
      */
@@ -1802,7 +1840,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     {
         $group = array();
         foreach ($elements as $element) {
-            if($element instanceof Zend_Form_Element) {
+            if ($element instanceof Zend_Form_Element) {
                 $elementName = $element->getName();
                 if (!isset($this->_elements[$elementName])) {
                     $this->addElement($element);
@@ -1861,6 +1899,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 
         $this->_order[$name] = $this->_displayGroups[$name]->getOrder();
         $this->_orderUpdated = true;
+
         return $this;
     }
 
@@ -1868,14 +1907,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Add a display group object (used with cloning)
      *
      * @param  Zend_Form_DisplayGroup $group
-     * @param  string|null $name
+     * @param  string|null            $name
      * @return Zend_Form
      */
     protected function _addDisplayGroupObject(Zend_Form_DisplayGroup $group, $name = null)
     {
         if (null === $name) {
             $name = $group->getName();
-            if ('' === (string)$name) {
+            if ('' === (string) $name) {
                 require_once 'Zend/Form/Exception.php';
                 throw new Zend_Form_Exception('Invalid display group added; requires name');
             }
@@ -1890,13 +1929,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 
         $this->_order[$name] = $this->_displayGroups[$name]->getOrder();
         $this->_orderUpdated = true;
+
         return $this;
     }
 
     /**
      * Add multiple display groups at once
      *
-     * @param  array $groups
+     * @param  array     $groups
      * @return Zend_Form
      */
     public function addDisplayGroups(array $groups)
@@ -1950,13 +1990,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return $this;
     }
 
     /**
      * Add multiple display groups (overwrites)
      *
-     * @param  array $groups
+     * @param  array     $groups
      * @return Zend_Form
      */
     public function setDisplayGroups(array $groups)
@@ -1968,7 +2009,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Return a display group
      *
-     * @param  string $name
+     * @param  string                      $name
      * @return Zend_Form_DisplayGroup|null
      */
     public function getDisplayGroup($name)
@@ -1994,7 +2035,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Remove a display group by name
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function removeDisplayGroup($name)
@@ -2013,6 +2054,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 unset($this->_order[$name]);
                 $this->_orderUpdated = true;
             }
+
             return true;
         }
 
@@ -2039,6 +2081,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
         $this->_displayGroups = array();
         $this->_orderUpdated  = true;
+
         return $this;
     }
 
@@ -2050,7 +2093,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Proxies to {@link setDefaults()}
      *
-     * @param  array $values
+     * @param  array     $values
      * @return Zend_Form
      */
     public function populate(array $values)
@@ -2083,6 +2126,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
 
         $start = strrpos($value, '[') + 1;
         $name = substr($value, $start, $endPos - $start);
+
         return $name;
     }
 
@@ -2092,7 +2136,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Given an array path such as foo[bar][baz], returns the value of the last
      * element (in this case, 'baz').
      *
-     * @param  array $value Array to walk
+     * @param  array  $value     Array to walk
      * @param  string $arrayPath Array notation path of the part to extract
      * @return string
      */
@@ -2124,33 +2168,34 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * dissolves the arrayPath and unsets the key within the array
      * if it exists.
      *
-     * @param array $array
-     * @param string|null $arrayPath
-     * @param string $key
+     * @param  array       $array
+     * @param  string|null $arrayPath
+     * @param  string      $key
      * @return array
      */
     protected function _dissolveArrayUnsetKey($array, $arrayPath, $key)
     {
         $unset =& $array;
-        $path  = trim(strtr((string)$arrayPath, array('[' => '/', ']' => '')), '/');
+        $path  = trim(strtr((string) $arrayPath, array('[' => '/', ']' => '')), '/');
         $segs  = ('' !== $path) ? explode('/', $path) : array();
 
         foreach ($segs as $seg) {
-            if (!array_key_exists($seg, (array)$unset)) {
+            if (!array_key_exists($seg, (array) $unset)) {
                 return $array;
             }
             $unset =& $unset[$seg];
         }
-        if (array_key_exists($key, (array)$unset)) {
+        if (array_key_exists($key, (array) $unset)) {
             unset($unset[$key]);
         }
+
         return $array;
     }
 
     /**
      * Converts given arrayPath to an array and attaches given value at the end of it.
      *
-     * @param  mixed $value The value to attach
+     * @param  mixed  $value     The value to attach
      * @param  string $arrayPath Given array path to convert and attach to.
      * @return array
      */
@@ -2192,7 +2237,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             if ($this->$name instanceof Zend_Form_Element ||
                 $this->$name instanceof Zend_Form) {
                 array_splice($ordered, $order, 0, array($this->$name));
-            } else if ($this->$name instanceof Zend_Form_DisplayGroup) {
+            } elseif ($this->$name instanceof Zend_Form_DisplayGroup) {
                 $subordered = array();
                 foreach ($this->$name->getElements() as $element) {
                     $suborder = $element->getOrder();
@@ -2204,6 +2249,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return $ordered;
     }
 
@@ -2230,13 +2276,14 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return $into;
     }
 
     /**
      * Validate the form
      *
-     * @param  array $data
+     * @param  array   $data
      * @return boolean
      */
     public function isValid($data)
@@ -2297,7 +2344,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Does not check for required flags.
      *
-     * @param  array $data
+     * @param  array   $data
      * @return boolean
      */
     public function isValidPartial(array $data)
@@ -2338,6 +2385,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         }
 
         $this->_errorsExist = !$valid;
+
         return $valid;
     }
 
@@ -2348,7 +2396,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * it returns JSON-encoded boolean true. If not, it returns JSON-encoded
      * error messages (as returned by {@link getMessages()}).
      *
-     * @param  array $data
+     * @param  array  $data
      * @return string JSON-encoded boolean true or error messages
      */
     public function processAjax(array $data)
@@ -2358,25 +2406,27 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             return Zend_Json::encode(true);
         }
         $messages = $this->getMessages();
+
         return Zend_Json::encode($messages);
     }
 
     /**
      * Add a custom error message to return in the event of failed validation
      *
-     * @param  string $message
+     * @param  string    $message
      * @return Zend_Form
      */
     public function addErrorMessage($message)
     {
         $this->_errorMessages[] = (string) $message;
+
         return $this;
     }
 
     /**
      * Add multiple custom error messages to return in the event of failed validation
      *
-     * @param  array $messages
+     * @param  array     $messages
      * @return Zend_Form
      */
     public function addErrorMessages(array $messages)
@@ -2384,18 +2434,20 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         foreach ($messages as $message) {
             $this->addErrorMessage($message);
         }
+
         return $this;
     }
 
     /**
      * Same as addErrorMessages(), but clears custom error message stack first
      *
-     * @param  array $messages
+     * @param  array     $messages
      * @return Zend_Form
      */
     public function setErrorMessages(array $messages)
     {
         $this->clearErrorMessages();
+
         return $this->addErrorMessages($messages);
     }
 
@@ -2417,6 +2469,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     public function clearErrorMessages()
     {
         $this->_errorMessages = array();
+
         return $this;
     }
 
@@ -2429,26 +2482,28 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     {
         $this->_errorsExist  = true;
         $this->_errorsForced = true;
+
         return $this;
     }
 
     /**
      * Add an error message and mark element as failed validation
      *
-     * @param  string $message
+     * @param  string    $message
      * @return Zend_Form
      */
     public function addError($message)
     {
         $this->addErrorMessage($message);
         $this->markAsError();
+
         return $this;
     }
 
     /**
      * Add multiple error messages and flag element as failed validation
      *
-     * @param  array $messages
+     * @param  array     $messages
      * @return Zend_Form
      */
     public function addErrors(array $messages)
@@ -2456,18 +2511,20 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         foreach ($messages as $message) {
             $this->addError($message);
         }
+
         return $this;
     }
 
     /**
      * Overwrite any previously set error messages and flag as failed validation
      *
-     * @param  array $messages
+     * @param  array     $messages
      * @return Zend_Form
      */
     public function setErrors(array $messages)
     {
         $this->clearErrorMessages();
+
         return $this->addErrors($messages);
     }
 
@@ -2509,7 +2566,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         if (null !== $name) {
             if (isset($this->_elements[$name])) {
                 return $this->getElement($name)->getErrors();
-            } else if (isset($this->_subForms[$name])) {
+            } elseif (isset($this->_subForms[$name])) {
                 return $this->getSubForm($name)->getErrors(null, true);
             }
         }
@@ -2541,7 +2598,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Retrieve error messages from elements failing validations
      *
      * @param  string $name
-     * @param  bool $suppressArrayNotation
+     * @param  bool   $suppressArrayNotation
      * @return array
      */
     public function getMessages($name = null, $suppressArrayNotation = false)
@@ -2549,7 +2606,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
         if (null !== $name) {
             if (isset($this->_elements[$name])) {
                 return $this->getElement($name)->getMessages();
-            } else if (isset($this->_subForms[$name])) {
+            } elseif (isset($this->_subForms[$name])) {
                 return $this->getSubForm($name)->getMessages(null, true);
             }
             foreach ($this->getSubForms() as $key => $subForm) {
@@ -2621,6 +2678,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     public function setView(Zend_View_Interface $view = null)
     {
         $this->_view = $view;
+
         return $this;
     }
 
@@ -2645,8 +2703,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Instantiate a decorator based on class name or class name fragment
      *
-     * @param  string $name
-     * @param  null|array $options
+     * @param  string                        $name
+     * @param  null|array                    $options
      * @return Zend_Form_Decorator_Interface
      */
     protected function _getDecorator($name, $options)
@@ -2665,7 +2723,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * Add a decorator for rendering the element
      *
      * @param  string|Zend_Form_Decorator_Interface $decorator
-     * @param  array|Zend_Config $options Options with which to initialize decorator
+     * @param  array|Zend_Config                    $options   Options with which to initialize decorator
      * @return Zend_Form
      */
     public function addDecorator($decorator, $options = null)
@@ -2707,7 +2765,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Add many decorators at once
      *
-     * @param  array $decorators
+     * @param  array     $decorators
      * @return Zend_Form
      */
     public function addDecorators(array $decorators)
@@ -2754,19 +2812,20 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Overwrite all decorators
      *
-     * @param  array $decorators
+     * @param  array     $decorators
      * @return Zend_Form
      */
     public function setDecorators(array $decorators)
     {
         $this->clearDecorators();
+
         return $this->addDecorators($decorators);
     }
 
     /**
      * Retrieve a registered decorator
      *
-     * @param  string $name
+     * @param  string                             $name
      * @return false|Zend_Form_Decorator_Abstract
      */
     public function getDecorator($name)
@@ -2782,9 +2841,11 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                     if (is_array($decorator)) {
                         return $this->_loadDecorator($decorator, $localName);
                     }
+
                     return $decorator;
                 }
             }
+
             return false;
         }
 
@@ -2807,6 +2868,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 $this->_loadDecorator($value, $key);
             }
         }
+
         return $this->_decorators;
     }
 
@@ -2829,6 +2891,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
                 unset($this->_decorators[$class]);
             }
+
             return true;
         }
 
@@ -2843,15 +2906,16 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     public function clearDecorators()
     {
         $this->_decorators = array();
+
         return $this;
     }
 
     /**
      * Set all element decorators as specified
      *
-     * @param  array $decorators
-     * @param  array|null $elements Specific elements to decorate or exclude from decoration
-     * @param  bool $include Whether $elements is an inclusion or exclusion list
+     * @param  array      $decorators
+     * @param  array|null $elements   Specific elements to decorate or exclude from decoration
+     * @param  bool       $include    Whether $elements is an inclusion or exclusion list
      * @return Zend_Form
      */
     public function setElementDecorators(array $decorators, array $elements = null, $include = true)
@@ -2888,7 +2952,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set all display group decorators as specified
      *
-     * @param  array $decorators
+     * @param  array     $decorators
      * @return Zend_Form
      */
     public function setDisplayGroupDecorators(array $decorators)
@@ -2903,7 +2967,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set all subform decorators as specified
      *
-     * @param  array $decorators
+     * @param  array     $decorators
      * @return Zend_Form
      */
     public function setSubFormDecorators(array $decorators)
@@ -2933,6 +2997,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
             $content = $decorator->render($content);
         }
         $this->_setIsRendered();
+
         return $content;
     }
 
@@ -2947,11 +3012,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     {
         try {
             $return = $this->render();
+
             return $return;
         } catch (Exception $e) {
             $message = "Exception caught by form: " . $e->getMessage()
                      . "\nStack Trace:\n" . $e->getTraceAsString();
             trigger_error($message, E_USER_WARNING);
+
             return '';
         }
     }
@@ -3026,7 +3093,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     public function hasTranslator()
     {
-        return (bool)$this->_translator;
+        return (bool) $this->_translator;
     }
 
     /**
@@ -3047,6 +3114,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 }
             }
         }
+
         return self::$_translatorDefault;
     }
 
@@ -3057,18 +3125,19 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      */
     public static function hasDefaultTranslator()
     {
-        return (bool)self::$_translatorDefault;
+        return (bool) self::$_translatorDefault;
     }
 
     /**
      * Indicate whether or not translation should be disabled
      *
-     * @param  bool $flag
+     * @param  bool      $flag
      * @return Zend_Form
      */
     public function setDisableTranslator($flag)
     {
         $this->_translatorDisabled = (bool) $flag;
+
         return $this;
     }
 
@@ -3085,7 +3154,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Overloading: access to elements, form groups, and display groups
      *
-     * @param  string $name
+     * @param  string                           $name
      * @return Zend_Form_Element|Zend_Form|null
      */
     public function __get($name)
@@ -3104,21 +3173,24 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Overloading: access to elements, form groups, and display groups
      *
-     * @param  string $name
+     * @param  string                      $name
      * @param  Zend_Form_Element|Zend_Form $value
      * @return void
-     * @throws Zend_Form_Exception for invalid $value
+     * @throws Zend_Form_Exception         for invalid $value
      */
     public function __set($name, $value)
     {
         if ($value instanceof Zend_Form_Element) {
             $this->addElement($value, $name);
+
             return;
         } elseif ($value instanceof Zend_Form) {
             $this->addSubForm($value, $name);
+
             return;
         } elseif (is_array($value)) {
             $this->addDisplayGroup($value, $name);
+
             return;
         }
 
@@ -3134,7 +3206,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Overloading: access to elements, form groups, and display groups
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function __isset($name)
@@ -3171,8 +3243,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * Call renderDecoratorName() to render a specific decorator.
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string              $method
+     * @param  array               $args
      * @return string
      * @throws Zend_Form_Exception for invalid decorator or invalid method call
      */
@@ -3190,6 +3262,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                     $decoratorName === 'PrepareElements') {
                         $this->_setIsRendered();
                 }
+
                 return $decorator->render($seed);
             }
 
@@ -3234,6 +3307,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     public function key()
     {
         $this->_sort();
+
         return key($this->_order);
     }
 
@@ -3267,6 +3341,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     public function valid()
     {
         $this->_sort();
+
         return (current($this->_order) !== false);
     }
 
@@ -3283,12 +3358,13 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Set flag to disable loading default decorators
      *
-     * @param  bool $flag
+     * @param  bool      $flag
      * @return Zend_Form
      */
     public function setDisableLoadDefaultDecorators($flag)
     {
         $this->_disableLoadDefaultDecorators = (bool) $flag;
+
         return $this;
     }
 
@@ -3319,6 +3395,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                  ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form'))
                  ->addDecorator('Form');
         }
+
         return $this;
     }
 
@@ -3372,8 +3449,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
     /**
      * Lazy-load a decorator
      *
-     * @param  array $decorator Decorator type and options
-     * @param  mixed $name Decorator name or alias
+     * @param  array                         $decorator Decorator type and options
+     * @param  mixed                         $name      Decorator name or alias
      * @return Zend_Form_Decorator_Interface
      */
     protected function _loadDecorator(array $decorator, $name)
@@ -3421,6 +3498,7 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
                 $messages[$key] = $translator->translate($message);
             }
         }
+
         return $messages;
     }
 }

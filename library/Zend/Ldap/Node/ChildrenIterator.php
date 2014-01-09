@@ -150,7 +150,7 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
      * Returns a child with a given RDN.
      * Implements ArrayAccess.
      *
-     * @param  string $rdn
+     * @param  string         $rdn
      * @return Zend_Ldap_node
      */
     public function offsetGet($rdn)
@@ -166,7 +166,7 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
      * Checks whether a given rdn exists.
      * Implements ArrayAccess.
      *
-     * @param  string $rdn
+     * @param  string  $rdn
      * @return boolean
      */
     public function offsetExists($rdn)
@@ -188,7 +188,7 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
      * Implements ArrayAccess.
      *
      * @param  string $name
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return null
      */
     public function offsetSet($name, $value) { }
@@ -204,6 +204,7 @@ class Zend_Ldap_Node_ChildrenIterator implements Iterator, Countable, RecursiveI
         foreach ($this as $rdn => $node) {
             $data[$rdn] = $node;
         }
+
         return $data;
     }
 }

@@ -382,13 +382,14 @@ class Zend_Service_Ebay_Finding_Search_Item extends Zend_Service_Ebay_Finding_Ab
     }
 
     /**
-     * @param  Zend_Service_Ebay_Finding $proxy
-     * @param  Zend_Config|array         $options
+     * @param  Zend_Service_Ebay_Finding                $proxy
+     * @param  Zend_Config|array                        $options
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     public function findItemsByProduct(Zend_Service_Ebay_Finding $proxy, $options = null)
     {
         $type = $this->attributes('productId', 'type');
+
         return $proxy->findItemsByProduct($this->productId, $type, $options);
     }
 }

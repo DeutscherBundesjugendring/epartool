@@ -74,12 +74,12 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceReques
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $conferenceId
-     * @param string $ownerId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
+     * @param integer                                                        $environment
+     * @param string                                                         $conferenceId
+     * @param string                                                         $ownerId
+     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail   $conferenceDetails
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule
-     * @param integer $account
+     * @param integer                                                        $account
      */
     public function __construct($environment, $conferenceId, $ownerId = null,
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails = null,
@@ -97,62 +97,67 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceReques
     /**
      * sets $conferenceId
      *
-     * @param string $conferenceId
+     * @param  string                                                                      $conferenceId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateConferenceRequest
      */
     public function setConferenceId($conferenceId)
     {
         $this->conferenceId= $conferenceId;
+
         return $this;
     }
 
     /**
      * sets $schedule
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $schedule
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule              $schedule
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setSchedule(
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $schedule = null
     ) {
         $this->schedule = $schedule;
+
         return $this;
     }
 
     /**
      * sets $detail
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail                $detail
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setDetail(
         Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $detail = null
     ) {
         $this->detail = $detail;
+
         return $this;
     }
 
     /**
      * sets $ownerId
      *
-     * @param string $ownerId
+     * @param  string                                                                      $ownerId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setOwnerId($ownerId = null)
     {
         $this->ownerId = $ownerId;
+
         return $this;
     }
 
     /**
      * sets $account
      *
-     * @param int $account
+     * @param  int                                                                         $account
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_CreateConferenceRequest
      */
     public function setAccount($account = null)
     {
         $this->account = $account;
+
         return $this;
     }
 }

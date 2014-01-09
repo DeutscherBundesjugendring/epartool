@@ -19,7 +19,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /**
  * @see Zend_Service_Amazon_Authentication
  */
@@ -44,7 +43,7 @@ class Zend_Service_Amazon_Authentication_S3 extends Zend_Service_Amazon_Authenti
      *
      * @param  string $method
      * @param  string $path
-     * @param  array &$headers
+     * @param  array  &$headers
      * @return string
      */
     public function generateSignature($method, $path, &$headers)
@@ -59,9 +58,9 @@ class Zend_Service_Amazon_Authentication_S3 extends Zend_Service_Amazon_Authenti
         foreach ($headers as $key => $val) {
             if (strcasecmp($key, 'content-type') == 0) {
                 $type = $val;
-            } else if (strcasecmp($key, 'content-md5') == 0) {
+            } elseif (strcasecmp($key, 'content-md5') == 0) {
                 $md5 = $val;
-            } else if (strcasecmp($key, 'date') == 0) {
+            } elseif (strcasecmp($key, 'date') == 0) {
                 $date = $val;
             }
         }

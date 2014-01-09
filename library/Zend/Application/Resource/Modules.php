@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
-
 /**
  * Module bootstrapping resource
  *
@@ -119,7 +118,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
         $bootstrap = $this->getBootstrap();
         $out = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
 
-        foreach($bootstraps as $module => $bootstrapClass) {
+        foreach ($bootstraps as $module => $bootstrapClass) {
             $moduleBootstrap = new $bootstrapClass($bootstrap);
             $moduleBootstrap->bootstrap();
             $out[$module] = $moduleBootstrap;
@@ -150,6 +149,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
         $name = str_replace(array('-', '.'), ' ', $name);
         $name = ucwords($name);
         $name = str_replace(' ', '', $name);
+
         return $name;
     }
 }

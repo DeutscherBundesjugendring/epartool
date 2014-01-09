@@ -86,22 +86,22 @@ final class Zend_Amf_Parse_TypeLoader
      */
     protected static $_resourceLoader = null;
 
-
     /**
      * Load the mapped class type into a callback.
      *
-     * @param  string $className
+     * @param  string       $className
      * @return object|false
      */
     public static function loadType($className)
     {
         $class    = self::getMappedClassName($className);
-        if(!$class) {
+        if (!$class) {
             $class = str_replace('.', '_', $className);
         }
         if (!class_exists($class)) {
             return "stdClass";
         }
+
         return $class;
     }
 
@@ -172,7 +172,7 @@ final class Zend_Amf_Parse_TypeLoader
      */
     public static function addResourceDirectory($prefix, $dir)
     {
-        if(self::$_resourceLoader) {
+        if (self::$_resourceLoader) {
             self::$_resourceLoader->addPrefixPath($prefix, $dir);
         }
     }
@@ -180,50 +180,53 @@ final class Zend_Amf_Parse_TypeLoader
     /**
      * Get plugin class that handles this resource
      *
-     * @param resource $resource Resource type
-     * @return string Class name
+     * @param  resource $resource Resource type
+     * @return string   Class name
      */
     public static function getResourceParser($resource)
     {
-        if(self::$_resourceLoader) {
+        if (self::$_resourceLoader) {
             $type = preg_replace("/[^A-Za-z0-9_]/", " ", get_resource_type($resource));
             $type = str_replace(" ","", ucwords($type));
+
             return self::$_resourceLoader->load($type);
         }
+
         return false;
     }
 
     /**
      * Convert resource to a serializable object
      *
-     * @param resource $resource
+     * @param  resource $resource
      * @return mixed
      */
     public static function handleResource($resource)
     {
-        if(!self::$_resourceLoader) {
+        if (!self::$_resourceLoader) {
             require_once 'Zend/Amf/Exception.php';
             throw new Zend_Amf_Exception('Unable to handle resources - resource plugin loader not set');
         }
         try {
-            while(is_resource($resource)) {
+            while (is_resource($resource)) {
                 $resclass = self::getResourceParser($resource);
-                if(!$resclass) {
+                if (!$resclass) {
                     require_once 'Zend/Amf/Exception.php';
                     throw new Zend_Amf_Exception('Can not serialize resource type: '. get_resource_type($resource));
                 }
                 $parser = new $resclass();
-                if(is_callable(array($parser, 'parse'))) {
+                if (is_callable(array($parser, 'parse'))) {
                     $resource = $parser->parse($resource);
                 } else {
                     require_once 'Zend/Amf/Exception.php';
                     throw new Zend_Amf_Exception("Could not call parse() method on class $resclass");
                 }
             }
+
             return $resource;
-        } catch(Zend_Amf_Exception $e) {
+        } catch (Zend_Amf_Exception $e) {
             throw new Zend_Amf_Exception($e->getMessage(), $e->getCode(), $e);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             require_once 'Zend/Amf/Exception.php';
             throw new Zend_Amf_Exception('Can not serialize resource type: '. get_resource_type($resource), 0, $e);
         }

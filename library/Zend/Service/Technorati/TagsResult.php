@@ -20,12 +20,10 @@
  * @version    $Id: TagsResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati TopTags or BlogPostTags query result object.
@@ -56,11 +54,10 @@ class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
      */
     protected $_posts;
 
-
     /**
      * Constructs a new object object from DOM Document.
      *
-     * @param   DomElement $dom the ReST fragment for this object
+     * @param DomElement $dom the ReST fragment for this object
      */
     public function __construct(DomElement $dom)
     {
@@ -76,18 +73,20 @@ class Zend_Service_Technorati_TagsResult extends Zend_Service_Technorati_Result
     /**
      * Returns the tag name.
      *
-     * @return  string
+     * @return string
      */
-    public function getTag() {
+    public function getTag()
+    {
         return $this->_tag;
     }
 
     /**
      * Returns the number of posts.
      *
-     * @return  int
+     * @return int
      */
-    public function getPosts() {
+    public function getPosts()
+    {
         return $this->_posts;
     }
 }

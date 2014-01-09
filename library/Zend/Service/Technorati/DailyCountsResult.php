@@ -20,12 +20,10 @@
  * @version    $Id: DailyCountsResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati DailyCounts query result object.
@@ -56,11 +54,10 @@ class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_
      */
     protected $_count;
 
-
     /**
      * Constructs a new object object from DOM Document.
      *
-     * @param   DomElement $dom the ReST fragment for this object
+     * @param DomElement $dom the ReST fragment for this object
      */
     public function __construct(DomElement $dom)
     {
@@ -76,18 +73,20 @@ class Zend_Service_Technorati_DailyCountsResult extends Zend_Service_Technorati_
     /**
      * Returns the date of count.
      *
-     * @return  Zend_Date
+     * @return Zend_Date
      */
-    public function getDate() {
+    public function getDate()
+    {
         return $this->_date;
     }
 
     /**
      * Returns the number of posts containing query on given date.
      *
-     * @return  int
+     * @return int
      */
-    public function getCount() {
+    public function getCount()
+    {
         return $this->_count;
     }
 }

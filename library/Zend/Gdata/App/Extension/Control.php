@@ -59,6 +59,7 @@ class Zend_Gdata_App_Extension_Control extends Zend_Gdata_App_Extension
         if ($this->_draft != null) {
             $element->appendChild($this->_draft->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -86,12 +87,13 @@ class Zend_Gdata_App_Extension_Control extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Draft $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Draft $value
+     * @return Zend_Gdata_App_Entry           Provides a fluent interface
      */
     public function setDraft($value)
     {
         $this->_draft = $value;
+
         return $this;
     }
 

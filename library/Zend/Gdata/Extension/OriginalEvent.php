@@ -73,6 +73,7 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
         if ($this->_when !== null) {
             $element->appendChild($this->_when->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -113,6 +114,7 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
     public function setId($value)
     {
         $this->_id = $value;
+
         return $this;
     }
 
@@ -124,6 +126,7 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
     public function setHref($value)
     {
         $this->_href = $value;
+
         return $this;
     }
 
@@ -135,8 +138,8 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
     public function setWhen($value)
     {
         $this->_when = $value;
+
         return $this;
     }
-
 
 }

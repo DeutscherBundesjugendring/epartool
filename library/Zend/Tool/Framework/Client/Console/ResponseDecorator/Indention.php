@@ -19,7 +19,7 @@
  * @version    $Id: Indention.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-require_once "Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php";
+require_once 'Zend/Tool/Framework/Client/Response/ContentDecorator/Interface.php';
 
 /**
  * @category   Zend
@@ -36,21 +36,22 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Indention
     }
 
     /**
-     * @param string $content
+     * @param string  $content
      * @param integer $indention
      */
     public function decorate($content, $indention)
     {
-        if(strval(intval($indention)) != $indention) {
+        if (strval(intval($indention)) != $indention) {
             return $content;
         }
 
         $newContent = "";
         $lines = preg_split('((\r\n|\r|\n)+)', $content);
         $lineIndention = str_repeat(' ', $indention);
-        foreach($lines AS $line) {
+        foreach ($lines AS $line) {
             $newContent .= $lineIndention.$line.PHP_EOL;
         }
+
         return rtrim($newContent);
     }
 }

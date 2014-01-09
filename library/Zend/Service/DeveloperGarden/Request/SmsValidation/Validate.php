@@ -55,7 +55,7 @@ class Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
      *
      * @return string $keyword
      */
-    public function getKeyword ()
+    public function getKeyword()
     {
         return $this->keyword;
     }
@@ -64,8 +64,8 @@ class Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
      * create the class for validation a sms keyword
      *
      * @param integer $environment
-     * @param string $keyword
-     * @param string $number
+     * @param string  $keyword
+     * @param string  $number
      */
     public function __construct($environment, $keyword = null, $number = null)
     {
@@ -77,12 +77,13 @@ class Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
     /**
      * set a new keyword
      *
-     * @param string $keyword
+     * @param  string                                                      $keyword
      * @return Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
      */
     public function setKeyword($keyword)
     {
         $this->keyword = $keyword;
+
         return $this;
     }
 
@@ -99,12 +100,13 @@ class Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
     /**
      * set a new number
      *
-     * @param string $number
+     * @param  string                                                      $number
      * @return Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
      */
     public function setNumber($number)
     {
         $this->number = $number;
+
         return $this;
     }
 }

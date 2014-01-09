@@ -20,12 +20,10 @@
  * @version    $Id: FormReset.php 24750 2012-05-05 01:24:21Z adamlundrigan $
  */
 
-
 /**
  * Abstract class for extension
  */
 require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "reset" button
@@ -77,6 +75,7 @@ class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement
 
         // add attributes, close, and return
         $xhtml .= $this->_htmlAttribs($attribs) . $this->getClosingBracket();
+
         return $xhtml;
     }
 }

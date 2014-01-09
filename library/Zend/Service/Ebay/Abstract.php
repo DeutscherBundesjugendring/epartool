@@ -53,8 +53,8 @@ abstract class Zend_Service_Ebay_Abstract
     }
 
     /**
-     * @param  string|Zend_Config|array $name
-     * @param  mixed                    $value
+     * @param  string|Zend_Config|array   $name
+     * @param  mixed                      $value
      * @return Zend_Service_Ebay_Abstract Provides a fluent interface
      */
     public function setOption($name, $value = null)
@@ -67,6 +67,7 @@ abstract class Zend_Service_Ebay_Abstract
         } else {
             $this->_options[$name] = $value;
         }
+
         return $this;
     }
 
@@ -82,11 +83,12 @@ abstract class Zend_Service_Ebay_Abstract
         if ($this->hasOption($name)) {
             return $this->_options[$name];
         }
+
         return null;
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
      * @return boolean
      */
     public function hasOption($name)
@@ -95,7 +97,7 @@ abstract class Zend_Service_Ebay_Abstract
     }
 
     /**
-     * @param  mixed $client
+     * @param  mixed                      $client
      * @return Zend_Service_Ebay_Abstract Provides a fluent interface
      */
     abstract public function setClient($client);
@@ -106,7 +108,7 @@ abstract class Zend_Service_Ebay_Abstract
     abstract public function getClient();
 
     /**
-     * @param  Zend_Config|array $options
+     * @param  Zend_Config|array                   $options
      * @throws Zend_Service_Ebay_Finding_Exception When $options is not an array neither a Zend_Config object
      * @return array
      */
@@ -114,7 +116,7 @@ abstract class Zend_Service_Ebay_Abstract
     {
         if (null === $options) {
             $options = array();
-        } else if ($options instanceof Zend_Config) {
+        } elseif ($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
 
@@ -184,7 +186,7 @@ abstract class Zend_Service_Ebay_Abstract
      *     'productId.@type'                => 'UPC'
      * )
      *
-     * @param  Zend_Config|array $options
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/Concepts/MakingACall.html#nvsyntax
      * @return array A simple array of strings
      */
@@ -238,6 +240,7 @@ abstract class Zend_Service_Ebay_Abstract
             // this happens if any $subValue found is an array
             $new = $this->_optionsToNameValueSyntax($new);
         }
+
         return $new;
     }
 
@@ -247,28 +250,29 @@ abstract class Zend_Service_Ebay_Abstract
      * Boolean is translated to "0" or "1", date object generates ISO 8601,
      * everything else is translated to string.
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return string
      */
     public static function toEbayValue($value)
     {
         if (is_bool($value)) {
             $value = $value ? '1' : '0';
-        } else if ($value instanceof Zend_Date) {
+        } elseif ($value instanceof Zend_Date) {
             $value = $value->getIso();
-        } else if ($value instanceof DateTime) {
+        } elseif ($value instanceof DateTime) {
             $value = $value->format(DateTime::ISO8601);
         } else {
             $value = (string) $value;
         }
+
         return $value;
     }
 
     /**
      * Translate an ebay value format to native PHP type.
      *
-     * @param  string $value
-     * @param  string $type
+     * @param string $value
+     * @param string $type
      * @see    http://developer.ebay.com/DevZone/finding/CallRef/types/simpleTypes.html
      * @throws Zend_Service_Ebay_Finding_Exception When $type is not valid
      * @return mixed
@@ -304,6 +308,7 @@ abstract class Zend_Service_Ebay_Abstract
                 require_once 'Zend/Service/Ebay/Exception.php';
                 throw new Zend_Service_Ebay_Exception("Invalid type '{$type}'.");
         }
+
         return $value;
     }
 }

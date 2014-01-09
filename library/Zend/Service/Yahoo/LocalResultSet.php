@@ -21,18 +21,15 @@
  * @version    $Id: LocalResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Yahoo_ResultSet
  */
 require_once 'Zend/Service/Yahoo/ResultSet.php';
 
-
 /**
  * @see Zend_Service_Yahoo_LocalResult
  */
 require_once 'Zend/Service/Yahoo/LocalResult.php';
-
 
 /**
  * @category   Zend
@@ -57,7 +54,6 @@ class Zend_Service_Yahoo_LocalResultSet extends Zend_Service_Yahoo_ResultSet
      */
     protected $_namespace = 'urn:yahoo:lcl';
 
-
     /**
      * Initializes the local result set
      *
@@ -70,7 +66,6 @@ class Zend_Service_Yahoo_LocalResultSet extends Zend_Service_Yahoo_ResultSet
 
         $this->resultSetMapURL = $this->_xpath->query('//yh:ResultSetMapUrl/text()')->item(0)->data;
     }
-
 
     /**
      * Overrides Zend_Service_Yahoo_ResultSet::current()

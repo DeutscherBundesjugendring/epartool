@@ -21,7 +21,6 @@
  * @version    $Id: Offer.php 24780 2012-05-08 19:34:59Z adamlundrigan $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -100,7 +99,7 @@ class Zend_Service_Amazon_Offer
             $this->CurrencyCode = (string) $xpath->query('./az:OfferListing/az:Price/az:CurrencyCode/text()', $dom)->item(0)->data;
         }
         $availability = $xpath->query('./az:OfferListing/az:Availability/text()', $dom)->item(0);
-        if($availability instanceof DOMText) {
+        if ($availability instanceof DOMText) {
             $this->Availability = (string) $availability->data;
         }
         $result = $xpath->query('./az:OfferListing/az:IsEligibleForSuperSaverShipping/text()', $dom);

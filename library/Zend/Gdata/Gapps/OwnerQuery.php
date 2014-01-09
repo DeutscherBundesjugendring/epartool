@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for Google Apps owner entries.
@@ -62,7 +62,7 @@ class Zend_Gdata_Gapps_OwnerQuery extends Zend_Gdata_Gapps_Query
      *
      * @param string $domain (optional) The Google Apps-hosted domain to use
      *          when constructing query URIs.
-     * @param string $groupId (optional) Value for the groupId property.
+     * @param string $groupId    (optional) Value for the groupId property.
      * @param string $ownerEmail (optional) Value for the OwnerEmail property.
      */
     public function __construct($domain = null, $groupId = null, $ownerEmail = null)
@@ -141,6 +141,7 @@ class Zend_Gdata_Gapps_OwnerQuery extends Zend_Gdata_Gapps_Query
         }
 
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

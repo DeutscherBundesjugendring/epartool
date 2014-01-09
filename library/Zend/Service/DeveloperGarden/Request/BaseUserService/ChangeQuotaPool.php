@@ -47,8 +47,8 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_ChangeQuotaPool
     /**
      * constructor give them the module id
      *
-     * @param string $moduleId
-     * @param integer $quotaMax
+     * @param  string                                              $moduleId
+     * @param  integer                                             $quotaMax
      * @return Zend_Service_Developergarde_Request_ChangeQuotaPool
      */
     public function __construct($moduleId = null, $quotaMax = 0)
@@ -60,12 +60,13 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_ChangeQuotaPool
     /**
      * sets a new moduleId
      *
-     * @param integer $moduleId
+     * @param  integer                                             $moduleId
      * @return Zend_Service_Developergarde_Request_ChangeQuotaPool
      */
     public function setModuleId($moduleId = null)
     {
         $this->moduleId = $moduleId;
+
         return $this;
     }
 
@@ -82,12 +83,13 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_ChangeQuotaPool
     /**
      * sets new QuotaMax value
      *
-     * @param integer $quotaMax
+     * @param  integer                                             $quotaMax
      * @return Zend_Service_Developergarde_Request_ChangeQuotaPool
      */
     public function setQuotaMax($quotaMax = 0)
     {
         $this->quotaMax = $quotaMax;
+
         return $this;
     }
 

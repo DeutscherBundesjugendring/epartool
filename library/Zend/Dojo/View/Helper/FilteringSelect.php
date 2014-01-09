@@ -49,10 +49,10 @@ class Zend_Dojo_View_Helper_FilteringSelect extends Zend_Dojo_View_Helper_ComboB
     /**
      * dijit.form.FilteringSelect
      *
-     * @param  int $id
-     * @param  mixed $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  int        $id
+     * @param  mixed      $value
+     * @param  array      $params  Parameters to use for dijit creation
+     * @param  array      $attribs HTML attributes
      * @param  array|null $options Select options
      * @return string
      */

@@ -101,12 +101,13 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
     /**
      * setRegistry()
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return Zend_Tool_Framework_Provider_Signature
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
@@ -183,7 +184,7 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
      * getActionableMethod() - Get an actionable method by name, this will return an array of
      * useful information about what can be exectued on this provider
      *
-     * @param string $methodName
+     * @param  string $methodName
      * @return array
      */
     public function getActionableMethod($methodName)
@@ -199,7 +200,7 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
      * getActionableMethodByActionName() - Get an actionable method by its action name, this
      * will return an array of useful information about what can be exectued on this provider
      *
-     * @param string $actionName
+     * @param  string $actionName
      * @return array
      */
     public function getActionableMethodByActionName($actionName, $specialtyName = '_Global')
@@ -287,7 +288,6 @@ class Zend_Tool_Framework_Provider_Signature implements Zend_Tool_Framework_Regi
     {
 
         $specialtyRegex = '#(.*)(' . implode('|', $this->_specialties) . ')$#i';
-
 
         $methods = $this->_providerReflection->getMethods();
 

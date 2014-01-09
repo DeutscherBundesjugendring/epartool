@@ -129,7 +129,8 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
      */
     protected $_staticCount = 0;
 
-    public function getVersion() {
+    public function getVersion()
+    {
         return 1;
     }
 
@@ -142,6 +143,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     {
         $reqs = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : array();
         $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+
         return new self($config->route, $defs, $reqs);
     }
 
@@ -150,9 +152,9 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
      * to a corresponding atomic parts. These parts are assigned
      * a position which is later used for matching and preparing values.
      *
-     * @param string $route Map used to match with later submitted URL path
-     * @param array $defaults Defaults for map variables with keys as variable names
-     * @param array $reqs Regular expression requirements for variables (keys as variable names)
+     * @param string         $route      Map used to match with later submitted URL path
+     * @param array          $defaults   Defaults for map variables with keys as variable names
+     * @param array          $reqs       Regular expression requirements for variables (keys as variable names)
      * @param Zend_Translate $translator Translator to use for this instance
      */
     public function __construct($route, $defaults = array(), $reqs = array(), Zend_Translate $translator = null, $locale = null)
@@ -199,7 +201,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
      * Matches a user submitted path with parts defined by a map. Assigns and
      * returns an array of variables on a successful match.
      *
-     * @param string $path Path used to match against this routing map
+     * @param  string      $path Path used to match against this routing map
      * @return array|false An array of assigned values or a false on a mismatch
      */
     public function match($path, $partial = false)
@@ -234,7 +236,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
                 // If it's a wildcard, get the rest of URL as wildcard data and stop matching
                 if ($this->_parts[$pos] == '*') {
                     $count = count($path);
-                    for($i = $pos; $i < $count; $i+=2) {
+                    for ($i = $pos; $i < $count; $i+=2) {
                         $var = urldecode($path[$i]);
                         if (!isset($this->_wildcardData[$var]) && !isset($this->_defaults[$var]) && !isset($values[$var])) {
                             $this->_wildcardData[$var] = (isset($path[$i+1])) ? urldecode($path[$i+1]) : null;
@@ -311,9 +313,9 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     /**
      * Assembles user submitted parameters forming a URL path defined by this route
      *
-     * @param  array $data An array of variable and value pairs used as parameters
+     * @param  array   $data  An array of variable and value pairs used as parameters
      * @param  boolean $reset Whether or not to set route defaults with those provided in $data
-     * @return string Route path with user submitted parameters
+     * @return string  Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false, $encode = false, $partial = false)
     {
@@ -413,13 +415,15 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     /**
      * Return a single parameter of route's defaults
      *
-     * @param string $name Array key of the parameter
+     * @param  string $name Array key of the parameter
      * @return string Previously set default
      */
-    public function getDefault($name) {
+    public function getDefault($name)
+    {
         if (isset($this->_defaults[$name])) {
             return $this->_defaults[$name];
         }
+
         return null;
     }
 
@@ -428,7 +432,8 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
      *
      * @return array Route defaults
      */
-    public function getDefaults() {
+    public function getDefaults()
+    {
         return $this->_defaults;
     }
 
@@ -484,7 +489,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     {
         if ($this->_translator !== null) {
             return $this->_translator;
-        } else if (($translator = self::getDefaultTranslator()) !== null) {
+        } elseif (($translator = self::getDefaultTranslator()) !== null) {
             return $translator;
         } else {
             try {
@@ -543,7 +548,7 @@ class Zend_Controller_Router_Route extends Zend_Controller_Router_Route_Abstract
     {
         if ($this->_locale !== null) {
             return $this->_locale;
-        } else if (($locale = self::getDefaultLocale()) !== null) {
+        } elseif (($locale = self::getDefaultLocale()) !== null) {
             return $locale;
         } else {
             try {

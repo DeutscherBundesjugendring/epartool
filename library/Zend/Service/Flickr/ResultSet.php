@@ -21,12 +21,10 @@
  * @version    $Id: ResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Flickr_Result
  */
 require_once 'Zend/Service/Flickr/Result.php';
-
 
 /**
  * @category   Zend
@@ -161,7 +159,7 @@ class Zend_Service_Flickr_ResultSet implements SeekableIterator
     /**
      * Implements SeekableIterator::seek()
      *
-     * @param  int $index
+     * @param  int                  $index
      * @throws OutOfBoundsException
      * @return void
      */
@@ -185,4 +183,3 @@ class Zend_Service_Flickr_ResultSet implements SeekableIterator
         return null !== $this->_results && $this->_currentIndex < $this->_results->length;
     }
 }
-

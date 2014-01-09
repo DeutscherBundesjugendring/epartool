@@ -30,7 +30,6 @@ require_once 'Zend/Gdata/Entry.php';
  */
 require_once 'Zend/Gdata/Extension.php';
 
-
 /**
  * Concrete class for working with colCount elements.
  *

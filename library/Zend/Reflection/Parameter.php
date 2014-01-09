@@ -35,7 +35,7 @@ class Zend_Reflection_Parameter extends ReflectionParameter
     /**
      * Get declaring class reflection object
      *
-     * @param  string $reflectionClass Reflection class to use
+     * @param  string                $reflectionClass Reflection class to use
      * @return Zend_Reflection_Class
      */
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
@@ -47,19 +47,20 @@ class Zend_Reflection_Parameter extends ReflectionParameter
             throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend Zend_Reflection_Class');
         }
         unset($phpReflection);
+
         return $zendReflection;
     }
 
     /**
      * Get class reflection object
      *
-     * @param  string $reflectionClass Reflection class to use
+     * @param  string                $reflectionClass Reflection class to use
      * @return Zend_Reflection_Class
      */
     public function getClass($reflectionClass = 'Zend_Reflection_Class')
     {
         $phpReflection  = parent::getClass();
-        if($phpReflection == null) {
+        if ($phpReflection == null) {
             return null;
         }
 
@@ -69,13 +70,14 @@ class Zend_Reflection_Parameter extends ReflectionParameter
             throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend Zend_Reflection_Class');
         }
         unset($phpReflection);
+
         return $zendReflection;
     }
 
     /**
      * Get declaring function reflection object
      *
-     * @param  string $reflectionClass Reflection class to use
+     * @param  string                                          $reflectionClass Reflection class to use
      * @return Zend_Reflection_Function|Zend_Reflection_Method
      */
     public function getDeclaringFunction($reflectionClass = null)
@@ -99,6 +101,7 @@ class Zend_Reflection_Parameter extends ReflectionParameter
             throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend ' . $baseClass);
         }
         unset($phpReflection);
+
         return $zendReflection;
     }
 

@@ -42,7 +42,7 @@ class Zend_Crypt_Rsa_Key_Public extends Zend_Crypt_Rsa_Key
     }
 
     /**
-     * @param string $string
+     * @param  string               $string
      * @throws Zend_Crypt_Exception
      */
     protected function _parse($string)

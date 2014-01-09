@@ -86,12 +86,13 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
     /**
      * setContext()
      *
-     * @param string|Zend_Tool_Project_Context_Interface $context
+     * @param  string|Zend_Tool_Project_Context_Interface $context
      * @return Zend_Tool_Project_Profile_Resource
      */
     public function setContext($context)
     {
         $this->_context = $context;
+
         return $this;
     }
 
@@ -126,12 +127,13 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
     /**
      * setProfile()
      *
-     * @param Zend_Tool_Project_Profile $profile
+     * @param  Zend_Tool_Project_Profile          $profile
      * @return Zend_Tool_Project_Profile_Resource
      */
     public function setProfile(Zend_Tool_Project_Profile $profile)
     {
         $this->_profile = $profile;
+
         return $this;
     }
 
@@ -162,13 +164,14 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
     /**
      * setEnabled()
      *
-     * @param bool $enabled
+     * @param  bool                               $enabled
      * @return Zend_Tool_Project_Profile_Resource
      */
     public function setEnabled($enabled = true)
     {
         // convert fuzzy types to bool
         $this->_enabled = (!in_array($enabled, array('false', 'disabled', 0, -1, false), true)) ? true : false;
+
         return $this;
     }
 
@@ -185,12 +188,13 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
     /**
      * setDeleted()
      *
-     * @param bool $deleted
+     * @param  bool                               $deleted
      * @return Zend_Tool_Project_Profile_Resource
      */
     public function setDeleted($deleted = true)
     {
         $this->_deleted = (bool) $deleted;
+
         return $this;
     }
 
@@ -227,6 +231,7 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
         }
 
         $this->_isContextInitialized = true;
+
         return $this;
     }
 
@@ -243,8 +248,8 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
     /**
      * __call()
      *
-     * @param string $method
-     * @param array $arguments
+     * @param  string                             $method
+     * @param  array                              $arguments
      * @return Zend_Tool_Project_Profile_Resource
      */
     public function __call($method, $arguments)
@@ -253,6 +258,7 @@ class Zend_Tool_Project_Profile_Resource extends Zend_Tool_Project_Profile_Resou
             if (!$this->isEnabled()) {
                 $this->setEnabled(true);
             }
+
             return call_user_func_array(array($this->_context, $method), $arguments);
         } else {
             throw new Zend_Tool_Project_Profile_Exception('cannot call ' . $method);

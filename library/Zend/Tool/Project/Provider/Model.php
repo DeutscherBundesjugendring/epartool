@@ -55,9 +55,9 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
     /**
      * hasResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $modelName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $modelName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function hasResource(Zend_Tool_Project_Profile $profile, $modelName, $moduleName = null)
@@ -67,19 +67,19 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         }
 
         $modelsDirectory = self::_getModelsDirectoryResource($profile, $moduleName);
-        
+
         if (!$modelsDirectory instanceof Zend_Tool_Project_Profile_Resource) {
             return false;
         }
-        
+
         return (($modelsDirectory->search(array('modelFile' => array('modelName' => $modelName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
     /**
      * _getModelsDirectoryResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     protected static function _getModelsDirectoryResource(Zend_Tool_Project_Profile $profile, $moduleName = null)
@@ -147,6 +147,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
 
         } catch (Exception $e) {
             $response->setException($e);
+
             return;
         }
 
@@ -173,6 +174,5 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         }
 
     }
-
 
 }

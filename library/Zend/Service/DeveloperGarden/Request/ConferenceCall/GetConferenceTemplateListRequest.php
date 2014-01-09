@@ -47,7 +47,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateL
      * constructor
      *
      * @param integer $environment
-     * @param string $ownerId
+     * @param string  $ownerId
      */
     public function __construct($environment, $ownerId = null)
     {
@@ -58,12 +58,13 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateL
     /**
      * sets $ownerId
      *
-     * @param int $ownerId
+     * @param  int                                                                                  $ownerId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateListRequest
      */
     public function setOwnerId($ownerId)
     {
         $this->ownerId = $ownerId;
+
         return $this;
     }
 }

@@ -80,19 +80,20 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
     /**
      * Set options
      *
-     * @param  array $options
+     * @param  array                        $options
      * @return Zend_Form_Decorator_Abstract
      */
     public function setOptions(array $options)
     {
         $this->_options = $options;
+
         return $this;
     }
 
     /**
      * Set options from config object
      *
-     * @param  Zend_Config $config
+     * @param  Zend_Config                  $config
      * @return Zend_Form_Decorator_Abstract
      */
     public function setConfig(Zend_Config $config)
@@ -103,13 +104,14 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
     /**
      * Set option
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string                       $key
+     * @param  mixed                        $value
      * @return Zend_Form_Decorator_Abstract
      */
     public function setOption($key, $value)
     {
         $this->_options[(string) $key] = $value;
+
         return $this;
     }
 
@@ -142,13 +144,14 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
     /**
      * Remove single option
      *
-     * @param mixed $key
+     * @param  mixed $key
      * @return void
      */
     public function removeOption($key)
     {
         if (null !== $this->getOption($key)) {
             unset($this->_options[$key]);
+
             return true;
         }
 
@@ -163,13 +166,14 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
     public function clearOptions()
     {
         $this->_options = array();
+
         return $this;
     }
 
     /**
      * Set current form element
      *
-     * @param  Zend_Form_Element|Zend_Form $element
+     * @param  Zend_Form_Element|Zend_Form   $element
      * @return Zend_Form_Decorator_Abstract
      * @throws Zend_Form_Decorator_Exception on invalid element type
      */
@@ -184,6 +188,7 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
         }
 
         $this->_element = $element;
+
         return $this;
     }
 
@@ -236,13 +241,14 @@ abstract class Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Inter
             $separator = $this->_separator = (string) $separatorOpt;
             $this->removeOption('separator');
         }
+
         return $separator;
     }
 
     /**
      * Decorate content and/or element
      *
-     * @param  string $content
+     * @param  string                        $content
      * @return string
      * @throws Zend_Form_Decorator_Exception when unimplemented
      */

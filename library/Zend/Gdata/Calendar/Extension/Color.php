@@ -60,8 +60,8 @@ class Zend_Gdata_Calendar_Extension_Color extends Zend_Gdata_Extension
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -70,6 +70,7 @@ class Zend_Gdata_Calendar_Extension_Color extends Zend_Gdata_Extension
         if ($this->_value != null) {
             $element->setAttribute('value', $this->_value);
         }
+
         return $element;
     }
 
@@ -104,12 +105,13 @@ class Zend_Gdata_Calendar_Extension_Color extends Zend_Gdata_Extension
     /**
      * Set the value for this element's value attribute.
      *
-     * @param string $value The desired value for this attribute.
+     * @param  string                              $value The desired value for this attribute.
      * @return Zend_Gdata_Calendar_Extension_Color The element being modified.
      */
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 

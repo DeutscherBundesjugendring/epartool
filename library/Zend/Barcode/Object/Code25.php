@@ -71,6 +71,7 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
                          * $this->_factor;
         $encodedData     = strlen($this->getText()) * $characterLength;
         $stopCharacter   = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -116,6 +117,7 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
         $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
         $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
         $barcodeTable[] = array(1 , $this->_barThickWidth , 0 , 1);
+
         return $barcodeTable;
     }
 

@@ -20,7 +20,6 @@
  * @version    $Id: Feed.php 25160 2012-12-18 15:17:16Z matthew $
  */
 
-
 /**
  * Feed utility class
  *
@@ -58,7 +57,6 @@ class Zend_Feed
         'rss'        => 'http://blogs.law.harvard.edu/tech/rss',
     );
 
-
     /**
      * Set the HTTP client instance
      *
@@ -71,7 +69,6 @@ class Zend_Feed
     {
         self::$_httpClient = $httpClient;
     }
-
 
     /**
      * Gets the HTTP client object. If none is set, a new Zend_Http_Client will be used.
@@ -90,7 +87,6 @@ class Zend_Feed
 
         return self::$_httpClient;
     }
-
 
     /**
      * Toggle using POST instead of PUT and DELETE HTTP methods
@@ -139,7 +135,6 @@ class Zend_Feed
             $prefix;
     }
 
-
     /**
      * Add a namespace and prefix to the registered list
      *
@@ -147,7 +142,7 @@ class Zend_Feed
      * list of registered namespaces for use by
      * Zend_Feed::lookupNamespace().
      *
-     * @param  string $prefix The namespace prefix
+     * @param  string $prefix       The namespace prefix
      * @param  string $namespaceURI The full namespace URI
      * @return void
      */
@@ -156,11 +151,10 @@ class Zend_Feed
         self::$_namespaces[$prefix] = $namespaceURI;
     }
 
-
     /**
      * Imports a feed located at $uri.
      *
-     * @param  string $uri
+     * @param  string              $uri
      * @throws Zend_Feed_Exception
      * @return Zend_Feed_Abstract
      */
@@ -177,14 +171,14 @@ class Zend_Feed
             throw new Zend_Feed_Exception('Feed failed to load, got response code ' . $response->getStatus());
         }
         $feed = $response->getBody();
+
         return self::importString($feed);
     }
-
 
     /**
      * Imports a feed represented by $string.
      *
-     * @param  string $string
+     * @param  string              $string
      * @throws Zend_Feed_Exception
      * @return Zend_Feed_Abstract
      */
@@ -212,7 +206,6 @@ class Zend_Feed
             } else {
                 $errormsg = "DOMDocument cannot parse XML";
             }
-
 
             /**
              * @see Zend_Feed_Exception
@@ -250,11 +243,10 @@ class Zend_Feed
         throw new Zend_Feed_Exception('Invalid or unsupported feed format');
     }
 
-
     /**
      * Imports a feed from a file located at $filename.
      *
-     * @param  string $filename
+     * @param  string              $filename
      * @throws Zend_Feed_Exception
      * @return Zend_Feed_Abstract
      */
@@ -270,9 +262,9 @@ class Zend_Feed
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception("File could not be loaded: $php_errormsg");
         }
+
         return self::importString($feed);
     }
-
 
     /**
      * Attempts to find feeds at $uri referenced by <link ... /> tags. Returns an
@@ -280,7 +272,7 @@ class Zend_Feed
      *
      * @todo Allow findFeeds() to follow one, but only one, code 302.
      *
-     * @param  string $uri
+     * @param  string              $uri
      * @throws Zend_Feed_Exception
      * @return array
      */
@@ -374,8 +366,8 @@ class Zend_Feed
     /**
      * Construct a new Zend_Feed_Abstract object from a custom array
      *
-     * @param  array  $data
-     * @param  string $format (rss|atom) the requested output format
+     * @param  array              $data
+     * @param  string             $format (rss|atom) the requested output format
      * @return Zend_Feed_Abstract
      */
     public static function importArray(array $data, $format = 'atom')
@@ -390,6 +382,7 @@ class Zend_Feed
          * @see Zend_Feed_Builder
          */
         require_once 'Zend/Feed/Builder.php';
+
         return new $obj(null, null, new Zend_Feed_Builder($data));
     }
 
@@ -397,7 +390,7 @@ class Zend_Feed
      * Construct a new Zend_Feed_Abstract object from a Zend_Feed_Builder_Interface data source
      *
      * @param  Zend_Feed_Builder_Interface $builder this object will be used to extract the data of the feed
-     * @param  string                      $format (rss|atom) the requested output format
+     * @param  string                      $format  (rss|atom) the requested output format
      * @return Zend_Feed_Abstract
      */
     public static function importBuilder(Zend_Feed_Builder_Interface $builder, $format = 'atom')
@@ -407,6 +400,7 @@ class Zend_Feed
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($obj);
         }
+
         return new $obj(null, null, $builder);
     }
 }

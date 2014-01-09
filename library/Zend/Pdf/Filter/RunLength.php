@@ -19,7 +19,6 @@
  * @version    $Id: RunLength.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Filter_Interface */
 require_once 'Zend/Pdf/Filter/Interface.php';
 
@@ -35,8 +34,8 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
     /**
      * Encode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -87,8 +86,8 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
     /**
      * Decode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -98,7 +97,7 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
         $output = '';
         $offset = 0;
 
-        while($offset < $dataLength) {
+        while ($offset < $dataLength) {
             $length = ord($data[$offset]);
 
             $offset++;
@@ -106,13 +105,13 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
             if ($length == 128) {
                 // EOD byte
                 break;
-            } else if ($length < 128) {
+            } elseif ($length < 128) {
                 $length++;
 
                 $output .= substr($data, $offset, $length);
 
                 $offset += $length;
-            } else if ($length > 128) {
+            } elseif ($length > 128) {
                 $output .= str_repeat($data[$offset], 257 - $length);
 
                 $offset++;
@@ -122,4 +121,3 @@ class Zend_Pdf_Filter_RunLength implements Zend_Pdf_Filter_Interface
         return $output;
     }
 }
-

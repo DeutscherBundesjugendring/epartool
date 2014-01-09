@@ -21,18 +21,15 @@
  * @version    $Id: Select.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Db_Select
  */
 require_once 'Zend/Db/Select.php';
 
-
 /**
  * @see Zend_Db_Table_Abstract
  */
 require_once 'Zend/Db/Table/Abstract.php';
-
 
 /**
  * Class for SQL SELECT query manipulation for the Zend_Db_Table component.
@@ -91,8 +88,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
     /**
      * Sets the primary table name and retrieves the table schema.
      *
-     * @param Zend_Db_Table_Abstract $adapter
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @param  Zend_Db_Table_Abstract $adapter
+     * @return Zend_Db_Select         This Zend_Db_Select object.
      */
     public function setTable(Zend_Db_Table_Abstract $table)
     {
@@ -109,12 +106,13 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      * Setting this flag to false skips the checks for table joins, allowing
      * 'hybrid' table rows to be created.
      *
-     * @param Zend_Db_Table_Abstract $adapter
-     * @return Zend_Db_Select This Zend_Db_Select object.
+     * @param  Zend_Db_Table_Abstract $adapter
+     * @return Zend_Db_Select         This Zend_Db_Select object.
      */
     public function setIntegrityCheck($flag = true)
     {
         $this->_integrityCheck = $flag;
+
         return $this;
     }
 
@@ -160,13 +158,13 @@ class Zend_Db_Table_Select extends Zend_Db_Select
      *
      * The table name can be expressed
      *
-     * @param  array|string|Zend_Db_Expr|Zend_Db_Table_Abstract $name The table name or an
+     * @param array|string|Zend_Db_Expr|Zend_Db_Table_Abstract $name The table name or an
                                                                       associative array relating
                                                                       table name to correlation
                                                                       name.
-     * @param  array|string|Zend_Db_Expr $cols The columns to select from this table.
-     * @param  string $schema The schema name to specify, if any.
-     * @return Zend_Db_Table_Select This Zend_Db_Table_Select object.
+     * @param  array|string|Zend_Db_Expr $cols   The columns to select from this table.
+     * @param  string                    $schema The schema name to specify, if any.
+     * @return Zend_Db_Table_Select      This Zend_Db_Table_Select object.
      */
     public function from($name, $cols = self::SQL_WILDCARD, $schema = null)
     {
@@ -192,7 +190,6 @@ class Zend_Db_Table_Select extends Zend_Db_Select
         $fields  = $this->getPart(Zend_Db_Table_Select::COLUMNS);
         $primary = $this->_info[Zend_Db_Table_Abstract::NAME];
         $schema  = $this->_info[Zend_Db_Table_Abstract::SCHEMA];
-
 
         if (count($this->_parts[self::UNION]) == 0) {
 

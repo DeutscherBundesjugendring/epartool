@@ -19,10 +19,8 @@
  * @version    $Id: Rgb.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Numeric.php';
-
 
 /** Zend_Pdf_Color */
 require_once 'Zend/Pdf/Color.php';
@@ -61,7 +59,6 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
      */
     private $_b;
 
-
     /**
      * Object constructor
      *
@@ -91,7 +88,7 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param  boolean $stroking
      * @return string
      */
     public function instructions($stroking)
@@ -111,4 +108,3 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
         return array($this->_r->value, $this->_g->value, $this->_b->value);
     }
 }
-

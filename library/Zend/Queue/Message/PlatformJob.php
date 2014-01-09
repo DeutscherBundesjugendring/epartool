@@ -60,7 +60,7 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      * JobQueue script the job will request. A new ZendApi_Job object will then
      * be created using that script and any options you provide.
      *
-     * @param  array $options
+     * @param  array                $options
      * @return void
      * @throws Zend_Queue_Exception
      */
@@ -91,12 +91,13 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      *
      * Used within Zend_Queue only.
      *
-     * @param  string $id
+     * @param  string                         $id
      * @return Zend_Queue_Message_PlatformJob
      */
     public function setJobId($id)
     {
         $this->_id = $id;
+
         return $this;
     }
 
@@ -150,8 +151,8 @@ class Zend_Queue_Message_PlatformJob extends Zend_Queue_Message
      *
      * @return void
      */
-    protected function _setJobProperties() {
-
+    protected function _setJobProperties()
+    {
         if (isset($this->_data['script'])) {
             $this->_job->setScript($this->_data['script']);
         }

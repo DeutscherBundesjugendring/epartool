@@ -70,6 +70,7 @@ class Zend_Gdata_Calendar_ListFeed extends Zend_Gdata_Feed
         if ($this->_timezone != null) {
             $element->appendChild($this->_timezone->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -94,12 +95,13 @@ class Zend_Gdata_Calendar_ListFeed extends Zend_Gdata_Feed
     }
 
     /**
-     * @param Zend_Gdata_Calendar_Extension_Timezone $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @param  Zend_Gdata_Calendar_Extension_Timezone $value
+     * @return Zend_Gdata_Extension_ListEntry         Provides a fluent interface
      */
     public function setTimezone($value)
     {
         $this->_timezone = $value;
+
         return $this;
     }
 

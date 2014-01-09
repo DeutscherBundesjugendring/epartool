@@ -38,10 +38,10 @@ class Zend_Service_Amazon_SimpleDb_Attribute
      *
      * @param  string $itemName
      * @param  string $name
-     * @param  array $values
+     * @param  array  $values
      * @return void
      */
-    function __construct($itemName, $name, $values)
+    public function __construct($itemName, $name, $values)
     {
         $this->_itemName = $itemName;
         $this->_name     = $name;
@@ -58,7 +58,7 @@ class Zend_Service_Amazon_SimpleDb_Attribute
      *
      * @return string
      */
-    public function getItemName ()
+    public function getItemName()
     {
         return $this->_itemName;
     }
@@ -78,7 +78,7 @@ class Zend_Service_Amazon_SimpleDb_Attribute
      *
      * @return string
      */
-    public function getName ()
+    public function getName()
     {
         return $this->_name;
     }

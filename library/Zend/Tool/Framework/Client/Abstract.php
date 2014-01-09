@@ -140,7 +140,6 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
 
     }
 
-
     /**
      * This method should be implemented by the client implementation to
      * construct and set custom inflectors, request and response objects.
@@ -169,12 +168,13 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
      * setRegistry() - Required by the Zend_Tool_Framework_Registry_EnabledInterface
      * interface which ensures proper registry dependency resolution
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return Zend_Tool_Framework_Client_Abstract
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
@@ -210,6 +210,7 @@ abstract class Zend_Tool_Framework_Client_Abstract implements Zend_Tool_Framewor
         $inputHandler = new Zend_Tool_Framework_Client_Interactive_InputHandler();
         $inputHandler->setClient($this);
         $inputHandler->setInputRequest($inputRequest);
+
         return $inputHandler->handle();
 
     }

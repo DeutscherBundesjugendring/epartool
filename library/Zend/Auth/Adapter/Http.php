@@ -20,12 +20,10 @@
  * @version    $Id: Http.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
 require_once 'Zend/Auth/Adapter/Interface.php';
-
 
 /**
  * HTTP Authentication Adapter
@@ -154,7 +152,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     /**
      * Constructor
      *
-     * @param  array $config Configuration settings:
+     * @param array $config Configuration settings:
      *    'accept_schemes' => 'basic'|'digest'|'basic digest'
      *    'realm' => <string>
      *    'digest_domains' => <string> Space-delimited list of URIs
@@ -178,7 +176,6 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         $this->_request  = null;
         $this->_response = null;
         $this->_ieNoOpaque = false;
-
 
         if (empty($config['accept_schemes'])) {
             /**
@@ -267,7 +264,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
      * Setter for the _basicResolver property
      *
      * @param  Zend_Auth_Adapter_Http_Resolver_Interface $resolver
-     * @return Zend_Auth_Adapter_Http Provides a fluent interface
+     * @return Zend_Auth_Adapter_Http                    Provides a fluent interface
      */
     public function setBasicResolver(Zend_Auth_Adapter_Http_Resolver_Interface $resolver)
     {
@@ -290,7 +287,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
      * Setter for the _digestResolver property
      *
      * @param  Zend_Auth_Adapter_Http_Resolver_Interface $resolver
-     * @return Zend_Auth_Adapter_Http Provides a fluent interface
+     * @return Zend_Auth_Adapter_Http                    Provides a fluent interface
      */
     public function setDigestResolver(Zend_Auth_Adapter_Http_Resolver_Interface $resolver)
     {
@@ -313,7 +310,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
      * Setter for the Request object
      *
      * @param  Zend_Controller_Request_Http $request
-     * @return Zend_Auth_Adapter_Http Provides a fluent interface
+     * @return Zend_Auth_Adapter_Http       Provides a fluent interface
      */
     public function setRequest(Zend_Controller_Request_Http $request)
     {
@@ -336,7 +333,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
      * Setter for the Response object
      *
      * @param  Zend_Controller_Response_Http $response
-     * @return Zend_Auth_Adapter_Http Provides a fluent interface
+     * @return Zend_Auth_Adapter_Http        Provides a fluent interface
      */
     public function setResponse(Zend_Controller_Response_Http $response)
     {
@@ -391,6 +388,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         // answer with only the selected auth scheme.
         if (!in_array($clientScheme, $this->_supportedSchemes)) {
             $this->_response->setHttpResponseCode(400);
+
             return new Zend_Auth_Result(
                 Zend_Auth_Result::FAILURE_UNCATEGORIZED,
                 array(),
@@ -449,6 +447,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         if (in_array('digest', $this->_acceptSchemes)) {
             $this->_response->setHeader($headerName, $this->_digestHeader());
         }
+
         return new Zend_Auth_Result(
             Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
             array(),
@@ -492,7 +491,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     /**
      * Basic Authentication
      *
-     * @param  string $header Client's Authorization header
+     * @param  string                      $header Client's Authorization header
      * @throws Zend_Auth_Adapter_Exception
      * @return Zend_Auth_Result
      */
@@ -540,6 +539,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         $password = $this->_basicResolver->resolve($creds[0], $this->_realm);
         if ($password && $this->_secureStringCompare($password, $creds[1])) {
             $identity = array('username'=>$creds[0], 'realm'=>$this->_realm);
+
             return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $identity);
         } else {
             return $this->_challengeClient();
@@ -549,9 +549,9 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     /**
      * Digest Authentication
      *
-     * @param  string $header Client's Authorization header
+     * @param  string                      $header Client's Authorization header
      * @throws Zend_Auth_Adapter_Exception
-     * @return Zend_Auth_Result Valid auth result only on successful auth
+     * @return Zend_Auth_Result            Valid auth result only on successful auth
      */
     protected function _digestAuth($header)
     {
@@ -573,6 +573,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         $data = $this->_parseDigestAuth($header);
         if ($data === false) {
             $this->_response->setHttpResponseCode(400);
+
             return new Zend_Auth_Result(
                 Zend_Auth_Result::FAILURE_UNCATEGORIZED,
                 array(),
@@ -632,7 +633,6 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         // easier
         $ha2 = hash('md5', $a2);
 
-
         // Calculate the server's version of the request-digest. This must
         // match $data['response']. See RFC 2617, section 3.2.2.1
         $message = $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $ha2;
@@ -642,6 +642,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         // a 401 code and exit to prevent access to the protected resource.
         if ($this->_secureStringCompare($digest, $data['response'])) {
             $identity = array('username'=>$data['username'], 'realm'=>$data['realm']);
+
             return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $identity);
         } else {
             return $this->_challengeClient();
@@ -667,6 +668,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         $timeout = ceil(time() / $this->_nonceTimeout) * $this->_nonceTimeout;
 
         $nonce = hash('md5', $timeout . ':' . $this->_request->getServer('HTTP_USER_AGENT') . ':' . __CLASS__);
+
         return $nonce;
     }
 
@@ -690,7 +692,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     /**
      * Parse Digest Authorization header
      *
-     * @param  string $header Client's Authorization: HTTP header
+     * @param  string      $header Client's Authorization: HTTP header
      * @return array|false Data elements from header, or false if any part of
      *         the header is invalid
      */
@@ -851,8 +853,8 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
      * attempting to iteratively guess the unknown string (e.g. password) being
      * compared against.
      *
-     * @param string $a
-     * @param string $b
+     * @param  string $a
+     * @param  string $b
      * @return bool
      */
     protected function _secureStringCompare($a, $b)
@@ -864,6 +866,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
         for ($i = 0; $i < strlen($a); $i++) {
             $result |= ord($a[$i]) ^ ord($b[$i]);
         }
+
         return $result == 0;
     }
 }

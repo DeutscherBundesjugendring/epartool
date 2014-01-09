@@ -42,10 +42,10 @@ class Zend_Oauth_Token_Access extends Zend_Oauth_Token
     /**
      * Cast to HTTP header
      *
-     * @param  string $url
+     * @param  string                            $url
      * @param  Zend_Oauth_Config_ConfigInterface $config
-     * @param  null|array $customParams
-     * @param  null|string $realm
+     * @param  null|array                        $customParams
+     * @param  null|string                       $realm
      * @return string
      */
     public function toHeader(
@@ -58,15 +58,16 @@ class Zend_Oauth_Token_Access extends Zend_Oauth_Token
             );
         }
         $params = $this->_httpUtility->assembleParams($url, $config, $customParams);
+
         return $this->_httpUtility->toAuthorizationHeader($params, $realm);
     }
 
     /**
      * Cast to HTTP query string
      *
-     * @param  mixed $url
+     * @param  mixed                             $url
      * @param  Zend_Oauth_Config_ConfigInterface $config
-     * @param  null|array $params
+     * @param  null|array                        $params
      * @return string
      */
     public function toQueryString($url, Zend_Oauth_Config_ConfigInterface $config, array $params = null)
@@ -78,22 +79,24 @@ class Zend_Oauth_Token_Access extends Zend_Oauth_Token
             );
         }
         $params = $this->_httpUtility->assembleParams($url, $config, $params);
+
         return $this->_httpUtility->toEncodedQueryString($params);
     }
 
     /**
      * Get OAuth client
      *
-     * @param  array $oauthOptions
-     * @param  null|string $uri
+     * @param  array                  $oauthOptions
+     * @param  null|string            $uri
      * @param  null|array|Zend_Config $config
-     * @param  bool $excludeCustomParamsFromHeader
+     * @param  bool                   $excludeCustomParamsFromHeader
      * @return Zend_Oauth_Client
      */
     public function getHttpClient(array $oauthOptions, $uri = null, $config = null, $excludeCustomParamsFromHeader = true)
     {
         $client = new Zend_Oauth_Client($oauthOptions, $uri, $config, $excludeCustomParamsFromHeader);
         $client->setToken($this);
+
         return $client;
     }
 }

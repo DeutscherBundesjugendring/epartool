@@ -44,12 +44,13 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
     /**
      * Set feed encoding
      *
-     * @param  string $enc
+     * @param  string                                  $enc
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setEncoding($enc)
     {
         $this->_encoding = $enc;
+
         return $this;
     }
 
@@ -87,7 +88,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
     /**
      * Add authors to itunes entry
      *
-     * @param  array $values
+     * @param  array                                   $values
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function addItunesAuthors(array $values)
@@ -95,13 +96,14 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         foreach ($values as $value) {
             $this->addItunesAuthor($value);
         }
+
         return $this;
     }
 
     /**
      * Add author to itunes entry
      *
-     * @param  string $value
+     * @param  string                                  $value
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function addItunesAuthor($value)
@@ -115,13 +117,14 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
             $this->_data['authors'] = array();
         }
         $this->_data['authors'][] = $value;
+
         return $this;
     }
 
     /**
      * Set duration
      *
-     * @param  int $value
+     * @param  int                                     $value
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setItunesDuration($value)
@@ -136,13 +139,14 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
             . ' be of a specified [[HH:]MM:]SS format');
         }
         $this->_data['duration'] = $value;
+
         return $this;
     }
 
     /**
      * Set "explicit" flag
      *
-     * @param  bool $value
+     * @param  bool                                    $value
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setItunesExplicit($value)
@@ -153,13 +157,14 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
             . ' be one of "yes", "no" or "clean"');
         }
         $this->_data['explicit'] = $value;
+
         return $this;
     }
 
     /**
      * Set keywords
      *
-     * @param  array $value
+     * @param  array                                   $value
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setItunesKeywords(array $value)
@@ -177,13 +182,14 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
             . ' by a comma');
         }
         $this->_data['keywords'] = $value;
+
         return $this;
     }
 
     /**
      * Set subtitle
      *
-     * @param  string $value
+     * @param  string                                  $value
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setItunesSubtitle($value)
@@ -194,13 +200,14 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
             . ' contain a maximum of 255 characters');
         }
         $this->_data['subtitle'] = $value;
+
         return $this;
     }
 
     /**
      * Set summary
      *
-     * @param  string $value
+     * @param  string                                  $value
      * @return Zend_Feed_Writer_Extension_ITunes_Entry
      */
     public function setItunesSummary($value)
@@ -211,6 +218,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
             . ' contain a maximum of 4000 characters');
         }
         $this->_data['summary'] = $value;
+
         return $this;
     }
 
@@ -218,7 +226,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
      * Overloading to itunes specific setters
      *
      * @param  string $method
-     * @param  array $params
+     * @param  array  $params
      * @return mixed
      */
     public function __call($method, array $params)
@@ -237,6 +245,7 @@ class Zend_Feed_Writer_Extension_ITunes_Entry
         ) {
             return null;
         }
+
         return $this->_data[$point];
     }
 }

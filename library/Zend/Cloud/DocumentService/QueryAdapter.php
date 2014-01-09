@@ -42,7 +42,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
     /**
      * SELECT clause (fields to be selected)
      *
-     * @param string $select
+     * @param  string                                  $select
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
     public function select($select);
@@ -50,7 +50,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
     /**
      * FROM clause (table name)
      *
-     * @param string $from
+     * @param  string                                  $from
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
     public function from($from);
@@ -58,9 +58,9 @@ interface Zend_Cloud_DocumentService_QueryAdapter
     /**
      * WHERE clause (conditions to be used)
      *
-     * @param string $where
-     * @param mixed $value Value or array of values to be inserted instead of ?
-     * @param string $op Operation to use to join where clauses (AND/OR)
+     * @param  string                                  $where
+     * @param  mixed                                   $value Value or array of values to be inserted instead of ?
+     * @param  string                                  $op    Operation to use to join where clauses (AND/OR)
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
     public function where($where, $value = null, $op = 'and');
@@ -71,7 +71,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
      * This one should be used when fetching specific rows since some adapters
      * have special syntax for primary keys
      *
-     * @param mixed $value Row ID for the document
+     * @param  mixed                                   $value Row ID for the document
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
     public function whereId($value);
@@ -79,7 +79,7 @@ interface Zend_Cloud_DocumentService_QueryAdapter
     /**
      * LIMIT clause (how many rows ot return)
      *
-     * @param int $limit
+     * @param  int                                     $limit
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
     public function limit($limit);
@@ -87,8 +87,8 @@ interface Zend_Cloud_DocumentService_QueryAdapter
     /**
      * ORDER BY clause (sorting)
      *
-     * @param string $sort Column to sort by
-     * @param string $direction Direction - asc/desc
+     * @param  string                                  $sort      Column to sort by
+     * @param  string                                  $direction Direction - asc/desc
      * @return Zend_Cloud_DocumentService_QueryAdapter
      */
     public function order($sort, $direction = 'asc');

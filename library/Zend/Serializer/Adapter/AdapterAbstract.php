@@ -52,7 +52,7 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
     /**
      * Set serializer options
      *
-     * @param  array|Zend_Config $opts Serializer options
+     * @param  array|Zend_Config                       $opts Serializer options
      * @return Zend_Serializer_Adapter_AdapterAbstract
      */
     public function setOptions($opts)
@@ -66,19 +66,21 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
         foreach ($opts as $k => $v) {
             $this->setOption($k, $v);
         }
+
         return $this;
     }
 
     /**
      * Set a serializer option
      *
-     * @param  string $name Option name
-     * @param  mixed $value Option value
+     * @param  string                                  $name  Option name
+     * @param  mixed                                   $value Option value
      * @return Zend_Serializer_Adapter_AdapterAbstract
      */
     public function setOption($name, $value)
     {
         $this->_options[(string) $name] = $value;
+
         return $this;
     }
 
@@ -95,7 +97,7 @@ abstract class Zend_Serializer_Adapter_AdapterAbstract implements Zend_Serialize
     /**
      * Get a serializer option
      *
-     * @param  string $name
+     * @param  string                    $name
      * @return mixed
      * @throws Zend_Serializer_Exception
      */

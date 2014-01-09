@@ -89,7 +89,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      *
      * @deprecated Deprecated as of Zend Framework 1.7. Use
      *             setService() instead.
-     * @param  Zend_Http_Client $httpClient
+     * @param  Zend_Http_Client                $httpClient
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
     public function setHttpClient(Zend_Http_Client $httpClient)
@@ -98,6 +98,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
         foreach ($this->_entry as $entry) {
             $entry->setHttpClient($httpClient);
         }
+
         return $this;
     }
 
@@ -106,7 +107,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      * This will be used to perform network requests, such as when calling
      * save() and delete().
      *
-     * @param Zend_Gdata_App $instance The new service instance.
+     * @param  Zend_Gdata_App                 $instance The new service instance.
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface.
      */
     public function setService($instance)
@@ -115,6 +116,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
         foreach ($this->_entry as $entry) {
             $entry->setService($instance);
         }
+
         return $this;
     }
 
@@ -153,6 +155,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
         if ($this->_subtitle != null) {
             $element->appendChild($this->_subtitle->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -201,12 +204,13 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Generator $value
-     * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Generator $value
+     * @return Zend_Gdata_App_FeedSourceParent    Provides a fluent interface
      */
     public function setGenerator($value)
     {
         $this->_generator = $value;
+
         return $this;
     }
 
@@ -219,12 +223,13 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Icon $value
+     * @param  Zend_Gdata_App_Extension_Icon   $value
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
     public function setIcon($value)
     {
         $this->_icon = $value;
+
         return $this;
     }
 
@@ -237,12 +242,13 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_logo $value
+     * @param  Zend_Gdata_App_Extension_logo   $value
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
     public function setlogo($value)
     {
         $this->_logo = $value;
+
         return $this;
     }
 
@@ -255,12 +261,13 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Subtitle $value
-     * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Subtitle $value
+     * @return Zend_Gdata_App_FeedSourceParent   Provides a fluent interface
      */
     public function setSubtitle($value)
     {
         $this->_subtitle = $value;
+
         return $this;
     }
 

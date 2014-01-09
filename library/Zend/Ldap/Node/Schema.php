@@ -44,7 +44,7 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
     /**
      * Factory method to create the Schema node.
      *
-     * @param  Zend_Ldap $ldap
+     * @param  Zend_Ldap             $ldap
      * @return Zend_Ldap_Node_Schema
      * @throws Zend_Ldap_Exception
      */
@@ -58,12 +58,14 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
                  * @see Zend_Ldap_Node_Schema_ActiveDirectory
                  */
                 require_once 'Zend/Ldap/Node/Schema/ActiveDirectory.php';
+
                 return new Zend_Ldap_Node_Schema_ActiveDirectory($dn, $data, $ldap);
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_OPENLDAP:
                 /**
                  * @see Zend_Ldap_Node_RootDse_ActiveDirectory
                  */
                 require_once 'Zend/Ldap/Node/Schema/OpenLdap.php';
+
                 return new Zend_Ldap_Node_Schema_OpenLdap($dn, $data, $ldap);
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_EDIRECTORY:
             default:
@@ -76,9 +78,9 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
      *
      * Constructor is protected to enforce the use of factory methods.
      *
-     * @param  Zend_Ldap_Dn $dn
-     * @param  array        $data
-     * @param  Zend_Ldap    $ldap
+     * @param Zend_Ldap_Dn $dn
+     * @param array        $data
+     * @param Zend_Ldap    $ldap
      */
     protected function __construct(Zend_Ldap_Dn $dn, array $data, Zend_Ldap $ldap)
     {
@@ -89,8 +91,8 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
     /**
      * Parses the schema
      *
-     * @param  Zend_Ldap_Dn $dn
-     * @param  Zend_Ldap    $ldap
+     * @param  Zend_Ldap_Dn          $dn
+     * @param  Zend_Ldap             $ldap
      * @return Zend_Ldap_Node_Schema Provides a fluid interface
      */
     protected function _parseSchema(Zend_Ldap_Dn $dn, Zend_Ldap $ldap)

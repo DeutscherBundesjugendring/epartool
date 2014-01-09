@@ -147,17 +147,17 @@ class Zend_Ldap_Exception extends Zend_Exception
         parent::__construct($message, $code);
     }
 
-
     /**
      * @deprecated not necessary any more - will be removed
-     * @param Zend_Ldap $ldap A Zend_Ldap object
-     * @return int The current error code for the resource
+     * @param  Zend_Ldap $ldap A Zend_Ldap object
+     * @return int       The current error code for the resource
      */
     public static function getLdapCode(Zend_Ldap $ldap = null)
     {
         if ($ldap !== null) {
             return $ldap->getLastErrorCode();
         }
+
         return 0;
     }
 

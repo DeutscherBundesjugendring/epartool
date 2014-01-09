@@ -80,12 +80,13 @@ class Zend_Tool_Project_Context_System_ProjectProfileFile
     /**
      * setProfile()
      *
-     * @param Zend_Tool_Project_Profile $profile
+     * @param  Zend_Tool_Project_Profile                           $profile
      * @return Zend_Tool_Project_Context_System_ProjectProfileFile
      */
     public function setProfile($profile)
     {
         $this->_profile = $profile;
+
         return $this;
     }
 
@@ -99,6 +100,7 @@ class Zend_Tool_Project_Context_System_ProjectProfileFile
     public function save()
     {
         parent::create();
+
         return $this;
     }
 
@@ -112,6 +114,7 @@ class Zend_Tool_Project_Context_System_ProjectProfileFile
         $parser = new Zend_Tool_Project_Profile_FileParser_Xml();
         $profile = $this->_resource->getProfile();
         $xml = $parser->serialize($profile);
+
         return $xml;
     }
 

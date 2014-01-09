@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Picasa_AlbumQuery
  */
-require_once('Zend/Gdata/Photos/AlbumQuery.php');
+require_once 'Zend/Gdata/Photos/AlbumQuery.php';
 
 /**
  * Assists in constructing queries for comment/tag entries.
@@ -78,7 +78,7 @@ class Zend_Gdata_Photos_PhotoQuery extends Zend_Gdata_Photos_AlbumQuery
      * Returns the URL generated for this query, based on it's current
      * parameters.
      *
-     * @return string A URL generated based on the state of this query.
+     * @return string                                  A URL generated based on the state of this query.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getQueryUrl($incomingUri = '')
@@ -92,6 +92,7 @@ class Zend_Gdata_Photos_PhotoQuery extends Zend_Gdata_Photos_AlbumQuery
                     'PhotoId cannot be null');
         }
         $uri .= $incomingUri;
+
         return parent::getQueryUrl($uri);
     }
 

@@ -158,7 +158,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     /**
      * Process any injected configuration options
      *
-     * @param  array|Zend_Config $options Options array or Zend_Config instance
+     * @param  array|Zend_Config                 $options Options array or Zend_Config instance
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setConfig($config)
@@ -199,6 +199,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 $config['preferredVerificationMode']
             );
         }
+
         return $this;
     }
 
@@ -206,7 +207,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      * Set the topic URL (RSS or Atom feed) to which the intended (un)subscribe
      * event will relate
      *
-     * @param  string $url
+     * @param  string                            $url
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setTopicUrl($url)
@@ -218,6 +219,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 .' URL');
         }
         $this->_topicUrl = $url;
+
         return $this;
     }
 
@@ -234,13 +236,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             throw new Zend_Feed_Pubsubhubbub_Exception('A valid Topic (RSS or Atom'
                 . ' feed) URL MUST be set before attempting any operation');
         }
+
         return $this->_topicUrl;
     }
 
     /**
      * Set the number of seconds for which any subscription will remain valid
      *
-     * @param  int $seconds
+     * @param  int                               $seconds
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setLeaseSeconds($seconds)
@@ -252,6 +255,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 . ' must be an integer greater than zero');
         }
         $this->_leaseSeconds = $seconds;
+
         return $this;
     }
 
@@ -269,7 +273,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      * Set the callback URL to be used by Hub Servers when communicating with
      * this Subscriber
      *
-     * @param  string $url
+     * @param  string                            $url
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setCallbackUrl($url)
@@ -281,6 +285,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 . ' URL');
         }
         $this->_callbackUrl = $url;
+
         return $this;
     }
 
@@ -297,6 +302,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             throw new Zend_Feed_Pubsubhubbub_Exception('A valid Callback URL MUST be'
                 . ' set before attempting any operation');
         }
+
         return $this->_callbackUrl;
     }
 
@@ -308,7 +314,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      * Zend_Feed_Pubsubhubbub_Subscriber will always send both modes, whose
      * order of occurance in the parameter list determines this preference.
      *
-     * @param  string $mode Should be 'sync' or 'async'
+     * @param  string                            $mode Should be 'sync' or 'async'
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setPreferredVerificationMode($mode)
@@ -322,6 +328,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 . ' Zend_Feed_Pubsubhubbub::VERIFICATION_MODE_ASYNC');
         }
         $this->_preferredVerificationMode = $mode;
+
         return $this;
     }
 
@@ -338,7 +345,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     /**
      * Add a Hub Server URL supported by Publisher
      *
-     * @param  string $url
+     * @param  string                            $url
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function addHubUrl($url)
@@ -350,13 +357,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 . ' URL');
         }
         $this->_hubUrls[] = $url;
+
         return $this;
     }
 
     /**
      * Add an array of Hub Server URLs supported by Publisher
      *
-     * @param  array $urls
+     * @param  array                             $urls
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function addHubUrls(array $urls)
@@ -364,13 +372,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         foreach ($urls as $url) {
             $this->addHubUrl($url);
         }
+
         return $this;
     }
 
     /**
      * Remove a Hub Server URL
      *
-     * @param  string $url
+     * @param  string                            $url
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function removeHubUrl($url)
@@ -380,6 +389,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         }
         $key = array_search($url, $this->_hubUrls);
         unset($this->_hubUrls[$key]);
+
         return $this;
     }
 
@@ -391,14 +401,15 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     public function getHubUrls()
     {
         $this->_hubUrls = array_unique($this->_hubUrls);
+
         return $this->_hubUrls;
     }
 
     /**
      * Add authentication credentials for a given URL
      *
-     * @param  string $url
-     * @param  array $authentication
+     * @param  string                            $url
+     * @param  array                             $authentication
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function addAuthentication($url, array $authentication)
@@ -410,13 +421,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 . ' URL');
         }
         $this->_authentications[$url] = $authentication;
+
         return $this;
     }
 
     /**
      * Add authentication credentials for hub URLs
      *
-     * @param  array $authentications
+     * @param  array                             $authentications
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function addAuthentications(array $authentications)
@@ -424,6 +436,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         foreach ($authentications as $url => $authentication) {
             $this->addAuthentication($url, $authentication);
         }
+
         return $this;
     }
 
@@ -440,26 +453,28 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     /**
      * Set flag indicating whether or not to use a path parameter
      *
-     * @param  bool $bool
+     * @param  bool                              $bool
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function usePathParameter($bool = true)
     {
         $this->_usePathParameter = $bool;
+
         return $this;
     }
 
     /**
      * Add an optional parameter to the (un)subscribe requests
      *
-     * @param  string $name
-     * @param  string|null $value
+     * @param  string                            $name
+     * @param  string|null                       $value
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setParameter($name, $value = null)
     {
         if (is_array($name)) {
             $this->setParameters($name);
+
             return $this;
         }
         if (empty($name) || !is_string($name)) {
@@ -469,6 +484,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         }
         if ($value === null) {
             $this->removeParameter($name);
+
             return $this;
         }
         if (empty($value) || (!is_string($value) && $value !== null)) {
@@ -477,14 +493,15 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 . ' of "' . $value . '" must be a non-empty string');
         }
         $this->_parameters[$name] = $value;
+
         return $this;
     }
 
     /**
      * Add an optional parameter to the (un)subscribe requests
      *
-     * @param  string $name
-     * @param  string|null $value
+     * @param  string                            $name
+     * @param  string|null                       $value
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function setParameters(array $parameters)
@@ -492,13 +509,14 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         foreach ($parameters as $name => $value) {
             $this->setParameter($name, $value);
         }
+
         return $this;
     }
 
     /**
      * Remove an optional parameter for the (un)subscribe requests
      *
-     * @param  string $name
+     * @param  string                            $name
      * @return Zend_Feed_Pubsubhubbub_Subscriber
      */
     public function removeParameter($name)
@@ -511,6 +529,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         if (array_key_exists($name, $this->_parameters)) {
             unset($this->_parameters[$name]);
         }
+
         return $this;
     }
 
@@ -534,6 +553,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     public function setStorage(Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface $storage)
     {
         $this->_storage = $storage;
+
         return $this;
     }
 
@@ -551,6 +571,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             throw new Zend_Feed_Pubsubhubbub_Exception('No storage vehicle '
                 . 'has been set.');
         }
+
         return $this->_storage;
     }
 
@@ -587,6 +608,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         if (count($this->_errors) > 0) {
             return false;
         }
+
         return true;
     }
 
@@ -669,7 +691,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     /**
      * Get a basic prepared HTTP client for use
      *
-     * @param  string $mode Must be "subscribe" or "unsubscribe"
+     * @param  string           $mode Must be "subscribe" or "unsubscribe"
      * @return Zend_Http_Client
      */
     protected function _getHttpClient()
@@ -678,6 +700,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         $client->setMethod(Zend_Http_Client::POST);
         $client->setConfig(array('useragent' => 'Zend_Feed_Pubsubhubbub_Subscriber/'
             . Zend_Version::VERSION));
+
         return $client;
     }
 
@@ -686,7 +709,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
      * client's POST body that are specific to the current Hub Server URL
      *
      * @param  string $hubUrl
-     * @param  mode $hubUrl
+     * @param  mode   $hubUrl
      * @return string
      */
     protected function _getRequestParameters($hubUrl, $mode)
@@ -716,7 +739,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
             );
         }
         $params['hub.verify'] = array();
-        foreach($vmodes as $vmode) {
+        foreach ($vmodes as $vmode) {
             $params['hub.verify'][] = $vmode;
         }
 
@@ -784,6 +807,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
         if (!empty($this->_testStaticToken)) {
             return $this->_testStaticToken;
         }
+
         return uniqid(rand(), true) . time();
     }
 
@@ -798,6 +822,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
     {
         $keyBase = $params['hub.topic'] . $hubUrl;
         $key     = md5($keyBase);
+
         return $key;
     }
 
@@ -823,6 +848,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                     = Zend_Feed_Pubsubhubbub::urlencode($value);
             }
         }
+
         return $encoded;
     }
 
@@ -845,6 +871,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber
                 $return[] = $key . '=' . $value;
             }
         }
+
         return implode('&', $return);
     }
 

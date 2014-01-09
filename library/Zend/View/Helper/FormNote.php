@@ -20,12 +20,10 @@
  * @version    $Id: FormNote.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Abstract class for extension
  */
 require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to show an HTML note
@@ -56,6 +54,7 @@ class Zend_View_Helper_FormNote extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, $value);
         extract($info); // name, value, attribs, options, listsep, disable
+
         return $value;
     }
 }

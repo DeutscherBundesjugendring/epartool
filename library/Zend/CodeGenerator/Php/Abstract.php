@@ -53,12 +53,13 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
     /**
      * setSourceDirty()
      *
-     * @param bool $isSourceDirty
+     * @param  bool                            $isSourceDirty
      * @return Zend_CodeGenerator_Php_Abstract
      */
     public function setSourceDirty($isSourceDirty = true)
     {
         $this->_isSourceDirty = ($isSourceDirty) ? true : false;
+
         return $this;
     }
 
@@ -75,12 +76,13 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
     /**
      * setIndentation()
      *
-     * @param string|int $indentation
+     * @param  string|int                      $indentation
      * @return Zend_CodeGenerator_Php_Abstract
      */
     public function setIndentation($indentation)
     {
         $this->_indentation = $indentation;
+
         return $this;
     }
 

@@ -73,6 +73,7 @@ class Zend_Tool_Project_Context_Zf_ProjectProviderFile extends Zend_Tool_Project
         }
 
         parent::init();
+
         return $this;
     }
 

@@ -20,7 +20,6 @@
  * @version    $Id: Interface.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Auth HTTP Resolver Interface
  *
@@ -38,8 +37,8 @@ interface Zend_Auth_Adapter_Http_Resolver_Interface
     /**
      * Resolve username/realm to password/hash/etc.
      *
-     * @param  string $username Username
-     * @param  string $realm    Authentication Realm
+     * @param  string       $username Username
+     * @param  string       $realm    Authentication Realm
      * @return string|false User's shared secret, if the user is found in the
      *         realm, false otherwise.
      */

@@ -141,7 +141,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
     /**
      * Calculates a 32bit integer
      *
-     * @param string $input
+     * @param  string  $input
      * @return integer
      */
     protected function _getInteger($input)
@@ -150,13 +150,14 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
         $f1 .= str_pad(ord($input[1]), 2, '0', STR_PAD_LEFT);
         $f1 .= str_pad(ord($input[2]), 2, '0', STR_PAD_LEFT);
         $f1 .= str_pad(ord($input[3]), 2, '0', STR_PAD_LEFT);
+
         return (int) $f1;
     }
 
     /**
      * Calculates a 32bit signed fixed point number
      *
-     * @param string $input
+     * @param  string $input
      * @return float
      */
     protected function _getFloat($input)
@@ -168,13 +169,14 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
         $f2  = $f1 >> 17;
         $f3  = ($f1 & 0x0001FFFF);
         $f1  = $f2 . '.' . $f3;
+
         return (float) $f1;
     }
 
     /**
      * Calculates a 64bit timestamp
      *
-     * @param string $input
+     * @param  string $input
      * @return float
      */
     protected function _getTimestamp($input)
@@ -228,6 +230,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
         );
 
         $this->_disconnect();
+
         return $result;
     }
 
@@ -249,7 +252,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
      * Extracts the binary data returned from the timeserver
      *
      * @param  string|array $binary Data returned from the timeserver
-     * @return integer Difference in seconds
+     * @return integer      Difference in seconds
      */
     protected function _extract($binary)
     {
@@ -260,7 +263,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
          * the last day of the current month.
          */
         $leap = ($binary['flags'] & 0xc0) >> 6;
-        switch($leap) {
+        switch ($leap) {
             case 0:
                 $this->_info['leap'] = '0 - no warning';
                 break;
@@ -293,7 +296,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
          * instantiation of the protocol machine, called an association.
          */
         $mode = ($binary['flags'] & 0x07);
-        switch($mode) {
+        switch ($mode) {
             case 1:
                 $this->_info['mode'] = 'symetric active';
                 break;
@@ -327,15 +330,15 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
          * Identifies the particular reference clock.
          */
         $refid = strtoupper($binary['referenceid']);
-        switch($binary['stratum']) {
+        switch ($binary['stratum']) {
             case 0:
                 if (substr($refid, 0, 3) === 'DCN') {
                     $ntpserviceid = 'DCN routing protocol';
-                } else if (substr($refid, 0, 4) === 'NIST') {
+                } elseif (substr($refid, 0, 4) === 'NIST') {
                     $ntpserviceid = 'NIST public modem';
-                } else if (substr($refid, 0, 3) === 'TSP') {
+                } elseif (substr($refid, 0, 3) === 'TSP') {
                     $ntpserviceid = 'TSP time protocol';
-                } else if (substr($refid, 0, 3) === 'DTS') {
+                } elseif (substr($refid, 0, 3) === 'DTS') {
                     $ntpserviceid = 'Digital Time Service';
                 }
                 break;
@@ -343,15 +346,15 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
             case 1:
                 if (substr($refid, 0, 4) === 'ATOM') {
                     $ntpserviceid = 'Atomic Clock (calibrated)';
-                } else if (substr($refid, 0, 3) === 'VLF') {
+                } elseif (substr($refid, 0, 3) === 'VLF') {
                     $ntpserviceid = 'VLF radio';
-                } else if ($refid === 'CALLSIGN') {
+                } elseif ($refid === 'CALLSIGN') {
                     $ntpserviceid = 'Generic radio';
-                } else if (substr($refid, 0, 4) === 'LORC') {
+                } elseif (substr($refid, 0, 4) === 'LORC') {
                     $ntpserviceid = 'LORAN-C radionavigation';
-                } else if (substr($refid, 0, 4) === 'GOES') {
+                } elseif (substr($refid, 0, 4) === 'GOES') {
                     $ntpserviceid = 'GOES UHF environment satellite';
-                } else if (substr($refid, 0, 3) === 'GPS') {
+                } elseif (substr($refid, 0, 3) === 'GPS') {
                     $ntpserviceid = 'GPS UHF satellite positioning';
                 }
                 break;
@@ -374,7 +377,7 @@ class Zend_TimeSync_Ntp extends Zend_TimeSync_Protocol
          *
          * Indicates the stratum level of the local clock
          */
-        switch($binary['stratum']) {
+        switch ($binary['stratum']) {
             case 0:
                 $this->_info['stratum'] = 'undefined';
                 break;

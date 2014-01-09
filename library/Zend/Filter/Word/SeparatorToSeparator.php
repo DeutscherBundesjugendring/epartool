@@ -39,8 +39,8 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
     /**
      * Constructor
      *
-     * @param  string  $searchSeparator      Seperator to search for
-     * @param  string  $replacementSeperator Seperator to replace with
+     * @param  string $searchSeparator      Seperator to search for
+     * @param  string $replacementSeperator Seperator to replace with
      * @return void
      */
     public function __construct($searchSeparator = ' ', $replacementSeparator = '-')
@@ -52,19 +52,20 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
     /**
      * Sets a new seperator to search for
      *
-     * @param  string  $separator  Seperator to search for
+     * @param string $separator Seperator to search for
      * @return $this
      */
     public function setSearchSeparator($separator)
     {
         $this->_searchSeparator = $separator;
+
         return $this;
     }
 
     /**
      * Returns the actual set seperator to search for
      *
-     * @return  string
+     * @return string
      */
     public function getSearchSeparator()
     {
@@ -74,19 +75,20 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
     /**
      * Sets a new seperator which replaces the searched one
      *
-     * @param  string  $separator  Seperator which replaces the searched one
+     * @param string $separator Seperator which replaces the searched one
      * @return $this
      */
     public function setReplacementSeparator($separator)
     {
         $this->_replacementSeparator = $separator;
+
         return $this;
     }
 
     /**
      * Returns the actual set seperator which replaces the searched one
      *
-     * @return  string
+     * @return string
      */
     public function getReplacementSeparator()
     {
@@ -123,6 +125,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
 
         $this->setMatchPattern('#' . preg_quote($this->_searchSeparator, '#') . '#');
         $this->setReplacement($this->_replacementSeparator);
+
         return parent::filter($value);
     }
 

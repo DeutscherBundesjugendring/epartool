@@ -94,6 +94,7 @@ class Zend_Gdata_Spreadsheets_CellFeed extends Zend_Gdata_Feed
         if ($this->colCount != null) {
             $element->appendChild($this->_colCount->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -142,6 +143,7 @@ class Zend_Gdata_Spreadsheets_CellFeed extends Zend_Gdata_Feed
     public function setRowCount($rowCount)
     {
         $this->_rowCount = $rowCount;
+
         return $this;
     }
 
@@ -152,6 +154,7 @@ class Zend_Gdata_Spreadsheets_CellFeed extends Zend_Gdata_Feed
     public function setColumnCount($colCount)
     {
         $this->_colCount = $colCount;
+
         return $this;
     }
 

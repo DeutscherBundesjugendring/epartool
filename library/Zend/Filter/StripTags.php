@@ -19,12 +19,10 @@
  * @version    $Id: StripTags.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Filter_Interface
  */
 require_once 'Zend/Filter/Interface.php';
-
 
 /**
  * @category   Zend
@@ -84,7 +82,7 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if ((!is_array($options)) || (is_array($options) && !array_key_exists('allowTags', $options) &&
+        } elseif ((!is_array($options)) || (is_array($options) && !array_key_exists('allowTags', $options) &&
             !array_key_exists('allowAttribs', $options) && !array_key_exists('allowComments', $options))) {
             $options = func_get_args();
             $temp['allowTags'] = array_shift($options);
@@ -131,12 +129,13 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
      * This setting is now deprecated and ignored internally.
      *
      * @deprecated
-     * @param  boolean $commentsAllowed
+     * @param  boolean               $commentsAllowed
      * @return Zend_Filter_StripTags Provides a fluent interface
      */
     public function setCommentsAllowed($commentsAllowed)
     {
        $this->commentsAllowed = (boolean) $commentsAllowed;
+
        return $this;
     }
 
@@ -153,7 +152,7 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
     /**
      * Sets the tagsAllowed option
      *
-     * @param  array|string $tagsAllowed
+     * @param  array|string          $tagsAllowed
      * @return Zend_Filter_StripTags Provides a fluent interface
      */
     public function setTagsAllowed($tagsAllowed)
@@ -206,7 +205,7 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
     /**
      * Sets the attributesAllowed option
      *
-     * @param  array|string $attributesAllowed
+     * @param  array|string          $attributesAllowed
      * @return Zend_Filter_StripTags Provides a fluent interface
      */
     public function setAttributesAllowed($attributesAllowed)

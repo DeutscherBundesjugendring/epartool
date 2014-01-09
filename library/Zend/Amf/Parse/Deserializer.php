@@ -58,8 +58,8 @@ abstract class Zend_Amf_Parse_Deserializer
      * for deserializing those marker types. Markers are the data type of
      * the following value.
      *
-     * @param  int $typeMarker
+     * @param  int   $typeMarker
      * @return mixed Whatever the data type is of the marker in php
      */
-    public abstract function readTypeMarker($markerType = null);
+    abstract public function readTypeMarker($markerType = null);
 }

@@ -35,7 +35,8 @@ require_once 'Zend/Memory/Value.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Memory_Container_Movable extends Zend_Memory_Container {
+class Zend_Memory_Container_Movable extends Zend_Memory_Container
+{
     /**
      * Internal object Id
      *
@@ -73,8 +74,8 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
      * Object constructor
      *
      * @param Zend_Memory_Manager $memoryManager
-     * @param integer $id
-     * @param string $value
+     * @param integer             $id
+     * @param string              $value
      */
     public function __construct(Zend_Memory_Manager $memoryManager, $id, $value)
     {
@@ -128,7 +129,7 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
      * Loads object if necessary and moves it to the top of loaded objects list.
      * Swaps objects from the bottom of loaded objects list, if necessary.
      *
-     * @param string $property
+     * @param  string                $property
      * @return string
      * @throws Zend_Memory_Exception
      */
@@ -150,8 +151,8 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
     /**
      * Set handler
      *
-     * @param string $property
-     * @param  string $value
+     * @param  string         $property
+     * @param  string         $value
      * @throws Zend_Exception
      */
     public function __set($property, $value)

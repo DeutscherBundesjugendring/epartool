@@ -20,11 +20,9 @@
  * @version    $Id: Type0.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Array.php';
 require_once 'Zend/Pdf/Element/Name.php';
-
 
 /** Zend_Pdf_Resource_Font */
 require_once 'Zend/Pdf/Resource/Font.php';
@@ -69,13 +67,12 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      */
     private $_descendantFont;
 
-
     /**
      * Generate ToUnicode character map data
      *
      * @return string
      */
-    static private function getToUnicodeCMapData()
+    private static function getToUnicodeCMapData()
     {
         return '/CIDInit /ProcSet findresource begin '              . "\n"
              . '12 dict begin '                                     . "\n"
@@ -112,7 +109,6 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
         $this->_fontType       = Zend_Pdf_Font::TYPE_TYPE_0;
         $this->_descendantFont = $descendantFont;
 
-
         $this->_fontNames    = $descendantFont->getFontNames();
 
         $this->_isBold       = $descendantFont->isBold();
@@ -129,7 +125,6 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
         $this->_ascent  = $descendantFont->getAscent();
         $this->_descent = $descendantFont->getDescent();
         $this->_lineGap = $descendantFont->getLineGap();
-
 
         $this->_resource->Subtype         = new Zend_Pdf_Element_Name('Type0');
         $this->_resource->BaseFont        = new Zend_Pdf_Element_Name($descendantFont->getResource()->BaseFont->value);
@@ -149,7 +144,7 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      *
      * See also {@link glyphNumberForCharacter()}.
      *
-     * @param array $characterCodes Array of Unicode character codes (code points).
+     * @param  array $characterCodes Array of Unicode character codes (code points).
      * @return array Array of glyph numbers.
      */
     public function glyphNumbersForCharacters($characterCodes)
@@ -163,7 +158,7 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      * Zend_Pdf uses 'Identity-H' encoding for Type 0 fonts.
      * So we don't need to perform any conversion
      *
-     * @param integer $characterCode Unicode character code (code point).
+     * @param  integer $characterCode Unicode character code (code point).
      * @return integer Glyph number.
      */
     public function glyphNumberForCharacter($characterCode)
@@ -204,8 +199,8 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      *
      * See also {@link widthForGlyph()}.
      *
-     * @param array &$glyphNumbers Array of glyph numbers.
-     * @return array Array of glyph widths (integers).
+     * @param  array              &$glyphNumbers Array of glyph numbers.
+     * @return array              Array of glyph widths (integers).
      * @throws Zend_Pdf_Exception
      */
     public function widthsForGlyphs($glyphNumbers)
@@ -218,7 +213,7 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      *
      * Like {@link widthsForGlyphs()} but used for one glyph at a time.
      *
-     * @param integer $glyphNumber
+     * @param  integer            $glyphNumber
      * @return integer
      * @throws Zend_Pdf_Exception
      */
@@ -232,8 +227,8 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      *
      * The method is used to prepare string for text drawing operators
      *
-     * @param string $string
-     * @param string $charEncoding Character encoding of source text.
+     * @param  string $string
+     * @param  string $charEncoding Character encoding of source text.
      * @return string
      */
     public function encodeString($string, $charEncoding)
@@ -246,8 +241,8 @@ class Zend_Pdf_Resource_Font_Type0 extends Zend_Pdf_Resource_Font
      *
      * The method is used to convert strings retrieved from existing content streams
      *
-     * @param string $string
-     * @param string $charEncoding Character encoding of resulting text.
+     * @param  string $string
+     * @param  string $charEncoding Character encoding of resulting text.
      * @return string
      */
         public function decodeString($string, $charEncoding)

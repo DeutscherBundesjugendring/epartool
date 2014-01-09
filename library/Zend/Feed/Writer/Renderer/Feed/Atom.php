@@ -55,7 +55,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom
      * @param  Zend_Feed_Writer_Feed $container
      * @return void
      */
-    public function __construct (Zend_Feed_Writer_Feed $container)
+    public function __construct(Zend_Feed_Writer_Feed $container)
     {
         parent::__construct($container);
     }
@@ -125,6 +125,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom
             $imported = $this->_dom->importNode($element, true);
             $root->appendChild($imported);
         }
+
         return $this;
     }
 

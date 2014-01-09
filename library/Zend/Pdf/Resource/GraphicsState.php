@@ -19,17 +19,14 @@
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Object.php';
 require_once 'Zend/Pdf/Element/Dictionary.php';
 require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 
-
 /** Zend_Pdf_Resource */
 require_once 'Zend/Pdf/Resource.php';
-
 
 /**
  * Graphics State.
@@ -47,7 +44,7 @@ class Zend_Pdf_Resource_GraphicsState extends Zend_Pdf_Resource
     /**
      * Object constructor.
      *
-     * @param Zend_Pdf_Element_Object $extGStateObject
+     * @param  Zend_Pdf_Element_Object $extGStateObject
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_Element_Object $extGStateObject = null)
@@ -81,8 +78,8 @@ class Zend_Pdf_Resource_GraphicsState extends Zend_Pdf_Resource
      * Normal (default), Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight,
      * SoftLight, Difference, Exclusion
      *
-     * @param float $alpha
-     * @param string $mode
+     * @param  float                     $alpha
+     * @param  string                    $mode
      * @throws Zend_Pdf_Exception
      * @return Zend_Pdf_Canvas_Interface
      */
@@ -103,7 +100,5 @@ class Zend_Pdf_Resource_GraphicsState extends Zend_Pdf_Resource
         $this->_resource->ca   = new Zend_Pdf_Element_Numeric($alpha);
     }
 
-
     /** @todo add other Graphics State features support */
 }
-

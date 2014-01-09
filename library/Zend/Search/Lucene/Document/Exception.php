@@ -19,12 +19,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Framework base exception
  */
 require_once 'Zend/Search/Lucene/Exception.php';
-
 
 /**
  * @category   Zend
@@ -34,4 +32,3 @@ require_once 'Zend/Search/Lucene/Exception.php';
  */
 class Zend_Search_Lucene_Document_Exception extends Zend_Search_Lucene_Exception
 {}
-

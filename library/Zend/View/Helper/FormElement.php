@@ -71,6 +71,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
             $e->setView($this->view);
             throw $e;
         }
+
          return $this;
     }
 
@@ -122,7 +123,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
             }
         }
 
-        $attribs = (array)$attribs;
+        $attribs = (array) $attribs;
 
         // Normalize readonly tag
         if (array_key_exists('readonly', $attribs)) {
@@ -133,25 +134,25 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
         if (array_key_exists('disable', $attribs)) {
            if (is_scalar($attribs['disable'])) {
                 // disable the element
-                $info['disable'] = (bool)$attribs['disable'];
-            } else if (is_array($attribs['disable'])) {
+                $info['disable'] = (bool) $attribs['disable'];
+            } elseif (is_array($attribs['disable'])) {
                 $info['disable'] = $attribs['disable'];
             }
         }
 
         // Set ID for element
         if (array_key_exists('id', $attribs)) {
-            $info['id'] = (string)$attribs['id'];
-        } else if ('' !== $info['name']) {
+            $info['id'] = (string) $attribs['id'];
+        } elseif ('' !== $info['name']) {
             $info['id'] = trim(strtr($info['name'],
                                      array('[' => '-', ']' => '')), '-');
         }
-        
+
         // Remove NULL name attribute override
         if (array_key_exists('name', $attribs) && is_null($attribs['name'])) {
-        	unset($attribs['name']);
+            unset($attribs['name']);
         }
-        
+
         // Override name in info if specified in attribs
         if (array_key_exists('name', $attribs) && $attribs['name'] != $info['name']) {
             $info['name'] = $attribs['name'];
@@ -159,12 +160,12 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
 
         // Determine escaping from attributes
         if (array_key_exists('escape', $attribs)) {
-            $info['escape'] = (bool)$attribs['escape'];
+            $info['escape'] = (bool) $attribs['escape'];
         }
 
         // Determine listsetp from attributes
         if (array_key_exists('listsep', $attribs)) {
-            $info['listsep'] = (string)$attribs['listsep'];
+            $info['listsep'] = (string) $attribs['listsep'];
         }
 
         // Remove attribs that might overwrite the other keys. We do this LAST
@@ -188,8 +189,8 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
      *
      * @access protected
      *
-     * @param string $name The element name.
-     * @param string $value The element value.
+     * @param string $name    The element name.
+     * @param string $value   The element value.
      * @param array  $attribs Attributes for the element.
      *
      * @return string A hidden element.

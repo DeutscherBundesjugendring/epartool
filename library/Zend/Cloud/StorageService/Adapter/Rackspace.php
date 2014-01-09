@@ -38,7 +38,7 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
     const API_KEY             = 'key';
     const REMOTE_CONTAINER    = 'container';
     const DELETE_METADATA_KEY = 'ZF_metadata_deleted';
-    
+
     /**
      * The Rackspace adapter
      * @var Zend_Service_Rackspace_Files
@@ -50,14 +50,14 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
      * @var string
      */
     protected $_container = 'default';
-    
+
     /**
      * Constructor
      *
      * @param  array|Traversable $options
      * @return void
      */
-    function __construct($options = array())
+    public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -72,20 +72,20 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
         } catch (Zend_Service_Rackspace_Exception $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on create: '.$e->getMessage(), $e->getCode(), $e);
         }
-        
+
         if (isset($options[self::HTTP_ADAPTER])) {
             $this->_rackspace->getHttpClient()->setAdapter($options[self::HTTP_ADAPTER]);
         }
         if (!empty($options[self::REMOTE_CONTAINER])) {
             $this->_container = $options[self::REMOTE_CONTAINER];
-        }    
+        }
     }
 
      /**
      * Get an item from the storage service.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return mixed
      */
     public function fetchItem($path, $options = null)
@@ -103,10 +103,10 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
 
     /**
      * Store an item in the storage service.
-     * 
+     *
      * @param  string $destinationPath
-     * @param  mixed $data
-     * @param  array $options
+     * @param  mixed  $data
+     * @param  array  $options
      * @return void
      */
     public function storeItem($destinationPath, $data, $options = null)
@@ -121,7 +121,7 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
      * Delete an item in the storage service.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function deleteItem($path, $options = null)
@@ -137,7 +137,7 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
      *
      * @param  string $sourcePath
      * @param  string $destination path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function copyItem($sourcePath, $destinationPath, $options = null)
@@ -155,7 +155,7 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
      *
      * @param  string $sourcePath
      * @param  string $destination path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function moveItem($sourcePath, $destinationPath, $options = null)
@@ -164,21 +164,21 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
             $this->copyItem($sourcePath, $destinationPath, $options);
         } catch (Zend_Service_Rackspace_Exception $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on move: '.$e->getMessage());
-        }    
+        }
         try {
             $this->deleteItem($sourcePath);
         } catch (Zend_Service_Rackspace_Exception $e) {
             $this->deleteItem($destinationPath);
             throw new Zend_Cloud_StorageService_Exception('Error on move: '.$e->getMessage());
-        }    
+        }
     }
 
     /**
      * Rename an item in the storage service to a given name.
-     * 
+     *
      * @param  string $path
      * @param  string $name
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function renameItem($path, $name, $options = null)
@@ -191,8 +191,8 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
      * Get a key/value array of metadata for the given path.
      *
      * @param  string $path
-     * @param  array $options
-     * @return array An associative array of key/value pairs specifying the metadata for this object.
+     * @param  array  $options
+     * @return array  An associative array of key/value pairs specifying the metadata for this object.
      *                  If no metadata exists, an empty array is returned.
      */
     public function fetchMetadata($path, $options = null)
@@ -206,9 +206,10 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
             $metadata =  $result['metadata'];
         }
         // delete the self::DELETE_METADATA_KEY - this is a trick to remove all
-        // the metadata information of an object (see deleteMetadata). 
+        // the metadata information of an object (see deleteMetadata).
         // Rackspace doesn't have an API to remove the metadata of an object
         unset($metadata[self::DELETE_METADATA_KEY]);
+
         return $metadata;
     }
 
@@ -233,8 +234,8 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
     /**
      * Delete a key/value array of metadata at the given path.
      *
-     * @param  string $path
-     * @param  array $metadata - An associative array specifying the key/value pairs for the metadata
+     * @param string $path
+     * @param array  $metadata - An associative array specifying the key/value pairs for the metadata
      *                           to be deleted.  If null, all metadata associated with the object will
      *                           be deleted.
      * @param  array $options
@@ -268,8 +269,8 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
      * Recursively traverse all the folders and build an array that contains
      * the path names for each folder.
      *
-     * @param  string $path        folder path to get the list of folders from.
-     * @param  array& $resultArray reference to the array that contains the path names
+     * @param string $path        folder path to get the list of folders from.
+     * @param array& $resultArray reference to the array that contains the path names
      *                             for each folder.
      * @return void
      */
@@ -279,7 +280,7 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
             $options = array (
                 'prefix'    => $path
             );
-        }    
+        }
         $files = $this->_rackspace->getObjects($this->_container,$options);
         if (!$this->_rackspace->isSuccessful()) {
             throw new Zend_Cloud_StorageService_Exception('Error on get all folders: '.$this->_rackspace->getErrorMsg());
@@ -305,8 +306,8 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
             $options = array (
                 'prefix'    => $path
             );
-        }   
-        
+        }
+
         $files = $this->_rackspace->getObjects($this->_container,$options);
         if (!$this->_rackspace->isSuccessful()) {
             throw new Zend_Cloud_StorageService_Exception('Error on list items: '.$this->_rackspace->getErrorMsg());
@@ -316,7 +317,8 @@ class Zend_Cloud_StorageService_Adapter_Rackspace
             foreach ($files as $file) {
                 $resultArray[] = $file->getName();
             }
-        }    
+        }
+
         return $resultArray;
     }
 

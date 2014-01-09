@@ -20,7 +20,6 @@
  * @version    $Id: KeyInfoResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Represents a single Technorati KeyInfo query result object.
  * It provides information about your Technorati API Key daily usage.
@@ -57,13 +56,12 @@ class Zend_Service_Technorati_KeyInfoResult
      */
     protected $_maxQueries;
 
-
     /**
      * Constructs a new object from DOM Element.
      * Parses given Key element from $dom and sets API key string.
      *
-     * @param   DomElement $dom the ReST fragment for this object
-     * @param   string $apiKey  the API Key string
+     * @param DomElement $dom    the ReST fragment for this object
+     * @param string     $apiKey the API Key string
      */
     public function __construct(DomDocument $dom, $apiKey = null)
     {
@@ -76,43 +74,46 @@ class Zend_Service_Technorati_KeyInfoResult
         $this->setApiKey($apiKey);
     }
 
-
     /**
      * Returns API Key string.
      *
-     * @return  string  API Key string
+     * @return string API Key string
      */
-    public function getApiKey() {
+    public function getApiKey()
+    {
         return $this->_apiKey;
     }
 
     /**
      * Returns the number of queries sent today.
      *
-     * @return  int     number of queries sent today
+     * @return int number of queries sent today
      */
-    public function getApiQueries() {
+    public function getApiQueries()
+    {
         return $this->_apiQueries;
     }
 
     /**
      * Returns Key's daily query limit.
      *
-     * @return  int     maximum number of available queries per day
+     * @return int maximum number of available queries per day
      */
-    public function getMaxQueries() {
+    public function getMaxQueries()
+    {
         return $this->_maxQueries;
     }
-
 
     /**
      * Sets API Key string.
      *
-     * @param   string $apiKey  the API Key
-     * @return  Zend_Service_Technorati_KeyInfoResult $this instance
+     * @param  string                                $apiKey the API Key
+     * @return Zend_Service_Technorati_KeyInfoResult $this instance
      */
-    public function setApiKey($apiKey) {
+    public function setApiKey($apiKey)
+    {
         $this->_apiKey = $apiKey;
+
         return $this;
     }
 }

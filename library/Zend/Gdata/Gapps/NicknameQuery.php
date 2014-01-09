@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for Google Apps nickname entries.
@@ -110,8 +110,7 @@ class Zend_Gdata_Gapps_NicknameQuery extends Zend_Gdata_Gapps_Query
     {
         if ($value !== null) {
             $this->_params['username'] = $value;
-        }
-        else {
+        } else {
             unset($this->_params['username']);
         }
     }
@@ -180,6 +179,7 @@ class Zend_Gdata_Gapps_NicknameQuery extends Zend_Gdata_Gapps_Query
             $uri .= '/' . $this->_nickname;
         }
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

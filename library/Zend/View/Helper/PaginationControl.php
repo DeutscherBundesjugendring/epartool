@@ -44,12 +44,13 @@ class Zend_View_Helper_PaginationControl
     /**
      * Sets the view instance.
      *
-     * @param  Zend_View_Interface $view View instance
+     * @param  Zend_View_Interface                $view View instance
      * @return Zend_View_Helper_PaginationControl
      */
     public function setView(Zend_View_Interface $view)
     {
         $this->view = $view;
+
         return $this;
     }
 
@@ -79,9 +80,9 @@ class Zend_View_Helper_PaginationControl
      * the defaults will be used (if set).
      *
      * @param  Zend_Paginator (Optional) $paginator
-     * @param  string $scrollingStyle (Optional) Scrolling style
-     * @param  string $partial (Optional) View partial
-     * @param  array|string $params (Optional) params to pass to the partial
+     * @param  string                    $scrollingStyle (Optional) Scrolling style
+     * @param  string                    $partial        (Optional) View partial
+     * @param  array|string              $params         (Optional) params to pass to the partial
      * @return string
      * @throws Zend_View_Exception
      */

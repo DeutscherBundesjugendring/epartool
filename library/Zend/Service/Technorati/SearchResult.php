@@ -20,12 +20,10 @@
  * @version    $Id: SearchResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati Search query result object.
@@ -80,11 +78,10 @@ class Zend_Service_Technorati_SearchResult extends Zend_Service_Technorati_Resul
      */
     protected $_permalink;
 
-
     /**
      * Constructs a new object object from DOM Element.
      *
-     * @param   DomElement $dom the ReST fragment for this object
+     * @param DomElement $dom the ReST fragment for this object
      */
     public function __construct(DomElement $dom)
     {
@@ -105,45 +102,50 @@ class Zend_Service_Technorati_SearchResult extends Zend_Service_Technorati_Resul
     /**
      * Returns the weblog object that links queried URL.
      *
-     * @return  Zend_Service_Technorati_Weblog
+     * @return Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
     /**
      * Returns the title of the entry.
      *
-     * @return  string
+     * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->_title;
     }
 
     /**
      * Returns the blurb from entry with search term highlighted.
      *
-     * @return  string
+     * @return string
      */
-    public function getExcerpt() {
+    public function getExcerpt()
+    {
         return $this->_excerpt;
     }
 
     /**
      * Returns the datetime the entry was created.
      *
-     * @return  Zend_Date
+     * @return Zend_Date
      */
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->_created;
     }
 
     /**
      * Returns the permalink of the blog entry.
      *
-     * @return  Zend_Uri_Http
+     * @return Zend_Uri_Http
      */
-    public function getPermalink() {
+    public function getPermalink()
+    {
         return $this->_permalink;
     }
 

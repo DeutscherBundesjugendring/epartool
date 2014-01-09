@@ -37,7 +37,7 @@ class Zend_Gdata_App_Util
      *  Convert timestamp into RFC 3339 date string.
      *  2005-04-19T15:30:00
      *
-     * @param int $timestamp
+     * @param  int                                     $timestamp
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public static function formatTimestamp($timestamp)
@@ -45,7 +45,7 @@ class Zend_Gdata_App_Util
         $rfc3339 = '/^(\d{4})\-?(\d{2})\-?(\d{2})((T|t)(\d{2})\:?(\d{2})' .
                    '\:?(\d{2})(\.\d{1,})?((Z|z)|([\+\-])(\d{2})\:?(\d{2})))?$/';
 
-        if (ctype_digit((string)$timestamp)) {
+        if (ctype_digit((string) $timestamp)) {
             return gmdate('Y-m-d\TH:i:sP', $timestamp);
         } elseif (preg_match($rfc3339, $timestamp) > 0) {
             // timestamp is already properly formatted
@@ -56,6 +56,7 @@ class Zend_Gdata_App_Util
                 require_once 'Zend/Gdata/App/InvalidArgumentException.php';
                 throw new Zend_Gdata_App_InvalidArgumentException("Invalid timestamp: $timestamp.");
             }
+
             return date('Y-m-d\TH:i:s', $ts);
         }
     }

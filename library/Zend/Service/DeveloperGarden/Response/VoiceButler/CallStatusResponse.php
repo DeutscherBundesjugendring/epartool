@@ -45,6 +45,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->sessionId)) {
             return $this->return->sessionId;
         }
+
         return null;
     }
 
@@ -58,6 +59,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->connectiontimea)) {
             return $this->return->connectiontimea;
         }
+
         return null;
     }
 
@@ -71,6 +73,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->connectiontimeb)) {
             return $this->return->connectiontimeb;
         }
+
         return null;
     }
 
@@ -84,6 +87,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->descriptiona)) {
             return $this->return->descriptiona;
         }
+
         return null;
     }
 
@@ -97,6 +101,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->descriptionb)) {
             return $this->return->descriptionb;
         }
+
         return null;
     }
 
@@ -110,6 +115,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->reasona)) {
             return $this->return->reasona;
         }
+
         return null;
     }
 
@@ -123,6 +129,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->reasonb)) {
             return $this->return->reasonb;
         }
+
         return null;
     }
 
@@ -136,6 +143,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->statea)) {
             return $this->return->statea;
         }
+
         return null;
     }
 
@@ -149,6 +157,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
         if (isset($this->return->stateb)) {
             return $this->return->stateb;
         }
+
         return null;
     }
 }

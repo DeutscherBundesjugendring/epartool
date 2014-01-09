@@ -42,20 +42,21 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
     /**
      * setRegistry()
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface        $registry
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
         $this->_response = $registry->getResponse();
+
         return $this;
     }
 
     /**
      * respondWithErrorMessage()
      *
-     * @param string $errorMessage
+     * @param string    $errorMessage
      * @param Exception $exception
      */
     public function respondWithErrorMessage($errorMessage, Exception $exception = null)
@@ -72,6 +73,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         }
 
         $this->_response->appendContent(null, array('separator' => true));
+
         return $this;
     }
 
@@ -100,13 +102,14 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
             ->appendContent('Providers and their actions:', array('color' => 'green'));
 
         $this->_respondWithSystemInformation();
+
         return $this;
     }
 
     /**
      * respondWithActionHelp()
      *
-     * @param string $actionName
+     * @param  string                                        $actionName
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     public function respondWithActionHelp($actionName)
@@ -114,14 +117,15 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         $this->_respondWithHeader();
         $this->_response->appendContent('Providers that support the action "' . $actionName . '"', array('color' => 'green'));
         $this->_respondWithSystemInformation(null, $actionName);
+
         return $this;
     }
 
     /**
      * respondWithSpecialtyAndParamHelp()
      *
-     * @param string $providerName
-     * @param string $actionName
+     * @param  string                                        $providerName
+     * @param  string                                        $actionName
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     public function respondWithSpecialtyAndParamHelp($providerName, $actionName)
@@ -132,13 +136,14 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
             array('color' => 'green')
             );
         $this->_respondWithSystemInformation($providerName, $actionName, true);
+
         return $this;
     }
 
     /**
      * respondWithProviderHelp()
      *
-     * @param string $providerName
+     * @param  string                                        $providerName
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     public function respondWithProviderHelp($providerName)
@@ -146,6 +151,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         $this->_respondWithHeader();
         $this->_response->appendContent('Actions supported by provider "' . $providerName . '"', array('color' => 'green'));
         $this->_respondWithSystemInformation($providerName);
+
         return $this;
     }
 
@@ -162,15 +168,16 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         require_once 'Zend/Version.php';
         $this->_response->appendContent('Zend Framework', array('color' => array('hiWhite'), 'separator' => false));
         $this->_response->appendContent(' Command Line Console Tool v' . Zend_Version::VERSION . '');
+
         return $this;
     }
 
     /**
      * _respondWithSystemInformation()
      *
-     * @param string $providerNameFilter
-     * @param string $actionNameFilter
-     * @param bool $includeAllSpecialties
+     * @param  string                                        $providerNameFilter
+     * @param  string                                        $actionNameFilter
+     * @param  bool                                          $includeAllSpecialties
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     protected function _respondWithSystemInformation($providerNameFilter = null, $actionNameFilter = null, $includeAllSpecialties = false)
@@ -297,7 +304,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                             'clientName'    => 'console'
                             ));
 
-                        if($actionableSpecialtyLongMetadata) {
+                        if ($actionableSpecialtyLongMetadata) {
                             $this->_respondWithCommand($providerMetadata, $actionMetadata, $specialtyMetadata, $actionableSpecialtyLongMetadata);
                         }
 
@@ -322,28 +329,30 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
                 $this->_response->appendContent(null, array('separator' => true));
             }
         }
+
         return $this;
     }
 
     /**
      * _respondWithProviderName()
      *
-     * @param Zend_Tool_Framework_Metadata_Tool $providerMetadata
+     * @param  Zend_Tool_Framework_Metadata_Tool             $providerMetadata
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     protected function _respondWithProviderName(Zend_Tool_Framework_Metadata_Tool $providerMetadata)
     {
         $this->_response->appendContent('  ' . $providerMetadata->getProviderName());
+
         return $this;
     }
 
     /**
      * _respondWithCommand()
      *
-     * @param Zend_Tool_Framework_Metadata_Tool $providerMetadata
-     * @param Zend_Tool_Framework_Metadata_Tool $actionMetadata
-     * @param Zend_Tool_Framework_Metadata_Tool $specialtyMetadata
-     * @param Zend_Tool_Framework_Metadata_Tool $parameterLongMetadata
+     * @param  Zend_Tool_Framework_Metadata_Tool             $providerMetadata
+     * @param  Zend_Tool_Framework_Metadata_Tool             $actionMetadata
+     * @param  Zend_Tool_Framework_Metadata_Tool             $specialtyMetadata
+     * @param  Zend_Tool_Framework_Metadata_Tool             $parameterLongMetadata
      * @return Zend_Tool_Framework_Client_Console_HelpSystem
      */
     protected function _respondWithCommand(
@@ -372,6 +381,7 @@ class Zend_Tool_Framework_Client_Console_HelpSystem
         }
 
        $this->_response->appendContent(null, array('separator' => true));
+
        return $this;
     }
 

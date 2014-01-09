@@ -83,6 +83,7 @@ class Zend_Gdata_AuthSub
              . '&scope=' . urldecode($scope)
              . '&secure=' . urlencode($secure)
              . '&session=' . urlencode($session);
+
          return $request_uri . $querystring;
      }
 
@@ -90,12 +91,12 @@ class Zend_Gdata_AuthSub
     /**
      * Upgrades a single use token to a session token
      *
-     * @param string $token The single use token which is to be upgraded
+     * @param string           $token  The single use token which is to be upgraded
      * @param Zend_Http_Client $client (optional) HTTP client to use to
      *                                 make the request
      * @param string $request_uri (optional) URI to which to direct
      *                            the session token upgrade
-     * @return string The upgraded token value
+     * @return string                       The upgraded token value
      * @throws Zend_Gdata_App_AuthException
      * @throws Zend_Gdata_App_HttpException
      */
@@ -132,6 +133,7 @@ class Zend_Gdata_AuthSub
                     $goog_resp[$key] = $val;
                 }
             }
+
             return $goog_resp['Token'];
         } else {
             require_once 'Zend/Gdata/App/AuthException.php';
@@ -143,10 +145,10 @@ class Zend_Gdata_AuthSub
     /**
      * Revoke a token
      *
-     * @param string $token The token to revoke
-     * @param Zend_Http_Client $client (optional) HTTP client to use to make the request
-     * @param string $request_uri (optional) URI to which to direct the revokation request
-     * @return boolean Whether the revokation was successful
+     * @param  string                       $token       The token to revoke
+     * @param  Zend_Http_Client             $client      (optional) HTTP client to use to make the request
+     * @param  string                       $request_uri (optional) URI to which to direct the revokation request
+     * @return boolean                      Whether the revokation was successful
      * @throws Zend_Gdata_App_HttpException
      */
     public static function AuthSubRevokeToken($token, $client = null,
@@ -186,7 +188,7 @@ class Zend_Gdata_AuthSub
     /**
      * get token information
      *
-     * @param string $token The token to retrieve information about
+     * @param string           $token  The token to retrieve information about
      * @param Zend_Http_Client $client (optional) HTTP client to use to
      *                                 make the request
      * @param string $request_uri (optional) URI to which to direct
@@ -216,6 +218,7 @@ class Zend_Gdata_AuthSub
             throw new Zend_Gdata_App_HttpException($e->getMessage(), $e);
         }
         ob_end_clean();
+
         return $response->getBody();
     }
 
@@ -223,7 +226,7 @@ class Zend_Gdata_AuthSub
      * Retrieve a HTTP client object with AuthSub credentials attached
      * as the Authorization header
      *
-     * @param string $token The token to retrieve information about
+     * @param string                $token  The token to retrieve information about
      * @param Zend_Gdata_HttpClient $client (optional) HTTP client to use to make the request
      */
     public static function getHttpClient($token, $client = null)
@@ -242,6 +245,7 @@ class Zend_Gdata_AuthSub
             )
         );
         $client->setAuthSubToken($token);
+
         return $client;
     }
 

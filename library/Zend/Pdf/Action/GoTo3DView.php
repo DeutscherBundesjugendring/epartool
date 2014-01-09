@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Set the current view of a 3D annotation' action
  * PDF 1.6+ feature
@@ -36,4 +35,3 @@ require_once 'Zend/Pdf/Action.php';
 class Zend_Pdf_Action_GoTo3DView extends Zend_Pdf_Action
 {
 }
-

@@ -30,7 +30,6 @@ require_once 'Zend/Gdata/App/Extension/Control.php';
  */
 require_once 'Zend/Gdata/YouTube/Extension/State.php';
 
-
 /**
  * Specialized Control class for use with YouTube. Enables use of yt extension elements.
  *
@@ -48,7 +47,7 @@ class Zend_Gdata_YouTube_Extension_Control extends Zend_Gdata_App_Extension_Cont
     /**
      * Constructs a new Zend_Gdata_Calendar_Extension_Control object.
      * @see Zend_Gdata_App_Extension_Control#__construct
-     * @param Zend_Gdata_App_Extension_Draft $draft
+     * @param Zend_Gdata_App_Extension_Draft     $draft
      * @param Zend_Gdata_YouTube_Extension_State $state
      */
     public function __construct($draft = null, $state = null)
@@ -64,8 +63,8 @@ class Zend_Gdata_YouTube_Extension_Control extends Zend_Gdata_App_Extension_Cont
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -74,6 +73,7 @@ class Zend_Gdata_YouTube_Extension_Control extends Zend_Gdata_App_Extension_Cont
         if ($this->_state != null) {
             $element->appendChild($this->_state->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -111,12 +111,13 @@ class Zend_Gdata_YouTube_Extension_Control extends Zend_Gdata_App_Extension_Cont
     /**
      * Set the value for this element's state attribute.
      *
-     * @param Zend_Gdata_YouTube_Extension_State $value The desired value for this attribute.
-     * @return Zend_YouTube_Extension_Control The element being modified.
+     * @param  Zend_Gdata_YouTube_Extension_State $value The desired value for this attribute.
+     * @return Zend_YouTube_Extension_Control     The element being modified.
      */
     public function setState($value)
     {
         $this->_state = $value;
+
         return $this;
     }
 

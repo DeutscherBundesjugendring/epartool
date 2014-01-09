@@ -67,10 +67,10 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantReque
     /**
      * constructor
      *
-     * @param integer $environment
-     * @param string $conferenceId
-     * @param string $participantId
-     * @param integer $action
+     * @param integer                                                       $environment
+     * @param string                                                        $conferenceId
+     * @param string                                                        $participantId
+     * @param integer                                                       $action
      * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
      */
     public function __construct($environment, $conferenceId, $participantId,
@@ -87,31 +87,33 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantReque
     /**
      * set the conference id
      *
-     * @param string $conferenceId
+     * @param  string                                                                       $conferenceId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantRequest
      */
     public function setConferenceId($conferenceId)
     {
         $this->conferenceId = $conferenceId;
+
         return $this;
     }
 
     /**
      * set the participant id
      *
-     * @param string $participantId
+     * @param  string                                                                       $participantId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantRequest
      */
     public function setParticipantId($participantId)
     {
         $this->participantId = $participantId;
+
         return $this;
     }
 
     /**
      * sets new action
      *
-     * @param integer $action
+     * @param  integer                                                                      $action
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantRequest
      */
     public function setAction($action = null)
@@ -120,19 +122,21 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantReque
             Zend_Service_DeveloperGarden_ConferenceCall::checkParticipantAction($action);
         }
         $this->action = $action;
+
         return $this;
     }
 
     /**
      * sets new participant
      *
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail                $participant
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_UpdateParticipantRequest
      */
     public function setParticipant(
         Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant = null
     ) {
         $this->participant = $participant;
+
         return $this;
     }
 }

@@ -103,12 +103,13 @@ class Zend_Application_Bootstrap_Bootstrap
     /**
      * Set module resource loader
      *
-     * @param  Zend_Loader_Autoloader_Resource $loader
+     * @param  Zend_Loader_Autoloader_Resource   $loader
      * @return Zend_Application_Module_Bootstrap
      */
     public function setResourceLoader(Zend_Loader_Autoloader_Resource $loader)
     {
         $this->_resourceLoader = $loader;
+
         return $this;
     }
 
@@ -129,6 +130,7 @@ class Zend_Application_Bootstrap_Bootstrap
                 'basePath'  => dirname($path),
             )));
         }
+
         return $this->_resourceLoader;
     }
 
@@ -151,6 +153,7 @@ class Zend_Application_Bootstrap_Bootstrap
     public function setAppNamespace($value)
     {
         $this->_appNamespace = (string) $value;
+
         return $this;
     }
 }

@@ -46,7 +46,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
     /**
      * Get an author entry
      *
-     * @param DOMElement $element
+     * @param  DOMElement $element
      * @return string
      */
     public function getAuthor($index = 0)
@@ -134,9 +134,9 @@ class Zend_Feed_Reader_Extension_DublinCore_Entry
         }
 
         $this->_data['categories'] = $categoryCollection;
+
         return $this->_data['categories'];
     }
-
 
     /**
      * Get the entry content

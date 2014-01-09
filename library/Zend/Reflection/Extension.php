@@ -41,7 +41,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
      * Get extension function reflection objects
      *
      * @param  string $reflectionClass Name of reflection class to use
-     * @return array Array of Zend_Reflection_Function objects
+     * @return array  Array of Zend_Reflection_Function objects
      */
     public function getFunctions($reflectionClass = 'Zend_Reflection_Function')
     {
@@ -57,6 +57,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
@@ -64,7 +65,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
      * Get extension class reflection objects
      *
      * @param  string $reflectionClass Name of reflection class to use
-     * @return array Array of Zend_Reflection_Class objects
+     * @return array  Array of Zend_Reflection_Class objects
      */
     public function getClasses($reflectionClass = 'Zend_Reflection_Class')
     {
@@ -80,6 +81,7 @@ class Zend_Reflection_Extension extends ReflectionExtension
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 }

@@ -101,7 +101,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * @TODO Support streams
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return string
      */
     public function fetchItem($path, $options = array())
@@ -126,15 +126,16 @@ class Zend_Cloud_StorageService_Adapter_S3
      *
      * @TODO Support streams
      *
-     * @param string $destinationPath
-     * @param string|resource $data
-     * @param  array $options
+     * @param  string          $destinationPath
+     * @param  string|resource $data
+     * @param  array           $options
      * @return void
      */
     public function storeItem($destinationPath, $data, $options = array())
     {
         try {
             $fullPath = $this->_getFullPath($destinationPath, $options);
+
             return $this->_s3->putObject(
                 $fullPath,
                 $data,
@@ -149,7 +150,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * Delete an item in the storage service.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function deleteItem($path, $options = array())
@@ -171,7 +172,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      *
      * @param  string $sourcePath
      * @param  string $destination path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function copyItem($sourcePath, $destinationPath, $options = array())
@@ -179,6 +180,7 @@ class Zend_Cloud_StorageService_Adapter_S3
         try {
             $fullSourcePath = $this->_getFullPath($sourcePath, $options);
             $fullDestPath   = $this->_getFullPath($destinationPath, $options);
+
             return $this->_s3->copyObject(
                 $fullSourcePath,
                 $fullDestPath,
@@ -197,7 +199,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      *
      * @param  string $sourcePath
      * @param  string $destination path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function moveItem($sourcePath, $destinationPath, $options = array())
@@ -205,6 +207,7 @@ class Zend_Cloud_StorageService_Adapter_S3
         try {
             $fullSourcePath = $this->_getFullPath($sourcePath, $options);
             $fullDestPath   = $this->_getFullPath($destinationPath, $options);
+
             return $this->_s3->moveObject(
                 $fullSourcePath,
                 $fullDestPath,
@@ -221,7 +224,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      *
      * @param  string $path
      * @param  string $name
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function renameItem($path, $name, $options = null)
@@ -236,9 +239,9 @@ class Zend_Cloud_StorageService_Adapter_S3
      * The $path must be a directory
      *
      *
-     * @param  string $path Must be a directory
-     * @param  array $options
-     * @return array A list of item names
+     * @param  string $path    Must be a directory
+     * @param  array  $options
+     * @return array  A list of item names
      */
     public function listItems($path, $options = null)
     {
@@ -254,7 +257,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * Get a key/value array of metadata for the given path.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return array
      */
     public function fetchMetadata($path, $options = array())
@@ -272,7 +275,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * $destinationPath.
      *
      * @param  string $destinationPath
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function storeMetadata($destinationPath, $metadata, $options = array())
@@ -285,7 +288,7 @@ class Zend_Cloud_StorageService_Adapter_S3
      * Delete a key/value array of metadata at the given path.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function deleteMetadata($path)
@@ -298,14 +301,14 @@ class Zend_Cloud_StorageService_Adapter_S3
      * Get full path, including bucket, for an object
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     protected function _getFullPath($path, $options)
     {
         if (isset($options[self::BUCKET_NAME])) {
             $bucket = $options[self::BUCKET_NAME];
-        } else if (isset($this->_defaultBucketName)) {
+        } elseif (isset($this->_defaultBucketName)) {
             $bucket = $this->_defaultBucketName;
         } else {
             require_once 'Zend/Cloud/StorageService/Exception.php';

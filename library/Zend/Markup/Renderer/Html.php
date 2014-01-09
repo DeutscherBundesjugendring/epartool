@@ -83,7 +83,6 @@ class Zend_Markup_Renderer_Html extends Zend_Markup_Renderer_RendererAbstract
         'title' => ''
     );
 
-
     /**
      * Constructor
      *
@@ -366,7 +365,7 @@ class Zend_Markup_Renderer_Html extends Zend_Markup_Renderer_RendererAbstract
      * Execute a replace token
      *
      * @param  Zend_Markup_Token $token
-     * @param  array $markup
+     * @param  array             $markup
      * @return string
      */
     protected function _executeReplace(Zend_Markup_Token $token, $markup)
@@ -376,6 +375,7 @@ class Zend_Markup_Renderer_Html extends Zend_Markup_Renderer_RendererAbstract
                 $markup['attributes'] = array();
             }
             $attrs = self::renderAttributes($token, $markup['attributes']);
+
             return "<{$markup['tag']}{$attrs}>{$this->_render($token)}</{$markup['tag']}>";
         }
 
@@ -386,7 +386,7 @@ class Zend_Markup_Renderer_Html extends Zend_Markup_Renderer_RendererAbstract
      * Execute a single replace token
      *
      * @param  Zend_Markup_Token $token
-     * @param  array $markup
+     * @param  array             $markup
      * @return string
      */
     protected function _executeSingleReplace(Zend_Markup_Token $token, $markup)
@@ -396,8 +396,10 @@ class Zend_Markup_Renderer_Html extends Zend_Markup_Renderer_RendererAbstract
                 $markup['attributes'] = array();
             }
             $attrs = self::renderAttributes($token, $markup['attributes']);
+
             return "<{$markup['tag']}{$attrs} />";
         }
+
         return parent::_executeSingleReplace($token, $markup);
     }
 
@@ -405,7 +407,7 @@ class Zend_Markup_Renderer_Html extends Zend_Markup_Renderer_RendererAbstract
      * Render some attributes
      *
      * @param  Zend_Markup_Token $token
-     * @param  array $attributes
+     * @param  array             $attributes
      * @return string
      */
     public static function renderAttributes(Zend_Markup_Token $token, array $attributes = array())

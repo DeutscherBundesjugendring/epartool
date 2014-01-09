@@ -198,6 +198,7 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
         // ...except the STOP character (13)
         $encodedData += $characterLength + 2 * $this->_barThinWidth * $this->_factor;
         $width = $quietZone + $encodedData + $quietZone;
+
         return $width;
     }
 
@@ -232,15 +233,16 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
                 $barcodeTable[] = array($c, $this->_barThinWidth, 0, 1);
             }
         }
+
         return $barcodeTable;
     }
 
     /**
      * Checks if the next $length chars of $string starting at $pos are numeric.
      * Returns false if the end of the string is reached.
-     * @param string $string String to search
-     * @param int    $pos Starting position
-     * @param int    $length Length to search
+     * @param  string $string String to search
+     * @param  int    $pos    Starting position
+     * @param  int    $length Length to search
      * @return bool
      */
     protected static function _isDigit($string, $pos, $length = 2)
@@ -254,6 +256,7 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
                   return false;
               }
         }
+
         return true;
     }
 
@@ -296,7 +299,7 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
                     $result[] = $code;
                     $currentCharset = 'C';
                 }
-            } else if (in_array($char, $this->_charSets['B']) && $currentCharset != 'B'
+            } elseif (in_array($char, $this->_charSets['B']) && $currentCharset != 'B'
                   && !(in_array($char, $this->_charSets['A']) && $currentCharset == 'A')) {
                 /**
                  * Switch to B as B contains the char and B is not the current charset.
@@ -308,7 +311,7 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
                 }
                 $result[] = $code;
                 $currentCharset = 'B';
-            } else if (array_key_exists($char, $this->_charSets['A']) && $currentCharset != 'A'
+            } elseif (array_key_exists($char, $this->_charSets['A']) && $currentCharset != 'A'
                   && !(array_key_exists($char, $this->_charSets['B']) && $currentCharset == 'B')) {
                 /**
                  * Switch to C as C contains the char and C is not the current charset.
@@ -332,17 +335,19 @@ class Zend_Barcode_Object_Code128 extends Zend_Barcode_Object_ObjectAbstract
         }
 
         $this->_convertedText[md5($string)] = $result;
+
         return $result;
     }
 
     /**
      * Set text to encode
-     * @param string $value
+     * @param  string              $value
      * @return Zend_Barcode_Object
      */
     public function setText($value)
     {
         $this->_text = $value;
+
         return $this;
     }
 

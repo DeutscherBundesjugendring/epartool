@@ -108,6 +108,7 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
                     ))
                 )
             ));
+
         return $codeGenFile->generate();
     }
 }

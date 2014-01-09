@@ -91,7 +91,7 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
      * host           => (string) What host to connect to, defaults to localhost
      * port           => (string) The port of the database
      *
-     * @param  array|Zend_Config $config An array having configuration data
+     * @param array|Zend_Config $config An array having configuration data
      * @param  Zend_Queue The Zend_Queue object that created this class
      * @return void
      * @throws Zend_Queue_Exception
@@ -132,7 +132,7 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
         }
         if (array_key_exists('driverOptions', $options)) {
             // can't use array_merge() because keys might be integers
-            foreach ((array)$options['driverOptions'] as $key => $value) {
+            foreach ((array) $options['driverOptions'] as $key => $value) {
                 $driverOptions[$key] = $value;
             }
         }
@@ -157,12 +157,13 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
     /**
      * set the Zend_Queue class for this object
      *
-     * @param  Zend_Queue $queue
+     * @param  Zend_Queue                          $queue
      * @return Zend_Queue_Adapter_AdapterInterface
      */
     public function setQueue(Zend_Queue $queue)
     {
         $this->_queue = $queue;
+
         return $this;
     }
 
@@ -179,7 +180,7 @@ abstract class Zend_Queue_Adapter_AdapterAbstract
     /**
      * Indicates if a function is supported or not.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function isSupported($name)

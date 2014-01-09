@@ -104,36 +104,38 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * 'text/comma-separated-values'. The Mime type is sent as a header in
      * the upload HTTP POST request.
      *
-     * @param string $fileExtension
+     * @param  string $fileExtension
      * @return string The mime type to be sent to the server to tell it how the
      *          multipart mime data should be interpreted.
      */
-    public static function lookupMimeType($fileExtension) {
+    public static function lookupMimeType($fileExtension)
+    {
       return self::$SUPPORTED_FILETYPES[strtoupper($fileExtension)];
     }
 
     /**
      * Retreive feed object containing entries for the user's documents.
      *
-     * @param mixed $location The location for the feed, as a URL or Query
+     * @param  mixed                            $location The location for the feed, as a URL or Query
      * @return Zend_Gdata_Docs_DocumentListFeed
      */
     public function getDocumentListFeed($location = null)
     {
         if ($location === null) {
             $uri = self::DOCUMENTS_LIST_FEED_URI;
-        } else if ($location instanceof Zend_Gdata_Query) {
+        } elseif ($location instanceof Zend_Gdata_Query) {
             $uri = $location->getQueryUrl();
         } else {
             $uri = $location;
         }
+
         return parent::getFeed($uri, 'Zend_Gdata_Docs_DocumentListFeed');
     }
 
     /**
      * Retreive entry object representing a single document.
      *
-     * @param mixed $location The location for the entry, as a URL or Query
+     * @param  mixed                             $location The location for the entry, as a URL or Query
      * @return Zend_Gdata_Docs_DocumentListEntry
      */
     public function getDocumentListEntry($location = null)
@@ -142,11 +144,12 @@ class Zend_Gdata_Docs extends Zend_Gdata
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Location must not be null');
-        } else if ($location instanceof Zend_Gdata_Query) {
+        } elseif ($location instanceof Zend_Gdata_Query) {
             $uri = $location->getQueryUrl();
         } else {
             $uri = $location;
         }
+
         return parent::getEntry($uri, 'Zend_Gdata_Docs_DocumentListEntry');
     }
 
@@ -161,9 +164,11 @@ class Zend_Gdata_Docs extends Zend_Gdata
      *     Document List URLs. Examples: document, spreadsheet, presentation
      * @return Zend_Gdata_Docs_DocumentListEntry
      */
-    public function getDoc($docId, $docType) {
+    public function getDoc($docId, $docType)
+    {
         $location = 'https://docs.google.com/feeds/documents/private/full/' .
             $docType . '%3A' . $docId;
+
         return $this->getDocumentListEntry($location);
     }
 
@@ -173,7 +178,8 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * @param string $id The URL id for the document. Example:
      *     dcmg89gw_62hfjj8m
      */
-    public function getDocument($id) {
+    public function getDocument($id)
+    {
       return $this->getDoc($id, 'document');
     }
 
@@ -183,7 +189,8 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * @param string $id The URL id for the document. Example:
      *     pKq0CzjiF3YmGd0AIlHKqeg
      */
-    public function getSpreadsheet($id) {
+    public function getSpreadsheet($id)
+    {
       return $this->getDoc($id, 'spreadsheet');
     }
 
@@ -193,7 +200,8 @@ class Zend_Gdata_Docs extends Zend_Gdata
      * @param string $id The URL id for the document. Example:
      *     dcmg89gw_21gtrjcn
      */
-    public function getPresentation($id) {
+    public function getPresentation($id)
+    {
       return $this->getDoc($id, 'presentation');
     }
 
@@ -257,14 +265,15 @@ class Zend_Gdata_Docs extends Zend_Gdata
     /**
      * Creates a new folder in Google Docs
      *
-     * @param string $folderName The folder name to create
+     * @param string      $folderName       The folder name to create
      * @param string|null $folderResourceId The parent folder to create it in
      *        ("folder%3Amy_parent_folder")
      * @return Zend_Gdata_Entry The folder entry created.
      * @todo ZF-8732: This should return a *subclass* of Zend_Gdata_Entry, but
      *       the appropriate type doesn't exist yet.
      */
-    public function createFolder($folderName, $folderResourceId=null) {
+    public function createFolder($folderName, $folderResourceId=null)
+    {
         $category = new Zend_Gdata_App_Extension_Category(self::DOCUMENTS_CATEGORY_TERM,
                                                           self::DOCUMENTS_CATEGORY_SCHEMA);
         $title = new Zend_Gdata_App_Extension_Title($folderName);
@@ -284,11 +293,11 @@ class Zend_Gdata_Docs extends Zend_Gdata
     /**
      * Inserts an entry to a given URI and returns the response as an Entry.
      *
-     * @param mixed  $data The Zend_Gdata_Docs_DocumentListEntry or media
+     * @param mixed $data The Zend_Gdata_Docs_DocumentListEntry or media
      *         source to post. If it is a DocumentListEntry, the mediaSource
      *         should already have been set. If $data is a mediaSource, it
      *         should have the correct slug header and mime type.
-     * @param string $uri POST URI
+     * @param string $uri       POST URI
      * @param string $className (optional) The class of entry to be returned.
      *         The default is a 'Zend_Gdata_Docs_DocumentListEntry'.
      * @return Zend_Gdata_Docs_DocumentListEntry The entry returned by the

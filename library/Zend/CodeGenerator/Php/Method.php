@@ -66,7 +66,7 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
     /**
      * fromReflection()
      *
-     * @param Zend_Reflection_Method $reflectionMethod
+     * @param  Zend_Reflection_Method        $reflectionMethod
      * @return Zend_CodeGenerator_Php_Method
      */
     public static function fromReflection(Zend_Reflection_Method $reflectionMethod)
@@ -116,7 +116,7 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
     /**
      * setParameters()
      *
-     * @param array $parameters
+     * @param  array                         $parameters
      * @return Zend_CodeGenerator_Php_Method
      */
     public function setParameters(Array $parameters)
@@ -124,13 +124,14 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
         foreach ($parameters as $parameter) {
             $this->setParameter($parameter);
         }
+
         return $this;
     }
 
     /**
      * setParameter()
      *
-     * @param Zend_CodeGenerator_Php_Parameter|array $parameter
+     * @param  Zend_CodeGenerator_Php_Parameter|array $parameter
      * @return Zend_CodeGenerator_Php_Method
      */
     public function setParameter($parameter)
@@ -146,6 +147,7 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
         }
 
         $this->_parameters[$parameterName] = $parameter;
+
         return $this;
     }
 
@@ -162,12 +164,13 @@ class Zend_CodeGenerator_Php_Method extends Zend_CodeGenerator_Php_Member_Abstra
     /**
      * setBody()
      *
-     * @param string $body
+     * @param  string                        $body
      * @return Zend_CodeGenerator_Php_Method
      */
     public function setBody($body)
     {
         $this->_body = $body;
+
         return $this;
     }
 

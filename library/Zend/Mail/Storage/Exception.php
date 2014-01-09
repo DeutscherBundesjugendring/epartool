@@ -20,12 +20,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Mail_Exception
  */
 require_once 'Zend/Mail/Exception.php';
-
 
 /**
  * @category   Zend
@@ -36,4 +34,3 @@ require_once 'Zend/Mail/Exception.php';
  */
 class Zend_Mail_Storage_Exception extends Zend_Mail_Exception
 {}
-

@@ -34,9 +34,9 @@ class Zend_Tool_Project_Provider_ProjectProvider extends Zend_Tool_Project_Provi
     /**
      * createResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $projectProviderName
-     * @param string $actionNames
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $projectProviderName
+     * @param  string                             $actionNames
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function createResource(Zend_Tool_Project_Profile $profile, $projectProviderName, $actionNames = null)

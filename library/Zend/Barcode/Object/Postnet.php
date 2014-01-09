@@ -83,6 +83,7 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
         $startCharacter  = (2 * $this->_barThinWidth) * $this->_factor;
         $stopCharacter   = (1 * $this->_barThinWidth) * $this->_factor;
         $encodedData     = (10 * $this->_barThinWidth) * $this->_factor * strlen($this->getText());
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -117,6 +118,7 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
 
         // Stop character (1)
         $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
+
         return $barcodeTable;
     }
 
@@ -131,6 +133,7 @@ class Zend_Barcode_Object_Postnet extends Zend_Barcode_Object_ObjectAbstract
         $this->_checkText($text);
         $sum = array_sum(str_split($text));
         $checksum = (10 - ($sum % 10)) % 10;
+
         return $checksum;
     }
 }

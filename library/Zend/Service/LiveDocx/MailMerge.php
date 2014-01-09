@@ -79,7 +79,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      * Set the filename of a LOCAL template
      * (i.e. a template stored locally on YOUR server)
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -113,7 +113,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      * Set the filename of a REMOTE template
      * (i.e. a template stored remotely on the LIVEDOCX server)
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -139,7 +139,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Set an associative or multi-associative array of keys and values pairs
      *
-     * @param  array $values
+     * @param  array                           $values
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -174,7 +174,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Set an array of key and value or array of values
      *
-     * @param string $field
+     * @param string       $field
      * @param array|string $value
      *
      * @throws Zend_Service_LiveDocx_Exception
@@ -192,7 +192,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      * Set block field values
      *
      * @param string $blockName
-     * @param array $blockFieldValues
+     * @param array  $blockFieldValues
      *
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
@@ -220,8 +220,8 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Assign values to template fields
      *
-     * @param array|string $field
-     * @param array|string $value
+     * @param  array|string                    $field
+     * @param  array|string                    $value
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -253,7 +253,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      *
      * This method can only be used for PDF documents
      *
-     * @param  string  $password
+     * @param  string                          $password
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.2 Premium
@@ -296,8 +296,8 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
      *
      * This method can only be used for PDF documents
      *
-     * @param  array  $permissions
-     * @param  string $password
+     * @param  array                           $permissions
+     * @param  string                          $password
      * @return Zend_Service_LiveDocx_MailMerge
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.2 Premium
@@ -462,7 +462,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
             'fromPage'   => (integer) $fromPage,
             'toPage'     => (integer) $toPage,
             'zoomFactor' => (integer) $zoomFactor,
-            'format'     => (string)  $format,
+            'format'     => (string) $format,
         ));
 
         if (isset($result->GetBitmapsResult->string)) {
@@ -496,7 +496,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
         $ret    = array();
         $result = $this->getSoapClient()->GetAllBitmaps(array(
             'zoomFactor' => (integer) $zoomFactor,
-            'format'     => (string)  $format,
+            'format'     => (string) $format,
         ));
 
         if (isset($result->GetAllBitmapsResult->string)) {
@@ -592,7 +592,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Upload a template file to LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return void
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -617,7 +617,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Download template file from LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return binary
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -643,7 +643,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Delete a template file from LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return void
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -680,7 +680,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Check whether a template file is available on LiveDocx service
      *
-     * @param  string $filename
+     * @param  string  $filename
      * @return boolean
      * @since  LiveDocx 1.0
      */
@@ -756,7 +756,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /*
      * Download a shared document from LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return binary
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -782,7 +782,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Check whether a shared document is available on LiveDocx service
      *
-     * @param  string $filename
+     * @param  string  $filename
      * @return boolean
      * @since  LiveDocx 1.0
      */
@@ -954,7 +954,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Upload an image file to LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return void
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 2.0
@@ -979,7 +979,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Download an image file from LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return void
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 2.0
@@ -1025,7 +1025,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Delete an image file from LiveDocx service
      *
-     * @param  string $filename
+     * @param  string                          $filename
      * @return void
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 2.0
@@ -1042,7 +1042,7 @@ class Zend_Service_LiveDocx_MailMerge extends Zend_Service_LiveDocx
     /**
      * Check whether an image file is available on LiveDocx service
      *
-     * @param  string $filename
+     * @param  string  $filename
      * @return boolean
      * @since  LiveDocx 2.0
      */

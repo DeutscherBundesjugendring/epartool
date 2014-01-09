@@ -117,7 +117,7 @@ class Zend_Json_Server_Smd_Service
     /**
      * Constructor
      *
-     * @param  string|array $spec
+     * @param  string|array               $spec
      * @return void
      * @throws Zend_Json_Server_Exception if no name provided
      */
@@ -138,7 +138,7 @@ class Zend_Json_Server_Smd_Service
     /**
      * Set object state
      *
-     * @param  array $options
+     * @param  array                        $options
      * @return Zend_Json_Server_Smd_Service
      */
     public function setOptions(array $options)
@@ -153,13 +153,14 @@ class Zend_Json_Server_Smd_Service
                 $this->$method($value);
             }
         }
+
         return $this;
     }
 
     /**
      * Set service name
      *
-     * @param  string $name
+     * @param  string                       $name
      * @return Zend_Json_Server_Smd_Service
      * @throws Zend_Json_Server_Exception
      */
@@ -171,6 +172,7 @@ class Zend_Json_Server_Smd_Service
             throw new Zend_Json_Server_Exception(sprintf('Invalid name "%s" provided for service; must follow PHP method naming conventions', $name));
         }
         $this->_name = $name;
+
         return $this;
     }
 
@@ -189,7 +191,7 @@ class Zend_Json_Server_Smd_Service
      *
      * Currently limited to POST
      *
-     * @param  string $transport
+     * @param  string                       $transport
      * @return Zend_Json_Server_Smd_Service
      */
     public function setTransport($transport)
@@ -200,6 +202,7 @@ class Zend_Json_Server_Smd_Service
         }
 
         $this->_transport = $transport;
+
         return $this;
     }
 
@@ -216,12 +219,13 @@ class Zend_Json_Server_Smd_Service
     /**
      * Set service target
      *
-     * @param  string $target
+     * @param  string                       $target
      * @return Zend_Json_Server_Smd_Service
      */
     public function setTarget($target)
     {
         $this->_target = (string) $target;
+
         return $this;
     }
 
@@ -238,7 +242,7 @@ class Zend_Json_Server_Smd_Service
     /**
      * Set envelope type
      *
-     * @param  string $envelopeType
+     * @param  string                       $envelopeType
      * @return Zend_Json_Server_Smd_Service
      */
     public function setEnvelope($envelopeType)
@@ -249,6 +253,7 @@ class Zend_Json_Server_Smd_Service
         }
 
         $this->_envelope = $envelopeType;
+
         return $this;
     }
 
@@ -265,9 +270,9 @@ class Zend_Json_Server_Smd_Service
     /**
      * Add a parameter to the service
      *
-     * @param  string|array $type
-     * @param  array $options
-     * @param  int|null $order
+     * @param  string|array                 $type
+     * @param  array                        $options
+     * @param  int|null                     $order
      * @return Zend_Json_Server_Smd_Service
      */
     public function addParam($type, array $options = array(), $order = null)
@@ -310,7 +315,7 @@ class Zend_Json_Server_Smd_Service
      *
      * Each param should be an array, and should include the key 'type'.
      *
-     * @param  array $params
+     * @param  array                        $params
      * @return Zend_Json_Server_Smd_Service
      */
     public function addParams(array $params)
@@ -327,18 +332,20 @@ class Zend_Json_Server_Smd_Service
             $order = (array_key_exists('order', $options)) ? $options['order'] : null;
             $this->addParam($type, $options, $order);
         }
+
         return $this;
     }
 
     /**
      * Overwrite all parameters
      *
-     * @param  array $params
+     * @param  array                        $params
      * @return Zend_Json_Server_Smd_Service
      */
     public function setParams(array $params)
     {
         $this->_params = array();
+
         return $this->addParams($params);
     }
 
@@ -365,13 +372,14 @@ class Zend_Json_Server_Smd_Service
             }
         }
         ksort($params);
+
         return $params;
     }
 
     /**
      * Set return type
      *
-     * @param  string|array $type
+     * @param  string|array                 $type
      * @return Zend_Json_Server_Smd_Service
      */
     public function setReturn($type)
@@ -387,6 +395,7 @@ class Zend_Json_Server_Smd_Service
             throw new Zend_Json_Server_Exception('Invalid param type provided ("' . gettype($type) .'")');
         }
         $this->_return = $type;
+
         return $this;
     }
 
@@ -431,6 +440,7 @@ class Zend_Json_Server_Smd_Service
         $service = array($this->getName() => $this->toArray());
 
         require_once 'Zend/Json.php';
+
         return Zend_Json::encode($service);
     }
 
@@ -447,7 +457,7 @@ class Zend_Json_Server_Smd_Service
     /**
      * Validate parameter type
      *
-     * @param  string $type
+     * @param  string                     $type
      * @return true
      * @throws Zend_Json_Server_Exception
      */

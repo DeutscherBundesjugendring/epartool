@@ -57,20 +57,21 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     /**
      * Sets a validator for the class, erasing all previous set
      *
-     * @param  string|array $validator Validator to set
-     * @param  string|array $files     Files to limit this validator to
+     * @param  string|array               $validator Validator to set
+     * @param  string|array               $files     Files to limit this validator to
      * @return Zend_File_Transfer_Adapter
      */
     public function setValidators(array $validators, $files = null)
     {
         $this->clearValidators();
+
         return $this->addValidators($validators, $files);
     }
 
     /**
      * Remove an individual validator
      *
-     * @param  string $name
+     * @param  string                              $name
      * @return Zend_File_Transfer_Adapter_Abstract
      */
     public function removeValidator($name)
@@ -85,7 +86,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     /**
      * Remove an individual validator
      *
-     * @param  string $name
+     * @param  string                              $name
      * @return Zend_File_Transfer_Adapter_Abstract
      */
     public function clearValidators()
@@ -99,7 +100,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     /**
      * Send the file to the client (Download)
      *
-     * @param  string|array $options Options for the file(s) to send
+     * @param  string|array                 $options Options for the file(s) to send
      * @return void
      * @throws Zend_File_Transfer_Exception Not implemented
      */
@@ -113,7 +114,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
      * Checks if the files are valid
      *
      * @param  string|array $files (Optional) Files to check
-     * @return boolean True if all checks are valid
+     * @return boolean      True if all checks are valid
      */
     public function isValid($files = null)
     {
@@ -121,7 +122,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
         $content = 0;
         if (isset($_SERVER['CONTENT_LENGTH'])) {
             $content = $_SERVER['CONTENT_LENGTH'];
-        } else if (!empty($_POST)) {
+        } elseif (!empty($_POST)) {
             $content = serialize($_POST);
         }
 
@@ -142,6 +143,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
             $validator->setFiles($temp)
                       ->isValid($files, null);
             $this->_messages += $validator->getMessages();
+
             return false;
         }
 
@@ -194,6 +196,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                     }
 
                     $this->_files[$file]['received'] = false;
+
                     return false;
                 }
 
@@ -209,6 +212,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
             if (!$content['filtered']) {
                 if (!$this->_filter($file)) {
                     $this->_files[$file]['filtered'] = false;
+
                     return false;
                 }
 
@@ -222,7 +226,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     /**
      * Checks if the file was already sent
      *
-     * @param  string|array $file Files to check
+     * @param  string|array                 $file Files to check
      * @return bool
      * @throws Zend_File_Transfer_Exception Not implemented
      */
@@ -301,7 +305,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
     /**
      * Returns the actual progress of file up-/downloads
      *
-     * @param  string $id The upload to get the progress for
+     * @param  string     $id The upload to get the progress for
      * @return array|null
      */
     public static function getProgress($id = null)
@@ -357,7 +361,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                 if (is_array($call)) {
                     $status = $call + $status;
                 }
-            } else if (self::isUploadProgressAvailable()) {
+            } elseif (self::isUploadProgressAvailable()) {
                 $call = call_user_func(self::$_callbackUploadProgress, $id);
                 if (is_array($call)) {
                     $status = $call + $status;
@@ -373,7 +377,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
             if (!is_array($call)) {
                 $status['done']    = true;
                 $status['message'] = 'Failure while retrieving the upload progress';
-            } else if (!empty($status['cancel_upload'])) {
+            } elseif (!empty($status['cancel_upload'])) {
                 $status['done']    = true;
                 $status['message'] = 'The upload has been canceled';
             } else {
@@ -445,7 +449,7 @@ class Zend_File_Transfer_Adapter_Http extends Zend_File_Transfer_Adapter_Abstrac
                 }
 
                 $this->_files[$form]['name'] = $form;
-                foreach($this->_files[$form]['multifiles'] as $key => $value) {
+                foreach ($this->_files[$form]['multifiles'] as $key => $value) {
                     $this->_files[$value]['options']   = $this->_options;
                     $this->_files[$value]['validated'] = false;
                     $this->_files[$value]['received']  = false;

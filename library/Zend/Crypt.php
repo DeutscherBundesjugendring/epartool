@@ -73,9 +73,9 @@ class Zend_Crypt
     );
 
     /**
-     * @param string $algorithm
-     * @param string $data
-     * @param bool $binaryOutput
+     * @param  string  $algorithm
+     * @param  string  $data
+     * @param  bool    $binaryOutput
      * @return unknown
      */
     public static function hash($algorithm, $data, $binaryOutput = false)
@@ -87,11 +87,12 @@ class Zend_Crypt
         self::_detectHashSupport($algorithm);
         $supportedMethod = '_digest' . ucfirst(self::$_type);
         $result = self::$supportedMethod($algorithm, $data, $binaryOutput);
+
         return $result;
     }
 
     /**
-     * @param string $algorithm
+     * @param  string               $algorithm
      * @throws Zend_Crypt_Exception
      */
     protected static function _detectHashSupport($algorithm)
@@ -125,9 +126,9 @@ class Zend_Crypt
     }
 
     /**
-     * @param string $algorithm
-     * @param string $data
-     * @param bool $binaryOutput
+     * @param  string $algorithm
+     * @param  string $data
+     * @param  bool   $binaryOutput
      * @return string
      */
     protected static function _digestHash($algorithm, $data, $binaryOutput)
@@ -136,9 +137,9 @@ class Zend_Crypt
     }
 
     /**
-     * @param string $algorithm
-     * @param string $data
-     * @param bool $binaryOutput
+     * @param  string $algorithm
+     * @param  string $data
+     * @param  bool   $binaryOutput
      * @return string
      */
     protected static function _digestMhash($algorithm, $data, $binaryOutput)
@@ -148,13 +149,14 @@ class Zend_Crypt
         if ($binaryOutput) {
             return $binary;
         }
+
         return bin2hex($binary);
     }
 
     /**
-     * @param string $algorithm
-     * @param string $data
-     * @param bool $binaryOutput
+     * @param  string $algorithm
+     * @param  string $data
+     * @param  bool   $binaryOutput
      * @return string
      */
     protected static function _digestOpenssl($algorithm, $data, $binaryOutput)
@@ -162,6 +164,7 @@ class Zend_Crypt
         if ($algorithm == 'ripemd160') {
             $algorithm = 'rmd160';
         }
+
         return openssl_digest($data, $algorithm, $binaryOutput);
     }
 

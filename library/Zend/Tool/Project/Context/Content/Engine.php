@@ -75,9 +75,9 @@ class Zend_Tool_Project_Context_Content_Engine
     /**
      * getContent()
      *
-     * @param Zend_Tool_Project_Context_Interface $context
-     * @param string $methodName
-     * @param mixed $parameters
+     * @param  Zend_Tool_Project_Context_Interface $context
+     * @param  string                              $methodName
+     * @param  mixed                               $parameters
      * @return string
      */
     public function getContent(Zend_Tool_Project_Context_Interface $context, $methodName, $parameters)

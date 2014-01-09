@@ -20,12 +20,10 @@
  * @version    $Id: Scalar.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Value
  */
 require_once 'Zend/XmlRpc/Value.php';
-
 
 /**
  * @category   Zend

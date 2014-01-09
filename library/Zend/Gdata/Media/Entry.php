@@ -74,8 +74,8 @@ class Zend_Gdata_Media_Entry extends Zend_Gdata_Entry
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      *          child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -84,6 +84,7 @@ class Zend_Gdata_Media_Entry extends Zend_Gdata_Entry
         if ($this->_mediaGroup != null) {
             $element->appendChild($this->_mediaGroup->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -121,14 +122,14 @@ class Zend_Gdata_Media_Entry extends Zend_Gdata_Entry
     /**
      * Sets the entry's mediaGroup object.
      *
-     * @param Zend_Gdata_Media_Extension_MediaGroup $mediaGroup
-     * @return Zend_Gdata_Media_Entry Provides a fluent interface
+     * @param  Zend_Gdata_Media_Extension_MediaGroup $mediaGroup
+     * @return Zend_Gdata_Media_Entry                Provides a fluent interface
      */
     public function setMediaGroup($mediaGroup)
     {
         $this->_mediaGroup = $mediaGroup;
+
         return $this;
     }
-
 
 }

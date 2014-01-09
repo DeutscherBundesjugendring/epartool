@@ -63,7 +63,7 @@ abstract class Zend_Service_Ebay_Finding_Set_Abstract implements SeekableIterato
     /**
      * Implement SeekableIterator::seek()
      *
-     * @param  integer $key
+     * @param  integer              $key
      * @throws OutOfBoundsException When $key is not seekable
      * @return void
      */

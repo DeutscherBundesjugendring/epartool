@@ -57,7 +57,7 @@ class Zend_InfoCard_Xml_KeyInfo_XmlDSig
         $this->registerXPathNamespace('e', 'http://www.w3.org/2001/04/xmlenc#');
         list($encryptedkey) = $this->xpath('//e:EncryptedKey');
 
-        if(!($encryptedkey instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($encryptedkey instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Failed to retrieve encrypted key");
         }
 

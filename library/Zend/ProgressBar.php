@@ -79,10 +79,10 @@ class Zend_ProgressBar
     /**
      * Create a new progressbar backend.
      *
-     * @param  Zend_ProgressBar_Adapter $adapter
-     * @param  float                    $min
-     * @param  float                    $max
-     * @param  string                   $persistenceNamespace
+     * @param  Zend_ProgressBar_Adapter   $adapter
+     * @param  float                      $min
+     * @param  float                      $max
+     * @param  string                     $persistenceNamespace
      * @throws Zend_ProgressBar_Exception When $min is greater than $max
      */
     public function __construct(Zend_ProgressBar_Adapter $adapter, $min = 0, $max = 100, $persistenceNamespace = null)

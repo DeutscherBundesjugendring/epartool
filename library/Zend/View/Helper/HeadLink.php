@@ -97,6 +97,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
                     break;
             }
         }
+
         return $this;
     }
 
@@ -131,8 +132,8 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      *   - public function appendSection()
      *   - public function appendSubsection()
      *
-     * @param mixed $method
-     * @param mixed $args
+     * @param  mixed $method
+     * @param  mixed $args
      * @return void
      */
     public function __call($method, $args)
@@ -181,7 +182,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     /**
      * Check if value is valid
      *
-     * @param  mixed $value
+     * @param  mixed   $value
      * @return boolean
      */
     protected function _isValid($value)
@@ -222,7 +223,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      * offsetSet()
      *
      * @param  string|int $index
-     * @param  array $value
+     * @param  array      $value
      * @return void
      */
     public function offsetSet($index, $value)
@@ -240,7 +241,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     /**
      * prepend()
      *
-     * @param  array $value
+     * @param  array                           $value
      * @return Zend_Layout_ViewHelper_HeadLink
      */
     public function prepend($value)
@@ -258,7 +259,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     /**
      * set()
      *
-     * @param  array $value
+     * @param  array                           $value
      * @return Zend_Layout_ViewHelper_HeadLink
      */
     public function set($value)
@@ -273,7 +274,6 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         return $this->getContainer()->set($value);
     }
 
-
     /**
      * Create HTML link element from data item
      *
@@ -287,8 +287,8 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
 
         foreach ($this->_itemKeys as $itemKey) {
             if (isset($attributes[$itemKey])) {
-                if(is_array($attributes[$itemKey])) {
-                    foreach($attributes[$itemKey] as $key => $value) {
+                if (is_array($attributes[$itemKey])) {
+                    foreach ($attributes[$itemKey] as $key => $value) {
                         $link .= sprintf('%s="%s" ', $key, ($this->_autoEscape) ? $this->_escape($value) : $value);
                     }
                 } else {
@@ -341,19 +341,20 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
     /**
      * Create data item for stack
      *
-     * @param  array $attributes
+     * @param  array    $attributes
      * @return stdClass
      */
     public function createData(array $attributes)
     {
         $data = (object) $attributes;
+
         return $data;
     }
 
     /**
      * Create item for stylesheet link item
      *
-     * @param  array $args
+     * @param  array          $args
      * @return stdClass|false Returns fals if stylesheet is a duplicate
      */
     public function createDataStylesheet(array $args)
@@ -370,7 +371,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
 
         if (0 < count($args)) {
             $media = array_shift($args);
-            if(is_array($media)) {
+            if (is_array($media)) {
                 $media = implode(',', $media);
             } else {
                 $media = (string) $media;
@@ -378,19 +379,20 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         }
         if (0 < count($args)) {
             $conditionalStylesheet = array_shift($args);
-            if(!empty($conditionalStylesheet) && is_string($conditionalStylesheet)) {
+            if (!empty($conditionalStylesheet) && is_string($conditionalStylesheet)) {
                 $conditionalStylesheet = (string) $conditionalStylesheet;
             } else {
                 $conditionalStylesheet = null;
             }
         }
 
-        if(0 < count($args) && is_array($args[0])) {
+        if (0 < count($args) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
         }
 
         $attributes = compact('rel', 'type', 'href', 'media', 'conditionalStylesheet', 'extras');
+
         return $this->createData($this->_applyExtras($attributes));
     }
 
@@ -407,13 +409,14 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Create item for alternate link item
      *
-     * @param  array $args
+     * @param  array    $args
      * @return stdClass
      */
     public function createDataAlternate(array $args)
@@ -430,11 +433,11 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         $type  = array_shift($args);
         $title = array_shift($args);
 
-        if(0 < count($args) && is_array($args[0])) {
+        if (0 < count($args) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
 
-            if(isset($extras['media']) && is_array($extras['media'])) {
+            if (isset($extras['media']) && is_array($extras['media'])) {
                 $extras['media'] = implode(',', $extras['media']);
             }
         }
@@ -444,12 +447,13 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         $title = (string) $title;
 
         $attributes = compact('rel', 'href', 'type', 'title', 'extras');
+
         return $this->createData($this->_applyExtras($attributes));
     }
 
     /**
      * Apply any overrides specified in the 'extras' array
-     * @param array $attributes
+     * @param  array $attributes
      * @return array
      */
     protected function _applyExtras($attributes)
@@ -462,6 +466,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
                 }
             }
         }
+
         return $attributes;
     }
 }

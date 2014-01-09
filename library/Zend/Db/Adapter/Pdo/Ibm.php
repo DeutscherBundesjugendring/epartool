@@ -20,7 +20,6 @@
  * @version    $Id: Ibm.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** @see Zend_Db_Adapter_Pdo_Abstract */
 require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
 
@@ -32,7 +31,6 @@ require_once 'Zend/Db/Adapter/Pdo/Ibm/Ids.php';
 
 /** @see Zend_Db_Statement_Pdo_Ibm */
 require_once 'Zend/Db/Statement/Pdo/Ibm.php';
-
 
 /**
  * @category   Zend
@@ -161,13 +159,14 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
             // catalogued connection
             $dsn = $this->_config['dbname'];
         }
+
         return $this->_pdoType . ': ' . $dsn;
     }
 
     /**
      * Checks required options
      *
-     * @param  array $config
+     * @param  array                     $config
      * @throws Zend_Db_Adapter_Exception
      * @return void
      */
@@ -186,8 +185,8 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     /**
      * Prepares an SQL statement.
      *
-     * @param string $sql The SQL statement with placeholders.
-     * @param array $bind An array of data to bind to the placeholders.
+     * @param  string       $sql  The SQL statement with placeholders.
+     * @param  array        $bind An array of data to bind to the placeholders.
      * @return PDOStatement
      */
     public function prepare($sql)
@@ -196,6 +195,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         $stmtClass = $this->_defaultStmtClass;
         $stmt = new $stmtClass($this, $sql);
         $stmt->setFetchMode($this->_fetchMode);
+
         return $stmt;
     }
 
@@ -207,6 +207,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     public function listTables()
     {
         $this->_connect();
+
         return $this->_serverType->listTables();
     }
 
@@ -235,13 +236,14 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
      *
      * @todo Discover integer unsigned property.
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
     {
         $this->_connect();
+
         return $this->_serverType->describeTable($tableName, $schemaName);
     }
 
@@ -250,9 +252,9 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
      * Special handling for PDO_IBM
      * remove empty slots
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $bind Column-value pairs.
-     * @return int The number of affected rows.
+     * @param  mixed $table The table to insert data into.
+     * @param  array $bind  Column-value pairs.
+     * @return int   The number of affected rows.
      */
     public function insert($table, array $bind)
     {
@@ -260,7 +262,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
         $newbind = array();
         if (is_array($bind)) {
             foreach ($bind as $name => $value) {
-                if($value !== null) {
+                if ($value !== null) {
                     $newbind[$name] = $value;
                 }
             }
@@ -272,14 +274,15 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string  $sql
+     * @param  integer $count
+     * @param  integer $offset OPTIONAL
      * @return string
      */
     public function limit($sql, $count, $offset = 0)
     {
        $this->_connect();
+
        return $this->_serverType->limit($sql, $count, $offset);
     }
 
@@ -287,8 +290,8 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
      * Gets the last ID generated automatically by an IDENTITY/AUTOINCREMENT
      * column.
      *
-     * @param string $tableName OPTIONAL
-     * @param string $primaryKey OPTIONAL
+     * @param  string  $tableName  OPTIONAL
+     * @param  string  $primaryKey OPTIONAL
      * @return integer
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
@@ -301,6 +304,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
                 $sequenceName .= "_$primaryKey";
             }
             $sequenceName .= '_seq';
+
             return $this->lastSequenceId($sequenceName);
         }
 
@@ -312,12 +316,13 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
     /**
      * Return the most recent value from the specified sequence in the database.
      *
-     * @param string $sequenceName
+     * @param  string  $sequenceName
      * @return integer
      */
     public function lastSequenceId($sequenceName)
     {
         $this->_connect();
+
         return $this->_serverType->lastSequenceId($sequenceName);
     }
 
@@ -325,12 +330,13 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
      * Generate a new value from the specified sequence in the database,
      * and return it.
      *
-     * @param string $sequenceName
+     * @param  string  $sequenceName
      * @return integer
      */
     public function nextSequenceId($sequenceName)
     {
         $this->_connect();
+
         return $this->_serverType->nextSequenceId($sequenceName);
     }
 
@@ -352,6 +358,7 @@ class Zend_Db_Adapter_Pdo_Ibm extends Zend_Db_Adapter_Pdo_Abstract
                     return null;
                 }
             }
+
             return null;
         } catch (PDOException $e) {
             return null;

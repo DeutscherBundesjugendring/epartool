@@ -82,7 +82,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     /**
      * Process any injected configuration options
      *
-     * @param  array|Zend_Config $options Options array or Zend_Config instance
+     * @param  array|Zend_Config                       $options Options array or Zend_Config instance
      * @return Zend_Feed_Pubsubhubbub_CallbackAbstract
      */
     public function setConfig($config)
@@ -97,6 +97,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
         if (array_key_exists('storage', $config)) {
             $this->setStorage($config['storage']);
         }
+
         return $this;
     }
 
@@ -124,6 +125,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     public function setStorage(Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface $storage)
     {
         $this->_storage = $storage;
+
         return $this;
     }
 
@@ -141,6 +143,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
             throw new Zend_Feed_Pubsubhubbub_Exception('No storage object has been'
                 . ' set that subclasses Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface');
         }
+
         return $this->_storage;
     }
 
@@ -164,6 +167,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
                 . ' Zend_Controller_Response_Http');
         }
         $this->_httpResponse = $httpResponse;
+
         return $this;
     }
 
@@ -179,6 +183,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
         if ($this->_httpResponse === null) {
             $this->_httpResponse = new Zend_Feed_Pubsubhubbub_HttpResponse;
         }
+
         return $this->_httpResponse;
     }
 
@@ -187,7 +192,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
      * In other words, is this class serving one or more subscribers? How many?
      * Defaults to 1 if left unchanged.
      *
-     * @param  string|int $count
+     * @param  string|int                              $count
      * @return Zend_Feed_Pubsubhubbub_CallbackAbstract
      */
     public function setSubscriberCount($count)
@@ -199,6 +204,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
                 . ' greater than zero');
         }
         $this->_subscriberCount = $count;
+
         return $this;
     }
 
@@ -239,6 +245,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
                 $callbackUrl .= '?' . $_SERVER['QUERY_STRING'];
             }
         }
+
         return $callbackUrl;
     }
 
@@ -288,6 +295,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
                 return $headers[$header];
             }
         }
+
         return false;
     }
 
@@ -305,6 +313,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
         if (strlen(trim($body)) > 0) {
             return $body;
         }
+
         return false;
     }
 }

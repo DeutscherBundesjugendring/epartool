@@ -19,10 +19,8 @@
  * @version    $Id: Boolean.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'boolean' element implementation
@@ -41,11 +39,10 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
      */
     public $value;
 
-
     /**
      * Object constructor
      *
-     * @param boolean $val
+     * @param  boolean            $val
      * @throws Zend_Pdf_Exception
      */
     public function __construct($val)
@@ -58,7 +55,6 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
         $this->value   = $val;
     }
 
-
     /**
      * Return type of the element.
      *
@@ -69,11 +65,10 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_BOOL;
     }
 
-
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)

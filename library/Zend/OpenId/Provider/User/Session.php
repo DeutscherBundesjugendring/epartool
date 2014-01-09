@@ -24,12 +24,12 @@
 /**
  * @see Zend_OpenId_Provider_User
  */
-require_once "Zend/OpenId/Provider/User.php";
+require_once 'Zend/OpenId/Provider/User.php';
 
 /**
  * @see Zend_Session_Namespace
  */
-require_once "Zend/Session/Namespace.php";
+require_once 'Zend/Session/Namespace.php';
 
 /**
  * Class to get/store information about logged in user in Web Browser using
@@ -68,12 +68,13 @@ class Zend_OpenId_Provider_User_Session extends Zend_OpenId_Provider_User
     /**
      * Stores information about logged in user in session data
      *
-     * @param string $id user identity URL
+     * @param  string $id user identity URL
      * @return bool
      */
     public function setLoggedInUser($id)
     {
         $this->_session->logged_in = $id;
+
         return true;
     }
 
@@ -87,6 +88,7 @@ class Zend_OpenId_Provider_User_Session extends Zend_OpenId_Provider_User
         if (isset($this->_session->logged_in)) {
             return $this->_session->logged_in;
         }
+
         return false;
     }
 
@@ -98,6 +100,7 @@ class Zend_OpenId_Provider_User_Session extends Zend_OpenId_Provider_User
     public function delLoggedInUser()
     {
         unset($this->_session->logged_in);
+
         return true;
     }
 

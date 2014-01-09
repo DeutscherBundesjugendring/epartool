@@ -156,7 +156,7 @@ class Zend_Session_SaveHandler_DbTable
      * overrideLifetime  => (boolean) Whether or not the lifetime of an existing session should be overridden
      *      (optional; default: false)
      *
-     * @param  Zend_Config|array $config      User-provided configuration
+     * @param  Zend_Config|array                  $config User-provided configuration
      * @return void
      * @throws Zend_Session_SaveHandler_Exception
      */
@@ -164,7 +164,7 @@ class Zend_Session_SaveHandler_DbTable
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();
-        } else if (!is_array($config)) {
+        } elseif (!is_array($config)) {
             /**
              * @see Zend_Session_SaveHandler_Exception
              */
@@ -222,8 +222,8 @@ class Zend_Session_SaveHandler_DbTable
      *
      * $lifetime === false resets lifetime to session.gc_maxlifetime
      *
-     * @param int $lifetime
-     * @param boolean $overrideLifetime (optional)
+     * @param  int                              $lifetime
+     * @param  boolean                          $overrideLifetime (optional)
      * @return Zend_Session_SaveHandler_DbTable
      */
     public function setLifetime($lifetime, $overrideLifetime = null)
@@ -234,7 +234,7 @@ class Zend_Session_SaveHandler_DbTable
              */
             require_once 'Zend/Session/SaveHandler/Exception.php';
             throw new Zend_Session_SaveHandler_Exception();
-        } else if (empty($lifetime)) {
+        } elseif (empty($lifetime)) {
             $this->_lifetime = (int) ini_get('session.gc_maxlifetime');
         } else {
             $this->_lifetime = (int) $lifetime;
@@ -260,7 +260,7 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Set whether or not the lifetime of an existing session should be overridden
      *
-     * @param boolean $overrideLifetime
+     * @param  boolean                          $overrideLifetime
      * @return Zend_Session_SaveHandler_DbTable
      */
     public function setOverrideLifetime($overrideLifetime)
@@ -283,8 +283,8 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Open Session
      *
-     * @param string $save_path
-     * @param string $name
+     * @param  string  $save_path
+     * @param  string  $name
      * @return boolean
      */
     public function open($save_path, $name)
@@ -308,7 +308,7 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Read session data
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     public function read($id)
@@ -331,8 +331,8 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Write session data
      *
-     * @param string $id
-     * @param string $data
+     * @param  string  $id
+     * @param  string  $data
      * @return boolean
      */
     public function write($id, $data)
@@ -364,7 +364,7 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Destroy session
      *
-     * @param string $id
+     * @param  string  $id
      * @return boolean
      */
     public function destroy($id)
@@ -381,7 +381,7 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Garbage Collection
      *
-     * @param int $maxlifetime
+     * @param  int  $maxlifetime
      * @return true
      */
     public function gc($maxlifetime)
@@ -440,9 +440,9 @@ class Zend_Session_SaveHandler_DbTable
     {
         if ($this->_primaryAssignment === null) {
             $this->_primaryAssignment = array(1 => self::PRIMARY_ASSIGNMENT_SESSION_ID);
-        } else if (!is_array($this->_primaryAssignment)) {
+        } elseif (!is_array($this->_primaryAssignment)) {
             $this->_primaryAssignment = array(1 => (string) $this->_primaryAssignment);
-        } else if (isset($this->_primaryAssignment[0])) {
+        } elseif (isset($this->_primaryAssignment[0])) {
             array_unshift($this->_primaryAssignment, null);
 
             unset($this->_primaryAssignment[0]);
@@ -457,7 +457,7 @@ class Zend_Session_SaveHandler_DbTable
             throw new Zend_Session_SaveHandler_Exception(
                 "Value for configuration option '" . self::PRIMARY_ASSIGNMENT . "' must have an assignment "
               . "for each session table primary key.");
-        } else if (!in_array(self::PRIMARY_ASSIGNMENT_SESSION_ID, $this->_primaryAssignment)) {
+        } elseif (!in_array(self::PRIMARY_ASSIGNMENT_SESSION_ID, $this->_primaryAssignment)) {
             /**
              * @see Zend_Session_SaveHandler_Exception
              */
@@ -486,7 +486,7 @@ class Zend_Session_SaveHandler_DbTable
             throw new Zend_Session_SaveHandler_Exception(
                 "Configuration must define '" . self::MODIFIED_COLUMN . "' which names the "
               . "session table last modification time column.");
-        } else if ($this->_lifetimeColumn === null) {
+        } elseif ($this->_lifetimeColumn === null) {
             /**
              * @see Zend_Session_SaveHandler_Exception
              */
@@ -495,7 +495,7 @@ class Zend_Session_SaveHandler_DbTable
             throw new Zend_Session_SaveHandler_Exception(
                 "Configuration must define '" . self::LIFETIME_COLUMN . "' which names the "
               . "session table lifetime column.");
-        } else if ($this->_dataColumn === null) {
+        } elseif ($this->_dataColumn === null) {
             /**
              * @see Zend_Session_SaveHandler_Exception
              */
@@ -510,8 +510,8 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Retrieve session table primary key values
      *
-     * @param string $id
-     * @param string $type (optional; default: self::PRIMARY_TYPE_NUM)
+     * @param  string $id
+     * @param  string $type (optional; default: self::PRIMARY_TYPE_NUM)
      * @return array
      */
     protected function _getPrimary($id, $type = null)
@@ -564,7 +564,7 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Retrieve session lifetime considering Zend_Session_SaveHandler_DbTable::OVERRIDE_LIFETIME
      *
-     * @param Zend_Db_Table_Row_Abstract $row
+     * @param  Zend_Db_Table_Row_Abstract $row
      * @return int
      */
     protected function _getLifetime(Zend_Db_Table_Row_Abstract $row)
@@ -581,7 +581,7 @@ class Zend_Session_SaveHandler_DbTable
     /**
      * Retrieve session expiration time
      *
-     * @param Zend_Db_Table_Row_Abstract $row
+     * @param  Zend_Db_Table_Row_Abstract $row
      * @return int
      */
     protected function _getExpirationTime(Zend_Db_Table_Row_Abstract $row)

@@ -123,6 +123,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
         if (empty($assumed)) {
             $assumed = 'UTF-8';
         }
+
         return $assumed;
     }
 
@@ -136,6 +137,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
         $dom = new DOMDocument('1.0', $this->getEncoding());
         $entry = $dom->importNode($this->getElement(), true);
         $dom->appendChild($entry);
+
         return $dom->saveXml();
     }
 
@@ -159,18 +161,20 @@ abstract class Zend_Feed_Reader_EntryAbstract
         if (!$this->_xpath) {
             $this->setXpath(new DOMXPath($this->getDomDocument()));
         }
+
         return $this->_xpath;
     }
 
     /**
      * Set the XPath query
      *
-     * @param  DOMXPath $xpath
+     * @param  DOMXPath                             $xpath
      * @return Zend_Feed_Reader_Entry_EntryAbstract
      */
     public function setXpath(DOMXPath $xpath)
     {
         $this->_xpath = $xpath;
+
         return $this;
     }
 
@@ -187,7 +191,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
     /**
      * Return an Extension object with the matching name (postfixed with _Entry)
      *
-     * @param string $name
+     * @param  string                                   $name
      * @return Zend_Feed_Reader_Extension_EntryAbstract
      */
     public function getExtension($name)
@@ -195,14 +199,15 @@ abstract class Zend_Feed_Reader_EntryAbstract
         if (array_key_exists($name . '_Entry', $this->_extensions)) {
             return $this->_extensions[$name . '_Entry'];
         }
+
         return null;
     }
 
     /**
      * Method overloading: call given method on first extension implementing it
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string              $method
+     * @param  array               $args
      * @return mixed
      * @throws Zend_Feed_Exception if no extensions implements the method
      */

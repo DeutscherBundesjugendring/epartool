@@ -44,7 +44,7 @@ class Zend_Tool_Project_Provider_Test extends Zend_Tool_Project_Provider_Abstrac
     /**
      * isTestingEnabled()
      *
-     * @param Zend_Tool_Project_Profile $profile
+     * @param  Zend_Tool_Project_Profile $profile
      * @return bool
      */
     public static function isTestingEnabled(Zend_Tool_Project_Profile $profile)
@@ -60,23 +60,23 @@ class Zend_Tool_Project_Provider_Test extends Zend_Tool_Project_Provider_Abstrac
         if (class_exists('PHPUnit_Runner_Version', false)) {
             return true;
         }
-        
+
         $included = @include 'PHPUnit/Runner/Version.php';
-        
+
         if ($included === false) {
             return false;
         } else {
             return true;
         }
     }
-    
+
     /**
      * createApplicationResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $controllerName
-     * @param string $actionName
-     * @param string $moduleName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $controllerName
+     * @param  string                             $actionName
+     * @param  string                             $moduleName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function createApplicationResource(Zend_Tool_Project_Profile $profile, $controllerName, $actionName, $moduleName = null)
@@ -100,11 +100,11 @@ class Zend_Tool_Project_Provider_Test extends Zend_Tool_Project_Provider_Abstrac
             if (($testAppModulesDirectoryResource = $testParentOfControllerDirectoryResource->search('testApplicationModulesDirectory')) === false) {
                 $testAppModulesDirectoryResource = $testParentOfControllerDirectoryResource->createResource('testApplicationModulesDirectory');
             }
-            
+
             if (($testAppModuleDirectoryResource = $testAppModulesDirectoryResource->search(array('testApplicationModuleDirectory' => array('forModuleName' => $moduleName)))) === false) {
                 $testAppModuleDirectoryResource = $testAppModulesDirectoryResource->createResource('testApplicationModuleDirectory', array('forModuleName' => $moduleName));
             }
-            
+
             $testParentOfControllerDirectoryResource = $testAppModuleDirectoryResource;
         }
 
@@ -115,21 +115,20 @@ class Zend_Tool_Project_Provider_Test extends Zend_Tool_Project_Provider_Abstrac
         if (($testAppControllerFileResource = $testAppControllerDirectoryResource->search(array('testApplicationControllerFile' => array('forControllerName' => $controllerName)))) === false) {
             $testAppControllerFileResource = $testAppControllerDirectoryResource->createResource('testApplicationControllerFile', array('forControllerName' => $controllerName));
         }
-        
+
         return $testAppControllerFileResource->createResource('testApplicationActionMethod', array('forActionName' => $actionName));
     }
 
     /**
      * createLibraryResource()
      *
-     * @param Zend_Tool_Project_Profile $profile
-     * @param string $libraryClassName
+     * @param  Zend_Tool_Project_Profile          $profile
+     * @param  string                             $libraryClassName
      * @return Zend_Tool_Project_Profile_Resource
      */
     public static function createLibraryResource(Zend_Tool_Project_Profile $profile, $libraryClassName)
     {
         $testLibraryDirectoryResource = $profile->search(array('TestsDirectory', 'TestLibraryDirectory'));
-
 
         $fsParts = explode('_', $libraryClassName);
 

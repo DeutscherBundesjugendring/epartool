@@ -58,7 +58,7 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * addAction()
      *
-     * @param Zend_Tool_Framework_Action_Interface $action
+     * @param  Zend_Tool_Framework_Action_Interface  $action
      * @return Zend_Tool_Framework_Action_Repository
      */
     public function addAction(Zend_Tool_Framework_Action_Interface $action, $overrideExistingAction = false)
@@ -77,6 +77,7 @@ class Zend_Tool_Framework_Action_Repository
         }
 
         $this->_actions[strtolower($actionName)] = $action;
+
         return $this;
     }
 
@@ -103,7 +104,7 @@ class Zend_Tool_Framework_Action_Repository
     /**
      * getAction() - get an action by a specific name
      *
-     * @param string $actionName
+     * @param  string                               $actionName
      * @return Zend_Tool_Framework_Action_Interface
      */
     public function getAction($actionName)

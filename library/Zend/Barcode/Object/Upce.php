@@ -87,6 +87,7 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
         if ($text{0} != 1) {
             $text{0} = 0;
         }
+
         return $text;
     }
 
@@ -100,6 +101,7 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
         $startCharacter  = (3 * $this->_barThinWidth) * $this->_factor;
         $stopCharacter   = (6 * $this->_barThinWidth) * $this->_factor;
         $encodedData     = (7 * $this->_barThinWidth) * $this->_factor * 6;
+
         return $quietZone + $startCharacter + $encodedData + $stopCharacter + $quietZone;
     }
 
@@ -139,6 +141,7 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
         $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
         $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , $height);
         $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , $height);
+
         return $barcodeTable;
     }
 
@@ -223,6 +226,7 @@ class Zend_Barcode_Object_Upce extends Zend_Barcode_Object_Ean13
         if ($text{0} != 1) {
             $text{0} = 0;
         }
+
         return parent::getChecksum($text);
     }
 }

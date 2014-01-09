@@ -20,12 +20,10 @@
  * @version    $Id: Int.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Filter_Interface
  */
 require_once 'Zend/Filter/Interface.php';
-
 
 /**
  * @category   Zend
@@ -40,7 +38,7 @@ class Zend_Filter_Int implements Zend_Filter_Interface
      *
      * Returns (int) $value
      *
-     * @param  string $value
+     * @param  string  $value
      * @return integer
      */
     public function filter($value)

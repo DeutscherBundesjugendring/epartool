@@ -66,28 +66,32 @@ class Zend_InfoCard_Cipher
      * Returns an instance of a cipher object supported based on the URI provided
      *
      * @throws Zend_InfoCard_Cipher_Exception
-     * @param string $uri The URI of the encryption method wantde
-     * @return mixed an Instance of Zend_InfoCard_Cipher_Symmetric_Interface or Zend_InfoCard_Cipher_Pki_Interface
+     * @param  string                         $uri The URI of the encryption method wantde
+     * @return mixed                          an Instance of Zend_InfoCard_Cipher_Symmetric_Interface or Zend_InfoCard_Cipher_Pki_Interface
      *               depending on URI
      */
-    static public function getInstanceByURI($uri)
+    public static function getInstanceByURI($uri)
     {
-        switch($uri) {
+        switch ($uri) {
             case self::ENC_AES256CBC:
                 include_once 'Zend/InfoCard/Cipher/Symmetric/Adapter/Aes256cbc.php';
+
                 return new Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc();
 
             case self::ENC_AES128CBC:
                 include_once 'Zend/InfoCard/Cipher/Symmetric/Adapter/Aes128cbc.php';
+
                 return new Zend_InfoCard_Cipher_Symmetric_Adapter_Aes128cbc();
 
             case self::ENC_RSA_OAEP_MGF1P:
                 include_once 'Zend/InfoCard/Cipher/Pki/Adapter/Rsa.php';
+
                 return new Zend_InfoCard_Cipher_Pki_Adapter_Rsa(Zend_InfoCard_Cipher_Pki_Adapter_Rsa::OAEP_PADDING);
                 break;
 
             case self::ENC_RSA:
                 include_once 'Zend/InfoCard/Cipher/Pki/Adapter/Rsa.php';
+
                 return new Zend_InfoCard_Cipher_Pki_Adapter_Rsa(Zend_InfoCard_Cipher_Pki_Adapter_Rsa::NO_PADDING);
                 break;
 

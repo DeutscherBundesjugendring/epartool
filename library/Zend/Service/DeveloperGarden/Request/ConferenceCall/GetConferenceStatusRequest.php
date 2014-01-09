@@ -66,7 +66,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceStatusReq
      * constructor
      *
      * @param integer $environment
-     * @param string $conferenceId
+     * @param string  $conferenceId
      * @param integer $what
      */
     public function __construct($environment, $conferenceId, $what)
@@ -79,19 +79,20 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceStatusReq
     /**
      * set the conference id
      *
-     * @param string $conferenceId
+     * @param  string                                                                         $conferenceId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceStatusRequest
      */
     public function setConferenceId($conferenceId)
     {
         $this->conferenceId = $conferenceId;
+
         return $this;
     }
 
     /**
      * sets $what
      *
-     * @param integer $what
+     * @param  integer                                                                        $what
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceStatusRequest
      */
     public function setWhat($what)
@@ -101,6 +102,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceStatusReq
             throw new Zend_Service_DeveloperGarden_Request_Exception('What value not allowed.');
         }
         $this->what = $what;
+
         return $this;
     }
 }

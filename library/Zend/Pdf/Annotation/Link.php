@@ -27,7 +27,6 @@ require_once 'Zend/Pdf/Element/Dictionary.php';
 require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 
-
 /** Zend_Pdf_Annotation */
 require_once 'Zend/Pdf/Annotation.php';
 
@@ -70,11 +69,11 @@ class Zend_Pdf_Annotation_Link extends Zend_Pdf_Annotation
     /**
      * Create link annotation object
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param Zend_Pdf_Target|string $target
+     * @param  float                    $x1
+     * @param  float                    $y1
+     * @param  float                    $x2
+     * @param  float                    $y2
+     * @param  Zend_Pdf_Target|string   $target
      * @return Zend_Pdf_Annotation_Link
      */
     public static function create($x1, $y1, $x2, $y2, $target)
@@ -112,7 +111,7 @@ class Zend_Pdf_Annotation_Link extends Zend_Pdf_Annotation
     /**
      * Set link annotation destination
      *
-     * @param Zend_Pdf_Target|string $target
+     * @param  Zend_Pdf_Target|string   $target
      * @return Zend_Pdf_Annotation_Link
      */
     public function setDestination($target)
@@ -153,9 +152,11 @@ class Zend_Pdf_Annotation_Link extends Zend_Pdf_Annotation
 
         if ($this->_annotationDictionary->Dest !== null) {
             require_once 'Zend/Pdf/Destination.php';
+
             return Zend_Pdf_Destination::load($this->_annotationDictionary->Dest);
         } else {
             require_once 'Zend/Pdf/Action.php';
+
             return Zend_Pdf_Action::load($this->_annotationDictionary->A);
         }
     }

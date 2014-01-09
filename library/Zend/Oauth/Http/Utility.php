@@ -37,9 +37,9 @@ class Zend_Oauth_Http_Utility
      * Assemble all parameters for a generic OAuth request - i.e. no special
      * params other than the defaults expected for any OAuth query.
      *
-     * @param  string $url
+     * @param  string                            $url
      * @param  Zend_Oauth_Config_ConfigInterface $config
-     * @param  null|array $serviceProviderParams
+     * @param  null|array                        $serviceProviderParams
      * @return array
      */
     public function assembleParams(
@@ -58,7 +58,6 @@ class Zend_Oauth_Http_Utility
         if ($config->getToken()->getToken() != null) {
             $params['oauth_token'] = $config->getToken()->getToken();
         }
-
 
         if ($serviceProviderParams !== null) {
             $params = array_merge($params, $serviceProviderParams);
@@ -81,8 +80,8 @@ class Zend_Oauth_Http_Utility
      * encoded query string. This method expects parameters to have been
      * assembled and signed beforehand.
      *
-     * @param array $params
-     * @param bool $customParamsOnly Ignores OAuth params e.g. for requests using OAuth Header
+     * @param  array  $params
+     * @param  bool   $customParamsOnly Ignores OAuth params e.g. for requests using OAuth Header
      * @return string
      */
     public function toEncodedQueryString(array $params, $customParamsOnly = false)
@@ -100,15 +99,16 @@ class Zend_Oauth_Http_Utility
                              . '='
                              . self::urlEncode($value);
         }
+
         return implode('&', $encodedParams);
     }
 
     /**
      * Cast to authorization header
      *
-     * @param  array $params
+     * @param  array       $params
      * @param  null|string $realm
-     * @param  bool $excludeCustomParams
+     * @param  bool        $excludeCustomParams
      * @return void
      */
     public function toAuthorizationHeader(array $params, $realm = null, $excludeCustomParams = true)
@@ -127,15 +127,16 @@ class Zend_Oauth_Http_Utility
                            . '="'
                            . self::urlEncode($value) . '"';
         }
+
         return implode(",", $headerValue);
     }
 
     /**
      * Sign request
      *
-     * @param  array $params
-     * @param  string $signatureMethod
-     * @param  string $consumerSecret
+     * @param  array       $params
+     * @param  string      $signatureMethod
+     * @param  string      $consumerSecret
      * @param  null|string $tokenSecret
      * @param  null|string $method
      * @param  null|string $url
@@ -156,6 +157,7 @@ class Zend_Oauth_Http_Utility
 
         require_once str_replace('_', '/', $className) . '.php';
         $signatureObject = new $className($consumerSecret, $tokenSecret, $hashAlgo);
+
         return $signatureObject->sign($params, $method, $url);
     }
 
@@ -179,6 +181,7 @@ class Zend_Oauth_Http_Utility
             $kv = explode('=', $pair);
             $params[rawurldecode($kv[0])] = rawurldecode($kv[1]);
         }
+
         return $params;
     }
 
@@ -212,6 +215,7 @@ class Zend_Oauth_Http_Utility
     {
         $encoded = rawurlencode($value);
         $encoded = str_replace('%7E', '~', $encoded);
+
         return $encoded;
     }
 }

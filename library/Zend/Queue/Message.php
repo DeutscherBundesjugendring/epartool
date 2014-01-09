@@ -64,7 +64,7 @@ class Zend_Queue_Message
     /**
      * Constructor
      *
-     * @param  array $options
+     * @param  array                $options
      * @throws Zend_Queue_Exception
      */
     public function __construct(array $options = array())
@@ -99,8 +99,8 @@ class Zend_Queue_Message
     /**
      * Retrieve message field value
      *
-     * @param  string $key The user-specified key name.
-     * @return string      The corresponding key value.
+     * @param  string               $key The user-specified key name.
+     * @return string               The corresponding key value.
      * @throws Zend_Queue_Exception if the $key is not a column in the message.
      */
     public function __get($key)
@@ -109,14 +109,15 @@ class Zend_Queue_Message
             require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception("Specified field \"$key\" is not in the message");
         }
+
         return $this->_data[$key];
     }
 
     /**
      * Set message field value
      *
-     * @param  string $key   The message key.
-     * @param  mixed  $value The value for the property.
+     * @param  string               $key   The message key.
+     * @param  mixed                $value The value for the property.
      * @return void
      * @throws Zend_Queue_Exception
      */
@@ -189,6 +190,7 @@ class Zend_Queue_Message
         $this->_queue      = $queue;
         $this->_queueClass = $queueClass;
         $this->_connected  = true;
+
         return true;
     }
 
@@ -216,7 +218,7 @@ class Zend_Queue_Message
     /**
      * Sets all data in the row from an array.
      *
-     * @param  array $data
+     * @param  array              $data
      * @return Zend_Queue_Message Provides a fluent interface
      */
     public function setFromArray(array $data)

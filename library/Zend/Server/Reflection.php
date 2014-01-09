@@ -49,9 +49,9 @@ class Zend_Server_Reflection
      * If extra arguments should be passed to dispatchable methods, these may
      * be provided as an array to $argv.
      *
-     * @param string|object $class Class name or object
-     * @param null|array $argv Optional arguments to be used during the method call
-     * @param string $namespace Optional namespace with which to prefix the
+     * @param string|object $class     Class name or object
+     * @param null|array    $argv      Optional arguments to be used during the method call
+     * @param string        $namespace Optional namespace with which to prefix the
      * method name (used for the signature key). Primarily to avoid collisions,
      * also for XmlRpc namespacing
      * @return Zend_Server_Reflection_Class
@@ -85,9 +85,9 @@ class Zend_Server_Reflection
      * If extra arguments should be passed to the dispatchable function, these
      * may be provided as an array to $argv.
      *
-     * @param string $function Function name
-     * @param null|array $argv Optional arguments to be used during the method call
-     * @param string $namespace Optional namespace with which to prefix the
+     * @param string     $function  Function name
+     * @param null|array $argv      Optional arguments to be used during the method call
+     * @param string     $namespace Optional namespace with which to prefix the
      * function name (used for the signature key). Primarily to avoid
      * collisions, also for XmlRpc namespacing
      * @return Zend_Server_Reflection_Function
@@ -99,7 +99,6 @@ class Zend_Server_Reflection
             require_once 'Zend/Server/Reflection/Exception.php';
             throw new Zend_Server_Reflection_Exception('Invalid function "' . $function . '" passed to reflectFunction');
         }
-
 
         if ($argv && !is_array($argv)) {
             require_once 'Zend/Server/Reflection/Exception.php';

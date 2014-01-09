@@ -36,7 +36,6 @@ require_once 'Zend/Db/Adapter/Abstract.php';
  */
 require_once 'Zend/Db/Statement/Db2.php';
 
-
 /**
  * @package    Zend_Db
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
@@ -50,15 +49,15 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      *
      * Basic keys are:
      *
-     * username   => (string)  Connect to the database as this username.
-     * password   => (string)  Password associated with the username.
-     * host       => (string)  What host to connect to (default 127.0.0.1)
-     * dbname     => (string)  The name of the database to user
-     * protocol   => (string)  Protocol to use, defaults to "TCPIP"
+     * username   => (string) Connect to the database as this username.
+     * password   => (string) Password associated with the username.
+     * host       => (string) What host to connect to (default 127.0.0.1)
+     * dbname     => (string) The name of the database to user
+     * protocol   => (string) Protocol to use, defaults to "TCPIP"
      * port       => (integer) Port number to use for TCP/IP if protocol is "TCPIP"
      * persistent => (boolean) Set TRUE to use a persistent connection (db2_pconnect)
-     * os         => (string)  This should be set to 'i5' if the db is on an os400/i5
-     * schema     => (string)  The default schema the connection should use
+     * os         => (string) This should be set to 'i5' if the db is on an os400/i5
+     * schema     => (string) The default schema the connection should use
      *
      * @var array
      */
@@ -224,7 +223,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     /**
      * Returns an SQL statement for preparation.
      *
-     * @param string $sql The SQL statement with placeholders.
+     * @param  string                $sql The SQL statement with placeholders.
      * @return Zend_Db_Statement_Db2
      */
     public function prepare($sql)
@@ -237,6 +236,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
         $stmt = new $stmtClass($this, $sql);
         $stmt->setFetchMode($this->_fetchMode);
+
         return $stmt;
     }
 
@@ -251,7 +251,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     }
 
     /**
-     * @param integer $mode
+     * @param  integer $mode
      * @return void
      */
     public function _setExecuteMode($mode)
@@ -275,8 +275,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     /**
      * Quote a raw string.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param  string $value Raw string
+     * @return string Quoted string
      */
     protected function _quote($value)
     {
@@ -291,6 +291,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         if (function_exists('db2_escape_string')) {
             return "'" . db2_escape_string($value) . "'";
         }
+
         return parent::_quote($value);
     }
 
@@ -309,12 +310,13 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $identQuote ="'";
             }
         }
+
         return $identQuote;
     }
 
     /**
      * Returns a list of the tables in the database.
-     * @param string $schema OPTIONAL
+     * @param  string $schema OPTIONAL
      * @return array
      */
     public function listTables($schema = null)
@@ -369,8 +371,8 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * PRIMARY_POSITION => integer; position of column in primary key
      * IDENTITY         => integer; true if column is auto-generated with unique values
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -494,7 +496,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * This is supported only on RDBMS brands that support sequences
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
-     * @param string $sequenceName
+     * @param  string $sequenceName
      * @return string
      */
     public function lastSequenceId($sequenceName)
@@ -510,6 +512,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         }
 
         $value = $this->fetchOne($sql);
+
         return (string) $value;
     }
 
@@ -518,7 +521,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * This is supported only on RDBMS brands that support sequences
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
-     * @param string $sequenceName
+     * @param  string $sequenceName
      * @return string
      */
     public function nextSequenceId($sequenceName)
@@ -526,6 +529,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $this->_connect();
         $sql = 'SELECT NEXTVAL FOR '.$this->quoteIdentifier($sequenceName, true).' AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
+
         return (string) $value;
     }
 
@@ -542,9 +546,9 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * The IDENTITY_VAL_LOCAL() function gives the last generated identity value
      * in the current process, even if it was for a GENERATED column.
      *
-     * @param string $tableName OPTIONAL
-     * @param string $primaryKey OPTIONAL
-     * @param string $idType OPTIONAL used for i5 platform to define sequence/idenity unique value
+     * @param  string $tableName  OPTIONAL
+     * @param  string $primaryKey OPTIONAL
+     * @param  string $idType     OPTIONAL used for i5 platform to define sequence/idenity unique value
      * @return string
      */
 
@@ -562,11 +566,13 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $sequenceName .= "_$primaryKey";
             }
             $sequenceName .= '_seq';
+
             return $this->lastSequenceId($sequenceName);
         }
 
         $sql = 'SELECT IDENTITY_VAL_LOCAL() AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
+
         return (string) $value;
     }
 
@@ -622,7 +628,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     /**
      * Set the fetch mode.
      *
-     * @param integer $mode
+     * @param  integer                       $mode
      * @return void
      * @throws Zend_Db_Adapter_Db2_Exception
      */
@@ -655,9 +661,9 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string  $sql
+     * @param  integer $count
+     * @param  integer $offset OPTIONAL
      * @return string
      */
     public function limit($sql, $count, $offset = 0)
@@ -682,6 +688,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 
         if ($offset == 0) {
             $limit_sql = $sql . " FETCH FIRST $count ROWS ONLY";
+
             return $limit_sql;
         }
 
@@ -699,13 +706,14 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 ) z1
             ) z2
             WHERE z2.zend_db_rownum BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
+
         return $limit_sql;
     }
 
     /**
      * Check if the adapter supports real SQL parameters.
      *
-     * @param string $type 'positional' or 'named'
+     * @param  string $type 'positional' or 'named'
      * @return bool
      */
     public function supportsParameters($type)
@@ -732,6 +740,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             if ($this->_isI5) {
                 $version = (int) substr($version, 0, 2) . '.' . (int) substr($version, 2, 2) . '.' . (int) substr($version, 4);
             }
+
             return $version;
         } else {
             return null;
@@ -764,7 +773,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         $this->_isI5 = (php_uname('s') == 'OS400') ? true : false;
 
         // if this is set, then us it
-        if (isset($this->_config['os'])){
+        if (isset($this->_config['os'])) {
             if (strtolower($this->_config['os']) === 'i5') {
                 $this->_isI5 = true;
             } else {
@@ -820,21 +829,22 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         if ($objectName === null) {
             $sql = 'SELECT IDENTITY_VAL_LOCAL() AS VAL FROM QSYS2.QSQPTABL';
             $value = $this->fetchOne($sql);
+
             return $value;
         }
 
-        if (strtoupper($idType) === 'S'){
+        if (strtoupper($idType) === 'S') {
             //check i5_lib option
             $sequenceName = $objectName;
+
             return $this->lastSequenceId($sequenceName);
         }
 
             //returns last identity value for the specified table
         //if (strtoupper($idType) === 'I') {
         $tableName = $objectName;
+
         return $this->fetchOne('SELECT IDENTITY_VAL_LOCAL() from ' . $this->quoteIdentifier($tableName));
     }
 
 }
-
-

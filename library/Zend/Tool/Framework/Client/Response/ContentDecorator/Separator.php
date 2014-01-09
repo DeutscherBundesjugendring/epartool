@@ -53,12 +53,13 @@ class Zend_Tool_Framework_Client_Response_ContentDecorator_Separator
     /**
      * setSeparator()
      *
-     * @param string $separator
+     * @param  string                                                         $separator
      * @return Zend_Tool_Framework_Client_Response_ContentDecorator_Separator
      */
     public function setSeparator($separator)
     {
         $this->_separator = $separator;
+
         return $this;
     }
 

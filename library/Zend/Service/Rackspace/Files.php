@@ -75,6 +75,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
     public function getCountContainers()
     {
         $data= $this->getInfoAccount();
+
         return $data['tot_containers'];
     }
     /**
@@ -85,6 +86,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
     public function getSizeContainers()
     {
         $data= $this->getInfoAccount();
+
         return $data['size_containers'];
     }
     /**
@@ -95,12 +97,13 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
     public function getCountObjects()
     {
         $data= $this->getInfoAccount();
+
         return $data['tot_objects'];
     }
     /**
      * Get all the containers
      *
-     * @param array $options
+     * @param  array                                              $options
      * @return Zend_Service_Rackspace_Files_ContainerList|boolean
      */
     public function getContainers($options=array())
@@ -109,12 +112,13 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         if ($result->isSuccessful()) {
             return new Zend_Service_Rackspace_Files_ContainerList($this,json_decode($result->getBody(),true));
         }
+
         return false;
     }
     /**
      * Get all the CDN containers
      *
-     * @param array $options
+     * @param  array         $options
      * @return array|boolean
      */
     public function getCdnContainers($options=array())
@@ -124,6 +128,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         if ($result->isSuccessful()) {
             return new Zend_Service_Rackspace_Files_ContainerList($this,json_decode($result->getBody(),true));
         }
+
         return false;
     }
     /**
@@ -131,7 +136,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
      * - total count containers
      * - size in bytes of all the containers
      * - total objects in all the containers
-     * 
+     *
      * @return array|boolean
      */
     public function getInfoAccount()
@@ -143,16 +148,18 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 'size_containers' => $result->getHeader(self::ACCOUNT_BYTES_USED),
                 'tot_objects'     => $result->getHeader(self::ACCOUNT_OBJ_COUNT)
             );
+
             return $output;
         }
+
         return false;
     }
     /**
      * Get all the objects of a container
      *
-     * @param string $container
-     * @param array $options
-     * @return  Zend_Service_Rackspace_Files_ObjectList|boolean
+     * @param  string                                          $container
+     * @param  array                                           $options
+     * @return Zend_Service_Rackspace_Files_ObjectList|boolean
      */
     public function getObjects($container,$options=array())
     {
@@ -164,13 +171,14 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         if ($result->isSuccessful()) {
             return new Zend_Service_Rackspace_Files_ObjectList($this,json_decode($result->getBody(),true),$container);
         }
+
         return false;
     }
     /**
      * Create a container
      *
-     * @param string $container
-     * @param array $metadata
+     * @param  string                                         $container
+     * @param  array                                          $metadata
      * @return Zend_Service_Rackspace_Files_Container|boolean
      */
     public function createContainer($container,$metadata=array())
@@ -192,6 +200,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 $data= array(
                     'name' => $container
                 );
+
                 return new Zend_Service_Rackspace_Files_Container($this,$data);
             case '202':
                 $this->errorMsg= self::ERROR_CONTAINER_EXIST;
@@ -201,12 +210,13 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Delete a container (only if it's empty)
      *
-     * @param sting $container
+     * @param  sting   $container
      * @return boolean
      */
     public function deleteContainer($container)
@@ -219,6 +229,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         $status= $result->getStatus();
         switch ($status) {
             case '204': // break intentionally omitted
+
                 return true;
             case '409':
                 $this->errorMsg= self::ERROR_CONTAINER_NOT_EMPTY;
@@ -231,12 +242,13 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Get the metadata of a container
      *
-     * @param string $container
+     * @param  string        $container
      * @return array|boolean
      */
     public function getMetadataContainer($container)
@@ -252,7 +264,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 $headers= $result->getHeaders();
                 $count= strlen(self::METADATA_CONTAINER_HEADER);
                 // Zend_Http_Response alters header name in array key, so match our header to what will be in the headers array
-                $headerName = ucwords(strtolower(self::METADATA_CONTAINER_HEADER)); 
+                $headerName = ucwords(strtolower(self::METADATA_CONTAINER_HEADER));
                 $metadata= array();
                 foreach ($headers as $type => $value) {
                     if (strpos($type,$headerName)!==false) {
@@ -265,6 +277,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                     'bytes'    => $result->getHeader(self::CONTAINER_BYTES_USE),
                     'metadata' => $metadata
                 );
+
                 return $data;
             case '404':
                 $this->errorMsg= self::ERROR_CONTAINER_NOT_FOUND;
@@ -274,27 +287,30 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Get a container
-     * 
-     * @param string $container
+     *
+     * @param  string            $container
      * @return Container|boolean
      */
-    public function getContainer($container) {
+    public function getContainer($container)
+    {
         $result= $this->getMetadataContainer($container);
         if (!empty($result)) {
             return new Zend_Service_Rackspace_Files_Container($this,$result);
         }
+
         return false;
     }
     /**
      * Get an object in a container
      *
-     * @param string $container
-     * @param string $object
-     * @param array $headers
+     * @param  string                                      $container
+     * @param  string                                      $object
+     * @param  array                                       $headers
      * @return Zend_Service_Rackspace_Files_Object|boolean
      */
     public function getObject($container,$object,$headers=array())
@@ -320,6 +336,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                     'content_type'  => $result->getHeader(self::HEADER_CONTENT_TYPE),
                     'content'       => $result->getBody()
                 );
+
                 return new Zend_Service_Rackspace_Files_Object($this,$data);
             case '404':
                 $this->errorMsg= self::ERROR_OBJECT_NOT_FOUND;
@@ -329,6 +346,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
@@ -337,12 +355,13 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
      * @param string $container
      * @param string $object
      * @param string $content
-     * @param array $metadata
+     * @param array  $metadata
      * @param string $content_type
      *
      * @return boolean
      */
-    public function storeObject($container,$object,$content,$metadata=array(),$content_type=null) {
+    public function storeObject($container,$object,$content,$metadata=array(),$content_type=null)
+    {
         if (empty($container)) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_NAME_CONTAINER);
@@ -369,6 +388,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         $status= $result->getStatus();
         switch ($status) {
             case '201': // break intentionally omitted
+
                 return true;
             case '412':
                 $this->errorMsg= self::ERROR_OBJECT_MISSING_PARAM;
@@ -381,16 +401,18 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Delete an object in a container
      *
-     * @param string $container
-     * @param string $object
+     * @param  string  $container
+     * @param  string  $object
      * @return boolean
      */
-    public function deleteObject($container,$object) {
+    public function deleteObject($container,$object)
+    {
         if (empty($container)) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_NAME_CONTAINER);
@@ -403,6 +425,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         $status= $result->getStatus();
         switch ($status) {
             case '204': // break intentionally omitted
+
                 return true;
             case '404':
                 $this->errorMsg= self::ERROR_OBJECT_NOT_FOUND;
@@ -412,20 +435,22 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Copy an object from a container to another
      *
-     * @param string $container_source
-     * @param string $obj_source
-     * @param string $container_dest
-     * @param string $obj_dest
-     * @param array $metadata
-     * @param string $content_type
+     * @param  string  $container_source
+     * @param  string  $obj_source
+     * @param  string  $container_dest
+     * @param  string  $obj_dest
+     * @param  array   $metadata
+     * @param  string  $content_type
      * @return boolean
      */
-    public function copyObject($container_source,$obj_source,$container_dest,$obj_dest,$metadata=array(),$content_type=null) {
+    public function copyObject($container_source,$obj_source,$container_dest,$obj_dest,$metadata=array(),$content_type=null)
+    {
         if (empty($container_source)) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_NAME_SOURCE_CONTAINER);
@@ -458,22 +483,25 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         $status= $result->getStatus();
         switch ($status) {
             case '201': // break intentionally omitted
+
                 return true;
             default:
                 $this->errorMsg= $result->getBody();
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Get the metadata of an object
      *
-     * @param string $container
-     * @param string $object
+     * @param  string        $container
+     * @param  string        $object
      * @return array|boolean
      */
-    public function getMetadataObject($container,$object) {
+    public function getMetadataObject($container,$object)
+    {
         if (empty($container)) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_NAME_CONTAINER);
@@ -489,7 +517,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 $headers= $result->getHeaders();
                 $count= strlen(self::METADATA_OBJECT_HEADER);
                 // Zend_Http_Response alters header name in array key, so match our header to what will be in the headers array
-                $headerName = ucwords(strtolower(self::METADATA_OBJECT_HEADER)); 
+                $headerName = ucwords(strtolower(self::METADATA_OBJECT_HEADER));
                 $metadata= array();
                 foreach ($headers as $type => $value) {
                     if (strpos($type,$headerName)!==false) {
@@ -505,6 +533,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                     'last_modified' => $result->getHeader(self::HEADER_LAST_MODIFIED),
                     'metadata'      => $metadata
                 );
+
                 return $data;
             case '404':
                 $this->errorMsg= self::ERROR_OBJECT_NOT_FOUND;
@@ -514,15 +543,16 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Set the metadata of a object in a container
      * The old metadata values are replaced with the new one
-     * 
-     * @param string $container
-     * @param string $object
-     * @param array $metadata
+     *
+     * @param  string  $container
+     * @param  string  $object
+     * @param  array   $metadata
      * @return boolean
      */
     public function setMetadataObject($container,$object,$metadata)
@@ -547,6 +577,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         $status= $result->getStatus();
         switch ($status) {
             case '202': // break intentionally omitted
+
                 return true;
             case '404':
                 $this->errorMsg= self::ERROR_OBJECT_NOT_FOUND;
@@ -556,16 +587,18 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Enable the CDN for a container
      *
-     * @param  string $container
-     * @param  integer $ttl
+     * @param  string        $container
+     * @param  integer       $ttl
      * @return array|boolean
      */
-    public function enableCdnContainer ($container,$ttl=self::CDN_TTL_MIN) {
+    public function enableCdnContainer($container,$ttl=self::CDN_TTL_MIN)
+    {
         if (empty($container)) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_NAME_CONTAINER);
@@ -586,6 +619,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                     'cdn_uri'     => $result->getHeader(self::CDN_URI),
                     'cdn_uri_ssl' => $result->getHeader(self::CDN_SSL_URI)
                 );
+
                 return $data;
             case '404':
                 $this->errorMsg= self::ERROR_CONTAINER_NOT_FOUND;
@@ -595,12 +629,13 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Update the attribute of a CDN container
      *
-     * @param  string $container
+     * @param  string  $container
      * @param  integer $ttl
      * @param  boolean $cdn_enabled
      * @param  boolean $log
@@ -635,7 +670,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         if (isset($log)) {
             if ($log===true) {
                 $headers[self::CDN_LOG_RETENTION]= 'true';
-            } else  {
+            } else {
                 $headers[self::CDN_LOG_RETENTION]= 'false';
             }
         }
@@ -644,6 +679,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
         switch ($status) {
             case '200':
             case '202': // break intentionally omitted
+
                 return true;
             case '404':
                 $this->errorMsg= self::ERROR_CONTAINER_NOT_FOUND;
@@ -653,15 +689,17 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
     /**
      * Get the information of a Cdn container
      *
-     * @param string $container
+     * @param  string        $container
      * @return array|boolean
      */
-    public function getInfoCdnContainer($container) {
+    public function getInfoCdnContainer($container)
+    {
         if (empty($container)) {
             require_once 'Zend/Service/Rackspace/Exception.php';
             throw new Zend_Service_Rackspace_Exception(self::ERROR_PARAM_NO_NAME_CONTAINER);
@@ -677,6 +715,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 );
                 $data['cdn_enabled']= (strtolower($result->getHeader(self::CDN_ENABLED))!=='false');
                 $data['log_retention']= (strtolower($result->getHeader(self::CDN_LOG_RETENTION))!=='false');
+
                 return $data;
             case '404':
                 $this->errorMsg= self::ERROR_CONTAINER_NOT_FOUND;
@@ -686,6 +725,7 @@ class Zend_Service_Rackspace_Files extends Zend_Service_Rackspace_Abstract
                 break;
         }
         $this->errorCode= $status;
+
         return false;
     }
 }

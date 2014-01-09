@@ -54,7 +54,7 @@ class Zend_Cloud_DocumentService_Document
      * then that field's value will be used as the document identifier.
      *
      * @param  array $fields
-     * @param  mixed $id Document identifier
+     * @param  mixed $id     Document identifier
      * @return void
      */
     public function __construct($fields, $id = null)
@@ -76,12 +76,13 @@ class Zend_Cloud_DocumentService_Document
     /**
      * Set document identifier
      *
-     * @param  mixed $id
+     * @param  mixed                               $id
      * @return Zend_Cloud_DocumentService_Document
      */
     public function setId($id)
     {
         $this->_id = $id;
+
         return $this;
     }
 
@@ -116,19 +117,21 @@ class Zend_Cloud_DocumentService_Document
         if (isset($this->_fields[$name])) {
             return $this->_fields[$name];
         }
+
         return null;
     }
 
     /**
      * Set field by name.
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @param  string                              $name
+     * @param  mixed                               $value
      * @return Zend_Cloud_DocumentService_Document
      */
     public function setField($name, $value)
     {
         $this->_fields[$name] = $value;
+
         return $this;
     }
 
@@ -147,7 +150,7 @@ class Zend_Cloud_DocumentService_Document
      * Overloading: set field
      *
      * @param  string $name
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function __set($name, $value)
@@ -181,7 +184,7 @@ class Zend_Cloud_DocumentService_Document
      * ArrayAccess: set field to value
      *
      * @param  string $name
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function offsetSet($name, $value)
@@ -206,7 +209,7 @@ class Zend_Cloud_DocumentService_Document
      * Overloading: retrieve and set fields by name
      *
      * @param  string $name
-     * @param  mixed $args
+     * @param  mixed  $args
      * @return mixed
      */
     public function __call($name, $args)
@@ -215,10 +218,12 @@ class Zend_Cloud_DocumentService_Document
         if ($prefix == 'get') {
             // Get value
             $option = substr($name, 3);
+
             return $this->getField($option);
         } elseif ($prefix == 'set') {
             // set value
             $option = substr($name, 3);
+
             return $this->setField($option, $args[0]);
         }
 

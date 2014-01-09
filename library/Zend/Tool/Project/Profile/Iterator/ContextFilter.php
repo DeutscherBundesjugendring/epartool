@@ -60,7 +60,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
      * __construct()
      *
      * @param RecursiveIterator $iterator
-     * @param array $options
+     * @param array             $options
      */
     public function __construct(RecursiveIterator $iterator, $options = array())
     {
@@ -91,7 +91,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
     /**
      * setAcceptTypes()
      *
-     * @param array|string $acceptTypes
+     * @param  array|string                                     $acceptTypes
      * @return Zend_Tool_Project_Profile_Iterator_ContextFilter
      */
     public function setAcceptTypes($acceptTypes)
@@ -101,13 +101,14 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         }
 
         $this->_acceptTypes = $acceptTypes;
+
         return $this;
     }
 
     /**
      * setDenyTypes()
      *
-     * @param array|string $denyTypes
+     * @param  array|string                                     $denyTypes
      * @return Zend_Tool_Project_Profile_Iterator_ContextFilter
      */
     public function setDenyTypes($denyTypes)
@@ -117,13 +118,14 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         }
 
         $this->_denyTypes = $denyTypes;
+
         return $this;
     }
 
     /**
      * setAcceptNames()
      *
-     * @param array|string $acceptNames
+     * @param  array|string                                     $acceptNames
      * @return Zend_Tool_Project_Profile_Iterator_ContextFilter
      */
     public function setAcceptNames($acceptNames)
@@ -137,13 +139,14 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         }
 
         $this->_acceptNames = $acceptNames;
+
         return $this;
     }
 
     /**
      * setDenyNames()
      *
-     * @param array|string $denyNames
+     * @param  array|string                                     $denyNames
      * @return Zend_Tool_Project_Profile_Iterator_ContextFilter
      */
     public function setDenyNames($denyNames)
@@ -157,6 +160,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         }
 
         $this->_denyNames = $denyNames;
+
         return $this;
     }
 
@@ -198,7 +202,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
      *
      * @return unknown
      */
-    function getChildren()
+    public function getChildren()
     {
 
         if (empty($this->ref)) {

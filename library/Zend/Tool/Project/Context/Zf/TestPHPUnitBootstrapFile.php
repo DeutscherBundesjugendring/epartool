@@ -53,7 +53,7 @@ class Zend_Tool_Project_Context_Zf_TestPHPUnitBootstrapFile extends Zend_Tool_Pr
     {
         return 'TestPHPUnitBootstrapFile';
     }
-    
+
     /**
      * getContents()
      *
@@ -82,6 +82,7 @@ Zend_Loader_Autoloader::getInstance();
 
 EOS
             ));
+
         return $codeGenerator->generate();
     }
 

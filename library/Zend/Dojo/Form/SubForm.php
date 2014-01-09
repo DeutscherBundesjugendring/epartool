@@ -89,6 +89,7 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
             }
             $this->_dojoViewPathRegistered = true;
         }
+
         return $view;
     }
 }

@@ -21,7 +21,6 @@
  * @version    $Id: EditorialReview.php 24780 2012-05-08 19:34:59Z adamlundrigan $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service

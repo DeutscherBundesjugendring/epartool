@@ -20,7 +20,6 @@
  * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed
  */
@@ -30,7 +29,6 @@ require_once 'Zend/Feed.php';
  * @see Zend_Feed_Element
  */
 require_once 'Zend/Feed/Element.php';
-
 
 /**
  * Zend_Feed_Entry_Abstract represents a single entry in an Atom or RSS
@@ -59,7 +57,6 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
      */
     protected $_rootNamespace = null;
 
-
     /**
      * Zend_Feed_Entry_Abstract constructor
      *
@@ -68,8 +65,8 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
      * SimpleXMLElement, but it can be an XML string or a DOMNode as
      * well) that contains the contents of the entry.
      *
-     * @param  string $uri
-     * @param  SimpleXMLElement|DOMNode|string  $element
+     * @param  string                          $uri
+     * @param  SimpleXMLElement|DOMNode|string $element
      * @return void
      * @throws Zend_Feed_Exception
      */

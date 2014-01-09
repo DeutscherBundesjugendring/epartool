@@ -28,7 +28,6 @@ require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 require_once 'Zend/Pdf/Element/String.php';
 
-
 /** Zend_Pdf_Annotation */
 require_once 'Zend/Pdf/Annotation.php';
 
@@ -68,11 +67,11 @@ class Zend_Pdf_Annotation_FileAttachment extends Zend_Pdf_Annotation
     /**
      * Create link annotation object
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param string $fileSpecification
+     * @param  float                              $x1
+     * @param  float                              $y1
+     * @param  float                              $x2
+     * @param  float                              $y2
+     * @param  string                             $fileSpecification
      * @return Zend_Pdf_Annotation_FileAttachment
      */
     public static function create($x1, $y1, $x2, $y2, $fileSpecification)
@@ -94,7 +93,6 @@ class Zend_Pdf_Annotation_FileAttachment extends Zend_Pdf_Annotation
         $fsDictionary->F    = new Zend_Pdf_Element_String($fileSpecification);
 
         $annotationDictionary->FS = $fsDictionary;
-
 
         return new Zend_Pdf_Annotation_FileAttachment($annotationDictionary);
     }

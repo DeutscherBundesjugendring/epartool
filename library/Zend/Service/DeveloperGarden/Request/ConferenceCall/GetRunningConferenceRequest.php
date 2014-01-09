@@ -47,7 +47,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetRunningConferenceRe
      * constructor
      *
      * @param integer $environment
-     * @param string $conferenceId
+     * @param string  $conferenceId
      */
     public function __construct($environment, $conferenceId)
     {
@@ -58,12 +58,13 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetRunningConferenceRe
     /**
      * set the conference id
      *
-     * @param string $conferenceId
+     * @param  string                                                                          $conferenceId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetRunningConferenceRequest
      */
     public function setConferenceId($conferenceId)
     {
         $this->conferenceId = $conferenceId;
+
         return $this;
     }
 }

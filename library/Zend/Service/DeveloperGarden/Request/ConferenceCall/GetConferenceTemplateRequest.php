@@ -47,7 +47,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateR
      * constructor
      *
      * @param integer $environment
-     * @param string $templateId
+     * @param string  $templateId
      */
     public function __construct($environment, $templateId)
     {
@@ -58,12 +58,13 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateR
     /**
      * set the template id
      *
-     * @param string $templateId
+     * @param  string                                                                           $templateId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceTemplateRequest
      */
     public function setTemplateId($templateId)
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 }

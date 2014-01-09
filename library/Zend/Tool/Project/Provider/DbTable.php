@@ -88,7 +88,6 @@ class Zend_Tool_Project_Provider_DbTable
         return ($dbTableFile instanceof Zend_Tool_Project_Profile_Resource) ? true : false;
     }
 
-
     public function create($name, $actualTableName, $module = null, $forceOverwrite = false)
     {
         $this->_loadProfile(self::NO_PROFILE_THROW_EXCEPTION);
@@ -130,6 +129,7 @@ class Zend_Tool_Project_Provider_DbTable
         } catch (Exception $e) {
             $response = $this->_registry->getResponse();
             $response->setException($e);
+
             return;
         }
 
@@ -144,9 +144,9 @@ class Zend_Tool_Project_Provider_DbTable
     }
 
     /**
-     * @param string $module        Module name action should be applied to.
-     * @param bool $forceOverwrite  Whether should force overwriting previous classes generated
-     * @return void 
+     * @param  string $module         Module name action should be applied to.
+     * @param  bool   $forceOverwrite Whether should force overwriting previous classes generated
+     * @return void
      */
     public function createFromDatabase($module = null, $forceOverwrite = false)
     {
@@ -161,6 +161,7 @@ class Zend_Tool_Project_Provider_DbTable
             $zendApp->bootstrap('db');
         } catch (Zend_Application_Exception $e) {
             throw new Zend_Tool_Project_Provider_Exception('Db resource not available, you might need to configure a DbAdapter.');
+
             return;
         }
 
@@ -207,7 +208,6 @@ class Zend_Tool_Project_Provider_DbTable
 
             $this->_storeProfile();
         }
-
 
     }
 

@@ -120,7 +120,6 @@ class Zend_Service_Amazon_SimpleDb_Response
             $body = false;
         }
 
-
         return simplexml_load_string($body);
     }
 

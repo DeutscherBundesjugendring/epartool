@@ -55,7 +55,7 @@ class Zend_InfoCard_Xml_KeyInfo_Default extends Zend_InfoCard_Xml_KeyInfo_Abstra
 
         list($sectokenref) = $this->xpath('//o:SecurityTokenReference');
 
-        if(!($sectokenref instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($sectokenref instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception('Could not locate the Security Token Reference');
         }
 

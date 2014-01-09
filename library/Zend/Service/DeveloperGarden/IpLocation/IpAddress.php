@@ -59,7 +59,7 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     /**
      * create ipaddress object
      *
-     * @param string $ip
+     * @param string  $ip
      * @param integer $version
      *
      * @return Zend_Service_Developergarde_IpLocation_IpAddress
@@ -73,7 +73,7 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     /**
      * sets new ip address
      *
-     * @param string $ip
+     * @param  string                                            $ip
      * @throws Zend_Service_DeveloperGarden_Exception
      * @return Zend_Service_DeveloperGarden_IpLocation_IpAddress
      */
@@ -87,6 +87,7 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
             throw new Zend_Service_DeveloperGarden_Exception($message['notIpAddress']);
         }
         $this->_address = $ip;
+
         return $this;
     }
 
@@ -103,7 +104,7 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     /**
      * sets new ip version
      *
-     * @param integer $version
+     * @param  integer                                           $version
      * @throws Zend_Service_DeveloperGarden_Exception
      * @return Zend_Service_DeveloperGarden_IpLocation_IpAddress
      */
@@ -111,10 +112,11 @@ class Zend_Service_DeveloperGarden_IpLocation_IpAddress
     {
         if (!in_array($version, $this->_versionSupported)) {
             require_once 'Zend/Service/DeveloperGarden/Exception.php';
-            throw new Zend_Service_DeveloperGarden_Exception('Ip Version ' . (int)$version . ' is not supported.');
+            throw new Zend_Service_DeveloperGarden_Exception('Ip Version ' . (int) $version . ' is not supported.');
         }
 
         $this->_version = $version;
+
         return $this;
     }
 

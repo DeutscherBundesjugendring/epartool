@@ -21,10 +21,10 @@
  */
 
 /** Zend_Controller_Request_Abstract */
-require_once('Zend/Controller/Request/Abstract.php');
+require_once 'Zend/Controller/Request/Abstract.php';
 
 /** Zend_Controller_Response_Abstract */
-require_once('Zend/Controller/Response/Abstract.php');
+require_once 'Zend/Controller/Response/Abstract.php';
 
 /** Zend_Wildfire_Channel_HttpHeaders */
 require_once 'Zend/Wildfire/Channel/HttpHeaders.php';
@@ -168,7 +168,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
     /**
      * Create singleton instance.
      *
-     * @param string $class OPTIONAL Subclass of Zend_Wildfire_Plugin_FirePhp
+     * @param  string                       $class OPTIONAL Subclass of Zend_Wildfire_Plugin_FirePhp
      * @return Zend_Wildfire_Plugin_FirePhp Returns the singleton Zend_Wildfire_Plugin_FirePhp instance
      * @throws Zend_Wildfire_Exception
      */
@@ -214,7 +214,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
     /**
      * Get or create singleton instance
      *
-     * @param bool $skipCreate True if an instance should not be created
+     * @param  bool                         $skipCreate True if an instance should not be created
      * @return Zend_Wildfire_Plugin_FirePhp
      */
     public static function getInstance($skipCreate=false)
@@ -222,6 +222,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
         if (self::$_instance===null && $skipCreate!==true) {
             return self::init();
         }
+
         return self::$_instance;
     }
 
@@ -241,7 +242,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
      * Enable or disable sending of messages to user-agent.
      * If disabled all headers to be sent will be removed.
      *
-     * @param boolean $enabled Set to TRUE to enable sending of messages.
+     * @param  boolean $enabled Set to TRUE to enable sending of messages.
      * @return boolean The previous value.
      */
     public function setEnabled($enabled)
@@ -252,6 +253,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
             $this->_messages = array();
             $this->_channel->getProtocol(self::PROTOCOL_URI)->clearMessages($this);
         }
+
         return $previous;
     }
 
@@ -268,9 +270,9 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
     /**
      * Set a single option
      *
-     * @param  string $key The name of the option
-     * @param  mixed $value The value of the option
-     * @return mixed The previous value of the option
+     * @param  string $key   The name of the option
+     * @param  mixed  $value The value of the option
+     * @return mixed  The previous value of the option
      */
     public function setOption($key, $value)
     {
@@ -279,6 +281,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
       }
       $previous = $this->_options[$key];
       $this->_options[$key] = $value;
+
       return $previous;
     }
 
@@ -286,13 +289,14 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
      * Retrieve a single option
      *
      * @param  string $key The name of the option
-     * @return mixed The value of the option
+     * @return mixed  The value of the option
      */
     public function getOption($key)
     {
       if (!array_key_exists($key,$this->_options)) {
         throw new Zend_Wildfire_Exception('Option with name "'.$key.'" does not exist!');
       }
+
       return $this->_options[$key];
     }
 
@@ -311,20 +315,21 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
      *
      * Filters are used to exclude object members.
      *
-     * @param string $Class The class name of the object
-     * @param array $Filter An array of members to exclude
+     * @param  string $Class  The class name of the object
+     * @param  array  $Filter An array of members to exclude
      * @return void
      */
-    public function setObjectFilter($class, $filter) {
+    public function setObjectFilter($class, $filter)
+    {
       $this->_objectFilters[$class] = $filter;
     }
 
     /**
      * Starts a group in the Firebug Console
      *
-     * @param string $title The title of the group
-     * @param array $options OPTIONAL Setting 'Collapsed' to true will initialize group collapsed instead of expanded
-     * @return TRUE if the group instruction was added to the response headers or buffered.
+     * @param  string $title   The title of the group
+     * @param  array  $options OPTIONAL Setting 'Collapsed' to true will initialize group collapsed instead of expanded
+     * @return TRUE   if the group instruction was added to the response headers or buffered.
      */
     public static function group($title, $options=array())
     {
@@ -345,11 +350,11 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
      * Logs variables to the Firebug Console
      * via HTTP response headers and the FirePHP Firefox Extension.
      *
-     * @param  mixed  $var   The variable to log.
-     * @param  string  $label OPTIONAL Label to prepend to the log event.
-     * @param  string  $style  OPTIONAL Style of the log event.
-     * @param  array  $options OPTIONAL Options to change how messages are processed and sent
-     * @return boolean Returns TRUE if the variable was added to the response headers or buffered.
+     * @param  mixed                   $var     The variable to log.
+     * @param  string                  $label   OPTIONAL Label to prepend to the log event.
+     * @param  string                  $style   OPTIONAL Style of the log event.
+     * @param  array                   $options OPTIONAL Options to change how messages are processed and sent
+     * @return boolean                 Returns TRUE if the variable was added to the response headers or buffered.
      * @throws Zend_Wildfire_Exception
      */
     public static function send($var, $label=null, $style=null, $options=array())
@@ -366,6 +371,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
                 if (!in_array($var, self::$_instance->_messages)) {
                     self::$_instance->_messages[] = $var;
                 }
+
                 return true;
             }
 
@@ -496,14 +502,12 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
         }
 
         if ($meta['Type'] == self::DUMP) {
-
           return $firephp->_recordMessage(self::STRUCTURE_URI_DUMP,
                                           array('key'=>$meta['Label'],
                                                 'data'=>$var),
                                           $skipFinalEncode);
 
         } else {
-
           return $firephp->_recordMessage(self::STRUCTURE_URI_FIREBUGCONSOLE,
                                           array('data'=>$var,
                                                 'meta'=>$meta),
@@ -514,7 +518,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
     /**
      * Gets a stack trace
      *
-     * @param array $options Options to change how the stack trace is returned
+     * @param  array $options Options to change how the stack trace is returned
      * @return array The stack trace
      */
     protected function _getStackTrace($options)
@@ -542,15 +546,15 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
     /**
      * Record a message with the given data in the given structure
      *
-     * @param string $structure The structure to be used for the data
-     * @param array $data The data to be recorded
-     * @param boolean $skipEncode TRUE if variable encoding should be skipped
-     * @return boolean Returns TRUE if message was recorded
+     * @param  string                  $structure  The structure to be used for the data
+     * @param  array                   $data       The data to be recorded
+     * @param  boolean                 $skipEncode TRUE if variable encoding should be skipped
+     * @return boolean                 Returns TRUE if message was recorded
      * @throws Zend_Wildfire_Exception
      */
     protected function _recordMessage($structure, $data, $skipEncode=false)
     {
-        switch($structure) {
+        switch ($structure) {
 
             case self::STRUCTURE_URI_DUMP:
 
@@ -603,13 +607,14 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
                 throw new Zend_Wildfire_Exception('Structure of name "'.$structure.'" is not recognized.');
                 break;
         }
+
         return false;
     }
 
     /**
      * Encodes a table by encoding each row and column with _encodeObject()
      *
-     * @param array $Table The table to be encoded
+     * @param  array $Table The table to be encoded
      * @return array
      */
     protected function _encodeTable($table)
@@ -624,13 +629,14 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
               }
           }
         }
+
       return $table;
     }
 
     /**
      * Encodes a trace by encoding all "args" with _encodeObject()
      *
-     * @param array $Trace The trace to be encoded
+     * @param  array $Trace The trace to be encoded
      * @return array The encoded trace
      */
     protected function _encodeTrace($trace)
@@ -643,6 +649,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
               $trace[$i]['args'] = $this->_encodeObject($trace[$i]['args']);
           }
       }
+
       return $trace;
     }
 
@@ -652,7 +659,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
      * All private and protected members are included. Some meta info about
      * the object class is added.
      *
-     * @param mixed $object The object/array/value to be encoded
+     * @param  mixed $object The object/array/value to be encoded
      * @return array The encoded object
      */
     protected function _encodeObject($object, $objectDepth = 1, $arrayDepth = 1)
@@ -660,8 +667,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
         $return = array();
 
         if (is_resource($object)) {
-
-            return '** '.(string)$object.' **';
+            return '** '.(string) $object.' **';
 
         } else
         if (is_object($object)) {
@@ -685,7 +691,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
                 $properties[$property->getName()] = $property;
             }
 
-            $members = (array)$object;
+            $members = (array) $object;
 
             foreach ($properties as $just_name => $property) {
 
@@ -733,7 +739,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
 
             // Include all members that are not defined in the class
             // but exist in the object
-            foreach($members as $just_name => $value) {
+            foreach ($members as $just_name => $value) {
 
                 $name = $raw_name = $just_name;
 
@@ -780,6 +786,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
         } else {
             return $object;
         }
+
         return $return;
     }
 
@@ -800,7 +807,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
     /**
      * Flush any buffered data.
      *
-     * @param string $protocolUri The URI of the protocol that should be flushed to
+     * @param  string $protocolUri The URI of the protocol that should be flushed to
      * @return void
      */
     public function flushMessages($protocolUri)
@@ -809,7 +816,7 @@ class Zend_Wildfire_Plugin_FirePhp implements Zend_Wildfire_Plugin_Interface
             return;
         }
 
-        foreach( $this->_messages as $message ) {
+        foreach ($this->_messages as $message) {
             if (!$message->getDestroy()) {
                 $this->send($message->getMessage(),
                             $message->getLabel(),

@@ -63,8 +63,8 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
     /**
      * Retrieve placeholder for title element and optionally set state
      *
-     * @param  string $title
-     * @param  string $setType
+     * @param  string                     $title
+     * @param  string                     $setType
      * @return Zend_View_Helper_HeadTitle
      */
     public function headTitle($title = null, $setType = null)
@@ -105,6 +105,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
         }
 
         $this->_defaultAttachOrder = $setType;
+
         return $this;
     }
 
@@ -136,6 +137,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
             $e->setView($this->view);
             throw $e;
         }
+
         return $this;
     }
 
@@ -155,6 +157,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
                 $this->setTranslator(Zend_Registry::get('Zend_Translate'));
             }
         }
+
         return $this->_translator;
     }
 
@@ -166,6 +169,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
     public function enableTranslation()
     {
         $this->_translate = true;
+
         return $this;
     }
 
@@ -177,6 +181,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
     public function disableTranslation()
     {
         $this->_translate = false;
+
         return $this;
     }
 
@@ -195,7 +200,7 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
 
         $items = array();
 
-        if($this->_translate && $translator = $this->getTranslator()) {
+        if ($this->_translate && $translator = $this->getTranslator()) {
             foreach ($this as $item) {
                 $items[] = $translator->translate($item, $locale);
             }
@@ -207,11 +212,11 @@ class Zend_View_Helper_HeadTitle extends Zend_View_Helper_Placeholder_Container_
 
         $separator = $this->getSeparator();
         $output = '';
-        if(($prefix = $this->getPrefix())) {
+        if (($prefix = $this->getPrefix())) {
             $output  .= $prefix;
         }
         $output .= implode($separator, $items);
-        if(($postfix = $this->getPostfix())) {
+        if (($postfix = $this->getPostfix())) {
             $output .= $postfix;
         }
 

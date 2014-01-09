@@ -20,12 +20,10 @@
  * @version    $Id: Digest.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Auth_Adapter_Interface
  */
 require_once 'Zend/Auth/Adapter/Interface.php';
-
 
 /**
  * @category   Zend
@@ -97,12 +95,13 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
     /**
      * Sets the filename option value
      *
-     * @param  mixed $filename
+     * @param  mixed                    $filename
      * @return Zend_Auth_Adapter_Digest Provides a fluent interface
      */
     public function setFilename($filename)
     {
         $this->_filename = (string) $filename;
+
         return $this;
     }
 
@@ -119,12 +118,13 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
     /**
      * Sets the realm option value
      *
-     * @param  mixed $realm
+     * @param  mixed                    $realm
      * @return Zend_Auth_Adapter_Digest Provides a fluent interface
      */
     public function setRealm($realm)
     {
         $this->_realm = (string) $realm;
+
         return $this;
     }
 
@@ -141,12 +141,13 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
     /**
      * Sets the username option value
      *
-     * @param  mixed $username
+     * @param  mixed                    $username
      * @return Zend_Auth_Adapter_Digest Provides a fluent interface
      */
     public function setUsername($username)
     {
         $this->_username = (string) $username;
+
         return $this;
     }
 
@@ -163,12 +164,13 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
     /**
      * Sets the password option value
      *
-     * @param  mixed $password
+     * @param  mixed                    $password
      * @return Zend_Auth_Adapter_Digest Provides a fluent interface
      */
     public function setPassword($password)
     {
         $this->_password = (string) $password;
+
         return $this;
     }
 
@@ -219,12 +221,14 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
                     $result['code'] = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
                     $result['messages'][] = 'Password incorrect';
                 }
+
                 return new Zend_Auth_Result($result['code'], $result['identity'], $result['messages']);
             }
         }
 
         $result['code'] = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
         $result['messages'][] = "Username '$this->_username' and realm '$this->_realm' combination not found";
+
         return new Zend_Auth_Result($result['code'], $result['identity'], $result['messages']);
     }
 
@@ -234,8 +238,8 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
      * attempting to iteratively guess the unknown string (e.g. password) being
      * compared against.
      *
-     * @param string $a
-     * @param string $b
+     * @param  string $a
+     * @param  string $b
      * @return bool
      */
     protected function _secureStringCompare($a, $b)
@@ -247,6 +251,7 @@ class Zend_Auth_Adapter_Digest implements Zend_Auth_Adapter_Interface
         for ($i = 0; $i < strlen($a); $i++) {
             $result |= ord($a[$i]) ^ ord($b[$i]);
         }
+
         return $result == 0;
     }
 }

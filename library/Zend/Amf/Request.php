@@ -84,7 +84,7 @@ class Zend_Amf_Request
     /**
      * Prepare the AMF InputStream for parsing.
      *
-     * @param  string $request
+     * @param  string           $request
      * @return Zend_Amf_Request
      */
     public function initialize($request)
@@ -92,6 +92,7 @@ class Zend_Amf_Request
         $this->_inputStream  = new Zend_Amf_Parse_InputStream($request);
         $this->_deserializer = new Zend_Amf_Parse_Amf0_Deserializer($this->_inputStream);
         $this->readMessage($this->_inputStream);
+
         return $this;
     }
 
@@ -144,7 +145,7 @@ class Zend_Amf_Request
     public function readHeader()
     {
         $name     = $this->_inputStream->readUTF();
-        $mustRead = (bool)$this->_inputStream->readByte();
+        $mustRead = (bool) $this->_inputStream->readByte();
         $length   = $this->_inputStream->readLong();
 
         try {
@@ -155,6 +156,7 @@ class Zend_Amf_Request
         }
 
         $header = new Zend_Amf_Value_MessageHeader($name, $mustRead, $data, $length);
+
         return $header;
     }
 
@@ -183,7 +185,7 @@ class Zend_Amf_Request
              * an AMF0 array called Content. The following code gets the object
              * out of the content array and sets it as the message data.
              */
-            if(is_array($data) && $data[0] instanceof Zend_Amf_Value_Messaging_AbstractMessage){
+            if (is_array($data) && $data[0] instanceof Zend_Amf_Value_Messaging_AbstractMessage) {
                 $data = $data[0];
             }
 
@@ -192,6 +194,7 @@ class Zend_Amf_Request
         }
 
         $body = new Zend_Amf_Value_MessageBody($targetURI, $responseURI, $data);
+
         return $body;
     }
 
@@ -214,6 +217,7 @@ class Zend_Amf_Request
     public function addAmfBody(Zend_Amf_Value_MessageBody $message)
     {
         $this->_bodies[] = $message;
+
         return $this;
     }
 
@@ -240,12 +244,13 @@ class Zend_Amf_Request
     /**
      * Set the object response encoding
      *
-     * @param  mixed $int
+     * @param  mixed            $int
      * @return Zend_Amf_Request
      */
     public function setObjectEncoding($int)
     {
         $this->_objectEncoding = $int;
+
         return $this;
     }
 }

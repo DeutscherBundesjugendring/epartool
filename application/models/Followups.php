@@ -5,7 +5,8 @@
  *
  * @author Marco Dinnbier
  */
-class Model_Followups extends Zend_Db_Table_Abstract {
+class Model_Followups extends Zend_Db_Table_Abstract
+{
     protected $_name = 'fowups';
     protected $_primary = 'fid';
 
@@ -16,7 +17,7 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         'columns' => 'ffid', 'refTableClass' => 'Model_FollowupFiles', 'refColumns' => 'ffid'
       )
     );
-  
+
     public function getByKid($kid, $order = NULL, $limit = NULL)
     {
         //$result = array();
@@ -40,16 +41,15 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         return $result->toArray();
 
     }
-    
-    
+
     /**
     * getFollowupsbyInput
     * get followup-files by inpt.tid
     * @param integer $tid
     * @return Zend_DB_Table_Rowset
     */
-    public function getByInput($tid) {
-
+    public function getByInput($tid)
+    {
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($tid)) {
           return array();
@@ -61,16 +61,14 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         $select->joinLeft(array('f' => 'fowups'), 'fr.fid_ref = f.fid');
         $select->where('fr.tid=?', $tid);
 
-
         $stmt = $db->query($select);
         $rowSet = $stmt->fetchAll();
 
-        if($rowSet) {
+        if ($rowSet) {
           $result = $rowSet;
         }
 
         return $result;
-
 
     }
     /**
@@ -79,35 +77,34 @@ class Model_Followups extends Zend_Db_Table_Abstract {
     * @param integer $id
     * @return array
     */
-     public function getRelated($id, $where = NULL) {
-         
+     public function getRelated($id, $where = NULL)
+     {
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
           return array();
         }
-    
-        
-        $depTable = new Model_FollowupsRef();    
+
+        $depTable = new Model_FollowupsRef();
         $depTableSelect = $depTable->select();
-        if ($where) {            
+        if ($where) {
             $depTableSelect->where($where);
         }
-        
+
         $result = array();
         $result['inputs'] = array();
         $result['snippets'] = array();
         $result['docs'] = array();
         $result['count'] = 0;
-        $row = $this->find($id)->current(); 
-        if($row){
-            
+        $row = $this->find($id)->current();
+        if ($row) {
+
             $Model_Inputs = new Model_Inputs();
             $Model_FollowupFiles = new Model_FollowupFiles();
-            
+
             $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect );
 
             $refs = $rowset->toArray();
-            
+
             $inputs = array();
             $snippets = array();
             $docs = array();
@@ -119,30 +116,26 @@ class Model_Followups extends Zend_Db_Table_Abstract {
                 if ($ref['ffid']) $docs[] = $ref['ffid'];
 
             }
-            
-           
+
             $result['inputs'] = $Model_Inputs->find($inputs)->toArray();
             $result['snippets'] = $this->find($snippets)->toArray();
             $result['docs'] = $Model_FollowupFiles->find($docs)->toArray();
             $result['count'] = count($refs);
-            
+
         }
 
-        return $result; 
-         
+        return $result;
+
      }
-     
-     
-  
-    
+
     /**
     * getById
     * get followup by fowups.fid
     * @param integer $fid
-    * @return array 
+    * @return array
     */
-    public function getById($id) {
-       
+    public function getById($id)
+    {
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
           return array();
@@ -155,37 +148,34 @@ class Model_Followups extends Zend_Db_Table_Abstract {
 
         return $result;
     }
-    
+
     /**
     * getByIdArray
     * get followup by fowups.fid array
     * @param array $idarray
-    * @return array 
+    * @return array
     */
-    public function getByIdArray( $idarray ) {
-
-  
+    public function getByIdArray($idarray)
+    {
          if (!is_array($idarray) || count($idarray) == 0) {
-          
           return array();
-          
+
       }
         $result = array();
         $select = $this->select();
         $select->where('fid IN(?)', $idarray);
-        
+
         $result = $this->fetchAll($select)->toArray();
 
         return $result;
-        
+
     }
-    
-     public function getByDocIdArray($ffid_array) {
-         
+
+     public function getByDocIdArray($ffid_array)
+     {
         if (!is_array($ffid_array) || count($ffid_array) == 0) {
-          
           return array();
-          
+
         }
         $result = array();
         $select = $this->select();
@@ -195,13 +185,14 @@ class Model_Followups extends Zend_Db_Table_Abstract {
 
         return $result;
     }
-    
+
     /**
     * getById
     * delete followup by fowups.fid
     * @param integer $fid
     */
-    public function deleteById($fid) {
+    public function deleteById($fid)
+    {
         // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($fid)) {
@@ -210,7 +201,7 @@ class Model_Followups extends Zend_Db_Table_Abstract {
         // exists?
         if ($this->find($fid)->count() < 1) {
           return 0;
-        }    
+        }
 
         // where
         $snippet = $this->find($fid)->current();
@@ -218,18 +209,19 @@ class Model_Followups extends Zend_Db_Table_Abstract {
        /* $where = $this->getDefaultAdapter()
             ->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);*/
+
         return $result;
     }
-    
+
     /**
     * supportById
     * increment fowups.lkyea/fowups.lknay by fowups.fid if not liked by useragent+ip
     * @param integer $fid
     * @param string $field ['lkyea' OR 'lknay']
-    * @return integer count($field) 
+    * @return integer count($field)
     */
-    public function supportById( $fid, $field ) {
-
+    public function supportById($fid, $field)
+    {
           $validator = new Zend_Validate_Int();
           if (!$validator->isValid($fid)) {
               return 0;
@@ -237,18 +229,18 @@ class Model_Followups extends Zend_Db_Table_Abstract {
 
           $userAgent = new Zend_Http_UserAgent;
           $tmphash = md5($userAgent->getDevice()->getUserAgent() . getenv($_SERVER['REMOTE_ADDR']));
-          
+
           if ($this->find($fid)->count() < 1) {
             return 0;
           }
-          
+
           $snippet = $this->find($fid)->current();
           $count = $snippet[$field];
 
           $Model_FollowupsSupports = new Model_FollowupsSupports;
           $isLiked = $Model_FollowupsSupports->find($fid, $tmphash)->current();
 
-          if (!$isLiked ) {
+          if (!$isLiked) {
 
                   $followupSupportsRow = $Model_FollowupsSupports->createRow();
                   $followupSupportsRow->fid = $fid;
@@ -258,11 +250,9 @@ class Model_Followups extends Zend_Db_Table_Abstract {
                   $snippet = $this->find($fid)->current();
                   $count = $snippet[$field] + 1;
                   $snippet[$field] = $count;
-                  $snippet->save();                
+                  $snippet->save();
           };
 
-          return (int)$count;
+          return (int) $count;
     }
 }
-
-?>

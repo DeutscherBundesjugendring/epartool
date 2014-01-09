@@ -262,9 +262,9 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Factory.
      *
-     * @param  mixed $data
-     * @param  string $adapter
-     * @param  array $prefixPaths
+     * @param  mixed          $data
+     * @param  string         $adapter
+     * @param  array          $prefixPaths
      * @return Zend_Paginator
      */
     public static function factory($data, $adapter = self::INTERNAL_ADAPTER,
@@ -276,13 +276,13 @@ class Zend_Paginator implements Countable, IteratorAggregate
             if ($adapter == self::INTERNAL_ADAPTER) {
                 if (is_array($data)) {
                     $adapter = 'Array';
-                } else if ($data instanceof Zend_Db_Table_Select) {
+                } elseif ($data instanceof Zend_Db_Table_Select) {
                     $adapter = 'DbTableSelect';
-                } else if ($data instanceof Zend_Db_Select) {
+                } elseif ($data instanceof Zend_Db_Select) {
                     $adapter = 'DbSelect';
-                } else if ($data instanceof Iterator) {
+                } elseif ($data instanceof Iterator) {
                     $adapter = 'Iterator';
-                } else if (is_integer($data)) {
+                } elseif (is_integer($data)) {
                     $adapter = 'Null';
                 } else {
                     $type = (is_object($data)) ? get_class($data) : gettype($data);
@@ -357,7 +357,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Returns the default scrolling style.
      *
-     * @return  string
+     * @return string
      */
     public static function getDefaultScrollingStyle()
     {
@@ -417,7 +417,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Sets the default scrolling style.
      *
-     * @param  string $scrollingStyle
+     * @param string $scrollingStyle
      */
     public static function setDefaultScrollingStyle($scrollingStyle = 'Sliding')
     {
@@ -450,7 +450,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     {
         if ($adapter instanceof Zend_Paginator_Adapter_Interface) {
             $this->_adapter = $adapter;
-        } else if ($adapter instanceof Zend_Paginator_AdapterAggregate) {
+        } elseif ($adapter instanceof Zend_Paginator_AdapterAggregate) {
             $this->_adapter = $adapter->getPaginatorAdapter();
         } else {
             /**
@@ -489,6 +489,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     {
         try {
             $return = $this->render();
+
             return $return;
         } catch (Exception $e) {
             trigger_error($e->getMessage(), E_USER_WARNING);
@@ -500,12 +501,13 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Enables/Disables the cache for this instance
      *
-     * @param bool $enable
+     * @param  bool           $enable
      * @return Zend_Paginator
      */
     public function setCacheEnabled($enable)
     {
-        $this->_cacheEnabled = (bool)$enable;
+        $this->_cacheEnabled = (bool) $enable;
+
         return $this;
     }
 
@@ -533,7 +535,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
         if (!$this->_cacheEnabled()) {
             return count($this->getAdapter());
         } else {
-            $cacheId   = md5($this->_getCacheInternalId(). '_itemCount');            
+            $cacheId   = md5($this->_getCacheInternalId(). '_itemCount');
             $itemCount = self::$_cache->load($cacheId);
 
             if ($itemCount === false) {
@@ -541,7 +543,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
 
                 self::$_cache->save($itemCount, $cacheId, array($this->_getCacheInternalId()));
             }
-            
+
             return $itemCount;
         }
     }
@@ -549,7 +551,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Clear the page item cache.
      *
-     * @param int $pageNumber
+     * @param  int            $pageNumber
      * @return Zend_Paginator
      */
     public function clearPageItemCache($pageNumber = null)
@@ -568,6 +570,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
             $cleanId = $this->_getCacheId($pageNumber);
             self::$_cache->remove($cleanId);
         }
+
         return $this;
     }
 
@@ -575,7 +578,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
      * Returns the absolute item number for the specified item.
      *
      * @param  integer $relativeItemNumber Relative item number
-     * @param  integer $pageNumber Page number
+     * @param  integer $pageNumber         Page number
      * @return integer
      */
     public function getAbsoluteItemNumber($relativeItemNumber, $pageNumber = null)
@@ -642,7 +645,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Sets the current page number.
      *
-     * @param  integer $pageNumber Page number
+     * @param  integer        $pageNumber Page number
      * @return Zend_Paginator $this
      */
     public function setCurrentPageNumber($pageNumber)
@@ -667,7 +670,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Set a filter chain
      *
-     * @param Zend_Filter_Interface $filter
+     * @param  Zend_Filter_Interface $filter
      * @return Zend_Paginator
      */
     public function setFilter(Zend_Filter_Interface $filter)
@@ -689,7 +692,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     {
         if ($pageNumber == null) {
             $pageNumber = $this->getCurrentPageNumber();
-        } else if ($pageNumber < 0) {
+        } elseif ($pageNumber < 0) {
             $pageNumber = ($this->count() + 1) + $pageNumber;
         }
 
@@ -741,7 +744,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Sets the number of items per page.
      *
-     * @param  integer $itemCountPerPage
+     * @param  integer        $itemCountPerPage
      * @return Zend_Paginator $this
      */
     public function setItemCountPerPage($itemCountPerPage = -1)
@@ -760,7 +763,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Returns the number of items in a collection.
      *
-     * @param  mixed $items Items
+     * @param  mixed   $items Items
      * @return integer
      */
     public function getItemCount($items)
@@ -840,7 +843,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Sets the page range (see property declaration above).
      *
-     * @param  integer $pageRange
+     * @param  integer        $pageRange
      * @return Zend_Paginator $this
      */
     public function setPageRange($pageRange)
@@ -901,6 +904,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
                     }
             }
         }
+
         return $data;
     }
 
@@ -1036,7 +1040,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
      * Used to store item in cache from that Paginator instance
      *  and that current page
      *
-     * @param int $page
+     * @param  int    $page
      * @return string
      */
     protected function _getCacheId($page = null)
@@ -1044,6 +1048,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
         if ($page === null) {
             $page = $this->getCurrentPageNumber();
         }
+
         return self::CACHE_TAG_PREFIX . $page . '_' . $this->_getCacheInternalId();
     }
 
@@ -1058,7 +1063,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     protected function _getCacheInternalId()
     {
         $adapter = $this->getAdapter();
-        
+
         if (method_exists($adapter, 'getCacheIdentifier')) {
             return md5(serialize(array(
                 $adapter->getCacheIdentifier(), $this->getItemCountPerPage()
@@ -1084,7 +1089,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Creates the page collection.
      *
-     * @param  string $scrollingStyle Scrolling style
+     * @param  string   $scrollingStyle Scrolling style
      * @return stdClass
      */
     protected function _createPages($scrollingStyle = null)
@@ -1129,7 +1134,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     /**
      * Loads a scrolling style.
      *
-     * @param string $scrollingStyle
+     * @param  string                                  $scrollingStyle
      * @return Zend_Paginator_ScrollingStyle_Interface
      */
     protected function _loadScrollingStyle($scrollingStyle = null)

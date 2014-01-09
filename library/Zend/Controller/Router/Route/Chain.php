@@ -39,12 +39,13 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
     /**
      * Instantiates route based on passed Zend_Config structure
      *
-     * @param  Zend_Config $config Configuration object
+     * @param  Zend_Config                        $config Configuration object
      * @return Zend_Controller_Router_Route_Chain
      */
     public static function getInstance(Zend_Config $config)
     {
         $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+
         return new self($config->route, $defs);
     }
 
@@ -70,7 +71,7 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
      *
      * @param  Zend_Controller_Request_Http $request Request to get the path info from
      * @param  null                         $partial
-     * @return array|false An array of assigned values or a false on a mismatch
+     * @return array|false                  An array of assigned values or a false on a mismatch
      */
     public function match($request, $partial = null)
     {
@@ -130,9 +131,9 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
     /**
      * Assembles a URL path defined by this route
      *
-     * @param  array $data An array of variable and value pairs used as parameters
-     * @param  bool  $reset
-     * @param  bool  $encode
+     * @param  array  $data   An array of variable and value pairs used as parameters
+     * @param  bool   $reset
+     * @param  bool   $encode
      * @return string Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false, $encode = false)
@@ -175,7 +176,7 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
             }
         }
     }
-    
+
     /**
      * Return a single parameter of route's defaults
      *

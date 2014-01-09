@@ -22,7 +22,6 @@
 /** Zend_Pdf_Color */
 require_once 'Zend/Pdf/Color.php';
 
-
 /**
  * HTML color implementation
  *
@@ -47,7 +46,7 @@ class Zend_Pdf_Color_Html extends Zend_Pdf_Color
     /**
      * Class constructor.
      *
-     * @param mixed $color
+     * @param  mixed              $color
      * @throws Zend_Pdf_Exception
      */
     public function __construct($color)
@@ -55,13 +54,12 @@ class Zend_Pdf_Color_Html extends Zend_Pdf_Color
         $this->_color = self::color($color);
     }
 
-
     /**
      * Instructions, which can be directly inserted into content stream
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param  boolean $stroking
      * @return string
      */
     public function instructions($stroking)
@@ -95,9 +93,11 @@ class Zend_Pdf_Color_Html extends Zend_Pdf_Color
             $b = round((hexdec($matches[3]) / 255), 3);
             if (($r == $g) && ($g == $b)) {
                 require_once 'Zend/Pdf/Color/GrayScale.php';
+
                 return new Zend_Pdf_Color_GrayScale($r);
             } else {
                 require_once 'Zend/Pdf/Color/Rgb.php';
+
                 return new Zend_Pdf_Color_Rgb($r, $g, $b);
             }
         } else {
@@ -403,9 +403,11 @@ class Zend_Pdf_Color_Html extends Zend_Pdf_Color
         }
         if (($r == $g) && ($g == $b)) {
             require_once 'Zend/Pdf/Color/GrayScale.php';
+
             return new Zend_Pdf_Color_GrayScale($r);
         } else {
             require_once 'Zend/Pdf/Color/Rgb.php';
+
             return new Zend_Pdf_Color_Rgb($r, $g, $b);
         }
     }

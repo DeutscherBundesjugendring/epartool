@@ -84,12 +84,13 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     /**
      * Set feed encoding
      *
-     * @param  string $enc
+     * @param  string                                      $enc
      * @return Zend_Feed_Writer_Extension_RendererAbstract
      */
     public function setEncoding($enc)
     {
         $this->_encoding = $enc;
+
         return $this;
     }
 
@@ -106,14 +107,15 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     /**
      * Set DOMDocument and DOMElement on which to operate
      *
-     * @param  DOMDocument $dom
-     * @param  DOMElement $base
+     * @param  DOMDocument                                 $dom
+     * @param  DOMElement                                  $base
      * @return Zend_Feed_Writer_Extension_RendererAbstract
      */
     public function setDomDocument(DOMDocument $dom, DOMElement $base)
     {
         $this->_dom  = $dom;
         $this->_base = $base;
+
         return $this;
     }
 
@@ -130,12 +132,13 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     /**
      * Set feed type
      *
-     * @param  string $type
+     * @param  string                                      $type
      * @return Zend_Feed_Writer_Extension_RendererAbstract
      */
     public function setType($type)
     {
         $this->_type = $type;
+
         return $this;
     }
 
@@ -152,12 +155,13 @@ abstract class Zend_Feed_Writer_Extension_RendererAbstract
     /**
      * Set root element of document
      *
-     * @param  DOMElement $root
+     * @param  DOMElement                                  $root
      * @return Zend_Feed_Writer_Extension_RendererAbstract
      */
     public function setRootElement(DOMElement $root)
     {
         $this->_rootElement = $root;
+
         return $this;
     }
 

@@ -60,9 +60,9 @@ class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest
     /**
      * constructor give them the environment and the sessionId
      *
-     * @param integer $environment
-     * @param Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters
-     * @param integer $account
+     * @param  integer                                                   $environment
+     * @param  Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters
+     * @param  integer                                                   $account
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
      */
     public function __construct($environment,
@@ -80,6 +80,7 @@ class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest
     public function setAccount($account = null)
     {
         $this->account = $account;
+
         return $this;
     }
 
@@ -99,6 +100,7 @@ class Zend_Service_DeveloperGarden_Request_LocalSearch_LocalSearchRequest
     ) {
         $this->searchParameters  = $searchParameters->getSearchParameters();
         $this->_searchParameters = $searchParameters;
+
         return $this;
     }
 

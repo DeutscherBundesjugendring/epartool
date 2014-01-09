@@ -67,7 +67,7 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
     /**
      * returns stored token from cache or null
      *
-     * @param string $tokenId
+     * @param  string                                                                   $tokenId
      * @throws Zend_Service_DeveloperGarden_Exception
      * @return Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface|null
      */
@@ -94,9 +94,9 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
     /**
      * set new value for the given tokenId
      *
-     * @param string $tokenId
+     * @param  string                                                              $tokenId
      * @throws Zend_Service_DeveloperGarden_Exception
-     * @param Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface $tokenValue
+     * @param  Zend_Service_DeveloperGarden_Response_SecurityTokenServer_Interface $tokenValue
      * @return void
      */
     public static function setTokenToCache($tokenId,
@@ -197,7 +197,7 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer_Cache
     /**
      * Set a cache for wsdl file
      *
-     * @param integer $cache
+     * @param  integer $cache
      * @return void
      */
     public static function setWsdlCache($cache = null)

@@ -41,7 +41,7 @@ class Zend_Http_UserAgent_Features_Adapter_Browscap implements Zend_Http_UserAge
      * Constructor
      *
      * Validate that we have browscap support available.
-     * 
+     *
      * @return void
      * @throws Zend_Http_UserAgent_Features_Exception
      */
@@ -61,7 +61,7 @@ class Zend_Http_UserAgent_Features_Adapter_Browscap implements Zend_Http_UserAge
      * Get features from request
      *
      * @param  array $request $_SERVER variable
-     * @param  array $config ignored; included only to satisfy parent class
+     * @param  array $config  ignored; included only to satisfy parent class
      * @return array
      */
     public static function getFromRequest($request, array $config)
@@ -85,6 +85,7 @@ class Zend_Http_UserAgent_Features_Adapter_Browscap implements Zend_Http_UserAge
                     break;
             }
         }
+
         return $features;
     }
 }

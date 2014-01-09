@@ -65,9 +65,9 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * Constructor is protected to enforce the use of factory methods.
      *
-     * @param  Zend_Ldap_Dn $dn
-     * @param  array        $data
-     * @param  boolean      $fromDataSource
+     * @param Zend_Ldap_Dn $dn
+     * @param array        $data
+     * @param boolean      $fromDataSource
      */
     protected function __construct(Zend_Ldap_Dn $dn, array $data, $fromDataSource)
     {
@@ -76,8 +76,8 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     }
 
     /**
-     * @param  array   $data
-     * @param  boolean $fromDataSource
+     * @param  array               $data
+     * @param  boolean             $fromDataSource
      * @throws Zend_Ldap_Exception
      */
     protected function _loadData(array $data, $fromDataSource)
@@ -94,7 +94,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an online method.
      *
-     * @param  Zend_Ldap $ldap
+     * @param  Zend_Ldap               $ldap
      * @return Zend_Ldap_Node_Abstract Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -104,6 +104,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
             $data = $ldap->getEntry($this->_getDn(), array('*', '+'), true);
             $this->_loadData($data, true);
         }
+
         return $this;
     }
 
@@ -130,6 +131,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     public function getDn()
     {
         $dn = clone $this->_getDn();
+
         return $dn;
     }
 
@@ -211,6 +213,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
         foreach ($this->getData($includeSystemAttributes) as $name => $value) {
             $data[$name] = $this->getAttribute($name, null);
         }
+
         return $data;
     }
 
@@ -243,6 +246,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     public function toArray($includeSystemAttributes = true)
     {
         $attributes = $this->getAttributes($includeSystemAttributes);
+
         return array_merge(array('dn' => $this->getDnString()), $attributes);
     }
 
@@ -276,6 +280,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
                     $data[$key] = $value;
                 }
             }
+
             return $data;
         } else {
             return $this->_currentData;
@@ -301,8 +306,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
         if (isset($this->_currentData[$name])) {
             if ($emptyExists) return true;
             return count($this->_currentData[$name])>0;
-        }
-        else return false;
+        } else return false;
     }
 
     /**
@@ -322,8 +326,8 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string  $name
-     * @param  integer $index
+     * @param  string              $name
+     * @param  integer             $index
      * @return mixed
      * @throws Zend_Ldap_Exception
      */
@@ -331,8 +335,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
     {
         if ($name == 'dn') {
             return $this->getDnString();
-        }
-        else {
+        } else {
             return Zend_Ldap_Attribute::getAttribute($this->_currentData, $name, $index);
         }
     }
@@ -342,8 +345,8 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string  $name
-     * @param  integer $index
+     * @param  string              $name
+     * @param  integer             $index
      * @return array|integer
      * @throws Zend_Ldap_Exception
      */
@@ -357,8 +360,8 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string $name
-     * @param  mixed  $value
+     * @param  string                 $name
+     * @param  mixed                  $value
      * @return null
      * @throws BadMethodCallException
      */
@@ -372,7 +375,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string $name
+     * @param  string              $name
      * @return array
      * @throws Zend_Ldap_Exception
      */
@@ -388,7 +391,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string $name
+     * @param  string                 $name
      * @return null
      * @throws BadMethodCallException
      */
@@ -402,7 +405,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * Empty attributes will be treated as non-existent.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function __isset($name)
@@ -416,8 +419,8 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string $name
-     * @param  mixed  $value
+     * @param  string                 $name
+     * @param  mixed                  $value
      * @return null
      * @throws BadMethodCallException
      */
@@ -432,7 +435,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string $name
+     * @param  string              $name
      * @return array
      * @throws Zend_Ldap_Exception
      */
@@ -449,7 +452,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * This is an offline method.
      *
-     * @param  string $name
+     * @param  string                 $name
      * @return null
      * @throws BadMethodCallException
      */
@@ -464,7 +467,7 @@ abstract class Zend_Ldap_Node_Abstract implements ArrayAccess, Countable
      *
      * Empty attributes will be treated as non-existent.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function offsetExists($name)

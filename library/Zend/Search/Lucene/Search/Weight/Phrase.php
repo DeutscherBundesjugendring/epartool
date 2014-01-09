@@ -20,12 +20,10 @@
  * @version    $Id: Phrase.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_Search_Lucene_Search_Weight
  */
 require_once 'Zend/Search/Lucene/Search/Weight.php';
-
 
 /**
  * @category   Zend
@@ -87,7 +85,6 @@ class Zend_Search_Lucene_Search_Weight_Phrase extends Zend_Search_Lucene_Search_
         return $this->_queryWeight * $this->_queryWeight;
     }
 
-
     /**
      * Assigns the query normalization factor to this.
      *
@@ -104,5 +101,3 @@ class Zend_Search_Lucene_Search_Weight_Phrase extends Zend_Search_Lucene_Search_
         $this->_value = $this->_queryWeight * $this->_idf;
     }
 }
-
-

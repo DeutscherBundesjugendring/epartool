@@ -65,12 +65,13 @@ abstract class Zend_Cloud_DocumentService_Adapter_AbstractAdapter
     /**
      * Set the class for document objects
      *
-     * @param  string $class
+     * @param  string                                             $class
      * @return Zend_Cloud_DocumentService_Adapter_AbstractAdapter
      */
     public function setDocumentClass($class)
     {
         $this->_documentClass = (string) $class;
+
         return $this;
     }
 
@@ -87,12 +88,13 @@ abstract class Zend_Cloud_DocumentService_Adapter_AbstractAdapter
     /**
      * Set the class for document set objects
      *
-     * @param  string $class
+     * @param  string                                             $class
      * @return Zend_Cloud_DocumentService_Adapter_AbstractAdapter
      */
     public function setDocumentSetClass($class)
     {
         $this->_documentSetClass = (string) $class;
+
         return $this;
     }
 
@@ -109,12 +111,13 @@ abstract class Zend_Cloud_DocumentService_Adapter_AbstractAdapter
     /**
      * Set the query class for query objects
      *
-     * @param  string $class
+     * @param  string                                             $class
      * @return Zend_Cloud_DocumentService_Adapter_AbstractAdapter
      */
     public function setQueryClass($class)
     {
         $this->_queryClass = (string) $class;
+
         return $this;
     }
 

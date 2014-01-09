@@ -19,7 +19,6 @@
  * @version    $Id: Generator.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Trailer */
 require_once 'Zend/Pdf/Trailer.php';
 
@@ -50,6 +49,7 @@ class Zend_Pdf_Trailer_Generator extends Zend_Pdf_Trailer
     public function getPDFLength()
     {
         require_once 'Zend/Pdf.php';
+
         return strlen(Zend_Pdf::PDF_HEADER);
     }
 
@@ -61,6 +61,7 @@ class Zend_Pdf_Trailer_Generator extends Zend_Pdf_Trailer
     public function getPDFString()
     {
         require_once 'Zend/Pdf.php';
+
         return Zend_Pdf::PDF_HEADER;
     }
 

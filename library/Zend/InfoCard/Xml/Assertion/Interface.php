@@ -62,7 +62,7 @@ interface Zend_InfoCard_Xml_Assertion_Interface
     /**
      * Validate the conditions array returned from the getConditions() call
      *
-     * @param array $conditions An array of condtions for the assertion taken from getConditions()
+     * @param  array $conditions An array of condtions for the assertion taken from getConditions()
      * @return mixed Boolean true on success, an array of condition, error message on failure
      */
     public function validateConditions(Array $conditions);

@@ -113,14 +113,14 @@ class Zend_View_Helper_Navigation_Menu
      * @var string
      */
     protected $_innerIndent = '    ';
-    
+
     /**
      * View helper entry point:
      * Retrieves helper and optionally sets container to operate on
      *
-     * @param  Zend_Navigation_Container $container  [optional] container to
+     * @param Zend_Navigation_Container $container [optional] container to
      *                                               operate on
-     * @return Zend_View_Helper_Navigation_Menu      fluent interface,
+     * @return Zend_View_Helper_Navigation_Menu fluent interface,
      *                                               returns self
      */
     public function menu(Zend_Navigation_Container $container = null)
@@ -137,8 +137,8 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Sets CSS class to use for the first 'ul' element when rendering
      *
-     * @param  string $ulClass                   CSS class to set
-     * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
+     * @param  string                           $ulClass CSS class to set
+     * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setUlClass($ulClass)
     {
@@ -152,7 +152,7 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Returns CSS class to use for the first 'ul' element when rendering
      *
-     * @return string  CSS class
+     * @return string CSS class
      */
     public function getUlClass()
     {
@@ -163,8 +163,8 @@ class Zend_View_Helper_Navigation_Menu
      * Sets unique identifier (id) to use for the first 'ul' element when
      * rendering
      *
-     * @param  string|null  $ulId                Unique identifier (id) to set
-     * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
+     * @param  string|null                      $ulId Unique identifier (id) to set
+     * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setUlId($ulId)
     {
@@ -179,7 +179,7 @@ class Zend_View_Helper_Navigation_Menu
      * Returns unique identifier (id) to use for the first 'ul' element when
      * rendering
      *
-     * @return string|null  Unique identifier (id); Default is 'null'
+     * @return string|null Unique identifier (id); Default is 'null'
      */
     public function getUlId()
     {
@@ -189,7 +189,7 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Sets CSS class to use for the active elements when rendering
      *
-     * @param string $activeClass               CSS class to set
+     * @param  string                           $activeClass CSS class to set
      * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setActiveClass($activeClass)
@@ -204,7 +204,7 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Returns CSS class to use for the active elements when rendering
      *
-     * @return string  CSS class
+     * @return string CSS class
      */
     public function getActiveClass()
     {
@@ -214,7 +214,7 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Sets CSS class to use for the parent li elements when rendering
      *
-     * @param  string $parentClass              CSS class to set to parents
+     * @param  string                           $parentClass CSS class to set to parents
      * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setParentClass($parentClass)
@@ -239,13 +239,14 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Enables/disables rendering of parent class to the li element
      *
-     * @param bool $flag                        [optional] render with parent
+     * @param bool $flag [optional] render with parent
      *                                          class. Default is true.
      * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setRenderParentClass($flag = true)
     {
         $this->_renderParentClass = (bool) $flag;
+
         return $this;
     }
 
@@ -253,7 +254,7 @@ class Zend_View_Helper_Navigation_Menu
      * Returns flag indicating whether parent class should be rendered to the li
      * element
      *
-     * @return bool  whether parent class should be rendered
+     * @return bool whether parent class should be rendered
      */
     public function getRenderParentClass()
     {
@@ -263,13 +264,14 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Sets a flag indicating whether only active branch should be rendered
      *
-     * @param  bool $flag                        [optional] render only active
+     * @param bool $flag [optional] render only active
      *                                           branch. Default is true.
-     * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
+     * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setOnlyActiveBranch($flag = true)
     {
         $this->_onlyActiveBranch = (bool) $flag;
+
         return $this;
     }
 
@@ -279,23 +281,24 @@ class Zend_View_Helper_Navigation_Menu
      * By default, this value is false, meaning the entire menu will be
      * be rendered.
      *
-     * @return bool  whether only active branch should be rendered
+     * @return bool whether only active branch should be rendered
      */
     public function getOnlyActiveBranch()
     {
         return $this->_onlyActiveBranch;
     }
-    
+
     /**
      * Sets a flag indicating whether to expand all sibling nodes of the active branch
-     * 
-     * @param  bool $flag                        [optional] expand all siblings of
+     *
+     * @param bool $flag [optional] expand all siblings of
      *                                           nodes in the active branch. Default is true.
-     * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
+     * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setExpandSiblingNodesOfActiveBranch($flag = true)
     {
         $this->_expandSiblingNodesOfActiveBranch = (bool) $flag;
+
         return $this;
     }
 
@@ -305,26 +308,27 @@ class Zend_View_Helper_Navigation_Menu
      * By default, this value is false, meaning the entire menu will be
      * be rendered.
      *
-     * @return bool  whether siblings of nodes in the active branch should be expanded
+     * @return bool whether siblings of nodes in the active branch should be expanded
      */
     public function getExpandSiblingNodesOfActiveBranch()
     {
         return $this->_expandSiblingNodesOfActiveBranch;
     }
-    
+
     /**
      * Enables/disables rendering of parents when only rendering active branch
      *
      * See {@link setOnlyActiveBranch()} for more information.
      *
-     * @param  bool $flag                        [optional] render parents when
+     * @param bool $flag [optional] render parents when
      *                                           rendering active branch.
      *                                           Default is true.
-     * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
+     * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setRenderParents($flag = true)
     {
         $this->_renderParents = (bool) $flag;
+
         return $this;
     }
 
@@ -334,7 +338,7 @@ class Zend_View_Helper_Navigation_Menu
      *
      * By default, this value is true.
      *
-     * @return bool  whether parents should be rendered
+     * @return bool whether parents should be rendered
      */
     public function getRenderParents()
     {
@@ -344,13 +348,13 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Sets which partial view script to use for rendering menu
      *
-     * @param  string|array $partial             partial view script or null. If
+     * @param string|array $partial partial view script or null. If
      *                                           an array is given, it is
      *                                           expected to contain two values;
      *                                           the partial view script to use,
      *                                           and the module where the script
      *                                           can be found.
-     * @return Zend_View_Helper_Navigation_Menu  fluent interface, returns self
+     * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
      */
     public function setPartial($partial)
     {
@@ -388,7 +392,7 @@ class Zend_View_Helper_Navigation_Menu
      * </li>
      * </code>
      *
-     * @param bool $flag                        [optional] adds CSS class from
+     * @param bool $flag [optional] adds CSS class from
      *                                          page to li element
      *
      * @return Zend_View_Helper_Navigation_Menu fluent interface, returns self
@@ -415,9 +419,9 @@ class Zend_View_Helper_Navigation_Menu
      * Set the inner indentation string for using in {@link render()}, optionally
      * a number of spaces to indent with
      *
-     * @param  string|int $indent                          indentation string or
+     * @param string|int $indent indentation string or
      *                                                     number of spaces
-     * @return Zend_View_Helper_Navigation_HelperAbstract  fluent interface,
+     * @return Zend_View_Helper_Navigation_HelperAbstract fluent interface,
      *                                                     returns self
      */
     public function setInnerIndent($indent)
@@ -432,7 +436,7 @@ class Zend_View_Helper_Navigation_Menu
      *
      * @see getFormatOutput()
      *
-     * @return string       indentation string or an empty string
+     * @return string indentation string or an empty string
      */
     public function getInnerIndent()
     {
@@ -451,8 +455,8 @@ class Zend_View_Helper_Navigation_Menu
      *
      * Overrides {@link Zend_View_Helper_Navigation_Abstract::htmlify()}.
      *
-     * @param  Zend_Navigation_Page $page  page to generate HTML for
-     * @return string                      HTML string for the given page
+     * @param  Zend_Navigation_Page $page page to generate HTML for
+     * @return string               HTML string for the given page
      */
     public function htmlify(Zend_Navigation_Page $page)
     {
@@ -501,8 +505,8 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Normalizes given render options
      *
-     * @param  array $options  [optional] options to normalize
-     * @return array           normalized options
+     * @param  array $options [optional] options to normalize
+     * @return array normalized options
      */
     protected function _normalizeOptions(array $options = array())
     {
@@ -606,22 +610,22 @@ class Zend_View_Helper_Navigation_Menu
      * Renders the deepest active menu within [$minDepth, $maxDeth], (called
      * from {@link renderMenu()})
      *
-     * @param  Zend_Navigation_Container $container     container to render
-     * @param  string                    $ulClass       CSS class for first UL
-     * @param  string                    $indent        initial indentation
-     * @param  string                    $innerIndent   inner indentation
-     * @param  int|null                  $minDepth      minimum depth
-     * @param  int|null                  $maxDepth      maximum depth
-     * @param  string|null               $ulId          unique identifier (id)
+     * @param Zend_Navigation_Container $container   container to render
+     * @param string                    $ulClass     CSS class for first UL
+     * @param string                    $indent      initial indentation
+     * @param string                    $innerIndent inner indentation
+     * @param int|null                  $minDepth    minimum depth
+     * @param int|null                  $maxDepth    maximum depth
+     * @param string|null               $ulId        unique identifier (id)
      *                                                  for first UL
-     * @param  bool                      $addPageClassToLi  adds CSS class from
+     * @param bool $addPageClassToLi adds CSS class from
      *                                                      page to li element
-     * @param  string|null               $activeClass       CSS class for active
+     * @param string|null $activeClass CSS class for active
      *                                                      element
-     * @param  string                    $parentClass       CSS class for parent
+     * @param string $parentClass CSS class for parent
      *                                                      li's
-     * @param  bool                      $renderParentClass Render parent class?
-     * @return string                                       rendered menu (HTML)
+     * @param  bool   $renderParentClass Render parent class?
+     * @return string rendered menu (HTML)
      */
     protected function _renderDeepestMenu(Zend_Navigation_Container $container,
                                           $ulClass,
@@ -644,10 +648,10 @@ class Zend_View_Helper_Navigation_Menu
             if (!$active['page']->hasPages()) {
                 return '';
             }
-        } else if (!$active['page']->hasPages()) {
+        } elseif (!$active['page']->hasPages()) {
             // found pages has no children; render siblings
             $active['page'] = $active['page']->getParent();
-        } else if (is_int($maxDepth) && $active['depth'] + 1 > $maxDepth) {
+        } elseif (is_int($maxDepth) && $active['depth'] + 1 > $maxDepth) {
             // children are below max depth; render siblings
             $active['page'] = $active['page']->getParent();
         }
@@ -679,9 +683,9 @@ class Zend_View_Helper_Navigation_Menu
                 $liClass = $this->_htmlAttribs(
                     array('class' => $activeClass . ' ' . $subPage->getClass())
                 );
-            } else if ($subPage->isActive(true)) {
+            } elseif ($subPage->isActive(true)) {
                 $liClass = $this->_htmlAttribs(array('class' => $activeClass));
-            } else if ($addPageClassToLi) {
+            } elseif ($addPageClassToLi) {
                 $liClass = $this->_htmlAttribs(
                     array('class' => $subPage->getClass())
                 );
@@ -700,25 +704,25 @@ class Zend_View_Helper_Navigation_Menu
     /**
      * Renders a normal menu (called from {@link renderMenu()})
      *
-     * @param  Zend_Navigation_Container $container     container to render
-     * @param  string                    $ulClass       CSS class for first UL
-     * @param  string                    $indent        initial indentation
-     * @param  string                    $innerIndent   inner indentation
-     * @param  int|null                  $minDepth      minimum depth
-     * @param  int|null                  $maxDepth      maximum depth
-     * @param  bool                      $onlyActive    render only active branch?
-     * @param  bool                      $expandSibs    render siblings of active
+     * @param Zend_Navigation_Container $container   container to render
+     * @param string                    $ulClass     CSS class for first UL
+     * @param string                    $indent      initial indentation
+     * @param string                    $innerIndent inner indentation
+     * @param int|null                  $minDepth    minimum depth
+     * @param int|null                  $maxDepth    maximum depth
+     * @param bool                      $onlyActive  render only active branch?
+     * @param bool                      $expandSibs  render siblings of active
      *                                                  branch nodes?
-     * @param  string|null               $ulId          unique identifier (id)
+     * @param string|null $ulId unique identifier (id)
      *                                                  for first UL
-     * @param  bool                      $addPageClassToLi  adds CSS class from
+     * @param bool $addPageClassToLi adds CSS class from
      *                                                      page to li element
-     * @param  string|null               $activeClass       CSS class for active
+     * @param string|null $activeClass CSS class for active
      *                                                      element
-     * @param  string                    $parentClass       CSS class for parent
+     * @param string $parentClass CSS class for parent
      *                                                      li's
-     * @param  bool                      $renderParentClass Render parent class?
-     * @return string                                       rendered menu (HTML)
+     * @param  bool   $renderParentClass Render parent class?
+     * @return string rendered menu (HTML)
      */
     protected function _renderMenu(Zend_Navigation_Container $container,
                                    $ulClass,
@@ -759,14 +763,14 @@ class Zend_View_Helper_Navigation_Menu
             if ($depth < $minDepth || !$this->accept($page)) {
                 // page is below minDepth or not accepted by acl/visibilty
                 continue;
-            } else if ($expandSibs && $depth > $minDepth) {
+            } elseif ($expandSibs && $depth > $minDepth) {
                 // page is not active itself, but might be in the active branch
                 $accept = false;
                 if ($foundPage) {
                     if ($foundPage->hasPage($page)) {
                         // accept if page is a direct child of the active page
                         $accept = true;
-                    } else if ($page->getParent()->isActive(true)) {
+                    } elseif ($page->getParent()->isActive(true)) {
                         // page is a sibling of the active branch...
                         $accept = true;
                     }
@@ -774,14 +778,14 @@ class Zend_View_Helper_Navigation_Menu
                 if (!$isActive && !$accept) {
                     continue;
                 }
-            } else if ($onlyActive && !$isActive) {
+            } elseif ($onlyActive && !$isActive) {
                 // page is not active itself, but might be in the active branch
                 $accept = false;
                 if ($foundPage) {
                     if ($foundPage->hasPage($page)) {
                         // accept if page is a direct child of the active page
                         $accept = true;
-                    } else if ($foundPage->getParent()->hasPage($page)) {
+                    } elseif ($foundPage->getParent()->hasPage($page)) {
                         // page is a sibling of the active page...
                         if (!$foundPage->hasPages() ||
                             is_int($maxDepth) && $foundDepth + 1 > $maxDepth) {
@@ -823,7 +827,7 @@ class Zend_View_Helper_Navigation_Menu
 
                 // Reset prefix for IDs
                 $this->_skipPrefixForId = $skipValue;
-            } else if ($prevDepth > $depth) {
+            } elseif ($prevDepth > $depth) {
                 // close li/ul tags until we're at current depth
                 for ($i = $prevDepth; $i > $depth; $i--) {
                     $ind   = $indent . str_repeat($innerIndent, $i * 2);
@@ -890,14 +894,14 @@ class Zend_View_Helper_Navigation_Menu
      * Available $options:
      *
      *
-     * @param  Zend_Navigation_Container $container  [optional] container to
+     * @param Zend_Navigation_Container $container [optional] container to
      *                                               create menu from. Default
      *                                               is to use the container
      *                                               retrieved from
      *                                               {@link getContainer()}.
-     * @param  array                     $options    [optional] options for
+     * @param array $options [optional] options for
      *                                               controlling rendering
-     * @return string                                rendered menu
+     * @return string rendered menu
      */
     public function renderMenu(Zend_Navigation_Container $container = null,
                                array $options = array())
@@ -958,29 +962,29 @@ class Zend_View_Helper_Navigation_Menu
      * ));
      * </code>
      *
-     * @param  Zend_Navigation_Container $container  [optional] container to
+     * @param Zend_Navigation_Container $container [optional] container to
      *                                               render. Default is to render
      *                                               the container registered in
      *                                               the helper.
-     * @param  string|null               $ulClass    [optional] CSS class to
+     * @param string|null $ulClass [optional] CSS class to
      *                                               use for UL element. Default
      *                                               is to use the value from
      *                                               {@link getUlClass()}.
-     * @param  string|int                $indent     [optional] indentation as
+     * @param string|int $indent [optional] indentation as
      *                                               a string or number of
      *                                               spaces. Default is to use
      *                                               the value retrieved from
      *                                               {@link getIndent()}.
-     * @param  string|null               $ulId       [optional] Unique identifier
+     * @param string|null $ulId [optional] Unique identifier
      *                                               (id) use for UL element
-     * @param  bool                      $addPageClassToLi  adds CSS class from
+     * @param bool $addPageClassToLi adds CSS class from
      *                                                      page to li element
-     * @param  string|int                $innerIndent   [optional] inner
+     * @param string|int $innerIndent [optional] inner
      *                                                  indentation as a string
      *                                                  or number of spaces.
      *                                                  Default is to use the
      *                                                  {@link getInnerIndent()}.
-     * @return string                                   rendered content
+     * @return string rendered content
      */
     public function renderSubMenu(Zend_Navigation_Container $container = null,
                                   $ulClass = null,
@@ -1009,11 +1013,11 @@ class Zend_View_Helper_Navigation_Menu
      * as-is, and will be available in the partial script as 'container', e.g.
      * <code>echo 'Number of pages: ', count($this->container);</code>.
      *
-     * @param  Zend_Navigation_Container $container  [optional] container to
+     * @param Zend_Navigation_Container $container [optional] container to
      *                                               pass to view script. Default
      *                                               is to use the container
      *                                               registered in the helper.
-     * @param  string|array             $partial     [optional] partial view
+     * @param string|array $partial [optional] partial view
      *                                               script to use. Default is to
      *                                               use the partial registered
      *                                               in the helper. If an array
@@ -1022,9 +1026,9 @@ class Zend_View_Helper_Navigation_Menu
      *                                               partial view script to use,
      *                                               and the module where the
      *                                               script can be found.
-     * @return string                                helper output
+     * @return string helper output
      *
-     * @throws Zend_View_Exception   When no partial script is set
+     * @throws Zend_View_Exception When no partial script is set
      */
     public function renderPartial(Zend_Navigation_Container $container = null,
                                   $partial = null)
@@ -1082,11 +1086,11 @@ class Zend_View_Helper_Navigation_Menu
      * @see renderPartial()
      * @see renderMenu()
      *
-     * @param  Zend_Navigation_Container $container  [optional] container to
+     * @param Zend_Navigation_Container $container [optional] container to
      *                                               render. Default is to
      *                                               render the container
      *                                               registered in the helper.
-     * @return string                                helper output
+     * @return string helper output
      */
     public function render(Zend_Navigation_Container $container = null)
     {

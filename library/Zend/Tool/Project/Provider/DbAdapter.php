@@ -81,7 +81,6 @@ class Zend_Tool_Project_Provider_DbAdapter
             $this->_registry->getResponse()->appendContent('Nothing to do!');
         }
 
-
     }
 
     protected function _configureViaDSN($dsn)

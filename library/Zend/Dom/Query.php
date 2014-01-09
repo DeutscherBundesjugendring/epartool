@@ -91,12 +91,13 @@ class Zend_Dom_Query
     /**
      * Set document encoding
      *
-     * @param  string $encoding
+     * @param  string         $encoding
      * @return Zend_Dom_Query
      */
     public function setEncoding($encoding)
     {
         $this->_encoding = (null === $encoding) ? null : (string) $encoding;
+
         return $this;
     }
 
@@ -113,8 +114,8 @@ class Zend_Dom_Query
     /**
      * Set document to query
      *
-     * @param  string $document
-     * @param  null|string $encoding Document encoding
+     * @param  string         $document
+     * @param  null|string    $encoding Document encoding
      * @return Zend_Dom_Query
      */
     public function setDocument($document, $encoding = null)
@@ -126,21 +127,24 @@ class Zend_Dom_Query
         if ('<' . '?xml' == substr(trim($document), 0, 5)) {
             if (preg_match('/<html[^>]*xmlns="([^"]+)"[^>]*>/i', $document, $matches)) {
                 $this->_xpathNamespaces[] = $matches[1];
+
                 return $this->setDocumentXhtml($document, $encoding);
             }
+
             return $this->setDocumentXml($document, $encoding);
         }
         if (strstr($document, 'DTD XHTML')) {
             return $this->setDocumentXhtml($document, $encoding);
         }
+
         return $this->setDocumentHtml($document, $encoding);
     }
 
     /**
      * Register HTML document
      *
-     * @param  string $document
-     * @param  null|string $encoding Document encoding
+     * @param  string         $document
+     * @param  null|string    $encoding Document encoding
      * @return Zend_Dom_Query
      */
     public function setDocumentHtml($document, $encoding = null)
@@ -150,14 +154,15 @@ class Zend_Dom_Query
         if (null !== $encoding) {
             $this->setEncoding($encoding);
         }
+
         return $this;
     }
 
     /**
      * Register XHTML document
      *
-     * @param  string $document
-     * @param  null|string $encoding Document encoding
+     * @param  string         $document
+     * @param  null|string    $encoding Document encoding
      * @return Zend_Dom_Query
      */
     public function setDocumentXhtml($document, $encoding = null)
@@ -167,14 +172,15 @@ class Zend_Dom_Query
         if (null !== $encoding) {
             $this->setEncoding($encoding);
         }
+
         return $this;
     }
 
     /**
      * Register XML document
      *
-     * @param  string $document
-     * @param  null|string $encoding Document encoding
+     * @param  string         $document
+     * @param  null|string    $encoding Document encoding
      * @return Zend_Dom_Query
      */
     public function setDocumentXml($document, $encoding = null)
@@ -184,6 +190,7 @@ class Zend_Dom_Query
         if (null !== $encoding) {
             $this->setEncoding($encoding);
         }
+
         return $this;
     }
 
@@ -220,20 +227,21 @@ class Zend_Dom_Query
     /**
      * Perform a CSS selector query
      *
-     * @param  string $query
+     * @param  string                $query
      * @return Zend_Dom_Query_Result
      */
     public function query($query)
     {
         $xpathQuery = Zend_Dom_Query_Css2Xpath::transform($query);
+
         return $this->queryXpath($xpathQuery, $query);
     }
 
     /**
      * Perform an XPath query
      *
-     * @param  string|array $xpathQuery
-     * @param  string $query CSS selector query
+     * @param  string|array          $xpathQuery
+     * @param  string                $query      CSS selector query
      * @return Zend_Dom_Query_Result
      */
     public function queryXpath($xpathQuery, $query = null)
@@ -284,14 +292,15 @@ class Zend_Dom_Query
         }
 
         $nodeList   = $this->_getNodeList($domDoc, $xpathQuery);
+
         return new Zend_Dom_Query_Result($query, $xpathQuery, $domDoc, $nodeList);
     }
 
     /**
      * Register XPath namespaces
      *
-     * @param   array $xpathNamespaces
-     * @return  void
+     * @param  array $xpathNamespaces
+     * @return void
      */
     public function registerXpathNamespaces($xpathNamespaces)
     {
@@ -301,7 +310,7 @@ class Zend_Dom_Query
     /**
      * Prepare node list
      *
-     * @param  DOMDocument $document
+     * @param  DOMDocument  $document
      * @param  string|array $xpathQuery
      * @return array
      */
@@ -323,6 +332,7 @@ class Zend_Dom_Query
                 }
             }
         }
+
         return $xpath->query($xpathQuery);
     }
 }

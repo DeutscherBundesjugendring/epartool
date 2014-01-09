@@ -101,7 +101,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
     public function getContents()
     {
         $filter = new Zend_Filter_Word_DashToCamelCase();
-        
+
         $className = ($this->_moduleName) ? $filter->filter(ucfirst($this->_moduleName)) . '_' : '';
         $className .= ucfirst($this->_controllerName) . 'Controller';
 
@@ -121,7 +121,6 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
                 )
             ));
 
-
         if ($className == 'ErrorController') {
 
             $codeGenFile = new Zend_CodeGenerator_Php_File(array(
@@ -138,6 +137,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
 
 if (!\$errors || !\$errors instanceof ArrayObject) {
     \$this->view->message = 'You have reached the error page';
+
     return;
 }
 
@@ -192,6 +192,7 @@ EOS
 
         // store the generator into the registry so that the addAction command can use the same object later
         Zend_CodeGenerator_Php_File::registerFileCodeGenerator($codeGenFile); // REQUIRES filename to be set
+
         return $codeGenFile->generate();
     }
 
@@ -217,6 +218,7 @@ EOS
         $codeGenFile = Zend_CodeGenerator_Php_File::fromReflectedFileName($this->getPath());
         $codeGenFileClasses = $codeGenFile->getClasses();
         $class = array_shift($codeGenFileClasses);
+
         return $class;
     }
 

@@ -82,6 +82,7 @@ abstract class Zend_Service_DeveloperGarden_Response_VoiceButler_VoiceButlerAbst
         if ($this->return instanceof stdClass) {
             $retValue = $this->return->status;
         }
+
         return $retValue;
     }
 
@@ -96,6 +97,7 @@ abstract class Zend_Service_DeveloperGarden_Response_VoiceButler_VoiceButlerAbst
         if ($this->return instanceof stdClass) {
             $retValue = $this->return->err_msg;
         }
+
         return $retValue;
     }
 
@@ -123,6 +125,7 @@ abstract class Zend_Service_DeveloperGarden_Response_VoiceButler_VoiceButlerAbst
         ) {
             $retValue = true;
         }
+
         return $retValue;
     }
 }

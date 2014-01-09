@@ -46,7 +46,6 @@ require_once 'Zend/Gdata/YouTube/Extension/Statistics.php';
  */
 require_once 'Zend/Gdata/YouTube/Extension/Description.php';
 
-
 /**
  * Represents the YouTube message flavor of an Atom entry
  *
@@ -108,8 +107,8 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -131,6 +130,7 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
             $element->appendChild(
                 $this->_comments->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -194,7 +194,7 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
      * @param Zend_Gdata_YouTube_Extension_Description $description The
      *        description.
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_InboxEntry Provides a fluent interface
+     * @return Zend_Gdata_YouTube_InboxEntry   Provides a fluent interface
      */
     public function setDescription($description = null)
     {
@@ -205,6 +205,7 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
                 'API.');
         } else {
             $this->_description = $description;
+
             return $this;
         }
     }
@@ -229,6 +230,7 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
     public function setRating($rating = null)
     {
         $this->_rating = $rating;
+
         return $this;
     }
 
@@ -245,12 +247,13 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
     /**
      * Sets the gd:comments element for the inbox entry
      *
-     * @param Zend_Gdata_Extension_Comments $comments The comments feed link
+     * @param  Zend_Gdata_Extension_Comments $comments The comments feed link
      * @return Zend_Gdata_YouTube_InboxEntry Provides a fluent interface
      */
     public function setComments($comments = null)
     {
         $this->_comments = $comments;
+
         return $this;
     }
 
@@ -274,8 +277,8 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
     public function setStatistics($statistics = null)
     {
         $this->_statistics = $statistics;
+
         return $this;
     }
-
 
 }

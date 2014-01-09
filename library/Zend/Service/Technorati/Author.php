@@ -20,12 +20,10 @@
  * @version    $Id: Author.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_Utils
  */
 require_once 'Zend/Service/Technorati/Utils.php';
-
 
 /**
  * Represents a weblog Author object. It usually belongs to a Technorati account.
@@ -86,11 +84,10 @@ class Zend_Service_Technorati_Author
      */
     protected $_thumbnailPicture;
 
-
     /**
      * Constructs a new object from DOM Element.
      *
-     * @param   DomElement $dom the ReST fragment for this object
+     * @param DomElement $dom the ReST fragment for this object
      */
     public function __construct(DomElement $dom)
     {
@@ -115,127 +112,143 @@ class Zend_Service_Technorati_Author
         if ($result->length == 1) $this->setThumbnailPicture($result->item(0)->data);
     }
 
-
     /**
      * Returns Author first name.
      *
-     * @return  string  Author first name
+     * @return string Author first name
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->_firstName;
     }
 
     /**
      * Returns Author last name.
      *
-     * @return  string  Author last name
+     * @return string Author last name
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->_lastName;
     }
 
     /**
      * Returns Technorati account username.
      *
-     * @return  string  Technorati account username
+     * @return string Technorati account username
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->_username;
     }
 
     /**
      * Returns Technorati account description.
      *
-     * @return  string  Technorati account description
+     * @return string Technorati account description
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->_description;
     }
 
     /**
      * Returns Technorati account biography.
      *
-     * @return  string  Technorati account biography
+     * @return string Technorati account biography
      */
-    public function getBio() {
+    public function getBio()
+    {
         return $this->_bio;
     }
 
     /**
      * Returns Technorati account thumbnail picture.
      *
-     * @return  null|Zend_Uri_Http  Technorati account thumbnail picture
+     * @return null|Zend_Uri_Http Technorati account thumbnail picture
      */
-    public function getThumbnailPicture() {
+    public function getThumbnailPicture()
+    {
         return $this->_thumbnailPicture;
     }
-
 
     /**
      * Sets author first name.
      *
-     * @param   string $input   first Name input value
-     * @return  Zend_Service_Technorati_Author  $this instance
+     * @param  string                         $input first Name input value
+     * @return Zend_Service_Technorati_Author $this instance
      */
-    public function setFirstName($input) {
+    public function setFirstName($input)
+    {
         $this->_firstName = (string) $input;
+
         return $this;
     }
 
     /**
      * Sets author last name.
      *
-     * @param   string $input   last Name input value
-     * @return  Zend_Service_Technorati_Author  $this instance
+     * @param  string                         $input last Name input value
+     * @return Zend_Service_Technorati_Author $this instance
      */
-    public function setLastName($input) {
+    public function setLastName($input)
+    {
         $this->_lastName = (string) $input;
+
         return $this;
     }
 
     /**
      * Sets Technorati account username.
      *
-     * @param   string $input   username input value
-     * @return  Zend_Service_Technorati_Author  $this instance
+     * @param  string                         $input username input value
+     * @return Zend_Service_Technorati_Author $this instance
      */
-    public function setUsername($input) {
+    public function setUsername($input)
+    {
         $this->_username = (string) $input;
+
         return $this;
     }
 
     /**
      * Sets Technorati account biography.
      *
-     * @param   string $input   biography input value
-     * @return  Zend_Service_Technorati_Author  $this instance
+     * @param  string                         $input biography input value
+     * @return Zend_Service_Technorati_Author $this instance
      */
-    public function setBio($input) {
+    public function setBio($input)
+    {
         $this->_bio = (string) $input;
+
         return $this;
     }
 
     /**
      * Sets Technorati account description.
      *
-     * @param   string $input   description input value
-     * @return  Zend_Service_Technorati_Author  $this instance
+     * @param  string                         $input description input value
+     * @return Zend_Service_Technorati_Author $this instance
      */
-    public function setDescription($input) {
+    public function setDescription($input)
+    {
         $this->_description = (string) $input;
+
         return $this;
     }
 
     /**
      * Sets Technorati account thumbnail picture.
      *
-     * @param   string|Zend_Uri_Http $input thumbnail picture URI
-     * @return  Zend_Service_Technorati_Author  $this instance
-     * @throws  Zend_Service_Technorati_Exception if $input is an invalid URI
+     * @param  string|Zend_Uri_Http              $input thumbnail picture URI
+     * @return Zend_Service_Technorati_Author    $this instance
+     * @throws Zend_Service_Technorati_Exception if $input is an invalid URI
      *          (via Zend_Service_Technorati_Utils::normalizeUriHttp)
      */
-    public function setThumbnailPicture($input) {
+    public function setThumbnailPicture($input)
+    {
         $this->_thumbnailPicture = Zend_Service_Technorati_Utils::normalizeUriHttp($input);
+
         return $this;
     }
 

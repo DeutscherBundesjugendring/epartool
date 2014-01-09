@@ -54,9 +54,9 @@ class Zend_Service_DeveloperGarden_Credential
     /**
      * constructor to init the internal data
      *
-     * @param string $username
-     * @param string $password
-     * @param string $realm
+     * @param  string                                  $username
+     * @param  string                                  $password
+     * @param  string                                  $realm
      * @return Zend_Service_DeveloperGarden_Credential
      */
     public function __construct($username = null, $password = null, $realm = null)
@@ -75,7 +75,7 @@ class Zend_Service_DeveloperGarden_Credential
     /**
      * split the password into an array
      *
-     * @param string $password
+     * @param  string                                             $password
      * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
@@ -92,6 +92,7 @@ class Zend_Service_DeveloperGarden_Credential
         }
 
         $this->_password = $password;
+
         return $this;
     }
 
@@ -108,7 +109,7 @@ class Zend_Service_DeveloperGarden_Credential
     /**
      * set the new login
      *
-     * @param string $username
+     * @param  string                                             $username
      * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
@@ -125,6 +126,7 @@ class Zend_Service_DeveloperGarden_Credential
         }
 
         $this->_username = $username;
+
         return $this;
     }
 
@@ -134,7 +136,7 @@ class Zend_Service_DeveloperGarden_Credential
      * if $withRealm == true we combine username and realm like
      * username@realm
      *
-     * @param bool $withRealm
+     * @param  bool        $withRealm
      * @return string|null
      */
     public function getUsername($withRealm = false)
@@ -147,13 +149,14 @@ class Zend_Service_DeveloperGarden_Credential
                 $this->_realm
             );
         }
+
         return $retValue;
     }
 
     /**
      * set the new realm
      *
-     * @param string $realm
+     * @param  string                                             $realm
      * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
@@ -170,6 +173,7 @@ class Zend_Service_DeveloperGarden_Credential
         }
 
         $this->_realm = $realm;
+
         return $this;
     }
 
@@ -183,4 +187,3 @@ class Zend_Service_DeveloperGarden_Credential
         return $this->_realm;
     }
 }
-

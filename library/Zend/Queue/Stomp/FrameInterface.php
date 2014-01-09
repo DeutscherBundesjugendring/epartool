@@ -130,7 +130,6 @@ interface Zend_Queue_Stomp_FrameInterface
      */
     public function setCommand($command);
 
-
     /**
      * Takes the current parameters and returns a Stomp Frame
      *

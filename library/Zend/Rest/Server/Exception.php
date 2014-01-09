@@ -20,12 +20,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_Rest_Exception
  */
 require_once 'Zend/Rest/Exception.php';
-
 
 /**
  * Zend_Rest_Server_Exception
@@ -38,4 +36,3 @@ require_once 'Zend/Rest/Exception.php';
 class Zend_Rest_Server_Exception extends Zend_Rest_Exception
 {
 }
-

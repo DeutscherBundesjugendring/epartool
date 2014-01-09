@@ -20,14 +20,14 @@
  * @version    $Id: DbTableDataSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-require_once "PHPUnit/Extensions/Database/DataSet/QueryDataSet.php";
+require_once 'PHPUnit/Extensions/Database/DataSet/QueryDataSet.php';
 
-require_once "PHPUnit/Extensions/Database/DB/IDatabaseConnection.php";
+require_once 'PHPUnit/Extensions/Database/DB/IDatabaseConnection.php';
 
 /**
  * @see Zend_Test_PHPUnit_Db_DataSet_DbTable
  */
-require_once "Zend/Test/PHPUnit/Db/DataSet/DbTable.php";
+require_once 'Zend/Test/PHPUnit/Db/DataSet/DbTable.php';
 
 /**
  * Aggregate several Zend_Db_Table instances into a dataset.
@@ -52,11 +52,11 @@ class Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet extends PHPUnit_Extensions_Dat
      * By default a select * will be done on the given tablename.
      *
      * @param Zend_Db_Table_Abstract $table
-     * @param string|Zend_Db_Select $query
-     * @param string $where
-     * @param string $order
-     * @param string $count
-     * @param string $offset
+     * @param string|Zend_Db_Select  $query
+     * @param string                 $where
+     * @param string                 $order
+     * @param string                 $count
+     * @param string                 $offset
      */
     public function addTable(Zend_Db_Table_Abstract $table, $where = null, $order = null, $count = null, $offset = null)
     {
@@ -68,7 +68,7 @@ class Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet extends PHPUnit_Extensions_Dat
      * Creates an iterator over the tables in the data set. If $reverse is
      * true a reverse iterator will be returned.
      *
-     * @param bool $reverse
+     * @param  bool                                         $reverse
      * @return PHPUnit_Extensions_Database_DB_TableIterator
      */
     protected function createIterator($reverse = FALSE)
@@ -79,7 +79,7 @@ class Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet extends PHPUnit_Extensions_Dat
     /**
      * Returns a table object for the given table.
      *
-     * @param string $tableName
+     * @param  string                               $tableName
      * @return PHPUnit_Extensions_Database_DB_Table
      */
     public function getTable($tableName)

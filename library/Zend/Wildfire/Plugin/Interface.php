@@ -33,7 +33,7 @@ interface Zend_Wildfire_Plugin_Interface
     /**
      * Flush any buffered data.
      *
-     * @param string $protocolUri The URI of the protocol that should be flushed to
+     * @param  string $protocolUri The URI of the protocol that should be flushed to
      * @return void
      */
     public function flushMessages($protocolUri);

@@ -53,6 +53,7 @@ class Zend_Gdata_App_Extension_Content extends Zend_Gdata_App_Extension_Text
         if ($this->_src !== null) {
             $element->setAttribute('src', $this->_src);
         }
+
         return $element;
     }
 
@@ -76,12 +77,13 @@ class Zend_Gdata_App_Extension_Content extends Zend_Gdata_App_Extension_Text
     }
 
     /**
-     * @param string $value
+     * @param  string               $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setSrc($value)
     {
         $this->_src = $value;
+
         return $this;
     }
 

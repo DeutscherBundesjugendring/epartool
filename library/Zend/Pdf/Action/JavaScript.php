@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Execute a JavaScript script' action
  * PDF 1.3+ feature
@@ -36,4 +35,3 @@ require_once 'Zend/Pdf/Action.php';
 class Zend_Pdf_Action_JavaScript extends Zend_Pdf_Action
 {
 }
-

@@ -56,8 +56,8 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
      * Note that feeds are not loaded at this point, but will be lazy
      * loaded automatically when each links 'feed' array key is accessed.
      *
-     * @param DOMNodeList $links
-     * @param string $uri
+     * @param  DOMNodeList $links
+     * @param  string      $uri
      * @return void
      */
     public function addLinks(DOMNodeList $links, $uri)
@@ -69,9 +69,9 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
             }
             if (!isset($this->rss) && $link->getAttribute('type') == 'application/rss+xml') {
                 $this->rss = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
-            } elseif(!isset($this->atom) && $link->getAttribute('type') == 'application/atom+xml') {
+            } elseif (!isset($this->atom) && $link->getAttribute('type') == 'application/atom+xml') {
                 $this->atom = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
-            } elseif(!isset($this->rdf) && $link->getAttribute('type') == 'application/rdf+xml') {
+            } elseif (!isset($this->rdf) && $link->getAttribute('type') == 'application/rdf+xml') {
                 $this->rdf = $this->_absolutiseUri(trim($link->getAttribute('href')), $uri);
             }
             $this[] = new self(array(
@@ -101,6 +101,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
                 }
             }
         }
+
         return $link;
     }
 
@@ -121,6 +122,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
                 $absolutes[] = $part;
             }
         }
+
         return implode('/', $absolutes);
     }
 
@@ -128,7 +130,7 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
      * Supports lazy loading of feeds using Zend_Feed_Reader::import() but
      * delegates any other operations to the parent class.
      *
-     * @param string $offset
+     * @param  string $offset
      * @return mixed
      * @uses Zend_Feed_Reader
      */
@@ -140,8 +142,10 @@ class Zend_Feed_Reader_FeedSet extends ArrayObject
             }
             $feed = Zend_Feed_Reader::import($this->offsetGet('href'));
             $this->offsetSet('feed', $feed);
+
             return $feed;
         }
+
         return parent::offsetGet($offset);
     }
 

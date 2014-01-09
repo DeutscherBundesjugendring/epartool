@@ -147,8 +147,8 @@ class Zend_Gdata_Books_VolumeEntry extends Zend_Gdata_Entry
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistance.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -226,6 +226,7 @@ class Zend_Gdata_Books_VolumeEntry extends Zend_Gdata_Entry
             $element->appendChild($this->_viewability->getDOM(
                 $element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -458,48 +459,52 @@ class Zend_Gdata_Books_VolumeEntry extends Zend_Gdata_Entry
     /**
      * Sets the Comments class
      *
-     * @param Zend_Gdata_Extension_Comments|null $comments Comments class
-     * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
+     * @param  Zend_Gdata_Extension_Comments|null $comments Comments class
+     * @return Zend_Gdata_Books_VolumeEntry       Provides a fluent interface
      */
     public function setComments($comments)
     {
         $this->_comments = $comments;
+
         return $this;
     }
 
     /**
      * Sets the creators
      *
-     * @param array $creators Creators|null
+     * @param  array                        $creators Creators|null
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setCreators($creators)
     {
         $this->_creators = $creators;
+
         return $this;
     }
 
     /**
      * Sets the dates
      *
-     * @param array $dates dates
+     * @param  array                        $dates dates
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setDates($dates)
     {
         $this->_dates = $dates;
+
         return $this;
     }
 
     /**
      * Sets the descriptions
      *
-     * @param array $descriptions descriptions
+     * @param  array                        $descriptions descriptions
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setDescriptions($descriptions)
     {
         $this->_descriptions = $descriptions;
+
         return $this;
     }
 
@@ -513,102 +518,111 @@ class Zend_Gdata_Books_VolumeEntry extends Zend_Gdata_Entry
     public function setEmbeddability($embeddability)
     {
         $this->_embeddability = $embeddability;
+
         return $this;
     }
 
     /**
      * Sets the formats
      *
-     * @param array $formats formats
+     * @param  array                        $formats formats
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setFormats($formats)
     {
         $this->_formats = $formats;
+
         return $this;
     }
 
     /**
      * Sets the identifiers
      *
-     * @param array $identifiers identifiers
+     * @param  array                        $identifiers identifiers
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setIdentifiers($identifiers)
     {
         $this->_identifiers = $identifiers;
+
         return $this;
     }
 
     /**
      * Sets the languages
      *
-     * @param array $languages languages
+     * @param  array                        $languages languages
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setLanguages($languages)
     {
         $this->_languages = $languages;
+
         return $this;
     }
 
     /**
      * Sets the publishers
      *
-     * @param array $publishers publishers
+     * @param  array                        $publishers publishers
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setPublishers($publishers)
     {
         $this->_publishers = $publishers;
+
         return $this;
     }
 
     /**
      * Sets the rating
      *
-     * @param Zend_Gdata_Extension_Rating|null $rating rating
-     * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
+     * @param  Zend_Gdata_Extension_Rating|null $rating rating
+     * @return Zend_Gdata_Books_VolumeEntry     Provides a fluent interface
      */
     public function setRating($rating)
     {
         $this->_rating = $rating;
+
         return $this;
     }
 
     /**
      * Sets the review
      *
-     * @param Zend_Gdata_Books_Extension_Review|null $review review
-     * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
+     * @param  Zend_Gdata_Books_Extension_Review|null $review review
+     * @return Zend_Gdata_Books_VolumeEntry           Provides a fluent interface
      */
     public function setReview($review)
     {
         $this->_review = $review;
+
         return $this;
     }
 
     /**
      * Sets the subjects
      *
-     * @param array $subjects subjects
+     * @param  array                        $subjects subjects
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setSubjects($subjects)
     {
         $this->_subjects = $subjects;
+
         return $this;
     }
 
     /**
      * Sets the titles
      *
-     * @param array $titles titles
+     * @param  array                        $titles titles
      * @return Zend_Gdata_Books_VolumeEntry Provides a fluent interface
      */
     public function setTitles($titles)
     {
         $this->_titles = $titles;
+
         return $this;
     }
 
@@ -622,14 +636,14 @@ class Zend_Gdata_Books_VolumeEntry extends Zend_Gdata_Entry
     public function setViewability($viewability)
     {
         $this->_viewability = $viewability;
+
         return $this;
     }
-
 
     /**
      * Gets the volume ID based upon the atom:id value
      *
-     * @return string The volume ID
+     * @return string                   The volume ID
      * @throws Zend_Gdata_App_Exception
      */
     public function getVolumeId()

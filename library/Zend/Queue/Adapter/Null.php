@@ -40,7 +40,7 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
      * Constructor
      *
      * @param  array|Zend_Config $options
-     * @param  null|Zend_Queue $queue
+     * @param  null|Zend_Queue   $queue
      * @return void
      */
     public function __construct($options, Zend_Queue $queue = null)
@@ -62,7 +62,6 @@ class Zend_Queue_Adapter_Null extends Zend_Queue_Adapter_AdapterAbstract
         require_once 'Zend/Queue/Exception.php';
         throw new Zend_Queue_Exception(__FUNCTION__ . '() is not supported by ' . get_class($this));
     }
-
 
     /**
      * Create a new queue

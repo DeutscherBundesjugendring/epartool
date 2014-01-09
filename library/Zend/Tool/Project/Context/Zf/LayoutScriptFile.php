@@ -73,6 +73,7 @@ class Zend_Tool_Project_Context_Zf_LayoutScriptFile extends Zend_Tool_Project_Co
         }
 
         parent::init();
+
         return $this;
     }
 

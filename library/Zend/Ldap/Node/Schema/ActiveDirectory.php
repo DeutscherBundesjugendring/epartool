@@ -61,8 +61,8 @@ class Zend_Ldap_Node_Schema_ActiveDirectory extends Zend_Ldap_Node_Schema
     /**
      * Parses the schema
      *
-     * @param  Zend_Ldap_Dn $dn
-     * @param  Zend_Ldap    $ldap
+     * @param  Zend_Ldap_Dn          $dn
+     * @param  Zend_Ldap             $ldap
      * @return Zend_Ldap_Node_Schema Provides a fluid interface
      */
     protected function _parseSchema(Zend_Ldap_Dn $dn, Zend_Ldap $ldap)
@@ -78,6 +78,7 @@ class Zend_Ldap_Node_Schema_ActiveDirectory extends Zend_Ldap_Node_Schema
             $val = new Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory($node);
             $this->_attributeTypes[$val->getName()] = $val;
         }
+
         return $this;
     }
 

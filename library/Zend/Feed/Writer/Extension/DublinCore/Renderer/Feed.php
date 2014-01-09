@@ -74,7 +74,7 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
      * Set feed authors
      *
      * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param  DOMElement  $root
      * @return void
      */
     protected function _setAuthors(DOMDocument $dom, DOMElement $root)

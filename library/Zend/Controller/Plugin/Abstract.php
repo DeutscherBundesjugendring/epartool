@@ -42,12 +42,13 @@ abstract class Zend_Controller_Plugin_Abstract
     /**
      * Set request object
      *
-     * @param Zend_Controller_Request_Abstract $request
+     * @param  Zend_Controller_Request_Abstract $request
      * @return Zend_Controller_Plugin_Abstract
      */
     public function setRequest(Zend_Controller_Request_Abstract $request)
     {
         $this->_request = $request;
+
         return $this;
     }
 
@@ -64,12 +65,13 @@ abstract class Zend_Controller_Plugin_Abstract
     /**
      * Set response object
      *
-     * @param Zend_Controller_Response_Abstract $response
+     * @param  Zend_Controller_Response_Abstract $response
      * @return Zend_Controller_Plugin_Abstract
      */
     public function setResponse(Zend_Controller_Response_Abstract $response)
     {
         $this->_response = $response;
+
         return $this;
     }
 
@@ -87,7 +89,7 @@ abstract class Zend_Controller_Plugin_Abstract
      * Called before Zend_Controller_Front begins evaluating the
      * request against its routes.
      *
-     * @param Zend_Controller_Request_Abstract $request
+     * @param  Zend_Controller_Request_Abstract $request
      * @return void
      */
     public function routeStartup(Zend_Controller_Request_Abstract $request)

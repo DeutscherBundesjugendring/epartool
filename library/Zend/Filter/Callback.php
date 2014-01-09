@@ -56,7 +56,7 @@ class Zend_Filter_Callback implements Zend_Filter_Interface
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if (!is_array($options) || !array_key_exists('callback', $options)) {
+        } elseif (!is_array($options) || !array_key_exists('callback', $options)) {
             $options          = func_get_args();
             $temp['callback'] = array_shift($options);
             if (!empty($options)) {
@@ -90,7 +90,7 @@ class Zend_Filter_Callback implements Zend_Filter_Interface
     /**
      * Sets a new callback for this filter
      *
-     * @param unknown_type $callback
+     * @param  unknown_type $callback
      * @return unknown
      */
     public function setCallback($callback, $options = null)
@@ -102,6 +102,7 @@ class Zend_Filter_Callback implements Zend_Filter_Interface
 
         $this->_callback = $callback;
         $this->setOptions($options);
+
         return $this;
     }
 
@@ -118,20 +119,21 @@ class Zend_Filter_Callback implements Zend_Filter_Interface
     /**
      * Sets new default options to the callback filter
      *
-     * @param mixed $options Default options to set
+     * @param  mixed                $options Default options to set
      * @return Zend_Filter_Callback
      */
     public function setOptions($options)
     {
         $this->_options = $options;
+
         return $this;
     }
 
     /**
      * Calls the filter per callback
      *
-     * @param mixed $value Options for the set callback
-     * @return mixed       Result from the filter which was callbacked
+     * @param  mixed $value Options for the set callback
+     * @return mixed Result from the filter which was callbacked
      */
     public function filter($value)
     {

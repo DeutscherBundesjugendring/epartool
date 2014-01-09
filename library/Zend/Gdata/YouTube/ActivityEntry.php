@@ -101,8 +101,8 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      *          child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -120,6 +120,7 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
           $element->appendChild($this->_rating->getDOM(
               $element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -197,6 +198,7 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
         if ($rating) {
             return $rating->getValue();
         }
+
         return null;
     }
 
@@ -211,11 +213,12 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
     public function getActivityType()
     {
         $categories = $this->getCategory();
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             if ($category->getScheme() == self::ACTIVITY_CATEGORY_SCHEME) {
                 return $category->getTerm();
             }
         }
+
         return null;
     }
 
@@ -227,6 +230,7 @@ class Zend_Gdata_YouTube_ActivityEntry extends Zend_Gdata_Entry
     public function getAuthorName()
     {
         $authors = $this->getAuthor();
+
         return $authors[0]->getName()->getText();
     }
 }

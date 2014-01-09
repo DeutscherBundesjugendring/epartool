@@ -43,8 +43,8 @@ class Zend_Loader
      * If the file was not found in the $dirs, or if no $dirs were specified,
      * it will attempt to load it from PHP's include_path.
      *
-     * @param string $class      - The full class name of a Zend component.
-     * @param string|array $dirs - OPTIONAL Either a path or an array of paths
+     * @param string       $class - The full class name of a Zend component.
+     * @param string|array $dirs  - OPTIONAL Either a path or an array of paths
      *                             to search.
      * @return void
      * @throws Zend_Exception
@@ -104,10 +104,10 @@ class Zend_Loader
      *
      * If $once is TRUE, it will use include_once() instead of include().
      *
-     * @param  string        $filename
-     * @param  string|array  $dirs - OPTIONAL either a path or array of paths
+     * @param string       $filename
+     * @param string|array $dirs     - OPTIONAL either a path or array of paths
      *                       to search.
-     * @param  boolean       $once
+     * @param  boolean        $once
      * @return boolean
      * @throws Zend_Exception
      */
@@ -156,7 +156,7 @@ class Zend_Loader
      *  from error_reporting() is zero or not.
      * At mark of fopen() can not suppress warning if the handler is used.
      *
-     * @param string   $filename
+     * @param  string  $filename
      * @return boolean
      */
     public static function isReadable($filename)
@@ -187,6 +187,7 @@ class Zend_Loader
                 return true;
             }
         }
+
         return false;
     }
 
@@ -213,6 +214,7 @@ class Zend_Loader
         } else {
             $paths = explode(PATH_SEPARATOR, $path);
         }
+
         return $paths;
     }
 
@@ -225,7 +227,7 @@ class Zend_Loader
      * </code>
      *
      * @deprecated Since 1.8.0
-     * @param  string $class
+     * @param  string       $class
      * @return string|false Class name on success; false on failure
      */
     public static function autoload($class)
@@ -233,6 +235,7 @@ class Zend_Loader
         trigger_error(__CLASS__ . '::' . __METHOD__ . ' is deprecated as of 1.8.0 and will be removed with 2.0.0; use Zend_Loader_Autoloader instead', E_USER_NOTICE);
         try {
             @self::loadClass($class);
+
             return $class;
         } catch (Exception $e) {
             return false;
@@ -243,8 +246,8 @@ class Zend_Loader
      * Register {@link autoload()} with spl_autoload()
      *
      * @deprecated Since 1.8.0
-     * @param string $class (optional)
-     * @param boolean $enabled (optional)
+     * @param  string         $class   (optional)
+     * @param  boolean        $enabled (optional)
      * @return void
      * @throws Zend_Exception if spl_autoload() is not found
      * or if the specified class does not have an autoload() method.
@@ -277,7 +280,7 @@ class Zend_Loader
     /**
      * Ensure that filename does not contain exploits
      *
-     * @param  string $filename
+     * @param  string         $filename
      * @return void
      * @throws Zend_Exception
      */
@@ -324,7 +327,7 @@ class Zend_Loader
      *
      * The filename must be formatted as "$file.php".
      *
-     * @param string $file - The file name to be loaded.
+     * @param  string $file - The file name to be loaded.
      * @return string
      */
     public static function standardiseFile($file)
@@ -338,6 +341,7 @@ class Zend_Loader
             $file      = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
         $file .= str_replace('_', DIRECTORY_SEPARATOR, $fileName) . '.php';
-        return $file;    
+
+        return $file;
     }
 }

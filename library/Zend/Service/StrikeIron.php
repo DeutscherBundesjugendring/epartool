@@ -20,7 +20,6 @@
  * @version    $Id: StrikeIron.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * This class allows StrikeIron authentication credentials to be specified
  * in one place and provides a factory for returning instances of different
@@ -43,7 +42,7 @@ class Zend_Service_StrikeIron
     /**
      * Class constructor
      *
-     * @param array  $options  Options to pass to Zend_Service_StrikeIron_Base constructor
+     * @param array $options Options to pass to Zend_Service_StrikeIron_Base constructor
      */
     public function __construct($options = array())
     {
@@ -54,8 +53,8 @@ class Zend_Service_StrikeIron
      * Factory method to return a preconfigured Zend_Service_StrikeIron_*
      * instance.
      *
-     * @param  null|string  $options  Service options
-     * @return object       Zend_Service_StrikeIron_* instance
+     * @param  null|string                       $options Service options
+     * @return object                            Zend_Service_StrikeIron_* instance
      * @throws Zend_Service_StrikeIron_Exception
      */
     public function getService($options = array())
@@ -86,6 +85,7 @@ class Zend_Service_StrikeIron
 
         // instantiate and return the service
         $service = new $class(array_merge($this->_options, $options));
+
         return $service;
     }
 

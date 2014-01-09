@@ -73,12 +73,13 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
     /**
      * Set view script
      *
-     * @param  string $script
+     * @param  string                         $script
      * @return Zend_Form_Decorator_ViewScript
      */
     public function setViewScript($script)
     {
         $this->_viewScript = (string) $script;
+
         return $this;
     }
 
@@ -93,6 +94,7 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
             if (null !== ($element = $this->getElement())) {
                 if (null !== ($viewScript = $element->getAttrib('viewScript'))) {
                     $this->setViewScript($viewScript);
+
                     return $viewScript;
                 }
             }
@@ -109,12 +111,13 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
     /**
      * Set view script module
      *
-     * @param  string $module
+     * @param  string                         $module
      * @return Zend_Form_Decorator_ViewScript
      */
     public function setViewModule($viewModule)
     {
         $this->_viewModule = (string) $viewModule;
+
         return $this;
     }
 
@@ -129,6 +132,7 @@ class Zend_Form_Decorator_ViewScript extends Zend_Form_Decorator_Abstract
             if (null !== ($element = $this->getElement())) {
                 if (null !== ($viewModule = $element->getAttrib('viewModule'))) {
                     $this->setViewModule($viewModule);
+
                     return $viewModule;
                 }
             }

@@ -52,14 +52,14 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
     protected $service;
     /**
      * The container name of the object list
-     * 
+     *
      * @var string
      */
     protected $container;
     /**
      * Construct
      *
-     * @param  array $list
+     * @param  array   $list
      * @return boolean
      */
     public function __construct($service,$list,$container)
@@ -96,12 +96,13 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
     /**
      * Add an object
      *
-     * @param  Zend_Service_Rackspace_Files_Object $obj
+     * @param  Zend_Service_Rackspace_Files_Object     $obj
      * @return Zend_Service_Rackspace_Files_ObjectList
      */
-    protected function _addObject (Zend_Service_Rackspace_Files_Object $obj)
+    protected function _addObject(Zend_Service_Rackspace_Files_Object $obj)
     {
         $this->objects[] = $obj;
+
         return $this;
     }
     /**
@@ -180,8 +181,8 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * Implement ArrayAccess::offsetExists()
      *
-     * @param   int     $offset
-     * @return  bool
+     * @param  int  $offset
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -192,9 +193,9 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * Implement ArrayAccess::offsetGet()
      *
-     * @param   int     $offset
-     * @throws  Zend_Service_Rackspace_Files_Exception
-     * @return  Zend_Service_Rackspace_Files_Object
+     * @param  int                                    $offset
+     * @throws Zend_Service_Rackspace_Files_Exception
+     * @return Zend_Service_Rackspace_Files_Object
      */
     public function offsetGet($offset)
     {
@@ -211,9 +212,9 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * Implement ArrayAccess::offsetSet()
      *
-     * @param   int     $offset
-     * @param   string  $value
-     * @throws  Zend_Service_Rackspace_Files_Exception
+     * @param  int                                    $offset
+     * @param  string                                 $value
+     * @throws Zend_Service_Rackspace_Files_Exception
      */
     public function offsetSet($offset, $value)
     {
@@ -226,8 +227,8 @@ class Zend_Service_Rackspace_Files_ObjectList implements Countable, Iterator, Ar
      *
      * Implement ArrayAccess::offsetUnset()
      *
-     * @param   int     $offset
-     * @throws  Zend_Service_Rackspace_Files_Exception
+     * @param  int                                    $offset
+     * @throws Zend_Service_Rackspace_Files_Exception
      */
     public function offsetUnset($offset)
     {

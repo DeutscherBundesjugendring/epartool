@@ -60,6 +60,7 @@ class Zend_Reflection_Method extends ReflectionMethod
             require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend Zend_Reflection_Docblock');
         }
+
         return $instance;
     }
 
@@ -83,7 +84,7 @@ class Zend_Reflection_Method extends ReflectionMethod
     /**
      * Get reflection of declaring class
      *
-     * @param  string $reflectionClass Name of reflection class to use
+     * @param  string                $reflectionClass Name of reflection class to use
      * @return Zend_Reflection_Class
      */
     public function getDeclaringClass($reflectionClass = 'Zend_Reflection_Class')
@@ -95,6 +96,7 @@ class Zend_Reflection_Method extends ReflectionMethod
             throw new Zend_Reflection_Exception('Invalid reflection class provided; must extend Zend_Reflection_Class');
         }
         unset($phpReflection);
+
         return $zendReflection;
     }
 
@@ -102,7 +104,7 @@ class Zend_Reflection_Method extends ReflectionMethod
      * Get all method parameter reflection objects
      *
      * @param  string $reflectionClass Name of reflection class to use
-     * @return array of Zend_Reflection_Parameter objects
+     * @return array  of Zend_Reflection_Parameter objects
      */
     public function getParameters($reflectionClass = 'Zend_Reflection_Parameter')
     {
@@ -118,13 +120,14 @@ class Zend_Reflection_Method extends ReflectionMethod
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
     /**
      * Get method contents
      *
-     * @param  bool $includeDocblock
+     * @param  bool   $includeDocblock
      * @return string
      */
     public function getContents($includeDocblock = true)
@@ -156,7 +159,7 @@ class Zend_Reflection_Method extends ReflectionMethod
             $firstLine = array_shift($lines);
         } while (strpos($firstLine, ')') === false);
 
-        // If the opening brace isn't on the same line as method 
+        // If the opening brace isn't on the same line as method
         // signature, then we should pop off more lines until we find it
         if (strpos($firstLine,'{') === false) {
             do {

@@ -20,7 +20,6 @@
  * @version    $Id: Builder.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Builder_Interface
  */
@@ -35,7 +34,6 @@ require_once 'Zend/Feed/Builder/Header.php';
  * @see Zend_Feed_Builder_Entry
  */
 require_once 'Zend/Feed/Builder/Entry.php';
-
 
 /**
  * A simple implementation of Zend_Feed_Builder_Interface.
@@ -208,7 +206,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
     /**
      * Create the Zend_Feed_Builder_Header instance
      *
-     * @param  array $data
+     * @param  array                       $data
      * @throws Zend_Feed_Builder_Exception
      * @return void
      */
@@ -336,7 +334,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
     /**
      * Create the array of article entries
      *
-     * @param  array $data
+     * @param  array                       $data
      * @throws Zend_Feed_Builder_Exception
      * @return void
      */

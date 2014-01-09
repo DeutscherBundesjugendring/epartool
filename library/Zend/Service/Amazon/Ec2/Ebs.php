@@ -43,8 +43,8 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
      * You must specify an availability zone when creating a volume. The volume and
      * any instance to which it attaches must be in the same availability zone.
      *
-     * @param string $size                  The size of the volume, in GiB.
-     * @param string $availabilityZone      The availability zone in which to create the new volume.
+     * @param  string $size             The size of the volume, in GiB.
+     * @param  string $availabilityZone The availability zone in which to create the new volume.
      * @return array
      */
     public function createNewVolume($size, $availabilityZone)
@@ -73,8 +73,8 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
      * You must specify an availability zone when creating a volume. The volume and
      * any instance to which it attaches must be in the same availability zone.
      *
-     * @param string $snapshotId            The snapshot from which to create the new volume.
-     * @param string $availabilityZone      The availability zone in which to create the new volume.
+     * @param  string $snapshotId       The snapshot from which to create the new volume.
+     * @param  string $availabilityZone The availability zone in which to create the new volume.
      * @return array
      */
     public function createVolumeFromSnapshot($snapshotId, $availabilityZone)
@@ -102,7 +102,7 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
      * Lists one or more Amazon EBS volumes that you own, If you do not
      * specify any volumes, Amazon EBS returns all volumes that you own.
      *
-     * @param string|array $volumeId        The ID or array of ID's of the volume(s) to list
+     * @param  string|array $volumeId The ID or array of ID's of the volume(s) to list
      * @return array
      */
     public function describeVolume($volumeId = null)
@@ -110,11 +110,11 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'DescribeVolumes';
 
-        if(is_array($volumeId) && !empty($volumeId)) {
-            foreach($volumeId as $k=>$name) {
+        if (is_array($volumeId) && !empty($volumeId)) {
+            foreach ($volumeId as $k=>$name) {
                 $params['VolumeId.' . ($k+1)] = $name;
             }
-        } elseif($volumeId) {
+        } elseif ($volumeId) {
             $params['VolumeId.1'] = $volumeId;
         }
 
@@ -133,7 +133,7 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
             $item['createTime'] = $xpath->evaluate('string(ec2:createTime/text())', $node);
 
             $attachmentSet = $xpath->query('ec2:attachmentSet/ec2:item', $node);
-            if($attachmentSet->length == 1) {
+            if ($attachmentSet->length == 1) {
                 $_as = $attachmentSet->item(0);
                 $as = array();
                 $as['volumeId'] = $xpath->evaluate('string(ec2:volumeId/text())', $_as);
@@ -156,8 +156,8 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $volumes = $this->describeVolume();
 
         $return = array();
-        foreach($volumes as $vol) {
-            if(isset($vol['attachmentSet']) && $vol['attachmentSet']['instanceId'] == $instanceId) {
+        foreach ($volumes as $vol) {
+            if (isset($vol['attachmentSet']) && $vol['attachmentSet']['instanceId'] == $instanceId) {
                 $return[] = $vol;
             }
         }
@@ -168,9 +168,9 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     /**
      * Attaches an Amazon EBS volume to an instance
      *
-     * @param string $volumeId              The ID of the Amazon EBS volume
-     * @param string $instanceId            The ID of the instance to which the volume attaches
-     * @param string $device                Specifies how the device is exposed to the instance (e.g., /dev/sdh).
+     * @param  string $volumeId   The ID of the Amazon EBS volume
+     * @param  string $instanceId The ID of the instance to which the volume attaches
+     * @param  string $device     Specifies how the device is exposed to the instance (e.g., /dev/sdh).
      * @return array
      */
     public function attachVolume($volumeId, $instanceId, $device)
@@ -198,10 +198,10 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     /**
      * Detaches an Amazon EBS volume from an instance
      *
-     * @param string $volumeId              The ID of the Amazon EBS volume
-     * @param string $instanceId            The ID of the instance from which the volume will detach
-     * @param string $device                The device name
-     * @param boolean $force                Forces detachment if the previous detachment attempt did not occur cleanly
+     * @param string  $volumeId   The ID of the Amazon EBS volume
+     * @param string  $instanceId The ID of the instance from which the volume will detach
+     * @param string  $device     The device name
+     * @param boolean $force      Forces detachment if the previous detachment attempt did not occur cleanly
      *                                      (logging into an instance, unmounting the volume, and detaching normally).
      *                                      This option can lead to data loss or a corrupted file system. Use this option
      *                                      only as a last resort to detach an instance from a failed instance. The
@@ -235,7 +235,7 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     /**
      * Deletes an Amazon EBS volume
      *
-     * @param string $volumeId              The ID of the volume to delete
+     * @param  string  $volumeId The ID of the volume to delete
      * @return boolean
      */
     public function deleteVolume($volumeId)
@@ -256,7 +256,7 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
      * Creates a snapshot of an Amazon EBS volume and stores it in Amazon S3. You can use snapshots for backups,
      * to launch instances from identical snapshots, and to save data before shutting down an instance
      *
-     * @param string $volumeId              The ID of the Amazon EBS volume to snapshot
+     * @param  string $volumeId The ID of the Amazon EBS volume to snapshot
      * @return array
      */
     public function createSnapshot($volumeId)
@@ -282,7 +282,7 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     /**
      * Describes the status of Amazon EBS snapshots
      *
-     * @param string|array $snapshotId      The ID or arry of ID's of the Amazon EBS snapshot
+     * @param  string|array $snapshotId The ID or arry of ID's of the Amazon EBS snapshot
      * @return array
      */
     public function describeSnapshot($snapshotId = null)
@@ -290,11 +290,11 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'DescribeSnapshots';
 
-        if(is_array($snapshotId) && !empty($snapshotId)) {
-            foreach($snapshotId as $k=>$name) {
+        if (is_array($snapshotId) && !empty($snapshotId)) {
+            foreach ($snapshotId as $k=>$name) {
                 $params['SnapshotId.' . ($k+1)] = $name;
             }
-        } elseif($snapshotId) {
+        } elseif ($snapshotId) {
             $params['SnapshotId.1'] = $snapshotId;
         }
 
@@ -323,7 +323,7 @@ class Zend_Service_Amazon_Ec2_Ebs extends Zend_Service_Amazon_Ec2_Abstract
     /**
      * Deletes a snapshot of an Amazon EBS  volume that is stored in Amazon S3
      *
-     * @param string $snapshotId            The ID of the Amazon EBS snapshot to delete
+     * @param  string  $snapshotId The ID of the Amazon EBS snapshot to delete
      * @return boolean
      */
     public function deleteSnapshot($snapshotId)

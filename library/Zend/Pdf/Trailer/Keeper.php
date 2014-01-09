@@ -19,7 +19,6 @@
  * @version    $Id: Keeper.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Trailer */
 require_once 'Zend/Pdf/Trailer.php';
 
@@ -47,13 +46,12 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
      */
     private $_prev;
 
-
     /**
      * Object constructor
      *
-     * @param Zend_Pdf_Element_Dictionary $dict
+     * @param Zend_Pdf_Element_Dictionary        $dict
      * @param Zend_Pdf_Element_Reference_Context $context
-     * @param Zend_Pdf_Trailer $prev
+     * @param Zend_Pdf_Trailer                   $prev
      */
     public function __construct(Zend_Pdf_Element_Dictionary $dict,
                                 Zend_Pdf_Element_Reference_Context $context,
@@ -134,6 +132,7 @@ class Zend_Pdf_Trailer_Keeper extends Zend_Pdf_Trailer
                  * We have not found reference to the header of free object list,
                  * thus we treat it as there are no free objects.
                  */
+
                 return 0;
             }
 

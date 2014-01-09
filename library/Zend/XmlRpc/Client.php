@@ -20,7 +20,6 @@
  * @version    $Id: Client.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * For handling the HTTP connection to the XML-RPC service
  * @see Zend_Http_Client
@@ -63,7 +62,6 @@ require_once 'Zend/XmlRpc/Response.php';
  * @see Zend_XmlRpc_Fault
  */
 require_once 'Zend/XmlRpc/Fault.php';
-
 
 /**
  * An XML-RPC client implementation
@@ -122,7 +120,7 @@ class Zend_XmlRpc_Client
     /**
      * Create a new XML-RPC client to a remote server
      *
-     * @param  string $server      Full address of the XML-RPC service
+     * @param string $server Full address of the XML-RPC service
      *                             (e.g. http://time.xmlrpc.com/RPC2)
      * @param  Zend_Http_Client $httpClient HTTP Client to use for requests
      * @return void
@@ -139,7 +137,6 @@ class Zend_XmlRpc_Client
         $this->_serverAddress = $server;
     }
 
-
     /**
      * Sets the HTTP client object to use for connecting the XML-RPC server.
      *
@@ -151,7 +148,6 @@ class Zend_XmlRpc_Client
         return $this->_httpClient = $httpClient;
     }
 
-
     /**
      * Gets the HTTP client object.
      *
@@ -161,7 +157,6 @@ class Zend_XmlRpc_Client
     {
         return $this->_httpClient;
     }
-
 
     /**
      * Sets the object used to introspect remote servers
@@ -174,7 +169,6 @@ class Zend_XmlRpc_Client
         return $this->_introspector = $introspector;
     }
 
-
     /**
      * Gets the introspection object.
      *
@@ -184,7 +178,6 @@ class Zend_XmlRpc_Client
     {
         return $this->_introspector;
     }
-
 
    /**
      * The request of the last method call
@@ -196,7 +189,6 @@ class Zend_XmlRpc_Client
         return $this->_lastRequest;
     }
 
-
     /**
      * The response received from the last method call
      *
@@ -207,11 +199,10 @@ class Zend_XmlRpc_Client
         return $this->_lastResponse;
     }
 
-
     /**
      * Returns a proxy object for more convenient method calls
      *
-     * @param string $namespace  Namespace to proxy or empty string for none
+     * @param  string                         $namespace Namespace to proxy or empty string for none
      * @return Zend_XmlRpc_Client_ServerProxy
      */
     public function getProxy($namespace = '')
@@ -220,18 +211,20 @@ class Zend_XmlRpc_Client
             $proxy = new Zend_XmlRpc_Client_ServerProxy($this, $namespace);
             $this->_proxyCache[$namespace] = $proxy;
         }
+
         return $this->_proxyCache[$namespace];
     }
 
     /**
      * Set skip system lookup flag
      *
-     * @param  bool $flag
+     * @param  bool               $flag
      * @return Zend_XmlRpc_Client
      */
     public function setSkipSystemLookup($flag = true)
     {
         $this->_skipSystemLookup = (bool) $flag;
+
         return $this;
     }
 
@@ -248,8 +241,8 @@ class Zend_XmlRpc_Client
     /**
      * Perform an XML-RPC request and return a response.
      *
-     * @param Zend_XmlRpc_Request $request
-     * @param null|Zend_XmlRpc_Response $response
+     * @param  Zend_XmlRpc_Request              $request
+     * @param  null|Zend_XmlRpc_Response        $response
      * @return void
      * @throws Zend_XmlRpc_Client_HttpException
      */
@@ -262,7 +255,7 @@ class Zend_XmlRpc_Client
         iconv_set_encoding('internal_encoding', 'UTF-8');
 
         $http = $this->getHttpClient();
-        if($http->getUri() === null) {
+        if ($http->getUri() === null) {
             $http->setUri($this->_serverAddress);
         }
 
@@ -300,8 +293,8 @@ class Zend_XmlRpc_Client
     /**
      * Send an XML-RPC request to the service (for a specific method)
      *
-     * @param  string $method Name of the method we want to call
-     * @param  array $params Array of parameters for the method
+     * @param  string                            $method Name of the method we want to call
+     * @param  array                             $params Array of parameters for the method
      * @return mixed
      * @throws Zend_XmlRpc_Client_FaultException
      */
@@ -334,8 +327,7 @@ class Zend_XmlRpc_Client
                     $params = array($params);
                 }
 
-                foreach ($params as $key => $param)
-                {
+                foreach ($params as $key => $param) {
                     if ($param instanceof Zend_XmlRpc_Value) {
                         continue;
                     }

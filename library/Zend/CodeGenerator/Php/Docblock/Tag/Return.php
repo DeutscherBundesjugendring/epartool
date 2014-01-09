@@ -47,7 +47,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
     /**
      * fromReflection()
      *
-     * @param Zend_Reflection_Docblock_Tag $reflectionTagReturn
+     * @param  Zend_Reflection_Docblock_Tag               $reflectionTagReturn
      * @return Zend_CodeGenerator_Php_Docblock_Tag_Return
      */
     public static function fromReflection(Zend_Reflection_Docblock_Tag $reflectionTagReturn)
@@ -64,12 +64,13 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
     /**
      * setDatatype()
      *
-     * @param string $datatype
+     * @param  string                                     $datatype
      * @return Zend_CodeGenerator_Php_Docblock_Tag_Return
      */
     public function setDatatype($datatype)
     {
         $this->_datatype = $datatype;
+
         return $this;
     }
 
@@ -83,7 +84,6 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
         return $this->_datatype;
     }
 
-
     /**
      * generate()
      *
@@ -92,6 +92,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
     public function generate()
     {
         $output = '@return ' . $this->_datatype . ' ' . $this->_description;
+
         return $output;
     }
 

@@ -46,9 +46,9 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_CallStatus
     /**
      * constructor give them the environment and the sessionId
      *
-     * @param integer $environment
-     * @param string $sessionId
-     * @param integer $keepAlive
+     * @param  integer                                              $environment
+     * @param  string                                               $sessionId
+     * @param  integer                                              $keepAlive
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
      */
     public function __construct($environment, $sessionId, $keepAlive = null)
@@ -69,12 +69,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_CallStatus
     /**
      * sets new sessionId
      *
-     * @param string $sessionId
+     * @param  string                                                      $sessionId
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_CallStatus
      */
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
+
         return $this;
     }
 
@@ -89,12 +90,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_CallStatus
     /**
      * sets new keepAlive flag
      *
-     * @param integer $keepAlive
+     * @param  integer                                                     $keepAlive
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_CallStatus
      */
     public function setKeepAlive($keepAlive)
     {
         $this->keepAlive = $keepAlive;
+
         return $this;
     }
 }

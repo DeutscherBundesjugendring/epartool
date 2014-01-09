@@ -59,6 +59,7 @@ class Zend_Gdata_Extension_ExtendedProperty extends Zend_Gdata_Extension
         if ($this->_value !== null) {
             $element->setAttribute('value', $this->_value);
         }
+
         return $element;
     }
 
@@ -89,6 +90,7 @@ class Zend_Gdata_Extension_ExtendedProperty extends Zend_Gdata_Extension
     public function setName($value)
     {
         $this->_name = $value;
+
         return $this;
     }
 
@@ -100,6 +102,7 @@ class Zend_Gdata_Extension_ExtendedProperty extends Zend_Gdata_Extension
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 

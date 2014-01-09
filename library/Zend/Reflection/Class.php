@@ -54,13 +54,14 @@ class Zend_Reflection_Class extends ReflectionClass
             require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Invalid reflection class specified; must extend Zend_Reflection_File');
         }
+
         return $instance;
     }
 
     /**
      * Return the classes Docblock reflection object
      *
-     * @param  string $reflectionClass Name of reflection class to use
+     * @param  string                    $reflectionClass Name of reflection class to use
      * @return Zend_Reflection_Docblock
      * @throws Zend_Reflection_Exception for missing docblock or invalid reflection class
      */
@@ -76,13 +77,14 @@ class Zend_Reflection_Class extends ReflectionClass
             require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Invalid reflection class specified; must extend Zend_Reflection_Docblock');
         }
+
         return $instance;
     }
 
     /**
      * Return the start line of the class
      *
-     * @param bool $includeDocComment
+     * @param  bool $includeDocComment
      * @return int
      */
     public function getStartLine($includeDocComment = false)
@@ -99,7 +101,7 @@ class Zend_Reflection_Class extends ReflectionClass
     /**
      * Return the contents of the class
      *
-     * @param bool $includeDocblock
+     * @param  bool   $includeDocblock
      * @return string
      */
     public function getContents($includeDocblock = true)
@@ -116,7 +118,7 @@ class Zend_Reflection_Class extends ReflectionClass
      * Get all reflection objects of implemented interfaces
      *
      * @param  string $reflectionClass Name of reflection class to use
-     * @return array Array of Zend_Reflection_Class
+     * @return array  Array of Zend_Reflection_Class
      */
     public function getInterfaces($reflectionClass = 'Zend_Reflection_Class')
     {
@@ -132,14 +134,15 @@ class Zend_Reflection_Class extends ReflectionClass
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
     /**
      * Return method reflection by name
      *
-     * @param  string $name
-     * @param  string $reflectionClass Reflection class to utilize
+     * @param  string                 $name
+     * @param  string                 $reflectionClass Reflection class to utilize
      * @return Zend_Reflection_Method
      */
     public function getMethod($name, $reflectionClass = 'Zend_Reflection_Method')
@@ -153,6 +156,7 @@ class Zend_Reflection_Class extends ReflectionClass
         }
 
         unset($phpReflection);
+
         return $zendReflection;
     }
 
@@ -161,7 +165,7 @@ class Zend_Reflection_Class extends ReflectionClass
      *
      * @param  string $filter
      * @param  string $reflectionClass Reflection class to use for methods
-     * @return array Array of Zend_Reflection_Method objects
+     * @return array  Array of Zend_Reflection_Method objects
      */
     public function getMethods($filter = -1, $reflectionClass = 'Zend_Reflection_Method')
     {
@@ -177,13 +181,14 @@ class Zend_Reflection_Class extends ReflectionClass
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 
     /**
      * Get parent reflection class of reflected class
      *
-     * @param  string $reflectionClass Name of Reflection class to use
+     * @param  string                $reflectionClass Name of Reflection class to use
      * @return Zend_Reflection_Class
      */
     public function getParentClass($reflectionClass = 'Zend_Reflection_Class')
@@ -196,6 +201,7 @@ class Zend_Reflection_Class extends ReflectionClass
                 throw new Zend_Reflection_Exception('Invalid reflection class specified; must extend Zend_Reflection_Class');
             }
             unset($phpReflection);
+
             return $zendReflection;
         } else {
             return false;
@@ -205,8 +211,8 @@ class Zend_Reflection_Class extends ReflectionClass
     /**
      * Return reflection property of this class by name
      *
-     * @param  string $name
-     * @param  string $reflectionClass Name of reflection class to use
+     * @param  string                   $name
+     * @param  string                   $reflectionClass Name of reflection class to use
      * @return Zend_Reflection_Property
      */
     public function getProperty($name, $reflectionClass = 'Zend_Reflection_Property')
@@ -218,15 +224,16 @@ class Zend_Reflection_Class extends ReflectionClass
             throw new Zend_Reflection_Exception('Invalid reflection class specified; must extend Zend_Reflection_Property');
         }
         unset($phpReflection);
+
         return $zendReflection;
     }
 
     /**
      * Return reflection properties of this class
      *
-     * @param  int $filter
+     * @param  int    $filter
      * @param  string $reflectionClass Name of reflection class to use
-     * @return array Array of Zend_Reflection_Property
+     * @return array  Array of Zend_Reflection_Property
      */
     public function getProperties($filter = -1, $reflectionClass = 'Zend_Reflection_Property')
     {
@@ -242,6 +249,7 @@ class Zend_Reflection_Class extends ReflectionClass
             unset($phpReflection);
         }
         unset($phpReflections);
+
         return $zendReflections;
     }
 }

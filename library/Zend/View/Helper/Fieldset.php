@@ -36,9 +36,9 @@ class Zend_View_Helper_Fieldset extends Zend_View_Helper_FormElement
     /**
      * Render HTML form
      *
-     * @param  string $name Form name
+     * @param  string $name    Form name
      * @param  string $content Form content
-     * @param  array $attribs HTML form attributes
+     * @param  array  $attribs HTML form attributes
      * @return string
      */
     public function fieldset($name, $content, $attribs = null)

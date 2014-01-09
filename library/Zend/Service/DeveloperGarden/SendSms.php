@@ -85,9 +85,9 @@ class Zend_Service_DeveloperGarden_SendSms
      * this function creates the raw sms object that can be used to send an sms
      * or as flash sms
      *
-     * @param string $number
-     * @param string $message
-     * @param string $originator
+     * @param string  $number
+     * @param string  $message
+     * @param string  $originator
      * @param integer $account
      *
      * @return Zend_Service_DeveloperGarden_Request_SendSms_SendSMS
@@ -99,6 +99,7 @@ class Zend_Service_DeveloperGarden_SendSms
                 ->setMessage($message)
                 ->setOriginator($originator)
                 ->setAccount($account);
+
         return $request;
     }
 
@@ -106,9 +107,9 @@ class Zend_Service_DeveloperGarden_SendSms
      * this function creates the raw sms object that can be used to send an sms
      * or as flash sms
      *
-     * @param string $number
-     * @param string $message
-     * @param string $originator
+     * @param string  $number
+     * @param string  $message
+     * @param string  $originator
      * @param integer $account
      *
      * @return Zend_Service_DeveloperGarden_Request_SendSms_SendFlashSMS
@@ -120,6 +121,7 @@ class Zend_Service_DeveloperGarden_SendSms
                 ->setMessage($message)
                 ->setOriginator($originator)
                 ->setAccount($account);
+
         return $request;
     }
 

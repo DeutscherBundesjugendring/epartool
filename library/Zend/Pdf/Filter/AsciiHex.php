@@ -19,7 +19,6 @@
  * @version    $Id: AsciiHex.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Filter_Interface */
 require_once 'Zend/Pdf/Filter/Interface.php';
 
@@ -35,8 +34,8 @@ class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
     /**
      * Encode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -48,8 +47,8 @@ class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
     /**
      * Decode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -63,7 +62,7 @@ class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
             $charCode = ord($data[$count]);
 
             if ($commentMode) {
-                if ($charCode == 0x0A  || $charCode == 0x0D ) {
+                if ($charCode == 0x0A  || $charCode == 0x0D) {
                     $commentMode = false;
                 }
 
@@ -94,9 +93,9 @@ class Zend_Pdf_Filter_AsciiHex implements Zend_Pdf_Filter_Interface
                 default:
                     if ($charCode >= 0x30 /*'0'*/ && $charCode <= 0x39 /*'9'*/) {
                         $code = $charCode - 0x30;
-                    } else if ($charCode >= 0x41 /*'A'*/ && $charCode <= 0x46 /*'F'*/) {
+                    } elseif ($charCode >= 0x41 /*'A'*/ && $charCode <= 0x46 /*'F'*/) {
                         $code = $charCode - 0x37/*0x41 - 0x0A*/;
-                    } else if ($charCode >= 0x61 /*'a'*/ && $charCode <= 0x66 /*'f'*/) {
+                    } elseif ($charCode >= 0x61 /*'a'*/ && $charCode <= 0x66 /*'f'*/) {
                         $code = $charCode - 0x57/*0x61 - 0x0A*/;
                     } else {
                         require_once 'Zend/Pdf/Exception.php';

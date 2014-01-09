@@ -19,16 +19,13 @@
  * @version    $Id: Image.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 
 /** Zend_Pdf_Element_Name */
 require_once 'Zend/Pdf/Element/Name.php';
 
-
 /** Zend_Pdf_Resource */
 require_once 'Zend/Pdf/Resource.php';
-
 
 /**
  * Image abstraction.
@@ -70,4 +67,3 @@ abstract class Zend_Pdf_Resource_Image extends Zend_Pdf_Resource
      */
     abstract public function getProperties();
 }
-

@@ -20,12 +20,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Exception
  */
 require_once 'Zend/Feed/Exception.php';
-
 
 /**
  * Zend_Feed_Builder exception class

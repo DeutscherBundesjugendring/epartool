@@ -145,6 +145,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
         if ($this->_edited != null) {
             $element->appendChild($this->_edited->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -198,7 +199,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      *        'Zend_Gdata_App_Entry' will be used.
      * @param array $extraHeaders Extra headers to add to the request, as an
      *        array of string-based key/value pairs.
-     * @return Zend_Gdata_App_Entry The updated entry.
+     * @return Zend_Gdata_App_Entry     The updated entry.
      * @throws Zend_Gdata_App_Exception
      */
     public function save($uri = null, $className = null, $extraHeaders = array())
@@ -285,12 +286,13 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     /**
      * Sets the value of the atom:content element
      *
-     * @param Zend_Gdata_App_Extension_Content $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Content $value
+     * @return Zend_Gdata_App_Entry             Provides a fluent interface
      */
     public function setContent($value)
     {
         $this->_content = $value;
+
         return $this;
     }
 
@@ -309,12 +311,13 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * Sets the value of the atom:published element
      * This represents the publishing date for an entry
      *
-     * @param Zend_Gdata_App_Extension_Published $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Published $value
+     * @return Zend_Gdata_App_Entry               Provides a fluent interface
      */
     public function setPublished($value)
     {
         $this->_published = $value;
+
         return $this;
     }
 
@@ -331,12 +334,13 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     /**
      * Sets the value of the atom:source element
      *
-     * @param Zend_Gdata_App_Extension_Source $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Source $value
+     * @return Zend_Gdata_App_Entry            Provides a fluent interface
      */
     public function setSource($value)
     {
         $this->_source = $value;
+
         return $this;
     }
 
@@ -355,12 +359,13 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
      * Sets the value of the atom:summary element
      * This represents a textual summary of this entry's content
      *
-     * @param Zend_Gdata_App_Extension_Summary $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Summary $value
+     * @return Zend_Gdata_App_Entry             Provides a fluent interface
      */
     public function setSummary($value)
     {
         $this->_summary = $value;
+
         return $this;
     }
 
@@ -377,12 +382,13 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     /**
      * Sets the value of the app:control element
      *
-     * @param Zend_Gdata_App_Extension_Control $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Control $value
+     * @return Zend_Gdata_App_Entry             Provides a fluent interface
      */
     public function setControl($value)
     {
         $this->_control = $value;
+
         return $this;
     }
 

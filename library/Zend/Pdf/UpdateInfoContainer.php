@@ -19,7 +19,6 @@
  * @version    $Id: UpdateInfoContainer.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Container which collects updated object info.
  *
@@ -42,7 +41,6 @@ class Zend_Pdf_UpdateInfoContainer
      * @var integer
      */
     private $_genNum;
-
 
     /**
      * Flag, which signals, that object is free
@@ -78,7 +76,6 @@ class Zend_Pdf_UpdateInfoContainer
             }
         }
     }
-
 
     /**
      * Get object number
@@ -128,4 +125,3 @@ class Zend_Pdf_UpdateInfoContainer
         return $this->_dump->getRef();
     }
 }
-

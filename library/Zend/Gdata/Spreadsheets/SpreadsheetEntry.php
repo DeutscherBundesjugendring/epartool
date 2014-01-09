@@ -58,6 +58,7 @@ class Zend_Gdata_Spreadsheets_SpreadsheetEntry extends Zend_Gdata_Entry
     public function getWorksheets()
     {
         $service = new Zend_Gdata_Spreadsheets($this->getHttpClient());
+
         return $service->getWorksheetFeed($this);
     }
 

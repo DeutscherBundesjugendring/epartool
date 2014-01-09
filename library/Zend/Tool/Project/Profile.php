@@ -52,7 +52,7 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
     /**
      * Constructor, standard usage would allow the setting of options
      *
-     * @param array $options
+     * @param  array $options
      * @return bool
      */
     public function __construct($options = null)
@@ -212,6 +212,7 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
     {
         $parser = new Zend_Tool_Project_Profile_FileParser_Xml();
         $xml = $parser->serialize($this);
+
         return $xml;
     }
 
@@ -232,6 +233,7 @@ class Zend_Tool_Project_Profile extends Zend_Tool_Project_Profile_Resource_Conta
                         . PHP_EOL;
             }
         }
+
         return $string;
     }
 }

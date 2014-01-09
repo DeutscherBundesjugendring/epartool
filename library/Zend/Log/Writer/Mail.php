@@ -119,7 +119,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
      * optional Zend_Layout instance.  If Zend_Layout is being used,
      * $this->_layout->events will be set for use in the layout template.
      *
-     * @param  Zend_Mail $mail Mail instance
+     * @param  Zend_Mail   $mail   Mail instance
      * @param  Zend_Layout $layout Layout instance; optional
      * @return void
      */
@@ -135,10 +135,10 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
     /**
      * Create a new instance of Zend_Log_Writer_Mail
      *
-     * @param  array|Zend_Config $config
+     * @param  array|Zend_Config    $config
      * @return Zend_Log_Writer_Mail
      */
-    static public function factory($config)
+    public static function factory($config)
     {
         $config = self::_parseConfig($config);
         $mail = self::_constructMailFromConfig($config);
@@ -161,7 +161,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
     /**
      * Set the layout
      *
-     * @param Zend_Layout|array $layout
+     * @param  Zend_Layout|array    $layout
      * @return Zend_Log_Writer_Mail
      * @throws Zend_Log_Exception
      */
@@ -183,7 +183,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
     /**
      * Construct a Zend_Mail instance based on a configuration array
      *
-     * @param array $config
+     * @param  array              $config
      * @return Zend_Mail
      * @throws Zend_Log_Exception
      */
@@ -217,7 +217,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
                         $address['email'],
                         $address['name']
                     );
-                } else if (is_array($address) && isset($address['email'])) {
+                } elseif (is_array($address) && isset($address['email'])) {
                     $params = array($address['email']);
                 } else {
                     $params = array($address);
@@ -232,7 +232,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
     /**
      * Construct a Zend_Layout instance based on a configuration array
      *
-     * @param array $config
+     * @param  array              $config
      * @return Zend_Layout
      * @throws Zend_Log_Exception
      */
@@ -319,6 +319,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         }
 
         $this->_layoutFormatter = $formatter;
+
         return $this;
     }
 
@@ -331,7 +332,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
      * once, this method cannot be used if the Zend_Mail object already has a
      * subject set.
      *
-     * @param  string $subject Subject prepend text.
+     * @param  string               $subject Subject prepend text.
      * @return Zend_Log_Writer_Mail
      * @throws Zend_Log_Exception
      */
@@ -344,6 +345,7 @@ class Zend_Log_Writer_Mail extends Zend_Log_Writer_Abstract
         }
 
         $this->_subjectPrependText = (string) $subject;
+
         return $this;
     }
 

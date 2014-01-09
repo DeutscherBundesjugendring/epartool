@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Begin reading an article thread' action
  *
@@ -35,4 +34,3 @@ require_once 'Zend/Pdf/Action.php';
 class Zend_Pdf_Action_Thread extends Zend_Pdf_Action
 {
 }
-

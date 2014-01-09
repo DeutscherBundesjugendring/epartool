@@ -60,7 +60,7 @@ abstract class Zend_Oauth_Token
     /**
      * Constructor; basic setup for any Token subclass.
      *
-     * @param  null|Zend_Http_Response $response
+     * @param  null|Zend_Http_Response      $response
      * @param  null|Zend_Oauth_Http_Utility $utility
      * @return void
      */
@@ -96,6 +96,7 @@ abstract class Zend_Oauth_Token
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -113,12 +114,13 @@ abstract class Zend_Oauth_Token
      * Sets the value for the this Token's secret which may be used when signing
      * requests with this Token.
      *
-     * @param  string $secret
+     * @param  string           $secret
      * @return Zend_Oauth_Token
      */
     public function setTokenSecret($secret)
     {
         $this->setParam(self::TOKEN_SECRET_PARAM_KEY, $secret);
+
         return $this;
     }
 
@@ -137,13 +139,14 @@ abstract class Zend_Oauth_Token
      * Sets the value for a parameter (e.g. token secret or other) and run
      * a simple filter to remove any trailing newlines.
      *
-     * @param  string $key
-     * @param  string $value
+     * @param  string           $key
+     * @param  string           $value
      * @return Zend_Oauth_Token
      */
     public function setParam($key, $value)
     {
         $this->_params[$key] = trim($value, "\n");
+
         return $this;
     }
 
@@ -151,7 +154,7 @@ abstract class Zend_Oauth_Token
      * Sets the value for some parameters (e.g. token secret or other) and run
      * a simple filter to remove any trailing newlines.
      *
-     * @param  array $params
+     * @param  array            $params
      * @return Zend_Oauth_Token
      */
     public function setParams(array $params)
@@ -159,6 +162,7 @@ abstract class Zend_Oauth_Token
         foreach ($params as $key=>$value) {
             $this->setParam($key, $value);
         }
+
         return $this;
     }
 
@@ -173,18 +177,20 @@ abstract class Zend_Oauth_Token
         if (isset($this->_params[$key])) {
             return $this->_params[$key];
         }
+
         return null;
     }
 
     /**
      * Sets the value for a Token.
      *
-     * @param  string $token
+     * @param  string           $token
      * @return Zend_Oauth_Token
      */
     public function setToken($token)
     {
         $this->setParam(self::TOKEN_PARAM_KEY, $token);
+
         return $this;
     }
 
@@ -262,6 +268,7 @@ abstract class Zend_Oauth_Token
             $pair = explode('=', $kvpair);
             $params[rawurldecode($pair[0])] = rawurldecode($pair[1]);
         }
+
         return $params;
     }
 

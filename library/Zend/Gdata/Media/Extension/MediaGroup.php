@@ -96,7 +96,6 @@ require_once 'Zend/Gdata/Media/Extension/MediaThumbnail.php';
  */
 require_once 'Zend/Gdata/Media/Extension/MediaTitle.php';
 
-
 /**
  * This class represents the media:group element of Media RSS.
  * It allows the grouping of media:content elements that are
@@ -195,8 +194,8 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -245,6 +244,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
             $element->appendChild(
                     $this->_title->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -338,12 +338,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array $value
+     * @param  array                       $value
      * @return Zend_Gdata_Media_MediaGroup Provides a fluent interface
      */
     public function setContent($value)
     {
         $this->_content = $value;
+
         return $this;
     }
 
@@ -356,12 +357,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array $value
+     * @param  array                                 $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setCategory($value)
     {
         $this->_category = $value;
+
         return $this;
     }
 
@@ -374,12 +376,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param Zend_Gdata_Media_Extension_MediaCopyright $value
+     * @param  Zend_Gdata_Media_Extension_MediaCopyright $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setCopyright($value)
     {
         $this->_copyright = $value;
+
         return $this;
     }
 
@@ -392,12 +395,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array $value
+     * @param  array                                 $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setCredit($value)
     {
         $this->_credit = $value;
+
         return $this;
     }
 
@@ -410,12 +414,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param Zend_Gdata_Media_Extension_MediaTitle $value
+     * @param  Zend_Gdata_Media_Extension_MediaTitle $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setTitle($value)
     {
         $this->_title = $value;
+
         return $this;
     }
 
@@ -428,12 +433,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param Zend_Gdata_Media_Extension_MediaDescription $value
+     * @param  Zend_Gdata_Media_Extension_MediaDescription $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setDescription($value)
     {
         $this->_description = $value;
+
         return $this;
     }
 
@@ -446,12 +452,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array $value
+     * @param  array                                 $value
      * @return Zend_Gdata_Media_Extension_MediaGroup
      */
     public function setHash($value)
     {
         $this->_hash = $value;
+
         return $this;
     }
 
@@ -464,12 +471,13 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     }
 
     /**
-     * @param array $value
+     * @param  array                                 $value
      * @return Zend_Gdata_Media_Extension_MediaGroup Provides a fluent interface
      */
     public function setKeywords($value)
     {
         $this->_keywords = $value;
+
         return $this;
     }
 
@@ -488,6 +496,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     public function setPlayer($value)
     {
         $this->_player = $value;
+
         return $this;
     }
 
@@ -506,6 +515,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     public function setRating($value)
     {
         $this->_rating = $value;
+
         return $this;
     }
 
@@ -524,6 +534,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     public function setRestriction($value)
     {
         $this->_restriction = $value;
+
         return $this;
     }
 
@@ -542,6 +553,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     public function setThumbnail($value)
     {
         $this->_thumbnail = $value;
+
         return $this;
     }
 
@@ -560,6 +572,7 @@ class Zend_Gdata_Media_Extension_MediaGroup extends Zend_Gdata_Extension
     public function setMediaText($value)
     {
         $this->_mediaText = $value;
+
         return $this;
     }
 

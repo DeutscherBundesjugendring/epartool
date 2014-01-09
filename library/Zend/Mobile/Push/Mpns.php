@@ -61,6 +61,7 @@ class Zend_Mobile_Push_Mpns extends Zend_Mobile_Push_Abstract
                 'strictredirects' => true,
             ));
         }
+
         return $this->_httpClient;
     }
 
@@ -72,13 +73,14 @@ class Zend_Mobile_Push_Mpns extends Zend_Mobile_Push_Abstract
     public function setHttpClient(Zend_Http_Client $client)
     {
         $this->_httpClient = $client;
+
         return $this;
     }
 
     /**
      * Send Message
      *
-     * @param Zend_Mobile_Push_Message_Mpns $message
+     * @param  Zend_Mobile_Push_Message_Mpns $message
      * @return boolean
      * @throws Zend_Mobile_Push_Exception
      */
@@ -107,9 +109,7 @@ class Zend_Mobile_Push_Mpns extends Zend_Mobile_Push_Abstract
         $response = $client->request('POST');
         $this->close();
 
-
-        switch ($response->getStatus())
-        {
+        switch ($response->getStatus()) {
             case 200:
                 // check headers for response?  need to test how this actually works to correctly handle different states.
                 if ($response->getHeader('NotificationStatus') == 'QueueFull') {
@@ -147,6 +147,7 @@ class Zend_Mobile_Push_Mpns extends Zend_Mobile_Push_Abstract
             default:
                 break;
         }
+
         return true;
     }
 }

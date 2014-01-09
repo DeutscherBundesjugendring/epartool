@@ -43,7 +43,8 @@ class Zend_Application_Resource_Mail extends Zend_Application_Resource_ResourceA
      */
     protected $_transport;
 
-    public function init() {
+    public function init()
+    {
         return $this->getMail();
     }
 
@@ -55,7 +56,7 @@ class Zend_Application_Resource_Mail extends Zend_Application_Resource_ResourceA
     {
         if (null === $this->_transport) {
             $options = $this->getOptions();
-            foreach($options as $key => $option) {
+            foreach ($options as $key => $option) {
                 $options[strtolower($key)] = $option;
             }
             $this->setOptions($options);
@@ -81,7 +82,8 @@ class Zend_Application_Resource_Mail extends Zend_Application_Resource_ResourceA
         return $this->_transport;
     }
 
-    protected function _setDefaults($type) {
+    protected function _setDefaults($type)
+    {
         $key = strtolower('default' . $type);
         $options = $this->getOptions();
 
@@ -102,19 +104,17 @@ class Zend_Application_Resource_Mail extends Zend_Application_Resource_ResourceA
 
     protected function _setupTransport($options)
     {
-        if(!isset($options['type'])) {
+        if (!isset($options['type'])) {
             $options['type'] = 'sendmail';
         }
-        
+
         $transportName = $options['type'];
-        if(!Zend_Loader_Autoloader::autoload($transportName))
-        {
+        if (!Zend_Loader_Autoloader::autoload($transportName)) {
             $transportName = ucfirst(strtolower($transportName));
 
-            if(!Zend_Loader_Autoloader::autoload($transportName))
-            {
+            if (!Zend_Loader_Autoloader::autoload($transportName)) {
                 $transportName = 'Zend_Mail_Transport_' . $transportName;
-                if(!Zend_Loader_Autoloader::autoload($transportName)) {
+                if (!Zend_Loader_Autoloader::autoload($transportName)) {
                     throw new Zend_Application_Resource_Exception(
                         "Specified Mail Transport '{$transportName}'"
                         . 'could not be found'
@@ -126,9 +126,9 @@ class Zend_Application_Resource_Mail extends Zend_Application_Resource_ResourceA
         unset($options['type']);
         unset($options['register']); //@see ZF-11022
 
-        switch($transportName) {
+        switch ($transportName) {
             case 'Zend_Mail_Transport_Smtp':
-                if(!isset($options['host'])) {
+                if (!isset($options['host'])) {
                     throw new Zend_Application_Resource_Exception(
                         'A host is necessary for smtp transport,'
                         .' but none was given');

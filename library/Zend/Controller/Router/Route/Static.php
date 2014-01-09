@@ -39,7 +39,8 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
     protected $_route = null;
     protected $_defaults = array();
 
-    public function getVersion() {
+    public function getVersion()
+    {
         return 1;
     }
 
@@ -51,14 +52,15 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
     public static function getInstance(Zend_Config $config)
     {
         $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
+
         return new self($config->route, $defs);
     }
 
     /**
      * Prepares the route for mapping.
      *
-     * @param string $route Map used to match with later submitted URL path
-     * @param array $defaults Defaults for map variables with keys as variable names
+     * @param string $route    Map used to match with later submitted URL path
+     * @param array  $defaults Defaults for map variables with keys as variable names
      */
     public function __construct($route, $defaults = array())
     {
@@ -70,7 +72,7 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
      * Matches a user submitted path with a previously defined route.
      * Assigns and returns an array of defaults on a successful match.
      *
-     * @param string $path Path used to match against this routing map
+     * @param  string      $path Path used to match against this routing map
      * @return array|false An array of assigned values or a false on a mismatch
      */
     public function match($path, $partial = false)
@@ -80,6 +82,7 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
                 || (substr($path, 0, strlen($this->_route)) === $this->_route)
             ) {
                 $this->setMatchedPath($this->_route);
+
                 return $this->_defaults;
             }
         } else {
@@ -94,7 +97,7 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
     /**
      * Assembles a URL path defined by this route
      *
-     * @param array $data An array of variable and value pairs used as parameters
+     * @param  array  $data An array of variable and value pairs used as parameters
      * @return string Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false, $encode = false, $partial = false)
@@ -105,13 +108,15 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
     /**
      * Return a single parameter of route's defaults
      *
-     * @param string $name Array key of the parameter
+     * @param  string $name Array key of the parameter
      * @return string Previously set default
      */
-    public function getDefault($name) {
+    public function getDefault($name)
+    {
         if (isset($this->_defaults[$name])) {
             return $this->_defaults[$name];
         }
+
         return null;
     }
 
@@ -120,7 +125,8 @@ class Zend_Controller_Router_Route_Static extends Zend_Controller_Router_Route_A
      *
      * @return array Route defaults
      */
-    public function getDefaults() {
+    public function getDefaults()
+    {
         return $this->_defaults;
     }
 

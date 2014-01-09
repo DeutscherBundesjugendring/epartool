@@ -51,7 +51,7 @@ class Zend_Oauth
      * Allows the external environment to make Zend_Oauth use a specific
      * Client instance.
      *
-     * @param Zend_Http_Client $httpClient
+     * @param  Zend_Http_Client $httpClient
      * @return void
      */
     public static function setHttpClient(Zend_Http_Client $httpClient)
@@ -74,6 +74,7 @@ class Zend_Oauth
             self::$httpClient->setHeaders('Authorization', null);
             self::$httpClient->resetParameters();
         }
+
         return self::$httpClient;
     }
 

@@ -42,12 +42,13 @@ class Zend_CodeGenerator_Php_Body extends Zend_CodeGenerator_Abstract
     /**
      * setContent()
      *
-     * @param string $content
+     * @param  string                      $content
      * @return Zend_CodeGenerator_Php_Body
      */
     public function setContent($content)
     {
         $this->_content = $content;
+
         return $this;
     }
 

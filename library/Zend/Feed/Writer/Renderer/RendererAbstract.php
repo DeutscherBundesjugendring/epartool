@@ -135,12 +135,13 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     /**
      * Set feed encoding
      *
-     * @param  string $enc
+     * @param  string                                     $enc
      * @return Zend_Feed_Writer_Renderer_RendererAbstract
      */
     public function setEncoding($enc)
     {
         $this->_encoding = $enc;
+
         return $this;
     }
 
@@ -157,7 +158,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     /**
      * Indicate whether or not to ignore exceptions
      *
-     * @param  bool $bool
+     * @param  bool                                       $bool
      * @return Zend_Feed_Writer_Renderer_RendererAbstract
      */
     public function ignoreExceptions($bool = true)
@@ -167,6 +168,7 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
             throw new Zend_Feed_Exception('Invalid parameter: $bool. Should be TRUE or FALSE (defaults to TRUE if null)');
         }
         $this->_ignoreExceptions = $bool;
+
         return $this;
     }
 

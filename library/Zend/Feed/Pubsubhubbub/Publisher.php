@@ -82,7 +82,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
     /**
      * Process any injected configuration options
      *
-     * @param  array|Zend_Config $options Options array or Zend_Config instance
+     * @param  array|Zend_Config                $options Options array or Zend_Config instance
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function setConfig($config)
@@ -103,13 +103,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
         if (array_key_exists('parameters', $config)) {
             $this->setParameters($config['parameters']);
         }
+
         return $this;
     }
 
     /**
      * Add a Hub Server URL supported by Publisher
      *
-     * @param  string $url
+     * @param  string                           $url
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function addHubUrl($url)
@@ -121,13 +122,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
                 .'URL');
         }
         $this->_hubUrls[] = $url;
+
         return $this;
     }
 
     /**
      * Add an array of Hub Server URLs supported by Publisher
      *
-     * @param  array $urls
+     * @param  array                            $urls
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function addHubUrls(array $urls)
@@ -135,13 +137,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
         foreach ($urls as $url) {
             $this->addHubUrl($url);
         }
+
         return $this;
     }
 
     /**
      * Remove a Hub Server URL
      *
-     * @param  string $url
+     * @param  string                           $url
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function removeHubUrl($url)
@@ -151,6 +154,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
         }
         $key = array_search($url, $this->_hubUrls);
         unset($this->_hubUrls[$key]);
+
         return $this;
     }
 
@@ -162,13 +166,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
     public function getHubUrls()
     {
         $this->_hubUrls = array_unique($this->_hubUrls);
+
         return $this->_hubUrls;
     }
 
     /**
      * Add a URL to a topic (Atom or RSS feed) which has been updated
      *
-     * @param  string $url
+     * @param  string                           $url
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function addUpdatedTopicUrl($url)
@@ -180,13 +185,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
                 .'URL');
         }
         $this->_updatedTopicUrls[] = $url;
+
         return $this;
     }
 
     /**
      * Add an array of Topic URLs which have been updated
      *
-     * @param  array $urls
+     * @param  array                            $urls
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function addUpdatedTopicUrls(array $urls)
@@ -194,13 +200,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
         foreach ($urls as $url) {
             $this->addUpdatedTopicUrl($url);
         }
+
         return $this;
     }
 
     /**
      * Remove an updated topic URL
      *
-     * @param  string $url
+     * @param  string                           $url
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function removeUpdatedTopicUrl($url)
@@ -210,6 +217,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
         }
         $key = array_search($url, $this->_updatedTopicUrls);
         unset($this->_updatedTopicUrls[$key]);
+
         return $this;
     }
 
@@ -221,13 +229,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
     public function getUpdatedTopicUrls()
     {
         $this->_updatedTopicUrls = array_unique($this->_updatedTopicUrls);
+
         return $this->_updatedTopicUrls;
     }
 
     /**
      * Notifies a single Hub Server URL of changes
      *
-     * @param  string $url The Hub Server's URL
+     * @param  string                           $url The Hub Server's URL
      * @return void
      * @throws Zend_Feed_Pubsubhubbub_Exception Thrown on failure
      */
@@ -287,14 +296,15 @@ class Zend_Feed_Pubsubhubbub_Publisher
     /**
      * Add an optional parameter to the update notification requests
      *
-     * @param  string $name
-     * @param  string|null $value
+     * @param  string                           $name
+     * @param  string|null                      $value
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function setParameter($name, $value = null)
     {
         if (is_array($name)) {
             $this->setParameters($name);
+
             return $this;
         }
         if (empty($name) || !is_string($name)) {
@@ -304,6 +314,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
         }
         if ($value === null) {
             $this->removeParameter($name);
+
             return $this;
         }
         if (empty($value) || (!is_string($value) && $value !== null)) {
@@ -312,13 +323,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
                 .' of "' . $value . '" must be a non-empty string');
         }
         $this->_parameters[$name] = $value;
+
         return $this;
     }
 
     /**
      * Add an optional parameter to the update notification requests
      *
-     * @param  array $parameters
+     * @param  array                            $parameters
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function setParameters(array $parameters)
@@ -326,13 +338,14 @@ class Zend_Feed_Pubsubhubbub_Publisher
         foreach ($parameters as $name => $value) {
             $this->setParameter($name, $value);
         }
+
         return $this;
     }
 
     /**
      * Remove an optional parameter for the notification requests
      *
-     * @param  string $name
+     * @param  string                           $name
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function removeParameter($name)
@@ -345,6 +358,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
         if (array_key_exists($name, $this->_parameters)) {
             unset($this->_parameters[$name]);
         }
+
         return $this;
     }
 
@@ -369,6 +383,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
         if (count($this->_errors) > 0) {
             return false;
         }
+
         return true;
     }
 
@@ -413,6 +428,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
         }
         $paramString = implode('&', $params);
         $client->setRawData($paramString, 'application/x-www-form-urlencoded');
+
         return $client;
     }
 }

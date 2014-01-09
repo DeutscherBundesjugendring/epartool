@@ -86,6 +86,7 @@ class Zend_Tool_Project_Context_Zf_DbTableFile extends Zend_Tool_Project_Context
                     ))
                 )
             ));
+
         return $codeGenFile->generate();
     }
 

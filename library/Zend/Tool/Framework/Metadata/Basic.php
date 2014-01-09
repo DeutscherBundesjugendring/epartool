@@ -76,7 +76,7 @@ class Zend_Tool_Framework_Metadata_Basic
      * setOptions() - standard issue implementation, this will set any
      * options that are supported via a set method.
      *
-     * @param array $options
+     * @param  array                              $options
      * @return Zend_Tool_Framework_Metadata_Basic
      */
     public function setOptions(Array $options)
@@ -104,12 +104,13 @@ class Zend_Tool_Framework_Metadata_Basic
     /**
      * setType()
      *
-     * @param string $type
+     * @param  string                             $type
      * @return Zend_Tool_Framework_Metadata_Basic
      */
     public function setType($type)
     {
         $this->_type = $type;
+
         return $this;
     }
 
@@ -126,12 +127,13 @@ class Zend_Tool_Framework_Metadata_Basic
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string                             $name
      * @return Zend_Tool_Framework_Metadata_Basic
      */
     public function setName($name)
     {
         $this->_name = $name;
+
         return $this;
     }
 
@@ -148,24 +150,26 @@ class Zend_Tool_Framework_Metadata_Basic
     /**
      * setValue()
      *
-     * @param unknown_type $Value
+     * @param  unknown_type                       $Value
      * @return Zend_Tool_Framework_Metadata_Basic
      */
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 
     /**
      * setReference()
      *
-     * @param mixed $reference
+     * @param  mixed                              $reference
      * @return Zend_Tool_Framework_Metadata_Basic
      */
     public function setReference($reference)
     {
         $this->_reference = $reference;
+
         return $this;
     }
 
@@ -183,7 +187,7 @@ class Zend_Tool_Framework_Metadata_Basic
      * getAttributes() - this will retrieve any attributes of this object that exist as properties
      * This is most useful for printing metadata.
      *
-     * @param const $type
+     * @param  const $type
      * @return array
      */
     public function getAttributes($type = self::ATTRIBUTES_ALL, $stringRepresentationOfNonScalars = false)
@@ -200,7 +204,7 @@ class Zend_Tool_Framework_Metadata_Basic
             if ($stringRepresentationOfNonScalars) {
 
                 if (is_object($varValue)) {
-                    $varValue = '(object)';
+                    $varValue = '(object) ';
                 }
 
                 if ($varValue === null) {

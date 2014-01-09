@@ -84,22 +84,24 @@ class Zend_Gdata_Analytics_Extension_Property extends Zend_Gdata_Extension
     /**
      * Set the value for this element's value attribute.
      *
-     * @param string $value The desired value for this attribute.
+     * @param  string                                  $value The desired value for this attribute.
      * @return Zend_Gdata_Analytics_Extension_Property The element being modified.
      */
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 
     /**
-     * @param string $name
+     * @param  string                                  $name
      * @return Zend_Gdata_Analytics_Extension_Property
      */
     public function setName($name)
     {
         $this->_name = $name;
+
         return $this;
     }
 

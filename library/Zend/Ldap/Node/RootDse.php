@@ -44,7 +44,7 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
     /**
      * Factory method to create the RootDSE.
      *
-     * @param  Zend_Ldap $ldap
+     * @param  Zend_Ldap              $ldap
      * @return Zend_Ldap_Node_RootDse
      * @throws Zend_Ldap_Exception
      */
@@ -57,19 +57,22 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
              * @see Zend_Ldap_Node_RootDse_ActiveDirectory
              */
             require_once 'Zend/Ldap/Node/RootDse/ActiveDirectory.php';
+
             return new Zend_Ldap_Node_RootDse_ActiveDirectory($dn, $data);
-        } else if (isset($data['dsaname'])) {
+        } elseif (isset($data['dsaname'])) {
             /**
              * @see Zend_Ldap_Node_RootDse_ActiveDirectory
              */
             require_once 'Zend/Ldap/Node/RootDse/eDirectory.php';
+
             return new Zend_Ldap_Node_RootDse_eDirectory($dn, $data);
-        } else if (isset($data['structuralobjectclass']) &&
+        } elseif (isset($data['structuralobjectclass']) &&
                 $data['structuralobjectclass'][0] === 'OpenLDAProotDSE') {
             /**
              * @see Zend_Ldap_Node_RootDse_OpenLdap
              */
             require_once 'Zend/Ldap/Node/RootDse/OpenLdap.php';
+
             return new Zend_Ldap_Node_RootDse_OpenLdap($dn, $data);
         } else {
             return new self($dn, $data);
@@ -81,8 +84,8 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
      *
      * Constructor is protected to enforce the use of factory methods.
      *
-     * @param  Zend_Ldap_Dn $dn
-     * @param  array        $data
+     * @param Zend_Ldap_Dn $dn
+     * @param array        $data
      */
     protected function __construct(Zend_Ldap_Dn $dn, array $data)
     {
@@ -153,6 +156,7 @@ class Zend_Ldap_Node_RootDse extends Zend_Ldap_Node_Abstract
          * @see Zend_Ldap_Dn
          */
         require_once 'Zend/Ldap/Dn.php';
+
         return Zend_Ldap_Dn::fromString($schemaDn);
     }
 }

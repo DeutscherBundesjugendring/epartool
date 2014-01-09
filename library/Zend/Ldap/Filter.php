@@ -47,8 +47,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates an 'equals' filter.
      * (attr=value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function equals($attr, $value)
@@ -60,8 +60,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates a 'begins with' filter.
      * (attr=value*)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function begins($attr, $value)
@@ -73,8 +73,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates an 'ends with' filter.
      * (attr=*value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function ends($attr, $value)
@@ -86,8 +86,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates a 'contains' filter.
      * (attr=*value*)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function contains($attr, $value)
@@ -99,8 +99,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates a 'greater' filter.
      * (attr>value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function greater($attr, $value)
@@ -112,8 +112,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates a 'greater or equal' filter.
      * (attr>=value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function greaterOrEqual($attr, $value)
@@ -125,8 +125,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates a 'less' filter.
      * (attr<value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function less($attr, $value)
@@ -138,8 +138,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates an 'less or equal' filter.
      * (attr<=value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function lessOrEqual($attr, $value)
@@ -151,8 +151,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates an 'approx' filter.
      * (attr~=value)
      *
-     * @param  string $attr
-     * @param  string $value
+     * @param  string           $attr
+     * @param  string           $value
      * @return Zend_Ldap_Filter
      */
     public static function approx($attr, $value)
@@ -164,7 +164,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
      * Creates an 'any' filter.
      * (attr=*)
      *
-     * @param  string $attr
+     * @param  string           $attr
      * @return Zend_Ldap_Filter
      */
     public static function any($attr)
@@ -175,7 +175,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
     /**
      * Creates a simple custom string filter.
      *
-     * @param  string $filter
+     * @param  string                  $filter
      * @return Zend_Ldap_Filter_String
      */
     public static function string($filter)
@@ -186,8 +186,8 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
     /**
      * Creates a simple string filter to be used with a mask.
      *
-     * @param string $mask
-     * @param string $value
+     * @param  string                $mask
+     * @param  string                $value
      * @return Zend_Ldap_Filter_Mask
      */
     public static function mask($mask, $value)
@@ -196,6 +196,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
          * Zend_Ldap_Filter_Mask
          */
         require_once 'Zend/Ldap/Filter/Mask.php';
+
         return new Zend_Ldap_Filter_Mask($mask, $value);
     }
 
@@ -211,6 +212,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
          * Zend_Ldap_Filter_And
          */
         require_once 'Zend/Ldap/Filter/And.php';
+
         return new Zend_Ldap_Filter_And(func_get_args());
     }
 
@@ -226,6 +228,7 @@ class Zend_Ldap_Filter extends Zend_Ldap_Filter_String
          * Zend_Ldap_Filter_Or
          */
         require_once 'Zend/Ldap/Filter/Or.php';
+
         return new Zend_Ldap_Filter_Or(func_get_args());
     }
 

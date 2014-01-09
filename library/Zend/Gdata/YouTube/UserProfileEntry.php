@@ -299,8 +299,8 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -368,6 +368,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
                 $element->appendChild($feedLink->getDOM($element->ownerDocument));
             }
         }
+
         return $element;
     }
 
@@ -505,6 +506,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
                 'API.');
         } else {
             $this->_aboutMe = $aboutMe;
+
             return $this;
         }
     }
@@ -513,7 +515,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * Returns the contents of the 'about me' field.
      *
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_Extension_AboutMe  The 'about me' information
+     * @return Zend_Gdata_YouTube_Extension_AboutMe The 'about me' information
      */
     public function getAboutMe()
     {
@@ -531,9 +533,9 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the content of the 'first name' field.
      *
-     * @param Zend_Gdata_YouTube_Extension_FirstName $firstName The first name
+     * @param  Zend_Gdata_YouTube_Extension_FirstName $firstName The first name
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @return Zend_Gdata_YouTube_UserProfileEntry    Provides a fluent interface
      */
     public function setFirstName($firstName = null)
     {
@@ -545,6 +547,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
                 'API.');
         } else {
             $this->_firstName = $firstName;
+
             return $this;
         }
     }
@@ -553,7 +556,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * Returns the first name
      *
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_Extension_FirstName  The first name
+     * @return Zend_Gdata_YouTube_Extension_FirstName The first name
      */
     public function getFirstName()
     {
@@ -571,9 +574,9 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the content of the 'last name' field.
      *
-     * @param Zend_Gdata_YouTube_Extension_LastName $lastName The last name
+     * @param  Zend_Gdata_YouTube_Extension_LastName $lastName The last name
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @return Zend_Gdata_YouTube_UserProfileEntry   Provides a fluent interface
      */
     public function setLastName($lastName = null)
     {
@@ -585,6 +588,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
                 'API.');
         } else {
             $this->_lastName = $lastName;
+
             return $this;
         }
     }
@@ -593,7 +597,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * Returns the last name
      *
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_Extension_LastName  The last name
+     * @return Zend_Gdata_YouTube_Extension_LastName The last name
      */
     public function getLastName()
     {
@@ -612,7 +616,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * Returns the statistics
      *
      * @throws Zend_Gdata_App_VersionException
-     * @return Zend_Gdata_YouTube_Extension_Statistics  The profile statistics
+     * @return Zend_Gdata_YouTube_Extension_Statistics The profile statistics
      */
     public function getStatistics()
     {
@@ -649,19 +653,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the age
      *
-     * @param Zend_Gdata_YouTube_Extension_Age $age The age
+     * @param  Zend_Gdata_YouTube_Extension_Age    $age The age
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setAge($age = null)
     {
         $this->_age = $age;
+
         return $this;
     }
 
     /**
      * Returns the age
      *
-     * @return Zend_Gdata_YouTube_Extension_Age  The age
+     * @return Zend_Gdata_YouTube_Extension_Age The age
      */
     public function getAge()
     {
@@ -671,19 +676,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the username
      *
-     * @param Zend_Gdata_YouTube_Extension_Username $username The username
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Username $username The username
+     * @return Zend_Gdata_YouTube_UserProfileEntry   Provides a fluent interface
      */
     public function setUsername($username = null)
     {
         $this->_username = $username;
+
         return $this;
     }
 
     /**
      * Returns the username
      *
-     * @return Zend_Gdata_YouTube_Extension_Username  The username
+     * @return Zend_Gdata_YouTube_Extension_Username The username
      */
     public function getUsername()
     {
@@ -693,19 +699,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the books
      *
-     * @param Zend_Gdata_YouTube_Extension_Books $books The books
+     * @param  Zend_Gdata_YouTube_Extension_Books  $books The books
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setBooks($books = null)
     {
         $this->_books = $books;
+
         return $this;
     }
 
     /**
      * Returns the books
      *
-     * @return Zend_Gdata_YouTube_Extension_Books  The books
+     * @return Zend_Gdata_YouTube_Extension_Books The books
      */
     public function getBooks()
     {
@@ -715,19 +722,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the company
      *
-     * @param Zend_Gdata_YouTube_Extension_Company $company The company
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Company $company The company
+     * @return Zend_Gdata_YouTube_UserProfileEntry  Provides a fluent interface
      */
     public function setCompany($company = null)
     {
         $this->_company = $company;
+
         return $this;
     }
 
     /**
      * Returns the company
      *
-     * @return Zend_Gdata_YouTube_Extension_Company  The company
+     * @return Zend_Gdata_YouTube_Extension_Company The company
      */
     public function getCompany()
     {
@@ -737,19 +745,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the hobbies
      *
-     * @param Zend_Gdata_YouTube_Extension_Hobbies $hobbies The hobbies
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Hobbies $hobbies The hobbies
+     * @return Zend_Gdata_YouTube_UserProfileEntry  Provides a fluent interface
      */
     public function setHobbies($hobbies = null)
     {
         $this->_hobbies = $hobbies;
+
         return $this;
     }
 
     /**
      * Returns the hobbies
      *
-     * @return Zend_Gdata_YouTube_Extension_Hobbies  The hobbies
+     * @return Zend_Gdata_YouTube_Extension_Hobbies The hobbies
      */
     public function getHobbies()
     {
@@ -759,19 +768,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the hometown
      *
-     * @param Zend_Gdata_YouTube_Extension_Hometown $hometown The hometown
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Hometown $hometown The hometown
+     * @return Zend_Gdata_YouTube_UserProfileEntry   Provides a fluent interface
      */
     public function setHometown($hometown = null)
     {
         $this->_hometown = $hometown;
+
         return $this;
     }
 
     /**
      * Returns the hometown
      *
-     * @return Zend_Gdata_YouTube_Extension_Hometown  The hometown
+     * @return Zend_Gdata_YouTube_Extension_Hometown The hometown
      */
     public function getHometown()
     {
@@ -781,19 +791,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the location
      *
-     * @param Zend_Gdata_YouTube_Extension_Location $location The location
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Location $location The location
+     * @return Zend_Gdata_YouTube_UserProfileEntry   Provides a fluent interface
      */
     public function setLocation($location = null)
     {
         $this->_location = $location;
+
         return $this;
     }
 
     /**
      * Returns the location
      *
-     * @return Zend_Gdata_YouTube_Extension_Location  The location
+     * @return Zend_Gdata_YouTube_Extension_Location The location
      */
     public function getLocation()
     {
@@ -803,19 +814,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the movies
      *
-     * @param Zend_Gdata_YouTube_Extension_Movies $movies The movies
+     * @param  Zend_Gdata_YouTube_Extension_Movies $movies The movies
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setMovies($movies = null)
     {
         $this->_movies = $movies;
+
         return $this;
     }
 
     /**
      * Returns the movies
      *
-     * @return Zend_Gdata_YouTube_Extension_Movies  The movies
+     * @return Zend_Gdata_YouTube_Extension_Movies The movies
      */
     public function getMovies()
     {
@@ -825,19 +837,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the music
      *
-     * @param Zend_Gdata_YouTube_Extension_Music $music The music
+     * @param  Zend_Gdata_YouTube_Extension_Music  $music The music
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setMusic($music = null)
     {
         $this->_music = $music;
+
         return $this;
     }
 
     /**
      * Returns the music
      *
-     * @return Zend_Gdata_YouTube_Extension_Music  The music
+     * @return Zend_Gdata_YouTube_Extension_Music The music
      */
     public function getMusic()
     {
@@ -847,19 +860,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the occupation
      *
-     * @param Zend_Gdata_YouTube_Extension_Occupation $occupation The occupation
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Occupation $occupation The occupation
+     * @return Zend_Gdata_YouTube_UserProfileEntry     Provides a fluent interface
      */
     public function setOccupation($occupation = null)
     {
         $this->_occupation = $occupation;
+
         return $this;
     }
 
     /**
      * Returns the occupation
      *
-     * @return Zend_Gdata_YouTube_Extension_Occupation  The occupation
+     * @return Zend_Gdata_YouTube_Extension_Occupation The occupation
      */
     public function getOccupation()
     {
@@ -869,19 +883,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the school
      *
-     * @param Zend_Gdata_YouTube_Extension_School $school The school
+     * @param  Zend_Gdata_YouTube_Extension_School $school The school
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setSchool($school = null)
     {
         $this->_school = $school;
+
         return $this;
     }
 
     /**
      * Returns the school
      *
-     * @return Zend_Gdata_YouTube_Extension_School  The school
+     * @return Zend_Gdata_YouTube_Extension_School The school
      */
     public function getSchool()
     {
@@ -891,19 +906,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the gender
      *
-     * @param Zend_Gdata_YouTube_Extension_Gender $gender The gender
+     * @param  Zend_Gdata_YouTube_Extension_Gender $gender The gender
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setGender($gender = null)
     {
         $this->_gender = $gender;
+
         return $this;
     }
 
     /**
      * Returns the gender
      *
-     * @return Zend_Gdata_YouTube_Extension_Gender  The gender
+     * @return Zend_Gdata_YouTube_Extension_Gender The gender
      */
     public function getGender()
     {
@@ -913,19 +929,20 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the relationship
      *
-     * @param Zend_Gdata_YouTube_Extension_Relationship $relationship The relationship
-     * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
+     * @param  Zend_Gdata_YouTube_Extension_Relationship $relationship The relationship
+     * @return Zend_Gdata_YouTube_UserProfileEntry       Provides a fluent interface
      */
     public function setRelationship($relationship = null)
     {
         $this->_relationship = $relationship;
+
         return $this;
     }
 
     /**
      * Returns the relationship
      *
-     * @return Zend_Gdata_YouTube_Extension_Relationship  The relationship
+     * @return Zend_Gdata_YouTube_Extension_Relationship The relationship
      */
     public function getRelationship()
     {
@@ -935,12 +952,13 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Sets the array of embedded feeds related to the video
      *
-     * @param array $feedLink The array of embedded feeds relating to the video
+     * @param  array                               $feedLink The array of embedded feeds relating to the video
      * @return Zend_Gdata_YouTube_UserProfileEntry Provides a fluent interface
      */
     public function setFeedLink($feedLink = null)
     {
         $this->_feedLink = $feedLink;
+
         return $this;
     }
 
@@ -967,6 +985,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
                     return $feedLink;
                 }
             }
+
             return null;
         }
     }
@@ -974,8 +993,8 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * Returns the URL in the gd:feedLink with the provided rel value
      *
-     * @param string $rel The rel value to find
-     * @return mixed Either the URL as a string or null if a feedLink wasn't
+     * @param  string $rel The rel value to find
+     * @return mixed  Either the URL as a string or null if a feedLink wasn't
      *     found with the provided rel value
      */
     public function getFeedLinkHref($rel)

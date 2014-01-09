@@ -54,12 +54,13 @@ class Zend_Filter_File_Decrypt extends Zend_Filter_Decrypt
     /**
      * Sets the new filename where the content will be stored
      *
-     * @param  string $filename (Optional) New filename to set
+     * @param  string                  $filename (Optional) New filename to set
      * @return Zend_Filter_File_Encryt
      */
     public function setFilename($filename = null)
     {
         $this->_filename = $filename;
+
         return $this;
     }
 

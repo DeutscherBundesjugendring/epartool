@@ -62,10 +62,10 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     /**
      * constructor for participant object
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $number
-     * @param string $email
+     * @param string  $firstName
+     * @param string  $lastName
+     * @param string  $number
+     * @param string  $email
      * @param integer $isInitiator
      */
     public function __construct($firstName, $lastName, $number, $email, $isInitiator = false)
@@ -90,12 +90,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     /**
      * sets $firstName
      *
-     * @param string $firstName
+     * @param  string                                                        $firstName
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
         return $this;
     }
 
@@ -112,12 +113,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     /**
      * sets $lastName
      *
-     * @param string $lastName
+     * @param  string                                                        $lastName
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
         return $this;
     }
 
@@ -134,12 +136,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     /**
      * sets $number
      *
-     * @param string $number
+     * @param  string                                                        $number
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
      */
     public function setNumber($number)
     {
         $this->number = $number;
+
         return $this;
     }
 
@@ -168,6 +171,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
             throw new Zend_Service_DeveloperGarden_Exception('Not a valid e-mail address.');
         }
         $this->email = $email;
+
         return $this;
     }
 
@@ -184,12 +188,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     /**
      * sets $flags (ie, initiator flag)
      *
-     * @param integer $flags
+     * @param  integer                                                       $flags
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
      */
     public function setFlags($flags)
     {
         $this->flags = $flags;
+
         return $this;
     }
 }

@@ -132,14 +132,14 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * 'mx'       => If MX check should be enabled, boolean
      * 'deep'     => If a deep MX check should be done, boolean
      *
-     * @param array|Zend_Config $options OPTIONAL
+     * @param  array|Zend_Config $options OPTIONAL
      * @return void
      */
     public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if (!is_array($options)) {
+        } elseif (!is_array($options)) {
             $options = func_get_args();
             $temp['allow'] = array_shift($options);
             if (!empty($options)) {
@@ -170,7 +170,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Set options for the email validator
      *
-     * @param array $options
+     * @param  array                      $options
      * @return Zend_Validate_EmailAddress fluid interface
      */
     public function setOptions(array $options = array())
@@ -208,9 +208,9 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * Sets the validation failure message template for a particular key
      * Adds the ability to set messages to the attached hostname validator
      *
-     * @param  string $messageString
-     * @param  string $messageKey     OPTIONAL
-     * @return Zend_Validate_Abstract Provides a fluent interface
+     * @param  string                  $messageString
+     * @param  string                  $messageKey    OPTIONAL
+     * @return Zend_Validate_Abstract  Provides a fluent interface
      * @throws Zend_Validate_Exception
      */
     public function setMessage($messageString, $messageKey = null)
@@ -218,6 +218,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         if ($messageKey === null) {
             $this->_options['hostname']->setMessage($messageString);
             parent::setMessage($messageString);
+
             return $this;
         }
 
@@ -226,6 +227,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         }
 
         $this->_messageTemplates[$messageKey] = $messageString;
+
         return $this;
     }
 
@@ -240,8 +242,8 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     }
 
     /**
-     * @param Zend_Validate_Hostname $hostnameValidator OPTIONAL
-     * @param int                    $allow             OPTIONAL
+     * @param  Zend_Validate_Hostname $hostnameValidator OPTIONAL
+     * @param  int                    $allow             OPTIONAL
      * @return void
      */
     public function setHostnameValidator(Zend_Validate_Hostname $hostnameValidator = null, $allow = Zend_Validate_Hostname::ALLOW_DNS)
@@ -252,6 +254,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
 
         $this->_options['hostname'] = $hostnameValidator;
         $this->_options['allow']    = $allow;
+
         return $this;
     }
 
@@ -282,7 +285,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      *
      * This only applies when DNS hostnames are validated
      *
-     * @param boolean $mx Set allowed to true to validate for MX records, and false to not validate them
+     * @param  boolean                    $mx Set allowed to true to validate for MX records, and false to not validate them
      * @return Zend_Validate_EmailAddress Fluid Interface
      */
     public function setValidateMx($mx)
@@ -293,6 +296,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         }
 
         $this->_options['mx'] = (bool) $mx;
+
         return $this;
     }
 
@@ -309,12 +313,13 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Set whether we check MX record should be a deep validation
      *
-     * @param boolean $deep Set deep to true to perform a deep validation process for MX records
+     * @param  boolean                    $deep Set deep to true to perform a deep validation process for MX records
      * @return Zend_Validate_EmailAddress Fluid Interface
      */
     public function setDeepMxCheck($deep)
     {
         $this->_options['deep'] = (bool) $deep;
+
         return $this;
     }
 
@@ -332,31 +337,33 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * Sets if the domain should also be checked
      * or only the local part of the email address
      *
-     * @param boolean $domain
+     * @param  boolean                    $domain
      * @return Zend_Validate_EmailAddress Fluid Interface
      */
     public function setDomainCheck($domain = true)
     {
         $this->_options['domain'] = (boolean) $domain;
+
         return $this;
     }
 
     /**
      * Returns if the given host is reserved
      *
-     * @param string $host
+     * @param  string  $host
      * @return boolean
      */
-    private function _isReserved($host){
+    private function _isReserved($host)
+    {
         if (!preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $host)) {
             $host = gethostbyname($host);
         }
 
         $octet = explode('.',$host);
-        if ((int)$octet[0] >= 224) {
+        if ((int) $octet[0] >= 224) {
             return true;
-        } else if (array_key_exists($octet[0], $this->_invalidIp)) {
-            foreach ((array)$this->_invalidIp[$octet[0]] as $subnetData) {
+        } elseif (array_key_exists($octet[0], $this->_invalidIp)) {
+            foreach ((array) $this->_invalidIp[$octet[0]] as $subnetData) {
                 // we skip the first loop as we already know that octet matches
                 for ($i = 1; $i < 4; $i++) {
                     if (strpos($subnetData, $octet[$i]) !== $i * 4) {
@@ -372,13 +379,13 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
                 }
 
                 $segmentData = array(
-                    'network'   => (int)$this->_toIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 0)),
-                    'broadcast' => (int)$this->_toIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 1))
+                    'network'   => (int) $this->_toIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 0)),
+                    'broadcast' => (int) $this->_toIp(str_pad(substr($binaryHost, 0, $host[1]), 32, 1))
                 );
 
                 for ($j = $i; $j < 4; $j++) {
-                    if ((int)$octet[$j] < $segmentData['network'][$j] ||
-                        (int)$octet[$j] > $segmentData['broadcast'][$j]) {
+                    if ((int) $octet[$j] < $segmentData['network'][$j] ||
+                        (int) $octet[$j] > $segmentData['broadcast'][$j]) {
                         return false;
                     }
                 }
@@ -393,7 +400,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Converts a binary string to an IP address
      *
-     * @param string $binary
+     * @param  string $binary
      * @return mixed
      */
     private function _toIp($binary)
@@ -455,7 +462,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         $result = getmxrr($this->_hostname, $mxHosts);
         if (!$result) {
             $this->_error(self::INVALID_MX_RECORD);
-        } else if ($this->_options['deep'] && function_exists('checkdnsrr')) {
+        } elseif ($this->_options['deep'] && function_exists('checkdnsrr')) {
             $validAddress = false;
             $reserved     = true;
             foreach ($mxHosts as $hostname) {
@@ -506,7 +513,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
             foreach ($this->_options['hostname']->getErrors() as $error) {
                 $this->_errors[] = $error;
             }
-        } else if ($this->_options['mx']) {
+        } elseif ($this->_options['mx']) {
             // MX check on hostname
             $hostname = $this->_validateMXRecords();
         }
@@ -522,13 +529,14 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      *
      * @link   http://www.ietf.org/rfc/rfc2822.txt RFC2822
      * @link   http://www.columbia.edu/kermit/ascii.html US-ASCII characters
-     * @param  string $value
+     * @param  string  $value
      * @return boolean
      */
     public function isValid($value)
     {
         if (!is_string($value)) {
             $this->_error(self::INVALID);
+
             return false;
         }
 
@@ -540,6 +548,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         if ((strpos($value, '..') !== false) or
             (!preg_match('/^(.+)@([^@]+)$/', $value, $matches))) {
             $this->_error(self::INVALID_FORMAT);
+
             return false;
         }
 

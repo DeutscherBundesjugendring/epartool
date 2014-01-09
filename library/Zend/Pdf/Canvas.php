@@ -88,8 +88,8 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
      * Allowed types: 'ExtGState', 'ColorSpace', 'Pattern', 'Shading',
      * 'XObject', 'Font', 'Properties'
      *
-     * @param string $type
-     * @param Zend_Pdf_Resource $resource
+     * @param  string            $type
+     * @param  Zend_Pdf_Resource $resource
      * @return string
      */
     protected function _attachResource($type, Zend_Pdf_Resource $resource)
@@ -144,6 +144,7 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
     public function getResources()
     {
         $this->_resources['ProcSet'] = array_keys($this->_procSet);
+
         return $this->_resources;
     }
 

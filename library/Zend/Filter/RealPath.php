@@ -62,7 +62,7 @@ class Zend_Filter_RealPath implements Zend_Filter_Interface
      * TRUE when the path must exist
      * FALSE when not existing paths can be given
      *
-     * @param boolean|Zend_Config $exists Path must exist
+     * @param  boolean|Zend_Config  $exists Path must exist
      * @return Zend_Filter_RealPath
      */
     public function setExists($exists)
@@ -78,6 +78,7 @@ class Zend_Filter_RealPath implements Zend_Filter_Interface
         }
 
         $this->_exists = (boolean) $exists;
+
         return $this;
     }
 

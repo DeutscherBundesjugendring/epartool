@@ -104,7 +104,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     /**
      * Set Background Image
      *
-     * @param string $bgImg
+     * @param  string                             $bgImg
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -114,6 +114,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$bgImg must be a string');
         }
         $this->_backgroundImage = $bgImg;
+
         return $this;
     }
 
@@ -130,7 +131,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     /**
      * Set Count
      *
-     * @param int $count
+     * @param  int                                $count
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -140,6 +141,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$count is not numeric');
         }
         $this->_count = (int) $count;
+
         return $this;
     }
 
@@ -156,7 +158,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     /**
      * Set Title
      *
-     * @param string $title
+     * @param  string                             $title
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -166,6 +168,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$title must be a string');
         }
         $this->_title = $title;
+
         return $this;
     }
 
@@ -182,7 +185,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     /**
      * Set Back Background Image
      *
-     * @param string $bgImg
+     * @param  string                             $bgImg
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -192,6 +195,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$bgImg must be a string');
         }
         $this->_backBackgroundImage = $bgImg;
+
         return $this;
     }
 
@@ -208,7 +212,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     /**
      * Set Back Title
      *
-     * @param string $title
+     * @param  string                             $title
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -218,6 +222,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$title must be a string');
         }
         $this->_backTitle = $title;
+
         return $this;
     }
 
@@ -233,8 +238,8 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
 
     /**
      * Set Back Content
-     * 
-     * @param string $content
+     *
+     * @param  string                             $content
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -259,7 +264,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     /**
      * Set Tile Id
      *
-     * @param string $tileId
+     * @param  string                             $tileId
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -269,6 +274,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$tileId is not a string');
         }
         $this->_tileId = $tileId;
+
         return $this;
     }
 
@@ -282,13 +288,14 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
         if (!$this->_delay) {
             return self::DELAY_IMMEDIATE;
         }
+
         return $this->_delay;
     }
 
     /**
      * Set Delay
      *
-     * @param int $delay
+     * @param  int                                $delay
      * @return Zend_Mobile_Push_Message_Mpns_Tile
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -302,6 +309,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$delay must be one of the DELAY_* constants');
         }
         $this->_delay = $delay;
+
         return $this;
     }
 
@@ -341,6 +349,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
 
         $ret .= '</wp:Tile>'
             . '</wp:Notification>';
+
         return $ret;
     }
 
@@ -360,6 +369,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
         if (empty($this->_title)) {
             return false;
         }
+
         return parent::validate();
     }
 }

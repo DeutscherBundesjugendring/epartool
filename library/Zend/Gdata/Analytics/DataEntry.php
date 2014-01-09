@@ -51,7 +51,7 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
     }
 
     /**
-     * @param DOMElement $child
+     * @param  DOMElement $child
      * @return void
      */
     protected function takeChildFromDOM($child)
@@ -75,7 +75,7 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
     }
 
     /**
-     * @param string $name 
+     * @param  string $name
      * @return mixed
      */
     public function getDimension($name)
@@ -85,11 +85,12 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
                 return $dimension;
             }
         }
+
         return null;
     }
-    
-    /** 
-     * @param string $name 
+
+    /**
+     * @param  string $name
      * @return mixed
      */
     public function getMetric($name)
@@ -99,11 +100,12 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
                 return $metric;
             }
         }
+
         return null;
     }
-    
+
     /**
-     * @param string $name 
+     * @param  string $name
      * @return mixed
      */
     public function getValue($name)
@@ -111,6 +113,7 @@ class Zend_Gdata_Analytics_DataEntry extends Zend_Gdata_Entry
         if (null !== ($metric = $this->getMetric($name))) {
             return $metric;
         }
+
         return $this->getDimension($name);
     }
 }

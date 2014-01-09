@@ -64,12 +64,13 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
     /**
      * Set HTML tag with which to surround description
      *
-     * @param  string $tag
+     * @param  string                          $tag
      * @return Zend_Form_Decorator_Description
      */
     public function setTag($tag)
     {
         $this->_tag = (string) $tag;
+
         return $this;
     }
 
@@ -89,6 +90,7 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
             }
 
             $this->setTag($tag);
+
             return $tag;
         }
 
@@ -116,12 +118,13 @@ class Zend_Form_Decorator_Description extends Zend_Form_Decorator_Abstract
     /**
      * Set whether or not to escape description
      *
-     * @param  bool $flag
+     * @param  bool                            $flag
      * @return Zend_Form_Decorator_Description
      */
     public function setEscape($flag)
     {
         $this->_escape = (bool) $flag;
+
         return $this;
     }
 

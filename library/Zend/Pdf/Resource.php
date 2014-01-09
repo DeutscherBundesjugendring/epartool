@@ -19,7 +19,6 @@
  * @version    $Id: Resource.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * PDF file Resource abstraction
  *
@@ -116,8 +115,8 @@ abstract class Zend_Pdf_Resource
      * so it can be used within other docs.
      *
      * @internal
-     * @param Zend_Pdf_ElementFactory_Interface $factory
-     * @param array $processed
+     * @param  Zend_Pdf_ElementFactory_Interface $factory
+     * @param  array                             $processed
      * @return Zend_Pdf_Page
      */
     public function cloneResource($factory, &$processed)

@@ -50,6 +50,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
         $params   = $this->assembleParams();
         $response = $this->startRequestCycle($params);
         $return   = new Zend_Oauth_Token_Access($response);
+
         return $return;
     }
 
@@ -89,7 +90,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
      * Generate and return a HTTP Client configured for the Header Request Scheme
      * specified by OAuth, for use in requesting an Access Token.
      *
-     * @param  array $params
+     * @param  array            $params
      * @return Zend_Http_Client
      */
     public function getRequestSchemeHeaderClient(array $params)
@@ -109,7 +110,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
      * Generate and return a HTTP Client configured for the POST Body Request
      * Scheme specified by OAuth, for use in requesting an Access Token.
      *
-     * @param  array $params
+     * @param  array            $params
      * @return Zend_Http_Client
      */
     public function getRequestSchemePostBodyClient(array $params)
@@ -125,6 +126,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
             Zend_Http_Client::CONTENT_TYPE,
             Zend_Http_Client::ENC_URLENCODED
         );
+
         return $client;
     }
 
@@ -132,13 +134,14 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
      * Generate and return a HTTP Client configured for the Query String Request
      * Scheme specified by OAuth, for use in requesting an Access Token.
      *
-     * @param  array $params
-     * @param  string $url
+     * @param  array            $params
+     * @param  string           $url
      * @return Zend_Http_Client
      */
     public function getRequestSchemeQueryStringClient(array $params, $url)
     {
         $params = $this->_cleanParamsOfIllegalCustomParameters($params);
+
         return parent::getRequestSchemeQueryStringClient($params, $url);
     }
 
@@ -146,7 +149,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
      * Attempt a request based on the current configured OAuth Request Scheme and
      * return the resulting HTTP Response.
      *
-     * @param  array $params
+     * @param  array              $params
      * @return Zend_Http_Response
      */
     protected function _attemptRequest(array $params)
@@ -163,6 +166,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
                     $this->_consumer->getAccessTokenUrl());
                 break;
         }
+
         return $httpClient->request();
     }
 
@@ -184,6 +188,7 @@ class Zend_Oauth_Http_AccessToken extends Zend_Oauth_Http
                 unset($params[$key]);
             }
         }
+
         return $params;
     }
 }

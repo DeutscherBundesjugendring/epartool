@@ -25,7 +25,7 @@ require_once 'Zend/Form/Decorator/Abstract.php';
 /**
  * ReCaptcha-based captcha decorator
  *
- * Adds hidden fields for challenge and response input, and JS for populating 
+ * Adds hidden fields for challenge and response input, and JS for populating
  * from known recaptcha IDs
  *
  * @category   Zend
@@ -77,42 +77,44 @@ class Zend_Form_Decorator_Captcha_ReCaptcha extends Zend_Form_Decorator_Abstract
         ));
 
         // Create a window.onload event so that we can bind to the form.
-        // Once bound, add an onsubmit event that will replace the hidden field 
+        // Once bound, add an onsubmit event that will replace the hidden field
         // values with those produced by ReCaptcha
         // zendBindEvent mediates between Mozilla's addEventListener and
         // IE's sole support for addEvent.
         $js =<<<EOJ
 <script type="text/javascript" language="JavaScript">
-function windowOnLoad(fn) {
+function windowOnLoad(fn)
+{
     var old = window.onload;
-    window.onload = function() {
+    window.onload = function () {
         if (old) {
             old();
         }
         fn();
     };
 }
-function zendBindEvent(el, eventName, eventHandler) {
-    if (el.addEventListener){
-        el.addEventListener(eventName, eventHandler, false); 
-    } else if (el.attachEvent){
+function zendBindEvent(el, eventName, eventHandler)
+{
+    if (el.addEventListener) {
+        el.addEventListener(eventName, eventHandler, false);
+    } elseif (el.attachEvent) {
         el.attachEvent('on'+eventName, eventHandler);
     }
 }
-windowOnLoad(function(){
+windowOnLoad(function () {
     zendBindEvent(
         document.getElementById("$challengeId").form,
         'submit',
-        function(e) {
+        function (e) {
             document.getElementById("$challengeId").value = document.getElementById("recaptcha_challenge_field").value;
             document.getElementById("$responseId").value = document.getElementById("recaptcha_response_field").value;
-        }    
+        }
     );
 });
 </script>
 EOJ;
 
-        // Always place the hidden fields before the captcha markup, and follow 
+        // Always place the hidden fields before the captcha markup, and follow
         // with the JS from above
         switch ($placement) {
             case 'PREPEND':
@@ -122,7 +124,7 @@ EOJ;
             default:
                 $content = $content . $separator . $hidden . $markup . $js;
         }
+
         return $content;
     }
 }
-

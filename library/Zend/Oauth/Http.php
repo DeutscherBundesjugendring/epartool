@@ -74,8 +74,8 @@ class Zend_Oauth_Http
     /**
      * Constructor
      *
-     * @param  Zend_Oauth_Consumer $consumer
-     * @param  null|array $parameters
+     * @param  Zend_Oauth_Consumer          $consumer
+     * @param  null|array                   $parameters
      * @param  null|Zend_Oauth_Http_Utility $utility
      * @return void
      */
@@ -99,7 +99,7 @@ class Zend_Oauth_Http
     /**
      * Set a preferred HTTP request method.
      *
-     * @param  string $method
+     * @param  string          $method
      * @return Zend_Oauth_Http
      */
     public function setMethod($method)
@@ -109,6 +109,7 @@ class Zend_Oauth_Http
             throw new Zend_Oauth_Exception('invalid HTTP method: ' . $method);
         }
         $this->_preferredRequestMethod = $method;
+
         return $this;
     }
 
@@ -125,12 +126,13 @@ class Zend_Oauth_Http
     /**
      * Mutator to set an array of custom parameters for the HTTP request.
      *
-     * @param  array $customServiceParameters
+     * @param  array           $customServiceParameters
      * @return Zend_Oauth_Http
      */
     public function setParameters(array $customServiceParameters)
     {
         $this->_parameters = $customServiceParameters;
+
         return $this;
     }
 
@@ -161,7 +163,7 @@ class Zend_Oauth_Http
      * preference list for OAuth Request Schemes.
      * On success, return the Request object that results for processing.
      *
-     * @param  array $params
+     * @param  array                $params
      * @return Zend_Http_Response
      * @throws Zend_Oauth_Exception on HTTP request errors
      * @todo   Remove cycling?; Replace with upfront do-or-die configuration
@@ -190,6 +192,7 @@ class Zend_Oauth_Http
             $this->_assessRequestAttempt($response);
             $response = $this->startRequestCycle($params);
         }
+
         return $response;
     }
 
@@ -197,8 +200,8 @@ class Zend_Oauth_Http
      * Return an instance of Zend_Http_Client configured to use the Query
      * String scheme for an OAuth driven HTTP request.
      *
-     * @param array $params
-     * @param string $url
+     * @param  array            $params
+     * @param  string           $url
      * @return Zend_Http_Client
      */
     public function getRequestSchemeQueryStringClient(array $params, $url)
@@ -209,6 +212,7 @@ class Zend_Oauth_Http
             $this->_httpUtility->toEncodedQueryString($params)
         );
         $client->setMethod($this->_preferredRequestMethod);
+
         return $client;
     }
 
@@ -244,7 +248,7 @@ class Zend_Oauth_Http
      * Generates a valid OAuth Authorization header based on the provided
      * parameters and realm.
      *
-     * @param  array $params
+     * @param  array  $params
      * @param  string $realm
      * @return string
      */
@@ -261,6 +265,7 @@ class Zend_Oauth_Http
                            . Zend_Oauth_Http_Utility::urlEncode($value)
                            . '"';
         }
+
         return implode(",", $headerValue);
     }
 }

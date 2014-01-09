@@ -36,7 +36,7 @@ class Zend_Oauth_Signature_Rsa extends Zend_Oauth_Signature_SignatureAbstract
     /**
      * Sign a request
      *
-     * @param  array $params
+     * @param  array       $params
      * @param  null|string $method
      * @param  null|string $url
      * @return string
@@ -50,6 +50,7 @@ class Zend_Oauth_Signature_Rsa extends Zend_Oauth_Signature_SignatureAbstract
             $this->_key,
             Zend_Crypt_Rsa::BASE64
         );
+
         return $sign;
     }
 

@@ -21,7 +21,6 @@
  * @version    $Id: Item.php 24780 2012-05-08 19:34:59Z adamlundrigan $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -108,13 +107,12 @@ class Zend_Service_Amazon_Item
 
     protected $_dom;
 
-
     /**
      * Parse the given <Item> element
      *
-     * @param  null|DOMElement $dom
+     * @param  null|DOMElement               $dom
      * @return void
-     * @throws    Zend_Service_Amazon_Exception
+     * @throws Zend_Service_Amazon_Exception
      *
      * @group ZF-9547
      */
@@ -229,7 +227,7 @@ class Zend_Service_Amazon_Item
                     $this->Tracks[] = (string) $t->data;
                 }
             }
-        } else if ($result->length == 1) {
+        } elseif ($result->length == 1) {
             foreach ($xpath->query('./*/text()', $result->item(0)) as $t) {
                 $this->Tracks[] = (string) $t->data;
             }
@@ -258,7 +256,6 @@ class Zend_Service_Amazon_Item
 
         $this->_dom = $dom;
     }
-
 
     /**
      * Returns the item's original XML

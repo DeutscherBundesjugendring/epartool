@@ -62,12 +62,13 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
     /**
      * Set HTML tag with which to surround label
      *
-     * @param  string $tag
+     * @param  string                    $tag
      * @return Zend_Form_Decorator_Image
      */
     public function setTag($tag)
     {
         $this->_tag = (string) $tag;
+
         return $this;
     }
 
@@ -84,6 +85,7 @@ class Zend_Form_Decorator_Image extends Zend_Form_Decorator_Abstract
                 $this->removeOption('tag');
                 $this->setTag($tag);
             }
+
             return $tag;
         }
 

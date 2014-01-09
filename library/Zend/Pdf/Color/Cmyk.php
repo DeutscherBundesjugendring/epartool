@@ -22,7 +22,6 @@
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Numeric.php';
 
-
 /** Zend_Pdf_Color */
 require_once 'Zend/Pdf/Color.php';
 
@@ -68,7 +67,6 @@ class Zend_Pdf_Color_Cmyk extends Zend_Pdf_Color
      */
     private $_k;
 
-
     /**
      * Object constructor
      *
@@ -102,7 +100,7 @@ class Zend_Pdf_Color_Cmyk extends Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param  boolean $stroking
      * @return string
      */
     public function instructions($stroking)
@@ -123,4 +121,3 @@ class Zend_Pdf_Color_Cmyk extends Zend_Pdf_Color
         return array($this->_c->value, $this->_m->value, $this->_y->value, $this->_k->value);
     }
 }
-

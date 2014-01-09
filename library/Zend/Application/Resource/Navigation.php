@@ -25,7 +25,6 @@
  */
 require_once 'Zend/Application/Resource/ResourceAbstract.php';
 
-
 /**
  * Resource for setting navigation structure
  *
@@ -57,15 +56,16 @@ class Zend_Application_Resource_Navigation
         if (!$this->_container) {
             $options = $this->getOptions();
 
-            if(isset($options['defaultPageType'])) {
+            if (isset($options['defaultPageType'])) {
                 Zend_Navigation_Page::setDefaultPageType($options['defaultPageType']);
             }
-            
+
             $pages = isset($options['pages']) ? $options['pages'] : array();
             $this->_container = new Zend_Navigation($pages);
         }
 
         $this->store();
+
         return $this->_container;
     }
 

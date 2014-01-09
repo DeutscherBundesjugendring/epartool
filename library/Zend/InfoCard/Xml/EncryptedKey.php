@@ -52,14 +52,14 @@ class Zend_InfoCard_Xml_EncryptedKey
      * Return an instance of the object based on input XML Data
      *
      * @throws Zend_InfoCard_Xml_Exception
-     * @param string $xmlData The EncryptedKey XML Block
+     * @param  string                         $xmlData The EncryptedKey XML Block
      * @return Zend_InfoCard_Xml_EncryptedKey
      */
-    static public function getInstance($xmlData)
+    public static function getInstance($xmlData)
     {
-        if($xmlData instanceof Zend_InfoCard_Xml_Element) {
+        if ($xmlData instanceof Zend_InfoCard_Xml_Element) {
             $strXmlData = $xmlData->asXML();
-        } else if (is_string($xmlData)) {
+        } elseif (is_string($xmlData)) {
             $strXmlData = $xmlData;
         } else {
             throw new Zend_InfoCard_Xml_Exception("Invalid Data provided to create instance");
@@ -67,7 +67,7 @@ class Zend_InfoCard_Xml_EncryptedKey
 
         $sxe = simplexml_load_string($strXmlData);
 
-        if($sxe->getName() != "EncryptedKey") {
+        if ($sxe->getName() != "EncryptedKey") {
             throw new Zend_InfoCard_Xml_Exception("Invalid XML Block provided for EncryptedKey");
         }
 
@@ -78,7 +78,7 @@ class Zend_InfoCard_Xml_EncryptedKey
      * Returns the Encyption Method Algorithm URI of the block
      *
      * @throws Zend_InfoCard_Xml_Exception
-     * @return string the Encryption method algorithm URI
+     * @return string                      the Encryption method algorithm URI
      */
     public function getEncryptionMethod()
     {
@@ -86,13 +86,13 @@ class Zend_InfoCard_Xml_EncryptedKey
         $this->registerXPathNamespace('e', 'http://www.w3.org/2001/04/xmlenc#');
         list($encryption_method) = $this->xpath("//e:EncryptionMethod");
 
-        if(!($encryption_method instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($encryption_method instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the e:EncryptionMethod KeyInfo encryption block");
         }
 
         $dom = self::convertToDOM($encryption_method);
 
-        if(!$dom->hasAttribute('Algorithm')) {
+        if (!$dom->hasAttribute('Algorithm')) {
             throw new Zend_InfoCard_Xml_Exception("Unable to determine the encryption algorithm in the Symmetric enc:EncryptionMethod XML block");
         }
 
@@ -104,24 +104,24 @@ class Zend_InfoCard_Xml_EncryptedKey
      * Returns the Digest Method Algorithm URI used
      *
      * @throws Zend_InfoCard_Xml_Exception
-     * @return string the Digest Method Algorithm URI
+     * @return string                      the Digest Method Algorithm URI
      */
     public function getDigestMethod()
     {
         $this->registerXPathNamespace('e', 'http://www.w3.org/2001/04/xmlenc#');
         list($encryption_method) = $this->xpath("//e:EncryptionMethod");
 
-        if(!($encryption_method instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($encryption_method instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the e:EncryptionMethod KeyInfo encryption block");
         }
 
-        if(!($encryption_method->DigestMethod instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($encryption_method->DigestMethod instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the DigestMethod block");
         }
 
         $dom = self::convertToDOM($encryption_method->DigestMethod);
 
-        if(!$dom->hasAttribute('Algorithm')) {
+        if (!$dom->hasAttribute('Algorithm')) {
             throw new Zend_InfoCard_Xml_Exception("Unable to determine the digest algorithm for the symmetric Keyinfo");
         }
 
@@ -138,7 +138,7 @@ class Zend_InfoCard_Xml_EncryptedKey
     public function getKeyInfo()
     {
 
-        if(isset($this->KeyInfo)) {
+        if (isset($this->KeyInfo)) {
             return Zend_InfoCard_Xml_KeyInfo::getInstance($this->KeyInfo);
         }
 
@@ -149,7 +149,7 @@ class Zend_InfoCard_Xml_EncryptedKey
      * Return the encrypted value of the block in base64 format
      *
      * @throws Zend_InfoCard_Xml_Exception
-     * @return string The Value of the CipherValue block in base64 format
+     * @return string                      The Value of the CipherValue block in base64 format
      */
     public function getCipherValue()
     {
@@ -158,17 +158,17 @@ class Zend_InfoCard_Xml_EncryptedKey
 
         list($cipherdata) = $this->xpath("//e:CipherData");
 
-        if(!($cipherdata instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($cipherdata instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to find the e:CipherData block");
         }
 
         $cipherdata->registerXPathNameSpace('enc', 'http://www.w3.org/2001/04/xmlenc#');
         list($ciphervalue) = $cipherdata->xpath("//enc:CipherValue");
 
-        if(!($ciphervalue instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($ciphervalue instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Unable to fidn the enc:CipherValue block");
         }
 
-        return (string)$ciphervalue;
+        return (string) $ciphervalue;
     }
 }

@@ -54,8 +54,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
     /**
      * create object
      *
-     * @param string $name
-     * @param string $description
+     * @param string  $name
+     * @param string  $description
      * @param integer $duration
      *
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
@@ -70,12 +70,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
     /**
      * sets new duration for this conference in seconds
      *
-     * @param integer $duration
+     * @param  integer                                                      $duration
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
      */
     public function setDuration($duration)
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -90,12 +91,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
     /**
      * set the description of this conference
      *
-     * @param string $description the $description to set
+     * @param  string                                                       $description the $description to set
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -110,12 +112,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
     /**
      * sets the name of this conference
      *
-     * @param string $name
+     * @param  string                                                       $name
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 

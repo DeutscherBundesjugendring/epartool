@@ -20,12 +20,10 @@
  * @version    $Id: Plain.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Mail_Protocol_Smtp
  */
 require_once 'Zend/Mail/Protocol/Smtp.php';
-
 
 /**
  * Performs PLAIN authentication
@@ -45,14 +43,12 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
      */
     protected $_username;
 
-
     /**
      * PLAIN password
      *
      * @var string
      */
     protected $_password;
-
 
     /**
      * Constructor.
@@ -75,7 +71,6 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
 
         parent::__construct($host, $port, $config);
     }
-
 
     /**
      * Perform PLAIN authentication with supplied credentials

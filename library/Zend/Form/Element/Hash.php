@@ -71,7 +71,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
      * token.
      *
      * @param  string|array|Zend_Config $spec
-     * @param  array|Zend_Config $options
+     * @param  array|Zend_Config        $options
      * @return void
      */
     public function __construct($spec, $options = null)
@@ -92,6 +92,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
     public function setSession($session)
     {
         $this->_session = $session;
+
         return $this;
     }
 
@@ -108,6 +109,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
             require_once 'Zend/Session/Namespace.php';
             $this->_session = new Zend_Session_Namespace($this->getSessionName());
         }
+
         return $this->_session;
     }
 
@@ -129,18 +131,20 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
         }
 
         $this->addValidator('Identical', true, array($rightHash));
+
         return $this;
     }
 
     /**
      * Salt for CSRF token
      *
-     * @param  string $salt
+     * @param  string                 $salt
      * @return Zend_Form_Element_Hash
      */
     public function setSalt($salt)
     {
         $this->_salt = (string) $salt;
+
         return $this;
     }
 
@@ -166,6 +170,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
         if (null === $this->_hash) {
             $this->_generateHash();
         }
+
         return $this->_hash;
     }
 
@@ -184,12 +189,13 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
     /**
      * Set timeout for CSRF session token
      *
-     * @param  int $ttl
+     * @param  int                    $ttl
      * @return Zend_Form_Element_Hash
      */
     public function setTimeout($ttl)
     {
         $this->_timeout = (int) $ttl;
+
         return $this;
     }
 
@@ -235,6 +241,7 @@ class Zend_Form_Element_Hash extends Zend_Form_Element_Xhtml
     public function render(Zend_View_Interface $view = null)
     {
         $this->initCsrfToken();
+
         return parent::render($view);
     }
 

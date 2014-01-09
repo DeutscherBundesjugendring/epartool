@@ -36,8 +36,8 @@ interface Zend_InfoCard_Xml_Security_Transform_Interface
      * implemented by the object using this interface
      *
      * @throws Zend_InfoCard_Xml_Security_Transform_Exception
-     * @param string $strXmlData the input XML
-     * @return string the output XML
+     * @param  string                                         $strXmlData the input XML
+     * @return string                                         the output XML
      */
     public function transform($strXmlData);
 }

@@ -31,7 +31,7 @@ require_once 'Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php';
  * @subpackage Storage
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- *   
+ *
  * @property string $MessageId         Message ID
  * @property string $InsertionTime     Insertion time
  * @property string $ExpirationTime    Expiration time
@@ -41,20 +41,20 @@ require_once 'Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php';
  * @property string $MessageText       Message text
  */
 class Zend_Service_WindowsAzure_Storage_QueueMessage
-	extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
+    extends Zend_Service_WindowsAzure_Storage_StorageEntityAbstract
 {
     /**
      * Constructor
-     * 
-     * @param string $messageId         Message ID
-     * @param string $insertionTime     Insertion time
-     * @param string $expirationTime    Expiration time
-     * @param string $popReceipt  	    Receipt verification for deleting the message from queue.
-     * @param string $timeNextVisible   Next time the message is visible in the queue
-     * @param int    $dequeueCount      Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
-     * @param string $messageText       Message text
+     *
+     * @param string $messageId       Message ID
+     * @param string $insertionTime   Insertion time
+     * @param string $expirationTime  Expiration time
+     * @param string $popReceipt      Receipt verification for deleting the message from queue.
+     * @param string $timeNextVisible Next time the message is visible in the queue
+     * @param int    $dequeueCount    Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
+     * @param string $messageText     Message text
      */
-    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $dequeueCount, $messageText) 
+    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $dequeueCount, $messageText)
     {
         $this->_data = array(
             'messageid'       => $messageId,
@@ -62,7 +62,7 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
             'expirationtime'  => $expirationTime,
             'popreceipt'      => $popReceipt,
             'timenextvisible' => $timeNextVisible,
-        	'dequeuecount'    => $dequeueCount,
+            'dequeuecount'    => $dequeueCount,
             'messagetext'     => $messageText
         );
     }

@@ -51,8 +51,8 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
      */
     protected $_format = null;
 
-
-    function __construct() {
+    public function __construct()
+    {
         $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
         parent::__construct();
     }
@@ -63,8 +63,8 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -73,6 +73,7 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
         if ($this->_format!= null) {
             $element->setAttributeNS($this->lookupNamespace('yt'), 'yt:format', $this->_format);
         }
+
         return $element;
     }
 
@@ -97,7 +98,7 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
      * Returns the format of the media
      * Optional.
      *
-     * @return int  The format of the media
+     * @return int The format of the media
      */
     public function getFormat()
     {
@@ -107,13 +108,14 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
     /**
      * Sets the format of the media
      *
-     * @param int $value    Format of the media
-     * @return Zend_Gdata_YouTube_Extension_MediaContent  Provides a fluent interface
+     * @param  int                                       $value Format of the media
+     * @return Zend_Gdata_YouTube_Extension_MediaContent Provides a fluent interface
      *
      */
     public function setFormat($value)
     {
         $this->_format = $value;
+
         return $this;
     }
 

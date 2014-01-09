@@ -40,7 +40,6 @@ require_once 'Zend/Filter/Word/CamelCaseToDash.php';
  */
 require_once 'Zend/Filter/StringToLower.php';
 
-
 /**
  * This class is the front most class for utilizing Zend_Tool_Project
  *
@@ -75,6 +74,7 @@ class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_T
         $this->_forControllerName = $this->_resource->getAttribute('forControllerName');
         $this->_filesystemName = $this->_convertControllerNameToFilesystemName($this->_forControllerName);
         parent::init();
+
         return $this;
     }
 
@@ -105,6 +105,7 @@ class Zend_Tool_Project_Context_Zf_ViewControllerScriptsDirectory extends Zend_T
         $filter = new Zend_Filter();
         $filter->addFilter(new Zend_Filter_Word_CamelCaseToDash())
             ->addFilter(new Zend_Filter_StringToLower());
+
         return $filter->filter($controllerName);
     }
 

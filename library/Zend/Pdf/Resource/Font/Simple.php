@@ -20,10 +20,8 @@
  * @version    $Id: Simple.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Name.php';
-
 
 /** Zend_Pdf_Resource_Font */
 require_once 'Zend/Pdf/Resource/Font.php';
@@ -128,7 +126,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      *
      * See also {@link glyphNumberForCharacter()}.
      *
-     * @param array $characterCodes Array of Unicode character codes (code points).
+     * @param  array $characterCodes Array of Unicode character codes (code points).
      * @return array Array of glyph numbers.
      */
     public function glyphNumbersForCharacters($characterCodes)
@@ -145,7 +143,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      * See also {@link glyphNumbersForCharacters()} which is optimized for bulk
      * operations.
      *
-     * @param integer $characterCode Unicode character code (code point).
+     * @param  integer $characterCode Unicode character code (code point).
      * @return integer Glyph number.
      */
     public function glyphNumberForCharacter($characterCode)
@@ -206,6 +204,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
                 $score++;
             }
         }
+
         return $score / $charCount;
     }
 
@@ -217,7 +216,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      *
      * See also {@link widthForGlyph()}.
      *
-     * @param array &$glyphNumbers Array of glyph numbers.
+     * @param  array &$glyphNumbers Array of glyph numbers.
      * @return array Array of glyph widths (integers).
      */
     public function widthsForGlyphs($glyphNumbers)
@@ -230,6 +229,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
                 $widths[$key] = $this->_glyphWidths[$glyphNumber];
             }
         }
+
         return $widths;
     }
 
@@ -238,7 +238,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      *
      * Like {@link widthsForGlyphs()} but used for one glyph at a time.
      *
-     * @param integer $glyphNumber
+     * @param  integer $glyphNumber
      * @return integer
      */
     public function widthForGlyph($glyphNumber)
@@ -246,6 +246,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
         if (!isset($this->_glyphWidths[$glyphNumber])) {
             return $this->_missingGlyphWidth;
         }
+
         return $this->_glyphWidths[$glyphNumber];
     }
 
@@ -254,8 +255,8 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      *
      * The method is used to prepare string for text drawing operators
      *
-     * @param string $string
-     * @param string $charEncoding Character encoding of source text.
+     * @param  string $string
+     * @param  string $charEncoding Character encoding of source text.
      * @return string
      */
     public function encodeString($string, $charEncoding)
@@ -272,8 +273,8 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      *
      * The method is used to convert strings retrieved from existing content streams
      *
-     * @param string $string
-     * @param string $charEncoding Character encoding of resulting text.
+     * @param  string $string
+     * @param  string $charEncoding Character encoding of resulting text.
      * @return string
      */
     public function decodeString($string, $charEncoding)

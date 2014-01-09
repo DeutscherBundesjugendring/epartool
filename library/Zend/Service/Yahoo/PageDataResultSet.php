@@ -20,18 +20,15 @@
  * @version    $Id: PageDataResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Yahoo_ResultSet
  */
 require_once 'Zend/Service/Yahoo/ResultSet.php';
 
-
 /**
  * @see Zend_Service_Yahoo_WebResult
  */
 require_once 'Zend/Service/Yahoo/PageDataResult.php';
-
 
 /**
  * @category   Zend
@@ -48,7 +45,6 @@ class Zend_Service_Yahoo_PageDataResultSet extends Zend_Service_Yahoo_ResultSet
      * @var string
      */
     protected $_namespace = 'urn:yahoo:srch';
-
 
     /**
      * Overrides Zend_Service_Yahoo_ResultSet::current()

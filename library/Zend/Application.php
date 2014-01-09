@@ -68,8 +68,8 @@ class Zend_Application
      * Initialize application. Potentially initializes include_paths, PHP
      * settings, and bootstrap class.
      *
-     * @param  string                   $environment
-     * @param  string|array|Zend_Config $options String path to configuration file, or array/Zend_Config of configuration options
+     * @param  string                     $environment
+     * @param  string|array|Zend_Config   $options     String path to configuration file, or array/Zend_Config of configuration options
      * @throws Zend_Application_Exception When invalid options are provided
      * @return void
      */
@@ -116,7 +116,7 @@ class Zend_Application
     /**
      * Set application options
      *
-     * @param  array $options
+     * @param  array                      $options
      * @throws Zend_Application_Exception When no bootstrap path is provided
      * @throws Zend_Application_Exception When invalid bootstrap information are provided
      * @return Zend_Application
@@ -222,8 +222,10 @@ class Zend_Application
         if ($this->hasOption($key)) {
             $options = $this->getOptions();
             $options = array_change_key_case($options, CASE_LOWER);
+
             return $options[strtolower($key)];
         }
+
         return null;
     }
 
@@ -247,14 +249,15 @@ class Zend_Application
                 }
             }
         }
+
         return $array1;
     }
 
     /**
      * Set PHP configuration settings
      *
-     * @param  array $settings
-     * @param  string $prefix Key prefix to prepend to array values (used to map . separated INI values)
+     * @param  array            $settings
+     * @param  string           $prefix   Key prefix to prepend to array values (used to map . separated INI values)
      * @return Zend_Application
      */
     public function setPhpSettings(array $settings, $prefix = '')
@@ -274,20 +277,21 @@ class Zend_Application
     /**
      * Set include path
      *
-     * @param  array $paths
+     * @param  array            $paths
      * @return Zend_Application
      */
     public function setIncludePaths(array $paths)
     {
         $path = implode(PATH_SEPARATOR, $paths);
         set_include_path($path . PATH_SEPARATOR . get_include_path());
+
         return $this;
     }
 
     /**
      * Set autoloader namespaces
      *
-     * @param  array $namespaces
+     * @param  array            $namespaces
      * @return Zend_Application
      */
     public function setAutoloaderNamespaces(array $namespaces)
@@ -304,8 +308,8 @@ class Zend_Application
     /**
      * Set bootstrap path/class
      *
-     * @param  string $path
-     * @param  string $class
+     * @param  string           $path
+     * @param  string           $class
      * @return Zend_Application
      */
     public function setBootstrap($path, $class = null)
@@ -341,6 +345,7 @@ class Zend_Application
         if (null === $this->_bootstrap) {
             $this->_bootstrap = new Zend_Application_Bootstrap_Bootstrap($this);
         }
+
         return $this->_bootstrap;
     }
 
@@ -353,6 +358,7 @@ class Zend_Application
     public function bootstrap($resource = null)
     {
         $this->getBootstrap()->bootstrap($resource);
+
         return $this;
     }
 
@@ -369,7 +375,7 @@ class Zend_Application
     /**
      * Load configuration file of options
      *
-     * @param  string $file
+     * @param  string                     $file
      * @throws Zend_Application_Exception When invalid configuration file is provided
      * @return array
      */
@@ -405,6 +411,7 @@ class Zend_Application
                 if (!is_array($config)) {
                     throw new Zend_Application_Exception('Invalid configuration file provided; PHP file does not return array value');
                 }
+
                 return $config;
                 break;
 

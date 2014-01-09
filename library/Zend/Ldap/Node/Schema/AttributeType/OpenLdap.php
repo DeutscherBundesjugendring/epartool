@@ -91,7 +91,7 @@ class Zend_Ldap_Node_Schema_AttributeType_OpenLdap extends Zend_Ldap_Node_Schema
             if ($parent === null) return null;
             else return $parent->getMaxLength();
         } else {
-            return (int)$maxLength;
+            return (int) $maxLength;
         }
     }
 

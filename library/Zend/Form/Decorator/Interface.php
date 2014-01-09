@@ -46,7 +46,7 @@ interface Zend_Form_Decorator_Interface
      * While the name is "setElement", a form decorator could decorate either
      * an element or a form object.
      *
-     * @param  mixed $element
+     * @param  mixed                         $element
      * @return Zend_Form_Decorator_Interface
      */
     public function setElement($element);
@@ -61,7 +61,7 @@ interface Zend_Form_Decorator_Interface
     /**
      * Set decorator options from an array
      *
-     * @param  array $options
+     * @param  array                         $options
      * @return Zend_Form_Decorator_Interface
      */
     public function setOptions(array $options);
@@ -69,7 +69,7 @@ interface Zend_Form_Decorator_Interface
     /**
      * Set decorator options from a config object
      *
-     * @param  Zend_Config $config
+     * @param  Zend_Config                   $config
      * @return Zend_Form_Decorator_Interface
      */
     public function setConfig(Zend_Config $config);
@@ -77,8 +77,8 @@ interface Zend_Form_Decorator_Interface
     /**
      * Set a single option
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param  string                        $key
+     * @param  mixed                         $value
      * @return Zend_Form_Decorator_Interface
      */
     public function setOption($key, $value);

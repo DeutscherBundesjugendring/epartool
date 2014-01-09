@@ -123,6 +123,7 @@ abstract class Zend_Application_Module_Bootstrap
             }
             $this->_moduleName = $prefix;
         }
+
         return $this->_moduleName;
     }
 }

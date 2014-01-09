@@ -100,8 +100,8 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
     /**
      * Perform a SOAP call but first check for adding STS Token or fetch one
      *
-     * @param string $name
-     * @param array  $arguments
+     * @param  string $name
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call($name, $arguments)
@@ -119,18 +119,20 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
                 $this->addWsseSecurityTokenHeader($this->_tokenService->getTokens());
             }
         }
+
         return parent::__call($name, $arguments);
     }
 
     /**
      * sets the internal handling for handle token service
      *
-     * @param Zend_Service_DeveloperGarden_SecurityTokenServer $isTokenService
+     * @param  Zend_Service_DeveloperGarden_SecurityTokenServer $isTokenService
      * @return Zend_Service_DeveloperGarden_Client_Soap
      */
     public function setTokenService(Zend_Service_DeveloperGarden_SecurityTokenServer $tokenService)
     {
         $this->_tokenService = $tokenService;
+
         return $this;
     }
 
@@ -147,12 +149,13 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
     /**
      * Sets new credential callback object
      *
-     * @param Zend_Service_DeveloperGarden_Credential $credential
+     * @param  Zend_Service_DeveloperGarden_Credential  $credential
      * @return Zend_Service_DeveloperGarden_Client_Soap
      */
     public function setCredential(Zend_Service_DeveloperGarden_Credential $credential)
     {
         $this->_credential = $credential;
+
         return $this;
     }
 
@@ -237,7 +240,7 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
     /**
      * creates the token auth header for direct calls
      *
-     * @param Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
+     * @param  Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
      * @return SoapHeader
      */
     public function getWsseTokenHeader(
@@ -272,7 +275,7 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
     /**
      * creates the security token auth header for direct calls
      *
-     * @param Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
+     * @param  Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
      * @return SoapHeader
      */
     public function getWsseSecurityTokenHeader(
@@ -317,7 +320,7 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
     /**
      * adds the earlier fetched token to the header
      *
-     * @param Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
+     * @param  Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
      * @return Zend_Service_DeveloperGarden_Client_Soap
      */
     public function addWsseTokenHeader(
@@ -329,7 +332,7 @@ class Zend_Service_DeveloperGarden_Client_Soap extends Zend_Soap_Client
     /**
      * adds the earlier fetched token to the header
      *
-     * @param Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
+     * @param  Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse $token
      * @return Zend_Service_DeveloperGarden_Client_Soap
      */
     public function addWsseSecurityTokenHeader(

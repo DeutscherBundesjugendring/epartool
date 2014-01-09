@@ -79,6 +79,7 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
         if ($this->_feed !== null) {
             $element->appendChild($this->_feed->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -109,11 +110,9 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
         case 'readOnly':
             if ($attribute->nodeValue == "true") {
                 $this->_readOnly = true;
-            }
-            else if ($attribute->nodeValue == "false") {
+            } elseif ($attribute->nodeValue == "false") {
                 $this->_readOnly = false;
-            }
-            else {
+            } else {
                 throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for gCal:selected#value.");
             }
             break;
@@ -136,6 +135,7 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
     public function setHref($value)
     {
         $this->_href = $value;
+
         return $this;
     }
 
@@ -147,6 +147,7 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
     public function setReadOnly($value)
     {
         $this->_readOnly = $value;
+
         return $this;
     }
 
@@ -158,6 +159,7 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
     public function setRel($value)
     {
         $this->_rel = $value;
+
         return $this;
     }
 
@@ -169,6 +171,7 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
     public function setFeed($value)
     {
         $this->_feed = $value;
+
         return $this;
     }
 

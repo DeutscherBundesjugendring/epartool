@@ -46,11 +46,10 @@ abstract class Zend_Service_ShortUrl_AbstractShortener
      */
     protected $_baseUri = null;
 
-
     /**
      * Checks whether URL to be shortened is valid
      *
-     * @param string $url
+     * @param  string                          $url
      * @throws Zend_Service_ShortUrl_Exception When URL is not valid
      */
     protected function _validateUri($url)
@@ -68,7 +67,7 @@ abstract class Zend_Service_ShortUrl_AbstractShortener
      * Verifies that the URL has been shortened by this service
      *
      * @throws Zend_Service_ShortUrl_Exception If the URL hasn't been shortened by this service
-     * @param string $shortenedUrl
+     * @param  string                          $shortenedUrl
      */
     protected function _verifyBaseUri($shortenedUrl)
     {

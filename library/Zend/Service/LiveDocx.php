@@ -124,7 +124,7 @@ class Zend_Service_LiveDocx
      * );
      * {/code}
      *
-     * @param  array|Zend_Config $options
+     * @param  array|Zend_Config               $options
      * @return void
      * @throws Zend_Service_LiveDocx_Exception
      * @since  LiveDocx 1.0
@@ -147,7 +147,7 @@ class Zend_Service_LiveDocx
      * Set options
      * One or more of username, password, soapClient
      *
-     * @param  array $options
+     * @param  array                 $options
      * @return Zend_Service_LiveDocx
      * @since  LiveDocx 1.2
      */
@@ -177,7 +177,7 @@ class Zend_Service_LiveDocx
     /**
      * Init Soap client - connect to SOAP service
      *
-     * @param  string $endpoint
+     * @param  string                          $endpoint
      * @throws Zend_Service_LiveDocx_Exception
      * @return void
      * @since  LiveDocx 1.2
@@ -208,13 +208,14 @@ class Zend_Service_LiveDocx
     /**
      * Set SOAP client
      *
-     * @param  Zend_Soap_Client $soapClient
+     * @param  Zend_Soap_Client      $soapClient
      * @return Zend_Service_LiveDocx
      * @since  LiveDocx 1.2
      */
     public function setSoapClient(Zend_Soap_Client $soapClient)
     {
         $this->_soapClient = $soapClient;
+
         return $this;
     }
 
@@ -310,6 +311,7 @@ class Zend_Service_LiveDocx
     public function setUsername($username)
     {
         $this->_credentials['username'] = $username;
+
         return $this;
     }
 
@@ -322,6 +324,7 @@ class Zend_Service_LiveDocx
     public function setPassword($password)
     {
         $this->_credentials['password'] = $password;
+
         return $this;
     }
 
@@ -334,6 +337,7 @@ class Zend_Service_LiveDocx
     public function setWsdl($wsdl)
     {
         $this->_wsdl = $wsdl;
+
         return $this;
     }
 
@@ -405,7 +409,7 @@ class Zend_Service_LiveDocx
      * Compare the current API version with another version
      *
      * @param  string $version (STRING NOT FLOAT)
-     * @return int -1 (version is less than API version), 0 (versions are equal), or 1 (version is greater than API version)
+     * @return int    -1 (version is less than API version), 0 (versions are equal), or 1 (version is greater than API version)
      * @since  LiveDocx 1.0
      */
     public function compareVersion($version)

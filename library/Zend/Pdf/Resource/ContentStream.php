@@ -19,17 +19,14 @@
  * @version    $Id: Image.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Object.php';
 require_once 'Zend/Pdf/Element/Dictionary.php';
 require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 
-
 /** Zend_Pdf_Resource */
 require_once 'Zend/Pdf/Resource.php';
-
 
 /**
  * Content stream (drawing instructions container)
@@ -50,7 +47,7 @@ class Zend_Pdf_Resource_ContentStream extends Zend_Pdf_Resource
     /**
      * Object constructor.
      *
-     * @param Zend_Pdf_Element_Object_Stream|string $contentStreamObject
+     * @param  Zend_Pdf_Element_Object_Stream|string $contentStreamObject
      * @throws Zend_Pdf_Exception
      */
     public function __construct($contentStreamObject = '')
@@ -69,12 +66,13 @@ class Zend_Pdf_Resource_ContentStream extends Zend_Pdf_Resource
     /**
      * Appends instructions to the end of the content stream
      *
-     * @param string $instructions
+     * @param  string                          $instructions
      * @return Zend_Pdf_Resource_ContentStream
      */
     public function addInstructions($instructions)
     {
         $this->_bufferedContent .= $instructions;
+
         return $this;
     }
 
@@ -86,6 +84,7 @@ class Zend_Pdf_Resource_ContentStream extends Zend_Pdf_Resource
     public function getInstructions()
     {
         $this->flush();
+
         return $this->_resource->value;
     }
 
@@ -98,6 +97,7 @@ class Zend_Pdf_Resource_ContentStream extends Zend_Pdf_Resource
     {
         $this->_resource->value = '';
         $this->_bufferedContent = '';
+
         return $this;
     }
 

@@ -71,8 +71,8 @@ class Zend_XmlRpc_Response
      * Can optionally pass in the return value and type hinting; otherwise, the
      * return value can be set via {@link setReturnValue()}.
      *
-     * @param mixed $return
-     * @param string $type
+     * @param  mixed  $return
+     * @param  string $type
      * @return void
      */
     public function __construct($return = null, $type = null)
@@ -83,13 +83,14 @@ class Zend_XmlRpc_Response
     /**
      * Set encoding to use in response
      *
-     * @param string $encoding
+     * @param  string               $encoding
      * @return Zend_XmlRpc_Response
      */
     public function setEncoding($encoding)
     {
         $this->_encoding = $encoding;
         Zend_XmlRpc_Value::setEncoding($encoding);
+
         return $this;
     }
 
@@ -108,8 +109,8 @@ class Zend_XmlRpc_Response
      *
      * Sets the return value, with optional type hinting if provided.
      *
-     * @param mixed $value
-     * @param string $type
+     * @param  mixed  $value
+     * @param  string $type
      * @return void
      */
     public function setReturnValue($value, $type = null)
@@ -164,7 +165,7 @@ class Zend_XmlRpc_Response
      * Attempts to load a response from an XMLRPC response, autodetecting if it
      * is a fault response.
      *
-     * @param string $response
+     * @param  string  $response
      * @return boolean True if a valid XMLRPC response, false if a fault
      * response or invalid input
      */
@@ -173,6 +174,7 @@ class Zend_XmlRpc_Response
         if (!is_string($response)) {
             $this->_fault = new Zend_XmlRpc_Fault(650);
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
@@ -201,6 +203,7 @@ class Zend_XmlRpc_Response
             // Not valid XML
             $this->_fault = new Zend_XmlRpc_Fault(651);
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
@@ -209,6 +212,7 @@ class Zend_XmlRpc_Response
             $this->_fault = new Zend_XmlRpc_Fault();
             $this->_fault->setEncoding($this->getEncoding());
             $this->_fault->loadXml($response);
+
             return false;
         }
 
@@ -216,6 +220,7 @@ class Zend_XmlRpc_Response
             // Invalid response
             $this->_fault = new Zend_XmlRpc_Fault(652);
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
@@ -229,10 +234,12 @@ class Zend_XmlRpc_Response
         } catch (Zend_XmlRpc_Value_Exception $e) {
             $this->_fault = new Zend_XmlRpc_Fault(653);
             $this->_fault->setEncoding($this->getEncoding());
+
             return false;
         }
 
         $this->setReturnValue($value->getValue());
+
         return true;
     }
 

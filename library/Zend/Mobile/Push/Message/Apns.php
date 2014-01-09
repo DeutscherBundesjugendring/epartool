@@ -83,11 +83,11 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
     /**
      * Set Alert
      *
-     * @param string $text
-     * @param string $actionLocKey
-     * @param string $locKey
-     * @param array $locArgs
-     * @param string $launchImage
+     * @param  string                        $text
+     * @param  string                        $actionLocKey
+     * @param  string                        $locKey
+     * @param  array                         $locArgs
+     * @param  string                        $launchImage
      * @return Zend_Mobile_Push_Message_Apns
      */
     public function setAlert($text, $actionLocKey=null, $locKey=null, $locArgs=null, $launchImage=null)
@@ -127,6 +127,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
             'loc-args'       => $locArgs,
             'launch-image'   => $launchImage,
         );
+
         return $this;
     }
 
@@ -143,7 +144,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
     /**
      * Set Badge
      *
-     * @param int $badge
+     * @param  int                                $badge
      * @return Zend_Mobile_Push_Message_Apns
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -171,7 +172,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
     /**
      * Set Expire
      *
-     * @param int $expire
+     * @param  int                                $expire
      * @return Zend_Mobile_Push_Message_Apns
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -181,6 +182,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
             throw new Zend_Mobile_Push_Message_Exception('$expire must be an integer');
         }
         $this->_expire = (int) $expire;
+
         return $this;
     }
 
@@ -197,7 +199,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
     /**
      * Set Sound
      *
-     * @param string $sound
+     * @param  string                             $sound
      * @return Zend_Mobile_Push_Message_Apns
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -207,14 +209,15 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
             throw new Zend_Mobile_Push_Message_Exception('$sound must be a string');
         }
         $this->_sound = $sound;
+
         return $this;
     }
 
     /**
      * Add Custom Data
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string                             $key
+     * @param  mixed                              $value
      * @return Zend_Mobile_Push_Message_Apns
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -237,13 +240,14 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
     public function clearCustomData()
     {
         $this->_custom = array();
+
         return $this;
     }
 
     /**
      * Set Custom Data
      *
-     * @param array $data
+     * @param  array                              $data
      * @return Zend_Mobile_Push_Message_Apns
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -253,6 +257,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
         foreach ($array as $k => $v) {
             $this->addCustomData($k, $v);
         }
+
         return $this;
     }
 
@@ -279,6 +284,7 @@ class Zend_Mobile_Push_Message_Apns extends Zend_Mobile_Push_Message_Abstract
         if (null != $this->_id && !is_numeric($this->_id)) {
             return false;
         }
+
         return true;
     }
 }

@@ -20,12 +20,10 @@
  * @version    $Id: Parsed.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Array.php';
 require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
-
 
 /** Zend_Pdf_Resource_Font_Simple */
 require_once 'Zend/Pdf/Resource/Font/Simple.php';
@@ -45,13 +43,12 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
     /**
      * Object constructor
      *
-     * @param Zend_Pdf_FileParser_Font_OpenType $fontParser Font parser object containing OpenType file.
+     * @param  Zend_Pdf_FileParser_Font_OpenType $fontParser Font parser object containing OpenType file.
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_FileParser_Font_OpenType $fontParser)
     {
         parent::__construct();
-
 
         $fontParser->parse();
 
@@ -77,9 +74,7 @@ abstract class Zend_Pdf_Resource_Font_Simple_Parsed extends Zend_Pdf_Resource_Fo
         $this->_glyphWidths       = $fontParser->glyphWidths;
         $this->_missingGlyphWidth = $this->_glyphWidths[0];
 
-
         $this->_cmap = $fontParser->cmap;
-
 
         /* Resource dictionary */
 

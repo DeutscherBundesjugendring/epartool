@@ -59,13 +59,14 @@ class Zend_Mobile_Push_Message_Mpns_Raw extends Zend_Mobile_Push_Message_Mpns
         if (!$this->_delay) {
             return self::DELAY_IMMEDIATE;
         }
+
         return $this->_delay;
     }
 
     /**
      * Set Delay
      *
-     * @param int $delay
+     * @param  int                                $delay
      * @return Zend_Mobile_Push_Message_Mpns_Raw
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -79,13 +80,14 @@ class Zend_Mobile_Push_Message_Mpns_Raw extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$delay must be one of the DELAY_* constants');
         }
         $this->_delay = $delay;
+
         return $this;
     }
 
     /**
      * Set Message
      *
-     * @param string $msg XML string
+     * @param  string                             $msg XML string
      * @return Zend_Mobile_Push_Message_Mpns_Raw
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -98,6 +100,7 @@ class Zend_Mobile_Push_Message_Mpns_Raw extends Zend_Mobile_Push_Message_Mpns
             throw new Zend_Mobile_Push_Message_Exception('$msg is not valid xml');
         }
         $this->_msg = $msg;
+
         return $this;
     }
 
@@ -144,6 +147,7 @@ class Zend_Mobile_Push_Message_Mpns_Raw extends Zend_Mobile_Push_Message_Mpns
         if (empty($this->_msg)) {
             return false;
         }
+
         return parent::validate();
     }
 }

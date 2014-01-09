@@ -400,10 +400,10 @@ class Zend_Service_DeveloperGarden_ConferenceCall
      * creates a new conference, ownerId should be between 3 and 39
      * chars
      *
-     * @param string $ownerId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule
-     * @param integer $account
+     * @param  string                                                                            $ownerId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail                      $conferenceDetails
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule                    $conferenceSchedule
+     * @param  integer                                                                           $account
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceResponseType
      */
     public function createConference($ownerId,
@@ -429,7 +429,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * commits the given conference
      *
-     * @param string $conferenceId
+     * @param  string                                                                        $conferenceId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CommitConferenceResponse
      */
     public function commitConference($conferenceId)
@@ -449,11 +449,11 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * updates a conference with the given parameter
      *
-     * @param string $conferenceId
-     * @param string $ownerId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule $conferenceSchedule
-     * @param string $account
+     * @param  string                                                               $conferenceId
+     * @param  string                                                               $ownerId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail         $conferenceDetails
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceSchedule       $conferenceSchedule
+     * @param  string                                                               $account
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateConference(
@@ -482,8 +482,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * get conference status details
      *
-     * @param string $conferenceId
-     * @param integer $what
+     * @param  string                                                                               $conferenceId
+     * @param  integer                                                                              $what
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceStatusResponseType
      */
     public function getConferenceStatus($conferenceId, $what = 0)
@@ -524,7 +524,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * remove a conference
      *
-     * @param string $conferenceId
+     * @param  string                                                               $conferenceId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function removeConference($conferenceId)
@@ -544,8 +544,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * returns a list of conferences
      *
-     * @param integer $what
-     * @param string $ownerId
+     * @param  integer                                                                            $what
+     * @param  string                                                                             $ownerId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceListResponseType
      */
     public function getConferenceList($what = 0, $ownerId = null)
@@ -566,8 +566,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * adds a new participant to the given conference
      *
-     * @param string $conferenceId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  string                                                                          $conferenceId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail                   $participant
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_NewParticipantResponseType
      */
     public function newParticipant(
@@ -590,8 +590,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * fetches the participant details for the given conferenceId
      *
-     * @param string $conferenceId
-     * @param string $participantId
+     * @param  string                                                                                $conferenceId
+     * @param  string                                                                                $participantId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_GetParticipantStatusResponseType
      */
     public function getParticipantStatus($conferenceId, $participantId)
@@ -612,8 +612,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * removes the given participant from the conference
      *
-     * @param string $conferenceId
-     * @param string $participantId
+     * @param  string                                                               $conferenceId
+     * @param  string                                                               $participantId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function removeParticipant($conferenceId, $participantId)
@@ -634,10 +634,10 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * updates the participant in the given conference
      *
-     * @param string $conferenceId
-     * @param string $participantId
-     * @param integer $action
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  string                                                               $conferenceId
+     * @param  string                                                               $participantId
+     * @param  integer                                                              $action
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail        $participant
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateParticipant(
@@ -664,9 +664,9 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * creates a new conference template
      *
-     * @param string $ownerId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
-     * @param array $participants
+     * @param  string                                                                                    $ownerId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail                              $conferenceDetails
+     * @param  array                                                                                     $participants
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CreateConferenceTemplateResponseType
      */
     public function createConferenceTemplate(
@@ -691,7 +691,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * get a specific template
      *
-     * @param string $templateId
+     * @param  string                                                                                 $templateId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateResponseType
      */
     public function getConferenceTemplate($templateId)
@@ -711,9 +711,9 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * updates a conference template
      *
-     * @param string $templateId
-     * @param string $initiatorId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail $conferenceDetails
+     * @param  string                                                               $templateId
+     * @param  string                                                               $initiatorId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ConferenceDetail         $conferenceDetails
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateConferenceTemplate(
@@ -738,7 +738,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * remove a conference template
      *
-     * @param string $templateId
+     * @param  string                                                               $templateId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function removeConferenceTemplate($templateId)
@@ -758,7 +758,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * lists all available conference templates for the given owner
      *
-     * @param string $ownerId
+     * @param  string                                                                                     $ownerId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateListResponseType
      */
     public function getConferenceTemplateList($ownerId)
@@ -778,8 +778,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * adds a new participants to the template
      *
-     * @param string $templateId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  string                                                                                            $templateId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail                                     $participant
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_AddConferenceTemplateParticipantResponseType
      */
     public function addConferenceTemplateParticipant(
@@ -802,8 +802,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * returns a praticipant for the given templateId
      *
-     * @param string $templateId
-     * @param string $participantId
+     * @param  string                                                                                            $templateId
+     * @param  string                                                                                            $participantId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplateParticipantResponseType
      */
     public function getConferenceTemplateParticipant($templateId, $participantId)
@@ -824,9 +824,9 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * updates the participants details
      *
-     * @param string $templateId
-     * @param string $participantId
-     * @param Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail $participant
+     * @param  string                                                               $templateId
+     * @param  string                                                               $participantId
+     * @param  Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail        $participant
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function updateConferenceTemplateParticipant(
@@ -851,8 +851,8 @@ class Zend_Service_DeveloperGarden_ConferenceCall
     /**
      * removes a praticipant from the given templateId
      *
-     * @param string $templateId
-     * @param string $participantId
+     * @param  string                                                               $templateId
+     * @param  string                                                               $participantId
      * @return Zend_Service_DeveloperGarden_Response_ConferenceCall_CCSResponseType
      */
     public function removeConferenceTemplateParticipant($templateId, $participantId)

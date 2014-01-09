@@ -84,17 +84,18 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
     /**
      * set responseType
      *
-     * @param string $responseType
+     * @param  string                         $responseType
      * @throws Zend_Service_Twitter_Exception
      * @return Zend_Service_Twitter_Search
      */
     public function setResponseType($responseType = 'json')
     {
-        if(!in_array($responseType, $this->_responseTypes, TRUE)) {
+        if (!in_array($responseType, $this->_responseTypes, TRUE)) {
             require_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception('Invalid Response Type');
         }
         $this->_responseType = $responseType;
+
         return $this;
     }
 
@@ -133,8 +134,8 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
 
         $_query['q'] = $query;
 
-        foreach($params as $key=>$param) {
-            switch($key) {
+        foreach ($params as $key=>$param) {
+            switch ($key) {
                 case 'geocode':
                 case 'lang':
                 case 'since_id':
@@ -153,7 +154,7 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
 
         $response = $this->restGet('/search.' . $this->_responseType, $_query);
 
-        switch($this->_responseType) {
+        switch ($this->_responseType) {
             case 'json':
                 return Zend_Json::decode($response->getBody());
                 break;

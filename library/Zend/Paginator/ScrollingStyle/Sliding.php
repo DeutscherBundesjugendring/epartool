@@ -42,7 +42,7 @@ class Zend_Paginator_ScrollingStyle_Sliding implements Zend_Paginator_ScrollingS
      * Returns an array of "local" pages given a page number and range.
      *
      * @param  Zend_Paginator $paginator
-     * @param  integer $pageRange (Optional) Page range
+     * @param  integer        $pageRange (Optional) Page range
      * @return array
      */
     public function getPages(Zend_Paginator $paginator, $pageRange = null)

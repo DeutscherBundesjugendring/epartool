@@ -37,8 +37,8 @@ class Zend_Navigation extends Zend_Navigation_Container
     /**
      * Creates a new navigation container
      *
-     * @param array|Zend_Config $pages    [optional] pages to add
-     * @throws Zend_Navigation_Exception  if $pages is invalid
+     * @param  array|Zend_Config         $pages [optional] pages to add
+     * @throws Zend_Navigation_Exception if $pages is invalid
      */
     public function __construct($pages = null)
     {

@@ -84,4 +84,3 @@ class Zend_Dojo
         }
     }
 }
-

@@ -42,7 +42,7 @@ interface Zend_Mobile_Push_Message_Interface
     /**
      * Set Token
      *
-     * @param string $token
+     * @param  string                            $token
      * @return Zend_Mobile_Push_Message_Abstract
      */
     public function setToken($token);
@@ -57,7 +57,7 @@ interface Zend_Mobile_Push_Message_Interface
     /**
      * Set Id
      *
-     * @param scalar $id
+     * @param  scalar                            $id
      * @return Zend_Mobile_Push_Message_Abstract
      */
     public function setId($id);
@@ -65,7 +65,7 @@ interface Zend_Mobile_Push_Message_Interface
     /**
      * Set Options
      *
-     * @param array $options
+     * @param  array                             $options
      * @return Zend_Mobile_Push_Message_Abstract
      */
     public function setOptions(array $options);

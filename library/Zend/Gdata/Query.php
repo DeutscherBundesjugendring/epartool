@@ -118,17 +118,19 @@ class Zend_Gdata_Query
             $url .= '/-/' . $this->getCategory();
         }
         $url .= $this->getQueryString();
+
         return $url;
     }
 
     /**
-     * @param string $name
-     * @param string $value
+     * @param  string           $name
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setParam($name, $value)
     {
         $this->_params[$name] = $value;
+
         return $this;
     }
 
@@ -141,7 +143,7 @@ class Zend_Gdata_Query
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setAlt($value)
@@ -151,11 +153,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['alt']);
         }
+
         return $this;
     }
 
     /**
-     * @param int $value
+     * @param  int              $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setMaxResults($value)
@@ -165,11 +168,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['max-results']);
         }
+
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setQuery($value)
@@ -179,11 +183,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['q']);
         }
+
         return $this;
     }
 
     /**
-     * @param int $value
+     * @param  int              $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setStartIndex($value)
@@ -193,11 +198,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['start-index']);
         }
+
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setUpdatedMax($value)
@@ -207,11 +213,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['updated-max']);
         }
+
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setUpdatedMin($value)
@@ -221,11 +228,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['updated-min']);
         }
+
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setPublishedMax($value)
@@ -235,11 +243,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['published-max']);
         }
+
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setPublishedMin($value)
@@ -249,11 +258,12 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['published-min']);
         }
+
         return $this;
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setAuthor($value)
@@ -263,6 +273,7 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['author']);
         }
+
         return $this;
     }
 
@@ -375,12 +386,13 @@ class Zend_Gdata_Query
     }
 
     /**
-     * @param string $value
+     * @param  string           $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setCategory($value)
     {
         $this->_category = $value;
+
         return $this;
     }
 
@@ -391,7 +403,6 @@ class Zend_Gdata_Query
     {
         return $this->_category;
     }
-
 
     public function __get($name)
     {

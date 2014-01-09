@@ -21,7 +21,6 @@
  * @version    $Id: Error.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_Gdata_App_Base
  */
@@ -88,7 +87,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see getErrorCode
      * @param integer $value The new value for the error code.
      */
-    public function setErrorCode($value) {
+    public function setErrorCode($value)
+    {
        $this->_errorCode = $value;
     }
 
@@ -128,7 +128,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see setErrorCode
      * @return integer The error code returned by the Google Apps server.
      */
-    public function getErrorCode() {
+    public function getErrorCode()
+    {
         return $this->_errorCode;
     }
 
@@ -138,7 +139,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see getReason
      * @param string $value The reason this exception occurred.
      */
-    public function setReason($value) {
+    public function setReason($value)
+    {
        $this->_reason = $value;
     }
 
@@ -148,7 +150,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see setReason
      * @return string The reason this exception occurred.
      */
-    public function getReason() {
+    public function getReason()
+    {
        return $this->_reason;
     }
 
@@ -158,7 +161,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see getInvalidInput
      * @param string $value The invalid input that triggered this exception.
      */
-    public function setInvalidInput($value) {
+    public function setInvalidInput($value)
+    {
        $this->_invalidInput = $value;
     }
 
@@ -168,7 +172,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * @see setInvalidInput
      * @return string The reason this exception occurred.
      */
-    public function getInvalidInput() {
+    public function getInvalidInput()
+    {
        return $this->_invalidInput;
     }
 
@@ -177,8 +182,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      *          child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -193,6 +198,7 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
         if ($this->_invalidInput !== null) {
             $element->setAttribute('invalidInput', $this->_invalidInput);
         }
+
         return $element;
     }
 
@@ -225,7 +231,8 @@ class Zend_Gdata_Gapps_Error extends Zend_Gdata_App_Base
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return "Error " . $this->getErrorCode() . ": " . $this->getReason() .
             "\n\tInvalid Input: \"" . $this->getInvalidInput() . "\"";
     }

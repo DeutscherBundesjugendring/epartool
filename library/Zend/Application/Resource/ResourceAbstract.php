@@ -70,7 +70,7 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
     {
         if (is_array($options)) {
             $this->setOptions($options);
-        } else if ($options instanceof Zend_Config) {
+        } elseif ($options instanceof Zend_Config) {
             $this->setOptions($options->toArray());
         }
     }
@@ -78,7 +78,7 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
     /**
      * Set options from array
      *
-     * @param  array $options Configuration for resource
+     * @param  array                                      $options Configuration for resource
      * @return Zend_Application_Resource_ResourceAbstract
      */
     public function setOptions(array $options)
@@ -134,6 +134,7 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
                 }
             }
         }
+
         return $array1;
     }
 
@@ -146,6 +147,7 @@ abstract class Zend_Application_Resource_ResourceAbstract implements Zend_Applic
     public function setBootstrap(Zend_Application_Bootstrap_Bootstrapper $bootstrap)
     {
         $this->_bootstrap = $bootstrap;
+
         return $this;
     }
 

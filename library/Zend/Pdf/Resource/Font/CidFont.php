@@ -27,7 +27,6 @@ require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 require_once 'Zend/Pdf/Element/String.php';
 
-
 /** Zend_Pdf_Resource_Font */
 require_once 'Zend/Pdf/Resource/Font.php';
 
@@ -82,7 +81,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      *
      * @param Zend_Pdf_FileParser_Font_OpenType $fontParser Font parser object
      *   containing OpenType file.
-     * @param integer $embeddingOptions Options for font embedding.
+     * @param  integer            $embeddingOptions Options for font embedding.
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_FileParser_Font_OpenType $fontParser)
@@ -129,7 +128,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         $charGlyphs  = $this->_cmap->getCoveredCharactersGlyphs();
         $charWidths  = array();
         foreach ($charGlyphs as $charCode => $glyph) {
-            if(isset($glyphWidths[$glyph]) && !is_null($glyphWidths[$glyph])) {
+            if (isset($glyphWidths[$glyph]) && !is_null($glyphWidths[$glyph])) {
                 $charWidths[$charCode] = $glyphWidths[$glyph];
             }
         }
@@ -166,7 +165,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
             if ($lastCharCode == -1) {
                 $charCodesSequense = array();
                 $sequenceStartCode = $charCode;
-            } else if ($charCode != $lastCharCode + 1) {
+            } elseif ($charCode != $lastCharCode + 1) {
                 // New chracters sequence detected
                 $widthsSequences[$sequenceStartCode] = $charCodesSequense;
                 $charCodesSequense = array();
@@ -238,7 +237,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 // Save it as 'c_1st [w1 w2 ... wn]'.
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode); // First character code
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Array($pdfWidths);   // Widths array
-            } else if ($widthsInSequence != 0){
+            } elseif ($widthsInSequence != 0) {
                 // We have widths sequence
                 // Save it as 'c_1st c_last w'.
                 $pdfCharsWidths[] = new Zend_Pdf_Element_Numeric($startCode);                         // First character code
@@ -274,7 +273,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      *
      * See also {@link glyphNumberForCharacter()}.
      *
-     * @param array $characterCodes Array of Unicode character codes (code points).
+     * @param  array $characterCodes Array of Unicode character codes (code points).
      * @return array Array of glyph numbers.
      */
     public function glyphNumbersForCharacters($characterCodes)
@@ -299,7 +298,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      * See also {@link glyphNumbersForCharacters()} which is optimized for bulk
      * operations.
      *
-     * @param integer $characterCode Unicode character code (code point).
+     * @param  integer $characterCode Unicode character code (code point).
      * @return integer Glyph number.
      */
     public function glyphNumberForCharacter($characterCode)
@@ -363,6 +362,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 $score++;
             }
         }
+
         return $score / $charCount;
     }
 
@@ -374,7 +374,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      *
      * See also {@link widthForChar()}.
      *
-     * @param array &$glyphNumbers Array of glyph numbers.
+     * @param  array &$glyphNumbers Array of glyph numbers.
      * @return array Array of glyph widths (integers).
      */
     public function widthsForChars($charCodes)
@@ -387,6 +387,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
                 $widths[$key] = $this->_charWidths[$charCode];
             }
         }
+
         return $widths;
     }
 
@@ -395,7 +396,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      *
      * Like {@link widthsForChars()} but used for one char at a time.
      *
-     * @param integer $charCode
+     * @param  integer $charCode
      * @return integer
      */
     public function widthForChar($charCode)
@@ -403,14 +404,15 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
         if (!isset($this->_charWidths[$charCode])) {
             return $this->_missingCharWidth;
         }
+
         return $this->_charWidths[$charCode];
     }
 
     /**
      * Returns the widths of the glyphs.
      *
-     * @param array &$glyphNumbers Array of glyph numbers.
-     * @return array Array of glyph widths (integers).
+     * @param  array              &$glyphNumbers Array of glyph numbers.
+     * @return array              Array of glyph widths (integers).
      * @throws Zend_Pdf_Exception
      */
     public function widthsForGlyphs($glyphNumbers)
@@ -431,7 +433,7 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
      *
      * Like {@link widthsForGlyphs()} but used for one glyph at a time.
      *
-     * @param integer $glyphNumber
+     * @param  integer            $glyphNumber
      * @return integer
      * @throws Zend_Pdf_Exception
      */
@@ -451,8 +453,8 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     /**
      * Convert string to the font encoding.
      *
-     * @param string $string
-     * @param string $charEncoding Character encoding of source text.
+     * @param  string             $string
+     * @param  string             $charEncoding Character encoding of source text.
      * @return string
      * @throws Zend_Pdf_Exception
      *      */
@@ -472,8 +474,8 @@ abstract class Zend_Pdf_Resource_Font_CidFont extends Zend_Pdf_Resource_Font
     /**
      * Convert string from the font encoding.
      *
-     * @param string $string
-     * @param string $charEncoding Character encoding of resulting text.
+     * @param  string             $string
+     * @param  string             $charEncoding Character encoding of resulting text.
      * @return string
      * @throws Zend_Pdf_Exception
      */

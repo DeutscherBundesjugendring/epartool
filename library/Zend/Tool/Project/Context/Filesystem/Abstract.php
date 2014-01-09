@@ -63,30 +63,33 @@ abstract class Zend_Tool_Project_Context_Filesystem_Abstract implements Zend_Too
     {
         $parentBaseDirectory = $this->_resource->getParentResource()->getContext()->getPath();
         $this->_baseDirectory = $parentBaseDirectory;
+
         return $this;
     }
 
     /**
      * setResource()
      *
-     * @param Zend_Tool_Project_Profile_Resource $resource
+     * @param  Zend_Tool_Project_Profile_Resource            $resource
      * @return Zend_Tool_Project_Context_Filesystem_Abstract
      */
     public function setResource(Zend_Tool_Project_Profile_Resource $resource)
     {
         $this->_resource = $resource;
+
         return $this;
     }
 
     /**
      * setBaseDirectory()
      *
-     * @param string $baseDirectory
+     * @param  string                                        $baseDirectory
      * @return Zend_Tool_Project_Context_Filesystem_Abstract
      */
     public function setBaseDirectory($baseDirectory)
     {
         $this->_baseDirectory = rtrim(str_replace('\\', '/', $baseDirectory), '/');
+
         return $this;
     }
 
@@ -103,12 +106,13 @@ abstract class Zend_Tool_Project_Context_Filesystem_Abstract implements Zend_Too
     /**
      * setFilesystemName()
      *
-     * @param string $filesystemName
+     * @param  string                                        $filesystemName
      * @return Zend_Tool_Project_Context_Filesystem_Abstract
      */
     public function setFilesystemName($filesystemName)
     {
         $this->_filesystemName = $filesystemName;
+
         return $this;
     }
 
@@ -133,6 +137,7 @@ abstract class Zend_Tool_Project_Context_Filesystem_Abstract implements Zend_Too
         if ($this->_filesystemName) {
             $path .= '/' . $this->_filesystemName;
         }
+
         return $path;
     }
 

@@ -57,13 +57,14 @@ class Zend_XmlRpc_Server_System
     public function listMethods()
     {
         $table = $this->_server->getDispatchTable()->getMethods();
+
         return array_keys($table);
     }
 
     /**
      * Display help message for an XMLRPC method
      *
-     * @param string $method
+     * @param  string $method
      * @return string
      */
     public function methodHelp($method)
@@ -80,7 +81,7 @@ class Zend_XmlRpc_Server_System
     /**
      * Return a method signature
      *
-     * @param string $method
+     * @param  string $method
      * @return array
      */
     public function methodSignature($method)
@@ -91,6 +92,7 @@ class Zend_XmlRpc_Server_System
             throw new Zend_XmlRpc_Server_Exception('Method "' . $method . '" does not exist', 640);
         }
         $method = $table->getMethod($method)->toArray();
+
         return $method['prototypes'];
     }
 

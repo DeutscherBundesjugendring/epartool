@@ -52,7 +52,7 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
     /**
      * Returns an array of items for a page.
      *
-     * @param  integer $offset Page offset
+     * @param  integer $offset           Page offset
      * @param  integer $itemCountPerPage Number of items per page
      * @return array
      */

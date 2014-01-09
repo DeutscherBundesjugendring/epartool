@@ -31,8 +31,8 @@ interface Zend_Pdf_Filter_Interface
     /**
      * Encode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -41,8 +41,8 @@ interface Zend_Pdf_Filter_Interface
     /**
      * Decode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */

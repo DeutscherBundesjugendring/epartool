@@ -105,6 +105,7 @@ class Zend_Tool_Framework_Client_Console
     public function setConfigOptions($configOptions)
     {
         $this->_configOptions = $configOptions;
+
         return $this;
     }
 
@@ -116,15 +117,17 @@ class Zend_Tool_Framework_Client_Console
     public function setStorageOptions($storageOptions)
     {
         $this->_storageOptions = $storageOptions;
+
         return $this;
     }
 
     /**
-		 * @param array $classesToLoad
-		 */
+         * @param array $classesToLoad
+         */
     public function setClassesToLoad($classesToLoad)
     {
         $this->_classesToLoad = $classesToLoad;
+
         return $this;
     }
 
@@ -223,6 +226,7 @@ class Zend_Tool_Framework_Client_Console
         }
 
         echo PHP_EOL;
+
         return;
     }
 
@@ -230,13 +234,14 @@ class Zend_Tool_Framework_Client_Console
      * handleInteractiveInputRequest() is required by the Interactive InputInterface
      *
      *
-     * @param Zend_Tool_Framework_Client_Interactive_InputRequest $inputRequest
+     * @param  Zend_Tool_Framework_Client_Interactive_InputRequest $inputRequest
      * @return string
      */
     public function handleInteractiveInputRequest(Zend_Tool_Framework_Client_Interactive_InputRequest $inputRequest)
     {
         fwrite(STDOUT, $inputRequest->getContent() . PHP_EOL . 'zf> ');
         $inputContent = fgets(STDIN);
+
         return rtrim($inputContent); // remove the return from the end of the string
     }
 
@@ -256,16 +261,15 @@ class Zend_Tool_Framework_Client_Console
     /**
      * getMissingParameterPromptString()
      *
-     * @param Zend_Tool_Framework_Provider_Interface $provider
-     * @param Zend_Tool_Framework_Action_Interface $actionInterface
-     * @param string $missingParameterName
+     * @param  Zend_Tool_Framework_Provider_Interface $provider
+     * @param  Zend_Tool_Framework_Action_Interface   $actionInterface
+     * @param  string                                 $missingParameterName
      * @return string
      */
     public function getMissingParameterPromptString(Zend_Tool_Framework_Provider_Interface $provider, Zend_Tool_Framework_Action_Interface $actionInterface, $missingParameterName)
     {
         return 'Please provide a value for $' . $missingParameterName;
     }
-
 
     /**
      * convertToClientNaming()
@@ -274,7 +278,7 @@ class Zend_Tool_Framework_Client_Console
      *
      * Filters are lazy-loaded.
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public function convertToClientNaming($string)
@@ -297,7 +301,7 @@ class Zend_Tool_Framework_Client_Console
      *
      * Filters are lazy-loaded.
      *
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     public function convertFromClientNaming($string)

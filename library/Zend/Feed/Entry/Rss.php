@@ -20,12 +20,10 @@
  * @version    $Id: Rss.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Entry_Abstract
  */
 require_once 'Zend/Feed/Entry/Abstract.php';
-
 
 /**
  * Concrete class for working with RSS items.
@@ -56,6 +54,7 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
         switch ($var) {
             case 'content':
                 $prefix = $this->_element->lookupPrefix('http://purl.org/rss/1.0/modules/content/');
+
                 return parent::__get("$prefix:encoded");
             default:
                 return parent::__get($var);
@@ -85,7 +84,7 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
      * Overwrites parent::_isset method to enable access
      * to content:encoded element.
      *
-     * @param  string $var
+     * @param  string  $var
      * @return boolean
      */
     public function __isset($var)
@@ -107,13 +106,14 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
      *
      * @param  string $var    The element to get the string value of.
      * @param  mixed  $unused This parameter is not used.
-     * @return mixed The node's value, null, or an array of nodes.
+     * @return mixed  The node's value, null, or an array of nodes.
      */
     public function __call($var, $unused)
     {
         switch ($var) {
             case 'content':
                 $prefix = $this->_element->lookupPrefix('http://purl.org/rss/1.0/modules/content/');
+
                 return parent::__call("$prefix:encoded", $unused);
             default:
                 return parent::__call($var, $unused);

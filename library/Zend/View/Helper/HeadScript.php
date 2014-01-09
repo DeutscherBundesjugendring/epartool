@@ -104,11 +104,11 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      * Returns headScript helper object; optionally, allows specifying a script
      * or script file to include.
      *
-     * @param  string $mode Script or file
-     * @param  string $spec Script/url
-     * @param  string $placement Append, prepend, or set
-     * @param  array $attrs Array of script attributes
-     * @param  string $type Script type and/or array of script attributes
+     * @param  string                      $mode      Script or file
+     * @param  string                      $spec      Script/url
+     * @param  string                      $placement Append, prepend, or set
+     * @param  array                       $attrs     Array of script attributes
+     * @param  string                      $type      Script type and/or array of script attributes
      * @return Zend_View_Helper_HeadScript
      */
     public function headScript($mode = Zend_View_Helper_HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
@@ -135,7 +135,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     /**
      * Start capture action
      *
-     * @param  mixed $captureType
+     * @param  mixed  $captureType
      * @param  string $typeOrAttrs
      * @return void
      */
@@ -195,10 +195,10 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      * - prependScript($script, $type = 'text/javascript', $attrs = array())
      * - setScript($script, $type = 'text/javascript', $attrs = array())
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string                      $method
+     * @param  array                       $args
      * @return Zend_View_Helper_HeadScript
-     * @throws Zend_View_Exception if too few arguments or invalid method
+     * @throws Zend_View_Exception         if too few arguments or invalid method
      */
     public function __call($method, $args)
     {
@@ -279,13 +279,14 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Is the script provided valid?
      *
-     * @param  mixed $value
+     * @param  mixed  $value
      * @param  string $method
      * @return bool
      */
@@ -359,7 +360,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
      * Override offsetSet
      *
      * @param  string|int $index
-     * @param  mixed $value
+     * @param  mixed      $value
      * @return void
      */
     public function offsetSet($index, $value)
@@ -377,12 +378,13 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     /**
      * Set flag indicating if arbitrary attributes are allowed
      *
-     * @param  bool $flag
+     * @param  bool                        $flag
      * @return Zend_View_Helper_HeadScript
      */
     public function setAllowArbitraryAttributes($flag)
     {
         $this->_arbitraryAttributes = (bool) $flag;
+
         return $this;
     }
 
@@ -399,9 +401,9 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     /**
      * Create script HTML
      *
-     * @param  string $type
-     * @param  array $attributes
-     * @param  string $content
+     * @param  string     $type
+     * @param  array      $attributes
+     * @param  string     $content
      * @param  string|int $indent
      * @return string
      */
@@ -486,15 +488,16 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
         }
 
         $return = implode($this->getSeparator(), $items);
+
         return $return;
     }
 
     /**
      * Create data item containing all necessary components of script
      *
-     * @param  string $type
-     * @param  array $attributes
-     * @param  string $content
+     * @param  string   $type
+     * @param  array    $attributes
+     * @param  string   $content
      * @return stdClass
      */
     public function createData($type, array $attributes, $content = null)
@@ -503,6 +506,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
         $data->type       = $type;
         $data->attributes = $attributes;
         $data->source     = $content;
+
         return $data;
     }
 }

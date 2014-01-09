@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /**
  * Zend_Exception
  */
 require_once 'Zend/Exception.php';
-
 
 /**
  * Exception for Zend_View class.
@@ -41,6 +39,7 @@ class Zend_View_Exception extends Zend_Exception
     public function setView(Zend_View_Interface $view = null)
     {
         $this->view = $view;
+
         return $this;
     }
 

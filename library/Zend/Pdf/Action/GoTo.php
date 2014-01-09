@@ -26,7 +26,6 @@ require_once 'Zend/Pdf/Destination.php';
 require_once 'Zend/Pdf/Element/Dictionary.php';
 require_once 'Zend/Pdf/Element/Name.php';
 
-
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
@@ -47,12 +46,11 @@ class Zend_Pdf_Action_GoTo extends Zend_Pdf_Action
      */
     protected $_destination;
 
-
     /**
      * Object constructor
      *
      * @param Zend_Pdf_Element_Dictionary $dictionary
-     * @param SplObjectStorage            $processedActions  list of already processed action dictionaries, used to avoid cyclic references
+     * @param SplObjectStorage            $processedActions list of already processed action dictionaries, used to avoid cyclic references
      */
     public function __construct(Zend_Pdf_Element $dictionary, SplObjectStorage $processedActions)
     {
@@ -64,7 +62,7 @@ class Zend_Pdf_Action_GoTo extends Zend_Pdf_Action
     /**
      * Create new Zend_Pdf_Action_GoTo object using specified destination
      *
-     * @param Zend_Pdf_Destination|string $destination
+     * @param  Zend_Pdf_Destination|string $destination
      * @return Zend_Pdf_Action_GoTo
      */
     public static function create($destination)
@@ -91,7 +89,7 @@ class Zend_Pdf_Action_GoTo extends Zend_Pdf_Action
     /**
      * Set goto action destination
      *
-     * @param Zend_Pdf_Destination|string $destination
+     * @param  Zend_Pdf_Destination|string $destination
      * @return Zend_Pdf_Action_GoTo
      */
     public function setDestination(Zend_Pdf_Destination $destination)

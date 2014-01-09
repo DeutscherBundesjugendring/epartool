@@ -19,12 +19,10 @@
  * @version    $Id: View.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Abstract master class for extension.
  */
 require_once 'Zend/View/Abstract.php';
-
 
 /**
  * Concrete class for handling view scripts.
@@ -76,12 +74,13 @@ class Zend_View extends Zend_View_Abstract
     /**
      * Set flag indicating if stream wrapper should be used if short_open_tag is off
      *
-     * @param  bool $flag
+     * @param  bool      $flag
      * @return Zend_View
      */
     public function setUseStreamWrapper($flag)
     {
         $this->_useStreamWrapper = (bool) $flag;
+
         return $this;
     }
 

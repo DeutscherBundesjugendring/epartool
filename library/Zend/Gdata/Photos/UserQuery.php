@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for user entries.
@@ -80,12 +80,13 @@ class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
      * Set's the format of data returned in Atom feeds. Can be either
      * 'api' or 'base'. Normally, 'api' will be desired. Default is 'api'.
      *
-     * @param string $value
+     * @param  string                      $value
      * @return Zend_Gdata_Photos_UserQuery Provides a fluent interface
      */
     public function setProjection($value)
     {
         $this->_projection = $value;
+
         return $this;
     }
 
@@ -104,12 +105,13 @@ class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
      * Set's the type of data returned in queries. Can be either
      * 'feed' or 'entry'. Normally, 'feed' will be desired. Default is 'feed'.
      *
-     * @param string $value
+     * @param  string                      $value
      * @return Zend_Gdata_Photos_UserQuery Provides a fluent interface
      */
     public function setType($value)
     {
         $this->_type = $value;
+
         return $this;
     }
 
@@ -315,7 +317,7 @@ class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
      * Returns the URL generated for this query, based on it's current
      * parameters.
      *
-     * @return string A URL generated based on the state of this query.
+     * @return string                                  A URL generated based on the state of this query.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getQueryUrl($incomingUri = null)
@@ -349,6 +351,7 @@ class Zend_Gdata_Photos_UserQuery extends Zend_Gdata_Query
 
         $uri .= $incomingUri;
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

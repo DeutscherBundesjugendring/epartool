@@ -59,8 +59,8 @@ class Zend_Server_Reflection_Parameter
      * Constructor
      *
      * @param ReflectionParameter $r
-     * @param string $type Parameter type
-     * @param string $description Parameter description
+     * @param string              $type        Parameter type
+     * @param string              $description Parameter description
      */
     public function __construct(ReflectionParameter $r, $type = 'mixed', $description = '')
     {
@@ -72,8 +72,8 @@ class Zend_Server_Reflection_Parameter
     /**
      * Proxy reflection calls
      *
-     * @param string $method
-     * @param array $args
+     * @param  string $method
+     * @param  array  $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -99,7 +99,7 @@ class Zend_Server_Reflection_Parameter
     /**
      * Set parameter type
      *
-     * @param string|null $type
+     * @param  string|null $type
      * @return void
      */
     public function setType($type)
@@ -125,7 +125,7 @@ class Zend_Server_Reflection_Parameter
     /**
      * Set parameter description
      *
-     * @param string|null $description
+     * @param  string|null $description
      * @return void
      */
     public function setDescription($description)
@@ -141,7 +141,7 @@ class Zend_Server_Reflection_Parameter
     /**
      * Set parameter position
      *
-     * @param int $index
+     * @param  int  $index
      * @return void
      */
     public function setPosition($index)

@@ -47,19 +47,20 @@ abstract class Zend_Mobile_Push_Abstract implements Zend_Mobile_Push_Interface
 
     /**
      * Connect to the Push Server
-     * 
+     *
      * @return Zend_Mobile_Push_Abstract
      */
     public function connect()
     {
         $this->_isConnected = true;
+
         return $this;
     }
 
     /**
      * Send a Push Message
      *
-     * @param Zend_Mobile_Push_Message_Abstract $message
+     * @param  Zend_Mobile_Push_Message_Abstract $message
      * @return boolean
      * @throws DomainException
      */
@@ -68,6 +69,7 @@ abstract class Zend_Mobile_Push_Abstract implements Zend_Mobile_Push_Interface
         if (!$this->_isConnected) {
             $this->connect();
         }
+
         return true;
     }
 
@@ -94,7 +96,7 @@ abstract class Zend_Mobile_Push_Abstract implements Zend_Mobile_Push_Interface
     /**
      * Set Options
      *
-     * @param array $options
+     * @param  array                      $options
      * @return Zend_Mobile_Push_Abstract
      * @throws Zend_Mobile_Push_Exception
      */
@@ -107,6 +109,7 @@ abstract class Zend_Mobile_Push_Abstract implements Zend_Mobile_Push_Interface
             }
             $this->$method($v);
         }
+
         return $this;
     }
 }

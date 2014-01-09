@@ -76,7 +76,7 @@ class Zend_Amf_Adobe_Introspector
      * Create XML definition on an AMF service class
      *
      * @param  string $serviceClass Service class name
-     * @param  array $options invocation options
+     * @param  array  $options      invocation options
      * @return string XML with service class introspection
      */
     public function introspect($serviceClass, $options = array())
@@ -115,7 +115,7 @@ class Zend_Amf_Adobe_Introspector
     /**
      * Authentication handler
      *
-     * @param  Zend_Acl $acl
+     * @param  Zend_Acl     $acl
      * @return unknown_type
      */
     public function initAcl(Zend_Acl $acl)
@@ -126,8 +126,8 @@ class Zend_Amf_Adobe_Introspector
     /**
      * Generate map of public class attributes
      *
-     * @param  string $typename type name
-     * @param  DOMElement $typexml target XML element
+     * @param  string     $typename type name
+     * @param  DOMElement $typexml  target XML element
      * @return void
      */
     protected function _addClassAttributes($typename, DOMElement $typexml)
@@ -158,7 +158,7 @@ class Zend_Amf_Adobe_Introspector
      * Build XML service description from reflection class
      *
      * @param  Zend_Server_Reflection_Class $refclass
-     * @param  DOMElement $target target XML element
+     * @param  DOMElement                   $target   target XML element
      * @return void
      */
     protected function _addService(Zend_Server_Reflection_Class $refclass, DOMElement $target)
@@ -190,7 +190,7 @@ class Zend_Amf_Adobe_Introspector
                     $ptype = $this->_registerType($type);
                     $arg->setAttribute('type', $ptype);
 
-                    if($param->isDefaultValueAvailable()) {
+                    if ($param->isDefaultValueAvailable()) {
                         $arg->setAttribute('defaultvalue', $param->getDefaultValue());
                     }
 
@@ -206,7 +206,7 @@ class Zend_Amf_Adobe_Introspector
      * Extract type of the property from DocBlock
      *
      * @param  Zend_Reflection_Property $prop reflection property object
-     * @return string Property type
+     * @return string                   Property type
      */
     protected function _getPropertyType(Zend_Reflection_Property $prop)
     {
@@ -221,6 +221,7 @@ class Zend_Amf_Adobe_Introspector
         }
 
         $tag = $docBlock->getTag('var');
+
         return trim($tag->getDescription());
     }
 

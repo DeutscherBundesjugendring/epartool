@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for Google Apps user entries.
@@ -141,6 +141,7 @@ class Zend_Gdata_Gapps_UserQuery extends Zend_Gdata_Gapps_Query
             $uri .= '/' . $this->_username;
         }
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

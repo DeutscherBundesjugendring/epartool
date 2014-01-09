@@ -21,7 +21,6 @@
  * @version    $Id: SimilarProduct.php 24780 2012-05-08 19:34:59Z adamlundrigan $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -53,8 +52,8 @@ class Zend_Service_Amazon_SimilarProduct
         $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
         foreach (array('ASIN', 'Title') as $el) {
             $text = $xpath->query("./az:$el/text()", $dom)->item(0);
-            if($text instanceof DOMText) {
-                $this->$el = (string)$text->data;
+            if ($text instanceof DOMText) {
+                $this->$el = (string) $text->data;
             }
         }
     }

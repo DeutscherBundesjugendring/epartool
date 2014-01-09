@@ -146,11 +146,10 @@ class Zend_Markup_Parser_Bbcode implements Zend_Markup_Parser_ParserInterface
      */
     protected $_state = self::STATE_SCAN;
 
-
     /**
      * Prepare the parsing of a bbcode string, the real parsing is done in {@link _parse()}
      *
-     * @param  string $value
+     * @param  string                $value
      * @return Zend_Markup_TokenList
      */
     public function parse($value)

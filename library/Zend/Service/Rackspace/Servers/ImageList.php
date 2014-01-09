@@ -53,7 +53,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      * Construct
      *
      * @param  RackspaceServers $service
-     * @param  array $list
+     * @param  array            $list
      * @return void
      */
     public function __construct($service,$list = array())
@@ -80,18 +80,19 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
     /**
      * Add an image
      *
-     * @param  Zend_Service_Rackspace_Servers_Image $image
+     * @param  Zend_Service_Rackspace_Servers_Image     $image
      * @return Zend_Service_Rackspace_Servers_ImageList
      */
-    protected function addImage (Zend_Service_Rackspace_Servers_Image $image)
+    protected function addImage(Zend_Service_Rackspace_Servers_Image $image)
     {
         $this->images[] = $image;
+
         return $this;
     }
     /**
      * To Array
-     * 
-     * @return array 
+     *
+     * @return array
      */
     public function toArray()
     {
@@ -99,6 +100,7 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
         foreach ($this->images as $image) {
             $array[]= $image->toArray();
         }
+
         return $array;
     }
     /**
@@ -177,8 +179,8 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * Implement ArrayAccess::offsetExists()
      *
-     * @param   int     $offset
-     * @return  bool
+     * @param  int  $offset
+     * @return bool
      */
     public function offsetExists($offset)
     {
@@ -189,9 +191,9 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * Implement ArrayAccess::offsetGet()
      *
-     * @param   int     $offset
-     * @throws  Zend_Service_Rackspace_Servers_Exception
-     * @return  Zend_Service_Rackspace_Servers_Image
+     * @param  int                                      $offset
+     * @throws Zend_Service_Rackspace_Servers_Exception
+     * @return Zend_Service_Rackspace_Servers_Image
      */
     public function offsetGet($offset)
     {
@@ -208,9 +210,9 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * Implement ArrayAccess::offsetSet()
      *
-     * @param   int     $offset
-     * @param   string  $value
-     * @throws  Zend_Service_Rackspace_Servers_Exception
+     * @param  int                                      $offset
+     * @param  string                                   $value
+     * @throws Zend_Service_Rackspace_Servers_Exception
      */
     public function offsetSet($offset, $value)
     {
@@ -223,8 +225,8 @@ class Zend_Service_Rackspace_Servers_ImageList implements Countable, Iterator, A
      *
      * Implement ArrayAccess::offsetUnset()
      *
-     * @param   int     $offset
-     * @throws  Zend_Service_Rackspace_Servers_Exception
+     * @param  int                                      $offset
+     * @throws Zend_Service_Rackspace_Servers_Exception
      */
     public function offsetUnset($offset)
     {

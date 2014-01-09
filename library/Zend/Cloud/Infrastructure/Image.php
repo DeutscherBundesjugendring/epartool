@@ -9,13 +9,13 @@
 
 /**
  * Instance of an infrastructure service
- * 
+ *
  * @package    Zend_Cloud
  * @subpackage Infrastructure
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_Infrastructure_Image 
+class Zend_Cloud_Infrastructure_Image
 {
     const IMAGE_ID           = 'imageId';
     const IMAGE_OWNERID      = 'ownerId';
@@ -30,37 +30,37 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Image's attributes
-     * 
+     *
      * @var array
      */
     protected $attributes = array();
 
     /**
      * The Image adapter (if exists)
-     * 
+     *
      * @var object
      */
     protected $adapter;
 
     /**
      * Required attributes
-     * 
+     *
      * @var array
      */
     protected $attributeRequired = array(
-        self::IMAGE_ID, 
-        self::IMAGE_DESCRIPTION, 
-        self::IMAGE_PLATFORM, 
+        self::IMAGE_ID,
+        self::IMAGE_DESCRIPTION,
+        self::IMAGE_PLATFORM,
         self::IMAGE_ARCHITECTURE,
     );
 
     /**
      * Constructor
-     * 
-     * @param array $data
-     * @param object $adapter 
+     *
+     * @param array  $data
+     * @param object $adapter
      */
-    public function __construct($data, $adapter = null) 
+    public function __construct($data, $adapter = null)
     {
         if (is_object($data)) {
             if (method_exists($data, 'toArray')) {
@@ -69,7 +69,7 @@ class Zend_Cloud_Infrastructure_Image
                 $data = iterator_to_array($data);
             }
         }
-        
+
         if (empty($data) || !is_array($data)) {
             require_once 'Zend/Cloud/Infrastructure/Exception.php';
             throw new Zend_Cloud_Infrastructure_Exception('You must pass an array of parameters');
@@ -93,20 +93,21 @@ class Zend_Cloud_Infrastructure_Image
     /**
      * Get Attribute with a specific key
      *
-     * @param array $data
+     * @param  array        $data
      * @return misc|boolean
      */
-    public function getAttribute($key) 
+    public function getAttribute($key)
     {
         if (!empty($this->attributes[$key])) {
             return $this->attributes[$key];
         }
+
         return false;
     }
 
     /**
      * Get all the attributes
-     * 
+     *
      * @return array
      */
     public function getAttributes()
@@ -116,7 +117,7 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Get the image ID
-     * 
+     *
      * @return string
      */
     public function getId()
@@ -126,7 +127,7 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Get the Owner ID
-     * 
+     *
      * @return string
      */
     public function getOwnerId()
@@ -136,8 +137,8 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Get the name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -146,8 +147,8 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Get the description
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -156,8 +157,8 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Get the platform
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getPlatform()
     {
@@ -166,8 +167,8 @@ class Zend_Cloud_Infrastructure_Image
 
     /**
      * Get the architecture
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getArchitecture()
     {

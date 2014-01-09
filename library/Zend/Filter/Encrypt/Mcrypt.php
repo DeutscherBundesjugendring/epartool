@@ -105,7 +105,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
     /**
      * Sets new encryption options
      *
-     * @param  string|array $options Encryption options
+     * @param  string|array                $options Encryption options
      * @return Zend_Filter_File_Encryption
      */
     public function setEncryption($options)
@@ -160,7 +160,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
     /**
      * Sets the initialization vector
      *
-     * @param string $vector (Optional) Vector to set
+     * @param  string                     $vector (Optional) Vector to set
      * @return Zend_Filter_Encrypt_Mcrypt
      */
     public function setVector($vector = null)
@@ -181,7 +181,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
                 }
             }
             $vector = mcrypt_create_iv($size, $method);
-        } else if (strlen($vector) != $size) {
+        } elseif (strlen($vector) != $size) {
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('The given vector has a wrong size for the set algorithm');
         }
@@ -205,7 +205,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
     /**
      * Sets a internal compression for values to encrypt
      *
-     * @param string|array $compression
+     * @param  string|array               $compression
      * @return Zend_Filter_Encrypt_Mcrypt
      */
     public function setCompression($compression)
@@ -215,6 +215,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
         }
 
         $this->_compression = $compression;
+
         return $this;
     }
 
@@ -284,7 +285,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
      * Open a cipher
      *
      * @throws Zend_Filter_Exception When the cipher can not be opened
-     * @return resource Returns the opened cipher
+     * @return resource              Returns the opened cipher
      */
     protected function _openCipher()
     {
@@ -305,7 +306,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
     /**
      * Close a cipher
      *
-     * @param  resource $cipher Cipher to close
+     * @param  resource                   $cipher Cipher to close
      * @return Zend_Filter_Encrypt_Mcrypt
      */
     protected function _closeCipher($cipher)
@@ -318,7 +319,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
     /**
      * Initialises the cipher with the set key
      *
-     * @param  resource $cipher
+     * @param resource $cipher
      * @throws
      * @return resource
      */
@@ -331,7 +332,7 @@ class Zend_Filter_Encrypt_Mcrypt implements Zend_Filter_Encrypt_Interface
             $this->_srand();
             $keysize = mcrypt_enc_get_key_size($cipher);
             $key     = substr(md5($key), 0, $keysize);
-        } else if (!in_array(strlen($key), $keysizes)) {
+        } elseif (!in_array(strlen($key), $keysizes)) {
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('The given key has a wrong size for the set algorithm');
         }

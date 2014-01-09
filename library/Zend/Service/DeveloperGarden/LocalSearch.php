@@ -83,8 +83,8 @@ class Zend_Service_DeveloperGarden_LocalSearch
     /**
      * localSearch with the given parameters
      *
-     * @param Zend_Service_DeveloperGarden_LocalSearch_SearchParameters $searchParameters
-     * @param integer $account
+     * @param  Zend_Service_DeveloperGarden_LocalSearch_SearchParameters                 $searchParameters
+     * @param  integer                                                                   $account
      * @return Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponseType
      */
     public function localSearch(
@@ -100,6 +100,7 @@ class Zend_Service_DeveloperGarden_LocalSearch
         $result = $this->getSoapClient()->localSearch($request);
 
         $response = new Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse($result);
+
         return $response->parse();
     }
 }

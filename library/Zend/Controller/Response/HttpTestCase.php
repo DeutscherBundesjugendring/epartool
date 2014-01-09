@@ -55,6 +55,7 @@ class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Htt
                 $headers[$key] = $header['name'] . ': ' . $header['value'];
             }
         }
+
         return $headers;
     }
 
@@ -80,13 +81,14 @@ class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Htt
         foreach ($this->_body as $content) {
             $fullContent .= $content;
         }
+
         return $fullContent;
     }
 
     /**
      * Get body and/or body segments
      *
-     * @param  bool|string $spec
+     * @param  bool|string       $spec
      * @return string|array|null
      */
     public function getBody($spec = false)

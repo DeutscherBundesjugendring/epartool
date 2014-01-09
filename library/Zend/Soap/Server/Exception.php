@@ -19,10 +19,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_Exception */
 require_once 'Zend/Exception.php';
-
 
 /**
  * @category   Zend
@@ -34,4 +32,3 @@ require_once 'Zend/Exception.php';
  */
 class Zend_Soap_Server_Exception extends Zend_Exception
 {}
-

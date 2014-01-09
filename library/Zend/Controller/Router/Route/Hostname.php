@@ -128,6 +128,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
         $reqs   = ($config->reqs instanceof Zend_Config) ? $config->reqs->toArray() : array();
         $defs   = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
         $scheme = (isset($config->scheme)) ? $config->scheme : null;
+
         return new self($config->route, $defs, $reqs, $scheme);
     }
 
@@ -136,9 +137,9 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * to a corresponding atomic parts. These parts are assigned
      * a position which is later used for matching and preparing values.
      *
-     * @param string $route Map used to match with later submitted hostname
+     * @param string $route    Map used to match with later submitted hostname
      * @param array  $defaults Defaults for map variables with keys as variable names
-     * @param array  $reqs Regular expression requirements for variables (keys as variable names)
+     * @param array  $reqs     Regular expression requirements for variables (keys as variable names)
      * @param string $scheme
      */
     public function __construct($route, $defaults = array(), $reqs = array(), $scheme = null)
@@ -166,8 +167,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * Matches a user submitted path with parts defined by a map. Assigns and
      * returns an array of variables on a successful match.
      *
-     * @param Zend_Controller_Request_Http $request Request to get the host from
-     * @return array|false An array of assigned values or a false on a mismatch
+     * @param  Zend_Controller_Request_Http $request Request to get the host from
+     * @return array|false                  An array of assigned values or a false on a mismatch
      */
     public function match($request)
     {
@@ -245,9 +246,9 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
     /**
      * Assembles user submitted parameters forming a hostname defined by this route
      *
-     * @param  array $data An array of variable and value pairs used as parameters
+     * @param  array   $data  An array of variable and value pairs used as parameters
      * @param  boolean $reset Whether or not to set route defaults with those provided in $data
-     * @return string Route path with user submitted parameters
+     * @return string  Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false, $encode = false, $partial = false)
     {
@@ -310,13 +311,15 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
     /**
      * Return a single parameter of route's defaults
      *
-     * @param string $name Array key of the parameter
+     * @param  string $name Array key of the parameter
      * @return string Previously set default
      */
-    public function getDefault($name) {
+    public function getDefault($name)
+    {
         if (isset($this->_defaults[$name])) {
             return $this->_defaults[$name];
         }
+
         return null;
     }
 
@@ -325,7 +328,8 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      *
      * @return array Route defaults
      */
-    public function getDefaults() {
+    public function getDefaults()
+    {
         return $this->_defaults;
     }
 

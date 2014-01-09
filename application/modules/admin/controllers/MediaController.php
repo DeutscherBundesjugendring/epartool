@@ -6,8 +6,8 @@
  * @desc   Media Admin
  * @author        Markus Hackel
  */
-class Admin_MediaController extends Zend_Controller_Action {
-
+class Admin_MediaController extends Zend_Controller_Action
+{
     /**
      * FlashMessenger
      *
@@ -19,7 +19,8 @@ class Admin_MediaController extends Zend_Controller_Action {
      * @desc Construct
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger =
@@ -31,7 +32,8 @@ class Admin_MediaController extends Zend_Controller_Action {
      * @desc media dashboard
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
         $directory = realpath(APPLICATION_PATH . '/../media');
@@ -91,8 +93,8 @@ class Admin_MediaController extends Zend_Controller_Action {
      * @desc Handles Upload Action, redirects to index view
      * @return void
      */
-    public function uploadAction() {
-
+    public function uploadAction()
+    {
         $popup = (bool) $this->getRequest()->getParam('popup', 0);
         $kid = (int) $this->getRequest()->getParam('kid', 0);
         $elemid = $this->getRequest()->getParam('elemid', 0);
@@ -152,7 +154,8 @@ class Admin_MediaController extends Zend_Controller_Action {
      * @desc Handles Delete Action, redirects to index view
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         $kid = (int) $this->getRequest()->getParam('kid', 0);
 
         $formData = $this->_request->getParams();
@@ -187,8 +190,8 @@ class Admin_MediaController extends Zend_Controller_Action {
                 )), array('prependBase' => false));
     }
 
-    public function chooseAction() {
-
+    public function chooseAction()
+    {
         $this->_helper->layout->setLayout('popup');
         $elemid = $this->getRequest()->getParam('elemid', 0);
         $formid = $this->getRequest()->getParam('formid', 0);
@@ -252,7 +255,8 @@ class Admin_MediaController extends Zend_Controller_Action {
         ));
     }
 
-    public function downloadAction() {
+    public function downloadAction()
+    {
         $file = $this->getRequest()->getParam('file', 0);
         $filename = $this->getRequest()->getParam('filename', 0);
         $elemid = $this->getRequest()->getParam('elemid', 0);
@@ -290,5 +294,3 @@ class Admin_MediaController extends Zend_Controller_Action {
     }
 
 }
-
-?>

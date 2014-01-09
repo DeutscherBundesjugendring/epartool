@@ -56,6 +56,7 @@ class Zend_Form_SubForm extends Zend_Form
                  ->addDecorator('Fieldset')
                  ->addDecorator('DtDdWrapper');
         }
+
         return $this;
     }
 }

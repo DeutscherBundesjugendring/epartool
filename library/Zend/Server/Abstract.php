@@ -124,6 +124,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
     public static function lowerCase(&$value, &$key)
     {
         trigger_error(__CLASS__ . '::' . __METHOD__ . '() is deprecated and will be removed in a future version', E_USER_NOTICE);
+
         return $value = strtolower($value);
     }
 
@@ -144,6 +145,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
             $callback->setType('function')
                      ->setFunction($reflection->getName());
         }
+
         return $callback;
     }
 
@@ -151,9 +153,9 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
      * Build a method signature
      *
      * @param  Zend_Server_Reflection_Function_Abstract $reflection
-     * @param  null|string|object $class
+     * @param  null|string|object                       $class
      * @return Zend_Server_Method_Definition
-     * @throws Zend_Server_Exception on duplicate entry
+     * @throws Zend_Server_Exception                    on duplicate entry
      */
     protected function _buildSignature(Zend_Server_Reflection_Function_Abstract $reflection, $class = null)
     {
@@ -192,6 +194,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
             $definition->setObject($class);
         }
         $this->_table->addMethod($definition);
+
         return $definition;
     }
 
@@ -199,7 +202,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
      * Dispatch method
      *
      * @param  Zend_Server_Method_Definition $invocable
-     * @param  array $params
+     * @param  array                         $params
      * @return mixed
      */
     protected function _dispatch(Zend_Server_Method_Definition $invocable, array $params)
@@ -209,6 +212,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
 
         if ('function' == $type) {
             $function = $callback->getFunction();
+
             return call_user_func_array($function, $params);
         }
 
@@ -229,6 +233,7 @@ abstract class Zend_Server_Abstract implements Zend_Server_Interface
                 $object = new $class;
             }
         }
+
         return call_user_func_array(array($object, $method), $params);
     }
 

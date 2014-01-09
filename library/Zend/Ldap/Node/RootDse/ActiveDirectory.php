@@ -190,7 +190,7 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
     /**
      * Determines if the capability is supported
      *
-     * @param string|string|array $oids capability(s) to check
+     * @param  string|string|array $oids capability(s) to check
      * @return boolean
      */
     public function supportsCapability($oids)
@@ -201,7 +201,7 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
     /**
      * Determines if the control is supported
      *
-     * @param string|array $oids control oid(s) to check
+     * @param  string|array $oids control oid(s) to check
      * @return boolean
      */
     public function supportsControl($oids)
@@ -212,7 +212,7 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
     /**
      * Determines if the version is supported
      *
-     * @param string|array $policies policy(s) to check
+     * @param  string|array $policies policy(s) to check
      * @return boolean
      */
     public function supportsPolicy($policies)
@@ -242,6 +242,7 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
          * @see Zend_Ldap_Dn
          */
         require_once 'Zend/Ldap/Dn.php';
+
         return Zend_Ldap_Dn::fromString($schemaDn);
     }
 }

@@ -64,6 +64,7 @@ class Zend_Tool_Project_Context_Zf_TestLibraryFile extends Zend_Tool_Project_Con
         $this->_forClassName = $this->_resource->getAttribute('forClassName');
         $this->_filesystemName = ucfirst(ltrim(strrchr($this->_forClassName, '_'), '_')) . 'Test.php';
         parent::init();
+
         return $this;
     }
 

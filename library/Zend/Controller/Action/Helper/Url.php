@@ -91,11 +91,12 @@ class Zend_Controller_Action_Helper_Url extends Zend_Controller_Action_Helper_Ab
      * @param  mixed   $name       The name of a Route to use. If null it will use the current Route
      * @param  boolean $reset
      * @param  boolean $encode
-     * @return string Url for the link href attribute.
+     * @return string  Url for the link href attribute.
      */
     public function url($urlOptions = array(), $name = null, $reset = false, $encode = true)
     {
         $router = $this->getFrontController()->getRouter();
+
         return $router->assemble($urlOptions, $name, $reset, $encode);
     }
 

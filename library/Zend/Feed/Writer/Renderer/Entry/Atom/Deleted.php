@@ -40,7 +40,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
      * @param  Zend_Feed_Writer_Deleted $container
      * @return void
      */
-    public function __construct (Zend_Feed_Writer_Deleted $container)
+    public function __construct(Zend_Feed_Writer_Deleted $container)
     {
         parent::__construct($container);
     }
@@ -70,12 +70,12 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
      * Set tombstone comment
      *
      * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param  DOMElement  $root
      * @return void
      */
     protected function _setComment(DOMDocument $dom, DOMElement $root)
     {
-        if(!$this->getDataContainer()->getComment()) {
+        if (!$this->getDataContainer()->getComment()) {
             return;
         }
         $c = $dom->createElement('at:comment');
@@ -89,7 +89,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
      * Set entry authors
      *
      * @param  DOMDocument $dom
-     * @param  DOMElement $root
+     * @param  DOMElement  $root
      * @return void
      */
     protected function _setBy(DOMDocument $dom, DOMElement $root)

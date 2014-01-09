@@ -47,8 +47,8 @@ class Zend_Serializer
     /**
      * Create a serializer adapter instance.
      *
-     * @param string|Zend_Serializer_Adapter_AdapterInterface $adapterName Name of the adapter class
-     * @param array |Zend_Config $opts Serializer options
+     * @param  string|Zend_Serializer_Adapter_AdapterInterface $adapterName Name of the adapter class
+     * @param  array |Zend_Config                              $opts        Serializer options
      * @return Zend_Serializer_Adapter_AdapterInterface
      */
     public static function factory($adapterName, $opts = array())
@@ -85,6 +85,7 @@ class Zend_Serializer
         if (self::$_adapterLoader === null) {
             self::$_adapterLoader = self::_getDefaultAdapterLoader();
         }
+
         return self::$_adapterLoader;
     }
 
@@ -107,6 +108,7 @@ class Zend_Serializer
     public static function resetAdapterLoader()
     {
         self::$_adapterLoader = self::_getDefaultAdapterLoader();
+
         return self::$_adapterLoader;
     }
 
@@ -119,6 +121,7 @@ class Zend_Serializer
     {
         $loader = new Zend_Loader_PluginLoader();
         $loader->addPrefixPath('Zend_Serializer_Adapter', dirname(__FILE__).'/Serializer/Adapter');
+
         return $loader;
     }
 
@@ -126,7 +129,7 @@ class Zend_Serializer
      * Change the default adapter.
      *
      * @param string|Zend_Serializer_Adapter_AdapterInterface $adapter
-     * @param array|Zend_Config $options
+     * @param array|Zend_Config                               $options
      */
     public static function setDefaultAdapter($adapter, $options = array())
     {
@@ -143,14 +146,15 @@ class Zend_Serializer
         if (!self::$_defaultAdapter instanceof Zend_Serializer_Adapter_AdapterInterface) {
             self::setDefaultAdapter(self::$_defaultAdapter);
         }
+
         return self::$_defaultAdapter;
     }
 
     /**
      * Generates a storable representation of a value using the default adapter.
      *
-     * @param mixed $value
-     * @param array $options
+     * @param  mixed                     $value
+     * @param  array                     $options
      * @return string
      * @throws Zend_Serializer_Exception
      */
@@ -169,8 +173,8 @@ class Zend_Serializer
     /**
      * Creates a PHP value from a stored representation using the default adapter.
      *
-     * @param string $serialized
-     * @param array $options
+     * @param  string                    $serialized
+     * @param  array                     $options
      * @return mixed
      * @throws Zend_Serializer_Exception
      */

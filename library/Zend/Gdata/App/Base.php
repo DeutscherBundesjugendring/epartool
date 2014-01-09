@@ -131,12 +131,13 @@ abstract class Zend_Gdata_App_Base
      * Sets the child text node of this element
      * This represents any raw text contained within the XML element
      *
-     * @param string $value Child text node
+     * @param  string              $value Child text node
      * @return Zend_Gdata_App_Base Returns an object of the same type as 'this' to provide a fluent interface.
      */
     public function setText($value)
     {
         $this->_text = $value;
+
         return $this;
     }
 
@@ -156,12 +157,13 @@ abstract class Zend_Gdata_App_Base
      * during the parsing of the XML.  This method can be used to add arbitrary
      * child XML elements to any data model class.
      *
-     * @param array $value All extension elements
+     * @param  array               $value All extension elements
      * @return Zend_Gdata_App_Base Returns an object of the same type as 'this' to provide a fluent interface.
      */
     public function setExtensionElements($value)
     {
         $this->_extensionElements = $value;
+
         return $this;
     }
 
@@ -185,12 +187,13 @@ abstract class Zend_Gdata_App_Base
      *     array('namespaceUri' => string, 'name' => string, 'value' => string);
      * This can be used to add arbitrary attributes to any data model element
      *
-     * @param array $value All extension attributes
+     * @param  array               $value All extension attributes
      * @return Zend_Gdata_App_Base Returns an object of the same type as 'this' to provide a fluent interface.
      */
     public function setExtensionAttributes($value)
     {
         $this->_extensionAttributes = $value;
+
         return $this;
     }
 
@@ -200,8 +203,8 @@ abstract class Zend_Gdata_App_Base
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -230,6 +233,7 @@ abstract class Zend_Gdata_App_Base
         foreach ($this->_extensionAttributes as $attribute) {
             $element->setAttribute($attribute['name'], $attribute['value']);
         }
+
         return $element;
     }
 
@@ -327,6 +331,7 @@ abstract class Zend_Gdata_App_Base
     public function saveXML()
     {
         $element = $this->getDOM();
+
         return $element->ownerDocument->saveXML($element);
     }
 
@@ -362,7 +367,7 @@ abstract class Zend_Gdata_App_Base
      * available. Returns the prefix, unmodified, if it's not
      * registered.
      *
-     * @param string $prefix The namespace prefix to lookup.
+     * @param string  $prefix       The namespace prefix to lookup.
      * @param integer $majorVersion The major protocol version in effect.
      *        Defaults to '1'.
      * @param integer $minorVersion The minor protocol version in effect.
@@ -415,8 +420,8 @@ abstract class Zend_Gdata_App_Base
      *          contradictory data to the namespace lookup table, you must
      *          call flushNamespaceLookupCache().
      *
-     * @param  string $prefix The namespace prefix
-     * @param  string $namespaceUri The full namespace URI
+     * @param string  $prefix       The namespace prefix
+     * @param string  $namespaceUri The full namespace URI
      * @param integer $majorVersion The major protocol version in effect.
      *        Defaults to '1'.
      * @param integer $minorVersion The minor protocol version in effect.
@@ -451,17 +456,16 @@ abstract class Zend_Gdata_App_Base
      * namespace prefix, namespace URI, major protocol version,
      * minor protocol version and adds them with calls to ->registerNamespace()
      *
-     * @param array $namespaceArray An array of namespaces.
+     * @param  array $namespaceArray An array of namespaces.
      * @return void
      */
     public function registerAllNamespaces($namespaceArray)
     {
-        foreach($namespaceArray as $namespace) {
+        foreach ($namespaceArray as $namespace) {
                 $this->registerNamespace(
                     $namespace[0], $namespace[1], $namespace[2], $namespace[3]);
         }
     }
-
 
     /**
      * Magic getter to allow access like $entry->foo to call $entry->getFoo()
@@ -477,7 +481,7 @@ abstract class Zend_Gdata_App_Base
         $method = 'get'.ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method));
-        } else if (property_exists($this, "_${name}")) {
+        } elseif (property_exists($this, "_${name}")) {
             return $this->{'_' . $name};
         } else {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
@@ -503,7 +507,7 @@ abstract class Zend_Gdata_App_Base
         $method = 'set'.ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method), $val);
-        } else if (isset($this->{'_' . $name}) || ($this->{'_' . $name} === null)) {
+        } elseif (isset($this->{'_' . $name}) || ($this->{'_' . $name} === null)) {
             $this->{'_' . $name} = $val;
         } else {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';

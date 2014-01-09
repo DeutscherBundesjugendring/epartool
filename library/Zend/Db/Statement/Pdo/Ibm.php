@@ -63,17 +63,18 @@ class Zend_Db_Statement_Pdo_Ibm extends Zend_Db_Statement_Pdo
             }
             $results[] = $row;
         }
+
         return $results;
     }
 
     /**
      * Binds a parameter to the specified variable name.
      *
-     * @param mixed $parameter Name the parameter, either integer or string.
-     * @param mixed $variable  Reference to PHP variable containing the value.
-     * @param mixed $type      OPTIONAL Datatype of SQL parameter.
-     * @param mixed $length    OPTIONAL Length of SQL parameter.
-     * @param mixed $options   OPTIONAL Other options.
+     * @param  mixed                       $parameter Name the parameter, either integer or string.
+     * @param  mixed                       $variable  Reference to PHP variable containing the value.
+     * @param  mixed                       $type      OPTIONAL Datatype of SQL parameter.
+     * @param  mixed                       $length    OPTIONAL Length of SQL parameter.
+     * @param  mixed                       $options   OPTIONAL Other options.
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */

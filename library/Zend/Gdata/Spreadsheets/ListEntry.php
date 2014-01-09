@@ -77,6 +77,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
                 $element->appendChild($custom->getDOM($element->ownerDocument));
             }
         }
+
         return $element;
     }
 
@@ -140,6 +141,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
         foreach ($custom as $c) {
             $this->addCustom($c);
         }
+
         return $this;
     }
 
@@ -153,14 +155,15 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
     {
         $this->_custom[] = $custom;
         $this->_customByName[$custom->getColumnName()] = $custom;
+
         return $this;
     }
 
     /**
      * Remove an individual row element from this list entry by index. This
      * will cause the array to be re-indexed.
-     * @param int $index The index of the custom element to be deleted.
-     * @return Zend_Gdata_Spreadsheets_ListEntry Provides a fluent interface.
+     * @param  int                                     $index The index of the custom element to be deleted.
+     * @return Zend_Gdata_Spreadsheets_ListEntry       Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function removeCustom($index)
@@ -179,13 +182,14 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
             throw new Zend_Gdata_App_InvalidArgumentException(
                 'Element does not exist.');
         }
+
         return $this;
     }
 
     /**
      * Remove an individual row element from this list entry by name.
-     * @param string $name The name of the custom element to be deleted.
-     * @return Zend_Gdata_Spreadsheets_ListEntry Provides a fluent interface.
+     * @param  string                                  $name The name of the custom element to be deleted.
+     * @return Zend_Gdata_Spreadsheets_ListEntry       Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function removeCustomByName($name)
@@ -202,6 +206,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
             throw new Zend_Gdata_App_InvalidArgumentException(
                 'Element does not exist.');
         }
+
         return $this;
     }
 

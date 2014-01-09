@@ -78,8 +78,8 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
      *
      * @param  string $id
      * @param  string $value
-     * @param  array $params
-     * @param  array $attribs
+     * @param  array  $params
+     * @param  array  $attribs
      * @return string
      */
     public function editor($id, $value = null, $params = array(), $attribs = array())
@@ -132,14 +132,14 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
                . '</noscript>';
 
         $html  .= '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket();
-        
+
         return $html;
     }
 
     /**
      * Generates the list of required modules to include, if any is needed.
      *
-     * @param array $plugins plugins to include
+     * @param  array $plugins plugins to include
      * @return array
      */
     protected function _getRequiredModules(array $plugins)
@@ -169,6 +169,7 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
         } else {
             $name .= '[Editor]';
         }
+
         return $name;
     }
 
@@ -183,11 +184,11 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
     {
         $this->dojo->onLoadCaptureStart();
         echo <<<EOJ
-function() {
+function () {
     var form = zend.findParentForm(dojo.byId('$hiddenId'));
-    dojo.connect(form, 'submit', function(e) {
+    dojo.connect(form, 'submit', function (e) {
         var value = dijit.byId('$editorId').getValue(false);
-        if(dojo.isFF) {
+        if (dojo.isFF) {
             value = value.replace(/<br _moz_editor_bogus_node="TRUE" \/>/, '');
         }
         dojo.byId('$hiddenId').value = value;

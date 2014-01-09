@@ -20,7 +20,6 @@
  * @version    $Id: String.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
@@ -45,7 +44,7 @@ class Zend_XmlRpc_Value_String extends Zend_XmlRpc_Value_Scalar
         $this->_type = self::XMLRPC_TYPE_STRING;
 
         // Make sure this value is string and all XML characters are encoded
-        $this->_value = (string)$value;
+        $this->_value = (string) $value;
     }
 
     /**
@@ -55,6 +54,6 @@ class Zend_XmlRpc_Value_String extends Zend_XmlRpc_Value_Scalar
      */
     public function getValue()
     {
-        return (string)$this->_value;
+        return (string) $this->_value;
     }
 }

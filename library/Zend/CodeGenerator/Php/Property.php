@@ -52,7 +52,7 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
     /**
      * fromReflection()
      *
-     * @param Zend_Reflection_Property $reflectionProperty
+     * @param  Zend_Reflection_Property        $reflectionProperty
      * @return Zend_CodeGenerator_Php_Property
      */
     public static function fromReflection(Zend_Reflection_Property $reflectionProperty)
@@ -89,12 +89,13 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
     /**
      * setConst()
      *
-     * @param bool $const
+     * @param  bool                            $const
      * @return Zend_CodeGenerator_Php_Property
      */
     public function setConst($const)
     {
         $this->_isConst = $const;
+
         return $this;
     }
 
@@ -111,7 +112,7 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
     /**
      * setDefaultValue()
      *
-     * @param Zend_CodeGenerator_Php_Property_DefaultValue|string|array $defaultValue
+     * @param  Zend_CodeGenerator_Php_Property_DefaultValue|string|array $defaultValue
      * @return Zend_CodeGenerator_Php_Property
      */
     public function setDefaultValue($defaultValue)
@@ -128,6 +129,7 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
         }
 
         $this->_defaultValue = $defaultValue;
+
         return $this;
     }
 
@@ -173,6 +175,7 @@ class Zend_CodeGenerator_Php_Property extends Zend_CodeGenerator_Php_Member_Abst
                 . ' $' . $name . ' = '
                 . (($defaultValue !== null) ? $defaultValue->generate() : 'null;');
         }
+
         return $output;
     }
 

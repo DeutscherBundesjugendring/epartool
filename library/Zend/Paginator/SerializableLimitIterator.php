@@ -45,12 +45,12 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
     /**
      * Construct a Zend_Paginator_SerializableLimitIterator
      *
-     * @param Iterator $it Iterator to limit (must be serializable by un-/serialize)
-     * @param int $offset Offset to first element
-     * @param int $count Maximum number of elements to show or -1 for all
+     * @param Iterator $it     Iterator to limit (must be serializable by un-/serialize)
+     * @param int      $offset Offset to first element
+     * @param int      $count  Maximum number of elements to show or -1 for all
      * @see LimitIterator::__construct
      */
-    public function __construct (Iterator $it, $offset=0, $count=-1)
+    public function __construct(Iterator $it, $offset=0, $count=-1)
     {
         parent::__construct($it, $offset, $count);
         $this->_offset = $offset;
@@ -83,7 +83,7 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
     /**
      * Returns value of the Iterator
      *
-     * @param int $offset
+     * @param  int   $offset
      * @return mixed
      */
     public function offsetGet($offset)
@@ -92,6 +92,7 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
         $this->seek($offset);
         $current = $this->current();
         $this->seek($currentOffset);
+
         return $current;
     }
 
@@ -99,7 +100,7 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
      * Does nothing
      * Required by the ArrayAccess implementation
      *
-     * @param int $offset
+     * @param int   $offset
      * @param mixed $value
      */
     public function offsetSet($offset, $value)
@@ -119,14 +120,17 @@ class Zend_Paginator_SerializableLimitIterator extends LimitIterator implements 
                 $this->seek($offset);
                 $current = $this->current();
                 $this->seek($currentOffset);
+
                 return null !== $current;
             } catch (OutOfBoundsException $e) {
                 // reset position in case of exception is assigned null
                 $this->rewind();
                 $this->seek($currentOffset);
+
                 return false;
             }
         }
+
         return false;
     }
 

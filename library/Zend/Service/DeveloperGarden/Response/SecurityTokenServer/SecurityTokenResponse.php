@@ -111,6 +111,7 @@ class Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenRes
         if (!empty($this->securityTokenData)) {
             return true;
         }
+
         return false;
     }
 }

@@ -51,7 +51,7 @@ class Zend_Gdata_App_HttpException extends Zend_Gdata_App_Exception
     /**
      * Create a new Zend_Gdata_App_HttpException
      *
-     * @param  string $message Optionally set a message
+     * @param string $message Optionally set a message
      * @param Zend_Http_Client_Exception Optionally pass in a Zend_Http_Client_Exception
      * @param Zend_Http_Response Optionally pass in a Zend_Http_Response
      */
@@ -80,6 +80,7 @@ class Zend_Gdata_App_HttpException extends Zend_Gdata_App_Exception
     public function setHttpClientException($value)
     {
         $this->_httpClientException = $value;
+
         return $this;
     }
 
@@ -91,6 +92,7 @@ class Zend_Gdata_App_HttpException extends Zend_Gdata_App_Exception
     public function setResponse($response)
     {
         $this->_response = $response;
+
         return $this;
     }
 
@@ -113,8 +115,10 @@ class Zend_Gdata_App_HttpException extends Zend_Gdata_App_Exception
     {
         if ($this->getResponse()) {
             $response = $this->getResponse();
+
             return $response->getRawBody();
         }
+
         return null;
     }
 

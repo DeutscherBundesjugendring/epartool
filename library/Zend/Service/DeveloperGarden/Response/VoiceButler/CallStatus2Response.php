@@ -56,6 +56,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response
         if (isset($this->return->be164)) {
             return $this->return->be164;
         }
+
         return null;
     }
 
@@ -83,6 +84,7 @@ class Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response
         if (isset($this->return->bindex)) {
             return $this->return->bindex;
         }
+
         return null;
     }
 }

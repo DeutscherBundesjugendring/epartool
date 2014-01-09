@@ -21,12 +21,10 @@
  * @version    $Id: ImageResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Yahoo_Result
  */
 require_once 'Zend/Service/Yahoo/Result.php';
-
 
 /**
  * @category   Zend
@@ -92,7 +90,6 @@ class Zend_Service_Yahoo_ImageResult extends Zend_Service_Yahoo_Result
      * @var string
      */
     protected $_namespace = 'urn:yahoo:srchmi';
-
 
     /**
      * Initializes the image result

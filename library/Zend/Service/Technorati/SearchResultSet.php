@@ -20,12 +20,10 @@
  * @version    $Id: SearchResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati Search query result set.
@@ -49,8 +47,8 @@ class Zend_Service_Technorati_SearchResultSet extends Zend_Service_Technorati_Re
     /**
      * Parses the search response and retrieve the results for iteration.
      *
-     * @param   DomDocument $dom    the ReST fragment for this object
-     * @param   array $options      query options as associative array
+     * @param DomDocument $dom     the ReST fragment for this object
+     * @param array       $options query options as associative array
      */
     public function __construct(DomDocument $dom, $options = array())
     {
@@ -74,6 +72,7 @@ class Zend_Service_Technorati_SearchResultSet extends Zend_Service_Technorati_Re
          * @see Zend_Service_Technorati_SearchResult
          */
         require_once 'Zend/Service/Technorati/SearchResult.php';
+
         return new Zend_Service_Technorati_SearchResult($this->_results->item($this->_currentIndex));
     }
 }

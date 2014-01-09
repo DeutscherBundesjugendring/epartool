@@ -20,12 +20,10 @@
  * @version    $Id: FormTextarea.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Abstract class for extension
  */
 require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "textarea" element

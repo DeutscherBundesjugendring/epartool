@@ -45,7 +45,7 @@ class Zend_Markup_Renderer_Html_Url extends Zend_Markup_Renderer_Html_HtmlAbstra
      * Convert the token
      *
      * @param Zend_Markup_Token $token
-     * @param string $text
+     * @param string            $text
      *
      * @return string
      */

@@ -46,11 +46,11 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
 
         if ($period === null) {
             $this->_data[$name] = 'daily';
+
             return 'daily'; //Default specified by spec
         }
 
-        switch ($period)
-        {
+        switch ($period) {
             case 'hourly':
             case 'daily':
             case 'weekly':
@@ -74,6 +74,7 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
 
         if (!$freq || $freq < 1) {
             $this->_data[$name] = 1;
+
             return 1;
         }
 
@@ -97,8 +98,7 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $period = $this->getUpdatePeriod();
         $ticks = 1;
 
-        switch ($period)
-        {
+        switch ($period) {
             //intentional fall through
             case 'yearly':
                 $ticks *= 52; //TODO: fix generalisation, how?
@@ -129,14 +129,15 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
             $date = new Zend_Date;
             $date->set($updateBase, Zend_Date::W3C);
         }
+
         return $date;
     }
 
     /**
      * Get the entry data specified by name
      *
-     * @param string $name
-     * @param string $type
+     * @param  string     $name
+     * @param  string     $type
      * @return mixed|null
      */
     private function _getData($name, $type = 'string')

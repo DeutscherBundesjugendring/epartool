@@ -49,8 +49,8 @@ class Zend_Filter_File_LowerCase extends Zend_Filter_StringToLower
      *
      * Does a lowercase on the content of the given file
      *
-     * @param  string $value Full path of file to change
-     * @return string The given $value
+     * @param  string                $value Full path of file to change
+     * @return string                The given $value
      * @throws Zend_Filter_Exception
      */
     public function filter($value)

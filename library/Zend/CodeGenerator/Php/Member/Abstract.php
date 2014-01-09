@@ -80,7 +80,7 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * setDocblock() Set the docblock
      *
-     * @param Zend_CodeGenerator_Php_Docblock|array|string $docblock
+     * @param  Zend_CodeGenerator_Php_Docblock|array|string $docblock
      * @return Zend_CodeGenerator_Php_File
      */
     public function setDocblock($docblock)
@@ -97,6 +97,7 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
         }
 
         $this->_docblock = $docblock;
+
         return $this;
     }
 
@@ -113,12 +114,13 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * setAbstract()
      *
-     * @param bool $isAbstract
+     * @param  bool                                   $isAbstract
      * @return Zend_CodeGenerator_Php_Member_Abstract
      */
     public function setAbstract($isAbstract)
     {
         $this->_isAbstract = ($isAbstract) ? true : false;
+
         return $this;
     }
 
@@ -135,12 +137,13 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * setFinal()
      *
-     * @param bool $isFinal
+     * @param  bool                                   $isFinal
      * @return Zend_CodeGenerator_Php_Member_Abstract
      */
     public function setFinal($isFinal)
     {
         $this->_isFinal = ($isFinal) ? true : false;
+
         return $this;
     }
 
@@ -157,12 +160,13 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * setStatic()
      *
-     * @param bool $isStatic
+     * @param  bool                                   $isStatic
      * @return Zend_CodeGenerator_Php_Member_Abstract
      */
     public function setStatic($isStatic)
     {
         $this->_isStatic = ($isStatic) ? true : false;
+
         return $this;
     }
 
@@ -179,12 +183,13 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * setVisitibility()
      *
-     * @param const $visibility
+     * @param  const                                  $visibility
      * @return Zend_CodeGenerator_Php_Member_Abstract
      */
     public function setVisibility($visibility)
     {
         $this->_visibility = $visibility;
+
         return $this;
     }
 
@@ -201,12 +206,13 @@ abstract class Zend_CodeGenerator_Php_Member_Abstract extends Zend_CodeGenerator
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string                                 $name
      * @return Zend_CodeGenerator_Php_Member_Abstract
      */
     public function setName($name)
     {
         $this->_name = $name;
+
         return $this;
     }
 

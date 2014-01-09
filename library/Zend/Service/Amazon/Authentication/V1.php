@@ -50,8 +50,8 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
 
     /**
      * Generate the required attributes for the signature
-     * @param string $url
-     * @param array $parameters
+     * @param  string $url
+     * @param  array  $parameters
      * @return string
      */
     public function generateSignature($url, array &$parameters)
@@ -59,7 +59,7 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
         $parameters['AWSAccessKeyId']   = $this->_accessKey;
         $parameters['SignatureVersion'] = $this->_signatureVersion;
         $parameters['Version']          = $this->_apiVersion;
-        if(!isset($parameters['Timestamp'])) {
+        if (!isset($parameters['Timestamp'])) {
             $parameters['Timestamp']    = gmdate('Y-m-d\TH:i:s\Z', time()+10);
         }
 
@@ -83,8 +83,8 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
      *    values before constructing this string. Do not use any separator
      *    characters when appending strings.
      *
-     * @param  string $queue_url  Queue URL
-     * @param  array  $parameters the parameters for which to get the signature.
+     * @param string $queue_url  Queue URL
+     * @param array  $parameters the parameters for which to get the signature.
      *
      * @return string the signed data.
      */
@@ -95,7 +95,7 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
         uksort($paramaters, 'strcasecmp');
         unset($paramaters['Signature']);
 
-        foreach($paramaters as $key => $value) {
+        foreach ($paramaters as $key => $value) {
             $data .= $key . $value;
         }
 

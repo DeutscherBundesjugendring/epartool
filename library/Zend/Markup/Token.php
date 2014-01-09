@@ -89,10 +89,10 @@ class Zend_Markup_Token
     /**
      * Construct the token
      *
-     * @param  string $tag
-     * @param  string $type
-     * @param  string $name
-     * @param  array $attributes
+     * @param  string            $tag
+     * @param  string            $type
+     * @param  string            $name
+     * @param  array             $attributes
      * @param  Zend_Markup_Token $parent
      * @return void
      */
@@ -115,7 +115,7 @@ class Zend_Markup_Token
     /**
      * Set the stopper
      *
-     * @param string $stopper
+     * @param  string            $stopper
      * @return Zend_Markup_Token
      */
     public function setStopper($stopper)
@@ -244,6 +244,7 @@ class Zend_Markup_Token
     public function setChildren(Zend_Markup_TokenList $children)
     {
         $this->_children = $children;
+
         return $this;
     }
 
@@ -257,6 +258,7 @@ class Zend_Markup_Token
         if (null === $this->_children) {
             $this->setChildren(new Zend_Markup_TokenList());
         }
+
         return $this->_children;
     }
 
@@ -289,6 +291,7 @@ class Zend_Markup_Token
     public function setParent(Zend_Markup_Token $parent)
     {
         $this->_parent = $parent;
+
         return $this;
     }
 

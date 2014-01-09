@@ -12,14 +12,13 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Pdf
+ * @category     Zend
+ * @package        Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TrueType.php 24593 2012-01-05 20:35:02Z matthew $
+ * @copyright    Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license        http://framework.zend.com/license/new-bsd         New BSD License
+ * @version        $Id: TrueType.php 24593 2012-01-05 20:35:02Z matthew $
  */
-
 
 /** Zend_Pdf_FileParser_Font_OpenType */
 require_once 'Zend/Pdf/FileParser/Font/OpenType.php';
@@ -27,64 +26,63 @@ require_once 'Zend/Pdf/FileParser/Font/OpenType.php';
 /**
  * Parses an OpenType font file containing TrueType outlines.
  *
- * @package    Zend_Pdf
+ * @package        Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @copyright    Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license        http://framework.zend.com/license/new-bsd         New BSD License
  */
 class Zend_Pdf_FileParser_Font_OpenType_TrueType extends Zend_Pdf_FileParser_Font_OpenType
 {
-  /**** Public Interface ****/
+    /**** Public Interface ****/
 
+    /* Concrete Class Implementation */
 
-  /* Concrete Class Implementation */
-
-    /**
-     * Verifies that the font file actually contains TrueType outlines.
-     *
-     * @throws Zend_Pdf_Exception
-     */
-    public function screen()
-    {
-        if ($this->_isScreened) {
-            return;
-        }
-
-        parent::screen();
-
-        switch ($this->_readScalerType()) {
-            case 0x00010000:    // version 1.0 - Windows TrueType signature
-                break;
-
-            case 0x74727565:    // 'true' - Macintosh TrueType signature
-                break;
-
-            default:
-                require_once 'Zend/Pdf/Exception.php';
-                throw new Zend_Pdf_Exception('Not a TrueType font file',
-                                             Zend_Pdf_Exception::WRONG_FONT_TYPE);
-        }
-
-        $this->fontType = Zend_Pdf_Font::TYPE_TRUETYPE;
-        $this->_isScreened = true;
-    }
-
-    /**
-     * Reads and parses the TrueType font data from the file on disk.
-     *
-     * @throws Zend_Pdf_Exception
-     */
-    public function parse()
-    {
-        if ($this->_isParsed) {
-            return;
-        }
-
-        parent::parse();
-
-        /* There is nothing additional to parse for TrueType fonts at this time.
+        /**
+         * Verifies that the font file actually contains TrueType outlines.
+         *
+         * @throws Zend_Pdf_Exception
          */
+        public function screen()
+        {
+                if ($this->_isScreened) {
+                        return;
+                }
 
-        $this->_isParsed = true;
-    }
+                parent::screen();
+
+                switch ($this->_readScalerType()) {
+                        case 0x00010000:        // version 1.0 - Windows TrueType signature
+                                break;
+
+                        case 0x74727565:        // 'true' - Macintosh TrueType signature
+                                break;
+
+                        default:
+                                require_once 'Zend/Pdf/Exception.php';
+                                throw new Zend_Pdf_Exception('Not a TrueType font file',
+                                                                                         Zend_Pdf_Exception::WRONG_FONT_TYPE);
+                }
+
+                $this->fontType = Zend_Pdf_Font::TYPE_TRUETYPE;
+                $this->_isScreened = true;
+        }
+
+        /**
+         * Reads and parses the TrueType font data from the file on disk.
+         *
+         * @throws Zend_Pdf_Exception
+         */
+        public function parse()
+        {
+                if ($this->_isParsed) {
+                        return;
+                }
+
+                parent::parse();
+
+                /* There is nothing additional to parse for TrueType fonts at this time.
+                 */
+
+                $this->_isParsed = true;
+        }
 }

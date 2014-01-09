@@ -88,8 +88,8 @@ class Zend_Json_Decoder
     /**
      * Constructor
      *
-     * @param string $source String source to decode
-     * @param int $decodeType How objects should be decoded -- see
+     * @param string $source     String source to decode
+     * @param int    $decodeType How objects should be decoded -- see
      * {@link Zend_Json::TYPE_ARRAY} and {@link Zend_Json::TYPE_OBJECT} for
      * valid values
      * @return void
@@ -103,8 +103,7 @@ class Zend_Json_Decoder
         $this->_offset       = 0;
 
         // Normalize and set $decodeType
-        if (!in_array($decodeType, array(Zend_Json::TYPE_ARRAY, Zend_Json::TYPE_OBJECT)))
-        {
+        if (!in_array($decodeType, array(Zend_Json::TYPE_ARRAY, Zend_Json::TYPE_OBJECT))) {
             $decodeType = Zend_Json::TYPE_ARRAY;
         }
         $this->_decodeType   = $decodeType;
@@ -134,8 +133,8 @@ class Zend_Json_Decoder
      *
      * @static
      * @access public
-     * @param string $source String to be decoded
-     * @param int $objectDecodeType How objects should be decoded; should be
+     * @param string $source           String to be decoded
+     * @param int    $objectDecodeType How objects should be decoded; should be
      * either or {@link Zend_Json::TYPE_ARRAY} or
      * {@link Zend_Json::TYPE_OBJECT}; defaults to TYPE_ARRAY
      * @return mixed
@@ -156,7 +155,6 @@ class Zend_Json_Decoder
         return $decoder->_decodeValue();
     }
 
-
     /**
      * Recursive driving rountine for supported toplevel tops
      *
@@ -168,6 +166,7 @@ class Zend_Json_Decoder
             case self::DATUM:
                 $result  = $this->_tokenValue;
                 $this->_getNextToken();
+
                 return($result);
                 break;
             case self::LBRACE:
@@ -249,6 +248,7 @@ class Zend_Json_Decoder
         }
 
         $this->_getNextToken();
+
         return $result;
     }
 
@@ -282,6 +282,7 @@ class Zend_Json_Decoder
         }
 
         $this->_getNextToken();
+
         return($result);
     }
 
@@ -392,7 +393,7 @@ class Zend_Json_Decoder
                                 throw new Zend_Json_Exception("Illegal escape "
                                     .  "sequence '" . $chr . "'");
                         }
-                    } elseif($chr == '"') {
+                    } elseif ($chr == '"') {
                         break;
                     } else {
                         $result .= $chr;
@@ -428,6 +429,7 @@ class Zend_Json_Decoder
 
         if ($this->_token != self::EOF) {
             $this->_offset = $i + 1; // Consume the last token character
+
             return($this->_token);
         }
 
@@ -480,7 +482,7 @@ class Zend_Json_Decoder
         $utf8        = '';
         $strlen_chrs = strlen($chrs);
 
-        for($i = 0; $i < $strlen_chrs; $i++) {
+        for ($i = 0; $i < $strlen_chrs; $i++) {
 
             $substr_chrs_c_2 = substr($chrs, $i, 2);
             $ord_chrs_c = ord($chrs[$i]);
@@ -548,7 +550,7 @@ class Zend_Json_Decoder
     protected static function _utf162utf8($utf16)
     {
         // Check for mb extension otherwise do by hand.
-        if( function_exists('mb_convert_encoding') ) {
+        if ( function_exists('mb_convert_encoding') ) {
             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');
         }
 
@@ -578,4 +580,3 @@ class Zend_Json_Decoder
         return '';
     }
 }
-

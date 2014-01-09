@@ -70,12 +70,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
     /**
      * sets $name
      *
-     * @param string $name
+     * @param  string                                                        $name
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -92,12 +93,13 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
     /**
      * sets $value
      *
-     * @param string $value
+     * @param  string                                                        $value
      * @return Zend_Service_DeveloperGarden_ConferenceCall_ParticipantStatus
      */
     public function setValue($value = null)
     {
         $this->value = $value;
+
         return $this;
     }
 }

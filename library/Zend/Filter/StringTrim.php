@@ -52,7 +52,7 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if (!is_array($options)) {
+        } elseif (!is_array($options)) {
             $options          = func_get_args();
             $temp['charlist'] = array_shift($options);
             $options          = $temp;
@@ -76,12 +76,13 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     /**
      * Sets the charList option
      *
-     * @param  string|null $charList
+     * @param  string|null            $charList
      * @return Zend_Filter_StringTrim Provides a fluent interface
      */
     public function setCharList($charList)
     {
         $this->_charList = $charList;
+
         return $this;
     }
 
@@ -106,8 +107,8 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
      * Unicode aware trim method
      * Fixes a PHP problem
      *
-     * @param string $value
-     * @param string $charlist
+     * @param  string $value
+     * @param  string $charlist
      * @return string
      */
     protected function _unicodeTrim($value, $charlist = '\\\\s')
@@ -119,6 +120,7 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
         );
 
         $pattern = '^[' . $chars . ']*|[' . $chars . ']*$';
+
         return preg_replace("/$pattern/sSD", '', $value);
     }
 }

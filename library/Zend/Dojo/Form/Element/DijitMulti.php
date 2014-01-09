@@ -73,12 +73,13 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     /**
      * Set separator
      *
-     * @param mixed $separator
+     * @param  mixed $separator
      * @return self
      */
     public function setSeparator($separator)
     {
         $this->_separator = $separator;
+
         return $this;
     }
 
@@ -99,8 +100,8 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     /**
      * Add an option
      *
-     * @param  string $option
-     * @param  string $value
+     * @param  string                  $option
+     * @param  string                  $value
      * @return Zend_Form_Element_Multi
      */
     public function addMultiOption($option, $value = '')
@@ -117,7 +118,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     /**
      * Add many options at once
      *
-     * @param  array $options
+     * @param  array                   $options
      * @return Zend_Form_Element_Multi
      */
     public function addMultiOptions(array $options)
@@ -132,18 +133,20 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
                 $this->addMultiOption($option, $value);
             }
         }
+
         return $this;
     }
 
     /**
      * Set all options at once (overwrites)
      *
-     * @param  array $options
+     * @param  array                   $options
      * @return Zend_Form_Element_Multi
      */
     public function setMultiOptions(array $options)
     {
         $this->clearMultiOptions();
+
         return $this->addMultiOptions($options);
     }
 
@@ -159,6 +162,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
         $this->_getMultiOptions();
         if (isset($this->options[$option])) {
             $this->_translateOption($option, $this->options[$option]);
+
             return $this->options[$option];
         }
 
@@ -176,6 +180,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
         foreach ($this->options as $option => $value) {
             $this->_translateOption($option, $value);
         }
+
         return $this->options;
     }
 
@@ -194,6 +199,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
             if (isset($this->_translated[$option])) {
                 unset($this->_translated[$option]);
             }
+
             return true;
         }
 
@@ -209,18 +215,20 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
     {
         $this->options = array();
         $this->_translated = array();
+
         return $this;
     }
 
     /**
      * Set flag indicating whether or not to auto-register inArray validator
      *
-     * @param  bool $flag
+     * @param  bool                    $flag
      * @return Zend_Form_Element_Multi
      */
     public function setRegisterInArrayValidator($flag)
     {
         $this->_registerInArrayValidator = (bool) $flag;
+
         return $this;
     }
 
@@ -240,7 +248,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
      * Autoregisters InArray validator if necessary.
      *
      * @param  string $value
-     * @param  mixed $context
+     * @param  mixed  $context
      * @return bool
      */
     public function isValid($value, $context = null)
@@ -255,6 +263,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
                 );
             }
         }
+
         return parent::isValid($value, $context);
     }
 
@@ -273,6 +282,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
                 return false;
             }
             $this->_translated[$option] = true;
+
             return true;
         }
 
@@ -291,6 +301,7 @@ abstract class Zend_Dojo_Form_Element_DijitMulti extends Zend_Dojo_Form_Element_
             foreach ($value as $key => $val) {
                 $value[$key] = $this->_translateValue($val);
             }
+
             return $value;
         } else {
             if (null !== ($translator = $this->getTranslator())) {

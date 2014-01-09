@@ -78,6 +78,7 @@ abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
         if ($this->_uri != null) {
             $element->appendChild($this->_uri->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -115,12 +116,13 @@ abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Name $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @param  Zend_Gdata_App_Extension_Name $value
+     * @return Zend_Gdata_App_Entry          Provides a fluent interface
      */
     public function setName($value)
     {
         $this->_name = $value;
+
         return $this;
     }
 
@@ -133,12 +135,13 @@ abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Email $value
+     * @param  Zend_Gdata_App_Extension_Email  $value
      * @return Zend_Gdata_App_Extension_Person Provides a fluent interface
      */
     public function setEmail($value)
     {
         $this->_email = $value;
+
         return $this;
     }
 
@@ -151,12 +154,13 @@ abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Uri $value
+     * @param  Zend_Gdata_App_Extension_Uri    $value
      * @return Zend_Gdata_App_Extension_Person Provides a fluent interface
      */
     public function setUri($value)
     {
         $this->_uri = $value;
+
         return $this;
     }
 

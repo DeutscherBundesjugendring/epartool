@@ -60,6 +60,7 @@ abstract class Zend_Ldap_Filter_Abstract
          * Zend_Ldap_Filter_Not
          */
         require_once 'Zend/Ldap/Filter/Not.php';
+
         return new Zend_Ldap_Filter_Not($this);
     }
 
@@ -77,6 +78,7 @@ abstract class Zend_Ldap_Filter_Abstract
         require_once 'Zend/Ldap/Filter/And.php';
         $fa = func_get_args();
         $args = array_merge(array($this), $fa);
+
         return new Zend_Ldap_Filter_And($args);
     }
 
@@ -94,6 +96,7 @@ abstract class Zend_Ldap_Filter_Abstract
         require_once 'Zend/Ldap/Filter/Or.php';
         $fa = func_get_args();
         $args = array_merge(array($this), $fa);
+
         return new Zend_Ldap_Filter_Or($args);
     }
 
@@ -108,7 +111,7 @@ abstract class Zend_Ldap_Filter_Abstract
      * @author Benedikt Hallinger <beni@php.net>
      *
      * @param  string|array $values Array of values to escape
-     * @return array Array $values, but escaped
+     * @return array        Array $values, but escaped
      */
     public static function escapeValue($values = array())
     {
@@ -126,6 +129,7 @@ abstract class Zend_Ldap_Filter_Abstract
             if (null === $val) $val = '\0';  // apply escaped "null" if string is empty
             $values[$key] = $val;
         }
+
         return (count($values) == 1) ? $values[0] : $values;
     }
 
@@ -138,7 +142,7 @@ abstract class Zend_Ldap_Filter_Abstract
      * @author Benedikt Hallinger <beni@php.net>
      *
      * @param  string|array $values Array of values to escape
-     * @return array Array $values, but unescaped
+     * @return array        Array $values, but unescaped
      */
     public static function unescapeValue($values = array())
     {
@@ -152,6 +156,7 @@ abstract class Zend_Ldap_Filter_Abstract
             // Translate hex code into ascii
             $values[$key] = Zend_Ldap_Converter::hex32ToAsc($value);
         }
+
         return (count($values) == 1) ? $values[0] : $values;
     }
 }

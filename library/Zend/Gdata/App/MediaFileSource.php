@@ -81,6 +81,7 @@ class Zend_Gdata_App_MediaFileSource extends Zend_Gdata_App_BaseMediaSource
                         $this->getFilename() . '. Read failed.');
             }
             fclose($fileHandle);
+
             return $result;
         } else {
             require_once 'Zend/Gdata/App/IOException.php';
@@ -102,12 +103,13 @@ class Zend_Gdata_App_MediaFileSource extends Zend_Gdata_App_BaseMediaSource
     /**
      * Set the filename which is to be read.
      *
-     * @param string $value The desired file handle.
+     * @param  string                         $value The desired file handle.
      * @return Zend_Gdata_App_MediaFileSource Provides a fluent interface.
      */
     public function setFilename($value)
     {
         $this->_filename = $value;
+
         return $this;
     }
 
@@ -124,12 +126,13 @@ class Zend_Gdata_App_MediaFileSource extends Zend_Gdata_App_BaseMediaSource
     /**
      * Set the content type for the file attached (example image/png)
      *
-     * @param string $value The content type
+     * @param  string                         $value The content type
      * @return Zend_Gdata_App_MediaFileSource Provides a fluent interface
      */
     public function setContentType($value)
     {
         $this->_contentType = $value;
+
         return $this;
     }
 

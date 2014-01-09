@@ -20,10 +20,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /** Zend_View_Exception */
 require_once 'Zend/View/Exception.php';
-
 
 /**
  * Exception for Zend_View_Helper_Placeholder_Registry class.

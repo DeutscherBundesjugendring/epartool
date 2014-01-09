@@ -68,12 +68,13 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
     /**
      * Set layout object
      *
-     * @param  Zend_Layout $layout
+     * @param  Zend_Layout                          $layout
      * @return Zend_Layout_Controller_Plugin_Layout
      */
     public function setLayout(Zend_Layout $layout)
     {
         $this->_layout = $layout;
+
         return $this;
     }
 
@@ -86,6 +87,7 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
     public function setLayoutActionHelper(Zend_Layout_Controller_Action_Helper_Layout $layoutActionHelper)
     {
         $this->_layoutActionHelper = $layoutActionHelper;
+
         return $this;
     }
 

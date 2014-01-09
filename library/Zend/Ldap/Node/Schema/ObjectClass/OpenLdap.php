@@ -55,7 +55,6 @@ class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_I
      */
     protected $_inheritedMay = null;
 
-
     /**
      * Gets the objectClass name
      *
@@ -86,6 +85,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_I
         if ($this->_inheritedMust === null) {
             $this->_resolveInheritance();
         }
+
         return $this->_inheritedMust;
     }
 
@@ -99,6 +99,7 @@ class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_I
         if ($this->_inheritedMay === null) {
             $this->_resolveInheritance();
         }
+
         return $this->_inheritedMay;
     }
 
@@ -143,9 +144,9 @@ class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_I
     {
         if ($this->structural) {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_STRUCTURAL;
-        } else if ($this->abstract) {
+        } elseif ($this->abstract) {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_ABSTRACT;
-        } else if ($this->auxiliary) {
+        } elseif ($this->auxiliary) {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_AUXILIARY;
         } else {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_UNKNOWN;

@@ -19,12 +19,10 @@
  * @version    $Id: Resource.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Acl_Resource_Interface
  */
 require_once 'Zend/Acl/Resource/Interface.php';
-
 
 /**
  * @category   Zend

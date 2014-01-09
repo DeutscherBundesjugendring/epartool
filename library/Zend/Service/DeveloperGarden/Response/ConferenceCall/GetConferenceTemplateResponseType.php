@@ -73,13 +73,14 @@ class Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplate
                 $this->participants
             );
         }
+
         return $this->participants;
     }
 
     /**
      * returns the participant object if found in the response
      *
-     * @param string $participantId
+     * @param  string                                                  $participantId
      * @return Zend_Service_DeveloperGarden_ConferenceCall_Participant
      */
     public function getParticipantById($participantId)
@@ -92,6 +93,7 @@ class Zend_Service_DeveloperGarden_Response_ConferenceCall_GetConferenceTemplate
                 }
             }
         }
+
         return null;
     }
 }

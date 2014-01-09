@@ -36,8 +36,8 @@ class Zend_View_Helper_Form extends Zend_View_Helper_FormElement
     /**
      * Render HTML form
      *
-     * @param  string $name Form name
-     * @param  null|array $attribs HTML form attributes
+     * @param  string       $name    Form name
+     * @param  null|array   $attribs HTML form attributes
      * @param  false|string $content Form content
      * @return string
      */
@@ -55,13 +55,13 @@ class Zend_View_Helper_Form extends Zend_View_Helper_FormElement
         if (array_key_exists('id', $attribs) && empty($attribs['id'])) {
             unset($attribs['id']);
         }
-        
+
         if (!empty($name) && !($this->_isXhtml() && $this->_isStrictDoctype())) {
             $name = ' name="' . $this->view->escape($name) . '"';
         } else {
             $name = '';
         }
-        
+
         if ( array_key_exists('name', $attribs) && empty($attribs['id'])) {
             unset($attribs['id']);
         }

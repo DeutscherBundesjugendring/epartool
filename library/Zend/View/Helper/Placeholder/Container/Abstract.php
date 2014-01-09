@@ -137,6 +137,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
         if (1 == count($this)) {
             $keys = $this->getKeys();
             $key  = array_shift($keys);
+
             return $this[$key];
         }
 
@@ -146,12 +147,13 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     /**
      * Set prefix for __toString() serialization
      *
-     * @param  string $prefix
+     * @param  string                                 $prefix
      * @return Zend_View_Helper_Placeholder_Container
      */
     public function setPrefix($prefix)
     {
         $this->_prefix = (string) $prefix;
+
         return $this;
     }
 
@@ -168,12 +170,13 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     /**
      * Set postfix for __toString() serialization
      *
-     * @param  string $postfix
+     * @param  string                                 $postfix
      * @return Zend_View_Helper_Placeholder_Container
      */
     public function setPostfix($postfix)
     {
         $this->_postfix = (string) $postfix;
+
         return $this;
     }
 
@@ -192,12 +195,13 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      *
      * Used to implode elements in container
      *
-     * @param  string $separator
+     * @param  string                                 $separator
      * @return Zend_View_Helper_Placeholder_Container
      */
     public function setSeparator($separator)
     {
         $this->_separator = (string) $separator;
+
         return $this;
     }
 
@@ -215,12 +219,13 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Set the indentation string for __toString() serialization,
      * optionally, if a number is passed, it will be the number of spaces
      *
-     * @param  string|int $indent
+     * @param  string|int                                      $indent
      * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function setIndent($indent)
     {
         $this->_indent = $this->getWhitespace($indent);
+
         return $this;
     }
 
@@ -252,8 +257,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     /**
      * Start capturing content to push into placeholder
      *
-     * @param int|string $type How to capture content into placeholder; append, prepend, or set
-     * @param null       $key
+     * @param  int|string                                       $type How to capture content into placeholder; append, prepend, or set
+     * @param  null                                             $key
      * @throws Zend_View_Helper_Placeholder_Container_Exception
      * @return void
      */
@@ -328,6 +333,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     public function getKeys()
     {
         $array = $this->getArrayCopy();
+
         return array_keys($array);
     }
 
@@ -350,7 +356,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     /**
      * Render the placeholder
      *
-     * @param null $indent
+     * @param  null   $indent
      * @return string
      */
     public function toString($indent = null)
@@ -370,6 +376,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
                 . implode($this->getSeparator(), $items)
                 . $this->getPostfix();
         $return = preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
+
         return $return;
     }
 

@@ -65,7 +65,7 @@ abstract class Zend_Mobile_Push_Message_Abstract implements Zend_Mobile_Push_Mes
     /**
      * Set Token
      *
-     * @param  string $token
+     * @param  string                            $token
      * @return Zend_Mobile_Push_Message_Abstract
      */
     public function setToken($token)
@@ -74,12 +74,13 @@ abstract class Zend_Mobile_Push_Message_Abstract implements Zend_Mobile_Push_Mes
             throw new Zend_Mobile_Push_Message_Exception('$token must be a string');
         }
         $this->_token = $token;
+
         return $this;
     }
 
     /**
      * Get Message ID
-     * 
+     *
      * @return scalar
      */
     public function getId()
@@ -90,7 +91,7 @@ abstract class Zend_Mobile_Push_Message_Abstract implements Zend_Mobile_Push_Mes
     /**
      * Set Message ID
      *
-     * @param scalar $id
+     * @param  scalar                            $id
      * @return Zend_Mobile_Push_Message_Abstract
      * @throws Exception
      */
@@ -100,13 +101,14 @@ abstract class Zend_Mobile_Push_Message_Abstract implements Zend_Mobile_Push_Mes
             throw new Zend_Mobile_Push_Message_Exception('$id must be a scalar');
         }
         $this->_id = $id;
+
         return $this;
     }
 
     /**
      * Set Options
      *
-     * @param array $options
+     * @param  array                              $options
      * @return Zend_Mobile_Push_Message_Abstract
      * @throws Zend_Mobile_Push_Message_Exception
      */
@@ -119,9 +121,9 @@ abstract class Zend_Mobile_Push_Message_Abstract implements Zend_Mobile_Push_Mes
             }
             $this->$method($v);
         }
+
         return $this;
     }
-
 
     /**
      * Validate Message format

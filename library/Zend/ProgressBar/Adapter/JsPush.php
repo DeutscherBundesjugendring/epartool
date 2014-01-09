@@ -56,7 +56,7 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
     /**
      * Set the update method name
      *
-     * @param  string $methodName
+     * @param  string                          $methodName
      * @return Zend_ProgressBar_Adapter_JsPush
      */
     public function setUpdateMethodName($methodName)
@@ -69,7 +69,7 @@ class Zend_ProgressBar_Adapter_JsPush extends Zend_ProgressBar_Adapter
     /**
      * Set the finish method name
      *
-     * @param  string $methodName
+     * @param  string                          $methodName
      * @return Zend_ProgressBar_Adapter_JsPush
      */
     public function setFinishMethodName($methodName)

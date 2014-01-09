@@ -36,8 +36,8 @@ class Zend_Tool_Framework_Loader_IncludePathLoader_RecursiveFilterIterator exten
      * constructor
      *
      * @param RecursiveIterator $iterator
-     * @param string $denyDirectoryPattern
-     * @param string $acceptFilePattern
+     * @param string            $denyDirectoryPattern
+     * @param string            $acceptFilePattern
      */
     public function __construct(RecursiveIterator $iterator, $denyDirectoryPattern = null, $acceptFilePattern = null)
     {
@@ -64,6 +64,7 @@ class Zend_Tool_Framework_Loader_IncludePathLoader_RecursiveFilterIterator exten
 
         // if the file matches the accept file pattern, accept
         $acceptable = (preg_match('#' . $this->_acceptFilePattern . '#', $currentNodeRealPath)) ? true : false;
+
         return $acceptable;
     }
 
@@ -88,4 +89,3 @@ class Zend_Tool_Framework_Loader_IncludePathLoader_RecursiveFilterIterator exten
     }
 
 }
-

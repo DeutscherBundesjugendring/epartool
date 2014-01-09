@@ -39,7 +39,6 @@ require_once 'Zend/Tool/Project/Context/Filesystem/Directory.php';
 class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_Tool_Project_Context_Filesystem_Directory
 {
 
-
     /**
      * @var string
      */
@@ -59,6 +58,7 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
     {
         $this->_filesystemName = $this->_forModuleName = $this->_resource->getAttribute('forModuleName');
         parent::init();
+
         return $this;
     }
 
@@ -93,6 +93,5 @@ class Zend_Tool_Project_Context_Zf_TestApplicationModuleDirectory extends Zend_T
     {
         return $this->_forModuleName;
     }
-    
 
 }

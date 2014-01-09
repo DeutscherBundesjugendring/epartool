@@ -39,8 +39,8 @@ class Zend_Feed_Reader_Feed_Atom_Source extends Zend_Feed_Reader_Feed_Atom
      * metadata from an Atom entry's source element.
      *
      * @param DOMElement $source
-     * @param string $xpathPrefix Passed from parent Entry object
-     * @param string $type Nearly always Atom 1.0
+     * @param string     $xpathPrefix Passed from parent Entry object
+     * @param string     $type        Nearly always Atom 1.0
      */
     public function __construct(DOMElement $source, $xpathPrefix, $type = Zend_Feed_Reader::TYPE_ATOM_10)
     {

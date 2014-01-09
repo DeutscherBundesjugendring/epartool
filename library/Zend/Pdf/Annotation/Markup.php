@@ -28,7 +28,6 @@ require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
 require_once 'Zend/Pdf/Element/String.php';
 
-
 /** Zend_Pdf_Annotation */
 require_once 'Zend/Pdf/Annotation.php';
 
@@ -101,13 +100,13 @@ class Zend_Pdf_Annotation_Markup extends Zend_Pdf_Annotation
      * The text is oriented with respect to the edge connecting points
      * (x1, y1) and (x2, y2).
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param string $text
-     * @param string $subType
-     * @param array $quadPoints  [x1 y1 x2 y2 x3 y3 x4 y4]
+     * @param  float                      $x1
+     * @param  float                      $y1
+     * @param  float                      $x2
+     * @param  float                      $y2
+     * @param  string                     $text
+     * @param  string                     $subType
+     * @param  array                      $quadPoints [x1 y1 x2 y2 x3 y3 x4 y4]
      * @return Zend_Pdf_Annotation_Markup
      * @throws Zend_Pdf_Exception
      */

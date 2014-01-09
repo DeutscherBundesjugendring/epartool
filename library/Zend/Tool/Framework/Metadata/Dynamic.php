@@ -78,12 +78,13 @@ class Zend_Tool_Framework_Metadata_Dynamic
     /**
      * setType()
      *
-     * @param string $type
+     * @param  string                               $type
      * @return Zend_Tool_Framework_Metadata_Dynamic
      */
     public function setType($type)
     {
         $this->_type = $type;
+
         return $this;
     }
 
@@ -102,12 +103,13 @@ class Zend_Tool_Framework_Metadata_Dynamic
     /**
      * setName()
      *
-     * @param string $name
+     * @param  string                               $name
      * @return Zend_Tool_Framework_Metadata_Dynamic
      */
     public function setName($name)
     {
         $this->_name = $name;
+
         return $this;
     }
 
@@ -126,12 +128,13 @@ class Zend_Tool_Framework_Metadata_Dynamic
     /**
      * setValue()
      *
-     * @param mixed $value
+     * @param  mixed                                $value
      * @return Zend_Tool_Framework_Metadata_Dynamic
      */
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 
@@ -157,7 +160,7 @@ class Zend_Tool_Framework_Metadata_Dynamic
      *
      * Check if an attrbute is set
      *
-     * @param string $name
+     * @param  string $name
      * @return bool
      */
     public function __isset($name)
@@ -168,19 +171,20 @@ class Zend_Tool_Framework_Metadata_Dynamic
     /**
      * __unset()
      *
-     * @param string $name
+     * @param  string $name
      * @return null
      */
     public function __unset($name)
     {
         unset($this->_dynamicAttributes[$name]);
+
         return;
     }
 
     /**
      * __get() - Get a property via property call $metadata->foo
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)
@@ -199,15 +203,17 @@ class Zend_Tool_Framework_Metadata_Dynamic
      * __set() - Set a property via the magic set $metadata->foo = 'foo'
      *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($name, $value)
     {
         if (method_exists($this, 'set' . $name)) {
             $this->{'set' . $name}($value);
+
             return $this;
         } else {
             $this->_dynamicAttributes[$name] = $value;
+
             return $this;
         }
 //        {

@@ -20,12 +20,10 @@
  * @version    $Id: Base.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_StrikeIron_Decorator
  */
 require_once 'Zend/Service/StrikeIron/Decorator.php';
-
 
 /**
  * @category   Zend
@@ -56,7 +54,7 @@ class Zend_Service_StrikeIron_Base
     /**
      * Class constructor
      *
-     * @param  array  $options  Key/value pair options
+     * @param  array                             $options Key/value pair options
      * @throws Zend_Service_StrikeIron_Exception
      */
     public function __construct($options = array())
@@ -79,9 +77,9 @@ class Zend_Service_StrikeIron_Base
      * Proxy method calls to the SOAPClient instance, transforming method
      * calls and responses for convenience.
      *
-     * @param  string  $method  Method name
-     * @param  array   $params  Parameters for method
-     * @return mixed            Result
+     * @param  string                            $method Method name
+     * @param  array                             $params Parameters for method
+     * @return mixed                             Result
      * @throws Zend_Service_StrikeIron_Exception
      */
     public function __call($method, $params)
@@ -108,6 +106,7 @@ class Zend_Service_StrikeIron_Base
 
         // transform/decorate the result and return it
         $result = $this->_transformResult($result, $method, $params);
+
         return $result;
     }
 
@@ -150,7 +149,7 @@ class Zend_Service_StrikeIron_Base
                      */
                     require_once 'Zend/Service/StrikeIron/Exception.php';
                     throw new Zend_Service_StrikeIron_Exception('Header must be instance of SoapHeader');
-                } else if ($header->name == 'LicenseInfo') {
+                } elseif ($header->name == 'LicenseInfo') {
                     $foundLicenseInfo = true;
                     break;
                 }
@@ -174,9 +173,9 @@ class Zend_Service_StrikeIron_Base
      * transforms to give the method call a more PHP-like interface.
      *
      * @see    __call()
-     * @param  string  $method  Method name called from PHP
-     * @param  mixed   $param   Parameters passed from PHP
-     * @return array            [$method, $params] for SOAPClient->__soapCall()
+     * @param  string $method Method name called from PHP
+     * @param  mixed  $param  Parameters passed from PHP
+     * @return array  [$method, $params] for SOAPClient->__soapCall()
      */
     protected function _transformCall($method, $params)
     {
@@ -193,9 +192,9 @@ class Zend_Service_StrikeIron_Base
      * on what was originally called.
      *
      * @see    __call()
-     * @param  object $result  Raw result returned from SOAPClient_>__soapCall()
-     * @param  string $method  Method name that was passed to SOAPClient->__soapCall()
-     * @param  array  $params  Method parameters that were passed to SOAPClient->__soapCall()
+     * @param  object $result Raw result returned from SOAPClient_>__soapCall()
+     * @param  string $method Method name that was passed to SOAPClient->__soapCall()
+     * @param  array  $params Method parameters that were passed to SOAPClient->__soapCall()
      * @return mixed  Transformed result
      */
     protected function _transformResult($result, $method, $params)
@@ -207,6 +206,7 @@ class Zend_Service_StrikeIron_Base
         if (is_object($result)) {
             $result = new Zend_Service_StrikeIron_Decorator($result, $resultObjectName);
         }
+
         return $result;
     }
 
@@ -245,9 +245,9 @@ class Zend_Service_StrikeIron_Base
      * and returned from the cache.  Otherwise, the getRemainingHits()
      * method is called as a dummy to get the subscription info headers.
      *
-     * @param  boolean  $now          Force a call to getRemainingHits instead of cache?
-     * @param  string   $queryMethod  Method that will cause SubscriptionInfo header to be sent
-     * @return Zend_Service_StrikeIron_Decorator  Decorated subscription info
+     * @param  boolean                           $now         Force a call to getRemainingHits instead of cache?
+     * @param  string                            $queryMethod Method that will cause SubscriptionInfo header to be sent
+     * @return Zend_Service_StrikeIron_Decorator Decorated subscription info
      * @throws Zend_Service_StrikeIron_Exception
      */
     public function getSubscriptionInfo($now = false, $queryMethod = 'GetRemainingHits')
@@ -258,7 +258,7 @@ class Zend_Service_StrikeIron_Base
 
         // capture subscription info if returned in output headers
         if (isset($this->_outputHeaders['SubscriptionInfo'])) {
-            $info = (object)$this->_outputHeaders['SubscriptionInfo'];
+            $info = (object) $this->_outputHeaders['SubscriptionInfo'];
             $subscriptionInfo = new Zend_Service_StrikeIron_Decorator($info, 'SubscriptionInfo');
         } else {
             $msg = 'No SubscriptionInfo header found in last output headers';

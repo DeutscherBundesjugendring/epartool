@@ -45,7 +45,7 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
      * Constructor
      *
      * @param  array|Zend_Config $options
-     * @param  Zend_Queue|null $queue
+     * @param  Zend_Queue|null   $queue
      * @return void
      */
     public function __construct($options, Zend_Queue $queue = null)
@@ -96,7 +96,7 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
     /**
      * Does a queue already exist?
      *
-     * @param  string $name
+     * @param  string               $name
      * @return boolean
      * @throws Zend_Queue_Exception (not supported)
      */
@@ -109,8 +109,8 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
     /**
      * Create a new queue
      *
-     * @param  string  $name    queue name
-     * @param  integer $timeout default visibility timeout
+     * @param  string               $name    queue name
+     * @param  integer              $timeout default visibility timeout
      * @return void
      * @throws Zend_Queue_Exception
      */
@@ -123,7 +123,7 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
     /**
      * Delete a queue and all of its messages
      *
-     * @param  string $name queue name
+     * @param  string               $name queue name
      * @return void
      * @throws Zend_Queue_Exception
      */
@@ -168,8 +168,8 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
     /**
      * Send a message to the queue
      *
-     * @param  array | ZendAPI_job $message Message to send to the active queue
-     * @param  Zend_Queue $queue     Not supported
+     * @param  array | ZendAPI_job  $message Message to send to the active queue
+     * @param  Zend_Queue           $queue   Not supported
      * @return Zend_Queue_Message
      * @throws Zend_Queue_Exception
      */
@@ -205,15 +205,16 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
         }
 
         $zendApiJob->setJobId($jobId);
+
         return $zendApiJob;
     }
 
     /**
      * Get messages in the queue
      *
-     * @param  integer    $maxMessages  Maximum number of messages to return
-     * @param  integer    $timeout      Ignored
-     * @param  Zend_Queue $queue        Not supported
+     * @param  integer              $maxMessages Maximum number of messages to return
+     * @param  integer              $timeout     Ignored
+     * @param  Zend_Queue           $queue       Not supported
      * @throws Zend_Queue_Exception
      * @return ArrayIterator
      */
@@ -248,6 +249,7 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($classname);
         }
+
         return new $classname($options);
     }
 
@@ -257,7 +259,7 @@ class Zend_Queue_Adapter_PlatformJobQueue extends Zend_Queue_Adapter_AdapterAbst
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  Zend_Queue_Message $message
+     * @param  Zend_Queue_Message   $message
      * @return boolean
      * @throws Zend_Queue_Exception
      */

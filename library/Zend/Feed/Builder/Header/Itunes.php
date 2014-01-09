@@ -20,7 +20,6 @@
  * @version    $Id: Itunes.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * ITunes rss extension
  *
@@ -55,7 +54,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
      *      )
      * </code>
      *
-     * @param  array $categories
+     * @param  array                           $categories
      * @return Zend_Feed_Builder_Header_Itunes
      * @throws Zend_Feed_Builder_Exception
      */
@@ -86,26 +85,28 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
             }
         }
         $this->offsetSet('category', $categories);
+
         return $this;
     }
 
     /**
      * Sets the artist value, default to the feed's author value
      *
-     * @param  string $author
+     * @param  string                          $author
      * @return Zend_Feed_Builder_Header_Itunes
      */
     public function setAuthor($author)
     {
         $this->offsetSet('author', $author);
+
         return $this;
     }
 
     /**
      * Sets the owner of the postcast
      *
-     * @param  string $name  default to the feed's author value
-     * @param  string $email default to the feed's email value
+     * @param  string                          $name  default to the feed's author value
+     * @param  string                          $email default to the feed's email value
      * @return Zend_Feed_Builder_Header_Itunes
      * @throws Zend_Feed_Builder_Exception
      */
@@ -126,6 +127,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
             }
         }
         $this->offsetSet('owner', array('name' => $name, 'email' => $email));
+
         return $this;
     }
 
@@ -133,12 +135,13 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
      * Sets the album/podcast art picture
      * Default to the feed's image value
      *
-     * @param  string $image
+     * @param  string                          $image
      * @return Zend_Feed_Builder_Header_Itunes
      */
     public function setImage($image)
     {
         $this->offsetSet('image', $image);
+
         return $this;
     }
 
@@ -146,12 +149,13 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
      * Sets the short description of the podcast
      * Default to the feed's description
      *
-     * @param  string $subtitle
+     * @param  string                          $subtitle
      * @return Zend_Feed_Builder_Header_Itunes
      */
     public function setSubtitle($subtitle)
     {
         $this->offsetSet('subtitle', $subtitle);
+
         return $this;
     }
 
@@ -159,19 +163,20 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
      * Sets the longer description of the podcast
      * Default to the feed's description
      *
-     * @param  string $summary
+     * @param  string                          $summary
      * @return Zend_Feed_Builder_Header_Itunes
      */
     public function setSummary($summary)
     {
         $this->offsetSet('summary', $summary);
+
         return $this;
     }
 
     /**
      * Prevent a feed from appearing
      *
-     * @param  string $block can be 'yes' or 'no'
+     * @param  string                          $block can be 'yes' or 'no'
      * @return Zend_Feed_Builder_Header_Itunes
      * @throws Zend_Feed_Builder_Exception
      */
@@ -186,13 +191,14 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
             throw new Zend_Feed_Builder_Exception("you have to set yes or no to the itunes block property");
         }
         $this->offsetSet('block', $block);
+
         return $this;
     }
 
     /**
      * Configuration of the parental advisory graphic
      *
-     * @param  string $explicit can be 'yes', 'no' or 'clean'
+     * @param  string                          $explicit can be 'yes', 'no' or 'clean'
      * @return Zend_Feed_Builder_Header_Itunes
      * @throws Zend_Feed_Builder_Exception
      */
@@ -207,30 +213,33 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
             throw new Zend_Feed_Builder_Exception("you have to set yes, no or clean to the itunes explicit property");
         }
         $this->offsetSet('explicit', $explicit);
+
         return $this;
     }
 
     /**
      * Sets a comma separated list of 12 keywords maximum
      *
-     * @param  string $keywords
+     * @param  string                          $keywords
      * @return Zend_Feed_Builder_Header_Itunes
      */
     public function setKeywords($keywords)
     {
         $this->offsetSet('keywords', $keywords);
+
         return $this;
     }
 
     /**
      * Sets the new feed URL location
      *
-     * @param  string $url
+     * @param  string                          $url
      * @return Zend_Feed_Builder_Header_Itunes
      */
     public function setNewFeedUrl($url)
     {
         $this->offsetSet('new_feed_url', $url);
+
         return $this;
     }
 
@@ -264,7 +273,7 @@ class Zend_Feed_Builder_Header_Itunes extends ArrayObject
     /**
      * Isset accessor
      *
-     * @param  string $key
+     * @param  string  $key
      * @return boolean
      */
     public function __isset($key)

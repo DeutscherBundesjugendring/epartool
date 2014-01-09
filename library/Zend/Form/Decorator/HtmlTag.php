@@ -95,6 +95,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
             $val    = htmlspecialchars($val, ENT_COMPAT, $enc);
             $xhtml .= " $key=\"$val\"";
         }
+
         return $xhtml;
     }
 
@@ -116,18 +117,20 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
             $this->_tagFilter->addFilter(new Zend_Filter_Alnum())
                              ->addFilter(new Zend_Filter_StringToLower());
         }
+
         return $this->_tagFilter->filter($tag);
     }
 
     /**
      * Set tag to use
      *
-     * @param  string $tag
+     * @param  string                      $tag
      * @return Zend_Form_Decorator_HtmlTag
      */
     public function setTag($tag)
     {
         $this->_tag = $this->normalizeTag($tag);
+
         return $this;
     }
 
@@ -156,7 +159,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
      * Get the formatted open tag
      *
      * @param  string $tag
-     * @param  array $attribs
+     * @param  array  $attribs
      * @return string
      */
     protected function _getOpenTag($tag, array $attribs = null)
@@ -166,6 +169,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
             $html .= $this->_htmlAttribs($attribs);
         }
         $html .= '>';
+
         return $html;
     }
 
@@ -210,6 +214,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
                 if ($openOnly) {
                     return $content . $this->_getOpenTag($tag, $attribs);
                 }
+
                 return $content
                      . $this->_getOpenTag($tag, $attribs)
                      . $this->_getCloseTag($tag);
@@ -220,6 +225,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
                 if ($openOnly) {
                     return $this->_getOpenTag($tag, $attribs) . $content;
                 }
+
                 return $this->_getOpenTag($tag, $attribs)
                      . $this->_getCloseTag($tag)
                      . $content;
@@ -252,6 +258,7 @@ class Zend_Form_Decorator_HtmlTag extends Zend_Form_Decorator_Abstract
         } else {
             $this->_encoding = $view->getEncoding();
         }
+
         return $this->_encoding;
     }
 }

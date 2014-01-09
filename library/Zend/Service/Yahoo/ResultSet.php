@@ -21,7 +21,6 @@
  * @version    $Id: ResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Service
@@ -80,7 +79,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
      */
     protected $_currentIndex = 0;
 
-
     /**
      * Parse the search response and retrieve the results for iteration
      *
@@ -101,7 +99,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         $this->_results = $this->_xpath->query('//yh:Result');
     }
 
-
     /**
      * Total Number of results returned
      *
@@ -111,7 +108,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
     {
         return $this->totalResultsReturned;
     }
-
 
     /**
      * Implement SeekableIterator::current()
@@ -131,7 +127,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
                                        . 'classes');
     }
 
-
     /**
      * Implement SeekableIterator::key()
      *
@@ -141,7 +136,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
     {
         return $this->_currentIndex;
     }
-
 
     /**
      * Implement SeekableIterator::next()
@@ -153,7 +147,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         $this->_currentIndex += 1;
     }
 
-
     /**
      * Implement SeekableIterator::rewind()
      *
@@ -164,11 +157,10 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
         $this->_currentIndex = 0;
     }
 
-
     /**
      * Implement SeekableIterator::seek()
      *
-     * @param  int $index
+     * @param  int                  $index
      * @return void
      * @throws OutOfBoundsException
      */
@@ -181,7 +173,6 @@ class Zend_Service_Yahoo_ResultSet implements SeekableIterator
             throw new OutOfBoundsException("Illegal index '$index'");
         }
     }
-
 
     /**
      * Implement SeekableIterator::valid()

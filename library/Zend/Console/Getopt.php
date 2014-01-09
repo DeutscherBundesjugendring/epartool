@@ -261,7 +261,7 @@ class Zend_Console_Getopt
             $argv = array_slice($_SERVER['argv'], 1);
         }
         if (isset($argv)) {
-            $this->addArguments((array)$argv);
+            $this->addArguments((array) $argv);
         }
     }
 
@@ -285,7 +285,7 @@ class Zend_Console_Getopt
     /**
      * Test whether a given option has been seen.
      *
-     * @param  string $key
+     * @param  string  $key
      * @return boolean
      */
     public function __isset($key)
@@ -293,8 +293,10 @@ class Zend_Console_Getopt
         $this->parse();
         if (isset($this->_ruleMap[$key])) {
             $key = $this->_ruleMap[$key];
+
             return isset($this->_options[$key]);
         }
+
         return false;
     }
 
@@ -343,19 +345,20 @@ class Zend_Console_Getopt
      * Define additional command-line arguments.
      * These are appended to those defined when the constructor was called.
      *
-     * @param  array $argv
+     * @param  array                         $argv
      * @throws Zend_Console_Getopt_Exception When not given an array as parameter
-     * @return Zend_Console_Getopt Provides a fluent interface
+     * @return Zend_Console_Getopt           Provides a fluent interface
      */
     public function addArguments($argv)
     {
-        if(!is_array($argv)) {
+        if (!is_array($argv)) {
             require_once 'Zend/Console/Getopt/Exception.php';
             throw new Zend_Console_Getopt_Exception(
                 "Parameter #1 to addArguments should be an array");
         }
         $this->_argv = array_merge($this->_argv, $argv);
         $this->_parsed = false;
+
         return $this;
     }
 
@@ -363,19 +366,20 @@ class Zend_Console_Getopt
      * Define full set of command-line arguments.
      * These replace any currently defined.
      *
-     * @param  array $argv
+     * @param  array                         $argv
      * @throws Zend_Console_Getopt_Exception When not given an array as parameter
-     * @return Zend_Console_Getopt Provides a fluent interface
+     * @return Zend_Console_Getopt           Provides a fluent interface
      */
     public function setArguments($argv)
     {
-        if(!is_array($argv)) {
+        if (!is_array($argv)) {
             require_once 'Zend/Console/Getopt/Exception.php';
             throw new Zend_Console_Getopt_Exception(
                 "Parameter #1 to setArguments should be an array");
         }
         $this->_argv = $argv;
         $this->_parsed = false;
+
         return $this;
     }
 
@@ -384,7 +388,7 @@ class Zend_Console_Getopt
      * These are not program options, but properties to configure
      * the behavior of Zend_Console_Getopt.
      *
-     * @param  array $getoptConfig
+     * @param  array               $getoptConfig
      * @return Zend_Console_Getopt Provides a fluent interface
      */
     public function setOptions($getoptConfig)
@@ -394,6 +398,7 @@ class Zend_Console_Getopt
                 $this->setOption($key, $value);
             }
         }
+
         return $this;
     }
 
@@ -402,8 +407,8 @@ class Zend_Console_Getopt
      * These are not program options, but properties to configure
      * the behavior of Zend_Console_Getopt.
      *
-     * @param  string $configKey
-     * @param  string $configValue
+     * @param  string              $configKey
+     * @param  string              $configValue
      * @return Zend_Console_Getopt Provides a fluent interface
      */
     public function setOption($configKey, $configValue)
@@ -411,6 +416,7 @@ class Zend_Console_Getopt
         if ($configKey !== null) {
             $this->_getoptConfig[$configKey] = $configValue;
         }
+
         return $this;
     }
 
@@ -418,7 +424,7 @@ class Zend_Console_Getopt
      * Define additional option rules.
      * These are appended to the rules defined when the constructor was called.
      *
-     * @param  array $rules
+     * @param  array               $rules
      * @return Zend_Console_Getopt Provides a fluent interface
      */
     public function addRules($rules)
@@ -444,6 +450,7 @@ class Zend_Console_Getopt
                 $this->$method($rules);
         }
         $this->_parsed = false;
+
         return $this;
     }
 
@@ -459,6 +466,7 @@ class Zend_Console_Getopt
         foreach ($this->_options as $flag => $value) {
             $s[] = $flag . '=' . ($value === true ? 'true' : $value);
         }
+
         return implode(' ', $s);
     }
 
@@ -481,6 +489,7 @@ class Zend_Console_Getopt
                 $s[] = $value;
             }
         }
+
         return $s;
     }
 
@@ -531,6 +540,7 @@ class Zend_Console_Getopt
             $optionsNode->appendChild($optionNode);
         }
         $xml = $doc->saveXML();
+
         return $xml;
     }
 
@@ -542,6 +552,7 @@ class Zend_Console_Getopt
     public function getOptions()
     {
         $this->parse();
+
         return array_keys($this->_options);
     }
 
@@ -567,6 +578,7 @@ class Zend_Console_Getopt
                 return $this->_options[$flag];
             }
         }
+
         return null;
     }
 
@@ -578,6 +590,7 @@ class Zend_Console_Getopt
     public function getRemainingArgs()
     {
         $this->parse();
+
         return $this->_remainingArgs;
     }
 
@@ -628,6 +641,7 @@ class Zend_Console_Getopt
             str_pad($linepart['name'], $maxLen),
             $linepart['help']);
         }
+
         return $usage;
     }
 
@@ -637,14 +651,13 @@ class Zend_Console_Getopt
      * The parameter $aliasMap is an associative array
      * mapping option name (short or long) to an alias.
      *
-     * @param  array $aliasMap
+     * @param  array                         $aliasMap
      * @throws Zend_Console_Getopt_Exception
-     * @return Zend_Console_Getopt Provides a fluent interface
+     * @return Zend_Console_Getopt           Provides a fluent interface
      */
     public function setAliases($aliasMap)
     {
-        foreach ($aliasMap as $flag => $alias)
-        {
+        foreach ($aliasMap as $flag => $alias) {
             if ($this->_getoptConfig[self::CONFIG_IGNORECASE]) {
                 $flag = strtolower($flag);
                 $alias = strtolower($alias);
@@ -662,6 +675,7 @@ class Zend_Console_Getopt
             $this->_rules[$flag]['alias'][] = $alias;
             $this->_ruleMap[$alias] = $flag;
         }
+
         return $this;
     }
 
@@ -671,19 +685,19 @@ class Zend_Console_Getopt
      * The parameter $help_map is an associative array
      * mapping option name (short or long) to the help string.
      *
-     * @param  array $helpMap
+     * @param  array               $helpMap
      * @return Zend_Console_Getopt Provides a fluent interface
      */
     public function setHelp($helpMap)
     {
-        foreach ($helpMap as $flag => $help)
-        {
+        foreach ($helpMap as $flag => $help) {
             if (!isset($this->_ruleMap[$flag])) {
                 continue;
             }
             $flag = $this->_ruleMap[$flag];
             $this->_rules[$flag]['help'] = $help;
         }
+
         return $this;
     }
 
@@ -714,9 +728,9 @@ class Zend_Console_Getopt
             }
             if (substr($argv[0], 0, 2) == '--') {
                 $this->_parseLongOption($argv);
-            } else if (substr($argv[0], 0, 1) == '-' && ('-' != $argv[0] || count($argv) >1))  {
+            } elseif (substr($argv[0], 0, 1) == '-' && ('-' != $argv[0] || count($argv) >1)) {
                 $this->_parseShortOptionCluster($argv);
-            } else if($this->_getoptConfig[self::CONFIG_PARSEALL]) {
+            } elseif ($this->_getoptConfig[self::CONFIG_PARSEALL]) {
                 $this->_remainingArgs[] = array_shift($argv);
             } else {
                 /*
@@ -728,6 +742,7 @@ class Zend_Console_Getopt
             }
         }
         $this->_parsed = true;
+
         return $this;
     }
 
@@ -770,8 +785,8 @@ class Zend_Console_Getopt
     /**
      * Parse command-line arguments for a single option.
      *
-     * @param  string $flag
-     * @param  mixed  $argv
+     * @param  string                        $flag
+     * @param  mixed                         $argv
      * @throws Zend_Console_Getopt_Exception
      * @return void
      */
@@ -818,8 +833,8 @@ class Zend_Console_Getopt
      * the option $flag.
      * Throw an exception in most other cases.
      *
-     * @param  string $flag
-     * @param  string $param
+     * @param  string                        $flag
+     * @param  string                        $param
      * @throws Zend_Console_Getopt_Exception
      * @return bool
      */
@@ -850,6 +865,7 @@ class Zend_Console_Getopt
             default:
                 break;
         }
+
         return true;
     }
 
@@ -890,14 +906,13 @@ class Zend_Console_Getopt
     /**
      * Define legal options using the Zend-style format.
      *
-     * @param  array $rules
+     * @param  array                         $rules
      * @throws Zend_Console_Getopt_Exception
      * @return void
      */
     protected function _addRulesModeZend($rules)
     {
-        foreach ($rules as $ruleCode => $helpMessage)
-        {
+        foreach ($rules as $ruleCode => $helpMessage) {
             // this may have to translate the long parm type if there
             // are any complaints that =string will not work (even though that use
             // case is not documented)

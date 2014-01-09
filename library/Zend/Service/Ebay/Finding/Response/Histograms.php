@@ -64,7 +64,6 @@ class Zend_Service_Ebay_Finding_Response_Histograms extends Zend_Service_Ebay_Fi
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-
         $node = $this->_xPath->query(".//$ns:aspectHistogramContainer[1]", $this->_dom)->item(0);
         if ($node) {
             /**

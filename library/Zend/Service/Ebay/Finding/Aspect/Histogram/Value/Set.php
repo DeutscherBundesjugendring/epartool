@@ -52,6 +52,7 @@ class Zend_Service_Ebay_Finding_Aspect_Histogram_Value_Set extends Zend_Service_
          * @see Zend_Service_Ebay_Finding_Aspect_Histogram_Value
          */
         require_once 'Zend/Service/Ebay/Finding/Aspect/Histogram/Value.php';
+
         return new Zend_Service_Ebay_Finding_Aspect_Histogram_Value($node);
     }
 }

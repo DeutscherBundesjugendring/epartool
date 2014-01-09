@@ -19,7 +19,6 @@
  * @version    $Id: Interface.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Interface class for Zend_View compatible template engine implementations
  *
@@ -79,8 +78,8 @@ interface Zend_View_Interface
     /**
      * Assign a variable to the view
      *
-     * @param string $key The variable name.
-     * @param mixed $val The variable value.
+     * @param  string $key The variable name.
+     * @param  mixed  $val The variable value.
      * @return void
      */
     public function __set($key, $val);
@@ -88,7 +87,7 @@ interface Zend_View_Interface
     /**
      * Allows testing with empty() and isset() to work
      *
-     * @param string $key
+     * @param  string  $key
      * @return boolean
      */
     public function __isset($key);
@@ -96,7 +95,7 @@ interface Zend_View_Interface
     /**
      * Allows unset() on object properties to work
      *
-     * @param string $key
+     * @param  string $key
      * @return void
      */
     public function __unset($key);
@@ -130,7 +129,7 @@ interface Zend_View_Interface
     /**
      * Processes a view script and returns the output.
      *
-     * @param string $name The script name to process.
+     * @param  string $name The script name to process.
      * @return string The script output.
      */
     public function render($name);

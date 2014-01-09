@@ -60,7 +60,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
     /**
      * Constructor
      *
-     * @param  string $consumerSecret
+     * @param  string      $consumerSecret
      * @param  null|string $tokenSecret
      * @param  null|string $hashAlgo
      * @return void
@@ -80,12 +80,12 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
     /**
      * Sign a request
      *
-     * @param  array $params
+     * @param  array       $params
      * @param  null|string $method
      * @param  null|string $url
      * @return string
      */
-    public abstract function sign(array $params, $method = null, $url = null);
+    abstract public function sign(array $params, $method = null, $url = null);
 
     /**
      * Normalize the base signature URL
@@ -104,6 +104,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
         $uri->setQuery('');
         $uri->setFragment('');
         $uri->setHost(strtolower($uri->getHost()));
+
         return $uri->getUri(true);
     }
 
@@ -121,13 +122,14 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
         foreach ($parts as $key => $secret) {
             $parts[$key] = Zend_Oauth_Http_Utility::urlEncode($secret);
         }
+
         return implode('&', $parts);
     }
 
     /**
      * Get base signature string
      *
-     * @param  array $params
+     * @param  array       $params
      * @param  null|string $method
      * @param  null|string $url
      * @return string
@@ -155,13 +157,14 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
         $baseStrings[] = Zend_Oauth_Http_Utility::urlEncode(
             $this->_toByteValueOrderedQueryString($encodedParams)
         );
+
         return implode('&', $baseStrings);
     }
 
     /**
      * Transform an array to a byte value ordered query string
      *
-     * @param  array $params
+     * @param  array  $params
      * @return string
      */
     protected function _toByteValueOrderedQueryString(array $params)
@@ -178,6 +181,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
                 $return[] = $key . '=' . $value;
             }
         }
+
         return implode('&', $return);
     }
 }

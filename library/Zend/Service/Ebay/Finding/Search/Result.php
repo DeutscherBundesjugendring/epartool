@@ -50,7 +50,6 @@ class Zend_Service_Ebay_Finding_Search_Result extends Zend_Service_Ebay_Finding_
         parent::_init();
         $ns = Zend_Service_Ebay_Finding::XMLNS_FINDING;
 
-
         $nodes = $this->_xPath->query(".//$ns:item", $this->_dom);
         if ($nodes) {
             /**

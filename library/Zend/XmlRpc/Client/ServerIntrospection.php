@@ -36,7 +36,6 @@ class Zend_XmlRpc_Client_ServerIntrospection
      */
     private $_system = null;
 
-
     /**
      * @param Zend_XmlRpc_Client $client
      */
@@ -118,7 +117,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
      * Get the method signatures for every method by
      * successively calling system.methodSignature
      *
-     * @param array $methods
+     * @param  array $methods
      * @return array
      */
     public function getSignatureForEachMethodByLooping($methods = null)
@@ -138,8 +137,8 @@ class Zend_XmlRpc_Client_ServerIntrospection
     /**
      * Call system.methodSignature() for the given method
      *
-     * @param  array  $method
-     * @return array  array(array(return, param, param, param...))
+     * @param  array $method
+     * @return array array(array(return, param, param, param...))
      */
     public function getMethodSignature($method)
     {
@@ -149,14 +148,15 @@ class Zend_XmlRpc_Client_ServerIntrospection
             require_once 'Zend/XmlRpc/Client/IntrospectException.php';
             throw new Zend_XmlRpc_Client_IntrospectException($error);
         }
+
         return $signature;
     }
 
     /**
      * Call system.listMethods()
      *
-     * @param  array  $method
-     * @return array  array(method, method, method...)
+     * @param  array $method
+     * @return array array(method, method, method...)
      */
     public function listMethods()
     {

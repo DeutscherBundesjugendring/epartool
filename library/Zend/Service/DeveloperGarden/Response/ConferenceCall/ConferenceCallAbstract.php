@@ -50,6 +50,7 @@ abstract class Zend_Service_DeveloperGarden_Response_ConferenceCall_ConferenceCa
                 return $p->getValue($this);
             }
         }
+
         return null;
     }
 
@@ -70,6 +71,7 @@ abstract class Zend_Service_DeveloperGarden_Response_ConferenceCall_ConferenceCa
             $this->statusMessage = $retVal->getStatusMessage();
         }
         parent::parse();
+
         return $retVal;
     }
 }

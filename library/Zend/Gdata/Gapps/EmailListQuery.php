@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for Google Apps email list entries.
@@ -110,8 +110,7 @@ class Zend_Gdata_Gapps_EmailListQuery extends Zend_Gdata_Gapps_Query
     {
         if ($value !== null) {
             $this->_params['recipient'] = $value;
-        }
-        else {
+        } else {
             unset($this->_params['recipient']);
         }
     }
@@ -169,7 +168,7 @@ class Zend_Gdata_Gapps_EmailListQuery extends Zend_Gdata_Gapps_Query
      * Returns the URL generated for this query, based on it's current
      * parameters.
      *
-     * @return string A URL generated based on the state of this query.
+     * @return string                                  A URL generated based on the state of this query.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getQueryUrl()
@@ -181,6 +180,7 @@ class Zend_Gdata_Gapps_EmailListQuery extends Zend_Gdata_Gapps_Query
             $uri .= '/' . $this->_emailListName;
         }
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

@@ -1,227 +1,243 @@
 <?php
 /**
  * Articles
- * @desc    Class of articles
- * @author  Jan Suchandt
+ * @desc        Class of articles
+ * @author    Jan Suchandt
  */
-class Model_Articles extends Model_DbjrBase {
-  protected $_name = 'articles';
-  protected $_primary = 'art_id';
+class Model_Articles extends Model_DbjrBase
+{
+    protected $_name = 'articles';
+    protected $_primary = 'art_id';
 
-  protected $_referenceMap = array(
-    'Consultations' => array(
-      'columns' => 'kid',
-      'refTableClass' => 'Model_Consultations',
-      'refColumns' => 'kid'
-    )
-  );
+    protected $_referenceMap = array(
+        'Consultations' => array(
+            'columns' => 'kid',
+            'refTableClass' => 'Model_Consultations',
+            'refColumns' => 'kid'
+        )
+    );
 
-  /**
-   * getById
-   * @desc returns entry by id
-   * @name getById
-   * @param integer $id
-   * @return array
-   */
-  public function getById($id) {
-    // is int?
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($id)) {
-      return array();
-    }
-    $result = array();
-    $row = $this->find($id)->current();
-    if ($row) {
-      $result = $row->toArray();
-    }
+    /**
+     * getById
+     * @desc returns entry by id
+     * @name getById
+     * @param  integer $id
+     * @return array
+     */
+    public function getById($id)
+    {
+        // is int?
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($id)) {
+            return array();
+        }
+        $result = array();
+        $row = $this->find($id)->current();
+        if ($row) {
+            $result = $row->toArray();
+        }
 
-    return $result;
-  }
-
-  /**
-   * add
-   * @desc add new entry to db-table
-   * @name add
-   * @param array $data
-   * @return integer primary key of inserted entry
-   */
-  public function add($data) {
-    if (!isset($data['proj'])) {
-      $data['proj'] = Zend_Registry::get('systemconfig')->project;
+        return $result;
     }
 
-    return (int)$this->insert($data);
-  }
+    /**
+     * add
+     * @desc add new entry to db-table
+     * @name add
+     * @param  array   $data
+     * @return integer primary key of inserted entry
+     */
+    public function add($data)
+    {
+        if (!isset($data['proj'])) {
+            $data['proj'] = Zend_Registry::get('systemconfig')->project;
+        }
 
-  /**
-   * updateById
-   * @desc update entry by id
-   * @name updateById
-   * @param integer $id
-   * @param array $data
-   * @return integer
-   */
-  public function updateById($id, $data) {
-    // is int?
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($id)) {
-      return 0;
-    }
-    // exists?
-    if ($this->find($id)->count() < 1) {
-      return 0;
+        return (int) $this->insert($data);
     }
 
-    $where = $this->getDefaultAdapter()
-        ->quoteInto($this->_primary[1] . '=?', $id);
-    return $this->update($data, $where);
-  }
+    /**
+     * updateById
+     * @desc update entry by id
+     * @name updateById
+     * @param  integer $id
+     * @param  array   $data
+     * @return integer
+     */
+    public function updateById($id, $data)
+    {
+        // is int?
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($id)) {
+            return 0;
+        }
+        // exists?
+        if ($this->find($id)->count() < 1) {
+            return 0;
+        }
 
-  /**
-   * deleteById
-   * @desc delete entry by id
-   * @name deleteById
-   * @param integer $id
-   * @return integer
-   */
-  public function deleteById($id) {
-    // is int?
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($id)) {
-      return 0;
-    }
-    // exists?
-    if ($this->find($id)->count() < 1) {
-      return 0;
-    }
-    
-    $children = $this->getChildren($id)->count();
-    if ($children > 0) {
-      return 0;
+        $where = $this->getDefaultAdapter()
+                ->quoteInto($this->_primary[1] . '=?', $id);
+
+        return $this->update($data, $where);
     }
 
-    // where
-    $where = $this->getDefaultAdapter()
-        ->quoteInto($this->_primary[1] . '=?', $id);
-    $result = $this->delete($where);
-    return $result;
-  }
-  
-  /**
-   * Get all Articles that are not assigned to any Consultation, i.e. general Articles
-   * Liefert alle Artikel, die zu keiner Konsultation gehören, d.h. allg. Artikel
-   * @param string $orderBy [optional] Fieldname
-   *
-   * @return Zend_Db_Table_Rowset
-   */
-  public function getAllWithoutConsultation($orderBy = 'art_id') {
-    return $this->getByConsultation(0, null, $orderBy);
-  }
-  
-  /**
-   * Get all Articles incl. subpages of a consultation
-   *
-   * @param integer $kid Id of consultation
-   * @param string $scope Scope, e.g. 'info', 'followup' etc.
-   * @param string $orderBy [optional] Fieldname
-   * @return array
-   */
-  public function getByConsultation($kid = null, $scope = null, $orderBy = 'art_id') {
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($kid)) {
-      throw new Zend_Exception('Given kid must be integer!');
-      return false;
+    /**
+     * deleteById
+     * @desc delete entry by id
+     * @name deleteById
+     * @param  integer $id
+     * @return integer
+     */
+    public function deleteById($id)
+    {
+        // is int?
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($id)) {
+            return 0;
+        }
+        // exists?
+        if ($this->find($id)->count() < 1) {
+            return 0;
+        }
+
+        $children = $this->getChildren($id)->count();
+        if ($children > 0) {
+            return 0;
+        }
+
+        // where
+        $where = $this->getDefaultAdapter()
+                ->quoteInto($this->_primary[1] . '=?', $id);
+        $result = $this->delete($where);
+
+        return $result;
     }
-    
-    // first all first level pages
-    $select = $this->select()
-      ->where('kid = ?', $kid)
-      ->where('parent_id IS NULL OR parent_id = 0')
-      ->order($orderBy);
-    
-    $refNameModel = new Model_ArticleRefNames();
-    if (isset($scope) && $refNameModel->scopeExists($scope)) {
-      $select->where('ref_nm IN (?)', $refNameModel->getRefNamesByScope($scope));
+
+    /**
+     * Get all Articles that are not assigned to any Consultation, i.e. general Articles
+     * Liefert alle Artikel, die zu keiner Konsultation gehören, d.h. allg. Artikel
+     * @param string $orderBy [optional] Fieldname
+     *
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getAllWithoutConsultation($orderBy = 'art_id')
+    {
+        return $this->getByConsultation(0, null, $orderBy);
     }
-    
-    $articles = $this->fetchAll($select)->toArray();
-    
-    // then their subpages
-    foreach ($articles as $key => $article) {
-      $subpages = $this->getChildren($article['art_id'])->toArray();
-      $articles[$key]['subpages'] = array();
-      foreach ($subpages as $subpage) {
-        $articles[$key]['subpages'][$subpage['art_id']] = $subpage;
-      }
+
+    /**
+     * Get all Articles incl. subpages of a consultation
+     *
+     * @param  integer $kid     Id of consultation
+     * @param  string  $scope   Scope, e.g. 'info', 'followup' etc.
+     * @param  string  $orderBy [optional] Fieldname
+     * @return array
+     */
+    public function getByConsultation($kid = null, $scope = null, $orderBy = 'art_id')
+    {
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($kid)) {
+            throw new Zend_Exception('Given kid must be integer!');
+
+            return false;
+        }
+
+        // first all first level pages
+        $select = $this->select()
+            ->where('kid = ?', $kid)
+            ->where('parent_id IS NULL OR parent_id = 0')
+            ->order($orderBy);
+
+        $refNameModel = new Model_ArticleRefNames();
+        if (isset($scope) && $refNameModel->scopeExists($scope)) {
+            $select->where('ref_nm IN (?)', $refNameModel->getRefNamesByScope($scope));
+        }
+
+        $articles = $this->fetchAll($select)->toArray();
+
+        // then their subpages
+        foreach ($articles as $key => $article) {
+            $subpages = $this->getChildren($article['art_id'])->toArray();
+            $articles[$key]['subpages'] = array();
+            foreach ($subpages as $subpage) {
+                $articles[$key]['subpages'][$subpage['art_id']] = $subpage;
+            }
+        }
+
+        return $articles;
     }
-    
-    return $articles;
-  }
-  
-  /**
-   * Returns article by given RefName, e.g. 'about', 'imprint' etc.
-   *
-   * @param string $ref
-   * @param integer $kid Consultation ID if any, Default: 0
-   * @return array
-   */
-  public function getByRefName($ref, $kid = 0) {
-    $result = array();
-    $select = $this->select();
-    $select->where('ref_nm = ?', $ref)->where('kid = ?', $kid);
-    $row = $this->fetchAll($select)->current();
-    if (!empty($row)) {
-      $result = $row->toArray();
+
+    /**
+     * Returns article by given RefName, e.g. 'about', 'imprint' etc.
+     *
+     * @param  string  $ref
+     * @param  integer $kid Consultation ID if any, Default: 0
+     * @return array
+     */
+    public function getByRefName($ref, $kid = 0)
+    {
+        $result = array();
+        $select = $this->select();
+        $select->where('ref_nm = ?', $ref)->where('kid = ?', $kid);
+        $row = $this->fetchAll($select)->current();
+        if (!empty($row)) {
+            $result = $row->toArray();
+        }
+
+        return $result;
     }
-    return $result;
-  }
-  
-  /**
-   * Search in articles by consultations
-   * @param string $needle
-   * @param integer $consultationId
-   * @param integer $limit
-   */
-  public function search($needle, $consultationId=0, $limit=30) {
-    $result = array();
-    if($needle !== '' && is_int($consultationId) && is_int($limit)) {
-      $select = $this->select();
-      $select->from(
-        array('ar'=>'articles'),
-        array('art_id', 'desc', 'ref_nm')
-      );
-      $select->where('LOWER(ar.artcl) LIKE ?', '%'.htmlentities($needle).'%');
-      // if no consultation is set, search in generell articles
-      $select->where('ar.kid = ?', $consultationId);
-      $select->limit($limit);
-      
-      $result = $this->fetchAll($select)->toArray();
-      
+
+    /**
+     * Search in articles by consultations
+     * @param string  $needle
+     * @param integer $consultationId
+     * @param integer $limit
+     */
+    public function search($needle, $consultationId=0, $limit=30)
+    {
+        $result = array();
+        if ($needle !== '' && is_int($consultationId) && is_int($limit)) {
+            $select = $this->select();
+            $select->from(
+                array('ar'=>'articles'),
+                array('art_id', 'desc', 'ref_nm')
+            );
+            $select->where('LOWER(ar.artcl) LIKE ?', '%'.htmlentities($needle).'%');
+            // if no consultation is set, search in generell articles
+            $select->where('ar.kid = ?', $consultationId);
+            $select->limit($limit);
+
+            $result = $this->fetchAll($select)->toArray();
+
+        }
+
+        return $result;
     }
-    return $result;
-  }
-  
-  public function getFirstLevelEntries($kid) {
-    $validator = new Zend_Validate_Int();
-    if (!$validator->isValid($kid)) {
-      throw new Zend_Exception('Given parameter kid must be integer!');
+
+    public function getFirstLevelEntries($kid)
+    {
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($kid)) {
+            throw new Zend_Exception('Given parameter kid must be integer!');
+        }
+        $select = $this->select();
+        $select->where('kid = ?', $kid)
+            ->where('parent_id IS NULL OR parent_id = 0');
+
+        return $this->fetchAll($select);
     }
-    $select = $this->select();
-    $select->where('kid = ?', $kid)
-      ->where('parent_id IS NULL OR parent_id = 0');
-    
-    return $this->fetchAll($select);
-  }
-  
-  public function getChildren($id) {
-    $select = $this->select();
-    $select->where('parent_id = ?', $id);
-    
-    return $this->fetchAll($select);
-  }
-  
-  public function getStaticPages() {
-    return $this->getByConsultation(0, 'static');
-  }
+
+    public function getChildren($id)
+    {
+        $select = $this->select();
+        $select->where('parent_id = ?', $id);
+
+        return $this->fetchAll($select);
+    }
+
+    public function getStaticPages()
+    {
+        return $this->getByConsultation(0, 'static');
+    }
 }
-

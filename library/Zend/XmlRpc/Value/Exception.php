@@ -20,12 +20,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Exception
  */
 require_once 'Zend/XmlRpc/Exception.php';
-
 
 /**
  * @category   Zend
@@ -36,4 +34,3 @@ require_once 'Zend/XmlRpc/Exception.php';
  */
 class Zend_XmlRpc_Value_Exception extends Zend_XmlRpc_Exception
 {}
-

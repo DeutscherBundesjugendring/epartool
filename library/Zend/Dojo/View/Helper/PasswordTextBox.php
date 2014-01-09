@@ -44,9 +44,9 @@ class Zend_Dojo_View_Helper_PasswordTextBox extends Zend_Dojo_View_Helper_Valida
      * dijit.form.ValidationTextBox tied to password input
      *
      * @param  string $id
-     * @param  mixed $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  mixed  $value
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function passwordTextBox($id, $value = null, array $params = array(), array $attribs = array())

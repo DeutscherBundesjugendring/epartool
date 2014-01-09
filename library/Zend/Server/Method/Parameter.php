@@ -72,7 +72,7 @@ class Zend_Server_Method_Parameter
     /**
      * Set object state from array of options
      *
-     * @param  array $options
+     * @param  array                        $options
      * @return Zend_Server_Method_Parameter
      */
     public function setOptions(array $options)
@@ -83,18 +83,20 @@ class Zend_Server_Method_Parameter
                 $this->$method($value);
             }
         }
+
         return $this;
     }
 
     /**
      * Set default value
      *
-     * @param  mixed $defaultValue
+     * @param  mixed                        $defaultValue
      * @return Zend_Server_Method_Parameter
      */
     public function setDefaultValue($defaultValue)
     {
         $this->_defaultValue = $defaultValue;
+
         return $this;
     }
 
@@ -111,12 +113,13 @@ class Zend_Server_Method_Parameter
     /**
      * Set description
      *
-     * @param  string $description
+     * @param  string                       $description
      * @return Zend_Server_Method_Parameter
      */
     public function setDescription($description)
     {
         $this->_description = (string) $description;
+
         return $this;
     }
 
@@ -133,12 +136,13 @@ class Zend_Server_Method_Parameter
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string                       $name
      * @return Zend_Server_Method_Parameter
      */
     public function setName($name)
     {
         $this->_name = (string) $name;
+
         return $this;
     }
 
@@ -155,12 +159,13 @@ class Zend_Server_Method_Parameter
     /**
      * Set optional flag
      *
-     * @param  bool $flag
+     * @param  bool                         $flag
      * @return Zend_Server_Method_Parameter
      */
     public function setOptional($flag)
     {
         $this->_optional = (bool) $flag;
+
         return $this;
     }
 
@@ -177,12 +182,13 @@ class Zend_Server_Method_Parameter
     /**
      * Set parameter type
      *
-     * @param  string $type
+     * @param  string                       $type
      * @return Zend_Server_Method_Parameter
      */
     public function setType($type)
     {
         $this->_type = (string) $type;
+
         return $this;
     }
 

@@ -20,7 +20,6 @@
  * @version    $Id: Expr.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Class for SQL SELECT fragments.
  *

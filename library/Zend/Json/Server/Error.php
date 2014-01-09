@@ -69,8 +69,8 @@ class Zend_Json_Server_Error
      * Constructor
      *
      * @param  string $message
-     * @param  int $code
-     * @param  mixed $data
+     * @param  int    $code
+     * @param  mixed  $data
      * @return void
      */
     public function __construct($message = null, $code = -32000, $data = null)
@@ -83,7 +83,7 @@ class Zend_Json_Server_Error
     /**
      * Set error code
      *
-     * @param  int $code
+     * @param  int                    $code
      * @return Zend_Json_Server_Error
      */
     public function setCode($code)
@@ -115,7 +115,7 @@ class Zend_Json_Server_Error
     /**
      * Set error message
      *
-     * @param  string $message
+     * @param  string                 $message
      * @return Zend_Json_Server_Error
      */
     public function setMessage($message)
@@ -125,6 +125,7 @@ class Zend_Json_Server_Error
         }
 
         $this->_message = (string) $message;
+
         return $this;
     }
 
@@ -141,12 +142,13 @@ class Zend_Json_Server_Error
     /**
      * Set error data
      *
-     * @param  mixed $data
+     * @param  mixed                  $data
      * @return Zend_Json_Server_Error
      */
     public function setData($data)
     {
         $this->_data = $data;
+
         return $this;
     }
 
@@ -182,6 +184,7 @@ class Zend_Json_Server_Error
     public function toJson()
     {
         require_once 'Zend/Json.php';
+
         return Zend_Json::encode($this->toArray());
     }
 
@@ -195,4 +198,3 @@ class Zend_Json_Server_Error
         return $this->toJson();
     }
 }
-

@@ -52,12 +52,13 @@ class Zend_Form_Decorator_Form extends Zend_Form_Decorator_Abstract
     /**
      * Set view helper for rendering form
      *
-     * @param  string $helper
+     * @param  string                   $helper
      * @return Zend_Form_Decorator_Form
      */
     public function setHelper($helper)
     {
         $this->_helper = (string) $helper;
+
         return $this;
     }
 
@@ -72,6 +73,7 @@ class Zend_Form_Decorator_Form extends Zend_Form_Decorator_Abstract
             $this->setHelper($helper);
             $this->removeOption('helper');
         }
+
         return $this->_helper;
     }
 
@@ -129,6 +131,7 @@ class Zend_Form_Decorator_Form extends Zend_Form_Decorator_Abstract
         $attribs       = $this->getOptions();
         $name          = $form->getFullyQualifiedName();
         $attribs['id'] = $form->getId();
+
         return $view->$helper($name, $attribs, $content);
     }
 }

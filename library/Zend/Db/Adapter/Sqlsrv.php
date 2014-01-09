@@ -135,8 +135,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
             'Database' => $this->_config['dbname'],
         );
 
-        if (isset($this->_config['username']) && isset($this->_config['password']))
-        {
+        if (isset($this->_config['username']) && isset($this->_config['password'])) {
             $connectionInfo += array(
                 'UID'      => $this->_config['username'],
                 'PWD'      => $this->_config['password'],
@@ -173,7 +172,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
      * Check for config options that are mandatory.
      * Throw exceptions if any are missing.
      *
-     * @param array $config
+     * @param  array                     $config
      * @throws Zend_Db_Adapter_Exception
      */
     protected function _checkRequiredOptions(array $config)
@@ -207,7 +206,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
     /**
      * Set the transaction isoltion level.
      *
-     * @param integer|null $level A fetch mode from SQLSRV_TXN_*.
+     * @param  integer|null                     $level A fetch mode from SQLSRV_TXN_*.
      * @return true
      * @throws Zend_Db_Adapter_Sqlsrv_Exception
      */
@@ -217,8 +216,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
         $sql = null;
 
         // Default transaction level in sql server
-        if ($level === null)
-        {
+        if ($level === null) {
             $level = SQLSRV_TXN_READ_COMMITTED;
         }
 
@@ -279,7 +277,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
     /**
      * Returns an SQL statement for preparation.
      *
-     * @param string $sql The SQL statement with placeholders.
+     * @param  string                   $sql The SQL statement with placeholders.
      * @return Zend_Db_Statement_Sqlsrv
      */
     public function prepare($sql)
@@ -297,14 +295,15 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
 
         $stmt = new $stmtClass($this, $sql);
         $stmt->setFetchMode($this->_fetchMode);
+
         return $stmt;
     }
 
     /**
      * Quote a raw string.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param  string $value Raw string
+     * @return string Quoted string
      */
     protected function _quote($value)
     {
@@ -327,8 +326,8 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
      * returns the last value generated for such a column, and the table name
      * argument is disregarded.
      *
-     * @param string $tableName   OPTIONAL Name of table.
-     * @param string $primaryKey  OPTIONAL Name of primary key column.
+     * @param  string $tableName  OPTIONAL Name of table.
+     * @param  string $primaryKey OPTIONAL Name of primary key column.
      * @return string
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
@@ -336,6 +335,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
         if ($tableName) {
             $tableName = $this->quote($tableName);
             $sql       = 'SELECT IDENT_CURRENT (' . $tableName . ') as Current_Identity';
+
             return (string) $this->fetchOne($sql);
         }
 
@@ -344,15 +344,16 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
         }
 
         $sql = $this->_lastInsertSQL;
+
         return (string) $this->fetchOne($sql);
     }
 
     /**
      * Inserts a table row with specified data.
      *
-     * @param mixed $table The table to insert data into.
-     * @param array $bind Column-value pairs.
-     * @return int The number of affected rows.
+     * @param  mixed $table The table to insert data into.
+     * @param  array $bind  Column-value pairs.
+     * @return int   The number of affected rows.
      */
     public function insert($table, array $bind)
     {
@@ -396,6 +397,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
     {
         $this->_connect();
         $sql = "SELECT name FROM sysobjects WHERE type = 'U' ORDER BY name";
+
         return $this->fetchCol($sql);
     }
 
@@ -425,8 +427,8 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
      *
      * @todo Discover integer unsigned property.
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -437,7 +439,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
         $sql    = "exec sp_columns @table_name = " . $this->quoteIdentifier($tableName, true);
         $stmt   = $this->query($sql);
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
-        
+
         // ZF-7698
         $stmt->closeCursor();
 
@@ -564,7 +566,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
      *
      * @todo Support FETCH_CLASS and FETCH_INTO.
      *
-     * @param integer $mode A fetch mode.
+     * @param  integer                          $mode A fetch mode.
      * @return void
      * @throws Zend_Db_Adapter_Sqlsrv_Exception
      */
@@ -591,9 +593,9 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset OPTIONAL
+     * @param  string                           $sql
+     * @param  integer                          $count
+     * @param  integer                          $offset OPTIONAL
      * @return string
      * @throws Zend_Db_Adapter_Sqlsrv_Exception
      */
@@ -633,8 +635,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
 
             if ($count == PHP_INT_MAX) {
                 $sql = "WITH outer_tbl AS ($sql) SELECT * FROM outer_tbl WHERE \"ZEND_DB_ROWNUM\" >= $start";
-            }
-            else {
+            } else {
                 $end = $offset + $count;
                 $sql = "WITH outer_tbl AS ($sql) SELECT * FROM outer_tbl WHERE \"ZEND_DB_ROWNUM\" BETWEEN $start AND $end";
             }
@@ -646,7 +647,7 @@ class Zend_Db_Adapter_Sqlsrv extends Zend_Db_Adapter_Abstract
     /**
      * Check if the adapter supports real SQL parameters.
      *
-     * @param string $type 'positional' or 'named'
+     * @param  string $type 'positional' or 'named'
      * @return bool
      */
     public function supportsParameters($type)

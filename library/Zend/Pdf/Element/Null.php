@@ -19,10 +19,8 @@
  * @version    $Id: Null.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'null' element implementation
@@ -41,7 +39,6 @@ class Zend_Pdf_Element_Null extends Zend_Pdf_Element
      */
     public $value;
 
-
     /**
      * Object constructor
      */
@@ -49,7 +46,6 @@ class Zend_Pdf_Element_Null extends Zend_Pdf_Element
     {
         $this->value = null;
     }
-
 
     /**
      * Return type of the element.
@@ -61,11 +57,10 @@ class Zend_Pdf_Element_Null extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_NULL;
     }
 
-
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)

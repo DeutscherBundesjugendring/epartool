@@ -74,7 +74,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
      *
      * Set view and enable dojo
      *
-     * @param  Zend_View_Interface $view
+     * @param  Zend_View_Interface         $view
      * @return Zend_Dojo_View_Helper_Dijit
      */
     public function setView(Zend_View_Interface $view)
@@ -82,9 +82,9 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
         parent::setView($view);
         $this->dojo = $this->view->dojo();
         $this->dojo->enable();
+
         return $this;
     }
-
 
     /**
      * Get root node type
@@ -99,12 +99,13 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
     /**
      * Set root node type
      *
-     * @param  string $value
+     * @param  string                      $value
      * @return Zend_Dojo_View_Helper_Dijit
      */
     public function setRootNode($value)
     {
         $this->_rootNode = $value;
+
         return $this;
     }
 
@@ -141,10 +142,10 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
     /**
      * Create a layout container
      *
-     * @param  int $id
-     * @param  string $content
-     * @param  array $params
-     * @param  array $attribs
+     * @param  int         $id
+     * @param  string      $content
+     * @param  array       $params
+     * @param  array       $attribs
      * @param  string|null $dijit
      * @return string
      */
@@ -164,10 +165,10 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
     /**
      * Create HTML representation of a dijit form element
      *
-     * @param  string $id
-     * @param  string $value
-     * @param  array $params
-     * @param  array $attribs
+     * @param  string      $id
+     * @param  string      $value
+     * @param  array       $params
+     * @param  array       $attribs
      * @param  string|null $dijit
      * @return string
      */
@@ -185,6 +186,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
         $html = '<input'
               . $this->_htmlAttribs($attribs)
               . $this->getClosingBracket();
+
         return $html;
     }
 
@@ -193,10 +195,10 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
      *
      * Also sets up requires
      *
-     * @param  array $attribs
-     * @param  array $params
+     * @param  array  $attribs
+     * @param  array  $params
      * @param  string $type
-     * @param  string $dijit Dijit type to use (otherwise, pull from $_dijit)
+     * @param  string $dijit   Dijit type to use (otherwise, pull from $_dijit)
      * @return array
      */
     protected function _prepareDijit(array $attribs, array $params, $type, $dijit = null)
@@ -276,7 +278,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
      *
      * @param  string $dijit
      * @param  string $id
-     * @param  array $params
+     * @param  array  $params
      * @return void
      */
     protected function _createDijit($dijit, $id, array $params)
@@ -291,7 +293,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
     /**
      * Cast a boolean to a string value
      *
-     * @param  mixed $item
+     * @param  mixed  $item
      * @param  string $key
      * @return void
      */
@@ -306,7 +308,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
     /**
      * Render a hidden element to hold a value
      *
-     * @param  string $id
+     * @param  string           $id
      * @param  string|int|float $value
      * @return string
      */
@@ -317,6 +319,7 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
             'value' => (string) $value,
             'type'  => 'hidden',
         );
+
         return '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket();
     }
 
@@ -331,10 +334,11 @@ abstract class Zend_Dojo_View_Helper_Dijit extends Zend_View_Helper_HtmlElement
 if (zend == undefined) {
     var zend = {};
 }
-zend.findParentForm = function(elementNode) {
+zend.findParentForm = function (elementNode) {
     while (elementNode.nodeName.toLowerCase() != 'form') {
         elementNode = elementNode.parentNode;
     }
+
     return elementNode;
 };
 EOJ;

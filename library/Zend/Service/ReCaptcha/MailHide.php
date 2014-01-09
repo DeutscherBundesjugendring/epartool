@@ -86,9 +86,9 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
     /**
      * Local constructor
      *
-     * @param string $publicKey
-     * @param string $privateKey
-     * @param string $email
+     * @param string            $publicKey
+     * @param string            $privateKey
+     * @param string            $email
      * @param array|Zend_Config $options
      */
     public function __construct($publicKey = null, $privateKey = null, $email = null, $options = null)
@@ -115,7 +115,6 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         }
     }
 
-
     /**
      * Get emailValidator
      *
@@ -127,21 +126,22 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
             require_once 'Zend/Validate/EmailAddress.php';
             $this->setEmailValidator(new Zend_Validate_EmailAddress());
         }
+
         return $this->_emailValidator;
     }
 
     /**
      * Set email validator
      *
-     * @param  Zend_Validate_Interface $validator
+     * @param  Zend_Validate_Interface         $validator
      * @return Zend_Service_ReCaptcha_MailHide
      */
     public function setEmailValidator(Zend_Validate_Interface $validator)
     {
         $this->_emailValidator = $validator;
+
         return $this;
     }
-
 
     /**
      * See if the mcrypt extension is available
@@ -199,7 +199,7 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
      *
      * Override the parent method to store a binary representation of the private key as well.
      *
-     * @param string $privateKey
+     * @param  string                          $privateKey
      * @return Zend_Service_ReCaptcha_MailHide
      */
     public function setPrivateKey($privateKey)
@@ -217,7 +217,7 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
      *
      * This method will set the email property along with the local and domain parts
      *
-     * @param string $email
+     * @param  string                          $email
      * @return Zend_Service_ReCaptcha_MailHide
      */
     public function setEmail($email)
@@ -235,7 +235,7 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         /* Decide on how much of the local part we want to reveal */
         if (strlen($emailParts[0]) <= 4) {
             $emailParts[0] = substr($emailParts[0], 0, 1);
-        } else if (strlen($emailParts[0]) <= 6) {
+        } elseif (strlen($emailParts[0]) <= 6) {
             $emailParts[0] = substr($emailParts[0], 0, 3);
         } else {
             $emailParts[0] = substr($emailParts[0], 0, 4);
@@ -280,7 +280,7 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
     /**
      * Get the HTML code needed for the mail hide
      *
-     * @param string $email
+     * @param  string                                    $email
      * @return string
      * @throws Zend_Service_ReCaptcha_MailHide_Exception
      */
@@ -346,6 +346,7 @@ class Zend_Service_ReCaptcha_MailHide extends Zend_Service_ReCaptcha
         $emailEncrypted = mcrypt_encrypt(self::ENCRYPTION_CIPHER, $this->_privateKeyPacked, $emailPadded, self::ENCRYPTION_MODE, self::ENCRYPTION_IV);
 
         /* Return the url */
+
         return self::MAILHIDE_SERVER . '?k=' . $this->_publicKey . '&c=' . strtr(base64_encode($emailEncrypted), '+/', '-_');
     }
 }

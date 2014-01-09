@@ -21,7 +21,6 @@
  * @version    $Id: Post.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Date
  */
@@ -31,7 +30,6 @@ require_once 'Zend/Date.php';
  * @see Zend_Service_Delicious_SimplePost
  */
 require_once 'Zend/Service/Delicious/SimplePost.php';
-
 
 /**
  * Zend_Service_Delicious_Post represents a post of a user that can be edited
@@ -74,8 +72,8 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Constructs a new del.icio.us post
      *
-     * @param  Zend_Service_Delicious $service Service that has downloaded the post
-     * @param  DOMElement|array       $values  Post content
+     * @param  Zend_Service_Delicious           $service Service that has downloaded the post
+     * @param  DOMElement|array                 $values  Post content
      * @throws Zend_Service_Delicious_Exception
      * @return void
      */
@@ -114,7 +112,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Setter for title
      *
-     * @param  string $newTitle
+     * @param  string                      $newTitle
      * @return Zend_Service_Delicious_Post
      */
     public function setTitle($newTitle)
@@ -127,7 +125,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Setter for notes
      *
-     * @param  string $newNotes
+     * @param  string                      $newNotes
      * @return Zend_Service_Delicious_Post
      */
     public function setNotes($newNotes)
@@ -140,7 +138,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Setter for tags
      *
-     * @param  array $tags
+     * @param  array                       $tags
      * @return Zend_Service_Delicious_Post
      */
     public function setTags(array $tags)
@@ -153,7 +151,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Add a tag
      *
-     * @param  string $tag
+     * @param  string                      $tag
      * @return Zend_Service_Delicious_Post
      */
     public function addTag($tag)
@@ -166,7 +164,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Remove a tag
      *
-     * @param  string $tag
+     * @param  string                      $tag
      * @return Zend_Service_Delicious_Post
      */
     public function removeTag($tag)
@@ -223,7 +221,7 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
     /**
      * Setter for shared
      *
-     * @param  bool $isShared
+     * @param  bool                        $isShared
      * @return Zend_Service_Delicious_Post
      */
     public function setShared($isShared)

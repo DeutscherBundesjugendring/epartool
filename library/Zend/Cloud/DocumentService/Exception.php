@@ -19,12 +19,10 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-
 /**
  * Zend_Cloud_Exception
  */
 require_once 'Zend/Cloud/Exception.php';
-
 
 /**
  * @category   Zend
@@ -35,4 +33,3 @@ require_once 'Zend/Cloud/Exception.php';
  */
 class Zend_Cloud_DocumentService_Exception extends Zend_Cloud_Exception
 {}
-

@@ -70,7 +70,7 @@ class Zend_Service_Twitter_Response
      * Assigns the HTTP response to a property, as well as the body
      * representation. It then attempts to decode the body as JSON.
      *
-     * @param  Zend_Http_Response $httpResponse
+     * @param  Zend_Http_Response             $httpResponse
      * @throws Zend_Service_Twitter_Exception if unable to decode JSON response
      */
     public function __construct(Zend_Http_Response $httpResponse)
@@ -106,6 +106,7 @@ class Zend_Service_Twitter_Response
         if (!isset($this->jsonBody->{$name})) {
             return null;
         }
+
         return $this->jsonBody->{$name};
     }
 
@@ -154,6 +155,7 @@ class Zend_Service_Twitter_Response
                 'Either no JSON response received, or JSON error response is malformed; cannot return errors'
             );
         }
+
         return $this->jsonBody->errors;
     }
 

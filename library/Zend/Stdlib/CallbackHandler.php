@@ -51,10 +51,10 @@ class Zend_Stdlib_CallbackHandler
 
     /**
      * Constructor
-     * 
-     * @param  string $event Event to which slot is subscribed
-     * @param  string|array|object $callback PHP callback 
-     * @param  array $options Options used by the callback handler (e.g., priority)
+     *
+     * @param  string              $event    Event to which slot is subscribed
+     * @param  string|array|object $callback PHP callback
+     * @param  array               $options  Options used by the callback handler (e.g., priority)
      * @return void
      */
     public function __construct($callback, array $metadata = array())
@@ -67,9 +67,9 @@ class Zend_Stdlib_CallbackHandler
      * Error handler
      *
      * Used by registerCallback() when calling is_callable() to capture engine warnings.
-     * 
-     * @param  int $errno 
-     * @param  string $errstr 
+     *
+     * @param  int    $errno
+     * @param  string $errstr
      * @return void
      */
     public function errorHandler($errno, $errstr)
@@ -80,14 +80,14 @@ class Zend_Stdlib_CallbackHandler
     /**
      * Registers the callback provided in the constructor
      *
-     * If you have pecl/weakref {@see http://pecl.php.net/weakref} installed, 
+     * If you have pecl/weakref {@see http://pecl.php.net/weakref} installed,
      * this method provides additional behavior.
      *
-     * If a callback is a functor, or an array callback composing an object 
+     * If a callback is a functor, or an array callback composing an object
      * instance, this method will pass the object to a WeakRef instance prior
      * to registering the callback.
-     * 
-     * @param  Callable $callback 
+     *
+     * @param  Callable $callback
      * @return void
      */
     protected function registerCallback($callback)
@@ -103,6 +103,7 @@ class Zend_Stdlib_CallbackHandler
         // If pecl/weakref is not installed, simply store the callback and return
         if (!class_exists('WeakRef')) {
             $this->callback = $callback;
+
             return;
         }
 
@@ -112,21 +113,24 @@ class Zend_Stdlib_CallbackHandler
         // register it.
         if (is_object($callback) && !$callback instanceof Closure) {
             $this->callback = new WeakRef($callback);
+
             return;
         }
 
         // If we have a string or closure, register as-is
         if (!is_array($callback)) {
             $this->callback = $callback;
+
             return;
         }
 
         list($target, $method) = $callback;
 
-        // If we have an array callback, and the first argument is not an 
+        // If we have an array callback, and the first argument is not an
         // object, register as-is
         if (!is_object($target)) {
             $this->callback = $callback;
+
             return;
         }
 
@@ -138,7 +142,7 @@ class Zend_Stdlib_CallbackHandler
 
     /**
      * Retrieve registered callback
-     * 
+     *
      * @return Callable
      */
     public function getCallback()
@@ -160,7 +164,7 @@ class Zend_Stdlib_CallbackHandler
             return $callback;
         }
 
-        // Array callback with WeakRef object -- retrieve the object first, and 
+        // Array callback with WeakRef object -- retrieve the object first, and
         // then return
         list($target, $method) = $callback;
         if ($target instanceof WeakRef) {
@@ -173,7 +177,7 @@ class Zend_Stdlib_CallbackHandler
 
     /**
      * Invoke handler
-     * 
+     *
      * @param  array $args Arguments to pass to callback
      * @return mixed
      */
@@ -187,18 +191,20 @@ class Zend_Stdlib_CallbackHandler
             $this->validateStringCallbackFor54($callback);
         }
 
-        // Minor performance tweak; use call_user_func() until > 3 arguments 
+        // Minor performance tweak; use call_user_func() until > 3 arguments
         // reached
         switch (count($args)) {
             case 0:
                 if ($isPhp54) {
                     return $callback();
                 }
+
                 return call_user_func($callback);
             case 1:
                 if ($isPhp54) {
                     return $callback(array_shift($args));
                 }
+
                 return call_user_func($callback, array_shift($args));
             case 2:
                 $arg1 = array_shift($args);
@@ -206,6 +212,7 @@ class Zend_Stdlib_CallbackHandler
                 if ($isPhp54) {
                     return $callback($arg1, $arg2);
                 }
+
                 return call_user_func($callback, $arg1, $arg2);
             case 3:
                 $arg1 = array_shift($args);
@@ -214,6 +221,7 @@ class Zend_Stdlib_CallbackHandler
                 if ($isPhp54) {
                     return $callback($arg1, $arg2, $arg3);
                 }
+
                 return call_user_func($callback, $arg1, $arg2, $arg3);
             default:
                 return call_user_func_array($callback, $args);
@@ -222,7 +230,7 @@ class Zend_Stdlib_CallbackHandler
 
     /**
      * Invoke as functor
-     * 
+     *
      * @return mixed
      */
     public function __invoke()
@@ -232,7 +240,7 @@ class Zend_Stdlib_CallbackHandler
 
     /**
      * Get all callback metadata
-     * 
+     *
      * @return array
      */
     public function getMetadata()
@@ -242,8 +250,8 @@ class Zend_Stdlib_CallbackHandler
 
     /**
      * Retrieve a single metadatum
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return mixed
      */
     public function getMetadatum($name)
@@ -251,6 +259,7 @@ class Zend_Stdlib_CallbackHandler
         if (array_key_exists($name, $this->metadata)) {
             return $this->metadata[$name];
         }
+
         return null;
     }
 
@@ -258,8 +267,8 @@ class Zend_Stdlib_CallbackHandler
      * Validate a static method call
      *
      * Validates that a static method call in PHP 5.4 will actually work
-     * 
-     * @param  string $callback 
+     *
+     * @param  string                                         $callback
      * @return true
      * @throws Zend_Stdlib_Exception_InvalidCallbackException if invalid
      */

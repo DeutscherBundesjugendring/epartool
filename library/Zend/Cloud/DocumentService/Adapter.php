@@ -60,7 +60,7 @@ interface Zend_Cloud_DocumentService_Adapter
        /**
      * List collections.
      *
-     * @param  array  $options
+     * @param  array $options
      * @return array List of collection names
      */
     public function listCollections($options = null);
@@ -68,8 +68,8 @@ interface Zend_Cloud_DocumentService_Adapter
     /**
      * List all documents in a collection
      *
-     * @param  string $collectionName
-     * @param  null|array $options
+     * @param  string                                 $collectionName
+     * @param  null|array                             $options
      * @return Zend_Cloud_DocumentService_DocumentSet
      */
     public function listDocuments($collectionName, array $options = null);
@@ -77,9 +77,9 @@ interface Zend_Cloud_DocumentService_Adapter
     /**
      * Insert document
      *
-     * @param  string $collectionName Collection name
-     * @param  Zend_Cloud_DocumentService_Document $document Document to insert
-     * @param  array $options
+     * @param  string                              $collectionName Collection name
+     * @param  Zend_Cloud_DocumentService_Document $document       Document to insert
+     * @param  array                               $options
      * @return boolean
      */
     public function insertDocument($collectionName, $document, $options = null);
@@ -88,9 +88,9 @@ interface Zend_Cloud_DocumentService_Adapter
      * Replace document
      * The new document replaces the existing document with the same ID.
      *
-     * @param string $collectionName Collection name
+     * @param string                              $collectionName Collection name
      * @param Zend_Cloud_DocumentService_Document $document
-     * @param array $options
+     * @param array                               $options
      */
     public function replaceDocument($collectionName, $document, $options = null);
 
@@ -99,10 +99,10 @@ interface Zend_Cloud_DocumentService_Adapter
      * The fields of the existing documents will be updated.
      * Fields not specified in the set will be left as-is.
      *
-     * @param  string $collectionName
-     * @param  mixed|Zend_Cloud_DocumentService_Document $documentID Document ID, adapter-dependent, or document containing updates
-     * @param  array|Zend_Cloud_DocumentService_Document $fieldset Set of fields to update
-     * @param  array                   $options
+     * @param  string                                    $collectionName
+     * @param  mixed|Zend_Cloud_DocumentService_Document $documentID     Document ID, adapter-dependent, or document containing updates
+     * @param  array|Zend_Cloud_DocumentService_Document $fieldset       Set of fields to update
+     * @param  array                                     $options
      * @return boolean
      */
     public function updateDocument($collectionName, $documentID, $fieldset = null, $options = null);
@@ -110,9 +110,9 @@ interface Zend_Cloud_DocumentService_Adapter
     /**
      * Delete document
      *
-     * @param string $collectionName Collection name
-     * @param mixed  $documentID Document ID, adapter-dependent
-     * @param array  $options
+     * @param  string $collectionName Collection name
+     * @param  mixed  $documentID     Document ID, adapter-dependent
+     * @param  array  $options
      * @return void
      */
     public function deleteDocument($collectionName, $documentID, $options = null);
@@ -122,9 +122,9 @@ interface Zend_Cloud_DocumentService_Adapter
      *
      * Will return false if the document does not exist
      *
-     * @param string $collectionName Collection name
-     * @param mixed $documentID Document ID, adapter-dependent
-     * @param array $options
+     * @param  string                              $collectionName Collection name
+     * @param  mixed                               $documentID     Document ID, adapter-dependent
+     * @param  array                               $options
      * @return Zend_Cloud_DocumentService_Document
      */
     public function fetchDocument($collectionName, $documentID, $options = null);
@@ -135,15 +135,15 @@ interface Zend_Cloud_DocumentService_Adapter
      *
      * @param  string $collectionName Collection name
      * @param  string $query
-     * @param  array $options
-     * @return array Array of field sets
+     * @param  array  $options
+     * @return array  Array of field sets
      */
     public function query($collectionName, $query, $options = null);
 
     /**
      * Create query statement
      *
-     * @param string $fields
+     * @param  string                           $fields
      * @return Zend_Cloud_DocumentService_Query
      */
     public function select($fields = null);

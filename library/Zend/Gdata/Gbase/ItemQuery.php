@@ -31,7 +31,6 @@ require_once 'Zend/Exception.php';
  */
 require_once 'Zend/Gdata/Gbase/Query.php';
 
-
 /**
  * Assists in constructing queries for Google Base Customer Items Feed
  *

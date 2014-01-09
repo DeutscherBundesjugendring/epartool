@@ -68,31 +68,33 @@ class Zend_Tool_Framework_Provider_Repository
     /**
      * setRegistry()
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return unknown
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
     /**
      * Set the ProcessOnAdd flag
      *
-     * @param unknown_type $processOnAdd
+     * @param  unknown_type $processOnAdd
      * @return unknown
      */
     public function setProcessOnAdd($processOnAdd = true)
     {
         $this->_processOnAdd = (bool) $processOnAdd;
+
         return $this;
     }
 
     /**
      * Add a provider to the repository for processing
      *
-     * @param Zend_Tool_Framework_Provider_Interface $provider
+     * @param  Zend_Tool_Framework_Provider_Interface  $provider
      * @return Zend_Tool_Framework_Provider_Repository
      */
     public function addProvider(Zend_Tool_Framework_Provider_Interface $provider, $overwriteExistingProvider = false)
@@ -214,7 +216,7 @@ class Zend_Tool_Framework_Provider_Repository
     /**
      * getProvider()
      *
-     * @param string $providerName
+     * @param  string                                 $providerName
      * @return Zend_Tool_Framework_Provider_Interface
      */
     public function getProvider($providerName)
@@ -225,7 +227,7 @@ class Zend_Tool_Framework_Provider_Repository
     /**
      * getProviderSignature()
      *
-     * @param string $providerName
+     * @param  string                                 $providerName
      * @return Zend_Tool_Framework_Provider_Signature
      */
     public function getProviderSignature($providerName)
@@ -256,7 +258,7 @@ class Zend_Tool_Framework_Provider_Repository
     /**
      * _parseName - internal method to determine the name of an action when one is not explicity provided.
      *
-     * @param Zend_Tool_Framework_Action_Interface $action
+     * @param  Zend_Tool_Framework_Action_Interface $action
      * @return string
      */
     protected function _parseName(Zend_Tool_Framework_Provider_Interface $provider)
@@ -269,6 +271,7 @@ class Zend_Tool_Framework_Provider_Repository
         if (substr($providerName, -8) == 'Provider') {
             $providerName = substr($providerName, 0, strlen($providerName)-8);
         }
+
         return $providerName;
     }
 

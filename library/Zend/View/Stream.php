@@ -75,11 +75,12 @@ class Zend_View_Stream
          */
         if ($this->_data === false) {
             $this->_stat = stat($path);
+
             return false;
         }
 
         /**
-         * Convert <?= ?> to long-form <?php echo ?> and <? ?> to <?php ?>
+         * Convert <?= ?> to long-form <?php echo ?> and <?php ?> to <?php ?>
          *
          */
         $this->_data = preg_replace('/\<\?\=/',          "<?php echo ",  $this->_data);
@@ -112,9 +113,9 @@ class Zend_View_Stream
     {
         $ret = substr($this->_data, $this->_pos, $count);
         $this->_pos += strlen($ret);
+
         return $ret;
     }
-
 
     /**
      * Tells the current position in the stream.
@@ -124,7 +125,6 @@ class Zend_View_Stream
         return $this->_pos;
     }
 
-
     /**
      * Tells if we are at the end of the stream.
      */
@@ -133,7 +133,6 @@ class Zend_View_Stream
         return $this->_pos >= strlen($this->_data);
     }
 
-
     /**
      * Stream statistics.
      */
@@ -141,7 +140,6 @@ class Zend_View_Stream
     {
         return $this->_stat;
     }
-
 
     /**
      * Seek to a specific point in the stream.
@@ -152,6 +150,7 @@ class Zend_View_Stream
             case SEEK_SET:
                 if ($offset < strlen($this->_data) && $offset >= 0) {
                 $this->_pos = $offset;
+
                     return true;
                 } else {
                     return false;
@@ -161,6 +160,7 @@ class Zend_View_Stream
             case SEEK_CUR:
                 if ($offset >= 0) {
                     $this->_pos += $offset;
+
                     return true;
                 } else {
                     return false;
@@ -170,6 +170,7 @@ class Zend_View_Stream
             case SEEK_END:
                 if (strlen($this->_data) + $offset >= 0) {
                     $this->_pos = strlen($this->_data) + $offset;
+
                     return true;
                 } else {
                     return false;

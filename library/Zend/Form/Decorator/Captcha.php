@@ -67,6 +67,7 @@ class Zend_Form_Decorator_Captcha extends Zend_Form_Decorator_Abstract
             default:
                 $content = $content . $separator . $markup;
         }
+
         return $content;
     }
 }

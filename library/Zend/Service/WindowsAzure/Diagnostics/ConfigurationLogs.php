@@ -42,17 +42,17 @@ require_once 'Zend/Service/WindowsAzure/Diagnostics/LogLevel.php';
  * @property	string	ScheduledTransferLogLevelFilter		Scheduled transfer log level filter
  */
 class Zend_Service_WindowsAzure_Diagnostics_ConfigurationLogs
-	extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
+    extends Zend_Service_WindowsAzure_Diagnostics_ConfigurationObjectBaseAbstract
 {
     /**
      * Constructor
-     * 
-	 * @param	int		$bufferQuotaInMB					Buffer quota in MB
-	 * @param	int		$scheduledTransferPeriodInMinutes	Scheduled transfer period in minutes
-	 * @param	string	$scheduledTransferLogLevelFilter	Scheduled transfer log level filter
-	 */
-    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED) 
-    {	        
+     *
+     * @param int    $bufferQuotaInMB                  Buffer quota in MB
+     * @param int    $scheduledTransferPeriodInMinutes Scheduled transfer period in minutes
+     * @param string $scheduledTransferLogLevelFilter  Scheduled transfer log level filter
+     */
+    public function __construct($bufferQuotaInMB = 0, $scheduledTransferPeriodInMinutes = 0, $scheduledTransferLogLevelFilter = Zend_Service_WindowsAzure_Diagnostics_LogLevel::UNDEFINED)
+    {
         $this->_data = array(
             'bufferquotainmb'        			=> $bufferQuotaInMB,
             'scheduledtransferperiodinminutes' 	=> $scheduledTransferPeriodInMinutes,

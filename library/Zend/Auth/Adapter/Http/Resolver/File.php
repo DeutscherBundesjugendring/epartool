@@ -20,12 +20,10 @@
  * @version    $Id: File.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Auth_Adapter_Http_Resolver_Interface
  */
 require_once 'Zend/Auth/Adapter/Http/Resolver/Interface.php';
-
 
 /**
  * HTTP Authentication File Resolver
@@ -61,9 +59,9 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
     /**
      * Set the path to the credentials file
      *
-     * @param  string $path
+     * @param  string                                    $path
      * @throws Zend_Auth_Adapter_Http_Resolver_Exception
-     * @return Zend_Auth_Adapter_Http_Resolver_File Provides a fluent interface
+     * @return Zend_Auth_Adapter_Http_Resolver_File      Provides a fluent interface
      */
     public function setFile($path)
     {
@@ -104,10 +102,10 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
      * authentication realm, and the password or hash, each delimited by
      * colons.
      *
-     * @param  string $username Username
-     * @param  string $realm    Authentication Realm
+     * @param  string                                    $username Username
+     * @param  string                                    $realm    Authentication Realm
      * @throws Zend_Auth_Adapter_Http_Resolver_Exception
-     * @return string|false User's shared secret, if the user is found in the
+     * @return string|false                              User's shared secret, if the user is found in the
      *         realm, false otherwise.
      */
     public function resolve($username, $realm)
@@ -118,7 +116,7 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
              */
             require_once 'Zend/Auth/Adapter/Http/Resolver/Exception.php';
             throw new Zend_Auth_Adapter_Http_Resolver_Exception('Username is required');
-        } else if (!ctype_print($username) || strpos($username, ':') !== false) {
+        } elseif (!ctype_print($username) || strpos($username, ':') !== false) {
             /**
              * @see Zend_Auth_Adapter_Http_Resolver_Exception
              */
@@ -132,7 +130,7 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
              */
             require_once 'Zend/Auth/Adapter/Http/Resolver/Exception.php';
             throw new Zend_Auth_Adapter_Http_Resolver_Exception('Realm is required');
-        } else if (!ctype_print($realm) || strpos($realm, ':') !== false) {
+        } elseif (!ctype_print($realm) || strpos($realm, ':') !== false) {
             /**
              * @see Zend_Auth_Adapter_Http_Resolver_Exception
              */
@@ -157,11 +155,13 @@ class Zend_Auth_Adapter_Http_Resolver_File implements Zend_Auth_Adapter_Http_Res
             if ($line[0] == $username && $line[1] == $realm) {
                 $password = $line[2];
                 fclose($fp);
+
                 return $password;
             }
         }
 
         fclose($fp);
+
         return false;
     }
 }

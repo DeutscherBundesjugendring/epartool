@@ -67,13 +67,13 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
     /**
      * Constructor
      *
-     * @param string $label OPTIONAL Label for the profiling info.
+     * @param  string $label OPTIONAL Label for the profiling info.
      * @return void
      */
     public function __construct($label = null)
     {
         $this->_label = $label;
-        if(!$this->_label) {
+        if (!$this->_label) {
             $this->_label = 'Zend_Db_Profiler_Firebug';
         }
     }
@@ -82,7 +82,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
      * Enable or disable the profiler.  If $enable is false, the profiler
      * is disabled and will not log any queries sent to it.
      *
-     * @param  boolean $enable
+     * @param  boolean          $enable
      * @return Zend_Db_Profiler Provides a fluent interface
      */
     public function setEnabled($enable)
@@ -115,7 +115,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
     /**
      * Intercept the query end and log the profiling data.
      *
-     * @param  integer $queryId
+     * @param  integer                    $queryId
      * @throws Zend_Db_Profiler_Exception
      * @return void
      */
@@ -133,7 +133,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
 
         $this->_totalElapsedTime += $profile->getElapsedSecs();
 
-        $this->_message->addRow(array((string)round($profile->getElapsedSecs(),5),
+        $this->_message->addRow(array((string) round($profile->getElapsedSecs(),5),
                                       $profile->getQuery(),
                                       ($params=$profile->getQueryParams())?$params:null));
 
@@ -155,7 +155,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
                                                     '%totalDuration%'),
                                               array($this->_label,
                                                     $this->getTotalNumQueries(),
-                                                    (string)round($this->_totalElapsedTime,5)),
+                                                    (string) round($this->_totalElapsedTime,5)),
                                               $this->_label_template));
     }
 }

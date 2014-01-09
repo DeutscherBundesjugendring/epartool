@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Gapps_Query
  */
-require_once('Zend/Gdata/Gapps/Query.php');
+require_once 'Zend/Gdata/Gapps/Query.php';
 
 /**
  * Assists in constructing queries for Google Apps group entries.
@@ -56,7 +56,7 @@ class Zend_Gdata_Gapps_GroupQuery extends Zend_Gdata_Gapps_Query
      *
      * @param string $domain (optional) The Google Apps-hosted domain to use
      *          when constructing query URIs.
-     * @param string $groupId (optional) Value for the groupId property.
+     * @param string $groupId        (optional) Value for the groupId property.
      * @param string $startGroupName (optional) Value for the
      *          startGroupName property.
      */
@@ -106,8 +106,7 @@ class Zend_Gdata_Gapps_GroupQuery extends Zend_Gdata_Gapps_Query
     {
         if ($value !== null) {
             $this->_params['member'] = $value;
-        }
-        else {
+        } else {
             unset($this->_params['member']);
         }
     }
@@ -129,7 +128,6 @@ class Zend_Gdata_Gapps_GroupQuery extends Zend_Gdata_Gapps_Query
         }
     }
 
-
     /**
      * Sets the query parameter directOnly
      * @param bool $value
@@ -137,7 +135,7 @@ class Zend_Gdata_Gapps_GroupQuery extends Zend_Gdata_Gapps_Query
     public function setDirectOnly($value)
     {
         if ($value !== null) {
-            if($value == true) {
+            if ($value == true) {
                 $this->_params['directOnly'] = 'true';
             } else {
                 $this->_params['directOnly'] = 'false';
@@ -156,7 +154,7 @@ class Zend_Gdata_Gapps_GroupQuery extends Zend_Gdata_Gapps_Query
     {
         if (array_key_exists('directOnly', $this->_params)) {
 
-            if($this->_params['directOnly'] == 'true') {
+            if ($this->_params['directOnly'] == 'true') {
                 return true;
             } else {
                 return false;
@@ -215,11 +213,12 @@ class Zend_Gdata_Gapps_GroupQuery extends Zend_Gdata_Gapps_Query
             $uri .= '/' . $this->_groupId;
         }
 
-        if(array_key_exists('member', $this->_params)) {
+        if (array_key_exists('member', $this->_params)) {
             $uri .= '/';
         }
 
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

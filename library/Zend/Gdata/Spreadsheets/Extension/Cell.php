@@ -30,7 +30,6 @@ require_once 'Zend/Gdata/Entry.php';
  */
 require_once 'Zend/Gdata/Extension.php';
 
-
 /**
  * Concrete class for working with cell elements.
  *
@@ -76,10 +75,10 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     /**
      * Constructs a new Zend_Gdata_Spreadsheets_Extension_Cell element.
      *
-     * @param string $text (optional) Text contents of the element.
-     * @param string $row (optional) Row attribute of the element.
-     * @param string $col (optional) Column attribute of the element.
-     * @param string $inputValue (optional) Input value attribute of the element.
+     * @param string $text         (optional) Text contents of the element.
+     * @param string $row          (optional) Row attribute of the element.
+     * @param string $col          (optional) Column attribute of the element.
+     * @param string $inputValue   (optional) Input value attribute of the element.
      * @param string $numericValue (optional) Numeric value attribute of the element.
      */
     public function __construct($text = null, $row = null, $col = null, $inputValue = null, $numericValue = null)
@@ -166,6 +165,7 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     public function setRow($row)
     {
         $this->_row = $row;
+
         return $this;
     }
 
@@ -176,6 +176,7 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     public function setColumn($col)
     {
         $this->_col = $col;
+
         return $this;
     }
 
@@ -186,6 +187,7 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     public function setInputValue($inputValue)
     {
         $this->_inputValue = $inputValue;
+
         return $this;
     }
 

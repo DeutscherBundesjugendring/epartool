@@ -20,12 +20,10 @@
  * @version    $Id: Struct.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Value_Collection
  */
 require_once 'Zend/XmlRpc/Value/Collection.php';
-
 
 /**
  * @category   Zend
@@ -46,7 +44,6 @@ class Zend_XmlRpc_Value_Struct extends Zend_XmlRpc_Value_Collection
         $this->_type = self::XMLRPC_TYPE_STRUCT;
         parent::__construct($value);
     }
-
 
     /**
      * Generate the XML code that represent struct native MXL-RPC value

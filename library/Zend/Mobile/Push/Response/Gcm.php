@@ -82,8 +82,8 @@ class Zend_Mobile_Push_Response_Gcm
     /**
      * Constructor
      *
-     * @param string $responseString JSON encoded response
-     * @param Zend_Mobile_Push_Message_Gcm $message
+     * @param  string                                       $responseString JSON encoded response
+     * @param  Zend_Mobile_Push_Message_Gcm                 $message
      * @return Zend_Mobile_Push_Response_Gcm
      * @throws Zend_Mobile_Push_Exception_ServerUnavailable
      */
@@ -116,12 +116,13 @@ class Zend_Mobile_Push_Response_Gcm
     /**
      * Set Message
      *
-     * @param Zend_Mobile_Push_Message_Gcm $message
+     * @param  Zend_Mobile_Push_Message_Gcm  $message
      * @return Zend_Mobile_Push_Response_Gcm
      */
     public function setMessage(Zend_Mobile_Push_Message_Gcm $message)
     {
         $this->_message = $message;
+
         return $this;
     }
 
@@ -138,7 +139,7 @@ class Zend_Mobile_Push_Response_Gcm
     /**
      * Set Response
      *
-     * @param array $response
+     * @param  array                         $response
      * @return Zend_Mobile_Push_Response_Gcm
      */
     public function setResponse(array $response)
@@ -156,6 +157,7 @@ class Zend_Mobile_Push_Response_Gcm
         $this->_failureCnt = (int) $response['failure'];
         $this->_canonicalCnt = (int) $response['canonical_ids'];
         $this->_id = (int) $response['multicast_id'];
+
         return $this;
     }
 
@@ -194,7 +196,7 @@ class Zend_Mobile_Push_Response_Gcm
      *
      * @return array multi dimensional array of:
      *         NOTE: key is registration_id if the message is passed.
-     *         'registration_id' => array( 
+     *         'registration_id' => array(
      *             'message_id' => 'id',
      *             'error' => 'error',
      *             'registration_id' => 'id'
@@ -220,6 +222,7 @@ class Zend_Mobile_Push_Response_Gcm
                 $ret[$k] = $v[$flag];
             }
         }
+
         return $ret;
     }
 
@@ -233,10 +236,11 @@ class Zend_Mobile_Push_Response_Gcm
         $results = $this->_results;
         if ($this->_message && $results) {
             $tokens = $this->_message->getToken();
-            while($token = array_shift($tokens)) {
+            while ($token = array_shift($tokens)) {
                 $results[$token] = array_shift($results);
             }
         }
+
         return $results;
     }
 }

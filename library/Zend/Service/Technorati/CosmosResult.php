@@ -20,12 +20,10 @@
  * @version    $Id: CosmosResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_Result
  */
 require_once 'Zend/Service/Technorati/Result.php';
-
 
 /**
  * Represents a single Technorati Cosmos query result object.
@@ -80,11 +78,10 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      */
     protected $_linkUrl;
 
-
     /**
      * Constructs a new object object from DOM Element.
      *
-     * @param   DomElement $dom the ReST fragment for this object
+     * @param DomElement $dom the ReST fragment for this object
      */
     public function __construct(DomElement $dom)
     {
@@ -106,36 +103,40 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
     /**
      * Returns the weblog object that links queried URL.
      *
-     * @return  Zend_Service_Technorati_Weblog
+     * @return Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
     /**
      * Returns the nearest permalink tracked for queried URL.
      *
-     * @return  Zend_Uri_Http
+     * @return Zend_Uri_Http
      */
-    public function getNearestPermalink() {
+    public function getNearestPermalink()
+    {
         return $this->_nearestPermalink;
     }
 
     /**
      * Returns the excerpt of the blog/page linking queried URL.
      *
-     * @return  string
+     * @return string
      */
-    public function getExcerpt() {
+    public function getExcerpt()
+    {
         return $this->_excerpt;
     }
 
     /**
      * Returns the datetime the link was created.
      *
-     * @return  Zend_Date
+     * @return Zend_Date
      */
-    public function getLinkCreated() {
+    public function getLinkCreated()
+    {
         return $this->_linkCreated;
     }
 
@@ -143,9 +144,10 @@ class Zend_Service_Technorati_CosmosResult extends Zend_Service_Technorati_Resul
      * If queried URL is a valid blog,
      * returns the URL of the specific link target page.
      *
-     * @return  Zend_Uri_Http
+     * @return Zend_Uri_Http
      */
-    public function getLinkUrl() {
+    public function getLinkUrl()
+    {
         return $this->_linkUrl;
     }
 

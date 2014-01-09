@@ -84,6 +84,7 @@ class Zend_Service_DeveloperGarden_Response_LocalSearch_LocalSearchResponse
         if (!$result && $this->statusCode == '0103') {
             $result = false;
         }
+
         return $result;
     }
 }

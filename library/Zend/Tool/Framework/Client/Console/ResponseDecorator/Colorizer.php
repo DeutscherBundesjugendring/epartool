@@ -88,5 +88,4 @@ class Zend_Tool_Framework_Client_Console_ResponseDecorator_Colorizer
         return $newContent;
     }
 
-
 }

@@ -278,7 +278,7 @@ class Zend_Text_Figlet
         // Set options
         if (is_array($options)) {
             $this->setOptions($options);
-        } else if ($options instanceof Zend_Config) {
+        } elseif ($options instanceof Zend_Config) {
             $this->setConfig($options);
         }
 
@@ -291,7 +291,7 @@ class Zend_Text_Figlet
     /**
      * Set options from array
      *
-     * @param  array $options Configuration for Zend_Text_Figlet
+     * @param  array            $options Configuration for Zend_Text_Figlet
      * @return Zend_Text_Figlet
      */
     public function setOptions(array $options)
@@ -306,13 +306,14 @@ class Zend_Text_Figlet
                 $this->$method($value);
             }
         }
+
         return $this;
     }
 
     /**
      * Set options from config object
      *
-     * @param  Zend_Config $config Configuration for Zend_Text_Figlet
+     * @param  Zend_Config      $config Configuration for Zend_Text_Figlet
      * @return Zend_Text_Figlet
      */
     public function setConfig(Zend_Config $config)
@@ -323,24 +324,26 @@ class Zend_Text_Figlet
     /**
      * Set a font to use
      *
-     * @param  string $font Path to the font
+     * @param  string           $font Path to the font
      * @return Zend_Text_Figlet
      */
     public function setFont($font)
     {
         $this->_loadFont($font);
+
         return $this;
     }
 
     /**
      * Set handling of paragraphs
      *
-     * @param  boolean $handleParagraphs Wether to handle paragraphs or not
+     * @param  boolean          $handleParagraphs Wether to handle paragraphs or not
      * @return Zend_Text_Figlet
      */
     public function setHandleParagraphs($handleParagraphs)
     {
         $this->_handleParagraphs = (bool) $handleParagraphs;
+
         return $this;
     }
 
@@ -348,25 +351,27 @@ class Zend_Text_Figlet
      * Set the justification. 0 stands for left aligned, 1 for centered and 2
      * for right aligned.
      *
-     * @param  integer $justification Justification of the output text
+     * @param  integer          $justification Justification of the output text
      * @return Zend_Text_Figlet
      */
     public function setJustification($justification)
     {
         $this->_justification = min(3, max(0, (int) $justification));
+
         return $this;
     }
 
     /**
      * Set the output width
      *
-     * @param  integer $outputWidth Output with which should be used for word
+     * @param integer $outputWidth Output with which should be used for word
      *                              wrapping and justification
      * @return Zend_Text_Figlet
      */
     public function setOutputWidth($outputWidth)
     {
         $this->_outputWidth = max(1, (int) $outputWidth);
+
         return $this;
     }
 
@@ -375,12 +380,13 @@ class Zend_Text_Figlet
      * Zend_Text_Figlet::DIRECTION_LEFT_TO_RIGHT. For writing from right to left,
      * use Zend_Text_Figlet::DIRECTION_RIGHT_TO_LEFT.
      *
-     * @param  integer $rightToLeft Right-to-left mode
+     * @param  integer          $rightToLeft Right-to-left mode
      * @return Zend_Text_Figlet
      */
     public function setRightToLeft($rightToLeft)
     {
         $this->_rightToLeft = min(1, max(0, (int) $rightToLeft));
+
         return $this;
     }
 
@@ -389,7 +395,7 @@ class Zend_Text_Figlet
      *
      * Use one of the constants of Zend_Text_Figlet::SM_*, you may combine them.
      *
-     * @param  integer $smushMode Smush mode to use for generating text
+     * @param  integer          $smushMode Smush mode to use for generating text
      * @return Zend_Text_Figlet
      */
     public function setSmushMode($smushMode)
@@ -401,7 +407,7 @@ class Zend_Text_Figlet
         } else {
             if ($smushMode === 0) {
                 $this->_userSmush = self::SM_KERN;
-            } else if ($smushMode === -1) {
+            } elseif ($smushMode === -1) {
                 $this->_userSmush = 0;
             } else {
                 $this->_userSmush = (($smushMode & 63) | self::SM_SMUSH);
@@ -418,10 +424,10 @@ class Zend_Text_Figlet
     /**
      * Render a FIGlet text
      *
-     * @param  string $text     Text to convert to a figlet text
-     * @param  string $encoding Encoding of the input string
-     * @throws InvalidArgumentException When $text is not a string
-     * @throws Zend_Text_Figlet_Exception    When $text it not properly encoded
+     * @param  string                     $text     Text to convert to a figlet text
+     * @param  string                     $encoding Encoding of the input string
+     * @throws InvalidArgumentException   When $text is not a string
+     * @throws Zend_Text_Figlet_Exception When $text it not properly encoded
      * @return string
      */
     public function render($text, $encoding = 'UTF-8')
@@ -485,7 +491,7 @@ class Zend_Text_Figlet
                 if ($wordBreakMode === -1) {
                     if ($char === ' ') {
                         break;
-                    } else if ($char === "\n") {
+                    } elseif ($char === "\n") {
                         $wordBreakMode = 0;
                         break;
                     }
@@ -496,13 +502,13 @@ class Zend_Text_Figlet
                 if ($char === "\n") {
                     $this->_appendLine();
                     $wordBreakMode = false;
-                } else if ($this->_addChar($char)) {
+                } elseif ($this->_addChar($char)) {
                     if ($char !== ' ') {
                         $wordBreakMode = ($wordBreakMode >= 2) ? 3: 1;
                     } else {
                         $wordBreakMode = ($wordBreakMode > 0) ? 2: 0;
                     }
-                } else if ($this->_outlineLength === 0) {
+                } elseif ($this->_outlineLength === 0) {
                     for ($i = 0; $i < $this->_charHeight; $i++) {
                         if ($this->_rightToLeft === 1 && $this->_outputWidth > 1) {
                             $offset = (strlen($this->_currentChar[$i]) - $this->_outlineLengthLimit);
@@ -513,7 +519,7 @@ class Zend_Text_Figlet
                     }
 
                     $wordBreakMode = -1;
-                } else if ($char === ' ') {
+                } elseif ($char === ' ') {
                     if ($wordBreakMode === 2) {
                         $this->_splitLine();
                     } else {
@@ -652,7 +658,7 @@ class Zend_Text_Figlet
      * Attempts to add the given character onto the end of the current line.
      * Returns true if this can be done, false otherwise.
      *
-     * @param  string $char Character which to add to the output
+     * @param  string  $char Character which to add to the output
      * @return boolean
      */
     protected function _addChar($char)
@@ -808,7 +814,7 @@ class Zend_Text_Figlet
 
             if (empty($leftChar) || $leftChar === ' ') {
                 $amount++;
-            } else if (!empty($rightChar)) {
+            } elseif (!empty($rightChar)) {
                 if ($this->_smushem($leftChar, $rightChar) !== null) {
                     $amount++;
                 }
@@ -864,13 +870,13 @@ class Zend_Text_Figlet
             // This is smushing by universal overlapping
             if ($leftChar === ' ') {
                 return $rightChar;
-            } else if ($rightChar === ' ') {
+            } elseif ($rightChar === ' ') {
                 return $leftChar;
-            } else if ($leftChar === $this->_hardBlank) {
+            } elseif ($leftChar === $this->_hardBlank) {
                 return $rightChar;
-            } else if ($rightChar === $this->_hardBlank) {
+            } elseif ($rightChar === $this->_hardBlank) {
                 return $rightChar;
-            } else if ($this->_rightToLeft === 1) {
+            } elseif ($this->_rightToLeft === 1) {
                 return $leftChar;
             } else {
                 // Occurs in the absence of above exceptions
@@ -897,7 +903,7 @@ class Zend_Text_Figlet
         if (($this->_smushMode & self::SM_LOWLINE) > 0) {
             if ($leftChar === '_' && strchr('|/\\[]{}()<>', $rightChar) !== false) {
                 return $rightChar;
-            } else if ($rightChar === '_' && strchr('|/\\[]{}()<>', $leftChar) !== false) {
+            } elseif ($rightChar === '_' && strchr('|/\\[]{}()<>', $leftChar) !== false) {
                 return $leftChar;
             }
         }
@@ -905,23 +911,23 @@ class Zend_Text_Figlet
         if (($this->_smushMode & self::SM_HIERARCHY) > 0) {
             if ($leftChar === '|' && strchr('/\\[]{}()<>', $rightChar) !== false) {
                 return $rightChar;
-            } else if ($rightChar === '|' && strchr('/\\[]{}()<>', $leftChar) !== false) {
+            } elseif ($rightChar === '|' && strchr('/\\[]{}()<>', $leftChar) !== false) {
                 return $leftChar;
-            } else if (strchr('/\\', $leftChar) && strchr('[]{}()<>', $rightChar) !== false) {
+            } elseif (strchr('/\\', $leftChar) && strchr('[]{}()<>', $rightChar) !== false) {
                 return $rightChar;
-            } else if (strchr('/\\', $rightChar) && strchr('[]{}()<>', $leftChar) !== false) {
+            } elseif (strchr('/\\', $rightChar) && strchr('[]{}()<>', $leftChar) !== false) {
                 return $leftChar;
-            } else if (strchr('[]', $leftChar) && strchr('{}()<>', $rightChar) !== false) {
+            } elseif (strchr('[]', $leftChar) && strchr('{}()<>', $rightChar) !== false) {
                 return $rightChar;
-            } else if (strchr('[]', $rightChar) && strchr('{}()<>', $leftChar) !== false) {
+            } elseif (strchr('[]', $rightChar) && strchr('{}()<>', $leftChar) !== false) {
                 return $leftChar;
-            } else if (strchr('{}', $leftChar) && strchr('()<>', $rightChar) !== false) {
+            } elseif (strchr('{}', $leftChar) && strchr('()<>', $rightChar) !== false) {
                 return $rightChar;
-            } else if (strchr('{}', $rightChar) && strchr('()<>', $leftChar) !== false) {
+            } elseif (strchr('{}', $rightChar) && strchr('()<>', $leftChar) !== false) {
                 return $leftChar;
-            } else if (strchr('()', $leftChar) && strchr('<>', $rightChar) !== false) {
+            } elseif (strchr('()', $leftChar) && strchr('<>', $rightChar) !== false) {
                 return $rightChar;
-            } else if (strchr('()', $rightChar) && strchr('<>', $leftChar) !== false) {
+            } elseif (strchr('()', $rightChar) && strchr('<>', $leftChar) !== false) {
                 return $leftChar;
             }
         }
@@ -929,15 +935,15 @@ class Zend_Text_Figlet
         if (($this->_smushMode & self::SM_PAIR) > 0) {
             if ($leftChar === '[' && $rightChar === ']') {
                 return '|';
-            } else if ($rightChar === '[' && $leftChar === ']') {
+            } elseif ($rightChar === '[' && $leftChar === ']') {
                 return '|';
-            } else if ($leftChar === '{' && $rightChar === '}') {
+            } elseif ($leftChar === '{' && $rightChar === '}') {
                 return '|';
-            } else if ($rightChar === '{' && $leftChar === '}') {
+            } elseif ($rightChar === '{' && $leftChar === '}') {
                 return '|';
-            } else if ($leftChar === '(' && $rightChar === ')') {
+            } elseif ($leftChar === '(' && $rightChar === ')') {
                 return '|';
-            } else if ($rightChar === '(' && $leftChar === ')') {
+            } elseif ($rightChar === '(' && $leftChar === ')') {
                 return '|';
             }
         }
@@ -945,9 +951,9 @@ class Zend_Text_Figlet
         if (($this->_smushMode & self::SM_BIGX) > 0) {
             if ($leftChar === '/' && $rightChar === '\\') {
                 return '|';
-            } else if ($rightChar === '/' && $leftChar === '\\') {
+            } elseif ($rightChar === '/' && $leftChar === '\\') {
                 return 'Y';
-            } else if ($leftChar === '>' && $rightChar === '<') {
+            } elseif ($leftChar === '>' && $rightChar === '<') {
                 return 'X';
             }
         }
@@ -958,7 +964,7 @@ class Zend_Text_Figlet
     /**
      * Load the specified font
      *
-     * @param  string $fontFile Font file to load
+     * @param  string                     $fontFile Font file to load
      * @throws Zend_Text_Figlet_Exception When font file was not found
      * @throws Zend_Text_Figlet_Exception When GZIP library is required but not found
      * @throws Zend_Text_Figlet_Exception When font file is not readable
@@ -1026,7 +1032,7 @@ class Zend_Text_Figlet
         if ($numsRead < 7) {
             if ($smush === 2) {
                 $this->_fontSmush = self::SM_KERN;
-            } else if ($smush < 0) {
+            } elseif ($smush < 0) {
                 $this->_fontSmush = 0;
             } else {
                 $this->_fontSmush = (($smush & 31) | self::SM_SMUSH);
@@ -1069,6 +1075,7 @@ class Zend_Text_Figlet
 
             if ($char === false) {
                 fclose($fp);
+
                 return;
             }
 
@@ -1089,7 +1096,7 @@ class Zend_Text_Figlet
             // Convert it if required
             if (substr($uniCode, 0, 2) === '0x') {
                 $uniCode = hexdec(substr($uniCode, 2));
-            } else if (substr($uniCode, 0, 1) === '0' and
+            } elseif (substr($uniCode, 0, 1) === '0' and
                        $uniCode !== '0' or
                        substr($uniCode, 0, 2) === '-0') {
                 $uniCode = octdec($uniCode);
@@ -1102,6 +1109,7 @@ class Zend_Text_Figlet
 
             if ($char === false) {
                 fclose($fp);
+
                 return;
             }
 
@@ -1123,9 +1131,9 @@ class Zend_Text_Figlet
     {
         if ($this->_smushOverride === self::SMO_NO) {
             $this->_smushMode = $this->_fontSmush;
-        } else if ($this->_smushOverride === self::SMO_YES) {
+        } elseif ($this->_smushOverride === self::SMO_YES) {
             $this->_smushMode = $this->_userSmush;
-        } else if ($this->_smushOverride === self::SMO_FORCE) {
+        } elseif ($this->_smushOverride === self::SMO_FORCE) {
             $this->_smushMode = ($this->_fontSmush | $this->_userSmush);
         }
     }
@@ -1205,7 +1213,7 @@ class Zend_Text_Figlet
     /**
      * Unicode compatible ord() method
      *
-     * @param  string $c The char to get the value from
+     * @param  string  $c The char to get the value from
      * @return integer
      */
     protected function _uniOrd($c)
@@ -1214,13 +1222,13 @@ class Zend_Text_Figlet
 
         if ($h <= 0x7F) {
             $ord = $h;
-        } else if ($h < 0xC2) {
+        } elseif ($h < 0xC2) {
             $ord = 0;
-        } else if ($h <= 0xDF) {
+        } elseif ($h <= 0xDF) {
             $ord = (($h & 0x1F) << 6 | (ord($c[1]) & 0x3F));
-        } else if ($h <= 0xEF) {
+        } elseif ($h <= 0xEF) {
             $ord = (($h & 0x0F) << 12 | (ord($c[1]) & 0x3F) << 6 | (ord($c[2]) & 0x3F));
-        } else if ($h <= 0xF4) {
+        } elseif ($h <= 0xF4) {
             $ord = (($h & 0x0F) << 18 | (ord($c[1]) & 0x3F) << 12 |
                    (ord($c[2]) & 0x3F) << 6 | (ord($c[3]) & 0x3F));
         } else {

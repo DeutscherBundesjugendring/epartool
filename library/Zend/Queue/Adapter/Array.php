@@ -45,7 +45,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
      * Constructor
      *
      * @param  array|Zend_Config $options
-     * @param  Zend_Queue|null $queue
+     * @param  Zend_Queue|null   $queue
      * @return void
      */
     public function __construct($options, Zend_Queue $queue = null)
@@ -64,7 +64,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
      * use isSupported('isExists') to determine if an adapter can test for
      * queue existance.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function isExists($name)
@@ -132,7 +132,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Return the approximate number of messages in the queue
      *
-     * @param  Zend_Queue $queue
+     * @param  Zend_Queue           $queue
      * @return integer
      * @throws Zend_Queue_Exception
      */
@@ -160,8 +160,8 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
     /**
      * Send a message to the queue
      *
-     * @param  string     $message Message to send to the active queue
-     * @param  Zend_Queue $queue
+     * @param  string               $message Message to send to the active queue
+     * @param  Zend_Queue           $queue
      * @return Zend_Queue_Message
      * @throws Zend_Queue_Exception
      */
@@ -199,15 +199,16 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($classname);
         }
+
         return new $classname($options);
     }
 
     /**
      * Get messages in the queue
      *
-     * @param  integer    $maxMessages  Maximum number of messages to return
-     * @param  integer    $timeout      Visibility timeout for these messages
-     * @param  Zend_Queue $queue
+     * @param  integer                     $maxMessages Maximum number of messages to return
+     * @param  integer                     $timeout     Visibility timeout for these messages
+     * @param  Zend_Queue                  $queue
      * @return Zend_Queue_Message_Iterator
      */
     public function receive($maxMessages = null, $timeout = null, Zend_Queue $queue = null)
@@ -258,6 +259,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($classname);
         }
+
         return new $classname($options);
     }
 
@@ -267,7 +269,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
      * Returns true if the message is deleted, false if the deletion is
      * unsuccessful.
      *
-     * @param  Zend_Queue_Message $message
+     * @param  Zend_Queue_Message   $message
      * @return boolean
      * @throws Zend_Queue_Exception
      */
@@ -279,6 +281,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
         foreach ($queue as $key => &$msg) {
             if ($msg['handle'] == $message->handle) {
                 unset($queue[$key]);
+
                 return true;
             }
         }
@@ -350,6 +353,7 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
     public function setData($data)
     {
         $this->_data = $data;
+
         return $this;
     }
 }

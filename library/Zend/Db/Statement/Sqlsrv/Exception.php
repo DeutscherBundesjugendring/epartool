@@ -41,7 +41,7 @@ class Zend_Db_Statement_Sqlsrv_Exception extends Zend_Db_Statement_Exception
      * error from that stack, and sets the message and code based on it.
      *
      * @param null|array|string $message
-     * @param null|int $code
+     * @param null|int          $code
      */
     public function __construct($message = null, $code = 0)
     {
@@ -52,10 +52,9 @@ class Zend_Db_Statement_Sqlsrv_Exception extends Zend_Db_Statement_Exception
                 $message = $message[0];
             }
 
-            $code    = (int)    $message['code'];
+            $code    = (int) $message['code'];
             $message = (string) $message['message'];
        }
        parent::__construct($message, $code);
    }
 }
-

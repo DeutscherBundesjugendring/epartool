@@ -72,13 +72,13 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     /**
      * Constructor
      *
-     * @param  string $cssQuery
+     * @param  string       $cssQuery
      * @param  string|array $xpathQuery
-     * @param  DOMDocument $document
-     * @param  DOMNodeList $nodeList
+     * @param  DOMDocument  $document
+     * @param  DOMNodeList  $nodeList
      * @return void
      */
-    public function  __construct($cssQuery, $xpathQuery, DOMDocument $document, DOMNodeList $nodeList)
+    public function __construct($cssQuery, $xpathQuery, DOMDocument $document, DOMNodeList $nodeList)
     {
         $this->_cssQuery   = $cssQuery;
         $this->_xpathQuery = $xpathQuery;
@@ -124,6 +124,7 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     public function rewind()
     {
         $this->_position = 0;
+
         return $this->_nodeList->item(0);
     }
 
@@ -137,6 +138,7 @@ class Zend_Dom_Query_Result implements Iterator,Countable
         if (in_array($this->_position, range(0, $this->_nodeList->length - 1)) && $this->_nodeList->length > 0) {
             return true;
         }
+
         return false;
     }
 
@@ -168,6 +170,7 @@ class Zend_Dom_Query_Result implements Iterator,Countable
     public function next()
     {
         ++$this->_position;
+
         return $this->_nodeList->item($this->_position);
     }
 

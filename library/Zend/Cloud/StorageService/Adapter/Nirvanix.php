@@ -54,7 +54,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * @param  array|Zend_Config $options
      * @return void
      */
-    function __construct($options = array())
+    public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
@@ -89,7 +89,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * Get an item from the storage service.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return mixed
      */
     public function fetchItem($path, $options = null)
@@ -100,6 +100,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
         } catch (Zend_Service_Nirvanix_Exception $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on fetch: '.$e->getMessage(), $e->getCode(), $e);
         }
+
         return $item;
     }
 
@@ -107,9 +108,9 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * Store an item in the storage service.
      * WARNING: This operation overwrites any item that is located at
      * $destinationPath.
-     * @param string $destinationPath
-     * @param mixed $data
-     * @param  array $options
+     * @param  string $destinationPath
+     * @param  mixed  $data
+     * @param  array  $options
      * @return void
      */
     public function storeItem($destinationPath, $data, $options = null)
@@ -120,6 +121,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
         } catch (Zend_Service_Nirvanix_Exception $e) {
             throw new Zend_Cloud_StorageService_Exception('Error on store: '.$e->getMessage(), $e->getCode(), $e);
         }
+
         return true;
     }
 
@@ -127,7 +129,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * Delete an item in the storage service.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function deleteItem($path, $options = null)
@@ -135,7 +137,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
         try {
             $path = $this->_getFullPath($path);
             $this->_imfNs->unlink($path);
-        } catch(Zend_Service_Nirvanix_Exception $e) {
+        } catch (Zend_Service_Nirvanix_Exception $e) {
 //            if (trim(strtoupper($e->getMessage())) != 'INVALID PATH') {
 //                // TODO Differentiate among errors in the Nirvanix adapter
             throw new Zend_Cloud_StorageService_Exception('Error on delete: '.$e->getMessage(), $e->getCode(), $e);
@@ -149,7 +151,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      *
      * @param  string $sourcePath
      * @param  string $destination path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function copyItem($sourcePath, $destinationPath, $options = null)
@@ -171,7 +173,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      *
      * @param  string $sourcePath
      * @param  string $destination path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function moveItem($sourcePath, $destinationPath, $options = null)
@@ -194,7 +196,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      *
      * @param  string $path
      * @param  string $name
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function renameItem($path, $name, $options = null)
@@ -207,8 +209,8 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * Get a key/value array of metadata for the given path.
      *
      * @param  string $path
-     * @param  array $options
-     * @return array An associative array of key/value pairs specifying the metadata for this object.
+     * @param  array  $options
+     * @return array  An associative array of key/value pairs specifying the metadata for this object.
      *                  If no metadata exists, an empty array is returned.
      */
     public function fetchMetadata($path, $options = null)
@@ -225,17 +227,14 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
 
         // Need to special case this as Nirvanix returns an array if there is
         // more than one, but doesn't return an array if there is only one.
-        if ($length == 1)
-        {
-            $metadata[(string)$metadataNode->Metadata->Type->value] = (string)$metadataNode->Metadata->Value;
-        }
-        else if ($length > 1)
-        {
-            for ($i=0; $i<$length; $i++)
-            {
-                $metadata[(string)$metadataNode->Metadata[$i]->Type] = (string)$metadataNode->Metadata[$i]->Value;
+        if ($length == 1) {
+            $metadata[(string) $metadataNode->Metadata->Type->value] = (string) $metadataNode->Metadata->Value;
+        } elseif ($length > 1) {
+            for ($i=0; $i<$length; $i++) {
+                $metadata[(string) $metadataNode->Metadata[$i]->Type] = (string) $metadataNode->Metadata[$i]->Value;
             }
         }
+
         return $metadata;
     }
 
@@ -244,9 +243,9 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * WARNING: This operation overwrites any metadata that is located at
      * $destinationPath.
      *
-     * @param string $destinationPath
-     * @param array  $metadata        associative array specifying the key/value pairs for the metadata.
-     * @param array  $options
+     * @param  string $destinationPath
+     * @param  array  $metadata        associative array specifying the key/value pairs for the metadata.
+     * @param  array  $options
      * @return void
      */
     public function storeMetadata($destinationPath, $metadata, $options = null)
@@ -271,7 +270,7 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
      * Delete a key/value array of metadata at the given path.
      *
      * @param string $path
-     * @param array $metadata - An associative array specifying the key/value pairs for the metadata
+     * @param array  $metadata - An associative array specifying the key/value pairs for the metadata
      *                          to be deleted.  If null, all metadata associated with the object will
      *                          be deleted.
      * @param  array $options
@@ -364,9 +363,8 @@ class Zend_Cloud_StorageService_Adapter_Nirvanix
                 //Need to special case this as Nirvanix returns an array if there is
                 //more than one, but doesn't return an array if there is only one.
                 if ($numFiles == 1) {
-                    $resultArray[] = (string)$response->ListFolder->File->Name;
-                }
-                else {
+                    $resultArray[] = (string) $response->ListFolder->File->Name;
+                } else {
                     foreach ($response->ListFolder->File as $arrayElem) {
                         $resultArray[] = (string) $arrayElem->Name;
                     }

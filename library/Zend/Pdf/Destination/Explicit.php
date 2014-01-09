@@ -20,10 +20,8 @@
  * @version    $Id: Explicit.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element.php';
-
 
 /** Zend_Pdf_Destination */
 require_once 'Zend/Pdf/Destination.php';
@@ -55,7 +53,7 @@ abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
     /**
      * Explicit destination object constructor
      *
-     * @param Zend_Pdf_Element $destinationArray
+     * @param  Zend_Pdf_Element   $destinationArray
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_Element $destinationArray)

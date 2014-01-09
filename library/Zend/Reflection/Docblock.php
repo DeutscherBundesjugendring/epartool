@@ -95,7 +95,7 @@ class Zend_Reflection_Docblock implements Reflector
         $str = "Docblock [ /* Docblock */ ] {".PHP_EOL.PHP_EOL;
         $str .= "  - Tags [".count($this->_tags)."] {".PHP_EOL;
 
-        foreach($this->_tags AS $tag) {
+        foreach ($this->_tags AS $tag) {
             $str .= "    ".$tag;
         }
 
@@ -204,13 +204,14 @@ class Zend_Reflection_Docblock implements Reflector
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Retrieve the given docblock tag
      *
-     * @param  string $name
+     * @param  string                             $name
      * @return Zend_Reflection_Docblock_Tag|false
      */
     public function getTag($name)
@@ -227,8 +228,8 @@ class Zend_Reflection_Docblock implements Reflector
     /**
      * Get all docblock annotation tags
      *
-     * @param string $filter
-     * @return array Array of Zend_Reflection_Docblock_Tag
+     * @param  string $filter
+     * @return array  Array of Zend_Reflection_Docblock_Tag
      */
     public function getTags($filter = null)
     {
@@ -242,6 +243,7 @@ class Zend_Reflection_Docblock implements Reflector
                 $returnTags[] = $tag;
             }
         }
+
         return $returnTags;
     }
 

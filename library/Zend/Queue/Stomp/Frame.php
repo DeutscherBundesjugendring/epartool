@@ -110,6 +110,7 @@ class Zend_Queue_Stomp_Frame
         }
 
         $this->_autoContentLength = $auto;
+
         return $this;
     }
 
@@ -144,12 +145,13 @@ class Zend_Queue_Stomp_Frame
     /**
      * Sets a value for a header
      *
-     * @param  string $header
-     * @param  string $value
+     * @param  string                 $header
+     * @param  string                 $value
      * @return Zend_Queue_Stomp_Frame
      * @throws Zend_Queue_Exception
      */
-    public function setHeader($header, $value) {
+    public function setHeader($header, $value)
+    {
         if (!is_string($header)) {
             require_once 'Zend/Queue/Exception.php';
             throw new Zend_Queue_Exception('$header is not a string: ' . print_r($header, true));
@@ -161,16 +163,16 @@ class Zend_Queue_Stomp_Frame
         }
 
         $this->_headers[$header] = $value;
+
         return $this;
     }
-
 
     /**
      * Returns a value for a header
      *
      * Returns false if the header does not exist.
      *
-     * @param  string $header
+     * @param  string               $header
      * @return string|false
      * @throws Zend_Queue_Exception
      */
@@ -205,7 +207,7 @@ class Zend_Queue_Stomp_Frame
      *
      * Set to null for no body.
      *
-     * @param  string|null $body
+     * @param  string|null            $body
      * @return Zend_Queue_Stomp_Frame
      * @throws Zend_Queue_Exception
      */
@@ -217,6 +219,7 @@ class Zend_Queue_Stomp_Frame
         }
 
         $this->_body = $body;
+
         return $this;
     }
 
@@ -249,6 +252,7 @@ class Zend_Queue_Stomp_Frame
         }
 
         $this->_command = $command;
+
         return $this;
     }
 
@@ -307,13 +311,14 @@ class Zend_Queue_Stomp_Frame
         } catch (Zend_Queue_Exception $e) {
             $return = '';
         }
+
         return $return;
     }
 
     /**
      * Accepts a frame and deconstructs the frame into its component parts
      *
-     * @param  string $frame - a stomp frame
+     * @param string $frame - a stomp frame
      * @return $this
      */
     public function fromFrame($frame)
@@ -358,6 +363,7 @@ class Zend_Queue_Stomp_Frame
         }
 
         $this->setBody($body);
+
         return $this;
     }
 }

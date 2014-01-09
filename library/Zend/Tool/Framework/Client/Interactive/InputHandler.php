@@ -38,6 +38,7 @@ class Zend_Tool_Framework_Client_Interactive_InputHandler
     public function setClient(Zend_Tool_Framework_Client_Interactive_InputInterface $client)
     {
         $this->_client = $client;
+
         return $this;
     }
 
@@ -52,6 +53,7 @@ class Zend_Tool_Framework_Client_Interactive_InputHandler
         }
 
         $this->_inputRequest = $inputRequest;
+
         return $this;
     }
 
@@ -69,6 +71,5 @@ class Zend_Tool_Framework_Client_Interactive_InputHandler
 
         return $inputResponse;
     }
-
 
 }

@@ -81,7 +81,7 @@ interface Zend_Pdf_ElementFactory_Interface
     /**
      * Calculate object enumeration shift.
      *
-     * @param Zend_Pdf_ElementFactory_Interface $factory
+     * @param  Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      */
     public function calculateShift(Zend_Pdf_ElementFactory_Interface $factory);
@@ -90,7 +90,7 @@ interface Zend_Pdf_ElementFactory_Interface
      * Clean enumeration shift cache.
      * Has to be used after PDF render operation to let followed updates be correct.
      *
-     * @param Zend_Pdf_ElementFactory_Interface $factory
+     * @param  Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      */
     public function cleanEnumerationShiftCache();
@@ -98,7 +98,7 @@ interface Zend_Pdf_ElementFactory_Interface
     /**
      * Retrive object enumeration shift.
      *
-     * @param Zend_Pdf_ElementFactory_Interface $factory
+     * @param  Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      * @throws Zend_Pdf_Exception
      */
@@ -107,7 +107,7 @@ interface Zend_Pdf_ElementFactory_Interface
     /**
      * Mark object as modified in context of current factory.
      *
-     * @param Zend_Pdf_Element_Object $obj
+     * @param  Zend_Pdf_Element_Object $obj
      * @throws Zend_Pdf_Exception
      */
     public function markAsModified(Zend_Pdf_Element_Object $obj);
@@ -115,7 +115,7 @@ interface Zend_Pdf_ElementFactory_Interface
     /**
      * Remove object in context of current factory.
      *
-     * @param Zend_Pdf_Element_Object $obj
+     * @param  Zend_Pdf_Element_Object $obj
      * @throws Zend_Pdf_Exception
      */
     public function remove(Zend_Pdf_Element_Object $obj);
@@ -125,7 +125,7 @@ interface Zend_Pdf_ElementFactory_Interface
      *
      * @todo Reusage of the freed object. It's not a support of new feature, but only improvement.
      *
-     * @param Zend_Pdf_Element $objectValue
+     * @param  Zend_Pdf_Element        $objectValue
      * @return Zend_Pdf_Element_Object
      */
     public function newObject(Zend_Pdf_Element $objectValue);
@@ -135,7 +135,7 @@ interface Zend_Pdf_ElementFactory_Interface
      *
      * @todo Reusage of the freed object. It's not a support of new feature, but only improvement.
      *
-     * @param mixed $objectValue
+     * @param  mixed                          $objectValue
      * @return Zend_Pdf_Element_Object_Stream
      */
     public function newStreamObject($streamValue);
@@ -144,7 +144,7 @@ interface Zend_Pdf_ElementFactory_Interface
      * Enumerate modified objects.
      * Returns array of Zend_Pdf_UpdateInfoContainer
      *
-     * @param Zend_Pdf_ElementFactory $rootFactory
+     * @param  Zend_Pdf_ElementFactory $rootFactory
      * @return array
      */
     public function listModifiedObjects($rootFactory = null);

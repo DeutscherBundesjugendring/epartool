@@ -77,10 +77,10 @@ class Zend_Text_Table_Column
     /**
      * Create a column for a Zend_Text_Table_Row object.
      *
-     * @param string  $content  The content of the column
-     * @param string  $align    The align of the content
-     * @param integer $colSpan  The colspan of the column
-     * @param string  $charset  The encoding of the content
+     * @param string  $content The content of the column
+     * @param string  $align   The align of the content
+     * @param integer $colSpan The colspan of the column
+     * @param string  $charset The encoding of the content
      */
     public function __construct($content = null, $align = null, $colSpan = null, $charset = null)
     {
@@ -104,8 +104,8 @@ class Zend_Text_Table_Column
      * the charset defined via Zend_Text_Table::setInputCharset() (defaults
      * to utf-8).
      *
-     * @param  string $content  Content of the column
-     * @param  string $charset  The charset of the content
+     * @param  string                    $content Content of the column
+     * @param  string                    $charset The charset of the content
      * @throws Zend_Text_Table_Exception When $content is not a string
      * @return Zend_Text_Table_Column
      */
@@ -140,7 +140,7 @@ class Zend_Text_Table_Column
     /**
      * Set the align
      *
-     * @param  string $align Align of the column
+     * @param  string                    $align Align of the column
      * @throws Zend_Text_Table_Exception When supplied align is invalid
      * @return Zend_Text_Table_Column
      */
@@ -159,7 +159,7 @@ class Zend_Text_Table_Column
     /**
      * Set the colspan
      *
-     * @param  int $colSpan
+     * @param  int                       $colSpan
      * @throws Zend_Text_Table_Exception When $colSpan is smaller than 1
      * @return Zend_Text_Table_Column
      */
@@ -188,8 +188,8 @@ class Zend_Text_Table_Column
     /**
      * Render the column width the given column width
      *
-     * @param  integer $columnWidth The width of the column
-     * @param  integer $padding     The padding for the column
+     * @param  integer                   $columnWidth The width of the column
+     * @param  integer                   $padding     The padding for the column
      * @throws Zend_Text_Table_Exception When $columnWidth is lower than 1
      * @throws Zend_Text_Table_Exception When padding is greater than columnWidth
      * @return string

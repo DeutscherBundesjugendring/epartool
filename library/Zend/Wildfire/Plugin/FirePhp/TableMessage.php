@@ -55,7 +55,7 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
      *
      * @param string $label The label of the table
      */
-    function __construct($label)
+    public function __construct($label)
     {
         parent::__construct(Zend_Wildfire_Plugin_FirePhp::TABLE, null);
         $this->setLabel($label);
@@ -64,7 +64,7 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
     /**
      * Set the table header
      *
-     * @param array $header The header columns
+     * @param  array $header The header columns
      * @return void
      */
     public function setHeader($header)
@@ -75,7 +75,7 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
     /**
      * Append a row to the end of the table.
      *
-     * @param array $row An array of column values representing a row.
+     * @param  array $row An array of column values representing a row.
      * @return void
      */
     public function addRow($row)
@@ -91,24 +91,25 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
     public function getMessage()
     {
         $table = $this->_rows;
-        if($this->_header) {
+        if ($this->_header) {
             array_unshift($table,$this->_header);
         }
+
         return $table;
     }
 
     /**
      * Returns the row at the given index
      *
-     * @param integer $index The index of the row
-     * @return array Returns the row
+     * @param  integer                 $index The index of the row
+     * @return array                   Returns the row
      * @throws Zend_Wildfire_Exception
      */
     public function getRowAt($index)
     {
         $count = $this->getRowCount();
 
-        if($index < 0 || $index > $count-1) {
+        if ($index < 0 || $index > $count-1) {
             require_once 'Zend/Wildfire/Exception.php';
             throw new Zend_Wildfire_Exception('Row index('.$index.') out of bounds('.$count.')!');
         }
@@ -119,15 +120,15 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
     /**
      * Sets the row on the given index to a new row
      *
-     * @param integer $index The index of the row
-     * @param array $row The new data for the row
+     * @param  integer                 $index The index of the row
+     * @param  array                   $row   The new data for the row
      * @throws Zend_Wildfire_Exception
      */
     public function setRowAt($index, $row)
     {
         $count = $this->getRowCount();
 
-        if($index < 0 || $index > $count-1) {
+        if ($index < 0 || $index > $count-1) {
             require_once 'Zend/Wildfire/Exception.php';
             throw new Zend_Wildfire_Exception('Row index('.$index.') out of bounds('.$count.')!');
         }
@@ -148,14 +149,14 @@ class Zend_Wildfire_Plugin_FirePhp_TableMessage extends Zend_Wildfire_Plugin_Fir
     /**
      * Returns the last row of the table
      *
-     * @return array Returns the last row
+     * @return array                   Returns the last row
      * @throws Zend_Wildfire_Exception
      */
     public function getLastRow()
     {
         $count = $this->getRowCount();
 
-        if($count==0) {
+        if ($count==0) {
             require_once 'Zend/Wildfire/Exception.php';
             throw new Zend_Wildfire_Exception('Cannot get last row as no rows exist!');
         }

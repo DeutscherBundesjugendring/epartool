@@ -68,8 +68,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
     /**
      * Add a single path to the controller directory stack
      *
-     * @param string $path
-     * @param string $module
+     * @param  string                              $path
+     * @param  string                              $module
      * @return Zend_Controller_Dispatcher_Standard
      */
     public function addControllerDirectory($path, $module = null)
@@ -82,13 +82,14 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         $path   = rtrim((string) $path, '/\\');
 
         $this->_controllerDirectory[$module] = $path;
+
         return $this;
     }
 
     /**
      * Set controller directory
      *
-     * @param array|string $directory
+     * @param  array|string                        $directory
      * @return Zend_Controller_Dispatcher_Standard
      */
     public function setControllerDirectory($directory, $module = null)
@@ -115,7 +116,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      *
      * If a module is specified, returns just that directory.
      *
-     * @param  string $module Module name
+     * @param  string       $module Module name
      * @return array|string Returns array of all directories by default, single
      * module directory if module argument provided
      */
@@ -144,15 +145,17 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         $module = (string) $module;
         if (array_key_exists($module, $this->_controllerDirectory)) {
             unset($this->_controllerDirectory[$module]);
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Format the module name.
      *
-     * @param string $unformatted
+     * @param  string $unformatted
      * @return string
      */
     public function formatModuleName($unformatted)
@@ -167,8 +170,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
     /**
      * Format action class name
      *
-     * @param string $moduleName Name of the current module
-     * @param string $className Name of the action class
+     * @param  string $moduleName Name of the current module
+     * @param  string $className  Name of the action class
      * @return string Formatted class name
      */
     public function formatClassName($moduleName, $className)
@@ -179,7 +182,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
     /**
      * Convert a class name to a filename
      *
-     * @param string $class
+     * @param  string $class
      * @return string
      */
     public function classToFilename($class)
@@ -196,7 +199,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * if a given controller does not exist. This method returning false does
      * not necessarily indicate the dispatcher will not still dispatch the call.
      *
-     * @param Zend_Controller_Request_Abstract $action
+     * @param  Zend_Controller_Request_Abstract $action
      * @return boolean
      */
     public function isDispatchable(Zend_Controller_Request_Abstract $request)
@@ -219,6 +222,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         $fileSpec    = $this->classToFilename($className);
         $dispatchDir = $this->getDispatchDirectory();
         $test        = $dispatchDir . DIRECTORY_SEPARATOR . $fileSpec;
+
         return Zend_Loader::isReadable($test);
     }
 
@@ -229,8 +233,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * an exception. If you wish to use the default controller instead, set the
      * param 'useDefaultControllerAlways' via {@link setParam()}.
      *
-     * @param Zend_Controller_Request_Abstract $request
-     * @param Zend_Controller_Response_Abstract $response
+     * @param  Zend_Controller_Request_Abstract     $request
+     * @param  Zend_Controller_Response_Abstract    $response
      * @return void
      * @throws Zend_Controller_Dispatcher_Exception
      */
@@ -334,8 +338,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * {@link getControllerDirectory()}.  If the controller belongs to a
      * module, looks for the module prefix to the controller class.
      *
-     * @param string $className
-     * @return string Class name loaded
+     * @param  string                               $className
+     * @return string                               Class name loaded
      * @throws Zend_Controller_Dispatcher_Exception if class not loaded
      */
     public function loadClass($className)
@@ -374,8 +378,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * Try request first; if not found, try pulling from request parameter;
      * if still not found, fallback to default
      *
-     * @param Zend_Controller_Request_Abstract $request
-     * @return string|false Returns class name on success
+     * @param  Zend_Controller_Request_Abstract $request
+     * @return string|false                     Returns class name on success
      */
     public function getControllerClass(Zend_Controller_Request_Abstract $request)
     {
@@ -440,7 +444,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      * not exist; if this is the case, it falls back to the default controller
      * in the default module.
      *
-     * @param Zend_Controller_Request_Abstract $request
+     * @param  Zend_Controller_Request_Abstract $request
      * @return string
      */
     public function getDefaultControllerClass(Zend_Controller_Request_Abstract $request)
@@ -496,7 +500,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      *
      * Returns formatted action name
      *
-     * @param Zend_Controller_Request_Abstract $request
+     * @param  Zend_Controller_Request_Abstract $request
      * @return string
      */
     public function getActionMethod(Zend_Controller_Request_Abstract $request)

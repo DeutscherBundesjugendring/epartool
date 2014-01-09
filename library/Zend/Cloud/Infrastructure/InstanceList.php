@@ -38,7 +38,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
      * Constructor
      *
      * @param  Adapter $adapter
-     * @param  array $instances
+     * @param  array   $instances
      * @return void
      */
     public function __construct($adapter, array $instances = null)
@@ -78,6 +78,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
     protected function addInstance(Zend_Cloud_Infrastructure_Instance $instance)
     {
         $this->instances[] = $instance;
+
         return $this;
     }
 
@@ -154,6 +155,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
         if ($numItems > 0 && $this->iteratorKey < $numItems) {
             return true;
         }
+
         return false;
     }
 
@@ -162,7 +164,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
      *
      * Implement ArrayAccess::offsetExists()
      *
-     * @param  int $offset
+     * @param  int  $offset
      * @return bool
      */
     public function offsetExists($offset)
@@ -175,7 +177,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
      *
      * Implement ArrayAccess::offsetGet()
      *
-     * @param  int $offset
+     * @param  int                                 $offset
      * @return Instance
      * @throws Zend_Cloud_Infrastructure_Exception
      */
@@ -185,6 +187,7 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
             require_once 'Zend/Cloud/Infrastructure/Exception.php';
             throw new Zend_Cloud_Infrastructure_Exception('Illegal index');
         }
+
         return $this->instances[$offset];
     }
 
@@ -193,9 +196,9 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
      *
      * Implement ArrayAccess::offsetSet()
      *
-     * @param   int     $offset
-     * @param   string  $value
-     * @throws  Zend_Cloud_Infrastructure_Exception
+     * @param  int                                 $offset
+     * @param  string                              $value
+     * @throws Zend_Cloud_Infrastructure_Exception
      */
     public function offsetSet($offset, $value)
     {
@@ -208,8 +211,8 @@ class Zend_Cloud_Infrastructure_InstanceList implements Countable, Iterator, Arr
      *
      * Implement ArrayAccess::offsetUnset()
      *
-     * @param   int     $offset
-     * @throws  Zend_Cloud_Infrastructure_Exception
+     * @param  int                                 $offset
+     * @throws Zend_Cloud_Infrastructure_Exception
      */
     public function offsetUnset($offset)
     {

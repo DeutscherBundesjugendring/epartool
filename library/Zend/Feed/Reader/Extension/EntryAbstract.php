@@ -73,8 +73,8 @@ abstract class Zend_Feed_Reader_Extension_EntryAbstract
      * Constructor
      *
      * @param  Zend_Feed_Entry_Abstract $entry
-     * @param  int $entryKey
-     * @param  string $type
+     * @param  int                      $entryKey
+     * @param  string                   $type
      * @return void
      */
     public function __construct(DOMElement $entry, $entryKey, $type = null)
@@ -120,6 +120,7 @@ abstract class Zend_Feed_Reader_Extension_EntryAbstract
     public function getEncoding()
     {
         $assumed = $this->getDomDocument()->encoding;
+
         return $assumed;
     }
 
@@ -136,13 +137,14 @@ abstract class Zend_Feed_Reader_Extension_EntryAbstract
     /**
      * Set the XPath query
      *
-     * @param  DOMXPath $xpath
+     * @param  DOMXPath                                 $xpath
      * @return Zend_Feed_Reader_Extension_EntryAbstract
      */
     public function setXpath(DOMXPath $xpath)
     {
         $this->_xpath = $xpath;
         $this->_registerNamespaces();
+
         return $this;
     }
 
@@ -156,6 +158,7 @@ abstract class Zend_Feed_Reader_Extension_EntryAbstract
         if (!$this->_xpath) {
             $this->setXpath(new DOMXPath($this->getDomDocument()));
         }
+
         return $this->_xpath;
     }
 
@@ -182,12 +185,13 @@ abstract class Zend_Feed_Reader_Extension_EntryAbstract
     /**
      * Set the XPath prefix
      *
-     * @param  string $prefix
+     * @param  string                                   $prefix
      * @return Zend_Feed_Reader_Extension_EntryAbstract
      */
     public function setXpathPrefix($prefix)
     {
         $this->_xpathPrefix = $prefix;
+
         return $this;
     }
 
@@ -196,5 +200,5 @@ abstract class Zend_Feed_Reader_Extension_EntryAbstract
      *
      * @return void
      */
-    protected abstract function _registerNamespaces();
+    abstract protected function _registerNamespaces();
 }

@@ -61,7 +61,7 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
      *
      * @var int
      */
-    static protected $_consts = null;
+    protected static $_consts = null;
 
     /**
      * Available options
@@ -169,8 +169,8 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
     /**
      * Set an option
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @param  string                                             $name
+     * @param  mixed                                              $value
      * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
@@ -240,13 +240,14 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
     /**
      * sets new environment
      *
-     * @param int $environment
+     * @param  int                                                $environment
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
     public function setEnvironment($environment)
     {
         self::checkEnvironment($environment);
         $this->_serviceEnvironment = $environment;
+
         return $this;
     }
 
@@ -279,19 +280,20 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
     /**
      * switch to the local wsdl file usage
      *
-     * @param boolen $use
+     * @param  boolen                                             $use
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
     public function setUseLocalWsdl($use = true)
     {
         $this->_useLocalWsdl = (boolean) $use;
+
         return $this;
     }
 
     /**
      * sets a new wsdl file
      *
-     * @param string $wsdlFile
+     * @param  string                                             $wsdlFile
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
     public function setWsdl($wsdlFile = null)
@@ -301,13 +303,14 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
             throw new Zend_Service_DeveloperGarden_Exception('_wsdlFile not set for this service.');
         }
         $this->_wsdlFile = $wsdlFile;
+
         return $this;
     }
 
     /**
      * sets a new local wsdl file
      *
-     * @param string $wsdlFile
+     * @param  string                                             $wsdlFile
      * @return Zend_Service_DeveloperGarden_Client_ClientAbstract
      */
     public function setLocalWsdl($wsdlFile = null)
@@ -317,6 +320,7 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
             throw new Zend_Service_DeveloperGarden_Exception('_wsdlFileLocal not set for this service.');
         }
         $this->_wsdlFileLocal = $wsdlFile;
+
         return $this;
     }
 
@@ -337,6 +341,7 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
         if ($wsdlCache !== null) {
             $options['cache_wsdl'] = $wsdlCache;
         }
+
         return $options;
     }
 
@@ -354,7 +359,7 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
      * helper method to create const arrays
      * @return null
      */
-    static protected function _buildConstArray()
+    protected static function _buildConstArray()
     {
         $r = new ReflectionClass(__CLASS__);
         foreach ($r->getConstants() as $k => $v) {
@@ -371,11 +376,12 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
      *
      * @return array
      */
-    static public function getParticipantActions()
+    public static function getParticipantActions()
     {
         if (empty(self::$_consts)) {
             self::_buildConstArray();
         }
+
         return self::$_consts['PARTICIPANT'];
     }
 
@@ -383,11 +389,11 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
      * checks if the given action is valid
      * otherwise it @throws Zend_Service_DeveloperGarden_Exception
      *
-     * @param int $action
+     * @param  int                                           $action
      * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @return void
      */
-    static public function checkParticipantAction($action)
+    public static function checkParticipantAction($action)
     {
         if (!array_key_exists($action, self::getParticipantActions())) {
             require_once 'Zend/Service/DeveloperGarden/Client/Exception.php';
@@ -402,11 +408,12 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
      *
      * @return array
      */
-    static public function getEnvironments()
+    public static function getEnvironments()
     {
         if (empty(self::$_consts)) {
             self::_buildConstArray();
         }
+
         return self::$_consts['ENV'];
     }
 
@@ -414,11 +421,11 @@ abstract class Zend_Service_DeveloperGarden_Client_ClientAbstract
      * checks if the given environemnt is valid
      * otherwise it @throws Zend_Service_DeveloperGarden_Client_Exception
      *
-     * @param int $environment
+     * @param  int                                           $environment
      * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @return void
      */
-    static public function checkEnvironment($environment)
+    public static function checkEnvironment($environment)
     {
         if (!array_key_exists($environment, self::getEnvironments())) {
             require_once 'Zend/Service/DeveloperGarden/Client/Exception.php';

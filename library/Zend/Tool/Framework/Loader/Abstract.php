@@ -29,7 +29,6 @@ require_once 'Zend/Tool/Framework/Loader/Interface.php';
 require_once 'Zend/Tool/Framework/Manifest/Interface.php';
 require_once 'Zend/Tool/Framework/Provider/Interface.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Tool
@@ -65,12 +64,13 @@ abstract class Zend_Tool_Framework_Loader_Abstract
      * setRegistry() - required by the enabled interface to get an instance of
      * the registry
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return Zend_Tool_Framework_Loader_Abstract
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
@@ -90,7 +90,7 @@ abstract class Zend_Tool_Framework_Loader_Abstract
 
         // loop through files and find the classes declared by loading the file
         foreach ($this->_retrievedFiles as $file) {
-            if(is_dir($file)) {
+            if (is_dir($file)) {
                 continue;
             }
 
@@ -151,6 +151,5 @@ abstract class Zend_Tool_Framework_Loader_Abstract
     {
         return $this->_loadedClasses;
     }
-
 
 }

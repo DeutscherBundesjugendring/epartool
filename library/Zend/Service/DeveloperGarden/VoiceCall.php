@@ -112,14 +112,14 @@ class Zend_Service_DeveloperGarden_VoiceCall
     /**
      * init a new call with the given params
      *
-     * @param string $aNumber
-     * @param string $bNumber
-     * @param integer $expiration
-     * @param integer $maxDuration
-     * @param integer $account
-     * @param boolean $privacyA
-     * @param boolean $privacyB
-     * @param string $greeter
+     * @param  string                                                            $aNumber
+     * @param  string                                                            $bNumber
+     * @param  integer                                                           $expiration
+     * @param  integer                                                           $maxDuration
+     * @param  integer                                                           $account
+     * @param  boolean                                                           $privacyA
+     * @param  boolean                                                           $privacyB
+     * @param  string                                                            $greeter
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
      */
     public function newCall($aNumber, $bNumber, $expiration, $maxDuration,
@@ -143,22 +143,21 @@ class Zend_Service_DeveloperGarden_VoiceCall
         return $result->parse();
     }
 
-
     /**
      * init a new call with the given params but specially here,
      * you can define a set of numbers to be called if the first number
      * isnt reachable (ie: bNumber = +4930-111111,+4930-222222,+4930-333333)
      *
      * @throws Zend_Service_DeveloperGarden_Client_Exception
-     * @param string $aNumber
-     * @param array $bNumber
-     * @param integer $expiration
-     * @param integer $maxDuration
-     * @param integer $maxWait
-     * @param integer $account
-     * @param boolean $privacyA
-     * @param boolean $privacyB
-     * @param string $greeter
+     * @param  string                                                                     $aNumber
+     * @param  array                                                                      $bNumber
+     * @param  integer                                                                    $expiration
+     * @param  integer                                                                    $maxDuration
+     * @param  integer                                                                    $maxWait
+     * @param  integer                                                                    $account
+     * @param  boolean                                                                    $privacyA
+     * @param  boolean                                                                    $privacyB
+     * @param  string                                                                     $greeter
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse
      */
     public function newCallSequenced($aNumber, $bNumber, $expiration, $maxDuration,
@@ -186,7 +185,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
     /**
      * This tear down the call with the given sessionId
      *
-     * @param string $sessionId
+     * @param  string                                                                 $sessionId
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_TearDownCallResponse
      */
     public function tearDownCall($sessionId)
@@ -205,8 +204,8 @@ class Zend_Service_DeveloperGarden_VoiceCall
     /**
      * checks the callStatus and updates the keepAlive if provided
      *
-     * @param string $sessionId
-     * @param integer $keepAlive
+     * @param  string                                                               $sessionId
+     * @param  integer                                                              $keepAlive
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse
      */
     public function callStatus($sessionId, $keepAlive = null)

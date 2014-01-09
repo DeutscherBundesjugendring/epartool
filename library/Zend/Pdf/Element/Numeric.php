@@ -19,10 +19,8 @@
  * @version    $Id: Numeric.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'numeric' element implementation
@@ -41,11 +39,10 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
      */
     public $value;
 
-
     /**
      * Object constructor
      *
-     * @param numeric $val
+     * @param  numeric            $val
      * @throws Zend_Pdf_Exception
      */
     public function __construct($val)
@@ -58,7 +55,6 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
         $this->value = $val;
     }
 
-
     /**
      * Return type of the element.
      *
@@ -69,17 +65,16 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
         return Zend_Pdf_Element::TYPE_NUMERIC;
     }
 
-
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)
     {
         if (is_integer($this->value)) {
-            return (string)$this->value;
+            return (string) $this->value;
         }
 
         /**
@@ -90,6 +85,7 @@ class Zend_Pdf_Element_Numeric extends Zend_Pdf_Element
         while (abs( floor($v) - $v ) > 1e-10) {
             $prec++; $v *= 10;
         }
+
         return sprintf("%.{$prec}F", $this->value);
     }
 }

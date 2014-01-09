@@ -66,12 +66,13 @@ class Zend_Gdata_YouTube_Extension_Position extends Zend_Gdata_Extension
     /**
      * Set the value for the position in the playlist
      *
-     * @param int $value The 1-based position in the playlist
+     * @param  int                             $value The 1-based position in the playlist
      * @return Zend_Gdata_Extension_Visibility The element being modified
      */
     public function setValue($value)
     {
         $this->_text = $value;
+
         return $this;
     }
 
@@ -87,4 +88,3 @@ class Zend_Gdata_YouTube_Extension_Position extends Zend_Gdata_Extension
     }
 
 }
-

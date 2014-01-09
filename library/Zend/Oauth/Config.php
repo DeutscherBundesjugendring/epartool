@@ -146,10 +146,10 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
      * @var Zend_Oauth_Token
      */
     protected $_token = null;
-    
+
     /**
      * Define the OAuth realm
-     * 
+     *
      * @var string
      */
     protected $_realm = null;
@@ -236,12 +236,13 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set consumer key
      *
-     * @param  string $key
+     * @param  string            $key
      * @return Zend_Oauth_Config
      */
     public function setConsumerKey($key)
     {
         $this->_consumerKey = $key;
+
         return $this;
     }
 
@@ -258,12 +259,13 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set consumer secret
      *
-     * @param  string $secret
+     * @param  string            $secret
      * @return Zend_Oauth_Config
      */
     public function setConsumerSecret($secret)
     {
         $this->_consumerSecret = $secret;
+
         return $this;
     }
 
@@ -280,13 +282,14 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
         if ($this->_rsaPrivateKey !== null) {
             return $this->_rsaPrivateKey;
         }
+
         return $this->_consumerSecret;
     }
 
     /**
      * Set signature method
      *
-     * @param  string $method
+     * @param  string               $method
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception if unsupported signature method specified
      */
@@ -303,6 +306,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
                 . '. Supported are HMAC-SHA1, RSA-SHA1, PLAINTEXT and HMAC-SHA256');
         }
         $this->_signatureMethod = $method;;
+
         return $this;
     }
 
@@ -319,7 +323,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set request scheme
      *
-     * @param  string $scheme
+     * @param  string               $scheme
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception if invalid scheme specified, or if POSTBODY set when request method of GET is specified
      */
@@ -346,6 +350,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             );
         }
         $this->_requestScheme = $scheme;
+
         return $this;
     }
 
@@ -362,12 +367,13 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set version
      *
-     * @param  string $version
+     * @param  string            $version
      * @return Zend_Oauth_Config
      */
     public function setVersion($version)
     {
         $this->_version = $version;
+
         return $this;
     }
 
@@ -384,7 +390,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set callback URL
      *
-     * @param  string $url
+     * @param  string               $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -397,6 +403,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             );
         }
         $this->_callbackUrl = $url;
+
         return $this;
     }
 
@@ -413,7 +420,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set site URL
      *
-     * @param  string $url
+     * @param  string               $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -426,6 +433,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             );
         }
         $this->_siteUrl = $url;
+
         return $this;
     }
 
@@ -442,7 +450,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set request token URL
      *
-     * @param  string $url
+     * @param  string               $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -455,6 +463,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             );
         }
         $this->_requestTokenUrl = rtrim($url, '/');
+
         return $this;
     }
 
@@ -471,13 +480,14 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
         if (!$this->_requestTokenUrl && $this->_siteUrl) {
             return $this->_siteUrl . '/request_token';
         }
+
         return $this->_requestTokenUrl;
     }
 
     /**
      * Set access token URL
      *
-     * @param  string $url
+     * @param  string               $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -490,6 +500,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             );
         }
         $this->_accessTokenUrl = rtrim($url, '/');
+
         return $this;
     }
 
@@ -506,13 +517,14 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
         if (!$this->_accessTokenUrl && $this->_siteUrl) {
             return $this->_siteUrl . '/access_token';
         }
+
         return $this->_accessTokenUrl;
     }
 
     /**
      * Set user authorization URL
      *
-     * @param  string $url
+     * @param  string               $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -524,7 +536,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set authorization URL
      *
-     * @param  string $url
+     * @param  string               $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -537,6 +549,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             );
         }
         $this->_authorizeUrl = rtrim($url, '/');
+
         return $this;
     }
 
@@ -563,13 +576,14 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
         if (!$this->_authorizeUrl && $this->_siteUrl) {
             return $this->_siteUrl . '/authorize';
         }
+
         return $this->_authorizeUrl;
     }
 
     /**
      * Set request method
      *
-     * @param  string $method
+     * @param  string               $method
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid request methods
      */
@@ -588,6 +602,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
             throw new Zend_Oauth_Exception('Invalid method: ' . $method);
         }
         $this->_requestMethod = $method;
+
         return $this;
     }
 
@@ -610,6 +625,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     public function setRsaPublicKey(Zend_Crypt_Rsa_Key_Public $key)
     {
         $this->_rsaPublicKey = $key;
+
         return $this;
     }
 
@@ -632,6 +648,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     public function setRsaPrivateKey(Zend_Crypt_Rsa_Key_Private $key)
     {
         $this->_rsaPrivateKey = $key;
+
         return $this;
     }
 
@@ -648,12 +665,13 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set OAuth token
      *
-     * @param  Zend_Oauth_Token $token
+     * @param  Zend_Oauth_Token  $token
      * @return Zend_Oauth_Config
      */
     public function setToken(Zend_Oauth_Token $token)
     {
         $this->_token = $token;
+
         return $this;
     }
 
@@ -670,12 +688,13 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set OAuth realm
      *
-     * @param  string $realm
+     * @param  string            $realm
      * @return Zend_Oauth_Config
      */
     public function setRealm($realm)
     {
         $this->_realm = $realm;
+
         return $this;
     }
 

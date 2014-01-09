@@ -20,12 +20,10 @@
  * @version    $Id: Oci.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
-
 
 /**
  * Class for connecting to Oracle databases and performing common operations.
@@ -111,8 +109,8 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * but the Oracle OCI driver must use the same implementation as the
      * Zend_Db_Adapter_Abstract class.
      *
-     * @param string $value     Raw string
-     * @return string           Quoted string
+     * @param  string $value Raw string
+     * @return string Quoted string
      */
     protected function _quote($value)
     {
@@ -120,15 +118,16 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
             return $value;
         }
         $value = str_replace("'", "''", $value);
+
         return "'" . addcslashes($value, "\000\n\r\\\032") . "'";
     }
 
     /**
      * Quote a table identifier and alias.
      *
-     * @param string|array|Zend_Db_Expr $ident The identifier or expression.
-     * @param string $alias An alias for the table.
-     * @return string The quoted identifier and alias.
+     * @param  string|array|Zend_Db_Expr $ident The identifier or expression.
+     * @param  string                    $alias An alias for the table.
+     * @return string                    The quoted identifier and alias.
      */
     public function quoteTableAs($ident, $alias = null, $auto = false)
     {
@@ -144,6 +143,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     public function listTables()
     {
         $data = $this->fetchCol('SELECT table_name FROM all_tables');
+
         return $data;
     }
 
@@ -173,8 +173,8 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      *
      * @todo Discover integer unsigned property.
      *
-     * @param string $tableName
-     * @param string $schemaName OPTIONAL
+     * @param  string $tableName
+     * @param  string $schemaName OPTIONAL
      * @return array
      */
     public function describeTable($tableName, $schemaName = null)
@@ -268,6 +268,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
                 'IDENTITY'         => $identity
             );
         }
+
         return $desc;
     }
 
@@ -276,13 +277,14 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * This is supported only on RDBMS brands that support sequences
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
-     * @param string $sequenceName
+     * @param  string  $sequenceName
      * @return integer
      */
     public function lastSequenceId($sequenceName)
     {
         $this->_connect();
         $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName, true).'.CURRVAL FROM dual');
+
         return $value;
     }
 
@@ -291,13 +293,14 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * This is supported only on RDBMS brands that support sequences
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
-     * @param string $sequenceName
+     * @param  string  $sequenceName
      * @return integer
      */
     public function nextSequenceId($sequenceName)
     {
         $this->_connect();
         $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName, true).'.NEXTVAL FROM dual');
+
         return $value;
     }
 
@@ -314,8 +317,8 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * Oracle does not support IDENTITY columns, so if the sequence is not
      * specified, this method returns null.
      *
-     * @param string $tableName   OPTIONAL Name of table.
-     * @param string $primaryKey  OPTIONAL Name of primary key column.
+     * @param  string                           $tableName  OPTIONAL Name of table.
+     * @param  string                           $primaryKey OPTIONAL Name of primary key column.
      * @return string
      * @throws Zend_Db_Adapter_Oracle_Exception
      */
@@ -327,6 +330,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
                 $sequenceName .= $this->foldCase("_$primaryKey");
             }
             $sequenceName .= $this->foldCase('_seq');
+
             return $this->lastSequenceId($sequenceName);
         }
         // No support for IDENTITY columns; return null
@@ -336,9 +340,9 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
-     * @param string $sql
-     * @param integer $count
-     * @param integer $offset
+     * @param  string                    $sql
+     * @param  integer                   $count
+     * @param  integer                   $offset
      * @throws Zend_Db_Adapter_Exception
      * @return string
      */
@@ -372,6 +376,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
                 ) z1
             ) z2
             WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
+
         return $limit_sql;
     }
 

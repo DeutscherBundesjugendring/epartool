@@ -46,8 +46,8 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
     /**
      * Class Constructor
      *
-     * @param array|string|resource $streamOrUrl Stream or URL to open as a stream
-     * @param string|null $mode Mode, only applicable if a URL is given
+     * @param  array|string|resource $streamOrUrl Stream or URL to open as a stream
+     * @param  string|null           $mode        Mode, only applicable if a URL is given
      * @return void
      * @throws Zend_Log_Exception
      */
@@ -88,10 +88,10 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
     /**
      * Create a new instance of Zend_Log_Writer_Stream
      *
-     * @param  array|Zend_Config $config
+     * @param  array|Zend_Config      $config
      * @return Zend_Log_Writer_Stream
      */
-    static public function factory($config)
+    public static function factory($config)
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(
@@ -122,7 +122,7 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
     /**
      * Write a message to the log.
      *
-     * @param  array  $event  event data
+     * @param  array              $event event data
      * @return void
      * @throws Zend_Log_Exception
      */

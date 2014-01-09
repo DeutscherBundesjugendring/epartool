@@ -56,8 +56,8 @@ class Zend_Feed_Reader_Feed_Rss extends Zend_Feed_Reader_FeedAbstract
     /**
      * Constructor
      *
-     * @param  DOMDocument $dom
-     * @param  string $type
+     * @param DOMDocument $dom
+     * @param string      $type
      */
     public function __construct(DomDocument $dom, $type = null)
     {
@@ -81,7 +81,7 @@ class Zend_Feed_Reader_Feed_Rss extends Zend_Feed_Reader_FeedAbstract
     /**
      * Get a single author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function getAuthor($index = 0)
@@ -707,7 +707,7 @@ class Zend_Feed_Reader_Feed_Rss extends Zend_Feed_Reader_FeedAbstract
             $entries = $this->_xpath->evaluate('//rss:item');
         }
 
-        foreach($entries as $index=>$entry) {
+        foreach ($entries as $index=>$entry) {
             $this->_entries[$index] = $entry;
         }
     }

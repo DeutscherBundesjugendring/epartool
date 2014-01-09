@@ -19,7 +19,6 @@
  * @version    $Id: Table.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * PDF file reference table
  *
@@ -69,23 +68,20 @@ class Zend_Pdf_Element_Reference_Table
      */
     private $_usedObjects;
 
-
-
     /**
      * Object constructor
      */
-    public function  __construct()
+    public function __construct()
     {
         $this->_parent = null;
         $this->_free   = array();  $this->_generations = array();
         $this->_inuse  = array();  $this->_usedObjects = array();
     }
 
-
     /**
      * Add reference to the reference table
      *
-     * @param string $ref
+     * @param string  $ref
      * @param integer $offset
      * @param boolean $inuse
      */
@@ -96,8 +92,8 @@ class Zend_Pdf_Element_Reference_Table
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Incorrect reference: '$ref'");
         }
-        $objNum = (int)$refElements[0];
-        $genNum = (int)$refElements[1];
+        $objNum = (int) $refElements[0];
+        $genNum = (int) $refElements[1];
 
         if ($inuse) {
             $this->_inuse[$ref]          = $offset;
@@ -107,7 +103,6 @@ class Zend_Pdf_Element_Reference_Table
             $this->_generations[$objNum] = $genNum;
         }
     }
-
 
     /**
      * Set parent reference table
@@ -119,11 +114,10 @@ class Zend_Pdf_Element_Reference_Table
         $this->_parent = $parent;
     }
 
-
     /**
      * Get object offset
      *
-     * @param string $ref
+     * @param  string  $ref
      * @return integer
      */
     public function getOffset($ref)
@@ -143,11 +137,10 @@ class Zend_Pdf_Element_Reference_Table
         return null;
     }
 
-
     /**
      * Get next object from a list of free objects.
      *
-     * @param string $ref
+     * @param  string             $ref
      * @return integer
      * @throws Zend_Pdf_Exception
      */
@@ -170,11 +163,10 @@ class Zend_Pdf_Element_Reference_Table
         throw new Zend_Pdf_Exception('Object not found.');
     }
 
-
     /**
      * Get next generation number for free object
      *
-     * @param integer $objNum
+     * @param  integer $objNum
      * @return unknown
      */
     public function getNewGeneration($objNum)

@@ -76,18 +76,20 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     public function setEncoding($value)
     {
         $this->_encoding = (string) $value;
+
         return $this;
     }
 
     /**
      * Set the HTML tags surrounding all tags
      *
-     * @param  array $htmlTags
+     * @param  array                              $htmlTags
      * @return Zend_Tag_Cloud_Decorator_HtmlCloud
      */
     public function setHtmlTags(array $htmlTags)
     {
         $this->_htmlTags = $htmlTags;
+
         return $this;
     }
 
@@ -110,6 +112,7 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     public function setSeparator($separator)
     {
         $this->_separator = $separator;
+
         return $this;
     }
 
@@ -126,7 +129,7 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     /**
      * Defined by Zend_Tag_Cloud_Decorator_Cloud
      *
-     * @param  array $tags
+     * @param  array  $tags
      * @return string
      */
     public function render(array $tags)

@@ -100,9 +100,9 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
     }
 
     /**
-     * @param  Zend_Service_Ebay_Finding $proxy
-     * @param  integer                   $number
-     * @throws Zend_Service_Ebay_Finding_Exception When $number is invalid
+     * @param  Zend_Service_Ebay_Finding                $proxy
+     * @param  integer                                  $number
+     * @throws Zend_Service_Ebay_Finding_Exception      When $number is invalid
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     public function page(Zend_Service_Ebay_Finding $proxy, $number)
@@ -197,7 +197,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
     }
 
     /**
-     * @param  Zend_Service_Ebay_Finding $proxy
+     * @param  Zend_Service_Ebay_Finding                $proxy
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     public function pageFirst(Zend_Service_Ebay_Finding $proxy)
@@ -206,8 +206,8 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
     }
 
     /**
-     * @param  Zend_Service_Ebay_Finding $proxy
-     * @param  integer                   $max
+     * @param  Zend_Service_Ebay_Finding                $proxy
+     * @param  integer                                  $max
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     public function pageLast(Zend_Service_Ebay_Finding $proxy, $max = self::PAGE_MAX_DEFAULT)
@@ -216,12 +216,13 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         if ($max > 0 && $last > $max) {
             $last = $max;
         }
+
         return $this->page($proxy, $last);
     }
 
     /**
-     * @param  Zend_Service_Ebay_Finding $proxy
-     * @param  integer                   $max
+     * @param  Zend_Service_Ebay_Finding                $proxy
+     * @param  integer                                  $max
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     public function pageNext(Zend_Service_Ebay_Finding $proxy, $max = self::PAGE_MAX_DEFAULT)
@@ -231,11 +232,12 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         if (($max > 0 && $next > $max) || $next > $last) {
             return null;
         }
+
         return $this->page($proxy, $next);
     }
 
     /**
-     * @param  Zend_Service_Ebay_Finding $proxy
+     * @param  Zend_Service_Ebay_Finding                $proxy
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     public function pagePrevious(Zend_Service_Ebay_Finding $proxy)
@@ -244,6 +246,7 @@ class Zend_Service_Ebay_Finding_Response_Items extends Zend_Service_Ebay_Finding
         if ($previous < 1) {
             return null;
         }
+
         return $this->page($proxy, $previous);
     }
 }

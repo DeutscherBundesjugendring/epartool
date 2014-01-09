@@ -24,7 +24,7 @@
 /**
  * @see Zend_Gdata_Photos_UserQuery
  */
-require_once('Zend/Gdata/Photos/UserQuery.php');
+require_once 'Zend/Gdata/Photos/UserQuery.php';
 
 /**
  * Assists in constructing album queries for various entries.
@@ -123,7 +123,7 @@ class Zend_Gdata_Photos_AlbumQuery extends Zend_Gdata_Photos_UserQuery
      * Returns the URL generated for this query, based on it's current
      * parameters.
      *
-     * @return string A URL generated based on the state of this query.
+     * @return string                                  A URL generated based on the state of this query.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getQueryUrl($incomingUri = '')
@@ -143,6 +143,7 @@ class Zend_Gdata_Photos_AlbumQuery extends Zend_Gdata_Photos_UserQuery
                     'AlbumName and AlbumId cannot both be null');
         }
         $uri .= $incomingUri;
+
         return parent::getQueryUrl($uri);
     }
 

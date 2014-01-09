@@ -67,7 +67,7 @@ class Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc
     {
         // Can't test for this
         // @codeCoverageIgnoreStart
-        if(!extension_loaded('mcrypt')) {
+        if (!extension_loaded('mcrypt')) {
             require_once 'Zend/InfoCard/Cipher/Exception.php';
             throw new Zend_InfoCard_Cipher_Exception("Use of the AES256CBC Cipher requires the mcrypt extension");
         }
@@ -78,10 +78,10 @@ class Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc
      * Decrypts data using the AES Algorithm using the mCrypt extension
      *
      * @throws Zend_InfoCard_Cipher_Exception
-     * @param string $encryptedData The encrypted data in binary format
-     * @param string $decryptionKey The decryption key
-     * @param integer $iv_length The IV length to use
-     * @return string the decrypted data with any terminating nulls removed
+     * @param  string                         $encryptedData The encrypted data in binary format
+     * @param  string                         $decryptionKey The decryption key
+     * @param  integer                        $iv_length     The IV length to use
+     * @return string                         the decrypted data with any terminating nulls removed
      */
     public function decrypt($encryptedData, $decryptionKey, $iv_length = null)
     {
@@ -90,14 +90,14 @@ class Zend_InfoCard_Cipher_Symmetric_Adapter_Aes256cbc
 
         $mcrypt_iv = null;
 
-        if($iv_length > 0) {
+        if ($iv_length > 0) {
              $mcrypt_iv = substr($encryptedData, 0, $iv_length);
             $encryptedData = substr($encryptedData, $iv_length);
         }
 
         $decrypted = mcrypt_decrypt(self::MCRYPT_CIPHER, $decryptionKey, $encryptedData, self::MCRYPT_MODE, $mcrypt_iv);
 
-        if(!$decrypted) {
+        if (!$decrypted) {
             require_once 'Zend/InfoCard/Cipher/Exception.php';
             throw new Zend_InfoCard_Cipher_Exception("Failed to decrypt data using AES256CBC Algorithm");
         }

@@ -95,6 +95,7 @@ class Zend_Tool_Project_Context_System_ProjectDirectory
         }
 
         $this->_baseDirectory = rtrim($projectDirectory, '\\/');
+
         return $this;
     }
 
@@ -122,6 +123,7 @@ class Zend_Tool_Project_Context_System_ProjectDirectory
         }
 
         parent::create();
+
         return $this;
     }
 

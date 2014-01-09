@@ -65,7 +65,8 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
      */
     protected $_request;
 
-    public function getVersion() {
+    public function getVersion()
+    {
         return 1;
     }
 
@@ -86,9 +87,9 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
     /**
      * Constructor
      *
-     * @param array $defaults Defaults for map variables with keys as variable names
+     * @param array                                $defaults   Defaults for map variables with keys as variable names
      * @param Zend_Controller_Dispatcher_Interface $dispatcher Dispatcher object
-     * @param Zend_Controller_Request_Abstract $request Request object
+     * @param Zend_Controller_Request_Abstract     $request    Request object
      */
     public function __construct(array $defaults = array(),
                 Zend_Controller_Dispatcher_Interface $dispatcher = null,
@@ -137,8 +138,8 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
      * setControllerName(), and setActionName() accessors to set those values.
      * Always returns the values as an array.
      *
-     * @param string $path Path used to match against this routing map
-     * @return array An array of assigned values or a false on a mismatch
+     * @param  string $path Path used to match against this routing map
+     * @return array  An array of assigned values or a false on a mismatch
      */
     public function match($path, $partial = false)
     {
@@ -190,8 +191,8 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
     /**
      * Assembles user submitted parameters forming a URL path defined by this route
      *
-     * @param array $data An array of variable and value pairs used as parameters
-     * @param bool $reset Weither to reset the current params
+     * @param  array  $data  An array of variable and value pairs used as parameters
+     * @param  bool   $reset Weither to reset the current params
      * @return string Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false, $encode = true, $partial = false)
@@ -263,10 +264,11 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
     /**
      * Return a single parameter of route's defaults
      *
-     * @param string $name Array key of the parameter
+     * @param  string $name Array key of the parameter
      * @return string Previously set default
      */
-    public function getDefault($name) {
+    public function getDefault($name)
+    {
         if (isset($this->_defaults[$name])) {
             return $this->_defaults[$name];
         }
@@ -277,7 +279,8 @@ class Zend_Controller_Router_Route_Module extends Zend_Controller_Router_Route_A
      *
      * @return array Route defaults
      */
-    public function getDefaults() {
+    public function getDefaults()
+    {
         return $this->_defaults;
     }
 

@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Set the states of optional content groups' action
  * PDF 1.5+ feature
@@ -36,4 +35,3 @@ require_once 'Zend/Pdf/Action.php';
 class Zend_Pdf_Action_SetOCGState extends Zend_Pdf_Action
 {
 }
-

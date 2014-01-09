@@ -43,7 +43,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
     /**
      * Constructor
      *
-     * @param  string|array|Zend_Config $spec Element name or configuration
+     * @param  string|array|Zend_Config $spec    Element name or configuration
      * @param  string|array|Zend_Config $options Element value or configuration
      * @return void
      */
@@ -122,6 +122,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
                  ->addDecorator('ViewHelper')
                  ->addDecorator('DtDdWrapper');
         }
+
         return $this;
     }
 }

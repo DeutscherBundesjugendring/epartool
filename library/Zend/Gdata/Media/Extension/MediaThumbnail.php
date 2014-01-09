@@ -65,8 +65,8 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
      * Constructs a new MediaThumbnail element
      *
      * @param string $url
-     * @param int $width
-     * @param int $height
+     * @param int    $width
+     * @param int    $height
      * @param string $time
      */
     public function __construct($url = null, $width = null, $height = null,
@@ -86,8 +86,8 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -105,6 +105,7 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
         if ($this->_time !== null) {
             $element->setAttribute('time', $this->_time);
         }
+
         return $element;
     }
 
@@ -144,12 +145,13 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
     }
 
     /**
-     * @param string $value
+     * @param  string                                    $value
      * @return Zend_Gdata_Media_Extension_MediaThumbnail Provides a fluent interface
      */
     public function setUrl($value)
     {
         $this->_url = $value;
+
         return $this;
     }
 
@@ -162,12 +164,13 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
     }
 
     /**
-     * @param int $value
+     * @param  int                                       $value
      * @return Zend_Gdata_Media_Extension_MediaThumbnail Provides a fluent interface
      */
     public function setWidth($value)
     {
         $this->_width = $value;
+
         return $this;
     }
 
@@ -180,12 +183,13 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
     }
 
     /**
-     * @param int $value
+     * @param  int                                       $value
      * @return Zend_Gdata_Media_Extension_MediaThumbnail Provides a fluent interface
      */
     public function setHeight($value)
     {
         $this->_height = $value;
+
         return $this;
     }
 
@@ -198,12 +202,13 @@ class Zend_Gdata_Media_Extension_MediaThumbnail extends Zend_Gdata_Extension
     }
 
     /**
-     * @param string $value
+     * @param  string                                    $value
      * @return Zend_Gdata_Media_Extension_MediaThumbnail Provides a fluent interface
      */
     public function setTime($value)
     {
         $this->_time = $value;
+
         return $this;
     }
 

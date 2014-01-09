@@ -67,8 +67,8 @@ interface Zend_Server_Interface
     /**
      * Generate a server fault
      *
-     * @param mixed $fault
-     * @param int $code
+     * @param  mixed $fault
+     * @param  int   $code
      * @return mixed
      */
     public function fault($fault = null, $code = 404);
@@ -80,7 +80,7 @@ interface Zend_Server_Interface
      * request based on defaults. Dispatches server request to appropriate
      * method and returns a response
      *
-     * @param mixed $request
+     * @param  mixed $request
      * @return mixed
      */
     public function handle($request = false);
@@ -102,7 +102,7 @@ interface Zend_Server_Interface
      *
      * Used for persistence; loads a construct as returned by {@link getFunctions()}.
      *
-     * @param array $array
+     * @param  array $array
      * @return void
      */
     public function loadFunctions($definition);
@@ -111,7 +111,7 @@ interface Zend_Server_Interface
      * Set server persistence
      *
      * @todo Determine how to implement this
-     * @param int $mode
+     * @param  int  $mode
      * @return void
      */
     public function setPersistence($mode);

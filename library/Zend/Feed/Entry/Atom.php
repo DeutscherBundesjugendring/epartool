@@ -20,12 +20,10 @@
  * @version    $Id: Atom.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Feed_Entry_Abstract
  */
 require_once 'Zend/Feed/Entry/Abstract.php';
-
 
 /**
  * Concrete class for working with Atom entries.
@@ -55,7 +53,6 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
      * @var string
      */
     protected $_rootNamespace = 'atom';
-
 
     /**
      * Delete an atom entry.
@@ -113,7 +110,6 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
         } while (true);
     }
 
-
     /**
      * Save a new or updated Atom entry.
      *
@@ -130,7 +126,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
      * the server has generated: an id, an updated time, and its new
      * link rel="edit".
      *
-     * @param  string $postUri Location to POST for creating new entries.
+     * @param  string              $postUri Location to POST for creating new entries.
      * @return void
      * @throws Zend_Feed_Exception
      */
@@ -232,7 +228,6 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             $this->_element = $newEntry;
         }
     }
-
 
     /**
      * Easy access to <link> tags keyed by "rel" attributes.

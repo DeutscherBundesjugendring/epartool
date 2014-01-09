@@ -61,7 +61,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
     /**
      * Get the specified author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function getAuthor($index = 0)
@@ -114,6 +114,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
         }
 
         $this->_data['authors'] = $authors;
+
         return $this->_data['authors'];
     }
 
@@ -131,7 +132,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
         $content = null;
 
         $el = $this->getXpath()->query($this->getXpathPrefix() . '/atom:content');
-        if($el->length > 0) {
+        if ($el->length > 0) {
             $el = $el->item(0);
             $type = $el->getAttribute('type');
             switch ($type) {
@@ -184,6 +185,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
         if (!empty($prefix)) {
             $xhtml = preg_replace("/(<[\/]?)" . $prefix . "([a-zA-Z]+)/", '$1$2', $xhtml);
         }
+
         return $xhtml;
     }
 
@@ -353,7 +355,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
     /**
      * Get a specific link
      *
-     * @param  int $index
+     * @param  int    $index
      * @return string
      */
     public function getLink($index = 0)
@@ -574,6 +576,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
         }
 
         $this->_data['source'] = $source;
+
         return $this->_data['source'];
     }
 
@@ -591,13 +594,14 @@ class Zend_Feed_Reader_Extension_Atom_Entry
                 }
             }
         }
+
         return $link;
     }
 
     /**
      * Get an author entry
      *
-     * @param DOMElement $element
+     * @param  DOMElement $element
      * @return string
      */
     protected function _getAuthor(DOMElement $element)
@@ -623,6 +627,7 @@ class Zend_Feed_Reader_Extension_Atom_Entry
         if (empty($author)) {
             return null;
         }
+
         return $author;
     }
 

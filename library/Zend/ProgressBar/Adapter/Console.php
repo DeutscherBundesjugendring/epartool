@@ -182,7 +182,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set a different output-stream
      *
-     * @param  string $resource
+     * @param  string                           $resource
      * @return Zend_ProgressBar_Adapter_Console
      */
     public function setOutputStream($resource)
@@ -222,7 +222,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the width of the progressbar
      *
-     * @param  integer $width
+     * @param  integer                          $width
      * @return Zend_ProgressBar_Adapter_Console
      */
     public function setWidth($width = null)
@@ -241,7 +241,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
                 // Try to determine the width through stty
                 if (preg_match('#\d+ (\d+)#', @shell_exec('stty size'), $match) === 1) {
                     $this->_width = (int) $match[1];
-                } else if (preg_match('#columns = (\d+);#', @shell_exec('stty'), $match) === 1) {
+                } elseif (preg_match('#columns = (\d+);#', @shell_exec('stty'), $match) === 1) {
                     $this->_width = (int) $match[1];
                 }
             }
@@ -257,7 +257,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the elements to display with the progressbar
      *
-     * @param  array $elements
+     * @param  array                              $elements
      * @throws Zend_ProgressBar_Adapter_Exception When an invalid element is foudn in the array
      * @return Zend_ProgressBar_Adapter_Console
      */
@@ -283,7 +283,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the left-hand character for the bar
      *
-     * @param  string $char
+     * @param  string                             $char
      * @throws Zend_ProgressBar_Adapter_Exception When character is empty
      * @return Zend_ProgressBar_Adapter_Console
      */
@@ -302,7 +302,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the right-hand character for the bar
      *
-     * @param  string $char
+     * @param  string                             $char
      * @throws Zend_ProgressBar_Adapter_Exception When character is empty
      * @return Zend_ProgressBar_Adapter_Console
      */
@@ -321,7 +321,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the indicator character for the bar
      *
-     * @param  string $char
+     * @param  string                           $char
      * @return Zend_ProgressBar_Adapter_Console
      */
     public function setBarIndicatorChar($char)
@@ -334,7 +334,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the width of the text element
      *
-     * @param  integer $width
+     * @param  integer                          $width
      * @return Zend_ProgressBar_Adapter_Console
      */
     public function setTextWidth($width)
@@ -359,7 +359,7 @@ class Zend_ProgressBar_Adapter_Console extends Zend_ProgressBar_Adapter
     /**
      * Set the finish action
      *
-     * @param  string $action
+     * @param  string                             $action
      * @throws Zend_ProgressBar_Adapter_Exception When an invalid action is specified
      * @return Zend_ProgressBar_Adapter_Console
      */

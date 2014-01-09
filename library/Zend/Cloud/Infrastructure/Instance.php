@@ -15,7 +15,7 @@
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cloud_Infrastructure_Instance 
+class Zend_Cloud_Infrastructure_Instance
 {
     const STATUS_RUNNING       = 'running';
     const STATUS_STOPPED       = 'stopped';
@@ -56,15 +56,15 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Instance's attribute
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $attributes;
 
     /**
      * Attributes required for an instance
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $attributeRequired = array(
         self::INSTANCE_ID,
@@ -75,9 +75,9 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Constructor
-     * 
+     *
      * @param  Adapter $adapter
-     * @param  array $data 
+     * @param  array   $data
      * @return void
      */
     public function __construct($adapter, $data = null)
@@ -94,7 +94,7 @@ class Zend_Cloud_Infrastructure_Instance
                 $data = iterator_to_array($data);
             }
         }
-        
+
         if (empty($data) || !is_array($data)) {
             require_once 'Zend/Cloud/Infrastructure/Exception.php';
             throw new Zend_Cloud_Infrastructure_Exception("You must pass an array of parameters");
@@ -104,7 +104,7 @@ class Zend_Cloud_Infrastructure_Instance
             if (empty($data[$key])) {
                 require_once 'Zend/Cloud/Infrastructure/Exception.php';
                 throw new Zend_Cloud_Infrastructure_Exception(sprintf(
-                    'The param "%s" is a required param for %s', 
+                    'The param "%s" is a required param for %s',
                     $key,
                     __CLASS__
                 ));
@@ -118,20 +118,21 @@ class Zend_Cloud_Infrastructure_Instance
     /**
      * Get Attribute with a specific key
      *
-     * @param array $data
+     * @param  array      $data
      * @return misc|false
      */
-    public function getAttribute($key) 
+    public function getAttribute($key)
     {
         if (!empty($this->attributes[$key])) {
             return $this->attributes[$key];
         }
+
         return false;
     }
 
     /**
      * Get all the attributes
-     * 
+     *
      * @return array
      */
     public function getAttributes()
@@ -141,8 +142,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getId()
     {
@@ -151,8 +152,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's image id
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getImageId()
     {
@@ -161,8 +162,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's name
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getName()
     {
@@ -171,8 +172,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the status of the instance
-     * 
-     * @return string|boolean 
+     *
+     * @return string|boolean
      */
     public function getStatus()
     {
@@ -181,9 +182,9 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Wait for status $status with a timeout of $timeout seconds
-     * 
-     * @param  string $status
-     * @param  integer $timeout 
+     *
+     * @param  string  $status
+     * @param  integer $timeout
      * @return boolean
      */
     public function waitStatus($status, $timeout = Adapter::TIMEOUT_STATUS_CHANGE)
@@ -193,20 +194,21 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the public DNS of the instance
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getPublicDns()
     {
         if (!isset($this->attributes[self::INSTANCE_PUBLICDNS])) {
             $this->attributes[self::INSTANCE_PUBLICDNS] =  $this->adapter->publicDnsInstance($this->attributes[self::INSTANCE_ID]);
         }
+
         return $this->attributes[self::INSTANCE_PUBLICDNS];
     }
 
     /**
      * Get the instance's CPU
-     * 
+     *
      * @return string
      */
     public function getCpu()
@@ -216,7 +218,7 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's RAM size
-     * 
+     *
      * @return string
      */
     public function getRamSize()
@@ -226,7 +228,7 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's storage size
-     * 
+     *
      * @return string
      */
     public function getStorageSize()
@@ -236,8 +238,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's zone
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getZone()
     {
@@ -246,7 +248,7 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Get the instance's launch time
-     * 
+     *
      * @return string
      */
     public function getLaunchTime()
@@ -256,8 +258,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Reboot the instance
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function reboot()
     {
@@ -266,8 +268,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Stop the instance
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function stop()
     {
@@ -276,8 +278,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Start the instance
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function start()
     {
@@ -286,8 +288,8 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Destroy the instance
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function destroy()
     {
@@ -296,11 +298,11 @@ class Zend_Cloud_Infrastructure_Instance
 
     /**
      * Return the system informations about the $metric of an instance
-     * 
-     * @param  string $metric
-     * @param  null|array $options
+     *
+     * @param  string        $metric
+     * @param  null|array    $options
      * @return array|boolean
-     */ 
+     */
     public function monitor($metric, $options = null)
     {
         return $this->adapter->monitorInstance($this->attributes[self::INSTANCE_ID], $metric, $options);
@@ -309,7 +311,7 @@ class Zend_Cloud_Infrastructure_Instance
     /**
      * Run arbitrary shell script on the instance
      *
-     * @param  array $param
+     * @param  array        $param
      * @param  string|array $cmd
      * @return string|array
      */

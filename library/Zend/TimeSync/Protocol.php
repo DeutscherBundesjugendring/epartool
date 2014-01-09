@@ -119,7 +119,7 @@ abstract class Zend_TimeSync_Protocol
     /**
      * Return information sent/returned from the timeserver
      *
-     * @return  array
+     * @return array
      */
     public function getInfo()
     {
@@ -143,6 +143,7 @@ abstract class Zend_TimeSync_Protocol
         $timestamp = $this->_extract($this->_read());
 
         $date = new Zend_Date($this, null, $locale);
+
         return $date;
     }
 }

@@ -71,12 +71,13 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      * Set a subscription key to use for the current callback request manually.
      * Required if usePathParameter is enabled for the Subscriber.
      *
-     * @param  string $key
+     * @param  string                                     $key
      * @return Zend_Feed_Pubsubhubbub_Subscriber_Callback
      */
     public function setSubscriptionKey($key)
     {
         $this->_subscriptionKey = $key;
+
         return $this;
     }
 
@@ -85,8 +86,8 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      * unsubscription request. This should be the Hub Server confirming the
      * the request prior to taking action on it.
      *
-     * @param  array $httpGetData GET data if available and not in $_GET
-     * @param  bool $sendResponseNow Whether to send response now or when asked
+     * @param  array $httpGetData     GET data if available and not in $_GET
+     * @param  bool  $sendResponseNow Whether to send response now or when asked
      * @return void
      */
     public function handle(array $httpGetData = null, $sendResponseNow = false)
@@ -186,6 +187,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
         if (!$this->_hasValidVerifyToken($httpGetData)) {
             return false;
         }
+
         return true;
     }
 
@@ -193,12 +195,13 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      * Sets a newly received feed (Atom/RSS) sent by a Hub as an update to a
      * Topic we've subscribed to.
      *
-     * @param  string $feed
+     * @param  string                                     $feed
      * @return Zend_Feed_Pubsubhubbub_Subscriber_Callback
      */
     public function setFeedUpdate($feed)
     {
         $this->_feedUpdate = $feed;
+
         return $this;
     }
 
@@ -212,6 +215,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
         if ($this->_feedUpdate === null) {
             return false;
         }
+
         return true;
     }
 
@@ -231,7 +235,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      * with that sent from Hub, otherwise merely ascertains its existence.
      *
      * @param  array $httpGetData
-     * @param  bool $checkValue
+     * @param  bool  $checkValue
      * @return bool
      */
     protected function _hasValidVerifyToken(array $httpGetData = null, $checkValue = true)
@@ -251,8 +255,10 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
                 return false;
             }
             $this->_currentSubscriptionData = $data;
+
             return true;
         }
+
         return true;
     }
 
@@ -261,7 +267,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
      * the Callback URL (which we are handling with this class!) as a URI
      * path part (the last part by convention).
      *
-     * @param  null|array $httpGetData
+     * @param  null|array   $httpGetData
      * @return false|string
      */
     protected function _detectVerifyTokenKey(array $httpGetData = null)
@@ -325,6 +331,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
                 $params[$key] = $value;
             }
         }
+
         return $params;
     }
 }

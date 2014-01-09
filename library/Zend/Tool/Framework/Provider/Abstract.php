@@ -30,7 +30,6 @@ require_once 'Zend/Tool/Framework/Provider/Interface.php';
  */
 require_once 'Zend/Tool/Framework/Registry/EnabledInterface.php';
 
-
 /**
  * This is a convenience class.
  *
@@ -55,14 +54,14 @@ abstract class Zend_Tool_Framework_Provider_Abstract
     /**
      * setRegistry() - required by Zend_Tool_Framework_Registry_EnabledInterface
      *
-     * @param Zend_Tool_Framework_Registry_Interface $registry
+     * @param  Zend_Tool_Framework_Registry_Interface $registry
      * @return Zend_Tool_Framework_Provider_Abstract
      */
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
-
 
 }

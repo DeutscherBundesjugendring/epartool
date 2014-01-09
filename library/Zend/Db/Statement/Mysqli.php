@@ -20,12 +20,10 @@
  * @version    $Id: Mysqli.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Db_Statement
  */
 require_once 'Zend/Db/Statement.php';
-
 
 /**
  * Extends for Mysqli
@@ -59,7 +57,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     protected $_meta = null;
 
     /**
-     * @param  string $sql
+     * @param  string                             $sql
      * @return void
      * @throws Zend_Db_Statement_Mysqli_Exception
      */
@@ -81,11 +79,11 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     /**
      * Binds a parameter to the specified variable name.
      *
-     * @param mixed $parameter Name the parameter, either integer or string.
-     * @param mixed $variable  Reference to PHP variable containing the value.
-     * @param mixed $type      OPTIONAL Datatype of SQL parameter.
-     * @param mixed $length    OPTIONAL Length of SQL parameter.
-     * @param mixed $options   OPTIONAL Other options.
+     * @param  mixed                              $parameter Name the parameter, either integer or string.
+     * @param  mixed                              $variable  Reference to PHP variable containing the value.
+     * @param  mixed                              $type      OPTIONAL Datatype of SQL parameter.
+     * @param  mixed                              $length    OPTIONAL Length of SQL parameter.
+     * @param  mixed                              $options   OPTIONAL Other options.
      * @return bool
      * @throws Zend_Db_Statement_Mysqli_Exception
      */
@@ -104,8 +102,10 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         if ($this->_stmt) {
             $r = $this->_stmt->close();
             $this->_stmt = null;
+
             return $r;
         }
+
         return false;
     }
 
@@ -122,8 +122,10 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                 $mysqli->next_result();
             }
             $this->_stmt->free_result();
+
             return $this->_stmt->reset();
         }
+
         return false;
     }
 
@@ -138,6 +140,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         if (isset($this->_meta) && $this->_meta) {
             return $this->_meta->field_count;
         }
+
         return 0;
     }
 
@@ -152,6 +155,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
+
         return substr($this->_stmt->sqlstate, 0, 5);
     }
 
@@ -166,6 +170,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
+
         return array(
             substr($this->_stmt->sqlstate, 0, 5),
             $this->_stmt->errno,
@@ -176,7 +181,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     /**
      * Executes a prepared statement.
      *
-     * @param array $params OPTIONAL Values to bind to parameter placeholders.
+     * @param  array                              $params OPTIONAL Values to bind to parameter placeholders.
      * @return bool
      * @throws Zend_Db_Statement_Mysqli_Exception
      */
@@ -213,7 +218,6 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             require_once 'Zend/Db/Statement/Mysqli/Exception.php';
             throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement execute error : " . $this->_stmt->error, $this->_stmt->errno);
         }
-
 
         // retain metadata
         if ($this->_meta === null) {
@@ -254,6 +258,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                 $this->_values
             );
         }
+
         return $retval;
     }
 
@@ -261,10 +266,10 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     /**
      * Fetches a row from the result set.
      *
-     * @param int $style  OPTIONAL Fetch mode for this fetch operation.
-     * @param int $cursor OPTIONAL Absolute, relative, or other.
-     * @param int $offset OPTIONAL Number for absolute or relative cursors.
-     * @return mixed Array, object, or scalar depending on fetch mode.
+     * @param  int                                $style  OPTIONAL Fetch mode for this fetch operation.
+     * @param  int                                $cursor OPTIONAL Absolute, relative, or other.
+     * @param  int                                $offset OPTIONAL Number for absolute or relative cursors.
+     * @return mixed                              Array, object, or scalar depending on fetch mode.
      * @throws Zend_Db_Statement_Mysqli_Exception
      */
     public function fetch($style = null, $cursor = null, $offset = null)
@@ -278,6 +283,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             case null: // end of data
             case false: // error occurred
                 $this->_stmt->reset();
+
                 return false;
             default:
                 // fallthrough
@@ -313,6 +319,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             case Zend_Db::FETCH_BOUND:
                 $assoc = array_combine($this->_keys, $values);
                 $row = array_merge($values, $assoc);
+
                 return $this->_fetchBound($row);
                 break;
             default:
@@ -323,6 +330,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                 throw new Zend_Db_Statement_Mysqli_Exception("Invalid fetch mode '$style' specified");
                 break;
         }
+
         return $row;
     }
 
@@ -348,7 +356,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
      * last INSERT, DELETE, or UPDATE statement executed by this
      * statement object.
      *
-     * @return int     The number of rows affected.
+     * @return int The number of rows affected.
      */
     public function rowCount()
     {
@@ -356,6 +364,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             return false;
         }
         $mysqli = $this->_adapter->getConnection();
+
         return $mysqli->affected_rows;
     }
 

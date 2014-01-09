@@ -89,6 +89,7 @@ abstract class Zend_Ldap_Filter_Logical extends Zend_Ldap_Filter_Abstract
     {
         $new = clone $this;
         $new->_subfilters[] = $filter;
+
         return $new;
     }
 
@@ -102,6 +103,7 @@ abstract class Zend_Ldap_Filter_Logical extends Zend_Ldap_Filter_Abstract
         $return = '(' . $this->_symbol;
         foreach ($this->_subfilters as $sub) $return .= $sub->toString();
         $return .= ')';
+
         return $return;
     }
 }

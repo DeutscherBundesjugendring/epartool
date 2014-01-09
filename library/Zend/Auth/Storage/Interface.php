@@ -50,7 +50,7 @@ interface Zend_Auth_Storage_Interface
     /**
      * Writes $contents to storage
      *
-     * @param  mixed $contents
+     * @param  mixed                       $contents
      * @throws Zend_Auth_Storage_Exception If writing $contents to storage is impossible
      * @return void
      */

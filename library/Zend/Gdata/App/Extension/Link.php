@@ -79,6 +79,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
         if ($this->_length !== null) {
             $element->setAttribute('length', $this->_length);
         }
+
         return $element;
     }
 
@@ -117,12 +118,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setHref($value)
     {
         $this->_href = $value;
+
         return $this;
     }
 
@@ -135,12 +137,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setRel($value)
     {
         $this->_rel = $value;
+
         return $this;
     }
 
@@ -153,12 +156,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setType($value)
     {
         $this->_type = $value;
+
         return $this;
     }
 
@@ -171,12 +175,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setHrefLang($value)
     {
         $this->_hrefLang = $value;
+
         return $this;
     }
 
@@ -189,12 +194,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setTitle($value)
     {
         $this->_title = $value;
+
         return $this;
     }
 
@@ -207,12 +213,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param string|null $value
+     * @param  string|null          $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setLength($value)
     {
         $this->_length = $value;
+
         return $this;
     }
 

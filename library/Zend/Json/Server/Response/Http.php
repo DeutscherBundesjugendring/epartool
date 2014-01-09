@@ -66,6 +66,7 @@ class Zend_Json_Server_Response_Http extends Zend_Json_Server_Response
 
         if (!$this->isError() && (null === $this->getId())) {
             header('HTTP/1.1 204 No Content');
+
             return;
         }
 

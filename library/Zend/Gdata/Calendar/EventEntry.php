@@ -86,6 +86,7 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
         if ($this->_quickadd != null) {
             $element->appendChild($this->_quickadd->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -128,6 +129,7 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
     public function setSendEventNotifications($value)
     {
         $this->_sendEventNotifications = $value;
+
         return $this;
     }
 
@@ -137,12 +139,13 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
     }
 
     /**
-     * @param Zend_Gdata_Calendar_Extension_Timezone $value
-     * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
+     * @param  Zend_Gdata_Calendar_Extension_Timezone $value
+     * @return Zend_Gdata_Extension_EventEntry        Provides a fluent interface
      */
     public function setTimezone($value)
     {
         $this->_timezone = $value;
+
         return $this;
     }
 
@@ -152,12 +155,13 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
     }
 
     /**
-     * @param Zend_Gdata_Calendar_Extension_QuickAdd $value
-     * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
+     * @param  Zend_Gdata_Calendar_Extension_QuickAdd $value
+     * @return Zend_Gdata_Extension_ListEntry         Provides a fluent interface
      */
     public function setQuickAdd($value)
     {
         $this->_quickadd = $value;
+
         return $this;
     }
 

@@ -40,11 +40,11 @@ abstract class Zend_Log_Filter_Abstract
     /**
      * Validate and optionally convert the config to array
      *
-     * @param  array|Zend_Config $config Zend_Config or Array
+     * @param  array|Zend_Config  $config Zend_Config or Array
      * @return array
      * @throws Zend_Log_Exception
      */
-    static protected function _parseConfig($config)
+    protected static function _parseConfig($config)
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();

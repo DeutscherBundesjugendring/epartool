@@ -43,7 +43,7 @@ class Zend_Log_Formatter_Simple extends Zend_Log_Formatter_Abstract
     /**
      * Class constructor
      *
-     * @param  null|string  $format  Format specifier for log messages
+     * @param  null|string        $format Format specifier for log messages
      * @return void
      * @throws Zend_Log_Exception
      */
@@ -62,10 +62,10 @@ class Zend_Log_Formatter_Simple extends Zend_Log_Formatter_Abstract
     }
 
     /**
-	 * Factory for Zend_Log_Formatter_Simple classe
-	 *
-	 * @param array|Zend_Config $options
-	 * @return Zend_Log_Formatter_Simple
+     * Factory for Zend_Log_Formatter_Simple classe
+     *
+     * @param  array|Zend_Config         $options
+     * @return Zend_Log_Formatter_Simple
      */
     public static function factory($options)
     {
@@ -86,8 +86,8 @@ class Zend_Log_Formatter_Simple extends Zend_Log_Formatter_Abstract
     /**
      * Formats data into a single line to be written by the writer.
      *
-     * @param  array    $event    event data
-     * @return string             formatted line to write to the log
+     * @param  array  $event event data
+     * @return string formatted line to write to the log
      */
     public function format($event)
     {

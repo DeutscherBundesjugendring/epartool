@@ -43,7 +43,7 @@ class Zend_Crypt_Rsa_Key_Private extends Zend_Crypt_Rsa_Key
     }
 
     /**
-     * @param string $passPhrase
+     * @param  string               $passPhrase
      * @throws Zend_Crypt_Exception
      */
     protected function _parse($passPhrase)
@@ -69,6 +69,7 @@ class Zend_Crypt_Rsa_Key_Private extends Zend_Crypt_Rsa_Key
             require_once 'Zend/Crypt/Rsa/Key/Public.php';
             $this->_publicKey = new Zend_Crypt_Rsa_Key_Public($this->_details['key']);
         }
+
         return $this->_publicKey;
     }
 

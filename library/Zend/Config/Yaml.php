@@ -93,7 +93,7 @@ class Zend_Config_Yaml extends Zend_Config
     /**
      * Set callback for decoding YAML
      *
-     * @param  callable $yamlDecoder the decoder to set
+     * @param  callable         $yamlDecoder the decoder to set
      * @return Zend_Config_Yaml
      */
     public function setYamlDecoder($yamlDecoder)
@@ -104,6 +104,7 @@ class Zend_Config_Yaml extends Zend_Config
         }
 
         $this->_yamlDecoder = $yamlDecoder;
+
         return $this;
     }
 
@@ -124,9 +125,9 @@ class Zend_Config_Yaml extends Zend_Config
      * - skip_extends: whether or not to skip processing of parent configuration
      * - yaml_decoder: a callback to use to decode the Yaml source
      *
-     * @param  string        $yaml     YAML file to process
-     * @param  mixed         $section  Section to process
-     * @param  array|boolean $options
+     * @param string        $yaml    YAML file to process
+     * @param mixed         $section Section to process
+     * @param array|boolean $options
      */
     public function __construct($yaml, $section = null, $options = false)
     {
@@ -202,8 +203,8 @@ class Zend_Config_Yaml extends Zend_Config
                 if (!isset($config[$sectionName])) {
                     require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception(sprintf(
-                        'Section "%s" cannot be found', 
-                        implode(' ', (array)$section)
+                        'Section "%s" cannot be found',
+                        implode(' ', (array) $section)
                     ));
                 }
 
@@ -214,8 +215,8 @@ class Zend_Config_Yaml extends Zend_Config
             if (!isset($config[$section])) {
                 require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception(sprintf(
-                    'Section "%s" cannot be found', 
-                    implode(' ', (array)$section)
+                    'Section "%s" cannot be found',
+                    implode(' ', (array) $section)
                 ));
             }
 
@@ -234,9 +235,9 @@ class Zend_Config_Yaml extends Zend_Config
      * Helper function to process each element in the section and handle
      * the "_extends" inheritance attribute.
      *
-     * @param  array            $data Data array to process
-     * @param  string           $section Section to process
-     * @param  array            $config  Configuration which was parsed yet
+     * @param  array                 $data    Data array to process
+     * @param  string                $section Section to process
+     * @param  array                 $config  Configuration which was parsed yet
      * @return array
      * @throws Zend_Config_Exception When $section cannot be found
      */
@@ -269,20 +270,21 @@ class Zend_Config_Yaml extends Zend_Config
      * Until we have Zend_Yaml...
      *
      * @param  string $yaml YAML source
-     * @return array Decoded data
+     * @return array  Decoded data
      */
     public static function decode($yaml)
     {
         $lines = explode("\n", $yaml);
         reset($lines);
+
         return self::_decodeYaml(0, $lines);
     }
 
     /**
      * Service function to decode YAML
      *
-     * @param  int $currentIndent Current indent level
-     * @param  array $lines  YAML lines
+     * @param  int          $currentIndent Current indent level
+     * @param  array        $lines         YAML lines
      * @return array|string
      */
     protected static function _decodeYaml($currentIndent, &$lines)
@@ -308,6 +310,7 @@ class Zend_Config_Yaml extends Zend_Config
             if ($indent < $currentIndent) {
                 // this level is done
                 prev($lines);
+
                 return $config;
             }
 
@@ -348,13 +351,14 @@ class Zend_Config_Yaml extends Zend_Config
                 ));
             }
         }
+
         return $config;
     }
 
     /**
      * Parse values
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected static function _parseValue($value)
@@ -398,6 +402,7 @@ class Zend_Config_Yaml extends Zend_Config
                 $value = str_replace($constant, constant($constant), $value);
             }
         }
+
         return $value;
     }
 
@@ -410,6 +415,7 @@ class Zend_Config_Yaml extends Zend_Config
     {
         $constants = array_keys(get_defined_constants());
         rsort($constants, SORT_STRING);
+
         return $constants;
     }
 }

@@ -47,8 +47,8 @@ class Zend_Service_DeveloperGarden_Request_SmsValidation_Invalidate
      * create the class for validation a sms keyword
      *
      * @param integer $environment
-     * @param string $keyword
-     * @param string $number
+     * @param string  $keyword
+     * @param string  $number
      */
     public function __construct($environment, $number = null)
     {
@@ -69,12 +69,13 @@ class Zend_Service_DeveloperGarden_Request_SmsValidation_Invalidate
     /**
      * set a new number
      *
-     * @param string $number
+     * @param  string                                                      $number
      * @return Zend_Service_DeveloperGarden_Request_SmsValidation_Validate
      */
     public function setNumber($number)
     {
         $this->number = $number;
+
         return $this;
     }
 }

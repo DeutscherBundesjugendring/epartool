@@ -73,6 +73,7 @@ abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
         if ($this->return instanceof stdClass) {
             $retValue = $this->return->status;
         }
+
         return $retValue;
     }
 
@@ -87,6 +88,7 @@ abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
         if ($this->return instanceof stdClass) {
             $retValue = $this->return->description;
         }
+
         return $retValue;
     }
 
@@ -114,6 +116,7 @@ abstract class Zend_Service_DeveloperGarden_Response_SendSms_SendSmsAbstract
         ) {
             $retValue = true;
         }
+
         return $retValue;
     }
 }

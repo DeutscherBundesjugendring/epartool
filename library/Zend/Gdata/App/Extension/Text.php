@@ -55,6 +55,7 @@ abstract class Zend_Gdata_App_Extension_Text extends Zend_Gdata_App_Extension
         if ($this->_type !== null) {
             $element->setAttribute('type', $this->_type);
         }
+
         return $element;
     }
 
@@ -78,12 +79,13 @@ abstract class Zend_Gdata_App_Extension_Text extends Zend_Gdata_App_Extension
     }
 
     /*
-     * @param string $value
+     * @param  string                        $value
      * @return Zend_Gdata_App_Extension_Text Provides a fluent interface
      */
     public function setType($value)
     {
         $this->_type = $value;
+
         return $this;
     }
 

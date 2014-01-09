@@ -61,8 +61,8 @@ class Zend_View_Helper_Cycle implements Iterator
     /**
      * Add elements to alternate
      *
-     * @param array $data
-     * @param string $name
+     * @param  array                  $data
+     * @param  string                 $name
      * @return Zend_View_Helper_Cycle
      */
     public function cycle(array $data = array(), $name = self::DEFAULT_NAME)
@@ -71,14 +71,15 @@ class Zend_View_Helper_Cycle implements Iterator
            $this->_data[$name] = $data;
 
         $this->setName($name);
+
         return $this;
     }
 
     /**
      * Add elements to alternate
      *
-     * @param array $data
-     * @param string $name
+     * @param  array                  $data
+     * @param  string                 $name
      * @return Zend_View_Helper_Cycle
      */
     public function assign(Array $data , $name = self::DEFAULT_NAME)
@@ -86,13 +87,14 @@ class Zend_View_Helper_Cycle implements Iterator
         $this->setName($name);
         $this->_data[$name] = $data;
         $this->rewind();
+
         return $this;
     }
 
     /**
      * Sets actual name of cycle
      *
-     * @param string $name
+     * @param  string                 $name
      * @return Zend_View_Helper_Cycle
      */
     public function setName($name = self::DEFAULT_NAME)
@@ -117,7 +119,6 @@ class Zend_View_Helper_Cycle implements Iterator
     {
         return $this->_name;
     }
-
 
     /**
      * Return all elements
@@ -161,6 +162,7 @@ class Zend_View_Helper_Cycle implements Iterator
             $this->_pointers[$this->_name] = 0;
         else
             $this->_pointers[$this->_name] = ++$this->_pointers[$this->_name];
+
         return $this;
     }
 
@@ -176,6 +178,7 @@ class Zend_View_Helper_Cycle implements Iterator
             $this->_pointers[$this->_name] = $count - 1;
         else
             $this->_pointers[$this->_name] = --$this->_pointers[$this->_name];
+
         return $this;
     }
 
@@ -200,6 +203,7 @@ class Zend_View_Helper_Cycle implements Iterator
     public function rewind()
     {
         $this->_pointers[$this->_name] = -1;
+
         return $this;
     }
 

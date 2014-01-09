@@ -40,7 +40,7 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_GetQuotaInformation
     /**
      * constructor give them the module id
      *
-     * @param string $moduleId
+     * @param  string                                               $moduleId
      * @return Zend_Service_DeveloperGarden_Request_BaseUserService
      */
     public function __construct($moduleId = null)
@@ -51,12 +51,13 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_GetQuotaInformation
     /**
      * sets a new moduleId
      *
-     * @param integer $moduleId
+     * @param  integer                                              $moduleId
      * @return Zend_Service_DeveloperGarden_Request_BaseUserService
      */
     public function setModuleId($moduleId = null)
     {
         $this->moduleId = $moduleId;
+
         return $this;
     }
 

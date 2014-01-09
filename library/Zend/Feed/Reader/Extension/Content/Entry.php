@@ -48,6 +48,7 @@ class Zend_Feed_Reader_Extension_Content_Entry
         } else {
             $content = $this->_xpath->evaluate('string('.$this->getXpathPrefix().'/content:encoded)');
         }
+
         return $content;
     }
 

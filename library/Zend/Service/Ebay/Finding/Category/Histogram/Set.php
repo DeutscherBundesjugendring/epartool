@@ -52,6 +52,7 @@ class Zend_Service_Ebay_Finding_Category_Histogram_Set extends Zend_Service_Ebay
          * @see Zend_Service_Ebay_Finding_Category_Histogram
          */
         require_once 'Zend/Service/Ebay/Finding/Category/Histogram.php';
+
         return new Zend_Service_Ebay_Finding_Category_Histogram($node);
     }
 }

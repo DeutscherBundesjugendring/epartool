@@ -89,6 +89,7 @@ require_once 'Zend/Application.php';
             ->run();
 EOS
             ));
+
         return $codeGenerator->generate();
     }
 

@@ -19,7 +19,6 @@
  * @version    $Id: Style.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Style object.
  * Style object doesn't directly correspond to any PDF file object.
@@ -86,8 +85,6 @@ class Zend_Pdf_Style
      */
     private $_fontSize;
 
-
-
     /**
      * Create style.
      *
@@ -105,7 +102,6 @@ class Zend_Pdf_Style
             $this->_fontSize           = $anotherStyle->_fontSize;
         }
     }
-
 
     /**
      * Set fill color.
@@ -138,7 +134,6 @@ class Zend_Pdf_Style
         $this->_lineWidth = new Zend_Pdf_Element_Numeric($width);
     }
 
-
     /**
      * Set line dashing pattern
      *
@@ -158,12 +153,11 @@ class Zend_Pdf_Style
         $this->_lineDashingPhase   = new Zend_Pdf_Element_Numeric($phase);
     }
 
-
     /**
      * Set current font.
      *
      * @param Zend_Pdf_Resource_Font $font
-     * @param float $fontSize
+     * @param float                  $fontSize
      */
     public function setFont(Zend_Pdf_Resource_Font $font, $fontSize)
     {
@@ -221,7 +215,6 @@ class Zend_Pdf_Style
         return $this->_lineDashingPattern;
     }
 
-
     /**
      * Get current font.
      *
@@ -251,7 +244,6 @@ class Zend_Pdf_Style
     {
         return $this->_lineDashingPhase->value;
     }
-
 
     /**
      * Dump style to a string, which can be directly inserted into content stream

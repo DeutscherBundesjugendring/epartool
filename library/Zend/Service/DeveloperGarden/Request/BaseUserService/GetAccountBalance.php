@@ -40,7 +40,7 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_GetAccountBalance
     /**
      * constructor give them the account ids or an empty array
      *
-     * @param array $Account
+     * @param  array                                                  $Account
      * @return Zend_Service_DeveloperGarden_Request_GetAccountBalance
      */
     public function __construct(array $Account = array())
@@ -51,12 +51,13 @@ class Zend_Service_DeveloperGarden_Request_BaseUserService_GetAccountBalance
     /**
      * sets a new Account array
      *
-     * @param array $Account
+     * @param  array                                                $Account
      * @return Zend_Service_DeveloperGarden_Request_BaseUserService
      */
     public function setAccount(array $Account = array())
     {
         $this->Account = $Account;
+
         return $this;
     }
 

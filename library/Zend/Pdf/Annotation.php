@@ -55,14 +55,14 @@ abstract class Zend_Pdf_Annotation
         return $this->_annotationDictionary;
     }
 
-
     /**
      * Set bottom edge of the annotation rectangle.
      *
-     * @param float $bottom
+     * @param  float               $bottom
      * @return Zend_Pdf_Annotation
      */
-    public function setBottom($bottom) {
+    public function setBottom($bottom)
+    {
         $this->_annotationDictionary->Rect->items[1]->touch();
         $this->_annotationDictionary->Rect->items[1]->value = $bottom;
 
@@ -74,17 +74,19 @@ abstract class Zend_Pdf_Annotation
      *
      * @return float
      */
-    public function getBottom() {
+    public function getBottom()
+    {
         return $this->_annotationDictionary->Rect->items[1]->value;
     }
 
     /**
      * Set top edge of the annotation rectangle.
      *
-     * @param float $top
+     * @param  float               $top
      * @return Zend_Pdf_Annotation
      */
-    public function setTop($top) {
+    public function setTop($top)
+    {
         $this->_annotationDictionary->Rect->items[3]->touch();
         $this->_annotationDictionary->Rect->items[3]->value = $top;
 
@@ -96,17 +98,19 @@ abstract class Zend_Pdf_Annotation
      *
      * @return float
      */
-    public function getTop() {
+    public function getTop()
+    {
         return $this->_annotationDictionary->Rect->items[3]->value;
     }
 
     /**
      * Set right edge of the annotation rectangle.
      *
-     * @param float $right
+     * @param  float               $right
      * @return Zend_Pdf_Annotation
      */
-    public function setRight($right) {
+    public function setRight($right)
+    {
         $this->_annotationDictionary->Rect->items[2]->touch();
         $this->_annotationDictionary->Rect->items[2]->value = $right;
 
@@ -118,17 +122,19 @@ abstract class Zend_Pdf_Annotation
      *
      * @return float
      */
-    public function getRight() {
+    public function getRight()
+    {
         return $this->_annotationDictionary->Rect->items[2]->value;
     }
 
     /**
      * Set left edge of the annotation rectangle.
      *
-     * @param float $left
+     * @param  float               $left
      * @return Zend_Pdf_Annotation
      */
-    public function setLeft($left) {
+    public function setLeft($left)
+    {
         $this->_annotationDictionary->Rect->items[0]->touch();
         $this->_annotationDictionary->Rect->items[0]->value = $left;
 
@@ -140,7 +146,8 @@ abstract class Zend_Pdf_Annotation
      *
      * @return float
      */
-    public function getLeft() {
+    public function getLeft()
+    {
         return $this->_annotationDictionary->Rect->items[0]->value;
     }
 
@@ -151,7 +158,8 @@ abstract class Zend_Pdf_Annotation
      *
      * @return string
      */
-    public function getText() {
+    public function getText()
+    {
         if ($this->_annotationDictionary->Contents === null) {
             return '';
         }
@@ -164,10 +172,11 @@ abstract class Zend_Pdf_Annotation
      * does not display text, an alternate description of the annotation’s contents
      * in human-readable form.
      *
-     * @param string $text
+     * @param  string              $text
      * @return Zend_Pdf_Annotation
      */
-    public function setText($text) {
+    public function setText($text)
+    {
         require_once 'Zend/Pdf/Element/String.php';
 
         if ($this->_annotationDictionary->Contents === null) {
@@ -220,7 +229,7 @@ abstract class Zend_Pdf_Annotation
      * Load Annotation object from a specified resource
      *
      * @internal
-     * @param Zend_Pdf_Element $resource
+     * @param  Zend_Pdf_Element    $resource
      * @return Zend_Pdf_Annotation
      */
     public static function load(Zend_Pdf_Element $resource)

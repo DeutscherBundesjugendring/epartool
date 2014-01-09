@@ -102,7 +102,7 @@ class Zend_Service_DeveloperGarden_IpLocation
     /**
      * locate the given Ip address or array of addresses
      *
-     * @param Zend_Service_DeveloperGarden_IpLocation_IpAddress|string $ip
+     * @param  Zend_Service_DeveloperGarden_IpLocation_IpAddress|string          $ip
      * @return Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse
      */
     public function locateIP($ip)
@@ -115,6 +115,7 @@ class Zend_Service_DeveloperGarden_IpLocation
         $result = $this->getSoapClient()->locateIP($request);
 
         $response = new Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse($result);
+
         return $response->parse();
     }
 }

@@ -46,8 +46,8 @@ class Zend_Text_Table_Row
     /**
      * Create a new column and append it to the row
      *
-     * @param  string $content
-     * @param  array  $options
+     * @param  string              $content
+     * @param  array               $options
      * @return Zend_Text_Table_Row
      */
     public function createColumn($content, array $options = null)
@@ -87,7 +87,7 @@ class Zend_Text_Table_Row
      *
      * Returns null, when the index is out of range
      *
-     * @param  integer $index
+     * @param  integer                     $index
      * @return Zend_Text_Table_Column|null
      */
     public function getColumn($index)
@@ -131,7 +131,7 @@ class Zend_Text_Table_Row
      * @param  array                               $columnWidths Width of all columns
      * @param  Zend_Text_Table_Decorator_Interface $decorator    Decorator for the row borders
      * @param  integer                             $padding      Padding for the columns
-     * @throws Zend_Text_Table_Exception When there are too many columns
+     * @throws Zend_Text_Table_Exception           When there are too many columns
      * @return string
      */
     public function render(array $columnWidths,

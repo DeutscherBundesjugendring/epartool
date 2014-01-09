@@ -19,10 +19,8 @@
  * @version    $Id: Stream.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf.php';
-
 
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
@@ -44,7 +42,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
      */
     public $value;
 
-
     /**
      * Object constructor
      *
@@ -55,7 +52,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
         $this->value = Zend_Pdf::getMemoryManager()->create($val);
     }
 
-
     /**
      * Return type of the element.
      *
@@ -65,7 +61,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
     {
         return Zend_Pdf_Element::TYPE_STREAM;
     }
-
 
     /**
      * Stream length.
@@ -78,7 +73,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
         return strlen($this->value->getRef());
     }
 
-
     /**
      * Clear stream
      *
@@ -90,7 +84,6 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
         $this->value->touch();
     }
 
-
     /**
      * Append value to a stream
      *
@@ -99,17 +92,16 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
     public function append($val)
     {
         $ref = &$this->value->getRef();
-        $ref .= (string)$val;
+        $ref .= (string) $val;
         $this->value->touch();
     }
-
 
     /**
      * Detach PDF object from the factory (if applicable), clone it and attach to new factory.
      *
-     * @param Zend_Pdf_ElementFactory $factory  The factory to attach
-     * @param array &$processed  List of already processed indirect objects, used to avoid objects duplication
-     * @param integer $mode  Cloning mode (defines filter for objects cloning)
+     * @param Zend_Pdf_ElementFactory $factory    The factory to attach
+     * @param array                   &$processed List of already processed indirect objects, used to avoid objects duplication
+     * @param integer                 $mode       Cloning mode (defines filter for objects cloning)
      * @returns Zend_Pdf_Element
      */
     public function makeClone(Zend_Pdf_ElementFactory $factory, array &$processed, $mode)
@@ -120,7 +112,7 @@ class Zend_Pdf_Element_Stream extends Zend_Pdf_Element
     /**
      * Return object as string
      *
-     * @param Zend_Pdf_Factory $factory
+     * @param  Zend_Pdf_Factory $factory
      * @return string
      */
     public function toString($factory = null)

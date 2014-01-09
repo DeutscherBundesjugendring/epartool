@@ -50,8 +50,6 @@ interface Zend_Tool_Framework_Manifest_Interface
 
      **/
 
-
-
     /**
      * getActions()
      *
@@ -64,8 +62,6 @@ interface Zend_Tool_Framework_Manifest_Interface
     public function getActions();
 
      **/
-
-
 
     /**
      * getProviders()

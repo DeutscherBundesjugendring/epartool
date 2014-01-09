@@ -111,8 +111,8 @@ class Zend_View_Helper_Action extends Zend_View_Helper_Abstract
      *
      * @param  string $action
      * @param  string $controller
-     * @param  string $module Defaults to default module
-     * @param  array $params
+     * @param  string $module     Defaults to default module
+     * @param  array  $params
      * @return string
      */
     public function action($action, $controller, $module = null, array $params = array())
@@ -147,6 +147,7 @@ class Zend_View_Helper_Action extends Zend_View_Helper_Abstract
 
         $return = $this->response->getBody();
         $this->resetObjects();
+
         return $return;
     }
 
@@ -159,6 +160,7 @@ class Zend_View_Helper_Action extends Zend_View_Helper_Abstract
     {
         $view = clone $this->view;
         $view->clearVars();
+
         return $view;
     }
 }

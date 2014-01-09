@@ -79,8 +79,8 @@ class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -89,6 +89,7 @@ class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
         if ($this->_tags != null) {
             $element->appendChild($this->_tags->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -139,6 +140,7 @@ class Zend_Gdata_Exif_Entry extends Zend_Gdata_Entry
     public function setTags($value)
     {
         $this->_tags = $value;
+
         return $this;
     }
 

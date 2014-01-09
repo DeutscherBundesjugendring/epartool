@@ -20,12 +20,10 @@
  * @version    $Id: BlogInfoResult.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_Utils
  */
 require_once 'Zend/Service/Technorati/Utils.php';
-
 
 /**
  * Represents a single Technorati BlogInfo query result object.
@@ -70,11 +68,10 @@ class Zend_Service_Technorati_BlogInfoResult
      */
     protected $_inboundLinks;
 
-
     /**
      * Constructs a new object object from DOM Document.
      *
-     * @param   DomDocument $dom the ReST fragment for this object
+     * @param DomDocument $dom the ReST fragment for this object
      */
     public function __construct(DomDocument $dom)
     {
@@ -104,7 +101,7 @@ class Zend_Service_Technorati_BlogInfoResult
                 // fetched URL often doens't include schema
                 // and this issue causes the following line to fail
                 $this->_url = Zend_Service_Technorati_Utils::normalizeUriHttp($result->item(0)->data);
-            } catch(Zend_Service_Technorati_Exception $e) {
+            } catch (Zend_Service_Technorati_Exception $e) {
                 if ($this->getWeblog() instanceof Zend_Service_Technorati_Weblog) {
                     $this->_url = $this->getWeblog()->getUrl();
                 }
@@ -119,29 +116,30 @@ class Zend_Service_Technorati_BlogInfoResult
 
     }
 
-
     /**
      * Returns the weblog URL.
      *
-     * @return  Zend_Uri_Http
+     * @return Zend_Uri_Http
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->_url;
     }
 
     /**
      * Returns the weblog.
      *
-     * @return  Zend_Service_Technorati_Weblog
+     * @return Zend_Service_Technorati_Weblog
      */
-    public function getWeblog() {
+    public function getWeblog()
+    {
         return $this->_weblog;
     }
 
     /**
      * Returns number of unique blogs linking this blog.
      *
-     * @return  integer the number of inbound blogs
+     * @return integer the number of inbound blogs
      */
     public function getInboundBlogs()
     {
@@ -151,7 +149,7 @@ class Zend_Service_Technorati_BlogInfoResult
     /**
      * Returns number of incoming links to this blog.
      *
-     * @return  integer the number of inbound links
+     * @return integer the number of inbound links
      */
     public function getInboundLinks()
     {

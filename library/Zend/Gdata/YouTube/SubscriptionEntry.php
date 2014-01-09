@@ -154,8 +154,8 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -184,6 +184,7 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
                 $element->appendChild($feedLink->getDOM($element->ownerDocument));
             }
         }
+
         return $element;
     }
 
@@ -241,12 +242,13 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
     /**
      * Sets the array of embedded feeds related to the video
      *
-     * @param array $feedLink The array of embedded feeds relating to the video
+     * @param  array                                $feedLink The array of embedded feeds relating to the video
      * @return Zend_Gdata_YouTube_SubscriptionEntry Provides a fluent interface
      */
     public function setFeedLink($feedLink = null)
     {
         $this->_feedLink = $feedLink;
+
         return $this;
     }
 
@@ -273,6 +275,7 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
                     return $feedLink;
                 }
             }
+
             return null;
         }
     }
@@ -314,6 +317,7 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
                 'API.');
         } else {
             $this->_playlistId = $id;
+
             return $this;
         }
     }
@@ -338,6 +342,7 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
     public function setQueryString($queryString = null)
     {
         $this->_queryString = $queryString;
+
         return $this;
     }
 
@@ -378,6 +383,7 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
                 'API.');
         } else {
             $this->_playlistTitle = $title;
+
             return $this;
         }
     }
@@ -440,6 +446,7 @@ class Zend_Gdata_YouTube_SubscriptionEntry extends Zend_Gdata_Entry
     public function setUsername($username = null)
     {
         $this->_username = $username;
+
         return $this;
     }
 

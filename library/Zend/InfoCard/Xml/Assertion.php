@@ -54,16 +54,16 @@ final class Zend_InfoCard_Xml_Assertion
      * Returns an instance of a InfoCard Assertion object based on the XML data provided
      *
      * @throws Zend_InfoCard_Xml_Exception
-     * @param string $xmlData The XML-Formatted Assertion
+     * @param  string                                $xmlData The XML-Formatted Assertion
      * @return Zend_InfoCard_Xml_Assertion_Interface
      * @throws Zend_InfoCard_Xml_Exception
      */
-    static public function getInstance($xmlData)
+    public static function getInstance($xmlData)
     {
 
-        if($xmlData instanceof Zend_InfoCard_Xml_Element) {
+        if ($xmlData instanceof Zend_InfoCard_Xml_Element) {
             $strXmlData = $xmlData->asXML();
-        } else if (is_string($xmlData)) {
+        } elseif (is_string($xmlData)) {
             $strXmlData = $xmlData;
         } else {
             require_once 'Zend/InfoCard/Xml/Exception.php';
@@ -74,10 +74,11 @@ final class Zend_InfoCard_Xml_Assertion
 
         $namespaces = $sxe->getDocNameSpaces();
 
-        foreach($namespaces as $namespace) {
-            switch($namespace) {
+        foreach ($namespaces as $namespace) {
+            switch ($namespace) {
                 case self::TYPE_SAML:
                     include_once 'Zend/InfoCard/Xml/Assertion/Saml.php';
+
                     return simplexml_load_string($strXmlData, 'Zend_InfoCard_Xml_Assertion_Saml', null);
             }
         }

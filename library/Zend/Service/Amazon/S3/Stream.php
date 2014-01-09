@@ -74,7 +74,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * Retrieve client for this stream type
      *
-     * @param  string $path
+     * @param  string                 $path
      * @return Zend_Service_Amazon_S3
      */
     protected function _getS3Client($path)
@@ -106,7 +106,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * Extract object name from URL
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     protected function _getNamePart($path)
@@ -139,6 +139,7 @@ class Zend_Service_Amazon_S3_Stream
             $this->_position = 0;
             $this->_writeBuffer = true;
             $this->_getS3Client($path);
+
             return true;
         } else {
             // Otherwise, just see if the file exists or not
@@ -150,9 +151,11 @@ class Zend_Service_Amazon_S3_Stream
                 $this->_position = 0;
                 $this->_writeBuffer = false;
                 $this->_getS3Client($path);
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -212,13 +215,14 @@ class Zend_Service_Amazon_S3_Stream
 
         $data = substr($this->_objectBuffer, $this->_position, $count);
         $this->_position += strlen($data);
+
         return $data;
     }
 
     /**
      * Write to the stream
      *
-     * @param  string $data
+     * @param  string  $data
      * @return integer
      */
     public function stream_write($data)
@@ -289,6 +293,7 @@ class Zend_Service_Amazon_S3_Stream
         if ($ret) {
             $this->_position = $new_pos;
         }
+
         return $ret;
     }
 
@@ -337,7 +342,7 @@ class Zend_Service_Amazon_S3_Stream
         $stat['blksize'] = 0;
         $stat['blocks'] = 0;
 
-    if(($slash = strchr($this->_objectName, '/')) === false || $slash == strlen($this->_objectName)-1) {
+    if (($slash = strchr($this->_objectName, '/')) === false || $slash == strlen($this->_objectName)-1) {
         /* bucket */
         $stat['mode'] |= 040000;
     } else {
@@ -356,7 +361,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * Attempt to delete the item
      *
-     * @param  string $path
+     * @param  string  $path
      * @return boolean
      */
     public function unlink($path)
@@ -405,7 +410,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * Attempt to open a directory
      *
-     * @param  string $path
+     * @param  string  $path
      * @param  integer $options
      * @return boolean
      */
@@ -414,8 +419,7 @@ class Zend_Service_Amazon_S3_Stream
 
         if (preg_match('@^([a-z0-9+.]|-)+://$@', $path)) {
             $this->_bucketList = $this->_getS3Client($path)->getBuckets();
-        }
-        else {
+        } else {
             $host = parse_url($path, PHP_URL_HOST);
             $this->_bucketList = $this->_getS3Client($path)->getObjectsByBucket($host);
         }
@@ -426,7 +430,7 @@ class Zend_Service_Amazon_S3_Stream
     /**
      * Return array of URL variables
      *
-     * @param  string $path
+     * @param  string  $path
      * @param  integer $flags
      * @return array
      */
@@ -448,7 +452,7 @@ class Zend_Service_Amazon_S3_Stream
         $stat['blocks'] = 0;
 
     $name = $this->_getNamePart($path);
-    if(($slash = strchr($name, '/')) === false || $slash == strlen($name)-1) {
+    if (($slash = strchr($name, '/')) === false || $slash == strlen($name)-1) {
         /* bucket */
         $stat['mode'] |= 040000;
     } else {
@@ -476,6 +480,7 @@ class Zend_Service_Amazon_S3_Stream
         if ($object !== false) {
             next($this->_bucketList);
         }
+
         return $object;
     }
 
@@ -487,6 +492,7 @@ class Zend_Service_Amazon_S3_Stream
     public function dir_rewinddir()
     {
         reset($this->_bucketList);
+
         return true;
     }
 
@@ -498,6 +504,7 @@ class Zend_Service_Amazon_S3_Stream
     public function dir_closedir()
     {
         $this->_bucketList = array();
+
         return true;
     }
 }

@@ -48,7 +48,7 @@ class Zend_Filter_StringToLower implements Zend_Filter_Interface
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if (!is_array($options)) {
+        } elseif (!is_array($options)) {
             $options = func_get_args();
             $temp    = array();
             if (!empty($options)) {
@@ -79,7 +79,7 @@ class Zend_Filter_StringToLower implements Zend_Filter_Interface
     /**
      * Set the input encoding for the given string
      *
-     * @param  string $encoding
+     * @param  string                    $encoding
      * @return Zend_Filter_StringToLower Provides a fluent interface
      * @throws Zend_Filter_Exception
      */
@@ -99,6 +99,7 @@ class Zend_Filter_StringToLower implements Zend_Filter_Interface
         }
 
         $this->_encoding = $encoding;
+
         return $this;
     }
 

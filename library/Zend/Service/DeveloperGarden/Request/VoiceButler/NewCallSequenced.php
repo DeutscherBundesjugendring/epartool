@@ -59,12 +59,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced
     }
 
     /**
-     * @param array $bNumber
+     * @param  array                                                    $bNumber
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     /*public function setBNumber(array $bNumber)
     {
         $this->bNumber = $bNumber;
+
         return $this;
     }*/
 
@@ -81,12 +82,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced
     /**
      * sets new max wait value for next number call
      *
-     * @param integer $maxWait
+     * @param  integer                                                           $maxWait
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced
      */
     public function setMaxWait($maxWait)
     {
         $this->maxWait = $maxWait;
+
         return $this;
     }
 }

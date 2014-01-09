@@ -76,18 +76,20 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
             $options = array_merge($attribs, $options);
             $this->setOptions($options);
         }
+
         return $options;
     }
 
     /**
      * Set legend
      *
-     * @param  string $value
+     * @param  string                       $value
      * @return Zend_Form_Decorator_Fieldset
      */
     public function setLegend($value)
     {
         $this->_legend = (string) $value;
+
         return $this;
     }
 
@@ -130,7 +132,7 @@ class Zend_Form_Decorator_Fieldset extends Zend_Form_Decorator_Abstract
         $legend  = $this->getLegend();
         $attribs = $this->getOptions();
         $name    = $element->getFullyQualifiedName();
-        $id      = (string)$element->getId();
+        $id      = (string) $element->getId();
 
         if ((!array_key_exists('id', $attribs) || $attribs['id'] == $id) && '' !== $id) {
             $attribs['id'] = 'fieldset-' . $id;

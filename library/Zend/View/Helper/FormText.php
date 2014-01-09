@@ -20,12 +20,10 @@
  * @version    $Id: FormText.php 24750 2012-05-05 01:24:21Z adamlundrigan $
  */
 
-
 /**
  * Abstract class for extension
  */
 require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "text" element

@@ -49,10 +49,10 @@ class Zend_Dojo_View_Helper_AccordionPane extends Zend_Dojo_View_Helper_DijitCon
     /**
      * dijit.layout.AccordionPane
      *
-     * @param  int $id
+     * @param  int    $id
      * @param  string $content
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function accordionPane($id = null, $content = '', array $params = array(), array $attribs = array())

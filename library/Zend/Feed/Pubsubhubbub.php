@@ -95,6 +95,7 @@ class Zend_Feed_Pubsubhubbub
             . ' invalid, i.e. not a URL string or an instance of type'
             . ' Zend_Feed_Reader_FeedAbstract or Zend_Feed_Abstract');
         }
+
         return $feed->getHubs();
     }
 
@@ -124,6 +125,7 @@ class Zend_Feed_Pubsubhubbub
         else:
             self::$httpClient->resetParameters();
         endif;
+
         return self::$httpClient;
     }
 
@@ -148,6 +150,7 @@ class Zend_Feed_Pubsubhubbub
     {
         $rawencoded = rawurlencode($string);
         $rfcencoded = str_replace('%7E', '~', $rawencoded);
+
         return $rfcencoded;
     }
 }

@@ -54,8 +54,8 @@ class Zend_Gdata_MimeFile
     /**
      * Read the next chunk of the file.
      *
-     * @param integer $bytesRequested The size of the chunk that is to be read.
-     * @return string A corresponding piece of the message. This could be
+     * @param  integer $bytesRequested The size of the chunk that is to be read.
+     * @return string  A corresponding piece of the message. This could be
      *                binary or regular text.
      */
     public function read($bytesRequested)

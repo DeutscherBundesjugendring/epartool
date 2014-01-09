@@ -77,6 +77,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
                         $reminder->getDOM($element->ownerDocument));
             }
         }
+
         return $element;
     }
 
@@ -130,6 +131,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     public function setStartTime($value)
     {
         $this->_startTime = $value;
+
         return $this;
     }
 
@@ -141,6 +143,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     public function setEndTime($value)
     {
         $this->_endTime = $value;
+
         return $this;
     }
 
@@ -152,6 +155,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     public function setValueString($value)
     {
         $this->_valueString = $value;
+
         return $this;
     }
 
@@ -163,6 +167,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     public function setReminders($value)
     {
         $this->_reminders = $value;
+
         return $this;
     }
 

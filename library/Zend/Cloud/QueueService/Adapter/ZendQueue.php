@@ -101,6 +101,7 @@ class Zend_Cloud_QueueService_Adapter_ZendQueue
     {
         try {
             $this->_queues[$name] = $this->_queue->createQueue($name, isset($options[Zend_Queue::TIMEOUT])?$options[Zend_Queue::TIMEOUT]:null);
+
             return $name;
         } catch (Zend_Queue_Exception $e) {
             throw new Zend_Cloud_QueueService_Exception('Error on queue creation: '.$e->getMessage(), $e->getCode(), $e);
@@ -110,8 +111,8 @@ class Zend_Cloud_QueueService_Adapter_ZendQueue
     /**
      * Delete a queue. All messages in the queue will also be deleted.
      *
-     * @param  string $queueId
-     * @param  array  $options
+     * @param  string  $queueId
+     * @param  array   $options
      * @return boolean true if successful, false otherwise
      */
     public function deleteQueue($queueId, $options = null)
@@ -122,6 +123,7 @@ class Zend_Cloud_QueueService_Adapter_ZendQueue
         try {
             if ($this->_queues[$queueId]->deleteQueue()) {
                 unset($this->_queues[$queueId]);
+
                 return true;
             }
         } catch (Zend_Queue_Exception $e) {
@@ -235,7 +237,7 @@ class Zend_Cloud_QueueService_Adapter_ZendQueue
      * Create Zend_Cloud_QueueService_Message array for
      * Azure messages.
      *
-     * @param array $messages
+     * @param  array                             $messages
      * @return Zend_Cloud_QueueService_Message[]
      */
     protected function _makeMessages($messages)
@@ -246,15 +248,16 @@ class Zend_Cloud_QueueService_Adapter_ZendQueue
         foreach ($messages as $message) {
             $result[] = new $messageClass($message->body, $message);
         }
+
         return new $setClass($result);
     }
 
     /**
      * Delete the specified message from the specified queue.
      *
-     * @param  string $queueId
+     * @param  string                          $queueId
      * @param  Zend_Cloud_QueueService_Message $message Message ID or message
-     * @param  array  $options
+     * @param  array                           $options
      * @return void
      */
     public function deleteMessage($queueId, $message, $options = null)
@@ -279,9 +282,9 @@ class Zend_Cloud_QueueService_Adapter_ZendQueue
     /**
      * Peek at the messages from the specified queue without removing them.
      *
-     * @param  string $queueId
-     * @param  int $num How many messages
-     * @param  array  $options
+     * @param  string                            $queueId
+     * @param  int                               $num     How many messages
+     * @param  array                             $options
      * @return Zend_Cloud_QueueService_Message[]
      */
     public function peekMessages($queueId, $num = 1, $options = null)

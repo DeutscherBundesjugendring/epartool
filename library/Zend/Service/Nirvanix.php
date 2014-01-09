@@ -48,10 +48,10 @@ class Zend_Service_Nirvanix
      * Class constructor.  Authenticates with Nirvanix to receive a
      * sessionToken, which is then passed to each future request.
      *
-     * @param  array  $authParams  Authentication POST parameters.  This
+     * @param array $authParams Authentication POST parameters.  This
      *                             should have keys "username", "password",
      *                             and "appKey".
-     * @param  array  $options     Options to pass to namespace proxies
+     * @param array $options Options to pass to namespace proxies
      */
     public function __construct($authParams, $options = array())
     {
@@ -63,7 +63,7 @@ class Zend_Service_Nirvanix
 
         // login and save sessionToken to default POST params
         $resp = $this->getService('Authentication')->login($authParams);
-        $this->_options['defaults']['sessionToken'] = (string)$resp->SessionToken;
+        $this->_options['defaults']['sessionToken'] = (string) $resp->SessionToken;
     }
 
     /**
@@ -71,7 +71,7 @@ class Zend_Service_Nirvanix
      * providing different functionality.  This is a factory method that
      * returns a preconfigured Zend_Service_Nirvanix_Namespace_Base proxy.
      *
-     * @param  string  $namespace  Name of the namespace
+     * @param  string                               $namespace Name of the namespace
      * @return Zend_Service_Nirvanix_Namespace_Base
      */
     public function getService($namespace, $options = array())
@@ -91,6 +91,7 @@ class Zend_Service_Nirvanix
             require_once 'Zend/Loader.php';
             Zend_Loader::loadClass($class);
         }
+
         return new $class($options);
     }
 

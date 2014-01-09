@@ -35,7 +35,7 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
 {
     /**
      * All texts are accepted
-     * @param string $value
+     * @param  string  $value
      * @return boolean
      */
     public function validateText($value)
@@ -71,6 +71,7 @@ class Zend_Barcode_Object_Error extends Zend_Barcode_Object_ObjectAbstract
         $this->_instructions = array();
         $this->_addText('ERROR:', 10, array(5 , 18), $this->_font, 0, 'left');
         $this->_addText($this->_text, 10, array(5 , 32), $this->_font, 0, 'left');
+
         return $this->_instructions;
     }
 

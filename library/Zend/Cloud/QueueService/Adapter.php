@@ -62,8 +62,8 @@ interface Zend_Cloud_QueueService_Adapter
     /**
      * Delete a queue. All messages in the queue will also be deleted.
      *
-     * @param  string $queueId
-     * @param  array  $options
+     * @param  string  $queueId
+     * @param  array   $options
      * @return boolean true if successful, false otherwise
      */
     public function deleteQueue($queueId, $options = null);
@@ -111,19 +111,19 @@ interface Zend_Cloud_QueueService_Adapter
      * Recieve at most $max messages from the specified queue and return the
      * message IDs for messages recieved.
      *
-     * @param  string $queueId
-     * @param  int    $max
-     * @param  array  $options
-     * @return array[Zend_Cloud_QueueService_Message]  Array of messages
+     * @param  string                                 $queueId
+     * @param  int                                    $max
+     * @param  array                                  $options
+     * @return array[Zend_Cloud_QueueService_Message] Array of messages
      */
     public function receiveMessages($queueId, $max = 1, $options = null);
 
     /**
      * Peek at the messages from the specified queue without removing them.
      *
-     * @param  string $queueId
-     * @param  int $num How many messages
-     * @param  array  $options
+     * @param  string                                 $queueId
+     * @param  int                                    $num     How many messages
+     * @param  array                                  $options
      * @return array[Zend_Cloud_QueueService_Message]
      */
     public function peekMessages($queueId, $num = 1, $options = null);
@@ -131,9 +131,9 @@ interface Zend_Cloud_QueueService_Adapter
     /**
      * Delete the specified message from the specified queue.
      *
-     * @param  string $queueId
+     * @param  string                          $queueId
      * @param  Zend_Cloud_QueueService_Message $message Message to delete
-     * @param  array  $options
+     * @param  array                           $options
      * @return void
      *
      */

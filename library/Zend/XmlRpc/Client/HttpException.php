@@ -20,12 +20,10 @@
  * @version    $Id: HttpException.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Exception
  */
 require_once 'Zend/XmlRpc/Client/Exception.php';
-
 
 /**
  * Thrown by Zend_XmlRpc_Client when an HTTP error occurs during an

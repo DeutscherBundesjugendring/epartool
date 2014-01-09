@@ -49,8 +49,8 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
     /**
      * Retrieve StorageService adapter
      *
-     * @param  array $options
-     * @return Zend_Cloud_StorageService_Adapter 
+     * @param  array                             $options
+     * @return Zend_Cloud_StorageService_Adapter
      */
     public static function getAdapter($options = array())
     {
@@ -65,6 +65,7 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
                 'Adapter must implement \'' . self::$_adapterInterface . '\''
             );
         }
+
         return $adapter;
     }
 }

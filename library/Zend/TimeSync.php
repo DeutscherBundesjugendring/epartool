@@ -78,7 +78,7 @@ class Zend_TimeSync implements IteratorAggregate
      *
      * @param  string|array $target - OPTIONAL single timeserver, or an array of timeservers.
      * @param  string       $alias  - OPTIONAL an alias for this timeserver
-     * @return  object
+     * @return object
      */
     public function __construct($target = null, $alias = null)
     {
@@ -124,8 +124,8 @@ class Zend_TimeSync implements IteratorAggregate
      * - ntp
      * - sntp
      *
-     * @param  string|array $target - Single timeserver, or an array of timeservers.
-     * @param  string       $alias  - OPTIONAL an alias for this timeserver
+     * @param  string|array            $target - Single timeserver, or an array of timeservers.
+     * @param  string                  $alias  - OPTIONAL an alias for this timeserver
      * @throws Zend_TimeSync_Exception
      */
     public function addServer($target, $alias = null)
@@ -144,7 +144,7 @@ class Zend_TimeSync implements IteratorAggregate
      *
      * This will replace any currently defined options.
      *
-     * @param   array $options - An array of options to be set
+     * @param array $options - An array of options to be set
      */
     public static function setOptions(array $options)
     {
@@ -156,8 +156,8 @@ class Zend_TimeSync implements IteratorAggregate
     /**
      * Marks a nameserver as current
      *
-     * @param   string|integer $alias - The alias from the timeserver to set as current
-     * @throws  Zend_TimeSync_Exception
+     * @param  string|integer          $alias - The alias from the timeserver to set as current
+     * @throws Zend_TimeSync_Exception
      */
     public function setServer($alias)
     {
@@ -172,9 +172,9 @@ class Zend_TimeSync implements IteratorAggregate
     /**
      * Returns the value to the option
      *
-     * @param   string $key - The option's identifier
-     * @return  mixed
-     * @throws  Zend_TimeSync_Exception
+     * @param  string                  $key - The option's identifier
+     * @return mixed
+     * @throws Zend_TimeSync_Exception
      */
     public static function getOptions($key = null)
     {
@@ -194,9 +194,9 @@ class Zend_TimeSync implements IteratorAggregate
      * Return a specified timeserver by alias
      * If no alias is given it will return the current timeserver
      *
-     * @param   string|integer $alias - The alias from the timeserver to return
-     * @return  object
-     * @throws  Zend_TimeSync_Exception
+     * @param  string|integer          $alias - The alias from the timeserver to return
+     * @return object
+     * @throws Zend_TimeSync_Exception
      */
     public function getServer($alias = null)
     {
@@ -219,7 +219,7 @@ class Zend_TimeSync implements IteratorAggregate
     /**
      * Returns information sent/returned from the current timeserver
      *
-     * @return  array
+     * @return array
      */
     public function getInfo()
     {
@@ -233,9 +233,9 @@ class Zend_TimeSync implements IteratorAggregate
      * facade and will try to return the date from the first server that
      * returns a valid result.
      *
-     * @param   Zend_Locale $locale - OPTIONAL locale
-     * @return  object
-     * @throws  Zend_TimeSync_Exception
+     * @param  Zend_Locale             $locale - OPTIONAL locale
+     * @return object
+     * @throws Zend_TimeSync_Exception
      */
     public function getDate($locale = null)
     {
@@ -258,8 +258,8 @@ class Zend_TimeSync implements IteratorAggregate
     /**
      * Adds a timeserver object to the timeserver list
      *
-     * @param  string|array $target   - Single timeserver, or an array of timeservers.
-     * @param  string       $alias    - An alias for this timeserver
+     * @param string|array $target - Single timeserver, or an array of timeservers.
+     * @param string       $alias  - An alias for this timeserver
      */
     protected function _addServer($target, $alias)
     {
@@ -276,7 +276,7 @@ class Zend_TimeSync implements IteratorAggregate
             if ($posbr and ($pos > $posbr)) {
                 $port = substr($adress, $pos + 1);
                 $adress = substr($adress, 0, $pos);
-            } else if (!$posbr and $pos) {
+            } elseif (!$posbr and $pos) {
                 $port = substr($adress, $pos + 1);
                 $adress = substr($adress, 0, $pos);
             } else {

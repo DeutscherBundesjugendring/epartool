@@ -35,7 +35,6 @@ class Zend_Markup
     const CALLBACK = 'callback';
     const REPLACE  = 'replace';
 
-
     /**
      * The parser loader
      *
@@ -49,7 +48,6 @@ class Zend_Markup
      * @var Zend_Loader_PluginLoader
      */
     protected static $_rendererLoader;
-
 
     /**
      * Disable instantiation of Zend_Markup
@@ -91,8 +89,8 @@ class Zend_Markup
     /**
      * Add a parser path
      *
-     * @param  string $prefix
-     * @param  string $path
+     * @param  string                   $prefix
+     * @param  string                   $path
      * @return Zend_Loader_PluginLoader
      */
     public static function addParserPath($prefix, $path)
@@ -103,8 +101,8 @@ class Zend_Markup
     /**
      * Add a renderer path
      *
-     * @param  string $prefix
-     * @param  string $path
+     * @param  string                   $prefix
+     * @param  string                   $path
      * @return Zend_Loader_PluginLoader
      */
     public static function addRendererPath($prefix, $path)
@@ -115,9 +113,9 @@ class Zend_Markup
     /**
      * Factory pattern
      *
-     * @param  string $parser
-     * @param  string $renderer
-     * @param  array $options
+     * @param  string                                $parser
+     * @param  string                                $renderer
+     * @param  array                                 $options
      * @return Zend_Markup_Renderer_RendererAbstract
      */
     public static function factory($parser, $renderer = 'Html', array $options = array())

@@ -20,12 +20,10 @@
  * @version    $Id: Nil.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Zend_XmlRpc_Value_Scalar
  */
 require_once 'Zend/XmlRpc/Value/Scalar.php';
-
 
 /**
  * @category   Zend
@@ -57,4 +55,3 @@ class Zend_XmlRpc_Value_Nil extends Zend_XmlRpc_Value_Scalar
         return null;
     }
 }
-

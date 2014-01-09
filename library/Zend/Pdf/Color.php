@@ -19,7 +19,6 @@
  * @version    $Id: Color.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * PDF provides a powerfull facilities for specifying the colors of graphics objects.
  * This class encapsulates color behaviour.
@@ -38,7 +37,7 @@ abstract class Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param  boolean $stroking
      * @return string
      */
     abstract public function instructions($stroking);
@@ -50,4 +49,3 @@ abstract class Zend_Pdf_Color
      */
     abstract public function getComponents();
 }
-

@@ -40,8 +40,8 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
      * a simple random character to maximum length process. Simplicity
      * is a factor better left for development...
      *
-     * @param string|int $minimum
-     * @param string|int $maximum
+     * @param  string|int $minimum
+     * @param  string|int $maximum
      * @return string
      */
     public function rand($minimum, $maximum)
@@ -61,6 +61,7 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
             $rand .= mt_rand(0,9);
         }
         $rand .= mt_rand(0,9);
+
         return $rand;
     }
 
@@ -68,30 +69,33 @@ class Zend_Crypt_Math extends Zend_Crypt_Math_BigInteger
      * Get the big endian two's complement of a given big integer in
      * binary notation
      *
-     * @param string $long
+     * @param  string $long
      * @return string
      */
-    public function btwoc($long) {
+    public function btwoc($long)
+    {
         if (ord($long[0]) > 127) {
             return "\x00" . $long;
         }
+
         return $long;
     }
 
     /**
      * Translate a binary form into a big integer string
      *
-     * @param string $binary
+     * @param  string $binary
      * @return string
      */
-    public function fromBinary($binary) {
+    public function fromBinary($binary)
+    {
         return $this->_math->binaryToInteger($binary);
     }
 
     /**
      * Translate a big integer string into a binary form
      *
-     * @param string $integer
+     * @param  string $integer
      * @return string
      */
     public function toBinary($integer)

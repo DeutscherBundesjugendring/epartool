@@ -20,12 +20,10 @@
  * @version    $Id: TagResultSet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Technorati_ResultSet
  */
 require_once 'Zend/Service/Technorati/ResultSet.php';
-
 
 /**
  * Represents a Technorati Tag query result set.
@@ -57,8 +55,8 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
     /**
      * Parses the search response and retrieve the results for iteration.
      *
-     * @param   DomDocument $dom    the ReST fragment for this object
-     * @param   array $options      query options as associative array
+     * @param DomDocument $dom     the ReST fragment for this object
+     * @param array       $options query options as associative array
      */
     public function __construct(DomDocument $dom, $options = array())
     {
@@ -75,22 +73,23 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
         $this->_totalResultsAvailable = (int) $this->getPostsMatched();
     }
 
-
     /**
      * Returns the number of posts that match the tag.
      *
-     * @return  int
+     * @return int
      */
-    public function getPostsMatched() {
+    public function getPostsMatched()
+    {
         return $this->_postsMatched;
     }
 
     /**
      * Returns the number of blogs that match the tag.
      *
-     * @return  int
+     * @return int
      */
-    public function getBlogsMatched() {
+    public function getBlogsMatched()
+    {
         return $this->_blogsMatched;
     }
 
@@ -105,6 +104,7 @@ class Zend_Service_Technorati_TagResultSet extends Zend_Service_Technorati_Resul
          * @see Zend_Service_Technorati_TagResult
          */
         require_once 'Zend/Service/Technorati/TagResult.php';
+
         return new Zend_Service_Technorati_TagResult($this->_results->item($this->_currentIndex));
     }
 }

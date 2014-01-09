@@ -70,7 +70,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
      * Constructor
      *
      * @param  Zend_Registry $registry
-     * @param  string $key
+     * @param  string        $key
      * @return void
      */
     public function __construct(Zend_Registry $registry = null, $key = null)
@@ -92,12 +92,13 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
     /**
      * Set registry object
      *
-     * @param  Zend_Registry $registry
+     * @param  Zend_Registry                      $registry
      * @return Zend_Controller_Plugin_ActionStack
      */
     public function setRegistry(Zend_Registry $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
@@ -124,12 +125,13 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
     /**
      * Set registry key
      *
-     * @param  string $key
+     * @param  string                             $key
      * @return Zend_Controller_Plugin_ActionStack
      */
     public function setRegistryKey($key)
     {
         $this->_registryKey = (string) $key;
+
         return $this;
     }
 
@@ -142,6 +144,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
     public function setClearRequestParams($clearRequestParams)
     {
         $this->_clearRequestParams = (bool) $clearRequestParams;
+
         return $this;
     }
 
@@ -164,32 +167,35 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
     {
         $registry = $this->getRegistry();
         $stack    = $registry[$this->getRegistryKey()];
+
         return $stack;
     }
 
     /**
      * Save stack to registry
      *
-     * @param  array $stack
+     * @param  array                              $stack
      * @return Zend_Controller_Plugin_ActionStack
      */
     protected function _saveStack(array $stack)
     {
         $registry = $this->getRegistry();
         $registry[$this->getRegistryKey()] = $stack;
+
         return $this;
     }
 
     /**
      * Push an item onto the stack
      *
-     * @param  Zend_Controller_Request_Abstract $next
+     * @param  Zend_Controller_Request_Abstract   $next
      * @return Zend_Controller_Plugin_ActionStack
      */
     public function pushStack(Zend_Controller_Request_Abstract $next)
     {
         $stack = $this->getStack();
         array_push($stack, $next);
+
         return $this->_saveStack($stack);
     }
 

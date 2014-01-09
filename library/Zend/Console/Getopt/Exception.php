@@ -19,12 +19,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Console_Getopt_Exception
  */
 require_once 'Zend/Exception.php';
-
 
 /**
  * @category   Zend
@@ -44,8 +42,8 @@ class Zend_Console_Getopt_Exception extends Zend_Exception
     /**
      * Constructor
      *
-     * @param string $message
-     * @param string $usage
+     * @param  string $message
+     * @param  string $usage
      * @return void
      */
     public function __construct($message, $usage = '')

@@ -30,7 +30,6 @@ require_once 'Zend/Gdata/App/Extension/Link.php';
  */
 require_once 'Zend/Gdata/YouTube/Extension/Token.php';
 
-
 /**
  * Specialized Link class for use with YouTube. Enables use of yt extension elements.
  *
@@ -64,8 +63,8 @@ class Zend_Gdata_YouTube_Extension_Link extends Zend_Gdata_App_Extension_Link
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -74,6 +73,7 @@ class Zend_Gdata_YouTube_Extension_Link extends Zend_Gdata_App_Extension_Link
         if ($this->_token != null) {
             $element->appendChild($this->_token->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -111,12 +111,13 @@ class Zend_Gdata_YouTube_Extension_Link extends Zend_Gdata_App_Extension_Link
     /**
      * Set the value for this element's token attribute.
      *
-     * @param Zend_Gdata_YouTube_Extension_Token $value The desired value for this attribute.
-     * @return Zend_YouTube_Extension_Link The element being modified.
+     * @param  Zend_Gdata_YouTube_Extension_Token $value The desired value for this attribute.
+     * @return Zend_YouTube_Extension_Link        The element being modified.
      */
     public function setToken($value)
     {
         $this->_token = $value;
+
         return $this;
     }
 

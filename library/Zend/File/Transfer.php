@@ -44,9 +44,9 @@ class Zend_File_Transfer
     /**
      * Creates a file processing handler
      *
-     * @param  string  $adapter   Adapter to use
-     * @param  boolean $direction OPTIONAL False means Download, true means upload
-     * @param  array   $options   OPTIONAL Options to set for this adapter
+     * @param  string                       $adapter   Adapter to use
+     * @param  boolean                      $direction OPTIONAL False means Download, true means upload
+     * @param  array                        $options   OPTIONAL Options to set for this adapter
      * @throws Zend_File_Transfer_Exception
      */
     public function __construct($adapter = 'Http', $direction = false, $options = array())
@@ -57,9 +57,9 @@ class Zend_File_Transfer
     /**
      * Sets a new adapter
      *
-     * @param  string  $adapter   Adapter to use
-     * @param  boolean $direction OPTIONAL False means Download, true means upload
-     * @param  array   $options   OPTIONAL Options to set for this adapter
+     * @param  string                       $adapter   Adapter to use
+     * @param  boolean                      $direction OPTIONAL False means Download, true means upload
+     * @param  array                        $options   OPTIONAL Options to set for this adapter
      * @throws Zend_File_Transfer_Exception
      */
     public function setAdapter($adapter, $direction = false, $options = array())
@@ -97,6 +97,7 @@ class Zend_File_Transfer
         }
 
         $direction = (integer) $direction;
+
         return $this->_adapter[$direction];
     }
 

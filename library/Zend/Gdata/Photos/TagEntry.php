@@ -80,8 +80,8 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      *          child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -90,6 +90,7 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
         if ($this->_gphotoWeight !== null) {
             $element->appendChild($this->_gphotoWeight->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -129,12 +130,13 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
     /**
      * Set the value for this element's gphoto:weight attribute.
      *
-     * @param string $value The desired value for this attribute.
+     * @param  string                             $value The desired value for this attribute.
      * @return Zend_Gdata_Photos_Extension_Weight The element being modified.
      */
     public function setGphotoWeight($value)
     {
         $this->_gphotoWeight = $value;
+
         return $this;
     }
 }

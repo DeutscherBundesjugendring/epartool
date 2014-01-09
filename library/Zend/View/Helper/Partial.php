@@ -53,12 +53,12 @@ class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
      * method to to the view object's assign() method. Otherwise, the result of
      * get_object_vars() is passed.
      *
-     * @param  string $name Name of view script
-     * @param  string|array $module If $model is empty, and $module is an array,
+     * @param string       $name   Name of view script
+     * @param string|array $module If $model is empty, and $module is an array,
      *                              these are the variables to populate in the
      *                              view. Otherwise, the module in which the
      *                              partial resides
-     * @param  array $model Variables to populate in the view
+     * @param  array                           $model Variables to populate in the view
      * @return string|Zend_View_Helper_Partial
      */
     public function partial($name = null, $module = null, $model = null)
@@ -118,13 +118,14 @@ class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
     {
         $view = clone $this->view;
         $view->clearVars();
+
         return $view;
     }
 
     /**
      * Set object key
      *
-     * @param  string $key
+     * @param  string                   $key
      * @return Zend_View_Helper_Partial
      */
     public function setObjectKey($key)

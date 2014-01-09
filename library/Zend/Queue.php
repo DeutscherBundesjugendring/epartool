@@ -144,25 +144,27 @@ class Zend_Queue implements Countable
     /**
      * Set queue options
      *
-     * @param  array $options
+     * @param  array      $options
      * @return Zend_Queue
      */
     public function setOptions(array $options)
     {
         $this->_options = array_merge($this->_options, $options);
+
         return $this;
     }
 
     /**
      * Set an individual configuration option
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @param  string     $name
+     * @param  mixed      $value
      * @return Zend_Queue
      */
     public function setOption($name, $value)
     {
         $this->_options[(string) $name] = $value;
+
         return $this;
     }
 
@@ -190,7 +192,7 @@ class Zend_Queue implements Countable
     /**
      * Retrieve a single option
      *
-     * @param  string $name
+     * @param  string     $name
      * @return null|mixed Returns null if option does not exist; option value otherwise
      */
     public function getOption($name)
@@ -198,6 +200,7 @@ class Zend_Queue implements Countable
         if ($this->hasOption($name)) {
             return $this->_options[$name];
         }
+
         return null;
     }
 
@@ -205,7 +208,7 @@ class Zend_Queue implements Countable
      * Set the adapter for this queue
      *
      * @param  string|Zend_Queue_Adapter_AdapterInterface $adapter
-     * @return Zend_Queue Provides a fluent interface
+     * @return Zend_Queue                                 Provides a fluent interface
      */
     public function setAdapter($adapter)
     {
@@ -265,12 +268,13 @@ class Zend_Queue implements Countable
     }
 
     /**
-     * @param  string $className
+     * @param  string     $className
      * @return Zend_Queue Provides a fluent interface
      */
     public function setMessageClass($className)
     {
         $this->_messageClass = (string) $className;
+
         return $this;
     }
 
@@ -283,12 +287,13 @@ class Zend_Queue implements Countable
     }
 
     /**
-     * @param  string $className
+     * @param  string     $className
      * @return Zend_Queue Provides a fluent interface
      */
     public function setMessageSetClass($className)
     {
         $this->_messageSetClass = (string) $className;
+
         return $this;
     }
 
@@ -316,8 +321,8 @@ class Zend_Queue implements Countable
     /**
      * Create a new queue
      *
-     * @param  string           $name    queue name
-     * @param  integer          $timeout default visibility timeout
+     * @param  string               $name    queue name
+     * @param  integer              $timeout default visibility timeout
      * @return Zend_Queue|false
      * @throws Zend_Queue_Exception
      */
@@ -370,15 +375,14 @@ class Zend_Queue implements Countable
     {
         if ($this->isSupported('delete')) {
             $deleted = $this->getAdapter()->delete($this->getName());
-        }
-        else {
+        } else {
             $deleted = true;
         }
 
         /**
          * @see Zend_Queue_Adapter_Null
          */
-        require_once('Zend/Queue/Adapter/Null.php');
+        require_once 'Zend/Queue/Adapter/Null.php';
         $this->setAdapter(new Zend_Queue_Adapter_Null($this->getOptions()));
 
         return $deleted;
@@ -392,7 +396,7 @@ class Zend_Queue implements Countable
      *
      * Returns true if the adapter doesn't support message deletion.
      *
-     * @param  Zend_Queue_Message $message
+     * @param  Zend_Queue_Message   $message
      * @return boolean
      * @throws Zend_Queue_Exception
      */
@@ -401,13 +405,14 @@ class Zend_Queue implements Countable
         if ($this->getAdapter()->isSupported('deleteMessage')) {
             return $this->getAdapter()->deleteMessage($message);
         }
+
         return true;
     }
 
     /**
      * Send a message to the queue
      *
-     * @param  mixed $message message
+     * @param  mixed                $message message
      * @return Zend_Queue_Message
      * @throws Zend_Queue_Exception
      */
@@ -426,14 +431,15 @@ class Zend_Queue implements Countable
         if ($this->getAdapter()->isSupported('count')) {
             return $this->getAdapter()->count();
         }
+
         return 0;
     }
 
     /**
      * Return the first element in the queue
      *
-     * @param  integer $maxMessages
-     * @param  integer $timeout
+     * @param  integer                     $maxMessages
+     * @param  integer                     $timeout
      * @return Zend_Queue_Message_Iterator
      */
     public function receive($maxMessages=null, $timeout=null)
@@ -478,7 +484,7 @@ class Zend_Queue implements Countable
     /**
      * Indicates if a function is supported or not.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return boolean
      */
     public function isSupported($name)

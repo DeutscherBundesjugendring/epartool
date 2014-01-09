@@ -57,7 +57,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
     /**
      * Set callback for decoding YAML
      *
-     * @param  callable $yamlEncoder the decoder to set
+     * @param  callable         $yamlEncoder the decoder to set
      * @return Zend_Config_Yaml
      */
     public function setYamlEncoder($yamlEncoder)
@@ -68,6 +68,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
         }
 
         $this->_yamlEncoder = $yamlEncoder;
+
         return $this;
     }
 
@@ -110,7 +111,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
      *
      * Until we have Zend_Yaml...
      *
-     * @param array $data YAML data
+     * @param  array  $data YAML data
      * @return string
      */
     public static function encode($data)
@@ -121,8 +122,8 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
     /**
      * Service function for encoding YAML
      *
-     * @param int $indent Current indent level
-     * @param array $data Data to encode
+     * @param  int    $indent Current indent level
+     * @param  array  $data   Data to encode
      * @return string
      */
     protected static function _encodeYaml($indent, $data)
@@ -131,14 +132,15 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
         $result = "";
         $numeric = is_numeric(key($data));
 
-        foreach($data as $key => $value) {
-            if(is_array($value)) {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
                 $encoded = "\n".self::_encodeYaml($indent+1, $value);
             } else {
-                $encoded = (string)$value."\n";
+                $encoded = (string) $value."\n";
             }
             $result .= str_repeat("  ", $indent).($numeric?"- ":"$key: ").$encoded;
         }
+
         return $result;
     }
 }

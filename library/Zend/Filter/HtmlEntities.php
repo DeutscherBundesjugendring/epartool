@@ -57,14 +57,14 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
      * Sets filter options
      *
      * @param  integer|array $quoteStyle
-     * @param  string  $charSet
+     * @param  string        $charSet
      * @return void
      */
     public function __construct($options = array())
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else if (!is_array($options)) {
+        } elseif (!is_array($options)) {
             $options = func_get_args();
             $temp['quotestyle'] = array_shift($options);
             if (!empty($options)) {
@@ -107,15 +107,15 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
     /**
      * Sets the quoteStyle option
      *
-     * @param  integer $quoteStyle
+     * @param  integer                  $quoteStyle
      * @return Zend_Filter_HtmlEntities Provides a fluent interface
      */
     public function setQuoteStyle($quoteStyle)
     {
         $this->_quoteStyle = $quoteStyle;
+
         return $this;
     }
-
 
     /**
      * Get encoding
@@ -130,12 +130,13 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
     /**
      * Set encoding
      *
-     * @param  string $value
+     * @param  string                   $value
      * @return Zend_Filter_HtmlEntities
      */
     public function setEncoding($value)
     {
         $this->_encoding = (string) $value;
+
         return $this;
     }
 
@@ -156,7 +157,7 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
      *
      * Proxies to {@link setEncoding()}
      *
-     * @param  string $charSet
+     * @param  string                   $charSet
      * @return Zend_Filter_HtmlEntities Provides a fluent interface
      */
     public function setCharSet($charSet)
@@ -177,12 +178,13 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
     /**
      * Sets the doubleQuote option
      *
-     * @param boolean $doubleQuote
+     * @param  boolean                  $doubleQuote
      * @return Zend_Filter_HtmlEntities Provides a fluent interface
      */
     public function setDoubleQuote($doubleQuote)
     {
         $this->_doubleQuote = (boolean) $doubleQuote;
+
         return $this;
     }
 
@@ -211,6 +213,7 @@ class Zend_Filter_HtmlEntities implements Zend_Filter_Interface
                 throw new Zend_Filter_Exception('Encoding mismatch has resulted in htmlentities errors');
             }
         }
+
         return $filtered;
     }
 }

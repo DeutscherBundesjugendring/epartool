@@ -47,6 +47,7 @@ class Zend_Debug
         if (self::$_sapi === null) {
             self::$_sapi = PHP_SAPI;
         }
+
         return self::$_sapi;
     }
 
@@ -54,7 +55,7 @@ class Zend_Debug
      * Set the debug ouput environment.
      * Setting a value of null causes Zend_Debug to use PHP_SAPI.
      *
-     * @param string $sapi
+     * @param  string $sapi
      * @return void;
      */
     public static function setSapi($sapi)
@@ -89,7 +90,7 @@ class Zend_Debug
                     . PHP_EOL . $output
                     . PHP_EOL;
         } else {
-            if(!extension_loaded('xdebug')) {
+            if (!extension_loaded('xdebug')) {
                 $flags = ENT_QUOTES;
                 // PHP 5.4.0+
                 if (defined('ENT_SUBSTITUTE')) {
@@ -107,6 +108,7 @@ class Zend_Debug
         if ($echo) {
             echo($output);
         }
+
         return $output;
     }
 

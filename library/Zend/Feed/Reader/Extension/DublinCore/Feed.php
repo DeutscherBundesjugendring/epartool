@@ -46,7 +46,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
     /**
      * Get a single author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function getAuthor($index = 0)
@@ -293,6 +293,7 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
         }
 
         $this->_data['categories'] = $categoryCollection;
+
         return $this->_data['categories'];
     }
 

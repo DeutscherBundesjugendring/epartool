@@ -70,7 +70,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     }
 
     /**
-     * @param  Zend_Config|array|string $options Application Id or array of options
+     * @param  Zend_Config|array|string            $options Application Id or array of options
      * @throws Zend_Service_Ebay_Finding_Exception When application id is missing
      * @return void
      */
@@ -98,7 +98,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     }
 
     /**
-     * @param  Zend_Rest_Client $client
+     * @param  Zend_Rest_Client          $client
      * @return Zend_Service_Ebay_Finding Provides a fluent interface
      */
     public function setClient($client)
@@ -128,6 +128,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
             require_once 'Zend/Rest/Client.php';
             $this->_client = new Zend_Rest_Client();
         }
+
         return $this->_client;
     }
 
@@ -135,10 +136,10 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
      * Finds items by a keyword query and/or category and allows searching
      * within item descriptions.
      *
-     * @param  string            $keywords
-     * @param  boolean           $descriptionSearch
-     * @param  integer           $categoryId
-     * @param  Zend_Config|array $options
+     * @param string            $keywords
+     * @param boolean           $descriptionSearch
+     * @param integer           $categoryId
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/findItemsAdvanced.html
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
@@ -159,8 +160,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     /**
      * Finds items in a specific category. Results can be filtered and sorted.
      *
-     * @param  integer           $categoryId
-     * @param  Zend_Config|array $options
+     * @param integer           $categoryId
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/findItemsByCategory.html
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
@@ -178,8 +179,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
      * Finds items on eBay based upon a keyword query and returns details for
      * matching items.
      *
-     * @param  string            $keywords
-     * @param  Zend_Config|array $options
+     * @param string            $keywords
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/findItemsByKeywords.html
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
@@ -196,9 +197,9 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     /**
      * Finds items based upon a product ID, such as an ISBN, UPC, EAN, or ePID.
      *
-     * @param  integer           $productId
-     * @param  string            $productIdType Default value is ReferenceID
-     * @param  Zend_Config|array $options
+     * @param integer           $productId
+     * @param string            $productIdType Default value is ReferenceID
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/findItemsByProduct.html
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
@@ -221,8 +222,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
      * Finds items in eBay stores. Can search a specific store or can search all
      * stores with a keyword query.
      *
-     * @param  string            $storeName
-     * @param  Zend_Config|array $options
+     * @param string            $storeName
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/findItemsIneBayStores.html
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
@@ -237,8 +238,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     }
 
     /**
-     * @param  array  $options
-     * @param  string $operation
+     * @param  array                                    $options
+     * @param  string                                   $operation
      * @return Zend_Service_Ebay_Finding_Response_Items
      */
     protected function _findItems(array $options, $operation)
@@ -259,6 +260,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
          */
         require_once 'Zend/Service/Ebay/Finding/Response/Items.php';
         $response = new Zend_Service_Ebay_Finding_Response_Items($dom->firstChild);
+
         return $response->setOperation($operation)
                         ->setOption($options);
     }
@@ -266,8 +268,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
     /**
      * Gets category and/or aspect metadata for the specified category.
      *
-     * @param  integer           $categoryId
-     * @param  Zend_Config|array $options
+     * @param integer           $categoryId
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/getHistograms.html
      * @return Zend_Service_Ebay_Finding_Response_Histograms
      */
@@ -286,6 +288,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
          */
         require_once 'Zend/Service/Ebay/Finding/Response/Histograms.php';
         $response = new Zend_Service_Ebay_Finding_Response_Histograms($dom->firstChild);
+
         return $response->setOperation($operation)
                         ->setOption($options);
     }
@@ -294,8 +297,8 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
      * Checks specified keywords and returns correctly spelled keywords for best
      * search results.
      *
-     * @param  string            $keywords
-     * @param  Zend_Config|array $options
+     * @param string            $keywords
+     * @param Zend_Config|array $options
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/getSearchKeywordsRecommendation.html
      * @return Zend_Service_Ebay_Finding_Response_Keywords
      */
@@ -314,13 +317,14 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
          */
         require_once 'Zend/Service/Ebay/Finding/Response/Keywords.php';
         $response = new Zend_Service_Ebay_Finding_Response_Keywords($dom->firstChild);
+
         return $response->setOperation($operation)
                         ->setOption($options);
     }
 
     /**
-     * @param  string $operation
-     * @param  array  $options
+     * @param string $operation
+     * @param array  $options
      * @link   http://developer.ebay.com/DevZone/finding/Concepts/MakingACall.html#StandardURLParameters
      * @return DOMDocument
      */
@@ -354,7 +358,7 @@ class Zend_Service_Ebay_Finding extends Zend_Service_Ebay_Abstract
      * If any error is found a DOMDocument is returned, this object contains a
      * DOMXPath object as "ebayFindingXPath" attribute.
      *
-     * @param  Zend_Http_Response $response
+     * @param Zend_Http_Response $response
      * @link   http://developer.ebay.com/DevZone/finding/CallRef/types/ErrorSeverity.html
      * @see    Zend_Service_Ebay_Finding_Abstract::_initXPath()
      * @throws Zend_Service_Ebay_Finding_Exception When any error occurrs during request

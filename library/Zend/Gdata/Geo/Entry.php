@@ -64,6 +64,7 @@ class Zend_Gdata_Geo_Entry extends Zend_Gdata_Entry
         if ($this->_where != null) {
             $element->appendChild($this->_where->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -90,8 +91,8 @@ class Zend_Gdata_Geo_Entry extends Zend_Gdata_Entry
     public function setWhere($value)
     {
         $this->_where = $value;
+
         return $this;
     }
-
 
 }

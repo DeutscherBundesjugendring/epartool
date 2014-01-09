@@ -65,7 +65,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListReque
      *
      * @param integer $environment
      * @param integer $what
-     * @param string $ownerId
+     * @param string  $ownerId
      */
     public function __construct($environment, $what = 0, $ownerId = null)
     {
@@ -77,7 +77,7 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListReque
     /**
      * sets $what
      *
-     * @param integer $what
+     * @param  integer                                                                      $what
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListRequest
      */
     public function setWhat($what)
@@ -87,18 +87,20 @@ class Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListReque
             throw new Zend_Service_DeveloperGarden_Request_Exception('What value not allowed.');
         }
         $this->what = $what;
+
         return $this;
     }
 
     /**
      * sets $ownerId
      *
-     * @param int $ownerId
+     * @param  int                                                                          $ownerId
      * @return Zend_Service_DeveloperGarden_Request_ConferenceCall_GetConferenceListRequest
      */
     public function setOwnerId($ownerId)
     {
         $this->ownerId = $ownerId;
+
         return $this;
     }
 }

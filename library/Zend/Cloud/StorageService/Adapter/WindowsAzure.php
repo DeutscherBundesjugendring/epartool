@@ -73,7 +73,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
     /**
      * Creates a new Zend_Cloud_Storage_WindowsAzure instance
      *
-     * @param array|Zend_Config  $options   Options for the Zend_Cloud_Storage_WindowsAzure instance
+     * @param array|Zend_Config $options Options for the Zend_Cloud_Storage_WindowsAzure instance
      */
     public function __construct($options = array())
     {
@@ -128,7 +128,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      * Get an item from the storage service.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return mixed
      */
     public function fetchItem($path, $options = null)
@@ -183,9 +183,9 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      * Store an item in the storage service.
      * WARNING: This operation overwrites any item that is located at
      * $destinationPath.
-     * @param string $destinationPath
-     * @param mixed  $data
-     * @param  array $options
+     * @param  string  $destinationPath
+     * @param  mixed   $data
+     * @param  array   $options
      * @return boolean
      */
     public function storeItem($destinationPath, $data, $options = null)
@@ -194,7 +194,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
         $temporaryFilePath       = '';
         $removeTemporaryFilePath = false;
 
-        if (is_resource($data))    {
+        if (is_resource($data)) {
             $temporaryFilePath = tempnam('', 'azr');
             $fpDestination     = fopen($temporaryFilePath, 'w');
 
@@ -223,7 +223,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
                 $destinationPath,
                 $temporaryFilePath
             );
-        } catch(Zend_Service_WindowsAzure_Exception $e) {
+        } catch (Zend_Service_WindowsAzure_Exception $e) {
             @unlink($temporaryFilePath);
             throw new Zend_Cloud_StorageService_Exception('Error on store: '.$e->getMessage(), $e->getCode(), $e);
         }
@@ -307,7 +307,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      *
      * @param  string $path
      * @param  string $name
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function renameItem($path, $name, $options = null)
@@ -321,9 +321,9 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      * The $path must be a directory
      *
      *
-     * @param  string $path Must be a directory
-     * @param  array $options
-     * @return array A list of item names
+     * @param  string $path    Must be a directory
+     * @param  array  $options
+     * @return array  A list of item names
      */
     public function listItems($path, $options = null)
     {
@@ -386,12 +386,12 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      * $destinationPath.
      *
      * @param  string $destinationPath
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function storeMetadata($destinationPath, $metadata, $options = null)
     {
-        try    {
+        try {
             $this->_storageClient->setBlobMetadata($this->_container, $destinationPath, $metadata);
         } catch (Zend_Service_WindowsAzure_Exception $e) {
             if (strpos($e->getMessage(), "could not be accessed") === false) {
@@ -404,7 +404,7 @@ class Zend_Cloud_StorageService_Adapter_WindowsAzure
      * Delete a key/value array of metadata at the given path.
      *
      * @param  string $path
-     * @param  array $options
+     * @param  array  $options
      * @return void
      */
     public function deleteMetadata($path, $options = null)

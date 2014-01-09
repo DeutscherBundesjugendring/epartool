@@ -121,10 +121,10 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
     /**
      * Create a new instance of Zend_Log_Writer_Syslog
      *
-     * @param  array|Zend_Config $config
+     * @param  array|Zend_Config      $config
      * @return Zend_Log_Writer_Syslog
      */
-    static public function factory($config)
+    public static function factory($config)
     {
         return new self(self::_parseConfig($config));
     }
@@ -180,9 +180,9 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
     /**
      * Set syslog facility
      *
-     * @param  int $facility Syslog facility
+     * @param  int                    $facility Syslog facility
      * @return Zend_Log_Writer_Syslog
-     * @throws Zend_Log_Exception for invalid log facility
+     * @throws Zend_Log_Exception     for invalid log facility
      */
     public function setFacility($facility)
     {
@@ -208,13 +208,14 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
 
         $this->_facility = $facility;
         $this->_initializeSyslog();
+
         return $this;
     }
 
     /**
      * Set application name
      *
-     * @param  string $application Application name
+     * @param  string                 $application Application name
      * @return Zend_Log_Writer_Syslog
      */
     public function setApplicationName($application)
@@ -224,6 +225,7 @@ class Zend_Log_Writer_Syslog extends Zend_Log_Writer_Abstract
         }
         $this->_application = $application;
         $this->_initializeSyslog();
+
         return $this;
     }
 

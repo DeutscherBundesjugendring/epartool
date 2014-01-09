@@ -49,21 +49,22 @@ class Zend_Tool_Framework_System_Provider_Version
     public function setRegistry(Zend_Tool_Framework_Registry_Interface $registry)
     {
         $this->_registry = $registry;
+
         return $this;
     }
 
     /**
      * Show Action
      *
-     * @param string $mode The mode switch can be one of: major, minor, or mini (default)
-     * @param bool $nameIncluded
+     * @param string $mode         The mode switch can be one of: major, minor, or mini (default)
+     * @param bool   $nameIncluded
      */
     public function show($mode = self::MODE_MINI, $nameIncluded = true)
     {
 
         $versionInfo = $this->_splitVersion();
 
-        switch($mode) {
+        switch ($mode) {
             case self::MODE_MINOR:
                 unset($versionInfo['mini']);
                 break;
@@ -105,6 +106,7 @@ class Zend_Tool_Framework_System_Provider_Version
     protected function _splitVersion()
     {
         list($major, $minor, $mini) = explode('.', Zend_Version::VERSION);
+
         return array('major' => $major, 'minor' => $minor, 'mini' => $mini);
     }
 

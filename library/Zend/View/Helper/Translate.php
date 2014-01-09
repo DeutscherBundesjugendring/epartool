@@ -62,7 +62,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
      * Example 1: translate('%1\$s + %2\$s', $value1, $value2, $locale);
      * Example 2: translate('%1\$s + %2\$s', array($value1, $value2), $locale);
      *
-     * @param  string $messageid Id of the message to be translated
+     * @param  string                            $messageid Id of the message to be translated
      * @return string|Zend_View_Helper_Translate Translated message
      */
     public function translate($messageid = null)
@@ -102,14 +102,14 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
      * Sets a translation Adapter for translation
      *
      * @param  Zend_Translate|Zend_Translate_Adapter $translate Instance of Zend_Translate
-     * @throws Zend_View_Exception When no or a false instance was set
+     * @throws Zend_View_Exception                   When no or a false instance was set
      * @return Zend_View_Helper_Translate
      */
     public function setTranslator($translate)
     {
         if ($translate instanceof Zend_Translate_Adapter) {
             $this->_translator = $translate;
-        } else if ($translate instanceof Zend_Translate) {
+        } elseif ($translate instanceof Zend_Translate) {
             $this->_translator = $translate->getAdapter();
         } else {
             require_once 'Zend/View/Exception.php';
@@ -141,8 +141,8 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
     /**
      * Set's an new locale for all further translations
      *
-     * @param  string|Zend_Locale $locale New locale to set
-     * @throws Zend_View_Exception When no Zend_Translate instance was set
+     * @param  string|Zend_Locale         $locale New locale to set
+     * @throws Zend_View_Exception        When no Zend_Translate instance was set
      * @return Zend_View_Helper_Translate
      */
     public function setLocale($locale = null)
@@ -156,6 +156,7 @@ class Zend_View_Helper_Translate extends Zend_View_Helper_Abstract
         }
 
         $translate->setLocale($locale);
+
         return $this;
     }
 

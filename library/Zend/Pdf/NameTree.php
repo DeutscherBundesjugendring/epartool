@@ -23,7 +23,6 @@
 /** Internally used classes */
 require_once 'Zend/Pdf/Element.php';
 
-
 /**
  * PDF name tree representation class
  *
@@ -90,41 +89,35 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
         return current($this->_items);
     }
 
-
     public function next()
     {
         return next($this->_items);
     }
-
 
     public function key()
     {
         return key($this->_items);
     }
 
-
-    public function valid() {
+    public function valid()
+    {
         return current($this->_items)!==false;
     }
-
 
     public function rewind()
     {
         reset($this->_items);
     }
 
-
     public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->_items);
     }
 
-
     public function offsetGet($offset)
     {
         return $this->_items[$offset];
     }
-
 
     public function offsetSet($offset, $value)
     {
@@ -135,12 +128,10 @@ class Zend_Pdf_NameTree implements ArrayAccess, Iterator, Countable
         }
     }
 
-
     public function offsetUnset($offset)
     {
         unset($this->_items[$offset]);
     }
-
 
     public function clear()
     {

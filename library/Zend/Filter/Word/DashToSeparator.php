@@ -37,6 +37,7 @@ class Zend_Filter_Word_DashToSeparator extends Zend_Filter_Word_Separator_Abstra
     {
         $this->setMatchPattern('#-#');
         $this->setReplacement($this->_separator);
+
         return parent::filter($value);
     }
 }

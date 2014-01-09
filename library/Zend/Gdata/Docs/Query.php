@@ -24,7 +24,7 @@
 /**
  * Zend_Gdata_Query
  */
-require_once('Zend/Gdata/Query.php');
+require_once 'Zend/Gdata/Query.php';
 
 /**
  * Assists in constructing queries for Google Document List documents
@@ -84,12 +84,13 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * Sets the projection for this query. Common values for projection
      * include 'full'.
      *
-     * @param string $value
+     * @param  string                $value
      * @return Zend_Gdata_Docs_Query Provides a fluent interface
      */
     public function setProjection($value)
     {
         $this->_projection = $value;
+
         return $this;
     }
 
@@ -102,6 +103,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
     public function setVisibility($value)
     {
         $this->_visibility = $value;
+
         return $this;
     }
 
@@ -130,7 +132,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * to restrict the results to documents whose titles either contain or
      * completely match the title.
      *
-     * @param string $value
+     * @param  string                $value
      * @return Zend_Gdata_Docs_Query Provides a fluent interface
      */
     public function setTitle($value)
@@ -140,6 +142,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
         } else {
             unset($this->_params['title']);
         }
+
         return $this;
     }
 
@@ -163,7 +166,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * in an exact match. Only documents with a title identical to the
      * title parameter will be returned.
      *
-     * @param boolean $value Use either true or false
+     * @param  boolean               $value Use either true or false
      * @return Zend_Gdata_Docs_Query Provides a fluent interface
      */
     public function setTitleExact($value)
@@ -173,6 +176,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
         } else {
             unset($this->_params['title-exact']);
         }
+
         return $this;
     }
 
@@ -216,6 +220,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
         }
 
         $uri .= $this->getQueryString();
+
         return $uri;
     }
 

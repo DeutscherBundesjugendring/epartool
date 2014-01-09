@@ -114,8 +114,8 @@ class Zend_Text_Table
     /**
      * Create a basic table object
      *
-     * @param  array             $columnsWidths List of all column widths
-     * @param  Zend_Config|array $options       Configuration options
+     * @param  array                     $columnsWidths List of all column widths
+     * @param  Zend_Config|array         $options       Configuration options
      * @throws Zend_Text_Table_Exception When no columns widths were set
      */
     public function __construct($options = null)
@@ -123,7 +123,7 @@ class Zend_Text_Table
         // Set options
         if (is_array($options)) {
             $this->setOptions($options);
-        } else if ($options instanceof Zend_Config) {
+        } elseif ($options instanceof Zend_Config) {
             $this->setConfig($options);
         }
 
@@ -147,7 +147,7 @@ class Zend_Text_Table
     /**
      * Set options from array
      *
-     * @param  array $options Configuration for Zend_Text_Table
+     * @param  array           $options Configuration for Zend_Text_Table
      * @return Zend_Text_Table
      */
     public function setOptions(array $options)
@@ -169,7 +169,7 @@ class Zend_Text_Table
     /**
      * Set options from config object
      *
-     * @param  Zend_Config $config Configuration for Zend_Text_Table
+     * @param  Zend_Config     $config Configuration for Zend_Text_Table
      * @return Zend_Text_Table
      */
     public function setConfig(Zend_Config $config)
@@ -180,7 +180,7 @@ class Zend_Text_Table
     /**
      * Set column widths
      *
-     * @param  array $columnWidths Widths of all columns
+     * @param  array                     $columnWidths Widths of all columns
      * @throws Zend_Text_Table_Exception When no columns were supplied
      * @throws Zend_Text_Table_Exception When a column has an invalid width
      * @return Zend_Text_Table
@@ -208,12 +208,13 @@ class Zend_Text_Table
     /**
      * Set auto separation mode
      *
-     * @param  integer $autoSeparate Auto separation mode
+     * @param  integer         $autoSeparate Auto separation mode
      * @return Zend_Text_Table
      */
     public function setAutoSeparate($autoSeparate)
     {
         $this->_autoSeparate = (int) $autoSeparate;
+
         return $this;
     }
 
@@ -238,12 +239,13 @@ class Zend_Text_Table
     /**
      * Set the column padding
      *
-     * @param  integer $padding The padding for the columns
+     * @param  integer         $padding The padding for the columns
      * @return Zend_Text_Table
      */
     public function setPadding($padding)
     {
         $this->_padding = max(0, (int) $padding);
+
         return $this;
     }
 
@@ -268,8 +270,8 @@ class Zend_Text_Table
     /**
      * Set default column align for rows created by appendRow(array $data)
      *
-     * @param  integer $columnNum
-     * @param  string  $align
+     * @param  integer         $columnNum
+     * @param  string          $align
      * @return Zend_Text_Table
      */
     public function setDefaultColumnAlign($columnNum, $align)
@@ -416,9 +418,9 @@ class Zend_Text_Table
                 // Else check if we have to draw the row separator
                 if ($this->_autoSeparate & self::AUTO_SEPARATE_ALL) {
                     $drawSeparator = true;
-                } else if ($rowNum === 1 && $this->_autoSeparate & self::AUTO_SEPARATE_HEADER) {
+                } elseif ($rowNum === 1 && $this->_autoSeparate & self::AUTO_SEPARATE_HEADER) {
                     $drawSeparator = true;
-                } else if ($rowNum === ($numRows - 1) && $this->_autoSeparate & self::AUTO_SEPARATE_FOOTER) {
+                } elseif ($rowNum === ($numRows - 1) && $this->_autoSeparate & self::AUTO_SEPARATE_FOOTER) {
                     $drawSeparator = true;
                 } else {
                     $drawSeparator = false;

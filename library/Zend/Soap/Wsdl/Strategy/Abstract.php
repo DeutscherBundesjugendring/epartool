@@ -23,7 +23,7 @@
 /**
  * @see Zend_Soap_Wsdl_Strategy_Interface
  */
-require_once "Zend/Soap/Wsdl/Strategy/Interface.php";
+require_once 'Zend/Soap/Wsdl/Strategy/Interface.php';
 
 /**
  * Abstract class for Zend_Soap_Wsdl_Strategy.
@@ -46,7 +46,7 @@ abstract class Zend_Soap_Wsdl_Strategy_Abstract implements Zend_Soap_Wsdl_Strate
     /**
      * Set the Zend_Soap_Wsdl Context object this strategy resides in.
      *
-     * @param Zend_Soap_Wsdl $context
+     * @param  Zend_Soap_Wsdl $context
      * @return void
      */
     public function setContext(Zend_Soap_Wsdl $context)

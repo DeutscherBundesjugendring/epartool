@@ -20,12 +20,10 @@
  * @version    $Id: FormHidden.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * Abstract class for extension
  */
 require_once 'Zend/View/Helper/FormElement.php';
-
 
 /**
  * Helper to generate a "hidden" element
@@ -46,8 +44,8 @@ class Zend_View_Helper_FormHidden extends Zend_View_Helper_FormElement
      * @param string|array $name If a string, the element name.  If an
      * array, all other parameters are ignored, and the array elements
      * are extracted in place of added parameters.
-     * @param mixed $value The element value.
-     * @param array $attribs Attributes for the element tag.
+     * @param  mixed  $value   The element value.
+     * @param  array  $attribs Attributes for the element tag.
      * @return string The element XHTML.
      */
     public function formHidden($name, $value = null, array $attribs = null)
@@ -61,6 +59,7 @@ class Zend_View_Helper_FormHidden extends Zend_View_Helper_FormElement
                 $attribs = array('id' => $id);
             }
         }
+
         return $this->_hidden($name, $value, $attribs);
     }
 }

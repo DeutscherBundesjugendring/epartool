@@ -124,12 +124,13 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
     /**
      * Set layout object
      *
-     * @param  Zend_Layout $layout
+     * @param  Zend_Layout                                 $layout
      * @return Zend_Layout_Controller_Action_Helper_Layout
      */
     public function setLayoutInstance(Zend_Layout $layout)
     {
         $this->_layout = $layout;
+
         return $this;
     }
 
@@ -141,6 +142,7 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
     public function postDispatch()
     {
         $this->_isActionControllerSuccessful = true;
+
         return $this;
     }
 
@@ -170,7 +172,7 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
      * Proxy method calls to layout object
      *
      * @param  string $method
-     * @param  array $args
+     * @param  array  $args
      * @return mixed
      */
     public function __call($method, $args)

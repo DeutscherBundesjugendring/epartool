@@ -51,7 +51,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
     /**
      * Get a single author
      *
-     * @param  int $index
+     * @param  int         $index
      * @return string|null
      */
     public function getAuthor($index = 0)
@@ -529,6 +529,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
         if (empty($author)) {
             return null;
         }
+
         return $author;
     }
 
@@ -546,6 +547,7 @@ class Zend_Feed_Reader_Extension_Atom_Feed
                 }
             }
         }
+
         return $link;
     }
 

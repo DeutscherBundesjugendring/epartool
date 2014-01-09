@@ -62,8 +62,8 @@ class Zend_Gdata_Books_Extension_Viewability extends Zend_Gdata_Extension
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistance.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -72,6 +72,7 @@ class Zend_Gdata_Books_Extension_Viewability extends Zend_Gdata_Extension
         if ($this->_value !== null) {
             $element->setAttribute('value', $this->_value);
         }
+
         return $element;
     }
 
@@ -115,9 +116,8 @@ class Zend_Gdata_Books_Extension_Viewability extends Zend_Gdata_Extension
     public function setValue($value)
     {
         $this->_value = $value;
+
         return $this;
     }
 
-
 }
-

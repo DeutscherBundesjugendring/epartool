@@ -73,11 +73,11 @@ Roles file format:
     </role>
 </roles>
 */
-        foreach($xml->role as $role) {
-            $this->_acl->addRole(new Zend_Acl_Role((string)$role["id"]));
-            foreach($role->user as $user) {
-                $this->_users[(string)$user["name"]] = array("password" => (string)$user["password"],
-                                                             "role" => (string)$role["id"]);
+        foreach ($xml->role as $role) {
+            $this->_acl->addRole(new Zend_Acl_Role((string) $role["id"]));
+            foreach ($role->user as $user) {
+                $this->_users[(string) $user["name"]] = array("password" => (string) $user["password"],
+                                                             "role" => (string) $role["id"]);
             }
         }
     }
@@ -110,7 +110,7 @@ Roles file format:
             throw new Zend_Auth_Adapter_Exception('Username/password should be set');
         }
 
-        if(!isset($this->_users[$this->_username])) {
+        if (!isset($this->_users[$this->_username])) {
             return new Zend_Auth_Result(Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND,
                 null,
                 array('Username not found')
@@ -118,7 +118,7 @@ Roles file format:
         }
 
         $user = $this->_users[$this->_username];
-        if($user["password"] != $this->_password) {
+        if ($user["password"] != $this->_password) {
             return new Zend_Auth_Result(Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID,
                 null,
                 array('Authentication failed')
@@ -128,6 +128,7 @@ Roles file format:
         $id = new stdClass();
         $id->role = $user["role"];
         $id->name = $this->_username;
+
         return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $id);
     }
 }

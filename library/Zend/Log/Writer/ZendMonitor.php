@@ -63,10 +63,10 @@ class Zend_Log_Writer_ZendMonitor extends Zend_Log_Writer_Abstract
     /**
      * Create a new instance of Zend_Log_Writer_ZendMonitor
      *
-     * @param  array|Zend_Config $config
+     * @param  array|Zend_Config           $config
      * @return Zend_Log_Writer_ZendMonitor
      */
-    static public function factory($config)
+    public static function factory($config)
     {
         return new self();
     }
@@ -103,7 +103,7 @@ class Zend_Log_Writer_ZendMonitor extends Zend_Log_Writer_Abstract
     /**
      * Write a message to the log.
      *
-     * @param  array  $event log data event
+     * @param  array $event log data event
      * @return void
      */
     protected function _write($event)

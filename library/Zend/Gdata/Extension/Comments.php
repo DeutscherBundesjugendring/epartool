@@ -63,6 +63,7 @@ class Zend_Gdata_Extension_Comments extends Zend_Gdata_Extension
         if ($this->_feedLink !== null) {
             $element->appendChild($this->_feedLink->getDOM($element->ownerDocument));
         }
+
         return $element;
     }
 
@@ -100,6 +101,7 @@ class Zend_Gdata_Extension_Comments extends Zend_Gdata_Extension
     public function setRel($value)
     {
         $this->_rel = $value;
+
         return $this;
     }
 
@@ -111,6 +113,7 @@ class Zend_Gdata_Extension_Comments extends Zend_Gdata_Extension
     public function setFeedLink($value)
     {
         $this->_feedLink = $value;
+
         return $this;
     }
 

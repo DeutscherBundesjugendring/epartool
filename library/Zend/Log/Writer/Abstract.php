@@ -48,7 +48,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Add a filter specific to this writer.
      *
-     * @param  Zend_Log_Filter_Interface  $filter
+     * @param  Zend_Log_Filter_Interface $filter
      * @return Zend_Log_Writer_Abstract
      */
     public function addFilter($filter)
@@ -64,6 +64,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
         }
 
         $this->_filters[] = $filter;
+
         return $this;
     }
 
@@ -94,6 +95,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     public function setFormatter(Zend_Log_Formatter_Interface $formatter)
     {
         $this->_formatter = $formatter;
+
         return $this;
     }
 
@@ -108,7 +110,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Write a message to the log.
      *
-     * @param  array  $event  log data event
+     * @param  array $event log data event
      * @return void
      */
     abstract protected function _write($event);
@@ -116,11 +118,11 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Validate and optionally convert the config to array
      *
-     * @param  array|Zend_Config $config Zend_Config or Array
+     * @param  array|Zend_Config  $config Zend_Config or Array
      * @return array
      * @throws Zend_Log_Exception
      */
-    static protected function _parseConfig($config)
+    protected static function _parseConfig($config)
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();

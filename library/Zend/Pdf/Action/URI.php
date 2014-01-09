@@ -26,10 +26,8 @@ require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/String.php';
 require_once 'Zend/Pdf/Element/Boolean.php';
 
-
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
-
 
 /**
  * PDF 'Resolve a uniform resource identifier' action
@@ -46,8 +44,8 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
     /**
      * Object constructor
      *
-     * @param Zend_Pdf_Element_Dictionary $dictionary
-     * @param SplObjectStorage            $processedActions  list of already processed action dictionaries, used to avoid cyclic references
+     * @param  Zend_Pdf_Element_Dictionary $dictionary
+     * @param  SplObjectStorage            $processedActions list of already processed action dictionaries, used to avoid cyclic references
      * @throws Zend_Pdf_Exception
      */
     public function __construct(Zend_Pdf_Element $dictionary, SplObjectStorage $processedActions)
@@ -63,13 +61,13 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
     /**
      * Validate URI
      *
-     * @param string $uri
+     * @param  string             $uri
      * @return true
      * @throws Zend_Pdf_Exception
      */
     protected static function _validateUri($uri)
     {
-        $scheme = parse_url((string)$uri, PHP_URL_SCHEME);
+        $scheme = parse_url((string) $uri, PHP_URL_SCHEME);
         if ($scheme === false || $scheme === null) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Invalid URI');
@@ -79,8 +77,8 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
     /**
      * Create new Zend_Pdf_Action_URI object using specified uri
      *
-     * @param string  $uri    The URI to resolve, encoded in 7-bit ASCII
-     * @param boolean $isMap  A flag specifying whether to track the mouse position when the URI is resolved
+     * @param  string              $uri   The URI to resolve, encoded in 7-bit ASCII
+     * @param  boolean             $isMap A flag specifying whether to track the mouse position when the URI is resolved
      * @return Zend_Pdf_Action_URI
      */
     public static function create($uri, $isMap = false)
@@ -102,7 +100,7 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
     /**
      * Set URI to resolve
      *
-     * @param string $uri   The uri to resolve, encoded in 7-bit ASCII.
+     * @param  string              $uri The uri to resolve, encoded in 7-bit ASCII.
      * @return Zend_Pdf_Action_URI
      */
     public function setUri($uri)
@@ -133,7 +131,7 @@ class Zend_Pdf_Action_URI extends Zend_Pdf_Action
      * performed should be transformed from device space to user space and then offset
      * relative to the upper-left corner of the annotation rectangle.
      *
-     * @param boolean $isMap  A flag specifying whether to track the mouse position when the URI is resolved
+     * @param  boolean             $isMap A flag specifying whether to track the mouse position when the URI is resolved
      * @return Zend_Pdf_Action_URI
      */
     public function setIsMap($isMap)

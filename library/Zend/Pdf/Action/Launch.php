@@ -23,7 +23,6 @@
 /** Zend_Pdf_Action */
 require_once 'Zend/Pdf/Action.php';
 
-
 /**
  * PDF 'Launch an application, usually to open a file' action
  *
@@ -35,4 +34,3 @@ require_once 'Zend/Pdf/Action.php';
 class Zend_Pdf_Action_Launch extends Zend_Pdf_Action
 {
 }
-

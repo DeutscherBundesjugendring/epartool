@@ -80,7 +80,6 @@ class Zend_Tool_Project_Context_Repository implements Countable
         }
     }
 
-
     public function addContextClass($contextClass)
     {
         if (!class_exists($contextClass)) {
@@ -90,15 +89,17 @@ class Zend_Tool_Project_Context_Repository implements Countable
         $reflectionContextClass = new ReflectionClass($contextClass);
         if ($reflectionContextClass->isInstantiable()) {
             $context = new $contextClass();
+
             return $this->addContext($context);
         }
+
         return $this;
     }
 
     /**
      * Enter description here...
      *
-     * @param Zend_Tool_Project_Context_Interface $context
+     * @param  Zend_Tool_Project_Context_Interface  $context
      * @return Zend_Tool_Project_Context_Repository
      */
     public function addContext(Zend_Tool_Project_Context_Interface $context)
@@ -136,12 +137,14 @@ class Zend_Tool_Project_Context_Repository implements Countable
         }
 
         $name = $this->_normalizeName($name);
+
         return clone $this->_contexts[$this->_shortContextNames[$name]]['context'];
     }
 
     public function hasContext($name)
     {
         $name = $this->_normalizeName($name);
+
         return (isset($this->_shortContextNames[$name]) ? true : false);
     }
 
@@ -153,6 +156,7 @@ class Zend_Tool_Project_Context_Repository implements Countable
 
         $name = $this->_normalizeName($name);
         $index = $this->_shortContextNames[$name];
+
         return $this->_contexts[$index]['isSystemContext'];
     }
 
@@ -163,6 +167,7 @@ class Zend_Tool_Project_Context_Repository implements Countable
         }
         $name = $this->_normalizeName($name);
         $index = $this->_shortContextNames[$name];
+
         return $this->_contexts[$index]['isTopLevel'];
     }
 
@@ -173,6 +178,7 @@ class Zend_Tool_Project_Context_Repository implements Countable
         }
         $name = $this->_normalizeName($name);
         $index = $this->_shortContextNames[$name];
+
         return $this->_contexts[$index]['isOverwritable'];
     }
 

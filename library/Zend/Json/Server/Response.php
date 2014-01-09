@@ -62,12 +62,13 @@ class Zend_Json_Server_Response
     /**
      * Set result
      *
-     * @param  mixed $value
+     * @param  mixed                     $value
      * @return Zend_Json_Server_Response
      */
     public function setResult($value)
     {
         $this->_result = $value;
+
         return $this;
     }
 
@@ -85,12 +86,13 @@ class Zend_Json_Server_Response
     /**
      * Set result error
      *
-     * @param  Zend_Json_Server_Error $error
+     * @param  Zend_Json_Server_Error    $error
      * @return Zend_Json_Server_Response
      */
     public function setError(Zend_Json_Server_Error $error)
     {
         $this->_error = $error;
+
         return $this;
     }
 
@@ -117,12 +119,13 @@ class Zend_Json_Server_Response
     /**
      * Set request ID
      *
-     * @param  mixed $name
+     * @param  mixed                     $name
      * @return Zend_Json_Server_Response
      */
     public function setId($name)
     {
         $this->_id = $name;
+
         return $this;
     }
 
@@ -139,7 +142,7 @@ class Zend_Json_Server_Response
     /**
      * Set JSON-RPC version
      *
-     * @param  string $version
+     * @param  string                    $version
      * @return Zend_Json_Server_Response
      */
     public function setVersion($version)
@@ -147,11 +150,12 @@ class Zend_Json_Server_Response
         $version = is_array($version)
             ? implode(' ', $version)
             : $version;
-        if ((string)$version == '2.0') {
+        if ((string) $version == '2.0') {
             $this->_version = '2.0';
         } else {
             $this->_version = null;
         }
+
         return $this;
     }
 
@@ -189,6 +193,7 @@ class Zend_Json_Server_Response
         }
 
         require_once 'Zend/Json.php';
+
         return Zend_Json::encode($response);
     }
 
@@ -205,24 +210,26 @@ class Zend_Json_Server_Response
     /**
      * Set args
      *
-     * @param mixed $args
+     * @param  mixed $args
      * @return self
      */
     public function setArgs($args)
     {
         $this->_args = $args;
+
         return $this;
     }
 
     /**
      * Set service map object
      *
-     * @param  Zend_Json_Server_Smd $serviceMap
+     * @param  Zend_Json_Server_Smd      $serviceMap
      * @return Zend_Json_Server_Response
      */
     public function setServiceMap($serviceMap)
     {
         $this->_serviceMap = $serviceMap;
+
         return $this;
     }
 
@@ -246,4 +253,3 @@ class Zend_Json_Server_Response
         return $this->toJson();
     }
 }
-

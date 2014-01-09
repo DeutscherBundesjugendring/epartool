@@ -21,12 +21,10 @@
  * @version    $Id: Query.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Service_Amazon
  */
 require_once 'Zend/Service/Amazon.php';
-
 
 /**
  * @category   Zend
@@ -54,8 +52,8 @@ class Zend_Service_Amazon_Query extends Zend_Service_Amazon
     /**
      * Prepares query parameters
      *
-     * @param  string $method
-     * @param  array  $args
+     * @param  string                    $method
+     * @param  array                     $args
      * @throws Zend_Service_Exception
      * @return Zend_Service_Amazon_Query Provides a fluent interface
      */
@@ -64,13 +62,14 @@ class Zend_Service_Amazon_Query extends Zend_Service_Amazon
         if (strtolower($method) === 'asin') {
             $this->_searchIndex = 'asin';
             $this->_search['ItemId'] = $args[0];
+
             return $this;
         }
 
         if (strtolower($method) === 'category') {
             $this->_searchIndex = $args[0];
             $this->_search['SearchIndex'] = $args[0];
-        } else if (isset($this->_search['SearchIndex']) || $this->_searchIndex !== null || $this->_searchIndex === 'asin') {
+        } elseif (isset($this->_search['SearchIndex']) || $this->_searchIndex !== null || $this->_searchIndex === 'asin') {
             $this->_search[$method] = $args[0];
         } else {
             /**
@@ -93,6 +92,7 @@ class Zend_Service_Amazon_Query extends Zend_Service_Amazon
         if ($this->_searchIndex === 'asin') {
             return $this->itemLookup($this->_search['ItemId'], $this->_search);
         }
+
         return $this->itemSearch($this->_search);
     }
 }

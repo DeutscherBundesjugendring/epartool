@@ -121,7 +121,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
         $this->_reflection = $r;
 
         // Determine namespace
-        if (null !== $namespace){
+        if (null !== $namespace) {
             $this->setNamespace($namespace);
         }
 
@@ -146,8 +146,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
      * each array in {@link $_sigParams}, adding every value of the next level
      * to the current value (unless the current value is null).
      *
-     * @param Zend_Server_Reflection_Node $parent
-     * @param int $level
+     * @param  Zend_Server_Reflection_Node $parent
+     * @param  int                         $level
      * @return void
      */
     protected function _addTree(Zend_Server_Reflection_Node $parent, $level = 0)
@@ -191,10 +191,10 @@ abstract class Zend_Server_Reflection_Function_Abstract
      * Builds method signatures using the array of return types and the array of
      * parameters types
      *
-     * @param array $return Array of return types
-     * @param string $returnDesc Return value description
-     * @param array $params Array of arguments (each an array of types)
-     * @param array $paramDesc Array of parameter descriptions
+     * @param  array  $return     Array of return types
+     * @param  string $returnDesc Return value description
+     * @param  array  $params     Array of arguments (each an array of types)
+     * @param  array  $paramDesc  Array of parameter descriptions
      * @return array
      */
     protected function _buildSignatures($return, $returnDesc, $paramTypes, $paramDesc)
@@ -253,7 +253,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
      * comment. Determines method signatures using a combination of
      * ReflectionFunction and parsing of DocBlock @param and @return values.
      *
-     * @param ReflectionFunction $function
+     * @param  ReflectionFunction $function
      * @return array
      */
     protected function _reflect()
@@ -269,8 +269,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
         if (!empty($docBlock)) {
             // Get help text
-            if (preg_match(':/\*\*\s*\r?\n\s*\*\s(.*?)\r?\n\s*\*(\s@|/):s', $docBlock, $matches))
-            {
+            if (preg_match(':/\*\*\s*\r?\n\s*\*\s(.*?)\r?\n\s*\*(\s@|/):s', $docBlock, $matches)) {
                 $helpText = $matches[1];
                 $helpText = preg_replace('/(^\s*\*\s)/m', '', $helpText);
                 $helpText = preg_replace('/\r?\n\s*\*\s*(\r?\n)*/s', "\n", $helpText);
@@ -281,8 +280,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
             $return     = 'void';
             if (preg_match('/@return\s+(\S+)/', $docBlock, $matches)) {
                 $return = explode('|', $matches[1]);
-                if (preg_match('/@return\s+\S+\s+(.*?)(@|\*\/)/s', $docBlock, $matches))
-                {
+                if (preg_match('/@return\s+\S+\s+(.*?)(@|\*\/)/s', $docBlock, $matches)) {
                     $value = $matches[1];
                     $value = preg_replace('/\s?\*\s/m', '', $value);
                     $value = preg_replace('/\s{2,}/', ' ', $value);
@@ -293,8 +291,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
             // Get param types and description
             if (preg_match_all('/@param\s+([^\s]+)/m', $docBlock, $matches)) {
                 $paramTypesTmp = $matches[1];
-                if (preg_match_all('/@param\s+\S+\s+(\$\S+)\s+(.*?)(?=@|\*\/)/s', $docBlock, $matches))
-                {
+                if (preg_match_all('/@param\s+\S+\s+(\$\S+)\s+(.*?)(?=@|\*\/)/s', $docBlock, $matches)) {
                     $paramDesc = $matches[2];
                     foreach ($paramDesc as $key => $value) {
                         $value = preg_replace('/\s?\*\s/m', '', $value);
@@ -370,8 +367,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Proxy reflection calls
      *
-     * @param string $method
-     * @param array $args
+     * @param  string $method
+     * @param  array  $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -390,7 +387,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
      * Values are retrieved by key from {@link $_config}. Returns null if no
      * value found.
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function __get($key)
@@ -407,8 +404,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
      *
      * Values are stored by $key in {@link $_config}.
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return void
      */
     public function __set($key, $value)
@@ -419,13 +416,14 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Set method's namespace
      *
-     * @param string $namespace
+     * @param  string $namespace
      * @return void
      */
     public function setNamespace($namespace)
     {
         if (empty($namespace)) {
             $this->_namespace = '';
+
             return;
         }
 
@@ -450,7 +448,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Set the description
      *
-     * @param string $string
+     * @param  string $string
      * @return void
      */
     public function setDescription($string)

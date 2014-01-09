@@ -58,12 +58,13 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     /**
      * Activate/deactivate return of LOB as string
      *
-     * @param string $lob_as_string
+     * @param  string                   $lob_as_string
      * @return Zend_Db_Statement_Oracle
      */
     public function setLobAsString($lob_as_string)
     {
         $this->_lobAsString = (bool) $lob_as_string;
+
         return $this;
     }
 
@@ -80,7 +81,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     /**
      * Prepares statement handle
      *
-     * @param string $sql
+     * @param  string                             $sql
      * @return void
      * @throws Zend_Db_Statement_Oracle_Exception
      */
@@ -100,11 +101,11 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     /**
      * Binds a parameter to the specified variable name.
      *
-     * @param mixed $parameter Name the parameter, either integer or string.
-     * @param mixed $variable  Reference to PHP variable containing the value.
-     * @param mixed $type      OPTIONAL Datatype of SQL parameter.
-     * @param mixed $length    OPTIONAL Length of SQL parameter.
-     * @param mixed $options   OPTIONAL Other options.
+     * @param  mixed                       $parameter Name the parameter, either integer or string.
+     * @param  mixed                       $variable  Reference to PHP variable containing the value.
+     * @param  mixed                       $type      OPTIONAL Datatype of SQL parameter.
+     * @param  mixed                       $length    OPTIONAL Length of SQL parameter.
+     * @param  mixed                       $options   OPTIONAL Other options.
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
@@ -145,6 +146,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 
         oci_free_statement($this->_stmt);
         $this->_stmt = false;
+
         return true;
     }
 
@@ -162,7 +164,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 
         return oci_num_fields($this->_stmt);
     }
-
 
     /**
      * Retrieves the error code, if any, associated with the last operation on
@@ -184,7 +185,6 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 
         return $error['code'];
     }
-
 
     /**
      * Retrieves an array of error information, if any, associated with the
@@ -218,11 +218,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         }
     }
 
-
     /**
      * Executes a prepared statement.
      *
-     * @param array $params OPTIONAL Values to bind to parameter placeholders.
+     * @param  array                       $params OPTIONAL Values to bind to parameter placeholders.
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
@@ -282,10 +281,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     /**
      * Fetches a row from the result set.
      *
-     * @param int $style  OPTIONAL Fetch mode for this fetch operation.
-     * @param int $cursor OPTIONAL Absolute, relative, or other.
-     * @param int $offset OPTIONAL Number for absolute or relative cursors.
-     * @return mixed Array, object, or scalar depending on fetch mode.
+     * @param  int                         $style  OPTIONAL Fetch mode for this fetch operation.
+     * @param  int                         $cursor OPTIONAL Absolute, relative, or other.
+     * @param  int                         $offset OPTIONAL Number for absolute or relative cursors.
+     * @return mixed                       Array, object, or scalar depending on fetch mode.
      * @throws Zend_Db_Statement_Exception
      */
     public function fetch($style = null, $cursor = null, $offset = null)
@@ -351,9 +350,9 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     /**
      * Returns an array containing all of the result set rows.
      *
-     * @param int $style OPTIONAL Fetch mode.
-     * @param int $col   OPTIONAL Column number, if fetch mode is by column.
-     * @return array Collection of rows, each in a format by the fetch mode.
+     * @param  int                         $style OPTIONAL Fetch mode.
+     * @param  int                         $col   OPTIONAL Column number, if fetch mode is by column.
+     * @return array                       Collection of rows, each in a format by the fetch mode.
      * @throws Zend_Db_Statement_Exception
      */
     public function fetchAll($style = null, $col = 0)
@@ -450,11 +449,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
         return $result;
     }
 
-
     /**
      * Returns a single column from the next row of a result set.
      *
-     * @param int $col OPTIONAL Position of the column to fetch.
+     * @param  int                         $col OPTIONAL Position of the column to fetch.
      * @return string
      * @throws Zend_Db_Statement_Exception
      */
@@ -499,9 +497,9 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     /**
      * Fetches the next row and returns it as an object.
      *
-     * @param string $class  OPTIONAL Name of the class to create.
-     * @param array  $config OPTIONAL Constructor arguments for the class.
-     * @return mixed One object instance of the specified class.
+     * @param  string                      $class  OPTIONAL Name of the class to create.
+     * @param  array                       $config OPTIONAL Constructor arguments for the class.
+     * @return mixed                       One object instance of the specified class.
      * @throws Zend_Db_Statement_Exception
      */
     public function fetchObject($class = 'stdClass', array $config = array())
@@ -552,7 +550,7 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
      * last INSERT, DELETE, or UPDATE statement executed by this
      * statement object.
      *
-     * @return int     The number of rows affected.
+     * @return int                         The number of rows affected.
      * @throws Zend_Db_Statement_Exception
      */
     public function rowCount()

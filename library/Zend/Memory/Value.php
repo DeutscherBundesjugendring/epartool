@@ -19,7 +19,6 @@
  * @version    $Id: Value.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * String value object
  *
@@ -32,7 +31,8 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @todo       also implement Countable for PHP 5.1 but not yet to stay 5.0 compatible
  */
-class Zend_Memory_Value implements ArrayAccess {
+class Zend_Memory_Value implements ArrayAccess
+{
     /**
      * Value
      *
@@ -58,14 +58,14 @@ class Zend_Memory_Value implements ArrayAccess {
     /**
      * Object constructor
      *
-     * @param string $value
+     * @param string                        $value
      * @param Zend_Memory_Container_Movable $container
      */
     public function __construct($value, Zend_Memory_Container_Movable $container)
     {
         $this->_container = $container;
 
-        $this->_value = (string)$value;
+        $this->_value = (string) $value;
 
         /**
          * Object is marked as just modified by memory manager
@@ -78,12 +78,11 @@ class Zend_Memory_Value implements ArrayAccess {
         $this->_trace = false;
     }
 
-
     /**
      * ArrayAccess interface method
      * returns true if string offset exists
      *
-     * @param integer $offset
+     * @param  integer $offset
      * @return boolean
      */
     public function offsetExists($offset)
@@ -95,7 +94,7 @@ class Zend_Memory_Value implements ArrayAccess {
      * ArrayAccess interface method
      * Get character at $offset position
      *
-     * @param integer $offset
+     * @param  integer $offset
      * @return string
      */
     public function offsetGet($offset)
@@ -108,7 +107,7 @@ class Zend_Memory_Value implements ArrayAccess {
      * Set character at $offset position
      *
      * @param integer $offset
-     * @param string $char
+     * @param string  $char
      */
     public function offsetSet($offset, $char)
     {
@@ -136,7 +135,6 @@ class Zend_Memory_Value implements ArrayAccess {
         }
     }
 
-
     /**
      * To string conversion
      *
@@ -146,7 +144,6 @@ class Zend_Memory_Value implements ArrayAccess {
     {
         return $this->_value;
     }
-
 
     /**
      * Get string value reference

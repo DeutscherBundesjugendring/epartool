@@ -20,12 +20,10 @@
  * @version    $Id: FitBoundingBox.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Internally used classes */
 require_once 'Zend/Pdf/Element/Array.php';
 require_once 'Zend/Pdf/Element/Name.php';
 require_once 'Zend/Pdf/Element/Numeric.php';
-
 
 /** Zend_Pdf_Destination_Explicit */
 require_once 'Zend/Pdf/Destination/Explicit.php';
@@ -51,7 +49,7 @@ class Zend_Pdf_Destination_FitBoundingBox extends Zend_Pdf_Destination_Explicit
     /**
      * Create destination object
      *
-     * @param Zend_Pdf_Page|integer $page  Page object or page number
+     * @param  Zend_Pdf_Page|integer               $page Page object or page number
      * @return Zend_Pdf_Destination_FitBoundingBox
      * @throws Zend_Pdf_Exception
      */
@@ -61,7 +59,7 @@ class Zend_Pdf_Destination_FitBoundingBox extends Zend_Pdf_Destination_Explicit
 
         if ($page instanceof Zend_Pdf_Page) {
             $destinationArray->items[] = $page->getPageDictionary();
-        } else if (is_integer($page)) {
+        } elseif (is_integer($page)) {
             $destinationArray->items[] = new Zend_Pdf_Element_Numeric($page);
         } else {
             require_once 'Zend/Pdf/Exception.php';

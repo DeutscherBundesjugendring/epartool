@@ -96,6 +96,7 @@ abstract class Zend_Controller_Response_Abstract
         $filtered = str_replace(array('-', '_'), ' ', (string) $name);
         $filtered = ucwords(strtolower($filtered));
         $filtered = str_replace(' ', '-', $filtered);
+
         return $filtered;
     }
 
@@ -105,9 +106,9 @@ abstract class Zend_Controller_Response_Abstract
      * If $replace is true, replaces any headers already defined with that
      * $name.
      *
-     * @param string $name
-     * @param string $value
-     * @param boolean $replace
+     * @param  string                            $name
+     * @param  string                            $value
+     * @param  boolean                           $replace
      * @return Zend_Controller_Response_Abstract
      */
     public function setHeader($name, $value, $replace = false)
@@ -139,8 +140,8 @@ abstract class Zend_Controller_Response_Abstract
      * Sets Location header and response code. Forces replacement of any prior
      * redirects.
      *
-     * @param string $url
-     * @param int $code
+     * @param  string                            $url
+     * @param  int                               $code
      * @return Zend_Controller_Response_Abstract
      */
     public function setRedirect($url, $code = 302)
@@ -187,7 +188,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Clears the specified HTTP header
      *
-     * @param  string $name
+     * @param  string                            $name
      * @return Zend_Controller_Response_Abstract
      */
     public function clearHeader($name)
@@ -210,7 +211,7 @@ abstract class Zend_Controller_Response_Abstract
      *
      * Allows setting non key => value headers, such as status codes
      *
-     * @param string $value
+     * @param  string                            $value
      * @return Zend_Controller_Response_Abstract
      */
     public function setRawHeader($value)
@@ -220,6 +221,7 @@ abstract class Zend_Controller_Response_Abstract
             $this->_isRedirect = true;
         }
         $this->_headersRaw[] = (string) $value;
+
         return $this;
     }
 
@@ -241,13 +243,14 @@ abstract class Zend_Controller_Response_Abstract
     public function clearRawHeaders()
     {
         $this->_headersRaw = array();
+
         return $this;
     }
 
     /**
      * Clears the specified raw HTTP header
      *
-     * @param  string $headerRaw
+     * @param  string                            $headerRaw
      * @return Zend_Controller_Response_Abstract
      */
     public function clearRawHeader($headerRaw)
@@ -278,7 +281,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Set HTTP response code to use with headers
      *
-     * @param int $code
+     * @param  int                               $code
      * @return Zend_Controller_Response_Abstract
      */
     public function setHttpResponseCode($code)
@@ -295,6 +298,7 @@ abstract class Zend_Controller_Response_Abstract
         }
 
         $this->_httpResponseCode = $code;
+
         return $this;
     }
 
@@ -311,7 +315,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Can we send headers?
      *
-     * @param boolean $throw Whether or not to throw an exception if headers have been sent; defaults to false
+     * @param  boolean                            $throw Whether or not to throw an exception if headers have been sent; defaults to false
      * @return boolean
      * @throws Zend_Controller_Response_Exception
      */
@@ -381,8 +385,8 @@ abstract class Zend_Controller_Response_Abstract
      * If $name is a string, sets the named segment in the body array to
      * $content.
      *
-     * @param string $content
-     * @param null|string $name
+     * @param  string                            $content
+     * @param  null|string                       $name
      * @return Zend_Controller_Response_Abstract
      */
     public function setBody($content, $name = null)
@@ -399,8 +403,8 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Append content to the body content
      *
-     * @param string $content
-     * @param null|string $name
+     * @param  string                            $content
+     * @param  null|string                       $name
      * @return Zend_Controller_Response_Abstract
      */
     public function appendBody($content, $name = null)
@@ -427,7 +431,7 @@ abstract class Zend_Controller_Response_Abstract
      * just that named segment; if no segment matching $name exists, returns
      * false to indicate an error.
      *
-     * @param  string $name Named segment to clear
+     * @param  string  $name Named segment to clear
      * @return boolean
      */
     public function clearBody($name = null)
@@ -436,6 +440,7 @@ abstract class Zend_Controller_Response_Abstract
             $name = (string) $name;
             if (isset($this->_body[$name])) {
                 unset($this->_body[$name]);
+
                 return true;
             }
 
@@ -443,6 +448,7 @@ abstract class Zend_Controller_Response_Abstract
         }
 
         $this->_body = array();
+
         return true;
     }
 
@@ -454,7 +460,7 @@ abstract class Zend_Controller_Response_Abstract
      * $spec is a string and matches a named segment, returns the contents of
      * that segment; otherwise, returns null.
      *
-     * @param boolean $spec
+     * @param  boolean           $spec
      * @return string|array|null
      */
     public function getBody($spec = false)
@@ -462,6 +468,7 @@ abstract class Zend_Controller_Response_Abstract
         if (false === $spec) {
             ob_start();
             $this->outputBody();
+
             return ob_get_clean();
         } elseif (true === $spec) {
             return $this->_body;
@@ -478,8 +485,8 @@ abstract class Zend_Controller_Response_Abstract
      * If segment already exists, replaces with $content and places at end of
      * array.
      *
-     * @param string $name
-     * @param string $content
+     * @param  string                            $name
+     * @param  string                            $content
      * @return Zend_Controller_Response_Abstract
      */
     public function append($name, $content)
@@ -493,6 +500,7 @@ abstract class Zend_Controller_Response_Abstract
             unset($this->_body[$name]);
         }
         $this->_body[$name] = (string) $content;
+
         return $this;
     }
 
@@ -502,8 +510,8 @@ abstract class Zend_Controller_Response_Abstract
      * If segment already exists, replaces with $content and places at top of
      * array.
      *
-     * @param string $name
-     * @param string $content
+     * @param  string $name
+     * @param  string $content
      * @return void
      */
     public function prepend($name, $content)
@@ -526,10 +534,10 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Insert a named segment into the body content array
      *
-     * @param  string $name
-     * @param  string $content
-     * @param  string $parent
-     * @param  boolean $before Whether to insert the new segment before or
+     * @param string  $name
+     * @param string  $content
+     * @param string  $parent
+     * @param boolean $before  Whether to insert the new segment before or
      * after the parent. Defaults to false (after)
      * @return Zend_Controller_Response_Abstract
      */
@@ -591,12 +599,13 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Register an exception with the response
      *
-     * @param Exception $e
+     * @param  Exception                         $e
      * @return Zend_Controller_Response_Abstract
      */
     public function setException(Exception $e)
     {
         $this->_exceptions[] = $e;
+
         return $this;
     }
 
@@ -623,7 +632,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Does the response object contain an exception of a given type?
      *
-     * @param  string $type
+     * @param  string  $type
      * @return boolean
      */
     public function hasExceptionOfType($type)
@@ -640,7 +649,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Does the response object contain an exception with a given message?
      *
-     * @param  string $message
+     * @param  string  $message
      * @return boolean
      */
     public function hasExceptionOfMessage($message)
@@ -657,7 +666,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Does the response object contain an exception with a given code?
      *
-     * @param  int $code
+     * @param  int     $code
      * @return boolean
      */
     public function hasExceptionOfCode($code)
@@ -675,7 +684,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Retrieve all exceptions of a given type
      *
-     * @param  string $type
+     * @param  string      $type
      * @return false|array
      */
     public function getExceptionByType($type)
@@ -697,7 +706,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Retrieve all exceptions of a given message
      *
-     * @param  string $message
+     * @param  string      $message
      * @return false|array
      */
     public function getExceptionByMessage($message)
@@ -719,7 +728,7 @@ abstract class Zend_Controller_Response_Abstract
     /**
      * Retrieve all exceptions of a given code
      *
-     * @param mixed $code
+     * @param  mixed $code
      * @return void
      */
     public function getExceptionByCode($code)
@@ -745,7 +754,7 @@ abstract class Zend_Controller_Response_Abstract
      * If called with no arguments or a null argument, returns the value of the
      * flag; otherwise, sets it and returns the current value.
      *
-     * @param boolean $flag Optional
+     * @param  boolean $flag Optional
      * @return boolean
      */
     public function renderExceptions($flag = null)
@@ -773,6 +782,7 @@ abstract class Zend_Controller_Response_Abstract
                 $exceptions .= $e->__toString() . "\n";
             }
             echo $exceptions;
+
             return;
         }
 
@@ -791,6 +801,7 @@ abstract class Zend_Controller_Response_Abstract
     {
         ob_start();
         $this->sendResponse();
+
         return ob_get_clean();
     }
 }

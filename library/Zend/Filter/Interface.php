@@ -20,7 +20,6 @@
  * @version    $Id: Interface.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @category   Zend
  * @package    Zend_Filter
@@ -32,7 +31,7 @@ interface Zend_Filter_Interface
     /**
      * Returns the result of filtering $value
      *
-     * @param  mixed $value
+     * @param  mixed                 $value
      * @throws Zend_Filter_Exception If filtering $value is impossible
      * @return mixed
      */

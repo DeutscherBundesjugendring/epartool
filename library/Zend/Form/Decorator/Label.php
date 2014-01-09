@@ -74,12 +74,13 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Set element ID
      *
-     * @param  string $id
+     * @param  string                    $id
      * @return Zend_Form_Decorator_Label
      */
     public function setId($id)
     {
         $this->setOption('id', $id);
+
         return $this;
     }
 
@@ -107,7 +108,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Set HTML tag with which to surround label
      *
-     * @param  string $tag
+     * @param  string                    $tag
      * @return Zend_Form_Decorator_Label
      */
     public function setTag($tag)
@@ -136,6 +137,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                 $this->removeOption('tag');
                 $this->setTag($tag);
             }
+
             return $tag;
         }
 
@@ -145,7 +147,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Set the class to apply to the HTML tag with which to surround label
      *
-     * @param  string $tagClass
+     * @param  string                    $tagClass
      * @return Zend_Form_Decorator_Label
      */
     public function setTagClass($tagClass)
@@ -238,8 +240,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      * - setReq(uired)Prefix()
      * - setReq(uired)Suffix()
      *
-     * @param  string $method
-     * @param  array $args
+     * @param  string              $method
+     * @param  array               $args
      * @return mixed
      * @throws Zend_Form_Exception for unsupported methods
      */
@@ -272,6 +274,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                     }
                     $value = array_shift($args);
                     $this->$key = $value;
+
                     return $this;
                 case 'get':
                 default:
@@ -282,6 +285,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                     } else {
                         $this->_loadOptReqKey($key);
                     }
+
                     return $this->$key;
             }
         }
@@ -377,7 +381,6 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         $id        = $this->getId();
         $class     = $this->getClass();
         $options   = $this->getOptions();
-
 
         if (empty($label) && empty($tag)) {
             return $content;

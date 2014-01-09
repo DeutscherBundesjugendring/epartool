@@ -101,12 +101,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param string $aNumber
+     * @param  string                                                   $aNumber
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setANumber($aNumber)
     {
         $this->aNumber = $aNumber;
+
         return $this;
     }
 
@@ -119,12 +120,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param string $bNumber
+     * @param  string                                                   $bNumber
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setBNumber($bNumber)
     {
         $this->bNumber = $bNumber;
+
         return $this;
     }
 
@@ -137,12 +139,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param boolean $privacyA
+     * @param  boolean                                                  $privacyA
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setPrivacyA($privacyA)
     {
         $this->privacyA = $privacyA;
+
         return $this;
     }
 
@@ -155,12 +158,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param boolean $privacyB
+     * @param  boolean                                                  $privacyB
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setPrivacyB($privacyB)
     {
         $this->privacyB = $privacyB;
+
         return $this;
     }
 
@@ -173,12 +177,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param integer $expiration
+     * @param  integer                                                  $expiration
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setExpiration($expiration)
     {
         $this->expiration = $expiration;
+
         return $this;
     }
 
@@ -191,12 +196,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param integer $maxDuration
+     * @param  integer                                                  $maxDuration
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setMaxDuration($maxDuration)
     {
         $this->maxDuration = $maxDuration;
+
         return $this;
     }
 
@@ -209,12 +215,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param string $greeter
+     * @param  string                                                   $greeter
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setGreeter($greeter)
     {
         $this->greeter = $greeter;
+
         return $this;
     }
 
@@ -227,12 +234,13 @@ class Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
     }
 
     /**
-     * @param integer $account
+     * @param  integer                                                  $account
      * @return Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall
      */
     public function setAccount($account)
     {
         $this->account = $account;
+
         return $this;
     }
 }

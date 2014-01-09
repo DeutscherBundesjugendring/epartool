@@ -64,7 +64,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * @var string
      */
     protected $_match             = null;
-    
+
     /**
      * What is actual redirect
      */
@@ -99,7 +99,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
     /**
      * Evaluate an object to see if it fits the constraints
      *
-     * @param  string $other String to examine
+     * @param string $other String to examine
      * @param  null|string Assertion type
      * @return bool
      */
@@ -133,6 +133,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No redirect URL provided against which to match');
                 }
                 $this->_match = $match = $argv[2];
+
                 return ($this->_negate)
                     ? $this->_notMatch($response, $match)
                     : $this->_match($response, $match);
@@ -142,6 +143,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
                     throw new Zend_Test_PHPUnit_Constraint_Exception('No pattern provided against which to match redirect');
                 }
                 $this->_match = $match = $argv[2];
+
                 return ($this->_negate)
                     ? $this->_notRegex($response, $match)
                     : $this->_regex($response, $match);
@@ -153,6 +155,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
                     $redirect = str_replace('Location: ', '', $redirect);
                     $this->_actual = $redirect;
                 }
+
                 return ($this->_negate) ? !$response->isRedirect() : $response->isRedirect();
         }
     }
@@ -161,9 +164,9 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * Report Failure
      *
      * @see    PHPUnit_Framework_Constraint for implementation details
-     * @param  mixed $other
-     * @param  string $description Additional message to display
-     * @param  bool $not
+     * @param  mixed                                        $other
+     * @param  string                                       $description Additional message to display
+     * @param  bool                                         $not
      * @return void
      * @throws PHPUnit_Framework_ExpectationFailedException
      */
@@ -224,7 +227,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * Check to see if content is matched in selected nodes
      *
      * @param  Zend_Controller_Response_HttpTestCase $response
-     * @param  string $match Content to match
+     * @param  string                                $match    Content to match
      * @return bool
      */
     protected function _match($response, $match)
@@ -245,7 +248,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * Check to see if content is NOT matched in selected nodes
      *
      * @param  Zend_Controller_Response_HttpTestCase $response
-     * @param  string $match
+     * @param  string                                $match
      * @return bool
      */
     protected function _notMatch($response, $match)
@@ -266,7 +269,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * Check to see if content is matched by regex in selected nodes
      *
      * @param  Zend_Controller_Response_HttpTestCase $response
-     * @param  string $pattern
+     * @param  string                                $pattern
      * @return bool
      */
     protected function _regex($response, $pattern)
@@ -287,7 +290,7 @@ class Zend_Test_PHPUnit_Constraint_Redirect extends PHPUnit_Framework_Constraint
      * Check to see if content is NOT matched by regex in selected nodes
      *
      * @param  Zend_Controller_Response_HttpTestCase $response
-     * @param  string $pattern
+     * @param  string                                $pattern
      * @return bool
      */
     protected function _notRegex($response, $pattern)

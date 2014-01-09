@@ -40,7 +40,7 @@ abstract class Zend_Service_DeveloperGarden_Request_RequestAbstract
     /**
      * constructor give them the environment
      *
-     * @param integer $environment
+     * @param  integer                                              $environment
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
      */
     public function __construct($environment)
@@ -51,12 +51,13 @@ abstract class Zend_Service_DeveloperGarden_Request_RequestAbstract
     /**
      * sets a new moduleId
      *
-     * @param integer $environment
+     * @param  integer                                              $environment
      * @return Zend_Service_DeveloperGarden_Request_RequestAbstract
      */
     public function setEnvironment($environment)
     {
         $this->environment = $environment;
+
         return $this;
     }
 

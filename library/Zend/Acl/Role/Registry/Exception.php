@@ -19,12 +19,10 @@
  * @version    $Id: Exception.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Acl_Exception
  */
 require_once 'Zend/Acl/Exception.php';
-
 
 /**
  * @category   Zend

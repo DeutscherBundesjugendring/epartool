@@ -109,7 +109,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     /**
      * Set or retrieve doctype
      *
-     * @param  string $doctype
+     * @param  string                   $doctype
      * @return Zend_View_Helper_Doctype
      */
     public function doctype($doctype = null)
@@ -154,12 +154,13 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     /**
      * Set doctype
      *
-     * @param  string $doctype
+     * @param  string                   $doctype
      * @return Zend_View_Helper_Doctype
      */
     public function setDoctype($doctype)
     {
         $this->_registry['doctype'] = $doctype;
+
         return $this;
     }
 
@@ -200,32 +201,33 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
      */
     public function isStrict()
     {
-        switch ( $this->getDoctype() )
-        {
+        switch ( $this->getDoctype() ) {
             case self::XHTML1_STRICT:
             case self::XHTML11:
             case self::HTML4_STRICT:
                 return true;
-            default: 
+            default:
                 return false;
         }
     }
-    
+
     /**
      * Is doctype HTML5? (HeadMeta uses this for validation)
      *
      * @return booleean
      */
-    public function isHtml5() {
+    public function isHtml5()
+    {
         return (stristr($this->doctype(), '<!DOCTYPE html>') ? true : false);
     }
-    
+
     /**
      * Is doctype RDFa?
      *
      * @return booleean
      */
-    public function isRdfa() {
+    public function isRdfa()
+    {
         return (stristr($this->getDoctype(), 'rdfa') ? true : false);
     }
 
@@ -237,6 +239,7 @@ class Zend_View_Helper_Doctype extends Zend_View_Helper_Abstract
     public function __toString()
     {
         $doctypes = $this->getDoctypes();
+
         return $doctypes[$this->getDoctype()];
     }
 }

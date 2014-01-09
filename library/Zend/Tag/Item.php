@@ -68,7 +68,7 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
     /**
      * Create a new tag according to the options
      *
-     * @param  array|Zend_Config $options
+     * @param  array|Zend_Config  $options
      * @throws Zend_Tag_Exception When invalid options are provided
      * @throws Zend_Tag_Exception When title was not set
      * @throws Zend_Tag_Exception When weight was not set
@@ -101,7 +101,7 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
     /**
      * Set options of the tag
      *
-     * @param  array $options
+     * @param  array         $options
      * @return Zend_Tag_Item
      */
     public function setOptions(array $options)
@@ -133,7 +133,7 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
     /**
      * Set the title
      *
-     * @param  string $title
+     * @param  string             $title
      * @throws Zend_Tag_Exception When title is no string
      * @return Zend_Tag_Item
      */
@@ -145,6 +145,7 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
         }
 
         $this->_title = (string) $title;
+
         return $this;
     }
 
@@ -161,7 +162,7 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
     /**
      * Set the weight
      *
-     * @param  float $weight
+     * @param  float              $weight
      * @throws Zend_Tag_Exception When weight is not numeric
      * @return Zend_Tag_Item
      */
@@ -173,13 +174,14 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
         }
 
         $this->_weight = (float) $weight;
+
         return $this;
     }
 
     /**
      * Set multiple params at once
      *
-     * @param  array $params
+     * @param  array         $params
      * @return Zend_Tag_Item
      */
     public function setParams(array $params)
@@ -194,13 +196,14 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
     /**
      * Defined by Zend_Tag_Taggable
      *
-     * @param  string $name
-     * @param  mixed  $value
+     * @param  string        $name
+     * @param  mixed         $value
      * @return Zend_Tag_Item
      */
     public function setParam($name, $value)
     {
         $this->_params[$name] = $value;
+
         return $this;
     }
 
@@ -215,6 +218,7 @@ class Zend_Tag_Item implements Zend_Tag_Taggable
         if (isset($this->_params[$name])) {
             return $this->_params[$name];
         }
+
         return null;
     }
 }

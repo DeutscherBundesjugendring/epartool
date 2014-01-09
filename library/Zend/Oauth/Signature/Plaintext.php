@@ -33,7 +33,7 @@ class Zend_Oauth_Signature_Plaintext extends Zend_Oauth_Signature_SignatureAbstr
     /**
      * Sign a request
      *
-     * @param  array $params
+     * @param  array       $params
      * @param  null|string $method
      * @param  null|string $url
      * @return string
@@ -44,6 +44,7 @@ class Zend_Oauth_Signature_Plaintext extends Zend_Oauth_Signature_SignatureAbstr
             return $this->_consumerSecret . '&';
         }
         $return = implode('&', array($this->_consumerSecret, $this->_tokenSecret));
+
         return $return;
     }
 }

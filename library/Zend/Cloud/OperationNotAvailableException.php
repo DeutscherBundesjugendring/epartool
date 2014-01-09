@@ -31,4 +31,3 @@ require_once 'Zend/Exception.php';
  */
 class Zend_Cloud_OperationNotAvailableException extends Zend_Exception
 {}
-

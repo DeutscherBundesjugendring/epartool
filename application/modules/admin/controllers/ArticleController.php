@@ -5,8 +5,8 @@
  * @desc     Articles for Consultation
  * @author                Markus Hackel
  */
-class Admin_ArticleController extends Zend_Controller_Action {
-
+class Admin_ArticleController extends Zend_Controller_Action
+{
     protected $_flashMessenger = null;
 
     protected $_adminIndexURL = null;
@@ -15,7 +15,8 @@ class Admin_ArticleController extends Zend_Controller_Action {
      * @desc Construct
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger =
@@ -31,7 +32,8 @@ class Admin_ArticleController extends Zend_Controller_Action {
      * @desc show Articles Form
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
         $articles = null;
@@ -52,12 +54,12 @@ class Admin_ArticleController extends Zend_Controller_Action {
         $this->view->articles = $articles;
     }
 
-    public function createAction() {
+    public function createAction()
+    {
         $isPreview = $this->getRequest()->getPost('preview');
-        if(!empty($isPreview)) {
+        if (!empty($isPreview)) {
             $this->_forward('preview');
-        }
-        else {
+        } else {
             $kid = $this->getRequest()->getParam('kid', 0);
             $consultation = null;
             $form = null;
@@ -111,21 +113,18 @@ class Admin_ArticleController extends Zend_Controller_Action {
                         'action' => 'index',
                         'kid' => $kid
                     )), array('prependBase' => false));
-                }
-                else {
+                } else {
                     $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
                     $form->populate($form->getValues());
                     $form->getElement('proj')->setValue($data['proj']);
                 }
-            }
-            elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
+            } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
                 $article = $this->getRequest()->getPost();
                     $articlePreviewForm = new Admin_Form_ArticlePreview();
-                    if($articlePreviewForm->isValid($article)) {
+                    if ($articlePreviewForm->isValid($article)) {
                         $article['proj'] = unserialize($article['proj']);
                         $form->populate($article);
-                    }
-                    else {
+                    } else {
                         $this->_redirect('admin');
                     }
             }
@@ -145,12 +144,12 @@ class Admin_ArticleController extends Zend_Controller_Action {
         }
     }
 
-    public function editAction() {
+    public function editAction()
+    {
         $isPreview = $this->getRequest()->getPost('preview');
-        if(!empty($isPreview)) {
+        if (!empty($isPreview)) {
             $this->_forward('preview');
-        }
-        else {
+        } else {
             $kid = $this->getRequest()->getParam('kid', 0);
             $consultation = null;
             $form = null;
@@ -203,18 +202,15 @@ class Admin_ArticleController extends Zend_Controller_Action {
                         $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
                         $article = $params;
                     }
-                }
-                elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
+                } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
                     $article = $this->getRequest()->getPost();
                     $articlePreviewForm = new Admin_Form_ArticlePreview();
-                    if($articlePreviewForm->isValid($article)) {
+                    if ($articlePreviewForm->isValid($article)) {
                         $article['proj'] = unserialize($article['proj']);
-                    }
-                    else {
+                    } else {
                         $this->_redirect('admin');
                     }
-                }
-                else {
+                } else {
                     $article = $articleModel->getById($aid);
                     $article['proj'] = explode(',', $article['proj']);
                 }
@@ -236,7 +232,8 @@ class Admin_ArticleController extends Zend_Controller_Action {
         }
     }
 
-    public function deleteAction() {
+    public function deleteAction()
+    {
         $kid = $this->getRequest()->getParam('kid', 0);
         $aid = $this->getRequest()->getParam('aid', 0);
         if ($aid > 0) {
@@ -262,7 +259,7 @@ class Admin_ArticleController extends Zend_Controller_Action {
     {
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
-            if(isset($data['preview'])) {
+            if (isset($data['preview'])) {
                 $articlePreviewForm = new Admin_Form_ArticlePreview();
                 $data['proj'] = serialize($data['proj']);
                 $articlePreviewForm->populate($data);
@@ -277,12 +274,10 @@ class Admin_ArticleController extends Zend_Controller_Action {
                 $this->view->articlePreviewForm = $articlePreviewForm;
                 $this->view->article = $data;
                 $this->render('preview');
-            }
-            elseif (isset($data['backFromPreview'])) {
+            } elseif (isset($data['backFromPreview'])) {
                 if ($data['isNew'] == 1) {
                     $this->forward('create');
-                }
-                else {
+                } else {
                     $this->forward('edit');
                 }
             }
@@ -291,8 +286,8 @@ class Admin_ArticleController extends Zend_Controller_Action {
 
     /**
      * Sats the project in case it is not set or the current project is not set
-     * @param array $data   The data to be adjusted
-     * @return  array       The adjsuted data
+     * @param  array $data The data to be adjusted
+     * @return array The adjsuted data
      */
     protected function setProject($data)
     {
@@ -308,4 +303,3 @@ class Admin_ArticleController extends Zend_Controller_Action {
         return $data;
     }
 }
-?>

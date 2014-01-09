@@ -75,10 +75,10 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
      * @var boolean
      */
     protected $negotiated = false;
-    
+
     /**
      * Stores the last CONNECT handshake request
-     * 
+     *
      * @var string
      */
     protected $connectHandshakeRequest;
@@ -116,12 +116,12 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
     /**
      * Send request to the proxy server
      *
-     * @param string        $method
-     * @param Zend_Uri_Http $uri
-     * @param string        $http_ver
-     * @param array         $headers
-     * @param string        $body
-     * @return string Request as string
+     * @param  string                             $method
+     * @param  Zend_Uri_Http                      $uri
+     * @param  string                             $http_ver
+     * @param  array                              $headers
+     * @param  string                             $body
+     * @return string                             Request as string
      * @throws Zend_Http_Client_Adapter_Exception
      */
     public function write(
@@ -202,7 +202,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
             $request .= "$v\r\n";
         }
 
-        if(is_resource($body)) {
+        if (is_resource($body)) {
             $request .= "\r\n";
         } else {
             // Add the request body
@@ -217,8 +217,8 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
             );
         }
 
-        if(is_resource($body)) {
-            if(stream_copy_to_stream($body, $this->socket) == 0) {
+        if (is_resource($body)) {
+            if (stream_copy_to_stream($body, $this->socket) == 0) {
                 require_once 'Zend/Http/Client/Adapter/Exception.php';
                 throw new Zend_Http_Client_Adapter_Exception(
                     'Error writing request to server'
@@ -232,10 +232,10 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
     /**
      * Preform handshaking with HTTPS proxy using CONNECT method
      *
-     * @param string  $host
-     * @param integer $port
-     * @param string  $http_ver
-     * @param array   $headers
+     * @param  string                             $host
+     * @param  integer                            $port
+     * @param  string                             $http_ver
+     * @param  array                              $headers
      * @return void
      * @throws Zend_Http_Client_Adapter_Exception
      */
@@ -261,7 +261,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
             }
         }
         $request .= "\r\n";
-        
+
         // @see ZF-3189
         $this->connectHandshakeRequest = $request;
 
@@ -304,7 +304,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
         );
 
         $success = false;
-        foreach($modes as $mode) {
+        foreach ($modes as $mode) {
             $success = stream_socket_enable_crypto($this->socket, true, $mode);
             if ($success) {
                 break;

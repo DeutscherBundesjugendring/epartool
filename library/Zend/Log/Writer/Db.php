@@ -57,9 +57,9 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     /**
      * Class constructor
      *
-     * @param Zend_Db_Adapter $db   Database adapter instance
-     * @param string $table         Log table in database
-     * @param array $columnMap
+     * @param  Zend_Db_Adapter $db        Database adapter instance
+     * @param  string          $table     Log table in database
+     * @param  array           $columnMap
      * @return void
      */
     public function __construct($db, $table, $columnMap = null)
@@ -72,10 +72,10 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     /**
      * Create a new instance of Zend_Log_Writer_Db
      *
-     * @param  array|Zend_Config $config
+     * @param  array|Zend_Config  $config
      * @return Zend_Log_Writer_Db
      */
-    static public function factory($config)
+    public static function factory($config)
     {
         $config = self::_parseConfig($config);
         $config = array_merge(array(
@@ -120,7 +120,7 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
     /**
      * Write a message to the log.
      *
-     * @param  array  $event  event data
+     * @param  array              $event event data
      * @return void
      * @throws Zend_Log_Exception
      */

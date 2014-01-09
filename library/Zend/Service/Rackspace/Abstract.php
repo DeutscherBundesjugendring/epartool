@@ -91,13 +91,13 @@ abstract class Zend_Service_Rackspace_Abstract
     protected $cdnUrl;
     /**
      * Server management URL
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $managementUrl;
     /**
      * Do we use ServiceNet?
-     * 
+     *
      * @var boolean
      */
     protected $useServiceNet = false;
@@ -161,13 +161,14 @@ abstract class Zend_Service_Rackspace_Abstract
      *
      * @return string|boolean
      */
-    public function getStorageUrl() 
+    public function getStorageUrl()
     {
         if (empty($this->storageUrl)) {
             if (!$this->authenticate()) {
                 return false;
             }
         }
+
         return $this->storageUrl;
     }
     /**
@@ -175,20 +176,21 @@ abstract class Zend_Service_Rackspace_Abstract
      *
      * @return string|boolean
      */
-    public function getCdnUrl() 
+    public function getCdnUrl()
     {
         if (empty($this->cdnUrl)) {
             if (!$this->authenticate()) {
                 return false;
             }
         }
+
         return $this->cdnUrl;
     }
     /**
      * Get the management server URL
-     * 
+     *
      * @return string|boolean
-     */     
+     */
     public function getManagementUrl()
     {
         if (empty($this->managementUrl)) {
@@ -196,12 +198,13 @@ abstract class Zend_Service_Rackspace_Abstract
                 return false;
             }
         }
+
         return $this->managementUrl;
     }
     /**
      * Set the user account
      *
-     * @param string $user
+     * @param  string $user
      * @return void
      */
     public function setUser($user)
@@ -213,7 +216,7 @@ abstract class Zend_Service_Rackspace_Abstract
     /**
      * Set the authentication key
      *
-     * @param string $key
+     * @param  string $key
      * @return void
      */
     public function setKey($key)
@@ -225,7 +228,7 @@ abstract class Zend_Service_Rackspace_Abstract
     /**
      * Set the Authentication URL
      *
-     * @param string $url
+     * @param  string $url
      * @return void
      */
     public function setAuthUrl($url)
@@ -237,24 +240,25 @@ abstract class Zend_Service_Rackspace_Abstract
             throw new Zend_Service_Rackspace_Exception("The authentication URL is not valid");
         }
     }
-    
+
     /**
      * Sets whether to use ServiceNet
-     * 
+     *
      * ServiceNet is Rackspace's internal network. Bandwidth on ServiceNet is
      * not charged.
-     * 
+     *
      * @param boolean $useServiceNet
      */
     public function setServiceNet($useServiceNet = true)
     {
         $this->useServiceNet = $useServiceNet;
+
         return $this;
     }
 
     /**
      * Get whether we're using ServiceNet
-     * 
+     *
      * @return boolean
      */
     public function getServiceNet()
@@ -274,6 +278,7 @@ abstract class Zend_Service_Rackspace_Abstract
                 return false;
             }
         }
+
         return $this->token;
     }
     /**
@@ -281,16 +286,16 @@ abstract class Zend_Service_Rackspace_Abstract
      *
      * @return string
      */
-    public function getErrorMsg() 
+    public function getErrorMsg()
     {
         return $this->errorMsg;
     }
     /**
      * Get the error code of the last HTTP call
-     * 
-     * @return strig 
+     *
+     * @return strig
      */
-    public function getErrorCode() 
+    public function getErrorCode()
     {
         return $this->errorCode;
     }
@@ -304,12 +309,13 @@ abstract class Zend_Service_Rackspace_Abstract
         if (empty($this->httpClient)) {
             $this->httpClient = new Zend_Http_Client();
         }
+
         return $this->httpClient;
     }
     /**
      * Return true is the last call was successful
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public function isSuccessful()
     {
@@ -318,11 +324,11 @@ abstract class Zend_Service_Rackspace_Abstract
     /**
      * HTTP call
      *
-     * @param string $url
-     * @param string $method
-     * @param array $headers
-     * @param array $get
-     * @param string $body
+     * @param  string             $url
+     * @param  string             $method
+     * @param  array              $headers
+     * @param  array              $get
+     * @param  string             $body
      * @return Zend_Http_Response
      */
     protected function httpCall($url,$method,$headers=array(),$data=array(),$body=null)
@@ -331,12 +337,12 @@ abstract class Zend_Service_Rackspace_Abstract
         $client->resetParameters(true);
         if (empty($headers[self::AUTHUSER_HEADER])) {
             $headers[self::AUTHTOKEN]= $this->getToken();
-        } 
+        }
         $client->setMethod($method);
         if (empty($data['format'])) {
             $data['format']= self::API_FORMAT;
         }
-        $client->setParameterGet($data);    
+        $client->setParameterGet($data);
         if (!empty($body)) {
             $client->setRawData($body);
             if (!isset($headers['Content-Type'])) {
@@ -347,6 +353,7 @@ abstract class Zend_Service_Rackspace_Abstract
         $client->setUri($url);
         $this->errorMsg='';
         $this->errorCode='';
+
         return $client->request();
     }
     /**
@@ -378,10 +385,12 @@ abstract class Zend_Service_Rackspace_Abstract
                 $storageUrl = preg_replace('|(.*)://([^/]*)(.*)|', '$1://snet-$2$3', $storageUrl);
             }
             $this->storageUrl = $storageUrl;
+
             return true;
         }
         $this->errorMsg = $result->getBody();
         $this->errorCode = $result->getStatus();
+
         return false;
-    } 
+    }
 }

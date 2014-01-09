@@ -59,7 +59,7 @@ interface Zend_Application_Resource_Resource
     /**
      * Set resource options
      *
-     * @param  array $options
+     * @param  array                              $options
      * @return Zend_Application_Resource_Resource
      */
     public function setOptions(array $options);

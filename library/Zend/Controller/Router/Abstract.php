@@ -20,7 +20,6 @@
  * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Controller_Router_Interface */
 require_once 'Zend/Controller/Router/Interface.php';
 
@@ -40,7 +39,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      * URI delimiter
      */
     const URI_DELIMITER = '/';
-    
+
     /**
      * Front controller instance
      * @var Zend_Controller_Front
@@ -57,7 +56,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
     /**
      * Constructor
      *
-     * @param array $params
+     * @param  array $params
      * @return void
      */
     public function __construct(array $params = array())
@@ -68,38 +67,40 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
     /**
      * Add or modify a parameter to use when instantiating an action controller
      *
-     * @param string $name
-     * @param mixed $value
+     * @param  string                 $name
+     * @param  mixed                  $value
      * @return Zend_Controller_Router
      */
     public function setParam($name, $value)
     {
         $name = (string) $name;
         $this->_invokeParams[$name] = $value;
+
         return $this;
     }
 
     /**
      * Set parameters to pass to action controller constructors
      *
-     * @param array $params
+     * @param  array                  $params
      * @return Zend_Controller_Router
      */
     public function setParams(array $params)
     {
         $this->_invokeParams = array_merge($this->_invokeParams, $params);
+
         return $this;
     }
 
     /**
      * Retrieve a single parameter from the controller parameter stack
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function getParam($name)
     {
-        if(isset($this->_invokeParams[$name])) {
+        if (isset($this->_invokeParams[$name])) {
             return $this->_invokeParams[$name];
         }
 
@@ -157,18 +158,20 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
 
         require_once 'Zend/Controller/Front.php';
         $this->_frontController = Zend_Controller_Front::getInstance();
+
         return $this->_frontController;
     }
 
     /**
      * Set Front Controller
      *
-     * @param Zend_Controller_Front $controller
+     * @param  Zend_Controller_Front            $controller
      * @return Zend_Controller_Router_Interface
      */
     public function setFrontController(Zend_Controller_Front $controller)
     {
         $this->_frontController = $controller;
+
         return $this;
     }
 

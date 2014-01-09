@@ -49,12 +49,13 @@ abstract class Zend_Cloud_QueueService_Adapter_AbstractAdapter
     /**
      * Set class to use for message objects
      *
-     * @param  string $class
+     * @param  string                                          $class
      * @return Zend_Cloud_QueueService_Adapter_AbstractAdapter
      */
     public function setMessageClass($class)
     {
         $this->_messageClass = (string) $class;
+
         return $this;
     }
 
@@ -71,12 +72,13 @@ abstract class Zend_Cloud_QueueService_Adapter_AbstractAdapter
     /**
      * Set class to use for message collection objects
      *
-     * @param  string $class
+     * @param  string                                          $class
      * @return Zend_Cloud_QueueService_Adapter_AbstractAdapter
      */
     public function setMessageSetClass($class)
     {
         $this->_messageSetClass = (string) $class;
+
         return $this;
     }
 

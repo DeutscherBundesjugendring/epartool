@@ -79,8 +79,8 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     /**
      * Parses the schema
      *
-     * @param  Zend_Ldap_Dn $dn
-     * @param  Zend_Ldap    $ldap
+     * @param  Zend_Ldap_Dn          $dn
+     * @param  Zend_Ldap             $ldap
      * @return Zend_Ldap_Node_Schema Provides a fluid interface
      */
     protected function _parseSchema(Zend_Ldap_Dn $dn, Zend_Ldap $ldap)
@@ -91,6 +91,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
         $this->_loadMatchingRules();
         $this->_loadMatchingRuleUse();
         $this->_loadObjectClasses();
+
         return $this;
     }
 
@@ -239,7 +240,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     /**
      * Parses an objectClasses value
      *
-     * @param string $value
+     * @param  string $value
      * @return array
      */
     protected function _parseObjectClass($value)

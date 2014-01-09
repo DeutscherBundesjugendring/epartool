@@ -71,9 +71,9 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     /**
      * Constructor
      *
-     * @param Zend_Controller_Front $front Front Controller object
-     * @param array $defaults Defaults for map variables with keys as variable names
-     * @param array $responders Modules or controllers to receive RESTful routes
+     * @param Zend_Controller_Front $front      Front Controller object
+     * @param array                 $defaults   Defaults for map variables with keys as variable names
+     * @param array                 $responders Modules or controllers to receive RESTful routes
      */
     public function __construct(Zend_Controller_Front $front,
         array $defaults = array(),
@@ -107,6 +107,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
             }
         }
         $instance = new self($frontController, $defaultsArray, $restfulConfigArray);
+
         return $instance;
     }
 
@@ -118,8 +119,8 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
      * setControllerName(), and setActionName() accessors to set those values.
      * Always returns the values as an array.
      *
-     * @param Zend_Controller_Request_Http $request Request used to match against this routing ruleset
-     * @return array An array of assigned values or a false on a mismatch
+     * @param  Zend_Controller_Request_Http $request Request used to match against this routing ruleset
+     * @return array                        An array of assigned values or a false on a mismatch
      */
     public function match($request, $partial = false)
     {
@@ -205,7 +206,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
 
                 // Map PUT and POST to actual create/update actions
                 // based on parameter count (posting to resource or collection)
-                switch( $values[$this->_actionKey] ){
+                switch ($values[$this->_actionKey]) {
                     case 'post':
                         if ($pathElementCount > 0) {
                             $values[$this->_actionKey] = 'put';
@@ -236,9 +237,9 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     /**
      * Assembles user submitted parameters forming a URL path defined by this route
      *
-     * @param array $data An array of variable and value pairs used as parameters
-     * @param bool $reset Weither to reset the current params
-     * @param bool $encode Weither to return urlencoded string
+     * @param  array  $data   An array of variable and value pairs used as parameters
+     * @param  bool   $reset  Weither to reset the current params
+     * @param  bool   $encode Weither to return urlencoded string
      * @return string Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false, $encode = true)
@@ -330,7 +331,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     {
         $modulesOnly = true;
         foreach ($responders as $responder) {
-            if(is_array($responder)) {
+            if (is_array($responder)) {
                 $modulesOnly = false;
                 break;
             }
@@ -345,7 +346,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     /**
      * Determine if a specified module supports RESTful routing
      *
-     * @param string $moduleName
+     * @param  string $moduleName
      * @return bool
      */
     protected function _checkRestfulModule($moduleName)
@@ -359,6 +360,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
         if ($this->_restfulControllers && array_key_exists($moduleName, $this->_restfulControllers)) {
             return true;
         }
+
         return false;
     }
 
@@ -366,8 +368,8 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
      * Determine if a specified module + controller combination supports
      * RESTful routing
      *
-     * @param string $moduleName
-     * @param string $controllerName
+     * @param  string $moduleName
+     * @param  string $controllerName
      * @return bool
      */
     protected function _checkRestfulController($moduleName, $controllerName)
@@ -384,6 +386,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
         ) {
             return true;
         }
+
         return false;
     }
 
@@ -400,7 +403,7 @@ class Zend_Rest_Route extends Zend_Controller_Router_Route_Module
     /**
      * Determines if RESTful routing applies to an entire module
      *
-     * @param string $moduleName
+     * @param  string $moduleName
      * @return bool
      */
     protected function _fullRestfulModule($moduleName)

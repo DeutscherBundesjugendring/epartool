@@ -20,7 +20,6 @@
  * @version    $Id: Akismet.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /**
  * @see Zend_Version
  */
@@ -30,7 +29,6 @@ require_once 'Zend/Version.php';
  * @see Zend_Service_Abstract
  */
 require_once 'Zend/Service/Abstract.php';
-
 
 /**
  * Akismet REST service implementation
@@ -77,8 +75,8 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Constructor
      *
-     * @param string $apiKey Akismet API key
-     * @param string $blog Blog URL
+     * @param  string $apiKey Akismet API key
+     * @param  string $blog   Blog URL
      * @return void
      */
     public function __construct($apiKey, $blog)
@@ -101,7 +99,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Set blog URL
      *
-     * @param string $blogUrl
+     * @param  string                 $blogUrl
      * @return Zend_Service_Akismet
      * @throws Zend_Service_Exception if invalid URL provided
      */
@@ -114,6 +112,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
         }
 
         $this->_blogUrl = $blogUrl;
+
         return $this;
     }
 
@@ -130,12 +129,13 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Set API key
      *
-     * @param string $apiKey
+     * @param  string               $apiKey
      * @return Zend_Service_Akismet
      */
     public function setApiKey($apiKey)
     {
         $this->_apiKey = $apiKey;
+
         return $this;
     }
 
@@ -152,12 +152,13 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Set charset
      *
-     * @param string $charset
+     * @param  string               $charset
      * @return Zend_Service_Akismet
      */
     public function setCharset($charset)
     {
         $this->_charset = $charset;
+
         return $this;
     }
 
@@ -174,7 +175,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Set TCP/IP port
      *
-     * @param int $port
+     * @param  int                    $port
      * @return Zend_Service_Akismet
      * @throws Zend_Service_Exception if non-integer value provided
      */
@@ -186,6 +187,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
         }
 
         $this->_port = $port;
+
         return $this;
     }
 
@@ -204,7 +206,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      *
      * Should be of form "Some user agent/version | Akismet/version"
      *
-     * @param string $userAgent
+     * @param  string                 $userAgent
      * @return Zend_Service_Akismet
      * @throws Zend_Service_Exception with invalid user agent string
      */
@@ -218,15 +220,16 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
         }
 
         $this->_userAgent = $userAgent;
+
         return $this;
     }
 
     /**
      * Post a request
      *
-     * @param string $host
-     * @param string $path
-     * @param array  $params
+     * @param  string $host
+     * @param  string $path
+     * @param  array  $params
      * @return mixed
      */
     protected function _post($host, $path, array $params)
@@ -245,14 +248,15 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
         $client->setParameterPost($params);
 
         $client->setMethod(Zend_Http_Client::POST);
+
         return $client->request();
     }
 
     /**
      * Verify an API key
      *
-     * @param string $key Optional; API key to verify
-     * @param string $blog Optional; blog URL against which to verify key
+     * @param  string  $key  Optional; API key to verify
+     * @param  string  $blog Optional; blog URL against which to verify key
      * @return boolean
      */
     public function verifyKey($key = null, $blog = null)
@@ -276,8 +280,8 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Perform an API call
      *
-     * @param string $path
-     * @param array $params
+     * @param  string                 $path
+     * @param  array                  $params
      * @return Zend_Http_Response
      * @throws Zend_Service_Exception if missing user_ip or user_agent fields
      */
@@ -317,7 +321,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      *
      * This method implements the Akismet comment-check REST method.
      *
-     * @param array $params
+     * @param  array                  $params
      * @return boolean
      * @throws Zend_Service_Exception with invalid API key
      */
@@ -348,7 +352,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      *
      * This method implements Akismet's submit-spam REST method.
      *
-     * @param array $params
+     * @param  array                  $params
      * @return void
      * @throws Zend_Service_Exception with invalid API key
      */
@@ -377,7 +381,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      *
      * this method implements Akismet's submit-ham REST method.
      *
-     * @param array $params
+     * @param  array $params
      * @return void
      */
     public function submitHam($params)

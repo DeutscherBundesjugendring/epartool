@@ -44,7 +44,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
     /**
      * Save subscription to RDMBS
      *
-     * @param array $data
+     * @param  array $data
      * @return bool
      */
     public function setSubscription(array $data)
@@ -67,10 +67,12 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
                 $data,
                 $this->_db->getAdapter()->quoteInto('id = ?', $data['id'])
             );
+
             return false;
         }
 
         $this->_db->insert($data);
+
         return true;
     }
 
@@ -91,6 +93,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
         if (count($result)) {
             return $result->current()->toArray();
         }
+
         return false;
     }
 
@@ -111,13 +114,14 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
         if (count($result)) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Delete a subscription
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function deleteSubscription($key)
@@ -127,8 +131,10 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
             $this->_db->delete(
                 $this->_db->getAdapter()->quoteInto('id = ?', $key)
             );
+
             return true;
         }
+
         return false;
     }
 

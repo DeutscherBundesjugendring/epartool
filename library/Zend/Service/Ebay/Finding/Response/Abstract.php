@@ -133,12 +133,13 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
     }
 
     /**
-     * @param  string $operation
+     * @param  string                                      $operation
      * @return Zend_Service_Ebay_Finding_Response_Abstract Provides a fluent interface
      */
     public function setOperation($operation)
     {
         $this->_operation = (string) $operation;
+
         return $this;
     }
 
@@ -151,8 +152,8 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
     }
 
     /**
-     * @param  string|Zend_Config|array $name
-     * @param  mixed                    $value
+     * @param  string|Zend_Config|array                    $name
+     * @param  mixed                                       $value
      * @return Zend_Service_Ebay_Finding_Response_Abstract Provides a fluent interface
      */
     public function setOption($name, $value = null)
@@ -165,6 +166,7 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
         } else {
             $this->_options[$name] = $value;
         }
+
         return $this;
     }
 
@@ -180,6 +182,7 @@ abstract class Zend_Service_Ebay_Finding_Response_Abstract extends Zend_Service_
         if (array_key_exists($name, $this->_options)) {
             return $this->_options[$name];
         }
+
         return null;
     }
 }

@@ -43,7 +43,7 @@ class Zend_Dojo_Form_Element_Button extends Zend_Dojo_Form_Element_Dijit
     /**
      * Constructor
      *
-     * @param  string|array|Zend_Config $spec Element name or configuration
+     * @param  string|array|Zend_Config $spec    Element name or configuration
      * @param  string|array|Zend_Config $options Element value or configuration
      * @return void
      */

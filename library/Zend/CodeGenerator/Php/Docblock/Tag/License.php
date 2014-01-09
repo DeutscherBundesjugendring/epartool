@@ -47,7 +47,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
     /**
      * fromReflection()
      *
-     * @param Zend_Reflection_Docblock_Tag $reflectionTagReturn
+     * @param  Zend_Reflection_Docblock_Tag                $reflectionTagReturn
      * @return Zend_CodeGenerator_Php_Docblock_Tag_License
      */
     public static function fromReflection(Zend_Reflection_Docblock_Tag $reflectionTagLicense)
@@ -64,12 +64,13 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
     /**
      * setUrl()
      *
-     * @param string $url
+     * @param  string                                      $url
      * @return Zend_CodeGenerator_Php_Docblock_Tag_License
      */
     public function setUrl($url)
     {
         $this->_url = $url;
+
         return $this;
     }
 
@@ -83,7 +84,6 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
         return $this->_url;
     }
 
-
     /**
      * generate()
      *
@@ -92,6 +92,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
     public function generate()
     {
         $output = '@license ' . $this->_url . ' ' . $this->_description . self::LINE_FEED;
+
         return $output;
     }
 

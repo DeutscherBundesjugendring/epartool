@@ -121,7 +121,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      *          the only valid values are 'SHA-1' or null.
      * @param boolean $admin (optional) Whether the user is an administrator
      *          or not.
-     * @param boolean $suspended (optional) Whether this login is suspended or not.
+     * @param boolean $suspended                 (optional) Whether this login is suspended or not.
      * @param boolean $changePasswordAtNextLogin (optional) Whether
      *          the user is required to change their password at their
      *          next login.
@@ -149,8 +149,8 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * and eventually XML text for sending to the server upon updates, or
      * for application storage/persistence.
      *
-     * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all
+     * @param  DOMDocument $doc The DOMDocument used to construct DOMElements
+     * @return DOMElement  The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
@@ -186,7 +186,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * instance members.  If no mapping is defined, the name and value are
      * stored in an array.
      *
-     * @param DOMNode $attribute The DOMNode attribute needed to be handled
+     * @param  DOMNode                                 $attribute The DOMNode attribute needed to be handled
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     protected function takeAttributeFromDOM($attribute)
@@ -204,48 +204,40 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
         case 'admin':
             if ($attribute->nodeValue == "true") {
                 $this->_admin = true;
-            }
-            else if ($attribute->nodeValue == "false") {
+            } elseif ($attribute->nodeValue == "false") {
                 $this->_admin = false;
-            }
-            else {
-                require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            } else {
+                require_once 'Zend/Gdata/App/InvalidArgumentException.php';
                 throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for apps:login#admin.");
             }
             break;
         case 'agreedToTerms':
             if ($attribute->nodeValue == "true") {
                 $this->_agreedToTerms = true;
-            }
-            else if ($attribute->nodeValue == "false") {
+            } elseif ($attribute->nodeValue == "false") {
                 $this->_agreedToTerms = false;
-            }
-            else {
-                require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            } else {
+                require_once 'Zend/Gdata/App/InvalidArgumentException.php';
                 throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for apps:login#agreedToTerms.");
             }
             break;
         case 'suspended':
             if ($attribute->nodeValue == "true") {
                 $this->_suspended = true;
-            }
-            else if ($attribute->nodeValue == "false") {
+            } elseif ($attribute->nodeValue == "false") {
                 $this->_suspended = false;
-            }
-            else {
-                require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            } else {
+                require_once 'Zend/Gdata/App/InvalidArgumentException.php';
                 throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for apps:login#suspended.");
             }
             break;
         case 'changePasswordAtNextLogin':
             if ($attribute->nodeValue == "true") {
                 $this->_changePasswordAtNextLogin = true;
-            }
-            else if ($attribute->nodeValue == "false") {
+            } elseif ($attribute->nodeValue == "false") {
                 $this->_changePasswordAtNextLogin = false;
-            }
-            else {
-                require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            } else {
+                require_once 'Zend/Gdata/App/InvalidArgumentException.php';
                 throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for apps:login#changePasswordAtNextLogin.");
             }
             break;
@@ -270,12 +262,13 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * is used to uniquely identify the user in this domian and is used
      * to form this user's email address.
      *
-     * @param string $value The desired value for this attribute.
+     * @param  string                           $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      */
     public function setUsername($value)
     {
         $this->_username = $value;
+
         return $this;
     }
 
@@ -296,12 +289,13 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * the SHA-1 algorithm for protection. If using a hash function,
      * this must be indicated by calling setHashFunctionName().
      *
-     * @param string $value The desired value for this attribute.
+     * @param  string                           $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      */
     public function setPassword($value)
     {
         $this->_password = $value;
+
         return $this;
     }
 
@@ -323,12 +317,13 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * plaintext is assumed. As of this writing, the only valid hash
      * function is 'SHA-1'.
      *
-     * @param string $value The desired value for this attribute.
+     * @param  string                           $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      */
     public function setHashFunctionName($value)
     {
         $this->_hashFunctionName = $value;
+
         return $this;
     }
 
@@ -336,15 +331,16 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's admin attribute.
      *
      * @see setAdmin
-     * @return boolean The requested attribute.
+     * @return boolean                                 The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getAdmin()
     {
         if (!(is_bool($this->_admin))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for admin.');
         }
+
         return $this->_admin;
     }
 
@@ -352,17 +348,18 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Set the value for this element's admin attribute. This indicates
      * whether this user is an administrator for this domain.
      *
-     * @param boolean $value The desired value for this attribute.
-     * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
+     * @param  boolean                                 $value The desired value for this attribute.
+     * @return Zend_Gdata_Gapps_Extension_Login        Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setAdmin($value)
     {
         if (!(is_bool($value))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for $value.');
         }
         $this->_admin = $value;
+
         return $this;
     }
 
@@ -370,15 +367,16 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's agreedToTerms attribute.
      *
      * @see setAgreedToTerms
-     * @return boolean The requested attribute.
+     * @return boolean                                 The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getAgreedToTerms()
     {
         if (!(is_bool($this->_agreedToTerms))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for agreedToTerms.');
         }
+
         return $this->_agreedToTerms;
     }
 
@@ -386,17 +384,18 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Set the value for this element's agreedToTerms attribute. This
      * indicates whether this user has agreed to the terms of service.
      *
-     * @param boolean $value The desired value for this attribute.
-     * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
+     * @param  boolean                                 $value The desired value for this attribute.
+     * @return Zend_Gdata_Gapps_Extension_Login        Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setAgreedToTerms($value)
     {
         if (!(is_bool($value))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for $value.');
         }
         $this->_agreedToTerms = $value;
+
         return $this;
     }
 
@@ -404,15 +403,16 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's suspended attribute.
      *
      * @see setSuspended
-     * @return boolean The requested attribute.
+     * @return boolean                                 The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getSuspended()
     {
         if (!(is_bool($this->_suspended))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for suspended.');
         }
+
         return $this->_suspended;
     }
 
@@ -420,17 +420,18 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Set the value for this element's suspended attribute. If true, the
      * user will not be able to login to this domain until unsuspended.
      *
-     * @param boolean $value The desired value for this attribute.
-     * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
+     * @param  boolean                                 $value The desired value for this attribute.
+     * @return Zend_Gdata_Gapps_Extension_Login        Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setSuspended($value)
     {
         if (!(is_bool($value))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for $value.');
         }
         $this->_suspended = $value;
+
         return $this;
     }
 
@@ -438,15 +439,16 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's changePasswordAtNextLogin attribute.
      *
      * @see setChangePasswordAtNextLogin
-     * @return boolean The requested attribute.
+     * @return boolean                                 The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getChangePasswordAtNextLogin()
     {
         if (!(is_bool($this->_changePasswordAtNextLogin))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for changePasswordAtNextLogin.');
         }
+
         return $this->_changePasswordAtNextLogin;
     }
 
@@ -455,17 +457,18 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * If true, the user will be forced to set a new password the next
      * time they login.
      *
-     * @param boolean $value The desired value for this attribute.
-     * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
+     * @param  boolean                                 $value The desired value for this attribute.
+     * @return Zend_Gdata_Gapps_Extension_Login        Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setChangePasswordAtNextLogin($value)
     {
         if (!(is_bool($value))) {
-            require_once('Zend/Gdata/App/InvalidArgumentException.php');
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('Expected boolean for $value.');
         }
         $this->_changePasswordAtNextLogin = $value;
+
         return $this;
     }
 

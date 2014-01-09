@@ -81,11 +81,11 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      * algorithm, the data to compute MAC of, and an output format of String,
      * Binary notation or BTWOC.
      *
-     * @param string $key
-     * @param string $hash
-     * @param string $data
-     * @param string $output
-     * @param boolean $internal
+     * @param  string  $key
+     * @param  string  $hash
+     * @param  string  $data
+     * @param  string  $output
+     * @param  boolean $internal
      * @return string
      */
     public static function compute($key, $hash, $data, $output = self::STRING)
@@ -107,7 +107,7 @@ class Zend_Crypt_Hmac extends Zend_Crypt
     /**
      * Setter for the hash method.
      *
-     * @param string $hash
+     * @param  string          $hash
      * @return Zend_Crypt_Hmac
      */
     protected static function _setHashAlgorithm($hash)
@@ -138,9 +138,9 @@ class Zend_Crypt_Hmac extends Zend_Crypt
     /**
      * Perform HMAC and return the keyed data
      *
-     * @param string $data
-     * @param string $output
-     * @param bool $internal Option to not use hash() functions for testing
+     * @param  string $data
+     * @param  string $output
+     * @param  bool   $internal Option to not use hash() functions for testing
      * @return string
      */
     protected static function _hash($data, $output = self::STRING, $internal = false)
@@ -149,6 +149,7 @@ class Zend_Crypt_Hmac extends Zend_Crypt
             if ($output == self::BINARY) {
                 return hash_hmac(self::$_hashAlgorithm, $data, self::$_key, 1);
             }
+
             return hash_hmac(self::$_hashAlgorithm, $data, self::$_key);
         }
 
@@ -157,6 +158,7 @@ class Zend_Crypt_Hmac extends Zend_Crypt
                 return mhash(self::_getMhashDefinition(self::$_hashAlgorithm), $data, self::$_key);
             }
             $bin = mhash(self::_getMhashDefinition(self::$_hashAlgorithm), $data, self::$_key);
+
             return bin2hex($bin);
         }
     }
@@ -166,15 +168,15 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      * we need to make a small detour to get the correct integer matching our
      * algorithm's name.
      *
-     * @param string $hashAlgorithm
+     * @param  string  $hashAlgorithm
      * @return integer
      */
     protected static function _getMhashDefinition($hashAlgorithm)
     {
-        for ($i = 0; $i <= mhash_count(); $i++)
-        {
+        for ($i = 0; $i <= mhash_count(); $i++) {
             $types[mhash_get_hash_name($i)] = $i;
         }
+
         return $types[strtoupper($hashAlgorithm)];
     }
 

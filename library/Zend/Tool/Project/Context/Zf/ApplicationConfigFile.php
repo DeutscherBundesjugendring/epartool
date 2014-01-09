@@ -68,6 +68,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
     {
         $this->_type = $this->_resource->getAttribute('type');
         parent::init();
+
         return $this;
     }
 
@@ -108,10 +109,10 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
     /**
      * addStringItem()
      *
-     * @param string $key
-     * @param string $value
-     * @param string $section
-     * @param bool   $quoteValue
+     * @param  string                                             $key
+     * @param  string                                             $value
+     * @param  string                                             $section
+     * @param  bool                                               $quoteValue
      * @return Zend_Tool_Project_Context_Zf_ApplicationConfigFile
      */
     public function addStringItem($key, $value, $section = 'production', $quoteValue = true)
@@ -142,7 +143,7 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
                 if (isset($contentLines[$contentLineIndex + 1]{0}) && $contentLines[$contentLineIndex + 1]{0} == '[') {
                     $newLines[] = $key . ' = ' . $value;
                     $insideSection = null;
-                } else if (!isset($contentLines[$contentLineIndex + 1])){
+                } elseif (!isset($contentLines[$contentLineIndex + 1])) {
                     $newLines[] = $key . ' = ' . $value;
                     $insideSection = null;
                 }
@@ -150,14 +151,15 @@ class Zend_Tool_Project_Context_Zf_ApplicationConfigFile extends Zend_Tool_Proje
         }
 
         $this->_content = implode("\n", $newLines);
+
         return $this;
     }
 
     /**
      *
-     * @param array $item
-     * @param string $section
-     * @param bool $quoteValue
+     * @param  array                                              $item
+     * @param  string                                             $section
+     * @param  bool                                               $quoteValue
      * @return Zend_Tool_Project_Context_Zf_ApplicationConfigFile
      */
     public function addItem($item, $section = 'production', $quoteValue = true)

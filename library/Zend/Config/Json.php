@@ -73,9 +73,9 @@ class Zend_Config_Json extends Zend_Config
      * Note that the keys in $section will override any keys of the same
      * name in the sections that have been included via "_extends".
      *
-     * @param  string  $json     JSON file or string to process
-     * @param  mixed   $section Section to process
-     * @param  boolean $options Whether modifiacations are allowed at runtime
+     * @param  string                $json    JSON file or string to process
+     * @param  mixed                 $section Section to process
+     * @param  boolean               $options Whether modifiacations are allowed at runtime
      * @throws Zend_Config_Exception When JSON text is not set or cannot be loaded
      * @throws Zend_Config_Exception When section $sectionName cannot be found in $json
      */
@@ -177,9 +177,9 @@ class Zend_Config_Json extends Zend_Config
      * Helper function to process each element in the section and handle
      * the "_extends" inheritance attribute.
      *
-     * @param  array            $data Data array to process
-     * @param  string           $section Section to process
-     * @param  array            $config  Configuration which was parsed yet
+     * @param  array                 $data    Data array to process
+     * @param  string                $section Section to process
+     * @param  array                 $config  Configuration which was parsed yet
      * @throws Zend_Config_Exception When $section cannot be found
      * @return array
      */
@@ -225,6 +225,7 @@ class Zend_Config_Json extends Zend_Config
                 $value = str_replace($constant, $replacement, $value);
             }
         }
+
         return $value;
     }
 
@@ -237,6 +238,7 @@ class Zend_Config_Json extends Zend_Config
     {
         $constants = array_keys(get_defined_constants());
         rsort($constants, SORT_STRING);
+
         return $constants;
     }
 }

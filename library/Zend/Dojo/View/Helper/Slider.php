@@ -55,10 +55,10 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
     /**
      * dijit.form.Slider
      *
-     * @param  int $id
-     * @param  mixed $value
-     * @param  array $params  Parameters to use for dijit creation
-     * @param  array $attribs HTML attributes
+     * @param  int    $id
+     * @param  mixed  $value
+     * @param  array  $params  Parameters to use for dijit creation
+     * @param  array  $attribs HTML attributes
      * @return string
      */
     public function prepareSlider($id, $value = null, array $params = array(), array $attribs = array())
@@ -140,7 +140,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
      *
      * @param  string $position
      * @param  string $id
-     * @param  array $decInfo
+     * @param  array  $decInfo
      * @return string
      */
     protected function _prepareDecoration($position, $id, $decInfo)
@@ -235,9 +235,9 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
      * Prepare slider label list
      *
      * @param  string $id
-     * @param  array $params
-     * @param  array $attribs
-     * @param  array $labels
+     * @param  array  $params
+     * @param  array  $attribs
+     * @param  array  $labels
      * @return string
      */
     protected function _prepareLabelsList($id, array $params, array $attribs, array $labels)

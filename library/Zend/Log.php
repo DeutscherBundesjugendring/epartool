@@ -103,7 +103,7 @@ class Zend_Log
     /**
      * Class constructor.  Create a new logger
      *
-     * @param Zend_Log_Writer_Abstract|null  $writer  default writer
+     * @param  Zend_Log_Writer_Abstract|null $writer default writer
      * @return void
      */
     public function __construct(Zend_Log_Writer_Abstract $writer = null)
@@ -124,7 +124,7 @@ class Zend_Log
      * @return Zend_Log
      * @throws Zend_Log_Exception
      */
-    static public function factory($config = array())
+    public static function factory($config = array())
     {
         if ($config instanceof Zend_Config) {
             $config = $config->toArray();
@@ -148,7 +148,7 @@ class Zend_Log
         if (!is_array(current($config))) {
             $log->addWriter(current($config));
         } else {
-            foreach($config as $writer) {
+            foreach ($config as $writer) {
                 $log->addWriter($writer);
             }
         }
@@ -156,11 +156,10 @@ class Zend_Log
         return $log;
     }
 
-
     /**
      * Construct a writer object based on a configuration array
      *
-     * @param  array $spec config array with writer spec
+     * @param  array                    $spec config array with writer spec
      * @return Zend_Log_Writer_Abstract
      * @throws Zend_Log_Exception
      */
@@ -193,7 +192,7 @@ class Zend_Log
     /**
      * Construct filter object from configuration array or Zend_Config object
      *
-     * @param  array|Zend_Config $config Zend_Config or Array
+     * @param  array|Zend_Config         $config Zend_Config or Array
      * @return Zend_Log_Filter_Interface
      * @throws Zend_Log_Exception
      */
@@ -239,9 +238,9 @@ class Zend_Log
     /**
      * Construct a filter or writer from config
      *
-     * @param string $type 'writer' of 'filter'
-     * @param mixed $config Zend_Config or Array
-     * @param string $namespace
+     * @param  string             $type      'writer' of 'filter'
+     * @param  mixed              $config    Zend_Config or Array
+     * @param  string             $namespace
      * @return object
      * @throws Zend_Log_Exception
      */
@@ -279,10 +278,10 @@ class Zend_Log
     /**
      * Get the writer or filter full classname
      *
-     * @param array $config
-     * @param string $type filter|writer
-     * @param string $defaultNamespace
-     * @return string full classname
+     * @param  array              $config
+     * @param  string             $type             filter|writer
+     * @param  string             $defaultNamespace
+     * @return string             full classname
      * @throws Zend_Log_Exception
      */
     protected function getClassName($config, $type, $defaultNamespace)
@@ -315,9 +314,9 @@ class Zend_Log
     /**
      * Packs message and priority into Event array
      *
-     * @param  string   $message   Message to log
-     * @param  integer  $priority  Priority of message
-     * @return array Event array
+     * @param  string  $message  Message to log
+     * @param  integer $priority Priority of message
+     * @return array   Event array
      */
     protected function _packEvent($message, $priority)
     {
@@ -338,7 +337,7 @@ class Zend_Log
      */
     public function __destruct()
     {
-        foreach($this->_writers as $writer) {
+        foreach ($this->_writers as $writer) {
             $writer->shutdown();
         }
     }
@@ -349,8 +348,8 @@ class Zend_Log
      *     instead of
      *   $log->log('message', Zend_Log::PRIORITY_NAME)
      *
-     * @param  string  $method  priority name
-     * @param  string  $params  message to log
+     * @param  string             $method priority name
+     * @param  string             $params message to log
      * @return void
      * @throws Zend_Log_Exception
      */
@@ -383,9 +382,9 @@ class Zend_Log
     /**
      * Log a message at a priority
      *
-     * @param  string   $message   Message to log
-     * @param  integer  $priority  Priority of message
-     * @param  mixed    $extras    Extra information to log in event
+     * @param  string             $message  Message to log
+     * @param  integer            $priority Priority of message
+     * @param  mixed              $extras   Extra information to log in event
      * @return void
      * @throws Zend_Log_Exception
      */
@@ -442,8 +441,8 @@ class Zend_Log
     /**
      * Add a custom priority
      *
-     * @param  string   $name      Name of priority
-     * @param  integer  $priority  Numeric priority
+     * @param  string             $name     Name of priority
+     * @param  integer            $priority Numeric priority
      * @throws Zend_Log_Exception
      */
     public function addPriority($name, $priority)
@@ -459,6 +458,7 @@ class Zend_Log
         }
 
         $this->_priorities[$priority] = $name;
+
         return $this;
     }
 
@@ -481,13 +481,14 @@ class Zend_Log
         } elseif ($filter instanceof Zend_Config || is_array($filter)) {
             $filter = $this->_constructFilterFromConfig($filter);
 
-        } elseif(! $filter instanceof Zend_Log_Filter_Interface) {
+        } elseif (! $filter instanceof Zend_Log_Filter_Interface) {
             /** @see Zend_Log_Exception */
             require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Invalid filter provided');
         }
 
         $this->_filters[] = $filter;
+
         return $this;
     }
 
@@ -495,7 +496,7 @@ class Zend_Log
      * Add a writer.  A writer is responsible for taking a log
      * message and writing it out to storage.
      *
-     * @param  mixed $writer Zend_Log_Writer_Abstract or Config array
+     * @param  mixed    $writer Zend_Log_Writer_Abstract or Config array
      * @return Zend_Log
      */
     public function addWriter($writer)
@@ -514,19 +515,21 @@ class Zend_Log
         }
 
         $this->_writers[] = $writer;
+
         return $this;
     }
 
     /**
      * Set an extra item to pass to the log writers.
      *
-     * @param  string $name    Name of the field
-     * @param  string $value   Value of the field
+     * @param  string   $name  Name of the field
+     * @param  string   $value Value of the field
      * @return Zend_Log
      */
     public function setEventItem($name, $value)
     {
         $this->_extras = array_merge($this->_extras, array($name => $value));
+
         return $this;
     }
 
@@ -577,6 +580,7 @@ class Zend_Log
         }
 
         $this->_registeredErrorHandler = true;
+
         return $this;
     }
 
@@ -584,11 +588,11 @@ class Zend_Log
      * Error Handler will convert error into log message, and then call the original error handler
      *
      * @link http://www.php.net/manual/en/function.set-error-handler.php Custom error handler
-     * @param int $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param int $errline
-     * @param array $errcontext
+     * @param  int     $errno
+     * @param  string  $errstr
+     * @param  string  $errfile
+     * @param  int     $errline
+     * @param  array   $errcontext
      * @return boolean
      */
     public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
@@ -607,18 +611,20 @@ class Zend_Log
         if ($this->_origErrorHandler !== null) {
             return call_user_func($this->_origErrorHandler, $errno, $errstr, $errfile, $errline, $errcontext);
         }
+
         return false;
     }
 
     /**
      * Set timestamp format for log entries.
      *
-     * @param string $format
+     * @param  string   $format
      * @return Zend_Log
      */
     public function setTimestampFormat($format)
     {
         $this->_timestampFormat = $format;
+
         return $this;
     }
 

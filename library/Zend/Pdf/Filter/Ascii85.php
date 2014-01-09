@@ -19,7 +19,6 @@
  * @version    $Id: Ascii85.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
-
 /** Zend_Pdf_Filter_Interface */
 require_once 'Zend/Pdf/Filter/Interface.php';
 
@@ -35,8 +34,8 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
     /**
      * Encode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -100,14 +99,15 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
 
         //get rid of new line at the end
         $output = substr($output, 0, -1);
+
         return $output;
     }
 
     /**
      * Decode data
      *
-     * @param string $data
-     * @param array $params
+     * @param  string             $data
+     * @param  array              $params
      * @return string
      * @throws Zend_Pdf_Exception
      */
@@ -122,6 +122,7 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
         if (substr($data, -2) != '~>') {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Invalid EOF marker');
+
             return '';
         }
 
@@ -139,7 +140,7 @@ class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter_Interface
 
             $c = substr($data, $i, 5);
 
-            if(strlen($c) < 5) {
+            if (strlen($c) < 5) {
                 //partial chunk
                 break;
             }

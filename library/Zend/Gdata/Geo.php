@@ -52,7 +52,6 @@ class Zend_Gdata_Geo extends Zend_Gdata
         array('gml', 'http://www.opengis.net/gml', 1, 0)
     );
 
-
     /**
      * Create Zend_Gdata_Geo object
      *
