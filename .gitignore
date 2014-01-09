@@ -1,20 +1,24 @@
-/.settings
-/.buildpath
-/.project
+# Ignore all components installed by npm
 /node_modules
-/public/components
+
+# Ignore deployment files
 deployment.*.log
 .htdeployment
 
 # Ignore filesystem files
 .DS_Store
+Thumbs.db
 
 # Ignore IDE files
 nbproject
+.idea
 
 # Always follow configs
 !.gitignore
 !.htaccess
 
-# Ignore all libraries installed by Composer
-vendor/*
+# Ignore all components installed by Composer
+/vendor/*
+
+# Ignore all components installed by Bower
+/www/components/*
