@@ -2,6 +2,9 @@
   "name": "dbjr",
   "version": "0.0.1",
   "dependencies": {
-      "jquery": "1.8.3"
+      "jquery": "~1.8.3",
+      "ckeditor": "#4.0.1/full",
+      "bootstrap": "~2.3.2",
+      "font-awesome": "~3.0.2"
   }
 }
