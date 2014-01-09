@@ -1,0 +1,6 @@
+{
+    "type": "zend-library",
+    "require": {
+        "zendframework/zendframework1": "~1.12.3"
+    }
+}
