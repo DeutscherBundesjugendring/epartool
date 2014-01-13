@@ -47,10 +47,10 @@ module.exports = function(grunt) {
 					'www/components/bootstrap/js/bootstrap-collapse.js',
 					'www/components/bootstrap/js/bootstrap-dropdown.js',
 					'www/components/bootstrap/js/bootstrap-modal.js',
-					'www/components/bootstrap/js/bootstrap-popover.js',
 					'www/components/bootstrap/js/bootstrap-scrollspy.js',
 					'www/components/bootstrap/js/bootstrap-tab.js',
 					'www/components/bootstrap/js/bootstrap-tooltip.js',
+					'www/components/bootstrap/js/bootstrap-popover.js',
 					'www/components/bootstrap/js/bootstrap-transition.js',
 					'www/components/bootstrap/js/bootstrap-typeahead.js'
 				],
