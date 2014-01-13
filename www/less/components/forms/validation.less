@@ -1,0 +1,21 @@
+//
+// Component: Forms: Validation
+// --------------------------------------------------
+
+
+// Error
+.control-group.error {
+	.formFieldState(@errorText, @errorText, @errorBackground);
+
+	// Inputs
+	.checkbox,
+	.radio,
+	input,
+	select,
+	textarea {
+
+		&:focus {
+			.box-shadow(none);
+		}
+	}
+}

@@ -1,0 +1,62 @@
+//
+// Component: Pagination
+// --------------------------------------------------
+
+
+.pagination {
+	position: relative; // for positioning prev and next buttons
+
+	ul,
+	ul > li:first-child > a,
+	ul > li:first-child > span,
+	ul > li:last-child > a,
+	ul > li:last-child > span {
+		.border-radius(0);
+	}
+
+	ul {
+		.box-shadow(none);
+	}
+
+	ul > li > a,
+	ul > li > span {
+		margin: 0 1px;
+		color: @bodyText;
+		border-style: none;
+		background-color: @blue2;
+	}
+
+	ul > li > a:hover,
+	ul > li > a:focus {
+		color: @bodyText;
+		background-color: @orange;
+	}
+
+	.prev,
+	.next {
+		position: absolute;
+		left: 0;
+	}
+
+	.next {
+		left: auto;
+		right: 0;
+
+		i {
+			margin: 0 0 0 .4em;
+		}
+	}
+
+	// Button states
+	ul > .active > a,
+	ul > .active > span {
+		color: @white;
+		background-color: @orange;
+	}
+
+	ul > .disabled > a,
+	ul > .disabled > span {
+		color: @grayLight;
+		background-color: lighten(@grayLighter, 27%);
+	}
+}

@@ -1,0 +1,37 @@
+//
+// Component: Share
+// --------------------------------------------------
+
+
+.share-dropdown {
+	@dropdownBackground: @grayLighter;
+	position: absolute;
+	right: -1.2 * @u;
+	top: 5 * @u;
+	width: 8em;
+	padding: 1em;
+	text-align: left;
+	background-color: @dropdownBackground;
+	.box-shadow(0 .2em .8em fade(#000, 30%));
+
+	&:empty {
+		display: none;
+	}
+
+	&:before {
+		.caretResizable(1.5em, 1em, @dropdownBackground);
+		position: absolute;
+		left: 50%;
+		bottom: 100%;
+		margin-left: -0.5em;
+		// Rotate upwards
+		border-top-style: none;
+		border-bottom-style: solid;
+		border-bottom-color: @dropdownBackground;
+	}
+}
+
+.share-btn {
+	height: 22px;
+	margin-bottom: @baseLineHeight / 3;
+}
