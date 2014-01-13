@@ -1873,12 +1873,10 @@ form dd label + br {
 .form-contribution .form-actions .btn {
   margin: 0;
 }
-.form-contribution .form-actions #submit,
-.form-contribution .form-actions #submitbutton {
+.form-contribution .form-actions #submit {
   margin-left: 1.9em;
 }
-.form-contribution .form-actions #submit i,
-.form-contribution .form-actions #submitbutton i {
+.form-contribution .form-actions #submit i {
   margin-left: .5ex;
   margin-right: 0;
 }

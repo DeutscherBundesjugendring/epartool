@@ -1,6 +1,5 @@
 {
   "name": "dbjr",
-  "version": "0.0.1",
   "dependencies": {
     "jquery": "~1.8.3",
     "ckeditor": "#4.0.1/full",
