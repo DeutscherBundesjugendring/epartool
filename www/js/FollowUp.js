@@ -39,7 +39,7 @@
         }
 
         function _initEventListener() {
-            $('.ajaxclick').live('click', function(el) {
+            $(document).on('click', '.ajaxclick', function(el) {
                 el.preventDefault();
                 el.stopPropagation();
                 var _request = $(this).attr('href');
@@ -67,7 +67,7 @@
 
             })
 
-            $('a.voting').live('click', function(el) {
+            $(document).on('click', 'a.voting', function(el) {
                 el.preventDefault();
                 el.stopPropagation();
                 var _thisEl = $(this);
@@ -76,19 +76,19 @@
                 var _obj = {'request': _request, 'target': _target};
 
                 _getAjaxData(_obj, function(data, status, obj) {
-                    
+
                     var _amount = data.lkyea || data.lknay;
                     // obj.target.innerText = '(' + _amount + ')';
                     _thisEl.children("span.amount").text('(' + _amount + ')');
-                
+
                    var cls = _thisEl.hasClass("like") ? ".like" : ".dislike";
-                    var fid = _thisEl.parents(".snippet").data('fid');                    
+                    var fid = _thisEl.parents(".snippet").data('fid');
                     $("#followup .wrapper .timeline-box[data-fid="+fid+"] "+cls+" .amount").text('(' + _amount + ')');
                 })
 
             })
 
-            $('.openoverlay').live('click', function() {
+            $(document).on('click', '.openoverlay', function() {
                 var _request = $(this).data('href');
                 var params = {};
                 params.fid = $(this).data('fid');
@@ -100,7 +100,7 @@
                     _addOverlay(data, params);
                 });
             });
-            $('.overlayclose').live('click', function() {
+            $(document).on('click', '.overlayclose', function() {
                 $('.overlaywrapper').remove();
                 return false;
             });
@@ -123,14 +123,14 @@
             var newHeight;
             var _posTop;
             var maxColHeight = 0;
-            
+
             $('#followup .wrapper').children('.col').each(function(index, element) {
                 maxColHeight = $(this).height() > maxColHeight ? $(this).height() : maxColHeight;
             });
-            
+
             newHeight = maxColHeight+100 < 500 ? 500 : maxColHeight;
             $('#followup').animate({height:newHeight+100+"px"},200);
-            
+
             $("body").scrollTop($('#followup').position().top)
             $('#followup .wrapper').children('.col').each(function(index, element) {
                 $(this).attr('data-id', index);
@@ -183,7 +183,7 @@
 
                 _setVerticalAlign();
 
-               
+
 
 
             } else {
@@ -266,7 +266,7 @@
                     } else {
                         _img = '';
                     }
-                    
+
 
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-ffid="' + data.refs.docs[i].ffid + '">' +
                             ' <div class="content">' +
@@ -290,11 +290,11 @@
                     _likeNo = '<a class="clearleft voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span><span class="thumb-down"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
-                    
+
                     _edgeLeft = snippet.typ !== 'g' ? '<div class="followup-typ edge-left followup-typ-'+snippet.typ+'"> </div>' : '';
                     _gfxwho_overlay = snippet.typ !== 'g' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+snippet.typ+'"> </div>' : '';
                     _hasTypOverlay = snippet.typ !== 'g' ? 'has-typ-overlay' : '';
-                             
+
                     _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.refs.snippets[i].fid + '">' +
                             ' <div class="content clearfix '+_hasTypOverlay+'">' +
                             _edgeLeft + _gfxwho_overlay +
@@ -336,14 +336,14 @@
                     _show_in_timeline_link = '<a class="btn overlayclose" href="'+data.doc.fowups[i].show_in_timeline_link+'">Zurück zur Zeitleiste</a>';
                 } else {
                     _show_in_timeline_link = '<a class="btn" href="'+data.doc.fowups[i].show_in_timeline_link+'">Diesem Pfad folgen.</a>';
-                    
+
                 }
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ+'"> </div>' : '';
-                        
+
                 _snippets += '<div class="clearfix snippet ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
                         _edgeRight +
                         '<div class="span6">' + data.doc.fowups[i].expl + '</div>' +
-                        '<div class="likeyes_likeno">'+_likeYes + _likeNo + '</div>' +                                              
+                        '<div class="likeyes_likeno">'+_likeYes + _likeNo + '</div>' +
                         _show_in_timeline_link +
                         '</div>';
             }
@@ -377,12 +377,12 @@
                 try {
                     var top = $(".overlaycontent .snippet.active").position().top - 30 || 0;
                     $(".overlaycontent").scrollTop(top);
-                    
+
                 } catch(e) {
-                    
+
                 }
             });
-            
+
         }
 
 

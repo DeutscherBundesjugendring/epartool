@@ -12,13 +12,12 @@
         }
 
         function initEventListener() {
-            $(".movefowup,.hlvlarrow ").live('click', _reloadEditFowup);
-            $(".openajaxform").live('click', _onClickOpenajaxform);
-            $(".openajaxformnew").live('click', _onClickOpenajaxformnew);
-            $(".fsnippet-form").live('submit', _onSubmitFsnippetform);
-          
-
+            $(document).on('click', '.movefowup,.hlvlarrow', _reloadEditFowup);
+            $(document).on('click', '.openajaxform', _onClickOpenajaxform);
+            $(document).on('click', '.openajaxformnew', _onClickOpenajaxformnew);
+            $(document).on('submit', '.fsnippet-form', _onSubmitFsnippetform);
         }
+
         function _onSubmitFsnippetform() {
             var postdata = $(this).serialize();
             var parentid = $(this).parent().attr("id");
@@ -41,7 +40,7 @@
             return false;
 
         }
-       
+
         function _reloadEditFowup() {
             var params = {
                 uri: $(this).attr("href"),
@@ -85,9 +84,9 @@
 
         function loadContent(params) {
 
-            
+
             var uri = params.uri;
-            
+
             var method = params.postdata ? 'POST' : 'GET';
             var postdata = params.postdata || null;
             var container, pattern;
@@ -101,7 +100,7 @@
 
                     container = params.success && params.success.container ? params.success.container : params.container;
                     pattern = params.success && params.success.pattern ? params.success.pattern : params.pattern;
-                    
+
                     if (!container || !pattern) {
                         throw "No container or pattern given."
                     }
@@ -137,7 +136,7 @@
 
                         newContent = data.match(pattern);
 
-                        
+
                         if (newContent) {
 
                             newContent = newContent.toString();
@@ -151,7 +150,7 @@
                         container.html("");
                         container.html(newContent);
 
-                        
+
                     }
 
                 }

@@ -61,14 +61,31 @@ module.exports = function(grunt) {
 					separator: ';'
 				},
 				src: [
+                    'www/components/jquery.ui/ui/jquery.ui.core.js',
+                    'www/components/jquery.ui/ui/jquery.ui.widget.js',
+
+                    'www/components/jquery.ui/ui/jquery.ui.position.js',
+                    'www/components/jquery.ui/ui/jquery.ui.mouse.js',
+
+                    'www/components/jquery.ui/ui/jquery.ui.draggable.js',
+                    'www/components/jquery.ui/ui/jquery.ui.droppable.js',
+
                     'www/components/jquery.ui/ui/jquery.ui.accordion.js',
                     'www/components/jquery.ui/ui/jquery.ui.autocomplete.js',
                     'www/components/jquery.ui/ui/jquery.ui.button.js',
-                    'www/components/jquery.ui/ui/jquery.ui.core.js',
                     'www/components/jquery.ui/ui/jquery.ui.datepicker.js',
                     'www/components/jquery.ui/ui/jquery.ui.dialog.js',
-                    'www/components/jquery.ui/ui/jquery.ui.draggable.js',
-                    'www/components/jquery.ui/ui/jquery.ui.droppable.js',
+                    'www/components/jquery.ui/ui/jquery.ui.menu.js',
+                    'www/components/jquery.ui/ui/jquery.ui.progressbar.js',
+                    'www/components/jquery.ui/ui/jquery.ui.resizable.js',
+                    'www/components/jquery.ui/ui/jquery.ui.selectable.js',
+                    'www/components/jquery.ui/ui/jquery.ui.slider.js',
+                    'www/components/jquery.ui/ui/jquery.ui.sortable.js',
+                    'www/components/jquery.ui/ui/jquery.ui.spinner.js',
+                    'www/components/jquery.ui/ui/jquery.ui.tabs.js',
+                    'www/components/jquery.ui/ui/jquery.ui.tooltip.js',
+
+                    'www/components/jquery.ui/ui/jquery.ui.effect.js',
                     'www/components/jquery.ui/ui/jquery.ui.effect-blind.js',
                     'www/components/jquery.ui/ui/jquery.ui.effect-bounce.js',
                     'www/components/jquery.ui/ui/jquery.ui.effect-clip.js',
@@ -81,20 +98,8 @@ module.exports = function(grunt) {
                     'www/components/jquery.ui/ui/jquery.ui.effect-scale.js',
                     'www/components/jquery.ui/ui/jquery.ui.effect-shake.js',
                     'www/components/jquery.ui/ui/jquery.ui.effect-slide.js',
-                    'www/components/jquery.ui/ui/jquery.ui.effect-transfer.js',
-                    'www/components/jquery.ui/ui/jquery.ui.effect.js',
-                    'www/components/jquery.ui/ui/jquery.ui.menu.js',
-                    'www/components/jquery.ui/ui/jquery.ui.mouse.js',
-                    'www/components/jquery.ui/ui/jquery.ui.position.js',
-                    'www/components/jquery.ui/ui/jquery.ui.progressbar.js',
-                    'www/components/jquery.ui/ui/jquery.ui.resizable.js',
-                    'www/components/jquery.ui/ui/jquery.ui.selectable.js',
-                    'www/components/jquery.ui/ui/jquery.ui.slider.js',
-                    'www/components/jquery.ui/ui/jquery.ui.sortable.js',
-                    'www/components/jquery.ui/ui/jquery.ui.spinner.js',
-                    'www/components/jquery.ui/ui/jquery.ui.tabs.js',
-                    'www/components/jquery.ui/ui/jquery.ui.tooltip.js',
-                    'www/components/jquery.ui/ui/jquery.ui.widget.js'
+                    'www/components/jquery.ui/ui/jquery.ui.effect-transfer.js'
+
 				],
 				dest: 'www/js/jquery.ui.js'
 			}
@@ -134,7 +139,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [
 		'less',
-		//'jshint',
+		'jshint',
 		'concat',
 		'uglify',
 		'clean'
