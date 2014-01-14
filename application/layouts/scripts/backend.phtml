@@ -10,11 +10,11 @@
     <!--[if lte IE 7]>
     <link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
     <![endif]-->
-    <?php echo $this->headScript(); ?>
 
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/ajaxloader.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/ckeditor/ckeditor.js"></script>
+    <?php echo $this->headScript(); ?>
 </head>
 
 <body>
