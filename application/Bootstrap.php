@@ -5,16 +5,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         // Lade Frontend Konfiguration
         $config = new Zend_Config_Ini(
-                APPLICATION_PATH . '/modules/default/config/config.ini',
-                APPLICATION_ENV);
+            APPLICATION_PATH . '/modules/default/config/config.ini',
+            APPLICATION_ENV
+        );
 
         // Speichere Frontend Konfiguration in der Registry
         Zend_Registry::set('config', $config);
 
         // Lade System-Konfiguration
         $config = new Zend_Config_Ini(
-                APPLICATION_PATH . '/configs/config.ini',
-                APPLICATION_ENV);
+            APPLICATION_PATH . '/configs/config.ini',
+            APPLICATION_ENV
+        );
 
         // Speichere System-Konfiguration in der Registry
         Zend_Registry::set('systemconfig', $config);
@@ -22,10 +24,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initDefaultModuleAutoloader()
     {
-        $resourceLoader = new Zend_Application_Module_Autoloader(array(
+        $resourceLoader = new Zend_Application_Module_Autoloader(
+            array(
                 'namespace' => '',
                 'basePath'    => APPLICATION_PATH,
-        ));
+            )
+        );
 
         return $resourceLoader;
     }
@@ -91,15 +95,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
 */
-     protected function _initHead()
-     {
+    protected function _initHead()
+    {
         $view = $this->bootstrap('view')->getResource('view');
             $view->headTitle()->setSeparator(' - ');
 
         $sysconfig = Zend_Registry::get('systemconfig');
             if ($sysconfig->headTitle) {
                     $view->headTitle($sysconfig->headTitle);
-                  } else {
+            } else {
                 $view->headTitle('Strukturierter Dialog in Deutschland');
             }
         #$view->headLink()->appendStylesheet('/Pfad/zur Stylesheet/datei');
