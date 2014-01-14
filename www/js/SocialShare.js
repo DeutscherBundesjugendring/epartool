@@ -40,8 +40,8 @@
 
         function _initEventlistener() {
             $("a.share").on('click', toggleButtons);
-            $("a#facebookshare").live('click', function(){
-               var enc_uri = $(this).attr('href');
+            $(document).on('click', 'a#facebookshare', function() {
+                var enc_uri = $(this).attr('href');
                 var popupurl = 'https://www.facebook.com/sharer/sharer.php?u='+enc_uri;
                 window.open(popupurl,'facebook-share-dialog', 'width=626,height=436');
                 return false;
