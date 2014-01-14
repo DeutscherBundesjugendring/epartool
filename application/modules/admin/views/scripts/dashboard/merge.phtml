@@ -6,38 +6,38 @@ $(document).ready(function() {
 			$('div.related-content').show('blind', '', 500);
 			$('div.expl-content').show('blind', '', 500);
 			$('div.append-inputs').hide();
-			
-			
+
+
 			// text kopieren //
 			$('input.cbx-th').change(function() {
 				if ($(this).is(":checked")) {
 					var label = $("label[for='"+$(this).attr('id')+"']").text();
 					var content = $('#thes').text();
 					$('#thes').text($.trim(content)+$.trim(label));
-					$(this).hide('blind','', 800, 
+					$(this).hide('blind','', 800,
 							function() {$(this).remove();}
 							);
 				}
 			});
-			
+
 			$('div.expl-content').click(function() {
 					var expltext = $(this).text();
 					var content = $('#expl').text();
 					$('#expl').text($.trim(content)+$.trim(expltext));
-					$(this).prev().hide('blind','', 1600, 
+					$(this).prev().hide('blind','', 1600,
 							function() {$(this).remove();}
 					);
-					$(this).hide('blind','', 800, 
+					$(this).hide('blind','', 800,
 							function() {$(this).remove();}
 				);
 			});
-			
+
 			// tags übernehmen
 			$('div.tag').click(function() {
 				var tagID = $(this).attr("rel");
-				$('#tags-'+tagID).attr("checked", true); 
-			}); 
-}); 
+				$('#tags-'+tagID).attr("checked", true);
+			});
+});
 </script>
 <h1>Dashboard: <?php echo $this -> consultation['titl']; ?></h1>
 <?php

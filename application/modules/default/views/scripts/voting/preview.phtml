@@ -8,9 +8,7 @@
  *  $(document).on("click",".YOUR-CSS-CLASS", function (event) ...
  */
 ?>
-<?php
-$this -> headScript() -> appendFile('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js');
-?>
+
 <?
 $settings = $this->settings;
 $this->layout()->settings = $settings;
@@ -19,7 +17,7 @@ $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 <script type="text/javascript">
 
 $(document).ready(function() {
-$(document).on("click",".voting-statement", function (event) {		
+$(document).on("click",".voting-statement", function (event) {
 	event.preventDefault();
 	var statementId = $(this).attr('rel');
 	var points = $(this).attr('data');
@@ -31,18 +29,18 @@ $(document).on("click",".voting-statement", function (event) {
 	cache: false,
 	async: "true",
 	error: function(){
-		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!"; 
+		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!";
 	},
 	beforeSend: function(){
-    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !"; 
+    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !";
 	},
 	success:function(response){
-		document.getElementById('statement-'+statementId).innerHTML = response ; 
+		document.getElementById('statement-'+statementId).innerHTML = response ;
 	}
 	});
 	});
-	
-	$(document).on("click",".voting-particularly-important", function (event) {		
+
+	$(document).on("click",".voting-particularly-important", function (event) {
 	event.preventDefault();
 	var statementId = $(this).attr('rel');
 	var points = $(this).attr('data');
@@ -55,18 +53,18 @@ $(document).on("click",".voting-statement", function (event) {
 	cache: false,
 	async: "true",
 	error: function(){
-		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!"; 
+		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!";
 	},
 	beforeSend: function(){
-    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !"; 
+    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !";
 	},
 	success:function(response){
-		document.getElementById('statement-'+statementId).innerHTML = response ; 
+		document.getElementById('statement-'+statementId).innerHTML = response ;
 	}
 	});
 	});
-	
-	
+
+
 	});
 </script>
 
@@ -89,9 +87,9 @@ $(document).on("click",".voting-statement", function (event) {
 				insgesamt <?php echo $this->escape($this -> votableInputs); ?> Beiträgen abgestimmt.</small>
 
 			<h1>Abstimmung zur Konsultation &quot;<?php echo $this->escape($this -> consultation -> titl); ?>&quot;</h1>
-			
+
 				<!-- questions -->
-				<?php  
+				<?php
 				echo $this ->partialLoop('_partials/voting/votingPreviewItem.phtml', $this->questions); ?>
 				<!-- // questions -->
 
