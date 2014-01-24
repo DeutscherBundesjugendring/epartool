@@ -56,7 +56,7 @@
 
   		<span
             class="block-box"
-            rel="<?php echo $this-> tid; ?>"
+            rel="<?php echo $this->tid; ?>"
             id="block-box-<?php echo $this->tid; ?>"
             title="Freigabe zur Anzeige: | &#9407; y = ja |  &#9399; n = blockiert | &#9418; u = unchecked"
         >
@@ -66,8 +66,8 @@
         </span>
         <span
             class="vot-box"
-            rel="<? echo $this->tid; ?>"
-            id="vot-box-<?php echo $this-> tid; ?>"
+            rel="<?php echo $this->tid; ?>"
+            id="vot-box-<?php echo $this->tid; ?>"
             title="Votingfreigabe: &#9411; u = unbearbeitet | &#9419; v  = zur Abstimmuung freigegeben | &#9399; n = nicht zur Abstimmung freigegeben"
         >
             <?php if ($this->vot=="y") echo '&#9419;'; ?>
@@ -82,9 +82,9 @@
                 Zusammenfassung aus:  &#9660;
             </a>
         </div>
-        <div class="related-content related-<? echo $this->tid; ?>">
+        <div class="related-content related-<?php echo $this->tid; ?>">
             <ul>
-                <?php  echo $this->partialLoop('_partials/dashboard/related.phtml', $this->related); ?>
+                <?php echo $this->partialLoop('_partials/dashboard/related.phtml', $this->related); ?>
             </ul>
           	<div class="append-inputs" rel="<?php echo $this->tid; ?>" id="append-inputs-<?php echo $this->tid; ?>">
                 + markierte hinzufügen +
