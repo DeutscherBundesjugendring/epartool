@@ -12,13 +12,13 @@ class Admin_DashboardController extends Zend_Controller_Action
 
     public function init()
     {
-        $this -> _helper -> layout -> setLayout('backend');
-        $this -> _flashMessenger = $this -> _helper -> getHelper('FlashMessenger');
-        $this -> _params = $this -> _request -> getParams();
-        $this -> _consultation = $this -> getKid($this -> _params);
-        $this -> _question = $this -> getQid($this -> _params);
-        if (isset($this -> _params["tid"]))
-            $this -> _tid = $this -> getTId($this -> _params);
+        $this->_helper->layout->setLayout('backend');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->_params = $this->_request->getParams();
+        $this->_consultation = $this->getKid($this->_params);
+        $this->_question = $this->getQid($this->_params);
+        if (isset($this->_params["tid"]))
+            $this->_tid = $this->getTId($this->_params);
     }
 
     /**
@@ -40,7 +40,7 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function indexAction()
     {
-        $this -> view -> consultation = $this -> _consultation;
+        $this->view->consultation = $this->_consultation;
     }
 
     /**
@@ -53,55 +53,80 @@ class Admin_DashboardController extends Zend_Controller_Action
     {
         $dirs = array();
         $directories = new Model_Directories();
-        $dirs = $directories -> getTree("node.kid = " . $this -> _consultation['kid'] . " AND parent.kid = " . $this -> _consultation['kid'] . "") -> toArray();
+        $dirs = $directories
+            ->getTree(
+                "node.kid = " . $this->_consultation['kid'] . " AND parent.kid = " . $this->_consultation['kid'] . ""
+            )
+            ->toArray();
 
         $questionModel = new Model_Questions();
         $inputsModel = new Model_Inputs();
         $tagModel = new Model_Tags();
 
         foreach ($dirs as $key => $value) {
-            $dirs["$key"]['count'] = $inputsModel -> getNumByDirectory($this -> _consultation['kid'], $this -> _question, $dirs["$key"]['id']);
-            $dirs["$key"]['qid'] = $this -> _question;
+            $dirs["$key"]['count'] = $inputsModel->getNumByDirectory(
+                $this->_consultation['kid'],
+                $this->_question,
+                $dirs["$key"]['id']
+            );
+            $dirs["$key"]['qid'] = $this->_question;
         }
 
-        $options = array('kid' => $this -> _consultation["kid"], 'qid' => $this -> _question);
-        $options['dir'] = $this -> getDirId($this -> _params);
+        $options = array('kid' => $this->_consultation["kid"], 'qid' => $this->_question);
+        $options['dir'] = $this->getDirId($this->_params);
 
-        $tags = $tagModel -> getAll() -> toArray();
+        $tags = $tagModel->getAll()->toArray();
 
-        if (isset($this -> _params['tags'])) {
-            $this -> checkInputIDs($this -> _params['tags']);
-            $options['tags'] = $this -> _params['tags'];
+        if (isset($this->_params['tags'])) {
+            $this->checkInputIDs($this->_params['tags']);
+            $options['tags'] = $this->_params['tags'];
             foreach ($tags as $key => $value) {
-                (in_array($value['tg_nr'], $options['tags'])) ? $tags["$key"]['selected'] = 1 : $tags["$key"]['selected'] = '0';
+                if (in_array($value['tg_nr'], $options['tags'])) {
+                    $tags["$key"]['selected'] = 1;
+                } else {
+                    $tags["$key"]['selected'] = '0';
+                }
+
             }
         }
 
-        if (isset($this -> _params['search-phrase'])) {
-            (isset($this -> _params['combine']) && $this -> _params['combine'] == 'AND') ? $options['combine'] = 'AND' : $options['combine'] = 'OR';
-            (isset($this -> _params['directory']) && $this -> _params['directory'] == '0') ? $options['dir'] = '0' : $options['dir'] = $options['dir'];
-            $options['search-phrase'] = trim($this -> _params['search-phrase']);
+        if (isset($this->_params['search-phrase'])) {
+            if (isset($this->_params['combine']) && $this->_params['combine'] == 'AND') {
+                $options['combine'] = 'AND';
+            } else {
+                $options['combine'] = 'OR';
+            }
+            if (isset($this->_params['directory']) && $this->_params['directory'] == '0') {
+                $options['dir'] = '0';
+            } else {
+                $options['dir'] = $options['dir'];
+            }
+            $options['search-phrase'] = trim($this->_params['search-phrase']);
         }
 
-        $this -> view -> inputs = array();
-        $this -> view -> question = array();
-        $this -> view -> consultation = array();
-        $this -> view -> directories = array();
-        $this -> view -> tags = array();
+        $this->view->inputs = array();
+        $this->view->question = array();
+        $this->view->consultation = array();
+        $this->view->directories = array();
+        $this->view->tags = array();
 
-        $this -> view -> inputs = $inputsModel -> fetchAllInputs($options);
-        $this -> view -> question = $questionModel -> find($this -> _question) -> current();
-        $this -> view -> consultation = $this -> _consultation;
-        $this -> view -> directories = $dirs;
-        $this -> view -> tags = $tags;
-        $this -> view -> directory = $options['dir'];
-        $this -> view -> getParams = 'kid/' . $this -> view -> consultation['kid'] . '/qid/' . $this -> view -> question['qi'];
-        if (isset($this -> view -> directory))
-            $this -> view -> getParams = $this -> view -> getParams . '/dir/' . $this -> view -> directory;
-        (isset($options['search-phrase'])) ? $this -> view -> searchphrase = $options['search-phrase'] : $this -> view -> searchphrase = "";
-        (isset($options['combine'])) ? $this -> view -> combine = $options['combine'] : $this -> view -> combine = 'OR';
-        (isset($options['dir'])) ? $this -> view -> dirs = $options['dir'] : $this -> view -> dirs = '';
-        #$this -> view -> combine = $options['combine'];
+        $this->view->inputs = $inputsModel->fetchAllInputs($options);
+        $this->view->question = $questionModel->find($this->_question)->current();
+        $this->view->consultation = $this->_consultation;
+        $this->view->directories = $dirs;
+        $this->view->tags = $tags;
+        $this->view->directory = $options['dir'];
+        $this->view->getParams = 'kid/' . $this->view->consultation['kid'] . '/qid/' . $this->view->question['qi'];
+        if (isset($this->view->directory))
+            $this->view->getParams = $this->view->getParams . '/dir/' . $this->view->directory;
+        if (isset($options['search-phrase'])) {
+            $this->view->searchphrase = $options['search-phrase'];
+        } else {
+            $this->view->searchphrase = "";
+        }
+        (isset($options['combine'])) ? $this->view->combine = $options['combine'] : $this->view->combine = 'OR';
+        (isset($options['dir'])) ? $this->view->dirs = $options['dir'] : $this->view->dirs = '';
+        #$this->view->combine = $options['combine'];
     }
 
     /**
@@ -112,27 +137,27 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function votingstatusAction()
     {
-        $this -> _helper -> layout() -> disableLayout();
+        $this->_helper->layout()->disableLayout();
         $inputsModel = new Model_Inputs();
-        $this -> input = $inputsModel -> find($this -> _tid) -> current();
+        $this->input = $inputsModel->find($this->_tid)->current();
         // echo "<pre>";
-        // print_r($this -> input -> vot);
+        // print_r($this->input->vot);
         // echo "<pre>";
         switch ($this->input->vot) {
             case 'y' :
                 $status = "u";
-                $inputsModel -> setVotingStatusByID($status, $this -> _tid);
+                $inputsModel->setVotingStatusByID($status, $this->_tid);
                 break;
             case 'n' :
                 $status = "y";
-                $inputsModel -> setVotingStatusByID($status, $this -> _tid);
+                $inputsModel->setVotingStatusByID($status, $this->_tid);
                 break;
             case 'u' :
                 $status = "n";
-                $inputsModel -> setVotingStatusByID($status, $this -> _tid);
+                $inputsModel->setVotingStatusByID($status, $this->_tid);
                 break;
         }
-        $this -> view -> vot = $status;
+        $this->view->vot = $status;
     }
 
     /**
@@ -143,27 +168,27 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function blockstatusAction()
     {
-        $this -> _helper -> layout() -> disableLayout();
+        $this->_helper->layout()->disableLayout();
         $inputsModel = new Model_Inputs();
-        $this -> input = $inputsModel -> find($this -> _tid) -> current();
+        $this->input = $inputsModel->find($this->_tid)->current();
         // echo "<pre>";
-        // print_r($this -> input -> vot);
+        // print_r($this->input->vot);
         // echo "<pre>";
         switch ($this->input->block) {
             case 'y' :
                 $status = "u";
-                $inputsModel -> setBlockStatusByID($status, $this -> _tid);
+                $inputsModel->setBlockStatusByID($status, $this->_tid);
                 break;
             case 'n' :
                 $status = "y";
-                $inputsModel -> setBlockStatusByID($status, $this -> _tid);
+                $inputsModel->setBlockStatusByID($status, $this->_tid);
                 break;
             case 'u' :
                 $status = "n";
-                $inputsModel -> setBlockStatusByID($status, $this -> _tid);
+                $inputsModel->setBlockStatusByID($status, $this->_tid);
                 break;
         }
-        $this -> view -> block = $status;
+        $this->view->block = $status;
     }
 
     /**
@@ -174,25 +199,31 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function setdirectoryAction()
     {
-        $this -> _helper -> layout() -> disableLayout();
+        $this->_helper->layout()->disableLayout();
 
-        if (!empty($this -> _params['thesis'])) {
+        if (!empty($this->_params['thesis'])) {
 
-            $this -> checkInputIDs($this -> _params['thesis']);
+            $this->checkInputIDs($this->_params['thesis']);
 
             $options = array();
-            $options['dir'] = $this -> getDirId($this -> _params);
-            $options['thesis'] = implode(",", $this -> _params['thesis']);
+            $options['dir'] = $this->getDirId($this->_params);
+            $options['thesis'] = implode(",", $this->_params['thesis']);
 
             $inputsModel = new Model_Inputs();
-            $inputsModel -> setDirectory($options);
-            $this -> _flashMessenger -> addMessage('Die markierten Beiträge wurden verschoben', 'success');
+            $inputsModel->setDirectory($options);
+            $this->_flashMessenger->addMessage('Die markierten Beiträge wurden verschoben', 'success');
 
         } else {
-            $this -> _flashMessenger -> addMessage('Es wurden keine Beiträge ausgewählt', 'error');
+            $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
         }
-        $this -> redirect(
-                    '/admin/dashboard/overview/kid/' . $this -> _consultation["kid"] . '/qid/' . $this -> _question . '/dir/' . $this -> getDirId($this -> _params));
+        $this->redirect(
+            '/admin/dashboard/overview/kid/'
+            . $this->_consultation["kid"]
+            . '/qid/'
+            . $this->_question
+            . '/dir/'
+            . $this->getDirId($this->_params)
+        );
     }
 
     /**
@@ -203,44 +234,58 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function updateAction()
     {
-        $this -> _helper -> layout() -> disableLayout();
-        if (!empty($this -> _params['thesis'])) {
-            $this -> checkInputIDs($this -> _params['thesis']);
-            $option = implode(",", $this -> _params['thesis']);
+        $this->_helper->layout()->disableLayout();
+        if (!empty($this->_params['thesis'])) {
+            $this->checkInputIDs($this->_params['thesis']);
+            $option = implode(",", $this->_params['thesis']);
 
             $inputsModel = new Model_Inputs();
-            switch ($this -> _params['do']) {
+            switch ($this->_params['do']) {
                 case 'enable' :
-                    $inputsModel -> setBlockStatus($option, 'y');
-                    $this -> _flashMessenger -> addMessage('Die markierten Beiträge wurden zur Anzeige freigegeben', 'success');
+                    $inputsModel->setBlockStatus($option, 'y');
+                    $this->_flashMessenger->addMessage(
+                        'Die markierten Beiträge wurden zur Anzeige freigegeben', 'success'
+                    );
                     break;
                 case 'disable' :
-                    $inputsModel -> setBlockStatus($option, 'n');
-                    $this -> _flashMessenger -> addMessage('Die markierten Beiträge wurden zur Anzeige gesperrt', 'success');
+                    $inputsModel->setBlockStatus($option, 'n');
+                    $this->_flashMessenger->addMessage(
+                        'Die markierten Beiträge wurden zur Anzeige gesperrt', 'success'
+                    );
                     break;
                 case 'enable-voting' :
-                    $inputsModel -> setVotingStatus($option, 'y');
-                    $this -> _flashMessenger -> addMessage('Die markierten Beiträge wurden zum Voting freigegeben', 'success');
+                    $inputsModel->setVotingStatus($option, 'y');
+                    $this->_flashMessenger->addMessage(
+                        'Die markierten Beiträge wurden zum Voting freigegeben', 'success'
+                    );
                     break;
                 case 'disable-voting' :
-                    $inputsModel -> setVotingStatus($option, 'n');
-                    $this -> _flashMessenger -> addMessage('Die markierten Beiträge wurden zum Voting  gesperrt', 'success');
+                    $inputsModel->setVotingStatus($option, 'n');
+                    $this->_flashMessenger->addMessage(
+                        'Die markierten Beiträge wurden zum Voting  gesperrt', 'success'
+                    );
                     break;
                 case 'delete' :
-                    $inputsModel -> deleteInputs($option);
-                    $this -> _flashMessenger -> addMessage('Die markierten Beiträge wurden gelöscht', 'success');
+                    $inputsModel->deleteInputs($option);
+                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden gelöscht', 'success');
                     break;
                 default :
-                    $this -> _flashMessenger -> addMessage('Keine Aktion!', 'error');
-                    $this -> _redirect('/admin/dashboard/error');
+                    $this->_flashMessenger->addMessage('Keine Aktion!', 'error');
+                    $this->_redirect('/admin/dashboard/error');
             }
         } else {
-            $this -> _flashMessenger -> addMessage('Es wurden keine Beiträge ausgewählt', 'error');
+            $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
         }
         if (isset($params["dir"])) {
-            $this -> redirect('/admin/dashboard/overview/kid/' . $this -> _consultation["kid"] . '/qid/' . $this -> _question . '/dir/' . $this -> getDirId($this -> _params));
+            $this->redirect(
+                '/admin/dashboard/overview/kid/' . $this->_consultation["kid"]
+                . '/qid/' . $this->_question
+                . '/dir/' . $this->getDirId($this->_params)
+            );
         } else {
-            $this -> redirect('/admin/dashboard/overview/kid/' . $this -> _consultation["kid"] . '/qid/' . $this -> _question);
+            $this->redirect(
+                '/admin/dashboard/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
+            );
         }
     }
 
@@ -252,24 +297,28 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function appendinputsAction()
     {
-        $this -> _helper -> layout() -> disableLayout();
+        $this->_helper->layout()->disableLayout();
         $inputIDs = array();
-        if (!empty($this -> _params['inputIDs'])) {
+        if (!empty($this->_params['inputIDs'])) {
 
-            $inputIDs = explode(",", $this -> _params['inputIDs']);
-            $this -> checkInputIDs($inputIDs);
-            $pos = array_search($this -> _tid, $inputIDs);
+            $inputIDs = explode(",", $this->_params['inputIDs']);
+            $this->checkInputIDs($inputIDs);
+            $pos = array_search($this->_tid, $inputIDs);
             if ($pos >= 0)
                 unset($inputIDs["$pos"]);
             $inputIDs = implode(",", $inputIDs);
 
             $inputsModel = new Model_Inputs();
-            $this -> view -> inputs = array();
-            $this -> view -> inputs = $inputsModel -> getAppendInputs($this -> _tid, $inputIDs);
-            (!empty($this -> view -> inputs)) ? $this -> view -> message = "Folgende Beiträge wurden hinzugefügt :  &#9660;" : $this -> view -> message = "Es wurden keine weiteren Beiträge hinzugefügt";
+            $this->view->inputs = array();
+            $this->view->inputs = $inputsModel->getAppendInputs($this->_tid, $inputIDs);
+            if (!empty($this->view->inputs)) {
+                $this->view->message = "Folgende Beiträge wurden hinzugefügt :  &#9660;";
+            } else {
+                $this->view->message = "Es wurden keine weiteren Beiträge hinzugefügt";
+            }
         } else {
-            $this -> view -> inputs = array();
-            $this -> view -> message = "Es wurden keine Beiträge ausgewählt";
+            $this->view->inputs = array();
+            $this->view->message = "Es wurden keine Beiträge ausgewählt";
         }
     }
 
@@ -282,42 +331,44 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function editAction()
     {
-        if (empty($this -> _tid)) {
-            $this -> _flashMessenger -> addMessage('Kein Betrag ausgewählt', 'error');
-            $this -> _redirect('admin/dashboard/overview/kid/' . $this -> _consultation['kid'] . '/qid/' . $this -> _question . '');
+        if (empty($this->_tid)) {
+            $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
+            $this->_redirect(
+                'admin/dashboard/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+            );
         }
 
-        $this -> view -> consultation = $this -> _consultation;
+        $this->view->consultation = $this->_consultation;
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input();
 
-        if ($this -> _request -> isPost()) {
-            $data = $this -> _request -> getPost();
-            if ($form -> isValid($data)) {
-                $updated = $inputModel -> updateById($this -> _tid, $form -> getValues());
-                if ($updated == $this -> _tid) {
-                    $this -> _flashMessenger -> addMessage('Eintrag aktualisiert', 'success');
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if ($form->isValid($data)) {
+                $updated = $inputModel->updateById($this->_tid, $form->getValues());
+                if ($updated == $this->_tid) {
+                    $this->_flashMessenger->addMessage('Eintrag aktualisiert', 'success');
                 } else {
-                    $this -> _flashMessenger -> addMessage('Aktualisierung fehlgeschlagen', 'error');
+                    $this->_flashMessenger->addMessage('Aktualisierung fehlgeschlagen', 'error');
                 }
             } else {
-                $this -> _flashMessenger -> addMessage('Bitte Eingaben prüfen!', 'error');
-                $form -> populate($data);
+                $this->_flashMessenger->addMessage('Bitte Eingaben prüfen!', 'error');
+                $form->populate($data);
             }
         } else {
-            $inputRow = $inputModel -> getById($this -> _tid);
-            $form -> populate($inputRow);
+            $inputRow = $inputModel->getById($this->_tid);
+            $form->populate($inputRow);
             if (!empty($inputRow['tags'])) {
                 // gesetzte Tags als selected markieren
                 $tagsSet = array();
                 foreach ($inputRow['tags'] as $tag) {
                     $tagsSet[] = $tag['tg_nr'];
                 }
-                $form -> setDefault('tags', $tagsSet);
+                $form->setDefault('tags', $tagsSet);
             }
         }
 
-        $this -> view -> assign(array('form' => $form, 'qid' => $this -> _question, 'tid' => $this -> _tid));
+        $this->view->assign(array('form' => $form, 'qid' => $this->_question, 'tid' => $this->_tid));
     }
 
     /**
@@ -330,25 +381,44 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function splitAction()
     {
-        if (empty($this -> _tid)) {
-            $this -> _flashMessenger -> addMessage('Kein Betrag ausgewählt', 'error');
-            $this -> _redirect('admin/dashboard/overview/kid/' . $this -> _consultation['kid'] . '/qid/' . $this -> _question . '');
+        if (empty($this->_tid)) {
+            $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
+            $this->_redirect(
+                'admin/dashboard/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+            );
         }
 
-        (isset($this -> _params['dir']) && !empty($this -> _params['dir'])) ? $directory = $this -> getDirId($this -> _params) : $directory = 0;
+        if (isset($this->_params['dir']) && !empty($this->_params['dir'])) {
+            $directory = $this->getDirId($this->_params);
+        } else {
+            $directory = 0;
+        }
 
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input();
-        $options = array('directory' => $directory, 'relTID' => "", 'uid' => 1, 'inputs' => $this -> _tid, 'kid' => $this -> _consultation['kid']);
-        $this -> addNewElements($options, $form);
+        $options = array(
+            'directory' => $directory,
+            'relTID' => "",
+            'uid' => 1,
+            'inputs' => $this->_tid,
+            'kid' => $this->_consultation['kid']
+        );
+        $this->addNewElements($options, $form);
 
-        $options = array('kid' => $this -> _consultation['kid'], 'qid' => $this -> _question, 'dir' => $directory, 'inputIDs' => array($this -> _tid));
-        $this -> view -> inputs = $inputModel -> fetchAllInputs($options);
-        $this -> view -> consultation = $this -> _consultation;
-        $this -> view -> assign(array('form' => $form, 'qid' => $this -> _question));
-        $this -> view -> getParams = 'kid/' . $this -> view -> consultation['kid'] . '/qid/' . $this -> _question . '/tid/' . $this -> _tid;
-        if (isset($this -> view -> directory))
-            $this -> view -> getParams = $this -> view -> getParams . '/dir/' . $this -> view -> directory;
+        $options = array(
+            'kid' => $this->_consultation['kid'],
+            'qid' => $this->_question,
+            'dir' => $directory,
+            'inputIDs' => array($this->_tid)
+        );
+        $this->view->inputs = $inputModel->fetchAllInputs($options);
+        $this->view->consultation = $this->_consultation;
+        $this->view->assign(array('form' => $form, 'qid' => $this->_question));
+        $this->view->getParams =
+            'kid/' . $this->view->consultation['kid']
+            . '/qid/' . $this->_question . '/tid/' . $this->_tid;
+        if (isset($this->view->directory))
+            $this->view->getParams = $this->view->getParams . '/dir/' . $this->view->directory;
 
     }
 
@@ -362,21 +432,21 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function splitresponseAction()
     {
-        $this -> _helper -> layout() -> disableLayout();
-        $data = $this -> _request -> getPost();
+        $this->_helper->layout()->disableLayout();
+        $data = $this->_request->getPost();
 
         $form = new Admin_Form_Input();
 
-        if ($form -> isValid($data)) {
+        if ($form->isValid($data)) {
             $inputModel = new Model_Inputs();
-            $insert = $inputModel -> addInputs($data);
+            $insert = $inputModel->addInputs($data);
             if (!empty($insert)) {
                 $inputIDs = $insert['tid'];
-                $relIDs = $inputModel ->getAppendInputs($this -> _tid,$inputIDs) ;
-                $this -> view -> response = "success";
-                $this -> view -> inputs = $insert;
+                $relIDs = $inputModel->getAppendInputs($this->_tid, $inputIDs);
+                $this->view->response = "success";
+                $this->view->inputs = $insert;
             } else {
-                $this -> view -> response = "error";
+                $this->view->response = "error";
             }
         }
     }
@@ -390,41 +460,60 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     public function mergeAction()
     {
-        (isset($this -> _params['dir']) && !empty($this -> _params['dir'])) ? $directory = $this -> getDirId($this -> _params) : $directory = 0;
+        if (isset($this->_params['dir']) && !empty($this->_params['dir'])) {
+            $directory = $this->getDirId($this->_params);
+        } else {
+            $directory = 0;
+        }
 
-        $inputIDs = explode(",", $this -> _params['inputs']);
-        $this -> checkInputIDs($inputIDs);
+        $inputIDs = explode(",", $this->_params['inputs']);
+        $this->checkInputIDs($inputIDs);
 
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input();
-        #$options = array('directory' => $directory, 'relTID' => $inputIDs, 'uid' => 1, 'inputs' => $this -> _params['inputs'], 'kid' => $this -> _consultation['kid']);
-        $options = array('directory' => $directory, 'relTID' => $this -> _params['inputs'], 'uid' => 1, 'kid' => $this -> _consultation['kid']);
-        $this -> addNewElements($options, $form);
+        $options = array(
+            'directory' => $directory,
+            'relTID' => $this->_params['inputs'],
+            'uid' => 1,
+            'kid' => $this->_consultation['kid']
+        );
+        $this->addNewElements($options, $form);
 
-        if ($this -> _request -> isPost()) {
-            $data = $this -> _request -> getPost();
-            if ($form -> isValid($data)) {
-                $insert = $inputModel -> addInputs($data);
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if ($form->isValid($data)) {
+                $insert = $inputModel->addInputs($data);
                 if (!empty($insert)) {
-                    $this -> _flashMessenger -> addMessage('Der Redaktionsbeitrag wurde hinzugefügt', 'success');
+                    $this->_flashMessenger->addMessage('Der Redaktionsbeitrag wurde hinzugefügt', 'success');
                     if (isset($params["dir"])) {
-                        $this -> redirect('/admin/dashboard/overview/kid/' . $this -> _consultation["kid"] . '/qid/' . $this -> _question . '/dir/' . $this -> getDirId($this -> _params));
+                        $this->redirect(
+                            '/admin/dashboard/overview/kid/' . $this->_consultation["kid"]
+                            . '/qid/' . $this->_question
+                            . '/dir/' . $this->getDirId($this->_params)
+                        );
                     } else {
-                        $this -> redirect('/admin/dashboard/overview/kid/' . $this -> _consultation["kid"] . '/qid/' . $this -> _question);
+                        $this->redirect(
+                            '/admin/dashboard/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
+                        );
                     }
                 } else {
-                    $this -> _flashMessenger -> addMessage('Fehler beim eintragen ses Redaktionsbeitrages', 'error');
+                    $this->_flashMessenger->addMessage('Fehler beim eintragen ses Redaktionsbeitrages', 'error');
                 }
             } else {
-                $this -> _flashMessenger -> addMessage('Bitte Eingaben prüfen!', 'error');
-                $form -> populate($data);
+                $this->_flashMessenger->addMessage('Bitte Eingaben prüfen!', 'error');
+                $form->populate($data);
             }
         }
-        $options = array('kid' => $this -> _consultation['kid'], 'qid' => $this -> _question, 'dir' => $directory, 'inputIDs' => $inputIDs);
+        $options = array(
+            'kid' => $this->_consultation['kid'],
+            'qid' => $this->_question,
+            'dir' => $directory,
+            'inputIDs' => $inputIDs
+        );
 
-        $this -> view -> inputs = $inputModel -> fetchAllInputs($options);
-        $this -> view -> consultation = $this -> _consultation;
-        $this -> view -> assign(array('form' => $form, 'qid' => $this -> _question));
+        $this->view->inputs = $inputModel->fetchAllInputs($options);
+        $this->view->consultation = $this->_consultation;
+        $this->view->assign(array('form' => $form, 'qid' => $this->_question));
     }
 
     /**
@@ -436,17 +525,46 @@ class Admin_DashboardController extends Zend_Controller_Action
      **/
     protected function addNewElements($options, $form)
     {
-        $dir = $form -> createElement('hidden', 'dir') -> removeDecorator('DtDdWrapper') -> removeDecorator('HtmlTag') -> removeDecorator('Label') -> setValue($options['directory']) -> addvalidator('NotEmpty', $breakChainOnFailure = true) -> addvalidator('Int', $breakChainOnFailure = true) -> setRequired(true);
-        $form -> addElement($dir);
+        $dir = $form
+            ->createElement('hidden', 'dir')
+            ->removeDecorator('DtDdWrapper')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Label')
+            ->setValue($options['directory'])
+            ->addvalidator('NotEmpty', $breakChainOnFailure = true)
+            ->addvalidator('Int', $breakChainOnFailure = true)
+            ->setRequired(true);
+        $form->addElement($dir);
 
-        $relTID = $form -> createElement('hidden', 'rel_tid') -> removeDecorator('DtDdWrapper') -> removeDecorator('HtmlTag') -> removeDecorator('Label') -> setValue($options['relTID']);
-        $form -> addElement($relTID);
+        $relTID = $form
+            ->createElement('hidden', 'rel_tid')
+            ->removeDecorator('DtDdWrapper')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Label')
+            ->setValue($options['relTID']);
+        $form->addElement($relTID);
 
-        $uid = $form -> createElement('hidden', 'uid') -> removeDecorator('DtDdWrapper') -> removeDecorator('HtmlTag') -> removeDecorator('Label') -> setValue($options['uid']) -> addvalidator('NotEmpty', $breakChainOnFailure = false) -> addvalidator('Int', $breakChainOnFailure = true) -> setRequired(true);
-        $form -> addElement($uid);
+        $uid = $form
+            ->createElement('hidden', 'uid')
+            ->removeDecorator('DtDdWrapper')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Label')
+            ->setValue($options['uid'])
+            ->addvalidator('NotEmpty', $breakChainOnFailure = false)
+            ->addvalidator('Int', $breakChainOnFailure = true)
+            ->setRequired(true);
+        $form->addElement($uid);
 
-        $kid = $form -> createElement('hidden', 'kid') -> removeDecorator('DtDdWrapper') -> removeDecorator('HtmlTag') -> removeDecorator('Label') -> setValue($options['kid']) -> addvalidator('NotEmpty', $breakChainOnFailure = true) -> addvalidator('Int', $breakChainOnFailure = true) -> setRequired(true);
-        $form -> addElement($kid);
+        $kid = $form
+            ->createElement('hidden', 'kid')
+            ->removeDecorator('DtDdWrapper')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Label')
+            ->setValue($options['kid'])
+            ->addvalidator('NotEmpty', $breakChainOnFailure = true)
+            ->addvalidator('Int', $breakChainOnFailure = true)
+            ->setRequired(true);
+        $form->addElement($kid);
     }
 
     /**
@@ -460,9 +578,9 @@ class Admin_DashboardController extends Zend_Controller_Action
     {
         $isDigit = new Zend_Validate_Digits();
         foreach ($param as $key => $value) {
-            if (!$isDigit -> isValid($value)) {
-                $this -> _flashMessenger -> addMessage('Fehler, falsche Daten', 'error');
-                $this -> _redirect('/admin/dashboard/error');
+            if (!$isDigit->isValid($value)) {
+                $this->_flashMessenger->addMessage('Fehler, falsche Daten', 'error');
+                $this->_redirect('/admin/dashboard/error');
                 break;
 
                 return;
@@ -482,18 +600,18 @@ class Admin_DashboardController extends Zend_Controller_Action
         if (isset($params["kid"])) {
             $isDigit = new Zend_Validate_Digits();
 
-            if ($params["kid"] > 0 && $isDigit -> isValid($params["kid"])) {
+            if ($params["kid"] > 0 && $isDigit->isValid($params["kid"])) {
                 $consultationModel = new Model_Consultations();
-                $this -> _consultation = $consultationModel -> getById($params["kid"]);
-                if (count($this -> _consultation) == 0) {
-                    $this -> _flashMessenger -> addMessage('keine Konsutation zu dieser KonsultationsID', 'error');
-                    $this -> _redirect('/admin/dashboard/error');
+                $this->_consultation = $consultationModel->getById($params["kid"]);
+                if (count($this->_consultation) == 0) {
+                    $this->_flashMessenger->addMessage('keine Konsutation zu dieser KonsultationsID', 'error');
+                    $this->_redirect('/admin/dashboard/error');
                 } else {
-                    return $this -> _consultation;
+                    return $this->_consultation;
                 }
             } else {
-                $this -> _flashMessenger -> addMessage('KonsultationsID ungültig', 'error');
-                $this -> _redirect('/admin/dashboard/error');
+                $this->_flashMessenger->addMessage('KonsultationsID ungültig', 'error');
+                $this->_redirect('/admin/dashboard/error');
             }
         }
     }
@@ -509,11 +627,11 @@ class Admin_DashboardController extends Zend_Controller_Action
     {
         if (isset($params["qid"])) {
             $isDigit = new Zend_Validate_Digits();
-            if ($params["qid"] > 0 && $isDigit -> isValid($params["qid"])) {
+            if ($params["qid"] > 0 && $isDigit->isValid($params["qid"])) {
                 return (int) $params["qid"];
             } else {
-                $this -> _flashMessenger -> addMessage('QuestionID ungültig', 'error');
-                $this -> _redirect('/admin/dashboard/error');
+                $this->_flashMessenger->addMessage('QuestionID ungültig', 'error');
+                $this->_redirect('/admin/dashboard/error');
             }
         }
     }
@@ -529,11 +647,11 @@ class Admin_DashboardController extends Zend_Controller_Action
     {
         if (isset($params["dir"])) {
             $isDigit = new Zend_Validate_Digits();
-            if ($params["dir"] > 0 && $isDigit -> isValid($params["dir"])) {
+            if ($params["dir"] > 0 && $isDigit->isValid($params["dir"])) {
                 return (int) $params["dir"];
             } else {
-                $this -> _flashMessenger -> addMessage('DirectoryID ungültig', 'error');
-                $this -> _redirect('/admin/dashboard/error');
+                $this->_flashMessenger->addMessage('DirectoryID ungültig', 'error');
+                $this->_redirect('/admin/dashboard/error');
             }
         }
     }
@@ -549,11 +667,11 @@ class Admin_DashboardController extends Zend_Controller_Action
     {
         if (isset($params["tid"])) {
             $isDigit = new Zend_Validate_Digits();
-            if ($params["tid"] > 0 && $isDigit -> isValid($params["tid"])) {
+            if ($params["tid"] > 0 && $isDigit->isValid($params["tid"])) {
                 return (int) $params["tid"];
             } else {
-                $this -> _flashMessenger -> addMessage('Thesen ID ungültig', 'error');
-                $this -> _redirect('/admin/dashboard/error');
+                $this->_flashMessenger->addMessage('Thesen ID ungültig', 'error');
+                $this->_redirect('/admin/dashboard/error');
             }
         }
     }

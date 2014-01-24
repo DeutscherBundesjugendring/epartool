@@ -31,7 +31,8 @@
             } else {
                 $(checkbox_obj).removeAttr("checked");
             }
-            $('div.input-list').find("input:checkbox").removeAttr("checked"); // alle deaktiviere wenn rechts was ausgeählt wird
+            // alle deaktiviere wenn rechts was ausgeählt wird
+            $('div.input-list').find("input:checkbox").removeAttr("checked");
 
             $('li.' + checkbox_status).hide(); //ausblenden
 
@@ -227,7 +228,7 @@
               });
 
              $.ajax({
-                  url: "/admin/dashboard/appendinputs/<?php echo $this->getParams ?>/tid/"+elementID+"/inputIDs/"+inputIDs+"",
+                url: "/admin/dashboard/appendinputs/<?php echo $this->getParams ?>/tid/" + elementID + "/inputIDs/" + inputIDs + "",
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -267,15 +268,33 @@
         <form id="search" action="/admin/dashboard/overview/<?php echo $this->getParams ?>" method="post">
             <ul>
                 <li>
-                    <input id ="search-phrase" name="search-phrase" type="text" placeholder="Suchwörter" value="<?php echo $this->searchphrase; ?>" />
+                    <input
+                        id ="search-phrase"
+                        name="search-phrase"
+                        type="text"
+                        placeholder="Suchwörter"
+                        value="<?php echo $this->searchphrase; ?>"
+                    />
                 </li>
                 <li>
                     <label for="c-and">UND</label>
-                    <input id="c-and" name="combine" type="radio"  value="AND" <?php if ($this->combine == "AND") echo 'checked="checked"'; ?> />
+                    <input
+                        id="c-and"
+                        name="combine"
+                        type="radio"
+                        value="AND"
+                        <?php if ($this->combine == "AND") echo 'checked="checked"'; ?>
+                    />
                 </li>
                 <li>
                     <label for="c-or">ODER</label>
-                    <input id="c-or" name="combine" type="radio"  value="OR" <?php if ($this->combine == "OR") echo 'checked="checked"'; ?> />
+                    <input
+                        id="c-or"
+                        name="combine"
+                        type="radio"
+                        value="OR"
+                        <?php if ($this->combine == "OR") echo 'checked="checked"'; ?>
+                    />
                 </li>
                 <? if($this -> directory): ?>
                 <li>
@@ -291,13 +310,21 @@
                 <? endif; ?>
                 <li>
                     <label for="a-directory">In allen Ordnern</label>
-                    <input id="a-directory" name="directory" type="radio" value="0" <?php if ($this->dirs == "0") echo 'checked="checked"'; ?> />
+                    <input
+                        id="a-directory"
+                        name="directory"
+                        type="radio"
+                        value="0"
+                        <?php if ($this->dirs == "0") echo 'checked="checked"'; ?>
+                    />
                 </li>
                 <li class="tags">
                     <label for="tags">Tags [Mehrfachauswahl: PC -> STRG, MAC -> Apfel]</label>
                     <select name="tags[]"  id="tags "size="20" multiple>
 
-                        <?php if (!empty($this->tags)) echo $this->partialLoop('_partials/dashboard/tags-selectbox.phtml', $this->tags)?>
+                        <?php if (!empty($this->tags)): ?>
+                            <?php echo $this->partialLoop('_partials/dashboard/tags-selectbox.phtml', $this->tags); ?>
+                        <?php endif; ?>
                     </select>
                 </li>
                 <li>
@@ -398,45 +425,77 @@
         <ul>
             <li><b>Bearbeiten</b></li>
             <li>
-                <a class="split" rel="/admin/dashboard/split/<?php echo $this->getParams; ?>" title="Ausgewählten Beitrag aufteilen">
+                <a
+                    class="split"
+                    rel="/admin/dashboard/split/<?php echo $this->getParams; ?>"
+                    title="Ausgewählten Beitrag aufteilen"
+                >
                     &#8883; auftteilen (nur eine Auswahl)
                 </a>
             </li>
             <li>
-                <a class="edit" rel="/admin/dashboard/edit/<?php echo $this->getParams; ?>" title="Ausgewählten Beitrag bearbeiten">
+                <a
+                    class="edit"
+                    rel="/admin/dashboard/edit/<?php echo $this->getParams; ?>"
+                    title="Ausgewählten Beitrag bearbeiten"
+                >
                     &#8883; bearbeiten (nur eine Auswahl)
                 </a>
             </li>
             <li>
-                <a class="merge" rel="/admin/dashboard/merge/<?php echo $this->getParams; ?>" title="Ausgewählte Beiträge zusammenlegen">
+                <a
+                    class="merge"
+                    rel="/admin/dashboard/merge/<?php echo $this->getParams; ?>"
+                    title="Ausgewählte Beiträge zusammenlegen"
+                >
                     &#8883; zusammenlegen
                 </a>
             </li>
             <li><b>Freigabe</b></li>
             <li>
-                <a class="enable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/enable" title="Ausgewählte Beiträge zur Anzeige freigeben">
+                <a
+                    class="enable"
+                    rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/enable"
+                    title="Ausgewählte Beiträge zur Anzeige freigeben"
+                >
                     &#8883; Beiträge anzeigen
                 </a>
             </li>
             <li>
-                <a class="disable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/disable" title="Ausgewählte Beiträge zur Anzeige sperren">
+                <a
+                    class="disable"
+                    rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/disable"
+                    title="Ausgewählte Beiträge zur Anzeige sperren"
+                >
                     &#8883; Beiträge nicht anzeigen
                 </a>
             </li>
             <li><b>Voting</b></li>
             <li>
-                <a class="enable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/enable-voting" title="Ausgewählte Beiträge zum Voting freigeben">
+                <a
+                    class="enable"
+                    rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/enable-voting"
+                    title="Ausgewählte Beiträge zum Voting freigeben"
+                >
                     &#8883; Beiträge zum voten freigeben
                 </a>
             </li>
             <li>
-                <a class="disable" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/disable-voting" title="Ausgewählte Beiträge zum Voting freigeben">
+                <a
+                    class="disable"
+                    rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/disable-voting"
+                    title="Ausgewählte Beiträge zum Voting freigeben"
+                >
                     &#8883; Beiträge zum voten sperren
                 </a>
             </li>
             <li><b>Löschen</b></li>
             <li>
-                <a class="del" rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/delete" title="Ausgewählte Beiträge löschen">
+                <a
+                    class="del"
+                    rel="/admin/dashboard/update/<?php echo $this->getParams; ?>/do/delete"
+                    title="Ausgewählte Beiträge löschen"
+                >
                     ! Beiträge löschen !
                 </a>
             </li>
@@ -446,14 +505,14 @@
     <div id="directoryAnchors" class="yform">
         <h3 title="Klicken zum aus-/einklappen">Ordner:</h3>
         <ul class="levels">
-            <? echo $this -> partialLoop('_partials/dashboard/directories.phtml', $this -> directories);?>
+            <?php echo $this->partialLoop('_partials/dashboard/directories.phtml', $this->directories); ?>
         </ul>
     </div>
 
     <div  id="questionAnchors" class="yform">
         <h3 title="Klicken zum aus-/einklappen">Fragen:</h3>
         <ul>
-            <?php echo $this -> partialLoop('_partials/dashboard/questions.phtml', $this -> consultation["questions"]); ?>
+            <?php echo $this->partialLoop('_partials/dashboard/questions.phtml', $this->consultation["questions"]); ?>
         </ul>
     </div>
 
