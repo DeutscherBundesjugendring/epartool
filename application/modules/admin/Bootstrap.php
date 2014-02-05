@@ -16,7 +16,7 @@ class Admin_Bootstrap extends Zend_Application_Module_Bootstrap
         // Add Consultation pages to page "Konsultationen"
         foreach ($pages AS $page) {
             $page = new Zend_Navigation_Page_Mvc($page);
-            $container->findOneBy('label', 'Konsultationen')->addPage($page);
+            $container->findOneBy('label', 'Beteiligungsrunden')->addPage($page);
         }
 
         // Set container in navigation view helper

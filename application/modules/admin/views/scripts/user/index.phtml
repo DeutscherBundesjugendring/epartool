@@ -6,12 +6,12 @@
  * @author        Jan Suchandt
  */
 ?>
-<h1>Benutzer-Verwaltung</h1>
+<h1>Nutzerverwaltung</h1>
 
-<h2>Übersicht der Benutzer</h2>
+<h2>Übersicht aller Nutzer_innen</h2>
 <p><a class="icon icon-plus" href="<?php echo $this->url(array(
   'action' => 'create'
-)); ?>">Neuer Benutzer</a></p>
+)); ?>">Neuer Nutzer</a></p>
 <table>
   <tr>
     <th>Nr.</th>
@@ -68,7 +68,7 @@
   $(function() {
     // Confirm at row-delete
     $('.icon.icon-delete').click(function(ele){
-      var check = confirm('Wollen Sie den Benutzer wirklich löschen?');
+      var check = confirm('Wollen Sie den Nutzer wirklich löschen?');
       if(check) {
         return true;
       }

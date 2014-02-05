@@ -30,7 +30,7 @@
 		}
 		?>
 
-		<h2>Suche in Konsultationen</h2>
+		<h2>Suche in Beteiligungsrunden</h2>
 		<?php
 		// consultations
 		if (count($this->resultsConsultations) > 0) {
@@ -53,7 +53,7 @@
 					}
 					// questions
 					if (count($consultation['questions']) > 0) {
-						echo('<h4>Konsultationsfragen</h4><ul>');
+						echo('<h4>Fragen</h4><ul>');
 						foreach ($consultation['questions'] AS $question) {
 							$url = $this->baseUrl() . '/question/show/kid/' . $consultation['cid'] . '/qid/' . $question['qi'];
 							$explenation = substr($question['q_xpl'], 0, 100) . '...';
@@ -63,7 +63,7 @@
 					}
 					// inputs
 					if (count($consultation['inputs']) > 0) {
-						echo('<h4>Benutzer-Beitr&auml;ge</h4><ul>');
+						echo('<h4>Nutzerbeitr&auml;ge</h4><ul>');
 						foreach ($consultation['inputs'] AS $input) {
 							$thes = stripslashes(strip_tags($input['thes']));
 							$expl = stripslashes(strip_tags($input['expl']));

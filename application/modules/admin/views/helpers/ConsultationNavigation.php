@@ -20,11 +20,11 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'href' => $this->view->baseUrl() . '/admin/consultation/edit/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Dashboard',
+                    'label' => 'Abstimmung vorbereiten',
                     'href' => $this->view->baseUrl() . '/admin/dashboard/index/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Medienverwaltung',
+                    'label' => 'Mediathek',
                     'href' => $this->view->baseUrl() . '/admin/media/index/kid/' . $kid
                 ),
                 array(
@@ -40,27 +40,27 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'href' => $this->view->baseUrl() . '/admin/input/index/kid/' . $kid
                 ),
                  array(
-                    'label' => 'Votingeinstellungen',
+                    'label' => 'Abstimmungseinstellungen',
                     'href' => $this->view->baseUrl() . '/admin/voting/settings/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Votingberechtigungen',
+                    'label' => 'Abstimmungsberechtigungen',
                     'href' => $this->view->baseUrl() . '/admin/voting/index/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Votingeinladungen',
+                    'label' => 'Abstimmungseinladungen',
                     'href' => $this->view->baseUrl() . '/admin/voting/invitations/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Votingteilnehmende',
+                    'label' => 'Abstimmungsteilnehmende',
                     'href' => $this->view->baseUrl() . '/admin/voting/participants/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Votingergebnisse',
+                    'label' => 'Abstimmungsergebnisse',
                     'href' => $this->view->baseUrl() . '/admin/voting/results/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Follow-up',
+                    'label' => 'Reaktionen & Wirkung',
                     'href' => $this->view->baseUrl() . '/admin/followup/index/kid/' . $kid
                 ),
                  array(
@@ -72,7 +72,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
                 ),
                 array(
-                    'label' => 'Löschen',
+                    'label' => 'Beteiligungsrunde löschen',
                     'href' => $this->view->baseUrl() . '/admin/consultation/delete/kid/' . $kid,
                     'class' => 'button_red delete-action',
                     'required_userlevel' => 'adm'

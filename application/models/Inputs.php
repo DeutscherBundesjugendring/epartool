@@ -733,9 +733,9 @@ class Model_Inputs extends Model_DbjrBase
         $consultationModel = new Model_Consultations();
         $consultation = $consultationModel->find($kid)->current()->toArray();
         if (!empty($consultation)) {
-            $csv.= '"Konsultation";"' . $consultation['titl'] . '"' . "\r\n";
+            $csv.= '"Beteiligungsrunde";"' . $consultation['titl'] . '"' . "\r\n";
         } else {
-            return 'Konsultation nicht gefunden!';
+            return 'Beteiligungsrunde nicht gefunden!';
         }
 
         $questionModel = new Model_Questions();

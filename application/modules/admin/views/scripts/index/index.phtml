@@ -16,9 +16,9 @@
         <li><a href="<?php echo $this->url($setting['url'])?>"><?php echo $setting['text']?></a></li>
       <?php endforeach;?>
       </ul>
-      <h3>Konsultationen verwalten</h3>
+      <h3>Beteiligungsrunden verwalten</h3>
       <p>
-        <a href="<?php echo $this->url(array('controller' => 'consultation', 'action' => 'new'))?>">Neue Konsultation anlegen</a>
+        <a href="<?php echo $this->url(array('controller' => 'consultation', 'action' => 'new'))?>">Neue Beteiligungsrunde anlegen</a>
       </p>
       <?php if (!empty($this->consultations)): ?>
       <div>
@@ -49,7 +49,7 @@
                   'controller' => 'media',
                   'kid' => $consultation->kid
                 ))?>">
-                Medienverwaltung
+                Mediathek
               </a>
             </li>
             <li>
@@ -71,7 +71,7 @@
               </a>
             </li>
             <li><a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $consultation->kid))?>">
-                Beiträge sichten
+                Alle Beiträge
               </a></li>
           </ul>
         </div>
@@ -83,7 +83,7 @@
   
   <div class="c40r">
     <div class="subcr">
-      <h3>Neue Inputs</h3>
+      <h3>Neue Beiträge</h3>
       <?php if (!empty($this->inputs)): ?>
         <ul>
         <?php foreach ($this->inputs as $input): ?>

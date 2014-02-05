@@ -7,7 +7,7 @@
  */
 ?>
 <?php $inptids = array(); $docids = array(); $snippetids = array(); ?>
-<h2><u>Follow-up Referenzen bearbeiten</u></h2>
+<h2><u>Verknüpfungen für Reaktionen & Wirkung bearbeiten</u></h2>
 
 <p><?php echo html_entity_decode($this->followup['expl']); ?></p>
 <hr />
@@ -27,7 +27,7 @@ Frage wählen: <form style="display:inline;" id="qDropdownForm" action="" method
     <tbody>
         <tr>
           
-            <th style="width: 55%">These</th>
+            <th style="width: 55%">Beitrag</th>
             <th style="text-align: right;">Aktionen</th>
         </tr>
         <?php foreach ($this->related['inputs'] as $input): ?>
@@ -45,7 +45,7 @@ Frage wählen: <form style="display:inline;" id="qDropdownForm" action="" method
                             'kid' => $this->consultation['kid'],
                             'fid_ref' => $this->followup['fid'],
                             'tid' => $input['tid'] 
-                            ),null,true);?>">Diese Referenz entfernen</a>
+                            ),null,true);?>">Diese Verknüpfung entfernen</a>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -120,7 +120,7 @@ Dokument wählen: <form style="display:inline;" id="dDropdownForm" action="" met
                             'kid' => $this->consultation['kid'],
                             'fid_ref' => $this->followup['fid'],
                             'fid' => $snippet['fid']  
-                            ),null,true);?>">Diese Referenz entfernen</a>
+                            ),null,true);?>">Diese Verknüpfung entfernen</a>
                 </td>
             </tr>
             <?php endif; ?>
@@ -130,7 +130,7 @@ Dokument wählen: <form style="display:inline;" id="dDropdownForm" action="" met
 <?php endif; ?>
 
 <hr />
-<a class="toggleBox" href="#" data-box="chooseSnippet">Follow-up-Snippets zuweisen</a>
+<a class="toggleBox" href="#" data-box="chooseSnippet">Follow-up-Schnippsel zuweisen</a>
 <div id="chooseSnippet" style="display:none;">
 <form id="snChooseForm" action="" method="POST">
     <div>
@@ -153,13 +153,13 @@ Dokument wählen: <form style="display:inline;" id="dDropdownForm" action="" met
             </tbody>
         </table>
     </div>
-    <input type="submit" name="insert_snippets" value="Snippets zuordnen" />
+    <input type="submit" name="insert_snippets" value="Schnippsel zuordnen" />
 </form>
 </div>
 
 
 <br /><br />
-<h3>Zugewiesene Follow-up-Dokumente (Gesamt: <?php echo count($this->related['docs']); ?>)</h3>
+<h3>Zugewiesene Follow-ups (Gesamt: <?php echo count($this->related['docs']); ?>)</h3>
 <?php if(count($this->related['docs']) > 0): ?>
 <table style="width: 100%">
     <tbody>
@@ -180,7 +180,7 @@ Dokument wählen: <form style="display:inline;" id="dDropdownForm" action="" met
                             'kid' => $this->consultation['kid'],
                             'fid_ref' => $this->followup['fid'],
                             'ffid' => $doc['ffid']  
-                            ),null,true);?>">Diese Referenz entfernen</a>
+                            ),null,true);?>">Diese Verknüpfung entfernen</a>
                 </td>
             </tr>
         <?php endforeach; ?>        

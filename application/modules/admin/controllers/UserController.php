@@ -45,7 +45,7 @@ class Admin_UserController extends Zend_Controller_Action
                         $userRow->pwd = md5($userPasswort);
                     }
                     $userRow->save();
-                    $this->_flashMessenger->addMessage('Neue_r Benutzer_in wurde erstellt.', 'success');
+                    $this->_flashMessenger->addMessage('Neue_r Nutzer_in wurde erstellt.', 'success');
                     // @todo Nutzer muss über Passwortwechsel informiert werden.
                     $this->_redirect($this->view->url(array('action' => 'index')), array('prependBase' => false));
                 } else {
@@ -180,11 +180,11 @@ class Admin_UserController extends Zend_Controller_Action
                         $form->populate($user->toArray());
                     }
             } else {
-                $this->_flashMessenger->addMessage('Benutzer_in nicht gefunden!', 'error');
+                $this->_flashMessenger->addMessage('Nutzer_in nicht gefunden!', 'error');
                 $this->_redirect('/admin/user/index');
             }
         } else {
-            $this->_flashMessenger->addMessage('Benutzer_in nicht gefunden!', 'error');
+            $this->_flashMessenger->addMessage('Nutzer_in nicht gefunden!', 'error');
             $this->_redirect('/admin/user/index');
         }
 
@@ -207,7 +207,7 @@ class Admin_UserController extends Zend_Controller_Action
             if ($deleted > 0) {
                 $this->_flashMessenger->addMessage('Benutze_inr wurde gelöscht.', 'success');
             } else {
-                $this->_flashMessenger->addMessage('Fehler beim Löschen von Benutzer_in. Bitte versuche es erneut.', 'error');
+                $this->_flashMessenger->addMessage('Fehler beim Löschen von Nutzer_in. Bitte versuche es erneut.', 'error');
             }
         }
         $this->_redirect('/admin/user/index');

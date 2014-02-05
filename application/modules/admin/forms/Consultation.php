@@ -22,7 +22,7 @@ class Admin_Form_Consultation extends Zend_Form
         $lastId = $consultationModel->getLastId();
         $highestId = $lastId + 1;
         $this->getElement('ord')->setDescription(
-            '(z.B. höher=weiter vorn; z.B. neue höchste Konsultationsnummer: ' . $highestId . ')'
+            '(z.B. höher=weiter vorn; z.B. derzeit neue höchste Nummer: ' . $highestId . ')'
         );
 
         $this->getElement('inp_show')->setCheckedValue('y');

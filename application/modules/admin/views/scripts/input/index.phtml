@@ -8,7 +8,7 @@ echo $this->consultationNavigation('Beiträge');
 
 <p><a href="<?php echo $this->url(array(
     'action' => 'userlist', 'qid' => null, 'tag' => null));
-?>">Liste aller Nutzer, die zu dieser Konsultation beigetragen haben &raquo;</a></p>
+?>">Liste aller Nutzer_innen, die an dieser Beteiligungsrunde teilgenommen haben &raquo;</a></p>
 
 <h2>Beiträge nach Fragen:</h2>
 <p>
@@ -124,7 +124,7 @@ echo $this->consultationNavigation('Beiträge');
   'qid' => $this->question['qi'],
   'cod' => 'utf8',
   'mod' => 'all',
-)); ?>">&raquo; Alle Userbeiträge</a><br />
+)); ?>">&raquo; Alle Nutzerbeiträge</a><br />
 <a href="<?php echo $this->url(array(
   'action' => 'export',
   'kid' => $this->consultation['kid'],
@@ -145,7 +145,7 @@ echo $this->consultationNavigation('Beiträge');
   'qid' => $this->question['qi'],
   'cod' => 'xls',
   'mod' => 'all',
-)); ?>">&raquo; Alle Userbeiträge (westeuropäisches MS Excel)</a><br />
+)); ?>">&raquo; Alle Nutzerbeiträge (westeuropäisches MS Excel)</a><br />
 </p>
 <p>&nbsp;</p>
 <p><a href="#">nach oben</a></p>

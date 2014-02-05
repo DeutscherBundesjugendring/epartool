@@ -171,7 +171,7 @@ class Admin_InputController extends Zend_Controller_Action
         $tag = $this->_request->getParam('tg');
 
         if ($kid == 0) {
-            $this->_flashMessenger->addMessage('Keine Konsultation angegeben.', 'error');
+            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben.', 'error');
             $this->redirect('/admin');
         }
         if ($qid == 0) {

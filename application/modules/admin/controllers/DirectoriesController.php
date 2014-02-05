@@ -25,7 +25,7 @@ class Admin_DirectoriesController extends Zend_Controller_Action
             $this -> _consultation = $consultationModel -> find($kid) -> current();
             $this -> view -> consultation = $this -> _consultation;
         } else {
-            $this -> _flashMessenger -> addMessage('Keine Konsultation angegeben!', 'error');
+            $this -> _flashMessenger -> addMessage('Keine Beteiligungsrunde angegeben!', 'error');
             $this -> redirect('/admin');
         }
     }

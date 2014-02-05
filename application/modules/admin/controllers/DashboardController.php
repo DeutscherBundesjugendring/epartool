@@ -604,13 +604,13 @@ class Admin_DashboardController extends Zend_Controller_Action
                 $consultationModel = new Model_Consultations();
                 $this->_consultation = $consultationModel->getById($params["kid"]);
                 if (count($this->_consultation) == 0) {
-                    $this->_flashMessenger->addMessage('keine Konsutation zu dieser KonsultationsID', 'error');
+                    $this->_flashMessenger->addMessage('keine Beteiligungsrunde zu dieser ID vorhanden', 'error');
                     $this->_redirect('/admin/dashboard/error');
                 } else {
                     return $this->_consultation;
                 }
             } else {
-                $this->_flashMessenger->addMessage('KonsultationsID ungültig', 'error');
+                $this->_flashMessenger->addMessage('ID der Beteiligungsrunde ungültig', 'error');
                 $this->_redirect('/admin/dashboard/error');
             }
         }

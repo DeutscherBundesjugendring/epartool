@@ -38,7 +38,7 @@ class VotingController extends Zend_Controller_Action
     {
         $votingRightsSession = new Zend_Session_Namespace('votingRights');
         if ($votingRightsSession->access != $this->_consultation->kid) {
-            $this->_flashMessenger->addMessage('In dieser Konsultation kann derzeit nicht abgestimmt werden.', 'error');
+            $this->_flashMessenger->addMessage('In dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden.', 'error');
             $this->redirect('/');
         }
 

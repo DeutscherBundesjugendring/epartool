@@ -6,7 +6,7 @@
  * @author        Markus Hackel
  */
 ?>
-<h2>Neuen Artikel f&uuml;r <?php echo !empty($this->consultation) ? 'Konsultation ' . $this->consultation['titl'] : 'Allgemein';?> erstellen</h2>
+<h2>Neuen Artikel f&uuml;r <?php echo !empty($this->consultation) ? 'Beteiligungsrunde ' . $this->consultation['titl'] : 'Allgemein';?> erstellen</h2>
 <?php echo $this->form;?>
 <p>
   <a href="<?php echo $this->baseUrl(); ?>/admin/article/index/kid/<?php echo $this->kid?>">Zur&uuml;ck</a>

@@ -5,7 +5,7 @@ $date = new Zend_Date();
 <?php
 echo $this->consultationNavigation('Beiträge');
 ?>
-<p><a href="<?php echo $this->baseUrl(); ?>/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle User anzeigen, die sich an dieser Konsultation beteiligt haben</a></p>
+<p><a href="<?php echo $this->baseUrl(); ?>/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle Nutzer_innen anzeigen, die an dieser Beteiligungsrunde teilgenommen haben</a></p>
 <?php if (!empty($this->user)): ?>
 <table>
 	<tr>
@@ -117,7 +117,7 @@ echo $this->consultationNavigation('Beiträge');
 	</tr>
 </table>
 <?php else: ?>
-<p class="info">Details zum Nutzer nicht verfügbar! Möglicherweise existiert kein Nutzerdatensatz mit der angegebenen uid.</p>
+<p class="info">Details zum Nutzer nicht verfügbar! Möglicherweise existiert kein Nutzerdatensatz mit der angegebenen UserID.</p>
 <?php endif; ?>
 <form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl(); ?>/admin/input/editbulk" method="POST">
 <input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
@@ -160,4 +160,4 @@ echo $this->consultationNavigation('Beiträge');
 </form>
 <br/>
 <br/>
-<a href="<?php echo $this->baseUrl(); ?>/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle User anzeigen, die sich an dieser Konsultation beteiligt haben</a>
+<a href="<?php echo $this->baseUrl(); ?>/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle Nutzer_innen anzeigen, die an dieser Beteiligungsrunde teilgenommen haben</a>

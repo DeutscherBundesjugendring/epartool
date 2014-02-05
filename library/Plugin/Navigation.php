@@ -18,7 +18,7 @@ class Plugin_Navigation extends Zend_Controller_Plugin_Abstract
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
-            $page = $view->navigation()->findOneByLabel('Konsultationen');
+            $page = $view->navigation()->findOneByLabel('Beteiligungsrunden');
             if ($page) {
                 $page->setActive();
             }
@@ -32,7 +32,7 @@ class Plugin_Navigation extends Zend_Controller_Plugin_Abstract
 
         // JSU set user to active page if uid exists
         if ($this->getRequest()->controller == 'user') {
-            $pageUser = $view->navigation()->findOneByLabel('Benutzerverwaltung');
+            $pageUser = $view->navigation()->findOneByLabel('Nutzerverwaltung');
             if ($pageUser) {
                 $pageUser->setActive();
             }
@@ -40,7 +40,7 @@ class Plugin_Navigation extends Zend_Controller_Plugin_Abstract
 
         // JSU set user to active page if uid exists
         if ($this->getRequest()->controller == 'email' && $this->getRequest()->action=='edittemplate') {
-            $pageUser = $view->navigation()->findOneByLabel('E-Mail Vorlagen');
+            $pageUser = $view->navigation()->findOneByLabel('E-Mail-Vorlagen');
             if ($pageUser) {
                 $pageUser->setActive();
             }

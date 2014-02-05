@@ -26,7 +26,7 @@ class FollowupController extends Zend_Controller_Action
             $nowDate = Zend_Date::now();
 
             if (!$nowDate->isLater($consultation->vot_to) || $consultation->follup_show == 'n') {
-                $this->_flashMessenger->addMessage('Für diese Konsultation gibt es derzeit keine Reaktionen.', 'info');
+                $this->_flashMessenger->addMessage('Für diese Beteiligungsrunde gibt es derzeit keine Reaktionen.', 'info');
                 $this->redirect('/');
             }
 
@@ -36,7 +36,7 @@ class FollowupController extends Zend_Controller_Action
         } else {
             $action = $this->_request->getActionName();
             if ($action != 'like' && $action != 'unlike') {
-                $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
+                $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
                 $this->_redirect('/');
             }
         }

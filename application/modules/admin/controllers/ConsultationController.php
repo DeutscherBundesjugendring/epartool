@@ -55,10 +55,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
                         $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
                         $newId = $consultationRow->save();
                         if ($newId > 0) {
-                            $this->_flashMessenger->addMessage('Neue Konsultation wurde erstellt.', 'success');
+                            $this->_flashMessenger->addMessage('Neue Beteiligungsrunde wurde erstellt.', 'success');
                             $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
                         } else {
-                            $this->_flashMessenger->addMessage('Erstellen der neuen Konsultation fehlgeschlagen!', 'error');
+                            $this->_flashMessenger->addMessage('Erstellen der neuen Beteiligungsrunde fehlgeschlagen!', 'error');
                         }
                     } else {
                         $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
@@ -150,7 +150,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         if (empty($kid)) {
-            $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
+            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
             $this->redirect('/admin');
         }
         $inputsModel = new Model_Inputs();
@@ -223,13 +223,13 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $current_user = Zend_Auth::getInstance()->getIdentity();
         if ($current_user->lvl !== 'adm') {
             $return['success'] = false;
-            $return['message'] = 'ungültige Konsultation';
+            $return['message'] = 'ungültige Beteiligungsrunde';
         }
 
         // Validation kid
         if (empty($params['kid'])) {
             $return['success'] = false;
-            $return['message'] = 'ungültige Konsultation';
+            $return['message'] = 'ungültige Beteiligungsrunde';
         }
 
         // Validation consultation exists
@@ -237,7 +237,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $consultation = $consultationModel->getById($params['kid']);
         if (!$consultation) {
             $return['success'] = false;
-            $return['message'] = 'Konsultation nicht gefunden';
+            $return['message'] = 'Beteiligungsrunde nicht gefunden';
         }
 
         // Validation successful

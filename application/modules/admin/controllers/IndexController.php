@@ -37,7 +37,7 @@ class Admin_IndexController extends Zend_Controller_Action
                 'url' => array(
                     'controller' => 'media'
                 ),
-                'text' => 'Medienverwaltung'
+                'text' => 'Mediathek'
             ),
             'tagAdmin' => array(
                 'url' => array(
@@ -61,7 +61,7 @@ class Admin_IndexController extends Zend_Controller_Action
 //                'url' => array(
 //                    'controller' => 'emaildraft'
 //                ),
-//                'text' => 'E-Mailvorlagen bearbeiten'
+//                'text' => 'E-Mail-Vorlagen bearbeiten'
 //            ),
 //            'sentMails' => array(
 //                'url' => array(

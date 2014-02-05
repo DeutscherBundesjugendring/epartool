@@ -33,7 +33,7 @@ class InputController extends Zend_Controller_Action
         } else {
             $action = $this->_request->getActionName();
             if ($action != 'support') {
-                $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
+                $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
                 $this->_redirect('/');
             }
         }
@@ -404,7 +404,7 @@ class InputController extends Zend_Controller_Action
             $this->view->form = $form;
         } else {
             // inputs period is already over
-            $this->view->message = 'Die Beitragszeit für diese Konsultation ist leider vorbei.'
+            $this->view->message = 'Die Beitragszeit für diese Beteiligungsrunde ist leider vorbei.'
                 . ' Beiträge können nur innerhalb der Beitragszeit geändert werden.';
         }
     }
