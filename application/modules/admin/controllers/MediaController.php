@@ -37,26 +37,28 @@ class Admin_MediaController extends Zend_Controller_Action
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
         $directory = realpath(APPLICATION_PATH . '/../media');
-        $dir_ws = $this->view->baseUrl() . '/media';
+        $dirWs = $this->view->baseUrl() . '/media';
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
             if ($consultation) {
                 $directory.= '/consultations/' . $kid;
-                $dir_ws.= '/consultations/' . $kid;
+                $dirWs.= '/consultations/' . $kid;
                 if (!is_dir($directory)) {
                     mkdir($directory);
                 }
             }
         } else {
             $directory.= '/misc';
-            $dir_ws.= '/misc';
+            $dirWs.= '/misc';
         }
         $files = scandir($directory);
-        $action = $this->view->url(array(
-            'action' => 'delete',
-            'kid' => $kid
-        ));
+        $action = $this->view->url(
+            array(
+                'action' => 'delete',
+                'kid' => $kid
+            )
+        );
         $i = 0;
         $aFileinfo = array();
         if (!empty($files)) {
@@ -75,18 +77,24 @@ class Admin_MediaController extends Zend_Controller_Action
             }
         }
         $form = new Admin_Form_Media_Upload();
-        $form->setAction($this->view->url(array(
+        $form->setAction(
+            $this->view->url(
+                array(
                     'action' => 'upload',
                     'kid' => $kid
-        )));
+                )
+            )
+        );
 
-        $this->view->assign(array(
-            'kid' => $kid,
-            'consultation' => $consultation,
-            'directory' => $dir_ws,
-            'files' => $aFileinfo,
-            'form' => $form
-        ));
+        $this->view->assign(
+            array(
+                'kid' => $kid,
+                'consultation' => $consultation,
+                'directory' => $dirWs,
+                'files' => $aFileinfo,
+                'form' => $form
+            )
+        );
     }
 
     /**
@@ -111,18 +119,29 @@ class Admin_MediaController extends Zend_Controller_Action
             $uploadFilename = $uploadDir . '/' . $originalFilename['basename'];
             if (is_dir($uploadDir)) {
                 $upload = new Zend_File_Transfer_Adapter_Http();
-                $upload->addFilter('Rename', array(
-                    'target' => $uploadFilename,
-                    'overwrite' => true
-                ));
+                $upload->addFilter(
+                    'Rename',
+                    array(
+                        'target' => $uploadFilename,
+                        'overwrite' => true
+                    )
+                );
                 try {
                     // upload received file(s)
                     if ($upload->receive()) {
-                        $this->_flashMessenger
-                                ->addMessage('Die Datei »' . $originalFilename['basename'] . '« wurde erfolgreich hinzugefügt.', 'success');
+                        $this
+                            ->_flashMessenger
+                            ->addMessage(
+                                'Die Datei »' . $originalFilename['basename'] . '« wurde erfolgreich hinzugefügt.',
+                                'success'
+                            );
                     } else {
-                        $this->_flashMessenger
-                                ->addMessage('Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.', 'error');
+                        $this
+                            ->_flashMessenger
+                            ->addMessage(
+                                'Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.',
+                                'error'
+                            );
                     }
                 } catch (Zend_File_Transfer_Exception $e) {
                     $this->_flashMessenger
@@ -170,8 +189,9 @@ class Admin_MediaController extends Zend_Controller_Action
             $deleteFilename = $deleteDir . '/' . $originalFilename;
             if (is_file($deleteFilename)) {
                 if (unlink($deleteFilename)) {
-                    $this->_flashMessenger
-                            ->addMessage('Die Datei »' . $originalFilename . '« wurde erfolgreich gelöscht.', 'success');
+                    $this
+                        ->_flashMessenger
+                        ->addMessage('Die Datei »' . $originalFilename . '« wurde erfolgreich gelöscht.', 'success');
                 } else {
                     $this->_flashMessenger
                             ->addMessage('Datei konnte nicht gelöscht werden.', 'error');
@@ -184,10 +204,15 @@ class Admin_MediaController extends Zend_Controller_Action
             $this->_flashMessenger
                     ->addMessage('Formulardaten ungültig', 'error');
         }
-        $this->redirect($this->view->url(array(
+        $this->redirect(
+            $this->view->url(
+                array(
                     'action' => 'index',
                     'kid' => $kid
-                )), array('prependBase' => false));
+                )
+            ),
+            array('prependBase' => false)
+        );
     }
 
     public function chooseAction()
@@ -197,28 +222,30 @@ class Admin_MediaController extends Zend_Controller_Action
         $formid = $this->getRequest()->getParam('formid', 0);
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
-        $directory = realpath(APPLICATION_PATH . '/../media');
-        $dir_ws = $this->view->baseUrl() . '/media';
+        $directory = realpath(z);
+        $dirWs = $this->view->baseUrl() . '/media';
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
             if ($consultation) {
                 $directory.= '/consultations/' . $kid;
-                $dir_ws.= '/consultations/' . $kid;
+                $dirWs.= '/consultations/' . $kid;
                 if (!is_dir($directory)) {
                     mkdir($directory);
                 }
             }
         } else {
             $directory.= '/misc';
-            $dir_ws.= '/misc';
+            $dirWs.= '/misc';
         }
         $files = scandir($directory);
         natcasesort($files);
-        $action = $this->view->url(array(
-            'action' => 'delete',
-            'kid' => $kid
-        ));
+        $action = $this->view->url(
+            array(
+                'action' => 'delete',
+                'kid' => $kid
+            )
+        );
         $i = 0;
         $aFileinfo = array();
         if (!empty($files)) {
@@ -230,29 +257,37 @@ class Admin_MediaController extends Zend_Controller_Action
                 }
             }
         }
-        $downloadurl = $this->view->url(array(
-            'action' => 'download',
-            'kid' => $kid,
-            'popup' => 1,
-            'elemid' => $elemid
-        ));
+        $downloadurl = $this->view->url(
+            array(
+                'action' => 'download',
+                'kid' => $kid,
+                'popup' => 1,
+                'elemid' => $elemid
+            )
+        );
 
         $form = new Admin_Form_Media_Upload();
-        $form->setAction($this->view->url(array(
+        $form->setAction(
+            $this->view->url(
+                array(
                     'action' => 'upload',
                     'kid' => $kid,
                     'popup' => 1,
                     'elemid' => $elemid
-        )));
-        $this->view->assign(array(
-            'kid' => $kid,
-            'elemid' => $elemid,
-            'consultation' => $consultation,
-            'downloadurl' => $downloadurl,
-            'directory' => $dir_ws,
-            'files' => $aFileinfo,
-            'form' => $form
-        ));
+                )
+            )
+        );
+        $this->view->assign(
+            array(
+                'kid' => $kid,
+                'elemid' => $elemid,
+                'consultation' => $consultation,
+                'downloadurl' => $downloadurl,
+                'directory' => $dirWs,
+                'files' => $aFileinfo,
+                'form' => $form
+            )
+        );
     }
 
     public function downloadAction()
@@ -285,11 +320,16 @@ class Admin_MediaController extends Zend_Controller_Action
             readfile($file);
         } else {
             $this->_flashMessenger->addMessage('Datei ist nicht vorhanden.', 'error');
-            $this->redirect($this->view->url(array(
+            $this->redirect(
+                $this->view->url(
+                    array(
                         'action' => 'choose',
                         'kid' => $kid,
                         'elemid' => $elemid
-                    )), array('prependBase' => false));
+                    )
+                ),
+                array('prependBase' => false)
+            );
         }
     }
 
