@@ -17,8 +17,8 @@ class Admin_Form_Followup_File extends Zend_Form
         // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 
-        $this->getElement('ref_doc')->addPrefixPath('Admin_Form_Decorator', 'Dbjr/Admin/Form/Decorator', 'decorator');
-        $this->getElement('gfx_who')->addPrefixPath('Admin_Form_Decorator', 'Dbjr/Admin/Form/Decorator', 'decorator');
+        $this->getElement('ref_doc')->addPrefixPath('Admin_Form_Decorator', 'Admin/Form/Decorator', 'decorator');
+        $this->getElement('gfx_who')->addPrefixPath('Admin_Form_Decorator', 'Admin/Form/Decorator', 'decorator');
 
         $request = Zend_Controller_Front::getInstance()->getRequest();
         $kid = $request->getParam('kid', 0);
