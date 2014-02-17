@@ -98,10 +98,10 @@ class Model_Followups extends Zend_Db_Table_Abstract
         $row = $this->find($id)->current();
         if ($row) {
 
-            $Model_Inputs = new Model_Inputs();
-            $Model_FollowupFiles = new Model_FollowupFiles();
+            $modelInputs = new Model_Inputs();
+            $modelFollowupFiles = new Model_FollowupFiles();
 
-            $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect );
+            $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
 
             $refs = $rowset->toArray();
 
@@ -117,9 +117,9 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
             }
 
-            $result['inputs'] = $Model_Inputs->find($inputs)->toArray();
+            $result['inputs'] = $modelInputs->find($inputs)->toArray();
             $result['snippets'] = $this->find($snippets)->toArray();
-            $result['docs'] = $Model_FollowupFiles->find($docs)->toArray();
+            $result['docs'] = $modelFollowupFiles->find($docs)->toArray();
             $result['count'] = count($refs);
 
         }
@@ -157,10 +157,9 @@ class Model_Followups extends Zend_Db_Table_Abstract
     */
     public function getByIdArray($idarray)
     {
-         if (!is_array($idarray) || count($idarray) == 0) {
-          return array();
-
-      }
+        if (!is_array($idarray) || count($idarray) == 0) {
+            return array();
+        }
         $result = array();
         $select = $this->select();
         $select->where('fid IN(?)', $idarray);
@@ -171,15 +170,15 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
     }
 
-     public function getByDocIdArray($ffid_array)
-     {
-        if (!is_array($ffid_array) || count($ffid_array) == 0) {
+    public function getByDocIdArray($ffidArray)
+    {
+        if (!is_array($ffidArray) || count($ffidArray) == 0) {
           return array();
 
         }
         $result = array();
         $select = $this->select();
-        $select->where('ffid IN(?)', $ffid_array);
+        $select->where('ffid IN(?)', $ffidArray);
         $select->order('ffid ASC');
         $result = $this->fetchAll($select)->toArray();
 
@@ -237,12 +236,12 @@ class Model_Followups extends Zend_Db_Table_Abstract
           $snippet = $this->find($fid)->current();
           $count = $snippet[$field];
 
-          $Model_FollowupsSupports = new Model_FollowupsSupports;
-          $isLiked = $Model_FollowupsSupports->find($fid, $tmphash)->current();
+          $modelFollowupsSupports = new Model_FollowupsSupports;
+          $isLiked = $modelFollowupsSupports->find($fid, $tmphash)->current();
 
           if (!$isLiked) {
 
-                  $followupSupportsRow = $Model_FollowupsSupports->createRow();
+                  $followupSupportsRow = $modelFollowupsSupports->createRow();
                   $followupSupportsRow->fid = $fid;
                   $followupSupportsRow->tmphash = $tmphash;
                   $followupSupportsRow->save();
