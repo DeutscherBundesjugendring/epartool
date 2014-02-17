@@ -9,74 +9,102 @@
 
 <div class="content-holder main-content">
 
-	<article class="article article-detail">
-		<h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
+    <article class="article article-detail">
+        <h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
 
-		<h2>Suche in Grundinformationen</h2>
-		<?php
-		// Generell articles
-		if (count($this->resultsGeneral) > 0) {
-			$staticArticles = array(
-				'about', 'imprint', 'faq', 'privacy', 'contact'
-			);
-			echo('<ul>');
-			foreach ($this->resultsGeneral AS $article) {
-				$url = (in_array($article['ref_nm'], $staticArticles)) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id'];
-				echo('<li><a href="' . $url . '" title="' . $article['desc'] . '">' . $article['desc'] . '</a></li>');
-			}
-			echo('</ul>');
-		} else {
-			echo('<ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>');
-		}
-		?>
+        <h2>Suche in Grundinformationen</h2>
+        <?php if (count($this->resultsGeneral) > 0): ?>
+                <?php $staticArticles = array(
+                    'about', 'imprint', 'faq', 'privacy', 'contact'
+                );?>
+                <ul>
+                    <?php foreach ($this->resultsGeneral AS $article): ?>
+                        <li>
+                            <a
+                                href="<?php echo in_array($article['ref_nm'], $staticArticles) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id']?>"
+                                title="<?php echo $article['desc']?>"
+                            >
+                                <?php echo $article['desc']?>
+                            </a>
+                       </li>
+                    <?php endforeach?>
+                </ul>
+        <?php else: ?>
+            <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
+        <?php endif ?>
 
-		<h2>Suche in Beteiligungsrunden</h2>
-		<?php
-		// consultations
-		if (count($this->resultsConsultations) > 0) {
-			foreach ($this->resultsConsultations AS $consultation) {
-				if (count($consultation['articles']) > 0
-						|| count($consultation['questions']) > 0
-						|| count($consultation['inputs']) > 0
-						|| isset($consultation['inExpl'])) {
-					echo('<h3>' . $consultation['titel'] . '</h3>');
-					// articles
-					if (count($consultation['articles']) > 0 || isset($consultation['inExpl'])) {
-						echo('<h4>Informationsseiten</h4><ul>');
-						if (isset($consultation['inExpl'])) {
-							echo('<li><a href="' . $this->baseUrl() . '/article/index/kid/' . $consultation['cid'] . '" title="Übersichtsseite">Übersichtsseite</li>');
-						}
-						foreach ($consultation['articles'] AS $article) {
-							echo('<li><a href="' . $this->baseUrl() . '/article/show/kid/' . $consultation['cid'] . '/aid/' . $article['art_id'] . '" title="' . $article['desc'] . '">' . $article['desc'] . '</a></li>');
-						}
-						echo('</ul>');
-					}
-					// questions
-					if (count($consultation['questions']) > 0) {
-						echo('<h4>Fragen</h4><ul>');
-						foreach ($consultation['questions'] AS $question) {
-							$url = $this->baseUrl() . '/question/show/kid/' . $consultation['cid'] . '/qid/' . $question['qi'];
-							$explenation = substr($question['q_xpl'], 0, 100) . '...';
-							echo('<li><a href="' . $url . '" title="' . $question['q'] . '">' . $question['q'] . '</a><br />' . strip_tags($question['q_xpl']) . '...</li>');
-						}
-						echo('</ul>');
-					}
-					// inputs
-					if (count($consultation['inputs']) > 0) {
-						echo('<h4>Nutzerbeitr&auml;ge</h4><ul>');
-						foreach ($consultation['inputs'] AS $input) {
-							$thes = stripslashes(strip_tags($input['thes']));
-							$expl = stripslashes(strip_tags($input['expl']));
-							$expl.= (empty($expl)) ? '' : '...';
-							$url = $this->baseUrl() . '/input/show/kid/' . $consultation['cid'] . '/qid/' . $input['qi'] . '#input-' . $input['tid'];
-							echo('<li><a href="' . $url . '" title="' . $thes . '">' . $thes . '</a><br />' . $expl . '</li>');
-						}
-						echo('</ul>');
-					}
-				}
-			}
-		}
-		?>
-	</article>
+
+        <h2>Suche in Beteiligungsrunden</h2>
+        <?php if (count($this->resultsConsultations) > 0): ?>
+            <?php foreach ($this->resultsConsultations AS $consultation): ?>
+                <?php if (
+                    count($consultation['articles']) > 0
+                    || count($consultation['questions']) > 0
+                    || count($consultation['inputs']) > 0
+                    || isset($consultation['inExpl']))
+                : ?>
+                    <h3><?php echo $consultation['titel']?></h3>
+
+                    <?php if (count($consultation['articles']) > 0 || isset($consultation['inExpl'])): ?>
+                        <h4>Informationsseiten</h4>
+                        <ul>
+                            <?php if (isset($consultation['inExpl'])): ?>
+                                <li>
+                                    <a href="<?php echo $this->baseUrl()?>/article/index/kid/<?php echo $consultation['cid']?>" title="Übersichtsseite">
+                                        Übersichtsseite
+                                    </a>
+                                </li>
+                            <?php endif?>
+                            <?php foreach ($consultation['articles'] AS $article): ?>
+                                <li>
+                                    <a
+                                        href="<?php echo $this->baseUrl()?>/article/show/kid/<?php echo $consultation['cid']?>/aid/<?php echo $article['art_id']?>"
+                                        title="<?php echo $article['desc']?>"
+                                    >
+                                        <?php echo $article['desc']?>
+                                    </a>
+                                   </li>
+                            <?php endforeach?>
+                        </ul>
+                    <?php endif?>
+                        <?php if (count($consultation['questions']) > 0): ?>
+                            <h4>Fragen</h4>
+                            <ul>
+                                <?php foreach ($consultation['questions'] AS $question): ?>
+                                    <li>
+                                        <a
+                                            href="<?php echo $this->baseUrl()?>/question/show/kid/<?php echo $consultation['cid']?>/qid/<?php echo $question['qi']?>"
+                                            title="<?php echo $question['q']?>"
+                                        >
+                                            <?php echo $question['q']?>
+                                        </a>
+                                        <br />
+                                        <?php echo strip_tags($question['q_xpl'])?>...
+                                    </li>
+                                <?php endforeach?>
+                            </ul>
+                    <?php endif?>
+
+                    <?php if (count($consultation['inputs']) > 0): ?>
+                        <h4>Nutzerbeitr&auml;ge</h4>
+                        <ul>
+                            <?php foreach ($consultation['inputs'] AS $input): ?>
+                                <li>
+                                    <a
+                                        href="<?php echo $this->baseUrl()?>/input/show/kid/<?php echo $consultation['cid']?>/qid/<?php echo $input['qi']?>#input-<?php echo $input['tid']?>"
+                                        title="' . $thes . '"
+                                    >
+                                        <?php echo stripslashes(strip_tags($input['thes']))?>
+                                    </a>
+                                    <br />
+                                    <?php echo stripslashes(strip_tags($input['expl'])) . (empty($expl)) ? '' : '...'?>
+                                </li>
+                            <?php endforeach?>
+                        </ul>
+                    <?php endif?>
+                <?php endif?>
+            <?php endforeach?>
+        <?php endif?>
+     </article>
 
 </div><!-- .main-content -->
