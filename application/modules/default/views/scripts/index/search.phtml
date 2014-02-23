@@ -97,7 +97,7 @@
                                         <?php echo stripslashes(strip_tags($input['thes']))?>
                                     </a>
                                     <br />
-                                    <?php echo stripslashes(strip_tags($input['expl'])) . (empty($expl)) ? '' : '...'?>
+                                    <?php echo $this->perex($input['expl'], 150, array('HTML_ENTITY_DECODE', 'STRIP_TAGS', 'STRIPSLASHES'))?>
                                 </li>
                             <?php endforeach?>
                         </ul>
@@ -105,6 +105,25 @@
                 <?php endif?>
             <?php endforeach?>
         <?php endif?>
+
+        <h2>Suche in Follow-up</h2>
+        <?php if (count($this->resultsFollowUps) > 0): ?>
+            <ul>
+                <?php foreach ($this->resultsFollowUps AS $followUp): ?>
+                    <li>
+                        <a
+                            href="<?php echo $this->baseUrl()?>/followup/index/kid/<?php echo $followUp['kid']?>#<?php echo $followUp['ref_doc']?>"
+                        >
+                            <?php echo $followUp['titl']?>
+                            (<?php echo $followUp['who']?>)
+                            <br />
+                        </a>
+                   </li>
+                <?php endforeach?>
+            </ul>
+        <?php else: ?>
+            <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
+        <?php endif ?>
      </article>
 
 </div><!-- .main-content -->

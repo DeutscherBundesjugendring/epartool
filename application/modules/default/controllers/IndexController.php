@@ -82,14 +82,12 @@ class IndexController extends Zend_Controller_Action
             // Search in articles with no consultations ("grundinformationen")
             $articles = new Model_Articles();
             $consultation = new Model_Consultations();
-
-            $generelResults = $articles->search($needle);
-
-            $consultationResults = $consultation->search($needle);
+            $followUpFiles = new Model_FollowupFiles();
 
             $this->view->needle = $needle;
-            $this->view->resultsGeneral = $generelResults;
-            $this->view->resultsConsultations = $consultationResults;
+            $this->view->resultsGeneral = $articles->search($needle);
+            $this->view->resultsConsultations = $consultation->search($needle);
+            $this->view->resultsFollowUps = $followUpFiles->search($needle);
 
         } else {
             // no search-request, redirect
