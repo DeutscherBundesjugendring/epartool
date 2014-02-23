@@ -12,71 +12,86 @@ $locale = new Zend_Locale();
 <?php echo $this->secondNavigation('follow-up') ?>
 
 <div class="content-holder">
-	<div class="row">
-		<aside class="span3">
+    <div class="row">
+        <aside class="span3">
 
-			<?php echo $this->followupNavigation('overview') ?>
+            <?php echo $this->followupNavigation('overview') ?>
 
-		</aside>
-		<section class="main-content span9">
+        </aside>
+        <section class="main-content span9">
 
-			<h1>Wie's weiterging:<br/>Reaktionen und Wirkung</h1>
-			<p>Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie
-				eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.</p>
+            <h1>Wie's weiterging:<br/>Reaktionen und Wirkung</h1>
+            <p>
+            	Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie
+                eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.
+            </p>
 
-			<div class="well-large-alt text-center">
-				<span class="label sticker label-reaktion-alt">Reaktion</span>
-				<h2 class="alt">Bisherige Reaktionen im Überblick</h2>
-				<ul class="thumbnails thumbnails-follow-up">
+            <div class="well-large-alt text-center">
+                <span class="label sticker label-reaktion-alt">Reaktion</span>
+                <h2 class="alt">Bisherige Reaktionen im Überblick</h2>
+                <ul class="thumbnails thumbnails-follow-up">
 
-					<?php foreach ($this->latest_followups as $followup): ?>
-						<li class="span2">
-							<div class="thumbnail">
-								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" class="pull-left"
-								   target="_blank" title="Dokument ansehen">
-									<img alt="Vorschau <?php echo $followup['titl'] ?>"
-										 src="<?php echo $this->media_cnslt_dir . $followup['gfx_who']; ?>"/>
-								</a>
-								<h3><?php echo $followup['titl'] ?></h3>
-								<time class="muted">
-									<?php
-										if ($followup['show_no_day'] === "y") {
-											echo strftime("%m/%Y", strtotime($followup['when']));
-										} else
-											echo strftime("%d.%m.%Y", strtotime($followup['when']));
-										?>
-								</time>
-								<p><?php echo $followup['who']; ?></p>
-								<a href="<?php echo $this->media_cnslt_dir . $followup['ref_doc']; ?>" target="_blank" title="Dokument ansehen">
-									<i class="icon-angle-right"></i> Ansehen
-								</a>
-								<form method="post" action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>">
-									<input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>"/>
-									<button type="submit" class="btn-link" title="Dokument herunterladen">
-										<i class="icon-file"></i> Download
-									</button>
-								</form>
+                    <?php foreach ($this->latestFollowups as $followup): ?>
+                        <li class="span2">
+                            <div class="thumbnail">
+                                <a
+                                    href="<?php echo $this->mediaCnsltDir . $followup['ref_doc']; ?>"
+                                    class="pull-left"
+                                   	target="_blank"
+                                   	title="Dokument ansehen"
+                                >
+                                    <img
+                                    	alt="Vorschau <?php echo $followup['titl'] ?>"
+                                        src="<?php echo $this->mediaCnsltDir . $followup['gfx_who']; ?>"
+                                    />
+                                </a>
+                                <h3><?php echo $followup['titl'] ?></h3>
+                                <time class="muted">
+                                    <?php
+                                        if ($followup['show_no_day'] === "y") {
+                                            echo strftime("%m/%Y", strtotime($followup['when']));
+                                        } else
+                                            echo strftime("%d.%m.%Y", strtotime($followup['when']));
+                                        ?>
+                                </time>
+                                <p><?php echo $followup['who']; ?></p>
+                                <a
+                                	href="<?php echo $this->mediaCnsltDir . $followup['ref_doc']; ?>"
+                                	target="_blank"
+                                	title="Dokument ansehen"
+                                >
+                                    <i class="icon-angle-right"></i> Ansehen
+                                </a>
+                                <form
+                                	method="post"
+                                	action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>"
+                                >
+                                    <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
+                                    <button type="submit" class="btn-link" title="Dokument herunterladen">
+                                        <i class="icon-file"></i> Download
+                                    </button>
+                                </form>
 
-							</div><!-- .thumbnail -->
-						</li>
-					<?php endforeach; ?>
+                            </div><!-- .thumbnail -->
+                        </li>
+                    <?php endforeach; ?>
 
-				</ul>
-			</div><!-- .well-large-alt -->
+                </ul>
+            </div><!-- .well-large-alt -->
 
-			<div class="well-large-alt text-center">
-				<span class="label sticker label-reaktion-alt">Reaktion</span>
-				<h2 class="alt">Reaktionen und Feedback auf einzelne Beiträge</h2>
+            <div class="well-large-alt text-center">
+                <span class="label sticker label-reaktion-alt">Reaktion</span>
+                <h2 class="alt">Reaktionen und Feedback auf einzelne Beiträge</h2>
 
-				<p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
-				<?php echo $this->questionNavigation(NULL, 'follow-up-box'); ?>
-				<br/>
-				<a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">Sortiert nach
-					Schlagwörtern</a>
-			</div><!-- .well-large-alt -->
+                <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
+                <?php echo $this->questionNavigation(NULL, 'follow-up-box'); ?>
+                <br/>
+                <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">Sortiert nach
+                    Schlagwörtern</a>
+            </div><!-- .well-large-alt -->
 
-		</section>
-	</div><!-- .row -->
+        </section>
+    </div><!-- .row -->
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

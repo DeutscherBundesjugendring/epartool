@@ -32,7 +32,7 @@ class FollowupController extends Zend_Controller_Action
 
             $this->_consultation = $consultation;
             $this->view->consultation = $consultation;
-            $this->view->media_cnslt_dir = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
+            $this->view->mediaCnsltDir = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
         } else {
             $action = $this->_request->getActionName();
             if ($action != 'like' && $action != 'unlike') {
@@ -54,7 +54,7 @@ class FollowupController extends Zend_Controller_Action
     {
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
-        $this->view->latest_followups = $followupModel->getByKid($kid, 'when DESC', 4);
+        $this->view->latestFollowups = $followupModel->getByKid($kid, 'when DESC', 4);
     }
 
     /**
