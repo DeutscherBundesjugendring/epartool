@@ -35,3 +35,6 @@ nbproject
 
 # Never ignore files used to keep empty folders in repo
 !.keep
+
+# Ignore envspecific configuration files
+/application/configs/*-envspecific.ini

@@ -26,11 +26,46 @@ require '../vendor/autoload.php';
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
-// Create application, bootstrap, and run
+
+// merge main config with envspecific
+$config = new Zend_Config_Ini(
+    APPLICATION_PATH . '/configs/application.ini',
+    APPLICATION_ENV,
+    array('allowModifications' => true)
+);
+if (is_file(APPLICATION_PATH . '/configs/application-envspecific.ini')) {
+    $configLocal = new Zend_Config_Ini(
+        APPLICATION_PATH . '/configs/application-envspecific.ini',
+        APPLICATION_ENV
+    );
+    $config->merge($configLocal);
+}
+
+
 $application = new Zend_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
+    $config
 );
 
-$application->bootstrap()
-            ->run();
+$application = $application->bootstrap();
+
+// check if http authentication is required and crdentials
+if (Zend_Registry::get('systemconfig')->httpAuth->active) {
+    if (empty($_SERVER['PHP_AUTH_USER'])) {
+        header('WWW-Authenticate: Basic realm="Protected"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo 'Login canceled by user.';
+        exit;
+    }
+
+    if (
+        $_SERVER['PHP_AUTH_USER'] != Zend_Registry::get('systemconfig')->httpAuth->username
+        || $_SERVER['PHP_AUTH_PW'] != Zend_Registry::get('systemconfig')->httpAuth->password
+    ) {
+        header('HTTP/1.0 401 Unauthorized');
+        echo 'Wrong credentials!';
+        exit;
+    }
+}
+
+$application->run();
