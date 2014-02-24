@@ -22,7 +22,7 @@ $locale = new Zend_Locale();
 
             <h1>Wie's weiterging:<br/>Reaktionen und Wirkung</h1>
             <p>
-            	Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie
+                Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie
                 eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.
             </p>
 
@@ -31,18 +31,22 @@ $locale = new Zend_Locale();
                 <h2 class="alt">Bisherige Reaktionen im Überblick</h2>
                 <ul class="thumbnails thumbnails-follow-up">
 
-                    <?php foreach ($this->latestFollowups as $followup): ?>
+                    <?php foreach ($this->followups as $followup): ?>
                         <li class="span2">
                             <div class="thumbnail">
                                 <a
-                                    href="<?php echo $this->mediaCnsltDir . $followup['ref_doc']; ?>"
+                                    <?php if ($followup['referenceType'] === 'http'): ?>
+                                        href="<?php echo $followup['ref_doc']; ?>"
+                                    <?php else: ?>
+                                        href="<?php echo $this->mediaCnsltDir . $followup['ref_doc']; ?>"
+                                    <?php endif?>
                                     class="pull-left"
-                                   	target="_blank"
-                                   	title="Dokument ansehen"
-                                   	name="<?php echo $followup['ref_doc']?>"
+                                    target="_blank"
+                                    title="Dokument ansehen"
+                                    name="<?php echo $followup['ref_doc']?>"
                                 >
                                     <img
-                                    	alt="Vorschau <?php echo $followup['titl'] ?>"
+                                        alt="Vorschau <?php echo $followup['titl'] ?>"
                                         src="<?php echo $this->mediaCnsltDir . $followup['gfx_who']; ?>"
                                     />
                                 </a>
@@ -57,21 +61,27 @@ $locale = new Zend_Locale();
                                 </time>
                                 <p><?php echo $followup['who']; ?></p>
                                 <a
-                                	href="<?php echo $this->mediaCnsltDir . $followup['ref_doc']; ?>"
-                                	target="_blank"
-                                	title="Dokument ansehen"
+                                    <?php if ($followup['referenceType'] === 'http'): ?>
+                                        href="<?php echo $followup['ref_doc']; ?>"
+                                    <?php else: ?>
+                                        href="<?php $this->mediaCnsltDir . $followup['ref_doc']; ?>"
+                                    <?php endif?>
+                                    target="_blank"
+                                    title="Dokument ansehen"
                                 >
                                     <i class="icon-angle-right"></i> Ansehen
                                 </a>
-                                <form
-                                	method="post"
-                                	action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>"
-                                >
-                                    <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
-                                    <button type="submit" class="btn-link" title="Dokument herunterladen">
-                                        <i class="icon-file"></i> Download
-                                    </button>
-                                </form>
+                                <?php if ($followup['referenceType'] === 'file'): ?>
+                                    <form
+                                        method="post"
+                                        action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>"
+                                    >
+                                        <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
+                                        <button type="submit" class="btn-link" title="Dokument herunterladen">
+                                            <i class="icon-file"></i> Download
+                                        </button>
+                                    </form>
+                                <?php endif?>
 
                             </div><!-- .thumbnail -->
                         </li>

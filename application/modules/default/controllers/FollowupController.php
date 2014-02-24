@@ -60,7 +60,18 @@ class FollowupController extends Zend_Controller_Action
     {
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
-        $this->view->latestFollowups = $followupModel->getByKid($kid, 'when DESC', 4);
+        $followups = $followupModel->getByKid($kid, 'when DESC', 4);
+        foreach ($followups as &$followup) {
+            if (
+                strpos($followup['ref_doc'], 'http://') === 0
+                || strpos($followup['ref_doc'], 'https://') === 0
+            ) {
+                $followup['referenceType'] = 'http';
+            } else {
+                $followup['referenceType'] = 'file';
+            }
+        }
+        $this->view->followups = $followups;
     }
 
     /**
@@ -488,11 +499,12 @@ class FollowupController extends Zend_Controller_Action
     {
         $filename = $this->getRequest()->getParam('filename', 0);
         $kid = $this->getRequest()->getParam('kid', 0);
+        $mediaPath = Zend_Registry::get('systemconfig')->media->path;
 
         if ($kid) {
-            $uploadDir = realpath(APPLICATION_PATH . '/../media/consultations/' . $kid);
+            $uploadDir = realpath($mediaPath . '/consultations/' . $kid);
         } else {
-            $uploadDir = realpath(APPLICATION_PATH . '/../media/misc');
+            $uploadDir = realpath($mediaPath . '/misc');
         }
 
         $file = $uploadDir . '/' . $filename;
