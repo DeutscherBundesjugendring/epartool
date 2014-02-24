@@ -61,6 +61,7 @@ class InputController extends Zend_Controller_Action
             $questions[$key]['inputs'] = $inputModel->getByQuestion($question['qi'], 'tid DESC', 4);
         }
         $this->view->questions = $questions;
+        $this->view->nowDate = Zend_Date::now();
 
         $this->view->tags = $tagModel->getAllByConsultation($kid, '', new Zend_Db_Expr('RAND()'));
     }

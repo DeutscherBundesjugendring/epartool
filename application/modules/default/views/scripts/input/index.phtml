@@ -73,7 +73,13 @@ $locale = new Zend_Locale();
                                 </a>
                             <?php endforeach; ?>
                         </div>
-                        <a href="<?php echo $url ?>" class="btn">
+                        <a href="<?php echo $url ?>" class="btn edit">
+                        	<?php if (
+                        		$this->nowDate->isLater($this->consultation->inp_fr)
+                        		&& $this->nowDate->isEarlier($this->consultation->inp_to)
+                        	): ?>
+                        		<i class="icon-edit-alt"></i>
+                        	<?php endif?>
                         	Alle Beitr&auml;ge zu Frage <?php echo $question['nr'] ?> ›››
                         </a>
                     </div>
