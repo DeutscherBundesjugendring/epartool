@@ -125,7 +125,7 @@ class InputController extends Zend_Controller_Action
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
 
         // Determine maximum page number and set it as default value in paginator
-        $maxPage = ceil( $paginator->getTotalItemCount() / $paginator->getItemCountPerPage() );
+        $maxPage = ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
         $this->view->paginator = $paginator;
@@ -217,9 +217,12 @@ class InputController extends Zend_Controller_Action
                 }
                 $this->redirect($redirectURL);
             } else {
-                $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale Bearbeitungszeit von '
-                        . number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
-                        . ' Minuten überschritten hast.', 'error');
+                $this->_flashMessenger->addMessage(
+                    'Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale Bearbeitungszeit von '
+                    . number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
+                    . ' Minuten überschritten hast.',
+                    'error'
+                );
             }
         }
 
@@ -249,9 +252,15 @@ class InputController extends Zend_Controller_Action
             // Bestätigungsmail senden
             $sent = $userModel->sendInputsConfirmationMail($identity, $kid);
             if ($sent) {
-                $this->_flashMessenger->addMessage('Eine E-Mail zur Bestätigung der Beiträge wurde an die hinterlegte Adresse gesendet.', 'success');
+                $this->_flashMessenger->addMessage(
+                    'Eine E-Mail zur Bestätigung der Beiträge wurde an die hinterlegte Adresse gesendet.',
+                    'success'
+                );
             } else {
-                $this->_flashMessenger->addMessage('Es gibt keine Beiträge, die noch bestätigt werden müssen.', 'info');
+                $this->_flashMessenger->addMessage(
+                    'Es gibt keine Beiträge, die noch bestätigt werden müssen.',
+                    'info'
+                );
             }
             // auf Startseite weiterleiten
             $this->redirect('/');
@@ -385,13 +394,21 @@ class InputController extends Zend_Controller_Action
                     if ($key > 0) {
                         $this->_flashMessenger->addMessage('Beitrag aktualisiert.', 'success');
                     } else {
-                        $this->_flashMessenger->addMessage('Etwas lief schief: Beitrag konnte nicht aktualisiert werden.', 'error');
+                        $this->_flashMessenger->addMessage(
+                            'Etwas lief schief: Beitrag konnte nicht aktualisiert werden.',
+                            'error'
+                        );
                     }
-                    $this->redirect($this->view->url(array(
-                        'controller' => 'user',
-                        'action' => 'inputlist',
-                        'kid' => $kid
-                    )), array('prependBase' => false));
+                    $this->redirect(
+                        $this->view->url(
+                            array(
+                                'controller' => 'user',
+                                'action' => 'inputlist',
+                                'kid' => $kid
+                            )
+                        ),
+                        array('prependBase' => false)
+                    );
                 } else {
                     $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
                     $form->populate($data);
