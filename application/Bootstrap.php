@@ -20,6 +20,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // Speichere System-Konfiguration in der Registry
         Zend_Registry::set('systemconfig', $config);
+
+        $projectConfig = new Zend_Config_Ini(
+            APPLICATION_PATH . '/../projects/' . $config->project . '/config/config.ini',
+            APPLICATION_ENV
+        );
+        Zend_Registry::set('projectConfig', $projectConfig);
     }
 
     protected function _initDefaultModuleAutoloader()

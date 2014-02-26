@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 					yuicompress: true
 				},
 				files: {
-					'www/css/sd.css': 'www/less/alternative-design.less'
+					'/projects/sd/css/style.css': 'projects/sd/less/style.less'
 				}
 			}
         },
