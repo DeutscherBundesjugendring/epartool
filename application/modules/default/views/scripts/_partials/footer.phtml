@@ -22,19 +22,30 @@
 	<section role="contentinfo" class="footer-about">
 		<div class="container">
 			<div class="row-fluid">
+				<div class="span9">
+					<div class="row-fluid">
 
-				<?php foreach(Zend_Registry::get('projectConfig')->footerLogo->toArray() as $footerLogo): ?>
-					<div class="span3">
-						<h3><?php echo $footerLogo['name']?></h3>
-						<a href="<?php echo $footerLogo['link']?>" class="logo" rel="external" target="_blank" title="<?php echo $footerLogo['title']?>">
-							<img
-								src="<?php echo $this->baseUrl(); ?>/projects/<?php echo Zend_Registry::get('systemconfig')->project?>/images/<?php echo $footerLogo['image']['name']?>"
-								alt="<?php echo $footerLogo['image']['alt']?>"
-							/>
-						</a>
-					</div>
-				<?php endforeach?>
+						<?php $footerLogos = Zend_Registry::get('projectConfig')->footerLogo->toArray(); ?>
+						<?php for ($i = 1, $size = count($footerLogos); $i <= $size; ++$i): ?>
+							<div class="span4">
+								<h3><?php echo $footerLogos[$i]['name']?></h3>
+								<p>
+									<a href="<?php echo $footerLogos[$i]['link']?>" class="logo" rel="external" target="_blank" title="<?php echo $footerLogos[$i]['title']?>">
+										<img
+											src="<?php echo $this->baseUrl(); ?>/projects/<?php echo Zend_Registry::get('systemconfig')->project?>/images/<?php echo $footerLogos[$i]['image']['name']?>"
+											alt="<?php echo $footerLogos[$i]['image']['alt']?>"
+											/>
+									</a>
+								</p>
+							</div>
+							<?php if ($i % 3 == 0): ?>
+								</div>
+								<div class="row-fluid">
+							<?php endif; ?>
+						<?php endfor; ?>
 
+					</div><!-- .row-fluid -->
+				</div>
 				<div class="span3 contact">
 					<p>
 						<?php echo Zend_Registry::get('projectConfig')->contact->name?>
@@ -51,8 +62,7 @@
 						</a>
 					</p>
 				</div>
-
-			</div><!-- .row -->
+			</div><!-- .row-fluid -->
 		</div><!-- .container -->
 	</section><!-- .footer-about -->
 
