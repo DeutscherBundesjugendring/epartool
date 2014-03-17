@@ -1,8 +1,0 @@
-<h1>Dashboard: <?php echo $this -> consultation['titl']; ?></h1>
-<?php
-echo $this -> consultationNavigation('Dashboard');
-?>
-<h2>Beiträge nach Fragen:</h2>
-<ul>
-<?php echo $this ->partialLoop('_partials/dashboard/questions.phtml', $this -> consultation['questions']); ?>
-</ul>

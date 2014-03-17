@@ -1,6 +1,7 @@
 <?php
 $settings = $this->layout()->settings;
 $labels = $this->layout()->labels;
+$votingBasket = $this->layout()->votingBasket;
 $styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
 $linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
 if (!empty($this->qid)) $linkOptions['qid'] = $this->qid;
@@ -11,10 +12,19 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
 						<? if ($settings['btn_important'] == 'y'): 
 								$linkOptions['pts'] = 'y';
 						?>
-		 				<li><a href="<?  echo $this->url($linkOptions); ?>" class="voting-particularly-important"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>
-      						<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->escape($settings['btn_important_label']); ?>" title="<? echo $this->escape($settings['btn_important_label']); ?>" /><br />
-      						<strong><? echo $this->escape($settings['btn_important_label']); ?></strong>
+		 				<li>
+      						<? if ($votingBasket['countvotes'] != $settings['btn_important_max']): ?>
+		 					<a href="<?  echo $this->url($linkOptions); ?>" class="voting-particularly-important"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>
+      							<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->escape($settings['btn_important_label']); ?>" title="<? echo $this->escape($settings['btn_important_label']); ?>" /><br />
+      							<strong><? echo $this->escape($settings['btn_important_label']); ?> <span class="counter">(<? echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span></strong>
       						</a>
+      						<? else: ?>
+      						<a class="view-basket-btn">
+      							<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->escape($settings['btn_important_label']); ?>" title="<? echo $this->escape($settings['btn_important_label']); ?>" /><br />
+      							<strong><? echo $this->escape($settings['btn_important_label']); ?> <span class="counter">(<? echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span></strong>
+      						</a>
+      						<? endif; ?>
+      						<a class="view-basket">anzeigen</a>
       					</li> 
 						<? endif ; ?>
 						
@@ -34,4 +44,3 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
 								<strong>Keine<br />Meinung</strong>
 							</a></li>
 					</ul>
-

@@ -42,11 +42,16 @@ class Admin_Form_Input extends Zend_Form
         }
 
         // CSRF Protection
-        $hash = $this->createElement('hash', 'csrf_token_inputadmin', array('salt' => 'unique'));
+        $hash = $this->getHash();
+        $this->addElement($hash);
+    }
+
+	 public function getHash() {
+	 	$hash = $this->createElement('hash', 'csrf_token_inputadmin', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
-        $this->addElement($hash);
-    }
+		return $hash;
+	 }
 }

@@ -10,12 +10,11 @@
         <?php echo ($this->uid == '1' ? 'org-r' : ''); ?>
         vot-<?php echo $this->vot ?>
         <?php echo ($this->vot == 'y' && $this->uid != '1' ? 'vot-orb' : ''); ?>
-        block-<?php echo $this->block; ?>
-    "
->
-    <label for="<? echo $this->tid; ?>" class="thesis clearfix">
-        <? echo $this->thes; ?>
-    </label>
+        block-<?php echo $this->block; ?>"
+>     
+    <label for="<? echo $this->tid; ?>" class="thesis clearfix" title="Diesen Beitrag markieren">
+    	 	<a href="/admin/votingprepare/edit/kid/<? echo $this-> kid; ?>/qid/<? echo $this-> qi;?>/tid/<? echo $this-> tid; ?>" class="edit-list" title="Diesen Beitrag bearbeiten">bearbeiten</a>
+  <? echo $this->thes; ?></label>
     <input
         type ="checkbox"
         class="cbx-th"
@@ -44,14 +43,14 @@
 
     <div class="tagrow">
         <?php if (!empty($this->tags)): ?>
-            <?php echo $this->partialLoop('_partials/dashboard/tags-by-input.phtml', $this->tags); ?>
+            <?php echo $this->partialLoop('_partials/votingprepare/tags-by-input.phtml', $this->tags); ?>
         <?php endif; ?>
         <div class="clear">&nbsp;</div>
     </div>
 
     <div class="info-box">
-        <span class="input-box" title="<?php echo ($this->uid==1)?  "Redaktionsbeitrag" : "Originalbeitrag"; ?>">
-            <?php echo ($this->uid==1)?  "&#9415;" : "&#9412;"; ?>
+        <span class="input-box" title="<?php echo ($this->uid==1) ?  "Redaktionsbeitrag" : "Originalbeitrag"; ?>">
+            <?php echo ($this->uid==1) ?  "&#9415;" : "&#9412;"; ?>
         </span>
 
   		<span
@@ -84,7 +83,8 @@
         </div>
         <div class="related-content related-<?php echo $this->tid; ?>">
             <ul>
-                <?php echo $this->partialLoop('_partials/dashboard/related.phtml', $this->related); ?>
+                <?php 
+                echo $this->partialLoop('_partials/votingprepare/related.phtml', $this->related); ?>
             </ul>
           	<div class="append-inputs" rel="<?php echo $this->tid; ?>" id="append-inputs-<?php echo $this->tid; ?>">
                 + markierte hinzufügen +

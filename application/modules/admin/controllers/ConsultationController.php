@@ -30,13 +30,13 @@ class Admin_ConsultationController extends Zend_Controller_Action
     }
 
     /**
-     * @desc consultation dashboard
+     * @desc consultation votingprepare
      * @return void
      */
     public function indexAction()
     {
         $this -> _helper -> viewRenderer -> setNoRender(true);
-        $this->_redirect('/admin/dashboard/index/kid/' . $this->_consultation->kid);
+        $this->_redirect('/admin/votingprepare/index/kid/' . $this->_consultation->kid);
     }
 
     /**

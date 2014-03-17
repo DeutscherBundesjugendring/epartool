@@ -1,7 +1,7 @@
 	/*####################################################
 	 * ####################################################
 	 *
-	 * Ab hier die Styles für das Dashborard 
+	 * Ab hier die Styles für prepare voting 
 	 * 
 	 * ####################################################
 	 * ####################################################
@@ -217,11 +217,27 @@
 	}
 
 	div.input-list ul li.inputs label.thesis {
-		width: 97%;
+		width: 96%;
 		min-width: 485px;
 		float: left;
-		font-weight: bold
+		font-weight: bold;
+		padding-right: 1%;
+		cursor: pointer;
 	}
+	
+	div.input-list ul li.inputs  a.edit-list {
+		font-weight: normal;
+		display: inline-block;
+		width: 20px;
+		height: 15px;
+		overflow: hidden;
+		margin: 0 0 0.2em 0;
+		float: left;
+	}
+	div.input-list ul li.inputs  a.edit-list:before {
+		content:url('/images/edit.png');
+	}
+	
 	div.input-list ul li.inputs input.cbx-th {
 		float: left;
 		font-size: 1.5em;
@@ -235,15 +251,18 @@
 		min-width: 450px;
 		float: left;
 	}
+
 	div.input-list ul li.inputs div.tagrow div.tag {
-		width: 30%;
-		min-width: 170px;
-		background: white;
-		padding: 4px;
-		border: 1px solid black;
-		float: left;
-		margin: 0.05em;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #000000;
+    float: left;
+    font-size: 0.9em;
+    margin: 0.05em;
+    min-width: 130px;
+    padding: 1px 2px 1px 3px;
+    width: 19%;
 	}
+
 	div.input-list ul li.inputs div.info-box {
 		display: table;
 		width: 10%;
@@ -343,4 +362,19 @@
 		top: auto;
 	}
 
-}
+	li.related div.article {
+		width:72%;
+		float: left;
+		padding-right: 3%;
+	}
+	li.related div.work {
+		width: 25%;
+		min-width: 170px;
+		float: left;
+		padding-bottom: 1.5em;
+	}
+
+		li.related div.work a {
+		display: block;
+		padding: 0 0 0.2em 0;
+	}

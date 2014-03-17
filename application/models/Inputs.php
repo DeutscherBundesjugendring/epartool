@@ -1052,7 +1052,7 @@ class Model_Inputs extends Model_DbjrBase
     /**
      * fetchAllInputs
      * get all inputs with tags and related inputs by given question
-     * @see DashboardController|admin:overviewAction()
+     * @seeVotingprepareController|admin:overviewAction()
      * @param $kid consultation
      * @param $qid question
      * @param $dir directory
@@ -1117,6 +1117,7 @@ class Model_Inputs extends Model_DbjrBase
             if (!empty ($row["rel_tid"])) {
                 $thesisRows = $this->fetchAll("tid IN (".$row["rel_tid"].")")->toArray();
                 foreach ($thesisRows as $thesisRow) {
+                	$thesisRow["parent"]= $id;
                     $inputs["$id"]["related"][]= $thesisRow;
                 }
             }
@@ -1138,7 +1139,7 @@ class Model_Inputs extends Model_DbjrBase
     /**
      * mergeInputs
      * Insert a new Input from Admin
-     * @see DashboardController|admin: mergeAction();
+     * @see VotingprepareController|admin: mergeAction();
      * @param Post params
      * @param $relIDs
      * @return row
@@ -1165,10 +1166,10 @@ class Model_Inputs extends Model_DbjrBase
 
      /**
      * getAppendInputs
-     * filters the given ids and get the inputs to append to a    given input
-     * @see DashboardController|admin: appendinputsAction()
+     * filters the given ids and get the inputs to append to a  given input
+     * @see VotingprepareController|admin: appendinputsAction()
      * @param $tid
-     * @param inputIDs given new inputs
+     * @param inputIDs given new inputs string
      * @return array of updated inputs
      *
      **/
@@ -1193,8 +1194,17 @@ class Model_Inputs extends Model_DbjrBase
 
         # get the added inputs #
         $thesisRows = array();
+		$appendedthesis = array();
         if (!empty($inputIDs)) $thesisRows = $this->fetchAll("tid IN (".$inputIDs.")")->toArray();
-        return $thesisRows;
+		
+		if (!empty($thesisRows)) {
+			foreach ($thesisRows as $thesisRow) {
+					$thesisRow["parent"]= $tid;
+					$appendedthesis[]=$thesisRow;
+			}
+			
+		}
+        return $appendedthesis ;
     }
 
     /**
@@ -1202,21 +1212,22 @@ class Model_Inputs extends Model_DbjrBase
      * Sets the new related inputs for a given input
      * @see Models|Inputs: getAppendInputs
      * @param $tid
-     * @param $relIDs
-     * @return nothing
+     * @param $relIDs string
+     * @return bool
      *
      **/
-    private function setAppendInputsByID($relIDs,$tid)
+    public function setAppendInputsByID($relIDs,$tid)
     {
-            $data = array('rel_tid' => $relIDs);
+        $data = array('rel_tid' => $relIDs);
         $where = $this->getAdapter()->quoteInto('tid= ?', $tid);
         $this->update($data, $where);
+		return true;
     }
 
     /**
      * getNumByDirectory
      * Count inputs from a given directory
-     * @see DashboardController|admin: overviewAction()
+     * @see VotingprepareController|admin: overviewAction()
      * @param $kid consultation
      * @param $qid question
      * @param $dir directory
@@ -1239,7 +1250,7 @@ class Model_Inputs extends Model_DbjrBase
     /**
      * setDirectory
      * Move inputs to virtual directory
-     * @see DashboardController|admin: setdirectoryAction()
+     * @see VotingprepareController|admin: setdirectoryAction()
      * @param $options (dir, thesis)
      * @return nothing
      *
@@ -1257,7 +1268,7 @@ class Model_Inputs extends Model_DbjrBase
      /**
      *    setBlockStatus
      * enable/disable many inputs for public-viewing in frontend
-     * @see DashboardController|admin: updateAction()
+     * @see VotingprepareController|admin: updateAction()
      * @param $options (thesis)
      * @return nothing
      *
@@ -1270,7 +1281,7 @@ class Model_Inputs extends Model_DbjrBase
           /**
      *    setBlockStatusByID
      *    enable/disable one input for public-viewing in frontend
-     * @see DashboardController|admin: blockstatusAction()
+     * @see VotingprepareController|admin: blockstatusAction()
      * @param $tid ID from input
      * @param $status y or n
      * @return nothing
@@ -1279,14 +1290,14 @@ class Model_Inputs extends Model_DbjrBase
         public function setBlockStatusByID($status,$tid)
         {
             $data = array('block' => $status);
-        $where = $this->getAdapter()->quoteInto('tid= ?', $tid);
-        $this->update($data, $where);
+        	$where = $this->getAdapter()->quoteInto('tid= ?', $tid);
+        	$this->update($data, $where);
     }
 
      /**
      *    setVotingStatus
      * enable/disable many inputs for voting in frontend
-     * @see DashboardController|admin: updateAction()
+     * @see VotingprepareController|admin: updateAction()
      * @param $thesis ID as comma separated list
      * @param $status y or n
      * @return nothing
@@ -1294,14 +1305,14 @@ class Model_Inputs extends Model_DbjrBase
      **/
      public function setVotingStatus($thesis,$status)
      {
-            $data = array('vot' => $status);
+        $data = array('vot' => $status);
         $this->update($data, 'tid IN ('.$thesis.')');
     }
 
      /**
      *    setVotingStatusByID
      *    enable/disable one input for voting in frontend
-     * @see DashboardController|admin: votingstatusAction()
+     * @see VotingprepareController|admin: votingstatusAction()
      * @param $tid ID from input
      * @param $status y or n
      * @return nothing
@@ -1309,7 +1320,7 @@ class Model_Inputs extends Model_DbjrBase
      **/
      public function setVotingStatusByID($status,$tid)
      {
-            $data = array('vot' => $status);
+        $data = array('vot' => $status);
         $where = $this->getAdapter()->quoteInto('tid= ?', $tid);
         $this->update($data, $where);
     }
@@ -1317,7 +1328,7 @@ class Model_Inputs extends Model_DbjrBase
     /**
      *    deleteInputs
      *    remove inputs from the database
-     * @see DashboardController|admin: updateAction()
+     * @see VotingprepareController|admin: updateAction()
      * @param $thesis ID as comma separated list
      * @return nothing
      *
@@ -1325,6 +1336,7 @@ class Model_Inputs extends Model_DbjrBase
     public function deleteInputs($thesis)
     {
         $this->delete('tid IN ('.$thesis.')');
+		return true;
     }
 
      /* getByIdArray
@@ -1343,5 +1355,17 @@ class Model_Inputs extends Model_DbjrBase
 
                 return $this->fetchAll($select)->toArray();
     }
+	
+	
+	/* copy
+     * @desc copy a row
+     * @name copy
+     * @param  int $tid
+     * @return array
+     */
+	public function copy($tid) {
+		
+	
+	}
 
 }

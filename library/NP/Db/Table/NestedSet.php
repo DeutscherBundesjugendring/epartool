@@ -283,7 +283,7 @@ class NP_Db_Table_NestedSet extends Zend_Db_Table
      * @param string Position regarding on objective node (optional).
      * @return mixed
      */
-    public function insert($data, $objectiveNodeId = null, $position = self::LAST_CHILD)
+    public function insert(array $data, $objectiveNodeId = null, $position = self::LAST_CHILD)
     {
         if (!$this->_checkNodePosition($position)) {
             include_once 'NP/Db/Table/NestedSet/Exception.php';
@@ -304,7 +304,7 @@ class NP_Db_Table_NestedSet extends Zend_Db_Table
      * @param string Position regarding on objective node.
      * @return mixed
      */
-    public function updateNode($data, $id, $objectiveNodeId, $position = self::LAST_CHILD)
+    public function updateNode(array $data, $id, $objectiveNodeId, $position = self::LAST_CHILD)
     {
         $id = (int) $id;
         $objectiveNodeId = (int) $objectiveNodeId;

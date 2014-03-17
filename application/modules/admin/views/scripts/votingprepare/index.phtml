@@ -1,0 +1,8 @@
+<h1>Abstimmung vorbereiten: <?php echo $this -> consultation['titl']; ?></h1>
+<?php
+echo $this -> consultationNavigation('Votingprepare');
+?>
+<h2>Beiträge nach Fragen:</h2>
+<ul>
+<?php echo $this ->partialLoop('_partials/votingprepare/questions.phtml', $this -> consultation['questions']); ?>
+</ul>

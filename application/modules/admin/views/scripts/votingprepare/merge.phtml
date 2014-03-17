@@ -41,15 +41,15 @@
 	});
 </script>
 
-<h1>Dashboard: <?php echo $this->consultation['titl']?></h1>
-<?php echo $this->consultationNavigation('Dashboard')?>
+<h1>Abstimmung vorbereiten: <?php echo $this->consultation['titl']?></h1>
+<?php echo $this->consultationNavigation('Votingprepare')?>
 
 <h2>Beiträge zusammenfassen</h2>
 <div class="input-list c50l">
 	<h3>Originalbeiträge <?php echo count($this->inputs)?></h3>
 	<form id="thesis-form" method="post">
 		<ul>
-			<?php echo $this->partialLoop('_partials/dashboard/inputs.phtml', $this->inputs)?>
+			<?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
 		</ul>
 	</form>
 </div>
