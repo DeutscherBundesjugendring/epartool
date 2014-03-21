@@ -36,7 +36,7 @@ class Admin_MediaController extends Zend_Controller_Action
     {
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
-        $directory = realpath(Zend_Registry::get('systemconfig')->media->path);
+        $directory = MEDIA_PATH;
         $dirWs = $this->view->baseUrl() . '/media';
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
@@ -227,7 +227,7 @@ class Admin_MediaController extends Zend_Controller_Action
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
         $directory = MEDIA_PATH;
-        $dirWs = Zend_Registry::get('systemconfig')->media->path;
+        $dirWs = MEDIA_PATH;
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
