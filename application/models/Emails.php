@@ -168,10 +168,10 @@ class Model_Emails extends Model_DbjrBase
             $success = false;
         }
 
-        $projectConfig = Zend_Registry::get('projectConfig');
+        $systemconfig = Zend_Registry::get('systemconfig');
 
-        $senderEmail = (empty($senderEmail))? $projectConfig->email->from->address : $senderEmail;
-        $senderName = (empty($senderName))? $projectConfig->email->from->address : $senderName;
+        $senderEmail = (empty($senderEmail))? $systemconfig->email->from->address : $senderEmail;
+        $senderName = (empty($senderName))? $systemconfig->email->from->address : $senderName;
 
         // use Template
         if (!empty($templateReference) && !empty($templateReplace) && is_array($templateReplace)) {
@@ -249,7 +249,7 @@ class Model_Emails extends Model_DbjrBase
 
         if ($success) {
             $addData = array(
-                'sender' => $projectConfig->email->from->address,
+                'sender' => $systemconfig->email->from->address,
                 'subj'=>$subject,
                 'proj'=>Zend_Registry::get('systemconfig')->project,
                 'rec'=>$receiver,

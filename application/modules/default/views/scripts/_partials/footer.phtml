@@ -25,14 +25,14 @@
 				<div class="span9">
 					<div class="row-fluid">
 
-						<?php $footerLogos = Zend_Registry::get('projectConfig')->footerLogo->toArray(); ?>
+						<?php $footerLogos = Zend_Registry::get('systemconfig')->footerLogo->toArray(); ?>
 						<?php for ($i = 1, $size = count($footerLogos); $i <= $size; ++$i): ?>
 							<div class="span4">
 								<h3><?php echo $footerLogos[$i]['name']?></h3>
 								<p>
 									<a href="<?php echo $footerLogos[$i]['link']?>" class="logo" rel="external" target="_blank" title="<?php echo $footerLogos[$i]['title']?>">
 										<img
-											src="<?php echo $this->baseUrl(); ?>/projects/<?php echo Zend_Registry::get('systemconfig')->project?>/images/<?php echo $footerLogos[$i]['image']['name']?>"
+											src="<?php echo $this->baseUrl(); ?>/project/images/<?php echo $footerLogos[$i]['image']['name']?>"
 											alt="<?php echo $footerLogos[$i]['image']['alt']?>"
 											/>
 									</a>
@@ -48,17 +48,17 @@
 				</div>
 				<div class="span3 contact">
 					<p>
-						<?php echo Zend_Registry::get('projectConfig')->contact->name?>
+						<?php echo Zend_Registry::get('systemconfig')->contact->name?>
 					</p>
 					<p>
 						Mühlendamm 3<br />
 						10178 Berlin<br />
-						<a href="mailto:<?php echo Zend_Registry::get('projectConfig')->contact->email?>">
-							<?php echo Zend_Registry::get('projectConfig')->contact->email?>
+						<a href="mailto:<?php echo Zend_Registry::get('systemconfig')->contact->email?>">
+							<?php echo Zend_Registry::get('systemconfig')->contact->email?>
 						</a>
 						<br />
-						<a href="<?php echo Zend_Registry::get('projectConfig')->contact->www?>" rel="external" target="_blank">
-							<?php echo Zend_Registry::get('projectConfig')->contact->www?>
+						<a href="<?php echo Zend_Registry::get('systemconfig')->contact->www?>" rel="external" target="_blank">
+							<?php echo Zend_Registry::get('systemconfig')->contact->www?>
 						</a>
 					</p>
 				</div>

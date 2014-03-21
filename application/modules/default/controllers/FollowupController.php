@@ -474,9 +474,9 @@ class FollowupController extends Zend_Controller_Action
         $kid = $this->getRequest()->getParam('kid', 0);
 
         if ($kid) {
-            $uploadDir = realpath(APPLICATION_PATH . '/../media/consultations/' . $kid);
+            $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
         } else {
-            $uploadDir = realpath(APPLICATION_PATH . '/../media/misc');
+            $uploadDir = realpath(MEDIA_PATH . '/misc');
         }
 
         $file = $uploadDir . '/' . $filename;

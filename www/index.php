@@ -20,16 +20,28 @@ set_include_path(
     )
 );
 
-// initialize Composer autoloading
-require '../vendor/autoload.php';
+
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
 // Create application, bootstrap, and run
+$appConfig = new Zend_Config_Ini(
+    APPLICATION_PATH . '/configs/application.ini',
+    APPLICATION_ENV,
+     array('allowModifications' => true)
+);
+
+$appConfigLocal = new Zend_Config_Ini(
+    PROJECT_PATH . '/configs/application.ini',
+    APPLICATION_ENV
+);
+
+$appConfig->merge($appConfigLocal);
+
 $application = new Zend_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
+    $appConfig
 );
 
 $application->bootstrap()

@@ -8,24 +8,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             APPLICATION_PATH . '/modules/default/config/config.ini',
             APPLICATION_ENV
         );
-
-        // Speichere Frontend Konfiguration in der Registry
         Zend_Registry::set('config', $config);
 
-        // Lade System-Konfiguration
+
         $config = new Zend_Config_Ini(
             APPLICATION_PATH . '/configs/config.ini',
+            APPLICATION_ENV,
+            array('allowModifications' => true)
+        );
+        $configLocal = new Zend_Config_Ini(
+            PROJECT_PATH . '/configs/config.ini',
             APPLICATION_ENV
         );
-
-        // Speichere System-Konfiguration in der Registry
+        $config->merge($configLocal);
         Zend_Registry::set('systemconfig', $config);
-
-        $projectConfig = new Zend_Config_Ini(
-            APPLICATION_PATH . '/../projects/' . $config->project . '/config/config.ini',
-            APPLICATION_ENV
-        );
-        Zend_Registry::set('projectConfig', $projectConfig);
     }
 
     protected function _initDefaultModuleAutoloader()
