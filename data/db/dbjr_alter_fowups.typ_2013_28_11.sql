@@ -1,1 +1,0 @@
-ALTER TABLE `fowups` CHANGE `typ` `typ` ENUM( 'g', 's', 'a', 'r', 'e' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'g' COMMENT 'general, supporting, action, rejected, end';

@@ -1,1 +1,0 @@
-ALTER TABLE `user_info` ADD COLUMN `cmnt_ext` varchar(600) COLLATE utf8_unicode_ci NOT NULL DEFAULT '';

@@ -1,4 +1,0 @@
-﻿/* Data for the 'ml_def' table */
-
-INSERT INTO `ml_def` (`refnm`, `kid`, `proj`, `ln`, `subj`, `txt`, `html`, `expl`, `head`, `foot`) VALUES
-  ('register', 0, 'sd', 'de', 'Registrierung für den Strukturierten Dialog', 'Hallo {{USER}},\r\n\r\ndanke für deine/eure Beteiligung an der aktuellen Konsultation im Rahmen des Strukturierten Dialogs. Es wurde ein Passwort generiert, mit dem du/ihr dich/euch in Zukunft am System anmelden kannst/könnt:\r\n\r\n{{PASSWORD}}\r\n\r\nMit dieser Mail bitten wir dich/euch um die Bestätigung deiner/eurer Registrierung. Klickt dazu bitte auf folgenden Link oder kopiert diesen in die Adresszeile deines/eures Browsers:\r\n\r\n{{CONFIRMLINK}}\r\n\r\nNach der Bestätigung erhältst du/ihr eine Mail zur Bestätigung deiner/eurer Beiträge.\r\n\r\nMit freundlichen Grüßen\r\nEure Koordinierungsstelle für den Strukturierten Dialog\r\n\r\n', '<p>Hallo {{USER}}</p>\r\n', '{{USER}} {{PASSWORD}} {{CONFIRMLINK}}', 'n', 'y');
