@@ -28,12 +28,21 @@ $appConfig = new Zend_Config_Ini(
      array('allowModifications' => true)
 );
 
-$appConfigLocal = new Zend_Config_Ini(
+$appConfigProject = new Zend_Config_Ini(
     PROJECT_PATH . '/configs/application.ini',
     APPLICATION_ENV
 );
+$appConfig->merge($appConfigProject);
 
-$appConfig->merge($appConfigLocal);
+if (is_file(PROJECT_PATH . '/configs/application.local.ini')) {
+    $appConfigLocal = new Zend_Config_Ini(
+        PROJECT_PATH . '/configs/application.local.ini'
+    );
+    $env = APPLICATION_ENV;
+    if (isset($appConfigLocal->$env)) {
+        $appConfig->merge($appConfigLocal->$env);
+    }
+}
 
 $application = new Zend_Application(
     APPLICATION_ENV,
