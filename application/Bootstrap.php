@@ -14,13 +14,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             APPLICATION_ENV,
             array('allowModifications' => true)
         );
-        if (is_file(APPLICATION_PATH . '/configs/config-envspecific.ini')) {
-            $configLocal = new Zend_Config_Ini(
-                APPLICATION_PATH . '/configs/config-envspecific.ini',
-                APPLICATION_ENV
-            );
-            $config->merge($configLocal);
-        }
+
+        $configProject = new Zend_Config_Ini(
+            PROJECT_PATH . '/configs/config.ini',
+            APPLICATION_ENV
+        );
+        $config->merge($configProject);
         Zend_Registry::set('systemconfig', $config);
     }
 
@@ -103,11 +102,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $view->headTitle()->setSeparator(' - ');
 
         $sysconfig = Zend_Registry::get('systemconfig');
-        if ($sysconfig->headTitle) {
-            $view->headTitle($sysconfig->headTitle);
-        } else {
-            $view->headTitle('Strukturierter Dialog in Deutschland');
-        }
+        $view->headTitle($sysconfig->headTitle);
     }
 
     protected function _initSetupBaseUrl()

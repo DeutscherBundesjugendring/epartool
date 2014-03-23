@@ -1,10 +1,6 @@
 # Ignore all components installed by npm
 /node_modules
 
-# Ignore deployment files
-deployment.*.log
-.htdeployment
-
 # Ignore filesystem files
 .DS_Store
 Thumbs.db
@@ -12,9 +8,6 @@ Thumbs.db
 # Ignore IDE files
 nbproject
 .idea
-
-# Ignore all components installed by Composer
-/vendor/*
 
 # Ignore all components installed by Bower
 /www/components/*
@@ -27,11 +20,6 @@ nbproject
 /runtime/cache/*
 /runtime/logs/*
 /runtime/sessions/*
-
-# Ignore all used uploaded content
-/www/media/consultations/*
-/www/media/misc/*
-
 
 # Never ignore files used to keep empty folders in repo
 !.keep

@@ -88,21 +88,6 @@
   border-bottom-style: solid;
   border-bottom-color: #000000;
 }
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  width: 100%;
-  margin: 0 0 16.923082em;
-}
-body > footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  min-height: 16.923082em;
-}
 body {
   font: normal 0.8em Arial, sans-serif;
   line-height: 1.565em;

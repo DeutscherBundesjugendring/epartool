@@ -22,42 +22,47 @@
 	<section role="contentinfo" class="footer-about">
 		<div class="container">
 			<div class="row-fluid">
+				<div class="span9">
+					<div class="row-fluid">
 
-				<div class="span3">
-					<h3>Projektträger</h3>
-					<a href="http://www.dbjr.de" class="logo" rel="external" target="_blank" title="Deutscher Bundesjugendring">
-						<img src="<?php echo $this->baseUrl(); ?>/images/logo/dbjr.png" alt="Deutscher Bundesjugendring" />
-					</a>
-				</div>
-				<div class="span3">
-					<h3>Gefördert vom</h3>
-					<a href="http://www.bmfsfj.de" class="logo" rel="external" target="_blank" title="Bundesministerium für Familie, Senioren, Frauen und Jugend">
-						<img src="<?php echo $this->baseUrl(); ?>/images/logo/bmfsfj.png" alt="Bundesministerium für Familie, Senioren, Frauen und Jugend" />
-					</a>
-				</div>
-				<div class="span3">
-					<h3>Das Tool für ePartizipation</h3>
-					<a href="" class="logo" rel="external" target="_blank" title="ePartool">
-						<img src="<?php echo $this->baseUrl(); ?>/images/logo/epartool.png" alt="ePartool" />
-					</a>
-					<?php if (Zend_Registry::get('systemconfig')->project == 'sd'): ?>
-						<br /><br />Im Rahmen der
-						<a href="http://strukturierter-dialog.de/einfuehrung/eu-jugendstrategie/" class="logo" rel="external" target="_blank" title="EU-Jugendstrategie">
-							<img src="<?php echo $this->baseUrl(); ?>/images/logo/js.png" alt="EU-Jugendstrategie" />
-						</a>
-					<?php endif; ?>
+						<?php $footerLogos = Zend_Registry::get('systemconfig')->footerLogo->toArray(); ?>
+						<?php for ($i = 1, $size = count($footerLogos); $i <= $size; ++$i): ?>
+							<div class="span4">
+								<h3><?php echo $footerLogos[$i]['name']?></h3>
+								<p>
+									<a href="<?php echo $footerLogos[$i]['link']?>" class="logo" rel="external" target="_blank" title="<?php echo $footerLogos[$i]['title']?>">
+										<img
+											src="<?php echo $this->baseUrl(); ?>/project/images/<?php echo $footerLogos[$i]['image']['name']?>"
+											alt="<?php echo $footerLogos[$i]['image']['alt']?>"
+											/>
+									</a>
+								</p>
+							</div>
+							<?php if ($i % 3 == 0): ?>
+								</div>
+								<div class="row-fluid">
+							<?php endif; ?>
+						<?php endfor; ?>
+
+					</div><!-- .row-fluid -->
 				</div>
 				<div class="span3 contact">
-					<p><strong>Projektbüro Ichmache&gt;Politik</strong><br />
-						Jugendbeteiligung an der Entwicklung<br />
-						einer Eigenständigen Jugendpolitik</p>
-					<p>Mühlendamm 3<br />
+					<p>
+						<?php echo Zend_Registry::get('systemconfig')->contact->name?>
+					</p>
+					<p>
+						Mühlendamm 3<br />
 						10178 Berlin<br />
-						<a href="mailto:ichmache-politik@dbjr.de">ichmache-politik@dbjr.de</a><br />
-						<a href="http://www.ichmache-politik.de" rel="external" target="_blank">www.ichmache-politik.de</a></p>
+						<a href="mailto:<?php echo Zend_Registry::get('systemconfig')->contact->email?>">
+							<?php echo Zend_Registry::get('systemconfig')->contact->email?>
+						</a>
+						<br />
+						<a href="<?php echo Zend_Registry::get('systemconfig')->contact->www?>" rel="external" target="_blank">
+							<?php echo Zend_Registry::get('systemconfig')->contact->www?>
+						</a>
+					</p>
 				</div>
-
-			</div><!-- .row -->
+			</div><!-- .row-fluid -->
 		</div><!-- .container -->
 	</section><!-- .footer-about -->
 

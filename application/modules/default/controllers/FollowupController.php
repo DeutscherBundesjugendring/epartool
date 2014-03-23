@@ -502,9 +502,9 @@ class FollowupController extends Zend_Controller_Action
         $mediaPath = Zend_Registry::get('systemconfig')->media->path;
 
         if ($kid) {
-            $uploadDir = realpath($mediaPath . '/consultations/' . $kid);
+            $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
         } else {
-            $uploadDir = realpath($mediaPath . '/misc');
+            $uploadDir = realpath(MEDIA_PATH . '/misc');
         }
 
         $file = $uploadDir . '/' . $filename;

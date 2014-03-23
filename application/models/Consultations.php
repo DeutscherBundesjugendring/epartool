@@ -29,6 +29,7 @@ class Model_Consultations extends Model_DbjrBase
         }
 
         // find current consultation
+        $sub = array();
         $row = $this->find($id)->current();
         if (!empty($row)) {
             // find Questions

@@ -36,7 +36,7 @@ class Admin_MediaController extends Zend_Controller_Action
     {
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
-        $directory = realpath(Zend_Registry::get('systemconfig')->media->path);
+        $directory = MEDIA_PATH;
         $dirWs = $this->view->baseUrl() . '/media';
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
@@ -111,13 +111,14 @@ class Admin_MediaController extends Zend_Controller_Action
         $form = new Admin_Form_Media_Upload();
         if ($form->isValid($formData)) {
             $originalFilename = pathinfo($form->file->getFileName());
-            $mediaDir = Zend_Registry::get('systemconfig')->media->path;
+
             if ($kid > 0) {
-                $uploadDir = realpath($mediaDir . '/consultations/' . $kid);
+                $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
             } else {
-                $uploadDir = realpath($mediaDir . '/media/misc');
+                $uploadDir = realpath(MEDIA_PATH . '/misc');
             }
             $uploadFilename = $uploadDir . '/' . $originalFilename['basename'];
+
             if (is_dir($uploadDir)) {
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 $upload->addFilter(
@@ -182,13 +183,14 @@ class Admin_MediaController extends Zend_Controller_Action
         $form = new Admin_Form_Media_Delete();
         if ($form->isValid($formData)) {
             $originalFilename = $form->getElement('file')->getValue();
-            $mediaDir = Zend_Registry::get('systemconfig')->media->path;
+
             if ($kid > 0) {
-                $deleteDir = realpath($mediaDir . '/consultations/' . $kid);
+                $deleteDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
             } else {
-                $deleteDir = realpath($mediaDir . '/misc');
+                $deleteDir = realpath(MEDIA_PATH. '/misc');
             }
             $deleteFilename = $deleteDir . '/' . $originalFilename;
+
             if (is_file($deleteFilename)) {
                 if (unlink($deleteFilename)) {
                     $this
@@ -224,8 +226,8 @@ class Admin_MediaController extends Zend_Controller_Action
         $formid = $this->getRequest()->getParam('formid', 0);
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
-        $directory = realpath(Zend_Registry::get('systemconfig')->media->path);
-        $dirWs = Zend_Registry::get('systemconfig')->media->path;
+        $directory = MEDIA_PATH;
+        $dirWs = MEDIA_PATH;
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
@@ -300,9 +302,9 @@ class Admin_MediaController extends Zend_Controller_Action
         $kid = $this->getRequest()->getParam('kid', 0);
 
         if ($kid) {
-            $uploadDir = realpath(APPLICATION_PATH . '/../media/consultations/' . $kid);
+            $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
         } else {
-            $uploadDir = realpath(APPLICATION_PATH . '/../media/misc');
+            $uploadDir = realpath(MEDIA_PATH . '/misc');
         }
         $file = $uploadDir . '/' . $filename;
 

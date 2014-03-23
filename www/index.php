@@ -4,10 +4,6 @@
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-
 // Ensure library/ is on include_path
 set_include_path(
     implode(
@@ -20,31 +16,37 @@ set_include_path(
     )
 );
 
-// initialize Composer autoloading
-require '../vendor/autoload.php';
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
 
-// merge main config with envspecific
-$config = new Zend_Config_Ini(
+// Create application, bootstrap, and run
+$appConfig = new Zend_Config_Ini(
     APPLICATION_PATH . '/configs/application.ini',
     APPLICATION_ENV,
     array('allowModifications' => true)
 );
-if (is_file(APPLICATION_PATH . '/configs/application-envspecific.ini')) {
-    $configLocal = new Zend_Config_Ini(
-        APPLICATION_PATH . '/configs/application-envspecific.ini',
-        APPLICATION_ENV
-    );
-    $config->merge($configLocal);
-}
 
+$appConfigProject = new Zend_Config_Ini(
+    PROJECT_PATH . '/configs/application.ini',
+    APPLICATION_ENV
+);
+$appConfig->merge($appConfigProject);
+
+if (is_file(PROJECT_PATH . '/configs/application.local.ini')) {
+    $appConfigLocal = new Zend_Config_Ini(
+        PROJECT_PATH . '/configs/application.local.ini'
+    );
+    $env = APPLICATION_ENV;
+    if (isset($appConfigLocal->$env)) {
+        $appConfig->merge($appConfigLocal->$env);
+    }
+}
 
 $application = new Zend_Application(
     APPLICATION_ENV,
-    $config
+    $appConfig
 );
 
 $application = $application->bootstrap();
