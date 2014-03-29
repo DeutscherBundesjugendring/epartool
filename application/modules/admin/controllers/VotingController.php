@@ -14,15 +14,12 @@ class Admin_VotingController extends Zend_Controller_Action
     {
         // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $kid = $this->_request->getParam('kid', 0);
         if ($kid > 0) {
-
             $consultationModel = new Model_Consultations();
-        $this -> _consultation = $consultationModel -> find($kid) -> current();
-        $this -> view -> consultation = $this -> _consultation;
-
+            $this->_consultation = $consultationModel->find($kid)->current();
+            $this->view->consultation = $this->_consultation;
         } else {
             $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
             $this->redirect('/admin');
@@ -37,9 +34,9 @@ class Admin_VotingController extends Zend_Controller_Action
     {
         $votingRightsModel = new Model_Votes_Rights();
         $this->view->countInserted = $votingRightsModel
-            ->setInitialRightsByConsultation($this -> _consultation -> kid);
+            ->setInitialRightsByConsultation($this->_consultation->kid);
         $this->view->votingRights = $votingRightsModel
-            ->getByConsultation($this -> _consultation -> kid);
+            ->getByConsultation($this->_consultation->kid);
     }
 
     /**
@@ -58,18 +55,21 @@ class Admin_VotingController extends Zend_Controller_Action
             $user = $userModel->getById($uid);
             $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
             $votingRights = $votingRightsModel
-                ->getByUserAndConsultation($uid, $this -> _consultation -> kid);
+                ->getByUserAndConsultation($uid, $this->_consultation->kid);
 
             if ($this->_request->isPost()) {
                 // form sent -> process
                 $data = $this->_request->getPost();
                 if ($form->isValid($data)) {
                     $votingRights->setFromArray($data)->save();
-                    $this->_flashMessenger->addMessage('Änderungen für <b>' . $user['email'] . '</b> gespeichert.', 'success');
-                    $this->redirect($this->view->url(array(
-                        'action' => 'index',
-                        'uid' => null,
-                    )), array('prependBase' => false));
+                    $this->_flashMessenger->addMessage(
+                        'Änderungen für <b>' . $user['email'] . '</b> gespeichert.',
+                        'success'
+                    );
+                    $this->redirect(
+                        $this->view->url(array('action' => 'index', 'uid' => null)),
+                        array('prependBase' => false)
+                    );
                 } else {
                     $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
                 }
@@ -84,10 +84,9 @@ class Admin_VotingController extends Zend_Controller_Action
             }
             $form->populate($data);
 
-            $this->view->assign(array(
-                'form' => $form,
-                'user' => $user
-            ));
+            $this->view->assign(
+                array('form' => $form, 'user' => $user)
+            );
         } else {
             $this->_flashMessenger->addMessage('Keine User-ID angegeben!', 'error');
             $this->redirect('/admin/voting');
@@ -103,7 +102,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $userModel = new Model_Users();
         $votingRightsModel = new Model_Votes_Rights();
         $participants = $userModel->getParticipantsByConsultation(
-            $this -> _consultation -> kid,
+            $this->_consultation->kid,
             array('u.email', 'u.name')
         );
         $emailList = '';
@@ -112,15 +111,17 @@ class Admin_VotingController extends Zend_Controller_Action
                 $emailList.= $value['email'] . ';';
             }
             $votingRights = $votingRightsModel
-                ->getByUserAndConsultation($value['uid'], $this -> _consultation -> kid);
+                ->getByUserAndConsultation($value['uid'], $this->_consultation->kid);
             if (!empty($votingRights)) {
                 $participants[$key]['votingRights'] = $votingRights;
             }
         }
-        $this->view->assign(array(
-            'participants' => $participants,
-            'emailList' => $emailList,
-        ));
+        $this->view->assign(
+            array(
+                'participants' => $participants,
+                'emailList' => $emailList,
+            )
+        );
     }
 
     /**
@@ -168,7 +169,7 @@ class Admin_VotingController extends Zend_Controller_Action
 //                     . $this -> _consultation -> kid . '/authcode/',
 //                 '{{VTC}}' => $votingRights['vt_code'],
                 '{{VOTINGURL}}' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
-                    . $this -> _consultation -> kid . '/authcode/' . $votingRights['vt_code'],
+                    . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code'],
                 '{{GROUP_CATEGORY}}' => $grp_siz_def[$votingRights['grp_siz']],
                 '{{VOTING_WEIGHT}}' => $votingRights['vt_weight'],
             );
@@ -307,13 +308,13 @@ class Admin_VotingController extends Zend_Controller_Action
         $sub_uid = $this->_request->getParam('sub_uid', 0);
         $votesGroupsModel = new Model_Votes_Groups();
 
-        if ($votesGroupsModel->confirmVoter($this -> _consultation -> kid, $uid, $sub_uid)) {
+        if ($votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid)) {
             $this->_flashMessenger->addMessage('Teilnehmer_in wurde bestätigt.', 'success');
         } else {
             $this->_flashMessenger->addMessage('Bestätigen fehlgeschlagen.', 'error');
         }
 
-        $this->redirect('/admin/voting/participants/kid/' . $this -> _consultation -> kid);
+        $this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
     }
 
     /**
@@ -326,13 +327,13 @@ class Admin_VotingController extends Zend_Controller_Action
         $sub_uid = $this->_request->getParam('sub_uid', 0);
         $votesGroupsModel = new Model_Votes_Groups();
 
-        if ($votesGroupsModel->deleteVoter($this -> _consultation -> kid, $uid, $sub_uid) > 0) {
+        if ($votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid) > 0) {
             $this->_flashMessenger->addMessage('Teilnehmer_in wurde gelöscht.', 'success');
         } else {
             $this->_flashMessenger->addMessage('Löschen fehlgeschlagen.', 'error');
         }
 
-        $this->redirect('/admin/voting/participants/kid/' . $this -> _consultation -> kid);
+        $this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
     }
 
     public function resultsAction()
@@ -340,7 +341,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $qid = $this->_request->getParam('qid', 0);
 
         $votesModel = new Model_Votes();
-        $votingResultsValues = $votesModel->getResultsValues($this -> _consultation -> kid, $qid);
+        $votingResultsValues = $votesModel->getResultsValues($this->_consultation->kid, $qid);
 
         $this->view->assign($votingResultsValues);
     }
@@ -351,59 +352,59 @@ class Admin_VotingController extends Zend_Controller_Action
     public function settingsAction()
     {
         $validator = new Zend_Validate_Int();
-        if (!$validator -> isValid($this -> _consultation -> kid)) {
-            $this -> _flashMessenger -> addMessage('Keine KonsultationsID vorhanden', 'error');
-            $this -> redirect('/admin');
+        if (!$validator->isValid($this->_consultation->kid)) {
+            $this->_flashMessenger->addMessage('Keine KonsultationsID vorhanden', 'error');
+            $this->redirect('/admin');
         }
 
         $settingsModel = new Model_Votes_Settings();
-        $this -> _settings = $settingsModel -> find($this -> _consultation -> kid) -> current();
+        $this->_settings = $settingsModel->find($this->_consultation->kid)->current();
 
-        if (!$this -> _settings) {
-            $settingsResult = $settingsModel -> add($this -> _consultation -> kid);
+        if (!$this->_settings) {
+            $settingsResult = $settingsModel->add($this->_consultation->kid);
             if ($settingsResult) {
-                $this -> _flashMessenger -> addMessage('Votingsettings wurden angelegt', 'success');
-                $this -> _settings = $settingsModel -> find($this -> _consultation -> kid) -> current();
+                $this->_flashMessenger->addMessage('Votingsettings wurden angelegt', 'success');
+                $this->_settings = $settingsModel->find($this->_consultation->kid)->current();
             } else {
-                $this -> _flashMessenger -> addMessage('Fehler beim Speichen der Settings', 'error');
+                $this->_flashMessenger->addMessage('Fehler beim Speichen der Settings', 'error');
             }
         }
 
         $form = new Admin_Form_Voting_Settings();
-        $form -> setAction($this -> view -> baseUrl() . '/admin/voting/settings/kid/' . $this -> _consultation -> kid);
+        $form -> setAction($this->view->baseUrl() . '/admin/voting/settings/kid/' . $this->_consultation->kid);
 
-        $settings = array_merge($this -> _settings -> toArray(), $this -> _consultation -> toArray());
+        $settings = array_merge($this->_settings->toArray(), $this->_consultation->toArray());
         $settings['vot_expl'] = htmlspecialchars_decode($settings['vot_expl'], ENT_COMPAT);
 
-        $this -> view -> form = $form;
+        $this->view->form = $form;
 
-        $post = $this -> _request -> getPost();
+        $post = $this->_request->getPost();
 
         if ($post) {
-            if (!$form -> isValid($post)) {
-                $this -> view -> form -> populate($post);
-                $this -> _flashMessenger -> addMessage('Bitte prüfe die Formulareingaben!', 'error');
+            if (!$form->isValid($post)) {
+                $this->view->form->populate($post);
+                $this->_flashMessenger->addMessage('Bitte prüfe die Formulareingaben!', 'error');
             } else {
 
-                $values = $this -> view -> form -> getValues();
+                $values = $this->view->form->getValues();
 
-                $this -> _consultation -> vot_fr = $values['vot_fr'];
-                $this -> _consultation -> vot_to = $values['vot_to'];
-                $this -> _consultation -> vot_show = $values['vot_show'];
-                $this -> _consultation -> vot_res_show = $values['vot_res_show'];
-                $this -> _consultation -> vot_expl = $values['vot_expl'];
+                $this->_consultation->vot_fr = $values['vot_fr'];
+                $this->_consultation->vot_to = $values['vot_to'];
+                $this->_consultation->vot_show = $values['vot_show'];
+                $this->_consultation->vot_res_show = $values['vot_res_show'];
+                $this->_consultation->vot_expl = $values['vot_expl'];
 
-                $this -> _consultation -> save();
+                $this->_consultation->save();
 
-                $this -> _settings -> btn_important = $values['btn_important'];
-                $this -> _settings -> btn_important_label = $values['btn_important_label'];
-                $this -> _settings -> btn_numbers = $values['btn_numbers'];
-                $this -> _settings -> btn_labels = $values['btn_labels'];
-                $this -> _settings -> btn_important_max= $values['btn_important_max'];
+                $this->_settings->btn_important = $values['btn_important'];
+                $this->_settings->btn_important_label = $values['btn_important_label'];
+                $this->_settings->btn_numbers = $values['btn_numbers'];
+                $this->_settings->btn_labels = $values['btn_labels'];
+                $this->_settings->btn_important_max= $values['btn_important_max'];
 
-                $this -> _settings -> save();
+                $this->_settings->save();
 
-                $this -> _flashMessenger -> addMessage('Die Änderungen wurden gespeichert', 'success');
+                $this->_flashMessenger->addMessage('Die Änderungen wurden gespeichert', 'success');
             }
         } else {
             $form -> populate($settings);
