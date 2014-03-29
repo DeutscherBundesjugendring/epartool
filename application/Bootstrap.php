@@ -20,9 +20,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             APPLICATION_ENV
         );
         $config->merge($configProject);
-        if (is_file(PROJECT_PATH . '/configs/application.local.ini')) {
+        if (is_file(PROJECT_PATH . '/configs/config.local.ini')) {
             $configLocal = new Zend_Config_Ini(
-                PROJECT_PATH . '/configs/application.local.ini'
+                PROJECT_PATH . '/configs/config.local.ini'
             );
             $env = APPLICATION_ENV;
             if (isset($configLocal->$env)) {
