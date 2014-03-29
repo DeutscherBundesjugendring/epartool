@@ -318,20 +318,57 @@ class Model_Votes_Individual extends Model_DbjrBase
         }
 
         return false;
-
     }
 
+	 /* gets the superbutton thesis  */
+    public function getParticularImportantVote($subUid)
+    {
+		$db = $this->getAdapter();
+        $select = $db->select();
+        $select->from(array('vi' => 'vt_indiv'));
+        $select->joinLeft(array('i' => 'inpt'), 'vi.tid = i.tid');
+        $select->where('sub_uid = ?', $subUid);
+		$select->where('pimp = ?', 'y');
+        $select->order('upd DESC');
+
+        $stmt = $db->query($select);
+        $row = $stmt->fetchAll();
+        return $row;
+    }
+	
     /* counts how much user clicks on superbutton */
     public function countParticularImportantVote($subUid)
     {
-    $rowset = $this->fetchAll(
-        $this->select()
+    	$rowset = $this->fetchAll(
+        			$this->select()
                 ->where('sub_uid = ?', $subUid)
-        ->where('pimp = ?', 'y')
+        		->where('pimp = ?', 'y')
         );
         $rowCount = count($rowset);
 
         return $rowCount;
+    }
+	
+	/**
+     *  delete the superbutton thesis from basket
+    * @author Karsten Tackmann
+     */ 
+	 public function deleteParticularImportantVote($uid,$subUid, $tid)
+    {
+        if (empty($uid) || empty($subUid) || empty($tid)) {
+            return false;
+        }
+        $db = $this->getAdapter();
+        $where = array(
+            'uid = ?'    => $uid,
+            'sub_uid = ?' => $subUid,
+            'tid = ?' => $tid,
+        );
+        $result = $db->delete($this->_name, $where);
+        if ($result) {
+            return true;
+        }
+        return false;
     }
 
     /* initalize update for click on superbutton */

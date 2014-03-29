@@ -1,6 +1,6 @@
 <?php
 
-class Model_Inputs_DashBoard  extends Model_DbjrBase
+class Model_Inputs_VotingPrepare  extends Model_DbjrBase
 {
     protected $_name = 'inpt';
     protected $_primary = 'tid';

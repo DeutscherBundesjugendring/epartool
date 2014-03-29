@@ -58,6 +58,23 @@ class VotingController extends Zend_Controller_Action
 
             return $votingSettings;
     }
+	
+	/**
+    * getVotingbasket() get SuperVotes from current User
+    * @param kid
+    * @return array
+    **/
+    private function getVotingBasket($subUid)
+    {
+    	   $votingBasket = array();
+           $votingIndividualModel = new Model_Votes_Individual();
+		   
+		   $votingBasket["countvotes"] = $votingIndividualModel->countParticularImportantVote($subUid);
+		   $votingBasket["votes"] = $votingIndividualModel->getParticularImportantVote($subUid);
+		   
+		   return $votingBasket;
+    }
+	
 
     /**
     *    checkVotingDate()
@@ -222,7 +239,6 @@ class VotingController extends Zend_Controller_Action
     {
         // no access, redirect back
         $votingRightsSession = $this->getVotingRightsSession ();
-
         $this->view->settings = $this->getVotingSettings();
 
         $uid = $votingRightsSession->uid;
@@ -266,6 +282,8 @@ class VotingController extends Zend_Controller_Action
      */
     public function previewfeedbackAction()
     {
+    	if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
+        
         $this->_helper->layout()->disableLayout();
         $votingRightsSession = $this->getVotingRightsSession ();
 
@@ -278,7 +296,7 @@ class VotingController extends Zend_Controller_Action
 
         if ($pts < 0 || $pts > 5) {
             $this->view->error = "1";
-            $this->view->error_comment = "Die Anzahl der    vergebenen Punkte ist nicht korrekt";
+            $this->view->error_comment = "Die Anzahl der vergebenen Punkte ist nicht korrekt";
 
             return;
         }
@@ -292,7 +310,6 @@ class VotingController extends Zend_Controller_Action
         if (!$votingSuccess) {
             $this->view->error = "1";
             $this->view->error_comment = "Es ist ein Fehler aufgetreten";
-
             return;
         } else {
             $feedback = array('points' => $votingSuccess['points'],'pimp' => $votingSuccess['pimp'], 'tid' => $param['id']);
@@ -306,7 +323,9 @@ class VotingController extends Zend_Controller_Action
      * @author Karsten Tackmann
      */ public function previewfeedbackpiAction() {
 
-            $this->_helper->layout()->disableLayout();
+			if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
+	        
+	        $this->_helper->layout()->disableLayout();
             $votingRightsSession = $this->getVotingRightsSession ();
 
             $this->view->settings = $this->getVotingSettings();
@@ -353,6 +372,34 @@ class VotingController extends Zend_Controller_Action
             $this->view->feedback = $feedback;
 
     }
+
+	/**
+     * ajaxresponse for delete Supervote from basket
+     * @author Karsten Tackmann
+     */ 
+     public function removethesisAction() {
+     	
+		#if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
+	     $this->_helper->layout()->disableLayout();
+		 
+		$votingRightsSession = $this->getVotingRightsSession ();
+		$subUid = $votingRightsSession->subUid;
+        $uid = (int) $votingRightsSession->uid;
+		$param = $this->getRequest()->getParams();
+        $tid= (int) $param['tid'];
+		
+		$votingUserInputModel = new Model_Votes_Individual();
+
+		
+		if ($votingUserInputModel -> deleteParticularImportantVote($uid,$subUid, $tid)) {
+			$this->view->response = "success";
+		} else {
+			$this->view->response = "error";
+		}
+
+		
+		
+	 }
 
     // Trennt die Votes nach gevoted oder nicht
 
@@ -419,6 +466,8 @@ class VotingController extends Zend_Controller_Action
         $this->view->thesesCount = $thesesCount;
         $this->view->thesesCountVoted = $thesesVotedCount;
         $this->view->settings = $this ->getVotingSettings();
+		
+		$this->view->votingBasket= $this ->getVotingBasket($subUid);
 
         $votingIndividualModel = new Model_Votes_Individual();
         // Check last voted thesis and append to view

@@ -21,7 +21,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                 ),
                 array(
                     'label' => 'Abstimmung vorbereiten',
-                    'href' => $this->view->baseUrl() . '/admin/dashboard/index/kid/' . $kid
+                    'href' => $this->view->baseUrl() . '/admin/votingprepare/index/kid/' . $kid
                 ),
                 array(
                     'label' => 'Mediathek',
@@ -63,10 +63,12 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'label' => 'Reaktionen & Wirkung',
                     'href' => $this->view->baseUrl() . '/admin/followup/index/kid/' . $kid
                 ),
+				/*
                  array(
                     'label' => 'Ordnerverwaltung',
                     'href' => $this->view->baseUrl() . '/admin/directories/index/kid/' . $kid
                 ),
+				 * */
                 array(
                     'label' => 'Statistik',
                     'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid

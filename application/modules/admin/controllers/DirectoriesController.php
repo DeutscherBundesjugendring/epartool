@@ -102,9 +102,7 @@ class Admin_DirectoriesController extends Zend_Controller_Action
 
     }
 
-    public function editAction()
-    {
-    }
+
 
     /**
      *  deleteAction()
@@ -149,7 +147,6 @@ class Admin_DirectoriesController extends Zend_Controller_Action
     protected function getDbVars()
     {
         $array = array('dir_name' => $this -> data["dir_name"], "kid" => (int) $this -> data["kid"]);
-
         return $array;
     }
 

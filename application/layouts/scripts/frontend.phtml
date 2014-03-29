@@ -30,6 +30,7 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fontAwesome ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->main ?>" type="text/css" />
 		<link rel="stylesheet" href="<?= $this->baseUrl() . $config ->path->css->followUp ?>" type="text/css" />
+		<?php echo $this->headLink(); ?>
 
 
         <link

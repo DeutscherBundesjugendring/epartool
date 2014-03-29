@@ -22,11 +22,11 @@
 		$('div.related-content').show('blind', '', 500);
 		$('div.expl-content').show('blind', '', 500);
 		$('div.append-inputs').hide();
-		$('form#input').hide();
+		$('a.plus').hide();
 
 		$("form#input").submit(function() {
+			$('a.plus').show();
 			var inputVal = $('#thes').val();
-
 		     if(inputVal == ''){
 				 $('#thes-label label').append('<span style="color: red;"> Bitte dieses Feld ausfüllen!</span>');
 		         alert ('Bitte das Feld Beitrag ausfüllen!');
@@ -34,7 +34,7 @@
 				var data = $("form#input :input").serialize();
 		        $.ajax({
 		            type: "POST",
-		           	url: "/admin/dashboard/splitresponse/<?php echo $this->getParams ?>",
+		           	url: "/admin/votingprepare/splitresponse/<?php echo $this->getParams ?>",
 					data: data,
 					cache: false,
 					async: "true",
@@ -60,10 +60,31 @@
 			return false;
 		});
 
-		$('a.plus').click(function() {
-			$('form#input').show('blind', '', 900);
-	        return false;
+
+			$(document).on("click","a.plus", function (event) {
+				event.preventDefault();
+				$('form#input').show('blind', '', 900);
+			$.ajax({
+				url: "/admin/votingprepare/getnewhash/<?php echo $this->getParams ?>",
+				type: "POST",
+				data: "format=html",
+				cache: false,
+				async: "true",
+				error: function(){
+					$('#csrf_token_inputadmin-element').html('Es ist ein Fehler aufgetreten!');
+				},
+				beforeSend: function(){
+					$('#csrf_token_inputadmin-element').html('...') ;
+				},
+				success:function(response){
+					$('#csrf_token_inputadmin-element').replaceWith(response);
+					$('#csrf_token_inputadmin-label').remove();
+				}
+			});
+	        return true;
 		});
+		
+		//$(#input).replaceWith(csrfhash)
 
 		// tags übernehmen
 		$('div.tag').click(function() {
@@ -93,7 +114,7 @@
 			event.preventDefault();
 			var elementID = $(this).attr('rel');
 			$.ajax({
-				url: "/admin/dashboard/votingstatus/<?php echo $this->getParams ?>",
+				url: "/admin/votingprepare/votingstatus/<?php echo $this->getParams ?>",
 				type: "POST",
 				data: "format=html",
 				cache: false,
@@ -114,7 +135,7 @@
 			event.preventDefault();
 			var elementID = $(this).attr('rel');
 			$.ajax({
-				url: "/admin/dashboard/blockstatus/<?php echo $this->getParams ?>",
+				url: "/admin/votingprepare/blockstatus/<?php echo $this->getParams ?>",
 				type: "POST",
 				data: "format=html",
 				cache: false,
@@ -135,15 +156,15 @@
 </script>
 
 
-<h1>Dashboard: <?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Dashboard'); ?>
+<h1>Abstimmung vorbereiten: <?php echo $this->consultation['titl']; ?></h1>
+<?php echo $this->consultationNavigation('Votingprepare'); ?>
 
 <h2>Beitrag aufteilen </h2>
 <div class="input-list c50l">
 	<h3>Originalbeitrag:</h3>
 	<form id="thesis-form" method="post">
 		<ul>
-			<?php echo $this->partialLoop('_partials/dashboard/inputs.phtml', $this->inputs); ?>
+			<?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs); ?>
 		</ul>
 	</form>
 </div>

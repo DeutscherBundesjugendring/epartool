@@ -1,10 +1,10 @@
 <?php
 /**
- * class for handling inputs in backend dashboard
+ * class for handling inputs in backend votingprepare
  *
  * @author        Karsten Tackmann <info@seitenmeister.com>
  */
-class Admin_DashboardController extends Zend_Controller_Action
+class Admin_VotingprepareController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
     protected $_consultation = null;
@@ -34,7 +34,7 @@ class Admin_DashboardController extends Zend_Controller_Action
     /**
      *  indexAction
      * get parameters for list of questions in backend
-     * @see DashboardController|admin: init()
+     * @see VotingprepareController|admin: init()
      * @return array
      *
      **/
@@ -71,8 +71,7 @@ class Admin_DashboardController extends Zend_Controller_Action
             );
             $dirs["$key"]['qid'] = $this->_question;
         }
-
-        $options = array('kid' => $this->_consultation["kid"], 'qid' => $this->_question);
+		$options = array('kid' => $this->_consultation["kid"], 'qid' => $this->_question);
         $options['dir'] = $this->getDirId($this->_params);
 
         $tags = $tagModel->getAll()->toArray();
@@ -109,6 +108,14 @@ class Admin_DashboardController extends Zend_Controller_Action
         $this->view->consultation = array();
         $this->view->directories = array();
         $this->view->tags = array();
+        $this->view->directoryact = "keine Auswahl";
+		
+		foreach ($dirs as $key=>$value) {
+			if ($value["id"]==$options['dir']) {
+				$this->view->directoryact = $value["dir_name"];
+				break;
+			}
+		}
 
         $this->view->inputs = $inputsModel->fetchAllInputs($options);
         $this->view->question = $questionModel->find($this->_question)->current();
@@ -217,7 +224,7 @@ class Admin_DashboardController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
         }
         $this->redirect(
-            '/admin/dashboard/overview/kid/'
+            '/admin/votingprepare/overview/kid/'
             . $this->_consultation["kid"]
             . '/qid/'
             . $this->_question
@@ -267,24 +274,29 @@ class Admin_DashboardController extends Zend_Controller_Action
                     break;
                 case 'delete' :
                     $inputsModel->deleteInputs($option);
+					$inputTagsModel = new Model_InputsTags();	
+					foreach ($this->_params['thesis'] as $key=>$value) {
+						$inputTagsModel ->deleteByInputsId($value);
+					}
+					
                     $this->_flashMessenger->addMessage('Die markierten Beiträge wurden gelöscht', 'success');
                     break;
                 default :
                     $this->_flashMessenger->addMessage('Keine Aktion!', 'error');
-                    $this->_redirect('/admin/dashboard/error');
+                    $this->_redirect('/admin/votingprepare/error');
             }
         } else {
             $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
         }
         if (isset($params["dir"])) {
             $this->redirect(
-                '/admin/dashboard/overview/kid/' . $this->_consultation["kid"]
+                '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"]
                 . '/qid/' . $this->_question
                 . '/dir/' . $this->getDirId($this->_params)
             );
         } else {
             $this->redirect(
-                '/admin/dashboard/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
+                '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
             );
         }
     }
@@ -326,7 +338,7 @@ class Admin_DashboardController extends Zend_Controller_Action
      *  editAction()
      *  edit input
      * @param get param
-     * @return bool or redirect dashboard error
+     * @return bool or redirect votingprepare error
      *
      **/
     public function editAction()
@@ -334,7 +346,7 @@ class Admin_DashboardController extends Zend_Controller_Action
         if (empty($this->_tid)) {
             $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
             $this->_redirect(
-                'admin/dashboard/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
             );
         }
 
@@ -374,9 +386,9 @@ class Admin_DashboardController extends Zend_Controller_Action
     /**
      *  splitAction()
      *  gets the input wich will be splitt and a ajay-form for new inputs
-     * @see DashboardController|admin: splitresponseAction()
+     * @see VotingprepareController|admin: splitresponseAction()
      * @param get param
-     * @return bool or redirect dashboard error
+     * @return bool or redirect votingprepare error
      *
      **/
     public function splitAction()
@@ -384,7 +396,7 @@ class Admin_DashboardController extends Zend_Controller_Action
         if (empty($this->_tid)) {
             $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
             $this->_redirect(
-                'admin/dashboard/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
             );
         }
 
@@ -425,13 +437,16 @@ class Admin_DashboardController extends Zend_Controller_Action
     /**
      *  splitresponseAction()
      *  gets the response for splitAction()
-     * @see DashboardController|admin: splitAction()
+     * @see VotingprepareController|admin: splitAction()
      * @param get param
-     * @return bool or redirect dashboard error
+     * @return bool or redirect votingprepare error
      *
      **/
     public function splitresponseAction()
     {
+    	
+		if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
+
         $this->_helper->layout()->disableLayout();
         $data = $this->_request->getPost();
 
@@ -450,12 +465,85 @@ class Admin_DashboardController extends Zend_Controller_Action
             }
         }
     }
+	
+	/**
+     *  delinputresponseAction()()
+     *  delete inputs via ajax-link from related inputs
+     * @see overviewAction()
+     * @param get param
+     * @return ajax response
+     *
+     **/
+	 public function delinputresponseAction()
+    {
+    		if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
+        	$this->_helper->layout()->disableLayout();
+        	$inputModel = new Model_Inputs();
+			$inputTagsModel = new Model_InputsTags();	
+			
+			$this->_tid = $this->getTId($this->_params);
+			$inputTagsModel ->deleteByInputsId($this->_tid );
+			
+			// response 
+			if ($inputModel->deleteInputs($this->_tid)) {
+					$this->view->response = "success";
+			} else {
+					$this->view->response = "error";
+			}
+    }
+	
+	/**
+     *  cancelshortcutAction()()
+     *  delete shotcut to origin input via ajax-link from related inputs
+     * @see overviewAction()
+     * @param get param
+     * @return ajax response
+     *
+     **/
+	 public function cancelshortcutresponseAction()
+    {
+    		if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest? exit!
+        	$this->_helper->layout()->disableLayout();
+			$this->_tid = $this->getTId($this->_params);
+			$this->_child = (int)$this->_params["child"];
+			
+			$inputModel = new Model_Inputs();
+			$input = $inputModel->getById($this->_tid);
+			
+			$relIDs= $input["rel_tid"];
+			$relIDs=  explode ( "," , $relIDs);
+			unset($relIDs[array_search($this->_child, $relIDs)]);  // delete given ID
+			$relIDs=  implode ( "," , $relIDs);
+			//update
+			if ($inputModel->setAppendInputsByID($relIDs,$this->_tid)) {
+				$this->view->response = "success";
+			} else {
+				$this->view->response = "error";
+			}
+    }
+	
+	
+	/**
+     *  getnewhashAction()
+     *  gets a valid CSRF Protection Hash for Ajax-Form()
+     * @see admin forms input.php
+     * @param get param
+     * @return CSRF hash form element
+     *
+     **/
+	 public function getnewhashAction()
+    {
+    		if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
+     		$this->_helper->layout()->disableLayout();       
+			$form = new Admin_Form_Input();
+    		$this->view->newhash = $form->getHash(); 
+	}
 
     /**
      *  mergeAction()
      *  inserts a new input from admin set the old inputs as childs
      * @param get param
-     * @return bool or redirect dashboard error
+     * @return bool or redirect votingprepare error
      *
      **/
     public function mergeAction()
@@ -487,13 +575,13 @@ class Admin_DashboardController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('Der Redaktionsbeitrag wurde hinzugefügt', 'success');
                     if (isset($params["dir"])) {
                         $this->redirect(
-                            '/admin/dashboard/overview/kid/' . $this->_consultation["kid"]
+                            '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"]
                             . '/qid/' . $this->_question
                             . '/dir/' . $this->getDirId($this->_params)
                         );
                     } else {
                         $this->redirect(
-                            '/admin/dashboard/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
+                            '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
                         );
                     }
                 } else {
@@ -515,12 +603,68 @@ class Admin_DashboardController extends Zend_Controller_Action
         $this->view->consultation = $this->_consultation;
         $this->view->assign(array('form' => $form, 'qid' => $this->_question));
     }
+	
+	/**
+     *  copyAction()
+     *  copy a input
+     * @param get param
+     * @return redirect to editAction();
+     *
+     **/
+	public function copyAction()
+    {
+    	$this->_helper->layout()->disableLayout();
+    	if (empty($this->_tid)) {
+            $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
+            $this->_redirect(
+                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+            );
+        }
+		
+		$inputModel = new Model_Inputs();
+		$inputTagsModel = new Model_InputsTags();	
+		
+		// Get the data from the database - source row
+		$copyprepare = $inputModel->getById($this->_tid); 
+		$tags= $copyprepare['tags'];
+		
+		// New Owner (Admin)
+		$copyprepare['uid'] = 1;
+		// New create_date 
+		$copyprepare['when'] = "";
+		
+		// Unset the uid which should be the primary key and teh tag array()
+		unset ($copyprepare['tags']);
+		unset ($copyprepare['tid']);
+		 
+		 //insert
+		$new = $inputModel ->add($copyprepare);
+		
+		//insert tags when have
+		if (!empty($tags)) {
+			foreach ($tags as $key=>$value) {
+			$inputTagsModel->insertByInputsId($new, array($value["tg_nr"]));
+			}
+		}
+		
+		//redirect to editaction
+		$this->redirect(
+            '/admin/votingprepare/edit/kid/'
+            . $this->_consultation["kid"]
+            . '/qid/'
+            . $this->_question
+            . '/tid/'
+            . $new
+            . '/dir/'
+            . $this->getDirId($this->_params)
+        );
+	}
 
     /**
      *  addNewElements
      *  add hidden and default elements to Inputformular
      * @param options
-     * @return bool or redirect dashboard error
+     * @return bool or redirect votingprepare error
      *
      **/
     protected function addNewElements($options, $form)
@@ -571,7 +715,7 @@ class Admin_DashboardController extends Zend_Controller_Action
      *  checkInputIDs
      *  checks the values  from array ganzzahlen
      * @param get param
-     * @return bool or redirect dashboard error
+     * @return bool or redirect votingprepare error
      *
      **/
     protected function checkInputIDs($param)
@@ -580,7 +724,7 @@ class Admin_DashboardController extends Zend_Controller_Action
         foreach ($param as $key => $value) {
             if (!$isDigit->isValid($value)) {
                 $this->_flashMessenger->addMessage('Fehler, falsche Daten', 'error');
-                $this->_redirect('/admin/dashboard/error');
+                $this->_redirect('/admin/votingprepare/error');
                 break;
 
                 return;
@@ -592,7 +736,7 @@ class Admin_DashboardController extends Zend_Controller_Action
      * getKid
      * checks the kid and returns the values from DB if the consultation exists
      * @param get param kid
-     * @return variables from consultation or dashboard error
+     * @return variables from consultation or votingprepare error
      *
      **/
     protected function getKid($params)
@@ -605,13 +749,13 @@ class Admin_DashboardController extends Zend_Controller_Action
                 $this->_consultation = $consultationModel->getById($params["kid"]);
                 if (count($this->_consultation) == 0) {
                     $this->_flashMessenger->addMessage('keine Beteiligungsrunde zu dieser ID vorhanden', 'error');
-                    $this->_redirect('/admin/dashboard/error');
+                    $this->_redirect('/admin/votingprepare/error');
                 } else {
                     return $this->_consultation;
                 }
             } else {
                 $this->_flashMessenger->addMessage('ID der Beteiligungsrunde ungültig', 'error');
-                $this->_redirect('/admin/dashboard/error');
+                $this->_redirect('/admin/votingprepare/error');
             }
         }
     }
@@ -631,7 +775,7 @@ class Admin_DashboardController extends Zend_Controller_Action
                 return (int) $params["qid"];
             } else {
                 $this->_flashMessenger->addMessage('QuestionID ungültig', 'error');
-                $this->_redirect('/admin/dashboard/error');
+                $this->_redirect('/admin/votingprepare/error');
             }
         }
     }
@@ -651,7 +795,7 @@ class Admin_DashboardController extends Zend_Controller_Action
                 return (int) $params["dir"];
             } else {
                 $this->_flashMessenger->addMessage('DirectoryID ungültig', 'error');
-                $this->_redirect('/admin/dashboard/error');
+                $this->_redirect('/admin/votingprepare/error');
             }
         }
     }
@@ -671,7 +815,7 @@ class Admin_DashboardController extends Zend_Controller_Action
                 return (int) $params["tid"];
             } else {
                 $this->_flashMessenger->addMessage('Thesen ID ungültig', 'error');
-                $this->_redirect('/admin/dashboard/error');
+                $this->_redirect('/admin/votingprepare/error');
             }
         }
     }

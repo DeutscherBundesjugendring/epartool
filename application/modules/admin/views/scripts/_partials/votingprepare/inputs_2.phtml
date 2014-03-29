@@ -28,7 +28,7 @@ echo '<pre>';
   <? endif; ?>
   
   <div class="tagrow">
-  	<?php if (!empty($this->tags)) echo $this -> partialLoop('_partials/dashboard/tags-by-input.phtml', $this->tags); ?>
+  	<?php if (!empty($this->tags)) echo $this -> partialLoop('_partials/votingprepare/tags-by-input.phtml', $this->tags); ?>
   	<div class="clear">&nbsp;</div>
 </div>
 	<div class="info-box">
@@ -57,7 +57,7 @@ echo '<pre>';
   	</div>
   	<div class="related-content related-<? echo $this-> tid; ?>"> 
   		<ul>
-  		<?  echo $this -> partialLoop('_partials/dashboard/related.phtml', $this->related); ?>
+  		<?  echo $this -> partialLoop('_partials/votingprepare/related.phtml', $this->related); ?>
   		</ul>
   	<div class="append-inputs" rel="<? echo $this-> tid; ?>" id="append-inputs-<? echo $this-> tid; ?>">+ markierte hinzufügen +</div>
   	</div>
