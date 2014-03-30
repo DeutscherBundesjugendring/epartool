@@ -106,14 +106,31 @@
             <?php endforeach?>
         <?php endif?>
 
-        <h2>Suche in Follow-up</h2>
-        <?php if (count($this->resultsFollowUps) > 0): ?>
+        <h2>Suche in Follow-up files</h2>
+        <?php if (count($this->resultsFollowFiles) > 0): ?>
             <ul>
-                <?php foreach ($this->resultsFollowUps AS $followUp): ?>
+                <?php foreach ($this->resultsFollowFiles AS $followUp): ?>
                     <li>
                         <a
                             href="<?php echo $this->baseUrl()?>/followup/index/kid/<?php echo $followUp['kid']?>#<?php echo $followUp['ref_doc']?>"
                         >
+                            <?php echo $followUp['titl']?>
+                            (<?php echo $followUp['who']?>)
+                            <br />
+                        </a>
+                   </li>
+                <?php endforeach?>
+            </ul>
+        <?php else: ?>
+            <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
+        <?php endif ?>
+
+        <h2>Suche in Follow-ups</h2>
+        <?php if (count($this->resultsFollowUps) > 0): ?>
+            <ul>
+                <?php foreach ($this->resultsFollowUps AS $followUp): ?>
+                    <li>
+                            <?php echo $followUp['expl']?>
                             <?php echo $followUp['titl']?>
                             (<?php echo $followUp['who']?>)
                             <br />
