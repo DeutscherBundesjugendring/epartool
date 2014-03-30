@@ -62,7 +62,7 @@ class Model_Votes_Rights extends Model_DbjrBase
     /**
      * Returns voting rights for all participants of given consultation
      *
-     * @param  integer                 $kid
+     * @param  integer                 $kid  The consultation identifier
      * @throws Zend_Validate_Exception
      * @return array
      */
@@ -104,10 +104,10 @@ class Model_Votes_Rights extends Model_DbjrBase
     /**
      * Returns voting rights for a given user and consultation
      *
-     * @param  integer                 $uid
-     * @param  integer                 $kid
+     * @param  integer                 $uid  The user identifier
+     * @param  integer                 $kid  The consultation identifier
      * @throws Zend_Validate_Exception
-     * @return Zend_Db_Table_Row
+     * @return Zend_Db_Table_Row             The vt_rights table row object
      */
     public function getByUserAndConsultation($uid, $kid)
     {

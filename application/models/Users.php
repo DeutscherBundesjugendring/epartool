@@ -542,7 +542,8 @@ EOD;
     }
 
     /**
-     * Returns all participants of given consultation
+     * Returns all participants of given consultation.
+     * Participant is a user that has contributed to a given consultation
      *
      * @param  integer      $kid   Consultation ID
      * @param  string|array $order [optional] order by spec, Defaults to array('u.name', 'u.uid')
@@ -553,15 +554,18 @@ EOD;
         if (empty($order)) {
             $order = array('u.name', 'u.uid');
         }
-        $db = $this->getAdapter();
-        $select = $db->select();
-        $select->distinct()->from(array('u' => $this->_name));
-        $select->joinInner(array('i' => 'inpt'), 'u.uid = i.uid', array());
-        $select->where('i.kid = ?', $kid);
-        $select->order($order);
-        $stmt = $db->query($select);
 
-        return $stmt->fetchAll();
+        $participants = $this->getAdapter()
+            ->select()
+            ->distinct()
+            ->from(array('u' => $this->_name))
+            ->joinInner(array('i' => 'inpt'), 'u.uid = i.uid', array())
+            ->where('i.kid = ?', $kid)
+            ->order($order)
+            ->query()
+            ->fetchAll();
+
+        return $participants;
     }
 
     /**
