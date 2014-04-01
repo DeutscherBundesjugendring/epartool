@@ -162,8 +162,12 @@ $(document).ready(function() {
 						   id="buttonChangeKeyword" class="btn">Frage / Schlagwort wechseln</a>
 					</p>
                     <p>
-                        <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden" class="btn"><i class="icon-signout"></i> Abstimmung beenden</a>
-                        <a href="<?php echo $this -> url(array('action' => 'preview')); ?>" title="Abstimmung beenden" class="btn"><i class="icon-signout"></i> Vorschau Abstimmung</a>
+                        <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
+                            <i class="icon-signout"></i> Beenden
+                        </a>
+                        <a href="<?php echo $this -> url(array('action' => 'preview')); ?>" class="btn" title="Vorschau Abstimmung">
+                            <i class="icon-eye-open"></i> Vorschau Abstimmung
+                        </a>
                     </p>
 
 				</div><!-- .well.voting -->
