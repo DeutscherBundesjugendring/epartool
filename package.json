@@ -1,21 +1,24 @@
 {
   "author": "http://www.synergic.cz",
   "name": "dbjr",
-  "description": "Mitwirkung",
+  "description": "DBJR tool",
   "homepage": "http://www.strukturierter-dialog.de",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "engines": {
     "node": "~0.8.11"
   },
   "dependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-less": "~0.6.1",
-    "grunt-contrib-watch": "~0.2.0",
     "grunt-contrib-jshint": "~0.6",
     "grunt-contrib-concat": "~0.3",
     "grunt-contrib-uglify": "~0.2",
     "grunt-contrib-clean": "~0.5",
     "grunt-contrib-clean": "~0.5",
-    "grunt-contrib-jshint": "~0.8.0"
+    "grunt-contrib-jshint": "~0.8.0",
+    "matchdep": "~0.3.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.2.0"
   }
 }

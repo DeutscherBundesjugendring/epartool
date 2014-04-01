@@ -1,31 +1,29 @@
 module.exports = function(grunt) {
 
+    // Autoload all tasks instead of grunt.loadNpmTasks(...)
+    require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
+
     grunt.initConfig({
+
+        // Load meta info from package.json
+        pkg: grunt.file.readJSON('package.json'),
 
 		// Compile LESS
         less: {
-            development: {
+            dev: {
 				files: {
-					'www/css/dbjr.css': 'www/less/main.less'
+					'www/css/<%= pkg.name %>.css': 'www/less/main.less'
 				}
             },
-            production: {
+            dist: {
                 options: {
                     yuicompress: true
                 },
 				files: {
 					'www/css/bootstrap.min.css': 'www/components/bootstrap/less/bootstrap.less',
-					'www/css/dbjr.min.css': 'www/less/main.less'
+					'www/css/<%= pkg.name %>.min.css': 'www/less/main.less'
 				}
-            },
-			ej: {
-				options: {
-					yuicompress: true
-				},
-				files: {
-					'projects/sd/css/style.css': 'projects/sd/less/main.less'
-				}
-			}
+            }
         },
 
 		// Lint custom JS
@@ -125,17 +123,14 @@ module.exports = function(grunt) {
         watch: {
             less: {
                 files: ['www/less/**/*.less'],
-                tasks: ['www/less']
+                tasks: ['less']
+            },
+            js: {
+                files: ['www/js/**/*(!.min).js'],
+                tasks: ['jshint']
             }
         }
     });
-
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', [
 		'less',

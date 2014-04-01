@@ -34,6 +34,7 @@ $locale = new Zend_Locale();
                     <?php foreach ($this->followups as $followup): ?>
                         <li class="span2">
                             <div class="thumbnail">
+                                <h3 class="thumbnail-title"><?php echo $followup['titl'] ?></h3>
                                 <a
                                     <?php if ($followup['referenceType'] === 'http'): ?>
                                         href="<?php echo $followup['ref_doc']; ?>"
@@ -50,7 +51,6 @@ $locale = new Zend_Locale();
                                         src="<?php echo $this->mediaCnsltDir . $followup['gfx_who']; ?>"
                                     />
                                 </a>
-                                <h3><?php echo $followup['titl'] ?></h3>
                                 <time class="muted">
                                     <?php
                                         if ($followup['show_no_day'] === "y") {
@@ -59,7 +59,7 @@ $locale = new Zend_Locale();
                                             echo strftime("%d.%m.%Y", strtotime($followup['when']));
                                         ?>
                                 </time>
-                                <p><?php echo $followup['who']; ?></p>
+                                <p class="thumbnail-author"><?php echo $followup['who']; ?></p>
                                 <a
                                     <?php if ($followup['referenceType'] === 'http'): ?>
                                         href="<?php echo $followup['ref_doc']; ?>"
