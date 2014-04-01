@@ -9,60 +9,82 @@
 
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder">
-	<div class="row">
-		<aside class="span3">
+<div class="content-holder main-content">
 
-			<?php
-			// @todo Sidebar navigation
-			?>
-			<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Abstimmung beenden</a>
-			<br>
-			<a href="<?php echo $this->url(array('action' => 'preview')); ?>" title="Abstimmung beenden"><i class="icon-signout"></i> Vorschau Abstimmung</a>
-		</aside>
-		<section class="main-content span9">
+    <h1 class="heading-centered">Abstimmung</h1>
 
-			<?php
-			// @todo JSU Die anzahl der bereits abgestimmten beiträge muss noch ermittelt werden
-			?>
-			<small class="muted">Du hast schon über <?php echo $this->votedInputs; ?> von
-				insgesamt <?php echo $this->votableInputs; ?> Beiträgen abgestimmt.</small>
+    <div class="row">
+		<section class="span9 offset1">
 
-			<h1>Abstimmung</h1>
+            <div class="well well-large text-center">
+                <span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
 
-			<p>Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit m&ouml;glich.<br/>
-				W&auml;hrend der Abstimmung werden dir nach und nach alle Beitr&auml;ge angezeigt, so dass du auf jeden Fall über alle abstimmen kannst.<br/>
-				Du kannst so viele Beitr&auml;ge bearbeiten, wie du m&ouml;chtest. Unterbrechungen sind problemlos m&ouml;glich.</p>
+                <!-- Voting counter -->
+                <span class="voting-counter">
+                    Du hast schon über
+                    <?php
+                    // Add leading zeros to count voted
+                    $countTotal = $this->votableInputs;
+                    $countVoted = $this->votedInputs;
 
-			<!-- Questions -->
-			<ul>
-				<?php
-				$i = 1;
-				foreach ($this->questions as $question):
-					$url = $this->url(array('action' => 'vote', 'qid' => $question['qi']));
-					?>
-					<li><h2><a href="<?php echo $url ?>"><?php echo $question['nr'] . ' '
-				. $question['q']
-					?></a></h2></li>
-					<?php
-					$i++;
-				endforeach;
-				?>
-			</ul>
-			<!-- Tags -->
-			<?php if (!empty($this->tags)): ?>
-				<!-- <ul class="tag-cloud">
-					<li class="tag-rare"><a href="">Less frequent keyword</a></li>
-					<li class="tag-medium"><a href="">Medium frequent keyword</a></li>
-					<li class="tag-frequent"><a href="">Highly frequent keyword</a></li>
-				</ul> -->
-				<ul class="tag-cloud">
-							<?php foreach ($this->tags as $tag): ?>
-						<li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>">
-								<?php echo $tag['tg_de']; ?></a></li>
-				<?php endforeach; ?>
-				</ul>
-			<?php endif; ?>
+                    if (strlen($countTotal) > strlen($countVoted)) {
+                        $format = '%0' . strlen($countTotal) . 'd';
+                        $countVoted = sprintf($format, $countVoted);
+                    }
+
+                    // Print count voted by number
+                    $countVoted = str_split($countVoted);
+                    foreach ($countVoted as $number) {
+                        echo '<span class="voting-counter-digit">' . $number . '</span>';
+                    }
+                    ?>
+                    <br />
+                    von insgesamt <?php echo $countTotal; ?> Beiträgen<br />
+                    abgestimmt.
+                </span>
+
+                <h2>Stimme jetzt ab!</h2>
+
+                <!-- Questions -->
+                <div class="offset-top-large">
+                    <?php foreach ($this->questions as $question): ?>
+                        <?php $url = $this->url(array('action' => 'vote', 'qid' => $question['qi'])); ?>
+                        <p class="no-offset">
+                            <a href="<?php echo $url ?>" class="btn"><?php echo $question['nr'] . ' ' . $question['q']; ?></a>
+                        </p>
+                    <?php endforeach; ?>
+                </div>
+
+                <p class="offset-top-large offset-bottom-large">
+                    Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen
+                    zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist
+                    jederzeit möglich. Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so dass
+                    du auf jeden Fall über alle abstimmen kannst. Du kannst so viele Beiträge bearbeiten, wie du
+                    möchtest. Unterbrechungen sind problemlos möglich.
+                </p>
+
+                <!-- Tags -->
+                <h3>Beiträge nach Schlagwötern</h3>
+                <?php if (!empty($this->tags)): ?>
+                    <ul class="tag-cloud tag-cloud-alt">
+                        <?php foreach ($this->tags as $tag): ?>
+                            <li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>">
+                            <?php echo $tag['tg_de']; ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+
+                <!-- Actions -->
+                <p>
+                    <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
+                        <i class="icon-signout"></i> Abstimmung beenden
+                    </a>
+                    <a href="<?php echo $this->url(array('action' => 'preview')); ?>" class="btn" title="Abstimmung beenden">
+                        <i class="icon-signout"></i> Vorschau Abstimmung
+                    </a>
+                </p>
+
+            </div><!-- .well -->
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 
