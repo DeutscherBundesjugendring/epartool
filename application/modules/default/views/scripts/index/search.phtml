@@ -33,6 +33,7 @@
             <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
         <?php endif ?>
 
+
         <h2>Suche in Beteiligungsrunden</h2>
         <?php if (count($this->resultsConsultations) > 0): ?>
             <?php foreach ($this->resultsConsultations AS $consultation): ?>
@@ -105,102 +106,17 @@
             <?php endforeach?>
         <?php endif?>
 
-        <h2>Suche in Follow-ups</h2>
-        <ul class="followup-search media-list">
-            <li>
-                <div class="followup-preview media">
-                    <a href="TODO" class="followup-image pull-left">
-                        <img src="http://placehold.it/90x120" alt="TODO followup title" />
-                    </a>
-                    <div class="media-body">
-                        <a href="TODO">
-                            <h3 class="followup-title">Followup title</h3>
-                        </a>
-                        <time class="followup-time">01.05.2013</time><br />
-                        <p class="followup-author">Steuerungsgruppe des „Zentrums Eigenständige Jugendpolitik“</p>
-
-                        <h4>Reaktionen:</h4>
-                        <ul>
-                            <li>
-                                <a href="TODO" class="followup-snippet">
-                                    <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="TODO" class="followup-snippet">
-                                    <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="TODO" class="followup-snippet">
-                                            <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="TODO" class="followup-snippet">
-                                            <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="TODO" class="followup-snippet">
-                                            <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="TODO" class="followup-snippet">
-                                    <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </div><!-- .followup-preview -->
-                </div>
-            </li>
-            <li>
-                <div class="followup-preview media">
-                    <a href="TODO" class="followup-image pull-left">
-                        <img src="http://placehold.it/90x120" alt="TODO followup title" />
-                    </a>
-                    <div class="media-body">
-                        <a href="TODO">
-                            <h3 class="followup-title">Followup title</h3>
-                        </a>
-                        <time class="followup-time">01.05.2013</time><br />
-                        <p class="followup-author">Steuerungsgruppe des „Zentrums Eigenständige Jugendpolitik“</p>
-                    </div>
-                </div><!-- .followup-preview -->
-            </li>
-        </ul>
-
-
-        <h2>Suche in Follow-up files</h2>
-        <?php if (count($this->resultsFollowFiles) > 0): ?>
+        <h2>Suche in Follow-up</h2>
+        <?php if (count($this->resultsFollowUps) > 0): ?>
             <ul>
-                <?php foreach ($this->resultsFollowFiles AS $followUp): ?>
+                <?php foreach ($this->resultsFollowUps AS $followUp): ?>
                     <li>
                         <a
                             href="<?php echo $this->baseUrl()?>/followup/index/kid/<?php echo $followUp['kid']?>#<?php echo $followUp['ref_doc']?>"
                         >
                             <?php echo $followUp['titl']?>
                             (<?php echo $followUp['who']?>)
-                        </a>
-                   </li>
-                <?php endforeach?>
-            </ul>
-        <?php else: ?>
-            <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
-        <?php endif ?>
-
-        <h2>Suche in Follow-ups</h2>
-        <?php if (count($this->resultsFollowUps) > 0): ?>
-            <ul>
-                <?php foreach ($this->resultsFollowUps AS $followUp): ?>
-                    <li>
-                        <a href="<?php echo $this->baseUrl()?>/followup/index/kid/<?php echo $followUp['kid']?>">
-                            <?php echo $followUp['expl']?>
-                            <?php echo $followUp['titl']?>
-                            (<?php echo $followUp['who']?>)
+                            <br />
                         </a>
                    </li>
                 <?php endforeach?>

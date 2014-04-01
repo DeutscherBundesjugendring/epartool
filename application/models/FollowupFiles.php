@@ -164,7 +164,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Search in followup file meta data
+     * Search in followups
      * @param string  $needle               The term being searchd for
      * @return array                        An array of results
      */

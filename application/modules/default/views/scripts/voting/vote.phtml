@@ -14,57 +14,50 @@ $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	var elements = <? echo $this->votingBasket['countvotes'];?>;	
-	
+	var elements = <?php echo $this->votingBasket['countvotes'];?>;	
+
 	$('a.view-basket').click(function() {
-            $('div.vote-basket').slideToggle("slow");
-        });
+        $('div.vote-basket').slideToggle("slow");
+    });
+
     $('a.view-basket-btn').click(function() {
-            $('div.vote-basket').slideToggle("slow");
+        $('div.vote-basket').slideToggle("slow");
+    });
+
+    var superbtn = '<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid)); ?>/tid/<?php echo $this->thesis['tid']; ?>/pts/y" class="voting-particularly-important" <?php if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>' +
+                    '<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->settings['btn_important_label']; ?>" title="<?php echo $this->settings['btn_important_label']; ?>" /><br />'+
+                    '<strong><?php echo $this->settings['btn_important_label']; ?> <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></strong>'+
+                    '</a>';
+
+	$(document).on("click", "a.voting-minus", function (event) {
+            event.preventDefault();
+            var elementID = $(this).attr('rel');
+
+            $.ajax({
+                url: "/voting/removethesis/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/tid/"+elementID+"",
+                type: "POST",
+                data: "format=html",
+                cache: false,
+                async: "true",
+                error: function(){
+                    document.getElementById('voting-minus-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
+                },
+                beforeSend: function(){
+                    document.getElementById('voting-minus-'+elementID).innerHTML = '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">';
+                },
+                success:function(response){
+                    elements -= 1;
+                    document.getElementById('voting-minus-'+elementID).innerHTML =  '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">' ;
+                    $( "a.view-basket-btn" ).replaceWith(superbtn);
+                    $( "#thes-"+elementID).remove();
+                    $( "span.counter" ).html( elements+" von <?php echo $this->settings['btn_important_max'] ?>" );
+
+                }
         });
-        
-
-      var superbtn = '<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid)); ?>/tid/<? echo $this->thesis['tid']; ?>/pts/y" class="voting-particularly-important"  <? if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>' +
-    					'<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<? echo $this->settings['btn_important_label']; ?>" title="<? echo $this->settings['btn_important_label']; ?>" /><br />'+
-    					'<strong><? echo $this->settings['btn_important_label']; ?> <span class="counter">(<? echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></strong>'+
-    					'</a>';        
-      							
-      							
-      						
-	
-	$(document).on("click","a.voting-minus", function (event) {
-				
-				event.preventDefault();
-				var elementID = $(this).attr('rel');
-				
-				  $.ajax({
-  						url: "/voting/removethesis/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/tid/"+elementID+"",
-						type: "POST",
-						data: "format=html",
-						cache: false,
-						async: "true",
-						error: function(){
-							document.getElementById('voting-minus-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-						},
-						beforeSend: function(){
-    						document.getElementById('voting-minus-'+elementID).innerHTML = '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">';
-						},
-						success:function(response){
-							elements -= 1;
-							document.getElementById('voting-minus-'+elementID).innerHTML =  '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">' ;
-							$( "a.view-basket-btn" ).replaceWith(superbtn);
-							$( "#thes-"+elementID).remove();
-							$( "span.counter" ).html( elements+" von <? echo $this->settings['btn_important_max'] ?>" );
-
-						}
-			});
-				return false;
-		});
-	
+        return false;
+    });
  });
 </script>
-
-    
 
 <?php echo $this->secondNavigation('voting') ?>
 
@@ -87,20 +80,24 @@ $(document).ready(function() {
 
 				<div class="well well-large voting text-center">
 					<span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
-					<!--  @TODO change url to last input of voting -->
-							<? if ($this->settings['btn_important'] == 'y'):  ?>
-							<div class="vote-basket">
-      						<h3>Headline Lorem Ipsum Premium Button <span class="counter">(<? echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></h3>
-      						<p class="basket-info">Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. </p>
-      						<ul>
-      						<?  foreach ($this->votingBasket["votes"] as $v) { ?>
-      							<li class="clearfix" id="thes-<? echo $v["tid"]; ?>"><p> <? echo $v["thes"]; ?></p> 
-      							<a href="#" class="voting-minus" id="voting-minus-<? echo $v["tid"]; ?>" title="entfernen" rel="<? echo $v["tid"]; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/voting-minus.png"></a></li>
-      						<? } ?>
-      						</ul>
-      						<a class="view-basket">verbergen</a>
-      						</div>
-							<? endif; ?>
+
+                    <!-- Vote basket -->
+                    <!--  @TODO change url to last input of voting -->
+                    <?php if ($this->settings['btn_important'] == 'y'):  ?>
+                        <div class="vote-basket">
+                            <h3>Headline Lorem Ipsum Premium Button <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></h3>
+                            <p class="basket-info">Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. </p>
+                            <ul>
+                                <?php  foreach ($this->votingBasket["votes"] as $v) { ?>
+                                    <li class="clearfix" id="thes-<?php echo $v["tid"]; ?>"><p> <?php echo $v["thes"]; ?></p>
+                                    <a href="#" class="voting-minus" id="voting-minus-<?php echo $v["tid"]; ?>" title="entfernen" rel="<?php echo $v["tid"]; ?>"><img src="<?php echo $this->baseUrl(); ?>/images/voting-minus.png"></a></li>
+                                <?php } ?>
+                            </ul>
+                            <a class="view-basket">verbergen</a>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Voting couter -->
 					<span class="voting-counter">
 						<?php
 						// Add leading zeros to count voted
@@ -124,6 +121,7 @@ $(document).ready(function() {
 
 					<h2>Stimme jetzt ab!</h2>
 
+                    <!-- Question -->
 					<h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
 						<?php
 						if (!empty($this->thesis['tagname_de'])) {
@@ -131,38 +129,44 @@ $(document).ready(function() {
 						}
 						?>
 					</h3>
+
+                    <!-- Thesis -->
 					<div class="thesis">
-					<p class="voting-thesis"><?php echo $this->thesis['thes']; ?></p>
-					<?php if (!empty($this->thesis['expl'])): ?>
-					<p class="voting-expl"><?php echo $this->escape($this->thesis['expl']); ?></p>
-					<?php endif ?>
+                        <p class="voting-thesis"><?php echo $this->thesis['thes']; ?></p>
+                        <?php if (!empty($this->thesis['expl'])): ?>
+                            <p class="voting-expl"><?php echo $this->escape($this->thesis['expl']); ?></p>
+                        <?php endif ?>
 					</div>
+
+                    <!-- Rating bar -->
 					<div class="voting-rating-bar">
-						<?php
-						// Show back-button
-						if (!empty($this->LastVote)) {
-							if ($this->thesis['tid'] !== $this->LastVote[0]['tid']) {
-								?>
-								<a href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>"
-								   class="btn btn-small btn-light voting-prev"><i class="icon-angle-left icon-large"></i> Rückgängig</a>
-								<?php
-							}
-						}
-						?>
+
+						<!-- Show back-button -->
+						<?php if (!empty($this->LastVote)): ?>
+							<?php if ($this->thesis['tid'] !== $this->LastVote[0]['tid']): ?>
+								<a href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>" class="btn btn-small btn-light voting-prev">
+                                    <i class="icon-angle-left icon-large"></i> Rückgängig
+                                </a>
+                            <?php endif; ?>
+                        <?php endif; ?>
 
 						<p><strong>Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion zum Thema?</strong></p>
 					</div>
-					<?php
-					echo $this ->partial('_partials/voting/votingButtons.phtml', $this); ?>
+
+                    <!-- Voting buttons -->
+					<?php echo $this->partial('_partials/voting/votingButtons.phtml', $this); ?>
+
+                    <!-- Actions -->
 					<p>
 						<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
 						   id="buttonChangeKeyword" class="btn">Frage / Schlagwort wechseln</a>
 					</p>
+                    <p>
+                        <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden" class="btn"><i class="icon-signout"></i> Abstimmung beenden</a>
+                        <a href="<?php echo $this -> url(array('action' => 'preview')); ?>" title="Abstimmung beenden" class="btn"><i class="icon-signout"></i> Vorschau Abstimmung</a>
+                    </p>
 
-					<a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" title="Abstimmung beenden" class="btn"><i class="icon-signout"></i> Abstimmung beenden</a>
-					<a href="<?php echo $this -> url(array('action' => 'preview')); ?>" title="Abstimmung beenden" class="btn"><i class="icon-signout"></i> Vorschau Abstimmung</a>
-
-				</div><!-- .well -->
+				</div><!-- .well.voting -->
 
 			<?php endif; ?>
 

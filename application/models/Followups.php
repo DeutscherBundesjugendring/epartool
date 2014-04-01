@@ -254,34 +254,4 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
           return (int) $count;
     }
-
-    /**
-     * Search in followup snippets
-     * @param string  $needle               The term being searchd for
-     * @return array                        An array of results
-     */
-    public function search($needle)
-    {
-        $needle = htmlentities($needle);
-        $result = array();
-        if ($needle !== '') {
-            $result = $this
-                ->getAdapter()
-                ->select()
-                ->from(
-                    array('f' => 'fowups'),
-                    array('expl')
-                )
-                ->join(
-                    array('ff' => 'fowup_fls'),
-                    'f.ffid = ff.ffid',
-                    array('titl', 'who', 'kid')
-                )
-                ->where('LOWER(expl) LIKE ?', '%' . $needle . '%')
-                ->query()
-                ->fetchAll();
-        }
-
-        return $result;
-    }
 }
