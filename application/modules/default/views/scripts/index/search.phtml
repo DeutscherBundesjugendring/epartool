@@ -116,11 +116,11 @@
                         >
                             <img
                                 src="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
-                                alt="TODO followup title"
+                                alt="<?php echo $followUp['title']?>"
                             />
                         </a>
                         <div class="media-body">
-                            <a href="TODO">
+                            <a href="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
                                 <h3 class="followup-title"><?php echo $followUp['title']?></h3>
                             </a>
                             <time class="followup-time">
@@ -133,50 +133,17 @@
                             <p class="followup-author"><?php echo $followUp['releasedBy']?></p>
 
                             <h4>Reaktionen:</h4>
-                            <?php foreach ($followUp['snippets'] as $snippet): ?>
-                                <div class="level-<?php echo $snippet['hierarchyLevel']?>">
-                                    <?php echo html_entity_decode($snippet['text'])?>
-                                </div>
-                            <?php endforeach?>
-
-
-
-<!--                             <ul>
-                                <li>
-                                    <a href="TODO" class="followup-snippet">
-                                        <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="TODO" class="followup-snippet">
-                                        <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a href="TODO" class="followup-snippet">
-                                                <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="TODO" class="followup-snippet">
-                                                <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="TODO" class="followup-snippet">
-                                                <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="TODO" class="followup-snippet">
-                                        <p>Die Konsultationsergebnisse fließen sowohl in den Prozess zur Umsetzung der EU-Jugendstrategie in Deutschland als auch in den Prozess zur Entwicklung einer Eigenständigen Jugendpolitik ein…</p>
-                                    </a>
-                                </li>
-                            </ul> -->
-                        </div><!-- .followup-preview -->
-                    </div>
+                            <ul>
+                                <?php foreach ($followUp['snippets'] as $snippet): ?>
+                                    <li class="level-<?php echo $snippet['hierarchyLevel']?>">
+                                        <p class="followup-snippet">
+                                            <?php echo html_entity_decode($snippet['text'])?>
+                                        </p>
+                                    </li>
+                                <?php endforeach?>
+                            </ul>
+                        </div>
+                    </div><!-- .followup-preview -->
                 </li>
             <?php endforeach?>
         </ul>
