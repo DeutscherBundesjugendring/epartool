@@ -3,11 +3,11 @@
 class Zend_View_Helper_Perex extends Zend_View_Helper_Abstract
 {
     /**
-     * creates a perex from string
-     * @param  [type] $string [description]
-     * @param  [type] $length [description]
-     * @param  array  $conf   [description]
-     * @return [type]         [description]
+     * Creates a perex from string
+     * @param  string $string The original string
+     * @param  int $length    The desired length
+     * @param  array  $conf   Configuration array. Takes following flags: HTML_ENTITY_DECODE, STRIP_TAGS, STRIPSLASHES
+     * @return string         The shortened string
      */
     public function perex($string, $length, $conf=array())
     {

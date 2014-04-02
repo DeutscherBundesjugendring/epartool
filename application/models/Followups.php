@@ -254,4 +254,61 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
           return (int) $count;
     }
+
+    /**
+     * Search in followup snippets
+     * @param string  $needle   The term being searchd for
+     * @return array            An array of followups with snippets
+     */
+    public function search($needle)
+    {
+        $needle = htmlentities($needle);
+        $result = array();
+        if ($needle !== '') {
+            $result = $this
+                ->getAdapter()
+                ->select()
+                ->from(
+                    array('f' => 'fowups'),
+                    array('expl', 'hlvl')
+                )
+                ->join(
+                    array('ff' => 'fowup_fls'),
+                    'f.ffid = ff.ffid',
+                    array('titl', 'who', 'kid', 'ffid', 'show_no_day', 'ref_doc', 'when', 'gfx_who')
+                )
+                ->where('LOWER(expl) LIKE ?', '%' . $needle . '%')
+                ->order(array('ff.when', 'f.docorg ASC'))
+                ->query()
+                ->fetchAll();
+        }
+
+        $followUps = array();
+        foreach ($result as $followUp) {
+            if (isset($followUps[$followUp['ffid']])) {
+                $followUps[$followUp['ffid']]['snippets'][] = array(
+                    'text' => $followUp['expl'],
+                    'hierarchyLevel' => $followUp['hlvl'],
+                );
+            } else {
+                $followUps[$followUp['ffid']] = array(
+                    'title' => $followUp['titl'],
+                    'releasedBy' => $followUp['who'],
+                    'timeReleased' => $followUp['when'],
+                    'showNoDay' => $followUp['show_no_day'],
+                    'filename' => $followUp['ref_doc'],
+                    'filenameThumb' => $followUp['gfx_who'],
+                    'consultationId' => $followUp['kid'],
+                    'snippets' => array(
+                        array(
+                            'text' => $followUp['expl'],
+                            'hierarchyLevel' => $followUp['hlvl'],
+                        ),
+                    ),
+                );
+            }
+        }
+
+        return $followUps;
+    }
 }

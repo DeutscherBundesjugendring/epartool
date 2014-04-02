@@ -162,31 +162,4 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         }
 
     }
-
-    /**
-     * Search in followups
-     * @param string  $needle               The term being searchd for
-     * @return array                        An array of results
-     */
-    public function search($needle)
-    {
-        $needle = htmlentities($needle);
-        $result = array();
-        if ($needle !== '') {
-            $result = $this
-                ->getAdapter()
-                ->select()
-                ->from(
-                    'fowup_fls',
-                    array('titl', 'who', 'ref_view', 'ref_doc', 'kid')
-                )
-                ->where('LOWER(titl) LIKE ?', '%' . $needle . '%')
-                ->orWhere('LOWER(who) LIKE ?', '%' . $needle . '%')
-                ->orWhere('LOWER(ref_view) LIKE ?', '%' . $needle . '%')
-                ->query()
-                ->fetchAll();
-        }
-
-        return $result;
-    }
 }

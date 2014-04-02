@@ -106,24 +106,49 @@
             <?php endforeach?>
         <?php endif?>
 
-        <h2>Suche in Follow-up</h2>
-        <?php if (count($this->resultsFollowUps) > 0): ?>
-            <ul>
-                <?php foreach ($this->resultsFollowUps AS $followUp): ?>
-                    <li>
+        <h2>Suche in Follow-ups</h2>
+        <ul class="followup-search media-list">
+            <?php foreach ($this->resultsFollowUps as $followUp): ?>
+                <li>
+                    <div class="followup-preview media">
                         <a
-                            href="<?php echo $this->baseUrl()?>/followup/index/kid/<?php echo $followUp['kid']?>#<?php echo $followUp['ref_doc']?>"
+                            href="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filename']?>"
+                            class="followup-image pull-left"
                         >
-                            <?php echo $followUp['titl']?>
-                            (<?php echo $followUp['who']?>)
-                            <br />
+                            <img
+                                src="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
+                                alt="<?php echo $followUp['title']?>"
+                            />
                         </a>
-                   </li>
-                <?php endforeach?>
-            </ul>
-        <?php else: ?>
-            <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
-        <?php endif ?>
+                        <div class="media-body">
+                            <a href="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
+                                <h3 class="followup-title"><?php echo $followUp['title']?></h3>
+                            </a>
+                            <time class="followup-time">
+                                <?php if ($followUp['showNoDay'] == 'y'): ?>
+                                    <?php echo $this->formatDate($followUp['timeReleased'], Zend_Date::MONTH_NAME . ' ' . Zend_Date::YEAR)?>
+                                <?php else:?>
+                                    <?php echo $this->formatDate($followUp['timeReleased'])?>
+                                <?php endif?>
+                            </time><br />
+                            <p class="followup-author"><?php echo $followUp['releasedBy']?></p>
+
+                            <h4>Reaktionen:</h4>
+                            <ul>
+                                <?php foreach ($followUp['snippets'] as $snippet): ?>
+                                    <li class="level-<?php echo $snippet['hierarchyLevel']?>">
+                                        <p class="followup-snippet">
+                                            <?php echo html_entity_decode($snippet['text'])?>
+                                        </p>
+                                    </li>
+                                <?php endforeach?>
+                            </ul>
+                        </div>
+                    </div><!-- .followup-preview -->
+                </li>
+            <?php endforeach?>
+        </ul>
+
      </article>
 
 </div><!-- .main-content -->
