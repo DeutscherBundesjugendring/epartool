@@ -42,7 +42,7 @@ class Admin_Form_Followup_File extends Zend_Form
             )
         );
 
-        $urlparams = "?formid=$formid&elemid=".$this->getElement('gfx_who')->getAttrib('id');
+        $urlparams = "?upload_scenario=" . Model_FollowupFiles::UPLOAD_SCENARIO_THUMB . "&formid=$formid&elemid=".$this->getElement('gfx_who')->getAttrib('id');
         $this->getElement('gfx_who')->setDecorators(
             array(
                 'Label',

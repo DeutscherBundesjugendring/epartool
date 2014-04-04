@@ -7,6 +7,8 @@
  */
 class Model_FollowupFiles extends Zend_Db_Table_Abstract
 {
+    const UPLOAD_SCENARIO_THUMB = 'followup_document_thumb';
+
     protected $_name = 'fowup_fls';
     protected $_primary = 'ffid';
 

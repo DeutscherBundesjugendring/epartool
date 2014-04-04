@@ -98,14 +98,14 @@ class Admin_MediaController extends Zend_Controller_Action
     }
 
     /**
-     * @desc Handles Upload Action, redirects to index view
-     * @return void
+     * Handles Upload Action, redirects to index view
      */
     public function uploadAction()
     {
         $popup = (bool) $this->getRequest()->getParam('popup', 0);
         $kid = (int) $this->getRequest()->getParam('kid', 0);
         $elemid = $this->getRequest()->getParam('elemid', 0);
+        $uploadScenario = $this->getRequest()->getParam('upload_scenario', null);
 
         $formData = $this->_request->getParams();
         $form = new Admin_Form_Media_Upload();
@@ -129,14 +129,19 @@ class Admin_MediaController extends Zend_Controller_Action
                     )
                 );
                 try {
-                    // upload received file(s)
                     if ($upload->receive()) {
-                        $this
-                            ->_flashMessenger
-                            ->addMessage(
-                                'Die Datei »' . $originalFilename['basename'] . '« wurde erfolgreich hinzugefügt.',
-                                'success'
-                            );
+
+                        if ($uploadScenario === Model_FollowupFiles::UPLOAD_SCENARIO_THUMB) {
+                            $sizes = Zend_Registry::get('systemconfig')->image->sizes->followupThumb->toArray();
+                            $image = new Dbjr_File_Image();
+                            $image
+                                ->setImage($uploadFilename)
+                                ->resize($sizes['width'], $sizes['height']);
+                        }
+                        $this->_flashMessenger->addMessage(
+                            'Die Datei »' . $originalFilename['basename'] . '« wurde erfolgreich hinzugefügt.',
+                            'success'
+                        );
                     } else {
                         $this
                             ->_flashMessenger
@@ -146,13 +151,11 @@ class Admin_MediaController extends Zend_Controller_Action
                             );
                     }
                 } catch (Zend_File_Transfer_Exception $e) {
-                    $this->_flashMessenger
-                            ->addMessage($e->getMessage(), 'error');
+                    $this->_flashMessenger->addMessage($e->getMessage(), 'error');
                 }
             }
         } else {
-            $this->_flashMessenger
-                    ->addMessage('Upload fehlgeschlagen.', 'error');
+            $this->_flashMessenger->addMessage('Upload fehlgeschlagen.', 'error');
         }
 
         $uploadedData = $form->getValues();
@@ -219,15 +222,19 @@ class Admin_MediaController extends Zend_Controller_Action
         );
     }
 
+    /**
+     * Shows contents of the popup where users can select media files or uplad new ones
+     */
     public function chooseAction()
     {
         $this->_helper->layout->setLayout('popup');
         $elemid = $this->getRequest()->getParam('elemid', 0);
         $formid = $this->getRequest()->getParam('formid', 0);
+        $uploadScenario = $this->getRequest()->getParam('upload_scenario', 0);
         $kid = $this->getRequest()->getParam('kid', 0);
         $consultation = null;
-        $directory = MEDIA_PATH;
-        $dirWs = MEDIA_PATH;
+        $directory = realpath(MEDIA_PATH);
+        $dirWs = '/media';
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
@@ -277,7 +284,8 @@ class Admin_MediaController extends Zend_Controller_Action
                     'action' => 'upload',
                     'kid' => $kid,
                     'popup' => 1,
-                    'elemid' => $elemid
+                    'elemid' => $elemid,
+                    'upload_scenario' => $uploadScenario,
                 )
             )
         );
