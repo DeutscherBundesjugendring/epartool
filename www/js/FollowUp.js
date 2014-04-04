@@ -356,7 +356,7 @@
              */
 
             var when = data.doc.show_no_day === 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
-            var _content = '<div class="overlayclose overlayclosebutton"></div><div class="overlaycontent">' +
+            var _content = '<div class="overlayclose overlayclosebutton">&times;</div><div class="overlaycontent">' +
                     '<div class="">' +
                     '<h1>' + data.doc.titl + '</h1>' +
                     '<div class="docs ' + _activeDocClass + '">' +

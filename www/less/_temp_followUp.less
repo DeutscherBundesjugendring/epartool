@@ -39,16 +39,17 @@ top: 0;
 #followup .question-mark p {
   padding: 10px 17px;
   display: block;
+  color: #000;
 }
 #followup .question-h3 {
   font-size: 0.9em;
   width: 215px;
+  color: #000;
 }
 #followup .col {
   position: absolute;
   width: 300px;
   /*float: left;*/
-
 }
 #followup .col .timeline-box {
   width: 280px;
@@ -148,13 +149,11 @@ top: 0;
   min-height: 100px;
 }
 #followup .overlaywrapper .overlaycontent .snippet .btn{
-
     bottom: 10px;
     position: absolute;
     right: 15px;
 }
 #followup .overlaywrapper .overlaycontent .snippet .likeyes_likeno{
-
     bottom: 50px;
     position: absolute;
     right: 15px;
@@ -165,32 +164,30 @@ top: 0;
 }
 #followup .overlaywrapper .overlayclosebutton {
   position: absolute;
-  top: 8%;
-  left: 92%;
+  top: 12%;
+  right: 8%;
   z-index: 1;
-  width: 20px;
-  height: 20px;
-  background-color: red;
+  width: 18px;
+  height: 18px;
+  font-size: 1.75em;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #000;
 }
 #followup .overlaywrapper .overlayclose {
   cursor: pointer;
-  
   clear:left;
 }
-#followup #followuploader {
-  width: 50px;
-  height: 50px;
-  background-color: #ffffff;
+#followuploader {
   position: absolute;
   z-index: 3;
   top: 20px;
   right: 20px;
-  
-  text-align: center;
   display: none;
+  color: #fff;
+  text-align: right;
 }
 #followup a.whitelink, #followup a.whitelink:focus{
-    
     color: #ffffff;
 }
 #followup a.whitelink:hover {
@@ -209,10 +206,7 @@ top: 0;
     width: auto;
     height: auto;
 }
-ul.recent-followup {
-    
-    
-}
+
 .recent-followup li.media {
    width: 155px;
    margin: 0 10px 0 0;
@@ -365,20 +359,4 @@ form.followup-download span.lightblue:focus
 }
 .followup-typ-a.gfx-who-overlay {
     background-position: -3px -127px;
-}
-
-.clearfix:before, .clearfix:after {
-    content: "";
-    display: table;
-}
-
-.clearfix:after {
-    clear: both;
-}
-
-.clearfix {
-    zoom: 1;
-}
-.clearleft {
-    clear: left;
 }
