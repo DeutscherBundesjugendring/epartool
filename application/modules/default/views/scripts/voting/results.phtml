@@ -41,7 +41,7 @@
 					<div class="voting-result">
 						<span class="voting-result-number"><?php echo $i; ?>.</span>
 						<p><strong><?php echo $thesis['thes']; ?></strong></p>
-						<div class="voting-result-bar" style="width: <?php echo $diag_lngth; ?>%;"></div>
+						<div class="voting-result-bar<?php echo $thesis['followup']; ?>" style="width: <?php echo $diag_lngth; ?>%;"></div>
 					</div>
 					<hr class="hr-alt" />
 				<?php endforeach; ?>

@@ -88,10 +88,19 @@ class Model_Votes extends Model_DbjrBase
 
                 // get voting values and build helper arrays
                 $votesIndivModel = new Model_Votes_Individual();
+				$followUpModel = new Model_FollowupsRef ();
                 foreach ($theses as $thesis) {
                     $theses_votes_order[$thesis['tid']] = $votesIndivModel
                     ->getVotingValuesByThesis($thesis['tid'], $kid);
                     $theses_values[$thesis['tid']] = $thesis->toArray();
+					
+					// get followUps?
+					$followUps = $followUpModel ->  getFollowupCountByTids($thesis['tid']);
+					$theses_values[$thesis['tid']]['followup']="";
+					if (isset($followUps[$thesis['tid']])){
+						$theses_values[$thesis['tid']]['followup']="-fup";
+					}
+					
                 }
 
                 // build the $theses_votes array
