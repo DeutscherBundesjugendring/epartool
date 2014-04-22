@@ -1,11 +1,7 @@
 #followup {
   position: relative;
-  width: 895px;
-  height: 515px;
-  padding: 1em 1em;
-  border: 10px solid #fff;
-  background: #fc9026;
   overflow: hidden;
+  color: @bodyText;
 }
 #followup .wrapper {
 /*  position: relative;*/
@@ -21,6 +17,7 @@ top: 0;
 #followup .followuphead {
   height: 70px;
   position: relative;
+    z-index: 1;
 }
 #followup .followup-topic {
   color: #ffffff;
@@ -28,6 +25,18 @@ top: 0;
   position: absolute;
   top: 10px;
   left: 230px;
+}
+#followup .back-link {
+    position: absolute;
+    left: 1.5em;
+    top: 1em;
+    width: 215px;
+    display: block;
+
+    &,
+    .question-h3 {
+        overflow: hidden;
+    }
 }
 #followup .question-mark {
   background-position: 0 0;
@@ -43,7 +52,6 @@ top: 0;
 }
 #followup .question-h3 {
   font-size: 0.9em;
-  width: 215px;
   color: #000;
 }
 #followup .col {

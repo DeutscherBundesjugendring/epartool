@@ -8,44 +8,46 @@
 ?>
 
 <div class="content-holder">
-    <section id="followup" class="main-content">
+    <section class="main-content">
 
-        <div class="followuphead">
-            <a title="Zurück zur Übersicht Reaktionen & Wirkungen"
-               href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>">
-                <div class="sprite question-mark"><p>?</p></div>
-            </a>
-            <h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
-        </div>
-        <div class="wrapper">
+        <div class="well well-large well-alt" id="followup">
+            <div class="followuphead">
+                <a href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>" class="back-link" title="Zurück zur Übersicht Reaktionen & Wirkungen">
+                    <div class="sprite question-mark"><p>?</p></div>
+                    <h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
+                </a>
+            </div>
+            <h2 class="well-title text-center">Reaktionen & Wirkungen!</h2>
+            <div class="wrapper">
 
-            <div data-id="0" class="col">
-                <?php if (count($this->reltothis_inputs)): ?>
-                        <?php foreach ($this->reltothis_inputs as $relInput): ?>
-                            <div class="timeline-box">
-                                <div class="content">
-                                    <p><?php echo $relInput['thes']; ?></p>
-                                    <p class="score">Ergebnis der Abstimmung: X. Rang</p>
-                                </div>
-                                <?php if ($relInput['relFowupCount'] != 0): ?>
-                                    <div class="timeline-countlink sprite">
-                                        <a class="ajaxclick"
-                                           href="<?php echo $this->url(array('action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                <div data-id="0" class="col">
+                    <?php if (count($this->reltothis_inputs)): ?>
+                            <?php foreach ($this->reltothis_inputs as $relInput): ?>
+                                <div class="timeline-box">
+                                    <div class="content">
+                                        <p><?php echo $relInput['thes']; ?></p>
+                                        <p class="score">Ergebnis der Abstimmung: X. Rang</p>
                                     </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                <?php foreach ($this->reltothis_snippets as $snippet): ?>
-                    <?php echo $this->snippetBox($snippet, true, true) ?>
-                <?php endforeach; ?>
-            </div>
-            <div data-id="2" class="col" id="el-1">
-                <?php echo $this->snippetBox($this->snippet) ?>
-            </div>
+                                    <?php if ($relInput['relFowupCount'] != 0): ?>
+                                        <div class="timeline-countlink sprite">
+                                            <a class="ajaxclick"
+                                               href="<?php echo $this->url(array('action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php foreach ($this->reltothis_snippets as $snippet): ?>
+                        <?php echo $this->snippetBox($snippet, true, true) ?>
+                    <?php endforeach; ?>
+                </div>
+                <div data-id="2" class="col" id="el-1">
+                    <?php echo $this->snippetBox($this->snippet) ?>
+                </div>
 
+            </div>
+            <div id="followuploader">Loading…</div>
         </div>
-        <div id="followuploader">Loading…</div>
 
     </section>
 </div><!-- .content-holder -->
