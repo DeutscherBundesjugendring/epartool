@@ -30,12 +30,14 @@
 							<div class="span4">
 								<h3><?php echo $footerLogos[$i]['name']?></h3>
 								<p>
-									<a href="<?php echo $footerLogos[$i]['link']?>" class="logo" rel="external" target="_blank" title="<?php echo $footerLogos[$i]['title']?>">
-										<img
-											src="<?php echo $this->baseUrl(); ?>/project/images/<?php echo $footerLogos[$i]['image']['name']?>"
-											alt="<?php echo $footerLogos[$i]['image']['alt']?>"
+									<?php if (isset($footerLogos[$i]['image'])): ?>
+										<a href="<?php echo $footerLogos[$i]['link']?>" class="logo" rel="external" target="_blank" title="<?php echo $footerLogos[$i]['title']?>">
+											<img
+												src="<?php echo $this->baseUrl(); ?>/project/images/<?php echo $footerLogos[$i]['image']['name']?>"
+												alt="<?php echo $footerLogos[$i]['image']['alt']?>"
 											/>
-									</a>
+										</a>
+									<?php endif?>
 								</p>
 							</div>
 							<?php if ($i % 3 == 0): ?>
