@@ -77,37 +77,20 @@ class Default_Form_Input extends Zend_Form
             $this->addDynamicThesFields($i);
         }
 
-        $this->addDisplayGroup(array(
+        $this->addDisplayGroup(
+            array(
                 $this->getElement('plus'),
                 $this->getElement('submitbutton'),
                 $this->getElement('finish')
-        ),
-                'controlgroup99',
-                array(
-                        'Decorators' => array(
-                                'FormElements',
-                                array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions form-actions-unstyled text-center'))
-                        )
+            ),
+            'controlgroup99',
+            array(
+                'Decorators' => array(
+                        'FormElements',
+                        array('HtmlTag', array('tag' => 'div', 'class' => 'form-actions form-actions-unstyled text-center'))
                 )
+            )
         );
-
-        // Script Tag für zusätzliches Javascript
-        $this->addElement('hidden', 'script', array(
-                'description' => '<script type="text/javascript">' . "\n"
-                . '$(document).ready(function () {' . "\n"
-                . '    $("#finish").click(function () {' . "\n"
-                . '        $("#submitmode").val(\'save_finish\');' . "\n"
-                . '    });' . "\n"
-                . '    $("#plus").click(function () {' . "\n"
-                . '        $("#submitmode").val(\'save_plus\');' . "\n"
-                . '    });' . "\n"
-                . '});' . "\n"
-                . '</script>',
-                'ignore' => true,
-                'decorators' => array(
-                        array('Description', array('escape'=>false, 'tag'=>'')),
-                ),
-        ));
     }
 
     /**
@@ -118,82 +101,100 @@ class Default_Form_Input extends Zend_Form
      */
     protected function addDynamicThesFields($i, $thes_item = array())
     {
-        // thes
-        $thes = null;
+        $thesCounter = $this->createElement('hidden', 'thes_' . $i . '_counter');
+        $thesCounterOptions = array(
+            'ignore' => true,
+            'description' => '<span class="js-character-counter">Characters left: <span id="thes_' . $i . '_counter">0</span></span>'
+        );
+        $thesCounter->setOptions($thesCounterOptions);
+        $thesCounter->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
+
+
         $thes = $this->createElement('textarea', 'thes_' . $i);
         $thesOptions = array(
-                'label' => '',
-                'cols' => 85,
-                'rows' => 2,
-                'required' => false,
-                'belongsTo' => 'thes',
-                //                     'isArray' => true,
-                'attribs' => array(
-                        'class' => 'input-block-level input-extensible input-alt',
-                        'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
-                        'id' => 'thes_' . $i,
-                        'maxlength' => '300'
-                ),
-                'filters' => array(
-                        'striptags' => 'StripTags',
-                        'htmlentities' => 'HtmlEntities',
-                ),
+            'label' => '',
+            'cols' => 85,
+            'rows' => 2,
+            'required' => false,
+            'belongsTo' => 'thes',
+            //                     'isArray' => true,
+            'attribs' => array(
+                'class' => 'input-block-level input-extensible input-alt js-has-counter',
+                'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
+                'id' => 'thes_' . $i,
+                'maxlength' => '300',
+            ),
+            'filters' => array(
+                'striptags' => 'StripTags',
+                'htmlentities' => 'HtmlEntities',
+            ),
         );
         $thes->setOptions($thesOptions);
 
-        // toggle
-        $toggle = null;
+
         $toggle = $this->createElement('hidden', 'toggle_' . $i);
         $toggleOptions = array(
-                'ignore' => true,
-                'description' => '<a href="#" class="btn btn-block btn-small btn-extend js-toggle-extended-input">'
-        . '<i class="icon-angle-down icon-large"></i> Klicken, um Eintrag zu erläutern <i class="icon-angle-down icon-large"></i>'
-        . '</a>'
+            'ignore' => true,
+            'description' => '<a href="#" class="btn btn-block btn-small btn-extend js-toggle-extended-input">'
+                . '<i class="icon-angle-down icon-large"></i> Klicken, um Eintrag zu erläutern <i class="icon-angle-down icon-large"></i>'
+                . '</a>'
         );
         $toggle->setOptions($toggleOptions);
         $toggle->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
 
-        // expl
-        $expl = null;
+
+        $explCounter = $this->createElement('hidden', 'expl_' . $i . '_counter');
+        $explCounterOptions = array(
+            'ignore' => true,
+            'description' => '<span class="js-character-counter" style="display: none">Characters left: <span id="expl_' . $i . '_counter">0</span></span>',
+        );
+        $explCounter->setOptions($explCounterOptions);
+        $explCounter->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
+
+
         $expl = $this->createElement('textarea', 'expl_' . $i);
         $explOptions = array(
-                'label' => '',
-                'cols' => 85,
-                'rows' => 5,
-                'required' => false,
-                'belongsTo' => 'expl',
-                //                     'isArray' => true,
-                'attribs' => array(
-                        'class' => 'extension input-block-level input-extensible input-alt',
-                        'style' => 'display: none;',
-                        'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
-                        'id' => 'expl_' . $i,
-                        'maxlength' => '2000'
-                ),
-                'filters' => array(
-                        'striptags' => 'StripTags',
-                        'htmlentities' => 'HtmlEntities',
-                ),
+            'label' => '',
+            'cols' => 85,
+            'rows' => 5,
+            'required' => false,
+            'belongsTo' => 'expl',
+            //                     'isArray' => true,
+            'attribs' => array(
+                'class' => 'extension input-block-level input-extensible input-alt js-has-counter',
+                'style' => 'display: none;',
+                'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
+                'id' => 'expl_' . $i,
+                'maxlength' => '2000'
+            ),
+            'filters' => array(
+                'striptags' => 'StripTags',
+                'htmlentities' => 'HtmlEntities',
+            ),
         );
         $expl->setOptions($explOptions);
+
 
         if (!empty($thes_item)) {
             $thes->setValue($thes_item['thes']);
             $expl->setValue($thes_item['expl']);
         }
 
-        $this->addDisplayGroup(array(
+        $this->addDisplayGroup(
+            array(
+                $thesCounter,
                 $thes,
                 $toggle,
-                $expl
-        ),
-                'controlgroup' . $i,
-                array(
-                        'Decorators' => array(
-                                'FormElements',
-                                array('HtmlTag', array('tag' => 'div', 'class' => 'control-group'))
-                        )
+                $expl,
+                $explCounter,
+            ),
+            'controlgroup' . $i,
+            array(
+                'Decorators' => array(
+                    'FormElements',
+                    array('HtmlTag', array('tag' => 'div', 'class' => 'control-group'))
                 )
+            )
         );
     }
 }

@@ -141,6 +141,7 @@ $this->headScript()->appendScript($script);
 		$('.js-toggle-extended-input').click(function(event) {
 			event.preventDefault();
 			$(this).next('textarea').toggle();
+			$(this).nextAll('.js-character-counter').toggle();
 			$(this).toggleClass('expanded');
 
 			if($(this).hasClass('expanded')) {
@@ -154,15 +155,39 @@ $this->headScript()->appendScript($script);
 		$('.click-support').click(function(event) {
 			event.preventDefault();
 			var tid = $(this).attr('rel');
-			$.post("<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json", { "tid": tid })
-				.done(function(data) {
-					if (data.count) {
-						$('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign icon-orange icon-2x"></i>'
-							+ ' <span id="badge-' + tid + '">(' + data.count + ')</span>'
-							+ ' <span class="label">Unterstützende</span></span>');
-					}
-				});
+			$.post(
+				"<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json",
+				{ "tid": tid }
+			).done(function(data) {
+				if (data.count) {
+					$('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign icon-orange icon-2x"></i>'
+						+ ' <span id="badge-' + tid + '">(' + data.count + ')</span>'
+						+ ' <span class="label">Unterstützende</span></span>');
+				}
+			});
 		});
 
+        $("#finish").click(function () {
+            $("#submitmode").val('save_finish');
+        });
+        $("#plus").click(function () {
+            $("#submitmode").val('save_plus');
+        });
+
+        var updateCounter = function(el) {
+            var charsLeft = el.attr('maxlength') - el.val().length;
+            $('#' + el.attr('id') + '_counter').text(charsLeft);
+        }
+        var updateCounterHandler = function(event) {
+            var el = $(event.target);
+            updateCounter(el);
+        }
+        var countees = $('textarea.js-has-counter');
+        countees.each(function(index, el) {
+            var el = $(el);
+            updateCounter(el);
+            el.change(updateCounterHandler);
+            el.keyup(updateCounterHandler);
+        });
 	});
 </script>
