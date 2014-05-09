@@ -39,7 +39,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
                 'showBubble' => FALSE
             ),
             'input' => array(
-                'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid,
+                'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid . '#page-content',
                 'text' => '<h2>Beiträge</h2>',
                 'showBubble' => FALSE
             ),

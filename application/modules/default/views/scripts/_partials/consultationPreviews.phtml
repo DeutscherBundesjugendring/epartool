@@ -74,7 +74,7 @@ if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
 
 				<?php if (!$disabled['input']): ?>
 					<li>
-						<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>">
+						<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>#page-content">
 							<h2>Beiträge</h2>
 							<?php if (isset($bubbles['input'])): ?>
 								<?php echo $bubbles['input']; ?>
