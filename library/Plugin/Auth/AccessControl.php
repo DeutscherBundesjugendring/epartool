@@ -21,11 +21,12 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
 
     public function routeStartup(Zend_Controller_Request_Abstract $request)
     {
-        if (!$this->_auth->hasIdentity() && null !== $request->getPost('username')
-            && null !== $request->getPost('password')) {
+        if (!$this->_auth->hasIdentity()
+            && null !== $request->getPost('username')
+            && null !== $request->getPost('password')
+        ) {
             $form = new Default_Form_Login();
             if ($form->isValid($request->getPost())) {
-                // POST-Daten bereinigen
                 $filter = new Zend_Filter_StripTags();
                 $username = $filter->filter($request->getPost('username'));
                 $password = $filter->filter($request->getPost('password'));
@@ -34,9 +35,7 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                 } elseif (empty($password)) {
                     $this->_flashMessenger->addMessage('Bitte Passwort angeben!', 'error');
                 } else {
-                    $authAdapter = new Plugin_Auth_AuthAdapter();
-                    $authAdapter->setIdentity($username);
-                    $authAdapter->setCredential($password);
+                    $authAdapter = new Plugin_Auth_AuthAdapter($username, $password);
                     $result = $this->_auth->authenticate($authAdapter);
                     if (!$result->isValid()) {
                         $messages = $result->getMessages();
@@ -44,9 +43,7 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                         $this->_flashMessenger->addMessage($message, 'error');
                     } else {
                         $storage = $this->_auth->getStorage();
-                        // die gesamte Tabellenzeile in der Session speichern,
-                        // wobei das Passwort unterdrückt wird
-                        $storage->write($authAdapter->getResultRowObject(null, 'pwd'));
+                        $storage->write($authAdapter->getResultRowObject());
                         $this->_flashMessenger->addMessage('Login erfolgreich!', 'success');
                     }
                 }
