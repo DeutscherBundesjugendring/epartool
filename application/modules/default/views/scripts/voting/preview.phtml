@@ -4,68 +4,67 @@
  *
  * @description   Vorschauseite Abstimmung
  * @author        Karsten Tackmann info@seitenmeister.com
- * by change css-classes for in _partial votingPreviewButtons don't forget update the classes  in jquery
+ * by change css-classes for in _partial votingPreviewButtons don't forget update the classes in jquery
  *  $(document).on("click",".YOUR-CSS-CLASS", function (event) ...
  */
 ?>
 
-<?
+<?php
 $settings = $this->settings;
 $this->layout()->settings = $settings;
 $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 ?>
 <script type="text/javascript">
 
-$(document).ready(function() {
-$(document).on("click",".voting-statement", function (event) {
-	event.preventDefault();
-	var statementId = $(this).attr('rel');
-	var points = $(this).attr('data');
+    $(document).ready(function() {
 
-  $.ajax({
-  	url: "/voting/previewfeedback/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/"+statementId+"/points/"+points+"",
-	type: "POST",
-	data: "format=html",
-	cache: false,
-	async: "true",
-	error: function(){
-		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!";
-	},
-	beforeSend: function(){
-    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !";
-	},
-	success:function(response){
-		document.getElementById('statement-'+statementId).innerHTML = response ;
-	}
-	});
-	});
+        $(document).on("click",".voting-statement", function (event) {
+            event.preventDefault();
+            var statementId = $(this).attr('rel');
+            var points = $(this).attr('data');
 
-	$(document).on("click",".voting-particularly-important", function (event) {
-	event.preventDefault();
-	var statementId = $(this).attr('rel');
-	var points = $(this).attr('data');
+            $.ajax({
+                url: "/voting/previewfeedback/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/"+statementId+"/points/"+points+"",
+                type: "POST",
+                data: "format=html",
+                cache: false,
+                async: "true",
+                error: function(){
+                    document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!";
+                },
+                beforeSend: function(){
+                    document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !";
+                },
+                success:function(response){
+                    document.getElementById('statement-'+statementId).innerHTML = response ;
+                }
+            });
+        });
 
+        $(document).on("click",".voting-particularly-important", function (event) {
+            event.preventDefault();
+            var statementId = $(this).attr('rel');
+            var points = $(this).attr('data');
 
-  $.ajax({
-  	url: "/voting/previewfeedbackpi/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/"+statementId+"/points/"+points+"",
-	type: "POST",
-	data: "format=html",
-	cache: false,
-	async: "true",
-	error: function(){
-		document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!";
-	},
-	beforeSend: function(){
-    		document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !";
-	},
-	success:function(response){
-		document.getElementById('statement-'+statementId).innerHTML = response ;
-	}
-	});
-	});
+            $.ajax({
+                url: "/voting/previewfeedbackpi/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/"+statementId+"/points/"+points+"",
+                type: "POST",
+                data: "format=html",
+                cache: false,
+                async: "true",
+                error: function(){
+                    document.getElementById('statement-'+statementId).innerHTML = "Es ist ein Fehler aufgetreten!";
+                },
+                beforeSend: function(){
+                    document.getElementById('statement-'+statementId).innerHTML = "Bitte warten .... !";
+                },
+                success:function(response){
+                    document.getElementById('statement-'+statementId).innerHTML = response ;
+                }
+            });
+        });
 
-
-	});
+    });
 </script>
 
 <?php echo $this->secondNavigation('voting') ?>
@@ -90,10 +89,8 @@ $(document).on("click",".voting-statement", function (event) {
 			<p>Hier siehst du alle abzustimmenden Beiträge und deine Bewertungen. Du kannst im Folgenden noch einmal alle Bewertungen ändern.</p>
 
 				<!-- questions -->
-				<?php
-				echo $this ->partialLoop('_partials/voting/votingPreviewItem.phtml', $this->questions); ?>
+				<?php echo $this ->partialLoop('_partials/voting/votingPreviewItem.phtml', $this->questions); ?>
 				<!-- // questions -->
-
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
 
