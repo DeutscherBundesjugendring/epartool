@@ -1,11 +1,21 @@
-<!-- statement-->
-<h3><?php echo $this->escape($this->thes); ?></h3>
-<?php if (!empty($this->expl)): ?>
-<p><?php echo $this->escape($this->expl); ?></p>	
-<?php endif ?>
-<!-- //statement-->
-<ul class="points" id="statement-<?php echo $this->escape($this -> tid); ?>">
-<?php echo $this ->partial('_partials/voting/votingPreviewButtons.phtml', $this); ?>
-</ul>	
+<div class="row-fluid">
+    <div class="span6">
 
+        <!-- statement-->
+        <h3><?php echo $this->escape($this->thes); ?></h3>
+        <?php if (!empty($this->expl)): ?>
+            <p><?php echo $this->escape($this->expl); ?></p>
+        <?php endif ?>
+        <!-- //statement-->
 
+    </div>
+    <div class="span6">
+
+        <!-- Voting buttons -->
+        <ul class="points voting-preview-buttons" id="statement-<?php echo $this->escape($this -> tid); ?>">
+            <?php echo $this ->partial('_partials/voting/votingPreviewButtons.phtml', $this); ?>
+        </ul>
+
+    </div>
+</div><!-- .row-fluid -->
+<hr class="hr-alt" />

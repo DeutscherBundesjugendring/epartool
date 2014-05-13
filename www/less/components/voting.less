@@ -135,3 +135,69 @@
 	height: 100%;
 	background-color: #feddbd;
 }
+
+
+// Voting preview
+// -------------------------
+
+.voting-preview {
+    &-buttons {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: right;
+
+        > li {
+            display: inline;
+        }
+
+        > li > a {
+            width: 4em;
+            display: inline-block;
+            margin-left: 1ex;
+            vertical-align: top;
+            font-size: .85em;
+            line-height: 1.2;
+            text-align: center;
+            color: @bodyText;
+
+            // Add circle
+            &:before {
+                content: '';
+                width: 2em;
+                height: 2em;
+                display: block;
+                margin: 0 auto .5em;
+                border-radius: 50%;
+                background-color: @grayLight;
+            }
+        }
+
+        > .active > a:before {
+            background-color: @orange;
+        }
+
+        // Superbutton has a star instead of circle
+        .voting-superbutton {
+
+            // Hide circle
+            a:before {
+                display: none;
+            }
+
+            // Adjust the star icon
+            [class*="icon"] {
+                display: block;
+                margin: 0 auto .25em;
+                font-size: 2em;
+                text-decoration: none;
+                color: @grayLight;
+            }
+
+            // Active state
+            &.active [class*="icon"] {
+                color: @orange;
+            }
+        }
+    }
+}

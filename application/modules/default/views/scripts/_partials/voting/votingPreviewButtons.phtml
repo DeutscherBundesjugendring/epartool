@@ -4,23 +4,34 @@ $labels = $this->layout()->labels;
 $styles = array('not-my-opinion', 'not-important', 'important', 'very-important', 'mega-important');
 ?>
 <?php if ($settings['btn_important'] == 'y'): ?>
-    <li>
-        <a href="#" rel="<?php echo $this->tid; ?>" data="y"
-           class="voting-particularly-important voting-superbtn" <?php if ($this->pimp == 'y') echo 'style="color: red!important"'; ?>>
+    <li class="voting-superbutton<?php echo ($this->pimp == 'y') ? ' active' : ''; ?>">
+        <a href="#"
+           rel="<?php echo $this->tid; ?>"
+           data="y"
+           class="voting-particularly-important voting-superbtn"
+        >
+            <span class="icon-star"></span>
             <?php echo $this->escape($settings['btn_important_label']); ?>
         </a>
     </li>
 <?php endif; ?>
 <?php for ($i = $settings['btn_numbers']; $i >= 0; $i--): ?>
-    <li>
-        <a href="#" rel="<?php echo $this->tid; ?>" data="<?php echo $i; ?>"
-           class="voting-statement <?php echo $styles[$i]; ?>" <?php if ($this->points != null && $this->points == $i) echo 'style="color: red!important"'; ?>>
+    <li<?php echo ($this->points != null && $this->points == $i) ? ' class="active"' : ''; ?>>
+        <a href="#"
+           rel="<?php echo $this->tid; ?>"
+           data="<?php echo $i; ?>"
+           class="voting-statement <?php echo $styles[$i]; ?>"
+        >
             <?php echo $this->escape($labels[$i]); ?>
         </a>
     </li>
 <?php endfor; ?>
-<li>
-    <a href="#" rel="<?php echo $this->escape($this->tid); ?>" data="5"
-       class="voting-statement no-opinion" <?php if ($this->points == '5') echo 'style="color: red!important"'; ?>>Keine
-        Meinung</a>
+<li<?php echo ($this->points == '5') ? ' class="active"' : ''; ?>>
+    <a href="#"
+       rel="<?php echo $this->escape($this->tid); ?>"
+       data="5"
+       class="voting-statement no-opinion"
+    >
+        Keine Meinung
+    </a>
 </li>
