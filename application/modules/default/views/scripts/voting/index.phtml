@@ -45,7 +45,7 @@
 				<div class="form-inline">
 					<?php echo $this->authform; ?>
 				</div>
-				<?php echo (!empty($this->votingExplanation)) ? '<p>' . $this->votingExplanation . '</p>' : ''; ?>
+				<?php echo (!empty($this->votingExplanation)) ? $this->votingExplanation : ''; ?>
 			</div>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>
