@@ -149,47 +149,36 @@ class Model_Users extends Model_DbjrBase
         $newlyRegistered = false;
         $password = '';
 
-        // check if email address exists already
         if (!$this->emailExists($data['email'])) {
-            // email does not exist yet
-//             $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
-            // confirm key not needed, user will be confirmed when he confirms his inputs
-            $confirmKey = '';
+            $passConf = Zend_Registry::get('systemconfig')->security->password;
+            $password = $this->getRandString($passConf->length, $passConf->allowedChars);
 
-            // password has to be generated because user should not be allowed to choose his own (it's a requirement):
-            $password = $this->generatePassword();
-
-            // prepare insert record
             $insertData = array(
                 'block' => 'u',
                 'ip' => getenv('REMOTE_ADDR'),
                 'agt' => getenv('HTTP_USER_AGENT'),
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'pwd' => md5($password),
-                'confirm_key' => $confirmKey,
+                'pwd' => $this->hashPassword($password),
+                'confirm_key' => '', // confirm key not needed, user will be confirmed when he confirms his inputs
                 'group_type' => $data['group_type'],
                 'age_group' => $data['age_group'],
                 'regio_pax' => $data['regio_pax'],
                 'cnslt_results' => $data['cnslt_results'],
                 'newsl_subscr' => $data['newsl_subscr'],
             );
-            // write record to database
             $id = $this->add($insertData);
 
             // no need for the register confirmation mail
             // but we should send him his password with the inputs confirmation mail!
-//             $this->sendRegisterConfirmationMail($id, $kid, $password);
+            // $this->sendRegisterConfirmationMail($id, $kid, $password);
 
             $newlyRegistered = true;
         } else {
             $userRow = $this->getByEmail($data['email']);
             $id = $userRow->uid;
-//             $this->_flashMessenger->addMessage('Die angegebene E-Mail-Adresse existiert schon!', 'error');
         }
 
-        // store user info
-        // prepare insert record
         $insertDataUserInfo = array(
                 'uid' => $id,
                 'kid' => $kid,
@@ -204,6 +193,7 @@ class Model_Users extends Model_DbjrBase
                 'date_added' => new Zend_Db_Expr('NOW()'),
                 'cmnt_ext' => $data['cmnt_ext']
         );
+
         // if group then also save group specifications
         if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
             $insertDataUserInfo = array_merge(
@@ -263,10 +253,11 @@ class Model_Users extends Model_DbjrBase
         $validator = new Zend_Validate_EmailAddress();
         if ($validator->isValid($email)) {
             if ($this->emailExists($email)) {
-                $newPassword = $this->generatePassword();
+                $passConf = Zend_Registry::get('systemconfig')->security->password;
+                $newPassword = $this->getRandString($passConf->length, $passConf->allowedChars);
                 $row = $this->getByEmail($email);
                 if ($row) {
-                    $row->pwd = md5($newPassword);
+                    $row->password = $this->hashPassword($newPassword);
                     $row->save();
 
                     $toName = $row->name;
@@ -299,47 +290,42 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * generate a password for user
-     * (function adopted from old system)
-     *
-     * @param  integer $length
-     * @return string
+     * Hashes the password
+     * @param  string $password The password to be hashed
+     * @return string           The password hashed by blowfish
      */
-    protected function generatePassword($length = 8)
+    public function hashPassword($password)
     {
-        $password="";
-        // define possible characters - any character in this string can be
-        // picked for use in the password, so if you want to put vowels back in
-        // or add special characters such as exclamation marks, this is where
-        // you should do it
-        $possible = "2346789abcdfghjkmnpqrtvwxyzABCDEFGHJKLMNPQRTVWXYZ";
+        $passConf = Zend_Registry::get('systemconfig')->security->password;
+        $saltBase = $passConf->globalSalt . floor(microtime(true)) . $this->getRandString(22);
+        $salt = '$2a$' . $passConf->costParam . '$' . substr($saltBase, 0, 22);
 
-        // we refer to the length of $possible a few times, so let's grab it now
-        $maxlength = strlen($possible);
+        return crypt($password, $salt);
+    }
 
-        // check for length overflow and truncate if necessary
-        if ($length > $maxlength) {
-            $length = $maxlength;
-        }
-
-        // set up a counter for how many characters are in the password so far
-        $i = 0;
-
-        // add random characters to $password until $length is reached
-        while ($i < $length) {
-            // pick a random character from the possible ones
-            $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-            // have we already used this character in $password?
-            if (!strstr($password, $char)) {
-                // no, so it's OK to add it onto the end of whatever we've already got...
-                $password .= $char;
-                // ... and increase the counter by one
-                $i++;
+    /**
+     * Generates a pseudo random string
+     * @param  integer $length  The length of the string.
+     * @param  string  $chars   A string consisting of all characters that can be used in the string.
+     *                          Defaults to printabale ASCII characters (32-127)
+     * @return string           The pseudo random string
+     */
+    protected function getRandString($length, $chars = null)
+    {
+        $randString = '';
+        if (!$chars) {
+            $chars = '';
+            for ($i = 32; $i <= 127; $i++) {
+                $chars .= chr($i);
             }
         }
 
-        return $password;
+        $charCount = mb_strlen($chars);
+        for ($i = 0; $i < $length; $i++) {
+            $randString .= substr($chars, mt_rand(0, $charCount - 1), 1);
+        }
+
+        return $randString;
     }
 
     /**
