@@ -98,7 +98,7 @@ $(document).ready(function() {
                     <?php endif; ?>
 
                     <!-- Voting couter -->
-					<span class="voting-counter">
+					<span class="counter counter-voting">
 						<?php
 						// Add leading zeros to count voted
 						$countTotal = $this->thesesCount;
@@ -112,7 +112,7 @@ $(document).ready(function() {
 						// Print count voted by number
 						$countVoted = str_split($countVoted);
 						foreach ($countVoted as $number) {
-							echo '<span class="voting-counter-digit">' . $number . '</span>';
+							echo '<span class="counter-digit">' . $number . '</span>';
 						}
 						?>
 						von <?php echo $countTotal; ?> Beiträgen<br />
