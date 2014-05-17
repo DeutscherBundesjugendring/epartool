@@ -20,7 +20,7 @@
                 <span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
 
                 <!-- Voting counter -->
-                <span class="voting-counter">
+                <span class="counter counter-voting">
                     Du hast schon über
                     <?php
                     // Add leading zeros to count voted
@@ -35,7 +35,7 @@
                     // Print count voted by number
                     $countVoted = str_split($countVoted);
                     foreach ($countVoted as $number) {
-                        echo '<span class="voting-counter-digit">' . $number . '</span>';
+                        echo '<span class="counter-digit">' . $number . '</span>';
                     }
                     ?>
                     <br />
