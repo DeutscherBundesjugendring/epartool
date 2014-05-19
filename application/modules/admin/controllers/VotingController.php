@@ -271,9 +271,20 @@ class Admin_VotingController extends Zend_Controller_Action
      */
     public function participantsAction()
     {
+    	$groups = array();
         $groupsModel = new Model_Votes_Groups();
-
-        $this->view->groups = $groupsModel->getByConsultation($this -> _consultation -> kid);
+		$inputModel = new Model_Inputs;
+		$groups = $groupsModel->getByConsultation($this -> _consultation -> kid);
+		
+		 // count of votable inputs
+		$inputModel = new Model_Inputs;
+        $filter = array(array(
+            'field'=>'vot',
+            'operator'=>'=',
+            'value'=>'y'
+        ));
+		$this->view->inputs = $inputModel->getCountByConsultationFiltered($this -> _consultation -> kid, $filter);
+        $this->view->groups = $groups;
     }
 
     /**
@@ -418,20 +429,7 @@ class Admin_VotingController extends Zend_Controller_Action
 				if ($groupsModel -> deleteVoterBySubUid($subUserSelected)) {
 					$messages.= 'Der ausgewählten Nutzer wurde gelöscht!<br />';
 				}
-				
-				// Get all votable inputs array();
-				$inputModel = new Model_Inputs();
-				$allInputs = $inputModel -> getVotingchain($kid);
-
-				// returns the difference of allInputs and voted inputs array()
-				$inputlist = array_diff($allInputs['tid'] , $vt_inp_list);
-				$inputlist  = implode ( ',' , $inputlist);
-				
-				//vt_inp_list aktualisieren
-				if ($groupsModel -> updateVotinglistBySubUid($subUserOrg,$inputlist)) {
-					$messages.= 'Die wurde Inputliste aktualisiert!<br />';
-				}
-				
+								
 				$this->_flashMessenger->addMessage($messages, 'success');
 				$this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
 			} 
