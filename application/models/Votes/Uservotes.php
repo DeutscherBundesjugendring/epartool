@@ -18,6 +18,7 @@ class Model_Votes_Uservotes  extends Model_DbjrBase
                                 array('votes' => 'vt_indiv'),
                                         '(inputs.tid = votes.tid  AND votes.sub_uid="'.$subUid.'")',
                                         array('votes.pts AS points',
+                                        		'votes.status AS status',  // add this line for dedugging votes counter
                                                 'votes.pimp AS pimp')
                             )
                         ->where('inputs.kid = ?', $kid)
@@ -47,13 +48,9 @@ class Model_Votes_Uservotes  extends Model_DbjrBase
                             )
                             ->where('tagid.tg_nr = ?', $tagId);
                       }
-
-                        // echo "<pre>";
-                            // $select->assemble();
-                            // echo $select;
-                        // echo "</pre";
-
-                       $resultSet = $db->query($select);
+						
+                    $resultSet = $db->query($select);
+					
                     $inputs = array();
                     foreach ($resultSet as $row) {
                         $inputs[]=$row;

@@ -338,4 +338,83 @@ class Model_Votes_Groups extends Model_DbjrBase
             return $row->toArray();
         }
     }
+	
+	
+	/**
+     * Returns all users by consultation
+     *
+     * @param  integer                 $kid
+     * @throws Zend_Validate_Exception
+     * @return array
+     */
+    public function getUserByConsultation($kid)
+    {
+        $intVal = new Zend_Validate_Int();
+        if (!$intVal->isValid($kid)) {
+            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+        }
+
+       $select = $this->select();
+        $select->where('kid = ?', $kid);
+		$select->order('sub_user','ASC');
+		$result = $this->fetchAll($select);
+        return $result;
+    }
+	
+	/**
+     * Delete Voter
+     *
+     * @param  alnum subuid
+	 * @see VotingController |admin:participanteditAction()
+     * @throws Zend_Validate_Exception
+     * @return boolean
+     */
+	public function deleteVoterBySubUid($subuid)
+    {
+        $alnumVal = new Zend_Validate_Alnum();
+        if (!$alnumVal->isValid($subuid)) {
+            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');
+        }
+
+        $db = $this->getAdapter();
+        $where = array(
+            'sub_uid = ?' => $subuid,
+        );
+        $result = $db->delete($this->_name, $where);
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
+	
+	/**
+     * Update Votinglist for Origin User
+     *
+     * @param  alnum $subuid
+	 * @param  string $vt_inp_list
+	 * @see VotingController |admin:participanteditAction()
+     * @throws Zend_Validate_Exception
+	 * @return boolean
+     */
+	public function updateVotinglistBySubUid($subuid,$vt_inp_list) {
+		 $alnumVal = new Zend_Validate_Alnum();
+        if (!$alnumVal->isValid($subuid)) {
+            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');
+        }
+
+		$db = $this->getAdapter();
+
+        $data = array(
+            'vt_inp_list' => $vt_inp_list,
+        );
+        $where = array(
+            'sub_uid = ?' => $subuid
+        );
+        $result = $db->update($this->_name, $data, $where);
+		if ($result) {
+            return true;
+        }
+		return false;
+		
+	}
 }

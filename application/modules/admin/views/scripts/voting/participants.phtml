@@ -29,6 +29,7 @@ $(document).ready(function() {
     <th>Gruppenmitglied</th>
     <th>Noch abstimmen</th>
     <th>Aktion</th>
+    <th>Abstimmungsteilnehmer:</th>
   </tr>
   <?php foreach ($this->groups as $group): ?>
   <tr>
@@ -62,6 +63,13 @@ $(document).ready(function() {
         'sub_uid' => $group['sub_uid'],
       )); ?>" class="deleteconfirm">Löschen</a><br/>
     <?php endif; ?>
+    </td>
+    <td>
+    	<a href="<?php echo $this->url(array(
+        'action' => 'participantedit',
+        'uid' => $group['uid'],
+        'sub_uid' => $group['sub_uid'],
+      )); ?>" class="">zusammenführen</a><br/>
     </td>
   </tr>
   <?php endforeach; ?>
