@@ -85,7 +85,7 @@ class Model_Votes_Individual extends Model_DbjrBase
 
             $row = $this->fetchRow($select);
             $row->pts = $pts;
-        $row-> pimp=    $pimp;
+        	$row-> pimp=    $pimp;
             $row->upd = new Zend_Db_Expr('NOW()');
             if ($row->save()) {
                 return array (
@@ -407,5 +407,74 @@ class Model_Votes_Individual extends Model_DbjrBase
         return $row;
 
     }
+	
+	/**
+     * Get All votes from one user
+	 * @see VotingController |admin:participanteditAction()
+     * @param string $subuid       (md5-hash)
+     */
+	
+	public function getUservotes($subuid) {
+		
+		$alnumVal = new Zend_Validate_Alnum();
+        if (!$alnumVal->isValid($subuid)) {
+            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical! getUservotes');
+        }
+		
+		$select = $this->select();
+        $select->where('sub_uid = ?', $subuid);
+		$select->where('sub_uid = ?', $subuid);
+		$select->order('tid','ASC');
+		$result = $this->fetchAll($select);
+		return $result;
+	}
+	
+	/**
+     * Delet all votes from one user
+	 * @see VotingController |admin:participanteditAction()
+     * @param string $subuid       (md5-hash)
+     */
+	public function deleteUservotes($subuid) {
+		
+		$alnumVal = new Zend_Validate_Alnum();
+        if (!$alnumVal->isValid($subuid)) {
+            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!deleteUservotes');
+        }
+		
+		$db = $this->getAdapter();
+        $where = array(
+            'sub_uid = ?' => $subuid,
+        );
+        $result = $db->delete($this->_name, $where);
+        if ($result) {
+            return true;
+        }
+        return false;
+	}
+	
+	
+	/**
+     * Restore votes for origin user
+	 * @see VotingController |admin:participanteditAction()
+     * @param string $subuid       (md5-hash)
+     */
+	public function insertMergedUservotes($subuid, $values) {
+		
+		$alnumVal = new Zend_Validate_Alnum();
+        if (!$alnumVal->isValid($subuid)) {
+            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');
+        }
 
+			$data = array(
+                'uid' => $values['uid'],
+                'tid' => $values['tid'],
+                'sub_uid' => $subuid,
+                'pts' => $values['pts'],
+                'pimp' => $values['pimp'],
+                'status'=>'v',
+                'upd' =>new Zend_Db_Expr('NOW()')
+            );
+            $row = $this->createRow($data);
+            $row->save();
+	}
 }
