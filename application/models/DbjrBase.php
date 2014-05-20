@@ -7,19 +7,30 @@
 class Model_DbjrBase extends Zend_Db_Table_Abstract
 {
     /**
+     * Holds the project code for the current project
+     * @var string
+     */
+    protected $_projectCode;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_projectCode = Zend_Registry::get('systemconfig')->project;
+    }
+
+    /**
      * Adds filter for field 'project' if appropriate column is available
      * @see Zend_Db_Table_Abstract::select()
      */
-    public function select($withFromPart = parent::SELECT_WITHOUT_FROM_PART)
+    public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART)
     {
         // get select Object from parent abstract class
         $select = parent::select($withFromPart);
 
         $cols = $this->_getCols();
-        $project = Zend_Registry::get('systemconfig')->project;
 
-        if (!empty($project) && in_array('proj', $cols) && $this->_name != 'proj') {
-            $select->where('proj LIKE ?', "%{$project}%");
+        if (in_array('proj', $cols) && $this->_name != 'proj') {
+            $select->where('proj LIKE ?', '%' . $this->_projectCode . '%');
         }
 
         return $select;

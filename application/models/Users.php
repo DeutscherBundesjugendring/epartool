@@ -243,8 +243,7 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * generate a new password and send e-mail to user
-     *
+     * Generates a new password and send e-mail to user
      * @param  string  $email
      * @return boolean
      */

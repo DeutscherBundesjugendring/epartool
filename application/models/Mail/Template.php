@@ -1,0 +1,115 @@
+<?php
+
+class Model_Mail_Template extends Model_DbjrBase
+{
+    const SYSTEM_TEMPLATE_FORGOTTEN_PASSWORD = 'forgotten_password';
+
+    protected $_name = 'email_template';
+    protected $_dependentTables = array('Model_Mail_Template_Type');
+    protected $_primary = 'id';
+    protected $_referenceMap = array(
+        'Type' => array(
+            'columns'           => 'type_id',
+            'refTableClass'     => 'Model_Mail_Template_Type',
+            'refColumns'        => 'id'
+        ),
+    );
+
+    /**
+     * Adds new template to db
+     * @param  array   $data The data to be inserted
+     * @return integer       Primary key of the inserted entry
+     */
+    public function insert(array $data)
+    {
+        $db = $this->getAdapter();
+
+        $db->beginTransaction();
+        try {
+            $typeModel = new Model_Mail_Template_Type();
+            $systemType = $typeModel->fetchRow(
+                $typeModel->select()->where('name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
+            );
+
+            $row = $this->createRow($data);
+            $row->project_code = $this->_projectCode;
+            $row->type_id = $systemType['id'];
+
+            $templateId = parent::insert($row->toArray());
+            $db->commit();
+
+            return $templateId;
+        } catch (Exception $e) {
+            $db->rollback();
+            throw $e;
+        }
+    }
+
+    /**
+     * Updates existing template
+     * @param  array                $data  Column-value pairs.
+     * @param  array|string         $where An SQL WHERE clause, or an array of SQL WHERE clauses.
+     * @throws Dbjr_Mail_Exception         Thrown if editing template from another project or changing name in system template
+     * @return int                         The number of rows updated.
+     */
+    public function update($data, $where)
+    {
+        if ($data['project_code'] !== $this->_projectCode) {
+            throw new Dbjr_Mail_Exception('Can not update template belonging to another project.');
+        } elseif (
+            array_key_exists('name', $data)
+            && $template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM
+        ) {
+            throw new Dbjr_Mail_Exception('Can not update name of system tamplate.');
+        }
+
+        return parent::update($data, $where);
+    }
+
+    /**
+     * Deletes template from database
+     * @param  array|string         $where SQL WHERE clause(s).
+     * @return integer                     The number of rows deleted
+     * @throws Dbjr_Mail_Exception         Thrown if deleting template from another project or a system template
+     */
+    public function delete($where)
+    {
+        $db = $this->getAdapter();
+
+        $db->beginTransaction();
+        try {
+            $select = $this->select();
+            if (is_array($where)) {
+                foreach ($where as $key => $val) {
+                    $select->where($key, $val);
+                }
+            } else {
+                $select->where($where);
+            }
+            $template = $this->fetchRow($select);
+
+            if (!isset($template)) {
+                throw new Dbjr_Mail_Exception('Can not delete template belonging to another project.');
+            } elseif ($template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM) {
+                throw new Dbjr_Mail_Exception('Can not delete system template.');
+            }
+            $rowsDeleted = parent::delete($where);
+            $db->commit();
+
+            return $rowsDeleted;
+        } catch (Exception $e) {
+            $db->rollback();
+            throw $e;
+        }
+    }
+
+    /**
+     * Return the select object modified to only include templates from the current project
+     * @param  bool                 $withFromPart Whether or not to include the from part of the select based on the table
+     * @return Zend_Db_Table_Select               The select object
+     */
+    public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART)
+    {
+        return parent::select($withFromPart)->where('project_code=?', $this->_projectCode);
+    }
+}

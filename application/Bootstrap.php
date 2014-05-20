@@ -145,4 +145,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->getResource('frontController')
             ->registerPlugin(new Plugin_Messenger());
     }
+
+    /**
+     * Initializes the mail transport system
+     */
+    protected function _initMail()
+    {
+        if (APPLICATION_ENV === 'development') {
+            $transport = new Zend_Mail_Transport_File(array('path' => RUNTIME_PATH . '/logs/mail'));
+            Zend_Mail::setDefaultTransport($transport);
+        } else {
+            $this
+                ->getPluginResource('mail')
+                ->getMail();
+        }
+    }
 }

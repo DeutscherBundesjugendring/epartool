@@ -1,0 +1,21 @@
+<h1>Queued Emails</h1>
+
+<table>
+    <tr>
+        <th>Time Queued</th>
+        <th>Subject</th>
+    </tr>
+
+    <?php foreach ($this->emails as $email): ?>
+        <tr>
+            <td>
+                <?php
+                    $zendDate = new Zend_Date($email->time_queued);
+                    echo($zendDate->get(Zend_Date::DATETIME_MEDIUM));
+                ?>
+            </td>
+            </td>
+            <td><?php echo $email->subject?></td>
+        </tr>
+    <?php endforeach;?>
+</table>

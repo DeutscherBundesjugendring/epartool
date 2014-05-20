@@ -5,19 +5,16 @@
  * @description     Form new email to send
  * @author                Jan Suchandt
  */
-class Admin_Form_Email_Send extends Zend_Form
+class Admin_Form_Mail_Send extends Zend_Form
 {
-    protected $_iniFile = '/modules/admin/forms/Email/Send.ini';
+    protected $_iniFile = '/modules/admin/forms/Mail/Send.ini';
     /**
      * Initialisieren des Formulars
      *
      */
     public function init()
     {
-        // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-
-        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/email/send');
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_mailsend', array('salt' => 'unique'));
