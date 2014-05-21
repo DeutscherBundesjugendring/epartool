@@ -1,21 +1,15 @@
 <?php
-/**
- * Users
- * @desc        Class of user
- * @author    Jan Suchandt
- */
+
 class Model_Users extends Model_DbjrBase
 {
     protected $_name = 'users';
     protected $_primary = 'uid';
-
     protected $_dependentTables = array(
             'Model_User_Info',
             'Model_Votes_Rights'
     );
 
     protected $_flashMessenger = null;
-
     protected $_auth = null;
 
     public function init()
@@ -25,15 +19,12 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * getById
-     * @desc returns entry by id
-     * @name getById
+     * Returns user by id
      * @param  integer $id
      * @return array
      */
     public function getById($id)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return array();
@@ -45,11 +36,9 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * add
-     * @desc add new entry to db-table
-     * @name add
+     * Creates a new user
      * @param  array   $data
-     * @return integer primary key of inserted entry
+     * @return integer        Primary key of the inserted entry
      */
     public function add($data)
     {
@@ -59,72 +48,61 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * updateById
-     * @desc update entry by id
-     * @name updateById
+     * Updates user by id
      * @param  integer $id
      * @param  array   $data
      * @return integer
      */
     public function updateById($id, $data)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return 0;
         }
-        // exists?
+
         if ($this->find($id)->count() < 1) {
             return 0;
         }
 
-        $where = $this->getDefaultAdapter()
-                ->quoteInto($this->_primary[1] . '=?', $id);
+        $where = $this->getDefaultAdapter()->quoteInto($this->_primary[1] . '=?', $id);
 
         return $this->update($data, $where);
     }
 
     /**
-     * deleteById
-     * @desc delete entry by id
-     * @name deleteById
+     * Deletes user by id
      * @param  integer $id
      * @return integer
      */
     public function deleteById($id)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return 0;
         }
-        // exists?
+
         if (!$this->exists($id)) {
             return 0;
         }
 
-        // where
-        $where = $this->getDefaultAdapter()
-                ->quoteInto($this->_primary[1] . '=?', $id);
+        $where = $this->getDefaultAdapter()->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);
 
         return $result;
     }
 
     /**
-     * exists
-     * @desc check if a user exists
+     * Checks if a user exists
      * @param  integer $id user-id
      * @return boolean
      */
     public function exists($id)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return false;
         }
-        // exists?
+
         if ($this->find($id)->count() < 1) {
             return false;
         } else {
@@ -168,11 +146,6 @@ class Model_Users extends Model_DbjrBase
                 'newsl_subscr' => $data['newsl_subscr'],
             );
             $id = $this->add($insertData);
-
-            // no need for the register confirmation mail
-            // but we should send him his password with the inputs confirmation mail!
-            // $this->sendRegisterConfirmationMail($id, $kid, $password);
-
             $newlyRegistered = true;
         } else {
             $userRow = $this->getByEmail($data['email']);
@@ -180,18 +153,18 @@ class Model_Users extends Model_DbjrBase
         }
 
         $insertDataUserInfo = array(
-                'uid' => $id,
-                'kid' => $kid,
-                'ip' => getenv('REMOTE_ADDR'),
-                'agt' => getenv('HTTP_USER_AGENT'),
-                'name' => $data['name'],
-                'group_type' => $data['group_type'],
-                'age_group' => $data['age_group'],
-                'regio_pax' => $data['regio_pax'],
-                'cnslt_results' => $data['cnslt_results'],
-                'newsl_subscr' => $data['newsl_subscr'],
-                'date_added' => new Zend_Db_Expr('NOW()'),
-                'cmnt_ext' => $data['cmnt_ext']
+            'uid' => $id,
+            'kid' => $kid,
+            'ip' => getenv('REMOTE_ADDR'),
+            'agt' => getenv('HTTP_USER_AGENT'),
+            'name' => $data['name'],
+            'group_type' => $data['group_type'],
+            'age_group' => $data['age_group'],
+            'regio_pax' => $data['regio_pax'],
+            'cnslt_results' => $data['cnslt_results'],
+            'newsl_subscr' => $data['newsl_subscr'],
+            'date_added' => new Zend_Db_Expr('NOW()'),
+            'cmnt_ext' => $data['cmnt_ext'],
         );
 
         // if group then also save group specifications
@@ -224,9 +197,9 @@ class Model_Users extends Model_DbjrBase
         $this->ping($id);
 
         return array(
-                'uid' => $id,
-                'newlyRegistered' => $newlyRegistered,
-                'password' => $password
+            'uid' => $id,
+            'newlyRegistered' => $newlyRegistered,
+            'password' => $password,
         );
     }
 
@@ -328,50 +301,6 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * Sends E-Mail for Registration Confirmation
-     *
-     * @param  integer        $uid User ID
-     * @param  integer        $kid
-     * @throws Zend_Exception
-     * @return boolean
-     */
-    protected function sendRegisterConfirmationMail($uid, $kid, $password)
-    {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Exception('Given uid must be integer!');
-
-            return false;
-        }
-        $userRow = $this->find($uid)->current();
-        if ($userRow->block == 'u' && !empty($userRow->confirm_key)) {
-            $mailBody = 'Herzlich willkommen ' . $userRow->name . '!' . "\n\n"
-                . 'Bitte bestätige deine Registrierung auf ' . Zend_Registry::get('httpHost') . ':' . "\n\n"
-                . Zend_Registry::get('baseUrl')
-                . '/user/registerconfirm/ckey/' . $userRow->confirm_key
-                . '/kid/' . $kid . "\n\n";
-
-            $template = 'register';
-            $aReplace = array(
-                    '{{USER}}' => $userRow->name,
-                    '{{CONFIRMLINK}}' => Zend_Registry::get('baseUrl')
-                    . '/user/registerconfirm/ckey/' . $userRow->confirm_key
-                    . '/kid/' . $kid,
-                    '{{PASSWORD}}' => $password
-            );
-
-            $mailObj = new Model_Emails();
-
-            return $mailObj->send($userRow->email, 'Registrierungsbestätigung', $mailBody, $template, $aReplace);
-        }
-
-        return false;
-    }
-
-    /**
-     * Holt unbestätigte Beiträge aus der Datenbank und verschickt eine E-Mail
-     * an den Nutzer, welche Links zur Bestätigung der Beiträge enthält
-     *
      * @param  integer|object $identity
      * @param  integer        $kid
      * @param  string         $password for newly registered users
@@ -441,11 +370,9 @@ EOD;
 
                 return $mailObj->send($userRow->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
             } else {
-                // keine zu bestätigenden Beiträge
                 return false;
             }
         } else {
-            // keine Identität
             return false;
         }
     }
@@ -493,7 +420,6 @@ EOD;
 
     /**
      * Checks if given email address already exists in database
-     *
      * @param  string  $email
      * @return boolean
      */
@@ -512,7 +438,6 @@ EOD;
 
     /**
      * Updates value of last activity with current timestamp
-     *
      * @param  integer        $uid
      * @throws Zend_Exception
      */
@@ -529,9 +454,8 @@ EOD;
     /**
      * Returns all participants of given consultation.
      * Participant is a user that has contributed to a given consultation
-     *
      * @param  integer      $kid   Consultation ID
-     * @param  string|array $order [optional] order by spec, Defaults to array('u.name', 'u.uid')
+     * @param  string|array $order Order by spec, Defaults to array('u.name', 'u.uid')
      * @return array
      */
     public function getParticipantsByConsultation($kid, $order = '')
