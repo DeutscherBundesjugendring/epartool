@@ -8,6 +8,16 @@ module.exports = function(grunt) {
         // Load meta info from package.json
         pkg: grunt.file.readJSON('package.json'),
 
+        // Compile Coffee script
+        coffee: {
+            compile: {
+                files: {
+                    "www/js/admin.js": "www/coffee/admin.coffee",
+                }
+            }
+        },
+
+
 		// Compile LESS
         less: {
             dev: {
@@ -124,6 +134,10 @@ module.exports = function(grunt) {
             less: {
                 files: ['www/less/**/*.less'],
                 tasks: ['less']
+            },
+            coffee: {
+                files: ['www/coffee/**/*.coffee'],
+                tasks: ['coffee']
             },
             js: {
                 files: ['www/js/**/*(!.min).js'],
