@@ -85,23 +85,15 @@ class Admin_MailSendController extends Zend_Controller_Action
         $template = $templateModel->fetchRow(
             $templateModel
                 ->select()
-                ->setIntegrityCheck(false)
                 ->from(
                     $templateModel->getName(),
                     array('subject', 'body_html', 'body_text')
                 )
-                ->join(
-                    $templateTypeModel->getName(),
-                    $templateModel->getName() . '.type_id = ' . $templateTypeModel->getName() . '.id',
-                    null
-                )
                 ->where($templateModel->getName() . '.id=?', $templateId)
-                ->where($templateTypeModel->getName() . '.name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
         );
         if ($template) {
             echo json_encode($template->toArray());
         }
-
         die();
     }
 }
