@@ -148,6 +148,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [
 		'less',
+        'coffee',
 		'jshint',
 		'concat',
 		'uglify',
