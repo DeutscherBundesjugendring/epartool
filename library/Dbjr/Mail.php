@@ -2,6 +2,9 @@
 
 class Dbjr_Mail extends Zend_Mail
 {
+    const TOKEN_OPEN = '{{';
+    const TOKEN_CLOSE = '}}';
+
     /**
      * Indicates if the mail was sent manually
      * @var boolean
@@ -62,7 +65,7 @@ class Dbjr_Mail extends Zend_Mail
     {
         $templateModel = new Model_Mail_Template();
         $template = $templateModel->fetchRow(
-            $templateModel->select()->where('name', $templateName)
+            $templateModel->select()->where('name=?', $templateName)
         );
 
         if (!$template) {
@@ -70,8 +73,8 @@ class Dbjr_Mail extends Zend_Mail
         }
 
         $this->setSubject($template->subject);
-        $this->setBodyHtml($template->bodyHtml);
-        $this->setBodyText($template->bodyText);
+        $this->setBodyHtml($template->body_html);
+        $this->setBodyText($template->body_text);
 
         return $this;
     }
@@ -79,10 +82,13 @@ class Dbjr_Mail extends Zend_Mail
     /**
      * Sets the placeholders for the email
      * @param  array     $placeholders  An array holding the placeholders [placeholderName => value]
+     * @return Dbjr_Mail                Fluent interface
      */
     public function setPlaceholders(array $placeholders)
     {
         $this->_placeholders = array_merge($placeholders, $this->_placeholders);
+
+        return $this;
     }
 
     /**
@@ -94,7 +100,7 @@ class Dbjr_Mail extends Zend_Mail
     protected function replaceTokens($text, $tokens)
     {
         foreach ($tokens as $key => $val) {
-            $text = str_replace('{{' . $key . '}}', $val, $text);
+            $text = str_replace(self::TOKEN_OPEN . $key . self::TOKEN_CLOSE, $val, $text);
         }
 
         return $text;
@@ -108,7 +114,7 @@ class Dbjr_Mail extends Zend_Mail
     {
         $subject = $this->getSubject();
         $subject = $this->replaceTokens($subject, $this->_placeholders);
-        $this->_subject = null;
+        $this->clearSubject();
         $this->setSubject($subject);
 
         $bodyText = $this->getBodyText()->getRawContent();
@@ -134,13 +140,15 @@ class Dbjr_Mail extends Zend_Mail
             $components['bodyText'][$component['name']] = $component['body_text'] ;
         }
 
-        $bodyText = $this->getBodyText()->getRawContent();
-        $bodyText = $this->replaceTokens($bodyText, $components['bodyText']);
-        $this->setBodyText($bodyText);
+        if ($this->_components) {
+            $bodyText = $this->getBodyText()->getRawContent();
+            $bodyText = $this->replaceTokens($bodyText, $components['bodyText']);
+            $this->setBodyText($bodyText);
 
-        $bodyHtml = $this->getBodyHtml()->getRawContent();
-        $bodyHtml = $this->replaceTokens($bodyHtml, $components['bodyHtml']);
-        $this->setBodyHtml($bodyHtml);
+            $bodyHtml = $this->getBodyHtml()->getRawContent();
+            $bodyHtml = $this->replaceTokens($bodyHtml, $components['bodyHtml']);
+            $this->setBodyHtml($bodyHtml);
+        }
 
         return $this;
     }
@@ -171,16 +179,16 @@ class Dbjr_Mail extends Zend_Mail
             $sentByUser = null;
         }
 
+        $this
+            ->replaceComponents()
+            ->replacePlaceholders();
+
         $bodyText = $this->getBodyText()->getRawContent();
         $bodyHtml = $this->getBodyHtml()->getRawContent();
         if (!$bodyText) {
             $html2text = new Html2Text\Html2Text($bodyHtml);
             $bodyText = $html2text->get_text();
         }
-
-        $this
-            ->replaceComponents()
-            ->replacePlaceholders();
 
         $data = array(
             'project_code' => Zend_Registry::get('systemconfig')->project,
