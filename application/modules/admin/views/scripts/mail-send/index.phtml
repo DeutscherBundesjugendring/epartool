@@ -2,9 +2,18 @@
 
 <a href="<?php echo $this->baseUrl(); ?>/admin/email/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
 
-<?php echo $this->form;?>
+<h3>Templates</h3>
+<select class="js-template-selector">
+    <option value="0">--Select--</option>
+    <?php foreach ($this->templates as $template): ?>
+        <option value="<?php echo $template->id?>"><?php echo $template->name?></option>
+    <?php endforeach ?>
+</select>
 
-<b>Placeholders</b>
+<h3>Email</h3>
+<?php echo $this->form?>
+
+<h3>Placeholders</h3>
 <dl>
     <?php foreach ($this->placeholders as $placeholder): ?>
         <dt>{{<?php echo $placeholder->name?>}}</dt>
@@ -12,7 +21,7 @@
     <?php endforeach?>
 </dl>
 
-<b>Components</b>
+<h3>Components</h3>
 <dl>
     <?php foreach ($this->components as $component): ?>
         <dt>{{<?php echo $component->name?>}}</dt>

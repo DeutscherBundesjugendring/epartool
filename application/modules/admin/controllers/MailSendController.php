@@ -54,8 +54,54 @@ class Admin_MailSendController extends Zend_Controller_Action
         $this->view->components = $componentModel->fetchAll();
 
         $templateModel = new Model_Mail_Template();
-        $this->view->templates = $templateModel->fetchAll($templateModel->select());
+        $templateTypeModel = new Model_Mail_Template_Type();
+        $this->view->templates = $templateModel->fetchAll(
+             $templateModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(
+                    $templateModel->getName(),
+                    array('id', 'name')
+                )
+                ->join(
+                    $templateTypeModel->getName(),
+                    $templateModel->getName() . '.type_id = ' . $templateTypeModel->getName() . '.id',
+                    null
+                )
+                ->where($templateTypeModel->getName() . '.name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
+        );
 
         $this->view->form = $form;
+    }
+
+    /**
+     * Echoes a json with template data (subject, body_text, body_html)
+     */
+    public function templateJsonAction()
+    {
+        $templateId = $this->getRequest()->getParam('templateId');
+        $templateModel = new Model_Mail_Template();
+        $templateTypeModel = new Model_Mail_Template_Type();
+        $template = $templateModel->fetchRow(
+            $templateModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(
+                    $templateModel->getName(),
+                    array('subject', 'body_html', 'body_text')
+                )
+                ->join(
+                    $templateTypeModel->getName(),
+                    $templateModel->getName() . '.type_id = ' . $templateTypeModel->getName() . '.id',
+                    null
+                )
+                ->where($templateModel->getName() . '.id=?', $templateId)
+                ->where($templateTypeModel->getName() . '.name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
+        );
+        if ($template) {
+            echo json_encode($template->toArray());
+        }
+
+        die();
     }
 }

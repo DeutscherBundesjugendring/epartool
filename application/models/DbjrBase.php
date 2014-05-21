@@ -35,4 +35,13 @@ class Model_DbjrBase extends Zend_Db_Table_Abstract
 
         return $select;
     }
+
+    /**
+     * Getter for table name
+     * @return string The name pf the table
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
 }

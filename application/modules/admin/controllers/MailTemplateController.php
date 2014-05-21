@@ -40,7 +40,7 @@ class Admin_MailTemplateController extends Zend_Controller_Action
      */
     public function detailAction()
     {
-        $form = new Admin_Form_Mail_Component();
+        $form = new Admin_Form_Mail_Template();
         $templateId = $this->getRequest()->getParam('id');
 
         if (!empty($templateId)) {
