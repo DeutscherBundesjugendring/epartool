@@ -171,6 +171,13 @@ class Dbjr_Mail extends Zend_Mail
             $sentByUser = null;
         }
 
+        $bodyText = $this->getBodyText()->getRawContent();
+        $bodyHtml = $this->getBodyHtml()->getRawContent();
+        if (!$bodyText) {
+            $html2text = new Html2Text\Html2Text($bodyHtml);
+            $bodyText = $html2text->get_text();
+        }
+
         $this
             ->replaceComponents()
             ->replacePlaceholders();
@@ -179,8 +186,8 @@ class Dbjr_Mail extends Zend_Mail
             'project_code' => Zend_Registry::get('systemconfig')->project,
             'sent_by_user' => $sentByUser,
             'subject' => $this->getSubject(),
-            'body_text' => $this->getBodyText()->getRawContent(),
-            'body_html' => $this->getBodyHtml()->getRawContent(),
+            'body_text' => $bodyText,
+            'body_html' => $bodyHtml,
             'to' => $this->_toFull,
             'cc' => $this->_ccFull,
             'bcc' => $this->_bccFull,

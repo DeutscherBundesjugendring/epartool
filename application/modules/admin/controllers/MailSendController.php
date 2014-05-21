@@ -28,7 +28,7 @@ class Admin_MailSendController extends Zend_Controller_Action
                     ->setManualSent(true)
                     ->setSubject($values['subject'])
                     ->setBodyHtml($values['body_html'])
-                    ->setBodyText($values['body_text'] ? $values['body_text'] : convert_html_to_text($values['body_html']));
+                    ->setBodyText($values['body_text']);
                 if ($values['mailto']) {
                     $mailer->addTo($values['mailto']);
                 }
