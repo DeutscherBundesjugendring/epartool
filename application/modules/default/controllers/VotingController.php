@@ -597,30 +597,28 @@ class VotingController extends Zend_Controller_Action
 
             // user deleted by admin or groupadmin after login for voting //
             if (empty( $subuser)) {
-                    $votingRightsSession->unsetAll();
-
-                    $this->_flashMessenger->addMessage('User konnte nicht gefunden werden.', 'error');
-                    $this -> redirect('/voting/preview/kid/' . $this -> _consultation -> kid. $backParam);
+                $votingRightsSession->unsetAll();
+                $this->_flashMessenger->addMessage('User konnte nicht gefunden werden.', 'error');
+                $this->redirect('/voting/preview/kid/' . $this->_consultation->kid. $backParam);
             }
 
-            $emailModel = new Model_Emails();
-            $kid = $this->_consultation->kid;
-            $authcode = $votingRightsSession->vtc;
-            $confirmUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $kid . '/authcode/' . $authcode . '/user/' . $subUid;
-            $accUrl = $confirmUrl . '/act/acc/';
-            $rejUrl = $confirmUrl . '/act/rej/';
-            $templateReplace = array(
-                '{{KID_TITL}}'=>$this->_consultation->titl,
-                '{{USER}}'=>$subuser['sub_user'],
-                '{{URLCONFIRM}}'=>$accUrl,
-                '{{URLREJCT}}'=>$rejUrl
-            );
+            $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $this->_consultation->kid .
+                '/authcode/' . $votingRightsSession->vtc . '/user/' . $subUid;
 
-            $result = $emailModel->send($subuser['sub_user'], '-', '-', 'vot_conf', $templateReplace);
-            if (!$result) {
-                $logger = Zend_Registry::get('log');
-                $logger->debug('E-Mail für Voting-Bestätigung konnte nicht gesendet werden.');
-            }
+            $mailer = new Dbjr_Mail();
+            $mailer
+                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE)
+                ->setPlaceholders(
+                    array(
+                        'to_email' => $subuser['sub_user'],
+                        'confirmation_url' => $actionUrl . '/act/acc/',
+                        'rejection_url' => $actionUrl . '/act/rej/',
+                        'consultation_title_short' => $this->_consultation->titl_short,
+                        'consultation_title_long' => $this->_consultation->titl,
+                    )
+                )
+                ->addTo($subuser['sub_user'])
+                ->send();
 
             $this->view->groupmember = $subuser['sub_user'];
         } else { // if singleuser (no group) just update status of his votes
@@ -683,32 +681,25 @@ class VotingController extends Zend_Controller_Action
             // get groupleader
             $userModel = new Model_Users();
             $leader = $userModel->getById($votingGroup['uid']);
+            $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmmember/kid/' .  $this->_consultation->kid
+                . '/authcode/' . $authcode . '/user/' . $subuid;
 
-            $kid = $this->_consultation->kid;
-            $url = Zend_Registry::get('baseUrl') . '/voting/confirmmember/kid/' . $kid . '/authcode/' . $authcode . '/user/' . $subuid;
-            $urlConfirm = $url . '/act/' . md5($votingGroup['sub_user'] . $subuid . 'y');
-            $urlReject = $url . '/act/' . md5($votingGroup['sub_user'] . $subuid . 'n');
-
-            $emailModel = new Model_Emails();
-            $templateReplace = array(
-                '{{SITEURL}}'=>Zend_Registry::get('baseUrl'),
-                '{{RECIPIENT}}'=>$leader['email'],
-                '{{KID_TITL}}'=>$this->_consultation->titl,
-                '{{KID}}'=>$this->_consultation->kid,
-                '{{VOTER}}'=>$votingGroup['sub_user'],
-                '{{VTC}}'=>$authcode,
-                '{{SUB_UID}}'=>$subuid,
-                '{{CONFIRMLINK}}'=>$urlConfirm,
-                '{{REJECTLINK}}'=>$urlReject,
-                '{{VOTERYEA}}'=>md5($votingGroup['sub_user'].$subuid.'y'),
-                '{{VOTERNAY}}'=>md5($votingGroup['sub_user'].$subuid.'n')
-            );
-
-            $result = $emailModel->send($leader['email'], '-', '-', 'vot_grpmem_conf', $templateReplace);
-            if (!$result) {
-                $logger = Zend_Registry::get('log');
-                $logger->debug('E-Mail für Gruppenmitglieds-Bestätigung konnte nicht gesendet werden.');
-            }
+            $mailer = new Dbjr_Mail();
+            $mailer
+                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_GROUP)
+                ->setPlaceholders(
+                    array(
+                        'to_name' => $leader['name'] ? $leader['name'] : $leader['email'],
+                        'to_email' => $leader['email'],
+                        'voter_email' => $votingGroup['sub_user'],
+                        'confirmation_url' => $actionUrl . '/act/' . md5($votingGroup['sub_user'] . $subuid . 'y'),
+                        'rejection_url' => $actionUrl . '/act/' . md5($votingGroup['sub_user'] . $subuid . 'n'),
+                        'consultation_title_short' => $this->_consultation->titl_short,
+                        'consultation_title_long' => $this->_consultation->titl,
+                    )
+                )
+                ->addTo($leader['email'])
+                ->send();
         }
 
         $this->view->act = $act;

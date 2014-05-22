@@ -3,6 +3,12 @@
 class Model_Mail_Template extends Model_DbjrBase
 {
     const SYSTEM_TEMPLATE_FORGOTTEN_PASSWORD = 'forgotten_password';
+    const SYSTEM_TEMPLATE_REGISTRATION = 'registration';
+    const SYSTEM_TEMPLATE_INPUT_CONFIRMATION = 'input_confirmation';
+    const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE = 'voting_confirmation_single';
+    const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_GROUP = 'voting_confirmation_group';
+    const SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE = 'voting_invitation_single';
+    const SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP = 'voting_invitation_group';
 
     protected $_name = 'email_template';
     protected $_dependentTables = array('Model_Mail_Template_Type');
@@ -56,8 +62,7 @@ class Model_Mail_Template extends Model_DbjrBase
     {
         if ($data['project_code'] !== $this->_projectCode) {
             throw new Dbjr_Mail_Exception('Can not update template belonging to another project.');
-        } elseif (
-            array_key_exists('name', $data)
+        } elseif (array_key_exists('name', $data)
             && $template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM
         ) {
             throw new Dbjr_Mail_Exception('Can not update name of system tamplate.');

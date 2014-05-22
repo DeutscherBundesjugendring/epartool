@@ -108,8 +108,25 @@ VALUES
 
 INSERT INTO `email_placeholder` (`name`, `description`, `is_global`)
 VALUES
-    ('from_name', 'The name of the sender.', 1),
+    ('voter_email',  'The email of the original voter.', 0),
+    ('to_name',  'The name of the recipient. If the name is not known, teh value of {{to_email}} is used.',   0),
+    ('to_email', 'The email address of the recipient.',  0),
+    ('password', 'The new password.',    0),
+    ('confirmation_url', 'The confirmation link for the user to visit.', 0),
+    ('rejection_url',    'The rejection link for the user to visit.',    0),
+    ('consultation_title_short', 'The short version of the consultation title.', 0),
+    ('consultation_title_long',  'The long version of the consultation title.',  0),
+    ('input_phase_end',  'The end of the input phase.',  0),
+    ('input_phase_start',    'The start of the input phase.',    0),
+    ('voting_phase_end', 'The end of the voting phase.', 0),
+    ('voting_phase_start',   'The start of the voting phase.',   0),
+    ('inputs_html',  'The users inputs in html formatting.', 0),
+    ('inputs_text',  'The users inputs in plain text formatting.',   0),
+    ('voting_weight',    'The voting weight of the relevant user.',  0),
+    ('voting_url',   'the url where voting takes place.',    0),
+    ('group_category',  'The type of the relevant group',   0),
+    ('from_name',    'The name of the sender.',  1),
     ('from_address', 'The email address of the sender.', 1),
-    ('contact_name', 'The name from the contact info.', 1),
-    ('contact_www', 'The www from the contact info.', 1),
-    ('contact_email', 'The email address from the contact info.', 1);
+    ('contact_name', 'The name from the contact info.',  1),
+    ('contact_www',  'The www from the contact info.',   1),
+    ('contact_email',    'The email address from the contact info.', 1);

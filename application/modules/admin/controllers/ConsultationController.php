@@ -255,15 +255,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 }
             }
 
-            // Delete E-Mail-Templates
-            $mailtemplateModel = new Model_Emails_Templates();
-            $templates = $mailtemplateModel->getByConsultation($kid);
-            if ($templates) {
-                foreach ($templates As $template) {
-                    $mailtemplateModel->deleteById($template['mid']);
-                }
-            }
-
             // Delete Consultation
             $consultationModel->deleteById($kid);
 

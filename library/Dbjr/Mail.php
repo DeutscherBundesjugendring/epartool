@@ -6,6 +6,12 @@ class Dbjr_Mail extends Zend_Mail
     const TOKEN_CLOSE = '}}';
 
     /**
+     * Holds the email subject unencoded
+     * @var string
+     */
+    protected $_subjectRaw;
+
+    /**
      * Indicates if the mail was sent manually
      * @var boolean
      */
@@ -112,7 +118,7 @@ class Dbjr_Mail extends Zend_Mail
      */
     protected function replacePlaceholders()
     {
-        $subject = $this->getSubject();
+        $subject = $this->getSubjectRaw();
         $subject = $this->replaceTokens($subject, $this->_placeholders);
         $this->clearSubject();
         $this->setSubject($subject);
@@ -193,7 +199,7 @@ class Dbjr_Mail extends Zend_Mail
         $data = array(
             'project_code' => Zend_Registry::get('systemconfig')->project,
             'sent_by_user' => $sentByUser,
-            'subject' => $this->getSubject(),
+            'subject' => $this->getSubjectRaw(),
             'body_text' => $bodyText,
             'body_html' => $bodyHtml,
             'to' => $this->_toFull,
@@ -275,6 +281,51 @@ class Dbjr_Mail extends Zend_Mail
                 $this->_toFull[$n] = $recipient;
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Sets the subject of the message
+     * @param   string    $subject
+     * @return  Zend_Mail           Provides fluent interface
+     * @throws  Zend_Mail_Exception
+     */
+    public function setSubject($subject)
+    {
+        if ($this->_subject === null) {
+            $subject = $this->_filterOther($subject);
+            $this->_subject = $this->_encodeHeader($subject);
+            $this->_subjectRaw = $subject;
+            $this->_storeHeader('Subject', $this->_subject);
+        } else {
+            /**
+             * @see Zend_Mail_Exception
+             */
+            require_once 'Zend/Mail/Exception.php';
+            throw new Zend_Mail_Exception('Subject set twice');
+        }
+        return $this;
+    }
+
+    /**
+     * Returns the encoded subject of the message
+     * @return string
+     */
+    public function getSubjectRaw()
+    {
+        return $this->_subjectRaw;
+    }
+
+    /**
+     * Clears the encoded subject from the message
+     * @return  Zend_Mail Provides fluent interface
+     */
+    public function clearSubject()
+    {
+        $this->_subject = null;
+        $this->_subjectRaw = null;
+        $this->clearHeader('Subject');
 
         return $this;
     }

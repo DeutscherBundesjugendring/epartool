@@ -232,26 +232,20 @@ class Model_Users extends Model_DbjrBase
                     $row->password = $this->hashPassword($newPassword);
                     $row->save();
 
-                    $toName = $row->name;
-                    $toEmail = $email;
-                    $subject = "Neues Passwort für den Strukturierten Dialog";
-                    $text = "Hallo {$row->name},\n"
-                        . "du hast ein neues Passwort angefordert.\n"
-                        . "Mit folgendem Passwort und deiner E-Mail-Adresse kannst du dich anmelden:\n"
-                        . "\n"
-                        . "Kennwort: $newPassword";
+                    $mailer = new Dbjr_Mail();
+                    $mailer
+                        ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_FORGOTTEN_PASSWORD)
+                        ->setPlaceholders(
+                            array(
+                                'to_name' => $row->name ? $row->name : $row->email,
+                                'to_email' => $row->email,
+                                'password' => $newPassword,
+                            )
+                        )
+                        ->addTo($row->email)
+                        ->send();
 
-                    $mailModel = new Model_Emails();
-
-                    // appropriate template has to be configured in database!
-                    $template = 'pwdrequest';
-                    $replace = array(
-                        '{{USER}}' => $row->name,
-                        '{{EMAIL}}' => $email,
-                        '{{PWD}}' => $newPassword,
-                    );
-
-                    return $mailModel->send($toEmail, $subject, $text, 'pwdrequest', $replace);
+                    return true;
                 }
             } else {
                 $this->_flashMessenger->addMessage('Kein Nutzer zur angegebenen E-Mail-Adresse vorhanden!', 'error');
@@ -269,7 +263,8 @@ class Model_Users extends Model_DbjrBase
     public function hashPassword($password)
     {
         $passConf = Zend_Registry::get('systemconfig')->security->password;
-        $saltBase = $passConf->globalSalt . floor(microtime(true)) . $this->getRandString(22);
+        $saltChars = implode('', array_merge(range(0, 9), range('a', 'z'), range('A', 'Z')));
+        $saltBase = $passConf->globalSalt . floor(microtime(true)) . $this->getRandString(22, $saltChars);
         $salt = '$2a$' . $passConf->costParam . '$' . substr($saltBase, 0, 22);
 
         return crypt($password, $salt);
@@ -303,10 +298,9 @@ class Model_Users extends Model_DbjrBase
     /**
      * @param  integer|object $identity
      * @param  integer        $kid
-     * @param  string         $password for newly registered users
      * @return boolean
      */
-    public function sendInputsConfirmationMail($identity, $kid, $password = '')
+    public function sendInputsConfirmationMail($identity, $kid)
     {
         $intVal = new Zend_Validate_Int();
         $userRow = null;
@@ -315,60 +309,48 @@ class Model_Users extends Model_DbjrBase
         } elseif (is_object($identity)) {
             $userRow = $identity;
         }
-        if (!empty($userRow)) {
+        if ($userRow) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->getById($kid);
-            // Hole alle nicht bestätigten Beiträge
+
             $inputModel = new Model_Inputs();
             $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid, $kid, false);
-            if (count($unconfirmedInputs) > 0) {
-                // appropriate template has to be configured in database!
-                $template = 'inpt_conf';
-                $replace = array(
-                    '{{USER}}' => $userRow->name,
-                    '{{CNSLT_TITLE_SHORT}}' => '',
-                    '{{CNSLT_TITLE}}' => '',
-                    '{{INPUT_TO}}' => '',
-                    '{{PASSWORD_TEXT}}' => ''
-                );
-                if (!empty($consultation)) {
-                    $date = new Zend_Date();
-                    $replace['{{CNSLT_TITLE_SHORT}}'] = $consultation['titl_short'];
-                    $replace['{{CNSLT_TITLE}}'] = $consultation['titl'];
-                    $replace['{{INPUT_TO}}'] = $date->set($consultation['inp_to'])->get(Zend_Date::DATE_MEDIUM);
-                }
 
-                $mailBody = 'Hallo ' . $userRow->name . "\n\n"
-                    . 'Bitte bestätige folgende Beiträge:' . "\n\n";
+            if (count($unconfirmedInputs) > 0) {
 
                 $inputIds = array();
+                $inputsText = '';
+                $inputsHtml = '';
                 foreach ($unconfirmedInputs as $input) {
                     $inputIds[] = $input->tid;
-                    $inputText = $input->thes . "\n\n";
-
-                    $mailBody.= $inputText;
-                    $replace['{{USER_INPUTS}}'].= $inputText;
+                    $inputsText .= $input->thes . "\n\n";
+                    $inputsHtml .= '<p>' . $input->thes . '</p>';
                 }
-
-                if (!empty($password)) {
-                    $replace['{{PASSWORD_TEXT}}'] = <<<EOD
-Deine E-Mail-Adresse war noch nicht bei uns im System hinterlegt.
-Wir haben deshalb ein Passwort für dich generiert, mit dem du dich in Zukunft am System anmelden kannst:
-EOD;
-                    $replace['{{PASSWORD_TEXT}}'] .= "\n\n" . $password;
-                    $mailBody.= "\n\n" . $replace['{{PASSWORD_TEXT}}'];
-                }
-
                 $ckey = $inputModel->generateConfirmationKeyBulk($inputIds);
-                $replace['{{CONFIRMLINK}}'] = Zend_Registry::get('baseUrl')
-                        . '/input/mailconfirm/kid/' . $input->kid . '/ckey/' . $ckey;
+                $date = new Zend_Date();
+                $baseUrl = Zend_Registry::get('baseUrl');
 
-                $replace['{{REJECTLINK}}'] = Zend_Registry::get('baseUrl')
-                . '/input/mailreject/kid/' . $input->kid . '/ckey/' . $ckey;
+                $mailer = new Dbjr_Mail();
+                $mailer
+                    ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION)
+                    ->setPlaceholders(
+                        array(
+                            'to_name' => $userRow->name ? $userRow->name : $userRow->email,
+                            'to_email' => $userRow->email,
+                            'confirmation_url' =>  $baseUrl . '/input/mailconfirm/kid/' . $kid . '/ckey/' . $ckey,
+                            'rejection_url' => $baseUrl . '/input/mailreject/kid/' . $kid . '/ckey/' . $ckey,
+                            'consultation_title_long' => $consultation ? $consultation['titl'] : '',
+                            'consultation_title_short' => $consultation ? $consultation['titl_short'] : '',
+                            'input_phase_end' => $consultation ? $date->set($consultation['inp_to'])->get(Zend_Date::DATE_MEDIUM) : '',
+                            'input_phase_start' => $consultation ? $date->set($consultation['inp_fr'])->get(Zend_Date::DATE_MEDIUM) : '',
+                            'inputs_html' => $inputsHtml,
+                            'inputs_text' => $inputsText,
+                        )
+                    )
+                    ->addTo($userRow->email)
+                    ->send();
 
-                $mailObj = new Model_Emails();
-
-                return $mailObj->send($userRow->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
+                return true;
             } else {
                 return false;
             }

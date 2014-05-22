@@ -12,7 +12,7 @@ echo $this->consultationNavigation('Votingeinladungen');
 <h2>Voting-Einladungen</h2>
 <p>
     <a
-        href="mailto:<?php echo Zend_Registry::get('systemconfig')->email->from->address; ?>?bcc=<?php echo $this->emailList; ?>"
+        href="mailto:<?php echo $this->mailDefaultFrom?>?bcc=<?php echo $this->emailList; ?>"
     >
         &raquo; E-Mail an alle Teilnehmenden in externem Programm senden
     </a>

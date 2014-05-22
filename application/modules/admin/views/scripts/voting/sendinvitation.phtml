@@ -2,13 +2,15 @@
 
 ?>
 <h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Votingeinladungen');
-?>
+<?php echo $this->consultationNavigation('Votingeinladungen')?>
 <h2>Voting-Einladung senden</h2>
-<?php echo $this->form; ?>
-<p><a href="<?php echo $this->url(array(
-  'action' => 'invitations',
-  'uid' => null,
-  'mode' => null,
-)); ?>">&laquo; Zurück zur Übersicht</a></p>
+<?php echo $this->form?>
+
+<a href="<?php echo $this->url(array('action' => 'invitations', 'uid' => null,  'mode' => null,)); ?>">
+    &laquo; Zurück zur Übersicht
+</a>
+
+
+<script type="text/javascript">
+    CKEDITOR.replace('body_html');
+</script>

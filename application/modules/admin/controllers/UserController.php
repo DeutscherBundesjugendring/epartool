@@ -114,12 +114,10 @@ class Admin_UserController extends Zend_Controller_Action
                         }
                     }
                     if ($this->getRequest()->isPost()) {
-                        // Formular wurde abgeschickt und muss verarbeitet werden
                         $params = $this->getRequest()->getPost();
                         if ($form->isValid($params)) {
-                            // Prüfe ob E-Mail bereits existiert
                             $emailAddress =$form->getValue('email');
-                            if ($user->email!=$emailAddress && $userModel->emailExists($emailAddress)) {
+                            if ($user->email != $emailAddress && $userModel->emailExists($emailAddress)) {
                                 $this->_flashMessenger->addMessage(
                                     'Diese E-Mail-Adresse existiert bereits! Bitte wähle eine andere.',
                                     'error'
@@ -132,6 +130,9 @@ class Admin_UserController extends Zend_Controller_Action
                                 $row->setFromArray($form->getValues());
                                 $userPasswort = $form->getValue('newpassword');
                                 if (!empty($userPasswort)) {
+                                    /**************************/
+                                    throw new Exception('UNSUPORTED!! Admin should never know user password!');
+                                    /**************************/
                                     $row->pwd = md5($userPasswort);
                                     // if send e-mail with new pwd to user
                                     $emailsend = $form->getValue('pwdsend');
