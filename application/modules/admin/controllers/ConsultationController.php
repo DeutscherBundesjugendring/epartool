@@ -17,16 +17,16 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
 
         $kid = $this->getRequest()->getParam('kid');
-        $consultationModel = new Model_Consultations();
-        $this->_consultation = $consultationModel->find($kid)->current();
-        $this->view->consultation = $this->_consultation;
+        if ($kid) {
+            $consultationModel = new Model_Consultations();
+            $this->_consultation = $consultationModel->find($kid)->current();
+            $this->view->consultation = $this->_consultation;
+        }
     }
 
     /**
@@ -35,8 +35,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this -> _helper -> viewRenderer -> setNoRender(true);
-        $this->_redirect('/admin/votingprepare/index/kid/' . $this->_consultation->kid);
+        $this->_helper->viewRenderer->setNoRender(true);
+        if (isset($this->_consultation)) {
+            $this->_redirect('/admin/votingprepare/index/kid/' . $this->_consultation->kid);
+        }
     }
 
     /**

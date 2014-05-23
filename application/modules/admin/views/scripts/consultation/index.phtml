@@ -1,7 +1,6 @@
 <h1><?php echo !empty($this->consultation) ? $this->consultation->titl : 'Übersicht'; ?></h1>
-<?php
-echo $this->consultationNavigation();
-?>
+<?php echo $this->consultationNavigation()?>
+
 <script>
   $(document).ready(function(){
     $('.delete-action a').click(function(event){
