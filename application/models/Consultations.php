@@ -4,7 +4,7 @@
  * @desc        Class of consultation
  * @author    Jan Suchandt
  */
-class Model_Consultations extends Model_DbjrBase
+class Model_Consultations extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'cnslt';
     protected $_primary = 'kid';

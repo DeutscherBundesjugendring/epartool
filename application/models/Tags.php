@@ -4,7 +4,7 @@
  * @desc        Class of Tags,
  * @author    Jan Suchandt
  */
-class Model_Tags extends Model_DbjrBase
+class Model_Tags extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'tgs';
     protected $_primary = 'tg_nr';

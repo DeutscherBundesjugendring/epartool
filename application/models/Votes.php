@@ -4,7 +4,7 @@
  * @desc        Class of votings, final voting result of consultation
  * @author    Jan Suchandt, Markus Hackel
  */
-class Model_Votes extends Model_DbjrBase
+class Model_Votes extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_final';
     protected $_primary = array(
@@ -93,14 +93,14 @@ class Model_Votes extends Model_DbjrBase
                     $theses_votes_order[$thesis['tid']] = $votesIndivModel
                     ->getVotingValuesByThesis($thesis['tid'], $kid);
                     $theses_values[$thesis['tid']] = $thesis->toArray();
-					
+
 					// get followUps?
 					$followUps = $followUpModel ->  getFollowupCountByTids($thesis['tid']);
 					$theses_values[$thesis['tid']]['followup']="";
 					if (isset($followUps[$thesis['tid']])){
 						$theses_values[$thesis['tid']]['followup']="-fup";
 					}
-					
+
                 }
 
                 // build the $theses_votes array

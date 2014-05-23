@@ -1,6 +1,6 @@
 <?php
 
-class Model_Users extends Model_DbjrBase
+class Model_Users extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'users';
     protected $_primary = 'uid';

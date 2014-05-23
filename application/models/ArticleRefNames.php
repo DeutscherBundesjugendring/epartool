@@ -3,7 +3,7 @@
  * Model ArticleRefNames
  *
  */
-class Model_ArticleRefNames extends Model_DbjrBase
+class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'articles_refnm';
     protected $_primary = array('ref_nm', 'lng');

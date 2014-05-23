@@ -1,6 +1,6 @@
 <?php
 
-class Model_Mail_Template extends Model_DbjrBase
+class Model_Mail_Template extends Dbjr_Db_Table_Abstract
 {
     const SYSTEM_TEMPLATE_FORGOTTEN_PASSWORD = 'forgotten_password';
     const SYSTEM_TEMPLATE_REGISTRATION = 'registration';

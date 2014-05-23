@@ -1,6 +1,6 @@
 <?php
 
-class Model_Mail_Recipient extends Model_DbjrBase
+class Model_Mail_Recipient extends Dbjr_Db_Table_Abstract
 {
     const TYPE_TO = 'to';
     const TYPE_CC = 'cc';

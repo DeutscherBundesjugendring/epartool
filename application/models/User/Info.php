@@ -1,5 +1,5 @@
 <?php
-class Model_User_Info extends Model_DbjrBase
+class Model_User_Info extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'user_info';
     protected $_primary = 'user_info_id';

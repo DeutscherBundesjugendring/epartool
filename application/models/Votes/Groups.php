@@ -4,7 +4,7 @@
  * @author Markus Hackel
  *
  */
-class Model_Votes_Groups extends Model_DbjrBase
+class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_grps';
     protected $_primary = array(
@@ -338,8 +338,8 @@ class Model_Votes_Groups extends Model_DbjrBase
             return $row->toArray();
         }
     }
-	
-	
+
+
 	/**
      * Returns all users by consultation
      *
@@ -360,7 +360,7 @@ class Model_Votes_Groups extends Model_DbjrBase
 		$result = $this->fetchAll($select);
         return $result;
     }
-	
+
 	/**
      * Delete Voter
      *
@@ -386,7 +386,7 @@ class Model_Votes_Groups extends Model_DbjrBase
         }
         return false;
     }
-	
+
 	/**
      * Update Votinglist for Origin User
      *
@@ -415,6 +415,6 @@ class Model_Votes_Groups extends Model_DbjrBase
             return true;
         }
 		return false;
-		
+
 	}
 }

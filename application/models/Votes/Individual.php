@@ -3,7 +3,7 @@
  * Votes_Individual
  * @author    Jan Suchandt, Markus Hackel
  */
-class Model_Votes_Individual extends Model_DbjrBase
+class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_indiv';
 
@@ -335,7 +335,7 @@ class Model_Votes_Individual extends Model_DbjrBase
         $row = $stmt->fetchAll();
         return $row;
     }
-	
+
     /* counts how much user clicks on superbutton */
     public function countParticularImportantVote($subUid)
     {
@@ -348,11 +348,11 @@ class Model_Votes_Individual extends Model_DbjrBase
 
         return $rowCount;
     }
-	
+
 	/**
      *  delete the superbutton thesis from basket
     * @author Karsten Tackmann
-     */ 
+     */
 	 public function deleteParticularImportantVote($uid,$subUid, $tid)
     {
         if (empty($uid) || empty($subUid) || empty($tid)) {
@@ -407,20 +407,20 @@ class Model_Votes_Individual extends Model_DbjrBase
         return $row;
 
     }
-	
+
 	/**
      * Get All votes from one user
 	 * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
      */
-	
+
 	public function getUservotes($subuid) {
-		
+
 		$alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
             throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical! getUservotes');
         }
-		
+
 		$select = $this->select();
         $select->where('sub_uid = ?', $subuid);
 		$select->where('sub_uid = ?', $subuid);
@@ -428,19 +428,19 @@ class Model_Votes_Individual extends Model_DbjrBase
 		$result = $this->fetchAll($select);
 		return $result;
 	}
-	
+
 	/**
      * Delet all votes from one user
 	 * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
      */
 	public function deleteUservotes($subuid) {
-		
+
 		$alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
             throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!deleteUservotes');
         }
-		
+
 		$db = $this->getAdapter();
         $where = array(
             'sub_uid = ?' => $subuid,
@@ -451,15 +451,15 @@ class Model_Votes_Individual extends Model_DbjrBase
         }
         return false;
 	}
-	
-	
+
+
 	/**
      * Restore votes for origin user
 	 * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
      */
 	public function insertMergedUservotes($subuid, $values) {
-		
+
 		$alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
             throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');

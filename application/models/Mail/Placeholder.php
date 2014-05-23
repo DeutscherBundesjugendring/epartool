@@ -1,6 +1,6 @@
 <?php
 
-class Model_Mail_Placeholder extends Model_DbjrBase
+class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
 {
     const GLOBAL_PLACEHOLDER_FROM_NAME = 'from_name';
     const GLOBAL_PLACEHOLDER_FROM_ADDRESS = 'from_address';

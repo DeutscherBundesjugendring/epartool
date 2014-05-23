@@ -5,7 +5,7 @@
  * @description   Form of consultation
  * @author        Karsten Tackmann
  */
-class Model_Votes_Settings extends Model_DbjrBase
+class Model_Votes_Settings extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_settings';
     protected $_primary = 'kid';

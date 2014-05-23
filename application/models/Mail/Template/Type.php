@@ -1,6 +1,6 @@
 <?php
 
-class Model_Mail_Template_Type extends Model_DbjrBase
+class Model_Mail_Template_Type extends Dbjr_Db_Table_Abstract
 {
     const TEMPLATE_TYPE_SYSTEM = 'system';
     const TEMPLATE_TYPE_CUSTOM = 'custom';

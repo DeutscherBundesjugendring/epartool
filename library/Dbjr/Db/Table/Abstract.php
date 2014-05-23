@@ -1,10 +1,6 @@
 <?php
-/**
- * Base Class for all Models
- *
- * @author Markus Hackel
- */
-class Model_DbjrBase extends Zend_Db_Table_Abstract
+
+class Dbjr_Db_Table_Abstract extends Zend_Db_Table_Abstract
 {
     /**
      * Holds the project code for the current project

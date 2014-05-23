@@ -4,7 +4,7 @@
  * @desc        Class of Inputs, userentries to questions of a consultation
  * @author    Jan Suchandt
  */
-class Model_Inputs extends Model_DbjrBase
+class Model_Inputs extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'inpt';
     protected $_primary = 'tid';
@@ -1196,13 +1196,13 @@ class Model_Inputs extends Model_DbjrBase
         $thesisRows = array();
 		$appendedthesis = array();
         if (!empty($inputIDs)) $thesisRows = $this->fetchAll("tid IN (".$inputIDs.")")->toArray();
-		
+
 		if (!empty($thesisRows)) {
 			foreach ($thesisRows as $thesisRow) {
 					$thesisRow["parent"]= $tid;
 					$appendedthesis[]=$thesisRow;
 			}
-			
+
 		}
         return $appendedthesis ;
     }
@@ -1355,8 +1355,8 @@ class Model_Inputs extends Model_DbjrBase
 
                 return $this->fetchAll($select)->toArray();
     }
-	
-	
+
+
 	/* copy
      * @desc copy a row
      * @name copy
@@ -1364,8 +1364,8 @@ class Model_Inputs extends Model_DbjrBase
      * @return array
      */
 	public function copy($tid) {
-		
-	
+
+
 	}
 
 }

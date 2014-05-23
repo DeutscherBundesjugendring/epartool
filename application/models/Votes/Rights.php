@@ -3,7 +3,7 @@
  * Votes_Rights
  * @author    Jan Suchandt, Markus Hackel
  */
-class Model_Votes_Rights extends Model_DbjrBase
+class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_rights';
     protected $_primary = array(

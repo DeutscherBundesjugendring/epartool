@@ -4,7 +4,7 @@
  * @desc        Class of questions, every consultation has questions (count n), users can write entries for every question
  * @author    Jan Suchandt
  */
-class Model_Questions extends Model_DbjrBase
+class Model_Questions extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'quests';
     protected $_primary = 'qi';

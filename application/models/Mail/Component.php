@@ -1,6 +1,6 @@
 <?php
 
-class Model_Mail_Component extends Model_DbjrBase
+class Model_Mail_Component extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'email_component';
     protected $_primary = 'id';
