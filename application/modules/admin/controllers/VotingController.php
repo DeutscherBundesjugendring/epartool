@@ -186,11 +186,15 @@ class Admin_VotingController extends Zend_Controller_Action
                     $values = $form->getValues();
                     $mailer
                         ->addTo($values['mailto'])
-                        ->addCc($values['mailcc'])
-                        ->addBcc($values['mailbcc'])
                         ->setSubject($values['subject'])
                         ->setBodyHtml($values['body_html'])
                         ->setBodyText($values['body_text']);
+                    if ($values['mailcc']) {
+                        $mailer->addCc($values['mailcc']);
+                    }
+                    if ($values['mailbcc']) {
+                        $mailer->addCc($values['mailbcc']);
+                    }
                 } else {
                     $date = new Zend_Date();
                     $mailer
