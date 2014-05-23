@@ -1,4 +1,4 @@
-SET @project_code = 'sd' COLLATE utf8_unicode_ci;
+SET @project_code = 'xx' COLLATE utf8_unicode_ci;
 
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
 VALUES
