@@ -104,7 +104,7 @@ class Default_Form_Input extends Zend_Form
         $thesCounter = $this->createElement('hidden', 'thes_' . $i . '_counter');
         $thesCounterOptions = array(
             'ignore' => true,
-            'description' => '<span class="js-character-counter">Characters left: <span id="thes_' . $i . '_counter">0</span></span>'
+            'description' => '<span class="counter counter-characters js-character-counter"><span id="thes_' . $i . '_counter">0</span></span>'
         );
         $thesCounter->setOptions($thesCounterOptions);
         $thesCounter->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));
@@ -146,7 +146,7 @@ class Default_Form_Input extends Zend_Form
         $explCounter = $this->createElement('hidden', 'expl_' . $i . '_counter');
         $explCounterOptions = array(
             'ignore' => true,
-            'description' => '<span class="js-character-counter" style="display: none">Characters left: <span id="expl_' . $i . '_counter">0</span></span>',
+            'description' => '<span class="counter counter-characters js-character-counter" style="display: none"><span id="expl_' . $i . '_counter">0</span></span>',
         );
         $explCounter->setOptions($explCounterOptions);
         $explCounter->setDecorators(array(array('Description', array('escape' => false, 'tag' => ''))));

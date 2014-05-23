@@ -180,9 +180,23 @@ $this->headScript()->appendScript($script);
             $("#submitmode").val('save_plus');
         });
 
+        // Character counters
+        var pad = function(number, length) {
+            var str = '' + number;
+            while (str.length < length) {
+                str = '0' + str;
+            }
+            return str;
+        }
         var updateCounter = function(el) {
             var charsLeft = el.attr('maxlength') - el.val().length;
-            $('#' + el.attr('id') + '_counter').text(charsLeft);
+            var charsLeft = pad(charsLeft, el.attr('maxlength').length);
+            var digits = charsLeft.split('');
+            var HTMLOutput = '';
+            $.each(digits, function(index, value) {
+                HTMLOutput += '<span class="counter-digit">' + value + '</span>';
+            });
+            $('#' + el.attr('id') + '_counter').html(HTMLOutput);
         }
         var updateCounterHandler = function(event) {
             var el = $(event.target);

@@ -13,8 +13,8 @@ $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 ?>
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	var elements = <?php echo $this->votingBasket['countvotes'];?>;	
+
+	var elements = <?php echo $this->votingBasket['countvotes'];?>;
 
 	$('a.view-basket').click(function() {
         $('div.vote-basket').slideToggle("slow");
@@ -85,8 +85,8 @@ $(document).ready(function() {
                     <!--  @TODO change url to last input of voting -->
                     <?php if ($this->settings['btn_important'] == 'y'):  ?>
                         <div class="vote-basket">
-                            <h3>Headline Lorem Ipsum Premium Button <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></h3>
-                            <p class="basket-info">Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte. Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. </p>
+                            <h3>Entscheide, was besonders wichtig ist! <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></h3>
+                            <p class="basket-info">Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein stärkeres Gewicht zu verleihen. Diese Übersicht zeigt, was du bereits als „besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl wieder rückgängig machen und Platz für wichtigere Beiträge schaffen.</p>
                             <ul>
                                 <?php  foreach ($this->votingBasket["votes"] as $v) { ?>
                                     <li class="clearfix" id="thes-<?php echo $v["tid"]; ?>"><p> <?php echo $v["thes"]; ?></p>
@@ -98,7 +98,7 @@ $(document).ready(function() {
                     <?php endif; ?>
 
                     <!-- Voting couter -->
-					<span class="voting-counter">
+					<span class="counter counter-voting">
 						<?php
 						// Add leading zeros to count voted
 						$countTotal = $this->thesesCount;
@@ -112,7 +112,7 @@ $(document).ready(function() {
 						// Print count voted by number
 						$countVoted = str_split($countVoted);
 						foreach ($countVoted as $number) {
-							echo '<span class="voting-counter-digit">' . $number . '</span>';
+							echo '<span class="counter-digit">' . $number . '</span>';
 						}
 						?>
 						von <?php echo $countTotal; ?> Beiträgen<br />
