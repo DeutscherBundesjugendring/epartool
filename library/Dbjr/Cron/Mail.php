@@ -4,7 +4,7 @@ class Dbjr_Cron_Mail extends Dbjr_Cron
 {
     /**
      * Sends all unsent emails
-     * @return boolena Indicate is the operation was a success
+     * @return boolean Indicate if the operation was a success
      */
     public function execute()
     {
@@ -32,8 +32,8 @@ class Dbjr_Cron_Mail extends Dbjr_Cron
                 array('time_sent' => Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss')),
                 array('id=?' => $email->id)
             );
-
-            return true;
         }
+
+        return true;
     }
 }
