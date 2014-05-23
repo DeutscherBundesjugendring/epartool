@@ -16,11 +16,11 @@
     "grunt-contrib-clean": "~0.5",
     "grunt-contrib-clean": "~0.5",
     "grunt-contrib-jshint": "~0.8.0",
-    "matchdep": "~0.3.0"
-  },
-  "devDependencies": {
-    "grunt-contrib-watch": "~0.2.0",
+    "matchdep": "~0.3.0",
     "coffee-script": "~1.7.1",
     "grunt-contrib-coffee": "~0.10.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.2.0"
   }
 }
