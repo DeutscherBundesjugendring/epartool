@@ -23,6 +23,7 @@ class Admin_MailSendController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 $values = $form->getValues();
+                $userModel = new Model_Users();
                 $mailer = new Dbjr_Mail();
                 $mailer
                     ->setManualSent(true)
@@ -38,6 +39,28 @@ class Admin_MailSendController extends Zend_Controller_Action
                 if ($values['mailbcc']) {
                     $mailer->addBcc($values['mailbcc']);
                 }
+                if ($values['mail_consultation_participant']) {
+                    $dbCrit = new Dbjr_Db_Criteria();
+                    $dbCrit->columns = array($userModel->getName() . '.email');
+                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], $dbCrit);
+                }
+                if ($values['mail_consultation_voter']) {
+                    $dbCrit = new Dbjr_Db_Criteria();
+                    $dbCrit->columns = array($userModel->getName() . '.email');
+                    $mailer->addRecipientsConsultationVoters($values['mail_consultation'], $dbCrit);
+                }
+                if ($values['mail_consultation_newsletter']) {
+                    $dbCrit = new Dbjr_Db_Criteria();
+                    $dbCrit->where = array($userModel->getName() . '.newsl_subscr=?' => 'y');
+                    $dbCrit->columns = array($userModel->getName() . '.email');
+                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], $dbCrit);
+                }
+                if ($values['mail_consultation_followup']) {
+                    $dbCrit = new Dbjr_Db_Criteria();
+                    $dbCrit->where = array($userModel->getName() . '.cnslt_results=?' => 'y');
+                    $dbCrit->columns = array($userModel->getName() . '.email');
+                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], $dbCrit);
+                }
                 $mailer->send();
 
                 $this->_flashMessenger->addMessage('Email sent.', 'success');
@@ -51,25 +74,10 @@ class Admin_MailSendController extends Zend_Controller_Action
         );
 
         $componentModel = new Model_Mail_Component();
-        $this->view->components = $componentModel->fetchAll();
+        $this->view->components = $componentModel->fetchAll($componentModel->select());
 
         $templateModel = new Model_Mail_Template();
-        $templateTypeModel = new Model_Mail_Template_Type();
-        $this->view->templates = $templateModel->fetchAll(
-             $templateModel
-                ->select()
-                ->setIntegrityCheck(false)
-                ->from(
-                    $templateModel->getName(),
-                    array('id', 'name')
-                )
-                ->join(
-                    $templateTypeModel->getName(),
-                    $templateModel->getName() . '.type_id = ' . $templateTypeModel->getName() . '.id',
-                    null
-                )
-                ->where($templateTypeModel->getName() . '.name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
-        );
+        $this->view->templates = $templateModel->getAllbyType(Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM);
 
         $this->view->form = $form;
     }

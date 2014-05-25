@@ -36,16 +36,20 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
             throw new Zend_Validate_Exception('Given parameter kid must be integer!');
         }
         $count = 0;
+
         $userModel = new Model_Users();
-        $participants = $userModel->getParticipantsByConsultation($kid);
+        $dbCrit = new Dbjr_Db_Criteria();
+        $dbCrit->columns = array($userModel->getName() . '.uid');
+        $participants = $userModel->getParticipantsByConsultation($kid, $dbCrit);
+
         foreach ($participants as $user) {
-            if ($user['uid'] != 1) {
-                $row = $this->find($kid, $user['uid'])->current();
+            if ($user->uid != 1) {
+                $row = $this->find($kid, $user->uid)->current();
                 if (empty($row)) {
                     $code = $this->generateVotingCode();
                     $data = array(
                         'kid' => $kid,
-                        'uid' => $user['uid'],
+                        'uid' => $user->uid,
                         'vt_weight' => 1,
                         'vt_code' => $code,
                     );

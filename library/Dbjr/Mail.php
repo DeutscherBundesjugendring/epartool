@@ -5,6 +5,10 @@ class Dbjr_Mail extends Zend_Mail
     const TOKEN_OPEN = '{{';
     const TOKEN_CLOSE = '}}';
 
+    const RECIPIENT_TYPE_TO = 'to';
+    const RECIPIENT_TYPE_CC = 'cc';
+    const RECIPIENT_TYPE_BCC = 'bcc';
+
     /**
      * Holds the email subject unencoded
      * @var string
@@ -328,5 +332,52 @@ class Dbjr_Mail extends Zend_Mail
         $this->clearHeader('Subject');
 
         return $this;
+    }
+
+    /**
+     * Adds all consultatioin participants as bcc recipients
+     * @param integer           $kid         The consultation identifier
+     * @param Dbjr_Db_Criteria  $dbCriteria  Criteria to limit the search
+     */
+    public function addRecipientsConsultationParticipants($kid, $dbCriteria, $recipientType = null)
+    {
+        $userModel = new Model_Users();
+        $users = $userModel->getParticipantsByConsultation($kid, $dbCriteria);
+        $this->addRecipientsUsers($users, $recipientType);
+    }
+
+    /**
+     * Adds all consultatioin  voters as bcc recipients
+     * @param integer           $kid         The consultation identifier
+     * @param Dbjr_Db_Criteria  $dbCriteria  Criteria to limit the search
+     */
+    public function addRecipientsConsultationVoters($kid, $dbCriteria, $recipientType = null)
+    {
+        $userModel = new Model_Users();
+        $users = $userModel->getVotersByConsultation($kid, $dbCriteria);
+        $this->addRecipientsUsers($users, $recipientType);
+    }
+
+    /**
+     * Adds user emails as recipients
+     * @param Zend_Db_Table_Rowset $users  The users for whom the email addresses are to be added
+     */
+    protected function addRecipientsUsers($users, $recipientType = null)
+    {
+        if ($recipientType === null) {
+            $recipientType = self::RECIPIENT_TYPE_BCC;
+        }
+
+        foreach ($users as $user) {
+            if ($user->email) {
+                if ($recipientType === self::RECIPIENT_TYPE_TO) {
+                    $this->addTo($user->email);
+                } elseif ($recipientType === self::RECIPIENT_TYPE_CC) {
+                    $this->addCc($user->email);
+                } elseif ($recipientType === self::RECIPIENT_TYPE_BCC) {
+                    $this->addBcc($user->email);
+                }
+            }
+        }
     }
 }

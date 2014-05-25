@@ -382,4 +382,93 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
 
         return $rowSet;
     }
+
+    /**
+     * Finds out if there are any participants in this consultation
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any participants
+     */
+    public function hasParticipants($kid)
+    {
+        $inputModel = new Model_Inputs();
+        $row = $inputModel->fetchRow(
+            $inputModel
+                ->select()
+                ->from($inputModel->getName(), array('uid'))
+                ->where('kid=?', $kid)
+        );
+
+        return $row ? true : false;
+    }
+
+    /**
+     * Finds out if there are any participants in this consultation who have subscribed to the newsletter
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any newsletter subscribed participants
+     */
+    public function hasNewsletterSubscribers($kid)
+    {
+        $inputModel = new Model_Inputs();
+        $userModel = new Model_Users();
+        $row =$inputModel->fetchRow(
+            $inputModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from($inputModel->getName(), array())
+                ->join(
+                    array($userModel->getName(), array('uid')),
+                    $userModel->getName() . '.uid = ' . $inputModel->getName() . '.uid',
+                    array('uid')
+                )
+                ->where('kid=?', $kid)
+                ->where('newsl_subscr=?', 'y')
+        );
+
+        return $row ? true : false;
+    }
+
+    /**
+     * Finds out if there are any participants in this consultation who have subscribed to the followups
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any participants followup subscribed participants
+     */
+    public function hasFollowupSubscribers($kid)
+    {
+        $inputModel = new Model_Inputs();
+        $userModel = new Model_Users();
+        $row = $inputModel->fetchRow(
+            $inputModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from($inputModel->getName(), array())
+                ->join(
+                    array($userModel->getName(), array('uid')),
+                    $userModel->getName() . '.uid = ' . $inputModel->getName() . '.uid',
+                    array('uid')
+                )
+                ->where('kid=?', $kid)
+                ->where('cnslt_results=?', 'y')
+        );
+
+        return $row ? true : false;
+    }
+
+    /**
+     * Finds out if there are any voters in this consultation
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any voters
+     */
+    public function hasVoters($kid)
+    {
+        $inputModel = new Model_Inputs();
+        $vtGroupModel = new Model_Votes_Groups();
+        $row = $inputModel->fetchRow(
+            $vtGroupModel
+                ->select()
+                ->from($vtGroupModel->getName(), array('uid'))
+                ->where('kid=?', $kid)
+        );
+
+        return $row ? true : false;
+    }
 }

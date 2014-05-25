@@ -435,28 +435,48 @@ class Model_Users extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns all participants of given consultation.
-     * Participant is a user that has contributed to a given consultation
-     * @param  integer      $kid   Consultation ID
-     * @param  string|array $order Order by spec, Defaults to array('u.name', 'u.uid')
-     * @return array
+     * @param  integer              $kid         Consultation Id
+     * @param  Dbjr_Db_Criteria     $dbCriteria  Criteria to limit the search
+     * @return Zend_Db_Table_Rowset              The participants matching criteria
      */
-    public function getParticipantsByConsultation($kid, $order = '')
+    public function getParticipantsByConsultation($kid, $dbCriteria = null)
     {
-        if (empty($order)) {
-            $order = array('u.name', 'u.uid');
-        }
-
-        $participants = $this->getAdapter()
-            ->select()
+        $inputModel = new Model_Inputs();
+        $select = $this
+            ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART, $dbCriteria)
+            ->setIntegrityCheck(false)
             ->distinct()
-            ->from(array('u' => $this->_name))
-            ->joinInner(array('i' => 'inpt'), 'u.uid = i.uid', array())
-            ->where('i.kid = ?', $kid)
-            ->order($order)
-            ->query()
-            ->fetchAll();
+            ->join(
+                $inputModel->getName(),
+                $inputModel->getName() . '.uid = ' . $this->getName() . '.uid',
+                array()
+            )
+            ->where($inputModel->getName() . '.kid=?', $kid);
 
-        return $participants;
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Returns all voters of given consultation.
+     * @param  integer              $kid         Consultation Id
+     * @param  Dbjr_Db_Criteria     $dbCriteria  Criteria to limit the search
+     * @return Zend_Db_Table_Rowset              The voters matching criteria
+     */
+    public function getVotersByConsultation($kid, $dbCriteria = null)
+    {
+        $vtGroupModel = new Model_Votes_Groups();
+        $select = $this
+            ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART, $dbCriteria)
+            ->setIntegrityCheck(false)
+            ->distinct()
+            ->join(
+                $vtGroupModel->getName(),
+                $vtGroupModel->getName() . '.uid = ' . $this->getName() . '.uid',
+                array()
+            )
+            ->where('kid=?', $kid);
+
+        return $this->fetchAll($select);
     }
 
     /**

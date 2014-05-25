@@ -71,7 +71,14 @@ class Admin_InputController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         $userModel = new Model_Users();
-        $this->view->users = $userModel->getParticipantsByConsultation($kid);
+        $userTblName = $userModel->getName();
+        $dbCrit = new Dbjr_Db_Criteria();
+        $dbCrit->columns = array(
+            $userTblName . '.uid',
+            $userTblName . '.email',
+            $userTblName . '.name',
+        );
+        $this->view->users = $userModel->getParticipantsByConsultation($kid, $dbCrit);
     }
 
     /**

@@ -117,4 +117,26 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
     {
         return parent::select($withFromPart)->where('project_code=?', $this->_projectCode);
     }
+
+    /**
+     * Returns mail templates by type
+     * @param  string               $typeName    The name of the template type
+     * @param  Dbjr_Db_Criteria     $dbCriteria  Criteria to limit the search
+     * @return Zend_Db_Table_Rowset              The system templates matching the criteria
+     */
+    public function getAllByType($typeName, $dbCriteria = null)
+    {
+        $templateTypeModel = new Model_Mail_Template_Type();
+        $select = $this
+            ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART, $dbCriteria)
+            ->setIntegrityCheck(false)
+            ->join(
+                $templateTypeModel->getName(),
+                $this->getName() . '.type_id = ' . $templateTypeModel->getName() . '.id',
+                array()
+            )
+            ->where($templateTypeModel->getName() . '.name=?', $typeName);
+
+        return $this->fetchAll($select);
+    }
 }
