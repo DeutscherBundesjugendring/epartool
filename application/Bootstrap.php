@@ -151,13 +151,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initMail()
     {
-        if (APPLICATION_ENV === 'development') {
+        $this
+            ->getPluginResource('mail')
+            ->getMail();
+        if (APPLICATION_ENV !== 'development') {
             $transport = new Zend_Mail_Transport_File(array('path' => RUNTIME_PATH . '/logs/mail'));
             Zend_Mail::setDefaultTransport($transport);
-        } else {
-            $this
-                ->getPluginResource('mail')
-                ->getMail();
         }
     }
 }
