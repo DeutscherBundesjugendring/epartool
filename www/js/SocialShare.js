@@ -49,7 +49,7 @@
         }
 
         function getFacebookBtn(uri) {
-            var fb_code = '<a href="'+encodeURIComponent(uri)+'" id="facebookshare"><img src="/images/facebook_share_button.png" /></a>';
+            var fb_code = '<a href="'+encodeURIComponent(uri)+'" id="facebookshare"><img src="' + baseUrl + '/images/facebook_share_button.png" /></a>';
 
             return fb_code;
         }
