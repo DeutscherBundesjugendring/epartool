@@ -45,6 +45,9 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		<!--[if lt IE 9]><script src="<?= $this->baseUrl() . $config->path->js->html5shim ?>"></script><![endif]-->
 
 		<?php echo $this->headScript(); ?>
+		<script type="text/javascript">
+			var baseUrl = '<?php echo $this->baseUrl(); ?>';
+		</script>
 
 	</head>
 	<body>
