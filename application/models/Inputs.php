@@ -66,7 +66,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @name add
      * @param  array   $data
      * @return integer primary key of inserted entry
-     *
      */
     public function add($data)
     {
@@ -80,7 +79,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  integer $id
      * @param  array   $data
      * @return integer
-     *
      */
     public function updateById($id, $data)
     {
@@ -974,11 +972,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-    * getRelatedWithVotesById
-    * get the referenced theses with vot = y
-    * @param int $id
-    * @return array
-    */
+     * getRelatedWithVotesById
+     * get the referenced theses with vot = y
+     * @param int $id
+     * @return array
+     */
     public function getRelatedWithVotesById($id)
     {
         $validator = new Zend_Validate_Int();
@@ -996,12 +994,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-    * getFollowups
-    * get the followups by a given tid
-    * @param int $id
-    * @param string $where
-    * @return array
-    */
+     * getFollowups
+     * get the followups by a given tid
+     * @param int $id
+     * @param string $where
+     * @return array
+     */
     public function getFollowups($id, $where = null)
     {
         $validator = new Zend_Validate_Int();
@@ -1038,7 +1036,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param $qid question
      * @param $dir directory
      * @return array
-     **/
+     */
     public function fetchAllInputs($options)
     {
         # parameters #
@@ -1131,7 +1129,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param Post params
      * @param $relIDs
      * @return row
-     **/
+     */
     public function addInputs($data)
     {
         $row = $this->createRow($data);
@@ -1149,14 +1147,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         return ($row);
     }
 
-     /**
+    /**
      * getAppendInputs
      * filters the given ids and get the inputs to append to a  given input
      * @see VotingprepareController|admin: appendinputsAction()
      * @param $tid
      * @param inputIDs given new inputs string
      * @return array of updated inputs
-     **/
+     */
     public function getAppendInputs($tid, $inputIDs)
     {
         $row = $this->find($tid)->current();
@@ -1200,7 +1198,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param $tid
      * @param $relIDs string
      * @return bool
-     **/
+     */
     public function setAppendInputsByID($relIDs, $tid)
     {
         $data = array('rel_tid' => $relIDs);
@@ -1217,7 +1215,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param $qid question
      * @param $dir directory
      * @return number
-     **/
+     */
     public function getNumByDirectory($kid, $qid, $dir)
     {
         $select = $this->select();
@@ -1237,7 +1235,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @see VotingprepareController|admin: setdirectoryAction()
      * @param $options (dir, thesis)
      * @return nothing
-     **/
+     */
     public function setDirectory($options)
     {
         $dir = $options['dir'];
@@ -1248,14 +1246,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $this->update($data, 'tid IN ('.$thesis.')');
     }
 
-     /**
+    /**
      * setBlockStatus
      * enable/disable many inputs for public-viewing in frontend
      * @see VotingprepareController|admin: updateAction()
      * @param $options (thesis)
      * @return nothing
      *
-     **/
+     */
     public function setBlockStatus($thesis, $status)
     {
         $data = array('block' => $status);
@@ -1269,7 +1267,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param $status y or n
      * @return nothing
      *
-     **/
+     */
     public function setBlockStatusByID($status, $tid)
     {
         $data = array('block' => $status);
@@ -1277,7 +1275,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $this->update($data, $where);
     }
 
-     /**
+    /**
      * setVotingStatus
      * enable/disable many inputs for voting in frontend
      * @see VotingprepareController|admin: updateAction()
@@ -1285,21 +1283,21 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param $status y or n
      * @return nothing
      *
-     **/
+     */
     public function setVotingStatus($thesis, $status)
     {
         $data = array('vot' => $status);
         $this->update($data, 'tid IN ('.$thesis.')');
     }
 
-     /**
+    /**
      * setVotingStatusByID
      * enable/disable one input for voting in frontend
      * @see VotingprepareController|admin: votingstatusAction()
      * @param $tid ID from input
      * @param $status y or n
      * @return nothing
-     **/
+     */
     public function setVotingStatusByID($status, $tid)
     {
         $data = array('vot' => $status);
@@ -1313,14 +1311,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @see VotingprepareController|admin: updateAction()
      * @param $thesis ID as comma separated list
      * @return nothing
-     **/
+     */
     public function deleteInputs($thesis)
     {
         $this->delete('tid IN ('.$thesis.')');
         return true;
     }
 
-     /* getByIdArray
+    /**
+     * getByIdArray
      * @desc returns entries by an idArray
      * @name getByIdArray
      * @param  array $tids
@@ -1336,16 +1335,4 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         return $this->fetchAll($select)->toArray();
     }
-
-
-    /* copy
-     * @desc copy a row
-     * @name copy
-     * @param  int $tid
-     * @return array
-     */
-    public function copy($tid)
-    {
-    }
-
 }
