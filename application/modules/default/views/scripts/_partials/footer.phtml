@@ -8,8 +8,8 @@
 				<ul class="nav">
 					<?php echo $this->footerLinks(); ?>
 					<li class="licence">
-						<a rel="license" href="<?=Zend_Registry::get('systemconfig')->license->creative_commons->link?>" class="logo" rel="license" target="_blank" title="Creative-Commons-Lizenz 4.0: Namensnennung, nicht-kommerziell">
-							<img alt="Creative-Commons-Lizenz 4.0: Namensnennung, nicht-kommerziell" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/4.0/88x31.png" alt="CC-BY-NC 4.0" />
+						<a href="<?=Zend_Registry::get('systemconfig')->license->creative_commons->link?>" rel="license" class="logo" target="_blank" title="Creative-Commons-Lizenz 4.0: Namensnennung, nicht-kommerziell">
+							<img src="<?php echo $this->baseUrl(); ?>/images/licence.png" alt="CC-BY-NC 4.0" />
 						</a>
 					</li>
 				</ul>
