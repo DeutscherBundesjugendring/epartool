@@ -58,7 +58,7 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
      * @throws Dbjr_Mail_Exception         Thrown if editing template from another project or changing name in system template
      * @return int                         The number of rows updated.
      */
-    public function update($data, $where)
+    public function update(array $data, $where)
     {
         if ($data['project_code'] !== $this->_projectCode) {
             throw new Dbjr_Mail_Exception('Can not update template belonging to another project.');
@@ -111,11 +111,12 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
     /**
      * Return the select object modified to only include templates from the current project
      * @param  bool                 $withFromPart Whether or not to include the from part of the select based on the table
+     * @param  Dbjr_Db_Criteria     $criteria     The criteria object
      * @return Zend_Db_Table_Select               The select object
      */
-    public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART)
+    public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART, $criteria = null)
     {
-        return parent::select($withFromPart)->where('project_code=?', $this->_projectCode);
+        return parent::select($withFromPart, $criteria)->where('project_code=?', $this->_projectCode);
     }
 
     /**
