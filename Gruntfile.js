@@ -13,6 +13,7 @@ module.exports = function(grunt) {
             compile: {
                 files: {
                     "www/js/admin.js": "www/coffee/admin.coffee",
+                    "www/js/web.js": "www/coffee/web.coffee"
                 }
             }
         },

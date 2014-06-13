@@ -1,80 +1,59 @@
-<?php
-/**
- * index
- *
- * @description   Users
- * @author        Jan Suchandt
- */
-?>
 <h1>Nutzerverwaltung</h1>
 
 <h2>Übersicht aller Nutzer_innen</h2>
-<p><a class="icon icon-plus" href="<?php echo $this->url(array(
-  'action' => 'create'
-)); ?>">Neuer Nutzer</a></p>
+<p><a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'create')); ?>">Neuer Nutzer</a></p>
 <table>
-  <tr>
-    <th>Nr.</th>
-    <th>Name</th>
-    <th>E-mail-Adresse</th>
-    <th>Rolle</th>
-    <th>Letzte Aktivit&auml;t</th>
-    <th>Aktionen</th>
-  </tr>
+    <tr>
+        <th>Nr.</th>
+        <th>Name</th>
+        <th>E-mail-Adresse</th>
+        <th>Rolle</th>
+        <th>Letzte Aktivit&auml;t</th>
+        <th>Aktionen</th>
+    </tr>
 <?php
-  $i=1;
-  foreach ($this->userlist as $user):?>
-  <tr>
-    <td><?php echo $i; ?></td>
-    <td><?php echo (empty($user->name))? '<i>n/a</i>' : $user->name; ?></td>
-    <td><?php echo (empty($user->email))? '<i>n/a</i>' : $user->email; ?></td>
-    <td><?php
-      switch($user->lvl) {
-        case 'usr':
-          $ulvl = 'Benutzer';
-          break;
-        case 'edt':
-          $ulvl = 'Redakteur';
-          break;
-        case 'adm':
-          $ulvl = 'Administrator';
-          break;
-      }
-      echo $ulvl;
-    ?></td>
-    <td><?php
-      $zendDate = new Zend_Date($user->last_act);
-      echo($zendDate->get('dd.MM.yy'));
-    ?></td>
-    <td><a class="icon icon-edit" href="<?php echo $this->url(array(
-    'action' => 'edit',
-    'uid' => $user->uid
-    ));?>">Bearbeiten</a>
-    &nbsp;
-    <a class="icon icon-delete" href="<?php echo $this->url(array(
-  'action' => 'delete',
-  'uid' => $user->uid
-    ));?>" title="Benutzer löschen">Löschen</a>
-  </tr>
+    $i=1;
+    foreach ($this->userlist as $user):?>
+    <tr>
+        <td><?php echo $i; ?></td>
+        <td><?php echo (empty($user->name))? '<i>n/a</i>' : $user->name; ?></td>
+        <td><?php echo (empty($user->email))? '<i>n/a</i>' : $user->email; ?></td>
+        <td><?php
+            switch($user->lvl) {
+                case 'usr':
+                    $ulvl = 'Benutzer';
+                    break;
+                case 'edt':
+                    $ulvl = 'Redakteur';
+                    break;
+                case 'adm':
+                    $ulvl = 'Administrator';
+                    break;
+            }
+            echo $ulvl;
+        ?></td>
+        <td><?php
+            $zendDate = new Zend_Date($user->last_act);
+            echo($zendDate->get('dd.MM.yy'));
+        ?></td>
+        <td><a class="icon icon-edit" href="<?php echo $this->url(array(
+        'action' => 'edit',
+        'uid' => $user->uid
+        ));?>">Bearbeiten</a>
+        &nbsp;
+        <a
+            class="icon icon-delete"
+            href="<?php echo $this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
+            title="Benutzer löschen"
+            onclick="return confirm('Are you sure? All inputs will be amde anonymous.')"
+        >
+            Löschen
+        </a>
+    </tr>
 <?php
-  $i++;
-  endforeach;?>
+    $i++;
+    endforeach;?>
 </table>
 <p><a class="icon icon-plus" href="<?php echo $this->url(array(
-  'action' => 'create'
+    'action' => 'create'
 )); ?>">Neuer Benutzer</a></p>
-
-<script type="text/javascript">
-  $(function() {
-    // Confirm at row-delete
-    $('.icon.icon-delete').click(function(ele){
-      var check = confirm('Wollen Sie den Nutzer wirklich löschen?');
-      if(check) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    });
-  });
-</script>

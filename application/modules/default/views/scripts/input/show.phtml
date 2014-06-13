@@ -1,10 +1,5 @@
 <?php
-/**
- * Question
- *
- * @description   Beiträge zu Fragen
- * @author        Markus Hackel
- */
+
 $date = new Zend_Date();
 $supports = new Zend_Session_Namespace('supports');
 if (empty($supports->clicks)) {
@@ -178,36 +173,6 @@ $this->headScript()->appendScript($script);
         });
         $("#plus").click(function () {
             $("#submitmode").val('save_plus');
-        });
-
-        // Character counters
-        var pad = function(number, length) {
-            var str = '' + number;
-            while (str.length < length) {
-                str = '0' + str;
-            }
-            return str;
-        }
-        var updateCounter = function(el) {
-            var charsLeft = el.attr('maxlength') - el.val().length;
-            var charsLeft = pad(charsLeft, el.attr('maxlength').length);
-            var digits = charsLeft.split('');
-            var HTMLOutput = '';
-            $.each(digits, function(index, value) {
-                HTMLOutput += '<span class="counter-digit">' + value + '</span>';
-            });
-            $('#' + el.attr('id') + '_counter').html(HTMLOutput);
-        }
-        var updateCounterHandler = function(event) {
-            var el = $(event.target);
-            updateCounter(el);
-        }
-        var countees = $('textarea.js-has-counter');
-        countees.each(function(index, el) {
-            var el = $(el);
-            updateCounter(el);
-            el.change(updateCounterHandler);
-            el.keyup(updateCounterHandler);
         });
     });
 </script>
