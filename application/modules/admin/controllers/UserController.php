@@ -202,9 +202,15 @@ class Admin_UserController extends Zend_Controller_Action
         $uid = $this->getRequest()->getParam('uid', 0);
         if ($uid > 0) {
             $userModel = new Model_Users();
-            $deleted = $userModel->deleteById($uid);
-            //$this->_helper->layout()->disableLayout();
-            //$this->_helper->viewRenderer->setNoRender(true);
+            $userModel->getAdapter()->beginTransaction();
+            try {
+                $deleted = $userModel->deleteById($uid);
+                $userModel->getAdapter()->commit();
+            } catch (Exceptioin $e) {
+                $userModel->getAdapter()->rollback();
+                throw $e;
+            }
+
             if ($deleted > 0) {
                 $this->_flashMessenger->addMessage('Benutze_inr wurde gelöscht.', 'success');
             } else {

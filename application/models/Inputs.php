@@ -213,26 +213,32 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns number of inputs for a consultation
-     *
-     * @param  integer $kid
-     * @param  boolean $excludeInvisible [optional], Default: true
-     * @return integer
+     * @param  integer $kid               The consultattion identifier
+     * @param  boolean $excludeInvisible  Default: true
+     * @return integer                    The number of inputs
      */
     public function getCountByConsultation($kid, $excludeInvisible = true)
     {
         $select = $this->select()
-            ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
-            ->where('kid = ?', $kid)
-            ->where('uid <> ?', 1);
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => $this->info(self::NAME)],
+                [new Zend_Db_Expr('COUNT(*) as count')]
+            )
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('q.kid=?', $kid);
 
         if ($excludeInvisible) {
-            $select->where('block<>?', 'y')
+            $select
+                ->where('block<>?', 'y')
                 ->where('user_conf=?', 'c');
         }
 
-        $row = $this->fetchAll($select)->current();
-
-        return $row->count;
+        return $this->fetchAll($select)->current()->count;
     }
 
     /**
@@ -389,18 +395,20 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     public function getSelectByQuestion($qid, $order = 'i.tid DESC', $limit = null, $tag = null)
     {
         $intVal = new Zend_Validate_Int();
-        $db = $this->getDefaultAdapter();
-        $select = $db->select();
-        $select->from(array('i' => $this->_name));
+        $select = $this
+            ->select()
+            ->from(array('i' => $this->_name));
 
         if ($intVal->isValid($tag)) {
-            $select->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array());
-            $select->where('it.tg_nr = ?', $tag);
+            $select
+                ->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array())
+                ->where('it.tg_nr = ?', $tag);
         }
 
-        $select->where('i.qi=?', $qid)->where('i.block<>?', 'y')->where('i.user_conf=?', 'c')
-            // no inputs from user with uid = 1:
-            ->where('i.uid<>?', 1);
+        $select
+            ->where('i.qi=?', $qid)
+            ->where('i.block=?', 'n')
+            ->where($this->getAdapter()->quoteInto('i.user_conf=? OR uid IS NULL', 'c'));
 
         if (!empty($order)) {
             $select->order($order);
@@ -414,156 +422,45 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Stores inputs from session into database
-     * @param  integer                 $uid
-     * @throws Zend_Validate_Exception
-     * @return void
+     * Confirms inputs and confirms user registration if applicable
+     * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
+     * @return integer                Number of inputs confirmed
      */
-    public function storeSessionInputsInDb($uid)
+    public function confirmByCkey($confirmKey)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given uid must be integer!');
-        }
-        $inputCollection = new Zend_Session_Namespace('inputCollection');
-        if (!empty($inputCollection)) {
-            foreach ($inputCollection->inputs as $input) {
-                // mit uid speichern
-                $input['uid'] = $uid;
-                $this->add($input);
-            }
-            // Session inputs löschen
-            unset($inputCollection->inputs);
-        }
+        return $this->confirmRejectByCkey($confirmKey, 'confirm');
     }
 
     /**
-     * Retruns all unconfirmed inputs by user
-     * @param  integer                 $uid
-     * @param  integer                 $kid
-     * @param  boolean                 $includeWithCkey
-     * @throws Zend_Validate_Exception
-     * @return Zend_Db_Table_Rowset
+     * Rejects inputs and confirms user registration if applicable
+     * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
+     * @return integer                Number of inputs rejected
      */
-    public function getUnconfirmedByUser($uid, $kid = null, $includeWithCkey = true)
+    public function rejectByCkey($confirmKey)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given user id has to be integer!');
-
-            return null;
-        }
-        $select = $this->select();
-        $select->where('uid=?', $uid)->where('user_conf=?', 'u');
-        if (!$includeWithCkey) {
-            $select->where('confirm_key = ?', '');
-        }
-        if ($intVal->isValid($kid) && $kid > 0) {
-            $select->where('kid = ?', $kid);
-        }
-        $select->order('when');
-
-        return $this->fetchAll($select);
+        return $this->confirmRejectByCkey($confirmKey, 'reject');
     }
 
     /**
-     * Generates, saves and returns a key for input confirmation
-     * @param  integer        $id Input ID
-     * @throws Zend_Exception
-     * @return string
+     * Confirms or rejects inputs and confirms user registration if applicable
+     * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
+     * @param  string    $action      Indicates the required action. Takse values: reject, confirm
+     * @return integer                Number of inputs confirmed
      */
-    public function generateConfirmationKey($id)
+    protected function confirmRejectByCkey($confirmKey, $action)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($id)) {
-            throw new Zend_Exception('Given tid must be integer!');
-
-            return null;
-        }
-        $row = $this->find($id)->current();
-        if (!empty($row) && $row->user_conf != 'c') {
-            $key = md5($id . time() . getenv('REMOTE_ADDR') . mt_rand());
-            $row->confirm_key = $key;
-            $row->save();
-
-            return $key;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Generates, saves and returns a key for several inputs
-     * @param  array       $ids
-     * @return string|NULL
-     */
-    public function generateConfirmationKeyBulk(array $ids = array())
-    {
-        if (!empty($ids)) {
-            $key = md5(implode('', $ids) . time() . getenv('REMOTE_ADDR') . mt_rand());
-
-            foreach ($ids as $tid) {
-                $row = $this->find($tid)->current();
-                $row->confirm_key = $key;
-                $row->save();
-            }
-
-            return $key;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Processes input confirmation request, also confirms user registration if applicable
-     * @param  string                  $ckey
-     * @param  boolean                 $reject
-     * @throws Zend_Validate_Exception
-     * @return boolean                 true on success
-     */
-    public function confirmByCkey($ckey, $reject = false)
-    {
-        $return = false;
-        $alnumVal = new Zend_Validate_Alnum();
-        if (!$alnumVal->isValid($ckey)) {
-            throw new Zend_Validate_Exception();
-
-            return $return;
-        }
         $userModel = new Model_Users();
-        $uid = 0;
+        $uid = $userModel->confirmbyCkey($confirmKey);
+        $userModel->ping($uid);
 
-        $select = $this->select();
-        $select->where('confirm_key = ?', $ckey);
-        $rowSet = $this->fetchAll($select);
-        if (count($rowSet) > 0) {
-            $return = true;
-            foreach ($rowSet as $row) {
-                $row->user_conf = ($reject ? 'r' : 'c');
-                $row->confirm_key = '';
-                $row->save();
-                // set timestamp last activity
-                $userModel->ping($row->uid);
-                $uid = $row->uid;
-            }
-            if ($reject) {
-                $this->_flashMessenger->addMessage('Die Beiträge wurden als abgelehnt markiert!', 'success');
-            } else {
-                $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
-
-                // also confirm user, if not already done
-                if ($uid > 0) {
-                    $user = $userModel->find($uid)->current();
-                    if ($user->block == 'u') {
-                        $user->block = 'c';
-                        $user->confirm_key = '';
-                        $user->save();
-                    }
-                }
-            }
-        }
-
-        return $return;
+        return $this->update(
+            [
+                'user_conf' => $action === 'reject' ? 'r' : 'c',
+                'uid' => $uid,
+                'confirmation_key' => null
+            ],
+            ['confirmation_key=?' => $confirmKey, 'user_conf=?' => 'u']
+        );
     }
 
     /**
@@ -1334,5 +1231,29 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select->where('tid IN(?)', $tids);
 
         return $this->fetchAll($select)->toArray();
+    }
+
+    /**
+     * Returns a string to identify all inputs that were entered together
+     * The string must be unique
+     * @return string The string to identify the inputs
+     */
+    public function getConfirmationKey()
+    {
+        $confirmKey = sha1(session_id() . microtime() . rand(0, 100));
+        $count = $this
+            ->fetchRow(
+                $this
+                    ->select()
+                    ->from($this->info(Model_Inputs::NAME), array('count' => 'count(*)'))
+                    ->where('confirmation_key=?', $confirmKey)
+            )
+            ->count;
+
+        if ($count) {
+            return $this->getConfirmationKey();
+        }
+
+        return $confirmKey;
     }
 }
