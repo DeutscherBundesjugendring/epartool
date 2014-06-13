@@ -192,10 +192,16 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             throw new Zend_Validate_Exception('Given parameter kid must be integer!');
         }
         $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('vi' => $this->_name), new Zend_Db_Expr('COUNT(*) AS count'))
+        $select = $db
+            ->select()
+            ->from(array('vi' => $this->_name), new Zend_Db_Expr('COUNT(*) AS count'))
             ->join(array('i' => 'inpt'), 'vi.tid = i.tid', array())
-            ->where('i.kid = ?', $kid)
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('q.kid = ?', $kid)
             ->where('vi.pts < ?', 4);
         $stmt = $db->query($select);
 
