@@ -422,17 +422,21 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      */
     public function getParticipantsByConsultation($kid, $dbCriteria = null)
     {
-        $inputModel = new Model_Inputs();
         $select = $this
             ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART, $dbCriteria)
             ->setIntegrityCheck(false)
             ->distinct()
             ->join(
-                $inputModel->getName(),
-                $inputModel->getName() . '.uid = ' . $this->getName() . '.uid',
-                array()
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                'i.uid = ' . $this->info(self::NAME) . '.uid',
+                []
             )
-            ->where($inputModel->getName() . '.kid=?', $kid);
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi= i.qi',
+                []
+            )
+            ->where('kid=?', $kid);
 
         return $this->fetchAll($select);
     }

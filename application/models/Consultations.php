@@ -394,7 +394,13 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         $row = $inputModel->fetchRow(
             $inputModel
                 ->select()
-                ->from($inputModel->getName(), array('uid'))
+                ->setIntegrityCheck(false)
+                ->from(['i' => $inputModel->info(Model_Inputs::NAME)], ['uid'])
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    []
+                )
                 ->where('kid=?', $kid)
         );
 
@@ -408,18 +414,10 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
      */
     public function hasNewsletterSubscribers($kid)
     {
-        $inputModel = new Model_Inputs();
-        $userModel = new Model_Users();
-        $row =$inputModel->fetchRow(
-            $inputModel
+        $userConsultModel = new Model_User_Info();
+        $row = $userConsultModel->fetchRow(
+            $userConsultModel
                 ->select()
-                ->setIntegrityCheck(false)
-                ->from($inputModel->getName(), array())
-                ->join(
-                    array($userModel->getName(), array('uid')),
-                    $userModel->getName() . '.uid = ' . $inputModel->getName() . '.uid',
-                    array('uid')
-                )
                 ->where('kid=?', $kid)
                 ->where('newsl_subscr=?', 'y')
         );
@@ -434,18 +432,10 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
      */
     public function hasFollowupSubscribers($kid)
     {
-        $inputModel = new Model_Inputs();
-        $userModel = new Model_Users();
-        $row = $inputModel->fetchRow(
-            $inputModel
+        $userConsultModel = new Model_User_Info();
+        $row = $userConsultModel->fetchRow(
+            $userConsultModel
                 ->select()
-                ->setIntegrityCheck(false)
-                ->from($inputModel->getName(), array())
-                ->join(
-                    array($userModel->getName(), array('uid')),
-                    $userModel->getName() . '.uid = ' . $inputModel->getName() . '.uid',
-                    array('uid')
-                )
                 ->where('kid=?', $kid)
                 ->where('cnslt_results=?', 'y')
         );

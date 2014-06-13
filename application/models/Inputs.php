@@ -289,10 +289,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     public function getCountByConsultationFiltered($kid, $filter = array())
     {
         $select = $this->select()
-            ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+            ->from(['i' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->setIntegrityCheck(false)
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
             ->where('kid = ?', $kid);
-            // JSU Superadmin wird eigentlich ausgenommen, im Altsystem ist es aber nicht so
-            //->where('uid <> ?', 1);
+
 
         foreach ($filter as $condition) {
             if (is_array($condition)) {
@@ -542,6 +547,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
         $select = $this->select();
         $select
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->info(self::NAME)])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi'
+            )
             ->order('when DESC')
             ->limit($limit);
 
@@ -715,7 +726,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->fetchAll(
                 $this->select()
                     ->distinct()
-                    ->from($this, array('uid'))
+                    ->setIntegrityCheck(false)
+                    ->from(['i' => $this->info(self::NAME)], ['uid'])
+                    ->join(
+                        ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                        'q.qi = i.qi'
+                    )
                     ->where('kid = ?', $kid)
                     ->where('uid > ?', 1)
             )
@@ -954,13 +970,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         # default select #
-        $db = $this -> getDefaultAdapter();
-        $select = $db -> select();
-        $select -> from(array('inputs' => 'inpt'))
-                    -> where('inputs.kid = ?', $kid)
-                    -> where('inputs.qi = ?', $qid);
+        $select = $this
+            ->select()
+            ->from(['inputs' => 'inpt'])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = inputs.qi',
+                []
+            )
+            ->where('q.kid = ?', $kid)
+            ->where('inputs.qi = ?', $qid);
         if ($dir != 0) {
-            $select -> where('inputs.dir = ?', $dir);
+            $select->where('inputs.dir = ?', $dir);
         }
 
         #params for inputs on merge #
@@ -990,7 +1011,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $select ->where("$where");
         }
 
-        $resultSet = $db->query($select);
+        $resultSet = $this->getAdapter()->query($select);
 
         # add related inputs and tags to $resultSet #
         $inputs = array();
@@ -1012,7 +1033,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ->findManyToManyRowset('Model_Tags', 'Model_InputsTags')
                 ->toArray();
             foreach ($tagRows as $tagRow) {
-                $inputs["$id"]["tags"][]= $tagRow;
+                $inputs["$id"]["tags"][] = $tagRow;
             }
         }
 
