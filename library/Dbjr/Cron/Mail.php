@@ -12,7 +12,7 @@ class Dbjr_Cron_Mail extends Dbjr_Cron
         $emails = $mailModel->fetchAll($mailModel->select()->where('time_sent IS NULL'));
 
         foreach ($emails as $email) {
-            $mailer = new Zend_Mail();
+            $mailer = new Zend_Mail('UTF-8');
             $mailer
                 ->setSubject($email->subject)
                 ->setBodyHtml($email->body_html)
