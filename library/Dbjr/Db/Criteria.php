@@ -19,4 +19,35 @@ class Dbjr_Db_Criteria
      * @var array
      */
     public $columns;
+
+    /**
+     * Adds a condition to where array
+     * @param string             $condition The condition to be used
+     * @param string|integer     $value     The value to be used in the condition
+     * @return Dbjr_Db_Criteria             Provides fluent interface
+     */
+    public function addWhere($condition, $value)
+    {
+        if (!is_array($this->where)) {
+            $this->where = [];
+        }
+        $this->where[$condition] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Adds a condition to where array
+     * @param string             $column The column to be added
+     * @return Dbjr_Db_Criteria             Provides fluent interface
+     */
+    public function addColumns($column)
+    {
+        if (!is_array($this->where)) {
+            $this->where = [];
+        }
+        $this->columns[] = $column;
+
+        return $this;
+    }
 }

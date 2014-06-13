@@ -1,0 +1,43 @@
+<form
+    enctype="<?=$this->element->getEnctype()?>"
+    method="<?=$this->element->getMethod()?>"
+    class="form-contribution well well-large text-center"
+>
+    <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'))?>
+
+    <span class="label sticker label-mitmachen-black hidden-print">Mitmachen</span>
+    <h2>Beiträge verfassen</h2><br>
+
+    <?php foreach($this->element->inputs->getSubForms() as $input): ?>
+        <div class="control-group">
+            <span class="counter counter-characters js-character-counter">
+                <span id="inputs-<?=$input->getName()?>-thes_counter">
+                    <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
+                </span>
+            </span>
+
+            <?=$input->getElements()['thes']->setDecorators(array('ViewHelper'))?>
+
+            <a href="#" class="btn btn-block btn-small btn-extend js-toggle-extended-input">
+                <i class="icon-angle-down icon-large"></i>
+                Klicken, um Eintrag zu erläutern
+                <i class="icon-angle-down icon-large"></i>
+            </a>
+
+            <?=$input->getElements()['expl']->setDecorators(array('ViewHelper'))?>
+
+            <span class="counter counter-characters js-character-counter" style="display: none">
+                <span id="inputs-<?=$input->getName()?>-expl_counter">
+                    <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
+                </span>
+            </span>
+        </div>
+    <?php endforeach?>
+
+    <div class="form-actions form-actions-unstyled text-center">
+        <?=$this->element->add_input_field->setDecorators(array('ViewHelper'))?>
+        <p class="hint">Klick hier für einen weiteren Beitrag</p>
+        <?=$this->element->next_question->setDecorators(array('ViewHelper'))?>
+        <?=$this->element->finished->setDecorators(array('ViewHelper'))?>
+    </div>
+</form>

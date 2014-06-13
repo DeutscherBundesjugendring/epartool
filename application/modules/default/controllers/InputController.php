@@ -80,12 +80,10 @@ class InputController extends Zend_Controller_Action
         $nowDate = Zend_Date::now();
 
         if ($this->getRequest()->isPost()) {
-            // if input form is submitted
             $this->_handleInputRequest();
         }
 
         if (empty($qid)) {
-            // get first question of this consultation
             $questionRow = $questionModel->getByConsultation($kid)->current();
             $qid = $questionRow->qi;
         }
@@ -95,33 +93,27 @@ class InputController extends Zend_Controller_Action
             $this->view->tag = $tagModel->getById($tag);
         }
 
-        $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
-
-        $this->view->question = $questionModel->getById($qid);
-
         if ($nowDate->isEarlier($this->_consultation->inp_fr)) {
             $form = '<p>Die Beitragsphase hat noch nicht begonnen.</p>';
         } elseif ($nowDate->isLater($this->_consultation->inp_to)) {
             $form = '<p>Die Beitragsphase ist bereits vorbei.</p>';
         } else {
             $form = $this->_getInputform();
-            $inputCollection = new Zend_Session_Namespace('inputCollection');
-            $theses = array();
-            if (!empty($inputCollection->inputs)) {
-                foreach ($inputCollection->inputs as $input) {
-                    if ($input['kid'] == $kid && $input['qi'] == $qid) {
-                        $theses[] = array(
-                                'thes' => $input['thes'],
-                                'expl' => $input['expl']
-                        );
+            $sessInputs = new Zend_Session_Namespace('inputs');
+            $theses = [];
+            if (!empty($sessInputs->inputs)) {
+                foreach ($sessInputs->inputs as $input) {
+                    if ($input['qi'] == $qid) {
+                        $theses[] = [
+                            'thes' => $input['thes'],
+                            'expl' => $input['expl']
+                        ];
                     }
                 }
             }
-            // add form fields for inputs and prefill it with session data
-            $form->generate($theses);
+            $form->generateInputFields($theses);
             $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
         }
-        $this->view->inputform = $form;
 
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
 
@@ -130,91 +122,61 @@ class InputController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
         $this->view->paginator = $paginator;
+        $this->view->inputform = $form;
+        $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
+        $this->view->question = $questionModel->getById($qid);
 
     }
 
     /**
      * Saves input in session, called in showAction() if form submitted.
      * Redirects to next question or input confirmation page if form is valid
-     * (with login/register form, @see confirmAction())
-     *
      */
     protected function _handleInputRequest()
     {
         $questionModel = new Model_Questions();
-        $inputModel = new Model_Inputs();
         $form = $this->_getInputform();
         $kid = $this->_getParam('kid', 0);
         $qid = $this->_getParam('qid', 0);
         $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
-        $auth = Zend_Auth::getInstance();
 
         if ($this->_request->isPost()) {
-            // Wenn Formular abgeschickt wurde
-            $data = $this->_request->getPost();
+            if ($form->isValid($this->_request->getPost())) {
+                $values = $this->_request->getPost();
 
-            if ($form->isValid($data)) {
-                $data2store = $data;
-
-                // Beiträge in Session sammeln
-                $inputCollection = new Zend_Session_Namespace('inputCollection');
-                if (isset($inputCollection->inputs)) {
-                    $tmpCollection = $inputCollection->inputs;
+                $sessInputs = (new Zend_Session_Namespace('inputs'));
+                if (isset($sessInputs->inputs)) {
+                    $tmpCollection = $sessInputs->inputs;
                     // delete former inputs for this question from session:
                     foreach ($tmpCollection as $key => $item) {
                         if ($item['qi'] == $qid) {
                             unset($tmpCollection[$key]);
                         }
                     }
-                    $inputCollection->inputs = $tmpCollection;
+                    $sessInputs->inputs = $tmpCollection;
                 } else {
                     $tmpCollection = array();
                 }
 
-                $i = 0;
-                foreach ($data2store['thes'] as $thes) {
-                    if (!empty($thes)) {
-                        // Only save Input if form field 'thes' is filled, else simply go to next step
-                        // Beiträge in Session sammeln
+                foreach ($values['inputs'] as $input) {
+                    if (!empty($input['thes'])) {
                         $tmpCollection[] = array(
                                 'kid' => $kid,
                                 'qi' => $qid,
-                                'thes' => $thes,
-                                'expl' => $data2store['expl']['expl_' . $i]
+                                'thes' => $input['thes'],
+                                'expl' => $input['expl']
                         );
-                        $inputCollection->inputs = $tmpCollection;
+                        $sessInputs->inputs = $tmpCollection;
                     }
-                    $i++;
                 }
 
-                // welche Action als nächstes?
-                switch ($data['submitmode']) {
-                    case 'save_plus':
-                        // show form for current question again
-                        // jump to form
-                        $redirectURL.= '/#input';
-                        break;
-
-                    case 'save_next':
-                        $nextQuestion = $questionModel->getNext($qid);
-                        if (!empty($nextQuestion)) {
-                            // Gehe zur nächsten Frage
-                            $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $nextQuestion->qi;
-                        } else {
-                            // Gehe zur Bestätigung
-                            $redirectURL = '/input/confirm/kid/' . $kid;
-                        }
-                        break;
-
-                    case 'save_finish':
-                        // Gehe zur Bestätigung
-                        $redirectURL = '/input/confirm/kid/' . $kid;
-                        break;
-
-                    case 'save_goto':
-                        if ($data['goto'] > 0) {
-                            $redirectURL = '/input/show/kid/' . $kid . '/qid/' . (int) $data['goto'];
-                        }
+                if (isset($values['add_input_field'])) {
+                    $redirectURL.= '/#input';
+                } elseif (isset($values['next_question'])) {
+                    $nextQuestion = $questionModel->getNext($qid);
+                    $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
+                } elseif (isset($values['finished'])) {
+                    $redirectURL = '/input/confirm/kid/' . $kid;
                 }
                 $this->redirect($redirectURL);
             } else {
@@ -231,106 +193,103 @@ class InputController extends Zend_Controller_Action
 
     /**
      * Login or register to save inputs into database
-     *
      */
     public function confirmAction()
     {
-        $userModel = new Model_Users();
-        $inputModel = new Model_Inputs();
         $kid = $this->_getParam('kid', 0);
         $auth = Zend_Auth::getInstance();
-        $inputCollection = new Zend_Session_Namespace('inputCollection');
+        $sessInputs = new Zend_Session_Namespace('inputs');
 
-        if ($auth->hasIdentity()) {
-            // Nutzer ist eingeloggt
-            $identity = $auth->getIdentity();
-            if (!empty($inputCollection->inputs)) {
-                // falls sich der Nutzer gerade eben erst eingeloggt hat,
-                // sind möglicherweise noch Beiträge in der Session,
-                // die jetzt in die DB geschrieben werden müssen
-                $inputModel->storeSessionInputsInDb($identity->uid);
-            }
-            // Bestätigungsmail senden
-            $sent = $userModel->sendInputsConfirmationMail($identity, $kid);
-            if ($sent) {
-                $this->_flashMessenger->addMessage(
-                    'Eine E-Mail zur Bestätigung der Beiträge wurde an die hinterlegte Adresse gesendet.',
-                    'success'
-                );
-            } else {
-                $this->_flashMessenger->addMessage(
-                    'Es gibt keine Beiträge, die noch bestätigt werden müssen.',
-                    'info'
-                );
-            }
-            // auf Startseite weiterleiten
-            $this->redirect('/');
-        } else {
-            // Nutzer nicht eingeloggt
-            if (!empty($inputCollection->inputs)) {
-                // Beiträge in Session vorhanden
-//                 $loginForm = new Default_Form_Login();
-//                 $this->view->loginForm = $loginForm;
+        if (!empty($sessInputs->inputs)) {
+            $inputModel = new Model_Inputs();
+            $confirmKey = $inputModel->getConfirmationKey();
+            try {
+                $inputModel->getAdapter()->beginTransaction();
+                foreach ($sessInputs->inputs as $input) {
+                    $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
+                    $input['confirmation_key'] = $auth->hasIdentity() ? null : $confirmKey;
+                    $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
+                    $inputModel->add($input);
+                }
 
-                // wenn zum ersten Mal teilgenommen:
-                $registerForm = new Default_Form_Register();
-                $populateForm = new Zend_Session_Namespace('populateForm');
-                if (!empty($populateForm->register)) {
-                    // vorangegangener Registrierungsversuch fehlerhaft
-                    if (class_exists('Default_Form_Register', true)) {
-                        // stelle Formular aus Session wieder her
+                if ($auth->hasIdentity()) {
+                    $this->_flashMessenger->addMessage(
+                        'Your inputs have been saved.',
+                        'success'
+                    );
+                    $inputModel->getAdapter()->commit();
+                    unset($sessInputs->inputs);
+                    $this->redirect('/');
+                } else {
+                    $sessInputs->confirmKey = $confirmKey;
+                    $registerForm = new Default_Form_Register();
+                    $populateForm = new Zend_Session_Namespace('populateForm');
+                    if (!empty($populateForm->register)) {
                         $registerForm = unserialize($populateForm->register);
                         unset($populateForm->register);
                     }
+                    $registerForm->getElement('kid')->setValue($kid);
+                    $this->view->registerForm = $registerForm;
                 }
-                $registerForm->getElement('kid')->setValue($kid);
-                $this->view->registerForm = $registerForm;
-            } else {
-                // Keine Beiträge in Session
-                $this->_flashMessenger->addMessage('Keine Beiträge vorhanden.', 'info');
-                $this->redirect('/');
+
+                $inputModel->getAdapter()->commit();
+                unset($sessInputs->inputs);
+            } catch (Exception $e) {
+                $inputModel->getAdapter()->rollback();
+                throw $e;
             }
+        } else {
+            $this->_flashMessenger->addMessage(
+                'Es gibt keine Beiträge, die noch bestätigt werden müssen.',
+                'info'
+            );
+            $this->redirect('/');
         }
     }
 
     /**
-     * Process input confirmation from email link
-     *
+     * Process input confirmation from email link - confirm inputs
      */
     public function mailconfirmAction()
     {
         $ckey = $this->_getParam('ckey');
-        $alnumVal = new Zend_Validate_Alnum();
-        $error = false;
-        if (!$alnumVal->isValid($ckey)) {
-            $error = true;
-        } else {
-            $inputModel = new Model_Inputs();
-            $error = !$inputModel->confirmByCkey($ckey);
+        $inputModel = new Model_Inputs();
+        $inputModel->getAdapter()->beginTransaction();
+        try {
+            $confirmedCount = $inputModel->confirmByCkey($ckey);
+            $inputModel->getAdapter()->commit();
+        } catch (Exception $e) {
+            $inputModel->getAdapter()->rollback();
+            throw $e;
         }
-        if ($error) {
+
+        if ($confirmedCount) {
+            $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
+        } else {
             $this->_flashMessenger->addMessage('Der eingegebene Bestätigungslink ist ungültig!', 'error');
         }
         $this->redirect('/');
     }
 
     /**
-     * Process input confirmation from email link
-     * reject inputs in this case
-     *
+     * Process input confirmation from email link - reject inputs
      */
     public function mailrejectAction()
     {
         $ckey = $this->_getParam('ckey');
-        $alnumVal = new Zend_Validate_Alnum();
-        $error = false;
-        if (!$alnumVal->isValid($ckey)) {
-            $error = true;
-        } else {
-            $inputModel = new Model_Inputs();
-            $error = !$inputModel->confirmByCkey($ckey, true);
+        $inputModel = new Model_Inputs();
+        $inputModel->getAdapter()->beginTransaction();
+        try {
+            $rejectedCount = $inputModel->rejectByCkey($ckey);
+            $inputModel->getAdapter()->commit();
+        } catch (Exception $e) {
+            $inputModel->getAdapter()->rollback();
+            throw $e;
         }
-        if ($error) {
+
+        if ($rejectedCount) {
+            $this->_flashMessenger->addMessage('Die Beiträge wurden als abgelehnt markiert!', 'success');
+        } else {
             $this->_flashMessenger->addMessage('Der eingegebene Bestätigungslink ist ungültig!', 'error');
         }
         $this->redirect('/');
@@ -338,7 +297,6 @@ class InputController extends Zend_Controller_Action
 
     /**
      * Called by ajax request, switches context to json
-     *
      */
     public function supportAction()
     {
@@ -359,7 +317,6 @@ class InputController extends Zend_Controller_Action
 
     /**
      * Edit user inputs
-     *
      */
     public function editAction()
     {
@@ -377,7 +334,7 @@ class InputController extends Zend_Controller_Action
         }
         $inputsModel = new Model_Inputs();
         $input = $inputsModel->getById($tid);
-        if (empty($input) || $input['kid'] != $kid) {
+        if (empty($input)) {
             $error = true;
         }
         if ($error) {
@@ -441,7 +398,7 @@ class InputController extends Zend_Controller_Action
     protected function _getInputform()
     {
         if (null === $this->_inputform) {
-         $this->_inputform = new Default_Form_Input();
+         $this->_inputform = new Default_Form_Input_Create();
         }
 
         return $this->_inputform;

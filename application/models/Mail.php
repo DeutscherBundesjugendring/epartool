@@ -21,55 +21,49 @@ class Model_Mail extends Dbjr_Db_Table_Abstract
     public function insert(array $data)
     {
         $db = $this->getAdapter();
-        $db->beginTransaction();
-        try {
-            $to = $data['to'];
-            unset($data['to']);
-            $cc = $data['cc'];
-            unset($data['cc']);
-            $bcc = $data['bcc'];
-            unset($data['bcc']);
 
-            $mailId = parent::insert($data);
+        $to = $data['to'];
+        unset($data['to']);
+        $cc = $data['cc'];
+        unset($data['cc']);
+        $bcc = $data['bcc'];
+        unset($data['bcc']);
 
-            $recipientModel = new Model_Mail_Recipient();
-            foreach ($to as $name => $email) {
-                $recipientModel->insert(
-                    array(
-                        'email_id' => $mailId,
-                        'type' => Model_Mail_Recipient::TYPE_TO,
-                        'name' => !is_int($name) ? $name : null,
-                        'email' => $email,
-                    )
-                );
-            }
-            foreach ($cc as $name => $email) {
-                $recipientModel->insert(
-                    array(
-                        'email_id' => $mailId,
-                        'type' => Model_Mail_Recipient::TYPE_CC,
-                        'name' => !is_int($name) ? $name : null,
-                        'email' => $email,
-                    )
-                );
-            }
-            foreach ($bcc as $name => $email) {
-                $recipientModel->insert(
-                    array(
-                        'email_id' => $mailId,
-                        'type' => Model_Mail_Recipient::TYPE_BCC,
-                        'name' => !is_int($name) ? $name : null,
-                        'email' => $email,
-                    )
-                );
-            }
-            $db->commit();
+        $mailId = parent::insert($data);
 
-            return $mailId;
-        } catch (Exception $e) {
-            $db->rollback();
-            throw $e;
+        $recipientModel = new Model_Mail_Recipient();
+        foreach ($to as $name => $email) {
+            $recipientModel->insert(
+                array(
+                    'email_id' => $mailId,
+                    'type' => Model_Mail_Recipient::TYPE_TO,
+                    'name' => !is_int($name) ? $name : null,
+                    'email' => $email,
+                )
+            );
         }
+        foreach ($cc as $name => $email) {
+            $recipientModel->insert(
+                array(
+                    'email_id' => $mailId,
+                    'type' => Model_Mail_Recipient::TYPE_CC,
+                    'name' => !is_int($name) ? $name : null,
+                    'email' => $email,
+                )
+            );
+        }
+        foreach ($bcc as $name => $email) {
+            $recipientModel->insert(
+                array(
+                    'email_id' => $mailId,
+                    'type' => Model_Mail_Recipient::TYPE_BCC,
+                    'name' => !is_int($name) ? $name : null,
+                    'email' => $email,
+                )
+            );
+        }
+
+        return $mailId;
     }
 
     /**
