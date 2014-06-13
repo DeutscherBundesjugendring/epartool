@@ -40,10 +40,10 @@ class Default_Form_Input_Create extends Zend_Form
      * Generates the input subForms.
      * @param array $theses Array of inputs that are already in the session
      */
-    public function generateInputFields($theses = null)
+    public function generateInputFields($theses)
     {
-        if ($theses === null) {
-            $theses = array();
+        if (!$theses) {
+            $theses = [['thes' => '', 'expl' => '']];
         }
 
         foreach ($theses as $inputNum => $input) {
