@@ -336,25 +336,13 @@ class Dbjr_Mail extends Zend_Mail
 
     /**
      * Adds all consultatioin participants as bcc recipients
-     * @param integer           $kid         The consultation identifier
-     * @param Dbjr_Db_Criteria  $dbCriteria  Criteria to limit the search
+     * @param integer   $kid            The consultation identifier
+     * @param string    $recipientType  The type of recipient header (see self::RECIPIENT_TYPE_*)
      */
-    public function addRecipientsConsultationParticipants($kid, $dbCriteria, $recipientType = null)
+    public function addRecipientsConsultationParticipants($kid, $recipientType, $participantType = null)
     {
         $userModel = new Model_Users();
-        $users = $userModel->getParticipantsByConsultation($kid, $dbCriteria);
-        $this->addRecipientsUsers($users, $recipientType);
-    }
-
-    /**
-     * Adds all consultatioin  voters as bcc recipients
-     * @param integer           $kid         The consultation identifier
-     * @param Dbjr_Db_Criteria  $dbCriteria  Criteria to limit the search
-     */
-    public function addRecipientsConsultationVoters($kid, $dbCriteria, $recipientType = null)
-    {
-        $userModel = new Model_Users();
-        $users = $userModel->getVotersByConsultation($kid, $dbCriteria);
+        $users = $userModel->getParticipantsByConsultation($kid, $participantType);
         $this->addRecipientsUsers($users, $recipientType);
     }
 
@@ -362,12 +350,8 @@ class Dbjr_Mail extends Zend_Mail
      * Adds user emails as recipients
      * @param Zend_Db_Table_Rowset $users  The users for whom the email addresses are to be added
      */
-    protected function addRecipientsUsers($users, $recipientType = null)
+    protected function addRecipientsUsers($users)
     {
-        if ($recipientType === null) {
-            $recipientType = self::RECIPIENT_TYPE_BCC;
-        }
-
         foreach ($users as $user) {
             if ($user->email) {
                 if ($recipientType === self::RECIPIENT_TYPE_TO) {

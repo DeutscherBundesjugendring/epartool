@@ -128,12 +128,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         } else {
             $uid = $this
                 ->fetchRow(
-                    $this->select(
-                        self::SELECT_WITHOUT_FROM_PART,
-                        (new Dbjr_Db_Criteria())
-                            ->addWhere('email=?', $data['email'])
-                            ->addColumns('uid')
-                    )
+                    $this
+                        ->select()
+                        ->from($this, ['uid'])
+                        ->where('email=?', $data['email'])
                 )
                 ->uid;
         }
@@ -416,50 +414,47 @@ class Model_Users extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns all participants of given consultation.
-     * @param  integer              $kid         Consultation Id
-     * @param  Dbjr_Db_Criteria     $dbCriteria  Criteria to limit the search
-     * @return Zend_Db_Table_Rowset              The participants matching criteria
+     * @param  integer              $kid              Consultation Id
+     * @param  string               $participantType  The type of participant (see: Model_User_Info::PARTICIPANT_TYPE_*)
+     * @throws Dbjr_Exception                         If the requested participantType is invalid
+     * @return Zend_Db_Table_Rowset                   The participants matching criteria
      */
-    public function getParticipantsByConsultation($kid, $dbCriteria = null)
+    public function getParticipantsByConsultation($kid, $participantType = null)
     {
         $select = $this
-            ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART, $dbCriteria)
+            ->select()
             ->setIntegrityCheck(false)
-            ->distinct()
-            ->join(
-                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
-                'i.uid = ' . $this->info(self::NAME) . '.uid',
-                []
-            )
-            ->join(
-                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                'q.qi= i.qi',
-                []
-            )
-            ->where('kid=?', $kid);
+            ->from(['u' => $this->info(self::NAME)])
+            ->where('u.block=?', 'u');
 
-        return $this->fetchAll($select);
-    }
+        if ($participantType === Model_User_Info::PARTICIPANT_TYPE_VOTER) {
+            $select
+                ->distinct()
+                ->join(
+                    ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
+                    'vg.uid = u.uid',
+                    []
+                )
+                ->where('kid=?', $kid);
+        } else {
+            $select
+                ->join(
+                    ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                    'u.uid = ui.uid'
+                )
+                ->where('ui.kid=?', $kid)
+                ->where('ui.confirmation_key IS NULL');
+            if ($participantType === Model_User_Info::PARTICIPANT_TYPE_NEWSLETTER_SUBSCRIBER) {
+                $select->where('ui.newsl_subscr=?', 'y');
+            } elseif ($participantType === Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER) {
+                $select->where('ui.cnslt_results=?', 'y');
+            } else {
+                throw new Dbjr_Exception('Trying to get invalid consultation participant type!');
+            }
+        }
 
-    /**
-     * Returns all voters of given consultation.
-     * @param  integer              $kid         Consultation Id
-     * @param  Dbjr_Db_Criteria     $dbCriteria  Criteria to limit the search
-     * @return Zend_Db_Table_Rowset              The voters matching criteria
-     */
-    public function getVotersByConsultation($kid, $dbCriteria = null)
-    {
-        $vtGroupModel = new Model_Votes_Groups();
-        $select = $this
-            ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART, $dbCriteria)
-            ->setIntegrityCheck(false)
-            ->distinct()
-            ->join(
-                $vtGroupModel->getName(),
-                $vtGroupModel->getName() . '.uid = ' . $this->getName() . '.uid',
-                array()
-            )
-            ->where('kid=?', $kid);
+        var_dump($this->fetchAll($select));
+        exit;
 
         return $this->fetchAll($select);
     }

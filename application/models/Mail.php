@@ -69,11 +69,10 @@ class Model_Mail extends Dbjr_Db_Table_Abstract
     /**
      * Return the select object modified to only include templates from the current project
      * @param  bool                 $withFromPart Whether or not to include the from part of the select based on the table
-     * @param  Dbjr_Db_Criteria     $criteria     The criteria object
      * @return Zend_Db_Table_Select               The select object
      */
-    public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART, $criteria = null)
+    public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART)
     {
-        return parent::select($withFromPart, $criteria)->where('project_code=?', $this->_projectCode);
+        return parent::select($withFromPart)->where('project_code=?', $this->_projectCode);
     }
 }
