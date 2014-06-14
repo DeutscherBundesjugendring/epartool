@@ -57,7 +57,7 @@ euer Projektteam'
 <p>Der Bestätigungslink verliert nach dem Ende der Beteiligungsphase seine Gültigkeit. Deine Zugangsdaten hast du bereits erhalten. Solltest du sie vergessen haben, kannst du mit Eingabe deiner E-Mail-Adresse jederzeit ein neues Passwort anfordern. Deine Beiträge kannst du im Login-Bereich bis zum Ende der ersten Beteiligungsphase weiter bearbeiten, ergänzen oder löschen. Das Sammeln von Beiträgen und damit die erste Beteiligungsphase endet am {{input_phase_end}}. Danach werden wir alle Teilnehmenden bitten, aus den gesammelten Beiträgen diejenigen auszuwählen, die ihnen am wichtigsten sind. Dazu erhältst du/erhaltet ihr eine E-Mail mit weiteren Informationen von uns. Bei Rückfragen stehen dir Jasmin-Marei Christen und Sanja Zeljko im Projektbüro gern zur Verfügung. Einfach anmailen ({{contact_email}}) oder anrufen unter 030. 400 40-441.</p>
 <p>Liebe Grüße,<br />
 Euer Projektbüro</p>
-<h3>Übersicht über Eure Beiträge zur Beteiligungsrunde „{{consultation_title_long}}“<h3>
+<h3>Übersicht über Eure Beiträge zur Beteiligungsrunde „{{consultation_title_long}}“</h3>
 {{inputs_html}}',
         'Hallo {{to_name}},
 danke für die Beteiligung an „{{consultation_title_long}}“. Unten findest Du eine Übersicht deiner/eurer Antworten auf die Fragestellungen.
@@ -69,6 +69,43 @@ Wenn die Beiträge nicht von dir sind, kannst du sie mithilfe dieses Links ableh
 Der Bestätigungslink verliert nach dem Ende der Beteiligungsphase seine Gültigkeit. Deine Zugangsdaten hast du bereits erhalten. Solltest du sie vergessen haben, kannst du mit Eingabe deiner E-Mail-Adresse jederzeit ein neues Passwort anfordern. Deine Beiträge kannst du im Login-Bereich bis zum Ende der ersten Beteiligungsphase weiter bearbeiten, ergänzen oder löschen.
 Das Sammeln von Beiträgen und damit die erste Beteiligungsphase endet am {{input_phase_end}}. Danach werden wir alle Teilnehmenden bitten, aus den gesammelten Beiträgen diejenigen auszuwählen, die ihnen am wichtigsten sind. Dazu erhältst du/erhaltet ihr eine E-Mail mit weiteren Informationen von uns.
 Bei Rückfragen stehen dir Jasmin-Marei Christen und Sanja Zeljko im Projektbüro gern zur Verfügung. Einfach anmailen ({{contact_email}}) oder anrufen unter 030. 400 40-441.
+Liebe Grüße,
+Euer Projektbüro
+==============================================================================
+Übersicht über Eure Beiträge zur Beteiligungsrunde
+„{{consultation_title_long}}“
+==============================================================================
+{{inputs_text}}'
+    ),
+    (
+        'input_confirmation_new_user',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'Beteiligungsrunde „{{consultation_title_short}}“: Bitte Einträge bestätigen',
+        '<p>Hallo {{to_name}},</p>
+<p>danke für die Beteiligung an „{{consultation_title_long}}“. Unten findest Du eine Übersicht deiner/eurer Antworten auf die Fragestellungen.</p>
+<p>Um sicherzustellen, dass die Einträge nicht von einem Spamversender kommen, bitten wir dich um die Bestätigung der Eingaben über den folgenden Link:<br />
+<a href="{{confirmation_url}}">{{confirmation_url}}</a></p>
+<p>Falls sich der Bestätigungslink nicht anklicken lässt oder ein Teil des Links abgeschnitten wurde, kopiere bitte den gesamten Link und füge ihn in die Adressleiste Deines Browsers ein. Drücke anschließend die Eingabetaste.
+<p>Wenn die Beiträge nicht von dir sind, kannst du sie mithilfe dieses Links ablehnen:<br />
+<a href="{{rejection_url}}">{{rejection_url}}</a></p>
+<p>Der Bestätigungslink verliert nach dem Ende der Beteiligungsphase seine Gültigkeit. Deine Zugangsdaten hast du bereits erhalten. Solltest du sie vergessen haben, kannst du mit Eingabe deiner E-Mail-Adresse jederzeit ein neues Passwort anfordern. Deine Beiträge kannst du im Login-Bereich bis zum Ende der ersten Beteiligungsphase weiter bearbeiten, ergänzen oder löschen. Das Sammeln von Beiträgen und damit die erste Beteiligungsphase endet am {{input_phase_end}}. Danach werden wir alle Teilnehmenden bitten, aus den gesammelten Beiträgen diejenigen auszuwählen, die ihnen am wichtigsten sind. Dazu erhältst du/erhaltet ihr eine E-Mail mit weiteren Informationen von uns. Bei Rückfragen stehen dir Jasmin-Marei Christen und Sanja Zeljko im Projektbüro gern zur Verfügung. Einfach anmailen ({{contact_email}}) oder anrufen unter 030. 400 40-441.</p>
+<p>Also a new user account was created for you!</p>
+<p>Liebe Grüße,<br />
+Euer Projektbüro</p>
+<h3>Übersicht über Eure Beiträge zur Beteiligungsrunde „{{consultation_title_long}}“</h3>
+{{inputs_html}}',
+        'Hallo {{to_name}},
+danke für die Beteiligung an „{{consultation_title_long}}“. Unten findest Du eine Übersicht deiner/eurer Antworten auf die Fragestellungen.
+Um sicherzustellen, dass die Einträge nicht von einem Spamversender kommen, bitten wir dich um die Bestätigung der Eingaben über den folgenden Link:
+{{confirmation_url}}
+Falls sich der Bestätigungslink nicht anklicken lässt oder ein Teil des Links abgeschnitten wurde, kopiere bitte den gesamten Link und füge ihn in die Adressleiste Deines Browsers ein. Drücke anschließend die Eingabetaste.
+Wenn die Beiträge nicht von dir sind, kannst du sie mithilfe dieses Links ablehnen:
+{{rejection_url}}
+Der Bestätigungslink verliert nach dem Ende der Beteiligungsphase seine Gültigkeit. Deine Zugangsdaten hast du bereits erhalten. Solltest du sie vergessen haben, kannst du mit Eingabe deiner E-Mail-Adresse jederzeit ein neues Passwort anfordern. Deine Beiträge kannst du im Login-Bereich bis zum Ende der ersten Beteiligungsphase weiter bearbeiten, ergänzen oder löschen.
+Das Sammeln von Beiträgen und damit die erste Beteiligungsphase endet am {{input_phase_end}}. Danach werden wir alle Teilnehmenden bitten, aus den gesammelten Beiträgen diejenigen auszuwählen, die ihnen am wichtigsten sind. Dazu erhältst du/erhaltet ihr eine E-Mail mit weiteren Informationen von uns.
+Bei Rückfragen stehen dir Jasmin-Marei Christen und Sanja Zeljko im Projektbüro gern zur Verfügung. Einfach anmailen ({{contact_email}}) oder anrufen unter 030. 400 40-441.
+Also a new user account was created for you!
 Liebe Grüße,
 Euer Projektbüro
 ==============================================================================
@@ -274,6 +311,46 @@ VALUES
         (SELECT `id` FROM `email_placeholder` WHERE `name`='inputs_text')
     ),
 
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='rejection_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_short')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_long')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='input_phase_end')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='input_phase_start')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='inputs_html')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='inputs_text')
+    ),
 
     (
         (SELECT `id` FROM `email_template` WHERE `name`='voting_confirmation_single' AND `project_code`=@project_code),

@@ -48,28 +48,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Updates user by id
-     * @param  integer $id
-     * @param  array   $data
-     * @return integer
-     */
-    public function updateById($id, $data)
-    {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return 0;
-        }
-
-        if ($this->find($id)->count() < 1) {
-            return 0;
-        }
-
-        $where = $this->getDefaultAdapter()->quoteInto($this->_primary[1] . '=?', $id);
-
-        return $this->update($data, $where);
-    }
-
-    /**
      * Deletes user by uid. All users inputs are made anonymous.
      * @param  integer  $uid The user identifier
      * @return integer       Number of deleted rows, that is ether 1 or 0
@@ -106,7 +84,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * If user is already registered only the consultation specific data are updated
      * @param  array    $data   User data
      * @param  string   $string ConfirmKey for the given session
-     * @return integer          The uid of the newly created user
+     * @return array            Info about the user [(int) user_id, (boolean) is_user_new]
      */
     public function register($data, $confirmKey)
     {
@@ -114,8 +92,9 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'ip' => getenv('REMOTE_ADDR'),
             'agt' => getenv('HTTP_USER_AGENT'),
         ];
+        $isNew = !$this->emailExists($data['email']);
 
-        if (!$this->emailExists($data['email'])) {
+        if ($isNew) {
             $uid = $this->add(
                 array_merge(
                     $userData,
@@ -175,7 +154,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 ->save();
         }
 
-        return $uid;
+        return [$uid, $isNew];
     }
 
     /**
@@ -274,9 +253,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * Sends an email asking user to confirm his/her unconfirmed inputs from the given consultation if there are any
      * @param  integer|object $identity  Either the user object or a user id
      * @param  integer        $kid       The consultation identifier.
+     * @param  boolean        $isNew     Indicates if the recipient has been just created
      * @throws Dbjr_Exception            If the user can not be found in the system
      */
-    public function sendInputsConfirmationMail($identity, $kid, $confirmKey)
+    public function sendInputsConfirmationMail($identity, $kid, $confirmKey, $isNew)
     {
         $intVal = new Zend_Validate_Int();
         if ($intVal->isValid($identity)) {
@@ -292,11 +272,12 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         $inputModel = new Model_Inputs();
         $unconfirmedInputs = $inputModel->fetchAll(
             $inputModel
-                ->select(Zend_Db_Table_Abstract::SELECT_WITH_FROM_PART)
+                ->select()
                 ->setIntegrityCheck(false)
+                ->from(['i' => $inputModel->info(Model_Inputs::NAME)])
                 ->join(
                     array('q' => (new Model_Questions())->info(Model_Questions::NAME)),
-                    'q.qi = ' . $inputModel->info(Model_Inputs::NAME) . '.qi',
+                    'q.qi = i.qi',
                     array()
                 )
                 ->where('user_conf=?', 'u')
@@ -317,10 +298,15 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $date = new Zend_Date();
             $baseUrl = Zend_Registry::get('baseUrl');
             $consultation = (new Model_Consultations())->find($kid)->current();
+            if ($isNew) {
+                $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION_NEW_USER;
+            } else {
+                $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION;
+            }
 
             $mailer = new Dbjr_Mail();
             $mailer
-                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION)
+                ->setTemplate($template)
                 ->setPlaceholders(
                     array(
                         'to_name' => $userRow->name ? $userRow->name : $userRow->email,
@@ -399,17 +385,11 @@ class Model_Users extends Dbjr_Db_Table_Abstract
 
     /**
      * Updates value of last activity with current timestamp
-     * @param  integer        $uid
-     * @throws Zend_Exception
+     * @param  integer  $uid  The user identifier
      */
     public function ping($uid)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Exception('Given uid must be integer!');
-        }
-        $data = array('last_act' => new Zend_Db_Expr('NOW()'));
-        $this->updateById($uid, $data);
+        $this->update(['last_act' => new Zend_Db_Expr('NOW()')], ['uid=?' => $uid]);
     }
 
     /**
