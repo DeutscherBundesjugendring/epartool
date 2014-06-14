@@ -19,5 +19,10 @@
 </a>
 
 <script type="text/javascript">
-    CKEDITOR.replace('body_html');
+    CKEDITOR.replace('body_html', {
+        removePlugins: 'horizontalrule,list,justify,indent,indentlist,indentblock,image2',
+        removeButtons: 'Underline,Anchor,Superscript,Subscript,Strike'
+        // filebrowserImageBrowseUrl: '/';
+        // filebrowserImageUploadUrl: '/';
+    });
 </script>
