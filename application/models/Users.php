@@ -428,13 +428,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 $select->where('ui.newsl_subscr=?', 'y');
             } elseif ($participantType === Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER) {
                 $select->where('ui.cnslt_results=?', 'y');
-            } else {
-                throw new Dbjr_Exception('Trying to get invalid consultation participant type!');
             }
         }
-
-        var_dump($this->fetchAll($select));
-        exit;
 
         return $this->fetchAll($select);
     }

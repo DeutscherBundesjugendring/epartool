@@ -350,7 +350,7 @@ class Dbjr_Mail extends Zend_Mail
      * Adds user emails as recipients
      * @param Zend_Db_Table_Rowset $users  The users for whom the email addresses are to be added
      */
-    protected function addRecipientsUsers($users)
+    protected function addRecipientsUsers($users, $recipientType)
     {
         foreach ($users as $user) {
             if ($user->email) {
