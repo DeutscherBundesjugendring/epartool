@@ -433,7 +433,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function confirmByCkey($confirmKey)
     {
-        return $this->confirmRejectByCkey($confirmKey, 'confirm');
+        $userModel = new Model_Users();
+        $uid = $userModel->confirmbyCkey($confirmKey);
+        $userModel->ping($uid);
+
+        return $this->update(
+            [
+                'user_conf' => 'c',
+                'uid' => $uid,
+                'confirmation_key' => null
+            ],
+            ['confirmation_key=?' => $confirmKey, 'user_conf=?' => 'u']
+        );
     }
 
     /**
@@ -443,24 +454,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function rejectByCkey($confirmKey)
     {
-        return $this->confirmRejectByCkey($confirmKey, 'reject');
-    }
-
-    /**
-     * Confirms or rejects inputs and confirms user registration if applicable
-     * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
-     * @param  string    $action      Indicates the required action. Takse values: reject, confirm
-     * @return integer                Number of inputs confirmed
-     */
-    protected function confirmRejectByCkey($confirmKey, $action)
-    {
-        $userModel = new Model_Users();
-        $uid = $userModel->confirmbyCkey($confirmKey);
-        $userModel->ping($uid);
-
         return $this->update(
             [
-                'user_conf' => $action === 'reject' ? 'r' : 'c',
+                'user_conf' => 'r',
                 'uid' => $uid,
                 'confirmation_key' => null
             ],
