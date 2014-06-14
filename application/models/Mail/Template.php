@@ -5,6 +5,7 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
     const SYSTEM_TEMPLATE_FORGOTTEN_PASSWORD = 'forgotten_password';
     const SYSTEM_TEMPLATE_REGISTRATION = 'registration';
     const SYSTEM_TEMPLATE_INPUT_CONFIRMATION = 'input_confirmation';
+    const SYSTEM_TEMPLATE_INPUT_CONFIRMATION_NEW_USER = 'input_confirmation_new_user';
     const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE = 'voting_confirmation_single';
     const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_GROUP = 'voting_confirmation_group';
     const SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE = 'voting_invitation_single';

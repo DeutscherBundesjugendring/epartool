@@ -50,8 +50,8 @@ class UserController extends Zend_Controller_Action
                     $confirmKey = (new Zend_Session_Namespace('inputs'))->confirmKey;
                     $userModel->getAdapter()->beginTransaction();
                     try {
-                        $uid = $userModel->register($data, $confirmKey);
-                        $userModel->sendInputsConfirmationMail($uid, $form->getValue('kid'), $confirmKey);
+                        list($uid, $isNew) = $userModel->register($data, $confirmKey);
+                        $userModel->sendInputsConfirmationMail($uid, $form->getValue('kid'), $confirmKey, $isNew);
                         $userModel->getAdapter()->commit();
                     } catch (Exception $e) {
                         $userModel->getAdapter()->rollback();
