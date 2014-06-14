@@ -23,7 +23,8 @@ class Admin_MailSendController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 $values = $form->getValues();
-                $userModel = new Model_Users();
+                $userTableName = (new Model_Users())->info(Model_Users::NAME);
+                $userConsultDataTableName = (new Model_User_Info())->info(Model_User_Info::NAME);
                 $mailer = new Dbjr_Mail();
                 $mailer
                     ->setManualSent(true)
@@ -40,26 +41,28 @@ class Admin_MailSendController extends Zend_Controller_Action
                     $mailer->addBcc($values['mailbcc']);
                 }
                 if ($values['mail_consultation_participant']) {
-                    $dbCrit = new Dbjr_Db_Criteria();
-                    $dbCrit->columns = array($userModel->getName() . '.email');
-                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], $dbCrit);
+                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], Dbjr_Mail::RECIPIENT_TYPE_BCC);
                 }
                 if ($values['mail_consultation_voter']) {
-                    $dbCrit = new Dbjr_Db_Criteria();
-                    $dbCrit->columns = array($userModel->getName() . '.email');
-                    $mailer->addRecipientsConsultationVoters($values['mail_consultation'], $dbCrit);
+                    $mailer->addRecipientsConsultationParticipants(
+                        $values['mail_consultation'],
+                        Dbjr_Mail::RECIPIENT_TYPE_BCC,
+                        Model_User_Info::PARTICIPANT_TYPE_VOTER
+                    );
                 }
                 if ($values['mail_consultation_newsletter']) {
-                    $dbCrit = new Dbjr_Db_Criteria();
-                    $dbCrit->where = array($userModel->getName() . '.newsl_subscr=?' => 'y');
-                    $dbCrit->columns = array($userModel->getName() . '.email');
-                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], $dbCrit);
+                    $mailer->addRecipientsConsultationParticipants(
+                        $values['mail_consultation'],
+                        Dbjr_Mail::RECIPIENT_TYPE_BCC,
+                        Model_User_Info::PARTICIPANT_TYPE_NEWSLETTER_SUBSCRIBER
+                    );
                 }
                 if ($values['mail_consultation_followup']) {
-                    $dbCrit = new Dbjr_Db_Criteria();
-                    $dbCrit->where = array($userModel->getName() . '.cnslt_results=?' => 'y');
-                    $dbCrit->columns = array($userModel->getName() . '.email');
-                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], $dbCrit);
+                    $mailer->addRecipientsConsultationParticipants(
+                        $values['mail_consultation'],
+                        Dbjr_Mail::RECIPIENT_TYPE_BCC,
+                        Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER
+                    );
                 }
                 $mailer->send();
 

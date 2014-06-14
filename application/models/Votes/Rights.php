@@ -38,9 +38,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         $count = 0;
 
         $userModel = new Model_Users();
-        $dbCrit = new Dbjr_Db_Criteria();
-        $dbCrit->columns = array($userModel->getName() . '.uid');
-        $participants = $userModel->getParticipantsByConsultation($kid, $dbCrit);
+        $participants = $userModel->getParticipantsByConsultation($kid);
 
         foreach ($participants as $user) {
             if ($user->uid != 1) {

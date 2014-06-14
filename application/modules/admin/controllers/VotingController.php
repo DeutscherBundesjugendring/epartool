@@ -102,13 +102,8 @@ class Admin_VotingController extends Zend_Controller_Action
         $userModel = new Model_Users();
         $votingRightsModel = new Model_Votes_Rights();
         $userTblName = $userModel->getName();
-        $dbCrit = new Dbjr_Db_Criteria();
-        $dbCrit->order = array(
-            $userTblName . '.email ASC',
-            $userTblName . '.name ASC'
-        );
         $participants = $userModel
-            ->getParticipantsByConsultation($this->_consultation->kid, $dbCrit)
+            ->getParticipantsByConsultation($this->_consultation->kid)
             ->toArray();
         $emailList = '';
         foreach ($participants as $key => $value) {
