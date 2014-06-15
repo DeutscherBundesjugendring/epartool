@@ -684,25 +684,31 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function search($needle, $consultationId, $limit = 30)
     {
-        $result = array();
         if ($needle !== '' && !empty($consultationId) && is_int($limit)) {
-            $select = $this->select();
-            $select->from(
-                array('inp'=>'inpt'),
-                array('expl'=>'SUBSTRING(expl,1,100)', 'qi', 'tid', 'thes')
-            );
-            $select ->where("inp.thes LIKE '%$needle%' OR inp.expl LIKE '%$needle%'");
-            $select ->where("inp.`block`!= 'y'");
-            $select ->where("inp.`user_conf`='c'");
-            // if no consultation is set, search in generell articles
-            $select->where('inp.kid = ?', $consultationId);
-            $select->limit($limit);
+            $select = $this
+                ->select()
+                ->from(
+                    ['i'=>'inpt'],
+                    ['expl'=>'SUBSTRING(expl,1,100)', 'qi', 'tid', 'thes']
+                )
+                ->where(
+                    $this->getAdapter()->quoteInto('i.thes LIKE ?', "%$needle%")
+                    . $this->getAdapter()->quoteInto(' OR i.expl LIKE ?', "%$needle%")
+                )
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    []
+                )
+                ->where('i.block!=?', 'y')
+                ->where('i.user_conf=?', 'c')
+                ->where('q.kid=?', $consultationId)
+                ->limit($limit);
 
             $result = $this->fetchAll($select)->toArray();
-
         }
 
-        return $result;
+        return isset($result) ? $result : [];
     }
 
     /**
