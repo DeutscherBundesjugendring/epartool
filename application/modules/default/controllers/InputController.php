@@ -199,8 +199,10 @@ class InputController extends Zend_Controller_Action
         $kid = $this->_getParam('kid', 0);
         $auth = Zend_Auth::getInstance();
         $sessInputs = new Zend_Session_Namespace('inputs');
+        $regFormData = new Zend_Session_Namespace('populateForm');
 
         if (!empty($sessInputs->inputs)) {
+            // After entring inputs
             $inputModel = new Model_Inputs();
             $confirmKey = $inputModel->getConfirmationKey();
             try {
@@ -211,33 +213,30 @@ class InputController extends Zend_Controller_Action
                     $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
                     $inputModel->add($input);
                 }
-
-                if ($auth->hasIdentity()) {
-                    $this->_flashMessenger->addMessage(
-                        'Your inputs have been saved.',
-                        'success'
-                    );
-                    $inputModel->getAdapter()->commit();
-                    unset($sessInputs->inputs);
-                    $this->redirect('/');
-                } else {
-                    $sessInputs->confirmKey = $confirmKey;
-                    $registerForm = new Default_Form_Register();
-                    $populateForm = new Zend_Session_Namespace('populateForm');
-                    if (!empty($populateForm->register)) {
-                        $registerForm = unserialize($populateForm->register);
-                        unset($populateForm->register);
-                    }
-                    $registerForm->getElement('kid')->setValue($kid);
-                    $this->view->registerForm = $registerForm;
-                }
-
                 $inputModel->getAdapter()->commit();
                 unset($sessInputs->inputs);
             } catch (Exception $e) {
                 $inputModel->getAdapter()->rollback();
                 throw $e;
             }
+
+            if ($auth->hasIdentity()) {
+                $this->_flashMessenger->addMessage(
+                    'Your inputs have been saved.',
+                    'success'
+                );
+                $this->redirect('/');
+            } else {
+                $sessInputs->confirmKey = $confirmKey;
+                $registerForm = new Default_Form_Register();
+                $registerForm->getElement('kid')->setValue($kid);
+                $this->view->registerForm = $registerForm;
+            }
+        } elseif ($regFormData->register) {
+            // If submited registration form was invalid, the redirect from UserController::register()
+            $registerForm = unserialize($regFormData->register);
+            unset($regFormData->register);
+            $this->view->registerForm = $registerForm;
         } else {
             $this->_flashMessenger->addMessage(
                 'Es gibt keine Beiträge, die noch bestätigt werden müssen.',
