@@ -65,11 +65,18 @@ class Admin_MediaController extends Zend_Controller_Action
             foreach ($files as $filename) {
                 if (is_file($directory . '/' . $filename)) {
                     $i++;
-                    $deleteForm = new Admin_Form_Media_Delete();
-                    $deleteForm->setAction($action);
-                    $deleteForm->setAttrib('name', 'delete_' . $i)
-                            ->setAttrib('id', 'delete_' . $i);
-                    $deleteForm->getElement('file')->setValue($filename);
+                    $deleteForm = (new Admin_Form_Media_Delete())
+                        ->setAction($action)
+                        ->setAttrib('name', 'delete_' . $i)
+                        ->setAttrib('id', 'delete_' . $i);
+                    $deleteForm->addCsrfHash('csrf_token_mediadelete_' . $i);
+                    $deleteForm->addElement(
+                        $deleteForm
+                            ->createElement('hidden', 'form_num')
+                            ->setValue($i));
+                    $deleteForm
+                        ->getElement('file')
+                        ->setValue($filename);
                     $aFileinfo[$filename] = pathinfo($directory . '/' . $filename);
                     $aFileinfo[$filename]['size'] = ceil(filesize($directory . '/' . $filename) / 1024);
                     $aFileinfo[$filename]['deleteform'] = $deleteForm;
@@ -111,7 +118,6 @@ class Admin_MediaController extends Zend_Controller_Action
         $form = new Admin_Form_Media_Upload();
         if ($form->isValid($formData)) {
             $originalFilename = pathinfo($form->file->getFileName());
-
             if ($kid > 0) {
                 $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
             } else {
@@ -184,6 +190,7 @@ class Admin_MediaController extends Zend_Controller_Action
 
         $formData = $this->_request->getParams();
         $form = new Admin_Form_Media_Delete();
+        $form->addCsrfHash('csrf_token_mediadelete_' . $formData['form_num']);
         if ($form->isValid($formData)) {
             $originalFilename = $form->getElement('file')->getValue();
 
