@@ -12,26 +12,33 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
     protected $_name = 'email_placeholder';
     protected $_primary = 'id';
 
+    /**
+     * Returns mail placeholders that can be used in the given template
+     * @param  integer               $templateId The template identifier
+     * @return Zend_Db_Table_Rowset              The relevant placeholders
+     */
     public function getByTemplateId($templateId)
     {
         $select = $this
             ->select(true)
+            ->from(['mp' => $this->_name])
             ->setIntegrityCheck(false)
             ->joinLeft(
                 array('ethetp' => 'email_template_has_email_placeholder'),
-                'ethetp.email_placeholder_id = ' . $this->_name . '.id'
-            );
-        if ($templateId) {
-            $select
-                ->where('ethetp.email_template_id=?', $templateId)
-                ->orWhere($this->_name . '.is_global=?', true);
-        } else {
-            $select->where($this->_name . '.is_global=?', true);
-        }
+                'ethetp.email_placeholder_id = mp.id',
+                []
+            )
+            ->where('ethetp.email_template_id=?', $templateId)
+            ->orWhere('mp.is_global=?', true);
+
 
         return $this->fetchAll($select);
     }
 
+    /**
+     * Returns global placeholder values
+     * @return array   The placeholders in array [name => value]
+     */
     public function getGlobalValues()
     {
         $config = Zend_Registry::get('systemconfig');
