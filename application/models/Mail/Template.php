@@ -29,27 +29,17 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
      */
     public function insert(array $data)
     {
-        $db = $this->getAdapter();
 
-        $db->beginTransaction();
-        try {
-            $typeModel = new Model_Mail_Template_Type();
-            $systemType = $typeModel->fetchRow(
-                $typeModel->select()->where('name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
-            );
+        $typeModel = new Model_Mail_Template_Type();
+        $systemType = $typeModel->fetchRow(
+            $typeModel->select()->where('name=?', Model_Mail_Template_Type::TEMPLATE_TYPE_CUSTOM)
+        );
 
-            $row = $this->createRow($data);
-            $row->project_code = $this->_projectCode;
-            $row->type_id = $systemType['id'];
+        $row = $this->createRow($data);
+        $row->project_code = $this->_projectCode;
+        $row->type_id = $systemType['id'];
 
-            $templateId = parent::insert($row->toArray());
-            $db->commit();
-
-            return $templateId;
-        } catch (Exception $e) {
-            $db->rollback();
-            throw $e;
-        }
+        return parent::insert($row->toArray());
     }
 
     /**
@@ -80,33 +70,23 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
      */
     public function delete($where)
     {
-        $db = $this->getAdapter();
-
-        $db->beginTransaction();
-        try {
-            $select = $this->select();
-            if (is_array($where)) {
-                foreach ($where as $key => $val) {
-                    $select->where($key, $val);
-                }
-            } else {
-                $select->where($where);
+        $select = $this->select();
+        if (is_array($where)) {
+            foreach ($where as $key => $val) {
+                $select->where($key, $val);
             }
-            $template = $this->fetchRow($select);
-
-            if (!isset($template)) {
-                throw new Dbjr_Mail_Exception('Can not delete template belonging to another project.');
-            } elseif ($template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM) {
-                throw new Dbjr_Mail_Exception('Can not delete system template.');
-            }
-            $rowsDeleted = parent::delete($where);
-            $db->commit();
-
-            return $rowsDeleted;
-        } catch (Exception $e) {
-            $db->rollback();
-            throw $e;
+        } else {
+            $select->where($where);
         }
+        $template = $this->fetchRow($select);
+
+        if (!isset($template)) {
+            throw new Dbjr_Mail_Exception('Can not delete template belonging to another project.');
+        } elseif ($template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM) {
+            throw new Dbjr_Mail_Exception('Can not delete system template.');
+        }
+
+        return parent::delete($where);
     }
 
     /**
@@ -129,13 +109,14 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
         $templateTypeModel = new Model_Mail_Template_Type();
         $select = $this
             ->select()
+            ->from(['t' => $this->_name])
             ->setIntegrityCheck(false)
             ->join(
-                $templateTypeModel->getName(),
-                $this->getName() . '.type_id = ' . $templateTypeModel->getName() . '.id',
-                array()
+                ['tt' => $templateTypeModel->info(Model_Mail_Template_Type::NAME)],
+                't.type_id = tt.id',
+                []
             )
-            ->where($templateTypeModel->getName() . '.name=?', $typeName);
+            ->where('tt.name=?', $typeName);
 
         return $this->fetchAll($select);
     }

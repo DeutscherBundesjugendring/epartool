@@ -83,10 +83,15 @@ class Admin_MailComponentController extends Zend_Controller_Action
             $values = $this->getRequest()->getPost();
             if ($form->isValid($values)) {
                 $componentId = $this->getRequest()->getPost('deleteId');
-                if ($this->_componentModel->delete(array('id=?' => $componentId))) {
+                $db = $this->_componentModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $this->_componentModel->delete(['id=?' => $componentId]);
+                    $db->commit();
                     $this->_flashMessenger->addMessage('Component deleted', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage('Component delete error', 'error');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
                 }
             }
         }

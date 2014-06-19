@@ -51,18 +51,24 @@ class Admin_MailTemplateController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 $values = $form->getValues();
-                if (!empty($templateId)) {
-                    $this->_templateModel->update(
-                        $template->setFromArray($values)->toArray(),
-                        array('id=?' => $template->id)
-                    );
-                } else {
-                    $templateId = $this->_templateModel->insert($values);
+                $db = $this->_templateModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    if (!empty($templateId)) {
+                        $this->_templateModel->update(
+                            $template->setFromArray($values)->toArray(),
+                            ['id=?' => $template->id]
+                        );
+                    } else {
+                        $templateId = $this->_templateModel->insert($values);
+                    }
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
+                    $this->_redirect('/admin/mail-template/detail/id/' . $templateId);
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
                 }
-                $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
-                $this->_redirect('/admin/mail-template/detail/id/' . $templateId);
-            } else {
-                $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
             }
         } elseif (isset($template)) {
             $form->populate($template->toArray());
@@ -85,11 +91,16 @@ class Admin_MailTemplateController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $values = $this->getRequest()->getPost();
             if ($form->isValid($values)) {
-                $templateId = $this->getRequest()->getPost('deleteId');
-                if ($this->_templateModel->delete(array('id=?' => $templateId))) {
+                $db = $this->_templateModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $templateId = $this->getRequest()->getPost('deleteId');
+                    $this->_templateModel->delete(['id=?' => $templateId]);
+                    $db->commit();
                     $this->_flashMessenger->addMessage('Template deleted', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage('Template delete error', 'error');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
                 }
             }
         }
