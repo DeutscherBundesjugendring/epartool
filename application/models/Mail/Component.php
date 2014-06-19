@@ -37,7 +37,7 @@ class Model_Mail_Component extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Deletes component from database. Only performs delete
+     * Deletes component from database.
      * @param  array|string         $where SQL WHERE clause(s).
      * @return integer                     The number of rows deleted
      * @throws Dbjr_Mail_Exception         Thrown if deleting template from another project or a system template
@@ -45,30 +45,21 @@ class Model_Mail_Component extends Dbjr_Db_Table_Abstract
     public function delete($where)
     {
         $db = $this->getAdapter();
-
-        $db->beginTransaction();
-        try {
-            $select = $this->select();
-            if (is_array($where)) {
-                foreach ($where as $key => $val) {
-                    $select->where($key, $val);
-                }
-            } else {
-                $select->where($where);
+        $select = $this->select();
+        if (is_array($where)) {
+            foreach ($where as $key => $val) {
+                $select->where($key, $val);
             }
-            $component = $this->fetchRow($select);
-
-            if (!isset($component)) {
-                throw new Dbjr_Mail_Exception('Can not delete component belonging to another project.');
-            }
-            $rowsDeleted = parent::delete($where);
-            $db->commit();
-
-            return $rowsDeleted;
-        } catch (Exception $e) {
-            $db->rollback();
-            throw $e;
+        } else {
+            $select->where($where);
         }
+        $component = $this->fetchRow($select);
+
+        if (!isset($component)) {
+            throw new Dbjr_Mail_Exception('Can not delete component belonging to another project.');
+        }
+
+        return parent::delete($where);
     }
 
     /**
