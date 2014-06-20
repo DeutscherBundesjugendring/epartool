@@ -22,7 +22,6 @@ class Admin_InputController extends Zend_Controller_Action
 
     /**
      * List of all Inputs by Question, optionally filtered by Tag
-     *
      */
     public function indexAction()
     {
@@ -45,39 +44,35 @@ class Admin_InputController extends Zend_Controller_Action
 
     /**
      * List of all Inputs of a Consultation by User
-     *
      */
     public function listAction()
     {
         $kid = $this->_request->getParam('kid', 0);
         $uid = $this->_request->getParam('uid', 0);
-        $userModel = new Model_Users();
-        $userInfoModel = new Model_User_Info();
-        $questionModel = new Model_Questions();
 
-        $this->view->assign(array(
-            'kid' => $kid,
-            'user' => $userModel->getById($uid),
-            'user_info' => $userInfoModel->getLatestByUserAndConsultation($uid, $kid),
-            'questions' => $questionModel->getWithInputsByUser($uid, $kid),
-        ));
+        $this->view->assign(
+            [
+                'kid' => $kid,
+                'user' => (new Model_Users())->getById($uid),
+                'user_info' => (new Model_User_Info())->getLatestByUserAndConsultation($uid, $kid),
+                'questions' => (new Model_Questions())->getWithInputsByUser($uid, $kid),
+            ]
+        );
     }
 
     /**
      * List of all Users who participated in a Consultation
-     *
      */
     public function userlistAction()
     {
         $kid = $this->_request->getParam('kid', 0);
         $userModel = new Model_Users();
         $userTblName = $userModel->getName();
-        $this->view->users = $userModel->getParticipantsByConsultation($kid, $dbCrit);
+        $this->view->users = $userModel->getParticipantsByConsultation($kid);
     }
 
     /**
      * Edit Input
-     *
      */
     public function editAction()
     {
@@ -121,7 +116,6 @@ class Admin_InputController extends Zend_Controller_Action
 
     /**
      * Edit Inputs in bulk
-     *
      */
     public function editbulkAction()
     {
@@ -160,7 +154,6 @@ class Admin_InputController extends Zend_Controller_Action
 
     /**
      * Export inputs as CSV file
-     *
      */
     public function exportAction()
     {
