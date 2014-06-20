@@ -2,16 +2,6 @@
 
 class IndexController extends Zend_Controller_Action
 {
-    protected $_auth = null;
-
-    protected $_flashMessenger = null;
-
-
-    public function init()
-    {
-        $this->_auth = Zend_Auth::getInstance();
-        $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
-    }
     /**
      * The home page
      */
