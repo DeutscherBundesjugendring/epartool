@@ -126,30 +126,6 @@ class Admin_UserController extends Zend_Controller_Action
                             } else {
                                 $row = $userModel->find($uid)->current();
                                 $row->setFromArray($form->getValues());
-                                $userPasswort = $form->getValue('newpassword');
-                                if (!empty($userPasswort)) {
-                                    /**************************/
-                                    throw new Exception('UNSUPORTED!! Admin should never know user password!');
-                                    /**************************/
-                                    $row->pwd = md5($userPasswort);
-                                    // if send e-mail with new pwd to user
-                                    $emailsend = $form->getValue('pwdsend');
-                                    if ($emailsend === '1') {
-                                        $emailModel = new Model_Emails();
-                                        $emailSuccess = $emailModel->send(
-                                            $params['email'],
-                                            'Passwort-Aktualisierung',
-                                            'Dein Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
-                                            'pwdalter',
-                                            array(
-                                             '{{USER}}'=>$params['name'],
-                                             '{{EMAIL}}'=>$params['email'],
-                                             '{{PWD}}' =>$userPasswort
-                                            )
-                                        );
-                                    }
-
-                                }
                                 $row->save();
 
                                 // transfer userinputs

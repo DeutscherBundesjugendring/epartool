@@ -170,40 +170,32 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Generates a new password and send e-mail to user
-     * @param  string  $email
-     * @return boolean
+     * Creates a urlkeyAction for password reset and notifies user by email
+     * @param  string   $email  The email for which the password shoulb be changed
+     * @return boolean          True on success, false if no user matched the email
      */
     public function recoverPassword($email)
     {
-        $validator = new Zend_Validate_EmailAddress();
-        if ($validator->isValid($email)) {
-            if ($this->emailExists($email)) {
-                $passConf = Zend_Registry::get('systemconfig')->security->password;
-                $newPassword = $this->getRandString($passConf->length, $passConf->allowedChars);
-                $row = $this->getByEmail($email);
-                if ($row) {
-                    $row->password = $this->hashPassword($newPassword);
-                    $row->save();
+        $user = $this->fetchRow($this->select()->where('email=?', $email));
+        if ($user) {
+            $action = (new Dbjr_UrlkeyAction_ResetPassword())->create(
+                [Dbjr_UrlkeyAction_ResetPassword::PARAM_USER_ID => $user->uid]
+            );
 
-                    $mailer = new Dbjr_Mail();
-                    $mailer
-                        ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_FORGOTTEN_PASSWORD)
-                        ->setPlaceholders(
-                            array(
-                                'to_name' => $row->name ? $row->name : $row->email,
-                                'to_email' => $row->email,
-                                'password' => $newPassword,
-                            )
-                        )
-                        ->addTo($row->email)
-                        ->send();
+            $mailer = new Dbjr_Mail();
+            $mailer
+                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_PASSWORD_RESET)
+                ->setPlaceholders(
+                    array(
+                        'to_name' => $user->name ? $user->name : $user->email,
+                        'to_email' => $user->email,
+                        'password_reset_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                    )
+                )
+                ->addTo($user->email)
+                ->send();
 
-                    return true;
-                }
-            } else {
-                $this->_flashMessenger->addMessage('Kein Nutzer zur angegebenen E-Mail-Adresse vorhanden!', 'error');
-            }
+            return true;
         }
 
         return false;
