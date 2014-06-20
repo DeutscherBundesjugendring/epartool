@@ -144,6 +144,28 @@ module.exports = function(grunt) {
                 files: ['www/js/**/*(!.min).js'],
                 tasks: ['jshint']
             }
+        },
+
+        // Inject updated templates and assets to connected browsers during development
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'www/css/*.css',
+                        'www/js/*.js',
+                        'www/images/**/*.svg',
+                        'www/images/**/*.png',
+                        'www/images/**/*.jpg',
+                        'application/layouts/scripts/*.phtml',
+                        'application/modules/admin/views/**/*.phtml',
+                        'application/modules/default/views/**/*.phtml'
+                    ]
+                },
+                options: {
+                    proxy: 'dbjr-ip.local',
+                    watchTask: true
+                }
+            }
         }
     });
 
@@ -155,4 +177,6 @@ module.exports = function(grunt) {
 		'uglify',
 		'clean'
 	]);
+
+    grunt.registerTask('dev', ['browserSync', 'watch']);
 };
