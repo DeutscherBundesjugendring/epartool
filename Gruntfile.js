@@ -18,8 +18,7 @@ module.exports = function(grunt) {
             }
         },
 
-
-		// Compile LESS
+        // Compile LESS
         less: {
             dev: {
 				files: {
@@ -30,46 +29,46 @@ module.exports = function(grunt) {
                 options: {
                     yuicompress: true
                 },
-				files: {
-					'www/css/bootstrap.min.css': 'www/components/bower/bootstrap/less/bootstrap.less',
-					'www/css/<%= pkg.name %>.min.css': 'www/less/main.less'
-				}
+                files: {
+                    'www/css/bootstrap.min.css': 'www/components/bower/bootstrap/less/bootstrap.less',
+                    'www/css/<%= pkg.name %>.min.css': 'www/less/main.less'
+                }
             }
         },
 
-		// Lint custom JS
-		jshint: {
-			files: ['www/js/main.js']
-		},
+        // Lint custom JS
+        jshint: {
+            files: ['www/js/main.js']
+        },
 
-		// Concat all JS
-		concat: {
-			bootstrap: {
-				options: {
-					separator: ';'
-				},
-				src: [
-					'www/components/bower/bootstrap/js/bootstrap-affix.js',
-					'www/components/bower/bootstrap/js/bootstrap-alert.js',
-					'www/components/bower/bootstrap/js/bootstrap-button.js',
-					'www/components/bower/bootstrap/js/bootstrap-carousel.js',
-					'www/components/bower/bootstrap/js/bootstrap-collapse.js',
-					'www/components/bower/bootstrap/js/bootstrap-dropdown.js',
-					'www/components/bower/bootstrap/js/bootstrap-modal.js',
-					'www/components/bower/bootstrap/js/bootstrap-scrollspy.js',
-					'www/components/bower/bootstrap/js/bootstrap-tab.js',
-					'www/components/bower/bootstrap/js/bootstrap-tooltip.js',
-					'www/components/bower/bootstrap/js/bootstrap-popover.js',
-					'www/components/bower/bootstrap/js/bootstrap-transition.js',
-					'www/components/bower/bootstrap/js/bootstrap-typeahead.js'
-				],
-				dest: 'www/js/bootstrap.js'
-			},
-			jqueryUi: {
-				options: {
-					separator: ';'
-				},
-				src: [
+        // Concat all JS
+        concat: {
+            bootstrap: {
+                options: {
+                    separator: ';'
+                },
+                src: [
+                    'www/components/bower/bootstrap/js/bootstrap-affix.js',
+                    'www/components/bower/bootstrap/js/bootstrap-alert.js',
+                    'www/components/bower/bootstrap/js/bootstrap-button.js',
+                    'www/components/bower/bootstrap/js/bootstrap-carousel.js',
+                    'www/components/bower/bootstrap/js/bootstrap-collapse.js',
+                    'www/components/bower/bootstrap/js/bootstrap-dropdown.js',
+                    'www/components/bower/bootstrap/js/bootstrap-modal.js',
+                    'www/components/bower/bootstrap/js/bootstrap-scrollspy.js',
+                    'www/components/bower/bootstrap/js/bootstrap-tab.js',
+                    'www/components/bower/bootstrap/js/bootstrap-tooltip.js',
+                    'www/components/bower/bootstrap/js/bootstrap-popover.js',
+                    'www/components/bower/bootstrap/js/bootstrap-transition.js',
+                    'www/components/bower/bootstrap/js/bootstrap-typeahead.js'
+                ],
+                dest: 'www/js/bootstrap.js'
+            },
+            jqueryUi: {
+                options: {
+                    separator: ';'
+                },
+                src: [
                     'www/components/bower/jquery.ui/ui/jquery.ui.core.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.widget.js',
 
@@ -109,28 +108,28 @@ module.exports = function(grunt) {
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-slide.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-transfer.js'
 
-				],
-				dest: 'www/js/jquery.ui.js'
-			}
-		},
+                ],
+                dest: 'www/js/jquery.ui.js'
+            }
+        },
 
-		// Minify all JS
-		uglify: {
-			dist: {
-				files: {
-					'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
-					'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
-				}
-			}
-		},
+        // Minify all JS
+        uglify: {
+            dist: {
+                files: {
+                    'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
+                    'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
+                }
+            }
+        },
 
-		// Clean temporary files
-		clean: [
-			'www/js/bootstrap.js',
-			'www/js/jquery.ui.js'
-		],
+        // Clean temporary files
+        clean: [
+            'www/js/bootstrap.js',
+            'www/js/jquery.ui.js'
+        ],
 
-		// Watch task
+        // Watch task
         watch: {
             less: {
                 files: ['www/less/**/*.less'],
@@ -169,14 +168,14 @@ module.exports = function(grunt) {
         }
     });
 
-	grunt.registerTask('default', [
-		'less',
+    grunt.registerTask('default', [
+        'less',
         'coffee',
-		'jshint',
-		'concat',
-		'uglify',
-		'clean'
-	]);
+        'jshint',
+        'concat',
+        'uglify',
+        'clean'
+    ]);
 
     grunt.registerTask('dev', ['browserSync', 'watch']);
 };
