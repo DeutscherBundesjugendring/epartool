@@ -358,6 +358,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $user->save();
 
             $userConsultData->confirmation_key = null;
+            $userConsultData->time_user_confirmed = new Zend_Db_Expr('NOW()');
             $userConsultData->save();
 
             return $userConsultData->uid;

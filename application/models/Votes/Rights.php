@@ -76,9 +76,12 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         }
         $db = $this->getDefaultAdapter();
 
-        $subselect = $db->select();
-        $subselect->from('user_info', array(new Zend_Db_Expr('MAX(user_info_id)')));
-        $subselect->where('uid=vr.uid')->where('kid=?', $kid);
+        $subselect = $db
+            ->select()
+            ->from('user_info', array(new Zend_Db_Expr('MAX(user_info_id)')))
+            ->where('uid=vr.uid')
+            ->where('kid=?', $kid)
+            ->where('time_user_confirmed IS NOT NULL');
 
         $select = $db->select();
         $select->from(array('vr' => $this->_name), array(
