@@ -774,12 +774,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $result = array();
         $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('it' => 'inpt_tgs'));
-        $select->joinLeft(array('i' => 'inpt'), 'i.tid = it.tid');
-        $select->where('i.kid=?', $kid);
-        $select->where('i.vot=?', 'y');
-        $select->where('it.tg_nr = ?', (int) $tagId);
+        $select = $db
+            ->select()
+            ->from(array('it' => 'inpt_tgs'))
+            ->joinLeft(array('i' => 'inpt'), 'i.tid = it.tid')
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('i.kid=?', $kid)
+            ->where('i.vot=?', 'y')
+            ->where('it.tg_nr = ?', (int) $tagId);
 
         $stmt = $db->query($select);
         $rowSet = $stmt->fetchAll();
