@@ -11,6 +11,7 @@ class Default_Form_PasswordReset extends Zend_Form
                 ->createElement('password', 'password')
                 ->setLabel('Password')
                 ->setRequired(true)
+                ->setAttrib('class', 'has-password-meter')
                 ->addValidator('stringLength', 'min', Zend_Registry::get('systemconfig')->security->password->minLength)
         );
 
