@@ -12,7 +12,6 @@ class CronController extends Zend_Controller_Action
         if ($key === Zend_Registry::get('systemconfig')->cron->key) {
             $mailCron = new Dbjr_Cron_Mail();
             $mailCron->execute();
-
             echo 'Success!';
         } else {
             echo 'Error!';
