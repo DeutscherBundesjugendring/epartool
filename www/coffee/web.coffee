@@ -1,5 +1,6 @@
 $(document).ready () ->
     bindCharacterCounters()
+    $('.has-password-meter').pwstrength({'ui': {'bootstrap2': true}})
 
 
 bindCharacterCounters = () ->
