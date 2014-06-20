@@ -281,38 +281,6 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Get all consultations where given user has participated in
-     *
-     * @param integer $uid
-     */
-    public function getByUser($uid)
-    {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given uid must be integer!');
-        }
-
-        $db = $this->getAdapter();
-        $select = $db->select();
-        $select
-            ->from(array('i' => 'inpt'), 'i.kid')
-            ->distinct()
-            ->where('i.uid = ?', $uid);
-        $stmt = $db->query($select);
-        $rowSet = $stmt->fetchAll();
-        $kidArray = array();
-        foreach ($rowSet as $row) {
-            $kidArray[] = $row['kid'];
-        }
-
-        $select2 = $this->select()
-            ->where('kid IN (?)', $kidArray)
-            ->order('ord DESC');
-
-        return $this->fetchAll($select2);
-    }
-
-    /**
      * Return all
      */
     public function getAll()
@@ -368,19 +336,29 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         return $result;
     }
 
-    public function getByUserinputs($uid)
+    public function getByUser($uid)
     {
-        $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('i' => 'inpt'), 'i.kid, count(i.thes) AS count');
-        $select->joinLeft(array('c'=>'cnslt'), 'i.kid=c.kid', array('titl'=>'c.titl'));
-        $select->where('i.uid = ?', $uid);
-        $select->group('i.kid');
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                ['count' => 'COUNT(*)']
+            )
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'q.kid = c.kid',
+                ['titl' => 'c.titl', 'kid']
+            )
+            ->where('i.uid = ?', $uid)
+            ->group('c.kid');
 
-        $stmt = $db->query($select);
-        $rowSet = $stmt->fetchAll();
-
-        return $rowSet;
+        return $this->fetchAll($select);
     }
 
     /**

@@ -156,32 +156,29 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns entries by user and consultation
+     * Returns inputs by user and consultation
      * @param integer      $uid   User ID
      * @param integer      $kid   Consultation ID
      * @param string|array $order [optional] Order specification
      */
     public function getByUserAndConsultation($uid, $kid, $order = null)
     {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($uid)) {
-            return 0;
-        }
-        if (!$validator->isValid($kid)) {
-            return 0;
-        }
-
-        // fetch
-        $select = $this->select();
-        $select->where('uid=?', $uid);
-        $select->where('kid=?', $kid);
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->_name])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('i.uid=?', $uid)
+            ->where('q.kid=?', $kid);
         if ($order) {
             $select->order($order);
         }
-        $result = $this->fetchAll($select);
 
-        return $result;
+        return $this->fetchAll($select);
     }
 
     /**
@@ -255,29 +252,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $row = $this->fetchAll($select)->current();
 
         return $row->count;
-    }
-
-    /**
-     * Returns array with count of input of a user filtered by consultation
-     * @param  integer $uid
-     * @return integer
-     */
-    public function getCountByUserGroupedConsultation($uid)
-    {
-        $return = array();
-        $db = $this->getDefaultAdapter();
-        $select = $db->select()
-        ->from('inpt as i', array(new Zend_Db_Expr('COUNT(i.tid) as count, i.kid')))
-        ->joinLeft('cnslt as c', 'i.kid=c.kid', array('titl'))
-        ->group('i.kid')
-        ->where('i.uid = ?', $uid);
-        $stmt = $db->query($select);
-        $row = $stmt->fetchAll();
-        foreach ($row as $curRow) {
-            $return[] = $curRow;
-        }
-
-        return $return;
     }
 
     /**
@@ -868,22 +842,23 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function transferInputs($uid, $targetUid, $kid)
     {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($uid) || !$validator->isValid($targetUid) || !$validator->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter qid must be integer!');
-        }
-        $select = $this->select();
-        $select->where('uid = ?', $uid);
-        $select->where('kid = ?', $kid);
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->info(self::NAME)], ['tid'])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('uid = ?', $uid)
+            ->where('kid = ?', $kid);
 
-        $rowset = $this->fetchAll($select);
-        foreach ($rowset as $input) {
-            $input->uid = $targetUid;
-            $input->save();
-        }
+        $rowset = $this->fetchAll($select)->toArray();
+        $tids = array_map(function($el) {return $el['tid'];}, $rowset);
+        $this->update(['uid' => $targetUid], ['tid IN (?)' => $tids]);
 
         return true;
-
     }
 
     /**

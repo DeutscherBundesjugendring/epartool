@@ -77,15 +77,13 @@ class Admin_UserController extends Zend_Controller_Action
                     $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
                     // remove transfer if user has no input
                     $countInputByUser = $inputModel->getCountByUser($uid);
-                    // JSU array of consultation which this user has joint
-                    $this->view->inputsConsultation = $inputModel->getCountByUserGroupedConsultation($uid);
 
                     $consultationModel = new Model_Consultations();
                     if ($countInputByUser<1) {
                         $transerElement = $form->removeElement('transfer');
                     } else {
                         // generate selects for every consultation
-                        $consultations = $consultationModel->getByUserinputs($uid);
+                        $consultations = $consultationModel->getByUser($uid);
                         foreach ($consultations AS $consultation) {
                             $url = '/admin/input/list/kid/'.$consultation["kid"].'/uid/'.$uid;
                             $label = $consultation['titl'].' ('.$consultation['count'].')';
@@ -155,7 +153,7 @@ class Admin_UserController extends Zend_Controller_Action
                                 $row->save();
 
                                 // transfer userinputs
-                                $consultations = $consultationModel->getByUserinputs($uid);
+                                $consultations = $consultationModel->getByUser($uid);
                                 foreach ($consultations AS $consultation) {
                                     if (!empty($params['transfer_'. $consultation["kid"]])) {
                                         $inputModel->transferInputs(
