@@ -23,32 +23,21 @@ class Model_User_Info extends Dbjr_Db_Table_Abstract
     );
 
     /**
-     * Returns latest user info entry by user and consultation
-     *
-     * @param  integer       $uid
-     * @param  integer       $kid
-     * @return NULL|Ambigous <Zend_Db_Table_Row_Abstract, NULL, unknown>
+     * Returns latest confirmed user info entry by user and consultation
+     * @param  integer            $uid  The user identifier
+     * @param  integer            $kid  The consultation identifier
+     * @return Zend_Db_Table_Row
      */
     public function getLatestByUserAndConsultation($uid, $kid)
     {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($uid)) {
-            return null;
-        }
-        if (!$validator->isValid($kid)) {
-            return null;
-        }
+        $select = $this
+            ->select()
+            ->where('uid=?', $uid)
+            ->where('kid=?', $kid)
+            ->where('time_user_confirmed IS NOT NULL')
+            ->order('user_info_id DESC')
+            ->limit(1);
 
-        $subselect = $this->select();
-        $subselect->from($this, array(new Zend_Db_Expr('MAX(user_info_id)')));
-        $subselect->where('uid=?', $uid)->where('kid=?', $kid);
-
-        $select = $this->select();
-        $select->where('user_info_id=(?)', $subselect);
-
-        $row = $this->fetchRow($select);
-
-        return $row;
+        return $this->fetchRow($select);
     }
 }
