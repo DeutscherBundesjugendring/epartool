@@ -2,14 +2,14 @@
 
 <div class="content-holder main-content">
 
-    <h1 class="heading-centered">Abstimmung</h1>
+    <h1 class="heading-centered"><?=$this->translate('Abstimmung')?></h1>
 
     <div class="row">
 		<section class="span9 offset1">
 
             <div class="well well-large text-center">
                 <span class="label sticker label-mitmachen-black hidden-print">
-                    Mitmachen!
+                    <?=$this->translate('Mitmachen!')?>
                 </span>
 
                 <!-- Voting counter -->
@@ -32,11 +32,10 @@
                         }
                     ?>
                     <br />
-                    von insgesamt <?php echo $countTotal; ?> Beiträgen<br />
-                    abgestimmt.
+                    <?=sprintf($this->translate('Von insgesamt %s Beiträgen abgestimmt.'), $countTotal)?>
                 </span>
 
-                <h2>Stimme jetzt ab!</h2>
+                <h2><?=$this->translate('Stimme jetzt ab!')?></h2>
 
                 <!-- Questions -->
                 <div class="offset-top-large">
@@ -49,7 +48,7 @@
                 </div>
 
                 <p class="offset-top-large offset-bottom-large">
-                    Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit möglich. Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so dass du auf jeden Fall über alle abstimmen kannst. Du kannst so viele Beiträge bearbeiten, wie du möchtest. Unterbrechungen sind problemlos möglich.
+                    <?=$this->translate('Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit möglich. Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so dass du auf jeden Fall über alle abstimmen kannst. Du kannst so viele Beiträge bearbeiten, wie du möchtest. Unterbrechungen sind problemlos möglich.')?>
                 </p>
 
                 <!-- Tags -->
@@ -69,10 +68,10 @@
                 <!-- Actions -->
                 <p>
                     <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
-                        <i class="icon-signout"></i> Beenden
+                        <i class="icon-signout"></i> <?=$this->translate('Beenden')?>
                     </a>
                     <a href="<?php echo $this->url(array('action' => 'preview')); ?>" class="btn" title="Vorschau Abstimmung">
-                        <i class="icon-eye-open"></i> Vorschau Abstimmung
+                        <i class="icon-eye-open"></i> <?=$this->translate('Vorschau Abstimmung')?>
                     </a>
                 </p>
 

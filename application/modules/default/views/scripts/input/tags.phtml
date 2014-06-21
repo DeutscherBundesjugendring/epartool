@@ -1,35 +1,42 @@
 <?php echo $this->secondNavigation('input') ?>
 
 <div class="main-content content-holder">
-	<div class="row">
-		<div class="text-center span10 offset1">
+    <div class="row">
+        <div class="text-center span10 offset1">
 
-			<small class="count muted"><?php echo $this->inputCount ?> bestätigte Beiträge</small>
-			<h1>Alle Beiträge im Überblick</h1>
+            <small class="count muted">
+                <?=$this->inputCount?>
+                <?=$this->translate('bestätigte Beiträge')?>
+            </small>
+            <h1><?=$this->translate('Alle Beiträge im Überblick')?></h1>
 
-			<p>Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine
-				Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr
-				nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.</p>
+            <p>
+            	<?=$this->translate('Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.')?>
+            </p>
 
-		</div>
-	</div><!-- .row -->
+        </div>
+    </div><!-- .row -->
 
-	<!-- Questions -->
-	<?php if (!empty($this->tags)): ?>
-		<div class="well-large-alt text-center">
-			<h2>Beiträge sortiert nach Schlagwörtern:</h2>
-			<ul class="tag-cloud tag-cloud-full">
-				<?php foreach ($this->tags as $tag): ?>
-					<li class="tag-<?php echo $tag['frequency']; ?>">
-						<a href="<?php echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>"><?php echo $tag['tg_de']; ?></a>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-			<a href="<?php echo $this->url(array('action' => 'index')); ?>" class="btn"><i class="icon-angle-left"></i> Zurück zur Fragenübersicht</a>
-		</div>
-	<?php endif; ?>
+    <!-- Questions -->
+    <?php if (!empty($this->tags)): ?>
+        <div class="well-large-alt text-center">
+            <h2><?=$this->translate('Beiträge sortiert nach Schlagwörtern:')?></h2>
+            <ul class="tag-cloud tag-cloud-full">
+                <?php foreach ($this->tags as $tag): ?>
+                    <li class="tag-<?php echo $tag['frequency']; ?>">
+                        <a href="<?php echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>">
+                        	<?php echo $tag['tg_de']; ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <a href="<?php echo $this->url(array('action' => 'index')); ?>" class="btn">
+            	<i class="icon-angle-left"></i> <?=$this->translate('Zurück zur Fragenübersicht')?>
+            </a>
+        </div>
+    <?php endif; ?>
 
-	<?php echo $this->render('_partials/printLink.phtml') ?>
+    <?php echo $this->render('_partials/printLink.phtml') ?>
 
 </div>
 

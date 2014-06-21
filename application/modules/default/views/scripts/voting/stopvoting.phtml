@@ -4,18 +4,18 @@
 	<div class="row">
 		<div class="main-content span6 offset3">
 
-			<h1>Danke für die Teilnahme an der Abstimmung!</h1>
+			<h1><?=$this->translate('Danke für die Teilnahme an der Abstimmung!')?></h1>
 			<p>
-                Falls du heute noch nicht über alle Beiträge abgestimmt hast, kannst du jederzeit zurückkehren und über die verbleibenden Beiträge abstimmen.
+                <?=$this->translate('Falls du heute noch nicht über alle Beiträge abgestimmt hast, kannst du jederzeit zurückkehren und über die verbleibenden Beiträge abstimmen.')?>
             </p>
 			<?php if (!empty($this->groupmember)): ?>
 				<p>
-                    Eine E-Mail zur Bestätigung wurde an <b><?php echo $this->groupmember; ?></b> versandt. Bitte den Posteingang checken!
+                    <?=sprintf($this->translate('Eine E-Mail zur Bestätigung wurde an %s versandt. Bitte den Posteingang checken!'), '<b>' . $this->groupmember . '</b>')?>
                 </p>
 			<?php endif; ?>
 			<p>
                 <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">
-                    Zur&uuml;ck zur Startseite
+                    <?=$this->translate('Zurück zur Startseite')?>
                 </a>
             </p>
 		</div>

@@ -1,5 +1,9 @@
 <?php if ($this -> response == "success"): ?>
-    <p class="success">Der Beitrag wurde gelöscht!</p>
+    <p class="success">
+        <?=$this->translate('Der Beitrag wurde gelöscht!')?>
+    </p>
 <?php else: ?>
-    <p class="error">Fehler, der Beitrag wurde nicht gelöscht!</p>
+    <p class="error">
+        <?=$this->translate('Fehler, der Beitrag wurde nicht gelöscht!')?>
+    </p>
 <?php endif; ?>

@@ -52,13 +52,16 @@ class Default_Form_Register extends Zend_Form
 
         $validator = new Zend_Validate_InArray(array(1));
         $validator->setMessage('You must agree');
-        $this->getElement('is_contrib_under_cc');
+        $this->getElement('is_contrib_under_cc')->setDisableTranslator('true');
         $this->getElement('is_contrib_under_cc')->addValidator($validator);
         $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
         $this->getElement('is_contrib_under_cc')->setLabel(
-            'Die Beiträge werden unter einer <a href="'
-            . Zend_Registry::get('systemconfig')->license->creative_commons->link
-            . '" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">Creative-Commons-Lizenz</a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung als Quelle nur diese Website genannt werden.'
+            sprintf(
+                Zend_Registry::get('Zend_Translate')->translate(
+                    'Die Beiträge werden unter einer <a href="%s" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">Creative-Commons-Lizenz</a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung als Quelle nur diese Website genannt werden.'
+                ),
+                Zend_Registry::get('systemconfig')->license->creative_commons->link
+            )
         );
 
         // add javascript for toggling subform

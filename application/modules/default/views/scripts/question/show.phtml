@@ -3,24 +3,20 @@
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
-
             <?php echo $this->questionNavigation($this->question['qi']); ?>
-
         </aside>
-        <section class="main-content span6">
 
+        <section class="main-content span6">
             <article class="article article-detail">
                 <h1><?php echo $this->question['q'] ?></h1>
                 <p><?php echo $this->question['q_xpl'] ?></p>
             </article>
 
             <?php echo $this->render('_partials/printLink.phtml') ?>
-
         </section>
+
         <aside class="span3">
-
             <p><?php echo $this->question['vot_q'] ?></p>
-
         </aside>
     </div><!-- .row -->
 </div><!-- .content-holder -->

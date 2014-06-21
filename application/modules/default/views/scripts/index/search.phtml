@@ -1,18 +1,16 @@
 <div class="content-holder main-content">
 
     <article class="article article-detail">
-        <h1>Suche nach &quot;<?php echo $this->needle; ?>&quot;</h1>
+        <h1><?=sprintf($this->translate('Suche nach "%s"'), $this->needle)?></h1>
 
-        <h2>Suche in Grundinformationen</h2>
+        <h2><?=$this->translate('Suche in Grundinformationen')?></h2>
         <?php if (count($this->resultsGeneral) > 0): ?>
-                <?php $staticArticles = array(
-                    'about', 'imprint', 'faq', 'privacy', 'contact'
-                );?>
+                <?php $staticArticles = array('about', 'imprint', 'faq', 'privacy', 'contact');?>
                 <ul>
-                    <?php foreach ($this->resultsGeneral AS $article): ?>
+                    <?php foreach ($this->resultsGeneral as $article): ?>
                         <li>
                             <a
-                                href="<?php echo in_array($article['ref_nm'], $staticArticles) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id']?>"
+                                href="<?=in_array($article['ref_nm'], $staticArticles) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id']?>"
                                 title="<?php echo $article['desc']?>"
                             >
                                 <?php echo $article['desc']?>
@@ -21,12 +19,14 @@
                     <?php endforeach?>
                 </ul>
         <?php else: ?>
-            <ul><li>Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.</li></ul>
+            <ul>
+                <li><?=$this->translate('Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.')?></li>
+            </ul>
         <?php endif ?>
 
-        <h2>Suche in Beteiligungsrunden</h2>
+        <h2><?=$this->translate('Suche in Beteiligungsrunden')?></h2>
         <?php if (count($this->resultsConsultations) > 0): ?>
-            <?php foreach ($this->resultsConsultations AS $consultation): ?>
+            <?php foreach ($this->resultsConsultations as $consultation): ?>
                 <?php if (
                     count($consultation['articles']) > 0
                     || count($consultation['questions']) > 0
@@ -36,15 +36,15 @@
                     <h3><?php echo $consultation['titel']?></h3>
 
                     <?php if (count($consultation['articles']) > 0 || isset($consultation['inExpl'])): ?>
-                        <h4>Informationsseiten</h4>
+                        <h4><?=$this->translate('Informationsseiten')?></h4>
                         <ul>
                             <?php if (isset($consultation['inExpl'])): ?>
                                 <li>
                                     <a
                                         href="<?php echo $this->baseUrl()?>/article/index/kid/<?php echo $consultation['cid']?>"
-                                        title="Übersichtsseite"
+                                        title="<?=$this->translate('Übersichtsseite')?>"
                                     >
-                                        Übersichtsseite
+                                        <?=$this->translate('Übersichtsseite')?>
                                     </a>
                                 </li>
                             <?php endif?>

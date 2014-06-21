@@ -90,21 +90,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
     }
 
-/*
-    protected function _initTitle()
-    {
-        $view = $this->bootstrap('view')->getResource('view');
-        $view->headTitle()->setSeparator(' - ');
-
-        $sysconfig = Zend_Registry::get('systemconfig');
-        if ($sysconfig->headTitle) {
-            $view->headTitle($sysconfig->headTitle);
-        } else {
-            $view->headTitle('Strukturierter Dialog in Deutschland');
-        }
-    }
-
-*/
     protected function _initHead()
     {
         $view = $this->bootstrap('view')->getResource('view');

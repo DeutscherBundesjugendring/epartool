@@ -8,22 +8,22 @@
                 <a
                     href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
                     class="back-link"
-                    title="Zurück zur Übersicht Reaktionen & Wirkungen"
+                    title="<?=$this->translate('Zurück zur Übersicht Reaktionen & Wirkungen')?>"
                 >
                     <div class="sprite question-mark"><p>?</p></div>
                     <h3 class="question-h3">
-                        Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.
+                        <?=$this->translate('Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.')?>
                     </h3>
                 </a>
             </div>
-            <h2 class="well-title text-center">Reaktionen & Wirkungen!</h2>
+            <h2 class="well-title text-center"><?=$this->translate('Reaktionen & Wirkungen!')?></h2>
             <div class="wrapper">
                 <div class="col">
                     <div class="timeline-box">
                         <h3>
                             <a
                                 class="whitelink"
-                                title="Zurück zur Übersicht der Beiträge sortiert nach Fragen"
+                                title="<?=$this->translate('Zurück zur Übersicht der Beiträge sortiert nach Fragen')?>"
                                 href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"
                             >
                                 <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
@@ -39,7 +39,7 @@
 
                             <?php endif; ?>
                             <?php if ($this->input['vot'] == 'y'): ?>
-                                <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                                <p class="score"><?=$this->translate('Ergebnis der Abstimmung: X. Rang')?></p>
                             <?php endif; ?>
                         </div>
                         <?php if ($this->relatedCount): ?>
@@ -63,7 +63,7 @@
                                 <div class="timeline-box">
                                     <div class="content">
                                         <p><?php echo $relInput['thes']; ?></p>
-                                        <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                                        <p class="score"><?=$this->translate('Ergebnis der Abstimmung: X. Rang')?></p>
                                     </div>
                                     <?php if ($relInput['relFowupCount'] != 0): ?>
                                         <div class="timeline-countlink sprite">
@@ -82,13 +82,21 @@
 
                     <?php if (count($this->relSnippets)): ?>
                         <?php foreach ($this->relSnippets as $snippet): ?>
-                            <?=$this->partial('_partials/followup-snippet-box.phtml', ['snippet' => $snippet, 'followPathLink' => true, 'relFollowupCount' => true, 'kid' => $this->kid]) ?>
+                            <?=$this->partial(
+                                '_partials/followup-snippet-box.phtml',
+                                [
+                                    'snippet' => $snippet,
+                                    'followPathLink' => true,
+                                    'relFollowupCount' => true,
+                                    'kid' => $this->kid
+                                ]
+                            ) ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
             </div>
 
-            <div id="followuploader">Loading…</div>
+            <div id="followuploader"><?=$this->translate('Loading…')?></div>
         </div>
 
     </section>

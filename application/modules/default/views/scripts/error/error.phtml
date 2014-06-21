@@ -8,9 +8,9 @@
             <p><?php echo $this->message; ?></p>
 
             <?php if ('development' == $this->environment || 'development2' == $this->environment || 'development_karsten' == $this->environment) : ?>
-                <h2>Ausnahme:</h2>
-                <p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
-                <h2>Stack trace:</h2>
+                <h2><?=$this->translate('Ausnahme:')?></h2>
+                <p><b><?=$this->translate('Nachricht:')?></b> <?php echo $this->exception->getMessage(); ?></p>
+                <h2><?=$this->translate('Stack trace:')?></h2>
                 <pre><?php echo $this->exception->getTraceAsString(); ?></pre>
             <?php endif; ?>
 

@@ -2,19 +2,17 @@
     <div class="row">
         <div class="span9">
 
-            <h1>Alle meine Beiträge</h1>
+            <h1><?=$this->translate('Alle meine Beiträge')?></h1>
 
             <?php if (isset($this->consultationList)): ?>
-                <p>Zu folgenden Beteiligungsrunden wurden Beiträge abgegeben:</p>
+                <p><?=$this->translate('Zu folgenden Beteiligungsrunden wurden Beiträge abgegeben:')?></p>
                 <ul>
                 <?php foreach ($this->consultationList as $consultation): ?>
                     <li>
                         <h2>
-                            <a href="<?php
-                            echo $this->url(array(
-                                'kid' => $consultation['kid']
-                            ));
-                            ?>" title="Zeige meine Beiträge zu dieser Beteiligungsrunde">
+                            <a
+                                href="<?=$this->url(['kid' => $consultation['kid']])?>"
+                                title="<?=$this->translate('Zeige meine Beiträge zu dieser Beteiligungsrunde')?>">
                                    <?php echo $consultation['titl']; ?>
                             </a>
                         </h2>
@@ -26,16 +24,23 @@
                 <h2>Beteiligungsrunde: <?php echo $this->consultation->titl; ?></h2>
                 <?php if (!empty($this->inputs)): ?>
                     <?php foreach ($this->inputs as $question): ?>
-                        <h3>Frage: <a href="<?php
-                            echo $this->url(array(
-                                'controller' => 'input',
-                                'action' => 'show',
-                                'kid' => $this->consultation->kid,
-                                'qid' => $question['qi']
-                                    ), 'default', true);
-                            ?>"><?php echo $question['q']; ?></a></h3>
+                        <h3>
+                            <?=$this->translate('Frage:')?>
+                            <a href="<?=$this->url(
+                                [
+                                    'controller' => 'input',
+                                    'action' => 'show',
+                                    'kid' => $this->consultation->kid,
+                                    'qid' => $question['qi']
+                                ],
+                                'default',
+                                true
+                            )?>">
+                                <?php echo $question['q']; ?>
+                            </a>
+                        </h3>
                         <?php if (!empty($question['inputs'])): ?>
-                            <h4>Beiträge:</h4>
+                            <h4><?=$this->translate('Beiträge:')?></h4>
                             <ul>
                                 <?php foreach ($question['inputs'] as $input): ?>
                                     <li>
@@ -48,7 +53,7 @@
                                                     'tid' => $input['tid']
                                                 )
                                             )?>"
-                                            title="Klicken zum Bearbeiten"
+                                            title="<?=$this->translate('Klicken zum Bearbeiten')?>"
                                         >
                                             <strong><?php echo $input['thes']; ?></strong>
                                         </a>
@@ -59,7 +64,7 @@
                                 <?php endforeach; ?>
                             </ul>
                         <?php else: ?>
-                            <p>Keine Beiträge</p>
+                            <p><?=$this->translate('Keine Beiträge')?></p>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>

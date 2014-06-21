@@ -10,17 +10,17 @@
 
             <small class="count muted">
                 <?php echo $this->inputCount ?>
-                bestätigte Beiträge
+                <?=$this->translate('bestätigte Beiträge')?>
             </small>
-            <h1>Alle Beiträge im Überblick</h1>
+            <h1><?=$this->translate('Alle Beiträge im Überblick')?></h1>
             <p>
-                Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.
+                <?=$this->translate('Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.')?>
             </p>
 
             <!-- Questions -->
             <?php if (!empty($this->tags)): ?>
                 <div class="well-large-alt text-center">
-                    <h2>Beiträge sortiert nach Schlagwörtern:</h2>
+                    <h2><?=$this->translate('Beiträge sortiert nach Schlagwörtern:')?></h2>
                     <ul class="tag-cloud">
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?php echo $tag['frequency']; ?>">
@@ -31,7 +31,7 @@
                         <?php endforeach; ?>
                     </ul>
                     <a href="<?php echo $this->url(array('action' => 'inputs-by-question')); ?>" class="btn">
-                        Zurück zur Fragenübersicht
+                        <?=$this->translate('Zurück zur Fragenübersicht')?>
                     </a>
                 </div><!-- .well-large-alt -->
             <?php endif; ?>

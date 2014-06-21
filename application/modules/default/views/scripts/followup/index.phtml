@@ -13,14 +13,18 @@
 
         <section class="main-content span9">
 
-            <h1>Wie's weiterging:<br/>Reaktionen und Wirkung</h1>
+            <h1>
+                <?=$this->translate("Wie's weiterging:")?>
+                <br />
+                <?=$this->translate('Reaktionen & Wirkung')?>
+            </h1>
             <p>
-                Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.
+                <?=$this->translate('Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.')?>
             </p>
 
             <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt">Reaktion</span>
-                <h2 class="alt">Bisherige Reaktionen im Überblick</h2>
+                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaktion')?></span>
+                <h2 class="alt"><?=$this->translate('Bisherige Reaktionen im Überblick')?></h2>
                 <ul class="thumbnails thumbnails-follow-up">
 
                     <?php foreach ($this->followups as $followup): ?>
@@ -61,7 +65,7 @@
                                     target="_blank"
                                     title="Dokument ansehen"
                                 >
-                                    <i class="icon-angle-right"></i> Ansehen
+                                    <i class="icon-angle-right"></i> <?=$this->translate('Ansehen')?>
                                 </a>
                                 <?php if ($followup['referenceType'] === 'file'): ?>
                                     <form
@@ -70,7 +74,7 @@
                                     >
                                         <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
                                         <button type="submit" class="btn-link" title="Dokument herunterladen">
-                                            <i class="icon-file"></i> Download
+                                            <i class="icon-file"></i> <?=$this->translate('Download')?>
                                         </button>
                                     </form>
                                 <?php endif?>
@@ -83,14 +87,17 @@
             </div><!-- .well-large-alt -->
 
             <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt">Reaktion</span>
-                <h2 class="alt">Reaktionen und Feedback auf einzelne Beiträge</h2>
+                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaktion')?></span>
+                <h2 class="alt"><?=$this->translate('Reaktionen und Feedback auf einzelne Beiträge')?></h2>
 
-                <p>Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.</p>
+                <p>
+                    <?=$this->translate('Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.')?>
+                </p>
                 <?php echo $this->questionNavigation(NULL, 'follow-up-box'); ?>
                 <br/>
-                <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">Sortiert nach
-                    Schlagwörtern</a>
+                <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">
+                    <?=$this->translate('Sortiert nach Schlagwörtern')?>
+                </a>
             </div><!-- .well-large-alt -->
 
         </section>
