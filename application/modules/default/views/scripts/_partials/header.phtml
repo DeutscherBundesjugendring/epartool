@@ -1,116 +1,84 @@
-<?php
-/**
- * Header
- */
-?>
 <header>
 
-	<!-- Header region -->
-	<div role="banner" class="header-region">
-		<div class="row">
-			<div class="span4">
+    <!-- Header region -->
+    <div role="banner" class="header-region">
+        <div class="row">
+            <div class="span4">
 
-				<!-- Brand -->
-				<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>"
-					rel="home"
-					class="brand"
-					title="Startseite"
-				>
-					<img
-						src="<?php echo $this->baseUrl(); ?>/project/images/logo.png"
-						itemprop="image"
-						width="177"
-						height="50"
-						alt="Strukturierter Dialog"
-					/>
-				</a>
+                <!-- Brand -->
+                <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>"
+                    rel="home"
+                    class="brand"
+                    title="Startseite"
+                >
+                    <img
+                        src="<?php echo $this->baseUrl(); ?>/project/images/logo.png"
+                        itemprop="image"
+                        width="177"
+                        height="50"
+                        alt="Strukturierter Dialog"
+                    />
+                </a>
 
-			</div>
-			<div class="span5">
+            </div>
+            <div class="span5">
 
-				<!-- Main navigation -->
-				<nav role="navigation" class="main-navigation hidden-print">
-					<h2 class="hide">Hauptmenü</h2>
+                <!-- Main navigation -->
+                <nav role="navigation" class="main-navigation hidden-print">
+                    <h2 class="hide">Hauptmenü</h2>
 
-					<!-- Menu -->
-					<ul class="nav nav-pills">
-						<li><a href="<?php echo $this->url(array(), 'about'); ?>#what">Was</a></li>
-						<li><a href="<?php echo $this->url(array(), 'about'); ?>#us">Wir</a></li>
-						<li><a href="<?php echo $this->url(array(), 'about'); ?>#you">Mit euch</a></li>
-						<li><a href="<?php echo $this->url(array(), 'about'); ?>#vision">Machen</a></li>
-					</ul>
-				</nav><!-- .main-navigation -->
+                    <!-- Menu -->
+                    <ul class="nav nav-pills">
+                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#what">Was</a></li>
+                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#us">Wir</a></li>
+                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#you">Mit euch</a></li>
+                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#vision">Machen</a></li>
+                    </ul>
+                </nav><!-- .main-navigation -->
 
-			</div>
-			<div class="span3">
+            </div>
+            <div class="span3">
 
-				<!-- Search -->
-				<form method="get" action="<?php echo $this->baseUrl(); ?>/index/search" class="form-search hidden-print">
-					<div class="input-append">
-						<input type="text" name="q" placeholder="Suchbegriff…" class="input-medium search-query" value="" />
-						<button type="submit" class="btn btn-primary btn-icon"><i class="icon-search icon-white"></i></button>
-					</div>
-				</form>
+                <!-- Search -->
+                <form method="get" action="<?php echo $this->baseUrl(); ?>/index/search" class="form-search hidden-print">
+                    <div class="input-append">
+                        <input type="text" name="q" placeholder="Suchbegriff…" class="input-medium search-query" value="" />
+                        <button type="submit" class="btn btn-primary btn-icon"><i class="icon-search icon-white"></i></button>
+                    </div>
+                </form>
 
-				<!-- Login -->
-				<?php echo $this->login(); ?>
+                <!-- Login -->
+                <?php echo $this->login(); ?>
 
-				<!-- User box (user is logged in) -->
-				<?php echo $this->userBox(); ?>
-				<!-- .user-box -->
+                <!-- User box (user is logged in) -->
+                <?php echo $this->userBox(); ?>
+                <!-- .user-box -->
 
-				<!-- User info in a modified modal -->
-				<?php //echo $this->userInfo(); ?>
-				<div
-					id="user-info"
-					class="user-info modal hide fade"
-					tabindex="-1"
-					role="dialog"
-					aria-labelledby="userInfoLabel"
-					aria-hidden="true"
-				>
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h3 id="userInfoLabel">User Info</h3>
-					</div><!-- .modal-header -->
-					<div class="modal-body">
+                <!-- User info in a modified modal -->
+                <?php //echo $this->userInfo(); ?>
+                <div
+                    id="user-info"
+                    class="user-info modal hide fade"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="userInfoLabel"
+                    aria-hidden="true"
+                >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="userInfoLabel">User Info</h3>
+                    </div><!-- .modal-header -->
+                    <div class="modal-body">
+                        <?php echo $this->userEditSimple(); ?>
+                        <hr />
+                    </div><!-- .modal-body -->
+                </div><!-- #user-info -->
 
-						<!-- Change user login or password -->
-						<?php echo $this->userEditSimple(); ?>
-						<!-- <form name="userEdit" action="" method="post" class="user-edit-form">
-							<p><i class="icon-chevron-right"></i> Name und Passwort ändern</p>
-							<div class="control-group">
-								<div class="control-label hide">
-									<label for="username">E-Mail Adresse:</label>
-								</div>
-								<div class="controls">
-									<input type="email" name="username" id="username" placeholder="E-mail Adresse" value="" />
-								</div>
-							</div>
-							<div class="control-group">
-								<div class="control-label hide">
-									<label for="password">Passwort:</label>
-								</div>
-								<div class="controls">
-									<input type="password" name="password" id="password" placeholder="Passwort" value="" />
-								</div>
-							</div>
-							<div class="form-actions">
-								<button type="submit" name="userEditSubmit" class="btn">Absenden</button>
-							</div>
-						</form> -->
-						<hr />
+            </div><!-- .span3 -->
+        </div><!-- .row -->
 
-							<!-- <a href=""><i class="icon-chevron-right"></i> Neue Gruppenmitglieder zum Freischalten</a> -->
+        <?php echo $this->partial('_partials/heroUnit.phtml', $this) ?>
 
-					</div><!-- .modal-body -->
-				</div><!-- #user-info -->
-
-			</div><!-- .span3 -->
-		</div><!-- .row -->
-
-		<?php echo $this->partial('_partials/heroUnit.phtml', $this) ?>
-
-	</div><!-- .header-region -->
+    </div><!-- .header-region -->
 </header>
 <hr class="hide" />

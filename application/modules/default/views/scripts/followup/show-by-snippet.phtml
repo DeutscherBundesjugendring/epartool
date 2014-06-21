@@ -1,12 +1,3 @@
-<?php
-/**
- * shows the initial timeline for followups by chosen input
- *
- * @description show Followup Timeline
- * @author Marco Dinnbier
- */
-?>
-
 <?php echo $this->secondNavigation('follow-up') ?>
 
 <div class="content-holder">
@@ -14,14 +5,20 @@
 
         <div class="well well-large well-alt" id="followup">
             <div class="followuphead">
-                <a href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>" class="back-link" title="Zurück zur Übersicht Reaktionen & Wirkungen">
+                <a
+                    href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
+                    class="back-link"
+                    title="Zurück zur Übersicht Reaktionen & Wirkungen"
+                >
                     <div class="sprite question-mark"><p>?</p></div>
-                    <h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
+                    <h3 class="question-h3">
+                        Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.
+                    </h3>
                 </a>
             </div>
+
             <h2 class="well-title text-center">Reaktionen & Wirkungen!</h2>
             <div class="wrapper">
-
                 <div data-id="0" class="col">
                     <?php if (count($this->reltothis_inputs)): ?>
                             <?php foreach ($this->reltothis_inputs as $relInput): ?>
@@ -33,14 +30,17 @@
                                     <?php if ($relInput['relFowupCount'] != 0): ?>
                                         <div class="timeline-countlink sprite">
                                             <a class="ajaxclick"
-                                               href="<?php echo $this->url(array('action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                                               href="<?php echo $this->url(array('action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null)) ?>"
+                                            >
+                                                <?php echo $relInput['relFowupCount']; ?>
+                                            </a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php foreach ($this->reltothis_snippets as $snippet): ?>
-                        <?php echo $this->snippetBox($snippet, true, true) ?>
+                        <?=$this->partial('followup-snippet-box', ['snippet' => $snippet, 'followPathLink' => true, 'relFollowupCount' => true, 'kid' => $$this->kid]) ?>
                     <?php endforeach; ?>
                 </div>
                 <div data-id="2" class="col" id="el-1">

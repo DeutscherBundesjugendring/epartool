@@ -1,33 +1,31 @@
 <?php
-
-$date = new Zend_Date();
-$supports = new Zend_Session_Namespace('supports');
-if (empty($supports->clicks)) {
-  $supports->clicks = array();
-}
-$supportsDisabled = (
+    $date = new Zend_Date();
+    $supports = new Zend_Session_Namespace('supports');
+    if (empty($supports->clicks)) {
+        $supports->clicks = array();
+    }
+    $supportsDisabled = (
         Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
         || Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
         || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
         || $this->consultation->spprt_to == '0000-00-00 00:00:00'
         || $this->consultation->spprt_show == 'n'
-        );
+    );
 
-$script = '
-    $(document).ready(function() {
-      var inputform = $("#input");
-      if (inputform.length > 0) {
-        $(\'.question-nav-item\').click(function(event) {
-          event.preventDefault();
-          $("#submitmode").val(\'save_goto\');
-          $("#goto").val($(this).data("qid"));
-          inputform.submit();
+    $script = '
+        $(document).ready(function() {
+          var inputform = $("#input");
+          if (inputform.length > 0) {
+            $(\'.question-nav-item\').click(function(event) {
+              event.preventDefault();
+              $("#submitmode").val(\'save_goto\');
+              $("#goto").val($(this).data("qid"));
+              inputform.submit();
+            });
+          }
         });
-      }
-    });
-    ';
-$this->headScript()->appendScript($script);
-
+        ';
+    $this->headScript()->appendScript($script);
 ?>
 
 <?php echo $this->secondNavigation('input'); ?>
@@ -90,7 +88,12 @@ $this->headScript()->appendScript($script);
                                 <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
                                     <span>
                                 <?php else: ?>
-                                    <a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
+                                    <a
+                                        href="#"
+                                        id="click-support-<?php echo $input['tid']; ?>"
+                                        class="click-support"
+                                        rel="<?php echo $input['tid']; ?>"
+                                    >
                                 <?php endif; ?>
                                         <i class="icon-ok-sign icon-orange icon-2x"></i>
                                         <span id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
@@ -123,7 +126,12 @@ $this->headScript()->appendScript($script);
             <?php endif; ?>
 
             <!-- Paging -->
-            <?php echo $this->paginationControl($this->paginator, 'Sliding', '_partials/pagination.phtml', array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')); ?>
+            <?$this->paginationControl(
+                $this->paginator,
+                'Sliding',
+                '_partials/pagination.phtml',
+                array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
+            ); ?>
 
             <hr />
 

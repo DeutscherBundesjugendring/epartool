@@ -15,19 +15,35 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
         <?php $linkOptions['pts'] = 'y'; ?>
         <li>
             <?php if ($votingBasket['countvotes'] != $settings['btn_important_max']): ?>
-            <a href="<?php  echo $this->url($linkOptions); ?>" class="voting-particularly-important"<?php if ($this->pimp == 'y' ) echo ' style="color: red !important"'; ?>>
-                <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->escape($settings['btn_important_label']); ?>" title="<?php echo $this->escape($settings['btn_important_label']); ?>" /><br />
-                <strong><?php echo $this->escape($settings['btn_important_label']); ?> <span class="counter">(<?php echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span></strong>
-            </a>
+                <a href="<?php  echo $this->url($linkOptions); ?>" class="voting-particularly-important"<?php if ($this->pimp == 'y' ) echo ' style="color: red !important"'; ?>>
+                    <img
+                        src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png"
+                        alt="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                        title="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                    />
+                    <br />
+                    <strong>
+                        <?php echo $this->escape($settings['btn_important_label']); ?>
+                        <span class="counter">(<?php echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span>
+                    </strong>
+                </a>
             <?php else: ?>
             <a class="view-basket-btn">
-                <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->escape($settings['btn_important_label']); ?>" title="<?php echo $this->escape($settings['btn_important_label']); ?>" /><br />
-                <strong><?php echo $this->escape($settings['btn_important_label']); ?> <span class="counter">(<?php echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span></strong>
+                <img
+                    src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png"
+                    alt="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                    title="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                />
+                <br />
+                <strong>
+                    <?php echo $this->escape($settings['btn_important_label']); ?>
+                    <span class="counter">(<?php echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span>
+                </strong>
             </a>
             <?php endif; ?>
             <a class="view-basket">anzeigen</a>
         </li>
-    <?php endif ; ?>
+    <?php endif?>
 
     <!-- Regular votes -->
     <?php $linkOptions['action'] = 'thesisvote'; ?>
@@ -35,7 +51,12 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
         <?php $linkOptions['pts'] = $i; ?>
         <li>
             <a href="<?php echo $this->url($linkOptions); ?>" class="<?php echo $styles["$i"]; ?>"<?php if ($this->points!= null && $this->points == $i ) echo ' style="color: red !important"'; ?>>
-                <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<?php echo $i; ?>.png" alt="<?php echo $this->escape($labels["$i"]); ?>" title="<?php echo $this->escape($labels["$i"]); ?>" /><br />
+                <img
+                    src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<?php echo $i; ?>.png"
+                    alt="<?php echo $this->escape($labels["$i"]); ?>"
+                    title="<?php echo $this->escape($labels["$i"]); ?>"
+                />
+                <br />
                 <strong><?php echo $this->escape($labels["$i"]); ?></strong>
             </a>
         </li>
@@ -44,7 +65,8 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
     <!-- No opinion -->
     <li>
         <a href="<?php $linkOptions['pts'] = 5;  echo $this->url($linkOptions); ?>" class="no-opinion">
-            <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" /><br />
+            <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" />
+            <br />
             <strong>Keine<br />Meinung</strong>
         </a>
     </li>

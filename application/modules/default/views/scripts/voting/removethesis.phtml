@@ -1,7 +1,5 @@
-<? if ($this -> response == "success"): ?>
-<p class="success">Der Beitrag wurde gelöscht!</p>
-<?	
-else:
-?>
-<p class="error">Fehler, der Beitrag wurde nicht gelöscht!</p>
-<? endif; ?>
+<?php if ($this -> response == "success"): ?>
+    <p class="success">Der Beitrag wurde gelöscht!</p>
+<?php else: ?>
+    <p class="error">Fehler, der Beitrag wurde nicht gelöscht!</p>
+<?php endif; ?>

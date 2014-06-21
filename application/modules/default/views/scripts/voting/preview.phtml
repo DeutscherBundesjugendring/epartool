@@ -1,18 +1,7 @@
 <?php
-/**
- * index
- *
- * @description   Vorschauseite Abstimmung
- * @author        Karsten Tackmann info@seitenmeister.com
- * by change css-classes for in _partial votingPreviewButtons don't forget update the classes in jquery
- *  $(document).on("click",".YOUR-CSS-CLASS", function (event) ...
- */
-?>
-
-<?php
-$settings = $this->settings;
-$this->layout()->settings = $settings;
-$this->layout()->labels = $array = explode (',', $settings['btn_labels']);
+    $settings = $this->settings;
+    $this->layout()->settings = $settings;
+    $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 ?>
 
 <?php echo $this->secondNavigation('voting') ?>
@@ -20,22 +9,25 @@ $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
-
-            <?php
-            // @todo Sidebar navigation
-            ?>
-            <a href="<?php echo $this -> url(array('action' => 'overview')); ?>"><i class="icon-reply"></i> Weiter abstimmen</a>
+            <a href="<?php echo $this -> url(array('action' => 'overview')); ?>">
+                <i class="icon-reply"></i> Weiter abstimmen
+            </a>
             <br />
-            <a href="<?php echo $this -> url(array('action' => 'stopvoting')); ?>"><i class="icon-signout"></i> Abstimmung beenden</a>
+            <a href="<?php echo $this -> url(array('action' => 'stopvoting')); ?>">
+                <i class="icon-signout"></i> Abstimmung beenden
+            </a>
 
         </aside>
-        <section class="main-content span9">
 
-            <small class="muted">Du hast schon über <?php echo $this->escape($this -> votedInputs); ?> von
-                insgesamt <?php echo $this->escape($this -> votableInputs); ?> Beiträgen abgestimmt.</small>
+        <section class="main-content span9">
+            <small class="muted">
+                Du hast schon über <?php echo $this->escape($this -> votedInputs); ?> voninsgesamt <?php echo $this->escape($this -> votableInputs); ?> Beiträgen abgestimmt.
+            </small>
 
             <h1>Übersicht über deine Abstimmung</h1>
-            <p>Hier siehst du alle abzustimmenden Beiträge und deine Bewertungen. Du kannst im Folgenden noch einmal alle Bewertungen ändern.</p>
+            <p>
+                Hier siehst du alle abzustimmenden Beiträge und deine Bewertungen. Du kannst im Folgenden noch einmal alle Bewertungen ändern.
+            </p>
 
             <!-- Questions -->
             <?php echo $this ->partialLoop('_partials/voting/votingPreviewItem.phtml', $this->questions); ?>
@@ -48,8 +40,8 @@ $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
 
-<script type="text/javascript">
 
+<script type="text/javascript">
     $(document).ready(function() {
 
         $(document).on("click",".voting-statement", function(event) {

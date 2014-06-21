@@ -1,7 +1,7 @@
 <?php
-$settings = $this->layout()->settings;
-$labels = $this->layout()->labels;
-$styles = array('not-my-opinion', 'not-important', 'important', 'very-important', 'mega-important');
+    $settings = $this->layout()->settings;
+    $labels = $this->layout()->labels;
+    $styles = array('not-my-opinion', 'not-important', 'important', 'very-important', 'mega-important');
 ?>
 <?php if ($settings['btn_important'] == 'y'): ?>
     <li class="voting-superbutton<?php echo ($this->pimp == 'y') ? ' active' : ''; ?>">
@@ -15,6 +15,7 @@ $styles = array('not-my-opinion', 'not-important', 'important', 'very-important'
         </a>
     </li>
 <?php endif; ?>
+
 <?php for ($i = $settings['btn_numbers']; $i >= 0; $i--): ?>
     <li<?php echo ($this->points != null && $this->points == $i) ? ' class="active"' : ''; ?>>
         <a href="#"
@@ -26,6 +27,7 @@ $styles = array('not-my-opinion', 'not-important', 'important', 'very-important'
         </a>
     </li>
 <?php endfor; ?>
+
 <li<?php echo ($this->points == '5') ? ' class="active"' : ''; ?>>
     <a href="#"
        rel="<?php echo $this->escape($this->tid); ?>"
