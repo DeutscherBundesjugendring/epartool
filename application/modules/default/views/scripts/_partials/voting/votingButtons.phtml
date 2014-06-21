@@ -1,11 +1,15 @@
 <?php
-$settings = $this->layout()->settings;
-$labels = $this->layout()->labels;
-$votingBasket = $this->layout()->votingBasket;
-$styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
-$linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
-if (!empty($this->qid)) $linkOptions['qid'] = $this->qid;
-if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
+    $settings = $this->layout()->settings;
+    $labels = $this->layout()->labels;
+    $votingBasket = $this->layout()->votingBasket;
+    $styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
+    $linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
+    if (!empty($this->qid)) {
+        $linkOptions['qid'] = $this->qid;
+    }
+    if (isset($this->thesis['tg_nr'])) {
+        $linkOptions['tag'] = $this->thesis['tg_nr'];
+    }
 ?>
 
 <ul class="inline voting-rating">
@@ -15,7 +19,7 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
         <?php $linkOptions['pts'] = 'y'; ?>
         <li>
             <?php if ($votingBasket['countvotes'] != $settings['btn_important_max']): ?>
-                <a href="<?php  echo $this->url($linkOptions); ?>" class="voting-particularly-important"<?php if ($this->pimp == 'y' ) echo ' style="color: red !important"'; ?>>
+                <a href="<?=$this->url($linkOptions); ?>" class="voting-particularly-important"<?=$this->pimp == 'y' ?' style="color: red !important"' : ''?>>
                     <img
                         src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png"
                         alt="<?php echo $this->escape($settings['btn_important_label']); ?>"
@@ -50,9 +54,9 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
     <?php for ($i = $settings['btn_numbers']; $i >= 0; $i--): ?>
         <?php $linkOptions['pts'] = $i; ?>
         <li>
-            <a href="<?php echo $this->url($linkOptions); ?>" class="<?php echo $styles["$i"]; ?>"<?php if ($this->points!= null && $this->points == $i ) echo ' style="color: red !important"'; ?>>
+            <a href="<?=$this->url($linkOptions)?>" class="<?=$styles["$i"]?>"<?=$this->points!= null && $this->points == $i ? ' style="color: red !important"' : ''?>>
                 <img
-                    src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<?php echo $i; ?>.png"
+                    src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<?=$i?>.png"
                     alt="<?php echo $this->escape($labels["$i"]); ?>"
                     title="<?php echo $this->escape($labels["$i"]); ?>"
                 />
