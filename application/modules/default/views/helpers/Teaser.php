@@ -23,7 +23,8 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = 'Jetzt kannst du deinen Beitrag einstellen! Vom '
+                    $text = $this->view->translate('Jetzt kannst du deinen Beitrag einstellen!')
+                    . $this->view->translate('Vom') . ' '
                     . $date->set($item['inp_fr'])->get('dd.MM.yyyy') . ' bis '
                     . $date->set($item['inp_to'])->get('dd.MM.yyyy') . ' …';
                     break;
@@ -33,7 +34,8 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = 'Die Beitragsphase ist vorbei! Demnächst kann abgestimmt werden: vom '
+                    $text = $this->view->translate('Die Beitragsphase ist vorbei! Demnächst kann abgestimmt werden:')
+                    . $this->view->translate('vom') . ' '
                     . $date->set($item['vot_fr'])->get('dd.MM.yyyy') . ' bis '
                     . $date->set($item['vot_to'])->get('dd.MM.yyyy') . ' …';
                     break;
@@ -43,7 +45,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = 'Jetzt ist Abstimmen über die wichtigsten Beiträge angesagt! …';
+                    $text = $this->view->translate('Jetzt ist Abstimmen über die wichtigsten Beiträge angesagt!') . ' …';
                     break;
                 case 'vot_to':
                     $url = $this->view->url(array(
@@ -51,7 +53,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = 'Die Abstimmungsphase ist vorbei! Demnächst wird es Reaktionen geben …';
+                    $text = $this->view->translate('Die Abstimmungsphase ist vorbei! Demnächst wird es Reaktionen geben') . ' …';
                     break;
                 default:
                     $url = $this->view->url(array(
@@ -59,7 +61,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = 'Jetzt informieren …';
+                    $text = $this->view->translate('Jetzt informieren') . ' …';
             }
             $html.= '<a href="' . $url . '"><span class="title">'
                 . '<h2>' . $item['titl'] . ':</h2> '
@@ -74,7 +76,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
         $html.= '<li><a href="' . $this->view->url(array(
                 'controller' => 'consultation'
             ), 'default', true) . '">'
-            . '<strong>Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Übersicht ansehen …</strong>'
+            . '<strong>' . $this->view->translate('Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Übersicht ansehen') . ' …</strong>'
             . '<i class="icon-angle-right icon-white icon-2x"></i>'
             . '</a></li>';
 

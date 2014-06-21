@@ -4,29 +4,29 @@
     <div class="row">
         <aside class="span3">
             <?php if ($this->consultation->vot_res_show == 'y'): ?>
-                <p><a href="<?php
-                    echo $this->url(array(
-                        'action' => 'results',
-                        'authcode' => null
-                    ));
-                ?>">Votingergebnisse ansehen</a></p>
+                <p>
+                    <a href="<?=$this->url(['action' => 'results', 'authcode' => null])?>">
+                        <?=$this->translate('Votingergebnisse ansehen')?>
+                    </a>
+                </p>
             <?php endif; ?>
 
         </aside>
 
         <section class="main-content span9">
-            <h1>Anmelden zur Abstimmung</h1>
+            <h1><?=$this->translate('Anmelden zur Abstimmung')?></h1>
             <p>
-                Hier k&ouml;nnt ihr dar&uuml;ber abstimmen, welche der Beitr&auml;ge zum Thema &quot;<?php echo $this->consultation['titl_short']; ?>&quot; ihr besonders wichtig findet! Bei den Beitr&auml;gen handelt es sich um Meinungen, Positionen und Vorschl&auml;ge, die uns Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.
+                <?=sprintf($this->translate('Hier könnt ihr darüber abstimmen, welche der Beiträge zum Thema "%s" ihr besonders wichtig findet! Bei den Beiträgen handelt es sich um Meinungen, Positionen und Vorschläge, die uns Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.'), $this->consultation['titl_short'])?>
             </p>
 
             <!-- Access form -->
             <div class="well well-large text-center">
-                <span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
-                <h2>Stimme jetzt ab!</h2>
+                <span class="label sticker label-mitmachen-black hidden-print">
+                    <?=$this->translate('Mitmachen!')?>
+                </span>
+                <h2><?=$this->translate('Stimme jetzt ab!')?></h2>
                 <p>
-                    Die Abstimmung ist anonym. Deine E-Mail-Adresse benötigen wir nur, um zu überprüfen,<br />
-                    ob du berechtigt bist, an der Abstimmung teilzunehmen.
+                    <?=$this->translate('Die Abstimmung ist anonym. Deine E-Mail-Adresse benötigen wir nur, um zu überprüfen, ob du berechtigt bist, an der Abstimmung teilzunehmen.')?>
                 </p>
                 <div class="form-inline">
                     <?php echo $this->authform; ?>

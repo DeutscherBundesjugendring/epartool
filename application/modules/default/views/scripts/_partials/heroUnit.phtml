@@ -6,7 +6,7 @@
     <div class="main-title">
         <h1>
         	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">
-        		Mitwirkung
+        		<?=$this->translate('Mitwirkung')?>
         	</a>
         </h1>
     </div><!-- .title -->
@@ -23,15 +23,19 @@
 
         <?=$this->ribbonImage($this->consultation)?>
 
-        <img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $this->consultation->kid . '/'
-            . $this->consultation->img_file;
-            ?>" width="144" class="title-image"
-             alt="<?php echo $this->consultation->img_expl; ?>" />
+        <img
+            src="<?=$this->baseUrl()?>/media/consultations/<?=$this->consultation->kid?>/<?=$this->consultation->img_file?>"
+            width="144"
+            class="title-image"
+            alt="<?=$this->consultation->img_expl?>"
+        />
 
         <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="hidden-print" rel="home">
-        	Zur Startseite … <i class="icon-angle-right icon-2x"></i>
+        	<?=$this->translate('Zur Startseite')?> … <i class="icon-angle-right icon-2x"></i>
         </a>
-        <a href="#" class="share btn hidden-print"><i class="icon-share-alt icon-white icon-large"></i> Share</a>
+        <a href="#" class="share btn hidden-print">
+            <i class="icon-share-alt icon-white icon-large"></i> <?=$this->translate('Share')?>
+        </a>
         <div class="share-dropdown" id="sharebtn-holder"></div>
 
     </div><!-- .hero-unit -->
@@ -43,7 +47,7 @@
 
         <h1>
         	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">
-        		Mitwirkung
+        		<?=$this->translate('Mitwirkung')?>
         	</a>
         </h1>
         <p itemprop="description"><?php echo Zend_Registry::get('systemconfig')->description->short?></p>

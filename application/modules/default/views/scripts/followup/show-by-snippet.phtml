@@ -12,12 +12,12 @@
                 >
                     <div class="sprite question-mark"><p>?</p></div>
                     <h3 class="question-h3">
-                        Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.
+                        <?=$this->translate('Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.'?>
                     </h3>
                 </a>
             </div>
 
-            <h2 class="well-title text-center">Reaktionen & Wirkungen!</h2>
+            <h2 class="well-title text-center"><?=$this->translate('Reaktionen & Wirkungen!')?></h2>
             <div class="wrapper">
                 <div data-id="0" class="col">
                     <?php if (count($this->reltothis_inputs)): ?>
@@ -30,7 +30,7 @@
                                     <?php if ($relInput['relFowupCount'] != 0): ?>
                                         <div class="timeline-countlink sprite">
                                             <a class="ajaxclick"
-                                               href="<?php echo $this->url(array('action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null)) ?>"
+                                               href="<?=$this->url(['action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null]) ?>"
                                             >
                                                 <?php echo $relInput['relFowupCount']; ?>
                                             </a>
@@ -40,15 +40,31 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php foreach ($this->reltothis_snippets as $snippet): ?>
-                        <?=$this->partial('followup-snippet-box', ['snippet' => $snippet, 'followPathLink' => true, 'relFollowupCount' => true, 'kid' => $$this->kid]) ?>
+                        <?=$this->partial(
+                            'followup-snippet-box',
+                            [
+                                'snippet' => $snippet,
+                                'followPathLink' => true,
+                                'relFollowupCount' => true,
+                                'kid' => $$this->kid
+                            ]
+                        ) ?>
                     <?php endforeach; ?>
                 </div>
                 <div data-id="2" class="col" id="el-1">
-                    <?php echo $this->snippetBox($this->snippet) ?>
+                    <?=$this->partial(
+                        'followup-snippet-box',
+                        [
+                            'snippet' => $snippet,
+                            'followPathLink' => true,
+                            'relFollowupCount' => true,
+                            'kid' => $$this->kid
+                        ]
+                    ) ?>
                 </div>
 
             </div>
-            <div id="followuploader">Loading…</div>
+            <div id="followuploader"><?=$this->translate('Loading…')?></div>
         </div>
 
     </section>

@@ -17,7 +17,7 @@
         </aside>
         <div class="main-content span9">
 
-            <h1>Alle Fragen im Überblick</h1>
+            <h1><?=$this->translate('Alle Fragen im Überblick')?></h1>
 
             <?php foreach ($this->questions as $question): ?>
                 <article class="article article-preview">
@@ -40,9 +40,9 @@
                                    )
                            );?>"
                            class="btn edit pull-right hidden-print"
-                           title="Zum Beantworten hier klicken"
+                           title="<?=$this->translate('Zum Beantworten hier klicken')?>"
                         >
-                            <i class="icon-edit-alt"></i> Beitrag verfassen
+                            <i class="icon-edit-alt"></i> <?=$this->translate('Beitrag verfassen')?>
                         </a>
                     <?php endif; ?>
                     <div class="row-fluid">

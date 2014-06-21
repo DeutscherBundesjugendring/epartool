@@ -10,11 +10,11 @@
         <div class="text-center span10 offset1">
 
             <small class="count muted">
-                <?php echo $this->inputCount ?> bestätigte Beiträge
+                <?php echo $this->inputCount ?> <?=$this->translate('bestätigte Beiträge')?>
             </small>
-            <h1>Alle Beiträge im Überblick</h1>
+            <h1><?=$this->translate('Alle Beiträge im Überblick')?></h1>
             <p>
-                Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.
+                <?=$this->translate('Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.')?>
             </p>
 
         </div>
@@ -26,7 +26,7 @@
             <li class="span4">
                 <div class="thumbnail">
                     <div class="thumbnail-content">
-                        <h2>Beiträge sortiert nach Schlagwörtern:</h2>
+                        <h2><?=$this->translate('Beiträge sortiert nach Schlagwörtern:')?></h2>
                         <ul class="tag-cloud">
                             <?php foreach ($this->tags as $tag): ?>
                                 <li class="tag-<?php echo $tag['frequency']; ?>">
@@ -37,7 +37,7 @@
                             <?php endforeach; ?>
                         </ul>
                         <a href="<?php echo $this->url(array('action' => 'tags')); ?>" class="btn">
-                            Alle Schlagwörter
+                            <?=$this->translate('Alle Schlagwörter')?>
                         </a>
                     </div>
                 </div><!-- .thumbnail -->
@@ -59,7 +59,7 @@
                                 <a href="<?php echo $url ?>">
                                     <article class="media">
                                         <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                                            verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM, $locale)?>
+                                            <?=sprintf($this->translate('verfasst am %s'), $date->get(Zend_Date::DATE_MEDIUM, $locale))?>
                                         </time>
                                         <p><?php echo mb_substr($input['thes'], 0, 120, 'UTF-8') ?></p>
                                     </article>
@@ -72,9 +72,9 @@
                                 && $this->nowDate->isEarlier($this->consultation->inp_to)
                             ): ?>
                                 <i class="icon-edit-alt"></i>
-                                Beitrag verfassen ›››
+                                <?=$this->translate('Beitrag verfassen')?> ›››
                             <?php else: ?>
-                                Alle Beiträge zu Frage <?php echo $question['nr']; ?> ›››
+                                <?=sprintf($this->translate('Alle Beiträge zu Frage %s'), $question['nr'])?> ›››
                             <?php endif; ?>
                         </a>
                     </div>
