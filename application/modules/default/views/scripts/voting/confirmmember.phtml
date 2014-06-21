@@ -1,28 +1,19 @@
-<?php
-/**
- * index
- *
- * @description   Bestätigungsseite für Abstimmung (durch Aufruf des Links in E-mail)
- * @author        Markus Hackel, Jan Suchandt
- */
-?>
 <div class="main-content content-holder">
 
-	<?php if ($this->act == 'confirm'): ?>
-		<h1>Dieses Gruppenmitglied ist jetzt bestätigt.</h1>
-		<p>
-			Vielen Dank für die Bestätigung des Gruppenmitglieds mit der E-Mail-Adresse
-			&quot;<?php echo $this->subuser; ?>&quot;.
-			Die Stimmen werden nun für die Gruppe gezählt.
-		</p>
-	<?php elseif ($this->act == 'reject'): ?>
-		<h1>Der/die Abstimmende wurde abgelehnt.</h1>
-		<p>
-			Die mit der E-Mail-Adresse &quot;<?php echo $this->subuser; ?>&quot; abgegebenen Stimmen fließen nicht in das Endergebnis eurer Gruppe ein.
-			Über eure Entscheidung wird die Person nicht informiert, aber ihr könnt diese Person gerne kontaktieren.
-		</p>
-	<?php endif; ?>
+    <?php if ($this->act == 'confirm'): ?>
+        <h1>Dieses Gruppenmitglied ist jetzt bestätigt.</h1>
+        <p>
+            Vielen Dank für die Bestätigung des Gruppenmitglieds mit der E-Mail-Adresse
+            &quot;<?php echo $this->subuser; ?>&quot;.
+            Die Stimmen werden nun für die Gruppe gezählt.
+        </p>
+    <?php elseif ($this->act == 'reject'): ?>
+        <h1>Der/die Abstimmende wurde abgelehnt.</h1>
+        <p>
+            Die mit der E-Mail-Adresse &quot;<?php echo $this->subuser; ?>&quot; abgegebenen Stimmen fließen nicht in das Endergebnis eurer Gruppe ein. Über eure Entscheidung wird die Person nicht informiert, aber ihr könnt diese Person gerne kontaktieren.
+        </p>
+    <?php endif; ?>
 
-	<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
+    <p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
 
 </div><!-- .main-content -->

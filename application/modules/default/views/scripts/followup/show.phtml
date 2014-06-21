@@ -1,12 +1,3 @@
-<?php
-/**
- * shows the initial timeline for followups by chosen input
- *
- * @description show Followup Timeline
- * @author Marco Dinnbier
- */
-?>
-
 <?php echo $this->secondNavigation('follow-up') ?>
 
 <div class="content-holder">
@@ -14,16 +5,30 @@
 
         <div class="well well-large well-alt" id="followup">
             <div class="followuphead">
-                <a href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>" class="back-link" title="Zurück zur Übersicht Reaktionen & Wirkungen">
+                <a
+                    href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
+                    class="back-link"
+                    title="Zurück zur Übersicht Reaktionen & Wirkungen"
+                >
                     <div class="sprite question-mark"><p>?</p></div>
-                    <h3 class="question-h3">Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.</h3>
+                    <h3 class="question-h3">
+                        Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.
+                    </h3>
                 </a>
             </div>
             <h2 class="well-title text-center">Reaktionen & Wirkungen!</h2>
             <div class="wrapper">
                 <div class="col">
                     <div class="timeline-box">
-                        <h3><a class="whitelink" title="Zurück zur Übersicht der Beiträge sortiert nach Fragen" href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></a></h3>
+                        <h3>
+                            <a
+                                class="whitelink"
+                                title="Zurück zur Übersicht der Beiträge sortiert nach Fragen"
+                                href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"
+                            >
+                                <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
+                            </a>
+                        </h3>
                         <div class="content">
                             <p><?php echo $this->input['thes']; ?></p>
                             <?php if (!empty($this->input['expl'])): ?>
@@ -39,8 +44,12 @@
                         </div>
                         <?php if ($this->relatedCount): ?>
                             <div class="timeline-countlink sprite">
-                                <a class="ajaxclick reset"
-                                   href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"><?php echo $this->relatedCount; ?></a>
+                                <a
+                                    class="ajaxclick reset"
+                                    href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"
+                                >
+                                    <?php echo $this->relatedCount; ?>
+                                </a>
                                 <!--<p><?php echo count($this->relInput); ?></p>-->
                             </div>
                         <?php endif; ?>
@@ -58,19 +67,22 @@
                                     </div>
                                     <?php if ($relInput['relFowupCount'] != 0): ?>
                                         <div class="timeline-countlink sprite">
-                                            <a class="ajaxclick"
-                                               href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                                            <a
+                                                class="ajaxclick"
+                                                href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"
+                                            >
+                                                <?php echo $relInput['relFowupCount']; ?>
+                                            </a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endif; ?>
+
                     <?php if (count($this->relSnippets)): ?>
                         <?php foreach ($this->relSnippets as $snippet): ?>
-
-                            <?php echo $this->snippetBox($snippet) ?>
-
+                            <?=$this->partial('_partials/followup-snippet-box.phtml', ['snippet' => $snippet, 'followPathLink' => true, 'relFollowupCount' => true, 'kid' => $this->kid]) ?>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>

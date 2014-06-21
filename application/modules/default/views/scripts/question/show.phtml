@@ -1,37 +1,28 @@
-<?php
-/**
- * Question
- *
- * @description   Detailansicht Frage
- * @author        Markus Hackel
- */
-?>
-
 <?php echo $this->secondNavigation('question') ?>
 
 <div class="content-holder">
-	<div class="row">
-		<aside class="span3">
+    <div class="row">
+        <aside class="span3">
 
-			<?php echo $this->questionNavigation($this->question['qi']); ?>
+            <?php echo $this->questionNavigation($this->question['qi']); ?>
 
-		</aside>
-		<section class="main-content span6">
+        </aside>
+        <section class="main-content span6">
 
-			<article class="article article-detail">
-				<h1><?php echo $this->question['q'] ?></h1>
-				<p><?php echo $this->question['q_xpl'] ?></p>
-			</article>
+            <article class="article article-detail">
+                <h1><?php echo $this->question['q'] ?></h1>
+                <p><?php echo $this->question['q_xpl'] ?></p>
+            </article>
 
-			<?php echo $this->render('_partials/printLink.phtml') ?>
+            <?php echo $this->render('_partials/printLink.phtml') ?>
 
-		</section>
-		<aside class="span3">
+        </section>
+        <aside class="span3">
 
-			<p><?php echo $this->question['vot_q'] ?></p>
+            <p><?php echo $this->question['vot_q'] ?></p>
 
-		</aside>
-	</div><!-- .row -->
+        </aside>
+    </div><!-- .row -->
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml')?>

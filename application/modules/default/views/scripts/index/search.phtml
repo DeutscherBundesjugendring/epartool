@@ -1,12 +1,3 @@
-<?php
-/**
- * search
- *
- * @description   Overview of search results
- * @author        Jan Suchandt
- */
-?>
-
 <div class="content-holder main-content">
 
     <article class="article article-detail">
@@ -49,7 +40,10 @@
                         <ul>
                             <?php if (isset($consultation['inExpl'])): ?>
                                 <li>
-                                    <a href="<?php echo $this->baseUrl()?>/article/index/kid/<?php echo $consultation['cid']?>" title="Übersichtsseite">
+                                    <a
+                                        href="<?php echo $this->baseUrl()?>/article/index/kid/<?php echo $consultation['cid']?>"
+                                        title="Übersichtsseite"
+                                    >
                                         Übersichtsseite
                                     </a>
                                 </li>

@@ -1,12 +1,3 @@
-<?php
-/**
- * index
- *
- * @description   Startseite Abstimmung
- * @author        Markus Hackel, Jan Suchandt
- */
-?>
-
 <?php echo $this->secondNavigation('voting') ?>
 
 <div class="content-holder main-content">
@@ -17,26 +8,28 @@
 		<section class="span9 offset1">
 
             <div class="well well-large text-center">
-                <span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
+                <span class="label sticker label-mitmachen-black hidden-print">
+                    Mitmachen!
+                </span>
 
                 <!-- Voting counter -->
                 <span class="counter counter-voting">
                     Du hast schon über
                     <?php
-                    // Add leading zeros to count voted
-                    $countTotal = $this->votableInputs;
-                    $countVoted = $this->votedInputs;
+                        // Add leading zeros to count voted
+                        $countTotal = $this->votableInputs;
+                        $countVoted = $this->votedInputs;
 
-                    if (strlen($countTotal) > strlen($countVoted)) {
-                        $format = '%0' . strlen($countTotal) . 'd';
-                        $countVoted = sprintf($format, $countVoted);
-                    }
+                        if (strlen($countTotal) > strlen($countVoted)) {
+                            $format = '%0' . strlen($countTotal) . 'd';
+                            $countVoted = sprintf($format, $countVoted);
+                        }
 
-                    // Print count voted by number
-                    $countVoted = str_split($countVoted);
-                    foreach ($countVoted as $number) {
-                        echo '<span class="counter-digit">' . $number . '</span>';
-                    }
+                        // Print count voted by number
+                        $countVoted = str_split($countVoted);
+                        foreach ($countVoted as $number) {
+                            echo '<span class="counter-digit">' . $number . '</span>';
+                        }
                     ?>
                     <br />
                     von insgesamt <?php echo $countTotal; ?> Beiträgen<br />
@@ -56,11 +49,7 @@
                 </div>
 
                 <p class="offset-top-large offset-bottom-large">
-                    Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen
-                    zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist
-                    jederzeit möglich. Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so dass
-                    du auf jeden Fall über alle abstimmen kannst. Du kannst so viele Beiträge bearbeiten, wie du
-                    möchtest. Unterbrechungen sind problemlos möglich.
+                    Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit möglich. Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so dass du auf jeden Fall über alle abstimmen kannst. Du kannst so viele Beiträge bearbeiten, wie du möchtest. Unterbrechungen sind problemlos möglich.
                 </p>
 
                 <!-- Tags -->
@@ -68,8 +57,11 @@
                 <?php if (!empty($this->tags)): ?>
                     <ul class="tag-cloud tag-cloud-alt">
                         <?php foreach ($this->tags as $tag): ?>
-                            <li class="tag-<?php echo $tag['frequency']; ?>"><a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>">
-                            <?php echo $tag['tg_de']; ?></a></li>
+                            <li class="tag-<?php echo $tag['frequency']; ?>">
+                                <a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>">
+                                    <?php echo $tag['tg_de']; ?>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>

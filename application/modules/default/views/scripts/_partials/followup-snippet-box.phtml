@@ -1,0 +1,55 @@
+<div
+    class="timeline-box openoverlay"
+    data-href="<?=$this->url(array('action' => 'json', 'ffid' => (int) $this->snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null))?>"
+    data-fid="'.$this->snippet['fid'].'"
+>
+
+    <div class="content clearfix <?=$this->snippet['typ'] !== 'g' ? 'has-typ-overlay' : ''?>">
+        <?php if ($this->snippet['typ'] !== 'g'): ?>
+            <div class="followup-typ edge-left followup-typ-<?=$this->snippet['typ']?>"> </div>
+            <div class="followup-typ gfx-who-overlay followup-typ-<?=$this->snippet['typ']?>"> </div>
+        <?php endif?>
+
+        <div class="followup-gfx-who-wrapper">
+            <img class="gfx_who_thumb" src="<?=$this->snippet['gfx_who']?>" />
+        </div>
+
+        <?=$this->snippet['expl']?>
+
+        <div class="clearleft">
+            <a class="voting like" href="<?=$this->url(array('action' => 'like', 'fid' => (int) $this->snippet['fid'], 'page' => null))?>">
+                <span class="amount">(<?=$this->snippet['lkyea']?>)</span>
+                <span class="thumb-up"></span>
+            </a>
+            <a class="voting dislike" href="<?=$this->url(array('action' => 'unlike', 'fid' => (int) $this->snippet['fid'], 'page' => null))?>">
+                <span class="amount">(<?=$this->snippet['lknay']?>)</span>
+                <span class="thumb-down"></span>
+            </a>
+        </div>
+        <?php if ($this->followPathLink): ?>
+            <a
+                class="btn"
+                href="<?=$this->url(
+                    [
+                        'action' => 'show-by-snippet',
+                        'controller' => 'followup',
+                        'kid' => $this->kid,
+                        'fid' => $this->snippet['fid']
+                    ],
+                    null,
+                    true
+                )?>
+            ">
+                Diesem Pfad folgen
+            </a>
+        <?php endif?>
+    </div>
+
+    <?php if ($this->snippet['relFowupCount'] != 0 && $this->relFollowupCount): ?>
+        <div class="timeline-countlink sprite">
+            <a class="ajaxclick" href="<?=$this->url(array('action' => 'json', 'fid' => $this->snippet['fid'], 'ffid' => null, 'tid' => null, 'page' => null))?>">
+                <?=$this->snippet['relFowupCount']?>
+            </a>
+        </div>
+    <?php endif?>
+</div>

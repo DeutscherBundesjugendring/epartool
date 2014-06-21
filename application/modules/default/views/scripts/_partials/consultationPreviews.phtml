@@ -1,152 +1,146 @@
 <?php
-/**
- * Consultation Preview
- */
+    $date = new Zend_Date();
+    $nowDate = Zend_Date::now();
 ?>
-<?php
-$date = new Zend_Date();
-$nowDate = Zend_Date::now();
-?>
+
 <?php foreach ($this->consultations as $con):?>
-<?php
+    <?php
+        $disabled = array(
+            'input' => ($nowDate->isEarlier($con->inp_fr) || $con->inp_fr == '0000-00-00 00:00:00'),
+            'voting' => ($nowDate->isEarlier($con->vot_fr) || $con->vot_fr == '0000-00-00 00:00:00'),
+            'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->vot_to == '0000-00-00 00:00:00' || $con->follup_show == 'n'),
+        );
 
-$disabled = array(
-  'input' => ($nowDate->isEarlier($con->inp_fr) || $con->inp_fr == '0000-00-00 00:00:00'),
-  'voting' => ($nowDate->isEarlier($con->vot_fr) || $con->vot_fr == '0000-00-00 00:00:00'),
-  'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->vot_to == '0000-00-00 00:00:00' || $con->follup_show == 'n'),
-);
+        // Voting disable result
+        if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
+            $disabled['voting'] = true;
+        }
 
-// Voting disable result
-if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
-  $disabled['voting'] = true;
-}
+        $bubbles = array();
+        if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
+            if ($con->inp_show == 'y') {
+                $bubbles['input'] = '<div class="bubble bubble-large"><h3>Jetzt mitmachen!</h3>';
+                $bubbles['input'].= '<span>vom ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
+                    . 'bis ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+                $bubbles['input'].= '</div>';
+            }
+        }
+        if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
+            if ($con->vot_show == 'y') {
+                $bubbles['voting'] = '<div class="bubble bubble-large"><h3>Jetzt abstimmen!</h3>';
+                $bubbles['voting'].= '<span>vom ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
+                    . 'bis ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+                $bubbles['voting'].= '</div>';
+            }
+        }
+    ?>
 
-$bubbles = array();
-if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
-  if ($con->inp_show == 'y') {
-    $bubbles['input'] = '<div class="bubble bubble-large">'
-      . '<h3>Jetzt mitmachen!</h3>';
-    $bubbles['input'].= '<span>vom ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
-      . 'bis ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
-    $bubbles['input'].= '</div>';
-  }
-}
-if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
-  if ($con->vot_show == 'y') {
-    $bubbles['voting'] = '<div class="bubble bubble-large">'
-      . '<h3>Jetzt abstimmen!</h3>';
-    $bubbles['voting'].= '<span>vom ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
-    . 'bis ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
-    $bubbles['voting'].= '</div>';
-  }
-}
-?>
-	<div class="consultation consultation-preview">
-		<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)) ?>" class="title">
-			<hgroup>
-				<h1><?php echo $con->titl ?></h1>
-				<h2><?php echo $con->titl_sub ?></h2>
-			</hgroup>
-		</a>
+    <div class="consultation consultation-preview">
+        <a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)) ?>" class="title">
+            <hgroup>
+                <h1><?php echo $con->titl ?></h1>
+                <h2><?php echo $con->titl_sub ?></h2>
+            </hgroup>
+        </a>
 
-		<?=$this->ribbonImage($con)?>
+        <?=$this->ribbonImage($con)?>
 
-		<nav role="navigation" class="consultation-nav">
-			<ul class="nav nav-pills">
-				<li class="item-title">
-					<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
-						<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $con->kid . '/' . $con->img_file; ?>" width="144" alt="<?php echo $con->img_expl; ?>" />
-						<div class="description">
-							<p><?php echo nl2br(strip_tags(htmlspecialchars_decode($con->expl_short)))?></p>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
-						<h2>Infos</h2>
-					</a>
-				</li>
-				<li>
-					<a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid)); ?>">
-						<h2>Fragen</h2>
-					</a>
-				</li>
+        <nav role="navigation" class="consultation-nav">
+            <ul class="nav nav-pills">
+                <li class="item-title">
+                    <a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
+                        <img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $con->kid . '/' . $con->img_file; ?>" width="144" alt="<?php echo $con->img_expl; ?>" />
+                        <div class="description">
+                            <p><?php echo nl2br(strip_tags(htmlspecialchars_decode($con->expl_short)))?></p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
+                        <h2><?=$this->translate('Infos')?></h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid)); ?>">
+                        <h2><?=$this->translate('Fragen')?></h2>
+                    </a>
+                </li>
 
-				<?php if (!$disabled['input']): ?>
-					<li>
-						<a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>#page-content">
-							<h2>Beiträge</h2>
-							<?php if (isset($bubbles['input'])): ?>
-								<?php echo $bubbles['input']; ?>
-							<?php else: ?>
-								<?php if ($con->inp_show == 'y'): ?>
-									<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-										bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-								<?php endif; ?>
-							<?php endif; ?>
-						</a>
-					</li>
-				<?php else: ?>
-					<li class="item-disabled">
-						<div>
-							<h2>Beiträge</h2>
-							<?php if (isset($bubbles['input'])): ?>
-								<?php echo $bubbles['input']; ?>
-							<?php else: ?>
-								<?php if ($con->inp_show == 'y'): ?>
-									<small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-										bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-								<?php endif; ?>
-							<?php endif; ?>
-						</div>
-					</li>
-				<?php endif; ?>
+                <?php if (!$disabled['input']): ?>
+                    <li>
+                        <a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>#page-content">
+                            <h2>Beiträge</h2>
+                            <?php if (isset($bubbles['input'])): ?>
+                                <?php echo $bubbles['input']; ?>
+                            <?php else: ?>
+                                <?php if ($con->inp_show == 'y'): ?>
+                                    <small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="item-disabled">
+                        <div>
+                            <h2>Beiträge</h2>
+                            <?php if (isset($bubbles['input'])): ?>
+                                <?php echo $bubbles['input']; ?>
+                            <?php else: ?>
+                                <?php if ($con->inp_show == 'y'): ?>
+                                    <small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+                <?php endif; ?>
 
-				<?php if (!$disabled['voting']): ?>
-					<li>
-						<a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid)); ?>">
-							<h2>Abstimmung</h2>
-							<?php if (isset($bubbles['voting'])): ?>
-								<?php echo $bubbles['voting']; ?>
-							<?php else: ?>
-								<?php if ($con->vot_show == 'y'): ?>
-									<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-										bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-								<?php endif; ?>
-							<?php endif; ?>
-						</a>
-					</li>
-				<?php else: ?>
-					<li class="item-disabled">
-						<div>
-							<h2>Abstimmung</h2>
-							<?php if (isset($bubbles['voting'])): ?>
-								<?php echo $bubbles['voting']; ?>
-							<?php else: ?>
-								<?php if ($con->vot_show == 'y'): ?>
-									<small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-										bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
-								<?php endif; ?>
-							<?php endif; ?>
-						</div>
-					</li>
-				<?php endif; ?>
+                <?php if (!$disabled['voting']): ?>
+                    <li>
+                        <a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid)); ?>">
+                            <h2>Abstimmung</h2>
+                            <?php if (isset($bubbles['voting'])): ?>
+                                <?php echo $bubbles['voting']; ?>
+                            <?php else: ?>
+                                <?php if ($con->vot_show == 'y'): ?>
+                                    <small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="item-disabled">
+                        <div>
+                            <h2>Abstimmung</h2>
+                            <?php if (isset($bubbles['voting'])): ?>
+                                <?php echo $bubbles['voting']; ?>
+                            <?php else: ?>
+                                <?php if ($con->vot_show == 'y'): ?>
+                                    <small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+                <?php endif; ?>
 
-				<?php if (!$disabled['follow-up']): ?>
-					<li>
-						<a href="<?php echo $this->url(array('controller' => 'followup', 'kid' => $con->kid)) ?>">
-							<h2>Reaktionen &&nbsp;Wirkung</h2>
-						</a>
-					</li>
-				<?php else: ?>
-					<li class="item-disabled">
-						<div>
-							<h2>Reaktionen &&nbsp;Wirkung</h2>
-						</div>
-					</li>
-				<?php endif; ?>
-			</ul>
-		</nav>
+                <?php if (!$disabled['follow-up']): ?>
+                    <li>
+                        <a href="<?php echo $this->url(array('controller' => 'followup', 'kid' => $con->kid)) ?>">
+                            <h2>Reaktionen &&nbsp;Wirkung</h2>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="item-disabled">
+                        <div>
+                            <h2>Reaktionen &&nbsp;Wirkung</h2>
+                        </div>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
 
-	</div><!-- .consultation -->
+    </div><!-- .consultation -->
 <?php endforeach; ?>

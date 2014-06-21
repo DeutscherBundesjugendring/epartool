@@ -1,62 +1,62 @@
 <?php
-/**
- * index
- *
- * @description   Übersicht der Fragen zur Konsultation
- * @author        Markus Hackel
- */
-$date = new Zend_Date();
-$linkHeadlineToInputs = false;
-if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
-		&& $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())) {
-  if ($this->consultation->inp_show == 'y') {
-      $linkHeadlineToInputs = true;
-  }
-}
+    $date = new Zend_Date();
+    $linkHeadlineToInputs = false;
+    if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
+        && $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())
+        && $this->consultation->inp_show == 'y') {
+              $linkHeadlineToInputs = true;
+        }
 ?>
 
 <?php echo $this->secondNavigation('question') ?>
 
 <div class="content-holder">
-	<div class="row">
-		<aside class="span3">
+    <div class="row">
+        <aside class="span3">
 
-		</aside>
-		<div class="main-content span9">
+        </aside>
+        <div class="main-content span9">
 
-			<h1>Alle Fragen im Überblick</h1>
+            <h1>Alle Fragen im Überblick</h1>
 
-			<?php foreach ($this->questions as $question): ?>
-				<article class="article article-preview">
-					<?php if (!empty($question['nr'])): ?>
-						<h2 class="alt numbered heading-with-cta">
-							<span class="numbered-number pull-left"><?= $question['nr'] ?></span>
-							<span class="numbered-title"><?= $question['q'] ?></span>
-						</h2>
-					<?php else: ?>
-						<h2 class="alt"><?= $question['q'] ?></h2>
-					<?php endif; ?>
-					<?php if ($linkHeadlineToInputs): ?>
-						<a href="<?php
-							echo $this->url(array(
-								'controller' => 'input',
-								'action' => 'show',
-								'kid' => $this->consultation->kid,
-								'qid' => $question['qi']));
-									?>" class="btn edit pull-right hidden-print" title="Zum Beantworten hier klicken"><i class="icon-edit-alt"></i> Beitrag verfassen</a>
-					<?php endif; ?>
-					<div class="row-fluid">
-						<div class="span9">
-							<?php echo $question['q_xpl'] ?>
-						</div>
-					</div>
-				</article>
-			<?php endforeach; ?>
+            <?php foreach ($this->questions as $question): ?>
+                <article class="article article-preview">
+                    <?php if (!empty($question['nr'])): ?>
+                        <h2 class="alt numbered heading-with-cta">
+                            <span class="numbered-number pull-left"><?= $question['nr'] ?></span>
+                            <span class="numbered-title"><?= $question['q'] ?></span>
+                        </h2>
+                    <?php else: ?>
+                        <h2 class="alt"><?= $question['q'] ?></h2>
+                    <?php endif; ?>
+                    <?php if ($linkHeadlineToInputs): ?>
+                        <a
+                            href="<?=$this->url(
+                                array(
+                                    'controller' => 'input',
+                                    'action' => 'show',
+                                    'kid' => $this->consultation->kid,
+                                    'qid' => $question['qi'],
+                                   )
+                           );?>"
+                           class="btn edit pull-right hidden-print"
+                           title="Zum Beantworten hier klicken"
+                        >
+                            <i class="icon-edit-alt"></i> Beitrag verfassen
+                        </a>
+                    <?php endif; ?>
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <?php echo $question['q_xpl'] ?>
+                        </div>
+                    </div>
+                </article>
+            <?php endforeach; ?>
 
-			<?php echo $this->render('_partials/printLink.phtml') ?>
+            <?php echo $this->render('_partials/printLink.phtml') ?>
 
-		</div>
-	</div><!-- .row -->
+        </div>
+    </div><!-- .row -->
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

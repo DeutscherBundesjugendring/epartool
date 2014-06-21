@@ -1,12 +1,6 @@
 <?php
-/**
- * index
- *
- * @description   Übersicht der Beiträge
- * @author        Markus Hackel
- */
-$date = new Zend_Date();
-$locale = new Zend_Locale();
+    $date = new Zend_Date();
+    $locale = new Zend_Locale();
 ?>
 <a name="page-content"></a>
 <?php echo $this->secondNavigation('input') ?>
@@ -15,13 +9,12 @@ $locale = new Zend_Locale();
     <div class="row">
         <div class="text-center span10 offset1">
 
-            <small class="count muted"><?php echo $this->inputCount ?> bestätigte Beiträge</small>
+            <small class="count muted">
+                <?php echo $this->inputCount ?> bestätigte Beiträge
+            </small>
             <h1>Alle Beiträge im Überblick</h1>
             <p>
-            	Ihr wollt bei dieser Beteiligungsrunde mitmachen?
-            	Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld
-            	für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den
-            	Klick auf die Frage alle eingegangenen Beiträge lesen.
+                Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.
             </p>
 
         </div>
@@ -38,13 +31,13 @@ $locale = new Zend_Locale();
                             <?php foreach ($this->tags as $tag): ?>
                                 <li class="tag-<?php echo $tag['frequency']; ?>">
                                     <a href="<?php echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>">
-                                    	<?php echo $tag['tg_de']; ?>
+                                        <?php echo $tag['tg_de']; ?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
                         <a href="<?php echo $this->url(array('action' => 'tags')); ?>" class="btn">
-                        	Alle Schlagwörter
+                            Alle Schlagwörter
                         </a>
                     </div>
                 </div><!-- .thumbnail -->
@@ -74,15 +67,15 @@ $locale = new Zend_Locale();
                             <?php endforeach; ?>
                         </div>
                         <a href="<?php echo $url; ?>" class="btn edit">
-                        	<?php if (
-                        		$this->nowDate->isLater($this->consultation->inp_fr)
-                        		&& $this->nowDate->isEarlier($this->consultation->inp_to)
-                        	): ?>
-                        		<i class="icon-edit-alt"></i>
+                            <?php if (
+                                $this->nowDate->isLater($this->consultation->inp_fr)
+                                && $this->nowDate->isEarlier($this->consultation->inp_to)
+                            ): ?>
+                                <i class="icon-edit-alt"></i>
                                 Beitrag verfassen ›››
                             <?php else: ?>
-                        	    Alle Beiträge zu Frage <?php echo $question['nr']; ?> ›››
-                        	<?php endif; ?>
+                                Alle Beiträge zu Frage <?php echo $question['nr']; ?> ›››
+                            <?php endif; ?>
                         </a>
                     </div>
                 </div><!-- .thumbnail -->
@@ -91,7 +84,6 @@ $locale = new Zend_Locale();
     </ul><!-- .questions -->
 
     <?php echo $this->render('_partials/printLink.phtml') ?>
-
 </div>
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

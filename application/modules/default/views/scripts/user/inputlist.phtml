@@ -1,78 +1,73 @@
-<?php
-/**
- * User inputs overview
- */
-?>
-
 <div class="main-content content-holder">
-	<div class="row">
-		<div class="span9">
+    <div class="row">
+        <div class="span9">
 
-			<h1>Alle meine Beiträge</h1>
+            <h1>Alle meine Beiträge</h1>
 
-			<?php if (isset($this->consultationList)): ?>
+            <?php if (isset($this->consultationList)): ?>
+                <p>Zu folgenden Beteiligungsrunden wurden Beiträge abgegeben:</p>
+                <ul>
+                <?php foreach ($this->consultationList as $consultation): ?>
+                    <li>
+                        <h2>
+                            <a href="<?php
+                            echo $this->url(array(
+                                'kid' => $consultation['kid']
+                            ));
+                            ?>" title="Zeige meine Beiträge zu dieser Beteiligungsrunde">
+                                   <?php echo $consultation['titl']; ?>
+                            </a>
+                        </h2>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
 
-				<p>Zu folgenden Beteiligungsrunden wurden Beiträge abgegeben:</p>
-				<ul>
-				<?php foreach ($this->consultationList as $consultation): ?>
-					<li>
-						<h2>
-							<a href="<?php
-							echo $this->url(array(
-								'kid' => $consultation['kid']
-							));
-							?>" title="Zeige meine Beiträge zu dieser Beteiligungsrunde">
-								   <?php echo $consultation['titl']; ?>
-							</a>
-						</h2>
-					</li>
-				<?php endforeach; ?>
-				</ul>
+            <?php elseif (isset($this->consultation)): ?>
+                <h2>Beteiligungsrunde: <?php echo $this->consultation->titl; ?></h2>
+                <?php if (!empty($this->inputs)): ?>
+                    <?php foreach ($this->inputs as $question): ?>
+                        <h3>Frage: <a href="<?php
+                            echo $this->url(array(
+                                'controller' => 'input',
+                                'action' => 'show',
+                                'kid' => $this->consultation->kid,
+                                'qid' => $question['qi']
+                                    ), 'default', true);
+                            ?>"><?php echo $question['q']; ?></a></h3>
+                        <?php if (!empty($question['inputs'])): ?>
+                            <h4>Beiträge:</h4>
+                            <ul>
+                                <?php foreach ($question['inputs'] as $input): ?>
+                                    <li>
+                                        <a
+                                            href="<?=$this->url(
+                                                array(
+                                                    'controller' => 'input',
+                                                    'action' => 'edit',
+                                                    'kid' => $this->consultation->kid,
+                                                    'tid' => $input['tid']
+                                                )
+                                            )?>"
+                                            title="Klicken zum Bearbeiten"
+                                        >
+                                            <strong><?php echo $input['thes']; ?></strong>
+                                        </a>
+                                        <?php if (!empty($input['expl'])): ?>
+                                            <p><?php echo $input['expl']; ?></p>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            <p>Keine Beiträge</p>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endif; ?>
 
-			<?php elseif (isset($this->consultation)): ?>
-
-				<h2>Beteiligungsrunde: <?php echo $this->consultation->titl; ?></h2>
-				<?php if (!empty($this->inputs)): ?>
-					<?php foreach ($this->inputs as $question): ?>
-						<h3>Frage: <a href="<?php
-							echo $this->url(array(
-								'controller' => 'input',
-								'action' => 'show',
-								'kid' => $this->consultation->kid,
-								'qid' => $question['qi']
-									), 'default', true);
-							?>"><?php echo $question['q']; ?></a></h3>
-						<?php if (!empty($question['inputs'])): ?>
-							<h4>Beiträge:</h4>
-							<ul>
-								<?php foreach ($question['inputs'] as $input): ?>
-									<li>
-										<a href="<?php
-											echo $this->url(array(
-												'controller' => 'input',
-												'action' => 'edit',
-												'kid' => $this->consultation->kid,
-												'tid' => $input['tid']
-											));
-											?>" title="Klicken zum Bearbeiten"><strong><?php echo $input['thes']; ?></strong></a>
-											<?php if (!empty($input['expl'])): ?>
-											<p><?php echo $input['expl']; ?></p>
-										<?php endif; ?>
-									</li>
-								<?php endforeach; ?>
-							</ul>
-						<?php else: ?>
-							<p>Keine Beiträge</p>
-						<?php endif; ?>
-					<?php endforeach; ?>
-				<?php endif; ?>
-
-			<?php endif; ?>
-
-			<?php echo $this->render('_partials/printLink.phtml') ?>
-
-		</div>
-	</div><!-- .row -->
+            <?php echo $this->render('_partials/printLink.phtml') ?>
+        </div>
+    </div><!-- .row -->
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

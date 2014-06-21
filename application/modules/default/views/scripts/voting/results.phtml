@@ -1,57 +1,48 @@
-<?php
-/**
- * results
- *
- * @description   Voting Results
- * @author        Markus Hackel
- */
-?>
-
 <?php echo $this->secondNavigation('voting') ?>
 
 <div class="content-holder">
-	<div class="row">
-		<aside class="span3">
+    <div class="row">
+        <aside class="span3">
 
-			<?php
-			// @todo Refactor navigation to include the first level (Stimme jetzt ab, Beiträge,
-			// über die du abgestimmt hast, Alle abzustimmenden Beiträge).
-			?>
-			<?php echo $this->questionNavigation($this->currentQuestion['qi']); ?>
+            <?php
+            // @todo Refactor navigation to include the first level (Stimme jetzt ab, Beiträge,
+            // über die du abgestimmt hast, Alle abzustimmenden Beiträge).
+            ?>
+            <?php echo $this->questionNavigation($this->currentQuestion['qi']); ?>
 
-		</aside>
-		<section class="main-content span9">
+        </aside>
+        <section class="main-content span9">
 
-			<h1>Abstimmungsergebnisse</h1>
-			<?php if (!empty($this->articleGeneral)): ?>
-				<?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
-			<?php endif; ?>
-			<?php if (!empty($this->articleConsultation)): ?>
-				<?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
-			<?php endif; ?>
+            <h1>Abstimmungsergebnisse</h1>
+            <?php if (!empty($this->articleGeneral)): ?>
+                <?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+            <?php endif; ?>
+            <?php if (!empty($this->articleConsultation)): ?>
+                <?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+            <?php endif; ?>
 
-			<h2 class="alt"><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h2>
+            <h2 class="alt"><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h2>
 
-			<hr class="hr-alt" />
+            <hr class="hr-alt" />
 
-			<?php $i = 1; ?>
-			<?php foreach ($this->theses_votes as $rank => $theses): ?>
-				<?php $diag_lngth = round(($rank * 100) / $this->highest_rank, 0); ?>
-				<?php foreach ($theses as $thesis): ?>
-					<div class="voting-result">
-						<span class="voting-result-number"><?php echo $i; ?>.</span>
-						<p><strong><?php echo $thesis['thes']; ?></strong></p>
-						<div class="voting-result-bar<?php echo $thesis['followup']; ?>" style="width: <?php echo $diag_lngth; ?>%;"></div>
-					</div>
-					<hr class="hr-alt" />
-				<?php endforeach; ?>
-				<?php $i++; ?>
-			<?php endforeach; ?>
+            <?php $i = 1; ?>
+            <?php foreach ($this->theses_votes as $rank => $theses): ?>
+                <?php $diag_lngth = round(($rank * 100) / $this->highest_rank, 0); ?>
+                <?php foreach ($theses as $thesis): ?>
+                    <div class="voting-result">
+                        <span class="voting-result-number"><?php echo $i; ?>.</span>
+                        <p><strong><?php echo $thesis['thes']; ?></strong></p>
+                        <div class="voting-result-bar<?php echo $thesis['followup']; ?>" style="width: <?php echo $diag_lngth; ?>%;"></div>
+                    </div>
+                    <hr class="hr-alt" />
+                <?php endforeach; ?>
+                <?php $i++; ?>
+            <?php endforeach; ?>
 
-			<?php echo $this->render('_partials/printLink.phtml') ?>
+            <?php echo $this->render('_partials/printLink.phtml') ?>
 
-		</section>
-	</div><!-- .row -->
+        </section>
+    </div><!-- .row -->
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
