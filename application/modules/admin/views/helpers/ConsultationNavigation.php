@@ -80,7 +80,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'required_userlevel' => 'adm'
                 ),
             );
-            $html.= '<div class="hlist"><ul>';
+            $html.= '<ul class="nav nav-pills">';
             foreach ($items as $item) {
             // JSU check if required userlevel is given, otherwise dont show this entry
                 $current_user = Zend_Auth::getInstance()->getIdentity();
@@ -95,7 +95,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     }
                 }
             }
-            $html.= '</ul></div>';
+            $html.= '</ul>';
         }
 
         return $html;

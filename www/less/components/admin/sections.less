@@ -3,9 +3,13 @@
 
 .section {
     &-header {
-        padding-top: 5em;
+        padding-top: 2.5 * @line-height-computed;
         padding-bottom: 2.5 * @line-height-computed;
         background-color: @gray-lighter;
+
+        h1 {
+            margin: 0;
+        }
     }
 
     &-content {

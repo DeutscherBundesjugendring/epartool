@@ -4,13 +4,36 @@
 // Paths
 @icon-font-path: '../components/bower/bootstrap3/fonts/';
 
+// Colors
+@blue: #428bca;
+@turqoise: #5fa4a0;
+
+@brand-primary: darken(@turqoise, 6%);
+
 // Typography
 @font-size-base: 15px;
 @font-family-base: "Open Sans", helvetica, arial, sans-serif;
 @headings-font-weight: 300;
+
+@headings-color: @gray;
+@link-color: @blue;
 
 @padding-base-vertical: 8px;
 @padding-base-horizontal: 16px;
 
 // Tables
 @table-cell-padding: 10px;
+
+// Inverted navbar
+@navbar-inverse-color:                      #fff;
+@navbar-inverse-bg:                         @brand-primary;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 #fff;
+@navbar-inverse-link-hover-color:           lighten(@brand-primary, 30%);
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg:            transparent;
+@navbar-inverse-toggle-icon-bar-bg:         #fff;
+@navbar-inverse-toggle-border-color:        lighten(@brand-primary, 30%);

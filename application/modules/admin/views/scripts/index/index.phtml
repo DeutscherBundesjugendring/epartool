@@ -1,107 +1,70 @@
-<h2>Dashboard</h2>
-<div class="subcolumns">
-    <div class="c60l">
-        <div class="subcl">
-            <h3>Grundeinstellungen</h3>
-            <ul>
-            <?php foreach ($this->basic_settings as $setting):?>
-                <li><a href="<?php echo $this->url($setting['url'])?>"><?php echo $setting['text']?></a></li>
-            <?php endforeach;?>
-            </ul>
-            <h3>Beteiligungsrunden verwalten</h3>
-            <p>
-                <a href="<?php echo $this->url(array('controller' => 'consultation', 'action' => 'new'))?>">Neue Beteiligungsrunde anlegen</a>
-            </p>
-            <?php if (!empty($this->consultations)): ?>
-            <div>
-            <?php foreach ($this->consultations as $consultation):?>
-                <div>
-                    <h4><a href="<?php echo $this->url(
-                        array(
-                            'controller' => 'consultation',
-                            'action' => 'edit',
-                            'kid' => $consultation->kid
-                        ))?>">
-                    <?php echo $consultation->titl?>
-                    </a></h4>
-                    <ul>
-                        <li>
-                            <a href="<?php echo $this->url(
-                                array(
-                                    'controller' => 'consultation',
-                                    'action' => 'edit',
-                                    'kid' => $consultation->kid
-                                ))?>">
-                                Grundeinstellungen
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->url(
-                                array(
-                                    'controller' => 'media',
-                                    'kid' => $consultation->kid
-                                ))?>">
-                                Mediathek
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->url(
-                                array(
-                                    'controller' => 'question',
-                                    'kid' => $consultation->kid
-                                ))?>">
-                                Fragestellungen f&uuml;r Beitr&auml;ge und Abstimmung
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $this->url(
-                                array(
-                                    'controller' => 'article',
-                                    'kid' => $consultation->kid
-                                ))?>">
-                                Artikel und Infotexte bearbeiten
-                            </a>
-                        </li>
-                        <li><a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $consultation->kid))?>">
-                                Alle Beiträge
-                            </a></li>
-                    </ul>
-                </div>
-            <?php endforeach;?>
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Consultations</h1>
             </div>
-            <?php endif;?>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'new'));?>" class="cta btn btn-primary">
+                    <span class="glyphicon glyphicon-plus-sign"></span> New Consultation
+                </a>
+            </div>
         </div>
     </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
 
-    <div class="c40r">
-        <div class="subcr">
-            <h3>Neue Beiträge</h3>
-            <?php if (!empty($this->inputs)): ?>
-                <ul>
-                <?php foreach ($this->inputs as $input): ?>
-                    <?php $url = $this->url(
-                        array(
-                            'module' => 'admin',
-                            'controller' => 'input',
-                            'action' => 'index',
-                            'kid' => $input['kid'],
-                            'qid' => $input['qi'],
-                        ),
-                        'default',
-                        true
-                    ); ?>
-                    <li>
-                        <a href="<?php echo $url; ?>">
-                            <?php echo $input['thes']; ?>
-                        </a>&nbsp;<a href="<?php echo $url; ?>">
-                            <img src="<?php echo $this->baseUrl(); ?>/images/edit.png" alt="Bearbeiten"/>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p class="note">Noch keine Beiträge vorhanden.</p>
-            <?php endif; ?>
+                <!-- Consultations -->
+                <?php if (!empty($this->consultations)): ?>
+                    <?php foreach ($this->consultations as $consultation):?>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading panel-heading-big text-center">
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-heading-action" title="Consultation settings">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </a>
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>">
+                                    <h2 class="panel-title panel-title-big"><?=$consultation->titl;?></h2>
+                                    <h3 class="panel-title panel-title-subtitle"><?=$consultation->titl_sub;?></h3>
+                                </a>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-pills nav-justified">
+                                    <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>">Info</a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $consultation->kid));?>">Questions</a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $consultation->kid));?>">Contributions</a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'voting', 'kid' => $consultation->kid));?>">Voting</a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $consultation->kid));?>">Follow Up</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <?php endforeach;?>
+                <?php endif;?>
+
+            </div>
+            <div class="col-md-4">
+
+                <!-- Latest posts -->
+                <!-- TODO split to individual consultations -->
+                <h2>New Contributions</h2>
+                <?php if (!empty($this->inputs)): ?>
+                    <ul class="media-list">
+                        <?php foreach ($this->inputs as $input): ?>
+                            <li class="media">
+                                <a href="<?=$this->url(array('module' => 'admin', 'controller' => 'input', 'action' => 'index', 'kid' => $input['kid'], 'qid' => $input['qi']), 'default', true);?>" class="media-body">
+                                    <?=$input['thes'];?>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p class="alert alert-info">No posts yet.</p>
+                <?php endif; ?>
+
+            </div>
         </div>
     </div>
-</div>
+</section>

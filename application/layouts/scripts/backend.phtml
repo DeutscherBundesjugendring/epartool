@@ -43,13 +43,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="<?=$this->baseUrl();?>/admin" class="navbar-brand">DBJR TOOL</a>
+                    <a href="<?=$this->baseUrl();?>/admin" class="navbar-brand" title="DBJR TOOL admin dashboard">DBJR TOOL</a>
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
                     <?=$this->navigation()->menu();?>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="<?=$this->baseUrl();?>/" target="_blank">Homepage &rarr;</a>
+                        <li class="navbar-icon">
+                            <a href="<?=$this->baseUrl();?>/" target="_blank" title="Open site in a new tab">
+                                <span class="glyphicon glyphicon-home"></span>
+                            </a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -72,31 +74,26 @@
             </div>
         </nav>
 
-        <div class="container">
-            <h1>Consultations</h1>
-        </div>
     </header>
     <main role="main">
-        <div class="container">
 
-            <!-- Flash Messages -->
-            <?php if(!empty($this->layout()->messages)): ?>
-                <?php foreach ($this->layout()->messages as $level => $messages): ?>
-                    <?php if (!empty($messages)): ?>
-                        <?php foreach ($messages as $message): ?>
-                            <div class="alert alert-<?=$level;?> fade in">
-                                <button class="close" data-dismiss="alert">&times;</button>
-                                <?=$message;?>
-                            </div>
-                        <?php endforeach;?>
-                    <?php endif;?>
-                <?php endforeach;?>
-            <?php endif;?>
+        <!-- Flash Messages -->
+        <?php if(!empty($this->layout()->messages)): ?>
+            <?php foreach ($this->layout()->messages as $level => $messages): ?>
+                <?php if (!empty($messages)): ?>
+                    <?php foreach ($messages as $message): ?>
+                        <div class="alert alert-<?=$level;?> fade in">
+                            <button class="close" data-dismiss="alert">&times;</button>
+                            <?=$message;?>
+                        </div>
+                    <?php endforeach;?>
+                <?php endif;?>
+            <?php endforeach;?>
+        <?php endif;?>
 
-            <!-- Content -->
-            <?=$this->layout()->content;?>
+        <!-- Content -->
+        <?=$this->layout()->content;?>
 
-        </div>
     </main>
     <footer role="contentinfo">
         <div class="container">
