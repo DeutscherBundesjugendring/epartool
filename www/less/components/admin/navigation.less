@@ -1,0 +1,25 @@
+// Components: Admin: Navigation
+
+
+.nav-tabs {
+    margin-top: @line-height-computed;
+    margin-bottom: 2 * @line-height-computed;
+}
+
+.nav-stacked {
+    margin-bottom: 2 * @line-height-computed;
+}
+
+.navbar {
+    @media screen and (max-width: @screen-xs-max) {
+        .visible-xs {
+            display: inline-block !important;
+        }
+    }
+
+    @media screen and (min-width: @screen-sm-min) {
+        &-icon > a {
+            min-height: @navbar-height;
+        }
+    }
+}
