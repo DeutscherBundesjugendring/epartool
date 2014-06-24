@@ -8,18 +8,22 @@ body {
         padding-top: @line-height-computed;
         padding-bottom: @line-height-computed;
         color: @gray-light;
-        background-color: @gray-darker;
+        background-color: @gray-lighter;
 
         a {
             color: @gray-light;
 
             &:hover,
             &:focus {
-                text-decoration: none;
-                color: #fff;
+                color: @text-color;
             }
         }
     }
 }
 
 .sticky-footer(3 * @line-height-computed);
+
+.footer-divider {
+    margin-left: .75ex;
+    margin-right: .75ex;
+}
