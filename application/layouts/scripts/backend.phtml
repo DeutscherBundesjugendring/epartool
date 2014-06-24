@@ -7,7 +7,7 @@
     <title>DBJR TOOL Admin</title>
     <meta name="robots" content="noindex, nofollow" />
 
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" type="text/css" />
     <link href="<?=$this->baseUrl();?>/components/bower/jquery.ui/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
     <link href="<?=$this->baseUrl();?>/css/admin.css" rel="stylesheet" type="text/css" />
 
@@ -46,13 +46,7 @@
                     <a href="<?=$this->baseUrl();?>/admin" class="navbar-brand">DBJR TOOL</a>
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?=$this->baseUrl();?>/admin">Consultations</a></li>
-                        <li><a href="<?=$this->baseUrl();?>/admin/settings">General Settings</a></li>
-                        <li><a href="<?=$this->baseUrl();?>/admin/user">Users</a></li>
-                        <li><a href="<?=$this->baseUrl();?>/admin/media">Media</a></li>
-                        <li><a href="<?=$this->baseUrl();?>/admin/mail-send">Email</a></li>
-                    </ul>
+                    <?=$this->navigation()->menu();?>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="<?=$this->baseUrl();?>/" target="_blank">Homepage &rarr;</a>
@@ -99,11 +93,6 @@
                 <?php endforeach;?>
             <?php endif;?>
 
-            <!-- Navigation -->
-            <?=$this->navigation()->menu();?>
-
-            <hr />
-
             <!-- Content -->
             <?=$this->layout()->content;?>
 
@@ -111,7 +100,7 @@
     </main>
     <footer role="contentinfo">
         <div class="container">
-            &copy; DBJR <?=date('Y');?> |
+            © DBJR <?=date('Y');?> |
             <a href="TODO" target="_blank">Contact</a>
             <a href="http://www.synergic.cz/en" target="_blank" class="pull-right" title="Created by Synergic">
                 synergic
