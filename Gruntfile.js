@@ -21,9 +21,10 @@ module.exports = function(grunt) {
         // Compile LESS
         less: {
             dev: {
-				files: {
-					'www/css/<%= pkg.name %>.css': 'www/less/main.less'
-				}
+                files: {
+                    'www/css/<%= pkg.name %>.css': 'www/less/main.less',
+                    'www/css/admin.css': 'www/less/admin.less'
+                }
             },
             dist: {
                 options: {

@@ -1,76 +1,123 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>DBJR - Administration</title>
-    <!-- add your meta tags here -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href="<?php echo $this->baseUrl(); ?>/css/backend/style.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->baseUrl(); ?>/css/backend/dashboard.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->baseUrl(); ?>/components/bower/jquery.ui/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-    <!--[if lte IE 7]>
-    <link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
-    <![endif]-->
+    <title>DBJR TOOL Admin</title>
+    <meta name="robots" content="noindex, nofollow" />
 
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/bower/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/ajaxloader.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/static/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-        var baseUrl = '<?php echo $this->baseUrl?>';
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+    <link href="<?=$this->baseUrl();?>/components/bower/jquery.ui/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <link href="<?=$this->baseUrl();?>/css/admin.css" rel="stylesheet" type="text/css" />
+
+    <!-- TODO drop YAML when all is done -->
+    <!--link href="<?=$this->baseUrl();?>/css/backend/style.css" rel="stylesheet" type="text/css" />
+    <link href="<?=$this->baseUrl();?>/css/backend/dashboard.css" rel="stylesheet" type="text/css" /-->
+
+    <!-- TODO favicon -->
+    <!--link rel="shortcut icon" href="<?=$this->baseUrl();?>/favicon.ico" />
+    <link rel="shortcut icon" href="<?=$this->baseUrl();?>/images/icon/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl();?>/images/icon/touch-icon.png" /-->
+
+    <script src="<?=$this->baseUrl();?>/components/bower/jquery/jquery.min.js"></script>
+    <script src="<?=$this->baseUrl();?>/components/bower/bootstrap3/dist/js/bootstrap.min.js"></script>
+    <script src="<?=$this->baseUrl();?>/components/static/ckeditor/ckeditor.js"></script>
+    <script src="<?=$this->baseUrl();?>/js/ajaxloader.js"></script>
+    <script src="<?=$this->baseUrl();?>/js/admin.js"></script>
+    <script>
+        var baseUrl = '<?=$this->baseUrl?>';
     </script>
-    <?php echo $this->headScript(); ?>
+    <?=$this->headScript(); ?>
 </head>
-
 <body>
-    <div class="page_margins">
-        <!-- start: skip link navigation -->
-        <!-- end: skip link navigation -->
-        <div class="page">
-            <div id="header">
-                <h1><a href="<?php echo $this->baseUrl(); ?>/admin">Administration</a></h1>
-                <div id="topnav">
-                    <a href="<?php echo $this->baseUrl(); ?>/">Startseite</a><br />
-                    <a href="<?php echo $this->baseUrl(); ?>/admin">Startseite Administration</a><br />
-                </div>
-            </div>
-            <div id="main">
-                <div id="col1">
-                    <div id="col1_content" class="clearfix">
-                        <!-- Navigation -->
-                        <?php echo $this->navigation()->menu(); ?>
-                    </div>
-                </div>
-                <div id="col3">
-                    <div id="col3_content" class="clearfix">
-                        <!-- Flash Messages -->
-                        <?php if(!empty($this->layout()->messages)): ?>
-                            <?php foreach ($this->layout()->messages as $level => $messages): ?>
-                                <?php if (!empty($messages)): ?>
-                                    <?php foreach ($messages as $message): ?>
-                                        <p class="<?php echo $level; ?>">
-                                            <?php echo $message; ?>
-                                        </p>
-                                    <?php endforeach;?>
-                                <?php endif;?>
-                            <?php endforeach;?>
-                        <?php endif;?>
 
-                        <!-- Content -->
-                        <?php echo $this->layout()->content; ?>
-                    </div>
-                    <!-- IE Column Clearing -->
-                    <div id="ie_clearing"> &#160; </div>
+    <header role="banner">
+
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="sr-only">Menu</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="<?=$this->baseUrl();?>/admin" class="navbar-brand">DBJR TOOL</a>
+                </div>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="<?=$this->baseUrl();?>/admin">Consultations</a></li>
+                        <li><a href="<?=$this->baseUrl();?>/admin/settings">General Settings</a></li>
+                        <li><a href="<?=$this->baseUrl();?>/admin/user">Users</a></li>
+                        <li><a href="<?=$this->baseUrl();?>/admin/media">Media</a></li>
+                        <li><a href="<?=$this->baseUrl();?>/admin/mail-send">Email</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="<?=$this->baseUrl();?>/" target="_blank">Homepage &rarr;</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><?=Zend_Auth::getInstance()->getIdentity()->name;?></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="/admin/logout">
+                                        <span class="glyphicon glyphicon-off"></span>
+                                        Log off
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <!-- begin: #footer -->
-            <div id="footer">
-                <p>Layout based on <a href="http://www.yaml.de">YAML</a></p>
-            </div>
+        </nav>
+
+        <div class="container">
+            <h1>Consultations</h1>
         </div>
-    </div>
+    </header>
+    <main role="main">
+        <div class="container">
+
+            <!-- Flash Messages -->
+            <?php if(!empty($this->layout()->messages)): ?>
+                <?php foreach ($this->layout()->messages as $level => $messages): ?>
+                    <?php if (!empty($messages)): ?>
+                        <?php foreach ($messages as $message): ?>
+                            <div class="alert alert-<?=$level;?> fade in">
+                                <button class="close" data-dismiss="alert">&times;</button>
+                                <?=$message;?>
+                            </div>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                <?php endforeach;?>
+            <?php endif;?>
+
+            <!-- Navigation -->
+            <?=$this->navigation()->menu();?>
+
+            <hr />
+
+            <!-- Content -->
+            <?=$this->layout()->content;?>
+
+        </div>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            &copy; DBJR <?=date('Y');?> |
+            <a href="TODO" target="_blank">Contact</a>
+            <a href="http://www.synergic.cz/en" target="_blank" class="pull-right" title="Created by Synergic">
+                synergic
+            </a>
+        </div>
+    </footer>
+
 </body>
-
 </html>
-
