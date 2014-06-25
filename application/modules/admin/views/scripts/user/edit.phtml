@@ -1,17 +1,17 @@
-<?php
-/**
- * edit
- *
- * @description   Benutzer bearbeiten Forumlaransicht
- * @author        Jan Suchandt
- */
-?>
-<h2>Benutzer &quot;<?php echo $this->user->name; ?>&quot; bearbeiten</h2>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/user/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
-</p>
-<?php echo $this->form; ?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/user/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
-</p>
+<section class="section-header">
+    <div class="container">
+        <h1>Users</h1>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
 
+        <h2>Edit User</h2>
+        <?=$this->form;?>
+        <p>
+            or
+            <a href="<?=$this->url(array('action' => 'index'));?>">Cancel</a>
+        </p>
+
+    </div>
+</section>
