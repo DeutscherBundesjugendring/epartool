@@ -1,21 +1,38 @@
-<?php
+<section class="section-header">
+    <div class="container">
+        <h1>General Settings</h1>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
 
-?>
-<h1>Schlagwörter verwalten</h1>
-<?php echo $this->createForm; ?>
+                <?=$this->settingsNavigation('keywords');?>
 
-<form name="edit_tags" class="yform" action="<?php echo $this->baseUrl(); ?>/admin/tag/edit" method="post">
-<?php foreach ($this->tags as $tag): ?>
-	<div class="">
-		<input name="tg_de[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" />
-		<a href="<?php echo $this->baseUrl(); ?>/admin/tag/delete/tag/<?php echo $tag['tg_nr']; ?>">
-		  <img src="<?php echo $this->baseUrl(); ?>/images/<?php echo Zend_Registry::get('systemconfig')->project; ?>/delete.png"
-		    alt="Löschen" title="Schlagwort löschen (wird nur gelöscht, falls nicht verwendet)" />
-		</a>
-		<input name="tag_old[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" type="hidden" />
-	</div>
-<?php endforeach;?>
-	<div>
-		<input type="submit" name="editsubmit" value="Speichern">
-	</div>
-</form>
+            </div>
+            <div class="col-md-9">
+
+                <h2>Keywords</h2>
+                <?=$this->createForm;?>
+
+                <form name="edit_tags" class="yform" action="<?php echo $this->baseUrl(); ?>/admin/tag/edit" method="post">
+                    <?php foreach ($this->tags as $tag): ?>
+                        <div class="">
+                            <input name="tg_de[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" />
+                            <a href="<?php echo $this->baseUrl(); ?>/admin/tag/delete/tag/<?php echo $tag['tg_nr']; ?>">
+                                <img src="<?php echo $this->baseUrl(); ?>/images/<?php echo Zend_Registry::get('systemconfig')->project; ?>/delete.png"
+                                     alt="Löschen" title="Schlagwort löschen (wird nur gelöscht, falls nicht verwendet)" />
+                            </a>
+                            <input name="tag_old[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" type="hidden" />
+                        </div>
+                    <?php endforeach;?>
+                    <div>
+                        <input type="submit" name="editsubmit" value="Speichern">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

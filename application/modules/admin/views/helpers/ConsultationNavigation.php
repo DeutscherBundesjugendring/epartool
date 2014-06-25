@@ -1,6 +1,8 @@
 <?php
 /**
  * Consultation Navigation
+ *
+ * TODO refactor and merge with settings navigation
  */
 
 class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
