@@ -2,6 +2,8 @@
 
 
 .list-group-nested {
+    margin-bottom: 2 * @line-height-computed;
+
     .list-group-item {
         &-heading {
             margin-bottom: 0;
@@ -12,5 +14,24 @@
         &-nested {
             padding-left: 2 * @padding-large-horizontal;
         }
+    }
+}
+
+// Shortcut for quick adding new item
+.list-group-add {
+    position: relative;
+    top: -1.8em;
+    right: @padding-base-horizontal;
+    z-index: 2;
+    float: right;
+    color: @brand-primary;
+
+    &:hover,
+    &:focus {
+        color: @text-color;
+    }
+
+    .active + & {
+        color: #fff;
     }
 }
