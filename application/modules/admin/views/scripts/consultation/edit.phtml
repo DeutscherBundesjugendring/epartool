@@ -1,23 +1,51 @@
-<?php
-/**
- * index
- *
- * @description   consultation edit form
- * @author        Markus Hackel
- */
-?>
-<h1><?php echo $this->consultation->titl; ?></h1>
-<?php
-echo $this->consultationNavigation('Grundeinstellungen');
-?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
-<?php echo $this->form?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation->titl;?></h1>
+        <h2><?=$this->consultation->titl_sub;?></h2>
+
+        <?=$this->consultationTabs($this->consultation->kid, 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="list-group list-group-nested">
+                    <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', $this->consultation->kid));?>" class="list-group-item active">
+                        <h4 class="list-group-item-heading">General Settings</h4>
+                    </a>
+                    <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', $this->consultation->kid));?>" class="list-group-item">
+                        <h4 class="list-group-item-heading">Phase Names</h4>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+
+                <?php if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
+                    <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'delete', $this->consultation->kid));?>" class="pull-right">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        Delete Consultation
+                    </a>
+                <?php endif; ?>
+
+                <h2>General Settings</h2>
+                <?=$this->form;?>
+                <p>
+                    or
+                    <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', $this->consultation->kid));?>">Cancel</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO move to JS -->
 <script>
-    CKEDITOR.replace( 'expl' );
-    CKEDITOR.replace( 'vot_expl' );
+    CKEDITOR.replace('expl');
+    CKEDITOR.replace('vot_expl');
 </script>

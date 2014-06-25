@@ -1,12 +1,31 @@
-<?php
-/**
- *  create-doc.phtml
- * 
- *  @description   create followup_file
- *  @author        Marco Dinnbier
- */
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Follow-up'); ?>
-<h2>Follow-up-Dokument erstellen</h2>
-<?php echo $this->form;?>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('followup');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>New Follow Up</h2>
+                <?=$this->form;?>
+                <p>
+                    or
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>">Cancel</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -19,13 +19,13 @@
 
                 <!-- Consultations -->
                 <?php if (!empty($this->consultations)): ?>
-                    <?php foreach ($this->consultations as $consultation):?>
+                    <?php foreach ($this->consultations as $consultation): ?>
                         <div class="panel panel-primary">
                             <div class="panel-heading panel-heading-big text-center">
                                 <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-heading-action" title="Consultation settings">
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>">
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $consultation->kid));?>">
                                     <h2 class="panel-title panel-title-big"><?=$consultation->titl;?></h2>
                                     <h3 class="panel-title panel-title-subtitle"><?=$consultation->titl_sub;?></h3>
                                 </a>
@@ -35,13 +35,13 @@
                                     <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>">Info</a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $consultation->kid));?>">Questions</a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $consultation->kid));?>">Contributions</a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'voting', 'kid' => $consultation->kid));?>">Voting</a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $consultation->kid));?>">Voting</a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $consultation->kid));?>">Follow Up</a></li>
                                 </ul>
                             </div>
                         </div>
-                    <?php endforeach;?>
-                <?php endif;?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
 
             </div>
             <div class="col-md-4">

@@ -1,8 +1,16 @@
-<h2>Uups</h2>
-<p><?php echo $this->message; ?></p>
-<?php if ('development' == $this->environment) : ?>
-<h3>Ausnahme:</h3>
-<p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
-<h3>Stack trace:</h3>
-<pre><?php echo $this->exception->getTraceAsString(); ?></pre>
-<?php endif; ?>
+<section class="section-content">
+    <div class="container">
+
+        <h1>Uups</h1>
+        <p><?php echo $this->message; ?></p>
+
+        <?php // TODO implement Nette/Tracy instead? ?>
+        <?php if ($this->environment === 'development'): ?>
+            <h3>Ausnahme:</h3>
+            <p><b>Nachricht:</b> <?php echo $this->exception->getMessage(); ?></p>
+            <h3>Stack trace:</h3>
+            <pre><?php echo $this->exception->getTraceAsString(); ?></pre>
+        <?php endif; ?>
+
+    </div>
+</section>

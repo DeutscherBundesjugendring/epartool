@@ -4,6 +4,24 @@
 .nav-tabs {
     margin-top: @line-height-computed;
     margin-bottom: 2 * @line-height-computed;
+
+    &-header {
+        float: right;
+        margin-top: 2 * @line-height-computed;
+        margin-bottom: -1px; // collapse border
+
+        > li > a {
+            color: @text-color;
+        }
+    }
+
+    @media screen and (min-width: @screen-sm-min) {
+        &-header {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+    }
 }
 
 .nav-stacked {

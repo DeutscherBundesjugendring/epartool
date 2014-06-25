@@ -1,49 +1,60 @@
-<?php
-/**
- * index
- *
- * @description   Questions
- * @author        Markus Hackel
- */
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Fragen');
-?>
-<h2>Übersicht der Fragen</h2>
-<p><a href="<?php echo $this->url(array(
-  'action' => 'create',
-  'kid' => $this->consultation['kid']
-))?>">Neue Frage</a></p>
-<table>
-  <tr>
-    <th>Nr.</th>
-    <th>Frage</th>
-    <th>Erkl&auml;rung</th>
-    <th>Votingfrage</th>
-    <th>Aktionen</th>
-  </tr>
-<?php foreach ($this->consultation['questions'] as $quest):?>
-  <tr>
-    <td><?php echo $quest['nr']?></td>
-    <td><?php echo $quest['q']?></td>
-    <td><?php echo $quest['q_xpl']?></td>
-    <td><?php echo $quest['vot_q']?></td>
-    <td><a href="<?php echo $this->url(array(
-  'action' => 'edit',
-  'kid' => $this->consultation['kid'],
-  'qid' => $quest['qi']
-    ));?>">Bearbeiten</a>
-    &nbsp;
-    <a href="<?php echo $this->url(array(
-  'action' => 'delete',
-  'kid' => $this->consultation['kid'],
-  'qid' => $quest['qi']
-    ));?>" title="Frage löschen (wird nur gelöscht, wenn noch keine Beiträge)">Löschen</a>
-  </tr>
-<?php endforeach;?>
-</table>
-<p><a href="<?php echo $this->url(array(
-  'action' => 'create',
-  'kid' => $this->consultation['kid']
-))?>">Neue Frage</a></p>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('questions');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    New Question
+                </a>
+                <h2>Questions</h2>
+
+                <table class="table">
+                    <tr>
+                        <th>Nr.</th>
+                        <th>Frage</th>
+                        <th>Erkl&auml;rung</th>
+                        <th>Votingfrage</th>
+                        <th>Aktionen</th>
+                    </tr>
+                    <?php foreach ($this->consultation['questions'] as $quest): ?>
+                        <tr>
+                            <td><?php echo $quest['nr']?></td>
+                            <td><?php echo $quest['q']?></td>
+                            <td><?php echo $quest['q_xpl']?></td>
+                            <td><?php echo $quest['vot_q']?></td>
+                            <td><a href="<?php echo $this->url(array(
+                                    'action' => 'edit',
+                                    'kid' => $this->consultation['kid'],
+                                    'qid' => $quest['qi']
+                                ));?>">Bearbeiten</a>
+                                &nbsp;
+                                <a href="<?php echo $this->url(array(
+                                    'action' => 'delete',
+                                    'kid' => $this->consultation['kid'],
+                                    'qid' => $quest['qi']
+                                ));?>" title="Frage löschen (wird nur gelöscht, wenn noch keine Beiträge)">Löschen</a>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+

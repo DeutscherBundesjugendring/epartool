@@ -1,9 +1,32 @@
-<h1>Abstimmung vorbereiten: <?php echo $this -> consultation['titl']; ?></h1>
-<?php
-echo $this -> consultationNavigation('Votingprepare');
-?>
-<div class="input-list c50l">
-<h2>Beitrag bearbeiten</h2>
-<p>Dieser Beitrag trägt die Datenbank-interne Nr. <?php echo $this->tid; ?>.</p>
-<?php echo $this->form; ?>
-</div>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('voting-prepare');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Abstimmung vorbereiten</h2>
+
+                <div class="input-list c50l">
+                    <h2>Beitrag bearbeiten</h2>
+                    <p>Dieser Beitrag trägt die Datenbank-interne Nr. <?php echo $this->tid; ?>.</p>
+                    <?php echo $this->form; ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

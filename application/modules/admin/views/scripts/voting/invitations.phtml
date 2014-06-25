@@ -1,57 +1,81 @@
-<?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray()?>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Votingeinladungen')?>
-<h2>Voting-Einladungen</h2>
-<p>
-    <a href="mailto:<?php echo $this->mailDefaultFrom?>?bcc=<?php echo $this->emailList; ?>">
-        &raquo; E-Mail an alle Teilnehmenden in externem Programm senden
-    </a>
-</p>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
-<?php foreach ($this->participants as $user): ?>
-    <div class="info">
-        <p>
-            <a
-                href="<?php echo $this->url(array( 'controller' => 'input', 'action' => 'list', 'uid' => $user['uid']))?>"
-                title="Anklicken, um alle Beiträge dieses Users zu sehen"
-            >
-                <?php if (!empty($user['name'])): ?>
-                    <?php echo $user['name'] . ' '?>
-                <?php endif?>
-                <?php if (!empty($user['email'])): ?>
-                    <?php echo $user['email'] . ' ' . $user['uid']; ?>
-                <?php endif?>
-            </a>
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
-            <?php if (!empty($user['email'])): ?>
-                <p>
-                    <a href="<?php echo $this->url(array('action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'preview',))?>">
-                        Vorschau &amp; Senden
-                    </a>
-                    &emsp;
-                    <a href="<?php echo $this->url(array('action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'instantsend',))?>">
-                        Direkt senden
-                    </a>
-                </p>
-            <?php else: ?>
-                Unbekannt <?php echo $user['uid']; ?>
-            <?php endif; ?>
-
-            <?php if (isset($user['votingRights'])): ?>
-                <p>
-                    Votinggewicht: <b><?php echo $user['votingRights']['vt_weight']; ?></b><br />
-                    Gruppengröße: <b><?php echo $grp_siz_def[$user['votingRights']['grp_siz']]; ?></b>
-                </p>
-                <?php if ($user['votingRights']['grp_siz'] != 1): ?>
-                    <hr/>
-                    <p>
-                        Ansprechpartner: <b><?php echo $user['name_pers']; ?></b><br/>
-                        Gruppenname: <b><?php echo $user['name_group']; ?></b><br/>
-                        Gruppengröße: <b><?php echo $user['group_size']; ?></b>
-                    </p>
-                <?php endif; ?>
-            <?php endif; ?>
-        </p>
     </div>
-<?php endforeach; ?>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('voting-invitations');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Voting Invitations</h2>
+
+                <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray()?>
+
+                <p>
+                    <a href="mailto:<?php echo $this->mailDefaultFrom?>?bcc=<?php echo $this->emailList; ?>">
+                        &raquo; E-Mail an alle Teilnehmenden in externem Programm senden
+                    </a>
+                </p>
+
+                <?php foreach ($this->participants as $user): ?>
+                    <div class="info">
+                        <p>
+                            <a
+                                href="<?php echo $this->url(array( 'controller' => 'input', 'action' => 'list', 'uid' => $user['uid']))?>"
+                                title="Anklicken, um alle Beiträge dieses Users zu sehen"
+                                >
+                                <?php if (!empty($user['name'])): ?>
+                                    <?php echo $user['name'] . ' '?>
+                                <?php endif?>
+                                <?php if (!empty($user['email'])): ?>
+                                    <?php echo $user['email'] . ' ' . $user['uid']; ?>
+                                <?php endif?>
+                            </a>
+
+                            <?php if (!empty($user['email'])): ?>
+                        <p>
+                            <a href="<?php echo $this->url(array('action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'preview',))?>">
+                                Vorschau &amp; Senden
+                            </a>
+                            &emsp;
+                            <a href="<?php echo $this->url(array('action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'instantsend',))?>">
+                                Direkt senden
+                            </a>
+                        </p>
+                        <?php else: ?>
+                            Unbekannt <?php echo $user['uid']; ?>
+                        <?php endif; ?>
+
+                        <?php if (isset($user['votingRights'])): ?>
+                            <p>
+                                Votinggewicht: <b><?php echo $user['votingRights']['vt_weight']; ?></b><br />
+                                Gruppengröße: <b><?php echo $grp_siz_def[$user['votingRights']['grp_siz']]; ?></b>
+                            </p>
+                            <?php if ($user['votingRights']['grp_siz'] != 1): ?>
+                                <hr/>
+                                <p>
+                                    Ansprechpartner: <b><?php echo $user['name_pers']; ?></b><br/>
+                                    Gruppenname: <b><?php echo $user['name_group']; ?></b><br/>
+                                    Gruppengröße: <b><?php echo $user['group_size']; ?></b>
+                                </p>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+        </div>
+    </div>
+</section>

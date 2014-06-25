@@ -1,7 +1,31 @@
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Votingteilnehmende');
-?>
-<h2>Abstimmungsteilnehmende(en): <?php echo $this->user?> bearbeiten</h2>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<?php echo $this->form?>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('voting-participants');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Edit Voting Participant: <?php echo $this->user?></h2>
+                <?=$this->form;?>
+                <p>
+                    or
+                    <a href="<?=$this->url(array('action' => 'participants', $this->kid));?>">Cancel</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

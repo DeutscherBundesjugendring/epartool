@@ -1,78 +1,102 @@
-<?php
-$memberships = array(
-  'y' => 'bestätigt',
-  'n' => 'abgelehnt',
-  'u' => '--offen--',
-);
-$identity = Zend_Auth::getInstance()->getIdentity();
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Votingteilnehmende');
-?>
-<script type="text/javascript">
-$(document).ready(function() {
-  $('.deleteconfirm').click(function() {
-    if (!confirm('Wollen Sie diesen Datensatz wirklich löschen?')) {
-      return false;
-    }
-  });
-});
-</script>
-<h2>Votingteilnehmende</h2>
-<p><b>Anzahl Abstimmende:</b> <?php echo count($this->groups); ?></p>
-<?php if (!empty($this->groups)): ?>
-<table>
-  <tr>
-    <th>Gruppe</th>
-    <th>Abstimmende_r</th>
-    <th>Gruppenmitglied</th>
-    <th>Noch abstimmen</th>
-    <th>Aktion</th>
-    <th>Abstimmungsteilnehmer:</th>
-  </tr>
-  <?php foreach ($this->groups as $group): ?>
-  <tr>
-    <td><a href="<?php echo $this->url(array(
-      'controller' => 'input',
-      'action' => 'list',
-      'uid' => $group['uid']
-    )); ?>"><?php echo $group['email']; ?></a><br/><?php echo $group['name']; ?></td>
-    <td><?php echo $group['sub_user']; ?></td>
-    <td><?php echo $memberships[$group['member']]; ?></td>
-    <td><?php echo substr_count($group['vt_inp_list'], ','); ?></td>
-    <td>
-    <?php if (($group['member']=="y" && $identity->lvl=="adm") || $group['member']=="u"): ?>
-      <a href="<?php echo $this->url(array(
-        'action' => 'participantdeny',
-        'uid' => $group['uid'],
-        'sub_uid' => $group['sub_uid'],
-      )); ?>">Ablehnen</a><br/>
-    <?php endif; ?>
-    <?php if (($group['member']=="n" && $identity->lvl=="adm") || ($group['member']=="u" && $identity->lvl=="adm")): ?>
-      <a href="<?php echo $this->url(array(
-        'action' => 'participantconfirm',
-        'uid' => $group['uid'],
-        'sub_uid' => $group['sub_uid'],
-      )); ?>">Bestätigen</a><br/>
-    <?php endif; ?>
-    <?php if ($group['member']=="n" && $identity->lvl=="adm"): ?>
-      <a href="<?php echo $this->url(array(
-        'action' => 'participantdelete',
-        'uid' => $group['uid'],
-        'sub_uid' => $group['sub_uid'],
-      )); ?>" class="deleteconfirm">Löschen</a><br/>
-    <?php endif; ?>
-    </td>
-    <td>
-    	<a href="<?php echo $this->url(array(
-        'action' => 'participantedit',
-        'uid' => $group['uid'],
-        'sub_uid' => $group['sub_uid'],
-      )); ?>" class="">zusammenführen</a><br/>
-    </td>
-  </tr>
-  <?php endforeach; ?>
-</table>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<?php endif; ?>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('voting-participants');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Voting Participants</h2>
+
+                <?php
+                $memberships = array(
+                    'y' => 'bestätigt',
+                    'n' => 'abgelehnt',
+                    'u' => '--offen--',
+                );
+                $identity = Zend_Auth::getInstance()->getIdentity();
+                ?>
+
+                <p><b>Anzahl Abstimmende:</b> <?php echo count($this->groups); ?></p>
+                <?php if (!empty($this->groups)): ?>
+                    <table class="table">
+                        <tr>
+                            <th>Gruppe</th>
+                            <th>Abstimmende_r</th>
+                            <th>Gruppenmitglied</th>
+                            <th>Noch abstimmen</th>
+                            <th>Aktion</th>
+                            <th>Abstimmungsteilnehmer:</th>
+                        </tr>
+                        <?php foreach ($this->groups as $group): ?>
+                            <tr>
+                                <td><a href="<?php echo $this->url(array(
+                                        'controller' => 'input',
+                                        'action' => 'list',
+                                        'uid' => $group['uid']
+                                    )); ?>"><?php echo $group['email']; ?></a><br/><?php echo $group['name']; ?></td>
+                                <td><?php echo $group['sub_user']; ?></td>
+                                <td><?php echo $memberships[$group['member']]; ?></td>
+                                <td><?php echo substr_count($group['vt_inp_list'], ','); ?></td>
+                                <td>
+                                    <?php if (($group['member']=="y" && $identity->lvl=="adm") || $group['member']=="u"): ?>
+                                        <a href="<?php echo $this->url(array(
+                                            'action' => 'participantdeny',
+                                            'uid' => $group['uid'],
+                                            'sub_uid' => $group['sub_uid'],
+                                        )); ?>">Ablehnen</a><br/>
+                                    <?php endif; ?>
+                                    <?php if (($group['member']=="n" && $identity->lvl=="adm") || ($group['member']=="u" && $identity->lvl=="adm")): ?>
+                                        <a href="<?php echo $this->url(array(
+                                            'action' => 'participantconfirm',
+                                            'uid' => $group['uid'],
+                                            'sub_uid' => $group['sub_uid'],
+                                        )); ?>">Bestätigen</a><br/>
+                                    <?php endif; ?>
+                                    <?php if ($group['member']=="n" && $identity->lvl=="adm"): ?>
+                                        <a href="<?php echo $this->url(array(
+                                            'action' => 'participantdelete',
+                                            'uid' => $group['uid'],
+                                            'sub_uid' => $group['sub_uid'],
+                                        )); ?>" class="deleteconfirm">Löschen</a><br/>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <a href="<?php echo $this->url(array(
+                                        'action' => 'participantedit',
+                                        'uid' => $group['uid'],
+                                        'sub_uid' => $group['sub_uid'],
+                                    )); ?>" class="">zusammenführen</a><br/>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO move to JS -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.deleteconfirm').click(function() {
+            if (!confirm('Wollen Sie diesen Datensatz wirklich löschen?')) {
+                return false;
+            }
+        });
+    });
+</script>

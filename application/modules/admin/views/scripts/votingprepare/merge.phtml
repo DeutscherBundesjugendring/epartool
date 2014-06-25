@@ -1,60 +1,85 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation('voting-prepare');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Abstimmung vorbereiten</h2>
+
+                <h3>Beiträge zusammenfassen</h3>
+                <div class="input-list c50l">
+                    <h3>Originalbeiträge <?php echo count($this->inputs)?></h3>
+                    <form id="thesis-form" method="post">
+                        <ul>
+                            <?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
+                        </ul>
+                    </form>
+                </div>
+
+                <div class="input-list c50l">
+                    <h3>Neuer Beitrag</h3>
+                    <?php echo $this->form?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO fuck off -->
 <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js')?>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		// originale anzeigen //
-		$('li.inputs').show('blind', '', 500);
-		$('div.related-content').show('blind', '', 500);
-		$('div.expl-content').show('blind', '', 500);
-		$('div.append-inputs').hide();
+    $(document).ready(function() {
+        // originale anzeigen //
+        $('li.inputs').show('blind', '', 500);
+        $('div.related-content').show('blind', '', 500);
+        $('div.expl-content').show('blind', '', 500);
+        $('div.append-inputs').hide();
 
 
-		// text kopieren //
-		$('input.cbx-th').change(function() {
-			if ($(this).is(":checked")) {
-				var label = $("label[for='"+$(this).attr('id')+"']").text();
-				var content = $('#thes').text();
-				$('#thes').text($.trim(content)+$.trim(label));
-				$(this).hide('blind','', 800,
-						function() {$(this).remove();}
-						);
-			}
-		});
+        // text kopieren //
+        $('input.cbx-th').change(function() {
+            if ($(this).is(":checked")) {
+                var label = $("label[for='"+$(this).attr('id')+"']").text();
+                var content = $('#thes').text();
+                $('#thes').text($.trim(content)+$.trim(label));
+                $(this).hide('blind','', 800,
+                    function() {$(this).remove();}
+                );
+            }
+        });
 
-		$('div.expl-content').click(function() {
-				var expltext = $(this).text();
-				var content = $('#expl').text();
-				$('#expl').text($.trim(content)+$.trim(expltext));
-				$(this).prev().hide('blind','', 1600,
-						function() {$(this).remove();}
-				);
-				$(this).hide('blind','', 800,
-						function() {$(this).remove();}
-			);
-		});
+        $('div.expl-content').click(function() {
+            var expltext = $(this).text();
+            var content = $('#expl').text();
+            $('#expl').text($.trim(content)+$.trim(expltext));
+            $(this).prev().hide('blind','', 1600,
+                function() {$(this).remove();}
+            );
+            $(this).hide('blind','', 800,
+                function() {$(this).remove();}
+            );
+        });
 
-		// tags übernehmen
-		$('div.tag').click(function() {
-			var tagID = $(this).attr("rel");
-			$('#tags-'+tagID).attr("checked", true);
-		});
-	});
+        // tags übernehmen
+        $('div.tag').click(function() {
+            var tagID = $(this).attr("rel");
+            $('#tags-'+tagID).attr("checked", true);
+        });
+    });
 </script>
-
-<h1>Abstimmung vorbereiten: <?php echo $this->consultation['titl']?></h1>
-<?php echo $this->consultationNavigation('Votingprepare')?>
-
-<h2>Beiträge zusammenfassen</h2>
-<div class="input-list c50l">
-	<h3>Originalbeiträge <?php echo count($this->inputs)?></h3>
-	<form id="thesis-form" method="post">
-		<ul>
-			<?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
-		</ul>
-	</form>
-</div>
-
-<div class="input-list c50l">
-	<h3>Neuer Beitrag</h3>
-	<?php echo $this->form?>
-</div>

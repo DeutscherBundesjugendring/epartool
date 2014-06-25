@@ -1,16 +1,36 @@
-<?php
+<section class="section-header has-tabs">
+    <div class="container">
 
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Votingeinladungen')?>
-<h2>Voting-Einladung senden</h2>
-<?php echo $this->form?>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
-<a href="<?php echo $this->url(array('action' => 'invitations', 'uid' => null,  'mode' => null,)); ?>">
-    &laquo; Zurück zur Übersicht
-</a>
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
 
+                <?=$this->consultationNavigation('voting-invitations');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Voting Invitations</h2>
+                <?=$this->form;?>
+                <p>
+                    or
+                    <a href="<?=$this->url(array('action' => 'invitations', 'uid' => null, 'mode' => null));?>">Cancel</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO move to JS -->
 <script type="text/javascript">
     CKEDITOR.replace('body_html');
 </script>
