@@ -1,64 +1,95 @@
-<?php
-    $gfx_test = array("jpg", "jpeg", "gif", "png", "svg");
-    $doc_test = array("doc", "docx", "dot", "dotx", "odt", "ott", "rtf", "txt");
-    $clc_test = array("xls", "xlsx", "xlst", "ods", "ots", "csv");
-    $vid_test = array("avi", "divx", "flv", "mkv", "mov", "mpg", "mp4", "mp4v", "m4v", "ogv", "webm", "wmv", "3gp", "3g2");
-    $aud_test = array("aac", "au", "flac", "mid", "mka", "mp3", "m4a", "m4b", "ogg", "snd", "wav", "wma");
-    $prs_test = array("ppt", "pptx", "odp", "otp");
-    $pdf_test = array("pdf", "epub", "mobi");
-    $pck_test = array("zip", "rar", "tar", "7z");
-?>
-
-<h1><?php echo ($this->consultation ? $this->consultation->titl : 'Allgemein')?></h1>
-<?=$this->consultation ? $this->consultationNavigation('Mediathek') : ''?>
-
-<h2>Mediathek</h2>
-<div class="info">
-    <h3>Verzeichnis: <?php echo $this->directory;?></h3>
-</div>
-
-<?php if (!empty($this->files)): ?>
-    <div>
-        <ul id="galerie">
-            <?php foreach ($this->files as $file):?>
-                <li>
-                    <a href="<?=$this->directory?>/<?=$file['basename']?>" title="Klicken zum Ansehen">
-                        <?php if (in_array($file['extension'], $gfx_test)): ?>
-                            <img src="<?=$this->directory?>/<?=$file['basename']?>" width="140" alt="Vorschau" />
-                        <?php else: ?>
-                            <img
-                                src="
-                                    <?php if (in_array($file['extension'], $pdf_test)): ?>
-                                        <?=$this->baseUrl()?>/images/cystal_clear_mimetype_pdf.png
-                                    <?php elseif (in_array($file['extension'], $pck_test)): ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_filesystem_folder_tar.png
-                                    <?php elseif (in_array($file['extension'], $doc_test)): ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_mimetype_txt.png
-                                    <?php elseif (in_array($file['extension'], $prs_test)): ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_app_display.png
-                                    <?php elseif (in_array($file['extension'], $vid_test)): ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_mimetype_video.png
-                                    <?php elseif (in_array($file['extension'], $aud_test)): ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_app_xmms.png
-                                    <?php elseif (in_array($file['extension'], $clc_test)): ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_mimetype_spreadsheet.png
-                                    <?php else: ?>
-                                        <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png
-                                    <?php endif?>"
-                                width="140"
-                                alt="Vorschau"
-                            />
-                        <?php endif?>
-                    </a>
-                    <span>
-                        <?=$file['filename'].'.'.$file['extension']; ?><br />
-                        (<?=$file['size']; ?>kb)
-                    </span>
-                    <?=$file['deleteform']?>
-                </li>
-            <?php endforeach;?>
-        </ul>
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Media</h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('action' => 'upload'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> Upload</a>
+            </div>
+        </div>
     </div>
-<?php endif;?>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
 
-<div><?=$this->form?></div>
+                <div class="list-group list-group-nested">
+                    <a href="<?=$this->url(array('action' => 'index'));?>" class="list-group-item active">
+                        <h4 class="list-group-item-heading">All Media</h4>
+                    </a>
+                    <a href="<?=$this->url(array('action' => 'index'));?>" class="list-group-item">
+                        <h4 class="list-group-item-heading">Categories</h4>
+                    </a>
+                    <a href="" class="list-group-add" title="Create new item"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+
+                <?php
+                $gfx_test = array("jpg", "jpeg", "gif", "png", "svg");
+                $doc_test = array("doc", "docx", "dot", "dotx", "odt", "ott", "rtf", "txt");
+                $clc_test = array("xls", "xlsx", "xlst", "ods", "ots", "csv");
+                $vid_test = array("avi", "divx", "flv", "mkv", "mov", "mpg", "mp4", "mp4v", "m4v", "ogv", "webm", "wmv", "3gp", "3g2");
+                $aud_test = array("aac", "au", "flac", "mid", "mka", "mp3", "m4a", "m4b", "ogg", "snd", "wav", "wma");
+                $prs_test = array("ppt", "pptx", "odp", "otp");
+                $pdf_test = array("pdf", "epub", "mobi");
+                $pck_test = array("zip", "rar", "tar", "7z");
+                ?>
+
+                <h2>All Media</h2>
+
+                <h3>Verzeichnis: <?php echo $this->directory;?></h3>
+
+                <?php if (!empty($this->files)): ?>
+                    <div>
+                        <ul id="galerie">
+                            <?php foreach ($this->files as $file):?>
+                                <li>
+                                    <a href="<?=$this->directory?>/<?=$file['basename']?>" title="Klicken zum Ansehen">
+                                        <?php if (in_array($file['extension'], $gfx_test)): ?>
+                                            <img src="<?=$this->directory?>/<?=$file['basename']?>" width="140" alt="Vorschau" />
+                                        <?php else: ?>
+                                            <img
+                                                src="
+                                            <?php if (in_array($file['extension'], $pdf_test)): ?>
+                                                <?=$this->baseUrl()?>/images/cystal_clear_mimetype_pdf.png
+                                            <?php elseif (in_array($file['extension'], $pck_test)): ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_filesystem_folder_tar.png
+                                            <?php elseif (in_array($file['extension'], $doc_test)): ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_txt.png
+                                            <?php elseif (in_array($file['extension'], $prs_test)): ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_app_display.png
+                                            <?php elseif (in_array($file['extension'], $vid_test)): ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_video.png
+                                            <?php elseif (in_array($file['extension'], $aud_test)): ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_app_xmms.png
+                                            <?php elseif (in_array($file['extension'], $clc_test)): ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_spreadsheet.png
+                                            <?php else: ?>
+                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png
+                                            <?php endif?>"
+                                                width="140"
+                                                alt="Vorschau"
+                                                />
+                                        <?php endif?>
+                                    </a>
+                            <span>
+                                <?=$file['filename'].'.'.$file['extension']; ?><br />
+                                (<?=$file['size']; ?>kb)
+                            </span>
+                                    <?=$file['deleteform']?>
+                                </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
+                <?php endif;?>
+
+                <?=$this->form?>
+
+            </div>
+        </div>
+    </div>
+</section>
