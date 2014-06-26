@@ -1,46 +1,59 @@
-<h1>Email components</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Email</h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> New Email</a>
+            </div>
+        </div>
+        <?=$this->emailTabs('settings');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
 
+        <a href="<?=$this->url(array('action' => 'detail'));?>" class="btn btn-default pull-right">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            New Email Component
+        </a>
+        <h2>Email Components</h2>
 
-<a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'detail')); ?>">
-    New email component
-</a>
+        <form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
+            <?=$this->form->getElement('email_list_control_csrf_token')?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($this->components as $component): ?>
+                        <tr>
+                            <td><?php echo $component->id?></td>
+                            <td><?php echo $component->name?></td>
+                            <td>
+                                <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $component->id));?>">
+                                    Bearbeiten
+                                </a>
+                                <button
+                                    name="deleteId"
+                                    type="submit"
+                                    onclick="return confirm('Are you sure?');"
+                                    value="<?php echo $component->id?>"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach?>
+                </tbody>
+            </table>
+        </form>
 
-<form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
-    <?=$this->form->getElement('email_list_control_csrf_token')?>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Subject</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <?php foreach ($this->components as $component): ?>
-                <tr>
-                    <td><?php echo $component->id?></td>
-                    <td><?php echo $component->name?></td>
-                    <td>
-                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $component->id));?>">
-                            Bearbeiten
-                        </a>
-                        <button
-                            name="deleteId"
-                            type="submit"
-                            onclick="return confirm('Are you sure?');"
-                            value="<?php echo $component->id?>"
-                        >
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            <?php endforeach?>
-        </tbody>
-    </table>
-</form>
-
-<a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'detail')); ?>">
-    New email component
-</a>
+    </div>
+</section>

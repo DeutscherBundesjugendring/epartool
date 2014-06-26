@@ -1,6 +1,8 @@
 <?php
 /**
  * Consultation Tabs
+ *
+ * TODO refactor to single tabs helper
  */
 
 class Admin_View_Helper_ConsultationTabs extends Zend_View_Helper_Abstract

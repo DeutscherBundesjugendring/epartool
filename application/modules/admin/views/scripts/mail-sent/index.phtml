@@ -1,35 +1,63 @@
-<h1>Sent Emails</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Email</h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> New Email</a>
+            </div>
+        </div>
+        <?=$this->emailTabs('emailing');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
 
-<form method="<?=$this->form->getMethod()?>">
-    <?=$this->form->getElement('email_list_control_csrf_token')?>
-    <table>
-        <tr>
-            <th>Time Sent</th>
-            <th>Subject</th>
-            <th>Aktionen</th>
-        </tr>
+                <?=$this->emailNavigation('sent');?>
 
-                <?php foreach ($this->emails as $email): ?>
-            <tr>
-                <td>
-                    <?php
-                        $zendDate = new Zend_Date($email->time_sent);
-                        echo($zendDate->get(Zend_Date::DATETIME_MEDIUM));
-                    ?>
-                </td>
-                <td><?php echo $email->subject?></td>
-                <td>
-                    <button
-                        name="resendId"
-                        type="submit"
-                        onclick="return confirm('Are you sure?');"
-                        value="<?php echo $email->id?>"
-                    >
-                        Resend
-                    </button>
-                </td>
-            </tr>
-        <?php endforeach;?>
+            </div>
+            <div class="col-md-9">
 
-    </table>
-</form>
+                <h2>Sent Emails</h2>
+
+                <form method="<?=$this->form->getMethod()?>">
+                    <?=$this->form->getElement('email_list_control_csrf_token')?>
+                    <table class="table">
+                        <tr>
+                            <th>Time Sent</th>
+                            <th>Subject</th>
+                            <th>Aktionen</th>
+                        </tr>
+
+                        <?php foreach ($this->emails as $email): ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    $zendDate = new Zend_Date($email->time_sent);
+                                    echo($zendDate->get(Zend_Date::DATETIME_MEDIUM));
+                                    ?>
+                                </td>
+                                <td><?php echo $email->subject?></td>
+                                <td>
+                                    <button
+                                        name="resendId"
+                                        type="submit"
+                                        onclick="return confirm('Are you sure?');"
+                                        value="<?php echo $email->id?>"
+                                        >
+                                        Resend
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

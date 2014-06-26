@@ -5,6 +5,14 @@
     margin-top: @line-height-computed;
     margin-bottom: 2 * @line-height-computed;
 
+    > li.active > a {
+        &,
+        &:hover,
+        &:focus {
+            cursor: pointer;
+        }
+    }
+
     &-header {
         float: right;
         margin-top: 2 * @line-height-computed;
@@ -23,7 +31,7 @@
     @media screen and (min-width: @screen-sm-min) {
         &-header {
             position: absolute;
-            right: 0;
+            right: @grid-gutter-width / 2;
             bottom: 0;
         }
     }
