@@ -27,8 +27,14 @@
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
                     <h2>New Article</h2>
+                    <p class="back-link">
+                        <a href="<?=$this->url(array('action' => 'index', $this->kid));?>">&larr; Back to Articles</a>
+                    </p>
                 <?php else: ?>
                     <h2>New Page</h2>
+                    <p class="back-link">
+                        <a href="<?=$this->url(array('action' => 'index'));?>">&larr; Back to Pages</a>
+                    </p>
                 <?php endif; ?>
 
                 <?php echo $this->form;?>

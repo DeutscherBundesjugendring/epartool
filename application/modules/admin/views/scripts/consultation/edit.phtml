@@ -26,6 +26,7 @@
             <div class="col-md-9">
 
                 <?php if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
+                    <!-- TODO change link to POST form button -->
                     <a href="<?=$this->url(array('action' => 'delete', $this->consultation->kid));?>" class="pull-right">
                         <span class="glyphicon glyphicon-trash"></span>
                         Delete Consultation

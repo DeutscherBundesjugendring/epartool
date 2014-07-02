@@ -15,6 +15,9 @@
     <div class="container">
 
         <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> Email Component</h2>
+        <p class="back-link">
+            <a href="<?=$this->url(array('action' => 'index'));?>">&larr; Back to Components</a>
+        </p>
         <?=$this->form;?>
         <p>
             or
