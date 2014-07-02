@@ -20,8 +20,8 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
             array(
                 'name' => 'pages',
                 'label' => 'Pages',
-                'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-                'new_item' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
+                'href' => $this->view->url(array('controller' => 'article', 'action' => 'index')),
+                'new_item' => $this->view->url(array('controller' => 'article', 'action' => 'create')),
             ),
             array(
                 'name' => 'keywords',

@@ -1,28 +1,45 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
-
-        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+        <?php if (isset($this->consultation)): ?>
+            <h1><?=$this->consultation['titl'];?></h1>
+            <h2><?=$this->consultation['titl_sub'];?></h2>
+            <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+        <?php else: ?>
+            <h1>General Settings</h1>
+        <?php endif; ?>
 
     </div>
 </section>
 <section class="section-content">
     <div class="container">
+
         <div class="row">
             <div class="col-md-3">
 
-                <?=$this->consultationNavigation('info');?>
+                <?php if (isset($this->consultation)): ?>
+                    <?=$this->consultationNavigation('info');?>
+                <?php else: ?>
+                    <?=$this->settingsNavigation('pages');?>
+                <?php endif; ?>
 
             </div>
             <div class="col-md-9">
 
                 <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    New Article
+                    <?php if (isset($this->consultation)): ?>
+                        New Article
+                    <?php else: ?>
+                        New Page
+                    <?php endif; ?>
                 </a>
-                <h2>Info</h2>
+                <?php if (isset($this->consultation)): ?>
+                    <h2>Info</h2>
+                <?php else: ?>
+                    <h2>Pages</h2>
+                <?php endif; ?>
+
 
                 <table class="table">
                     <tr>
@@ -72,7 +89,9 @@
                     <?php endforeach; ?>
                 </table>
 
+        <?php if (isset($this->consultation)): ?>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </section>

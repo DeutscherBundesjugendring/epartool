@@ -1,10 +1,13 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
-
-        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+        <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+            <h1><?=$this->consultation['titl'];?></h1>
+            <h2><?=$this->consultation['titl_sub'];?></h2>
+            <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+        <?php else: ?>
+            <h1>General Settings</h1>
+        <?php endif; ?>
 
     </div>
 </section>
@@ -13,16 +16,25 @@
         <div class="row">
             <div class="col-md-3">
 
-                <?=$this->consultationNavigation('info');?>
+                <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+                    <?=$this->consultationNavigation('info');?>
+                <?php else: ?>
+                    <?=$this->settingsNavigation('pages');?>
+                <?php endif; ?>
 
             </div>
             <div class="col-md-9">
 
-                <h2>New Article</h2>
+                <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+                    <h2>New Article</h2>
+                <?php else: ?>
+                    <h2>New Page</h2>
+                <?php endif; ?>
+
                 <?php echo $this->form;?>
                 <p>
                     or
-                    <a href="<?=$this->url(array('action' => 'index', $this->kid));?>">Cancel</a>
+                    <a href="<?=$this->url(array('action' => 'index', (isset($this->consultation) && !empty($this->consultation)) ? $this->kid : null));?>">Cancel</a>
                 </p>
 
             </div>
