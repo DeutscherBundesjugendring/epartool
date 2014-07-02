@@ -29,7 +29,8 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(array('controller' => 'tag', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'tag', 'action' => 'create')),
             ),
-            array(
+            // TODO DBJR-89
+            /*array(
                 'name' => 'header',
                 'label' => 'Header',
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
@@ -38,7 +39,7 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'name' => 'footer',
                 'label' => 'Footer',
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),
+            ),*/
         );
 
         $html .= '<div class="list-group list-group-nested">' . "\n";
