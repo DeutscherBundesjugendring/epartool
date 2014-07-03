@@ -46,5 +46,14 @@ tr.disabled {
             border-color: darken(@btn-default-border, 12%);
             background-color: darken(@btn-default-bg, 8%);
         }
+
+        &-danger {
+            &:hover,
+            &:focus {
+                color: @btn-danger-color;
+                border-color: darken(@btn-danger-border, 12%);
+                background-color: darken(@btn-danger-bg, 8%);
+            }
+        }
     }
 }
