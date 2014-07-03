@@ -57,58 +57,56 @@ bindConsultationSelect = () ->
         )
 
 initDataViewTable = () ->
-    $.fn.dataViewTable = (options) ->
-        table = this
-        this.find('th').click () ->
-            if $(this).hasClass('js-data-view-table-sortable')
-                sort(this)
+      table = $('[data-view="table"]')
+      table.find('th').click () ->
+          if $(this).data('toggle') && $(this).data('toggle') == 'sort'
+              sort(this)
 
-        sort = (colHeaderEl) ->
-            table.find('thead:gt(0)').remove()
-            if options and options.letterShortcutElement
-                options.letterShortcutElement.children().remove()
+      sort = (colHeaderEl) ->
+          table.find('thead:gt(0)').remove()
+          if table.data('navigation')
+              navigation = $(table.data('navigation'))
+              navigation.children().remove()
 
-            rows = table.find('tbody tr').toArray()
-            rows = rows.sort(comparer($(colHeaderEl).index()))
-            colHeaderEl.asc = !colHeaderEl.asc
-            if !colHeaderEl.asc
-                rows = rows.reverse()
+          rows = table.find('tbody tr').toArray()
+          rows = rows.sort(comparer($(colHeaderEl).index()))
+          colHeaderEl.asc = !colHeaderEl.asc
+          if !colHeaderEl.asc
+              rows = rows.reverse()
 
-            if $(colHeaderEl).hasClass('js-data-view-table-grouped')
-                isGrouped = true
-                colCount = rows[0].childElementCount
+          if $(colHeaderEl).data('group') && $(colHeaderEl).data('group') == 'first-letter'
+              isGrouped = true
+              colCount = rows[0].childElementCount
 
+          for row in rows
+              if isGrouped == true
+                  letter = getCellValue(row, $(colHeaderEl).index())[0]
+                  if letter
+                      letter = letter.toUpperCase()
+                  else
+                      letter = ''
 
-            for row in rows
-                if isGrouped == true
-                    letter = getCellValue(row, $(colHeaderEl).index())[0]
-                    if letter
-                        letter = letter.toUpperCase()
-                    else
-                        letter = ''
+                  if newLetter != letter
+                      newLetter = letter
+                      if navigation
+                          navigation.append('<a href="#letter-shortcut-' + letter + '">' + letter + '</a>')
+                      table.append($('<thead><tr><th colspan="' + colCount + '"><a name="letter-shortcut-' + newLetter + '">' + newLetter + '</a></th></tr></thead>'))
+                      table.append($('<tbody></tbody>'))
 
-                    if newLetter != letter
-                        newLetter = letter
-                        if options and options.letterShortcutElement
-                            options.letterShortcutElement.append('<a href="#letter-shortcut-' + letter + '">' + letter + '</a>')
-                        table.append($('<thead><tr><th colspan="' + colCount + '"><a name="letter-shortcut-' + newLetter + '">' + newLetter + '</a></th></tr></thead>'))
-                        table.append($('<tbody></tbody>'))
+              table.find('tbody:last').append(row)
 
-                table.find('tbody:last').append(row)
+      comparer = (index) ->
+          (a, b) ->
+              valA = getCellValue(a, index)
+              valB = getCellValue(b, index)
+              if $.isNumeric(valA) && $.isNumeric(valB)
+                  valA - valB
+              else
+                  valA.localeCompare(valB)
 
-        comparer = (index) ->
-            (a, b) ->
-                valA = getCellValue(a, index)
-                valB = getCellValue(b, index)
-                if $.isNumeric(valA) && $.isNumeric(valB)
-                    valA - valB
-                else
-                    valA.localeCompare(valB)
+      getCellValue = (row, index) ->
+          $(row).children('td').eq(index).html()
 
-        getCellValue = (row, index) ->
-            $(row).children('td').eq(index).html()
-
-        defaultSort = table.find('.js-data-view-table-default-sort')
-        if defaultSort
-            sort(defaultSort);
-        return
+      defaultSort = table.find('[data-order="default"]')
+      if defaultSort
+          sort(defaultSort);
