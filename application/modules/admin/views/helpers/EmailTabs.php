@@ -20,7 +20,7 @@ class Admin_View_Helper_EmailTabs extends Zend_View_Helper_Abstract
         $html .= "</li>\n";
 
         $html .= '<li' . ($activeItem === 'settings' ? ' class="active"' : '') . '>';
-        $html .= '<a href="' . $view->url(array('controller' => 'mail-component', 'action' => 'index')) . '">';
+        $html .= '<a href="' . $view->url(array('controller' => 'mail-template', 'action' => 'index')) . '">';
         $html .= '<span class="glyphicon glyphicon-cog"></span> Settings';
         $html .= '</a>';
         $html .= "</li>\n";

@@ -124,7 +124,11 @@ initDataViewTable = () ->
     getCellValue = (row, index) ->
         $(row).children('td').eq(index).text()
 
-    defaultSort = table.find('[data-order="default"]')[0]
-    if defaultSort
-        sort(defaultSort)
+    defaultSort = table.find('[data-order]')
+    if defaultSort.data('order') == 'default'
+        sort(defaultSort[0])
+    else if defaultSort.data('order') == 'default desc'
+        defaultSort[0].asc = !defaultSort[0].asc
+        sort(defaultSort[0])
+
     return
