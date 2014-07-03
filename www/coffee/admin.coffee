@@ -122,7 +122,7 @@ initDataViewTable = () ->
                 valA.localeCompare(valB)
 
     getCellValue = (row, index) ->
-        $(row).children('td').eq(index).html()
+        $(row).children('td').eq(index).text()
 
     defaultSort = table.find('[data-order="default"]')[0]
     if defaultSort
