@@ -69,23 +69,28 @@ initDataViewTable = () ->
             sort(this)
 
     sort = (colHeaderEl) ->
-        table.find('thead:gt(0)').remove()
-        if table.data('navigation')
-            navigation = $(table.data('navigation'))
-            navigation.children().remove()
-
         rows = table.find('tbody tr').toArray()
         rows = rows.sort(comparer($(colHeaderEl).index()))
-        colHeaderEl.asc = !colHeaderEl.asc
-        if !colHeaderEl.asc
+
+        # Indicate active column and reverse order if the column is already active
+        if $(colHeaderEl).hasClass('sorting-active')
+            colHeaderEl.asc = !colHeaderEl.asc
+        else
+            th.removeClass('sorting-active')
+            $(colHeaderEl).addClass('sorting-active')
+
+        # Descending order
+        if colHeaderEl.asc
             rows = rows.reverse()
             $(colHeaderEl).addClass('sorting-desc')
         else
             $(colHeaderEl).removeClass('sorting-desc')
 
-        th.removeClass('sorting-active')
-        $(colHeaderEl).addClass('sorting-active')
-
+        # Grouped sorting with navigation
+        table.find('thead:gt(0)').remove()
+        if table.data('navigation')
+            navigation = $(table.data('navigation'))
+            navigation.children().remove()
         if $(colHeaderEl).data('group') && $(colHeaderEl).data('group') == 'first-letter'
             isGrouped = true
             colCount = rows[0].childElementCount
