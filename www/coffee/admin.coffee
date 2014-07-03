@@ -58,8 +58,14 @@ bindConsultationSelect = () ->
 
 initDataViewTable = () ->
       table = $('[data-view="table"]')
-      table.find('th').click () ->
-          if $(this).data('toggle') && $(this).data('toggle') == 'sort'
+      th = table.find('[data-toggle="sort"]')
+
+      th.prepend('<span class="data-view-table-icon"></span>')
+      th.click () ->
+          sort(this)
+      # Keyboard accessibility for enter and spacebar
+      th.keyup (e) ->
+          if (e.keyCode == 13 || e.keyCode == 32)
               sort(this)
 
       sort = (colHeaderEl) ->
