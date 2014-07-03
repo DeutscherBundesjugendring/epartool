@@ -1,6 +1,7 @@
 $(document).ready () ->
     bindSelectTemplate()
     bindConsultationSelect()
+    initDataViewTable();
 
 # Binds ajax loading template data to a template selctor box
 bindSelectTemplate = () ->
@@ -54,3 +55,60 @@ bindConsultationSelect = () ->
             $('.js-consultation-followup').prop('disabled', isFollowupDisabled)
             return
         )
+
+initDataViewTable = () ->
+    $.fn.dataViewTable = (options) ->
+        table = this
+        this.find('th').click () ->
+            if $(this).hasClass('js-data-view-table-sortable')
+                sort(this)
+
+        sort = (colHeaderEl) ->
+            table.find('thead:gt(0)').remove()
+            if options and options.letterShortcutElement
+                options.letterShortcutElement.children().remove()
+
+            rows = table.find('tbody tr').toArray()
+            rows = rows.sort(comparer($(colHeaderEl).index()))
+            colHeaderEl.asc = !colHeaderEl.asc
+            if !colHeaderEl.asc
+                rows = rows.reverse()
+
+            if $(colHeaderEl).hasClass('js-data-view-table-grouped')
+                isGrouped = true
+                colCount = rows[0].childElementCount
+
+
+            for row in rows
+                if isGrouped == true
+                    letter = getCellValue(row, $(colHeaderEl).index())[0]
+                    if letter
+                        letter = letter.toUpperCase()
+                    else
+                        letter = ''
+
+                    if newLetter != letter
+                        newLetter = letter
+                        if options and options.letterShortcutElement
+                            options.letterShortcutElement.append('<a href="#letter-shortcut-' + letter + '">' + letter + '</a>')
+                        table.append($('<thead><tr><th colspan="' + colCount + '"><a name="letter-shortcut-' + newLetter + '">' + newLetter + '</a></th></tr></thead>'))
+                        table.append($('<tbody></tbody>'))
+
+                table.find('tbody:last').append(row)
+
+        comparer = (index) ->
+            (a, b) ->
+                valA = getCellValue(a, index)
+                valB = getCellValue(b, index)
+                if $.isNumeric(valA) && $.isNumeric(valB)
+                    valA - valB
+                else
+                    valA.localeCompare(valB)
+
+        getCellValue = (row, index) ->
+            $(row).children('td').eq(index).html()
+
+        defaultSort = table.find('.js-data-view-table-default-sort')
+        if defaultSort
+            sort(defaultSort);
+        return
