@@ -8,3 +8,43 @@ tr.disabled {
         opacity: 1;
     }
 }
+
+.table {
+
+    // Nested row: offset item name to present hierarchy
+    &-row-nested {
+        > td:nth-child(2) {
+            padding-left: 1.5em;
+        }
+    }
+
+    // Special table cells
+    &-cell {
+        &-id {
+            width: 4em;
+
+            td& {
+                color: @gray-light;
+            }
+        }
+
+        &-actions {
+            text-align: right;
+            white-space: nowrap;
+        }
+    }
+
+    // Action icons
+    &-action {
+        &:extend(.btn all);
+        &:extend(.btn-sm all);
+        color: @btn-default-color;
+
+        &:hover,
+        &:focus {
+            color: @btn-default-color;
+            border-color: darken(@btn-default-border, 12%);
+            background-color: darken(@btn-default-bg, 8%);
+        }
+    }
+}
