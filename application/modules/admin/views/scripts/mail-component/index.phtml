@@ -13,47 +13,57 @@
 </section>
 <section class="section-content">
     <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
 
-        <a href="<?=$this->url(array('action' => 'detail'));?>" class="btn btn-default pull-right">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            New Email Component
-        </a>
-        <h2>Email Components</h2>
+                <?=$this->emailSettingsNavigation('components');?>
 
-        <form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
-            <?=$this->form->getElement('email_list_control_csrf_token')?>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Subject</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($this->components as $component): ?>
-                        <tr>
-                            <td><?php echo $component->id?></td>
-                            <td><?php echo $component->name?></td>
-                            <td>
-                                <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $component->id));?>">
-                                    Bearbeiten
-                                </a>
-                                <button
-                                    name="deleteId"
-                                    type="submit"
-                                    onclick="return confirm('Are you sure?');"
-                                    value="<?php echo $component->id?>"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach?>
-                </tbody>
-            </table>
-        </form>
+            </div>
+            <div class="col-sm-9">
 
+                <a href="<?=$this->url(array('action' => 'detail'));?>" class="btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    New Email Component
+                </a>
+                <h2>Email Components</h2>
+
+                <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(array('action' => 'delete'));?>">
+                    <?=$this->form->getElement('email_list_control_csrf_token');?>
+                    <table class="table" data-view="table">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                <th data-toggle="sort" data-order="default" tabindex="0">Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->components as $component): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$component->id;?></td>
+                                    <td><?=$component->name;?></td>
+                                    <td class="table-cell-actions">
+                                        <a href="<?=$this->url(array('action' => 'detail', 'id' => $component->id));?>" class="table-action" title="Edit component">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <button
+                                            name="deleteId"
+                                            type="submit"
+                                            class="table-action table-action-danger"
+                                            onclick="return confirm('Are you sure?');"
+                                            value="<?=$component->id;?>"
+                                            title="Delete component"
+                                        >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+        </div>
     </div>
 </section>

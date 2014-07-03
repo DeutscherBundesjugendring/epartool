@@ -13,25 +13,34 @@
 </section>
 <section class="section-content">
     <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
 
-        <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> Email Component</h2>
-        <p class="back-link">
-            <a href="<?=$this->url(array('action' => 'index'));?>">&larr; Back to Components</a>
-        </p>
-        <?=$this->form;?>
-        <p>
-            or
-            <a href="<?=$this->url(array('action' => 'index'));?>">Cancel</a>
-        </p>
+                <?=$this->emailSettingsNavigation('components');?>
 
-        <h3>Placeholders</h3>
-        <dl>
-            <?php foreach ($this->placeholders as $placeholder): ?>
-                <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
-                <dd><?php echo $placeholder->description?></dd>
-            <?php endforeach?>
-        </dl>
+            </div>
+            <div class="col-sm-9">
 
+                <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> Email Component</h2>
+                <p class="back-link">
+                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; Back to Email Components</a>
+                </p>
+                <?=$this->form;?>
+                <p>
+                    or
+                    <a href="<?=$this->url(array('action' => 'index'));?>">Cancel</a>
+                </p>
+
+                <h3>Placeholders</h3>
+                <dl>
+                    <?php foreach ($this->placeholders as $placeholder): ?>
+                        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
+                        <dd><?php echo $placeholder->description?></dd>
+                    <?php endforeach?>
+                </dl>
+
+            </div>
+        </div>
     </div>
 </section>
 

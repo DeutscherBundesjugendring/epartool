@@ -40,20 +40,18 @@
                     <h2>Pages</h2>
                 <?php endif; ?>
 
-                <table class="table">
+                <table class="table" data-view="table">
                     <thead>
                         <tr>
-                            <th class="table-cell-id">#</th>
-                            <th>Title</th>
+                            <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                            <th data-toggle="sort" data-order="default" tabindex="0">Title</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->articles as $article): ?>
                             <tr>
-                                <td class="table-cell-id">
-                                    <?=$article['art_id'];?>
-                                </td>
+                                <td class="table-cell-id"><?=$article['art_id'];?></td>
                                 <td>
                                     <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" title="Edit article"><?=$article['desc'];?></a>
                                 </td>
@@ -69,9 +67,7 @@
                             <?php if (!empty($article['subpages'])): ?>
                                 <?php foreach ($article['subpages'] as $subpage): ?>
                                     <tr class="table-row-nested">
-                                        <td class="table-cell-id">
-                                            <?=$article['art_id'];?>
-                                        </td>
+                                        <td class="table-cell-id"><?=$article['art_id'];?></td>
                                         <td>
                                             <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']));?>" title="Edit article"><?=$subpage['desc'];?></a>
                                         </td>

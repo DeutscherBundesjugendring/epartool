@@ -24,35 +24,31 @@
                 </a>
                 <h2>Follow Up</h2>
 
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Akteur_in</th>
-                        <th>Titel</th>
-                        <th>Aktionen</th>
-                    </tr>
-                    <?php foreach ($this->followupFiles as $followupFile): ?>
+                <table class="table" data-view="table">
+                    <thead>
                         <tr>
-
-                            <td><?php $zendDate = new Zend_Date($followupFile['when']); echo $zendDate->get('dd.MM.yy'); ?></td>
-                            <td><?php echo $followupFile['who']; ?></td>
-                            <td><?php echo $followupFile['titl']; ?></td>
-                            <td><a href="<?php echo $this->url(array(
-                                    'action' => 'edit-file',
-                                    'kid' => $this->consultation['kid'],
-                                    'ffid' => $followupFile['ffid']
-                                ));?>">Bearbeiten</a>
-                                &nbsp;
-                                <a href="<?php echo $this->url(array(
-                                    'action' => 'delete-file',
-                                    'kid' => $this->consultation['kid'],
-                                    'ffid' => $followupFile['ffid']
-                                ));?>" title="Löschen">Löschen</a>
-                            </td>
-
+                            <th data-toggle="sort" data-order="default desc" tabindex="0">Time Added</th>
+                            <th data-toggle="sort" tabindex="0">Stakeholder</th>
+                            <th data-toggle="sort" tabindex="0">Title</th>
+                            <th></th>
                         </tr>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->followupFiles as $followupFile): ?>
+                            <tr>
+                                <td><?php $zendDate = new Zend_Date($followupFile['when']); echo $zendDate->get(Zend_Date::DATETIME_MEDIUM); ?></td>
+                                <td><?=$followupFile['who'];?></td>
+                                <td><?=$followupFile['titl'];?></td>
+                                <td class="table-cell-actions">
+                                    <a href="<?=$this->url(array('action' => 'edit-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="table-action" title="Edit follow up">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                    <a href="<?=$this->url(array('action' => 'delete-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="table-action table-action-danger" title="Delete follow up">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
 

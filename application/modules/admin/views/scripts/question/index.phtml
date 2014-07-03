@@ -24,37 +24,33 @@
                 </a>
                 <h2>Questions</h2>
 
-                <table class="table">
-                    <tr>
-                        <th>Nr.</th>
-                        <th>Frage</th>
-                        <th>Erkl&auml;rung</th>
-                        <th>Votingfrage</th>
-                        <th>Aktionen</th>
-                    </tr>
-                    <?php foreach ($this->consultation['questions'] as $quest): ?>
+                <table class="table" data-view="table">
+                    <thead>
                         <tr>
-                            <td><?php echo $quest['nr']?></td>
-                            <td><?php echo $quest['q']?></td>
-                            <td><?php echo $quest['q_xpl']?></td>
-                            <td><?php echo $quest['vot_q']?></td>
-                            <td><a href="<?php echo $this->url(array(
-                                    'action' => 'edit',
-                                    'kid' => $this->consultation['kid'],
-                                    'qid' => $quest['qi']
-                                ));?>">Bearbeiten</a>
-                                &nbsp;
-                                <a href="<?php echo $this->url(array(
-                                    'action' => 'delete',
-                                    'kid' => $this->consultation['kid'],
-                                    'qid' => $quest['qi']
-                                ));?>" title="Frage löschen (wird nur gelöscht, wenn noch keine Beiträge)">Löschen</a>
+                            <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                            <th data-toggle="sort" data-order="default" tabindex="0">Question</th>
+                            <th></th>
                         </tr>
-                    <?php endforeach; ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->consultation['questions'] as $question): ?>
+                            <tr>
+                                <td class="table-cell-id"><?=$question['nr'];?></td>
+                                <td><?=$question['q'];?></td>
+                                <td class="table-cell-actions">
+                                    <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'qid' => $question['qi']));?>" class="table-action" title="Edit question">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                    <a href="<?php echo $this->url(array('action' => 'delete', 'kid' => $this->consultation['kid'], 'qid' => $question['qi'])); ?>" class="table-action table-action-danger" title="Delete question">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
 
             </div>
         </div>
     </div>
 </section>
-

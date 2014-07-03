@@ -12,59 +12,81 @@
 </section>
 <section class="section-content">
     <div class="container">
+        <div class="row">
+            <div class="col-sm-1 col-sm-push-11">
 
-        <table class="table">
-            <tr>
-                <th>Nr.</th>
-                <th>Name</th>
-                <th>E-mail-Adresse</th>
-                <th>Rolle</th>
-                <th>Letzte Aktivit&auml;t</th>
-                <th>Aktionen</th>
-            </tr>
-            <?php
-            $i=1;
-            foreach ($this->userlist as $user):?>
-                <tr>
-                    <td><?php echo $i; ?></td>
-                    <td><?php echo (empty($user->name))? '<i>n/a</i>' : $user->name; ?></td>
-                    <td><?php echo (empty($user->email))? '<i>n/a</i>' : $user->email; ?></td>
-                    <td><?php
-                        switch($user->lvl) {
-                            case 'usr':
-                                $ulvl = 'Benutzer';
-                                break;
-                            case 'edt':
-                                $ulvl = 'Redakteur';
-                                break;
-                            case 'adm':
-                                $ulvl = 'Administrator';
-                                break;
-                        }
-                        echo $ulvl;
-                        ?></td>
-                    <td><?php
-                        $zendDate = new Zend_Date($user->last_act);
-                        echo($zendDate->get('dd.MM.yy'));
-                        ?></td>
-                    <td><a class="icon icon-edit" href="<?php echo $this->url(array(
-                            'action' => 'edit',
-                            'uid' => $user->uid
-                        ));?>">Bearbeiten</a>
-                        &nbsp;
-                        <a
-                            class="icon icon-delete"
-                            href="<?php echo $this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
-                            title="Benutzer löschen"
-                            onclick="return confirm('Are you sure? All inputs will be amde anonymous.')"
-                            >
-                            Löschen
-                        </a>
-                </tr>
-                <?php
-                $i++;
-            endforeach;?>
-        </table>
+                <ul id="letterNavigation" class="nav nav-letters"></ul>
 
+            </div>
+            <div class="col-sm-11 col-sm-pull-1">
+
+                <div class="table-responsive">
+                    <table class="table" data-view="table" data-navigation="#letterNavigation">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                <th data-toggle="sort" data-order="default" data-group="first-letter" tabindex="0">Name</th>
+                                <th data-toggle="sort" tabindex="0">Email</th>
+                                <th data-toggle="sort" tabindex="0">Role</th>
+                                <th data-toggle="sort" tabindex="0">Last Activity</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1; ?>
+                            <?php foreach ($this->userlist as $user): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?php echo $i; ?></td>
+                                    <td><?php echo (empty($user->name))? '<span class="text-muted">–</span>' : $user->name; ?></td>
+                                    <td>
+                                        <?php if (empty($user->email)): ?>
+                                            <em class="text-muted">N/A</em>
+                                        <?php else: ?>
+                                            <a href="mailto:<?=$user->email;?>" title="Send email to user"><?=$user->email;?></a>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        switch($user->lvl) {
+                                            case 'usr':
+                                                $userLevel = 'User';
+                                                break;
+                                            case 'edt':
+                                                $userLevel = 'Editor';
+                                                break;
+                                            case 'adm':
+                                                $userLevel = 'Administrator';
+                                                break;
+                                        }
+                                        ?>
+                                        <?=$userLevel;?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $zendDate = new Zend_Date($user->last_act);
+                                        echo $zendDate->get(Zend_Date::DATETIME_SHORT);
+                                        ?>
+                                    </td>
+                                    <td class="table-cell-actions">
+                                        <a class="table-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="Edit user">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a href="<?=$this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
+                                           onclick="return confirm('Are you sure? All inputs will be amde anonymous.')"
+                                           class="table-action table-action-danger"
+                                           title="Delete user"
+                                            >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php $i++; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
