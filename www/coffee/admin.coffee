@@ -79,6 +79,12 @@ initDataViewTable = () ->
           colHeaderEl.asc = !colHeaderEl.asc
           if !colHeaderEl.asc
               rows = rows.reverse()
+              $(colHeaderEl).addClass('sorting-desc')
+          else
+              $(colHeaderEl).removeClass('sorting-desc')
+
+          th.removeClass('sorting-active')
+          $(colHeaderEl).addClass('sorting-active')
 
           if $(colHeaderEl).data('group') && $(colHeaderEl).data('group') == 'first-letter'
               isGrouped = true
@@ -113,6 +119,7 @@ initDataViewTable = () ->
       getCellValue = (row, index) ->
           $(row).children('td').eq(index).html()
 
-      defaultSort = table.find('[data-order="default"]')
+      defaultSort = table.find('[data-order="default"]')[0]
       if defaultSort
-          sort(defaultSort);
+          sort(defaultSort)
+      return
