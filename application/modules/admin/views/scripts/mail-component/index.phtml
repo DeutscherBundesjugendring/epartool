@@ -43,13 +43,13 @@
                                     <td class="table-cell-id"><?=$component->id;?></td>
                                     <td><?=$component->name;?></td>
                                     <td class="table-cell-actions">
-                                        <a href="<?=$this->url(array('action' => 'detail', 'id' => $component->id));?>" class="table-action" title="Edit component">
+                                        <a href="<?=$this->url(array('action' => 'detail', 'id' => $component->id));?>" class="item-action" title="Edit component">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <button
                                             name="deleteId"
                                             type="submit"
-                                            class="table-action table-action-danger"
+                                            class="item-action item-action-danger"
                                             onclick="return confirm('Are you sure?');"
                                             value="<?=$component->id;?>"
                                             title="Delete component"

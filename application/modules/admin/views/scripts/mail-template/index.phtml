@@ -45,14 +45,14 @@
                                     <td><?=$template->name;?></td>
                                     <td><?=$template->subject;?></td>
                                     <td class="table-cell-actions">
-                                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>" class="table-action">
+                                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>" class="item-action">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <?php if($template->findModel_Mail_Template_Type()->current()->name !== Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM): ?>
                                             <button
                                                 name="deleteId"
                                                 type="submit"
-                                                class="table-action table-action-danger"
+                                                class="item-action item-action-danger"
                                                 onclick="return confirm('Are you sure?');"
                                                 value="<?php echo $template->id?>"
                                                 title="Delete template"

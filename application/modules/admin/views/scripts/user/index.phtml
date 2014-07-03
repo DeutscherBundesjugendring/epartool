@@ -68,12 +68,12 @@
                                         ?>
                                     </td>
                                     <td class="table-cell-actions">
-                                        <a class="table-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="Edit user">
+                                        <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="Edit user">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <a href="<?=$this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
                                            onclick="return confirm('Are you sure? All inputs will be amde anonymous.')"
-                                           class="table-action table-action-danger"
+                                           class="item-action item-action-danger"
                                            title="Delete user"
                                             >
                                             <span class="glyphicon glyphicon-trash"></span>

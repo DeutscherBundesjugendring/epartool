@@ -40,10 +40,10 @@
                                 <td><?=$followupFile['who'];?></td>
                                 <td><?=$followupFile['titl'];?></td>
                                 <td class="table-cell-actions">
-                                    <a href="<?=$this->url(array('action' => 'edit-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="table-action" title="Edit follow up">
+                                    <a href="<?=$this->url(array('action' => 'edit-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="item-action" title="Edit follow up">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
-                                    <a href="<?=$this->url(array('action' => 'delete-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="table-action table-action-danger" title="Delete follow up">
+                                    <a href="<?=$this->url(array('action' => 'delete-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="item-action item-action-danger" title="Delete follow up">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>
