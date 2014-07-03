@@ -57,69 +57,69 @@ bindConsultationSelect = () ->
         )
 
 initDataViewTable = () ->
-      table = $('[data-view="table"]')
-      th = table.find('[data-toggle="sort"]')
+    table = $('[data-view="table"]')
+    th = table.find('[data-toggle="sort"]')
 
-      th.prepend('<span class="data-view-table-icon"></span>')
-      th.click () ->
-          sort(this)
-      # Keyboard accessibility for enter and spacebar
-      th.keyup (e) ->
-          if (e.keyCode == 13 || e.keyCode == 32)
-              sort(this)
+    th.prepend('<span class="data-view-table-icon"></span>')
+    th.click () ->
+        sort(this)
+    # Keyboard accessibility for enter and spacebar
+    th.keyup (e) ->
+        if (e.keyCode == 13 || e.keyCode == 32)
+            sort(this)
 
-      sort = (colHeaderEl) ->
-          table.find('thead:gt(0)').remove()
-          if table.data('navigation')
-              navigation = $(table.data('navigation'))
-              navigation.children().remove()
+    sort = (colHeaderEl) ->
+        table.find('thead:gt(0)').remove()
+        if table.data('navigation')
+            navigation = $(table.data('navigation'))
+            navigation.children().remove()
 
-          rows = table.find('tbody tr').toArray()
-          rows = rows.sort(comparer($(colHeaderEl).index()))
-          colHeaderEl.asc = !colHeaderEl.asc
-          if !colHeaderEl.asc
-              rows = rows.reverse()
-              $(colHeaderEl).addClass('sorting-desc')
-          else
-              $(colHeaderEl).removeClass('sorting-desc')
+        rows = table.find('tbody tr').toArray()
+        rows = rows.sort(comparer($(colHeaderEl).index()))
+        colHeaderEl.asc = !colHeaderEl.asc
+        if !colHeaderEl.asc
+            rows = rows.reverse()
+            $(colHeaderEl).addClass('sorting-desc')
+        else
+            $(colHeaderEl).removeClass('sorting-desc')
 
-          th.removeClass('sorting-active')
-          $(colHeaderEl).addClass('sorting-active')
+        th.removeClass('sorting-active')
+        $(colHeaderEl).addClass('sorting-active')
 
-          if $(colHeaderEl).data('group') && $(colHeaderEl).data('group') == 'first-letter'
-              isGrouped = true
-              colCount = rows[0].childElementCount
+        if $(colHeaderEl).data('group') && $(colHeaderEl).data('group') == 'first-letter'
+            isGrouped = true
+            colCount = rows[0].childElementCount
 
-          for row in rows
-              if isGrouped == true
-                  letter = getCellValue(row, $(colHeaderEl).index())[0]
-                  if letter
-                      letter = letter.toUpperCase()
-                  else
-                      letter = ''
+        for row in rows
+            if isGrouped == true
+                letter = getCellValue(row, $(colHeaderEl).index())[0]
+                if letter
+                    letter = letter.toUpperCase()
+                else
+                    letter = ''
 
-                  if newLetter != letter
-                      newLetter = letter
-                      if navigation
-                          navigation.append('<a href="#letter-shortcut-' + letter + '">' + letter + '</a>')
-                      table.append($('<thead><tr><th colspan="' + colCount + '"><a name="letter-shortcut-' + newLetter + '">' + newLetter + '</a></th></tr></thead>'))
-                      table.append($('<tbody></tbody>'))
+                if newLetter != letter
+                    newLetter = letter
+                    if navigation
+                        navigation.append('<a href="#letter-shortcut-' + letter + '">' + letter + '</a>')
+                    table.append($('<thead><tr><th colspan="' + colCount + '"><a name="letter-shortcut-' + newLetter + '">' + newLetter + '</a></th></tr></thead>'))
+                    table.append($('<tbody></tbody>'))
 
-              table.find('tbody:last').append(row)
+            table.find('tbody:last').append(row)
 
-      comparer = (index) ->
-          (a, b) ->
-              valA = getCellValue(a, index)
-              valB = getCellValue(b, index)
-              if $.isNumeric(valA) && $.isNumeric(valB)
-                  valA - valB
-              else
-                  valA.localeCompare(valB)
+    comparer = (index) ->
+        (a, b) ->
+            valA = getCellValue(a, index)
+            valB = getCellValue(b, index)
+            if $.isNumeric(valA) && $.isNumeric(valB)
+                valA - valB
+            else
+                valA.localeCompare(valB)
 
-      getCellValue = (row, index) ->
-          $(row).children('td').eq(index).html()
+    getCellValue = (row, index) ->
+        $(row).children('td').eq(index).html()
 
-      defaultSort = table.find('[data-order="default"]')[0]
-      if defaultSort
-          sort(defaultSort)
-      return
+    defaultSort = table.find('[data-order="default"]')[0]
+    if defaultSort
+        sort(defaultSort)
+    return
