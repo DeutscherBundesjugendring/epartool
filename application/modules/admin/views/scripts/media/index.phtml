@@ -41,53 +41,64 @@
 
                 <h2>All Media</h2>
 
-                <h3>Verzeichnis: <?php echo $this->directory;?></h3>
+                <!-- TODO move upload to separate page -->
+                <?=$this->form?>
 
                 <?php if (!empty($this->files)): ?>
-                    <div>
-                        <ul id="galerie">
-                            <?php foreach ($this->files as $file):?>
-                                <li>
-                                    <a href="<?=$this->directory?>/<?=$file['basename']?>" title="Klicken zum Ansehen">
-                                        <?php if (in_array($file['extension'], $gfx_test)): ?>
-                                            <img src="<?=$this->directory?>/<?=$file['basename']?>" width="140" alt="Vorschau" />
-                                        <?php else: ?>
-                                            <img
-                                                src="
-                                            <?php if (in_array($file['extension'], $pdf_test)): ?>
-                                                <?=$this->baseUrl()?>/images/cystal_clear_mimetype_pdf.png
-                                            <?php elseif (in_array($file['extension'], $pck_test)): ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_filesystem_folder_tar.png
-                                            <?php elseif (in_array($file['extension'], $doc_test)): ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_txt.png
-                                            <?php elseif (in_array($file['extension'], $prs_test)): ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_app_display.png
-                                            <?php elseif (in_array($file['extension'], $vid_test)): ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_video.png
-                                            <?php elseif (in_array($file['extension'], $aud_test)): ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_app_xmms.png
-                                            <?php elseif (in_array($file['extension'], $clc_test)): ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_spreadsheet.png
+                    <div class="row">
+                        <?php foreach ($this->files as $file):?>
+                            <div class="col-xs-6 col-sm-4 col-lg-3">
+                                <div class="thumbnail">
+                                    <a href="<?=$this->directory?>/<?=$file['basename']?>" target="_blank" title="<?=$file['basename'];?>">
+                                        <div class="thumbnail-image">
+                                            <?php if (in_array($file['extension'], $gfx_test)): ?>
+                                                <!-- TODO use resized thumbnail -->
+                                                <img src="<?=$this->directory?>/<?=$file['basename']?>" alt="Preview" />
                                             <?php else: ?>
-                                                <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png
-                                            <?php endif?>"
-                                                width="140"
-                                                alt="Vorschau"
-                                                />
-                                        <?php endif?>
+                                                <img
+                                                    src="
+                                                <?php if (in_array($file['extension'], $pdf_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/cystal_clear_mimetype_pdf.png
+                                                <?php elseif (in_array($file['extension'], $pck_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_filesystem_folder_tar.png
+                                                <?php elseif (in_array($file['extension'], $doc_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_txt.png
+                                                <?php elseif (in_array($file['extension'], $prs_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_app_display.png
+                                                <?php elseif (in_array($file['extension'], $vid_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_video.png
+                                                <?php elseif (in_array($file['extension'], $aud_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_app_xmms.png
+                                                <?php elseif (in_array($file['extension'], $clc_test)): ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_spreadsheet.png
+                                                <?php else: ?>
+                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png
+                                                <?php endif?>"
+                                                    class="thumbnail-image-icon"
+                                                    alt="Preview"
+                                                    />
+                                            <?php endif?>
+                                        </div>
+                                        <div class="caption">
+                                            <h4 class="thumbnail-title"><?=$file['basename'];?></h4>
+                                            <small class="text-muted">
+                                                <!-- TODO file size view helper -->
+                                                <?=$file['size'];?>&nbsp;kB<br />
+                                                <!-- TODO upload time -->
+                                            </small>
+                                        </div>
                                     </a>
-                            <span>
-                                <?=$file['filename'].'.'.$file['extension']; ?><br />
-                                (<?=$file['size']; ?>kb)
-                            </span>
                                     <?=$file['deleteform']?>
-                                </li>
-                            <?php endforeach;?>
-                        </ul>
+                                </div>
+                            </div>
+                        <?php endforeach;?>
                     </div>
-                <?php endif;?>
-
-                <?=$this->form?>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        No media has been uploaded yet.
+                    </p>
+                <?php endif; ?>
 
             </div>
         </div>

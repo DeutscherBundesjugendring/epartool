@@ -7,6 +7,10 @@ class Admin_Form_Media_Delete extends Zend_Form
     public function init()
     {
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $this->setDecorators(array('FormElements', 'Form'));
+        foreach ($this->getElements() as $element) {
+            $element->setDecorators(array('ViewHelper'));
+        }
     }
 
     /**
@@ -20,6 +24,7 @@ class Admin_Form_Media_Delete extends Zend_Form
         if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
+        $hash->setDecorators(array('ViewHelper'));
         $this->addElement($hash);
     }
 }

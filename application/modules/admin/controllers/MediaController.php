@@ -73,6 +73,7 @@ class Admin_MediaController extends Zend_Controller_Action
                     $deleteForm->addElement(
                         $deleteForm
                             ->createElement('hidden', 'form_num')
+                            ->setDecorators(array('ViewHelper'))
                             ->setValue($i));
                     $deleteForm
                         ->getElement('file')
