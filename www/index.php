@@ -16,10 +16,13 @@ set_include_path(
     )
 );
 
+// Enable Tracy for error visualization
+Tracy\Debugger::enable();
+// Also report E_NOTICE and E_WARNING
+Tracy\Debugger::$strictMode = true;
 
-/** Zend_Application */
+// Zend_Application
 require_once 'Zend/Application.php';
-
 
 // Create application, bootstrap, and run
 $appConfig = new Zend_Config_Ini(
@@ -51,7 +54,7 @@ $application = new Zend_Application(
 
 $application = $application->bootstrap();
 
-// check if http authentication is required and crdentials
+// Check if http authentication is required and crdentials
 if (!empty(Zend_Registry::get('systemconfig')->httpAuth->active)) {
     if (empty($_SERVER['PHP_AUTH_USER'])) {
         header('WWW-Authenticate: Basic realm="Protected"');
