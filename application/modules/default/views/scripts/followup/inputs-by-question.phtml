@@ -60,14 +60,14 @@ $locale = new Zend_Locale();
 						<?php endif; ?>
 
 						<p class="article-actions">
-							<a href="#" class="article-action">
-								<i class="icon-comment icon-orange icon-2x"></i>
-								(<?=isset($input['pts']) ? $input['pts'] : ''?>)
-								<span class="label">Das möchte ich gerne diskutieren!</span>
-							</a>
+							<?php if ($this->consultation->is_discussion_active): ?>
+								<a href="#" class="article-action">
+									<i class="icon-comment icon-orange icon-2x"></i>
+									(<?=isset($input['pts']) ? $input['pts'] : ''?>)
+									<span class="label">Das möchte ich gerne diskutieren!</span>
+								</a>
+							<?php endif?>
 							<?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
-
-
 						</p>
 					</article>
 					<hr/>
