@@ -23,7 +23,11 @@
                         <h3>
                             <a
                                 class="whitelink"
+<<<<<<< HEAD
                                 title="<?=$this->translate('Zurück zur Übersicht der Beiträge sortiert nach Fragen')?>"
+=======
+                                title="Zurück zur Übersicht der Beiträge sortiert nach Fragen"
+>>>>>>> hotfix/DBJR-198
                                 href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"
                             >
                                 <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
@@ -57,27 +61,27 @@
                 </div>
 
                 <div class="col">
-                    <?php if ($this->input['vot'] != 'y'): ?>
-                        <?php if (count($this->relInput)): ?>
-                            <?php foreach ($this->relInput as $relInput): ?>
-                                <div class="timeline-box">
-                                    <div class="content">
-                                        <p><?php echo $relInput['thes']; ?></p>
+                    <?php if (count($this->relInput)): ?>
+                        <?php foreach ($this->relInput as $relInput): ?>
+                            <div class="timeline-box">
+                                <div class="content">
+                                    <p><?php echo $relInput['thes']; ?></p>
+                                    <?php if ($relInput['vot'] == 'y'): ?>
                                         <p class="score"><?=$this->translate('Ergebnis der Abstimmung: X. Rang')?></p>
-                                    </div>
-                                    <?php if ($relInput['relFowupCount'] != 0): ?>
-                                        <div class="timeline-countlink sprite">
-                                            <a
-                                                class="ajaxclick"
-                                                href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"
-                                            >
-                                                <?php echo $relInput['relFowupCount']; ?>
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
+                                    <?php endif?>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                                <?php if ($relInput['relFowupCount'] != 0): ?>
+                                    <div class="timeline-countlink sprite">
+                                        <a
+                                            class="ajaxclick"
+                                            href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"
+                                        >
+                                            <?php echo $relInput['relFowupCount']; ?>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
                     <?php endif; ?>
 
                     <?php if (count($this->relSnippets)): ?>

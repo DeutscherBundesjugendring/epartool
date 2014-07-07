@@ -73,7 +73,7 @@
 	                                <span class="label"><?=$this->translate('Das möchte ich gerne diskutieren!')?></span>
 	                            </a>
                             <?php endif?>
-                            <?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
+                            <?php echo $this->followupLink($input['tid'], $this->question['qi'], explode(',', $input['rel_tid'])); ?>
                         </p>
                     </article>
                     <hr/>
@@ -87,7 +87,6 @@
                 '_partials/pagination.phtml',
                 array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
             ); ?>
-
         </section>
     </div>
     <!-- .row -->
