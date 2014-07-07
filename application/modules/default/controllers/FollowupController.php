@@ -60,7 +60,7 @@ class FollowupController extends Zend_Controller_Action
     {
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
-        $followups = $followupModel->getByKid($kid, 'when DESC', 4);
+        $followups = $followupModel->getByKid($kid, 'when DESC');
         foreach ($followups as &$followup) {
             if (
                 strpos($followup['ref_doc'], 'http://') === 0
