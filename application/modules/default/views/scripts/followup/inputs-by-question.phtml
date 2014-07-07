@@ -65,7 +65,7 @@ $locale = new Zend_Locale();
 								(<?=isset($input['pts']) ? $input['pts'] : ''?>)
 								<span class="label">Das möchte ich gerne diskutieren!</span>
 							</a>
-							<?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
+							<?php echo $this->followupLink($input['tid'], $this->question['qi'], explode(',', $input['rel_tid'])); ?>
 
 
 						</p>
