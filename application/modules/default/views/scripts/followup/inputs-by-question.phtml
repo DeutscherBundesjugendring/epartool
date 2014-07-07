@@ -66,9 +66,7 @@
                         <p class="article-actions">
                             <a href="#" class="article-action">
                                 <i class="icon-comment icon-orange icon-2x"></i>
-                                <?php if(isset($input['pts'])): ?>
-                                    (<?php echo $input['pts']?>)
-                                <?php endif?>
+                                (<?=isset($input['pts']) ? $input['pts'] : ''?>)
                                 <span class="label"><?=$this->translate('Das möchte ich gerne diskutieren!')?></span>
                             </a>
                             <?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
@@ -85,7 +83,6 @@
                 '_partials/pagination.phtml',
                 array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
             ); ?>
-
         </section>
     </div>
     <!-- .row -->
