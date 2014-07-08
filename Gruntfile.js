@@ -22,7 +22,8 @@ module.exports = function(grunt) {
         less: {
             dev: {
 				files: {
-					'www/css/<%= pkg.name %>.css': 'www/less/main.less'
+					'www/css/<%= pkg.name %>.css': 'www/less/main.less',
+                    '.tmp/mail.css': 'www/less/mail.less'
 				}
             },
             dist: {
@@ -127,7 +128,7 @@ module.exports = function(grunt) {
         uncss: {
             mail: {
                 src: ['application/layouts/scripts/src/*.phtml'],
-                dest: '.tmp/mail.css',
+                dest: '.tmp/mail_clean.css',
                 options: {
                     report: 'min' // optional: include to report savings
                 }
@@ -183,9 +184,11 @@ module.exports = function(grunt) {
     // Build email phtml template.
     // Task not executed by default as it requires Ruby and Premailer gem in the system.
     grunt.registerTask('mail', [
+        'less:dev',
         'uncss:mail',
         'processhtml:mail',
-        'premailer'
+        'premailer',
+        'clean'
     ]);
 
     // Default task
