@@ -21,42 +21,64 @@
                     <div class="col-sm-1 col-sm-push-11">
 
                         <ul id="letterNavigation" class="nav nav-letters">
-                            <li><a href="#letter-A">A</a></li>
+                            <?php foreach ($this->letters as $letter): ?>
+                                <li><a href="#letter-<?=$letter;?>"><?=$letter;?></a></li>
+                            <?php endforeach; ?>
                         </ul>
 
                     </div>
                     <div class="col-sm-11 col-sm-pull-1">
 
-                        <form name="edit_tags" action="<?php echo $this->baseUrl(); ?>/admin/tag/edit" method="post">
+                        <form name="edit_tags" action="<?=$this->url(array('action' => 'edit'));?>" method="post">
                             <div class="form-group">
-                                <input type="submit" name="editsubmit" class="btn btn-primary" value="Save Changes" />
+                                <input type="submit" name="editsubmit" class="btn btn-primary offset-bottom" value="Save Changes" />
+                                <span class="help-block">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    Please note only unused keywords will be deleted.
+                                </span>
                             </div>
-                            <p class="help-block">
-                                <span class="glyphicon glyphicon-info-sign"></span>
-                                Please note only unused keywords will be deleted.
-                            </p>
+                            <hr />
 
-                            <?php foreach ($this->tags as $tag): ?>
+                            <?php foreach ($this->tags as $letter => $tags): ?>
                                 <div class="form-group">
-                                    <div class="input-group">
-                                        <input name="tg_de[<?php echo $tag['tg_nr'];?>]" class="form-control input-sm" value="<?php echo $tag['tg_de']; ?>" />
-                                        <span class="input-group-btn">
-                                            <a href="<?=$this->url(array('action' => 'delete', 'tag' => $tag['tg_nr']));?>" class="item-action item-action-danger" title="Delete keyword">
-                                                <span class="glyphicon glyphicon-remove-sign"></span>
-                                            </a>
-                                        </span>
+                                    <h3 id="letter-<?=$letter;?>" class="offset-bottom"><?=$letter;?></h3>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+
+                                            <?php $i = 1; ?>
+                                            <?php $breakAfter = ceil(count($tags) / 2); ?>
+                                            <?php foreach ($tags as $tag): ?>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input name="tg_de[<?=$tag['tg_nr'];?>]" class="form-control input-sm" value="<?=$tag['tg_de'];?>" />
+                                                        <span class="input-group-btn">
+                                                            <a href="<?=$this->url(array('action' => 'delete', 'tag' => $tag['tg_nr']));?>" class="item-action item-action-danger" title="Delete keyword">
+                                                                <span class="glyphicon glyphicon-remove-sign"></span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                    <input name="tag_old[<?=$tag['tg_nr'];?>]" value="<?=$tag['tg_de'];?>" type="hidden" />
+                                                </div>
+                                                <?php if ($i == $breakAfter): ?>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                <?php endif; ?>
+                                                <?php $i++; ?>
+                                            <?php endforeach;?>
+
+                                        </div>
                                     </div>
-                                    <input name="tag_old[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" type="hidden" />
                                 </div>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
+                            <hr />
 
                             <div class="form-group">
-                                <input type="submit" name="editsubmit" class="btn btn-primary" value="Save Changes" />
+                                <input type="submit" name="editsubmit" class="btn btn-primary offset-bottom" value="Save Changes" />
+                                <span class="help-block">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    Please note only unused keywords will be deleted.
+                                </span>
                             </div>
-                            <p class="help-block">
-                                <span class="glyphicon glyphicon-info-sign"></span>
-                                Please note only unused keywords will be deleted.
-                            </p>
                         </form>
 
                     </div>

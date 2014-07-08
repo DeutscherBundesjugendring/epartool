@@ -107,7 +107,7 @@ initDataViewTable = () ->
                     newLetter = letter
                     if navigation
                         navigation.append('<li><a href="#letter-' + letter + '">' + letter + '</a></li>')
-                    table.append($('<thead><tr class="active"><th colspan="' + colCount + '"><h2 id="letter-' + newLetter + '">' + newLetter + '</h2></th></tr></thead>'))
+                    table.append($('<thead><tr class="active"><th colspan="' + colCount + '"><h2 class="h3" id="letter-' + newLetter + '">' + newLetter + '</h2></th></tr></thead>'))
                     table.append($('<tbody></tbody>'))
 
             table.find('tbody:last').append(row)
