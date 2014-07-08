@@ -13,6 +13,10 @@
             </div>
             <div class="col-md-9">
 
+                <a href="<?=$this->url(array('action' => 'create'));?>" class="btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    New Keyword
+                </a>
                 <h2>Keywords</h2>
                 <!-- TODO move to separate page -->
                 <?=$this->createForm;?>
@@ -31,10 +35,10 @@
 
                         <form name="edit_tags" action="<?=$this->url(array('action' => 'edit'));?>" method="post">
                             <div class="form-group">
-                                <input type="submit" name="editsubmit" class="btn btn-primary offset-bottom" value="Save Changes" />
+                                <input type="submit" name="editsubmit" class="btn btn-primary pull-right" value="Save Changes" />
                                 <span class="help-block">
                                     <span class="glyphicon glyphicon-info-sign"></span>
-                                    Please note only unused keywords will be deleted.
+                                    Please note only unused keywords can be deleted.
                                 </span>
                             </div>
                             <hr />
@@ -73,10 +77,10 @@
                             <hr />
 
                             <div class="form-group">
-                                <input type="submit" name="editsubmit" class="btn btn-primary offset-bottom" value="Save Changes" />
+                                <input type="submit" name="editsubmit" class="btn btn-primary pull-right" value="Save Changes" />
                                 <span class="help-block">
                                     <span class="glyphicon glyphicon-info-sign"></span>
-                                    Please note only unused keywords will be deleted.
+                                    Please note only unused keywords can be deleted.
                                 </span>
                             </div>
                         </form>
