@@ -695,38 +695,34 @@ body.outlook p {
 
 </style>
 <style>
-
-    table.facebook td {
-        background: #3b5998;
-        border-color: #2d4473;
+    a {
+        color: #0196bc;
+        text-decoration: none;
     }
 
-    table.facebook:hover td {
-        background: #2d4473 !important;
+    a:hover {
+        color: #fc9026 !important;
     }
 
-    table.twitter td {
-        background: #00acee;
-        border-color: #0087bb;
+    a:active {
+        color: #0196bc !important;
     }
 
-    table.twitter:hover td {
-        background: #0087bb !important;
+    a:visited {
+        color: #0196bc !important;
     }
 
-    table.google-plus td {
-        background-color: #DB4A39;
-        border-color: #CC0000;
-    }
-
-    table.google-plus:hover td {
-        background: #CC0000 !important;
+    h1 a,
+    h2 a,
+    h3 a,
+    h4 a,
+    h5 a,
+    h6 a {
+        color: #0196bc;
     }
 
     .template-label {
-        color: #ffffff;
         font-weight: bold;
-        font-size: 11px;
     }
 
     .callout .wrapper {
@@ -738,32 +734,37 @@ body.outlook p {
         border-color: #b9e5ff;
     }
 
-    .header {
-        background: #999999;
+    .copy .wrapper {
+        padding-bottom: 10px;
     }
 
     .footer .wrapper {
-        background: #ebebeb;
+        background: #f7f7f7;
     }
 
-    .footer h5 {
+    .footer h6 {
+        padding-top: 10px;
         padding-bottom: 10px;
     }
 
     table.columns .text-pad {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     table.columns .left-text-pad {
-        padding-left: 10px;
+        padding-left: 20px;
     }
 
     table.columns .right-text-pad {
-        padding-right: 10px;
+        padding-right: 20px;
     }
 
     @media only screen and (max-width: 600px) {
+        table[class="body"] .text-pad {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
 
         table[class="body"] .right-text-pad {
             padding-left: 10px !important;
@@ -794,10 +795,18 @@ body.outlook p {
                                             <table class="twelve columns">
                                                 <tr>
                                                     <td class="six sub-columns">
+
+                                                        <!-- TODO replace with project specific logo: "project/images/logo.png" -->
                                                         <img src="http://placehold.it/200x50">
+
                                                     </td>
                                                     <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
-                                                        <span class="template-label">BASIC</span>
+                                                        <span class="template-label">
+
+                                                            <!-- TODO replace with project name -->
+                                                            Strukturierter Dialog
+
+                                                        </span>
                                                     </td>
                                                     <td class="expander"></td>
                                                 </tr>
@@ -816,33 +825,21 @@ body.outlook p {
                     <tr>
                         <td>
 
-                            <table class="row">
+                            <table class="row copy">
                                 <tr>
                                     <td class="wrapper last">
 
                                         <table class="twelve columns">
                                             <tr>
                                                 <td>
-                                                    <h1>Hi, Susan Calvin</h1>
+
+                                                    <!-- TODO replace with actual email body -->
+                                                    <!-- email body start -->
+                                                    <h1>Hello there!</h1>
                                                     <p class="lead">Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae.</p>
                                                     <p>Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. consequat vel lacus. Sed iaculis pulvinar ligula, ornare fringilla ante viverra et. In hac habitasse platea dictumst. Donec vel orci mi, eu congue justo. Integer eget odio est, eget malesuada lorem. Aenean sed tellus dui, vitae viverra risus. Nullam massa sapien, pulvinar eleifend fringilla id, convallis eget nisi. Mauris a sagittis dui. Pellentesque non lacinia mi. Fusce sit amet libero sit amet erat venenatis sollicitudin vitae vel eros. Cras nunc sapien, interdum sit amet porttitor ut, congue quis urna.</p>
-                                                </td>
-                                                <td class="expander"></td>
-                                            </tr>
-                                        </table>
+                                                    <!-- email body end -->
 
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <table class="row callout">
-                                <tr>
-                                    <td class="wrapper last">
-
-                                        <table class="twelve columns">
-                                            <tr>
-                                                <td class="panel">
-                                                    <p>Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. <a href="#">Click it! »</a></p>
                                                 </td>
                                                 <td class="expander"></td>
                                             </tr>
@@ -854,56 +851,19 @@ body.outlook p {
 
                             <table class="row footer">
                                 <tr>
-                                    <td class="wrapper">
-
-                                        <table class="six columns">
-                                            <tr>
-                                                <td class="left-text-pad">
-
-                                                    <h5>Connect With Us:</h5>
-
-                                                    <table class="tiny-button facebook">
-                                                        <tr>
-                                                            <td>
-                                                                <a href="#">Facebook</a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-
-                                                    <br>
-
-                                                    <table class="tiny-button twitter">
-                                                        <tr>
-                                                            <td>
-                                                                <a href="#">Twitter</a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-
-                                                    <br>
-
-                                                    <table class="tiny-button google-plus">
-                                                        <tr>
-                                                            <td>
-                                                                <a href="#">Google +</a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-
-                                                </td>
-                                                <td class="expander"></td>
-                                            </tr>
-                                        </table>
-
-                                    </td>
                                     <td class="wrapper last">
 
-                                        <table class="six columns">
+                                        <table class="twelve columns">
                                             <tr>
-                                                <td class="last right-text-pad">
-                                                    <h5>Contact Info:</h5>
+                                                <td class="last text-pad">
+                                                    <h6>Contact Info:</h6>
+
+                                                    <!-- TODO replace with actual contact info from project settings -->
+                                                    <!-- contact start -->
                                                     <p>Phone: 408.341.0600</p>
                                                     <p>Email: <a href="mailto:hseldon@trantor.com">hseldon@trantor.com</a></p>
+                                                    <!-- contact end -->
+
                                                 </td>
                                                 <td class="expander"></td>
                                             </tr>
@@ -913,7 +873,6 @@ body.outlook p {
                                 </tr>
                             </table>
 
-
                             <table class="row">
                                 <tr>
                                     <td class="wrapper last">
@@ -922,7 +881,10 @@ body.outlook p {
                                             <tr>
                                                 <td align="center">
                                                     <center>
-                                                        <p style="text-align:center;"><a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Unsubscribe</a></p>
+
+                                                        <!-- TODO add links to Privacy (already exists) and Unsubscribe (TBD) pages -->
+                                                        <p style="text-align:center;"><a href="#">Privacy</a> | <a href="#">Unsubscribe</a></p>
+
                                                     </center>
                                                 </td>
                                                 <td class="expander"></td>
