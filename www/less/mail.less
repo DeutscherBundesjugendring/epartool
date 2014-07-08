@@ -5,82 +5,97 @@
  */
 
 
+@import 'config/variables';
+
+
+// Typography
 a {
-    color: #0196bc;
     text-decoration: none;
-}
 
-a:hover {
-    color: #fc9026 !important;
-}
+    &,
+    h1 &,
+    h2 &,
+    h3 &,
+    h4 &,
+    h5 &,
+    h6 & {
+        color: @linkText;
+    }
 
-a:active {
-    color: #0196bc !important;
-}
+    &:hover {
+        color: @linkTextHover !important;
+    }
 
-a:visited {
-    color: #0196bc !important;
-}
+    &:active {
+        color: @linkText !important;
+    }
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
-    color: #0196bc;
+
+    &:visited {
+        color: @linkText !important;
+    }
 }
 
 .template-label {
     font-weight: bold;
 }
 
-.callout .wrapper {
-    padding-bottom: 20px;
+// CTA box
+.callout {
+    .wrapper {
+        padding-bottom: 20px;
+    }
+
+    .panel {
+        background: #ECF8FF;
+        border-color: #b9e5ff;
+    }
 }
 
-.callout .panel {
-    background: #ECF8FF;
-    border-color: #b9e5ff;
-}
-
+// Layout
 .copy .wrapper {
     padding-bottom: 10px;
 }
 
-.footer .wrapper {
-    background: #f7f7f7;
+.footer {
+    .wrapper {
+        background: @grayLightest;
+    }
+
+    h6 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 
-.footer h6 {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
+table.columns {
+    .text-pad {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 
-table.columns .text-pad {
-    padding-left: 20px;
-    padding-right: 20px;
-}
+    .left-text-pad {
+        padding-left: 20px;
+    }
 
-table.columns .left-text-pad {
-    padding-left: 20px;
-}
-
-table.columns .right-text-pad {
-    padding-right: 20px;
+    .right-text-pad {
+        padding-right: 20px;
+    }
 }
 
 @media only screen and (max-width: 600px) {
-    table[class="body"] .text-pad {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+    table[class="body"] {
+        .text-pad {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
 
-    table[class="body"] .right-text-pad {
-        padding-left: 10px !important;
-    }
+        .right-text-pad {
+            padding-left: 10px !important;
+        }
 
-    table[class="body"] .left-text-pad {
-        padding-right: 10px !important;
+        .left-text-pad {
+            padding-right: 10px !important;
+        }
     }
 }
