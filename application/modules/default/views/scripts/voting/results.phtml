@@ -13,13 +13,15 @@
         </aside>
         <section class="main-content span9">
 
-            <h1><?=$this->translate('Abstimmungsergebnisse')?></h1>
-            <?php if (!empty($this->articleGeneral)): ?>
-                <?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
-            <?php endif; ?>
-            <?php if (!empty($this->articleConsultation)): ?>
-                <?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
-            <?php endif; ?>
+            <article class="article">
+                <h1><?=$this->translate('Abstimmungsergebnisse')?></h1>
+                <?php if (!empty($this->articleGeneral)): ?>
+                    <?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+                <?php endif; ?>
+                <?php if (!empty($this->articleConsultation)): ?>
+                    <?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+                <?php endif; ?>
+            </article>
 
             <h2 class="alt"><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h2>
 

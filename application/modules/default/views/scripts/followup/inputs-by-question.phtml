@@ -28,10 +28,13 @@
                     </a>
                 </p>
             <?php endif; ?>
-            <small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
-            <h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
 
-            <p><?php echo $this->question['q_xpl']; ?></p>
+            <small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
+
+            <article class="article">
+                <h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
+                <p><?php echo $this->question['q_xpl']; ?></p>
+            </article>
 
             <hr/>
 
