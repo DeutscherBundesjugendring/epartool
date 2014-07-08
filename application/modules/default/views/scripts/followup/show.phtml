@@ -78,8 +78,12 @@
                                 </div>
                                 <?php if ($relInput['relFowupCount'] != 0): ?>
                                     <div class="timeline-countlink sprite">
-                                        <a class="ajaxclick"
-                                           href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"><?php echo $relInput['relFowupCount']; ?></a>
+                                        <a
+                                            class="ajaxclick"
+                                            href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"
+                                        >
+                                            <?php echo $relInput['relFowupCount']; ?>
+                                        </a>
                                     </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>
