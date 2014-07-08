@@ -18,7 +18,6 @@ module.exports = function(grunt) {
             }
         },
 
-
 		// Compile LESS
         less: {
             dev: {
@@ -124,10 +123,44 @@ module.exports = function(grunt) {
 			}
 		},
 
+        // Remove unused CSS
+        uncss: {
+            mail: {
+                src: ['application/layouts/scripts/src/*.phtml'],
+                dest: '.tmp/mail.css',
+                options: {
+                    report: 'min' // optional: include to report savings
+                }
+            }
+        },
+
+        // Process HTML
+        processhtml: {
+            mail: {
+                files: {
+                    '.tmp/mail.phtml': ['application/layouts/scripts/src/mail.phtml']
+                }
+            }
+        },
+
+        // Inject inline CSS to mail templates from linked stylesheets.
+        // Behold! Requires Premailer gem installed in the system (gem install premailer).
+        premailer: {
+            main: {
+                options: {
+                    verbose: true
+                },
+                files: {
+                    'application/layouts/scripts/mail.phtml': ['.tmp/mail.phtml']
+                }
+            }
+        },
+
 		// Clean temporary files
 		clean: [
 			'www/js/bootstrap.js',
-			'www/js/jquery.ui.js'
+			'www/js/jquery.ui.js',
+            '.tmp'
 		],
 
 		// Watch task
@@ -147,6 +180,15 @@ module.exports = function(grunt) {
         }
     });
 
+    // Build email phtml template.
+    // Task not executed by default as it requires Ruby and Premailer gem in the system.
+    grunt.registerTask('mail', [
+        'uncss:mail',
+        'processhtml:mail',
+        'premailer'
+    ]);
+
+    // Default task
 	grunt.registerTask('default', [
 		'less',
         'coffee',
