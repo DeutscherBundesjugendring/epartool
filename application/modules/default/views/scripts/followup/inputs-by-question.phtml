@@ -48,29 +48,32 @@
 
                         <p><?php echo $input['expl'] ?></p>
 
-                        <?php if ($this->consultation->spprt_show == 'y'): ?>
-                            <a
-                                href="#"
-                                id="click-support-<?php echo $input['tid']; ?>"
-                                class="click-support<?php echo (in_array($input['tid'], $supports->clicks) || $supportsDisabled) ? 'disabled' : ''?>"
-                                rel="<?php echo $input['tid']; ?>"
-                            >
-                                <i class="icon-ok-sign"></i>
-                                <span class="badge" id="badge-<?php echo $input['tid']; ?>">
-                                    (<?php echo $input['spprts']; ?>)
-                                </span>
-                                <span class="label"><?=$this->translate('Dieser Meinung bin ich auch!')?></span>
-                            </a>
-                        <?php endif; ?>
-
                         <p class="article-actions">
-                            <a href="#" class="article-action">
-                                <i class="icon-comment icon-orange icon-2x"></i>
-                                <?php if(isset($input['pts'])): ?>
-                                    (<?php echo $input['pts']?>)
-                                <?php endif?>
-                                <span class="label"><?=$this->translate('Das möchte ich gerne diskutieren!')?></span>
-                            </a>
+                            <?php if ($this->consultation->spprt_show == 'y'): ?>
+                                <a
+                                    href="#"
+                                    id="click-support-<?php echo $input['tid']; ?>"
+                                    class="article-action click-support<?php echo (in_array($input['tid'], $supports->clicks) || $supportsDisabled) ? 'disabled' : ''?>"
+                                    rel="<?php echo $input['tid']; ?>"
+                                >
+                                    <i class="icon-ok-sign"></i>
+                                    <span class="badge" id="badge-<?php echo $input['tid']; ?>">
+                                        (<?php echo $input['spprts']; ?>)
+                                    </span>
+                                    <span class="label"><?=$this->translate('Dieser Meinung bin ich auch!')?></span>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if ($this->consultation->is_discussion_active): ?>
+                                <a href="#" class="article-action">
+                                    <i class="icon-comment icon-orange icon-2x"></i>
+                                    <?php if(isset($input['pts'])): ?>
+                                        (<?php echo $input['pts']?>)
+                                    <?php endif?>
+                                    <span class="label"><?=$this->translate('Das möchte ich gerne diskutieren!')?></span>
+                                </a>
+                            <?php endif?>
+
                             <?php echo $this->followupLink($input['tid'], $this->question['qi']); ?>
                         </p>
                     </article>
@@ -87,8 +90,7 @@
             ); ?>
 
         </section>
-    </div>
-    <!-- .row -->
+    </div><!-- .row -->
 </div><!-- content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml')?>

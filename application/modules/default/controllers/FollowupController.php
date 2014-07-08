@@ -60,7 +60,7 @@ class FollowupController extends Zend_Controller_Action
     {
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
-        $followups = $followupModel->getByKid($kid, 'when DESC', 4);
+        $followups = $followupModel->getByKid($kid, 'when DESC');
         foreach ($followups as &$followup) {
             if (
                 strpos($followup['ref_doc'], 'http://') === 0
@@ -150,7 +150,11 @@ class FollowupController extends Zend_Controller_Action
                 $input = $inputsModel->getById($tid);
                 $input['relFowupCount'] = count($followupsModel->getByInput($tid));
 
-                $relInputs = $inputsModel->getRelatedWithVotesById($tid);
+                $relInputs = $inputsModel->fetchAll(
+                    $inputsModel
+                        ->select()
+                        ->where('tid IN (?)', explode(',', $input['rel_tid']))
+                )->toArray();
                 $inputids = array();
 
                 foreach ($relInputs as $relInput) {
@@ -165,6 +169,8 @@ class FollowupController extends Zend_Controller_Action
 
                 $relSnippets = $followupsModel->getByInput($tid);
 
+                $ffids = [];
+                $snippetids = [];
                 foreach ($relSnippets as $snippet) {
                     $snippetids[] = $snippet['fid'];
                     $ffids[] = (int) $snippet['ffid'];
