@@ -14,23 +14,53 @@
             <div class="col-md-9">
 
                 <h2>Keywords</h2>
+                <!-- TODO move to separate page -->
                 <?=$this->createForm;?>
 
-                <form name="edit_tags" class="yform" action="<?php echo $this->baseUrl(); ?>/admin/tag/edit" method="post">
-                    <?php foreach ($this->tags as $tag): ?>
-                        <div class="">
-                            <input name="tg_de[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" />
-                            <a href="<?php echo $this->baseUrl(); ?>/admin/tag/delete/tag/<?php echo $tag['tg_nr']; ?>">
-                                <img src="<?php echo $this->baseUrl(); ?>/images/<?php echo Zend_Registry::get('systemconfig')->project; ?>/delete.png"
-                                     alt="Löschen" title="Schlagwort löschen (wird nur gelöscht, falls nicht verwendet)" />
-                            </a>
-                            <input name="tag_old[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" type="hidden" />
-                        </div>
-                    <?php endforeach;?>
-                    <div>
-                        <input type="submit" name="editsubmit" value="Speichern">
+                <div class="row">
+                    <div class="col-sm-1 col-sm-push-11">
+
+                        <ul id="letterNavigation" class="nav nav-letters">
+                            <li><a href="#letter-A">A</a></li>
+                        </ul>
+
                     </div>
-                </form>
+                    <div class="col-sm-11 col-sm-pull-1">
+
+                        <form name="edit_tags" action="<?php echo $this->baseUrl(); ?>/admin/tag/edit" method="post">
+                            <div class="form-group">
+                                <input type="submit" name="editsubmit" class="btn btn-primary" value="Save Changes" />
+                            </div>
+                            <p class="help-block">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                Please note only unused keywords will be deleted.
+                            </p>
+
+                            <?php foreach ($this->tags as $tag): ?>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input name="tg_de[<?php echo $tag['tg_nr'];?>]" class="form-control input-sm" value="<?php echo $tag['tg_de']; ?>" />
+                                        <span class="input-group-btn">
+                                            <a href="<?=$this->url(array('action' => 'delete', 'tag' => $tag['tg_nr']));?>" class="item-action item-action-danger" title="Delete keyword">
+                                                <span class="glyphicon glyphicon-remove-sign"></span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <input name="tag_old[<?php echo $tag['tg_nr'];?>]" value="<?php echo $tag['tg_de']; ?>" type="hidden" />
+                                </div>
+                            <?php endforeach;?>
+
+                            <div class="form-group">
+                                <input type="submit" name="editsubmit" class="btn btn-primary" value="Save Changes" />
+                            </div>
+                            <p class="help-block">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                Please note only unused keywords will be deleted.
+                            </p>
+                        </form>
+
+                    </div>
+                </div>
 
             </div>
         </div>
