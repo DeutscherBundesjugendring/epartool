@@ -17,7 +17,7 @@ set_include_path(
 );
 
 // Enable Tracy for error visualization
-Tracy\Debugger::enable();
+//Tracy\Debugger::enable();
 // Also report E_NOTICE and E_WARNING
 Tracy\Debugger::$strictMode = true;
 

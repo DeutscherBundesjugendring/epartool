@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_Mail_Template extends Zend_Form
+class Admin_Form_Mail_Template extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Mail/Template.ini';
 

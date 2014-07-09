@@ -5,7 +5,7 @@
  * @description     Form of consultation
  * @author                Karsten Tackmann
  */
-class Admin_Form_Voting_Settings extends Zend_Form
+class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Voting/Settings.ini';
     /**

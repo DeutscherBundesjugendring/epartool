@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_Media_Delete extends Zend_Form
+class Admin_Form_Media_Delete extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Media/Delete.ini';
 

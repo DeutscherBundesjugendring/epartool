@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_ListControl extends Zend_Form
+class Admin_Form_ListControl extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/ListControl.ini';
 

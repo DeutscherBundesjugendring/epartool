@@ -83,6 +83,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $form = new Admin_Form_Consultation();
         $form->setAction($this->view->baseUrl() . '/admin/consultation/edit/kid/' . $this->_consultation->kid);
+        $form->addDecorator('cancelLink', ['url' => '/']);
 
         if ($this->getRequest()->isPost()
                 && false !== $this->getRequest()->getPost('submit', false)) {

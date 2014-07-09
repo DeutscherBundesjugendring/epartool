@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_Mail_Component extends Zend_Form
+class Admin_Form_Mail_Component extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Mail/Component.ini';
 

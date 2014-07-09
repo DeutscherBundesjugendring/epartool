@@ -1,6 +1,6 @@
 <?php
 
-class Zend_View_Helper_FormatDate extends Zend_View_Helper_Abstract
+class Application_View_Helper_FormatDate extends Zend_View_Helper_Abstract
 {
     /**
      * Returns formated datetime

@@ -5,7 +5,7 @@
  * @description     Form for Media upload
  * @author                Markus Hackel
  */
-class Admin_Form_Media_Upload extends Zend_Form
+class Admin_Form_Media_Upload extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Media/Upload.ini';
     /**
