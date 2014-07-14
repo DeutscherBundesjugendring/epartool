@@ -177,10 +177,15 @@ class Dbjr_Mail extends Zend_Mail
     /**
      * Saves the email in db so it can be later send by a cronjob. The placeholders in body and subject field are replaced.
      * @param  Zend_Mail_Transport_Abstract $trasnport The transport class for this email
+     * @throws Dbjr_Mail_Exception                     Throws exception if no recipients are specified
      * @return Dbjr_Mail                               Fluent interface
      */
     public function send($transport = null)
     {
+        if (!$this->_toFull && !$this->_ccFull && !$this->_bccFull) {
+            throw new Dbjr_Mail_Exception('Cant send email with no recipients.');
+        }
+
         if ($this->_isManualSent) {
             $auth = Zend_Auth::getInstance();
             $identity = $auth->getIdentity();
