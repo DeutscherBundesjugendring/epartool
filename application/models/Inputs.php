@@ -407,6 +407,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function confirmByCkey($confirmKey)
     {
+        $this->isConfirmOrRejectAllowed($confirmKey);
         $userModel = new Model_Users();
         $uid = $userModel->confirmbyCkey($confirmKey);
         $userModel->ping($uid);
@@ -428,6 +429,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function rejectByCkey($confirmKey)
     {
+        $this->isConfirmOrRejectAllowed($confirmKey);
+        $userConsultDataModel = new Model_User_Info();
+        $uid = $userConsultDataModel->fetchRow(
+            $userConsultDataModel
+                ->select()
+                ->from($userConsultDataModel->info(Model_User_Info::NAME), ['uid'])
+                ->where('confirmation_key=?', $confirmKey)
+        )->uid;
+
+        $userModel = new Model_Users();
+        $userModel->ping($uid);
+
         return $this->update(
             [
                 'user_conf' => 'r',
@@ -436,6 +449,28 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ],
             ['confirmation_key=?' => $confirmKey, 'user_conf=?' => 'u']
         );
+    }
+
+    /**
+     * Throws excpetion if rejection/confimation are not allowed
+     * @throws Dbjr_UrlkeyAction_Exception  If the consultation has moved past the input phase
+     */
+    private function isConfirmOrRejectAllowed($confirmKey)
+    {
+        $nowDate = Zend_Date::now();
+        $inputPhaseTo = $this->fetchRow(
+            (new Model_Consultations())
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['i' => $this->info(Model_Inputs::NAME)], [])
+                ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi=q.qi', [])
+                ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid=c.kid', ['inp_to'])
+                ->where('i.confirmation_key=?', $confirmKey)
+        )->inp_to;
+
+        if ($nowDate->isLater($inputPhaseTo)) {
+            throw new Dbjr_UrlkeyAction_Exception('Cant confirm or reject once the input phase is over');
+        }
     }
 
     /**

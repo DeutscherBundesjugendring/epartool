@@ -257,6 +257,10 @@ class InputController extends Zend_Controller_Action
         try {
             $confirmedCount = $inputModel->confirmByCkey($ckey);
             $inputModel->getAdapter()->commit();
+        } catch (Dbjr_UrlkeyAction_Exception $e){
+            $inputModel->getAdapter()->rollback();
+            $this->_flashMessenger->addMessage('It is not allowed to confirm inputs once the input phase is over.', 'error');
+            $this->redirect('/');
         } catch (Exception $e) {
             $inputModel->getAdapter()->rollback();
             throw $e;
@@ -281,7 +285,12 @@ class InputController extends Zend_Controller_Action
         try {
             $rejectedCount = $inputModel->rejectByCkey($ckey);
             $inputModel->getAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Dbjr_UrlkeyAction_Exception $e){
+            $inputModel->getAdapter()->rollback();
+            $this->_flashMessenger->addMessage('It is not allowed to reject inputs once the input phase is over.', 'error');
+            $this->redirect('/');
+        }
+         catch (Exception $e) {
             $inputModel->getAdapter()->rollback();
             throw $e;
         }
