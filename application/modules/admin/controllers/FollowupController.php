@@ -630,7 +630,9 @@ class Admin_FollowupController extends Zend_Controller_Action
         if (empty($chosenDoc)) {
             // get first question of this consultation
             $followupFile = $followupFilesModel->getByKid($kid, 'when DESC', NULL, $followup['ffid']);
-            $chosenDoc = $followupFile[0]['ffid'];
+            if ($followupFile) {
+                $chosenDoc = $followupFile[0]['ffid'];
+            }
         }
         $this->view->assign(
             array(
@@ -640,7 +642,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                 'snippets' => $snippets,
                 'docs' => $docs,
                 'question' => $question,
-                'chosenDoc' => $chosenDoc
+                'chosenDoc' => isset($chosenDoc) ? $chosenDoc : null,
             )
         );
     }
