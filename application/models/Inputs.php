@@ -916,7 +916,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         $select = $this->select();
-        $select ->where("rel_tid LIKE '%$id%'");
+        $select ->where('rel_tid LIKE ?', '%' . $id . '%');
         $select ->where("`vot` LIKE 'y'");
         $result = $this->fetchAll($select)->toArray();
 
@@ -1025,8 +1025,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $searchphrases = array();
             $searchphrases = explode(" ", $options['search-phrase']);
             $searchphrases = implode("%' ".$options['combine']." thes LIKE '%", $searchphrases);
-            $where =    "thes LIKE '%".$searchphrases."%'";
-            $select ->where("$where");
+            $select->where('thes LIKE ?', '%' . $searchphrases . '%');
         }
 
         $resultSet = $this->getAdapter()->query($select);

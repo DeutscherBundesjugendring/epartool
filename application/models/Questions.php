@@ -269,7 +269,7 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
                 array('qu'=>'quests'),
                 array('q_xpl'=>'SUBSTRING(q_xpl,1,100)', 'q', 'qi')
             );
-            $select ->where("LOWER(qu.q) LIKE '%$needle%' OR LOWER(qu.q_xpl) LIKE '%$needle%'");
+            $select ->where('LOWER(qu.q) LIKE ? OR LOWER(qu.q_xpl) LIKE ?', '%' . $needle . '%');
             // if no consultation is set, search in generell articles
             $select->where('qu.kid = ?', $consultationId);
             $select->limit($limit);
