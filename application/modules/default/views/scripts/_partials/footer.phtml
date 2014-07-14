@@ -59,14 +59,15 @@
 						<?php echo Zend_Registry::get('systemconfig')->contact->name?>
 					</p>
 					<p>
-						Mühlendamm 3<br />
-						10178 Berlin<br />
+						<?=Zend_Registry::get('systemconfig')->contact->street?><br />
+						<?=Zend_Registry::get('systemconfig')->contact->zip?>
+						<?=Zend_Registry::get('systemconfig')->contact->town?><br />
 						<a href="mailto:<?php echo Zend_Registry::get('systemconfig')->contact->email?>">
-							<?php echo Zend_Registry::get('systemconfig')->contact->email?>
+							<?=Zend_Registry::get('systemconfig')->contact->email?>
 						</a>
 						<br />
 						<a href="<?php echo Zend_Registry::get('systemconfig')->contact->www?>" rel="external" target="_blank">
-							<?php echo Zend_Registry::get('systemconfig')->contact->www?>
+							<?=Zend_Registry::get('systemconfig')->contact->www?>
 						</a>
 					</p>
 				</div>
