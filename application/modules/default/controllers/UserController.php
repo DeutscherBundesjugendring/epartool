@@ -37,16 +37,11 @@ class UserController extends Zend_Controller_Action
         } else {
             $form = new Default_Form_Register();
             $raw_data = $this->_request->getPost();
+            $userModel = new Model_Users();
 
-            if (!$this->_auth->hasIdentity()) {
-                $userModel = new Model_Users();
-
-                if ($form->isValid($raw_data)) {
-                    $data = $form->getValues();
-                    if ($data['group_type'] != 'group') {
-                        unset($data['group_specs']);
-                    }
-
+            if ($form->isValid($raw_data)) {
+                $data = $form->getValues();
+                if (!$this->_auth->hasIdentity()) {
                     $confirmKey = (new Zend_Session_Namespace('inputs'))->confirmKey;
                     $userModel->getAdapter()->beginTransaction();
                     try {
@@ -66,14 +61,47 @@ class UserController extends Zend_Controller_Action
                     $this->redirect('/');
 
                 } else {
-                    $populateForm = new Zend_Session_Namespace('populateForm');
-                    $populateForm->register = serialize($form);
-                    $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
-                    $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
+                    $userModel->getAdapter()->beginTransaction();
+                    try {
+                        $data['uid'] = $this->_auth->getIdentity()->uid;
+                        $userModel->addConsultationData($data);
+                        $userModel->update(
+                            [
+                                'name' => $data['name'],
+                                'group_type' => $data['group_type'],
+                                'age_group' => $data['age_group'],
+                                'regio_pax' => $data['regio_pax'],
+                                'cnslt_results' => $data['cnslt_results'],
+                                'newsl_subscr' => $data['newsl_subscr'],
+                                'src_misc' => $data['group_specs']['src_misc'],
+                                'group_size' => $data['group_specs']['group_size'],
+                                'name_group' => $data['group_specs']['name_group'],
+                                'name_pers' => $data['group_specs']['name_pers'],
+                            ],
+                            ['uid' => $data['uid']]
+                        );
+                        $userModel->getAdapter()->commit();
+                    } catch (Exception $e) {
+                        $userModel->getAdapter()->rollback();
+                        throw $e;
+                    }
+                    $this->_flashMessenger->addMessage(
+                        'Your inputs and user data have been saved.',
+                        'success'
+                    );
+                    $this->redirect('/');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Du bist bereits eingeloggt!', 'info');
-                $this->redirect('/');
+                $populateForm = new Zend_Session_Namespace('populateForm');
+                if ($this->_auth->hasIdentity()) {
+                    $form
+                        ->getElement('email')
+                        ->setValue($this->_auth->getIdentity()->email);
+                    $form->lockEmailField();
+                }
+                $populateForm->register = serialize($form);
+                $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
+                $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
             }
         }
     }

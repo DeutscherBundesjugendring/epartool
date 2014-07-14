@@ -220,18 +220,19 @@ class InputController extends Zend_Controller_Action
                 throw $e;
             }
 
+            $sessInputs->confirmKey = $confirmKey;
+            $registerForm = new Default_Form_Register();
+            $registerForm->getElement('kid')->setValue($kid);
             if ($auth->hasIdentity()) {
-                $this->_flashMessenger->addMessage(
-                    'Your inputs have been saved.',
-                    'success'
-                );
-                $this->redirect('/');
-            } else {
-                $sessInputs->confirmKey = $confirmKey;
-                $registerForm = new Default_Form_Register();
-                $registerForm->getElement('kid')->setValue($kid);
-                $this->view->registerForm = $registerForm;
+                $user = (new Model_Users())->fetchRow(
+                    (new Model_Users())
+                        ->select()
+                        ->where('email=?', $auth->getIdentity()->email)
+                )->toArray();
+                $registerForm->populate($user);
+                $registerForm->lockEmailField();
             }
+            $this->view->registerForm = $registerForm;
         } elseif ($regFormData->register) {
             // If submited registration form was invalid, the redirect from UserController::register()
             $registerForm = unserialize($regFormData->register);

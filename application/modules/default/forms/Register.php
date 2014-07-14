@@ -101,4 +101,22 @@ class Default_Form_Register extends Zend_Form
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         $this->addElement($hash);
     }
+
+    /**
+     * Makes the email field element disabled, but adds a hidden field so the value still gets submitted
+     */
+    public function lockEmailField() {
+        $emailDisabledEl = $this
+            ->getElement('email')
+            ->setName('email-disabled')
+            ->setOrder(1)
+            ->setAttrib('disabled', 'disabled');
+
+        $emailHiddenEl = $this
+            ->createElement('hidden', 'email')
+            ->setValue($emailDisabledEl->getValue())
+            ->setName('email');
+        $this->addElement($emailDisabledEl);
+        $this->addElement($emailHiddenEl);
+    }
 }
