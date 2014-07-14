@@ -88,24 +88,12 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      */
     public function register($data, $confirmKey)
     {
-        $userData = [
-            'ip' => getenv('REMOTE_ADDR'),
-            'agt' => getenv('HTTP_USER_AGENT'),
-        ];
         $isNew = !$this->emailExists($data['email']);
 
         if ($isNew) {
-            $uid = $this->add(
-                array_merge(
-                    $userData,
-                    [
-                        'block' => 'u',
-                        'email' => $data['email'],
-                    ]
-                )
-            );
+            $data['uid'] = $this->add(['block' => 'u', 'email' => $data['email']]);
         } else {
-            $uid = $this
+            $data['uid'] = $this
                 ->fetchRow(
                     $this
                         ->select()
@@ -116,45 +104,53 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         }
 
         if (isset($data['kid'])) {
-            $userConsultData = array_merge(
-                $userData,
-                [
-                    'uid' => $uid,
-                    'name' => $data['name'],
-                    'group_type' => $data['group_type'],
-                    'age_group' => $data['age_group'],
-                    'regio_pax' => $data['regio_pax'],
-                    'cnslt_results' => $data['cnslt_results'],
-                    'newsl_subscr' => $data['newsl_subscr'],
-                    'kid' => $data['kid'],
-                    'date_added' => new Zend_Db_Expr('NOW()'),
-                    'cmnt_ext' => $data['cmnt_ext'],
-                    'confirmation_key' => $confirmKey,
-                ]
-            );
-
-            // if group then also save group specifications
-            if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
-                $userConsultData = array_merge(
-                    $userConsultData,
-                    [
-                        'source' => implode(',', $data['group_specs']['source']),
-                        'src_misc' => $data['group_specs']['src_misc'],
-                        'group_size' => $data['group_specs']['group_size'],
-                        'name_group' => $data['group_specs']['name_group'],
-                        'name_pers' => $data['group_specs']['name_pers'],
-                    ]
-                );
-            } else {
-                $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
-            }
-
-            (new Model_User_Info())
-                ->createRow($userConsultData)
-                ->save();
+            $this->updateConsultationData($data);
         }
 
-        return [$uid, $isNew];
+        return [$data['uid'], $isNew];
+    }
+
+    /**
+     * Creates a new row in user_info data table
+     * @param  array   $data The user supplied data to be inserted
+     * @return integer       The user_info id
+     */
+    public function addConsultationData($data)
+    {
+        $userConsultData = [
+            'uid' => $data['uid'],
+            'name' => $data['name'],
+            'group_type' => $data['group_type'],
+            'age_group' => $data['age_group'],
+            'regio_pax' => $data['regio_pax'],
+            'cnslt_results' => $data['cnslt_results'],
+            'newsl_subscr' => $data['newsl_subscr'],
+            'kid' => $data['kid'],
+            'date_added' => new Zend_Db_Expr('NOW()'),
+            'cmnt_ext' => $data['cmnt_ext'],
+            'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
+            'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
+        ];
+
+        // if group then also save group specifications
+        if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
+            $userConsultData = array_merge(
+                $userConsultData,
+                [
+                    'source' => is_array($data['group_specs']['source']) ? implode(',', $data['group_specs']['source']) : null,
+                    'src_misc' => $data['group_specs']['src_misc'],
+                    'group_size' => $data['group_specs']['group_size'],
+                    'name_group' => $data['group_specs']['name_group'],
+                    'name_pers' => $data['group_specs']['name_pers'],
+                ]
+            );
+        } else {
+            $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
+        }
+
+        return (new Model_User_Info())
+            ->createRow($userConsultData)
+            ->save();
     }
 
     /**

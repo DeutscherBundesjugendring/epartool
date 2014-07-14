@@ -220,18 +220,19 @@ class InputController extends Zend_Controller_Action
                 throw $e;
             }
 
+            $sessInputs->confirmKey = $confirmKey;
+            $registerForm = new Default_Form_Register();
+            $registerForm->getElement('kid')->setValue($kid);
             if ($auth->hasIdentity()) {
-                $this->_flashMessenger->addMessage(
-                    'Your inputs have been saved.',
-                    'success'
-                );
-                $this->redirect('/');
-            } else {
-                $sessInputs->confirmKey = $confirmKey;
-                $registerForm = new Default_Form_Register();
-                $registerForm->getElement('kid')->setValue($kid);
-                $this->view->registerForm = $registerForm;
+                $user = (new Model_Users())->fetchRow(
+                    (new Model_Users())
+                        ->select()
+                        ->where('email=?', $auth->getIdentity()->email)
+                )->toArray();
+                $registerForm->populate($user);
+                $registerForm->lockEmailField();
             }
+            $this->view->registerForm = $registerForm;
         } elseif ($regFormData->register) {
             // If submited registration form was invalid, the redirect from UserController::register()
             $registerForm = unserialize($regFormData->register);
@@ -257,6 +258,10 @@ class InputController extends Zend_Controller_Action
         try {
             $confirmedCount = $inputModel->confirmByCkey($ckey);
             $inputModel->getAdapter()->commit();
+        } catch (Dbjr_UrlkeyAction_Exception $e){
+            $inputModel->getAdapter()->rollback();
+            $this->_flashMessenger->addMessage('It is not allowed to confirm inputs once the input phase is over.', 'error');
+            $this->redirect('/');
         } catch (Exception $e) {
             $inputModel->getAdapter()->rollback();
             throw $e;
@@ -281,7 +286,12 @@ class InputController extends Zend_Controller_Action
         try {
             $rejectedCount = $inputModel->rejectByCkey($ckey);
             $inputModel->getAdapter()->commit();
-        } catch (Exception $e) {
+        } catch (Dbjr_UrlkeyAction_Exception $e){
+            $inputModel->getAdapter()->rollback();
+            $this->_flashMessenger->addMessage('It is not allowed to reject inputs once the input phase is over.', 'error');
+            $this->redirect('/');
+        }
+        catch (Exception $e) {
             $inputModel->getAdapter()->rollback();
             throw $e;
         }
