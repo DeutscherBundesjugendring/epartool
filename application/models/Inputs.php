@@ -255,6 +255,30 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * Returns array with count of input of a user filtered by consultation
+     *
+     * @param  integer $uid
+     * @return integer
+     */
+    public function getCountByUserGroupedConsultation($uid)
+    {
+        $return = array();
+        $db = $this->getDefaultAdapter();
+        $select = $db->select()
+        ->from('inpt as i', array(new Zend_Db_Expr('COUNT(i.tid) as count, i.kid')))
+        ->joinLeft('cnslt as c', 'i.kid=c.kid',array('titl'))
+        ->group('i.kid')
+        ->where('i.uid = ?', $uid);
+        $stmt = $db->query($select);
+        $row = $stmt->fetchAll();
+        foreach ($row AS $curRow) {
+            $return[] = $curRow;
+        }
+
+        return $return;
+    }
+
+    /**
      * Returns number of inputs for a consultation, filtered by given conditions
      * @param  integer $kid
      * @param  array   $filter [optional] array(array('field' => $field, 'operator' => $operator, 'value' => $value)[, ...])
@@ -760,10 +784,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return array();
         }
 
-        $select = $this->select();
-        $select->from($this, array('tid'=>'tid', 'qi'=>'qi'));
-        $select->where('kid=?', $kid);
-        $select->where('vot=?', 'y');
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->_name])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('i.vot=?', 'y')
+            ->where('q.kid=?', $kid);
 
         $rows = $this->fetchAll($select)->toArray();
         $tlist = array();
@@ -1241,12 +1272,13 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * seleteInputs
-     * remove inputs from the database
+     * DeleteInputs
+     * Remove inputs from the database
      * @see VotingprepareController|admin: updateAction()
-     * @param $thesis ID as comma separated list
-     * @return nothing
-     */
+     * @param        $thesis ID as comma separated list
+     * @return bool
+     *
+     **/
     public function deleteInputs($thesis)
     {
         $this->delete('tid IN ('.$thesis.')');
@@ -1269,6 +1301,35 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select->where('tid IN(?)', $tids);
 
         return $this->fetchAll($select)->toArray();
+    }
+
+    /**
+     * thesisExists
+     * @desc checks thesis  by inputID and given consultionID
+     * @name thesisExists()
+     * @param  integer $id
+     * @return bool
+     */
+    public function thesisExists($tid,$kid)
+    {
+        // is int?
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($tid)) {
+            return false;
+        }
+
+         $select = $this->select();
+         $select
+         ->from(array('inputs' => 'inpt'),'COUNT(tid) as count')
+         ->where('inputs.tid = ?', $tid);
+         #->where('inputs.kid = ?', $kid);
+          $resultSet = $this->fetchRow($select);
+
+        if ($resultSet['count'] ==1) {
+           return true;
+        } else {
+           return false;
+        }
     }
 
     /**

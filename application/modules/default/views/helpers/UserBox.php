@@ -20,7 +20,8 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract
                 . '<div class="dropdown pull-right">'
                 . '<a href="#" role="button" class="btn btn-icon dropdown-toggle" id="userDropdown" data-toggle="dropdown"><i class="icon-angle-down"></i></a>'
                 . '<ul class="dropdown-menu" role="menu" aria-labelledby="userDropdown">'
-                . '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'inputlist'), 'default', true) . '"><i class="icon-list"></i> ' . $this->view->translate('Alle meine Beiträge ansehen') . '</a></li>';
+                . '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'inputlist'), 'default', true) . '"><i class="icon-list"></i> ' . $this->view->translate('Alle meine Beiträge ansehen') . '</a></li>'
+				. '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'userlist'), 'default', true) . '"><i class="icon-list"></i> Gruppenmitglieder ansehen</a></li>';
             if ($identity->lvl == 'adm' || $identity->lvl == 'edt') {
                     $html.= '<li><a href="' . $this->view->baseUrl() . '/admin"><i class="icon-cog"></i> ' . $this->view->translate('Zum Adminbereich') . '</a></li>';
                 }
