@@ -1,0 +1,103 @@
+<?php
+ $memberships = array(
+  'y' => 'bestätigt',
+  'n' => 'abgelehnt',
+  'u' => '--offen--',
+);
+?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on("click",".useraction", function (event) {
+			event.preventDefault();
+			var subUser= $(this).attr('data');
+			var action = $(this).attr('rel');
+			var uidArray = subUser.split('/');
+
+			$.ajax({
+				url: "/user/"+action+"/kid/<?php echo $this -> escape($this -> consultation -> kid); ?>/"+subUser+"",
+				type: "POST",
+				data: "format=html",
+				cache: false,
+				async: "true",
+				error: function(){
+					document.getElementById('ua-'+uidArray[3]).innerHTML = "Es ist ein Fehler aufgetreten!";
+				},
+				beforeSend: function(){
+					document.getElementById('ua-'+uidArray[3]).innerHTML = "Bitte warten .... !";
+				},
+				success:function(response){
+					document.getElementById('ua-'+uidArray[3]).innerHTML = response ;
+				}
+			});
+		});
+	});
+</script>
+<div class="main-content content-holder">
+	<div class="row">
+		<div class="span9">
+			<h1>Teilnehmende Gruppenmitglieder</h1>
+			<?php if (empty($this->consultationList)): ?>
+					<p>Es wurden in keiner Beteiligungsrunde Gruppenmitglieder gefunden.</p>
+			<?php endif; ?>
+
+			<?php if (!empty($this->consultationList)): ?>
+
+				<p>Zu folgenden Beteiligungsrunden wurden Gruppenmitglieder gefunden:</p>
+				<ul>
+				<?php foreach ($this->consultationList as $consultation): ?>
+					<li>
+						<h2>
+							<a href="<?php
+							echo $this->url(array(
+								'kid' => $consultation['kid']
+							));
+							?>" title="Zeige meine Beiträge zu dieser Beteiligungsrunde">
+								   <?php echo $consultation['titl']; ?>
+							</a>
+						</h2>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+
+			<?php elseif (isset($this->consultation)): ?>
+
+				<h2>Beteiligungsrunde: <?php echo $this->consultation->titl; ?></h2>
+				<?php if (!empty($this->group)): ?>
+					<h3>Gruppe: <?php echo $this->identity->name.' '.$this->identity->email;;?></h3>
+					<h3>Abzustimmende Beiträge: <?php echo $this->inputs; ?></h3>
+					<table style="width: 100%;" border="1" cellpadding=4">
+						<tr>
+						<th>Absimmende_*r</th>
+						<th>Gruppenmitglied</th>
+						<th>Noch abzustimmen</th>
+						<th>Aktion</th>
+					</tr>
+					<?php foreach ($this->group as $value): ?>
+					<tr>
+						<td><?php echo $value['sub_user'];?></td>
+						<td><?php echo $memberships[$value['member']]; ?></td>
+						<td><?php echo $this->inputs - $value['count']; ?></td>
+						<td id="ua-<?php echo $value['sub_uid']; ?>">
+
+							<?php if (($value['member']=="y" && $this->identity->lvl=="usr") || $value['member']=="u"): ?>
+      							<a href="#" rel="deny" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Ablehnen</a><br/>
+    						<?php endif; ?>
+    						<?php if (($value['member']=="n" && $this->identity->lvl=="usr") || ($value['member']=="u" && $this->identity->lvl=="usr")): ?>
+      							<a href="#" rel="confirm" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Bestätigen</a><br/>
+    						<?php endif; ?>
+    						<?php if ($value['member']=="n" && $this->identity->lvl=="usr"): ?>
+      							<a href="#" rel="delete" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Löschen</a><br/>
+    						<?php endif; ?>
+
+    					</td>
+					</tr>
+					<?php endforeach; ?>
+					</table>
+				<?php endif; ?>
+			<?php endif; ?>
+			<?php echo $this->render('_partials/printLink.phtml') ?>
+		</div>
+	</div><!-- .row -->
+</div><!-- .content-holder -->
+
+<?php echo $this->render('_partials/topLink.phtml') ?>
