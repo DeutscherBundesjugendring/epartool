@@ -43,7 +43,7 @@ ALTER TABLE `user_info`
     DROP COLUMN `ip`,
     DROP COLUMN `agt`,
     CHANGE `uid` `uid` int unsigned NOT NULL,
-    ADD COLUMN `confirmation_key` varchar(40) NULL DEFAULT NULL
+    ADD COLUMN `confirmation_key` varchar(40) NULL DEFAULT NULL,
     ADD COLUMN `is_contrib_under_cc` tinyint(1) NOT NULL DEFAULT '0',
     ADD COLUMN `name` varchar(80) NULL DEFAULT NULL;
 
