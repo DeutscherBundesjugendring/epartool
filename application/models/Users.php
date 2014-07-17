@@ -86,12 +86,11 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * @param  string   $string ConfirmKey for the given session
      * @return array            Info about the user [(int) user_id, (boolean) is_user_new]
      */
-    public function register($data, $confirmKey)
+    public function register($data, $confirmKey = null)
     {
-        $isNew = !$this->emailExists($data['email']);
-
-        if ($isNew) {
+        if (!$this->emailExists($data['email'])) {
             $data['uid'] = $this->add(['block' => 'u', 'email' => $data['email']]);
+            $isNew = true;
         } else {
             $data['uid'] = $this
                 ->fetchRow(
@@ -101,10 +100,11 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         ->where('email=?', $data['email'])
                 )
                 ->uid;
+            $isNew = false;
         }
 
         if (isset($data['kid'])) {
-            $this->updateConsultationData($data);
+            $this->addConsultationData($data, $confirmKey);
         }
 
         return [$data['uid'], $isNew];
@@ -115,7 +115,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * @param  array   $data The user supplied data to be inserted
      * @return integer       The user_info id
      */
-    public function addConsultationData($data)
+    public function addConsultationData($data, $confirmKey)
     {
         $userConsultData = [
             'uid' => $data['uid'],
