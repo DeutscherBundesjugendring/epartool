@@ -115,7 +115,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * @param  array   $data The user supplied data to be inserted
      * @return integer       The user_info id
      */
-    public function addConsultationData($data, $confirmKey)
+    public function addConsultationData($data, $confirmKey = null)
     {
         $userConsultData = [
             'uid' => $data['uid'],
