@@ -77,7 +77,7 @@ class UserController extends Zend_Controller_Action
                                 'name_group' => $data['group_specs']['name_group'],
                                 'name_pers' => $data['group_specs']['name_pers'],
                             ],
-                            ['uid' => $data['uid']]
+                            ['uid=?' => $data['uid']]
                         );
                         $userModel->getAdapter()->commit();
                     } catch (Exception $e) {
