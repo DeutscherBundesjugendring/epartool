@@ -13,6 +13,10 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
     public function notify(array $params)
     {
         $users = $this->_getRecipients($params);
+        if (count($users) === 0) {
+            return $this;
+        }
+
         $ntfIds = [];
         foreach ($users as $user) {
             $ntfIds[] = $user->notificationId;
