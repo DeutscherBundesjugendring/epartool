@@ -76,7 +76,7 @@ class InputController extends Zend_Controller_Action
             if (isset($post['subscribe'])) {
                 $sbsForm = $this->_handleSubscribeQuestion($post, $kid, $qid, $auth);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
-                $this->_handleUnsubscribeQuestion($post, $kid, $qid);
+                $this->_handleUnsubscribeQuestion($post, $kid, $qid, $auth);
             } else {
                 $this->_handleInputSubmit($post, $kid, $qid);
             }
@@ -185,8 +185,9 @@ class InputController extends Zend_Controller_Action
      * @param $post  The data received in post request
      * @param $kid   The consultation identifier
      * @param $qid   The qiestion identifier
+     * @param $auth  The auth adapter
      */
-    private function _handleUnsubscribeQuestion($post, $kid, $qid)
+    private function _handleUnsubscribeQuestion($post, $kid, $qid, $auth)
     {
         $unsbsForm = new Default_Form_Input_UnsubscriptionQuestion();
         if ($unsbsForm->isValid($post)) {
