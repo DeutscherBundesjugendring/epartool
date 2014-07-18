@@ -15,7 +15,7 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract
             $html = '<div class="user-box hidden-print">'
                 . '<div class="user pull-left">'
                 . sprintf($this->view->translate('Eingeloggt als %s mit'), '<strong>' . $identity->name . '</strong>')
-                . '<a href="mailto:' . $identity->email . '">' . $identity->email . '</a>'
+                . ' <a href="mailto:' . $identity->email . '">' . $identity->email . '</a>'
                 . '</div>'
                 . '<div class="dropdown pull-right">'
                 . '<a href="#" role="button" class="btn btn-icon dropdown-toggle" id="userDropdown" data-toggle="dropdown"><i class="icon-angle-down"></i></a>'
