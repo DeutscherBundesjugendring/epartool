@@ -8,8 +8,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	var elements = <?php echo $this->votingBasket['countvotes'];?>;	
+
+	var elements = <?php echo $this->votingBasket['countvotes'];?>;
 
 	$('a.view-basket').click(function() {
         $('div.vote-basket').slideToggle("slow");
@@ -25,10 +25,10 @@ $(document).ready(function() {
         $('div.vote-basket').slideToggle("slow");
     });
 
-    var superbtn = '<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid)); ?>/tid/<?php echo $this->thesis['tid']; ?>/pts/y" class="voting-particularly-important" <?php if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>' +
-                    '<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->settings['btn_important_label']; ?>" title="<?php echo $this->settings['btn_important_label']; ?>" /><br />'+
-                    '<strong><?php echo $this->settings['btn_important_label']; ?> <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></strong>'+
-                    '</a>';
+    var superbtn = '<a href="<?=$this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid))?>/tid/<?=$this->thesis['tid']?>/pts/y" class="voting-particularly-important" <?=$this->pimp == 'y' ? 'style="color: red!important"' : ''?>' +
+        '<img src="<?=$this->baseUrl()?>/images/voting-rate-superbtn.png" alt="<?=$this->settings['btn_important_label']?>" title="<?=$this->settings['btn_important_label']?>" /><br />'+
+        '<strong><?=$this->settings['btn_important_label']?> <span class="counter">(<?=$this->votingBasket['countvotes']?> <?=$this->translate('von')?> <?=$this->settings['btn_important_max']?>)</span></strong>'+
+        '</a>';
 
 	$(document).on("click", "a.voting-minus", function (event) {
             event.preventDefault();
@@ -174,12 +174,13 @@ $(document).ready(function() {
                                 <?=$this->translate('Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion zum Thema?')?>
                             </strong>
                         </p>
-                        <a 
-                        	href="<?php echo $this->url(array('kid' => $this->consultation->kid,'qid' => $this->question['qi'])); ?>" 
-                        	class="btn btn-small btn-light voting-next">
-                                    Überspringen 
-                                    <i class="icon-angle-right icon-large"></i>
-                           </a>
+                        <a
+                        	href="<?=$this->url(['kid' => $this->consultation->kid,'qid' => $this->question['qi']])?>"
+                        	class="btn btn-small btn-light voting-next"
+                        >
+                            <?=$this->translate('Überspringen')?>
+                            <i class="icon-angle-right icon-large"></i>
+                        </a>
                     </div>
 
                     <!-- Voting buttons -->
@@ -188,7 +189,7 @@ $(document).ready(function() {
                     <!-- Actions -->
                     <p>
                         <a
-                            href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
+                            href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true)?>"
                             id="buttonChangeKeyword"
                             class="btn"
                         >
