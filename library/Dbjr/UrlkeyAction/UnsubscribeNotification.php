@@ -1,15 +1,15 @@
 <?php
 
-class Dbjr_UrlkeyAction_ResetPassword extends Dbjr_UrlkeyAction
+class Dbjr_UrlkeyAction_UnsubscribeNotification extends Dbjr_UrlkeyAction
 {
-    const PARAM_USER_ID = 'user_id';
+    const PARAM_NOTIFICATION_ID = 'notification_id';
 
     /**
      * Holds the name of the view script to be used for this action.
      * If null, the urlkeyActionController will redirect to home
      * @var string
      */
-    protected $_viewName = 'passwordReset';
+    protected $_viewName = 'unsubscribeNotification';
 
     /**
      * Executes this urlkeyAction
@@ -19,21 +19,19 @@ class Dbjr_UrlkeyAction_ResetPassword extends Dbjr_UrlkeyAction
      */
     public function execute(Zend_Controller_Request_Http $request, Zend_Db_Table_Row $urlkeyAction)
     {
-        $this->_viewData['form'] = new Default_Form_UrlkeyAction_PasswordReset();
+        $this->_viewData['form'] = new Default_Form_UrlkeyAction_UnsubscribeNotification();
         if ($request->isPost()) {
             if ($this->_viewData['form']->isValid($request->getPost())) {
                 $urlkeyActionParamModel = new Model_UrlkeyAction_Parameter();
-                $userId = $urlkeyActionParamModel->fetchRow(
+                $ntfId = $urlkeyActionParamModel->fetchRow(
                     $urlkeyActionParamModel
                         ->select()
                         ->where('urlkey_action_id=?', $urlkeyAction->id)
-                        ->where('name=?', self::PARAM_USER_ID)
+                        ->where('name=?', self::PARAM_NOTIFICATION_ID)
                 )->value;
-                $userModel = new Model_Users();
-                $passwordHash = $userModel->hashPassword($request->getPost('password'));
-                $userModel->update(['password' => $passwordHash], ['uid' => $userId]);
+                (new Service_Notification_Input_Created())->unsubscribeById($ntfId);
                 $this->_viewName = null;
-                $this->_message = ['text' => 'Your password was set.', 'type' => 'success'];
+                $this->_message = ['text' => 'Your subscription was canceled.', 'type' => 'success'];
                 $this->markVisited($urlkeyAction->id);
             } else {
                 $this->_message = ['text' => 'Form invalid.', 'type' => 'error'];

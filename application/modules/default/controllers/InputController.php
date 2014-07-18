@@ -14,11 +14,7 @@ class InputController extends Zend_Controller_Action
 
     protected $_inputform = null;
 
-    /**
-     * Construct
-     * @see Zend_Controller_Action::init()
-     * @return void
-     */
+
     public function init()
     {
         $kid = $this->getRequest()->getParam('kid', 0);
@@ -39,14 +35,11 @@ class InputController extends Zend_Controller_Action
         }
 
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
-        $ajaxContext->addActionContext('support', 'json')
-                                ->initContext();
+        $ajaxContext
+            ->addActionContext('support', 'json')
+            ->initContext();
     }
-    /**
-     * index
-     * @desc Übersicht der Beiträge
-     * @return void
-     */
+
     public function indexAction()
     {
         $kid = $this->_request->getParam('kid', 0);
@@ -67,8 +60,7 @@ class InputController extends Zend_Controller_Action
     }
 
     /**
-     * Show single Question with Inputs/Contributions
-     *
+     * Show single Question with Inputs
      */
     public function showAction()
     {
@@ -77,10 +69,17 @@ class InputController extends Zend_Controller_Action
         $kid = $this->_getParam('kid', 0);
         $qid = $this->_getParam('qid', 0);
         $tag = $this->_getParam('tag', null);
-        $nowDate = Zend_Date::now();
+        $auth = Zend_Auth::getInstance();
 
         if ($this->getRequest()->isPost()) {
-            $this->_handleInputRequest();
+            $post = $this->getRequest()->getPost();
+            if (isset($post['subscribe'])) {
+                $sbsForm = $this->_handleSubscribeQuestion($post, $kid, $qid, $auth);
+            } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
+                $this->_handleUnsubscribeQuestion($post, $kid, $qid);
+            } else {
+                $this->_handleInputSubmit($post, $kid, $qid);
+            }
         }
 
         if (empty($qid)) {
@@ -93,11 +92,7 @@ class InputController extends Zend_Controller_Action
             $this->view->tag = $tagModel->getById($tag);
         }
 
-        if ($nowDate->isEarlier($this->_consultation->inp_fr)) {
-            $form = '<p>Die Beitragsphase hat noch nicht begonnen.</p>';
-        } elseif ($nowDate->isLater($this->_consultation->inp_to)) {
-            $form = '<p>Die Beitragsphase ist bereits vorbei.</p>';
-        } else {
+        if (Zend_Date::now()->isLater($this->_consultation->inp_fr) && Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
             $form = $this->_getInputform();
             $sessInputs = new Zend_Session_Namespace('inputs');
             $theses = [];
@@ -116,79 +111,160 @@ class InputController extends Zend_Controller_Action
         }
 
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
-
-        // Determine maximum page number and set it as default value in paginator
         $maxPage = ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
+        $this->view->subscriptionForm = isset($sbsForm) ? $sbsForm : $this->_getSubscriptionForm($qid);
         $this->view->paginator = $paginator;
-        $this->view->inputform = $form;
+        $this->view->inputForm = isset($form) ? $form : null;
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
         $this->view->question = $questionModel->getById($qid);
 
     }
 
     /**
-     * Saves input in session, called in showAction() if form submitted.
-     * Redirects to next question or input confirmation page if form is valid
+     * Handles request to subscribe user to recieve notifications of new inputs belonging to this question
+     * @param $post  The data received in post request
+     * @param $kid   The consultation identifier
+     * @param $qid   The qiestion identifier
+     * @param $auth  The auth adapter
      */
-    protected function _handleInputRequest()
+    private function _handleSubscribeQuestion($post, $kid, $qid, $auth)
     {
-        $questionModel = new Model_Questions();
-        $form = $this->_getInputform();
-        $kid = $this->_getParam('kid', 0);
-        $qid = $this->_getParam('qid', 0);
-        $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
-
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getPost())) {
-                $values = $this->_request->getPost();
-
-                $sessInputs = (new Zend_Session_Namespace('inputs'));
-                if (isset($sessInputs->inputs)) {
-                    $tmpCollection = $sessInputs->inputs;
-                    // delete former inputs for this question from session:
-                    foreach ($tmpCollection as $key => $item) {
-                        if ($item['qi'] == $qid) {
-                            unset($tmpCollection[$key]);
-                        }
-                    }
-                    $sessInputs->inputs = $tmpCollection;
-                } else {
-                    $tmpCollection = array();
-                }
-
-                foreach ($values['inputs'] as $input) {
-                    if (!empty($input['thes'])) {
-                        $tmpCollection[] = array(
-                                'kid' => $kid,
-                                'qi' => $qid,
-                                'thes' => $input['thes'],
-                                'expl' => $input['expl']
-                        );
-                        $sessInputs->inputs = $tmpCollection;
-                    }
-                }
-
-                if (isset($values['add_input_field'])) {
-                    $redirectURL.= '/#input';
-                } elseif (isset($values['next_question'])) {
-                    $nextQuestion = $questionModel->getNext($qid);
-                    $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
-                } elseif (isset($values['finished'])) {
-                    $redirectURL = '/input/confirm/kid/' . $kid;
-                }
-                $this->redirect($redirectURL);
-            } else {
-                $this->_flashMessenger->addMessage(
-                    'Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale Bearbeitungszeit von '
-                    . number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
-                    . ' Minuten überschritten hast.',
-                    'error'
+        if ($auth->hasIdentity()) {
+            Zend_Registry::get('dbAdapter')->beginTransaction();
+            try {
+                $userId = $auth->getIdentity()->uid;
+                (new Service_Notification_Input_Created())->subscribeUser(
+                    $userId,
+                    [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid],
+                    Service_Notification_Input_Created::POSTSUBSCRIBE_ACTION_CONFIRM_IMMEDIATE
                 );
+                Zend_Registry::get('dbAdapter')->commit();
+                $this->_flashMessenger->addMessage('Thank you for subscribing.', 'success');
+                $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
+            } catch (Exception $e) {
+                Zend_Registry::get('dbAdapter')->rollback();
+                throw $e;
+            }
+        } else {
+            $sbsForm = new Default_Form_Input_SubscriptionQuestion();
+            $sbsForm->addEmailField();
+            if (isset($post['email'])) {
+                if ($sbsForm->isValid($post)) {
+                    Zend_Registry::get('dbAdapter')->beginTransaction();
+                    try {
+                        list($userId, $isNew) = (new Model_Users())->register($sbsForm->getValues());
+                        (new Service_Notification_Input_Created())->subscribeUser(
+                            $userId,
+                            [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid],
+                            Service_Notification_Input_Created::POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST
+                        );
+                        Zend_Registry::get('dbAdapter')->commit();
+                        $this->_flashMessenger->addMessage('You are now subscribed. A confirmation email has been send.', 'success');
+                        $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
+                    } catch (Dbjr_Notification_Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        $this->_flashMessenger->addMessage('You are now subscribed.', 'success');
+                        $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
+                    } catch (Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        throw $e;
+                    }
+                } else {
+                    $this->_flashMessenger->addMessage('Subscription form is invalid.', 'error');
+                }
             }
         }
 
+        return isset($sbsForm) ? $sbsForm : null;
+    }
+
+    /**
+     * Handles request to unsubscribe user from recieving notifications of new inputs belonging to this question
+     * @param $post  The data received in post request
+     * @param $kid   The consultation identifier
+     * @param $qid   The qiestion identifier
+     */
+    private function _handleUnsubscribeQuestion($post, $kid, $qid)
+    {
+        $unsbsForm = new Default_Form_Input_UnsubscriptionQuestion();
+        if ($unsbsForm->isValid($post)) {
+            $userId = $auth->getIdentity()->uid;
+            (new Service_Notification_Input_Created())->unsubscribeUser(
+                $userId,
+                [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
+            );
+            $this->_flashMessenger->addMessage('You have been unsubscribed.', 'success');
+            $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
+        }
+    }
+
+    /**
+     * Saves input in session, called in showAction() if form submitted.
+     * If form is valid, it redirects based on the submit button pressed
+     * - next question
+     * - input confirmation page
+     * - same page with field for extra input
+     * @param $post  The data received in post request
+     * @param $kid   The consultation identifier
+     * @param $qid   The qiestion identifier
+     */
+    private function _handleInputSubmit($post, $kid, $qid)
+    {
+        $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
+
+        $form = $this
+            ->_getInputform()
+            ->generateInputFields($post['inputs']);
+
+        if ($form->isValid($this->_request->getPost())) {
+            $values = $form->getValues();
+
+            $sessInputs = (new Zend_Session_Namespace('inputs'));
+            if (isset($sessInputs->inputs)) {
+                $tmpCollection = $sessInputs->inputs;
+                // delete former inputs for this question from session:
+                foreach ($tmpCollection as $key => $item) {
+                    if ($item['qi'] == $qid) {
+                        unset($tmpCollection[$key]);
+                    }
+                }
+                $sessInputs->inputs = $tmpCollection;
+            } else {
+                $tmpCollection = array();
+            }
+
+            foreach ($values['inputs'] as $input) {
+                if (!empty($input['thes'])) {
+                    $tmpCollection[] = array(
+                            'kid' => $kid,
+                            'qi' => $qid,
+                            'thes' => $input['thes'],
+                            'expl' => $input['expl']
+                    );
+                    $sessInputs->inputs = $tmpCollection;
+                }
+            }
+
+            if (isset($values['add_input_field'])) {
+                $redirectURL.= '/#input';
+            } elseif (isset($values['next_question'])) {
+                $nextQuestion = (new Model_Questions())->getNext($qid);
+                $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
+            } elseif (isset($values['finished'])) {
+                $redirectURL = '/input/confirm/kid/' . $kid;
+            }
+            $this->redirect($redirectURL);
+        } else {
+            $this->_flashMessenger->addMessage(
+                sprintf(
+                    'Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale Bearbeitungszeit von %s  Minuten überschritten hast.',
+                    number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
+                ),
+                'error'
+            );
+        }
     }
 
     /**
@@ -407,9 +483,37 @@ class InputController extends Zend_Controller_Action
     protected function _getInputform()
     {
         if (null === $this->_inputform) {
-         $this->_inputform = new Default_Form_Input_Create();
+            $this->_inputform = new Default_Form_Input_Create();
         }
 
         return $this->_inputform;
+    }
+
+    /**
+     * Return question subscription form based on weather user is:
+     * - logged in and subscribed
+     * - logged in and unsubscribed
+     * - not loggedin
+     * @param integer $qid  The question identifier
+     * @return Zend_Form    The form object
+     */
+    private function _getSubscriptionForm($qid)
+    {
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()
+            && (new Service_Notification_Input_Created())->isSubscribed(
+                $auth->getIdentity()->uid,
+                [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
+            )
+        ) {
+            $form = new Default_Form_Input_UnsubscriptionQuestion();
+        } else {
+            $form = new Default_Form_Input_SubscriptionQuestion();
+            if (!$auth->hasIdentity()) {
+                $form->addEmailField();
+            }
+        }
+
+        return $form;
     }
 }

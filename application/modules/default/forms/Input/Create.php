@@ -38,7 +38,8 @@ class Default_Form_Input_Create extends Zend_Form
 
     /**
      * Generates the input subForms.
-     * @param array $theses Array of inputs that are already in the session
+     * @param array                        $theses Array of inputs that are already in the session
+     * @return Default_Form_Input_Create           Fluent interface
      */
     public function generateInputFields($theses)
     {
@@ -51,12 +52,15 @@ class Default_Form_Input_Create extends Zend_Form
         }
 
         $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
+
+        return $this;
     }
 
     /**
      * Adds a subForm with elements related to single input to the inputs subForm
      * If the inputs subForm doesnt exist it is created
-     * @param string $inputName The name of the input subgroup to be created
+     * @param  string                      $inputName The name of the input subgroup to be created
+     * @return Default_Form_Input_Create              Fluent interface
      */
     protected function addInputField($inputName, $thes = null, $expl = null)
     {
@@ -106,5 +110,7 @@ class Default_Form_Input_Create extends Zend_Form
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
+
+        return $this;
     }
 }

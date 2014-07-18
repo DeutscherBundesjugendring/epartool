@@ -84,6 +84,15 @@ class Admin_InputController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
+                $origInput = $inputModel->find($tid)->current();
+                if ($origInput->block !== 'n'
+                    && $data['block'] === 'n'
+                    && $data['user_conf'] !== 'r'
+                ) {
+                    (new Service_Notification_Input_Created())->notify(
+                        [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
+                    );
+                }
                 $updated = $inputModel->updateById($tid, $form->getValues());
                 if ($updated == $tid) {
                     $this->_flashMessenger->addMessage('Eintrag aktualisiert', 'success');

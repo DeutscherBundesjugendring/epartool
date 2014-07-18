@@ -1,9 +1,7 @@
 <?php
 
-class Default_Form_PasswordReset extends Zend_Form
+class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
 {
-    protected $_iniFile = '/modules/default/forms/UserEditSimple.ini';
-
     public function init()
     {
         $this->addElement(

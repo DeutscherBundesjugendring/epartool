@@ -59,9 +59,14 @@
                 <p><?php echo $this->question['q_xpl']; ?></p>
             </article>
 
-            <!-- New contribution -->
-            <?php echo $this->inputform; ?>
-
+            <?php if (Zend_Date::now()->isEarlier($this->consultation->inp_fr)): ?>
+                <p><?=$this->translate('Die Beitragsphase hat noch nicht begonnen.')?></p>
+            <?php elseif (Zend_Date::now()->isLater($this->consultation->inp_to)): ?>
+                <p><?=$this->translate('Die Beitragsphase ist bereits vorbei.')?></p>
+            <?php else: ?>
+                <?=$this->inputForm?>
+            <?php endif?>
+            <?=$this->subscriptionForm?>
             <hr />
 
             <!-- Contributions -->

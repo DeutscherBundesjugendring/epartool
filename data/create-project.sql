@@ -199,6 +199,58 @@ Macht mit und stimmt mit ab. Hier geht’s los:
 Sollten technische Probleme auftreten oder Fragen aufkommen, stehen euch Ann-Kathrin Fischer und Tim Schrock gerne zur Verfügung. Einfach anmailen ({{contact_email}}) oder anrufen unter 030. 400 40 443.
 Mit freundlichen Grüßen
 Eure Koordinierungsstelle'
+    ),
+    (
+        'subscription_confirmation',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'Please confirm your subscription',
+        '<p>Hallo {{to_name}},</p>
+<p>Please confirm your subscriptio:</p>
+<p>{{confirmation_url}}</p>
+<p>Mit freundlichen Grüßen<br />
+Eure Koordinierungsstelle</p>',
+        'Hallo {{to_name}},
+Please confirm your subscriptio:
+{{confirmation_url}}
+Mit freundlichen Grüßen
+Eure Koordinierungsstelle'
+    ),
+    (
+        'subscription_confirmation_new_user',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'Please confirm your subscription and your new user account',
+        '<p>Hallo {{to_name}},</p>
+<p>Please confirm your subscriptio and your new user account:</p>
+<p>{{confirmation_url}}</p>
+<p>Mit freundlichen Grüßen<br />
+Eure Koordinierungsstelle</p>',
+        'Hallo {{to_name}},
+Please confirm your subscriptio and your new user account:
+{{confirmation_url}}
+Mit freundlichen Grüßen
+Eure Koordinierungsstelle'
+    ),
+    (
+        'notification_new_input_created',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'New input created',
+        '<p>Hallo {{to_name}},</p>
+<p>There has been new input created:</p>
+<p>{{website_url}}</p>
+<p>Unsubscribe:</p>
+<p>{{unsubscribe_url}}</p>
+<p>Mit freundlichen Grüßen<br />
+Eure Koordinierungsstelle</p>',
+        'Hallo {{to_name}},
+There has been new input created:
+{{website_url}}
+Unsubscribe:
+{{unsubscribe_url}}
+Mit freundlichen Grüßen
+Eure Koordinierungsstelle'
     );
 
 
@@ -419,4 +471,62 @@ VALUES
     (
         (SELECT `id` FROM `email_template` WHERE `name`='voting_invitation_group' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='voting_url')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='question_text')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='question_text')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='question_text')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='website_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='unsubscribe_url')
     );
