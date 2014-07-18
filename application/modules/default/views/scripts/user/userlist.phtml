@@ -27,6 +27,15 @@
 				},
 				success:function(response){
 					document.getElementById('ua-'+uidArray[3]).innerHTML = response ;
+					if(action== 'deny') {
+						document.getElementById('ms-'+uidArray[3]).innerHTML = "abgelehnt";
+					}
+					else if(action== 'confirm') {
+						document.getElementById('ms-'+uidArray[3]).innerHTML = "bestätigt";
+					}
+					else if(action=='delete') {
+						document.getElementById('ms-'+uidArray[3]).innerHTML = "gelöscht";
+					}
 				}
 			});
 		});
@@ -36,12 +45,11 @@
 	<div class="row">
 		<div class="span9">
 			<h1>Teilnehmende Gruppenmitglieder</h1>
-			<?php if (empty($this->consultationList)): ?>
+			<?php if (empty($this->consultationList) && !isset($this->consultation)): ?>
 					<p>Es wurden in keiner Beteiligungsrunde Gruppenmitglieder gefunden.</p>
 			<?php endif; ?>
 
 			<?php if (!empty($this->consultationList)): ?>
-
 				<p>Zu folgenden Beteiligungsrunden wurden Gruppenmitglieder gefunden:</p>
 				<ul>
 				<?php foreach ($this->consultationList as $consultation): ?>
@@ -63,7 +71,7 @@
 
 				<h2>Beteiligungsrunde: <?php echo $this->consultation->titl; ?></h2>
 				<?php if (!empty($this->group)): ?>
-					<h3>Gruppe: <?php echo $this->identity->name.' '.$this->identity->email;;?></h3>
+					<h3>Gruppe: <?php echo $this->identity->name.' '.$this->identity->email; ?></h3>
 					<h3>Abzustimmende Beiträge: <?php echo $this->inputs; ?></h3>
 					<table style="width: 100%;" border="1" cellpadding=4">
 						<tr>
@@ -74,21 +82,19 @@
 					</tr>
 					<?php foreach ($this->group as $value): ?>
 					<tr>
-						<td><?php echo $value['sub_user'];?></td>
-						<td><?php echo $memberships[$value['member']]; ?></td>
+						<td><?php echo $value['sub_user']; ?></td>
+						<td id="ms-<?php echo $value['sub_uid']; ?>"><?php echo $memberships[$value['member']]; ?></td>
 						<td><?php echo $this->inputs - $value['count']; ?></td>
 						<td id="ua-<?php echo $value['sub_uid']; ?>">
-
-							<?php if (($value['member']=="y" && $this->identity->lvl=="usr") || $value['member']=="u"): ?>
-      							<a href="#" rel="deny" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Ablehnen</a><br/>
-    						<?php endif; ?>
-    						<?php if (($value['member']=="n" && $this->identity->lvl=="usr") || ($value['member']=="u" && $this->identity->lvl=="usr")): ?>
-      							<a href="#" rel="confirm" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Bestätigen</a><br/>
-    						<?php endif; ?>
-    						<?php if ($value['member']=="n" && $this->identity->lvl=="usr"): ?>
-      							<a href="#" rel="delete" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Löschen</a><br/>
-    						<?php endif; ?>
-
+									<?php if ($value['member']=="y" || $value['member']=="u"): ?>
+		      							<a href="#" rel="deny" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Ablehnen</a><br/>
+		    						<?php endif; ?>
+		    						<?php if ($value['member']=="n" || $value['member']=="u"): ?>
+		      							<a href="#" rel="confirm" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Bestätigen</a><br/>
+		    						<?php endif; ?>
+		    						<?php if ($value['member']=="n"): ?>
+		      							<a href="#" rel="delete" data="uid/<?php echo $value['uid'].'/subuid/'.$value['sub_uid']; ?>" class="useraction">Löschen</a><br/>
+		    						<?php endif; ?>
     					</td>
 					</tr>
 					<?php endforeach; ?>
