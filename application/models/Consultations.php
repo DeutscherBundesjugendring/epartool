@@ -396,8 +396,15 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         $row = $userConsultModel->fetchRow(
             $userConsultModel
                 ->select()
-                ->where('kid=?', $kid)
-                ->where('newsl_subscr=?', 'y')
+                ->setIntegrityCheck(false)
+                ->from(['u' => (new Model_Users())->info(Model_Users::NAME)], ['uid'])
+                ->join(
+                    ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                    'u.uid = ui.uid',
+                    []
+                )
+                ->where('ui.kid=?', $kid)
+                ->where('u.newsl_subscr=?', 'y')
         );
 
         return $row ? true : false;

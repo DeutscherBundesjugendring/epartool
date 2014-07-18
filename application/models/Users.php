@@ -123,7 +123,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'age_group' => $data['age_group'],
             'regio_pax' => $data['regio_pax'],
             'cnslt_results' => $data['cnslt_results'],
-            'newsl_subscr' => $data['newsl_subscr'],
             'kid' => $data['kid'],
             'date_added' => new Zend_Db_Expr('NOW()'),
             'cmnt_ext' => $data['cmnt_ext'],
@@ -412,7 +411,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 ->where('ui.kid=?', $kid)
                 ->where('ui.confirmation_key IS NULL');
             if ($participantType === Model_User_Info::PARTICIPANT_TYPE_NEWSLETTER_SUBSCRIBER) {
-                $select->where('ui.newsl_subscr=?', 'y');
+                $select->where('u.newsl_subscr=?', 'y');
             } elseif ($participantType === Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER) {
                 $select->where('ui.cnslt_results=?', 'y');
             }
