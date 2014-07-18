@@ -235,7 +235,7 @@ class InputController extends Zend_Controller_Action
                 $tmpCollection = array();
             }
 
-            foreach ($values['inputs'] as $input) {
+            foreach ($post['inputs'] as $input) {
                 if (!empty($input['thes'])) {
                     $tmpCollection[] = array(
                             'kid' => $kid,
@@ -247,12 +247,12 @@ class InputController extends Zend_Controller_Action
                 }
             }
 
-            if (isset($values['add_input_field'])) {
+            if (isset($post['add_input_field'])) {
                 $redirectURL.= '/#input';
-            } elseif (isset($values['next_question'])) {
+            } elseif (isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
-            } elseif (isset($values['finished'])) {
+            } elseif (isset($post['finished'])) {
                 $redirectURL = '/input/confirm/kid/' . $kid;
             }
             $this->redirect($redirectURL);
@@ -278,7 +278,6 @@ class InputController extends Zend_Controller_Action
         $regFormData = new Zend_Session_Namespace('populateForm');
 
         if (!empty($sessInputs->inputs)) {
-            // After entring inputs
             $inputModel = new Model_Inputs();
             $confirmKey = $inputModel->getConfirmationKey();
             try {
