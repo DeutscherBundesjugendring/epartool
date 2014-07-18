@@ -64,7 +64,7 @@ class Admin_MailSendController extends Zend_Controller_Action
                         Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER
                     );
                 }
-                $mailer->send();
+                (new Service_Email)->queueForSend($mailer);
 
                 $this->_flashMessenger->addMessage('Email sent.', 'success');
                 $this->_redirect('/admin/mail-send');

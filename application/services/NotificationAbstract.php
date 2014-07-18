@@ -43,8 +43,8 @@ abstract class Service_NotificationAbstract
             (new Model_Notification_Parameter())->insert(['name' => $key, 'notification_id' => $ntfId, 'value' => $value]);
         }
 
-        $action = (new Dbjr_UrlkeyAction_UnsubscribeNotification())->create(
-            [Dbjr_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
+        $action = (new Service_UrlkeyAction_UnsubscribeNotification())->create(
+            [Service_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
         );
 
         $postSubscribeFnc($ntfId);
@@ -120,8 +120,8 @@ abstract class Service_NotificationAbstract
             $template = Model_Mail_Template::SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION;
         }
 
-        $action = (new Dbjr_UrlkeyAction_ConfirmNotification())->create(
-            [Dbjr_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
+        $action = (new Service_UrlkeyAction_ConfirmNotification())->create(
+            [Service_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
         );
 
         $mailer = new Dbjr_Mail();
@@ -134,8 +134,8 @@ abstract class Service_NotificationAbstract
                     'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                 )
             )
-            ->addTo($user->email)
-            ->send();
+            ->addTo($user->email);
+        (new Service_Email)->queueForSend($mailer);
 
         return $this;
     }

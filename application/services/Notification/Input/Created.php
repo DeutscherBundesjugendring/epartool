@@ -32,8 +32,8 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
                         'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                     )
                 )
-                ->addTo($user->email)
-                ->send();
+                ->addTo($user->email);
+            (new Service_Email)->queueForSend($mailer);
         }
 
         return $this;
@@ -55,8 +55,8 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
             $template = Model_Mail_Template::SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION;
         }
 
-        $action = (new Dbjr_UrlkeyAction_ConfirmNotification())->create(
-            [Dbjr_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
+        $action = (new Service_UrlkeyAction_ConfirmNotification())->create(
+            [Service_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
         );
 
         $mailer = new Dbjr_Mail();
@@ -70,8 +70,8 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
                     'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                 )
             )
-            ->addTo($user->email)
-            ->send();
+            ->addTo($user->email);
+        (new Service_Email)->queueForSend($mailer);
 
         return $this;
     }
@@ -133,9 +133,9 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
                     'ua.id = uap.urlkey_action_id',
                     ['notificationId' => 'uap.value']
                 )
-                ->where('uap.name=?', Dbjr_UrlkeyAction_UnsubscribeNotification::PARAM_NOTIFICATION_ID)
+                ->where('uap.name=?', Service_UrlkeyAction_UnsubscribeNotification::PARAM_NOTIFICATION_ID)
                 ->where('uap.value IN (?)', $ntfIds)
-                ->where('ua.handler_class=?', get_class(new Dbjr_UrlkeyAction_UnsubscribeNotification()))
+                ->where('ua.handler_class=?', get_class(new Service_UrlkeyAction_UnsubscribeNotification()))
                 ->group('ua.urlkey')
         );
         $urlkeys = [];

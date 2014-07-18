@@ -175,12 +175,22 @@ class Dbjr_Mail extends Zend_Mail
     }
 
     /**
-     * Saves the email in db so it can be later send by a cronjob. The placeholders in body and subject field are replaced.
+     * This method is here to disable calling parent::send()
      * @param  Zend_Mail_Transport_Abstract $trasnport The transport class for this email
-     * @throws Dbjr_Mail_Exception                     Throws exception if no recipients are specified
-     * @return Dbjr_Mail                               Fluent interface
+     * @throws Dbjr_Mail_Exception                     This method is not to be called, hence it throws an exception
+     * @see self::getEmailData()
      */
     public function send($transport = null)
+    {
+        throw new Dbjr_Mail_Exception('Dbjr_Mail is not to be send directly. It is to be processed by another object, i.e. Service_Email::queueForSend()');
+    }
+
+    /**
+     * Saves the email in db so it can be later send by a cronjob. The placeholders in body and subject field are replaced.
+     * @throws Dbjr_Mail_Exception                     Throws exception if no recipients are specified
+     * @return array                                   The data to be used for sending/processing the mail.
+     */
+    public function getEmailData()
     {
         if (!$this->_toFull && !$this->_ccFull && !$this->_bccFull) {
             throw new Dbjr_Mail_Exception('Cant send email with no recipients.');
@@ -226,10 +236,8 @@ class Dbjr_Mail extends Zend_Mail
             'cc' => $this->_ccFull,
             'bcc' => $this->_bccFull,
         );
-        $mailModel = new Model_Mail();
-        $mailModel->insert($data);
 
-        return $this;
+        return $data;
     }
 
     /**

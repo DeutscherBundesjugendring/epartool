@@ -1,6 +1,6 @@
 <?php
 
-class Dbjr_UrlkeyAction_UnsubscribeNotification extends Dbjr_UrlkeyAction
+class Service_UrlkeyAction_UnsubscribeNotification extends Service_UrlkeyAction
 {
     const PARAM_NOTIFICATION_ID = 'notification_id';
 
@@ -15,7 +15,7 @@ class Dbjr_UrlkeyAction_UnsubscribeNotification extends Dbjr_UrlkeyAction
      * Executes this urlkeyAction
      * @param  Zend_Controller_Request_Http     $request      The request object
      * @param  Zend_Db_Table_Row                $urlkeyAction The urlkeyAction object
-     * @return Dbjr_UrlkeyAction_ResetPassword                Fluent interface
+     * @return Service_UrlkeyAction_ResetPassword                Fluent interface
      */
     public function execute(Zend_Controller_Request_Http $request, Zend_Db_Table_Row $urlkeyAction)
     {

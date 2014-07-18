@@ -44,8 +44,7 @@ class Admin_MailSentController extends Zend_Controller_Action
                         $mailer->addBcc($recipient->email, $recipient->name);
                     }
                 }
-
-                $mailer->send();
+                (new Service_Email)->queueForSend($mailer);
 
                 $this->_flashMessenger->addMessage('Email queued for resend.', 'success');
                 $this->_redirect('/admin/mail-sent');

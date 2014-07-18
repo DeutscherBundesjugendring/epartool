@@ -172,8 +172,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     {
         $user = $this->fetchRow($this->select()->where('email=?', $email));
         if ($user) {
-            $action = (new Dbjr_UrlkeyAction_ResetPassword())->create(
-                [Dbjr_UrlkeyAction_ResetPassword::PARAM_USER_ID => $user->uid]
+            $action = (new Service_UrlkeyAction_ResetPassword())->create(
+                [Service_UrlkeyAction_ResetPassword::PARAM_USER_ID => $user->uid]
             );
 
             $mailer = new Dbjr_Mail();
@@ -186,8 +186,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         'password_reset_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                     )
                 )
-                ->addTo($user->email)
-                ->send();
+                ->addTo($user->email);
+            (new Service_Email)->queueForSend($mailer);
 
             return true;
         }
@@ -307,8 +307,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         'inputs_text' => $inputsText,
                     )
                 )
-                ->addTo($userRow->email)
-                ->send();
+                ->addTo($userRow->email);
+            (new Service_Email)->queueForSend($mailer);
         }
     }
 

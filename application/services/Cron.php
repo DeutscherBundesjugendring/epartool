@@ -1,6 +1,6 @@
 <?php
 
-abstract class Dbjr_Cron
+abstract class Service_Cron
 {
     abstract public function execute();
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Dbjr_Cron_Mail extends Dbjr_Cron
+class Service_Cron_Mail extends Service_Cron
 {
     /**
      * Sends all unsent emails
