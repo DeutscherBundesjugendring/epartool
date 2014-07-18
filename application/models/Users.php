@@ -336,7 +336,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $user->age_group = $userConsultData->age_group;
             $user->regio_pax = $userConsultData->regio_pax;
             $user->cnslt_results = $userConsultData->cnslt_results;
-            $user->newsl_subscr = $userConsultData->newsl_subscr;
             $user->source = $userConsultData->source;
             $user->src_misc = $userConsultData->src_misc;
             $user->group_size = $userConsultData->group_size;

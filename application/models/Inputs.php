@@ -481,7 +481,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     private function isConfirmOrRejectAllowed($confirmKey)
     {
-        $nowDate = Zend_Date::now();
         $inputPhaseTo = $this->fetchRow(
             (new Model_Consultations())
                 ->select()
@@ -492,7 +491,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ->where('i.confirmation_key=?', $confirmKey)
         )->inp_to;
 
-        if ($nowDate->isLater($inputPhaseTo)) {
+        if (Zend_Date::now()->isLater($inputPhaseTo)) {
             throw new Dbjr_UrlkeyAction_Exception('Cant confirm or reject once the input phase is over');
         }
     }

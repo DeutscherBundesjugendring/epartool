@@ -44,43 +44,70 @@ class UserController extends Zend_Controller_Action
         } else {
             $form = new Default_Form_Register();
             $raw_data = $this->_request->getPost();
+            $userModel = new Model_Users();
+            $populateForm = new Zend_Session_Namespace('populateForm');
 
-            if (!$this->_auth->hasIdentity()) {
-                $userModel = new Model_Users();
+            if ($form->isValid($raw_data)) {
+                unset($populateForm->register);
 
-                if ($form->isValid($raw_data)) {
-                    $data = $form->getValues();
-                    if ($data['group_type'] != 'group') {
-                        unset($data['group_specs']);
-                    }
+                $data = $form->getValues();
+                if ($data['group_type'] != 'group') {
+                    unset($data['group_specs']);
+                }
+                unset($data['group_type']);
 
-                    $confirmKey = (new Zend_Session_Namespace('inputs'))->confirmKey;
-                    $userModel->getAdapter()->beginTransaction();
-                    try {
+                $confirmKey = (new Zend_Session_Namespace('inputs'))->confirmKey;
+                $userModel->getAdapter()->beginTransaction();
+                try {
+                    if (!$this->_auth->hasIdentity()) {
                         list($uid, $isNew) = $userModel->register($data, $confirmKey);
                         $userModel->sendInputsConfirmationMail($uid, $form->getValue('kid'), $confirmKey, $isNew);
-                        $userModel->getAdapter()->commit();
-                    } catch (Exception $e) {
-                        $userModel->getAdapter()->rollback();
-                        throw $e;
+                        $this->_flashMessenger->addMessage(
+                            'Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-Adresse gesendet.',
+                            'success'
+                        );
+                    } else {
+                        $uid = $this->_auth->getIdentity()->uid;
+                        $data['uid'] = $uid;
+                        $userConsultModel = new Model_User_Info();
+                        $userConsultRow = $userConsultModel->fetchRow(['uid=?' => $uid, 'kid=?' => $data['kid']]);
+                        if ($userConsultRow) {
+                            $userConsultRow->name = $data['name'];
+                            $userConsultRow->age_group = $data['age_group'];
+                            $userConsultRow->regio_pax = $data['regio_pax'];
+                            $userConsultRow->cnslt_results = $data['cnslt_results'];
+                            $userConsultRow->cmnt_ext = $data['cmnt_ext'];
+                            if (isset($data['group_specs'])) {
+                                $userConsultRow->source = is_array($data['group_specs']['source']) ? implode(',', $data['group_specs']['source']) : null;
+                                $userConsultRow->src_misc = $data['group_specs']['src_misc'];
+                                $userConsultRow->group_size = $data['group_specs']['group_size'];
+                                $userConsultRow->name_group = $data['group_specs']['name_group'];
+                                $userConsultRow->name_pers = $data['group_specs']['name_pers'];
+                            }
+                            $userConsultRow->save();
+                        } else {
+                            $userModel->addConsultationData($data);
+                        }
+                        unset($data['cmnt_ext']);
+                        unset($data['kid']);
+                        unset($data['csrf_token_register']);
+                        if (isset($data['group_specs'])) {
+                            $data = array_merge($data, $data['group_specs']);
+                            unset($data['group_specs']);
+                        }
+                        $userModel->update($data, ['uid=?' => $uid]);
+                        $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
                     }
-
-                    $this->_flashMessenger->addMessage(
-                        'Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-Adresse gesendet.',
-                        'success'
-                    );
-
-                    $this->redirect('/');
-
-                } else {
-                    $populateForm = new Zend_Session_Namespace('populateForm');
-                    $populateForm->register = serialize($form);
-                    $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
-                    $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
+                    $userModel->getAdapter()->commit();
+                } catch (Exception $e) {
+                    $userModel->getAdapter()->rollback();
+                    throw $e;
                 }
-            } else {
-                $this->_flashMessenger->addMessage('Du bist bereits eingeloggt!', 'info');
                 $this->redirect('/');
+            } else {
+                $populateForm->register = serialize($form);
+                $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
+                $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
             }
         }
     }

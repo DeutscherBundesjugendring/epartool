@@ -31,7 +31,10 @@ class Service_UrlkeyAction_ResetPassword extends Service_UrlkeyAction
                 )->value;
                 $userModel = new Model_Users();
                 $passwordHash = $userModel->hashPassword($request->getPost('password'));
-                $userModel->update(['password' => $passwordHash], ['uid' => $userId]);
+                $userModel->update(
+                    ['password' => $passwordHash, 'block' => 'c'],
+                    ['uid' => $userId]
+                );
                 $this->_viewName = null;
                 $this->_message = ['text' => 'Your password was set.', 'type' => 'success'];
                 $this->markVisited($urlkeyAction->id);

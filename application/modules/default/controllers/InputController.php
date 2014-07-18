@@ -305,6 +305,7 @@ class InputController extends Zend_Controller_Action
                         ->select()
                         ->where('email=?', $auth->getIdentity()->email)
                 )->toArray();
+                $user['is_contrib_under_cc'] = false;
                 $registerForm->populate($user);
                 $registerForm->lockEmailField();
             }
