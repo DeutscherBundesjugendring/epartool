@@ -120,7 +120,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         $userConsultData = [
             'uid' => $data['uid'],
             'name' => $data['name'],
-            'group_type' => $data['group_type'],
             'age_group' => $data['age_group'],
             'regio_pax' => $data['regio_pax'],
             'cnslt_results' => $data['cnslt_results'],
@@ -133,7 +132,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         ];
 
         // if group then also save group specifications
-        if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
+        if (isset($data['group_specs'])) {
             $userConsultData = array_merge(
                 $userConsultData,
                 [
@@ -334,7 +333,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $user->name = $userConsultData->name;
             $user->name_group = $userConsultData->name_group;
             $user->name_pers = $userConsultData->name_pers;
-            $user->group_type = $userConsultData->group_type;
             $user->is_contrib_under_cc = $userConsultData->is_contrib_under_cc;
             $user->age_group = $userConsultData->age_group;
             $user->regio_pax = $userConsultData->regio_pax;

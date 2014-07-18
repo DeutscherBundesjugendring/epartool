@@ -67,7 +67,6 @@ class UserController extends Zend_Controller_Action
                         $userModel->update(
                             [
                                 'name' => $data['name'],
-                                'group_type' => $data['group_type'],
                                 'age_group' => $data['age_group'],
                                 'regio_pax' => $data['regio_pax'],
                                 'cnslt_results' => $data['cnslt_results'],
