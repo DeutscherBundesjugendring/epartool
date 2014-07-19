@@ -1,5 +1,8 @@
 # Version 2.2
 
+## Environment
+* Application newly requires PHP 5.4+, that is a change from previosly required PHP 5.3+
+
 ## Users
 * All passwords have to be manually reset by all users as the cryptographic backend has changed to a more secure algorythm
 
