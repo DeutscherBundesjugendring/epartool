@@ -411,7 +411,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $options = array(
             'directory' => $directory,
             'relTID' => "",
-            'uid' => 1,
+            'uid' => null,
             'inputs' => $this->_tid,
             'kid' => $this->_consultation['kid']
         );
@@ -429,9 +429,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $this->view->getParams =
             'kid/' . $this->view->consultation['kid']
             . '/qid/' . $this->_question . '/tid/' . $this->_tid;
-        if (isset($this->view->directory))
+        if (isset($this->view->directory)) {
             $this->view->getParams = $this->view->getParams . '/dir/' . $this->view->directory;
-
+        }
     }
 
     /**
@@ -440,15 +440,16 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @see VotingprepareController|admin: splitAction()
      * @param get param
      * @return bool or redirect votingprepare error
-     *
      **/
     public function splitresponseAction()
     {
-
-        if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            exit; //no AjaxRequest
+        }
 
         $this->_helper->layout()->disableLayout();
         $data = $this->_request->getPost();
+        $data['uid'] = null;
 
         $form = new Admin_Form_Input();
 
@@ -472,9 +473,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @see overviewAction()
      * @param get param
      * @return ajax response
-     *
      **/
-     public function delinputresponseAction()
+    public function delinputresponseAction()
     {
             if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
             $this->_helper->layout()->disableLayout();
@@ -498,9 +498,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @see overviewAction()
      * @param get param
      * @return ajax response
-     *
      **/
-     public function cancelshortcutresponseAction()
+    public function cancelshortcutresponseAction()
     {
             if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest? exit!
             $this->_helper->layout()->disableLayout();
@@ -531,7 +530,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @return CSRF hash form element
      *
      **/
-     public function getnewhashAction()
+    public function getnewhashAction()
     {
             if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
              $this->_helper->layout()->disableLayout();
@@ -562,10 +561,11 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $options = array(
             'directory' => $directory,
             'relTID' => $this->_params['inputs'],
-            'uid' => 1,
+            'uid' => null,
             'kid' => $this->_consultation['kid']
         );
         $this->addNewElements($options, $form);
+        $form->removeElement('uid');
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
