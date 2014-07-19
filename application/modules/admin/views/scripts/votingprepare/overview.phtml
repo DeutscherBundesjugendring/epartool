@@ -245,12 +245,12 @@
             });
             $("#append-inputs-"+elementID).removeClass("append-inputs");
          });
-         
+
         $(document).on("click","a.del-input", function (event) {
 			if(confirm('Den Beitrag endgültig löschen?')) {
 				event.preventDefault();
 				var elementID = $(this).attr('rel');
-				
+
 				$.ajax({
                 	url: "/admin/votingprepare/delinputresponse/<?php echo $this->getParams ?>/tid/" + elementID  + "",
                 	type: "GET",
@@ -270,8 +270,8 @@
 				return false;
 			}
 		});
-        
-        
+
+
          $(document).on("click","a.cancel-shortcut", function (event) {
          	if(confirm('Die Verknüpfung löschen?')) {
 				event.preventDefault();
@@ -309,7 +309,9 @@
     <h3><? echo "Frage-Nr.:".$this->question["nr"]. " ".$this->question["q"] . '<br />Beiträge gesamt: ' . count($this->inputs)?></h3>
     <form id="thesis-form" method="post">
         <ul>
-            <?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
+            <?php foreach($this->inputs as $input): ?>
+                <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input, 'kid' => $this->consultation['kid']])?>
+            <?php endforeach?>
         </ul>
     </form>
 </div>
@@ -317,7 +319,7 @@
 <div class="c33l">
 	<div id="directoryAnchors" class="yform">
         <h3 title="Klicken zum aus-/einklappen">Ordner: <? echo $this->directoryact; ?></h3>
-        
+
         <ul class="levels">
             <?php echo $this->partialLoop('_partials/votingprepare/directories.phtml', $this->directories); ?>
             <li><a href="/admin/directories/index/<?php echo $this->getParams; ?>">Ordnerverwaltung</a></li>

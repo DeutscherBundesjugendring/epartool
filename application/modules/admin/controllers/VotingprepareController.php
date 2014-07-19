@@ -71,7 +71,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             );
             $dirs["$key"]['qid'] = $this->_question;
         }
-		$options = array('kid' => $this->_consultation["kid"], 'qid' => $this->_question);
+        $options = array('kid' => $this->_consultation["kid"], 'qid' => $this->_question);
         $options['dir'] = $this->getDirId($this->_params);
 
         $tags = $tagModel->getAll()->toArray();
@@ -109,13 +109,13 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $this->view->directories = array();
         $this->view->tags = array();
         $this->view->directoryact = "keine Auswahl";
-		
-		foreach ($dirs as $key=>$value) {
-			if ($value["id"]==$options['dir']) {
-				$this->view->directoryact = $value["dir_name"];
-				break;
-			}
-		}
+
+        foreach ($dirs as $key=>$value) {
+            if ($value["id"]==$options['dir']) {
+                $this->view->directoryact = $value["dir_name"];
+                break;
+            }
+        }
 
         $this->view->inputs = $inputsModel->fetchAllInputs($options);
         $this->view->question = $questionModel->find($this->_question)->current();
@@ -274,11 +274,11 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     break;
                 case 'delete' :
                     $inputsModel->deleteInputs($option);
-					$inputTagsModel = new Model_InputsTags();	
-					foreach ($this->_params['thesis'] as $key=>$value) {
-						$inputTagsModel ->deleteByInputsId($value);
-					}
-					
+                    $inputTagsModel = new Model_InputsTags();
+                    foreach ($this->_params['thesis'] as $key=>$value) {
+                        $inputTagsModel ->deleteByInputsId($value);
+                    }
+
                     $this->_flashMessenger->addMessage('Die markierten Beiträge wurden gelöscht', 'success');
                     break;
                 default :
@@ -444,8 +444,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      **/
     public function splitresponseAction()
     {
-    	
-		if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
+
+        if(!$this->getRequest()->isXmlHttpRequest()) exit; //no AjaxRequest
 
         $this->_helper->layout()->disableLayout();
         $data = $this->_request->getPost();
@@ -465,8 +465,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
     }
-	
-	/**
+
+    /**
      *  delinputresponseAction()()
      *  delete inputs via ajax-link from related inputs
      * @see overviewAction()
@@ -474,25 +474,25 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @return ajax response
      *
      **/
-	 public function delinputresponseAction()
+     public function delinputresponseAction()
     {
-    		if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
-        	$this->_helper->layout()->disableLayout();
-        	$inputModel = new Model_Inputs();
-			$inputTagsModel = new Model_InputsTags();	
-			
-			$this->_tid = $this->getTId($this->_params);
-			$inputTagsModel ->deleteByInputsId($this->_tid );
-			
-			// response 
-			if ($inputModel->deleteInputs($this->_tid)) {
-					$this->view->response = "success";
-			} else {
-					$this->view->response = "error";
-			}
+            if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
+            $this->_helper->layout()->disableLayout();
+            $inputModel = new Model_Inputs();
+            $inputTagsModel = new Model_InputsTags();
+
+            $this->_tid = $this->getTId($this->_params);
+            $inputTagsModel ->deleteByInputsId($this->_tid );
+
+            // response
+            if ($inputModel->deleteInputs($this->_tid)) {
+                    $this->view->response = "success";
+            } else {
+                    $this->view->response = "error";
+            }
     }
-	
-	/**
+
+    /**
      *  cancelshortcutAction()()
      *  delete shotcut to origin input via ajax-link from related inputs
      * @see overviewAction()
@@ -500,30 +500,30 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @return ajax response
      *
      **/
-	 public function cancelshortcutresponseAction()
+     public function cancelshortcutresponseAction()
     {
-    		if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest? exit!
-        	$this->_helper->layout()->disableLayout();
-			$this->_tid = $this->getTId($this->_params);
-			$this->_child = (int)$this->_params["child"];
-			
-			$inputModel = new Model_Inputs();
-			$input = $inputModel->getById($this->_tid);
-			
-			$relIDs= $input["rel_tid"];
-			$relIDs=  explode ( "," , $relIDs);
-			unset($relIDs[array_search($this->_child, $relIDs)]);  // delete given ID
-			$relIDs=  implode ( "," , $relIDs);
-			//update
-			if ($inputModel->setAppendInputsByID($relIDs,$this->_tid)) {
-				$this->view->response = "success";
-			} else {
-				$this->view->response = "error";
-			}
+            if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest? exit!
+            $this->_helper->layout()->disableLayout();
+            $this->_tid = $this->getTId($this->_params);
+            $this->_child = (int)$this->_params["child"];
+
+            $inputModel = new Model_Inputs();
+            $input = $inputModel->getById($this->_tid);
+
+            $relIDs= $input["rel_tid"];
+            $relIDs=  explode ( "," , $relIDs);
+            unset($relIDs[array_search($this->_child, $relIDs)]);  // delete given ID
+            $relIDs=  implode ( "," , $relIDs);
+            //update
+            if ($inputModel->setAppendInputsByID($relIDs,$this->_tid)) {
+                $this->view->response = "success";
+            } else {
+                $this->view->response = "error";
+            }
     }
-	
-	
-	/**
+
+
+    /**
      *  getnewhashAction()
      *  gets a valid CSRF Protection Hash for Ajax-Form()
      * @see admin forms input.php
@@ -531,13 +531,13 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      * @return CSRF hash form element
      *
      **/
-	 public function getnewhashAction()
+     public function getnewhashAction()
     {
-    		if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
-     		$this->_helper->layout()->disableLayout();       
-			$form = new Admin_Form_Input();
-    		$this->view->newhash = $form->getHash(); 
-	}
+            if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
+             $this->_helper->layout()->disableLayout();
+            $form = new Admin_Form_Input();
+            $this->view->newhash = $form->getHash();
+    }
 
     /**
      *  mergeAction()
@@ -603,52 +603,52 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $this->view->consultation = $this->_consultation;
         $this->view->assign(array('form' => $form, 'qid' => $this->_question));
     }
-	
-	/**
+
+    /**
      *  copyAction()
      *  copy a input
      * @param get param
      * @return redirect to editAction();
      *
      **/
-	public function copyAction()
+    public function copyAction()
     {
-    	$this->_helper->layout()->disableLayout();
-    	if (empty($this->_tid)) {
+        $this->_helper->layout()->disableLayout();
+        if (empty($this->_tid)) {
             $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
             $this->_redirect(
                 'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
             );
         }
-		
-		$inputModel = new Model_Inputs();
-		$inputTagsModel = new Model_InputsTags();	
-		
-		// Get the data from the database - source row
-		$copyprepare = $inputModel->getById($this->_tid); 
-		$tags= $copyprepare['tags'];
-		
-		// New Owner (Admin)
-		$copyprepare['uid'] = 1;
-		// New create_date 
-		$copyprepare['when'] = "";
-		
-		// Unset the uid which should be the primary key and teh tag array()
-		unset ($copyprepare['tags']);
-		unset ($copyprepare['tid']);
-		 
-		 //insert
-		$new = $inputModel ->add($copyprepare);
-		
-		//insert tags when have
-		if (!empty($tags)) {
-			foreach ($tags as $key=>$value) {
-			$inputTagsModel->insertByInputsId($new, array($value["tg_nr"]));
-			}
-		}
-		
-		//redirect to editaction
-		$this->redirect(
+
+        $inputModel = new Model_Inputs();
+        $inputTagsModel = new Model_InputsTags();
+
+        // Get the data from the database - source row
+        $copyprepare = $inputModel->getById($this->_tid);
+        $tags= $copyprepare['tags'];
+
+        // New Owner (Admin)
+        $copyprepare['uid'] = 1;
+        // New create_date
+        $copyprepare['when'] = "";
+
+        // Unset the uid which should be the primary key and teh tag array()
+        unset ($copyprepare['tags']);
+        unset ($copyprepare['tid']);
+
+         //insert
+        $new = $inputModel ->add($copyprepare);
+
+        //insert tags when have
+        if (!empty($tags)) {
+            foreach ($tags as $key=>$value) {
+            $inputTagsModel->insertByInputsId($new, array($value["tg_nr"]));
+            }
+        }
+
+        //redirect to editaction
+        $this->redirect(
             '/admin/votingprepare/edit/kid/'
             . $this->_consultation["kid"]
             . '/qid/'
@@ -658,7 +658,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             . '/dir/'
             . $this->getDirId($this->_params)
         );
-	}
+    }
 
     /**
      *  addNewElements
