@@ -1,5 +1,5 @@
--- DROP TABLE 'ml_def';
--- DROP TABLE 'ml_sent';
+DROP TABLE `ml_def`;
+DROP TABLE `ml_sent`;
 
 ALTER TABLE `proj` ENGINE=InnoDB;
 

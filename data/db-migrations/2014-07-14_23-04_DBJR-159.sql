@@ -16,7 +16,6 @@ ALTER TABLE `inpt_tgs`
 
 ALTER TABLE `users`
     ENGINE = InnoDB,
-    ADD UNIQUE `users_email_idx` (`email`),
     DROP COLUMN `confirm_key`,
     DROP COLUMN `ip`,
     DROP COLUMN `agt`,
