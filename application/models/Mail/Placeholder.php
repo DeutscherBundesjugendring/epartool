@@ -30,7 +30,7 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
             )
             ->where('mp.is_global=?', true);
         if ($templateId) {
-            $select->where('ethetp.email_template_id=?', $templateId);
+            $select->orWhere('ethetp.email_template_id=?', $templateId);
         }
 
         return $this->fetchAll($select);
