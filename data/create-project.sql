@@ -3,44 +3,12 @@ SET @project_code = 'xx' COLLATE utf8_unicode_ci;
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
 VALUES
     (
-        'forgotten_password',
+        'password_reset',
         (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
         @project_code,
         'Neue Zugangsdaten',
-        '<p>Hallo {{to_name}},</p>
-<p>Du hast neue Zugangsdaten angefordert. Mit den folgenden Daten kannst du dich einloggen:</p>
-<p>Username: {{to_email}}<br />
-Passwort: {{password}}</p>
-<p>Diese Zugangsdaten funktionieren nur für eine einmalige Benutzung; du kannst dir aber jederzeit neue zuschicken lassen.</p>
-<p>Bei Fragen:</p>',
-        'Hallo {{to_name}},
-Du hast neue Zugangsdaten angefordert. Mit den folgenden Daten kannst du dich einloggen:
-Username: {{to_email}}
-Passwort: {{password}}
-Diese Zugangsdaten funktionieren nur für eine einmalige Benutzung; du kannst dir aber jederzeit neue zuschicken lassen.
-Bei Fragen:'
-    ),
-    (
-        'registration',
-        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
-        @project_code,
-        'Registrierung',
-        '<p>Hallo {{to_name}},</p>
-<p>danke für deine/eure Beteiligung an der aktuellen Beteiligungsrunde. Es wurde ein Passwort generiert, mit dem du/ihr dich/euch in Zukunft am System anmelden kannst/k&ouml;nnt:</p>
-<p>{{password}}</p>
-<p>Mit dieser Mail bitten wir dich/euch um die Best&auml;tigung deiner/eurer Registrierung. Klickt dazu bitte auf folgenden $this->_projectCode oder kopiert diesen in die Adresszeile deines/eures Browsers:</p>
-<p><a href="{{confirmation_url}}">{{confirmation_url}}</a></p>
-<p>Nach der Best&auml;tigung erh&auml;ltst du/ihr eine Mail zur Best&auml;tigung deiner/eurer Beitr&auml;ge.</p>
-<p>Liebe Gr&uuml;&szlig;e,<br />
-euer Projektteam</p>',
-        'Hallo {{to_name}},
-danke für deine/eure Beteiligung an der aktuellen Beteiligungsrunde. Es wurde ein Passwort generiert, mit dem du/ihr dich/euch in Zukunft am System anmelden kannst/könnt:
-{{password}}
-Mit dieser Mail bitten wir dich/euch um die Bestätigung deiner/eurer Registrierung. Klickt dazu bitte auf folgenden Link oder kopiert diesen in die Adresszeile deines/eures Browsers:
-{{confirmation_url}}
-Nach der Bestätigung erhältst du/ihr eine Mail zur Bestätigung deiner/eurer Beiträge.
-Liebe Grüße,
-euer Projektteam'
+        '<p>Hallo {{to_name}},</p>\n<p>Du hast neue Zugangsdaten angefordert. Mit den folgenden Daten kannst du dich einloggen:</p>\n\n<p>To reset your password, please visit this link:<br />{{password_reset_url}}</p>',
+        'Hallo {{to_name}},\nDu hast neue Zugangsdaten angefordert. Mit den folgenden Daten kannst du dich einloggen:\n\nTo reset your password, please visit this link:\n\n{{password_reset_url}}'
     ),
     (
         'input_confirmation',
@@ -231,6 +199,58 @@ Macht mit und stimmt mit ab. Hier geht’s los:
 Sollten technische Probleme auftreten oder Fragen aufkommen, stehen euch Ann-Kathrin Fischer und Tim Schrock gerne zur Verfügung. Einfach anmailen ({{contact_email}}) oder anrufen unter 030. 400 40 443.
 Mit freundlichen Grüßen
 Eure Koordinierungsstelle'
+    ),
+    (
+        'subscription_confirmation',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'Please confirm your subscription',
+        '<p>Hallo {{to_name}},</p>
+<p>Please confirm your subscriptio:</p>
+<p>{{confirmation_url}}</p>
+<p>Mit freundlichen Grüßen<br />
+Eure Koordinierungsstelle</p>',
+        'Hallo {{to_name}},
+Please confirm your subscriptio:
+{{confirmation_url}}
+Mit freundlichen Grüßen
+Eure Koordinierungsstelle'
+    ),
+    (
+        'subscription_confirmation_new_user',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'Please confirm your subscription and your new user account',
+        '<p>Hallo {{to_name}},</p>
+<p>Please confirm your subscriptio and your new user account:</p>
+<p>{{confirmation_url}}</p>
+<p>Mit freundlichen Grüßen<br />
+Eure Koordinierungsstelle</p>',
+        'Hallo {{to_name}},
+Please confirm your subscriptio and your new user account:
+{{confirmation_url}}
+Mit freundlichen Grüßen
+Eure Koordinierungsstelle'
+    ),
+    (
+        'notification_new_input_created',
+        (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
+        @project_code,
+        'New input created',
+        '<p>Hallo {{to_name}},</p>
+<p>There has been new input created:</p>
+<p>{{website_url}}</p>
+<p>Unsubscribe:</p>
+<p>{{unsubscribe_url}}</p>
+<p>Mit freundlichen Grüßen<br />
+Eure Koordinierungsstelle</p>',
+        'Hallo {{to_name}},
+There has been new input created:
+{{website_url}}
+Unsubscribe:
+{{unsubscribe_url}}
+Mit freundlichen Grüßen
+Eure Koordinierungsstelle'
     );
 
 
@@ -239,34 +259,16 @@ Eure Koordinierungsstelle'
 INSERT INTO `email_template_has_email_placeholder` (`email_template_id`, `email_placeholder_id`)
 VALUES
     (
-        (SELECT `id` FROM `email_template` WHERE `name`='forgotten_password' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_template` WHERE `name`='password_reset' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
     ),
     (
-        (SELECT `id` FROM `email_template` WHERE `name`='forgotten_password' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_template` WHERE `name`='password_reset' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
     ),
     (
-        (SELECT `id` FROM `email_template` WHERE `name`='forgotten_password' AND `project_code`=@project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='password')
-    ),
-
-
-    (
-        (SELECT `id` FROM `email_template` WHERE `name`='registration' AND `project_code`=@project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
-    ),
-    (
-        (SELECT `id` FROM `email_template` WHERE `name`='registration' AND `project_code`=@project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
-    ),
-    (
-        (SELECT `id` FROM `email_template` WHERE `name`='registration' AND `project_code`=@project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='password')
-    ),
-    (
-        (SELECT `id` FROM `email_template` WHERE `name`='registration' AND `project_code`=@project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+        (SELECT `id` FROM `email_template` WHERE `name`='password_reset' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='password_reset_url')
     ),
 
 
@@ -469,4 +471,62 @@ VALUES
     (
         (SELECT `id` FROM `email_template` WHERE `name`='voting_invitation_group' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='voting_url')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='question_text')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='question_text')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='question_text')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='website_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='unsubscribe_url')
     );

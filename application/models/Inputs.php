@@ -255,6 +255,30 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * Returns array with count of input of a user filtered by consultation
+     *
+     * @param  integer $uid
+     * @return integer
+     */
+    public function getCountByUserGroupedConsultation($uid)
+    {
+        $return = array();
+        $db = $this->getDefaultAdapter();
+        $select = $db->select()
+        ->from('inpt as i', array(new Zend_Db_Expr('COUNT(i.tid) as count, i.kid')))
+        ->joinLeft('cnslt as c', 'i.kid=c.kid',array('titl'))
+        ->group('i.kid')
+        ->where('i.uid = ?', $uid);
+        $stmt = $db->query($select);
+        $row = $stmt->fetchAll();
+        foreach ($row AS $curRow) {
+            $return[] = $curRow;
+        }
+
+        return $return;
+    }
+
+    /**
      * Returns number of inputs for a consultation, filtered by given conditions
      * @param  integer $kid
      * @param  array   $filter [optional] array(array('field' => $field, 'operator' => $operator, 'value' => $value)[, ...])
@@ -407,6 +431,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function confirmByCkey($confirmKey)
     {
+        $this->isConfirmOrRejectAllowed($confirmKey);
         $userModel = new Model_Users();
         $uid = $userModel->confirmbyCkey($confirmKey);
         $userModel->ping($uid);
@@ -428,6 +453,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function rejectByCkey($confirmKey)
     {
+        $this->isConfirmOrRejectAllowed($confirmKey);
+        $userConsultDataModel = new Model_User_Info();
+        $uid = $userConsultDataModel->fetchRow(
+            $userConsultDataModel
+                ->select()
+                ->from($userConsultDataModel->info(Model_User_Info::NAME), ['uid'])
+                ->where('confirmation_key=?', $confirmKey)
+        )->uid;
+
+        $userModel = new Model_Users();
+        $userModel->ping($uid);
+
         return $this->update(
             [
                 'user_conf' => 'r',
@@ -436,6 +473,27 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ],
             ['confirmation_key=?' => $confirmKey, 'user_conf=?' => 'u']
         );
+    }
+
+    /**
+     * Throws excpetion if rejection/confimation are not allowed
+     * @throws Dbjr_UrlkeyAction_Exception  If the consultation has moved past the input phase
+     */
+    private function isConfirmOrRejectAllowed($confirmKey)
+    {
+        $inputPhaseTo = $this->fetchRow(
+            (new Model_Consultations())
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['i' => $this->info(Model_Inputs::NAME)], [])
+                ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi=q.qi', [])
+                ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid=c.kid', ['inp_to'])
+                ->where('i.confirmation_key=?', $confirmKey)
+        )->inp_to;
+
+        if (Zend_Date::now()->isLater($inputPhaseTo)) {
+            throw new Dbjr_UrlkeyAction_Exception('Cant confirm or reject once the input phase is over');
+        }
     }
 
     /**
@@ -725,10 +783,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return array();
         }
 
-        $select = $this->select();
-        $select->from($this, array('tid'=>'tid', 'qi'=>'qi'));
-        $select->where('kid=?', $kid);
-        $select->where('vot=?', 'y');
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->_name])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('i.vot=?', 'y')
+            ->where('q.kid=?', $kid);
 
         $rows = $this->fetchAll($select)->toArray();
         $tlist = array();
@@ -881,7 +946,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         $select = $this->select();
-        $select ->where("rel_tid LIKE '%$id%'");
+        $select ->where('rel_tid LIKE ?', '%' . $id . '%');
         $select ->where("`vot` LIKE 'y'");
         $result = $this->fetchAll($select)->toArray();
 
@@ -990,8 +1055,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $searchphrases = array();
             $searchphrases = explode(" ", $options['search-phrase']);
             $searchphrases = implode("%' ".$options['combine']." thes LIKE '%", $searchphrases);
-            $where =    "thes LIKE '%".$searchphrases."%'";
-            $select ->where("$where");
+            $select->where('thes LIKE ?', '%' . $searchphrases . '%');
         }
 
         $resultSet = $this->getAdapter()->query($select);
@@ -1207,12 +1271,13 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * seleteInputs
-     * remove inputs from the database
+     * DeleteInputs
+     * Remove inputs from the database
      * @see VotingprepareController|admin: updateAction()
-     * @param $thesis ID as comma separated list
-     * @return nothing
-     */
+     * @param        $thesis ID as comma separated list
+     * @return bool
+     *
+     **/
     public function deleteInputs($thesis)
     {
         $this->delete('tid IN ('.$thesis.')');
@@ -1235,6 +1300,35 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select->where('tid IN(?)', $tids);
 
         return $this->fetchAll($select)->toArray();
+    }
+
+    /**
+     * thesisExists
+     * @desc checks thesis  by inputID and given consultionID
+     * @name thesisExists()
+     * @param  integer $id
+     * @return bool
+     */
+    public function thesisExists($tid,$kid)
+    {
+        // is int?
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($tid)) {
+            return false;
+        }
+
+         $select = $this->select();
+         $select
+         ->from(array('inputs' => 'inpt'),'COUNT(tid) as count')
+         ->where('inputs.tid = ?', $tid);
+         #->where('inputs.kid = ?', $kid);
+          $resultSet = $this->fetchRow($select);
+
+        if ($resultSet['count'] ==1) {
+           return true;
+        } else {
+           return false;
+        }
     }
 
     /**

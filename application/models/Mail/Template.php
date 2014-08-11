@@ -3,13 +3,15 @@
 class Model_Mail_Template extends Dbjr_Db_Table_Abstract
 {
     const SYSTEM_TEMPLATE_PASSWORD_RESET = 'password_reset';
-    const SYSTEM_TEMPLATE_REGISTRATION = 'registration';
     const SYSTEM_TEMPLATE_INPUT_CONFIRMATION = 'input_confirmation';
     const SYSTEM_TEMPLATE_INPUT_CONFIRMATION_NEW_USER = 'input_confirmation_new_user';
     const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE = 'voting_confirmation_single';
     const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_GROUP = 'voting_confirmation_group';
     const SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE = 'voting_invitation_single';
     const SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP = 'voting_invitation_group';
+    const SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION = 'subscription_confirmation';
+    const SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'subscription_confirmation_new_user';
+    const SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_CREATED = 'notification_new_input_created';
 
     protected $_name = 'email_template';
     protected $_dependentTables = array('Model_Mail_Template_Type');

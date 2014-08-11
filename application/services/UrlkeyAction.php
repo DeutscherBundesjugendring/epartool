@@ -1,6 +1,6 @@
 <?php
 
-class Dbjr_UrlkeyAction
+class Service_UrlkeyAction
 {
     /**
      * Holds the variebles to be exported to the view
@@ -36,7 +36,7 @@ class Dbjr_UrlkeyAction
     /**
      * Creates an urlkeyAction
      * @param  array             $params The parameters to be attached to this action
-     * @return Dbjr_UrlkeyAction         Fluent interface
+     * @return Service_UrlkeyAction         Fluent interface
      */
     public function create(array $params = array())
     {
@@ -117,7 +117,7 @@ class Dbjr_UrlkeyAction
     /**
      * Generates an urlkey and sets to protected varieble
      * The string is guaranteed to be unique
-     * @return Dbjr_UrlkeyAction  Fluent interface
+     * @return Service_UrlkeyAction  Fluent interface
      */
     public function generateUrlkey()
     {
@@ -139,7 +139,7 @@ class Dbjr_UrlkeyAction
     /**
      * Marks this urlkeyAction as visited
      * @param  integer            $urlkeyActionId  Yhe urlkeyAction identifier
-     * @return Dbjr_UrlkeyAction                   Fluent interface
+     * @return Service_UrlkeyAction                   Fluent interface
      */
     protected function markVisited($urlkeyActionId)
     {

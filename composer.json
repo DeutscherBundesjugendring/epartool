@@ -3,6 +3,7 @@
     "type": "zend-library",
     "require": {
         "zendframework/zendframework1": "~1.12.3",
-        "tracy/tracy": "~2.2.2"
+        "tracy/tracy": "~2.2.2",
+        "Html2Text/Html2Text": "~1.0.1"
     }
 }

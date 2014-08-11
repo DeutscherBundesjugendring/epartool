@@ -12,20 +12,12 @@ class Default_Form_Register extends Zend_Form
      */
     public function init()
     {
-        // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-
         $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
 
-        // set options for stringlength validator
-//         $password = $this->getElement('register_password');
-//         $password->getValidator('StringLength')
-//             ->setMin(6)
-//             ->setMessage('Ihr Kennwort ist zu kurz.', 'stringLengthTooShort');
-
         $group = $this->getElement('group_type');
-        $group->removeDecorator('Label')
-            // set default:
+        $group
+            ->removeDecorator('Label')
             ->setValue('single');
 
         $systemconfig = Zend_Registry::get('systemconfig');
@@ -100,5 +92,23 @@ class Default_Form_Register extends Zend_Form
         $hash = $this->createElement('hash', 'csrf_token_register', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         $this->addElement($hash);
+    }
+
+    /**
+     * Makes the email field element disabled, but adds a hidden field so the value still gets submitted
+     */
+    public function lockEmailField() {
+        $emailDisabledEl = $this
+            ->getElement('email')
+            ->setName('email-disabled')
+            ->setOrder(1)
+            ->setAttrib('disabled', 'disabled');
+
+        $emailHiddenEl = $this
+            ->createElement('hidden', 'email')
+            ->setValue($emailDisabledEl->getValue())
+            ->setName('email');
+        $this->addElement($emailDisabledEl);
+        $this->addElement($emailHiddenEl);
     }
 }

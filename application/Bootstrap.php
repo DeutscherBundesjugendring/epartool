@@ -93,10 +93,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initHead()
     {
         $view = $this->bootstrap('view')->getResource('view');
-            $view->headTitle()->setSeparator(' - ');
-
-        $sysconfig = Zend_Registry::get('systemconfig');
-        $view->headTitle($sysconfig->headTitle);
+        $view->headTitle()->setSeparator(' - ');
+        $view->headTitle(Zend_Registry::get('systemconfig')->site->name);
     }
 
     protected function _initSetupBaseUrl()

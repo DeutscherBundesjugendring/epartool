@@ -16,8 +16,9 @@ ALTER TABLE `inpt_tgs`
 
 ALTER TABLE `users`
     ENGINE = InnoDB,
-    ADD UNIQUE `users_email_idx` (`email`),
     DROP COLUMN `confirm_key`,
+    DROP COLUMN `ip`,
+    DROP COLUMN `agt`,
     CHANGE `password` `password` varchar(150) NULL DEFAULT NULL,
     CHANGE `uid` `uid` int unsigned NOT NULL AUTO_INCREMENT,
     CHANGE `name` `name` varchar(80) NULL DEFAULT NULL,
@@ -38,8 +39,10 @@ ALTER TABLE `inpt`
 
 ALTER TABLE `user_info`
     ENGINE = InnoDB,
+    DROP COLUMN `ip`,
+    DROP COLUMN `agt`,
     CHANGE `uid` `uid` int unsigned NOT NULL,
-    ADD COLUMN `confirmation_key` varchar(40) NULL DEFAULT NULL
+    ADD COLUMN `confirmation_key` varchar(40) NULL DEFAULT NULL,
     ADD COLUMN `is_contrib_under_cc` tinyint(1) NOT NULL DEFAULT '0',
     ADD COLUMN `name` varchar(80) NULL DEFAULT NULL;
 

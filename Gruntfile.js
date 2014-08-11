@@ -108,29 +108,62 @@ module.exports = function(grunt) {
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-shake.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-slide.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-transfer.js'
+				],
+				dest: 'www/js/jquery.ui.js'
+			}
+		},
 
-                ],
-                dest: 'www/js/jquery.ui.js'
-            }
-        },
+		// Minify all JS
+		uglify: {
+			dist: {
+				files: {
+					'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
+					'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
+				}
+			}
+		},
 
-        // Minify all JS
-        uglify: {
-            dist: {
-                files: {
-                    'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
-                    'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
+        // Remove unused CSS
+        uncss: {
+            mail: {
+                src: ['application/layouts/scripts/src/*.phtml'],
+                dest: '.tmp/mail_clean.css',
+                options: {
+                    report: 'min' // optional: include to report savings
                 }
             }
         },
 
-        // Clean temporary files
-        clean: [
-            'www/js/bootstrap.js',
-            'www/js/jquery.ui.js'
-        ],
+        // Process HTML
+        processhtml: {
+            mail: {
+                files: {
+                    '.tmp/mail.phtml': ['application/layouts/scripts/src/mail.phtml']
+                }
+            }
+        },
 
-        // Watch task
+        // Inject inline CSS to mail templates from linked stylesheets.
+        // Behold! Requires Premailer gem installed in the system (gem install premailer).
+        premailer: {
+            main: {
+                options: {
+                    verbose: true
+                },
+                files: {
+                    'application/layouts/scripts/mail.phtml': ['.tmp/mail.phtml']
+                }
+            }
+        },
+
+		// Clean temporary files
+		clean: [
+			'www/js/bootstrap.js',
+			'www/js/jquery.ui.js',
+            '.tmp'
+		],
+
+		// Watch task
         watch: {
             less: {
                 files: ['www/less/**/*.less'],
@@ -169,8 +202,19 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', [
-        'less',
+    // Build email phtml template.
+    // Task not executed by default as it requires Ruby and Premailer gem in the system.
+    grunt.registerTask('mail', [
+        'less:dev',
+        'uncss:mail',
+        'processhtml:mail',
+        'premailer',
+        'clean'
+    ]);
+
+    // Default task
+	grunt.registerTask('default', [
+		'less',
         'coffee',
         'jshint',
         'concat',

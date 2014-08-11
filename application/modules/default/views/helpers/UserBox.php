@@ -15,12 +15,13 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract
             $html = '<div class="user-box hidden-print">'
                 . '<div class="user pull-left">'
                 . sprintf($this->view->translate('Eingeloggt als %s mit'), '<strong>' . $identity->name . '</strong>')
-                . '<a href="mailto:' . $identity->email . '">' . $identity->email . '</a>'
+                . ' <a href="mailto:' . $identity->email . '">' . $identity->email . '</a>'
                 . '</div>'
                 . '<div class="dropdown pull-right">'
                 . '<a href="#" role="button" class="btn btn-icon dropdown-toggle" id="userDropdown" data-toggle="dropdown"><i class="icon-angle-down"></i></a>'
                 . '<ul class="dropdown-menu" role="menu" aria-labelledby="userDropdown">'
-                . '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'inputlist'), 'default', true) . '"><i class="icon-list"></i> ' . $this->view->translate('Alle meine Beiträge ansehen') . '</a></li>';
+                . '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'inputlist'), 'default', true) . '"><i class="icon-list"></i> ' . $this->view->translate('Alle meine Beiträge ansehen') . '</a></li>'
+				. '<li><a href="' . $this->view->url(array('controller' => 'user', 'action' => 'userlist'), 'default', true) . '"><i class="icon-list"></i> Gruppenmitglieder ansehen</a></li>';
             if ($identity->lvl == 'adm' || $identity->lvl == 'edt') {
                     $html.= '<li><a href="' . $this->view->baseUrl() . '/admin"><i class="icon-cog"></i> ' . $this->view->translate('Zum Adminbereich') . '</a></li>';
                 }

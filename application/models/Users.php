@@ -86,26 +86,13 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * @param  string   $string ConfirmKey for the given session
      * @return array            Info about the user [(int) user_id, (boolean) is_user_new]
      */
-    public function register($data, $confirmKey)
+    public function register($data, $confirmKey = null)
     {
-        $userData = [
-            'ip' => getenv('REMOTE_ADDR'),
-            'agt' => getenv('HTTP_USER_AGENT'),
-        ];
-        $isNew = !$this->emailExists($data['email']);
-
-        if ($isNew) {
-            $uid = $this->add(
-                array_merge(
-                    $userData,
-                    [
-                        'block' => 'u',
-                        'email' => $data['email'],
-                    ]
-                )
-            );
+        if (!$this->emailExists($data['email'])) {
+            $data['uid'] = $this->add(['block' => 'u', 'email' => $data['email']]);
+            $isNew = true;
         } else {
-            $uid = $this
+            $data['uid'] = $this
                 ->fetchRow(
                     $this
                         ->select()
@@ -113,48 +100,55 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         ->where('email=?', $data['email'])
                 )
                 ->uid;
+            $isNew = false;
         }
 
         if (isset($data['kid'])) {
-            $userConsultData = array_merge(
-                $userData,
-                [
-                    'uid' => $uid,
-                    'name' => $data['name'],
-                    'group_type' => $data['group_type'],
-                    'age_group' => $data['age_group'],
-                    'regio_pax' => $data['regio_pax'],
-                    'cnslt_results' => $data['cnslt_results'],
-                    'newsl_subscr' => $data['newsl_subscr'],
-                    'kid' => $data['kid'],
-                    'date_added' => new Zend_Db_Expr('NOW()'),
-                    'cmnt_ext' => $data['cmnt_ext'],
-                    'confirmation_key' => $confirmKey,
-                ]
-            );
-
-            // if group then also save group specifications
-            if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
-                $userConsultData = array_merge(
-                    $userConsultData,
-                    [
-                        'source' => implode(',', $data['group_specs']['source']),
-                        'src_misc' => $data['group_specs']['src_misc'],
-                        'group_size' => $data['group_specs']['group_size'],
-                        'name_group' => $data['group_specs']['name_group'],
-                        'name_pers' => $data['group_specs']['name_pers'],
-                    ]
-                );
-            } else {
-                $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
-            }
-
-            (new Model_User_Info())
-                ->createRow($userConsultData)
-                ->save();
+            $this->addConsultationData($data, $confirmKey);
         }
 
-        return [$uid, $isNew];
+        return [$data['uid'], $isNew];
+    }
+
+    /**
+     * Creates a new row in user_info data table
+     * @param  array   $data The user supplied data to be inserted
+     * @return integer       The user_info id
+     */
+    public function addConsultationData($data, $confirmKey = null)
+    {
+        $userConsultData = [
+            'uid' => $data['uid'],
+            'name' => $data['name'],
+            'age_group' => $data['age_group'],
+            'regio_pax' => $data['regio_pax'],
+            'cnslt_results' => $data['cnslt_results'],
+            'kid' => $data['kid'],
+            'date_added' => new Zend_Db_Expr('NOW()'),
+            'cmnt_ext' => $data['cmnt_ext'],
+            'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
+            'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
+        ];
+
+        // if group then also save group specifications
+        if (isset($data['group_specs'])) {
+            $userConsultData = array_merge(
+                $userConsultData,
+                [
+                    'source' => is_array($data['group_specs']['source']) ? implode(',', $data['group_specs']['source']) : null,
+                    'src_misc' => $data['group_specs']['src_misc'],
+                    'group_size' => $data['group_specs']['group_size'],
+                    'name_group' => $data['group_specs']['name_group'],
+                    'name_pers' => $data['group_specs']['name_pers'],
+                ]
+            );
+        } else {
+            $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
+        }
+
+        return (new Model_User_Info())
+            ->createRow($userConsultData)
+            ->save();
     }
 
     /**
@@ -178,8 +172,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     {
         $user = $this->fetchRow($this->select()->where('email=?', $email));
         if ($user) {
-            $action = (new Dbjr_UrlkeyAction_ResetPassword())->create(
-                [Dbjr_UrlkeyAction_ResetPassword::PARAM_USER_ID => $user->uid]
+            $action = (new Service_UrlkeyAction_ResetPassword())->create(
+                [Service_UrlkeyAction_ResetPassword::PARAM_USER_ID => $user->uid]
             );
 
             $mailer = new Dbjr_Mail();
@@ -192,8 +186,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         'password_reset_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                     )
                 )
-                ->addTo($user->email)
-                ->send();
+                ->addTo($user->email);
+            (new Service_Email)->queueForSend($mailer);
 
             return true;
         }
@@ -313,8 +307,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         'inputs_text' => $inputsText,
                     )
                 )
-                ->addTo($userRow->email)
-                ->send();
+                ->addTo($userRow->email);
+            (new Service_Email)->queueForSend($mailer);
         }
     }
 
@@ -338,12 +332,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $user->name = $userConsultData->name;
             $user->name_group = $userConsultData->name_group;
             $user->name_pers = $userConsultData->name_pers;
-            $user->group_type = $userConsultData->group_type;
             $user->is_contrib_under_cc = $userConsultData->is_contrib_under_cc;
             $user->age_group = $userConsultData->age_group;
             $user->regio_pax = $userConsultData->regio_pax;
             $user->cnslt_results = $userConsultData->cnslt_results;
-            $user->newsl_subscr = $userConsultData->newsl_subscr;
             $user->source = $userConsultData->source;
             $user->src_misc = $userConsultData->src_misc;
             $user->group_size = $userConsultData->group_size;
@@ -418,7 +410,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 ->where('ui.kid=?', $kid)
                 ->where('ui.confirmation_key IS NULL');
             if ($participantType === Model_User_Info::PARTICIPANT_TYPE_NEWSLETTER_SUBSCRIBER) {
-                $select->where('ui.newsl_subscr=?', 'y');
+                $select->where('u.newsl_subscr=?', 'y');
             } elseif ($participantType === Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER) {
                 $select->where('ui.cnslt_results=?', 'y');
             }

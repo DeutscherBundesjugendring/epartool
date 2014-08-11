@@ -1,5 +1,5 @@
--- DROP TABLE 'ml_def';
--- DROP TABLE 'ml_sent';
+DROP TABLE `ml_def`;
+DROP TABLE `ml_sent`;
 
 ALTER TABLE `proj` ENGINE=InnoDB;
 
@@ -19,7 +19,7 @@ CREATE TABLE `email_template` (
     `body_html` text NOT NULL,
     `body_text` text NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE `email_template_name_idx` (`name`),
+    UNIQUE `email_template_name_project_code_idx` (`name`, `project_code`),
     CONSTRAINT `email_template_project_code_ibfk` FOREIGN KEY (`project_code`) REFERENCES `proj` (`proj`),
     CONSTRAINT `email_template_type_id_ibfk` FOREIGN KEY (`type_id`) REFERENCES `email_template_type` (`id`)
 ) ENGINE=InnoDB;

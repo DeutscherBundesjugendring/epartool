@@ -1,0 +1,101 @@
+/*!
+ * DBJR toolmail styles
+ *
+ * ZURB Ink overrides
+ */
+
+
+@import 'config/variables';
+
+
+// Typography
+a {
+    text-decoration: none;
+
+    &,
+    h1 &,
+    h2 &,
+    h3 &,
+    h4 &,
+    h5 &,
+    h6 & {
+        color: @linkText;
+    }
+
+    &:hover {
+        color: @linkTextHover !important;
+    }
+
+    &:active {
+        color: @linkText !important;
+    }
+
+
+    &:visited {
+        color: @linkText !important;
+    }
+}
+
+.template-label {
+    font-weight: bold;
+}
+
+// CTA box
+.callout {
+    .wrapper {
+        padding-bottom: 20px;
+    }
+
+    .panel {
+        background: #ECF8FF;
+        border-color: #b9e5ff;
+    }
+}
+
+// Layout
+.copy .wrapper {
+    padding-bottom: 10px;
+}
+
+.footer {
+    .wrapper {
+        background: @grayLightest;
+    }
+
+    h6 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+table.columns {
+    .text-pad {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .left-text-pad {
+        padding-left: 20px;
+    }
+
+    .right-text-pad {
+        padding-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    table[class="body"] {
+        .text-pad {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .right-text-pad {
+            padding-left: 10px !important;
+        }
+
+        .left-text-pad {
+            padding-right: 10px !important;
+        }
+    }
+}

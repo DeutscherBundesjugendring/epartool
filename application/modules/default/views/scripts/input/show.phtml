@@ -59,9 +59,14 @@
                 <p><?php echo $this->question['q_xpl']; ?></p>
             </article>
 
-            <!-- New contribution -->
-            <?php echo $this->inputform; ?>
-
+            <?php if (Zend_Date::now()->isEarlier($this->consultation->inp_fr)): ?>
+                <p><?=$this->translate('Die Beitragsphase hat noch nicht begonnen.')?></p>
+            <?php elseif (Zend_Date::now()->isLater($this->consultation->inp_to)): ?>
+                <p><?=$this->translate('Die Beitragsphase ist bereits vorbei.')?></p>
+            <?php else: ?>
+                <?=$this->inputForm?>
+            <?php endif?>
+            <?=$this->subscriptionForm?>
             <hr />
 
             <!-- Contributions -->
@@ -119,7 +124,7 @@
                             ): ?>
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
-                                    <small>(<?php echo $input['pts']; ?>)</small>
+                                    <small>(<?php echo $input['place']; ?>)</small>
                                     <a class="label" href="#">Das möchte ich gerne diskutieren!</a>
                                 </span>
                             <?php endif?>
@@ -131,7 +136,7 @@
             <?php endif; ?>
 
             <!-- Paging -->
-            <?$this->paginationControl(
+            <?php echo $this->paginationControl(
                 $this->paginator,
                 'Sliding',
                 '_partials/pagination.phtml',

@@ -84,6 +84,16 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'label' => 'Statistics',
                     'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'report', 'kid' => $kid)),
                 ),
+                 array(
+                    'label' => 'Beteiligungsrunde schließen',
+                    'href' => $this->view->baseUrl() . '/admin/close/index/kid/' . $kid
+                ),
+                array(
+                    'label' => 'Beteiligungsrunde löschen',
+                    'href' => $this->view->baseUrl() . '/admin/consultation/delete/kid/' . $kid,
+                    'class' => 'button_red delete-action',
+                    'required_userlevel' => 'adm'
+                ),
             );
 
             $html .= '<div class="list-group list-group-nested">' . "\n";

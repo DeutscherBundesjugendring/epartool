@@ -27,6 +27,7 @@
                 <h2 class="alt"><?=$this->translate('Bisherige Reaktionen im Überblick')?></h2>
                 <ul class="thumbnails thumbnails-follow-up">
 
+                    <?php $i = 1; ?>
                     <?php foreach ($this->followups as $followup): ?>
                         <li class="span2">
                             <div class="thumbnail">
@@ -81,6 +82,12 @@
 
                             </div><!-- .thumbnail -->
                         </li>
+                        <?php if ($i === 4): ?>
+                            </ul>
+                            <hr />
+                            <ul class="thumbnails thumbnails-follow-up">
+                        <?php endif; ?>
+                        <?php $i++; ?>
                     <?php endforeach; ?>
 
                 </ul>

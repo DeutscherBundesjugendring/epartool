@@ -108,6 +108,11 @@
 
             $('.explbutton').click(function() {
                 $('.toggleexpl').toggle();
+                if ($('.toggleexpl').is(':visible')) {
+                    $(this).html('<i class="icon-angle-up"></i>');
+                } else {
+                    $(this).html('<i class="icon-angle-down"></i>');
+                }
                 _setVerticalAlign();
             });
 

@@ -216,8 +216,7 @@ class Admin_VotingController extends Zend_Controller_Action
                         )
                         ->addTo($user['email']);
                 }
-
-                $mailer->send();
+                (new Service_Email)->queueForSend($mailer);
 
                 $this->_flashMessenger->addMessage('Votingeinladung an <b>' . $user['email'] . '</b> versendet.', 'success');
                 $this->redirect('/admin/voting/invitations/kid/' . $this -> _consultation -> kid);

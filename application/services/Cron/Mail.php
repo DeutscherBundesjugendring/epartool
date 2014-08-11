@@ -1,6 +1,6 @@
 <?php
 
-class Dbjr_Cron_Mail extends Dbjr_Cron
+class Service_Cron_Mail extends Service_Cron
 {
     /**
      * Sends all unsent emails
@@ -9,7 +9,12 @@ class Dbjr_Cron_Mail extends Dbjr_Cron
     public function execute()
     {
         $mailModel = new Model_Mail();
-        $emails = $mailModel->fetchAll($mailModel->select()->where('time_sent IS NULL'));
+        $emails = $mailModel->fetchAll(
+            $mailModel
+                ->select()
+                ->where('time_sent IS NULL')
+                ->where('project_code=?', Zend_Registry::get('systemconfig')->project)
+        );
 
         foreach ($emails as $email) {
             $mailer = new Zend_Mail('UTF-8');

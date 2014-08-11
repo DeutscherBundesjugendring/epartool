@@ -7,51 +7,57 @@
 ?>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        var elements = <?php echo $this->votingBasket['countvotes'];?>;
+	var elements = <?php echo $this->votingBasket['countvotes'];?>;
 
-        $('a.view-basket').click(function() {
-            $('div.vote-basket').slideToggle("slow");
-        });
-
-        $('a.view-basket-btn').click(function() {
-            $('div.vote-basket').slideToggle("slow");
-        });
-
-        var superbtn = '<a href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid)); ?>/tid/<?php echo $this->thesis['tid']; ?>/pts/y" class="voting-particularly-important" <?php if ($this->pimp == 'y' ) echo 'style="color: red!important"'; ?>>' +
-                        '<img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->settings['btn_important_label']; ?>" title="<?php echo $this->settings['btn_important_label']; ?>" /><br />'+
-                        '<strong><?php echo $this->settings['btn_important_label']; ?> <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span></strong>'+
-                        '</a>';
-
-        $(document).on("click", "a.voting-minus", function (event) {
-                event.preventDefault();
-                var elementID = $(this).attr('rel');
-
-                $.ajax({
-                    url: "/voting/removethesis/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/tid/"+elementID+"",
-                    type: "POST",
-                    data: "format=html",
-                    cache: false,
-                    async: "true",
-                    error: function(){
-                        document.getElementById('voting-minus-'+elementID).innerHTML = "<?=$this->translate('Es ist ein Fehler aufgetreten!')?>";
-                    },
-                    beforeSend: function(){
-                        document.getElementById('voting-minus-'+elementID).innerHTML = '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">';
-                    },
-                    success:function(response){
-                        elements -= 1;
-                        document.getElementById('voting-minus-'+elementID).innerHTML =  '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">' ;
-                        $( "a.view-basket-btn" ).replaceWith(superbtn);
-                        $( "#thes-"+elementID).remove();
-                        $( "span.counter" ).html( elements+" <?=$this->translate('von')?> <?php echo $this->settings['btn_important_max'] ?>" );
-
-                    }
-            });
-            return false;
-        });
+	$('a.view-basket').click(function() {
+        $('div.vote-basket').slideToggle("slow");
     });
+    $('a.close-basket').click(function() {
+        $('div.vote-basket').slideToggle("slow");
+    });
+     $('a.close-basket-x').click(function() {
+        $('div.vote-basket').slideToggle("slow");
+    });
+
+    $('a.view-basket-btn').click(function() {
+        $('div.vote-basket').slideToggle("slow");
+    });
+
+    var superbtn = '<a href="<?=$this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid))?>/tid/<?=$this->thesis['tid']?>/pts/y" class="voting-particularly-important" <?=$this->pimp == 'y' ? 'style="color: red!important"' : ''?>' +
+        '<img src="<?=$this->baseUrl()?>/images/voting-rate-superbtn.png" alt="<?=$this->settings['btn_important_label']?>" title="<?=$this->settings['btn_important_label']?>" /><br />'+
+        '<strong><?=$this->settings['btn_important_label']?> <span class="counter">(<?=$this->votingBasket['countvotes']?> <?=$this->translate('von')?> <?=$this->settings['btn_important_max']?>)</span></strong>'+
+        '</a>';
+
+	$(document).on("click", "a.voting-minus", function (event) {
+            event.preventDefault();
+            var elementID = $(this).attr('rel');
+
+            $.ajax({
+                url: "/voting/removethesis/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/tid/"+elementID+"",
+                type: "POST",
+                data: "format=html",
+                cache: false,
+                async: "true",
+                error: function(){
+                    document.getElementById('voting-minus-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
+                },
+                beforeSend: function(){
+                    document.getElementById('voting-minus-'+elementID).innerHTML = '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">';
+                },
+                success:function(response){
+                    elements -= 1;
+                    document.getElementById('voting-minus-'+elementID).innerHTML =  '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">' ;
+                    $( "a.view-basket-btn" ).replaceWith(superbtn);
+                    $( "#thes-"+elementID).remove();
+                    $( "span.counter-supervotes" ).html( elements+" von <?php echo $this->settings['btn_important_max'] ?>" );
+
+                }
+        });
+        return false;
+    });
+ });
 </script>
 
 <?php echo $this->secondNavigation('voting') ?>
@@ -86,9 +92,10 @@
                     <!--  @TODO change url to last input of voting -->
                     <?php if ($this->settings['btn_important'] == 'y'):  ?>
                         <div class="vote-basket">
+                        	<a class="close-basket-x" title="<?=$this->translate('verbergen')?>">x</a>
                             <h3>
                                 <?=$this->translate('Entscheide, was besonders wichtig ist!')?>
-                                <span class="counter">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span>
+                                <span class="counter counter-supervotes">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span>
                             </h3>
                             <p class="basket-info">
                                 <?=$this->translate('Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein stärkeres Gewicht zu verleihen. Diese Übersicht zeigt, was du bereits als „besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl wieder rückgängig machen und Platz für wichtigere Beiträge schaffen.')?>
@@ -103,7 +110,7 @@
                                     </li>
                                 <?php endforeach?>
                             </ul>
-                            <a class="view-basket"><?=$this->translate('verbergen')?></a>
+                            <a class="close-basket"><?=$this->translate('verbergen')?></a>
                         </div>
                     <?php endif; ?>
 
@@ -167,6 +174,13 @@
                                 <?=$this->translate('Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion zum Thema?')?>
                             </strong>
                         </p>
+                        <a
+                        	href="<?=$this->url(['kid' => $this->consultation->kid,'qid' => $this->question['qi']])?>"
+                        	class="btn btn-small btn-light voting-next"
+                        >
+                            <?=$this->translate('Überspringen')?>
+                            <i class="icon-angle-right icon-large"></i>
+                        </a>
                     </div>
 
                     <!-- Voting buttons -->
@@ -175,7 +189,7 @@
                     <!-- Actions -->
                     <p>
                         <a
-                            href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
+                            href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true)?>"
                             id="buttonChangeKeyword"
                             class="btn"
                         >
