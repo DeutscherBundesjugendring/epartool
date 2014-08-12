@@ -15,15 +15,7 @@
         <div class="row">
             <div class="col-md-3">
 
-                <div class="list-group list-group-nested">
-                    <a href="<?=$this->url(array('action' => 'index'));?>" class="list-group-item active">
-                        <h4 class="list-group-item-heading"><?=$this->translate('All Media');?></h4>
-                    </a>
-                    <a href="<?=$this->url(array('action' => 'index'));?>" class="list-group-item">
-                        <h4 class="list-group-item-heading"><?=$this->translate('Categories');?></h4>
-                    </a>
-                    <a href="" class="list-group-add" title="<?=$this->translate('Create new item');?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                </div>
+                <?=$this->mediaNavigation('all');?>
 
             </div>
             <div class="col-md-9">

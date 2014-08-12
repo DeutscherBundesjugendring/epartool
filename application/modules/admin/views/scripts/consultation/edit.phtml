@@ -13,14 +13,7 @@
         <div class="row">
             <div class="col-md-3">
 
-                <div class="list-group list-group-nested">
-                    <a href="<?=$this->url(array('action' => 'edit', $this->consultation->kid));?>" class="list-group-item active">
-                        <h4 class="list-group-item-heading"><?=$this->translate('Settings');?></h4>
-                    </a>
-                    <a href="<?=$this->url(array('action' => 'edit', $this->consultation->kid));?>" class="list-group-item">
-                        <h4 class="list-group-item-heading"><?=$this->translate('Phase Names');?></h4>
-                    </a>
-                </div>
+                <?=$this->consultationEditNavigation($this->consultation->kid, 'settings');?>
 
             </div>
             <div class="col-md-9">
