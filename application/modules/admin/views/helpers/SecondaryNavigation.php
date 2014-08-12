@@ -35,7 +35,7 @@ class Admin_View_Helper_SecondaryNavigation extends Zend_View_Helper_Abstract
      *                             ]
      * @param  string  $html       The html produced so far
      * @param  string  $activeItem The name of the active item
-     * @param  boolean $isNested   Indicates if it parent or nested item
+     * @param  boolean $isNested   Indicates if it is a parent or nested item
      */
     private function getItemHtml(&$item, &$html, $activeItem = null, $isNested = null)
     {
@@ -50,16 +50,16 @@ class Admin_View_Helper_SecondaryNavigation extends Zend_View_Helper_Abstract
         $item['active'] = !empty($item['active']) ? true : ($item['name'] === $activeItem);
         if ($isNested) {
             $html .= '<a href="' . $item['href'] . '" class="list-group-item list-group-item-nested' . ($item['active'] ? ' active' : '' ) . '">';
-            $html .= $item['label'];
+            $html .= $this->view->translate($item['label']);
             $html .= "</a>";
         } else {
             $html .= '<a href="' . $item['href'] . '" class="list-group-item' . ($item['active'] ? ' active' : '' ) . '">';
-            $html .= '<h4 class="list-group-item-heading">' . $item['label'] . '</h4>';
+            $html .= '<h4 class="list-group-item-heading">' . $this->view->translate($item['label']) . '</h4>';
             $html .= "</a>";
         }
 
         if (isset($item['new_item'])) {
-            $html .= '<a href="' . $item['new_item'] . '" class="list-group-add" title="Create new item">';
+            $html .= '<a href="' . $item['new_item'] . '" class="list-group-add" title="' . $this->view->translate('Create new item') . '">';
             $html .= '<span class="glyphicon glyphicon-plus-sign"></span>';
             $html .= '</a>';
         }

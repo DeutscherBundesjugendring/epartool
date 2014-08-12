@@ -8,6 +8,7 @@ class Admin_View_Helper_TabsNavigation extends Zend_View_Helper_Abstract
      *                            [
      *                                'name' => Used to match with $activeItem
      *                                'label' => label to be displayed
+     *                                'icon' => icon markup, optional
      *                                'href' => menu link url
      *                            ]
      * @param  string $activeItem The name of the active item
@@ -21,7 +22,8 @@ class Admin_View_Helper_TabsNavigation extends Zend_View_Helper_Abstract
 
             $html .= '<li' . ($activeItem === $item['name'] ? ' class="active"' : '') . '>';
             $html .= '<a href="' . $item['href'] . '">';
-            $html .= $item['label'];
+            $html .= isset($item['icon']) ? ($item['icon'] . ' ') : '';
+            $html .= $this->view->translate($item['label']);
             $html .= '</a>';
             $html .= "</li>";
         }

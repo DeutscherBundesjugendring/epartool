@@ -13,12 +13,14 @@ class Admin_View_Helper_EmailTabs extends Zend_View_Helper_Abstract
             [
                 'name' => 'emailing',
                 'href' => $this->view->url(array('controller' => 'mail-sent', 'action' => 'index')),
-                'label' => '<span class="glyphicon glyphicon-envelope "></span> Emailing',
+                'icon' => '<span class="glyphicon glyphicon-envelope "></span>',
+                'label' => 'Emailing',
             ],
             [
                 'name' => 'settings',
                 'href' => $this->view->url(array('controller' => 'mail-template', 'action' => 'index')),
-                'label' => '<span class="glyphicon glyphicon-cog"></span> Settings',
+                'icon' => '<span class="glyphicon glyphicon-cog"></span>',
+                'label' => 'Settings',
             ]
 
         ];
