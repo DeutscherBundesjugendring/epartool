@@ -203,7 +203,7 @@ module.exports = function(grunt) {
     });
 
     // Build email phtml template.
-    // Task not executed by default as it requires Ruby and Premailer gem in the system.
+    // WARNING: Task not executed by default as it requires Ruby and Premailer gem in the system.
     grunt.registerTask('mail', [
         'less:dev',
         'uncss:mail',
@@ -213,7 +213,7 @@ module.exports = function(grunt) {
     ]);
 
     // Default task
-	grunt.registerTask('default', [
+	grunt.registerTask('build', [
 		'less',
         'coffee',
         'jshint',
@@ -222,5 +222,11 @@ module.exports = function(grunt) {
         'clean'
     ]);
 
-    grunt.registerTask('dev', ['browserSync', 'watch']);
+    grunt.registerTask('dev', [
+        'build',
+        'browserSync',
+        'watch'
+    ]);
+
+    grunt.registerTask('default', 'build');
 };
