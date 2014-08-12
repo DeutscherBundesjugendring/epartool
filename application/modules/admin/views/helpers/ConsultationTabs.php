@@ -1,32 +1,29 @@
 <?php
-/**
- * Consultation Tabs
- *
- * TODO refactor to single tabs helper
- */
 
 class Admin_View_Helper_ConsultationTabs extends Zend_View_Helper_Abstract
 {
+    /**
+     * Returns consultation tab navigation html
+     * @param  integer $kid         Identifier of the consultation
+     * @param  string  $activeItem  Name of the active item
+     * @return string               The menu html
+     */
     public function consultationTabs($id, $activeItem = null)
     {
-        $view = Zend_Layout::getMvcInstance()->getView();
+        $items = [
+            [
+                'name' => 'consultation',
+                'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'index', $kid)),
+                'label' => '<span class="glyphicon glyphicon-folder-close"></span> Consultation',
+            ],
+            [
+                'name' => 'settings',
+                'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit', $kid)),
+                'label' => '<span class="glyphicon glyphicon-cog"></span> Settings',
+            ]
 
-        $html = '<ul class="nav nav-tabs nav-tabs-header">' . "\n";
+        ];
 
-        $html .= '<li' . ($activeItem === 'consultation' ? ' class="active"' : '') . '>';
-        $html .= '<a href="' . $view->url(array('controller' => 'consultation', 'action' => 'index', $id)) . '">';
-        $html .= '<span class="glyphicon glyphicon-folder-close"></span> Consultation';
-        $html .= '</a>';
-        $html .= "</li>\n";
-
-        $html .= '<li' . ($activeItem === 'settings' ? ' class="active"' : '') . '>';
-        $html .= '<a href="' . $view->url(array('controller' => 'consultation', 'action' => 'edit', $id)) . '">';
-        $html .= '<span class="glyphicon glyphicon-cog"></span> Settings';
-        $html .= '</a>';
-        $html .= "</li>\n";
-
-        $html .= "</ul>\n";
-
-        return $html;
+        return $this->view->tabsNavigation($items, $activeItem);
     }
 }

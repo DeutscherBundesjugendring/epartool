@@ -18,7 +18,7 @@
             <div class="col-md-3">
 
                 <?php if (isset($this->consultation)): ?>
-                    <?=$this->consultationNavigation('info');?>
+                    <?=$this->consultationNavigation($this->consultation['kid'], 'info');?>
                 <?php else: ?>
                     <?=$this->settingsNavigation('pages');?>
                 <?php endif; ?>

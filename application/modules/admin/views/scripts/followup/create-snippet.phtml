@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-3">
 
-                <?=$this->consultationNavigation('followup');?>
+                <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
 
             </div>
             <div class="col-md-9">
@@ -35,5 +35,5 @@
 
 <!-- TODO move to JS -->
 <script>
-    CKEDITOR.replace( 'expl' );   
+    CKEDITOR.replace( 'expl' );
 </script>
