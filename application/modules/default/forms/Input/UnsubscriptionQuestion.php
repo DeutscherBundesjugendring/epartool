@@ -15,8 +15,9 @@ class Default_Form_Input_UnsubscriptionQuestion extends Zend_Form
      */
     private function prepareElements()
     {
-        $subscribe = $this->createElement('submit', 'unsubscribe');
-        $subscribe->setAttrib('class', 'btn');
+        $subscribe = $this->createElement('submit', 'unsubscribe')
+            ->setAttrib('class', 'btn')
+            ->setLabel('Unsubscribe');
 
         $hash = $this->createElement('hash', 'csrf_token_input_unsubscribe_question', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));

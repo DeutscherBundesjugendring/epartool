@@ -6,6 +6,7 @@ class Default_Form_Input_SubscriptionQuestion extends Zend_Form
     {
         $this
             ->prepareElements()
+            ->setAttrib('class', 'form-inline offset-top-large offset-bottom-large')
             ->setMethod('post');
     }
 
@@ -15,8 +16,11 @@ class Default_Form_Input_SubscriptionQuestion extends Zend_Form
      */
     private function prepareElements()
     {
-        $subscribe = $this->createElement('submit', 'subscribe');
-        $subscribe->setAttrib('class', 'btn');
+        $subscribe = $this->createElement('button', 'subscribe')
+            ->setAttrib('class', 'btn')
+            ->setAttrib('type', 'submit')
+            ->setAttrib('escape', false)
+            ->setLabel('<span class="icon-rss"></span> Subscribe thread');
 
         $hash = $this->createElement('hash', 'csrf_token_input_subscribe_question', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
@@ -35,8 +39,9 @@ class Default_Form_Input_SubscriptionQuestion extends Zend_Form
         $emailEl
             ->setOrder(0)
             ->setAttrib('type', 'email')
-            ->setAttrib('placeholder', '@')
+            ->setAttrib('placeholder', 'me@example.com')
             ->setAttrib('class', 'input-xlarge')
+            ->setLabel('Email')
             ->addValidator('emailAddress')
             ->setRequired(true);
         $this->addElement($emailEl);
