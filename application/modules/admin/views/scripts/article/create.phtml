@@ -6,7 +6,7 @@
             <h2><?=$this->consultation['titl_sub'];?></h2>
             <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
         <?php else: ?>
-            <h1>General Settings</h1>
+            <h1><?=$this->translate('General Settings');?></h1>
         <?php endif; ?>
 
     </div>
@@ -26,21 +26,21 @@
             <div class="col-md-9">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-                    <h2>New Article</h2>
+                    <h2><?=$this->translate('New Article');?></h2>
                     <p class="back-link">
-                        <a href="<?=$this->url(array('action' => 'index', $this->kid));?>">&larr; Back to Articles</a>
+                        <a href="<?=$this->url(array('action' => 'index', $this->kid));?>">&larr; <?=$this->translate('Back to Articles');?></a>
                     </p>
                 <?php else: ?>
-                    <h2>New Page</h2>
+                    <h2><?=$this->translate('New Page');?></h2>
                     <p class="back-link">
-                        <a href="<?=$this->url(array('action' => 'index'));?>">&larr; Back to Pages</a>
+                        <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Pages');?></a>
                     </p>
                 <?php endif; ?>
 
                 <?php echo $this->form;?>
                 <p>
-                    or
-                    <a href="<?=$this->url(array('action' => 'index', (isset($this->consultation) && !empty($this->consultation)) ? $this->kid : null));?>">Cancel</a>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->url(array('action' => 'index', (isset($this->consultation) && !empty($this->consultation)) ? $this->kid : null));?>"><?=$this->translate('Cancel');?></a>
                 </p>
 
             </div>

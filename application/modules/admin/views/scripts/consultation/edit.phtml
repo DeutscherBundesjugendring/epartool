@@ -15,10 +15,10 @@
 
                 <div class="list-group list-group-nested">
                     <a href="<?=$this->url(array('action' => 'edit', $this->consultation->kid));?>" class="list-group-item active">
-                        <h4 class="list-group-item-heading">Settings</h4>
+                        <h4 class="list-group-item-heading"><?=$this->translate('Settings');?></h4>
                     </a>
                     <a href="<?=$this->url(array('action' => 'edit', $this->consultation->kid));?>" class="list-group-item">
-                        <h4 class="list-group-item-heading">Phase Names</h4>
+                        <h4 class="list-group-item-heading"><?=$this->translate('Phase Names');?></h4>
                     </a>
                 </div>
 
@@ -29,15 +29,15 @@
                     <!-- TODO change link to POST form button -->
                     <a href="<?=$this->url(array('action' => 'delete', $this->consultation->kid));?>" class="pull-right">
                         <span class="glyphicon glyphicon-trash"></span>
-                        Delete Consultation
+                        <?=$this->translate('Delete Consultation');?>
                     </a>
                 <?php endif; ?>
 
-                <h2>Consultation Settings</h2>
+                <h2><?=$this->translate('Consultation Settings');?></h2>
                 <?=$this->form?>
                 <p>
-                    or
-                    <a href="<?=$this->url(array('action' => 'index', $this->consultation->kid));?>">Cancel</a>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation->kid));?>"><?=$this->translate('Cancel');?></a>
                 </p>
 
             </div>

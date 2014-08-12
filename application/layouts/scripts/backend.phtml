@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>DBJR TOOL Admin</title>
+    <title><?=$this->translate('DBJR TOOL Admin');?></title>
     <meta name="robots" content="noindex, nofollow" />
 
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" type="text/css" />
@@ -41,12 +41,12 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-                        <span class="sr-only">Menu</span>
+                        <span class="sr-only"><?=$this->translate('Menu');?></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="navbar-brand" title="DBJR TOOL admin dashboard">DBJR TOOL</a>
+                    <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="navbar-brand" title="DBJR TOOL admin dashboard"><?=$this->translate('DBJR TOOL');?></a>
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
                     <?=$this->navigation()->menu();?>
@@ -67,7 +67,7 @@
                                 <li>
                                     <a href="/admin/logout">
                                         <span class="glyphicon glyphicon-off"></span>
-                                        Log off
+                                        <?=$this->translate('Log off');?>
                                     </a>
                                 </li>
                             </ul>
@@ -104,7 +104,7 @@
         <div class="container">
             © DBJR <?=date('Y');?>
             <span class="footer-divider">|</span>
-            <a href="TODO" target="_blank">Contact</a>
+            <a href="TODO" target="_blank"><?=$this->translate('Contact');?></a>
             <a href="http://www.synergic.cz/en" target="_blank" class="footer-author" title="Created by Synergic">
                 <?php include(APPLICATION_PATH . '/../www/images/synergic.svg'); ?>
             </a>

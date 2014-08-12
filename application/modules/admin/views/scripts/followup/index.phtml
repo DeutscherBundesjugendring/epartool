@@ -20,16 +20,16 @@
 
                 <a href="<?=$this->url(array('action' => 'create-file', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    New Follow Up
+                    <?=$this->translate('New Follow Up');?>
                 </a>
-                <h2>Follow Up</h2>
+                <h2><?=$this->translate('Follow Up');?></h2>
 
                 <table class="table" data-view="table">
                     <thead>
                         <tr>
-                            <th data-toggle="sort" data-order="default desc" tabindex="0">Time Added</th>
-                            <th data-toggle="sort" tabindex="0">Stakeholder</th>
-                            <th data-toggle="sort" tabindex="0">Title</th>
+                            <th data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Added');?></th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Stakeholder');?></th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Title');?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,10 +40,10 @@
                                 <td><?=$followupFile['who'];?></td>
                                 <td><?=$followupFile['titl'];?></td>
                                 <td class="table-cell-actions">
-                                    <a href="<?=$this->url(array('action' => 'edit-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="item-action" title="Edit follow up">
+                                    <a href="<?=$this->url(array('action' => 'edit-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="item-action" title="<?=$this->translate('Edit follow up');?>">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
-                                    <a href="<?=$this->url(array('action' => 'delete-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="item-action item-action-danger" title="Delete follow up">
+                                    <a href="<?=$this->url(array('action' => 'delete-file', 'kid' => $this->consultation['kid'], 'ffid' => $followupFile['ffid'])); ?>" class="item-action item-action-danger" title="<?=$this->translate('Delete follow up');?>">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>

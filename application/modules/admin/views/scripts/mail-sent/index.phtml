@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Email</h1>
+                <h1><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> New Email</a>
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
             </div>
         </div>
         <?=$this->emailTabs('emailing');?>
@@ -21,15 +21,15 @@
             </div>
             <div class="col-md-9">
 
-                <h2>Sent Emails</h2>
+                <h2><?=$this->translate('Sent Emails');?></h2>
 
                 <form method="<?=$this->form->getMethod()?>">
                     <?=$this->form->getElement('email_list_control_csrf_token')?>
                     <table class="table" data-view="table">
                         <thead>
                             <tr>
-                                <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0">Time Sent</th>
-                                <th data-toggle="sort" tabindex="0">Subject</th>
+                                <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Sent');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -47,9 +47,9 @@
                                         <button
                                             name="resendId"
                                             type="submit"
-                                            onclick="return confirm('Are you sure?');"
+                                            onclick="return confirm('<?=$this->translate('Are you sure?');?>');"
                                             value="<?=$email->id;?>"
-                                            title="Resend email"
+                                            title="<?=$this->translate('Resend email');?>"
                                             >
                                             <span class="glyphicon glyphicon-share-alt"></span>
                                         </button>

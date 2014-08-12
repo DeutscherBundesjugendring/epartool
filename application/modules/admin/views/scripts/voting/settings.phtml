@@ -18,11 +18,11 @@
             </div>
             <div class="col-md-9">
 
-                <h2>Voting Settings</h2>
+                <h2><?=$this->translate('Voting Settings');?></h2>
                 <?=$this->form;?>
                 <p>
-                    or
-                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>">Cancel</a>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>"><?=$this->translate('Cancel');?></a>
                 </p>
 
             </div>

@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Users</h1>
+                <h1><?=$this->translate('Users');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'create'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-plus-sign"></span> New User</a>
+                <a href="<?=$this->url(array('action' => 'create'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-plus-sign"></span> <?=$this->translate('New User');?></a>
             </div>
         </div>
     </div>
@@ -25,10 +25,10 @@
                         <thead>
                             <tr>
                                 <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                <th data-toggle="sort" data-order="default" data-group="first-letter" tabindex="0">Name</th>
-                                <th data-toggle="sort" tabindex="0">Email</th>
-                                <th data-toggle="sort" tabindex="0">Role</th>
-                                <th data-toggle="sort" tabindex="0">Last Activity</th>
+                                <th data-toggle="sort" data-order="default" data-group="first-letter" tabindex="0"><?=$this->translate('Name');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Email');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Role');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Last Activity');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -40,22 +40,22 @@
                                     <td><?php echo (empty($user->name))? '<span class="text-muted">–</span>' : $user->name; ?></td>
                                     <td>
                                         <?php if (empty($user->email)): ?>
-                                            <em class="text-muted">N/A</em>
+                                            <em class="text-muted"><?=$this->translate('N/A');?></em>
                                         <?php else: ?>
-                                            <a href="mailto:<?=$user->email;?>" title="Send email to user"><?=$user->email;?></a>
+                                            <a href="mailto:<?=$user->email;?>" title="<?=$this->translate('Send email to user');?>"><?=$user->email;?></a>
                                         <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php
                                         switch($user->lvl) {
                                             case 'usr':
-                                                $userLevel = 'User';
+                                                $userLevel = $this->translate('User');
                                                 break;
                                             case 'edt':
-                                                $userLevel = 'Editor';
+                                                $userLevel = $this->translate('Editor');
                                                 break;
                                             case 'adm':
-                                                $userLevel = 'Administrator';
+                                                $userLevel = $this->translate('Administrator');
                                                 break;
                                         }
                                         ?>
@@ -68,13 +68,13 @@
                                         ?>
                                     </td>
                                     <td class="table-cell-actions">
-                                        <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="Edit user">
+                                        <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="<?=$this->translate('Edit user');?>">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <a href="<?=$this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
                                            onclick="return confirm('Are you sure? All inputs will be amde anonymous.')"
                                            class="item-action item-action-danger"
-                                           title="Delete user"
+                                           title="<?=$this->translate('Delete user');?>"
                                             >
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>

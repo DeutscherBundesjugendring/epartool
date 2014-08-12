@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Email</h1>
+                <h1><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> New Email</a>
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
             </div>
         </div>
         <?=$this->emailTabs('settings');?>
@@ -23,9 +23,9 @@
 
                 <a href="<?php echo $this->url(array('action' => 'detail')); ?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    New Email Template
+                    <?=$this->translate('New Email Template');?>
                 </a>
-                <h2>Email Templates</h2>
+                <h2><?=$this->translate('Email Templates');?></h2>
 
                 <form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
                     <?=$this->form->getElement('email_list_control_csrf_token')?>
@@ -33,8 +33,8 @@
                         <thead>
                             <tr>
                                 <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                <th data-toggle="sort" data-order="default" tabindex="0">Name</th>
-                                <th data-toggle="sort" tabindex="0">Subject</th>
+                                <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Name');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -45,7 +45,7 @@
                                     <td><?=$template->name;?></td>
                                     <td><?=$template->subject;?></td>
                                     <td class="table-cell-actions">
-                                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>" class="item-action">
+                                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>" class="item-action" title="<?=$this->translate('Edit template');?>">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <?php if($template->findModel_Mail_Template_Type()->current()->name !== Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM): ?>
@@ -55,7 +55,7 @@
                                                 class="item-action item-action-danger"
                                                 onclick="return confirm('Are you sure?');"
                                                 value="<?php echo $template->id?>"
-                                                title="Delete template"
+                                                title="<?=$this->translate('Delete template');?>"
                                             >
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </button>

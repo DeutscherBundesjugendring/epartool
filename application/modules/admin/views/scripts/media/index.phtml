@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Media</h1>
+                <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> Upload</a>
+                <a href="<?=$this->url(array('action' => 'upload'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
             </div>
         </div>
     </div>
@@ -17,12 +17,12 @@
 
                 <div class="list-group list-group-nested">
                     <a href="<?=$this->url(array('action' => 'index'));?>" class="list-group-item active">
-                        <h4 class="list-group-item-heading">All Media</h4>
+                        <h4 class="list-group-item-heading"><?=$this->translate('All Media');?></h4>
                     </a>
                     <a href="<?=$this->url(array('action' => 'index'));?>" class="list-group-item">
-                        <h4 class="list-group-item-heading">Categories</h4>
+                        <h4 class="list-group-item-heading"><?=$this->translate('Categories');?></h4>
                     </a>
-                    <a href="" class="list-group-add" title="Create new item"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    <a href="" class="list-group-add" title="<?=$this->translate('Create new item');?>"><span class="glyphicon glyphicon-plus-sign"></span></a>
                 </div>
 
             </div>
@@ -39,7 +39,7 @@
                 $pck_test = array("zip", "rar", "tar", "7z");
                 ?>
 
-                <h2>All Media</h2>
+                <h2><?=$this->translate('All Media');?></h2>
 
                 <!-- TODO move upload to separate page -->
                 <?=$this->form?>
@@ -53,7 +53,7 @@
                                         <div class="thumbnail-image">
                                             <?php if (in_array($file['extension'], $gfx_test)): ?>
                                                 <!-- TODO use resized thumbnail -->
-                                                <img src="<?=$this->directory?>/<?=$file['basename']?>" alt="Preview" />
+                                                <img src="<?=$this->directory?>/<?=$file['basename']?>" alt="<?=$this->translate('Preview');?>" />
                                             <?php else: ?>
                                                 <img
                                                     src="
@@ -75,7 +75,7 @@
                                                     <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png
                                                 <?php endif?>"
                                                     class="thumbnail-image-icon"
-                                                    alt="Preview"
+                                                    alt="<?=$this->translate('Preview');?>"
                                                     />
                                             <?php endif?>
                                         </div>
@@ -96,7 +96,7 @@
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign"></span>
-                        No media has been uploaded yet.
+                        <?=$this->translate('No media has been uploaded yet.');?>
                     </p>
                 <?php endif; ?>
 

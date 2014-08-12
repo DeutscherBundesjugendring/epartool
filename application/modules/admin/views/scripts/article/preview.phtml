@@ -1,6 +1,6 @@
 <?=$this->prevView->partial('article/show.phtml', array('article' => $this->article));?>
 
 <div class="admin-preview-toolbar">
-	<h2><i class="icon-warning-sign"></i> Warning: this is just a preview, no changes have been saved yet.</h2>
+	<h2><i class="icon-warning-sign"></i> <?=$this->translate('Warning: this is just a preview, no changes have been saved yet.');?></h2>
 	<?=$this->articlePreviewForm;?>
 </div>

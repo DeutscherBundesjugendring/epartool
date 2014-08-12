@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Email</h1>
+                <h1><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> New Email</a>
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
             </div>
         </div>
         <?=$this->emailTabs('emailing');?>
@@ -21,13 +21,13 @@
             </div>
             <div class="col-md-9">
 
-                <h2>Queued Emails</h2>
+                <h2><?=$this->translate('Queued Emails');?></h2>
 
                 <table class="table" data-view="table">
                     <thead>
                         <tr>
-                            <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0">Time Queued</th>
-                            <th data-toggle="sort" tabindex="0">Subject</th>
+                            <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Queued');?></th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
                         </tr>
                     </thead>
                     <tbody>

@@ -1,6 +1,6 @@
 <section class="section-header has-tabs">
     <div class="container">
-        <h1>New Email</h1>
+        <h1><?=$this->translate('New Email');?></h1>
         <?=$this->emailTabs('emailing');?>
     </div>
 </section>
@@ -8,20 +8,20 @@
     <div class="container">
 
         <p class="back-link">
-            <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>">&larr; Back to Sent Emails</a>
+            <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>">&larr; <?=$this->translate('Back to Sent Emails');?></a>
         </p>
-        <h3>Templates</h3>
+        <h3><?=$this->translate('Templates');?></h3>
         <select class="js-template-selector">
-            <option value="0">--Select--</option>
+            <option value="0">--<?=$this->translate('Select');?>--</option>
             <?php foreach ($this->templates as $template): ?>
                 <option value="<?php echo $template->id?>"><?php echo $template->name?></option>
             <?php endforeach ?>
         </select>
 
-        <h3>Email</h3>
+        <h3><?=$this->translate('Email');?></h3>
         <?php echo $this->form?>
 
-        <h3>Placeholders</h3>
+        <h3><?=$this->translate('Placeholders');?></h3>
         <dl>
             <?php foreach ($this->placeholders as $placeholder): ?>
                 <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
@@ -29,7 +29,7 @@
             <?php endforeach?>
         </dl>
 
-        <h3>Components</h3>
+        <h3><?=$this->translate('Components');?></h3>
         <dl>
             <?php foreach ($this->components as $component): ?>
                 <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
@@ -38,8 +38,8 @@
         </dl>
 
         <p>
-            or
-            <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>">Cancel</a>
+            <?=$this->translate('or');?>
+            <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>"><?=$this->translate('Cancel');?></a>
         </p>
 
     </div>

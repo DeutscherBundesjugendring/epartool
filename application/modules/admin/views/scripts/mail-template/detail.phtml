@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Email</h1>
+                <h1><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> New Email</a>
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
             </div>
         </div>
         <?=$this->emailTabs('settings');?>
@@ -21,17 +21,17 @@
             </div>
             <div class="col-sm-9">
 
-                <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> Email Template</h2>
+                <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Template');?></h2>
                 <p class="back-link">
-                    <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template">&larr; Back to Email Templates</a>
+                    <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template">&larr; <?=$this->translate('Back to Email Templates');?></a>
                 </p>
                 <?php echo $this->form;?>
                 <p>
-                    or
-                    <a href="<?=$this->baseUrl('admin/mail-template');?>">Cancel</a>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->baseUrl('admin/mail-template');?>"><?=$this->translate('Cancel');?></a>
                 </p>
 
-                <h3>Placeholders</h3>
+                <h3><?=$this->translate('Placeholders');?></h3>
                 <dl>
                     <?php foreach ($this->placeholders as $placeholder): ?>
                         <dt>{{<?php echo $placeholder->name?>}}</dt>

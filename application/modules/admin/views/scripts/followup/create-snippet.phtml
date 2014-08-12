@@ -18,14 +18,14 @@
             </div>
             <div class="col-md-9">
 
-                <h2>New Follow Up Snippet</h2>
+                <h2><?=$this->translate('New Follow Up Snippet');?></h2>
                 <p class="back-link">
-                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; Back to Follow Up</a>
+                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Follow Up');?></a>
                 </p>
                 <?=$this->form;?>
                 <p>
-                    or
-                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>">Cancel</a>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>"><?=$this->translate('Cancel');?></a>
                 </p>
 
             </div>

@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1>Consultations</h1>
+                <h1><?=$this->translate('Consultations');?></h1>
             </div>
             <div class="col-sm-4">
                 <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'new'));?>" class="cta btn btn-primary">
-                    <span class="glyphicon glyphicon-plus-sign"></span> New Consultation
+                    <span class="glyphicon glyphicon-plus-sign"></span> <?=$this->translate('New Consultation');?>
                 </a>
             </div>
         </div>
@@ -22,7 +22,7 @@
                     <?php foreach ($this->consultations as $consultation): ?>
                         <div class="panel panel-primary">
                             <div class="panel-heading panel-heading-big text-center">
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-heading-action" title="Consultation settings">
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-heading-action" title="<?=$this->translate('Consultation settings');?>">
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
                                 <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $consultation->kid));?>">
@@ -32,11 +32,11 @@
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-justified">
-                                    <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>">Info</a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $consultation->kid));?>">Questions</a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $consultation->kid));?>">Contributions</a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $consultation->kid));?>">Voting</a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $consultation->kid));?>">Follow Up</a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>"><?=$this->translate('Info');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $consultation->kid));?>"><?=$this->translate('Questions');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $consultation->kid));?>"><?=$this->translate('Contributions');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $consultation->kid));?>"><?=$this->translate('Voting');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $consultation->kid));?>"><?=$this->translate('Follow Up');?></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 
                 <!-- Latest posts -->
                 <!-- TODO split to individual consultations -->
-                <h2>New Contributions</h2>
+                <h2><?=$this->translate('New Contributions');?></h2>
                 <?php if (!empty($this->inputs)): ?>
                     <ul class="media-list">
                         <?php foreach ($this->inputs as $input): ?>
@@ -61,7 +61,7 @@
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
-                    <p class="alert alert-info">No posts yet.</p>
+                    <p class="alert alert-info"><?=$this->translate('No posts yet.');?></p>
                 <?php endif; ?>
 
             </div>

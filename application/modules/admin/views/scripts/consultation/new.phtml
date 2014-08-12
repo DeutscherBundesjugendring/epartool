@@ -1,7 +1,7 @@
 <section class="section-header">
     <div class="container">
 
-        <h1>New Consultation</h1>
+        <h1><?=$this->translate('New Consultation');?></h1>
 
     </div>
 </section>
@@ -9,12 +9,12 @@
     <div class="container">
 
         <p class="back-link">
-            <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>">&larr; Back to Consultations</a>
+            <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>">&larr; <?=$this->translate('Back to Consultations');?></a>
         </p>
         <?php echo $this->form?>
         <p>
-            or
-            <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>">Cancel</a>
+            <?=$this->translate('or');?>
+            <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>"><?=$this->translate('Cancel');?></a>
         </p>
 
     </div>

@@ -20,15 +20,15 @@
 
                 <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    New Question
+                    <?=$this->translate('New Question');?>
                 </a>
-                <h2>Questions</h2>
+                <h2><?=$this->translate('Questions');?></h2>
 
                 <table class="table" data-view="table">
                     <thead>
                         <tr>
                             <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                            <th data-toggle="sort" data-order="default" tabindex="0">Question</th>
+                            <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Question');?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -38,10 +38,10 @@
                                 <td class="table-cell-id"><?=$question['nr'];?></td>
                                 <td><?=$question['q'];?></td>
                                 <td class="table-cell-actions">
-                                    <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'qid' => $question['qi']));?>" class="item-action" title="Edit question">
+                                    <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'qid' => $question['qi']));?>" class="item-action" title="<?=$this->translate('Edit question');?>">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
-                                    <a href="<?php echo $this->url(array('action' => 'delete', 'kid' => $this->consultation['kid'], 'qid' => $question['qi'])); ?>" class="item-action item-action-danger" title="Delete question">
+                                    <a href="<?php echo $this->url(array('action' => 'delete', 'kid' => $this->consultation['kid'], 'qid' => $question['qi'])); ?>" class="item-action item-action-danger" title="<?=$this->translate('Delete question');?>">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>
