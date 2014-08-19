@@ -4,27 +4,39 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
 {
     public function init()
     {
+        $minPassLength = Zend_Registry::get('systemconfig')->security->password->minLength;
+
+        $description = '(' . sprintf((new Zend_View())->translate('min. %s Zeichen'), $minPassLength) . ')';
         $this->addElement(
             $this
                 ->createElement('password', 'password')
-                ->setLabel('Password')
+                ->setLabel('Neues Passwort')
+                ->setDescription($description)
                 ->setRequired(true)
-                ->setAttrib('class', 'has-password-meter')
-                ->addValidator('stringLength', 'min', Zend_Registry::get('systemconfig')->security->password->minLength)
+                ->setAttrib('class', 'js-has-password-meter')
+                ->addValidator('stringLength', 'min', $minPassLength)
         );
 
+
+        $identicalValidator = (new Zend_Validate_Identical())
+            ->setToken('password')
+            ->setStrict(true)
+            ->setMessages([
+                Zend_Validate_Identical::NOT_SAME => 'The passwords do not match.',
+                Zend_Validate_Identical::MISSING_TOKEN => 'You must provide confirmation password.',
+            ]);
         $this->addElement(
             $this
                 ->createElement('password', 'password_confirm')
-                ->setLabel('Password confirmation')
+                ->setLabel('Neues Passwort bestätigen')
                 ->setRequired(true)
-                ->addValidator('identical', true, 'password')
+                ->addValidator($identicalValidator)
         );
 
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Reset')
+                ->setLabel('Neues Passwort speichern')
                 ->setAttrib('type', 'submit')
         );
 
