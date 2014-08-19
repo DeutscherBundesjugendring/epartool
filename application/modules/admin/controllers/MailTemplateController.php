@@ -53,11 +53,9 @@ class Admin_MailTemplateController extends Zend_Controller_Action
                 $form->getElement('name')
                     ->clearValidators()
                     ->setRequired(false)
-                    ->setAttrib('disabled', 'disabled')
-                    ->setValue($template->name);
+                    ->setAttrib('disabled', 'disabled');
             }
         }
-
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 $values = $form->getValues();
@@ -80,6 +78,8 @@ class Admin_MailTemplateController extends Zend_Controller_Action
                     $db->rollback();
                     throw $e;
                 }
+            } else {
+                $form->getElement('name')->setValue($template->name);
             }
         } elseif (isset($template)) {
             $form->populate($template->toArray());
