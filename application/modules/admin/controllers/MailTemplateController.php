@@ -87,8 +87,8 @@ class Admin_MailTemplateController extends Zend_Controller_Action
 
         $this->view->form = $form;
         $this->view->templateId = $templateId;
-        $placeholderModel = new Model_Mail_Placeholder();
-        $this->view->placeholders = $placeholderModel->getByTemplateId($templateId);
+        $this->view->components = (new Model_Mail_Component())->fetchAll();
+        $this->view->placeholders = (new Model_Mail_Placeholder())->getByTemplateId($templateId);
     }
 
     /**
