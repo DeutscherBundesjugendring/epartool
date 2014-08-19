@@ -45,7 +45,17 @@ class Admin_MailTemplateController extends Zend_Controller_Action
 
         if (!empty($templateId)) {
             $template = $this->_templateModel->find($templateId)->current();
-            $form->getElement('name')->removeValidator('Db_NoRecordExists');
+            $isSystem = $template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM;
+            if ($template->name === $this->getRequest()->getPost('name')) {
+                $form->getElement('name')->removeValidator('Db_NoRecordExists');
+            }
+            if ($isSystem) {
+                $form->getElement('name')
+                    ->clearValidators()
+                    ->setRequired(false)
+                    ->setAttrib('disabled', 'disabled')
+                    ->setValue($template->name);
+            }
         }
 
         if ($this->getRequest()->isPost()) {
@@ -55,10 +65,11 @@ class Admin_MailTemplateController extends Zend_Controller_Action
                 $db->beginTransaction();
                 try {
                     if (!empty($templateId)) {
-                        $this->_templateModel->update(
-                            $template->setFromArray($values)->toArray(),
-                            ['id=?' => $template->id]
-                        );
+                        $dbData = $template->setFromArray($values)->toArray();
+                        if ($isSystem) {
+                            unset($dbData['name']);
+                        }
+                        $this->_templateModel->update($dbData, ['id=?' => $template->id]);
                     } else {
                         $templateId = $this->_templateModel->insert($values);
                     }
@@ -72,10 +83,8 @@ class Admin_MailTemplateController extends Zend_Controller_Action
             }
         } elseif (isset($template)) {
             $form->populate($template->toArray());
-            if ($template->findModel_Mail_Template_Type()->current()->name !== Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM) {
-                $form->getElement('name')->setAttrib('disabled', 'disabled');
-            }
         }
+
         $this->view->form = $form;
         $this->view->templateId = $templateId;
         $placeholderModel = new Model_Mail_Placeholder();

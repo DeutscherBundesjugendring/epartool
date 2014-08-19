@@ -53,6 +53,7 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
      */
     public function update(array $data, $where)
     {
+        $template = $this->fetchRow($where);
         if ($data['project_code'] !== $this->_projectCode) {
             throw new Dbjr_Mail_Exception('Can not update template belonging to another project.');
         } elseif (array_key_exists('name', $data)
