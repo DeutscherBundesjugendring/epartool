@@ -9,7 +9,7 @@
                 <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>"
                     rel="home"
                     class="brand"
-                    title="<?=$this->translate('Startseite')?>"
+                    title="<?=$this->translate('Home')?>"
                 >
                     <img
                         src="<?php echo $this->baseUrl(); ?>/project/images/logo.png"
@@ -29,10 +29,15 @@
 
                     <!-- Menu -->
                     <ul class="nav nav-pills">
-                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#what"><?=$this->translate('Was')?></a></li>
-                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#us"><?=$this->translate('Wir')?></a></li>
-                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#you"><?=$this->translate('Mit euch')?></a></li>
-                        <li><a href="<?php echo $this->url(array(), 'about'); ?>#vision"><?=$this->translate('Machen')?></a></li>
+                            <li><a href="<?php echo $this->url(array(), 'about'); ?>#what"><?=$this->translate('What')?></a></li>
+                            <li><a href="<?php echo $this->url(array(), 'about'); ?>#us"><?=$this->translate('We')?></a></li>
+                        <?php if (Zend_Registry::get('Zend_Translate')->getAdapter()->getLocale() === 'de'): ?>
+                            <li><a href="<?php echo $this->url(array(), 'about'); ?>#you"><?=$this->translate('With You')?></a></li>
+                            <li><a href="<?php echo $this->url(array(), 'about'); ?>#vision"><?=$this->translate('Do')?></a></li>
+                        <?php elseif (Zend_Registry::get('Zend_Translate')->getAdapter()->getLocale() === 'en'): ?>
+                            <li><a href="<?php echo $this->url(array(), 'about'); ?>#vision"><?=$this->translate('Do')?></a></li>
+                            <li><a href="<?php echo $this->url(array(), 'about'); ?>#you"><?=$this->translate('With You')?></a></li>
+                        <?php endif?>
                     </ul>
                 </nav><!-- .main-navigation -->
 
@@ -42,7 +47,7 @@
                 <!-- Search -->
                 <form method="get" action="<?php echo $this->baseUrl(); ?>/index/search" class="form-search hidden-print">
                     <div class="input-append">
-                        <input type="text" name="q" placeholder="Suchbegriff…" class="input-medium search-query" value="" />
+                        <input type="text" name="q" placeholder="<?=$this->translate('Search…')?>" class="input-medium search-query" value="" />
                         <button type="submit" class="btn btn-primary btn-icon"><i class="icon-search icon-white"></i></button>
                     </div>
                 </form>
@@ -66,7 +71,7 @@
                 >
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="userInfoLabel"><?=$this->translate('User Info')?></h3>
+                        <h3 id="userInfoLabel"><?=$this->translate('user information')?></h3>
                     </div><!-- .modal-header -->
                     <div class="modal-body">
                         <?php echo $this->userEditSimple(); ?>

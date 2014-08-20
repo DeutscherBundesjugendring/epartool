@@ -16,9 +16,9 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract
 
         if (!empty($con)) {
             $navItems = array(
-                'overview' => array('title' => $this->view->translate('Übersicht Reaktionen & Wirkungen'),'url'=>array('action' => 'index', 'page' => null)),
-                'inputs-by-question' => array('title' => $this->view->translate('Beiträge sortiert nach Fragen'),'url'=>array('action' => 'inputs-by-question', 'page' => null)),
-                'tags' => array('title' => $this->view->translate('Beiträge sortiert nach Schlagwörtern'),'url'=>array('action' => 'tags', 'page' => null))
+                'overview' => array('title' => $this->view->translate('Overview over Reactions & Impact'),'url'=>array('action' => 'index', 'page' => null)),
+                'inputs-by-question' => array('title' => $this->view->translate('Contributions sorted by Questions'),'url'=>array('action' => 'inputs-by-question', 'page' => null)),
+                'tags' => array('title' => $this->view->translate('Contributions sorted by keywords'),'url'=>array('action' => 'tags', 'page' => null))
             );
 
             $html = '<nav role="navigation" class="tertiary-navigation">'

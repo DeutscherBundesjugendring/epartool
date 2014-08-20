@@ -10,17 +10,17 @@
 
             <small class="count muted">
                 <?php echo $this->inputCount ?>
-                <?=$this->translate('bestätigte Beiträge')?>
+                <?=$this->translate('confirmed contributions')?>
             </small>
-            <h1><?=$this->translate('Alle Beiträge im Überblick')?></h1>
+            <h1><?=$this->translate('All contributions')?></h1>
             <p>
-                <?=$this->translate('Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge lesen.')?>
+                <?=$this->translate('You want to participate in this participation round? Just click on a question during the input period, and the input field will appear where you can insert your contributions. After the input period has finished, you are no longer allowed to draw up contributions, but by clicking on a question you can read all other contributions.')?>
             </p>
 
             <!-- Questions -->
             <?php if (!empty($this->tags)): ?>
                 <div class="well-large-alt text-center">
-                    <h2><?=$this->translate('Beiträge sortiert nach Schlagwörtern:')?></h2>
+                    <h2><?=$this->translate('Contributions sorted by keywords:')?></h2>
                     <ul class="tag-cloud">
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?php echo $tag['frequency']; ?>">
@@ -31,7 +31,7 @@
                         <?php endforeach; ?>
                     </ul>
                     <a href="<?php echo $this->url(array('action' => 'inputs-by-question')); ?>" class="btn">
-                        <?=$this->translate('Zurück zur Fragenübersicht')?>
+                        <?=$this->translate('Back to overview of questions')?>
                     </a>
                 </div><!-- .well-large-alt -->
             <?php endif; ?>

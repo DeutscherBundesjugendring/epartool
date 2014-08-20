@@ -38,7 +38,7 @@ class VotingController extends Zend_Controller_Action
     {
         $votingRightsSession = new Zend_Session_Namespace('votingRights');
         if ($votingRightsSession->access != $this->_consultation->kid) {
-            $this->_flashMessenger->addMessage('In dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden.', 'error');
+            $this->_flashMessenger->addMessage('This participation round is currently not open for voting.', 'error');
             $this->redirect('/');
         }
 
@@ -87,10 +87,10 @@ class VotingController extends Zend_Controller_Action
         $nowDate = Zend_Date::now();
 
         if ($nowDate->isEarlier($this->_consultation->vot_fr)) {
-            $this->_flashMessenger->addMessage('Derzeit ist es nicht möglich an der Abstimmung teilzunehmen.', 'info');
+            $this->_flashMessenger->addMessage('It is not possible to vote at the moment.', 'info');
             $this->redirect('/');
         } elseif ($nowDate->isLater($this->_consultation->vot_to) && $this->_consultation->vot_to != '0000-00-00 00:00:00' && $this->_consultation->vot_res_show == 'y') {
-            $this->_flashMessenger->addMessage('Die Abstimmung ist beendet. Unten k&ouml;nnt ihr euch die Ergebnisse ansehen.', 'info');
+            $this->_flashMessenger->addMessage('The Voting is finished. You can check the results below.', 'info');
             $this->redirect('/voting/results/kid/' . $this->_consultation->kid);
         }
     }
@@ -160,15 +160,15 @@ class VotingController extends Zend_Controller_Action
                         // all is correct, redirect to overview
                         $this->redirect('/voting/overview/kid/' . $this->_consultation->kid);
                     } else {
-                        $this->_flashMessenger->addMessage('Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese.', 'error');
+                        $this->_flashMessenger->addMessage('Your data are not correct. Please check again.', 'error');
                         $form->populate($data);
                     }
                 } else { // no access for voting
-                    $this->_flashMessenger->addMessage('Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese.', 'error');
+                    $this->_flashMessenger->addMessage('Your data are not correct. Please check again.', 'error');
                     $form->populate($data);
                 }
             } else { // invalid form
-                $this->_flashMessenger->addMessage('Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese.', 'error');
+                $this->_flashMessenger->addMessage('Your data are not correct. Please check again.', 'error');
                 $form->populate($data);
             }
         } else {       // Check if user comes from email with authcode
@@ -551,13 +551,13 @@ class VotingController extends Zend_Controller_Action
 
         // check if a tid is given
         if (empty($tid ) || (empty($param['qid']) && empty($param['tag']))) {
-            $this->_flashMessenger->addMessage('Etwas ist schief gelaufen.', 'info');
+            $this->_flashMessenger->addMessage('Something went wrong.', 'info');
             $this->redirect('/voting/overview/kid/'.$this->_consultation->kid);
         }
 
         // check if the points are correct
         if ($pts >5 && $pts   < 0) {
-            $this->_flashMessenger->addMessage('Die vergebenen Punkte sind nicht korrekt.', 'info');
+            $this->_flashMessenger->addMessage('The points are not correct.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
         }
 
@@ -566,11 +566,11 @@ class VotingController extends Zend_Controller_Action
 
         if ($votingSuccess) {
 
-            $this->_flashMessenger->addMessage('Deine Abstimmung wurde gezählt!', 'info');
+            $this->_flashMessenger->addMessage('Your vote has been counted!', 'info');
              $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . $backParam);
 
         } else {
-            $this->_flashMessenger->addMessage('Deine Abstimmung konnte nicht eingetragen werden. (1)', 'info');
+            $this->_flashMessenger->addMessage('Your vote could not be registered. (1)', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . '/tid/' . $param['tid'] . $backParam);
         }
     }
@@ -632,7 +632,7 @@ class VotingController extends Zend_Controller_Action
                                             );
 
             if (!$votingSuccess) {
-                $this->_flashMessenger->addMessage('Deine Abstimmung konnte nicht eingetragen werden. (1)', 'info');
+                $this->_flashMessenger->addMessage('Your vote could not be registered. (1)', 'info');
                 $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . '/tid/' . $tid . $backParam);
 
             } elseif (!isset($votingSuccess['max'])) {
@@ -666,7 +666,7 @@ class VotingController extends Zend_Controller_Action
             // user deleted by admin or groupadmin after login for voting //
             if (empty( $subuser)) {
                 $votingRightsSession->unsetAll();
-                $this->_flashMessenger->addMessage('User konnte nicht gefunden werden.', 'error');
+                $this->_flashMessenger->addMessage('User could not be found.', 'error');
                 $this->redirect('/voting/preview/kid/' . $this->_consultation->kid. $backParam);
             }
 
@@ -711,7 +711,7 @@ class VotingController extends Zend_Controller_Action
 
         // action or subuid is not given
         if (($act != 'acc' && $act != 'rej') || empty($subuid) || empty($authcode)) {
-            $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+            $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
 
@@ -721,7 +721,7 @@ class VotingController extends Zend_Controller_Action
 
         // No access
         if (!$votingRights) {
-            $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+            $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
 
@@ -784,7 +784,7 @@ class VotingController extends Zend_Controller_Action
         $authcode = $this->getRequest()->getParam('authcode');
 
         if (empty($act) || empty($subuid) || empty($authcode)) {
-            $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+            $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
 
@@ -792,7 +792,7 @@ class VotingController extends Zend_Controller_Action
         $votingRights = $votingRightModel->findByCode($authcode);
 
         if (!$votingRights) {
-            $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+            $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
 
@@ -817,7 +817,7 @@ class VotingController extends Zend_Controller_Action
                 $this->view->act = 'reject';
             }
         } else {
-            $this->_flashMessenger->addMessage('Der angew&auml;hlte Link aus ist nicht korrekt.', 'error');
+            $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
 
@@ -828,7 +828,7 @@ class VotingController extends Zend_Controller_Action
     public function resultsAction()
     {
         if ($this->_consultation->vot_res_show == 'n') {
-            $this->_flashMessenger->addMessage('Abstimmungsergebnisse können noch nicht gezeigt werden!', 'error');
+            $this->_flashMessenger->addMessage('Voting results are not available yet.', 'error');
             $this->redirect('/voting/index/kid/' . $this->_consultation->kid);
         }
 

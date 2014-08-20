@@ -6,7 +6,7 @@
     <div class="main-title">
         <h1>
         	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">
-        		<?=$this->translate('Mitwirkung')?>
+        		<?=$this->translate('Participation')?>
         	</a>
         </h1>
     </div><!-- .title -->
@@ -31,7 +31,7 @@
         />
 
         <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="hidden-print" rel="home">
-        	<?=$this->translate('Zur Startseite')?> … <i class="icon-angle-right icon-2x"></i>
+        	<?=$this->translate('Home')?> … <i class="icon-angle-right icon-2x"></i>
         </a>
         <a href="#" class="share btn hidden-print">
             <i class="icon-share-alt icon-white icon-large"></i> <?=$this->translate('Share')?>
@@ -47,7 +47,7 @@
 
         <h1>
         	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">
-        		<?=$this->translate('Mitwirkung')?>
+        		<?=$this->translate('Participation')?>
         	</a>
         </h1>
         <p itemprop="description"><?php echo Zend_Registry::get('systemconfig')->site->description->short?></p>

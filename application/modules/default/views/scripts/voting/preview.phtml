@@ -10,23 +10,23 @@
     <div class="row">
         <aside class="span3">
             <a href="<?php echo $this -> url(array('action' => 'overview')); ?>">
-                <i class="icon-reply"></i> <?=$this->translate('Weiter abstimmen')?>
+                <i class="icon-reply"></i> <?=$this->translate('Continue voting')?>
             </a>
             <br />
             <a href="<?php echo $this -> url(array('action' => 'stopvoting')); ?>">
-                <i class="icon-signout"></i> <?=$this->translate('Abstimmung beenden')?>
+                <i class="icon-signout"></i> <?=$this->translate('Finish voting')?>
             </a>
 
         </aside>
 
         <section class="main-content span9">
             <small class="muted">
-                <?=sprintf($this->translate('Du hast schon über %s voninsgesamt %s Beiträgen abgestimmt.'), $this->escape($this->votedInputs), $this->escape($this->votableInputs))?>
+                <?=sprintf($this->translate('You have already voted on %s out of %s contributions.'), $this->escape($this->votedInputs), $this->escape($this->votableInputs))?>
             </small>
 
-            <h1><?=$this->translate('Übersicht über deine Abstimmung')?></h1>
+            <h1><?=$this->translate('Overview of your votes')?></h1>
             <p>
-                <?=$this->translate('Hier siehst du alle abzustimmenden Beiträge und deine Bewertungen. Du kannst im Folgenden noch einmal alle Bewertungen ändern.')?>
+                <?=$this->translate('Here you can see all contributions to be voted and your votes. You can still change your votes if you like.')?>
             </p>
 
             <!-- Questions -->
@@ -56,10 +56,10 @@
                 cache: false,
                 async: "true",
                 error: function(){
-                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('Es ist ein Fehler aufgetreten')?>";
+                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('An error occurred')?>";
                 },
                 beforeSend: function(){
-                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('Bitte warten…')?>";
+                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('Please wait…')?>";
                 },
                 success:function(response){
                     document.getElementById('statement-' + statementId).innerHTML = response;
@@ -79,10 +79,10 @@
                 cache: false,
                 async: "true",
                 error: function(){
-                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('Es ist ein Fehler aufgetreten')?>";
+                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('An error occurred')?>";
                 },
                 beforeSend: function(){
-                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('Bitte warten…')?>";
+                    document.getElementById('statement-' + statementId).innerHTML = "<?=$this->translate('Please wait…')?>";
                 },
                 success:function(response){
                     document.getElementById('statement-' + statementId).innerHTML = response;

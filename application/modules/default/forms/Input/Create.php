@@ -25,14 +25,14 @@ class Default_Form_Input_Create extends Zend_Form
         $nextQuestionBtn
             ->setAttrib('class', 'btn arrow-right')
             ->setAttrib('type', 'submit')
-            ->setLabel('Speichern und nächste Frage');
+            ->setLabel('Save and proceed');
         $this->addElement($nextQuestionBtn);
 
         $finishedBtn = $this->createElement('button', 'finished');
         $finishedBtn
             ->setAttrib('class', 'btn pull-right')
             ->setAttrib('type', 'submit')
-            ->setLabel('Beenden');
+            ->setLabel('Finish');
         $this->addElement($finishedBtn);
     }
 

@@ -1,9 +1,9 @@
 <div class="content-holder main-content">
 
     <article class="article article-detail">
-        <h1><?=sprintf($this->translate('Suche nach "%s"'), $this->needle)?></h1>
+        <h1><?=sprintf($this->translate('Search for "%s"'), $this->needle)?></h1>
 
-        <h2><?=$this->translate('Suche in Grundinformationen')?></h2>
+        <h2><?=$this->translate('Search in basic information')?></h2>
         <?php if (count($this->resultsGeneral) > 0): ?>
                 <?php $staticArticles = array('about', 'imprint', 'faq', 'privacy', 'contact');?>
                 <ul>
@@ -20,11 +20,11 @@
                 </ul>
         <?php else: ?>
             <ul>
-                <li><?=$this->translate('Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden.')?></li>
+                <li><?=$this->translate('There are no relevant search results on this term.')?></li>
             </ul>
         <?php endif ?>
 
-        <h2><?=$this->translate('Suche in Beteiligungsrunden')?></h2>
+        <h2><?=$this->translate('Search in participation rounds')?></h2>
         <?php if (count($this->resultsConsultations) > 0): ?>
             <?php foreach ($this->resultsConsultations as $consultation): ?>
                 <?php if (
@@ -36,15 +36,15 @@
                     <h3><?php echo $consultation['titel']?></h3>
 
                     <?php if (count($consultation['articles']) > 0 || isset($consultation['inExpl'])): ?>
-                        <h4><?=$this->translate('Informationsseiten')?></h4>
+                        <h4><?=$this->translate('Information pages')?></h4>
                         <ul>
                             <?php if (isset($consultation['inExpl'])): ?>
                                 <li>
                                     <a
                                         href="<?php echo $this->baseUrl()?>/article/index/kid/<?php echo $consultation['cid']?>"
-                                        title="<?=$this->translate('Übersichtsseite')?>"
+                                        title="<?=$this->translate('Overview')?>"
                                     >
-                                        <?=$this->translate('Übersichtsseite')?>
+                                        <?=$this->translate('Overview')?>
                                     </a>
                                 </li>
                             <?php endif?>

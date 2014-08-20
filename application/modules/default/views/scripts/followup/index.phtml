@@ -16,15 +16,15 @@
             <h1>
                 <?=$this->translate("Wie's weiterging:")?>
                 <br />
-                <?=$this->translate('Reaktionen & Wirkung')?>
+                <?=$this->translate('Reactions & Impact')?>
             </h1>
             <p>
-                <?=$this->translate('Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.')?>
+                <?=$this->translate('Here you can find out what followed on your contributions, in which processes and documents they were included, who reacted on them and how, and whether there are already results to be mentioned.')?>
             </p>
 
             <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaktion')?></span>
-                <h2 class="alt"><?=$this->translate('Bisherige Reaktionen im Überblick')?></h2>
+                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaction')?></span>
+                <h2 class="alt"><?=$this->translate('Overview of reactions so far:')?></h2>
                 <ul class="thumbnails thumbnails-follow-up">
 
                     <?php $i = 1; ?>
@@ -66,7 +66,7 @@
                                     target="_blank"
                                     title="Dokument ansehen"
                                 >
-                                    <i class="icon-angle-right"></i> <?=$this->translate('Ansehen')?>
+                                    <i class="icon-angle-right"></i> <?=$this->translate('View')?>
                                 </a>
                                 <?php if ($followup['referenceType'] === 'file'): ?>
                                     <form
@@ -94,16 +94,16 @@
             </div><!-- .well-large-alt -->
 
             <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaktion')?></span>
-                <h2 class="alt"><?=$this->translate('Reaktionen und Feedback auf einzelne Beiträge')?></h2>
+                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaction')?></span>
+                <h2 class="alt"><?=$this->translate('Reactions and Feedback on individual contributions')?></h2>
 
                 <p>
-                    <?=$this->translate('Einfach auf die betreffende Fragestellung klicken oder zum Bereich Schlagwörter wechseln.')?>
+                    <?=$this->translate('Simply click on respective question or switch to keywords.')?>
                 </p>
                 <?php echo $this->questionNavigation(NULL, 'follow-up-box'); ?>
                 <br/>
                 <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">
-                    <?=$this->translate('Sortiert nach Schlagwörtern')?>
+                    <?=$this->translate('Sorted by keywords')?>
                 </a>
             </div><!-- .well-large-alt -->
 
