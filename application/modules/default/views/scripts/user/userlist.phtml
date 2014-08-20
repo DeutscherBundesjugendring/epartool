@@ -24,7 +24,7 @@
                     document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('Es ist ein Fehler aufgetreten!')?>";
                 },
                 beforeSend: function(){
-                    document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('Bitte warten .... !')?>";
+                    document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('Bitte warten…')?>";
                 },
                 success:function(response){
                     document.getElementById('ua-'+uidArray[3]).innerHTML = response ;
@@ -76,7 +76,7 @@
                     <h3><?=$this->translate('Abzustimmende Beiträge:')?> <?php echo $this->inputs; ?></h3>
                     <table style="width: 100%;" border="1" cellpadding="4">
                         <tr>
-                        <th><?=$this->translate('Absimmende_*r')?></th>
+                        <th><?=$this->translate('Absimmende')?></th>
                         <th><?=$this->translate('Gruppenmitglied')?></th>
                         <th><?=$this->translate('Noch abzustimmen')?></th>
                         <th><?=$this->translate('Aktion')?></th>

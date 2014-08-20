@@ -16,11 +16,12 @@ class Default_Form_Input_SubscriptionQuestion extends Zend_Form
      */
     private function prepareElements()
     {
+        $label = '<span class="icon-rss"></span>' . (new Zend_View())->translate('Subscribe thread');
         $subscribe = $this->createElement('button', 'subscribe')
             ->setAttrib('class', 'btn')
             ->setAttrib('type', 'submit')
             ->setAttrib('escape', false)
-            ->setLabel('<span class="icon-rss"></span> Subscribe thread');
+            ->setLabel($label);
 
         $hash = $this->createElement('hash', 'csrf_token_input_subscribe_question', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
