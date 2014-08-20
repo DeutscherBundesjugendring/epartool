@@ -38,6 +38,7 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
                 ->createElement('button', 'submit')
                 ->setLabel('Neues Passwort speichern')
                 ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn')
         );
 
         $this->addElement(
