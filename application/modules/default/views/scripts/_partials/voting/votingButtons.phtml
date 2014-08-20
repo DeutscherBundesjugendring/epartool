@@ -30,7 +30,7 @@
                         <?php echo $this->escape($settings['btn_important_label']); ?>
                         <span class="counter counter-supervotes">
                             (<?php echo $votingBasket['countvotes']?>
-                            <?=$this->translate('von')?>
+                            <?=$this->translate('of')?>
                             <?=$settings['btn_important_max']?>)
                         </span>
                     </strong>
@@ -47,13 +47,13 @@
                     <?php echo $this->escape($settings['btn_important_label']); ?>
                     <span class="counter counter-supervotes">
                         (<?php echo $votingBasket['countvotes']?>
-                        <?=$this->translate('von')?>
+                        <?=$this->translate('of')?>
                         <?=$settings['btn_important_max']?>)
                     </span>
                 </strong>
             </a>
             <?php endif; ?>
-            <a class="view-basket"><?=$this->translate('anzeigen')?></a>
+            <a class="view-basket"><?=$this->translate('show')?></a>
         </li>
     <?php endif?>
 
@@ -79,7 +79,7 @@
         <a href="<?php $linkOptions['pts'] = 5;  echo $this->url($linkOptions); ?>" class="no-opinion">
             <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" />
             <br />
-            <strong><?=$this->translate('Keine Meinung')?></strong>
+            <strong><?=$this->translate('No opinion')?></strong>
         </a>
     </li>
 

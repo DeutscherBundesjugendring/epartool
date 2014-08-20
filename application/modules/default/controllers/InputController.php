@@ -29,7 +29,7 @@ class InputController extends Zend_Controller_Action
         } else {
             $action = $this->_request->getActionName();
             if ($action != 'support') {
-                $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
+                $this->_flashMessenger->addMessage('No consultation provided!', 'error');
                 $this->_redirect('/');
             }
         }
@@ -315,7 +315,7 @@ class InputController extends Zend_Controller_Action
             $this->view->registerForm = $registerForm;
         } else {
             $this->_flashMessenger->addMessage(
-                'Es gibt keine Beiträge, die noch bestätigt werden müssen.',
+                'There is no input to be confirmed.',
                 'info'
             );
             $this->redirect('/');
@@ -343,9 +343,9 @@ class InputController extends Zend_Controller_Action
         }
 
         if ($confirmedCount) {
-            $this->_flashMessenger->addMessage('Vielen Dank! Deine Beiträge wurden bestätigt!', 'success');
+            $this->_flashMessenger->addMessage('Thank you! Your inputs have been confirmed!', 'success');
         } else {
-            $this->_flashMessenger->addMessage('Der eingegebene Bestätigungslink ist ungültig!', 'error');
+            $this->_flashMessenger->addMessage('This confirmation link is invalid!', 'error');
         }
         $this->redirect('/');
     }
@@ -372,9 +372,9 @@ class InputController extends Zend_Controller_Action
         }
 
         if ($rejectedCount) {
-            $this->_flashMessenger->addMessage('Die Beiträge wurden als abgelehnt markiert!', 'success');
+            $this->_flashMessenger->addMessage('The contributions have already been marked as refused!', 'success');
         } else {
-            $this->_flashMessenger->addMessage('Der eingegebene Bestätigungslink ist ungültig!', 'error');
+            $this->_flashMessenger->addMessage('This confirmation link is invalid!', 'error');
         }
         $this->redirect('/');
     }
@@ -422,7 +422,7 @@ class InputController extends Zend_Controller_Action
             $error = true;
         }
         if ($error) {
-            $this->_flashMessenger->addMessage('Seite nicht gefunden!', 'error');
+            $this->_flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
         if (Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
@@ -434,10 +434,10 @@ class InputController extends Zend_Controller_Action
                 if ($form->isValid($data)) {
                     $key = $inputsModel->updateById($tid, $data);
                     if ($key > 0) {
-                        $this->_flashMessenger->addMessage('Beitrag aktualisiert.', 'success');
+                        $this->_flashMessenger->addMessage('Contribution updated.', 'success');
                     } else {
                         $this->_flashMessenger->addMessage(
-                            'Etwas lief schief: Beitrag konnte nicht aktualisiert werden.',
+                            'Something went wrong: contribution could not be updated.',
                             'error'
                         );
                     }
@@ -452,7 +452,7 @@ class InputController extends Zend_Controller_Action
                         array('prependBase' => false)
                     );
                 } else {
-                    $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
+                    $this->_flashMessenger->addMessage('Please check your data!', 'error');
                     $form->populate($data);
                 }
             } else {

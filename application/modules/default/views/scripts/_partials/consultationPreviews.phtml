@@ -57,19 +57,19 @@
                 </li>
                 <li>
                     <a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
-                        <h2><?=$this->translate('Infos')?></h2>
+                        <h2><?=$this->translate('Info')?></h2>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid)); ?>">
-                        <h2><?=$this->translate('Fragen')?></h2>
+                        <h2><?=$this->translate('Questions')?></h2>
                     </a>
                 </li>
 
                 <?php if (!$disabled['input']): ?>
                     <li>
                         <a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>#page-content">
-                            <h2><?=$this->translate('Beiträge')?></h2>
+                            <h2><?=$this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?php echo $bubbles['input']; ?>
                             <?php else: ?>
@@ -83,7 +83,7 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$this->translate('Beiträge')?></h2>
+                            <h2><?=$this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?php echo $bubbles['input']; ?>
                             <?php else: ?>
@@ -99,7 +99,7 @@
                 <?php if (!$disabled['voting']): ?>
                     <li>
                         <a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid)); ?>">
-                            <h2><?=$this->translate('Abstimmung')?></h2>
+                            <h2><?=$this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?php echo $bubbles['voting']; ?>
                             <?php else: ?>
@@ -113,7 +113,7 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$this->translate('Abstimmung')?></h2>
+                            <h2><?=$this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?php echo $bubbles['voting']; ?>
                             <?php else: ?>
@@ -129,13 +129,13 @@
                 <?php if (!$disabled['follow-up']): ?>
                     <li>
                         <a href="<?php echo $this->url(array('controller' => 'followup', 'kid' => $con->kid)) ?>">
-                            <h2><?=$this->translate('Reaktionen & Wirkung')?></h2>
+                            <h2><?=$this->translate('Reactions & Impact')?></h2>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$this->translate('Reaktionen & Wirkung')?></h2>
+                            <h2><?=$this->translate('Reactions & Impact')?></h2>
                         </div>
                     </li>
                 <?php endif; ?>

@@ -5,8 +5,8 @@
 >
     <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'))?>
 
-    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Mitmachen')?></span>
-    <h2><?=$this->translate('Beiträge verfassen')?></h2>
+    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Participate')?></span>
+    <h2><?=$this->translate('Create new contribution')?></h2>
     <br />
 
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
@@ -21,7 +21,7 @@
 
             <a href="#" class="btn btn-block btn-small btn-extend js-toggle-extended-input">
                 <i class="icon-angle-down icon-large"></i>
-                <?=$this->translate('Klicken, um Eintrag zu erläutern')?>
+                <?=$this->translate('Click here to explain contribution')?>
                 <i class="icon-angle-down icon-large"></i>
             </a>
 
@@ -37,7 +37,7 @@
 
     <div class="form-actions form-actions-unstyled text-center">
         <?=$this->element->add_input_field->setDecorators(array('ViewHelper'))?>
-        <p class="hint"><?=$this->translate('Klick hier für einen weiteren Beitrag')?></p>
+        <p class="hint"><?=$this->translate('Click here for another contribution')?></p>
         <?=$this->element->next_question->setDecorators(array('ViewHelper'))?>
         <?=$this->element->finished->setDecorators(array('ViewHelper'))?>
     </div>

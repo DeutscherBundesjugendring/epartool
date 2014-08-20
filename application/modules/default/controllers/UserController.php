@@ -30,7 +30,7 @@ class UserController extends Zend_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-        $this->_flashMessenger->addMessage('Logout erfolgreich!', 'info');
+        $this->_flashMessenger->addMessage('Logout successful!', 'info');
         $this->redirect('/');
     }
 
@@ -63,7 +63,7 @@ class UserController extends Zend_Controller_Action
                         list($uid, $isNew) = $userModel->register($data, $confirmKey);
                         $userModel->sendInputsConfirmationMail($uid, $form->getValue('kid'), $confirmKey, $isNew);
                         $this->_flashMessenger->addMessage(
-                            'Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-Adresse gesendet.',
+                            'An email for the confimation of your contributions has been sent to your email address.',
                             'success'
                         );
                     } else {
@@ -106,7 +106,7 @@ class UserController extends Zend_Controller_Action
                 $this->redirect('/');
             } else {
                 $populateForm->register = serialize($form);
-                $this->_flashMessenger->addMessage('Bitte prüfe Deine Eingaben!', 'error');
+                $this->_flashMessenger->addMessage('Please check your data!', 'error');
                 $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
             }
         }
@@ -114,7 +114,7 @@ class UserController extends Zend_Controller_Action
 
     public function editAction()
     {
-        $this->_flashMessenger->addMessage('Noch nicht implementiert!', 'info');
+        $this->_flashMessenger->addMessage('Not implemented yet!', 'info');
         $this->redirect('/');
     }
 
@@ -132,7 +132,7 @@ class UserController extends Zend_Controller_Action
                 $this->view->inputs = $inputModel->getUserEntriesOverview($identity->uid, $kid);
             }
         } else {
-            $this->_flashMessenger->addMessage('Bitte erst anmelden!', 'error');
+            $this->_flashMessenger->addMessage('Please log in first', 'error');
         }
     }
 
@@ -144,13 +144,13 @@ class UserController extends Zend_Controller_Action
             if ($form->isValid($data)) {
                 $userModel = new Model_Users();
                 if ($userModel->recoverPassword($data['email'])) {
-                    $this->_flashMessenger->addMessage('Eine E-Mail mit einem neuen Passwort wurde an die angegebene E-Mail-Adresse verschickt!', 'success');
+                    $this->_flashMessenger->addMessage('An email with a new password has been sent to your email address!', 'success');
                 } else {
-                    $this->_flashMessenger->addMessage('Passwortwiederherstellung fehlgeschlagen!', 'error');
+                    $this->_flashMessenger->addMessage('Password reset failed!', 'error');
                 }
                 $this->redirect('/');
             } else {
-                $this->_flashMessenger->addMessage('Bitte prüfe deine Eingaben!', 'error');
+                $this->_flashMessenger->addMessage('Please check your data!', 'error');
             }
         }
         $this->view->form = $form;
@@ -165,7 +165,7 @@ class UserController extends Zend_Controller_Action
         $consultationList = array();
 
         if (!$this->_auth->hasIdentity()) {
-            $this->_flashMessenger->addMessage('Bitte erst anmelden!', 'error'); // No Login
+            $this->_flashMessenger->addMessage('Please log in first', 'error'); // No Login
         } else {
             $identity = $this->_auth->getIdentity();
             // No Consultation ID given list consultations

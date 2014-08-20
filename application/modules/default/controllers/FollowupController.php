@@ -30,7 +30,7 @@ class FollowupController extends Zend_Controller_Action
                 || $consultation->follup_show == 'n'
             ) {
                 $this->_flashMessenger->addMessage(
-                    'Für diese Beteiligungsrunde gibt es derzeit keine Reaktionen.',
+                    'For this participation round, there are no Reactions at the moment.',
                     'info'
                 );
                 $this->redirect('/');
@@ -42,7 +42,7 @@ class FollowupController extends Zend_Controller_Action
         } else {
             $action = $this->_request->getActionName();
             if ($action != 'like' && $action != 'unlike') {
-                $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
+                $this->_flashMessenger->addMessage('No consultation provided!', 'error');
                 $this->_redirect('/');
             }
         }
@@ -529,7 +529,7 @@ class FollowupController extends Zend_Controller_Action
             flush();
             readfile($file);
         } else {
-            $this->_flashMessenger->addMessage('Datei ist nicht vorhanden.', 'error');
+            $this->_flashMessenger->addMessage('File does not exist.', 'error');
             $this->redirect(
                 $this->view->url(array('action' => 'index', 'kid' => $kid)),
                 array('prependBase' => false)

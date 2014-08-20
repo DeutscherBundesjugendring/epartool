@@ -8,22 +8,22 @@
                 <a
                     href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
                     class="back-link"
-                    title="<?=$this->translate('Zurück zur Übersicht Reaktionen & Wirkungen')?>"
+                    title="<?=$this->translate('Back to overview of Reactions & Impact')?>"
                 >
                     <div class="sprite question-mark"><p>?</p></div>
                     <h3 class="question-h3">
-                        <?=$this->translate('Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die Pfeile für nächste Schritte.')?>
+                        <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.')?>
                     </h3>
                 </a>
             </div>
-            <h2 class="well-title text-center"><?=$this->translate('Reaktionen & Wirkungen!')?></h2>
+            <h2 class="well-title text-center"><?=$this->translate('Reactions & Impact')?></h2>
             <div class="wrapper">
                 <div class="col">
                     <div class="timeline-box">
                         <h3>
                             <a
                                 class="whitelink"
-                                title="<?=$this->translate('Zurück zur Übersicht der Beiträge sortiert nach Fragen')?>"
+                                title="<?=$this->translate('Back to overview of contributions sorted by questions')?>"
                                 href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"
                             >
                                 <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
@@ -39,7 +39,7 @@
 
                             <?php endif; ?>
                             <?php if ($this->input['vot'] == 'y'): ?>
-                                <p class="score"><?=$this->translate('Ergebnis der Abstimmung: X. Rang')?></p>
+                                <p class="score"><?=$this->translate('Result of voting: X. position')?></p>
                             <?php endif; ?>
                         </div>
                         <?php if ($this->relatedCount): ?>
@@ -63,7 +63,7 @@
                                 <div class="content">
                                     <p><?php echo $relInput['thes']; ?></p>
                                     <?php if ($relInput['vot'] == 'y'): ?>
-                                        <p class="score"><?=$this->translate('Ergebnis der Abstimmung: X. Rang')?></p>
+                                        <p class="score"><?=$this->translate('Result of voting: X. position')?></p>
                                     <?php endif?>
                                 </div>
                                 <?php if ($relInput['relFowupCount'] != 0): ?>

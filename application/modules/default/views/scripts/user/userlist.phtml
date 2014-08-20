@@ -21,10 +21,10 @@
                 cache: false,
                 async: "true",
                 error: function(){
-                    document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('Es ist ein Fehler aufgetreten!')?>";
+                    document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('An error occurred!')?>";
                 },
                 beforeSend: function(){
-                    document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('Bitte warten…')?>";
+                    document.getElementById('ua-'+uidArray[3]).innerHTML = "<?=$this->translate('Please wait…')?>";
                 },
                 success:function(response){
                     document.getElementById('ua-'+uidArray[3]).innerHTML = response ;
@@ -59,7 +59,7 @@
                         <h2>
                             <a
                                 href="<?=$this->url(array('kid' => $consultation['kid']));?>"
-                                title="<?=$this->translate('Zeige meine Beiträge zu dieser Beteiligungsrunde')?>"
+                                title="<?=$this->translate('Show my contributions to this participation round')?>"
                             >
                                 <?php echo $consultation['titl']; ?>
                             </a>

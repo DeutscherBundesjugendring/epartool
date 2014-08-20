@@ -44,17 +44,16 @@ class Default_Form_Register extends Zend_Form
 
         $validator = new Zend_Validate_InArray(array(1));
         $validator->setMessage('You must agree');
+        $label = sprintf(
+            (new Zend_View())->translate(
+                'The contributions are published under a <a href="%s" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">creative commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.'
+            ),
+            Zend_Registry::get('systemconfig')->license->creative_commons->link
+        );
         $this->getElement('is_contrib_under_cc')->setDisableTranslator('true');
         $this->getElement('is_contrib_under_cc')->addValidator($validator);
         $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
-        $this->getElement('is_contrib_under_cc')->setLabel(
-            sprintf(
-                Zend_Registry::get('Zend_Translate')->translate(
-                    'Die Beiträge werden unter einer <a href="%s" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">Creative-Commons-Lizenz</a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung als Quelle nur diese Website genannt werden.'
-                ),
-                Zend_Registry::get('systemconfig')->license->creative_commons->link
-            )
-        );
+        $this->getElement('is_contrib_under_cc')->setLabel($label);
 
         // add javascript for toggling subform
         $script = $this->getElement('script');

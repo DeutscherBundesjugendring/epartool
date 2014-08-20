@@ -6,11 +6,11 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
     {
         $minPassLength = Zend_Registry::get('systemconfig')->security->password->minLength;
 
-        $description = '(' . sprintf((new Zend_View())->translate('min. %s Zeichen'), $minPassLength) . ')';
+        $description = '(' . sprintf((new Zend_View())->translate('min. %s characters'), $minPassLength) . ')';
         $this->addElement(
             $this
                 ->createElement('password', 'password')
-                ->setLabel('Neues Passwort')
+                ->setLabel('New password')
                 ->setDescription($description)
                 ->setRequired(true)
                 ->setAttrib('class', 'js-has-password-meter')
@@ -28,7 +28,7 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
         $this->addElement(
             $this
                 ->createElement('password', 'password_confirm')
-                ->setLabel('Neues Passwort bestätigen')
+                ->setLabel('Confirm new password')
                 ->setRequired(true)
                 ->addValidator($identicalValidator)
         );
@@ -36,7 +36,7 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Neues Passwort speichern')
+                ->setLabel('Save new password')
                 ->setAttrib('type', 'submit')
         );
 

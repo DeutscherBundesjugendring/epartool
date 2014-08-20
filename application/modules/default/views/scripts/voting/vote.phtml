@@ -27,7 +27,7 @@ $(document).ready(function() {
 
     var superbtn = '<a href="<?=$this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid))?>/tid/<?=$this->thesis['tid']?>/pts/y" class="voting-particularly-important" <?=$this->pimp == 'y' ? 'style="color: red!important"' : ''?>' +
         '<img src="<?=$this->baseUrl()?>/images/voting-rate-superbtn.png" alt="<?=$this->settings['btn_important_label']?>" title="<?=$this->settings['btn_important_label']?>" /><br />'+
-        '<strong><?=$this->settings['btn_important_label']?> <span class="counter">(<?=$this->votingBasket['countvotes']?> <?=$this->translate('von')?> <?=$this->settings['btn_important_max']?>)</span></strong>'+
+        '<strong><?=$this->settings['btn_important_label']?> <span class="counter">(<?=$this->votingBasket['countvotes']?> <?=$this->translate('of')?> <?=$this->settings['btn_important_max']?>)</span></strong>'+
         '</a>';
 
 	$(document).on("click", "a.voting-minus", function (event) {
@@ -71,34 +71,34 @@ $(document).ready(function() {
 
             <?php if ($this->noMoreThesis): ?>
                 <p>
-                    <?=$this->translate('In dieser Kategorie gibt es keine Beiträge mehr zum Abstimmen. Bitte wechsle zu einer anderen Frage oder einem anderen Schlagwort.')?>
+                    <?=$this->translate('There are no more contributions to be voted in this category. Please switch to another questions or another keyword.')?>
                 </p>
                 <a
                     href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
                     class="btn"
                 >
-                    <?=$this->translate('Frage / Schlagwort wechseln')?>
+                    <?=$this->translate('Change question or keyword')?>
                 </a>
 
                 <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
-                    <?=$this->translate('Beenden')?>
+                    <?=$this->translate('Finish')?>
                 </a>
 
             <?php else: ?>
                 <div class="well well-large voting text-center">
-                    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Mitmachen!')?></span>
+                    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Join now!')?></span>
 
                     <!-- Vote basket -->
                     <!--  @TODO change url to last input of voting -->
                     <?php if ($this->settings['btn_important'] == 'y'):  ?>
                         <div class="vote-basket">
-                        	<a class="close-basket-x" title="<?=$this->translate('verbergen')?>">x</a>
+                        	<a class="close-basket-x" title="<?=$this->translate('hide')?>">x</a>
                             <h3>
-                                <?=$this->translate('Entscheide, was besonders wichtig ist!')?>
+                                <?=$this->translate('Decide what is most important!')?>
                                 <span class="counter counter-supervotes">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span>
                             </h3>
                             <p class="basket-info">
-                                <?=$this->translate('Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein stärkeres Gewicht zu verleihen. Diese Übersicht zeigt, was du bereits als „besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl wieder rückgängig machen und Platz für wichtigere Beiträge schaffen.')?>
+                                <?=$this->translate('The superbutton allows you to give certain contributions a higher vote. The overview shows you what you already marked as "especially important". Use the „–“  to reset your markings and allow space for more important contributions.')?>
                             </p>
                             <ul>
                                 <?php  foreach ($this->votingBasket["votes"] as $v): ?>
@@ -110,7 +110,7 @@ $(document).ready(function() {
                                     </li>
                                 <?php endforeach?>
                             </ul>
-                            <a class="close-basket"><?=$this->translate('verbergen')?></a>
+                            <a class="close-basket"><?=$this->translate('hide')?></a>
                         </div>
                     <?php endif; ?>
 
@@ -132,7 +132,7 @@ $(document).ready(function() {
                                 echo '<span class="counter-digit">' . $number . '</span>';
                             }
                         ?>
-                        <?=sprintf($this->translate('von %s Beiträgen zu dieser Frage abgestimmt'), $countTotal)?>
+                        <?=sprintf($this->translate('of %s contributions on this question voted'), $countTotal)?>
                     </span>
 
                     <h2>Stimme jetzt ab!</h2>
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
                         <p>
                             <strong>
-                                <?=$this->translate('Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion zum Thema?')?>
+                                <?=$this->translate('How important is this contribution for further political discussions in your opinion?')?>
                             </strong>
                         </p>
                         <a
@@ -193,15 +193,15 @@ $(document).ready(function() {
                             id="buttonChangeKeyword"
                             class="btn"
                         >
-                            <?=$this->translate('Frage / Schlagwort wechseln')?>
+                            <?=$this->translate('Change question or keyword')?>
                         </a>
                     </p>
                     <p>
-                        <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="<?=$this->translate('Abstimmung beenden')?>">
-                            <i class="icon-signout"></i> <?=$this->translate('Beenden')?>
+                        <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="<?=$this->translate('Finish voting')?>">
+                            <i class="icon-signout"></i> <?=$this->translate('Finish')?>
                         </a>
-                        <a href="<?php echo $this -> url(array('action' => 'preview')); ?>" class="btn" title="<?=$this->translate('Vorschau Abstimmung')?>">
-                            <i class="icon-eye-open"></i> <?=$this->translate('Vorschau Abstimmung')?>
+                        <a href="<?php echo $this -> url(array('action' => 'preview')); ?>" class="btn" title="<?=$this->translate('Preview voting')?>">
+                            <i class="icon-eye-open"></i> <?=$this->translate('Preview voting')?>
                         </a>
                     </p>
 
