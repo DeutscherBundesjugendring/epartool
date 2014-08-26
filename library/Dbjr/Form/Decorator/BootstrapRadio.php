@@ -9,7 +9,7 @@ class Dbjr_Form_Decorator_BootstrapRadio extends Zend_Form_Decorator_Abstract
             ->clearDecorators()
             ->addDecorator('ViewHelper')
             ->addDecorator('Errors')
-            ->addDecorator('Description', ['tag' => 'p', 'class' => 'description'])
+            ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
             ->addDecorator(
                 'labelText',
                 ['escape' => $this->getOption('escapeLabel') === false ? false : true]

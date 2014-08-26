@@ -14,7 +14,7 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
             )
             ->addDecorator('ViewHelper')
             ->addDecorator('Errors')
-            ->addDecorator('Description', ['tag' => 'p', 'class' => 'description'])
+            ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
             ->addDecorator(
                 'HtmlTag',
                 [

@@ -13,7 +13,7 @@ class Dbjr_Form_Decorator_BootstrapFile extends Zend_Form_Decorator_Abstract
             )
             ->addDecorator('File')
             ->addDecorator('Errors')
-            ->addDecorator('Description', ['tag' => 'p', 'class' => 'description'])
+            ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
             ->addDecorator(
                 'HtmlTag',
                 [
