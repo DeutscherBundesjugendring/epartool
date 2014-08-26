@@ -15,10 +15,12 @@ class Admin_Form_Article extends Dbjr_Form_Admin
     public function init()
     {
         // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $this
+            ->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+            //->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/article/index']);
 
         $options = array(
-            0 => 'Bitte auswählen...',
+            0 => 'Please select…',
         );
 
         $this->getElement('ref_nm')->setMultioptions($options);

@@ -38,10 +38,6 @@
                 <?php endif; ?>
 
                 <?php echo $this->form;?>
-                <p>
-                    <?=$this->translate('or');?>
-                    <a href="<?=$this->url(array('action' => 'index', (isset($this->consultation) && !empty($this->consultation)) ? $this->kid : null));?>"><?=$this->translate('Cancel');?></a>
-                </p>
 
             </div>
         </div>

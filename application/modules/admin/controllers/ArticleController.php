@@ -67,9 +67,8 @@ class Admin_ArticleController extends Zend_Controller_Action
             $refNameModel = new Model_ArticleRefNames();
             $consultation = $consultationModel->getById($kid);
             $form = new Admin_Form_Article();
-
             $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
-            $multiOptions = array(0 => 'Bitte auswählen...');
+            $multiOptions = array(0 => $this->view->translate('Please select…'));
             if ($kid > 0) {
                 // set multiOptions for ref_nm
                 foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
@@ -87,7 +86,7 @@ class Admin_ArticleController extends Zend_Controller_Action
             $articleModel = new Model_Articles();
             $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
             $parentOptions = array(
-                0 => 'Keine'
+                0 => $this->view->translate('None')
             );
             foreach ($firstLevelPages as $page) {
                 $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
@@ -161,7 +160,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $articleModel = new Model_Articles();
                 $articleRow = $articleModel->find($aid)->current();
                 $form = new Admin_Form_Article();
-                $multiOptions = array(0 => 'Bitte auswählen...');
+                $multiOptions = array(0 => $this->view->translate('Please select…'));
                 if ($kid > 0) {
                     // set multiOptions for ref_nm
                     foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
@@ -178,7 +177,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                 }
                 $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
                 $parentOptions = array(
-                    0 => 'Keine'
+                    0 => $this->view->translate('None')
                 );
                 foreach ($firstLevelPages as $page) {
                     if ($page['art_id'] != $aid) {
