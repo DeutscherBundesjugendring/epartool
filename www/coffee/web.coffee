@@ -1,7 +1,10 @@
 $(document).ready () ->
     bindCharacterCounters()
     bindToggleGroupRegister()
-    $('.js-has-password-meter').pwstrength({'ui': {'bootstrap2': true}})
+    $('.js-has-password-meter').pwstrength({'ui': {
+        'bootstrap2': true,
+        'verdicts': [i18n['Weak'], i18n['Normal'], i18n['Medium'], i18n['Strong'], i18n['Very Strong']]
+    }})
 
 
 bindCharacterCounters = () ->
