@@ -59,7 +59,7 @@ class Default_Form_Register extends Zend_Form
         $groupSubForm = new Zend_Form_SubForm();
         $this->addSubForm($groupSubForm, 'group_specs', 6);
 
-        $source = $this->createElement('multiCheckbox', 'surce');
+        $source = $this->createElement('multiCheckbox', 'source');
         $source
             ->setLabel('Bitte beschreibt, woher eure Beiträge stammen:')
             ->setMultiOptions(
@@ -137,7 +137,7 @@ class Default_Form_Register extends Zend_Form
             ->setUnCheckedValue('n');
         $this->addElement($sendResults);
 
-        $newsletter = $this->createElement('checkbox', 'newsletter');
+        $newsletter = $this->createElement('checkbox', 'newsl_subscr');
         $newsletter
             ->setLabel('Ich möchte den Newsletter erhalten.')
             ->setCheckedValue('y')
@@ -164,7 +164,7 @@ class Default_Form_Register extends Zend_Form
         $ccLicense
             ->setLabel($label)
             ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
-            ->setCheckedValue('y')
+            ->setCheckedValue('1')
             ->setUnCheckedValue(null)
             ->setRequired(true)
             ->getDecorator('Label')
