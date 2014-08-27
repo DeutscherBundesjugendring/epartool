@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-08-27 12:09+0100\n"
-"PO-Revision-Date: 2014-08-27 12:09+0100\n"
+"POT-Creation-Date: 2014-08-27 13:48+0100\n"
+"PO-Revision-Date: 2014-08-27 13:48+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -506,7 +506,7 @@ msgstr ""
 "Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung "
 "als Quelle nur diese Website genannt werden."
 
-#: application/modules/default/forms/Register.php:177
+#: application/modules/default/forms/Register.php:176
 #: application/modules/default/forms/PasswordRecover.php:25
 msgid "Send"
 msgstr "Absenden"
@@ -663,6 +663,10 @@ msgstr "bestätigt"
 #: application/modules/default/views/scripts/user/userlist.phtml:32
 msgid "rejected"
 msgstr "abgelehnt"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:5
+msgid "unknown"
+msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:24
 msgid "An error occurred!"

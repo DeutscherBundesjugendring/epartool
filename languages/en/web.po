@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-08-26 14:39+0100\n"
-"PO-Revision-Date: 2014-08-26 14:39+0100\n"
+"POT-Creation-Date: 2014-08-27 13:48+0100\n"
+"PO-Revision-Date: 2014-08-27 13:48+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -196,7 +196,45 @@ msgstr ""
 msgid "Forgot password?"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:49
+#: application/modules/default/forms/Register.php:26
+msgid ""
+"Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick "
+"zu geben, welche Zielgruppen erreicht werden."
+msgstr ""
+
+#: application/modules/default/forms/Register.php:32
+msgid "Ich antworte als Einzelperson"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:33
+msgid "Ich antworte für eine Gruppe"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:46
+msgid "Vorname Nachname"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:117
+msgid "bis 17 Jahre"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:118
+msgid "bis 26 Jahre"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:119
+msgid "ab 27 Jahre"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:120
+msgid "Alle Altersgruppen"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:121
+msgid "keine Angabe"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:160
 #, php-format
 msgid ""
 "The contributions are published under a <a href=\"%s\" target=\"_blank\" "
@@ -207,16 +245,27 @@ msgid ""
 "when re-using contributions."
 msgstr ""
 
+#: application/modules/default/forms/PasswordRecover.php:15
+#: application/modules/default/forms/Voting/Authentification.php:12
+msgid "Email Address"
+msgstr ""
+
 #: application/modules/default/forms/UrlkeyAction/PasswordReset.php:9
 #, php-format
 msgid "min. %s characters"
 msgstr ""
 
+#: application/modules/default/forms/Voting/Authentification.php:21
+msgid "Zugangscode"
+msgstr ""
+
 #: application/modules/default/forms/Input/Create.php:74
+#: application/modules/default/forms/Input/Edit.php:16
 msgid "Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben"
 msgstr ""
 
 #: application/modules/default/forms/Input/Create.php:94
+#: application/modules/default/forms/Input/Edit.php:29
 msgid "Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern"
 msgstr ""
 
@@ -278,6 +327,10 @@ msgstr ""
 #: application/modules/default/views/scripts/user/userlist.phtml:4
 #: application/modules/default/views/scripts/user/userlist.phtml:32
 msgid "rejected"
+msgstr ""
+
+#: application/modules/default/views/scripts/user/userlist.phtml:5
+msgid "unknown"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:24
@@ -377,10 +430,6 @@ msgstr ""
 
 #: application/modules/default/views/scripts/_partials/header.phtml:50
 msgid "Search…"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/header.phtml:74
-msgid "user information"
 msgstr ""
 
 #: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:43
