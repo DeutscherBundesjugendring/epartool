@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-08-27 13:48+0100\n"
-"PO-Revision-Date: 2014-08-27 13:48+0100\n"
+"POT-Creation-Date: 2014-08-27 14:49+0100\n"
+"PO-Revision-Date: 2014-08-27 14:49+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,6 +17,26 @@ msgstr ""
 
 #: application/modules/default/controllers/VotingController.php:739
 msgid "Deine Bewertungen sind jetzt bestätigt."
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:48
+msgid "Weak"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:49
+msgid "Normal"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:50
+msgid "Medium"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:51
+msgid "Strong"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:52
+msgid "Very Strong"
 msgstr ""
 
 #: application/modules/default/controllers/InputController.php:261
