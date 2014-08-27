@@ -1,5 +1,8 @@
 <?php if (!$this->error): ?>
-	<a href="#" rel="deny" data="uid/<?php echo $this->user['uid'].'/subuid/'.$this->user['sub_uid']; ?>" class="useraction">Ablehnen</a><br/>
+	<a href="#" rel="deny" data="uid/<?php echo $this->user['uid'].'/subuid/'.$this->user['sub_uid']; ?>" class="useraction">
+        <?=$this->translate('Reject')?>
+    </a>
+    <br/>
 <? else: ?>
 	<p>Es ist ein Fehler aufgetreten!</p>
 <? endif; ?>

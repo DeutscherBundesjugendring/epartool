@@ -135,7 +135,7 @@ $(document).ready(function() {
                         <?=sprintf($this->translate('of %s contributions on this question voted'), $countTotal)?>
                     </span>
 
-                    <h2>Stimme jetzt ab!</h2>
+                    <h2><?=$this->translate('Stimme jetzt ab!')?></h2>
 
                     <!-- Question -->
                     <h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
@@ -164,7 +164,7 @@ $(document).ready(function() {
                                     href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>"
                                     class="btn btn-small btn-light voting-prev"
                                 >
-                                    <i class="icon-angle-left icon-large"></i> Rückgängig
+                                    <i class="icon-angle-left icon-large"></i> <?=$this->translate('Rückgängig')?>
                                 </a>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -178,7 +178,7 @@ $(document).ready(function() {
                         	href="<?=$this->url(['kid' => $this->consultation->kid,'qid' => $this->question['qi']])?>"
                         	class="btn btn-small btn-light voting-next"
                         >
-                            <?=$this->translate('Überspringen')?>
+                            <?=$this->translate('Skip')?>
                             <i class="icon-angle-right icon-large"></i>
                         </a>
                     </div>

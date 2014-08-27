@@ -29,7 +29,7 @@
                 </p>
             <?php endif; ?>
 
-            <small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
+            <small class="muted count"><?php echo $this->numberInputs; ?> <?=$this->translate('Beiträge')?></small>
 
             <article class="article">
                 <h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
@@ -87,7 +87,7 @@
                 $this->paginator,
                 'Jumping',
                 '_partials/pagination.phtml',
-                array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
+                array('titlePrev' => $this->translate('Neuere Beiträge'), 'titleNext' => $this->translate('Ältere Beiträge'))
             ); ?>
         </section>
     </div><!-- .row -->

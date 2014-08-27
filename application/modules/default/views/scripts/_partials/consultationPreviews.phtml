@@ -12,14 +12,14 @@
         );
 
         // Voting disable result
-        if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
+        if ($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
             $disabled['voting'] = true;
         }
 
         $bubbles = array();
         if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
             if ($con->inp_show == 'y') {
-                $bubbles['input'] = '<div class="bubble bubble-large"><h3>Jetzt mitmachen!</h3>';
+                $bubbles['input'] = '<div class="bubble bubble-large"><h3>' . $this->translate('Jetzt mitmachen!') . '</h3>';
                 $bubbles['input'].= '<span>vom ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
                     . 'bis ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
                 $bubbles['input'].= '</div>';
@@ -27,7 +27,7 @@
         }
         if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
             if ($con->vot_show == 'y') {
-                $bubbles['voting'] = '<div class="bubble bubble-large"><h3>Jetzt abstimmen!</h3>';
+                $bubbles['voting'] = '<div class="bubble bubble-large"><h3>' . $this->translate('Jetzt abstimmen!') . '</h3>';
                 $bubbles['voting'].= '<span>vom ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
                     . 'bis ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
                 $bubbles['voting'].= '</div>';

@@ -14,7 +14,7 @@
 
                 <!-- Voting counter -->
                 <span class="counter counter-voting">
-                    Du hast schon über
+                    <?=$this->translate('Du hast schon über')?>
                     <?php
                         // Add leading zeros to count voted
                         $countTotal = $this->votableInputs;
@@ -52,7 +52,7 @@
                 </p>
 
                 <!-- Tags -->
-                <h3>Beiträge nach Schlagwörtern</h3>
+                <h3><?=$this->translate('Beiträge nach Schlagwörtern')?></h3>
                 <?php if (!empty($this->tags)): ?>
                     <ul class="tag-cloud tag-cloud-alt">
                         <?php foreach ($this->tags as $tag): ?>

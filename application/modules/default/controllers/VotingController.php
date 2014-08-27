@@ -365,7 +365,7 @@ class VotingController extends Zend_Controller_Action
             } elseif (isset($votingSuccess['max'])) {
 
                     $this->view->error = "1";
-                    $this->view->error_comment = "Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein stärkeres Gewicht zu verleihen. Ändere andere Votings und schaffe Platz für wichtigere Beiträge!";
+                    $this->view->error_comment = "The Super Button allows you to value a limited number of contributions higher. Change previous votings and make room for more important contributions!";
                     $currentVote = $votingIndividualModel->getCurrentVote($tid, $votingRightsSession->subUid);
                     $feedback = array('points' => $currentVote['pts'], 'tid' => $tid, 'pimp' => $currentVote['pimp']);
 
@@ -401,7 +401,7 @@ class VotingController extends Zend_Controller_Action
 
         // check wheter the thesisID is correct
         if (!$votingIndividualModel->thesisexists($tid,$this->_consultation->kid)) {
-            $this->_flashMessenger->addMessage('Diese These ist nicht vorhanden!', 'error');
+            $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
         }
 
@@ -457,7 +457,7 @@ class VotingController extends Zend_Controller_Action
         if (!empty($tid)) {
             // check if the thesisid are correct
             if (!$votingIndividualModel->thesisexists($tid,$this->_consultation->kid)) {
-                   $this->_flashMessenger->addMessage('Diese These ist nicht vorhanden!', 'error');
+                   $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
                    $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
               }else {
                       $$votingIndividualModel->deleteParticularImportantVote($uid,$subUid, $tid);
@@ -545,7 +545,7 @@ class VotingController extends Zend_Controller_Action
 
         // check if the thesisid are correct
         if (!$votIndiModel->thesisexists($tid,$this->_consultation->kid)) {
-            $this->_flashMessenger->addMessage('Diese These ist nicht vorhanden!', 'error');
+            $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
         }
 
@@ -611,7 +611,7 @@ class VotingController extends Zend_Controller_Action
             $votingIndividualModel = new Model_Votes_Individual();
             // check if the thesisid are correct
             if (!$votingIndividualModel ->thesisexists($tid,$this->_consultation->kid)) {
-                $this->_flashMessenger->addMessage('Diese These ist nicht vorhanden!', 'error');
+                $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
                 $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
             }
 
@@ -642,7 +642,7 @@ class VotingController extends Zend_Controller_Action
 
             }
             if (isset($votingSuccess['max'])) {
-                    $this -> _flashMessenger -> addMessage('Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein stärkeres Gewicht zu verleihen. Ändere andere Votings und schaffe Platz für wichtigere Beiträge!', 'info');
+                    $this -> _flashMessenger -> addMessage('The Super Button allows you to value a limited number of contributions higher. Change previous votings and make room for more important contributions!', 'info');
                     $this -> redirect('/voting/preview/kid/' . $this -> _consultation -> kid. $backParam);
             }
     }
@@ -736,7 +736,7 @@ class VotingController extends Zend_Controller_Action
             if ($votingRights['vt_weight'] > 1 || $votingRights['vt_weight'] == 1) {
                 $result = $votingIndivModel->setStatusForSubuser($votingRights['uid'], $subuid, 'v', 'c');
             }
-            $this->view->heading = 'Deine Bewertungen sind jetzt bestätigt.';
+            $this->view->heading = $this->view->translate('Deine Bewertungen sind jetzt bestätigt.');
         } elseif ($act == 'rej') { // reject votes
             // If user is singleuser (not group)
             if ($votingRights['vt_weight'] > 1 || $votingRights['vt_weight'] == 1) {

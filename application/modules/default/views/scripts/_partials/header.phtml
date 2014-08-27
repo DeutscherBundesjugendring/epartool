@@ -59,26 +59,6 @@
                 <?php echo $this->userBox(); ?>
                 <!-- .user-box -->
 
-                <!-- User info in a modified modal -->
-                <?php //echo $this->userInfo(); ?>
-                <div
-                    id="user-info"
-                    class="user-info modal hide fade"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="userInfoLabel"
-                    aria-hidden="true"
-                >
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="userInfoLabel"><?=$this->translate('user information')?></h3>
-                    </div><!-- .modal-header -->
-                    <div class="modal-body">
-                        <?php echo $this->userEditSimple(); ?>
-                        <hr />
-                    </div><!-- .modal-body -->
-                </div><!-- #user-info -->
-
             </div><!-- .span3 -->
         </div><!-- .row -->
 

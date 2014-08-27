@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-08-20 19:31+0100\n"
-"PO-Revision-Date: 2014-08-20 20:26+0100\n"
+"POT-Creation-Date: 2014-08-26 14:39+0100\n"
+"PO-Revision-Date: 2014-08-26 14:39+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -11,15 +11,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: _;translate\n"
-"X-Poedit-Basepath: ../\n"
+"X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/default\n"
+
+#: application/modules/default/controllers/VotingController.php:739
+msgid "Deine Bewertungen sind jetzt bestätigt."
+msgstr ""
 
 #: application/modules/default/controllers/InputController.php:261
 #, php-format
 msgid ""
 "Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale "
 "Bearbeitungszeit von %s Minuten überschritten hast."
+msgstr ""
+
+#: application/modules/default/controllers/InputController.php:466
+msgid ""
+"Die Beitragszeit für diese Beteiligungsrunde ist leider vorbei. Beiträge "
+"können nur innerhalb der Beitragszeit geändert werden."
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:33
@@ -128,12 +138,16 @@ msgstr ""
 msgid "View all my contributions"
 msgstr ""
 
+#: application/modules/default/views/helpers/UserBox.php:24
+msgid "Gruppenmitglieder ansehen"
+msgstr ""
+
 #: application/modules/default/views/helpers/UserBox.php:26
 msgid "To admin pages"
 msgstr ""
 
 #: application/modules/default/views/helpers/UserBox.php:28
-msgid "Ausloggen"
+msgid "Logout"
 msgstr ""
 
 #: application/modules/default/views/helpers/Teaser.php:26
@@ -198,6 +212,14 @@ msgstr ""
 msgid "min. %s characters"
 msgstr ""
 
+#: application/modules/default/forms/Input/Create.php:74
+msgid "Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben"
+msgstr ""
+
+#: application/modules/default/forms/Input/Create.php:94
+msgid "Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern"
+msgstr ""
+
 #: application/modules/default/forms/Input/SubscriptionQuestion.php:19
 msgid "Subscribe thread"
 msgstr ""
@@ -222,6 +244,11 @@ msgstr ""
 msgid "Show my contributions to this participation round"
 msgstr ""
 
+#: application/modules/default/views/scripts/user/inputlist.phtml:24
+#: application/modules/default/views/scripts/user/userlist.phtml:73
+msgid "Consultation round:"
+msgstr ""
+
 #: application/modules/default/views/scripts/user/inputlist.phtml:28
 msgid "Question:"
 msgstr ""
@@ -238,6 +265,21 @@ msgstr ""
 msgid "No contributions"
 msgstr ""
 
+#: application/modules/default/views/scripts/user/confirm.phtml:3
+#: application/modules/default/views/scripts/user/userlist.phtml:92
+msgid "Reject"
+msgstr ""
+
+#: application/modules/default/views/scripts/user/userlist.phtml:3
+#: application/modules/default/views/scripts/user/userlist.phtml:35
+msgid "confirmed"
+msgstr ""
+
+#: application/modules/default/views/scripts/user/userlist.phtml:4
+#: application/modules/default/views/scripts/user/userlist.phtml:32
+msgid "rejected"
+msgstr ""
+
 #: application/modules/default/views/scripts/user/userlist.phtml:24
 msgid "An error occurred!"
 msgstr ""
@@ -248,68 +290,54 @@ msgstr ""
 msgid "Please wait…"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:32
-msgid "abgelehnt"
-msgstr ""
-
-#: application/modules/default/views/scripts/user/userlist.phtml:35
-msgid "bestätigt"
-msgstr ""
-
 #: application/modules/default/views/scripts/user/userlist.phtml:38
-msgid "gelöscht"
+msgid "deleted"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:49
-msgid "Teilnehmende Gruppenmitglieder"
+msgid "Participating group members"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:51
-msgid "Es wurden in keiner Beteiligungsrunde Gruppenmitglieder gefunden."
+msgid "No group members were found in any of the consultation rounds."
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:55
-msgid "Zu folgenden Beteiligungsrunden wurden Gruppenmitglieder gefunden:"
-msgstr ""
-
-#: application/modules/default/views/scripts/user/userlist.phtml:73
-msgid "Beteiligungsrunde:"
+msgid "There are group members in the following consultation rounds:"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:75
-msgid "Gruppe:"
+msgid "Group:"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:76
-msgid "Abzustimmende Beiträge:"
+msgid "Contributions to vote:"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:79
-msgid "Absimmende"
+msgid "Voters"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:80
-msgid "Gruppenmitglied"
+msgid "Group member"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:81
-msgid "Noch abzustimmen"
+msgid "Still to vote"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:82
-msgid "Aktion"
-msgstr ""
-
-#: application/modules/default/views/scripts/user/userlist.phtml:92
-msgid "Ablehnen"
+msgid "Action"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:98
-msgid "Bestätigen"
+#: application/modules/default/views/scripts/user/deny.phtml:3
+msgid "Confirm"
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:104
-msgid "Löschen"
+#: application/modules/default/views/scripts/user/deny.phtml:7
+msgid "Delete"
 msgstr ""
 
 #: application/modules/default/views/scripts/error/error.phtml:11
@@ -337,19 +365,21 @@ msgstr ""
 msgid "We"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/header.phtml:34
+#: application/modules/default/views/scripts/_partials/header.phtml:35
+#: application/modules/default/views/scripts/_partials/header.phtml:39
 msgid "With You"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/header.phtml:35
+#: application/modules/default/views/scripts/_partials/header.phtml:36
+#: application/modules/default/views/scripts/_partials/header.phtml:38
 msgid "Do"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/header.phtml:45
+#: application/modules/default/views/scripts/_partials/header.phtml:50
 msgid "Search…"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/header.phtml:69
+#: application/modules/default/views/scripts/_partials/header.phtml:74
 msgid "user information"
 msgstr ""
 
@@ -359,6 +389,14 @@ msgstr ""
 
 #: application/modules/default/views/scripts/_partials/topLink.phtml:3
 msgid "up"
+msgstr ""
+
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:22
+msgid "Jetzt mitmachen!"
+msgstr ""
+
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
+msgid "Jetzt abstimmen!"
 msgstr ""
 
 #: application/modules/default/views/scripts/_partials/heroUnit.phtml:9
@@ -439,6 +477,10 @@ msgstr ""
 msgid "Show all contributions"
 msgstr ""
 
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:32
+msgid "Beiträge"
+msgstr ""
+
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:47
 msgid "written on"
 msgstr ""
@@ -450,6 +492,20 @@ msgstr ""
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:74
 msgid "I would like to discuss that!"
+msgstr ""
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:90
+#: application/modules/default/views/scripts/input/show.phtml:143
+msgid "Neuere Beiträge"
+msgstr ""
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:90
+#: application/modules/default/views/scripts/input/show.phtml:143
+msgid "Ältere Beiträge"
+msgstr ""
+
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:11
+msgid "Zurück zur Übersicht Reaktionen & Wirkungen"
 msgstr ""
 
 #: application/modules/default/views/scripts/followup/index.phtml:17
@@ -566,6 +622,14 @@ msgstr ""
 msgid "of %s contributions on this question voted"
 msgstr ""
 
+#: application/modules/default/views/scripts/voting/vote.phtml:138
+msgid "Stimme jetzt ab!"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:167
+msgid "Rückgängig"
+msgstr ""
+
 #: application/modules/default/views/scripts/voting/vote.phtml:174
 msgid ""
 "How important is this contribution for further political discussions in your "
@@ -573,7 +637,7 @@ msgid ""
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:181
-msgid "Überspringen"
+msgid "Skip"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:200
@@ -592,7 +656,39 @@ msgid "Your votings have been confirmed."
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:6
-msgid "Thank you for confirming your vote. If you haven"
+msgid ""
+"Thank you for confirming your vote. If you havent voted on all contributions "
+"yet, you can use the access code to get back and proceed with your votings "
+"any time."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:12
+msgid ""
+"The person responsible for your group needs to confirm that you are allowed "
+"for voting. He/she will only see your email address, not how you voted. "
+"After confirmation, your votings will be included in the voting results."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:16
+msgid ""
+"The person responsible for your group has confirmed your email address. Your "
+"votings will now be included anonymously in the overall voting results."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:19
+msgid "The votings have been deleted."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:21
+msgid ""
+"The votings connected to your email address will not be included in the end "
+"results. This does not apply to votings have may have made before."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:25
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:17
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:18
+msgid "Back to Home"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/removethesis.phtml:3
@@ -601,6 +697,10 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/removethesis.phtml:7
 msgid "Error, the contribution has not been deleted!"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/overview.phtml:17
+msgid "Du hast schon über"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/overview.phtml:35
@@ -615,6 +715,10 @@ msgid ""
 "time. During the Voting, all contributions will be displayed, so that you "
 "will vote on all of them. You can edit as many contributions as you wish. "
 "Breaks or possible without any problems."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/overview.phtml:55
+msgid "Beiträge nach Schlagwörtern"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/index.phtml:9
@@ -663,16 +767,19 @@ msgid ""
 "your decision, but you may contact this person if you wish."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/confirmmember.phtml:17
-msgid "Back to Home"
-msgstr ""
-
 #: application/modules/default/views/scripts/voting/stopvoting.phtml:7
 msgid "Thank you for voting!"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/stopvoting.phtml:9
-msgid "If you haven"
+msgid ""
+"If you haven't finished voting on all contributions, you can login any time "
+"and finish your votings."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:13
+#, php-format
+msgid "An email has been sent to %s. Please check your inbox!"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/preview.phtml:13
@@ -717,11 +824,11 @@ msgid "Write a contribution"
 msgstr ""
 
 #: application/modules/default/views/scripts/input/show.phtml:63
-msgid "Die Beitragsphase hat noch nicht begonnen."
+msgid "Contribution phase has not started yet."
 msgstr ""
 
 #: application/modules/default/views/scripts/input/show.phtml:65
-msgid "Die Beitragsphase ist bereits vorbei."
+msgid "Contribution phase is over already."
 msgstr ""
 
 #: application/modules/default/views/scripts/input/show.phtml:87
@@ -733,6 +840,10 @@ msgstr ""
 #: application/modules/default/views/scripts/input/show.phtml:111
 #: application/modules/default/views/scripts/input/show.phtml:184
 msgid "supporters"
+msgstr ""
+
+#: application/modules/default/views/scripts/input/show.phtml:128
+msgid "Das möchte ich gerne diskutieren!"
 msgstr ""
 
 #: application/modules/default/views/scripts/input/show.phtml:167

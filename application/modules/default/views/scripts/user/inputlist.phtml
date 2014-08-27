@@ -21,7 +21,7 @@
                 </ul>
 
             <?php elseif (isset($this->consultation)): ?>
-                <h2>Beteiligungsrunde: <?php echo $this->consultation->titl; ?></h2>
+                <h2><?=$this->translate('Consultation round:')?> <?php echo $this->consultation->titl; ?></h2>
                 <?php if (!empty($this->inputs)): ?>
                     <?php foreach ($this->inputs as $question): ?>
                         <h3>

@@ -60,9 +60,9 @@
             </article>
 
             <?php if (Zend_Date::now()->isEarlier($this->consultation->inp_fr)): ?>
-                <p><?=$this->translate('Die Beitragsphase hat noch nicht begonnen.')?></p>
+                <p><?=$this->translate('Contribution phase has not started yet.')?></p>
             <?php elseif (Zend_Date::now()->isLater($this->consultation->inp_to)): ?>
-                <p><?=$this->translate('Die Beitragsphase ist bereits vorbei.')?></p>
+                <p><?=$this->translate('Contribution phase is over already.')?></p>
             <?php else: ?>
                 <?=$this->inputForm?>
             <?php endif?>
@@ -125,7 +125,7 @@
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
                                     <small>(<?php echo $input['place']; ?>)</small>
-                                    <a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+                                    <a class="label" href="#"><?$this->translate('Das möchte ich gerne diskutieren!')?></a>
                                 </span>
                             <?php endif?>
                         </section><!-- .actions -->
@@ -140,7 +140,7 @@
                 $this->paginator,
                 'Sliding',
                 '_partials/pagination.phtml',
-                array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
+                array('titlePrev' => $this->translate('Ältere Beiträge'), 'titleNext' => $this->translate('Neuere Beiträge'))
             ); ?>
 
             <hr />

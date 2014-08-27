@@ -3,7 +3,7 @@
     <?php if ($this->act == 'acc'): ?>
         <h1><?=$this->translate('Your votings have been confirmed.')?></h1>
         <p>
-            <?=$this->translate('Thank you for confirming your vote. If you haven't voted on all contributions yet, you can use the access code to get back and proceed with your votings any time.')?>
+            <?=$this->translate("Thank you for confirming your vote. If you havent voted on all contributions yet, you can use the access code to get back and proceed with your votings any time.")?>
         </p>
     <?php endif; ?>
 
@@ -13,7 +13,7 @@
         </p>
     <?php elseif ($this->memberstatus == 'y' && $this->act == 'acc'): ?>
         <p>
-            <?=$this->translate('The person  responsible for your group has confirmed your email address. Your votings will now be included anonymously in the overall voting results.')?>
+            <?=$this->translate('The person responsible for your group has confirmed your email address. Your votings will now be included anonymously in the overall voting results.')?>
         </p>
     <?php elseif ($this->act == 'rej'): ?>
         <h1><?=$this->translate('The votings have been deleted.')?></h1>
