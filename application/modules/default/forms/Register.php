@@ -1,94 +1,183 @@
 <?php
-/**
- * Register Form
- *
- */
+
 class Default_Form_Register extends Zend_Form
 {
-    protected $_iniFile = '/modules/default/forms/Register.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+
     public function init()
     {
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
+        $view = new Zend_View();
 
-        $group = $this->getElement('group_type');
-        $group
+        $this
+            ->setMethod('post')
+            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
+
+        $kid = $this->createElement('hidden', 'kid');
+        $this->addElement($kid);
+
+        $email = $this->createElement('text', 'email');
+        $email
+            ->setLabel('Email Address')
+            ->setRequired(true)
+            ->setAttrib('placeholder', '@')
+            ->setValidators([['NotEmpty', true], 'EmailAddress']);
+        $this->addElement($email);
+
+        $hint = $this->createElement('hidden', ' hint');
+        $description = $view->translate('Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick zu geben, welche Zielgruppen erreicht werden.');
+        $hint
+            ->setDescription('<dd><p class="help-block help-block-offset">' . $description . '</p></dd>')
+            ->setDecorators([['Description', ['escape' => false]]]);
+
+        $groupType = $this->createElement('radio', 'group_type');
+        $singleOpt = $view->translate('Ich antworte als Einzelperson');
+        $groupOpt = $view->translate('Ich antworte für eine Gruppe');
+        $groupType
+            ->setMultiOptions(
+                [
+                    'single' => $singleOpt,
+                    'group' => $groupOpt,
+                ]
+            )
             ->removeDecorator('Label')
             ->setValue('single');
+        $this->addElement($groupType);
 
-        $systemconfig = Zend_Registry::get('systemconfig');
-        $grp_siz_def = $systemconfig->group_size_def->toArray();
-        unset($grp_siz_def['0']);
-        unset($grp_siz_def['1']);
+        $name = $this->createElement('text', 'name');
+        $placeholder = $view->translate('Vorname Nachname');
+        $name
+            ->setLabel('Name')
+            ->setRequired(false)
+            ->setAttrib('placeholder', $placeholder)
+            ->setAttrib('class', 'input-xlarge')
+            ->setValidators(['NotEmpty'])
+            ->setFilters(['StripTags']);
+        $this->addElement($name);
+
+
 
         // subform for group_type == "group"
-        $groupSpecs = new Zend_Form_SubForm();
-        $groupSpecs->addElements(array(
-            $this->getElement('source'),
-            $this->getElement('src_misc'),
-            $this->getElement('group_size')->setMultioptions($grp_siz_def),
-            $this->getElement('name_group'),
-            $this->getElement('name_pers'),
-        ));
-        // remove these elements from original form
-        $this->removeElement('source');
-        $this->removeElement('src_misc');
-        $this->removeElement('group_size');
-        $this->removeElement('name_group');
-        $this->removeElement('name_pers');
-        $this->addSubForm($groupSpecs, 'group_specs', 6);
+        $groupSubForm = new Zend_Form_SubForm();
+        $this->addSubForm($groupSubForm, 'group_specs', 6);
 
-        $validator = new Zend_Validate_InArray(array(1));
-        $validator->setMessage('You must agree');
+        $source = $this->createElement('multiCheckbox', 'surce');
+        $source
+            ->setLabel('Bitte beschreibt, woher eure Beiträge stammen:')
+            ->setMultiOptions(
+                [
+                    'd' => 'Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema',
+                    'g' => 'In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)',
+                    'p' => 'Positionspapier/Beschluss unserer Gruppe/Organisation',
+                    'm' => 'Sonstiges, und zwar:',
+                ]
+            );
+        $groupSubForm->addElement($source);
+
+        $srcMisc = $this->createElement('textarea', 'src_misc');
+        $srcMisc
+            ->setAttrib('cols', 60)
+            ->setAttrib('rows', 2)
+            ->setAttrib('class', 'input-xlarge')
+            ->setFilters(['StripTags', 'HtmlEntities']);
+        $groupSubForm->addElement($srcMisc);
+
+        $groupSize = $this->createElement('select', 'group_size');
+        $grpSizeDef = Zend_Registry::get('systemconfig')
+            ->group_size_def
+            ->toArray();
+        unset($grpSizeDef['0']);
+        unset($grpSizeDef['1']);
+        $groupSize
+            ->setLabel('Wie viele Personen waren beteiligt?')
+            ->setMultioptions($grpSizeDef)
+            ->setAttrib('class', 'input-xlarge');
+        $groupSubForm->addElement($groupSize);
+
+        $nameGroup = $this->createElement('text', 'name_group');
+        $nameGroup
+            ->setLabel('Gruppenbezeichnung')
+            ->setAttrib('class', 'input-xlarge')
+            ->setFilters(['StripTags']);
+        $groupSubForm->addElement($nameGroup);
+
+        $namePers = $this->createElement('text', 'name_pers');
+        $namePers
+            ->setLabel('Ansprechpartner_in')
+            ->setAttrib('class', 'input-xlarge')
+            ->setFilters(['StripTags']);
+        $groupSubForm->addElement($namePers);
+
+
+
+        $age = $this->createElement('select', 'age_group');
+        $age
+            ->setLabel('Alter')
+            ->setAttrib('class', 'input-xlarge')
+            ->setMultiOptions(
+                [
+                    '1' => $view->translate('bis 17 Jahre'),
+                    '2' => $view->translate('bis 26 Jahre'),
+                    '3' => $view->translate('ab 27 Jahre'),
+                    '4' => $view->translate('Alle Altersgruppen'),
+                    '5' => $view->translate('keine Angabe'),
+                ]
+            );
+        $this->addElement($age);
+
+        $regioPax = $this->createElement('text', 'regio_pax');
+        $regioPax
+            ->setLabel('Bundesland')
+            ->setAttrib('class', 'input-xlarge')
+            ->setFilters(['StripTags', 'HtmlEntities']);
+        $this->addElement($regioPax);
+
+        $sendResults = $this->createElement('checkbox', 'cnslt_results');
+        $sendResults
+            ->setLabel('Ich möchte über die Ergebnisse der Beteiligungsrunde informiert werden.')
+            ->setCheckedValue('y')
+            ->setUnCheckedValue('n');
+        $this->addElement($sendResults);
+
+        $newsletter = $this->createElement('checkbox', 'newsletter');
+        $newsletter
+            ->setLabel('Ich möchte den Newsletter erhalten.')
+            ->setCheckedValue('y')
+            ->setUnCheckedValue('n');
+        $this->addElement($newsletter);
+
+        $comment = $this->createElement('textarea', 'cmnt_ext');
+        $comment
+            ->setLabel('Hier ist noch Platz für Kommentare:')
+            ->setAttrib('cols', 100)
+            ->setAttrib('rows', 3)
+            ->setAttrib('maxlength', 600)
+            ->setAttrib('class', 'input-block-level')
+            ->setFilters(['StripTags', 'HtmlEntities']);
+        $this->addElement($comment);
+
+        $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
         $label = sprintf(
             (new Zend_View())->translate(
                 'The contributions are published under a <a href="%s" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">creative commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.'
             ),
             Zend_Registry::get('systemconfig')->license->creative_commons->link
         );
-        $this->getElement('is_contrib_under_cc')->setDisableTranslator('true');
-        $this->getElement('is_contrib_under_cc')->addValidator($validator);
-        $this->getElement('is_contrib_under_cc')->getDecorator('Label')->setOptions(array('escape' => false));
-        $this->getElement('is_contrib_under_cc')->setLabel($label);
+        $ccLicense
+            ->setLabel($label)
+            ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
+            ->setCheckedValue('y')
+            ->setUnCheckedValue(null)
+            ->setRequired(true)
+            ->getDecorator('Label')
+                ->setOptions(['escape' => false]);
+        $this->addElement($ccLicense);
 
-        // add javascript for toggling subform
-        $script = $this->getElement('script');
-        $code = '<script type="text/javascript">' . "\n"
-            . '$(document).ready(function () {' . "\n"
-            . '    var container = $("#group_specs-element");' . "\n"
-            . '    var labelName = $("#name-label");' . "\n"
-            . '    var elementName = $("#name-element");' . "\n"
-            . '    var groupTypeChecked = $(\'input[name="group_type"]:checked\').val();' . "\n"
-            . '    if (groupTypeChecked != "group") {' . "\n"
-            . '        labelName.show();' . "\n"
-            . '        elementName.show();' . "\n"
-            . '        container.hide();' . "\n"
-            . '        $(\'select#age_group option\').filter("[value=\'4\']").remove();' . "\n"
-            . '    }' . "\n"
-            . '    $(\'input[name="group_type"]\').change(function () {' . "\n"
-            . '        groupTypeChecked = $(\'input[name="group_type"]:checked\').val();' . "\n"
-            . '        if (groupTypeChecked == "group") {' . "\n"
-            . '            labelName.hide();' . "\n"
-            . '            elementName.hide();' . "\n"
-            . '            container.slideDown();' . "\n"
-            . '            $(\'select#age_group\').append($(\'<option></option>\').val(\'4\').html(\'Alle Altersgruppen\'));' . "\n"
-            . '        } else {' . "\n"
-            . '            labelName.show();' . "\n"
-            . '            elementName.show();' . "\n"
-            . '            container.slideUp();' . "\n"
-            . '            $(\'select#age_group option\').filter("[value=\'4\']").remove();' . "\n"
-            . '        }' . "\n"
-            . '    });' . "\n"
-            . '});' . "\n"
-            . '</script>' . "\n";
-        $script->setDescription($code);
+        $submit = $this->createElement('submit', 'submit');
+        $submit
+            ->setLabel('Send')
+            ->setAttrib('class', 'btn');
+        $this->addElement($submit);
 
-        // CSRF Protection
-        $hash = $this->createElement('hash', 'csrf_token_register', array('salt' => 'unique'));
+        $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         $this->addElement($hash);
     }
@@ -107,7 +196,10 @@ class Default_Form_Register extends Zend_Form
             ->createElement('hidden', 'email')
             ->setValue($emailDisabledEl->getValue())
             ->setName('email');
-        $this->addElement($emailDisabledEl);
-        $this->addElement($emailHiddenEl);
+
+        $this
+            ->removeElement('email')
+            ->addElement($emailDisabledEl)
+            ->addElement($emailHiddenEl);
     }
 }

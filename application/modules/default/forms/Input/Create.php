@@ -64,13 +64,14 @@ class Default_Form_Input_Create extends Zend_Form
      */
     protected function addInputField($inputName, $thes = null, $expl = null)
     {
+        $view = new Zend_View();
         $thesElOpts = array(
             'cols' => 85,
             'rows' => 2,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
                 'class' => 'input-block-level input-extensible input-alt js-has-counter',
-                'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
+                'placeholder' => $view->translate('Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben'),
                 'maxlength' => '300',
             ),
             'filters' => array(
@@ -90,7 +91,7 @@ class Default_Form_Input_Create extends Zend_Form
             'attribs' => array(
                 'class' => 'extension input-block-level input-extensible input-alt js-has-counter',
                 'style' => 'display: none;',
-                'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
+                'placeholder' => $view->translate('Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern'),
                 'maxlength' => '2000'
             ),
             'filters' => array(

@@ -112,12 +112,6 @@ class UserController extends Zend_Controller_Action
         }
     }
 
-    public function editAction()
-    {
-        $this->_flashMessenger->addMessage('Not implemented yet!', 'info');
-        $this->redirect('/');
-    }
-
     public function inputlistAction()
     {
         $kid = isset($this->_consultation->kid) ? $this->_consultation->kid : 0;

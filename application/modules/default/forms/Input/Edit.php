@@ -1,26 +1,46 @@
 <?php
-/**
- * Edit Form
- * Formular für Beiträge zu Fragen
- *
- */
+
 class Default_Form_Input_Edit extends Zend_Form
 {
-    protected $_iniFile = '/modules/default/forms/Input/Edit.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
     public function init()
     {
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $view = new Zend_View();
 
-        $this->setDecorators(array('FormElements', 'Form'));
+        $this
+            ->setDecorators(array('FormElements', 'Form'))
+            ->setElementDecorators(array('ViewHelper', 'Errors', 'Description'))
+            ->setAttrib('class', 'form-contribution')
+            ->setMethod('post');
 
-        // für alle per ini gesetzten Elemente:
-        // nur die Dekoratoren ViewHelper, Errors und Description verwenden
-        $this->setElementDecorators(array('ViewHelper', 'Errors', 'Description'));
+        $thes = $this->createElement('textarea', 'thes');
+        $placeholder = $view->translate('Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben');
+        $thes
+            ->setLabel('These')
+            ->setAttrib('cols', 85)
+            ->setAttrib('rows', 2)
+            ->setRequired(true)
+            ->setAttrib('class', 'input-block-level')
+            ->setAttrib('placeholder', $placeholder)
+            ->setFilters(['StripTags', 'HtmlEntities'])
+            ->addValidators(['NotEmpty']);
+        $this->addElement($thes);
+
+        $expl = $this->createElement('textarea', 'expl');
+        $placeholder = $view->translate('Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern');
+        $expl
+            ->setLabel('Erläuterung')
+            ->setAttrib('cols', 85)
+            ->setAttrib('rows', 5)
+            ->setAttrib('class', 'extension input-block-level')
+            ->setAttrib('placeholder', $placeholder)
+            ->setFilters(['StripTags', 'HtmlEntities']);
+        $this->addElement($expl);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit
+            ->setLabel('Save')
+            ->setAttrib('class', 'btn pull-left');
+        $this->addElement($submit);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_inputedit', array('salt' => 'unique'));
