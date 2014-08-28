@@ -13,7 +13,7 @@ class Dbjr_Form_Element_MultiCheckbox extends Zend_Form_Element_MultiCheckbox
             return $this;
         }
 
-        $this->addDecorator('BootstrapCheckbox');
+        $this->addDecorator('BootstrapMulti');
 
         // Disable 'for' attribute
         if (false !== $decorator = $this->getDecorator('label')) {

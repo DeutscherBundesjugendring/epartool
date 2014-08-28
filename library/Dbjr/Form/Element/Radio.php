@@ -1,6 +1,6 @@
 <?php
 
-class Zend_Form_Element_Radio extends Zend_Form_Element_Multi
+class Dbjr_Form_Element_Radio extends Zend_Form_Element_Radio
 {
     /**
      * Load default decorators
@@ -15,7 +15,7 @@ class Zend_Form_Element_Radio extends Zend_Form_Element_Multi
             return $this;
         }
 
-        $this->addDecorator('BootstrapRadio');
+        $this->addDecorator('BootstrapMulti');
 
         // Disable 'for' attribute
         if (isset($this->_decorators['Label'])
