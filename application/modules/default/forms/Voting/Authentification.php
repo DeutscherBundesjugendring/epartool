@@ -18,9 +18,9 @@ class Default_Form_Voting_Authentification extends Zend_Form
         $this->addElement($email);
 
         $code = $this->createElement('text', 'authcode');
-        $placeholder = $view->translate('Zugangscode');
+        $placeholder = $view->translate('Access code');
         $code
-            ->setLabel('Ihr Zugangscode')
+            ->setLabel('Your access code')
             ->setRequired(true)
             ->setAttrib('placeholder', $placeholder)
             ->setValidators(['NotEmpty']);
@@ -28,7 +28,7 @@ class Default_Form_Voting_Authentification extends Zend_Form
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setLabel('Loslegen')
+            ->setLabel('Start')
             ->setAttrib('class', 'btn');
         $this->addElement($submit);
 

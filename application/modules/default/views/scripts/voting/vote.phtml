@@ -135,7 +135,7 @@ $(document).ready(function() {
                         <?=sprintf($this->translate('of %s contributions on this question voted'), $countTotal)?>
                     </span>
 
-                    <h2><?=$this->translate('Stimme jetzt ab!')?></h2>
+                    <h2><?=$this->translate('Vote now!')?></h2>
 
                     <!-- Question -->
                     <h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
@@ -164,7 +164,7 @@ $(document).ready(function() {
                                     href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>"
                                     class="btn btn-small btn-light voting-prev"
                                 >
-                                    <i class="icon-angle-left icon-large"></i> <?=$this->translate('Rückgängig')?>
+                                    <i class="icon-angle-left icon-large"></i> <?=$this->translate('Undo')?>
                                 </a>
                             <?php endif; ?>
                         <?php endif; ?>

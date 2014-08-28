@@ -23,14 +23,14 @@ class Default_Form_Register extends Zend_Form
         $this->addElement($email);
 
         $hint = $this->createElement('hidden', ' hint');
-        $description = $view->translate('Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick zu geben, welche Zielgruppen erreicht werden.');
+        $description = $view->translate('The following fields are not obligatory. But you can help us to find out more about what people and groups are participating.');
         $hint
             ->setDescription('<dd><p class="help-block help-block-offset">' . $description . '</p></dd>')
             ->setDecorators([['Description', ['escape' => false]]]);
 
         $groupType = $this->createElement('radio', 'group_type');
-        $singleOpt = $view->translate('Ich antworte als Einzelperson');
-        $groupOpt = $view->translate('Ich antworte für eine Gruppe');
+        $singleOpt = $view->translate('I am responding as an individual person');
+        $groupOpt = $view->translate('I am responding in the name of a group');
         $groupType
             ->setMultiOptions(
                 [
@@ -43,7 +43,7 @@ class Default_Form_Register extends Zend_Form
         $this->addElement($groupType);
 
         $name = $this->createElement('text', 'name');
-        $placeholder = $view->translate('Vorname Nachname');
+        $placeholder = $view->translate('First name and surname');
         $name
             ->setLabel('Name')
             ->setRequired(false)
@@ -61,13 +61,13 @@ class Default_Form_Register extends Zend_Form
 
         $source = $this->createElement('multiCheckbox', 'source');
         $source
-            ->setLabel('Bitte beschreibt, woher eure Beiträge stammen:')
+            ->setLabel('Please describe origin of your contributions:')
             ->setMultiOptions(
                 [
-                    'd' => 'Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema',
-                    'g' => 'In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)',
-                    'p' => 'Positionspapier/Beschluss unserer Gruppe/Organisation',
-                    'm' => 'Sonstiges, und zwar:',
+                    'd' => $view->translate('Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema'),
+                    'g' => $view->translate('In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)'),
+                    'p' => $view->translate('Positionspapier/Beschluss unserer Gruppe/Organisation'),
+                    'm' => $view->translate('Sonstiges, und zwar:'),
                 ]
             );
         $groupSubForm->addElement($source);
@@ -87,21 +87,21 @@ class Default_Form_Register extends Zend_Form
         unset($grpSizeDef['0']);
         unset($grpSizeDef['1']);
         $groupSize
-            ->setLabel('Wie viele Personen waren beteiligt?')
+            ->setLabel('How many individuals were involved?')
             ->setMultioptions($grpSizeDef)
             ->setAttrib('class', 'input-xlarge');
         $groupSubForm->addElement($groupSize);
 
         $nameGroup = $this->createElement('text', 'name_group');
         $nameGroup
-            ->setLabel('Gruppenbezeichnung')
+            ->setLabel('Group name')
             ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags']);
         $groupSubForm->addElement($nameGroup);
 
         $namePers = $this->createElement('text', 'name_pers');
         $namePers
-            ->setLabel('Ansprechpartner_in')
+            ->setLabel('Contact person')
             ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags']);
         $groupSubForm->addElement($namePers);
@@ -110,43 +110,43 @@ class Default_Form_Register extends Zend_Form
 
         $age = $this->createElement('select', 'age_group');
         $age
-            ->setLabel('Alter')
+            ->setLabel('Age')
             ->setAttrib('class', 'input-xlarge')
             ->setMultiOptions(
                 [
-                    '1' => $view->translate('bis 17 Jahre'),
-                    '2' => $view->translate('bis 26 Jahre'),
-                    '3' => $view->translate('ab 27 Jahre'),
-                    '4' => $view->translate('Alle Altersgruppen'),
-                    '5' => $view->translate('keine Angabe'),
+                    '1' => sprintf($view->translate('up to %s years'), 17),
+                    '2' => sprintf($view->translate('up to %s years'), 26),
+                    '3' => sprintf($view->translate('up to %s years'), 27),
+                    '4' => $view->translate('all age groups'),
+                    '5' => $view->translate('no information'),
                 ]
             );
         $this->addElement($age);
 
         $regioPax = $this->createElement('text', 'regio_pax');
         $regioPax
-            ->setLabel('Bundesland')
+            ->setLabel('State')
             ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($regioPax);
 
         $sendResults = $this->createElement('checkbox', 'cnslt_results');
         $sendResults
-            ->setLabel('Ich möchte über die Ergebnisse der Beteiligungsrunde informiert werden.')
+            ->setLabel('I want to get informed about outcomes of the consultation round.')
             ->setCheckedValue('y')
             ->setUnCheckedValue('n');
         $this->addElement($sendResults);
 
         $newsletter = $this->createElement('checkbox', 'newsl_subscr');
         $newsletter
-            ->setLabel('Ich möchte den Newsletter erhalten.')
+            ->setLabel('I would like to subscribe to the newsletter.')
             ->setCheckedValue('y')
             ->setUnCheckedValue('n');
         $this->addElement($newsletter);
 
         $comment = $this->createElement('textarea', 'cmnt_ext');
         $comment
-            ->setLabel('Hier ist noch Platz für Kommentare:')
+            ->setLabel('Any comments?')
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 3)
             ->setAttrib('maxlength', 600)

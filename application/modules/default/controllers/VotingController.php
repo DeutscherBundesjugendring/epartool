@@ -736,7 +736,7 @@ class VotingController extends Zend_Controller_Action
             if ($votingRights['vt_weight'] > 1 || $votingRights['vt_weight'] == 1) {
                 $result = $votingIndivModel->setStatusForSubuser($votingRights['uid'], $subuid, 'v', 'c');
             }
-            $this->view->heading = $this->view->translate('Deine Bewertungen sind jetzt bestätigt.');
+            $this->view->heading = $this->view->translate('Your contributions are now confirmed.');
         } elseif ($act == 'rej') { // reject votes
             // If user is singleuser (not group)
             if ($votingRights['vt_weight'] > 1 || $votingRights['vt_weight'] == 1) {

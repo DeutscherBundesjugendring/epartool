@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-08-27 14:22+0100\n"
-"PO-Revision-Date: 2014-08-27 14:24+0100\n"
+"POT-Creation-Date: 2014-08-28 21:43+0100\n"
+"PO-Revision-Date: 2014-08-28 21:44+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -102,30 +102,30 @@ msgid "The link is not correct."
 msgstr "Der angew&auml;hlte Link aus ist nicht korrekt."
 
 #: application/modules/default/controllers/VotingController.php:739
-msgid "Deine Bewertungen sind jetzt bestätigt."
-msgstr ""
+msgid "Your contributions are now confirmed."
+msgstr "Deine Bewertungen sind jetzt bestätigt."
 
 #: application/modules/default/controllers/VotingController.php:831
 msgid "Voting results are not available yet."
 msgstr "Abstimmungsergebnisse können noch nicht gezeigt werden!"
 
-#: application/modules/default/controllers/IndexController.php:44
+#: application/modules/default/controllers/IndexController.php:48
 msgid "Weak"
-msgstr ""
+msgstr "Schwach"
 
-#: application/modules/default/controllers/IndexController.php:45
+#: application/modules/default/controllers/IndexController.php:49
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
-#: application/modules/default/controllers/IndexController.php:46
+#: application/modules/default/controllers/IndexController.php:50
 msgid "Medium"
 msgstr "Mittel"
 
-#: application/modules/default/controllers/IndexController.php:47
+#: application/modules/default/controllers/IndexController.php:51
 msgid "Strong"
 msgstr "Stark"
 
-#: application/modules/default/controllers/IndexController.php:48
+#: application/modules/default/controllers/IndexController.php:52
 msgid "Very Strong"
 msgstr "Sehr Stark"
 
@@ -252,9 +252,11 @@ msgstr "Etwas lief schief: Beitrag konnte nicht aktualisiert werden."
 
 #: application/modules/default/controllers/InputController.php:466
 msgid ""
+"Sorry, the contribution phase for this consultation round is already over. "
+"You may only change your contributions within that period."
+msgstr ""
 "Die Beitragszeit für diese Beteiligungsrunde ist leider vorbei. Beiträge "
 "können nur innerhalb der Beitragszeit geändert werden."
-msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:33
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:60
@@ -299,10 +301,13 @@ msgid "till"
 msgstr "bis"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:106
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:22
 msgid "Participate now!"
 msgstr "Jetzt mitmachen!"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:108
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
+#: application/modules/default/views/scripts/voting/vote.phtml:138
 #: application/modules/default/views/scripts/voting/overview.phtml:38
 #: application/modules/default/views/scripts/voting/index.phtml:27
 msgid "Vote now!"
@@ -363,8 +368,8 @@ msgid "View all my contributions"
 msgstr "Alle meine Beiträge ansehen"
 
 #: application/modules/default/views/helpers/UserBox.php:24
-msgid "Gruppenmitglieder ansehen"
-msgstr ""
+msgid "View group members"
+msgstr "Gruppenmitglieder ansehen"
 
 #: application/modules/default/views/helpers/UserBox.php:26
 msgid "To admin pages"
@@ -433,81 +438,95 @@ msgstr "E-Mail-Adresse"
 
 #: application/modules/default/forms/Register.php:26
 msgid ""
+"The following fields are not obligatory. But you can help us to find out "
+"more about what people and groups are participating."
+msgstr ""
 "Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick "
 "zu geben, welche Zielgruppen erreicht werden."
-msgstr ""
 
 #: application/modules/default/forms/Register.php:32
-msgid "Ich antworte als Einzelperson"
-msgstr ""
+msgid "I am responding as an individual person"
+msgstr "Ich antworte als Einzelperson"
 
 #: application/modules/default/forms/Register.php:33
-msgid "Ich antworte für eine Gruppe"
-msgstr ""
+msgid "I am responding in the name of a group"
+msgstr "Ich antworte für eine Gruppe"
 
 #: application/modules/default/forms/Register.php:46
-msgid "Vorname Nachname"
-msgstr ""
+msgid "First name and surname"
+msgstr "Vorname Nachname"
 
 #: application/modules/default/forms/Register.php:48
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: application/modules/default/forms/Register.php:64
-msgid "Bitte beschreibt, woher eure Beiträge stammen:"
+msgid "Please describe origin of your contributions:"
+msgstr "Bitte beschreibt, woher eure Beiträge stammen:"
+
+#: application/modules/default/forms/Register.php:67
+msgid "Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:68
+msgid "In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:69
+msgid "Positionspapier/Beschluss unserer Gruppe/Organisation"
+msgstr ""
+
+#: application/modules/default/forms/Register.php:70
+msgid "Sonstiges, und zwar:"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:90
-msgid "Wie viele Personen waren beteiligt?"
-msgstr ""
+msgid "How many individuals were involved?"
+msgstr "Wie viele Personen waren beteiligt?"
 
 #: application/modules/default/forms/Register.php:97
-msgid "Gruppenbezeichnung"
-msgstr ""
+msgid "Group name"
+msgstr "Gruppenbezeichnung"
 
 #: application/modules/default/forms/Register.php:104
-msgid "Ansprechpartner_in"
-msgstr ""
+msgid "Contact person"
+msgstr "Ansprechpartner_in"
 
 #: application/modules/default/forms/Register.php:113
-msgid "Alter"
-msgstr ""
+msgid "Age"
+msgstr "Alter"
 
 #: application/modules/default/forms/Register.php:117
-msgid "bis 17 Jahre"
-msgstr ""
-
 #: application/modules/default/forms/Register.php:118
-msgid "bis 26 Jahre"
-msgstr ""
-
 #: application/modules/default/forms/Register.php:119
-msgid "ab 27 Jahre"
-msgstr ""
+#, php-format
+msgid "up to %s years"
+msgstr "bis %s Jahre"
 
 #: application/modules/default/forms/Register.php:120
-msgid "Alle Altersgruppen"
-msgstr ""
+msgid "all age groups"
+msgstr "Alle Altersgruppen"
 
 #: application/modules/default/forms/Register.php:121
-msgid "keine Angabe"
-msgstr ""
+msgid "no information"
+msgstr "keine Angabe"
 
 #: application/modules/default/forms/Register.php:128
-msgid "Bundesland"
-msgstr ""
+msgid "State"
+msgstr "Bundesland"
 
 #: application/modules/default/forms/Register.php:135
-msgid "Ich möchte über die Ergebnisse der Beteiligungsrunde informiert werden."
+msgid "I want to get informed about outcomes of the consultation round."
 msgstr ""
+"Ich möchte über die Ergebnisse der Beteiligungsrunde informiert werden."
 
 #: application/modules/default/forms/Register.php:142
-msgid "Ich möchte den Newsletter erhalten."
-msgstr ""
+msgid "I would like to subscribe to the newsletter."
+msgstr "Ich möchte den Newsletter erhalten."
 
 #: application/modules/default/forms/Register.php:149
-msgid "Hier ist noch Platz für Kommentare:"
-msgstr ""
+msgid "Any comments?"
+msgstr "Hier ist noch Platz für Kommentare:"
 
 #: application/modules/default/forms/Register.php:160
 #, php-format
@@ -537,7 +556,7 @@ msgstr "Passwort"
 
 #: application/modules/default/forms/Login.php:29
 msgid "Login"
-msgstr ""
+msgstr "Einloggen"
 
 #: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:10
 #: application/modules/default/forms/Input/UnsubscriptionQuestion.php:20
@@ -569,16 +588,16 @@ msgid "Save new password"
 msgstr "Neues Passwort speichern"
 
 #: application/modules/default/forms/Voting/Authentification.php:21
-msgid "Zugangscode"
-msgstr ""
+msgid "Access code"
+msgstr "Zugangscode"
 
 #: application/modules/default/forms/Voting/Authentification.php:23
-msgid "Ihr Zugangscode"
-msgstr ""
+msgid "Your access code"
+msgstr "Ihr Zugangscode"
 
 #: application/modules/default/forms/Voting/Authentification.php:31
-msgid "Loslegen"
-msgstr ""
+msgid "Start"
+msgstr "Loslegen"
 
 #: application/modules/default/forms/Input/Create.php:21
 msgid "+"
@@ -597,13 +616,17 @@ msgstr "Beenden"
 
 #: application/modules/default/forms/Input/Create.php:74
 #: application/modules/default/forms/Input/Edit.php:16
-msgid "Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben"
-msgstr ""
+#, php-format
+msgid "Here you can type in your contribution (up to %s characters)."
+msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben"
 
 #: application/modules/default/forms/Input/Create.php:94
 #: application/modules/default/forms/Input/Edit.php:29
-msgid "Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern"
-msgstr ""
+#, php-format
+msgid ""
+"Here you explain your contribution more in depth, e.g. with examples (up to "
+"%s characters)."
+msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben erläutern"
 
 #: application/modules/default/forms/Input/SubscriptionQuestion.php:19
 msgid "Subscribe thread"
@@ -614,12 +637,12 @@ msgid "Email"
 msgstr "E-Mail"
 
 #: application/modules/default/forms/Input/Edit.php:18
-msgid "These"
-msgstr ""
+msgid "Contribution"
+msgstr "These"
 
 #: application/modules/default/forms/Input/Edit.php:31
-msgid "Erläuterung"
-msgstr ""
+msgid "Explanation"
+msgstr "Erläuterung"
 
 #: application/modules/default/forms/Input/Edit.php:41
 msgid "Save"
@@ -686,7 +709,7 @@ msgstr "abgelehnt"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:5
 msgid "unknown"
-msgstr ""
+msgstr "unbekannt"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:24
 msgid "An error occurred!"
@@ -791,14 +814,6 @@ msgstr "Diesem Pfad folgen"
 msgid "up"
 msgstr "nach oben"
 
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:22
-msgid "Jetzt mitmachen!"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
-msgid "Jetzt abstimmen!"
-msgstr ""
-
 #: application/modules/default/views/scripts/_partials/heroUnit.phtml:9
 #: application/modules/default/views/scripts/_partials/heroUnit.phtml:50
 msgid "Participation"
@@ -836,6 +851,7 @@ msgid "Overview of all consultations"
 msgstr "Alle Beteiligungsrunden im Überblick"
 
 #: application/modules/default/views/scripts/followup/show.phtml:11
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:11
 msgid "Back to overview of Reactions & Impact"
 msgstr "Zurück zur Übersicht Reaktionen & Wirkungen"
 
@@ -880,8 +896,8 @@ msgid "Show all contributions"
 msgstr "Alle Beiträge anzeigen"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:32
-msgid "Beiträge"
-msgstr ""
+msgid "contributions"
+msgstr "Beiträge"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:47
 msgid "written on"
@@ -893,22 +909,19 @@ msgid "I agree!"
 msgstr "Dieser Meinung bin ich auch!"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:74
+#: application/modules/default/views/scripts/input/show.phtml:128
 msgid "I would like to discuss that!"
 msgstr "Das möchte ich gerne diskutieren!"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:90
 #: application/modules/default/views/scripts/input/show.phtml:143
-msgid "Neuere Beiträge"
-msgstr ""
+msgid "Newer contributions"
+msgstr "Neuere Beiträge"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:90
 #: application/modules/default/views/scripts/input/show.phtml:143
-msgid "Ältere Beiträge"
-msgstr ""
-
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:11
-msgid "Zurück zur Übersicht Reaktionen & Wirkungen"
-msgstr ""
+msgid "Older contributions"
+msgstr "Ältere Beiträge"
 
 #: application/modules/default/views/scripts/followup/index.phtml:17
 msgid "Wie's weiterging:"
@@ -1034,13 +1047,9 @@ msgstr ""
 msgid "of %s contributions on this question voted"
 msgstr "von %s Beiträgen zu dieser Frage abgestimmt"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:138
-msgid "Stimme jetzt ab!"
-msgstr ""
-
 #: application/modules/default/views/scripts/voting/vote.phtml:167
-msgid "Rückgängig"
-msgstr ""
+msgid "Undo"
+msgstr "Rückgängig"
 
 #: application/modules/default/views/scripts/voting/vote.phtml:174
 msgid ""
@@ -1126,14 +1135,10 @@ msgstr "Der Beitrag wurde gelöscht!"
 msgid "Error, the contribution has not been deleted!"
 msgstr "Fehler, der Beitrag wurde nicht gelöscht!"
 
-#: application/modules/default/views/scripts/voting/overview.phtml:17
-msgid "Du hast schon über"
-msgstr ""
-
 #: application/modules/default/views/scripts/voting/overview.phtml:35
 #, php-format
-msgid "of %s contributions in total voted."
-msgstr "Von insgesamt %s Beiträgen abgestimmt."
+msgid "You have voted on %s <br /> out of the total of %s contributions."
+msgstr "Du hast schon über %s von insgesamt %s Beiträgen abgestimmt."
 
 #: application/modules/default/views/scripts/voting/overview.phtml:51
 msgid ""
@@ -1152,8 +1157,8 @@ msgstr ""
 "möglich."
 
 #: application/modules/default/views/scripts/voting/overview.phtml:55
-msgid "Beiträge nach Schlagwörtern"
-msgstr ""
+msgid "Contributions by topic"
+msgstr "Beiträge nach Schlagwörtern"
 
 #: application/modules/default/views/scripts/voting/index.phtml:9
 msgid "View voting results"
@@ -1293,10 +1298,6 @@ msgstr "verfasst am %s"
 msgid "supporters"
 msgstr "Unterstützende"
 
-#: application/modules/default/views/scripts/input/show.phtml:128
-msgid "Das möchte ich gerne diskutieren!"
-msgstr ""
-
 #: application/modules/default/views/scripts/input/show.phtml:167
 msgid "shut again"
 msgstr "Wieder einklappen"
@@ -1401,11 +1402,23 @@ msgstr "Informationsseiten"
 msgid "Overview"
 msgstr "Übersichtsseite"
 
+#~ msgid "of %s contributions in total voted."
+#~ msgstr "Von insgesamt %s Beiträgen abgestimmt."
+
+#~ msgid "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben"
+#~ msgstr "Here you can type in your contribution (up to %s characters)."
+
+#~ msgid "Deine Bewertungen sind jetzt bestätigt."
+#~ msgstr "Your contributions are now confirmed."
+
+#~ msgid "Alle Altersgruppen"
+#~ msgstr "all age groups"
+
+#~ msgid "Rückgängig"
+#~ msgstr "Undo"
+
 #~ msgid "Not implemented yet!"
 #~ msgstr "Noch nicht implementiert!"
-
-#~ msgid "user information"
-#~ msgstr "User Info"
 
 #~ msgid "Ausloggen"
 #~ msgstr "Logout"

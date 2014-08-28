@@ -463,7 +463,7 @@ class InputController extends Zend_Controller_Action
             $this->view->form = $form;
         } else {
             // inputs period is already over
-            $this->view->message = $this->view->translate('Die Beitragszeit für diese Beteiligungsrunde ist leider vorbei. Beiträge können nur innerhalb der Beitragszeit geändert werden.');
+            $this->view->message = $this->view->translate('Sorry, the contribution phase for this consultation round is already over. You may only change your contributions within that period.');
         }
     }
 
