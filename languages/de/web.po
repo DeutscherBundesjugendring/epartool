@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2014-08-28 21:43+0100\n"
-"PO-Revision-Date: 2014-08-28 21:44+0100\n"
+"PO-Revision-Date: 2014-08-28 21:51+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -1138,7 +1138,7 @@ msgstr "Fehler, der Beitrag wurde nicht gelöscht!"
 #: application/modules/default/views/scripts/voting/overview.phtml:35
 #, php-format
 msgid "You have voted on %s <br /> out of the total of %s contributions."
-msgstr "Du hast schon über %s von insgesamt %s Beiträgen abgestimmt."
+msgstr "Du hast schon über %s  <br /> von insgesamt %s Beiträgen abgestimmt."
 
 #: application/modules/default/views/scripts/voting/overview.phtml:51
 msgid ""
