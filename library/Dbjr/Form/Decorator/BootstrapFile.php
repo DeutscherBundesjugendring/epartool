@@ -1,6 +1,7 @@
 <?php
 
-class Dbjr_Form_Decorator_BootstrapFile extends Zend_Form_Decorator_Abstract
+// The implemented interface is empty, but it has to be implemented as Zend checks for it. Cant figure out why...
+class Dbjr_Form_Decorator_BootstrapFile extends Zend_Form_Decorator_Abstract implements Zend_Form_Decorator_Marker_File_Interface
 {
     public function render($content)
     {

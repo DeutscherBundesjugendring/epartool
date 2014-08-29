@@ -70,6 +70,7 @@ class Admin_QuestionController extends Zend_Controller_Action
                         $questionRow = $questionModel->createRow($form->getValues());
                         $questionRow->qi = $newQi;
                         $questionRow->kid = $kid;
+                        $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                         $questionRow->ln = 'de';
                         $newId = $questionRow->save();
                         if ($newId > 0) {
@@ -113,6 +114,7 @@ class Admin_QuestionController extends Zend_Controller_Action
                         $params = $this->getRequest()->getPost();
                         if ($form->isValid($params)) {
                             $questionRow->setFromArray($form->getValues());
+                            $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                             $questionRow->save();
                             $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
                             $question = $questionRow->toArray();

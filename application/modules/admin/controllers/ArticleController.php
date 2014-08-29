@@ -100,6 +100,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $articleModel = new Model_Articles();
                     $articleRow = $articleModel->createRow($form->getValues());
                     $articleRow->kid = $kid;
+                    $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                     $articleRow->proj = implode(',', $data['proj']);
                     $newId = $articleRow->save();
                     if ($newId > 0) {
@@ -193,6 +194,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                     if ($form->isValid($params)) {
                         $articleRow->setFromArray($form->getValues());
                         $articleRow->proj = implode(',', $params['proj']);
+                        $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                         $articleRow->save();
                         $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
                         $article = $articleRow->toArray();

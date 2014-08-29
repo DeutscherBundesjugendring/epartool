@@ -33,9 +33,6 @@
 
                 <h2><?=$this->translate('All Media');?></h2>
 
-                <!-- TODO move upload to separate page -->
-                <?=$this->form?>
-
                 <?php if (!empty($this->files)): ?>
                     <div class="row">
                         <?php foreach ($this->files as $file):?>
@@ -43,25 +40,25 @@
                                 <div class="thumbnail">
                                     <a href="<?=$this->directory?>/<?=$file['basename']?>" target="_blank" title="<?=$file['basename'];?>">
                                         <div class="thumbnail-image">
-                                            <?php if (in_array($file['extension'], $gfx_test)): ?>
+                                            <?php if (in_array(strtolower($file['extension']), $gfx_test)): ?>
                                                 <!-- TODO use resized thumbnail -->
                                                 <img src="<?=$this->directory?>/<?=$file['basename']?>" alt="<?=$this->translate('Preview');?>" />
                                             <?php else: ?>
                                                 <img
                                                     src="
-                                                <?php if (in_array($file['extension'], $pdf_test)): ?>
+                                                <?php if (in_array(strtolower($file['extension']), $pdf_test)): ?>
                                                     <?=$this->baseUrl()?>/images/cystal_clear_mimetype_pdf.png
-                                                <?php elseif (in_array($file['extension'], $pck_test)): ?>
+                                                <?php elseif (in_array(strtolower($file['extension']), $pck_test)): ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_filesystem_folder_tar.png
-                                                <?php elseif (in_array($file['extension'], $doc_test)): ?>
+                                                <?php elseif (in_array(strtolower($file['extension']), $doc_test)): ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_mimetype_txt.png
-                                                <?php elseif (in_array($file['extension'], $prs_test)): ?>
+                                                <?php elseif (in_array(strtolower($file['extension']), $prs_test)): ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_app_display.png
-                                                <?php elseif (in_array($file['extension'], $vid_test)): ?>
+                                                <?php elseif (in_array(strtolower($file['extension']), $vid_test)): ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_mimetype_video.png
-                                                <?php elseif (in_array($file['extension'], $aud_test)): ?>
+                                                <?php elseif (in_array(strtolower($file['extension']), $aud_test)): ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_app_xmms.png
-                                                <?php elseif (in_array($file['extension'], $clc_test)): ?>
+                                                <?php elseif (in_array(strtolower($file['extension']), $clc_test)): ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_mimetype_spreadsheet.png
                                                 <?php else: ?>
                                                     <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png

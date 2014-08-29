@@ -110,75 +110,61 @@ class Admin_MediaController extends Zend_Controller_Action
      */
     public function uploadAction()
     {
-        $popup = (bool) $this->getRequest()->getParam('popup', 0);
         $kid = (int) $this->getRequest()->getParam('kid', 0);
-        $elemid = $this->getRequest()->getParam('elemid', 0);
         $uploadScenario = $this->getRequest()->getParam('upload_scenario', null);
-
-        $formData = $this->_request->getParams();
         $form = new Admin_Form_Media_Upload();
-        if ($form->isValid($formData)) {
-            $originalFilename = pathinfo($form->file->getFileName());
-            if ($kid > 0) {
-                $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
-            } else {
-                $uploadDir = realpath(MEDIA_PATH . '/misc');
-            }
-            $uploadFilename = $uploadDir . '/' . $originalFilename['basename'];
 
-            if (is_dir($uploadDir)) {
-                $upload = new Zend_File_Transfer_Adapter_Http();
-                $upload->addFilter(
-                    'Rename',
-                    array(
-                        'target' => $uploadFilename,
-                        'overwrite' => true
-                    )
-                );
-                try {
-                    if ($upload->receive()) {
-
-                        if ($uploadScenario === Model_FollowupFiles::UPLOAD_SCENARIO_THUMB) {
-                            $sizes = Zend_Registry::get('systemconfig')->image->sizes->followupThumb->toArray();
-                            $image = new Dbjr_File_Image();
-                            $image
-                                ->setImage($uploadFilename)
-                                ->resize($sizes['width'], $sizes['height']);
-                        }
-                        $this->_flashMessenger->addMessage(
-                            'Die Datei »' . $originalFilename['basename'] . '« wurde erfolgreich hinzugefügt.',
-                            'success'
-                        );
-                    } else {
-                        $this
-                            ->_flashMessenger
-                            ->addMessage(
-                                'Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.',
-                                'error'
-                            );
-                    }
-                } catch (Zend_File_Transfer_Exception $e) {
-                    $this->_flashMessenger->addMessage($e->getMessage(), 'error');
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->_request->getPost();
+            if ($form->isValid($formData)) {
+                $originalFilename = pathinfo($form->file->getFileName());
+                if ($kid > 0) {
+                    $uploadDir = realpath(MEDIA_PATH . '/consultations/' . $kid);
+                } else {
+                    $uploadDir = realpath(MEDIA_PATH . '/misc');
                 }
+                $uploadFilename = $uploadDir . '/' . $originalFilename['basename'];
+
+                if (is_dir($uploadDir)) {
+                    $upload = new Zend_File_Transfer_Adapter_Http();
+                    $upload->addFilter(
+                        'Rename',
+                        array(
+                            'target' => $uploadFilename,
+                            'overwrite' => true
+                        )
+                    );
+                    try {
+                        if ($upload->receive()) {
+                            if ($uploadScenario === Model_FollowupFiles::UPLOAD_SCENARIO_THUMB) {
+                                $sizes = Zend_Registry::get('systemconfig')->image->sizes->followupThumb->toArray();
+                                $image = new Dbjr_File_Image();
+                                $image
+                                    ->setImage($uploadFilename)
+                                    ->resize($sizes['width'], $sizes['height']);
+                            }
+                            $this->_flashMessenger->addMessage(
+                                'Die Datei »' . $originalFilename['basename'] . '« wurde erfolgreich hinzugefügt.',
+                                'success'
+                            );
+                        } else {
+                            $this
+                                ->_flashMessenger
+                                ->addMessage(
+                                    'Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.',
+                                    'error'
+                                );
+                        }
+                    } catch (Zend_File_Transfer_Exception $e) {
+                        $this->_flashMessenger->addMessage($e->getMessage(), 'error');
+                    }
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Upload fehlgeschlagen.', 'error');
             }
-        } else {
-            $this->_flashMessenger->addMessage('Upload fehlgeschlagen.', 'error');
         }
 
-        $uploadedData = $form->getValues();
-        $urlarr = array(
-            'action' => 'index',
-            'kid' => $kid
-        );
-        if ($popup) {
-            $urlarr = array(
-                'action' => 'choose',
-                'kid' => $kid,
-                'elemid' => $elemid
-            );
-        }
-
-        $this->redirect($this->view->url($urlarr), array('prependBase' => false));
+        $this->view->form = $form;
     }
 
     /**

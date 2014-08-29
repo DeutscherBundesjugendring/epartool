@@ -38,8 +38,9 @@ class Admin_TagController extends Zend_Controller_Action
 
     public function createAction()
     {
+        $form = new Admin_Form_Tag();
+
         if ($this->_request->isPost()) {
-            $form = new Admin_Form_Tag();
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
                 $tagModel = new Model_Tags();
@@ -47,13 +48,12 @@ class Admin_TagController extends Zend_Controller_Action
                 if (!empty($key)) {
                     $this->_flashMessenger->addMessage('Neues Schlagwort angelegt.', 'success');
                 }
-                $this->redirect('/admin/tag');
+                $this->redirect('/admin/tag/create');
             } else {
-                $this->view->createForm = $form->populate($data);
+                $form->populate($data);
             }
-        } else {
-            $this->redirect('/admin/tag');
         }
+        $this->view->createForm = $form;
     }
 
     public function editAction()
