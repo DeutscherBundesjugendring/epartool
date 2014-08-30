@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-08-28 21:56+0100\n"
-"PO-Revision-Date: 2014-08-28 21:56+0100\n"
+"POT-Creation-Date: 2014-08-30 17:56+0100\n"
+"PO-Revision-Date: 2014-08-30 17:57+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -89,9 +89,25 @@ msgstr ""
 msgid "after Voting has ended"
 msgstr ""
 
+#: application/modules/default/views/helpers/SecondNavigation.php:60
+#: application/modules/default/views/helpers/SecondNavigation.php:68
+#: application/modules/default/views/helpers/Teaser.php:38
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:23
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:31
+msgid "from"
+msgstr ""
+
 #: application/modules/default/views/helpers/SecondNavigation.php:63
 #: application/modules/default/views/helpers/SecondNavigation.php:71
-msgid "till"
+#: application/modules/default/views/helpers/Teaser.php:28
+#: application/modules/default/views/helpers/Teaser.php:39
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:24
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:32
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:78
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:92
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:108
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:122
+msgid "until"
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:106
@@ -183,10 +199,6 @@ msgstr ""
 
 #: application/modules/default/views/helpers/Teaser.php:37
 msgid "The contribution phase has finished. You can vote soon:"
-msgstr ""
-
-#: application/modules/default/views/helpers/Teaser.php:38
-msgid "from"
 msgstr ""
 
 #: application/modules/default/views/helpers/Teaser.php:48

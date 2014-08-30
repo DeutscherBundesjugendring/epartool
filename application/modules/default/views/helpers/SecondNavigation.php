@@ -57,18 +57,18 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
 
         // Add dates
         if ($con->inp_show == 'y') {
-            $items['input']['text'].= ' <small class="info">vom '
+            $items['input']['text'].= ' <small class="info">' . $this->view->translate('from') . ' '
                     . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM)
                     . '<br />'
-                    . $this->view->translate('till') . ' '
+                    . $this->view->translate('until') . ' '
                     . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM)
                     . '</small>';
         }
         if ($con->vot_show == 'y') {
-            $items['voting']['text'].= ' <small class="info">vom '
+            $items['voting']['text'].= ' <small class="info">' . $this->view->translate('from') . ' '
                     . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM)
                     . '<br />'
-                    . $this->view->translate('till') . ' '
+                    . $this->view->translate('until') . ' '
                     . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM)
                     . '</small>';
         }

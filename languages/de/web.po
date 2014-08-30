@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-08-28 21:43+0100\n"
-"PO-Revision-Date: 2014-08-28 21:51+0100\n"
+"POT-Creation-Date: 2014-08-30 17:57+0100\n"
+"PO-Revision-Date: 2014-08-30 17:57+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -295,9 +295,25 @@ msgstr "Reaktionen & Wirkung"
 msgid "after Voting has ended"
 msgstr "nach Ende der Abstimmung"
 
+#: application/modules/default/views/helpers/SecondNavigation.php:60
+#: application/modules/default/views/helpers/SecondNavigation.php:68
+#: application/modules/default/views/helpers/Teaser.php:38
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:23
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:31
+msgid "from"
+msgstr "vom"
+
 #: application/modules/default/views/helpers/SecondNavigation.php:63
 #: application/modules/default/views/helpers/SecondNavigation.php:71
-msgid "till"
+#: application/modules/default/views/helpers/Teaser.php:28
+#: application/modules/default/views/helpers/Teaser.php:39
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:24
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:32
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:78
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:92
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:108
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:122
+msgid "until"
 msgstr "bis"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:106
@@ -391,10 +407,6 @@ msgstr "Vom"
 msgid "The contribution phase has finished. You can vote soon:"
 msgstr "Die Beitragsphase ist vorbei! Demnächst kann abgestimmt werden:"
 
-#: application/modules/default/views/helpers/Teaser.php:38
-msgid "from"
-msgstr "vom"
-
 #: application/modules/default/views/helpers/Teaser.php:48
 msgid "Vote now on the most important contributions!"
 msgstr "Jetzt ist Abstimmen über die wichtigsten Beiträge angesagt!"
@@ -466,19 +478,19 @@ msgstr "Bitte beschreibt, woher eure Beiträge stammen:"
 
 #: application/modules/default/forms/Register.php:67
 msgid "Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema"
-msgstr ""
+msgstr "Results from a meeting or project related to the topic"
 
 #: application/modules/default/forms/Register.php:68
 msgid "In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)"
-msgstr ""
+msgstr "Compiled by our group (e.g. in a workshop or a group session)"
 
 #: application/modules/default/forms/Register.php:69
 msgid "Positionspapier/Beschluss unserer Gruppe/Organisation"
-msgstr ""
+msgstr "Position paper or agreement in our group/organisation"
 
 #: application/modules/default/forms/Register.php:70
 msgid "Sonstiges, und zwar:"
-msgstr ""
+msgstr "Other:"
 
 #: application/modules/default/forms/Register.php:90
 msgid "How many individuals were involved?"
@@ -1401,6 +1413,9 @@ msgstr "Informationsseiten"
 #: application/modules/default/views/scripts/index/search.phtml:47
 msgid "Overview"
 msgstr "Übersichtsseite"
+
+#~ msgid "till"
+#~ msgstr "bis"
 
 #~ msgid "of %s contributions in total voted."
 #~ msgstr "Von insgesamt %s Beiträgen abgestimmt."

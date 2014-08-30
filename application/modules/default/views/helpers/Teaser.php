@@ -25,7 +25,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                     ), 'default', true);
                     $text = $this->view->translate('You can publish your contribution now!')
                     . $this->view->translate('From') . ' '
-                    . $date->set($item['inp_fr'])->get('dd.MM.yyyy') . ' bis '
+                    . $date->set($item['inp_fr'])->get('dd.MM.yyyy') . ' ' . $this->view->translate('until') . ' '
                     . $date->set($item['inp_to'])->get('dd.MM.yyyy') . ' …';
                     break;
                 case 'inp_to':
@@ -36,7 +36,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                     ), 'default', true);
                     $text = $this->view->translate('The contribution phase has finished. You can vote soon:')
                     . $this->view->translate('from') . ' '
-                    . $date->set($item['vot_fr'])->get('dd.MM.yyyy') . ' bis '
+                    . $date->set($item['vot_fr'])->get('dd.MM.yyyy') . ' ' . $this->view->translate('until') . ' '
                     . $date->set($item['vot_to'])->get('dd.MM.yyyy') . ' …';
                     break;
                 case 'vot_fr':
