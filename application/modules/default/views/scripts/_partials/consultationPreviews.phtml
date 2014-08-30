@@ -12,24 +12,24 @@
         );
 
         // Voting disable result
-        if($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
+        if ($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
             $disabled['voting'] = true;
         }
 
         $bubbles = array();
         if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
             if ($con->inp_show == 'y') {
-                $bubbles['input'] = '<div class="bubble bubble-large"><h3>Jetzt mitmachen!</h3>';
-                $bubbles['input'].= '<span>vom ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
-                    . 'bis ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+                $bubbles['input'] = '<div class="bubble bubble-large"><h3>' . $this->translate('Participate now!') . '</h3>';
+                $bubbles['input'].= '<span>' . $this->translate('from') . ' ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
+                    . $this->translate('until') . ' ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
                 $bubbles['input'].= '</div>';
             }
         }
         if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
             if ($con->vot_show == 'y') {
-                $bubbles['voting'] = '<div class="bubble bubble-large"><h3>Jetzt abstimmen!</h3>';
-                $bubbles['voting'].= '<span>vom ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
-                    . 'bis ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+                $bubbles['voting'] = '<div class="bubble bubble-large"><h3>' . $this->translate('Vote now!') . '</h3>';
+                $bubbles['voting'].= '<span>' . $this->translate('from') . ' ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
+                    . $this->translate('until') . ' ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
                 $bubbles['voting'].= '</div>';
             }
         }
@@ -57,25 +57,25 @@
                 </li>
                 <li>
                     <a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
-                        <h2><?=$this->translate('Infos')?></h2>
+                        <h2><?=$this->translate('Info')?></h2>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->url(array('controller' => 'question', 'kid' => $con->kid)); ?>">
-                        <h2><?=$this->translate('Fragen')?></h2>
+                        <h2><?=$this->translate('Questions')?></h2>
                     </a>
                 </li>
 
                 <?php if (!$disabled['input']): ?>
                     <li>
                         <a href="<?php echo $this->url(array('controller' => 'input', 'kid' => $con->kid)); ?>#page-content">
-                            <h2><?=$this->translate('Beiträge')?></h2>
+                            <h2><?=$this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?php echo $bubbles['input']; ?>
                             <?php else: ?>
                                 <?php if ($con->inp_show == 'y'): ?>
-                                    <small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-                                        bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                    <small class="info">from <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        <?=$this->translate('until')?> <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </a>
@@ -83,13 +83,13 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$this->translate('Beiträge')?></h2>
+                            <h2><?=$this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?php echo $bubbles['input']; ?>
                             <?php else: ?>
                                 <?php if ($con->inp_show == 'y'): ?>
-                                    <small class="info">vom <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-                                        bis <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                    <small class="info">from <?php echo $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        <?=$this->translate('until')?> <?php echo $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
@@ -99,13 +99,13 @@
                 <?php if (!$disabled['voting']): ?>
                     <li>
                         <a href="<?php echo $this->url(array('controller' => 'voting', 'kid' => $con->kid)); ?>">
-                            <h2><?=$this->translate('Abstimmung')?></h2>
+                            <h2><?=$this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?php echo $bubbles['voting']; ?>
                             <?php else: ?>
                                 <?php if ($con->vot_show == 'y'): ?>
-                                    <small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-                                        bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                    <small class="info">from <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        <?=$this->translate('until')?> <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </a>
@@ -113,13 +113,13 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$this->translate('Abstimmung')?></h2>
+                            <h2><?=$this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?php echo $bubbles['voting']; ?>
                             <?php else: ?>
                                 <?php if ($con->vot_show == 'y'): ?>
-                                    <small class="info">vom <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
-                                        bis <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
+                                    <small class="info">from <?php echo $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM); ?><br />
+                                        <?=$this->translate('until')?> <?php echo $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM); ?></small>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
@@ -129,13 +129,13 @@
                 <?php if (!$disabled['follow-up']): ?>
                     <li>
                         <a href="<?php echo $this->url(array('controller' => 'followup', 'kid' => $con->kid)) ?>">
-                            <h2><?=$this->translate('Reaktionen & Wirkung')?></h2>
+                            <h2><?=$this->translate('Reactions & Impact')?></h2>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$this->translate('Reaktionen & Wirkung')?></h2>
+                            <h2><?=$this->translate('Reactions & Impact')?></h2>
                         </div>
                     </li>
                 <?php endif; ?>

@@ -325,7 +325,7 @@ class Admin_MediaController extends Zend_Controller_Action
             flush();
             readfile($file);
         } else {
-            $this->_flashMessenger->addMessage('Datei ist nicht vorhanden.', 'error');
+            $this->_flashMessenger->addMessage('File does not exist.', 'error');
             $this->redirect(
                 $this->view->url(
                     array(

@@ -15,21 +15,21 @@
             <?php if (isset($this->tag) && !empty($this->tag)): ?>
                 <?php if ($this->numberInputs > 0): ?>
                     <h3>
-                        <?=sprintf($this->translate('Es werden nur Beiträge mit dem Schlagwort %s angezeigt.'), '<em>' . $this->tag['tg_de'] . '</em>')?>
+                        <?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>')?>
                     </h3>
                 <?php else: ?>
                     <h3>
-                        <?=sprintf($this->translate('Zu dieser Frage gibt es keine mit %s verschlagworteten Beiträge.'), '<em>' . $this->tag['tg_de'] . '</em>')?>
+                        <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>')?>
                     </h3>
                 <?php endif; ?>
                 <p>
                     <a href="<?php echo $this->url(array('tag' => null)); ?>">
-                        <?=$this->translate('Alle Beiträge anzeigen')?>
+                        <?=$this->translate('Show all contributions')?>
                     </a>
                 </p>
             <?php endif; ?>
 
-            <small class="muted count"><?php echo $this->numberInputs; ?> Beiträge</small>
+            <small class="muted count"><?php echo $this->numberInputs; ?> <?=$this->translate('contributions')?></small>
 
             <article class="article">
                 <h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
@@ -44,7 +44,7 @@
                     <a name="input-<?php echo $input['tid']; ?>"></a>
                     <article class="media">
                         <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                            <?=$this->translate('verfasst am')?>
+                            <?=$this->translate('written on')?>
                             <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
                         </time>
                         <p class="lead"><?php echo $input['thes'] ?></p>
@@ -63,7 +63,7 @@
                                     <span class="badge" id="badge-<?php echo $input['tid']; ?>">
                                         (<?php echo $input['spprts']; ?>)
                                     </span>
-                                    <span class="label"><?=$this->translate('Dieser Meinung bin ich auch!')?></span>
+                                    <span class="label"><?=$this->translate('I agree!')?></span>
                                 </a>
                             <?php endif; ?>
 
@@ -71,7 +71,7 @@
                                 <a href="#" class="article-action">
                                     <i class="icon-comment icon-orange icon-2x"></i>
                                     (<?=isset($input['pts']) ? $input['pts'] : ''?>)
-                                    <span class="label"><?=$this->translate('Das möchte ich gerne diskutieren!')?></span>
+                                    <span class="label"><?=$this->translate('I would like to discuss that!')?></span>
                                 </a>
                             <?php endif; ?>
 
@@ -87,7 +87,7 @@
                 $this->paginator,
                 'Jumping',
                 '_partials/pagination.phtml',
-                array('titlePrev' => 'Neuere Beiträge', 'titleNext' => 'Ältere Beiträge')
+                array('titlePrev' => $this->translate('Newer contributions'), 'titleNext' => $this->translate('Older contributions'))
             ); ?>
         </section>
     </div><!-- .row -->

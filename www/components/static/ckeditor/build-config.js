@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/0993207c3ef9bc2361350b2f1dc14b6f
+ * (2) http://ckeditor.com/builder/a9ac90cb65bb7aaf30499c9ded901b42
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/0993207c3ef9bc2361350b2f1dc14b6f
+ * (3) http://ckeditor.com/builder/download/a9ac90cb65bb7aaf30499c9ded901b42
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,32 +25,46 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'bootstrapck',
+	skin: 'moono',
 	preset: 'basic',
 	ignore: [
-		'dev',
+		'.bender',
+		'.DS_Store',
 		'.gitignore',
 		'.gitattributes',
+		'.idea',
+		'.mailmap',
+		'bender.js',
+		'bender-err.log',
+		'bender-out.log',
+		'dev',
+		'node_modules',
+		'package.json',
 		'README.md',
-		'.mailmap'
+		'tests'
 	],
 	plugins : {
 		'about' : 1,
 		'basicstyles' : 1,
-		'enterkey' : 1,
+		'blockquote' : 1,
+		'clipboard' : 1,
+		'colorbutton' : 1,
+		'div' : 1,
 		'entities' : 1,
-		'filebrowser' : 1,
+		'find' : 1,
+		'flash' : 1,
 		'floatingspace' : 1,
-		'format' : 1,
-		'horizontalrule' : 1,
+		'font' : 1,
+		'iframe' : 1,
 		'image2' : 1,
 		'indentlist' : 1,
-		'justify' : 1,
 		'link' : 1,
 		'list' : 1,
 		'pastefromword' : 1,
-		'showblocks' : 1,
-		'sourcearea' : 1,
+		'resize' : 1,
+		'selectall' : 1,
+		'smiley' : 1,
+		'symbol' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
 		'wysiwygarea' : 1

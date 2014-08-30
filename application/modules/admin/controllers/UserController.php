@@ -112,6 +112,9 @@ class Admin_UserController extends Zend_Controller_Action
                     }
                     if ($this->getRequest()->isPost()) {
                         $params = $this->getRequest()->getPost();
+                        if ($this->getRequest()->getPost('password')) {
+                            $form->getElement('password_confirm')->setRequired(true);
+                        }
                         if ($form->isValid($params)) {
                             $emailAddress =$form->getValue('email');
                             if ($user->email != $emailAddress && $userModel->emailExists($emailAddress)) {
@@ -124,7 +127,14 @@ class Admin_UserController extends Zend_Controller_Action
                                 $form->populate($params);
                             } else {
                                 $row = $userModel->find($uid)->current();
-                                $row->setFromArray($form->getValues());
+                                $values = $form->getValues();
+                                unset($values['password_confirm']);
+                                if ($values['password']) {
+                                    $values['password'] = $userModel->hashPassword( $values['password']);
+                                } else {
+                                    unset($values['password']);
+                                }
+                                $row->setFromArray($values);
                                 $row->save();
 
                                 // transfer userinputs

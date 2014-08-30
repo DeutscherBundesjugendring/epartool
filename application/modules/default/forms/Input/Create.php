@@ -25,14 +25,14 @@ class Default_Form_Input_Create extends Zend_Form
         $nextQuestionBtn
             ->setAttrib('class', 'btn arrow-right')
             ->setAttrib('type', 'submit')
-            ->setLabel('Speichern und nächste Frage');
+            ->setLabel('Save and proceed');
         $this->addElement($nextQuestionBtn);
 
         $finishedBtn = $this->createElement('button', 'finished');
         $finishedBtn
             ->setAttrib('class', 'btn pull-right')
             ->setAttrib('type', 'submit')
-            ->setLabel('Beenden');
+            ->setLabel('Finish');
         $this->addElement($finishedBtn);
     }
 
@@ -64,13 +64,14 @@ class Default_Form_Input_Create extends Zend_Form
      */
     protected function addInputField($inputName, $thes = null, $expl = null)
     {
+        $view = new Zend_View();
         $thesElOpts = array(
             'cols' => 85,
             'rows' => 2,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
                 'class' => 'input-block-level input-extensible input-alt js-has-counter',
-                'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben',
+                'placeholder' => sprintf($view->translate('Here you can type in your contribution (up to %s characters).'), 300),
                 'maxlength' => '300',
             ),
             'filters' => array(
@@ -90,7 +91,7 @@ class Default_Form_Input_Create extends Zend_Form
             'attribs' => array(
                 'class' => 'extension input-block-level input-extensible input-alt js-has-counter',
                 'style' => 'display: none;',
-                'placeholder' => 'Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern',
+                'placeholder' => sprintf($view->translate('Here you explain your contribution more in depth, e.g. with examples (up to %s characters).'), 2000),
                 'maxlength' => '2000'
             ),
             'filters' => array(

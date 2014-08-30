@@ -121,6 +121,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'uid' => $data['uid'],
             'name' => $data['name'],
             'age_group' => $data['age_group'],
+            'newsl_subscr' => $data['newsl_subscr'],
             'regio_pax' => $data['regio_pax'],
             'cnslt_results' => $data['cnslt_results'],
             'kid' => $data['kid'],
@@ -128,6 +129,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'cmnt_ext' => $data['cmnt_ext'],
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
+            'is_contrib_under_cc' => $data['is_contrib_under_cc'],
         ];
 
         // if group then also save group specifications
@@ -336,6 +338,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $user->age_group = $userConsultData->age_group;
             $user->regio_pax = $userConsultData->regio_pax;
             $user->cnslt_results = $userConsultData->cnslt_results;
+            $user->newsl_subscr = $userConsultData->newsl_subscr;
             $user->source = $userConsultData->source;
             $user->src_misc = $userConsultData->src_misc;
             $user->group_size = $userConsultData->group_size;
@@ -390,7 +393,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(['u' => $this->info(self::NAME)])
-            ->where('u.block=?', 'u');
+            ->where('u.block=?', 'c');
 
         if ($participantType === Model_User_Info::PARTICIPANT_TYPE_VOTER) {
             $select

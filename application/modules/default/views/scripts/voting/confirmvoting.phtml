@@ -1,27 +1,27 @@
 <div class="main-content content-holder">
 
     <?php if ($this->act == 'acc'): ?>
-        <h1><?=$this->translate('Deine Bewertungen sind jetzt bestätigt.')?></h1>
+        <h1><?=$this->translate('Your votings have been confirmed.')?></h1>
         <p>
-            <?=$this->translate('Vielen Dank für die Bestätigung deiner Abstimmung. Falls du noch nicht über alle Beiträge abgestimmt hast, kannst du mit Hilfe des Zugangscodes jederzeit zurückkehren und die Abstimmung fortsetzen.')?>
+            <?=$this->translate("Thank you for confirming your vote. If you havent voted on all contributions yet, you can use the access code to get back and proceed with your votings any time.")?>
         </p>
     <?php endif; ?>
 
     <?php if ($this->memberstatus == 'u' && $this->act == 'acc'): ?>
         <p>
-            <?=$this->translate('Der/die Verantwortliche für deine Gruppe muss noch bestätigen, dass du abstimmungsberechtigt bist. Dabei sieht er/sie nur deine E-Mail-Adresse, nicht aber wie du abgestimmt hast. Erst danach fließen deine Bewertungen endgültig in das Abstimmungsergebnis ein.')?>
+            <?=$this->translate('The person responsible for your group needs to confirm that you are allowed for voting. He/she will only see your email address, not how you voted. After confirmation, your votings will be included in the voting results.')?>
         </p>
     <?php elseif ($this->memberstatus == 'y' && $this->act == 'acc'): ?>
         <p>
-            <?=$this->translate('Der/die Verantwortliche deiner Gruppe hat deine E-Mail-Adresse bereits bestätigt. Deine Bewertungen werden jetzt anonymisiert und fließen damit endgültig in das Abstimmungsergebnis ein.')?>
+            <?=$this->translate('The person responsible for your group has confirmed your email address. Your votings will now be included anonymously in the overall voting results.')?>
         </p>
     <?php elseif ($this->act == 'rej'): ?>
-        <h1><?=$this->translate('Die Bewertungen wurden gelöscht.')?></h1>
+        <h1><?=$this->translate('The votings have been deleted.')?></h1>
         <p>
-            <?=$this->translate('Die mit deiner E-Mail-Adresse abgegebenen Bewertungen fließen nicht in das Endergebnis ein. Dies betrifft keine Bewertungen, die du ggf. schon früher bestätigt hast.')?>
+            <?=$this->translate('The votings connected to your email address will not be included in the end results. This does not apply to votings have may have made before.')?>
         </p>
     <?php endif; ?>
 
-    <p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>"><?=$this->translate('Zurück zur Startseite')?></a></p>
+    <p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>"><?=$this->translate('Back to Home')?></a></p>
 
 </div><!-- .main-content -->

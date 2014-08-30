@@ -151,7 +151,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         if (empty($kid)) {
-            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided!', 'error');
             $this->redirect('/admin');
         }
         $inputsModel = new Model_Inputs();

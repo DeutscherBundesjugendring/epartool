@@ -266,8 +266,8 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $articlePreviewForm->populate($data);
 
                 $prevView = new Zend_View();
-                $prevView->addScriptPath('application/modules/default/views/scripts');
-                $prevView->addHelperPath('application/modules/default/views/helpers');
+                $prevView->addScriptPath(APPLICATION_PATH . '/modules/default/views/scripts');
+                $prevView->addHelperPath(APPLICATION_PATH . '/modules/default/views/helpers');
                 $this->_helper->layout->setLayout('frontend');
                 $this->_helper->layout->setView($prevView);
 

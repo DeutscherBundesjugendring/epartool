@@ -1,6 +1,10 @@
 $(document).ready () ->
     bindCharacterCounters()
-    $('.has-password-meter').pwstrength({'ui': {'bootstrap2': true}})
+    bindToggleGroupRegister()
+    $('.js-has-password-meter').pwstrength({'ui': {
+        'bootstrap2': true,
+        'verdicts': [i18n['Weak'], i18n['Normal'], i18n['Medium'], i18n['Strong'], i18n['Very Strong']]
+    }})
 
 
 bindCharacterCounters = () ->
@@ -29,3 +33,29 @@ bindCharacterCounters = () ->
         updateCounter(el)
         el.change(updateCounterHandler)
         el.keyup(updateCounterHandler)
+
+bindToggleGroupRegister = () ->
+    container = $("#group_specs-element")
+    labelName = $("#name-label")
+    elementName = $("#name-element")
+    groupTypeChecked = $('input[name="group_type"]:checked').val()
+
+    if groupTypeChecked != "group"
+        labelName.show()
+        elementName.show()
+        container.hide()
+        $('select#age_group option').filter("[value='4']").remove()
+
+    $('input[name="group_type"]').change(() ->
+        groupTypeChecked = $('input[name="group_type"]:checked').val()
+        if groupTypeChecked == "group"
+            labelName.hide()
+            elementName.hide()
+            container.slideDown()
+            $('select#age_group').append($('<option></option>').val('4').html('Alle Altersgruppen'))
+        else
+            labelName.show()
+            elementName.show()
+            container.slideUp()
+            $('select#age_group option').filter("[value='4']").remove()
+    )

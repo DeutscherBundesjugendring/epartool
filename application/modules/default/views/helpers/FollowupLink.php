@@ -25,9 +25,9 @@ class Zend_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
 
         if ($hasFollowup) {
             $url = $this->view->url(array('action' => 'show', 'kid'=>$con->kid, 'qid' => $questionId, 'tid' => $inputId, 'page' => null));
-            $html = "<a href=\"$url\" class=\"article-action\">" . $this->view->translate('Reaktionen ansehen') . " <i class=\"icon-angle-right\"></i></a>";
+            $html = "<a href=\"$url\" class=\"article-action\">" . $this->view->translate('View reactions') . " <i class=\"icon-angle-right\"></i></a>";
         } else {
-            $html = "<span class=\"label\">" . $this->view->translate('Derzeit gibt es keine Reaktionen zu diesem Beitrag.') . "</span>";
+            $html = "<span class=\"label\">" . $this->view->translate('There are currently no reactions to this contribution.') . "</span>";
         }
 
         return $html;

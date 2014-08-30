@@ -2,19 +2,18 @@
 
 <div class="content-holder main-content">
 
-    <h1 class="heading-centered"><?=$this->translate('Abstimmung')?></h1>
+    <h1 class="heading-centered"><?=$this->translate('Voting')?></h1>
 
     <div class="row">
 		<section class="span9 offset1">
 
             <div class="well well-large text-center">
                 <span class="label sticker label-mitmachen-black hidden-print">
-                    <?=$this->translate('Mitmachen!')?>
+                    <?=$this->translate('Join now!')?>
                 </span>
 
                 <!-- Voting counter -->
                 <span class="counter counter-voting">
-                    Du hast schon über
                     <?php
                         // Add leading zeros to count voted
                         $countTotal = $this->votableInputs;
@@ -27,15 +26,16 @@
 
                         // Print count voted by number
                         $countVoted = str_split($countVoted);
+                        $countVotedText = '';
                         foreach ($countVoted as $number) {
-                            echo '<span class="counter-digit">' . $number . '</span>';
+                            $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
                         }
                     ?>
                     <br />
-                    <?=sprintf($this->translate('Von insgesamt %s Beiträgen abgestimmt.'), $countTotal)?>
+                    <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $countVotedText, $countTotal)?>
                 </span>
 
-                <h2><?=$this->translate('Stimme jetzt ab!')?></h2>
+                <h2><?=$this->translate('Vote now!')?></h2>
 
                 <!-- Questions -->
                 <div class="offset-top-large">
@@ -48,11 +48,11 @@
                 </div>
 
                 <p class="offset-top-large offset-bottom-large">
-                    <?=$this->translate('Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir die Beiträge zum Abstimmen zuerst angezeigt werden sollen. Ein Wechsel zwischen den verschiedenen Fragen und Begriffen ist jederzeit möglich. Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so dass du auf jeden Fall über alle abstimmen kannst. Du kannst so viele Beiträge bearbeiten, wie du möchtest. Unterbrechungen sind problemlos möglich.')?>
+                    <?=$this->translate('Choose here the question or the keyword according to which the contributions to be voted will be shown first. You may change question or keyword any time. During the Voting, all contributions will be displayed, so that you will vote on all of them. You can edit as many contributions as you wish. Breaks or possible without any problems.')?>
                 </p>
 
                 <!-- Tags -->
-                <h3>Beiträge nach Schlagwörtern</h3>
+                <h3><?=$this->translate('Contributions by topic')?></h3>
                 <?php if (!empty($this->tags)): ?>
                     <ul class="tag-cloud tag-cloud-alt">
                         <?php foreach ($this->tags as $tag): ?>
@@ -68,10 +68,10 @@
                 <!-- Actions -->
                 <p>
                     <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
-                        <i class="icon-signout"></i> <?=$this->translate('Beenden')?>
+                        <i class="icon-signout"></i> <?=$this->translate('Finish')?>
                     </a>
                     <a href="<?php echo $this->url(array('action' => 'preview')); ?>" class="btn" title="Vorschau Abstimmung">
-                        <i class="icon-eye-open"></i> <?=$this->translate('Vorschau Abstimmung')?>
+                        <i class="icon-eye-open"></i> <?=$this->translate('Preview voting')?>
                     </a>
                 </p>
 

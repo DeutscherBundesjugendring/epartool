@@ -1,20 +1,20 @@
 <div class="main-content content-holder">
 
     <?php if ($this->act == 'confirm'): ?>
-        <h1><?=$this->translate('Dieses Gruppenmitglied ist jetzt bestätigt.')?></h1>
+        <h1><?=$this->translate('This group member has now been confirmed.')?></h1>
         <p>
-            <?=sprintf($this->translate('Vielen Dank für die Bestätigung des Gruppenmitglieds mit der E-Mail-Adresse "%s". Die Stimmen werden nun für die Gruppe gezählt.'), $this->subuser)?>
+            <?=sprintf($this->translate('Thank you for confirming the group member with the email address "%s". The votes are now being counted for your group.'), $this->subuser)?>
         </p>
     <?php elseif ($this->act == 'reject'): ?>
-        <h1><?=$this->translate('Der/die Abstimmende wurde abgelehnt.')?></h1>
+        <h1><?=$this->translate('Individual vote has been rejected and will not be counted.')?></h1>
         <p>
-            <?=sprintf($this->translate('Die mit der E-Mail-Adresse "%s" abgegebenen Stimmen fließen nicht in das Endergebnis eurer Gruppe ein. Über eure Entscheidung wird die Person nicht informiert, aber ihr könnt diese Person gerne kontaktieren.'), $this->subuser)?>
+            <?=sprintf($this->translate('The votings connected to the email address  "%s" will not be included in the end results of your group. The person will not receive information about your decision, but you may contact this person if you wish.'), $this->subuser)?>
         </p>
     <?php endif; ?>
 
     <p>
         <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">
-            <?=$this->translate('Zurück zur Startseite')?>
+            <?=$this->translate('Back to Home')?>
         </a>
     </p>
 

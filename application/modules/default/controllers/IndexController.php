@@ -37,4 +37,23 @@ class IndexController extends Zend_Controller_Action
             $this->redirect('');
         }
     }
+
+    /**
+     * Echoes a javascript object with translated messages.
+     * Headers are set to application/javascript
+     */
+    public function i18nAction()
+    {
+        $i18n = [
+            'Weak' => $this->view->translate('Weak'),
+            'Normal' => $this->view->translate('Normal'),
+            'Medium' => $this->view->translate('Medium'),
+            'Strong' => $this->view->translate('Strong'),
+            'Very Strong' => $this->view->translate('Very Strong'),
+        ];
+
+        header('Content-Type: application/javascript; charset=utf-8');
+        echo 'var i18n = ' . json_encode($i18n);
+        die();
+    }
 }

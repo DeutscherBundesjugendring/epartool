@@ -39,19 +39,19 @@
         <section class="main-content span9">
             <?php if (isset($this->tag) && !empty($this->tag)): ?>
                 <?php if ($this->numberInputs > 0):?>
-                    <h3><?=sprintf($this->translate('Es werden nur Beiträge mit dem Schlagwort %s angezeigt.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
+                    <h3><?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
                 <?php else: ?>
-                    <h3><?=sprintf($this->translate('Zu dieser Frage gibt es keine mit %s verschlagworteten Beiträge.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
+                    <h3><?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
                 <?php endif; ?>
                 <p>
                     <a href="<?php echo $this->url(array('tag' => null)); ?>">
-                        <?=$this->translate('Alle Beiträge anzeigen')?>
+                        <?=$this->translate('Show all contributions')?>
                     </a>
                 </p>
             <?php endif; ?>
             <small class="count muted">
                 <?php echo $this->numberInputs?>
-                <?=$this->translate('Beiträge')?>
+                <?=$this->translate('Contributions')?>
             </small>
 
             <article class="article article-details">
@@ -60,9 +60,9 @@
             </article>
 
             <?php if (Zend_Date::now()->isEarlier($this->consultation->inp_fr)): ?>
-                <p><?=$this->translate('Die Beitragsphase hat noch nicht begonnen.')?></p>
+                <p><?=$this->translate('Contribution phase has not started yet.')?></p>
             <?php elseif (Zend_Date::now()->isLater($this->consultation->inp_to)): ?>
-                <p><?=$this->translate('Die Beitragsphase ist bereits vorbei.')?></p>
+                <p><?=$this->translate('Contribution phase is over already.')?></p>
             <?php else: ?>
                 <?=$this->inputForm?>
             <?php endif?>
@@ -84,7 +84,7 @@
                     <article class="media">
                         <header class="article-header">
                             <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                                <?=sprintf($this->translate('verfasst am %s'), $date->get(Zend_Date::DATE_MEDIUM))?>
+                                <?=sprintf($this->translate('written on %s'), $date->get(Zend_Date::DATE_MEDIUM))?>
                             </time>
                         </header>
                         <div class="article-body">
@@ -108,10 +108,10 @@
                                         <i class="icon-ok-sign icon-orange icon-2x"></i>
                                         <span id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
                                 <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                        <span class="label"><?=$this->translate('Unterstützende')?></span>
+                                        <span class="label"><?=$this->translate('supporters')?></span>
                                     </span>
                                 <?php else: ?>
-                                        <span class="label"><?=$this->translate('Dieser Meinung bin ich auch!')?></span>
+                                        <span class="label"><?=$this->translate('I agree!')?></span>
                                     </a>
                                 <?php endif; ?>
                             </span>
@@ -125,7 +125,7 @@
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
                                     <small>(<?php echo $input['place']; ?>)</small>
-                                    <a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+                                    <a class="label" href="#"><?$this->translate('I would like to discuss that!')?></a>
                                 </span>
                             <?php endif?>
                         </section><!-- .actions -->
@@ -140,7 +140,7 @@
                 $this->paginator,
                 'Sliding',
                 '_partials/pagination.phtml',
-                array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')
+                array('titlePrev' => $this->translate('Older contributions'), 'titleNext' => $this->translate('Newer contributions'))
             ); ?>
 
             <hr />
@@ -164,9 +164,9 @@
             $(this).toggleClass('expanded');
 
             if($(this).hasClass('expanded')) {
-                $(this).html('<i class="icon-angle-up icon-large"></i> <?=$this->translate('Wieder einklappen')?> <i class="icon-angle-up icon-large"></i>')
+                $(this).html('<i class="icon-angle-up icon-large"></i> <?=$this->translate('shut again')?> <i class="icon-angle-up icon-large"></i>')
             } else {
-                $(this).html('<i class="icon-angle-down icon-large"></i> <?=$this->translate('Klicken, um Eintrag zu erläutern')?> <i class="icon-angle-down icon-large"></i>')
+                $(this).html('<i class="icon-angle-down icon-large"></i> <?=$this->translate('Click here to explain contribution')?> <i class="icon-angle-down icon-large"></i>')
             }
         });
 
@@ -181,7 +181,7 @@
                 if (data.count) {
                     $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign icon-orange icon-2x"></i>'
                         + ' <span id="badge-' + tid + '">(' + data.count + ')</span>'
-                        + ' <span class="label"><?=$this->translate('Unterstützende')?></span></span>');
+                        + ' <span class="label"><?=$this->translate('supporters')?></span></span>');
                 }
             });
         });
