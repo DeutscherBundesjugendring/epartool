@@ -6,7 +6,9 @@ class Default_Form_Voting_Authentification extends Zend_Form
     {
         $view = new Zend_View();
 
-        $this->setMethod('post');
+        $this
+            ->setMethod('post')
+            ->setAttrib('autocomplete', 'off');
 
         $email = $this->createElement('text', 'email');
         $placeholder = $view->translate('Email Address');
