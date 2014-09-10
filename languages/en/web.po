@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-08-30 17:56+0100\n"
-"PO-Revision-Date: 2014-08-30 17:57+0100\n"
+"POT-Creation-Date: 2014-09-10 18:26+0100\n"
+"PO-Revision-Date: 2014-09-10 18:27+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -14,8 +14,9 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/default\n"
+"X-Poedit-SearchPath-1: library/Plugin\n"
 
-#: application/modules/default/controllers/VotingController.php:739
+#: application/modules/default/controllers/VotingController.php:733
 msgid "Your contributions are now confirmed."
 msgstr ""
 
@@ -117,7 +118,7 @@ msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:108
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
-#: application/modules/default/views/scripts/voting/vote.phtml:138
+#: application/modules/default/views/scripts/voting/vote.phtml:140
 #: application/modules/default/views/scripts/voting/overview.phtml:38
 #: application/modules/default/views/scripts/voting/index.phtml:27
 msgid "Vote now!"
@@ -292,7 +293,7 @@ msgid ""
 msgstr ""
 
 #: application/modules/default/forms/PasswordRecover.php:15
-#: application/modules/default/forms/Voting/Authentification.php:12
+#: application/modules/default/forms/Voting/Authentification.php:14
 msgid "Email Address"
 msgstr ""
 
@@ -301,7 +302,7 @@ msgstr ""
 msgid "min. %s characters"
 msgstr ""
 
-#: application/modules/default/forms/Voting/Authentification.php:21
+#: application/modules/default/forms/Voting/Authentification.php:23
 msgid "Access code"
 msgstr ""
 
@@ -673,12 +674,12 @@ msgid ""
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:80
-#: application/modules/default/views/scripts/voting/vote.phtml:196
+#: application/modules/default/views/scripts/voting/vote.phtml:198
 msgid "Change question or keyword"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:84
-#: application/modules/default/views/scripts/voting/vote.phtml:201
+#: application/modules/default/views/scripts/voting/vote.phtml:203
 #: application/modules/default/views/scripts/voting/overview.phtml:71
 msgid "Finish"
 msgstr ""
@@ -706,32 +707,33 @@ msgid ""
 "contributions."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:135
+#: application/modules/default/views/scripts/voting/vote.phtml:137
+#: application/modules/default/views/scripts/voting/overview.phtml:35
 #, php-format
-msgid "of %s contributions on this question voted"
+msgid "You have voted on %s <br /> out of the total of %s contributions."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:167
+#: application/modules/default/views/scripts/voting/vote.phtml:169
 msgid "Undo"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:174
+#: application/modules/default/views/scripts/voting/vote.phtml:176
 msgid ""
 "How important is this contribution for further political discussions in your "
 "opinion?"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:181
+#: application/modules/default/views/scripts/voting/vote.phtml:183
 msgid "Skip"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:200
+#: application/modules/default/views/scripts/voting/vote.phtml:202
 #: application/modules/default/views/scripts/voting/preview.phtml:17
 msgid "Finish voting"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:203
-#: application/modules/default/views/scripts/voting/vote.phtml:204
+#: application/modules/default/views/scripts/voting/vote.phtml:205
+#: application/modules/default/views/scripts/voting/vote.phtml:206
 #: application/modules/default/views/scripts/voting/overview.phtml:74
 msgid "Preview voting"
 msgstr ""
@@ -782,11 +784,6 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/removethesis.phtml:7
 msgid "Error, the contribution has not been deleted!"
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/overview.phtml:35
-#, php-format
-msgid "You have voted on %s <br /> out of the total of %s contributions."
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/overview.phtml:51

@@ -138,7 +138,7 @@ class UserController extends Zend_Controller_Action
             if ($form->isValid($data)) {
                 $userModel = new Model_Users();
                 if ($userModel->recoverPassword($data['email'])) {
-                    $this->_flashMessenger->addMessage('An email with a new password has been sent to your email address!', 'success');
+                    $this->_flashMessenger->addMessage('An e-mail that allows you to reset your password was sent to the provided address.', 'success');
                 } else {
                     $this->_flashMessenger->addMessage('Password reset failed!', 'error');
                 }

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-09-10 17:02+0100\n"
-"PO-Revision-Date: 2014-09-10 17:03+0100\n"
+"POT-Creation-Date: 2014-09-10 18:24+0100\n"
+"PO-Revision-Date: 2014-09-10 18:24+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -40,47 +40,47 @@ msgstr ""
 msgid "Your data are not correct. Please check again."
 msgstr "Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese."
 
-#: application/modules/default/controllers/VotingController.php:404
-#: application/modules/default/controllers/VotingController.php:460
-#: application/modules/default/controllers/VotingController.php:548
-#: application/modules/default/controllers/VotingController.php:614
+#: application/modules/default/controllers/VotingController.php:400
+#: application/modules/default/controllers/VotingController.php:456
+#: application/modules/default/controllers/VotingController.php:542
+#: application/modules/default/controllers/VotingController.php:608
 msgid "Such contribution does not exist!"
 msgstr "Diese These ist nicht vorhanden!"
 
-#: application/modules/default/controllers/VotingController.php:554
+#: application/modules/default/controllers/VotingController.php:548
 msgid "Something went wrong."
 msgstr "Etwas ist schief gelaufen."
 
-#: application/modules/default/controllers/VotingController.php:560
+#: application/modules/default/controllers/VotingController.php:554
 msgid "The points are not correct."
 msgstr "Die vergebenen Punkte sind nicht korrekt."
 
-#: application/modules/default/controllers/VotingController.php:569
+#: application/modules/default/controllers/VotingController.php:563
 msgid "Your vote has been counted!"
 msgstr "Deine Abstimmung wurde gezählt!"
 
-#: application/modules/default/controllers/VotingController.php:573
-#: application/modules/default/controllers/VotingController.php:635
+#: application/modules/default/controllers/VotingController.php:567
+#: application/modules/default/controllers/VotingController.php:629
 msgid "Your vote could not be registered. (1)"
 msgstr "Deine Abstimmung konnte nicht eingetragen werden. (1)"
 
-#: application/modules/default/controllers/VotingController.php:600
+#: application/modules/default/controllers/VotingController.php:594
 msgid "Die Auswahl des Superbuttons ist nicht erlaubt."
 msgstr "Clicking the superbutton is not allowed."
 
-#: application/modules/default/controllers/VotingController.php:607
+#: application/modules/default/controllers/VotingController.php:601
 msgid "Die vergebenen Punkte sind nicht korrekt."
 msgstr "The points are not correct."
 
-#: application/modules/default/controllers/VotingController.php:620
+#: application/modules/default/controllers/VotingController.php:614
 msgid "Bitte wähle ein Frage oder ein Schlagwort aus."
 msgstr "Please choose a question or keyword."
 
-#: application/modules/default/controllers/VotingController.php:640
+#: application/modules/default/controllers/VotingController.php:634
 msgid "Deine Abstimmung wurde gezählt."
 msgstr "Your vote has been counted."
 
-#: application/modules/default/controllers/VotingController.php:645
+#: application/modules/default/controllers/VotingController.php:639
 msgid ""
 "The Super Button allows you to value a limited number of contributions "
 "higher. Change previous votings and make room for more important "
@@ -90,23 +90,23 @@ msgstr ""
 "stärkeres Gewicht zu verleihen. Ändere andere Votings und schaffe Platz für "
 "wichtigere Beiträge!"
 
-#: application/modules/default/controllers/VotingController.php:669
+#: application/modules/default/controllers/VotingController.php:663
 msgid "User could not be found."
 msgstr "User konnte nicht gefunden werden."
 
-#: application/modules/default/controllers/VotingController.php:714
-#: application/modules/default/controllers/VotingController.php:724
-#: application/modules/default/controllers/VotingController.php:787
-#: application/modules/default/controllers/VotingController.php:795
-#: application/modules/default/controllers/VotingController.php:820
+#: application/modules/default/controllers/VotingController.php:708
+#: application/modules/default/controllers/VotingController.php:718
+#: application/modules/default/controllers/VotingController.php:781
+#: application/modules/default/controllers/VotingController.php:789
+#: application/modules/default/controllers/VotingController.php:814
 msgid "The link is not correct."
 msgstr "Der angew&auml;hlte Link aus ist nicht korrekt."
 
-#: application/modules/default/controllers/VotingController.php:739
+#: application/modules/default/controllers/VotingController.php:733
 msgid "Your contributions are now confirmed."
 msgstr "Deine Bewertungen sind jetzt bestätigt."
 
-#: application/modules/default/controllers/VotingController.php:831
+#: application/modules/default/controllers/VotingController.php:825
 msgid "Voting results are not available yet."
 msgstr "Abstimmungsergebnisse können noch nicht gezeigt werden!"
 
@@ -171,10 +171,12 @@ msgid "Please log in first"
 msgstr "Bitte erst anmelden!"
 
 #: application/modules/default/controllers/UserController.php:141
-msgid "An email with a new password has been sent to your email address!"
+msgid ""
+"An e-mail that allows you to reset your password was sent to the provided "
+"address."
 msgstr ""
-"Eine E-Mail mit einem neuen Passwort wurde an die angegebene E-Mail-Adresse "
-"verschickt!"
+"Eine E-Mail zum Zurücksetzen des Passworts wurde an die angegebene E-Mail-"
+"Adresse verschickt!"
 
 #: application/modules/default/controllers/UserController.php:143
 msgid "Password reset failed!"
@@ -324,7 +326,7 @@ msgstr "Jetzt mitmachen!"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:108
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
-#: application/modules/default/views/scripts/voting/vote.phtml:138
+#: application/modules/default/views/scripts/voting/vote.phtml:140
 #: application/modules/default/views/scripts/voting/overview.phtml:38
 #: application/modules/default/views/scripts/voting/index.phtml:27
 msgid "Vote now!"
@@ -622,7 +624,7 @@ msgstr "Speichern und nächste Frage"
 
 #: application/modules/default/forms/Input/Create.php:35
 #: application/modules/default/views/scripts/voting/vote.phtml:84
-#: application/modules/default/views/scripts/voting/vote.phtml:201
+#: application/modules/default/views/scripts/voting/vote.phtml:203
 #: application/modules/default/views/scripts/voting/overview.phtml:71
 msgid "Finish"
 msgstr "Beenden"
@@ -1048,7 +1050,7 @@ msgstr ""
 "zu einer anderen Frage oder einem anderen Schlagwort."
 
 #: application/modules/default/views/scripts/voting/vote.phtml:80
-#: application/modules/default/views/scripts/voting/vote.phtml:196
+#: application/modules/default/views/scripts/voting/vote.phtml:198
 msgid "Change question or keyword"
 msgstr "Frage / Schlagwort wechseln"
 
@@ -1079,16 +1081,17 @@ msgstr ""
 "„besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl "
 "wieder rückgängig machen und Platz für wichtigere Beiträge schaffen."
 
-#: application/modules/default/views/scripts/voting/vote.phtml:135
+#: application/modules/default/views/scripts/voting/vote.phtml:137
+#: application/modules/default/views/scripts/voting/overview.phtml:35
 #, php-format
-msgid "of %s contributions on this question voted"
-msgstr "von %s Beiträgen zu dieser Frage abgestimmt"
+msgid "You have voted on %s <br /> out of the total of %s contributions."
+msgstr "Du hast schon über %s  <br /> von insgesamt %s Beiträgen abgestimmt."
 
-#: application/modules/default/views/scripts/voting/vote.phtml:167
+#: application/modules/default/views/scripts/voting/vote.phtml:169
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:174
+#: application/modules/default/views/scripts/voting/vote.phtml:176
 msgid ""
 "How important is this contribution for further political discussions in your "
 "opinion?"
@@ -1096,17 +1099,17 @@ msgstr ""
 "Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion "
 "zum Thema?"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:181
+#: application/modules/default/views/scripts/voting/vote.phtml:183
 msgid "Skip"
 msgstr "Überspringen"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:200
+#: application/modules/default/views/scripts/voting/vote.phtml:202
 #: application/modules/default/views/scripts/voting/preview.phtml:17
 msgid "Finish voting"
 msgstr "Abstimmung beenden"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:203
-#: application/modules/default/views/scripts/voting/vote.phtml:204
+#: application/modules/default/views/scripts/voting/vote.phtml:205
+#: application/modules/default/views/scripts/voting/vote.phtml:206
 #: application/modules/default/views/scripts/voting/overview.phtml:74
 msgid "Preview voting"
 msgstr "Vorschau Abstimmung"
@@ -1171,11 +1174,6 @@ msgstr "Der Beitrag wurde gelöscht!"
 #: application/modules/default/views/scripts/voting/removethesis.phtml:7
 msgid "Error, the contribution has not been deleted!"
 msgstr "Fehler, der Beitrag wurde nicht gelöscht!"
-
-#: application/modules/default/views/scripts/voting/overview.phtml:35
-#, php-format
-msgid "You have voted on %s <br /> out of the total of %s contributions."
-msgstr "Du hast schon über %s  <br /> von insgesamt %s Beiträgen abgestimmt."
 
 #: application/modules/default/views/scripts/voting/overview.phtml:51
 msgid ""
@@ -1438,6 +1436,9 @@ msgstr "Informationsseiten"
 #: application/modules/default/views/scripts/index/search.phtml:47
 msgid "Overview"
 msgstr "Übersichtsseite"
+
+#~ msgid "of %s contributions on this question voted"
+#~ msgstr "von %s Beiträgen zu dieser Frage abgestimmt"
 
 #~ msgid "till"
 #~ msgstr "bis"
