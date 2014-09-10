@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-08-30 17:57+0100\n"
-"PO-Revision-Date: 2014-08-30 17:57+0100\n"
+"POT-Creation-Date: 2014-09-10 17:02+0100\n"
+"PO-Revision-Date: 2014-09-10 17:03+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -14,6 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/default\n"
+"X-Poedit-SearchPath-1: library/Plugin\n"
 
 #: application/modules/default/controllers/ArticleController.php:67
 #: application/modules/default/controllers/InputController.php:425
@@ -443,8 +444,8 @@ msgstr "Passwort vergessen?"
 #: application/modules/default/forms/PasswordRecover.php:15
 #: application/modules/default/forms/PasswordRecover.php:17
 #: application/modules/default/forms/Login.php:14
-#: application/modules/default/forms/Voting/Authentification.php:12
 #: application/modules/default/forms/Voting/Authentification.php:14
+#: application/modules/default/forms/Voting/Authentification.php:16
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
@@ -599,15 +600,15 @@ msgstr "Neues Passwort bestätigen"
 msgid "Save new password"
 msgstr "Neues Passwort speichern"
 
-#: application/modules/default/forms/Voting/Authentification.php:21
+#: application/modules/default/forms/Voting/Authentification.php:23
 msgid "Access code"
 msgstr "Zugangscode"
 
-#: application/modules/default/forms/Voting/Authentification.php:23
+#: application/modules/default/forms/Voting/Authentification.php:25
 msgid "Your access code"
 msgstr "Ihr Zugangscode"
 
-#: application/modules/default/forms/Voting/Authentification.php:31
+#: application/modules/default/forms/Voting/Authentification.php:33
 msgid "Start"
 msgstr "Loslegen"
 
@@ -659,6 +660,30 @@ msgstr "Erläuterung"
 #: application/modules/default/forms/Input/Edit.php:41
 msgid "Save"
 msgstr "Speichern"
+
+#: library/Plugin/Auth/AccessControl.php:34
+msgid "Bitte Benutzernamen angeben!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:36
+msgid "Bitte Passwort angeben!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:47
+msgid "Login erfolgreich!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:51
+msgid "Login fehlgeschlagen!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:80
+msgid "Keine Rechte für die angeforderte Seite!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:86
+msgid "Please log in first!"
+msgstr "Bitte erst anmelden!"
 
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
 msgid ""

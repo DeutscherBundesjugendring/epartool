@@ -83,7 +83,7 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                 $request->setModuleName('default');
                 $request->setControllerName('index');
                 $request->setActionName('index');
-                $this->_flashMessenger->addMessage('Bitte erst anmelden!', 'info');
+                $this->_flashMessenger->addMessage('Please log in first!', 'info');
             }
         }
     }
