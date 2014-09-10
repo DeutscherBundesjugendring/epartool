@@ -142,4 +142,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             Zend_Mail::setDefaultTransport($transport);
         }
     }
+
+    /**
+     * Initialize translations
+     */
+    protected function _initTranslation()
+    {
+        $lang = $this
+            ->getPluginResource('locale')
+            ->getLocale()
+            ->getLanguage();
+
+        $translator = new Zend_Translate(
+            array(
+                'adapter' => 'array',
+                'content' => APPLICATION_PATH . '/../../../zendframework/zendframework1/resources/languages',
+                'locale'  => $lang,
+                'scan' => Zend_Translate::LOCALE_DIRECTORY
+            )
+        );
+        Zend_Validate_Abstract::setDefaultTranslator($translator);
+    }
 }
