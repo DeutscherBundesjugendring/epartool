@@ -1186,7 +1186,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select = $this->select();
         $select
             ->from(array('inputs' => 'inpt'), 'COUNT(tid) as count')
-            ->where('inputs.kid = ?', $kid)
             ->where('inputs.qi = ?', $qid)
             ->where('inputs.dir = ?', $dir);
         $resultSet = $this->fetchRow($select);
@@ -1321,7 +1320,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
          $select
          ->from(array('inputs' => 'inpt'),'COUNT(tid) as count')
          ->where('inputs.tid = ?', $tid);
-         #->where('inputs.kid = ?', $kid);
           $resultSet = $this->fetchRow($select);
 
         if ($resultSet['count'] ==1) {

@@ -114,7 +114,7 @@ $(document).ready(function() {
                         </div>
                     <?php endif; ?>
 
-                    <!-- Voting couter -->
+                    <!-- Voting counter -->
                     <span class="counter counter-voting">
                         <?php
                             // Add leading zeros to count voted
@@ -128,11 +128,13 @@ $(document).ready(function() {
 
                             // Print count voted by number
                             $countVoted = str_split($countVoted);
+                            $countVotedText = '';
                             foreach ($countVoted as $number) {
-                                echo '<span class="counter-digit">' . $number . '</span>';
+                                $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
                             }
                         ?>
-                        <?=sprintf($this->translate('of %s contributions on this question voted'), $countTotal)?>
+                        <br />
+                        <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $countVotedText, $countTotal)?>
                     </span>
 
                     <h2><?=$this->translate('Vote now!')?></h2>

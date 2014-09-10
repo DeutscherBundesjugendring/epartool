@@ -197,8 +197,8 @@ class Default_Form_Register extends Zend_Form
             ->setValue($emailDisabledEl->getValue())
             ->setName('email');
 
+        $this->removeElement('email');
         $this
-            ->removeElement('email')
             ->addElement($emailDisabledEl)
             ->addElement($emailHiddenEl);
     }

@@ -274,8 +274,6 @@ class VotingController extends Zend_Controller_Action
 
         $this->view->settings = $this->getVotingSettings();
 
-        $votingIndividualModel = new Model_Votes_Individual();
-
         $param = $this->getRequest()->getParams();
         $pts = (int) $param['points'];
 
@@ -292,13 +290,13 @@ class VotingController extends Zend_Controller_Action
         $tid = (int)$param['id'];
 
         // check wheter the thesisID is correct
-        if (!$votingIndividualModel->thesisexists($tid,$kid)) {
+        if (!(new Model_Inputs())->thesisExists($tid, $kid)) {
             $this->view->error = "1";
             $this->view->error_comment = "Die These wurde nicht gefunden!";
             return;
          }
 
-        $votingSuccess = $votingIndividualModel->updateVote($tid, $subUid, $uid, $pts);
+        $votingSuccess = (new Model_Votes_Individual())->updateVote($tid, $subUid, $uid, $pts);
 
         if (!$votingSuccess) {
             $this->view->error = "1";
@@ -343,7 +341,7 @@ class VotingController extends Zend_Controller_Action
             $votingIndividualModel = new Model_Votes_Individual();
 
             // check wheter the thesisID is correct
-            if (!$votingIndividualModel->thesisexists($tid,$kid)) {
+            if (!(new Model_Inputs())->thesisExists($tid, $kid)) {
                 $this->view->error = "1";
                  $this->view->error_comment = "Die These wurde nicht gefunden!";
             }
@@ -397,10 +395,8 @@ class VotingController extends Zend_Controller_Action
         $param = $this->getRequest()->getParams();
         $tid= (int) $param['tid'];
 
-        $votingIndividualModel = new Model_Votes_Individual();
-
         // check wheter the thesisID is correct
-        if (!$votingIndividualModel->thesisexists($tid,$this->_consultation->kid)) {
+        if (!(new Model_Inputs())->thesisExists($tid, $this->_consultation->kid)) {
             $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
         }
@@ -410,7 +406,7 @@ class VotingController extends Zend_Controller_Action
         $votingsettings =  $this->getVotingSettings();
         $pts = $votingsettings['btn_numbers'];
 
-        $votingSuccess = $votingIndividualModel->updateVote($tid, $subUid, $uid, $pts);
+        $votingSuccess = (new Model_Votes_Individual())->updateVote($tid, $subUid, $uid, $pts);
 
         if (!$votingSuccess) {
             $this->view->response = "error";
@@ -456,7 +452,7 @@ class VotingController extends Zend_Controller_Action
         //use for fix the backbutton begin !!
         if (!empty($tid)) {
             // check if the thesisid are correct
-            if (!$votingIndividualModel->thesisexists($tid,$this->_consultation->kid)) {
+            if (!(new Model_Inputs())->thesisExists($tid, $this->_consultation->kid)) {
                    $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
                    $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
               }else {
@@ -541,10 +537,8 @@ class VotingController extends Zend_Controller_Action
         $uid = $votingRightsSession->uid;
         $tid = (int)$param['tid'];
 
-        $votIndiModel = new Model_Votes_Individual();
-
         // check if the thesisid are correct
-        if (!$votIndiModel->thesisexists($tid,$this->_consultation->kid)) {
+        if (!(new Model_Inputs())->thesisExists($tid, $this->_consultation->kid)) {
             $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
         }
@@ -561,7 +555,7 @@ class VotingController extends Zend_Controller_Action
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
         }
 
-        $votingSuccess = $votIndiModel->updateVote($tid, $subUid, $uid, $pts);
+        $votingSuccess = (new Model_Votes_Individual())->updateVote($tid, $subUid, $uid, $pts);
 
 
         if ($votingSuccess) {
@@ -610,7 +604,7 @@ class VotingController extends Zend_Controller_Action
 
             $votingIndividualModel = new Model_Votes_Individual();
             // check if the thesisid are correct
-            if (!$votingIndividualModel ->thesisexists($tid,$this->_consultation->kid)) {
+            if (!(new Model_Inputs())->thesisExists($tid, $this->_consultation->kid)) {
                 $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
                 $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
             }
