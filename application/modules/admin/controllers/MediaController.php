@@ -1,36 +1,22 @@
 <?php
 
-/**
- * MediaController
- *
- * @desc   Media Admin
- * @author        Markus Hackel
- */
 class Admin_MediaController extends Zend_Controller_Action
 {
     /**
      * FlashMessenger
-     *
      * @var Zend_Controller_Action_Helper_FlashMessenger
      */
     protected $_flashMessenger = null;
 
-    /**
-     * @desc Construct
-     * @return void
-     */
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
     }
 
     /**
-     * @desc media dashboard
-     * @return void
+     * Shows media dashboard
      */
     public function indexAction()
     {
@@ -168,8 +154,7 @@ class Admin_MediaController extends Zend_Controller_Action
     }
 
     /**
-     * @desc Handles Delete Action, redirects to index view
-     * @return void
+     * Handles Delete Action, redirects to index view
      */
     public function deleteAction()
     {
@@ -338,5 +323,4 @@ class Admin_MediaController extends Zend_Controller_Action
             );
         }
     }
-
 }
