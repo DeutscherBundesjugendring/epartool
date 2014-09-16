@@ -4,7 +4,7 @@
  * @desc        Class of relation between inputs and tags
  * @author    Jan Suchandt
  */
-class Model_InputsTags extends Model_DbjrBase
+class Model_InputsTags extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'inpt_tgs';
     protected $_primary = array(

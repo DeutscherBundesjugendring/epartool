@@ -2,10 +2,11 @@
   "name": "dbjr",
   "dependencies": {
     "jquery": "~1.10.2",
-    "ckeditor": "#4.0.1/full",
     "bootstrap": "~2.3.2",
     "font-awesome": "~3.0.2",
     "jquery.ui": "~1.10.3",
-    "html5shiv": "~3.7.0"
+    "html5shiv": "~3.7.0",
+    "pwstrength-bootstrap": "~1.1.4",
+    "ink": "~1.0.5"
   }
 }

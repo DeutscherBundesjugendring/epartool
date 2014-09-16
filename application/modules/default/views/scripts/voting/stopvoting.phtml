@@ -1,36 +1,23 @@
-<?php
-/**
- * index
- *
- * @description   Abstimmung durch Abstimmenden bestätigen
- * @author        Markus Hackel, Jan Suchandt
- */
-?>
-
 <?php echo $this->secondNavigation('voting') ?>
-
-<?php
-/* @todo Fix warnings and notices being shown on every refresh of the page.
-  Notice: Undefined index: sub_user in ...
-  Warning: date(): It is not safe to rely on the system's timezone settings.
-  You are *required* to use the date.timezone setting or the date_default_timezone_set()
-  function. In case you used any of those methods and you are still getting this warning,
-  you most likely misspelled the timezone identifier. We selected 'Europe/Berlin' for
-  'CEST/2.0/DST' instead in ...
-  etc. */
-?>
 
 <div class="content-holder">
 	<div class="row">
 		<div class="main-content span6 offset3">
 
-			<h1>Danke für die Teilnahme an der Abstimmung!</h1>
-			<p>Falls du heute noch nicht über alle Beiträge abgestimmt hast, kannst du jederzeit zurückkehren und über die verbleibenden Beiträge abstimmen.</p>
+			<h1><?=$this->translate('Thank you for voting!')?></h1>
+			<p>
+                <?=$this->translate("If you haven't finished voting on all contributions, you can login any time and finish your votings.")?>
+            </p>
 			<?php if (!empty($this->groupmember)): ?>
-				<p>Eine E-Mail zur Bestätigung wurde an <b><?php echo $this->groupmember; ?></b> versandt. Bitte den Posteingang checken!</p>
+				<p>
+                    <?=sprintf($this->translate('An email has been sent to %s. Please check your inbox!'), '<b>' . $this->groupmember . '</b>')?>
+                </p>
 			<?php endif; ?>
-			<p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">Zur&uuml;ck zur Startseite</a></p>
-
+			<p>
+                <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">
+                    <?=$this->translate('Back to Home')?>
+                </a>
+            </p>
 		</div>
 	</div><!-- .row -->
 </div><!-- .main-content -->

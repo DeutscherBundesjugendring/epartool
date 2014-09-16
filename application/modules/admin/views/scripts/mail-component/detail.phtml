@@ -1,0 +1,28 @@
+<h1><?php echo !$this->templateId ? 'Insert' : 'Edit'?> email component</h1>
+
+<a href="<?php echo $this->baseUrl(); ?>/admin/mail-component">
+    &laquo; Zur&uuml;ck zur &Uuml;bersicht
+</a>
+
+<?php echo $this->form;?>
+
+<b>Placeholders</b>
+<dl>
+    <?php foreach ($this->placeholders as $placeholder): ?>
+        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
+        <dd><?php echo $placeholder->description?></dd>
+    <?php endforeach?>
+</dl>
+
+<a href="<?php echo $this->baseUrl(); ?>/admin/mail-component">
+    &laquo; Zur&uuml;ck zur &Uuml;bersicht
+</a>
+
+<script type="text/javascript">
+    CKEDITOR.replace('body_html', {
+        removePlugins: 'horizontalrule,list,justify,indent,indentlist,indentblock,image2',
+        removeButtons: 'Underline,Anchor,Superscript,Subscript,Strike'
+        // filebrowserImageBrowseUrl: '/';
+        // filebrowserImageUploadUrl: '/';
+    });
+</script>

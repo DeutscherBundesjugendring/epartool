@@ -1,11 +1,15 @@
 <?php
-$settings = $this->layout()->settings;
-$labels = $this->layout()->labels;
-$votingBasket = $this->layout()->votingBasket;
-$styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
-$linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
-if (!empty($this->qid)) $linkOptions['qid'] = $this->qid;
-if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
+    $settings = $this->layout()->settings;
+    $labels = $this->layout()->labels;
+    $votingBasket = $this->layout()->votingBasket;
+    $styles = array ('not-my-opinion','not-important','important', 'very-important', 'mega-important');
+    $linkOptions = array('action' => 'thesissupervote','tid' => $this->thesis['tid']);
+    if (!empty($this->qid)) {
+        $linkOptions['qid'] = $this->qid;
+    }
+    if (isset($this->thesis['tg_nr'])) {
+        $linkOptions['tag'] = $this->thesis['tg_nr'];
+    }
 ?>
 
 <ul class="inline voting-rating">
@@ -15,27 +19,56 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
         <?php $linkOptions['pts'] = 'y'; ?>
         <li>
             <?php if ($votingBasket['countvotes'] != $settings['btn_important_max']): ?>
-            <a href="<?php  echo $this->url($linkOptions); ?>" class="voting-particularly-important"<?php if ($this->pimp == 'y' ) echo ' style="color: red !important"'; ?>>
-                <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->escape($settings['btn_important_label']); ?>" title="<?php echo $this->escape($settings['btn_important_label']); ?>" /><br />
-                <strong><?php echo $this->escape($settings['btn_important_label']); ?> <span class="counter">(<?php echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span></strong>
-            </a>
+                <a href="<?=$this->url($linkOptions); ?>" class="voting-particularly-important"<?=$this->pimp == 'y' ?' style="color: red !important"' : ''?>>
+                    <img
+                        src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png"
+                        alt="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                        title="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                    />
+                    <br />
+                    <strong>
+                        <?php echo $this->escape($settings['btn_important_label']); ?>
+                        <span class="counter counter-supervotes">
+                            (<?php echo $votingBasket['countvotes']?>
+                            <?=$this->translate('of')?>
+                            <?=$settings['btn_important_max']?>)
+                        </span>
+                    </strong>
+                </a>
             <?php else: ?>
             <a class="view-basket-btn">
-                <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png" alt="<?php echo $this->escape($settings['btn_important_label']); ?>" title="<?php echo $this->escape($settings['btn_important_label']); ?>" /><br />
-                <strong><?php echo $this->escape($settings['btn_important_label']); ?> <span class="counter">(<?php echo $votingBasket['countvotes']." von ".$settings['btn_important_max'];  ?>)</span></strong>
+                <img
+                    src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png"
+                    alt="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                    title="<?php echo $this->escape($settings['btn_important_label']); ?>"
+                />
+                <br />
+                <strong>
+                    <?php echo $this->escape($settings['btn_important_label']); ?>
+                    <span class="counter counter-supervotes">
+                        (<?php echo $votingBasket['countvotes']?>
+                        <?=$this->translate('of')?>
+                        <?=$settings['btn_important_max']?>)
+                    </span>
+                </strong>
             </a>
             <?php endif; ?>
-            <a class="view-basket">anzeigen</a>
+            <a class="view-basket"><?=$this->translate('show')?></a>
         </li>
-    <?php endif ; ?>
+    <?php endif?>
 
     <!-- Regular votes -->
     <?php $linkOptions['action'] = 'thesisvote'; ?>
     <?php for ($i = $settings['btn_numbers']; $i >= 0; $i--): ?>
         <?php $linkOptions['pts'] = $i; ?>
         <li>
-            <a href="<?php echo $this->url($linkOptions); ?>" class="<?php echo $styles["$i"]; ?>"<?php if ($this->points!= null && $this->points == $i ) echo ' style="color: red !important"'; ?>>
-                <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<?php echo $i; ?>.png" alt="<?php echo $this->escape($labels["$i"]); ?>" title="<?php echo $this->escape($labels["$i"]); ?>" /><br />
+            <a href="<?=$this->url($linkOptions)?>" class="<?=$styles["$i"]?>"<?=$this->points!= null && $this->points == $i ? ' style="color: red !important"' : ''?>>
+                <img
+                    src="<?php echo $this->baseUrl(); ?>/images/voting-rate-<?=$i?>.png"
+                    alt="<?php echo $this->escape($labels["$i"]); ?>"
+                    title="<?php echo $this->escape($labels["$i"]); ?>"
+                />
+                <br />
                 <strong><?php echo $this->escape($labels["$i"]); ?></strong>
             </a>
         </li>
@@ -44,8 +77,9 @@ if (isset($this->thesis['tg_nr'])) $linkOptions['tag'] = $this->thesis['tg_nr'];
     <!-- No opinion -->
     <li>
         <a href="<?php $linkOptions['pts'] = 5;  echo $this->url($linkOptions); ?>" class="no-opinion">
-            <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" /><br />
-            <strong>Keine<br />Meinung</strong>
+            <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" />
+            <br />
+            <strong><?=$this->translate('No opinion')?></strong>
         </a>
     </li>
 

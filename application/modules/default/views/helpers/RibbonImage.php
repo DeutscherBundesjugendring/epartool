@@ -15,25 +15,25 @@ class Zend_View_Helper_RibbonImage extends Zend_View_Helper_Abstract
         // var_dump($con);exit;
         if ($nowDatePlusOne->isEarlier($con->inp_to)) {
             $imgPart = 'mitmachen';
-            $text = 'Mitmachen';
+            $text = $this->view->translate('Participate');
         } elseif ($nowDate->isEarlier($con->inp_to) && $nowDatePlusOne->isLater($con->inp_to)) {
             $imgPart = 'nur-noch-heute';
-            $text = 'Nur Noch Heute';
+            $text = $this->view->translate('only today');
         } elseif ($nowDate->isLater($con->inp_to) && $nowDate->isEarlier($con->vot_fr)) {
             $imgPart = 'bald-abstimmen';
-            $text = 'Bald Abstimmen';
+            $text = $this->view->translate('Voting coming up');
         } elseif ($nowDate->isLater($con->vot_fr) && $nowDatePlusOne->isEarlier($con->vot_to)) {
             $imgPart = 'mitmachen';
-            $text = 'Mitmachen';
+            $text = $this->view->translate('Participate');
         } elseif ($nowDate->isEarlier($con->vot_to) && $nowDatePlusOne->isLater($con->vot_to)) {
             $imgPart = 'nur-noch-heute';
-            $text = 'Nur Noch Heute';
+            $text = $this->view->translate('only today');
         } elseif ($nowDate->isLater($con->vot_to) && $con->follup_show == 'n') {
             $imgPart = 'ergebnisse';
-            $text = 'Ergebnisse';
+            $text = $this->view->translate('Results');
         } elseif ($nowDate->isLater($con->vot_to) && $con->follup_show == 'y') {
             $imgPart = 'reaktion';
-            $text = 'Reaktion';
+            $text = $this->view->translate('Reaction');
         }
 
         $html = '<span class="label sticker label-' . $imgPart . ' hidden-print">' . $text . '</span>';

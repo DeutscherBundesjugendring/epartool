@@ -1,12 +1,3 @@
-<?php
-/**
- * results
- *
- * @description   Voting Results
- * @author        Markus Hackel
- */
-?>
-
 <?php echo $this->secondNavigation('voting') ?>
 
 <div class="content-holder">
@@ -22,7 +13,7 @@
 		</aside>
 		<section class="main-content span9">
 
-			<h1>Abstimmungsergebnisse</h1>
+			<h1><?=$this->translate('Voting results')?></h1>
 			<?php if (!empty($this->articleGeneral)): ?>
 				<?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
 			<?php endif; ?>
@@ -34,18 +25,17 @@
 
 			<hr class="hr-alt" />
 
-			<?php $i = 1; ?>
-			<?php foreach ($this->theses_votes as $rank => $theses): ?>
-				<?php $diag_lngth = round(($rank * 100) / $this->highest_rank, 0); ?>
-				<?php foreach ($theses as $thesis): ?>
+			<?php foreach ($this->votings as $key => $value): ?>
+				<?php 
+					$diag_lngth = 0;
+					if ( $this -> highest_rank!=0) $diag_lngth = round(($value['rank'] * 100) / $this->highest_rank, 0); ?>
 					<div class="voting-result">
-						<span class="voting-result-number"><?php echo $i; ?>.</span>
-						<p><strong><?php echo $thesis['thes']; ?></strong></p>
-						<div class="voting-result-bar<?php echo $thesis['followup']; ?>" style="width: <?php echo $diag_lngth; ?>%;"></div>
+						<span class="voting-result-number"><?php echo $key+1; ?>.</span>
+						<p><strong><?php echo $value['thes']; ?></strong></p>
+						<div class="voting-result-bar<?php if ($value['fowups']=="y") echo "-fup"; ?>" style="width: <?php echo $diag_lngth; ?>%;"></div>
 					</div>
 					<hr class="hr-alt" />
-				<?php endforeach; ?>
-				<?php $i++; ?>
+
 			<?php endforeach; ?>
 
 			<?php echo $this->render('_partials/printLink.phtml') ?>

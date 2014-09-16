@@ -64,7 +64,7 @@ class ArticleController extends Zend_Controller_Action
         if ($article) {
             $this->view->article = $article;
         } else {
-            $this->_flashMessenger->addMessage('Seite nicht gefunden!', 'error');
+            $this->_flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
     }

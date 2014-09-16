@@ -120,8 +120,11 @@ $sysconfig = Zend_Registry::get('systemconfig');
 		?>
 
 		<!-- Scripts -->
+		<script src="<?php echo $this->baseUrl() . $config->path->js->i18n ?>"></script>
 		<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap ?>"></script>
+		<script src="<?php echo $this->baseUrl() . $config->path->js->pwstrength ?>"></script>
 		<script src="<?php echo $this->baseUrl() . $config->path->js->main ?>"></script>
+		<script src="<?php echo $this->baseUrl() . $config->path->js->web ?>"></script>
 		<script src="<?php echo $this->baseUrl() . $config->path->js->followUp ?>"></script>
 		<script src="<?php echo $this->baseUrl() . $config->path->js->socialShare ?>"></script>
 

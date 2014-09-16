@@ -4,7 +4,7 @@
  * @desc        Class of Tags,
  * @author    Jan Suchandt
  */
-class Model_Tags extends Model_DbjrBase
+class Model_Tags extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'tgs';
     protected $_primary = 'tg_nr';
@@ -147,67 +147,57 @@ class Model_Tags extends Model_DbjrBase
     }
 
     /**
-     * Returns array of tags used within given consultation incl. number of usage
-     *
-     * @param  integer                 $kid
-     * @param  string                  $vot 'y' for inputs that confirmed for voting
-     * @throws Zend_Validate_Exception
-     * @return array
+     * Returns usage count of all tags tied to inputs belonging to this consultation
+     * @param  integer  $kid  The consultationt identifier
+     * @param  string   $vot  'y' for inputs that are confirmed for voting
+     * @return array          An array in form [tagId => [count => $occurenceCount, frequency => $frequency]]
      */
     public function getAllByConsultation($kid, $vot='', $order='tg_de')
     {
-        $return = array();
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given kid must be integer!');
-        }
+        $inputCount = (new Model_Inputs())->getCountByConsultation($kid);
 
-        // Get number of all inputs of this consultation
-        $inputsModel = new Model_Inputs();
-        $nrInputs = $inputsModel->getCountByConsultation($kid);
-
-        // Fetch all tags
-        $select = $this->select();
-        // sort by $order
-        if (!empty($order)) {
-            $select->order($order);
+        $select = $this
+            ->select()
+            ->from(
+                ['t' => $this->info(self::NAME)],
+                [new Zend_Db_Expr('it.tg_nr, t.tg_de, COUNT(it.tg_nr) AS count')]
+            )
+            ->join(
+                ['it' => (new Model_InputsTags())->info(Model_InputsTags::NAME)],
+                't.tg_nr = it.tg_nr',
+                []
+            )
+            ->join(
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                'it.tid = i.tid',
+                []
+            )
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('q.kid = ?', $kid)
+            ->group('it.tg_nr');
+        if (!empty($vot)) {
+            $select->where('i.vot = ?', $vot);
         }
         $tags = $this->fetchAll($select);
 
+        $freqs = [];
         foreach ($tags as $tag) {
-            $db = $this->getAdapter();
-            $select = $db->select();
-
-            // count number of assignments per tag and consultation over all inputs
-            $select->from(array('it' => 'inpt_tgs'), array(new Zend_Db_Expr('COUNT(it.tg_nr) AS count')));
-            $select->joinLeft(array('i' => 'inpt'), 'i.tid = it.tid', array());
-            $select->where('i.kid = ?', $kid)
-                ->where('it.tg_nr = ?', $tag->tg_nr);
-            if (!empty($vot)) {
-                $select->where('i.vot = ?', $vot);
-            }
-            $select->group('it.tg_nr');
-
-            $stmt = $db->query($select);
-            $result = $stmt->fetchAll();
-
-            if (!empty($result)) {
-                if ($result[0]['count'] > 0) {
-                    $return[$tag->tg_nr] = $tag->toArray();
-                    $return[$tag->tg_nr]['count'] = $result[0]['count'];
-                    $weight = 100*$result[0]['count']/$nrInputs;
-                    if ($weight < 33) {
-                        $return[$tag->tg_nr]['frequency'] = 'rare';
-                    } elseif ($weight >= 33 && $weight < 66) {
-                        $return[$tag->tg_nr]['frequency'] = 'medium';
-                    } elseif ($weight >= 66) {
-                        $return[$tag->tg_nr]['frequency'] = 'frequent';
-                    }
-                }
+            $freqs[$tag->tg_nr] = $tag->toArray();
+            $weight = 100 * $tag['count'] / $inputCount;
+            if ($weight < 33) {
+                $freqs[$tag->tg_nr]['frequency'] = 'rare';
+            } elseif ($weight >= 33 && $weight < 66) {
+                $freqs[$tag->tg_nr]['frequency'] = 'medium';
+            } elseif ($weight >= 66) {
+                $freqs[$tag->tg_nr]['frequency'] = 'frequent';
             }
         }
 
-        return $return;
+        return $freqs;
     }
 
     /**

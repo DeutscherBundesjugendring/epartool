@@ -3,7 +3,7 @@
  * Votes_Uservotes
  * @author Karsten Tackmann
  */
-class Model_Votes_Uservotes  extends Model_DbjrBase
+class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
 {
     public function fetchAllInputsWithUserVotes($qid = null,$subUid, $kid,$tagId=null)
     {
@@ -21,7 +21,6 @@ class Model_Votes_Uservotes  extends Model_DbjrBase
                                         		'votes.status AS status',  // add this line for dedugging votes counter
                                                 'votes.pimp AS pimp')
                             )
-                        ->where('inputs.kid = ?', $kid)
                         ->where('inputs.vot = ?', "y")
                         ->order('inputs.vot DESC')
                         ->group('inputs.tid');
@@ -48,9 +47,9 @@ class Model_Votes_Uservotes  extends Model_DbjrBase
                             )
                             ->where('tagid.tg_nr = ?', $tagId);
                       }
-						
+
                     $resultSet = $db->query($select);
-					
+
                     $inputs = array();
                     foreach ($resultSet as $row) {
                         $inputs[]=$row;

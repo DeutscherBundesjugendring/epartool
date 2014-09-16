@@ -1,12 +1,6 @@
 <?php
-/**
- * index
- *
- * @description   Übersicht der Beiträge
- * @author        Markus Hackel
- */
-$date = new Zend_Date();
-$locale = new Zend_Locale();
+    $date = new Zend_Date();
+    $locale = new Zend_Locale();
 ?>
 <a name="page-content"></a>
 <?php echo $this->secondNavigation('input') ?>
@@ -15,13 +9,12 @@ $locale = new Zend_Locale();
     <div class="row">
         <div class="text-center span10 offset1">
 
-            <small class="count muted"><?php echo $this->inputCount ?> bestätigte Beiträge</small>
-            <h1>Alle Beiträge im Überblick</h1>
+            <small class="count muted">
+                <?php echo $this->inputCount ?> <?=$this->translate('confirmed contributions')?>
+            </small>
+            <h1><?=$this->translate('All contributions')?></h1>
             <p>
-            	Ihr wollt bei dieser Beteiligungsrunde mitmachen?
-            	Dann klickt während der Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld
-            	für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr mitmachen, aber über den
-            	Klick auf die Frage alle eingegangenen Beiträge lesen.
+                <?=$this->translate('You want to participate in this participation round? Just click on a question during the input period, and the input field will appear where you can insert your contributions. After the input period has finished, you are no longer allowed to draw up contributions, but by clicking on a question you can read all other contributions.')?>
             </p>
 
         </div>
@@ -33,18 +26,18 @@ $locale = new Zend_Locale();
             <li class="span4">
                 <div class="thumbnail">
                     <div class="thumbnail-content">
-                        <h2>Beiträge sortiert nach Schlagwörtern:</h2>
+                        <h2><?=$this->translate('Contributions sorted by keywords:')?></h2>
                         <ul class="tag-cloud">
                             <?php foreach ($this->tags as $tag): ?>
                                 <li class="tag-<?php echo $tag['frequency']; ?>">
                                     <a href="<?php echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>">
-                                    	<?php echo $tag['tg_de']; ?>
+                                        <?php echo $tag['tg_de']; ?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
                         <a href="<?php echo $this->url(array('action' => 'tags')); ?>" class="btn">
-                        	Alle Schlagwörter
+                            <?=$this->translate('All tags')?>
                         </a>
                     </div>
                 </div><!-- .thumbnail -->
@@ -66,7 +59,7 @@ $locale = new Zend_Locale();
                                 <a href="<?php echo $url ?>">
                                     <article class="media">
                                         <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                                            verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM, $locale)?>
+                                            <?=sprintf($this->translate('written on %s'), $date->get(Zend_Date::DATE_MEDIUM, $locale))?>
                                         </time>
                                         <p><?php echo mb_substr($input['thes'], 0, 120, 'UTF-8') ?></p>
                                     </article>
@@ -74,15 +67,15 @@ $locale = new Zend_Locale();
                             <?php endforeach; ?>
                         </div>
                         <a href="<?php echo $url; ?>" class="btn edit">
-                        	<?php if (
-                        		$this->nowDate->isLater($this->consultation->inp_fr)
-                        		&& $this->nowDate->isEarlier($this->consultation->inp_to)
-                        	): ?>
-                        		<i class="icon-edit-alt"></i>
-                                Beitrag verfassen ›››
+                            <?php if (
+                                $this->nowDate->isLater($this->consultation->inp_fr)
+                                && $this->nowDate->isEarlier($this->consultation->inp_to)
+                            ): ?>
+                                <i class="icon-edit-alt"></i>
+                                <?=$this->translate('Write a contribution')?> ›››
                             <?php else: ?>
-                        	    Alle Beiträge zu Frage <?php echo $question['nr']; ?> ›››
-                        	<?php endif; ?>
+                                <?=sprintf($this->translate('All contributions for question %s'), $question['nr'])?> ›››
+                            <?php endif; ?>
                         </a>
                     </div>
                 </div><!-- .thumbnail -->
@@ -91,7 +84,6 @@ $locale = new Zend_Locale();
     </ul><!-- .questions -->
 
     <?php echo $this->render('_partials/printLink.phtml') ?>
-
 </div>
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

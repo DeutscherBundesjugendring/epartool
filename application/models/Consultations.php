@@ -4,7 +4,7 @@
  * @desc        Class of consultation
  * @author    Jan Suchandt
  */
-class Model_Consultations extends Model_DbjrBase
+class Model_Consultations extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'cnslt';
     protected $_primary = 'kid';
@@ -281,38 +281,6 @@ class Model_Consultations extends Model_DbjrBase
     }
 
     /**
-     * Get all consultations where given user has participated in
-     *
-     * @param integer $uid
-     */
-    public function getByUser($uid)
-    {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given uid must be integer!');
-        }
-
-        $db = $this->getAdapter();
-        $select = $db->select();
-        $select
-            ->from(array('i' => 'inpt'), 'i.kid')
-            ->distinct()
-            ->where('i.uid = ?', $uid);
-        $stmt = $db->query($select);
-        $rowSet = $stmt->fetchAll();
-        $kidArray = array();
-        foreach ($rowSet as $row) {
-            $kidArray[] = $row['kid'];
-        }
-
-        $select2 = $this->select()
-            ->where('kid IN (?)', $kidArray)
-            ->order('ord DESC');
-
-        return $this->fetchAll($select2);
-    }
-
-    /**
      * Return all
      */
     public function getAll()
@@ -368,18 +336,114 @@ class Model_Consultations extends Model_DbjrBase
         return $result;
     }
 
-    public function getByUserinputs($uid)
+    public function getByUser($uid)
     {
-        $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('i' => 'inpt'), 'i.kid, count(i.thes) AS count');
-        $select->joinLeft(array('c'=>'cnslt'), 'i.kid=c.kid', array('titl'=>'c.titl'));
-        $select->where('i.uid = ?', $uid);
-        $select->group('i.kid');
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                ['count' => 'COUNT(*)']
+            )
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'q.kid = c.kid',
+                ['titl' => 'c.titl', 'kid']
+            )
+            ->where('i.uid = ?', $uid)
+            ->group('c.kid');
 
-        $stmt = $db->query($select);
-        $rowSet = $stmt->fetchAll();
+        return $this->fetchAll($select);
+    }
 
-        return $rowSet;
+    /**
+     * Finds out if there are any participants in this consultation
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any participants
+     */
+    public function hasParticipants($kid)
+    {
+        $inputModel = new Model_Inputs();
+        $row = $inputModel->fetchRow(
+            $inputModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['i' => $inputModel->info(Model_Inputs::NAME)], ['uid'])
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    []
+                )
+                ->where('kid=?', $kid)
+        );
+
+        return $row ? true : false;
+    }
+
+    /**
+     * Finds out if there are any participants in this consultation who have subscribed to the newsletter
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any newsletter subscribed participants
+     */
+    public function hasNewsletterSubscribers($kid)
+    {
+        $userConsultModel = new Model_User_Info();
+        $row = $userConsultModel->fetchRow(
+            $userConsultModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['u' => (new Model_Users())->info(Model_Users::NAME)], ['uid'])
+                ->join(
+                    ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                    'u.uid = ui.uid',
+                    []
+                )
+                ->where('ui.kid=?', $kid)
+                ->where('u.newsl_subscr=?', 'y')
+        );
+
+        return $row ? true : false;
+    }
+
+    /**
+     * Finds out if there are any participants in this consultation who have subscribed to the followups
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any participants followup subscribed participants
+     */
+    public function hasFollowupSubscribers($kid)
+    {
+        $userConsultModel = new Model_User_Info();
+        $row = $userConsultModel->fetchRow(
+            $userConsultModel
+                ->select()
+                ->where('kid=?', $kid)
+                ->where('cnslt_results=?', 'y')
+        );
+
+        return $row ? true : false;
+    }
+
+    /**
+     * Finds out if there are any voters in this consultation
+     * @param  integer  $kid The consultation identificator
+     * @return boolean       Indicates if there are any voters
+     */
+    public function hasVoters($kid)
+    {
+        $inputModel = new Model_Inputs();
+        $vtGroupModel = new Model_Votes_Groups();
+        $row = $inputModel->fetchRow(
+            $vtGroupModel
+                ->select()
+                ->from($vtGroupModel->getName(), array('uid'))
+                ->where('kid=?', $kid)
+        );
+
+        return $row ? true : false;
     }
 }

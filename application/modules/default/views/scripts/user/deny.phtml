@@ -1,0 +1,12 @@
+<?php if (!$this->error): ?>
+	<a href="#" rel="confirm" data="uid/<?php echo $this->user['uid'].'/subuid/'.$this->user['sub_uid']; ?>" class="useraction">
+        <?=$this->translate('Confirm')?>
+    </a>
+    <br/>
+	<a href="#" rel="delete" data="uid/<?php echo $this->user['uid'].'/subuid/'.$this->user['sub_uid']; ?>" class="useraction">
+        <?=$this->translate('Delete')?>
+    </a>
+    <br/>
+<? else: ?>
+	<p>Es ist ein Fehler aufgetreten!</p>
+<? endif; ?>

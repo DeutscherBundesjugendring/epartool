@@ -1,97 +1,100 @@
 <li
-    id="li-<? echo $this-> tid; ?>"
+    id="li-<=$this->input['tid']?>"
     style="display: none;"
     class="
         inputs
-        <?php echo ($this->vot == "u" ? 'unfinished' : ''); ?>
-        <?php echo ($this->vot != "u" ? 'finished' : ''); ?>
-        <?php echo ($this->vot != "n" && $this->uid == '1' ? 'org-hidden' : ''); ?>
-        <?php echo ($this->uid != '1' ? 'org-o' : ''); ?>
-        <?php echo ($this->uid == '1' ? 'org-r' : ''); ?>
-        vot-<?php echo $this->vot ?>
-        <?php echo ($this->vot == 'y' && $this->uid != '1' ? 'vot-orb' : ''); ?>
-        block-<?php echo $this->block; ?>"
->     
-    <label for="<? echo $this->tid; ?>" class="thesis clearfix" title="Diesen Beitrag markieren">
-    	 	<a href="/admin/votingprepare/edit/kid/<? echo $this-> kid; ?>/qid/<? echo $this-> qi;?>/tid/<? echo $this-> tid; ?>" class="edit-list" title="Diesen Beitrag bearbeiten">bearbeiten</a>
-  <? echo $this->thes; ?></label>
+        <?php echo ($this->input['vot'] == "u" ? 'unfinished' : ''); ?>
+        <?php echo ($this->input['vot'] != "u" ? 'finished' : ''); ?>
+        <?php echo ($this->input['vot'] != "n" && $this->input['uid'] == '1' ? 'org-hidden' : ''); ?>
+        <?php echo ($this->input['uid'] != '1' ? 'org-o' : ''); ?>
+        <?php echo ($this->input['uid'] == '1' ? 'org-r' : ''); ?>
+        vot-<?php echo $this->input['vot'] ?>
+        <?php echo ($this->input['vot'] == 'y' && $this->input['uid'] != '1' ? 'vot-orb' : ''); ?>
+        block-<?php echo $this->input['block']; ?>"
+>
+    <label for="<?=$this->input['tid']?>" class="thesis clearfix" title="Diesen Beitrag markieren">
+	 	<a href="/admin/votingprepare/edit/kid/<?=$this->kid?>/qid/<?=$this->input['qi']?>/tid/<?=$this->input['tid']?>" class="edit-list" title="Diesen Beitrag bearbeiten">
+            bearbeiten
+        </a>
+        <?=$this->input['thes']?>
+    </label>
     <input
         type ="checkbox"
         class="cbx-th"
-        id="<?php echo $this->tid;?>" name="thesis[]" value="<?php echo $this->tid;?>"
+        id="<?php echo $this->input['tid'];?>" name="thesis[]" value="<?php echo $this->input['tid'];?>"
     />
 
     <div class="clearfix" style="clear: both;">&nbsp;</div>
 
-    <?php if (!empty($this->expl)): ?>
+    <?php if (!empty($this->input['expl'])): ?>
         <div class="expl-header">
-            <a class="expl-<?php echo $this->tid; ?>" title="Klicken um Ergänzung anzuzeigen">Ergänzung  &#9660;</a>
+            <a class="expl-<?php echo $this->input['tid']; ?>" title="Klicken um Ergänzung anzuzeigen">Ergänzung  &#9660;</a>
         </div>
-        <div class="expl-content expl-<?php echo $this->tid; ?>" rel="<?php echo $this->tid; ?>" >
-            <?php echo $this->expl; ?>
+        <div class="expl-content expl-<?=$this->input['tid']?>" rel="<?=$this->input['tid']; ?>">
+            <?php echo $this->input['expl']; ?>
         </div>
     <?php endif; ?>
 
-    <?php if (!empty($this->notiz)): ?>
+    <?php if (!empty($this->input['notiz'])): ?>
         <div class="notice-header">
-            <a class="notice-<? echo $this->tid; ?>"  title="Klicken um Notizen anzuzeigen"> Interne Notiz &#9660;</a>
+            <a class="notice-<?=$this->input['tid']?>"  title="Klicken um Notizen anzuzeigen"> Interne Notiz &#9660;</a>
         </div>
-        <div class="notice-content notice-<? echo $this->tid; ?>">
-            Notiz:<? echo $this->notiz; ?>
+        <div class="notice-content notice-<?=$this->input['tid']; ?>">
+            Notiz:<?=$this->input['notiz']?>
         </div>
     <?php endif; ?>
 
     <div class="tagrow">
-        <?php if (!empty($this->tags)): ?>
-            <?php echo $this->partialLoop('_partials/votingprepare/tags-by-input.phtml', $this->tags); ?>
+        <?php if (!empty($this->input['tags'])): ?>
+            <?php echo $this->partialLoop('_partials/votingprepare/tags-by-input.phtml', $this->input['tags']); ?>
         <?php endif; ?>
         <div class="clear">&nbsp;</div>
     </div>
 
     <div class="info-box">
-        <span class="input-box" title="<?php echo ($this->uid==1) ?  "Redaktionsbeitrag" : "Originalbeitrag"; ?>">
-            <?php echo ($this->uid==1) ?  "&#9415;" : "&#9412;"; ?>
+        <span class="input-box" title="<?php echo ($this->input['uid']==1) ?  "Redaktionsbeitrag" : "Originalbeitrag"; ?>">
+            <?php echo ($this->input['uid']==1) ?  "&#9415;" : "&#9412;"; ?>
         </span>
 
   		<span
             class="block-box"
-            rel="<?php echo $this->tid; ?>"
-            id="block-box-<?php echo $this->tid; ?>"
+            rel="<?php echo $this->input['tid']; ?>"
+            id="block-box-<?php echo $this->input['tid']; ?>"
             title="Freigabe zur Anzeige: | &#9407; y = ja |  &#9399; n = blockiert | &#9418; u = unchecked"
         >
-            <?php if ($this->block=="y") echo '&#9407;'; ?>
-            <?php if ($this->block=="u") echo '&#9418;'; ?>
-            <?php if ($this->block=="n") echo '&#9399;'; ?>
+            <?php if ($this->input['block']=="y") echo '&#9407;'; ?>
+            <?php if ($this->input['block']=="u") echo '&#9418;'; ?>
+            <?php if ($this->input['block']=="n") echo '&#9399;'; ?>
         </span>
         <span
             class="vot-box"
-            rel="<?php echo $this->tid; ?>"
-            id="vot-box-<?php echo $this->tid; ?>"
+            rel="<?php echo $this->input['tid']; ?>"
+            id="vot-box-<?php echo $this->input['tid']; ?>"
             title="Votingfreigabe: &#9411; u = unbearbeitet | &#9419; v  = zur Abstimmuung freigegeben | &#9399; n = nicht zur Abstimmung freigegeben"
         >
-            <?php if ($this->vot=="y") echo '&#9419;'; ?>
-            <?php if ($this->vot=="u") echo '&#9411;'; ?>
-            <?php if ($this->vot=="n") echo '&#9399;'; ?>
+            <?php if ($this->input['vot']=="y") echo '&#9419;'; ?>
+            <?php if ($this->input['vot']=="u") echo '&#9411;'; ?>
+            <?php if ($this->input['vot']=="n") echo '&#9399;'; ?>
         </span>
    </div>
 
-    <?php if (!empty($this->related)): ?>
+    <?php if (!empty($this->input['related'])): ?>
         <div class="related-header">
-            <a class="related-<?php echo $this->tid; ?>" title="Klicken um Beiträge anzuzeigen">
+            <a class="related-<?php echo $this->input['tid']; ?>" title="Klicken um Beiträge anzuzeigen">
                 Zusammenfassung aus:  &#9660;
             </a>
         </div>
-        <div class="related-content related-<?php echo $this->tid; ?>">
+        <div class="related-content related-<?php echo $this->input['tid']; ?>">
             <ul>
-                <?php 
-                echo $this->partialLoop('_partials/votingprepare/related.phtml', $this->related); ?>
+                <?php
+                echo $this->partialLoop('_partials/votingprepare/related.phtml', $this->input['related']); ?>
             </ul>
-          	<div class="append-inputs" rel="<?php echo $this->tid; ?>" id="append-inputs-<?php echo $this->tid; ?>">
+          	<div class="append-inputs" rel="<?php echo $this->input['tid']; ?>" id="append-inputs-<?php echo $this->input['tid']; ?>">
                 + markierte hinzufügen +
             </div>
         </div>
   	<?php else: ?>
-      	<div class="append-inputs" rel="<?php echo $this->tid; ?>" id="append-inputs-<?php echo $this->tid; ?>">
+      	<div class="append-inputs" rel="<?php echo $this->input['tid']; ?>" id="append-inputs-<?php echo $this->input['tid']; ?>">
             + markierte hinzufügen +
         </div>
     <?php endif; ?>

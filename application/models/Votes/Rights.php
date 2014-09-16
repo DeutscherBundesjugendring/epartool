@@ -3,7 +3,7 @@
  * Votes_Rights
  * @author    Jan Suchandt, Markus Hackel
  */
-class Model_Votes_Rights extends Model_DbjrBase
+class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_rights';
     protected $_primary = array(
@@ -24,7 +24,6 @@ class Model_Votes_Rights extends Model_DbjrBase
     /**
      * Sets initial voting rights for all participants of given consultation
      * (if not already done)
-     *
      * @param  integer                 $kid
      * @throws Zend_Validate_Exception
      * @return integer                 Number of newly inserted rows
@@ -36,16 +35,18 @@ class Model_Votes_Rights extends Model_DbjrBase
             throw new Zend_Validate_Exception('Given parameter kid must be integer!');
         }
         $count = 0;
+
         $userModel = new Model_Users();
         $participants = $userModel->getParticipantsByConsultation($kid);
+
         foreach ($participants as $user) {
-            if ($user['uid'] != 1) {
-                $row = $this->find($kid, $user['uid'])->current();
+            if ($user->uid != 1) {
+                $row = $this->find($kid, $user->uid)->current();
                 if (empty($row)) {
                     $code = $this->generateVotingCode();
                     $data = array(
                         'kid' => $kid,
-                        'uid' => $user['uid'],
+                        'uid' => $user->uid,
                         'vt_weight' => 1,
                         'vt_code' => $code,
                     );
@@ -61,7 +62,6 @@ class Model_Votes_Rights extends Model_DbjrBase
 
     /**
      * Returns voting rights for all participants of given consultation
-     *
      * @param  integer                 $kid  The consultation identifier
      * @throws Zend_Validate_Exception
      * @return array
@@ -74,9 +74,12 @@ class Model_Votes_Rights extends Model_DbjrBase
         }
         $db = $this->getDefaultAdapter();
 
-        $subselect = $db->select();
-        $subselect->from('user_info', array(new Zend_Db_Expr('MAX(user_info_id)')));
-        $subselect->where('uid=vr.uid')->where('kid=?', $kid);
+        $subselect = $db
+            ->select()
+            ->from('user_info', array(new Zend_Db_Expr('MAX(user_info_id)')))
+            ->where('uid=vr.uid')
+            ->where('kid=?', $kid)
+            ->where('time_user_confirmed IS NOT NULL');
 
         $select = $db->select();
         $select->from(array('vr' => $this->_name), array(
@@ -102,8 +105,34 @@ class Model_Votes_Rights extends Model_DbjrBase
     }
 
     /**
+     * Returns  all  voting rights entrys in DB
+     * @param  integer   $kid  The consultation identifier
+     * @throws Zend_Validate_Exception
+     * @see Model_Votes getResultsValuesFromDB
+     * @return Zend_Db_Table_Row             The vt_rights table row object
+     */
+    public function getWeightsByConsultation($kid)
+    {
+        $intVal = new Zend_Validate_Int();
+        if (!$intVal->isValid($kid)) {
+            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+        }
+
+        $db = $this->getDefaultAdapter();
+        $select = $db->select();
+        $select->from(array('vr' => $this->_name), array(
+                'uid' => 'vr.uid',
+                'vt_weight' => 'vr.vt_weight'
+            ));
+        $select->where('kid = ?', $kid)
+                    ->where('uid > ?', 1);
+        $result = $db->query($select);
+        // uid = key weight = value
+        return $result->fetchAll(PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
      * Returns voting rights for a given user and consultation
-     *
      * @param  integer                 $uid  The user identifier
      * @param  integer                 $kid  The consultation identifier
      * @throws Zend_Validate_Exception
@@ -125,7 +154,6 @@ class Model_Votes_Rights extends Model_DbjrBase
     /**
      * Generates and returns a voting code,
      * logically adopted from old system
-     *
      * @param  integer $length Defaults to 8
      * @return string
      */
@@ -168,7 +196,7 @@ class Model_Votes_Rights extends Model_DbjrBase
 
 
     /**
-     * return rights of a voting user by authcode
+     * Return rights of a voting user by authcode
      * @param  string $code authentification-code
      * @return array
      */
@@ -188,12 +216,10 @@ class Model_Votes_Rights extends Model_DbjrBase
         } else {
             return array();
         }
-
     }
 
     /**
      * Returns the counted and grouped voting weights by consultation
-     *
      * @param  integer                 $kid
      * @throws Zend_Validate_Exception
      * @return Zend_Db_Table_Rowset

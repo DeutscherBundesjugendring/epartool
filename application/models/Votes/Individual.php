@@ -3,7 +3,7 @@
  * Votes_Individual
  * @author    Jan Suchandt, Markus Hackel
  */
-class Model_Votes_Individual extends Model_DbjrBase
+class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_indiv';
 
@@ -51,7 +51,6 @@ class Model_Votes_Individual extends Model_DbjrBase
         );
         $select->where('sub_uid=?', $subuid);
         $select->where('tid=?', $tid);
-        //$select->where('status = ?', 'v');
 
         $row = $this->fetchAll($select)->current();
         if ($row->count >0) {
@@ -85,7 +84,7 @@ class Model_Votes_Individual extends Model_DbjrBase
 
             $row = $this->fetchRow($select);
             $row->pts = $pts;
-        	$row-> pimp=    $pimp;
+            $row-> pimp=    $pimp;
             $row->upd = new Zend_Db_Expr('NOW()');
             if ($row->save()) {
                 return array (
@@ -123,7 +122,6 @@ class Model_Votes_Individual extends Model_DbjrBase
 
     /**
      * Returns array of voting values
-     *
      * @param  integer                 $tid
      * @param  integer                 $kid
      * @throws Zend_Validate_Exception
@@ -180,7 +178,6 @@ class Model_Votes_Individual extends Model_DbjrBase
 
     /**
      * Returns count of individual votes by consultation
-     *
      * @param  integer                 $kid
      * @throws Zend_Validate_Exception
      * @return integer
@@ -192,10 +189,16 @@ class Model_Votes_Individual extends Model_DbjrBase
             throw new Zend_Validate_Exception('Given parameter kid must be integer!');
         }
         $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('vi' => $this->_name), new Zend_Db_Expr('COUNT(*) AS count'))
+        $select = $db
+            ->select()
+            ->from(array('vi' => $this->_name), new Zend_Db_Expr('COUNT(*) AS count'))
             ->join(array('i' => 'inpt'), 'vi.tid = i.tid', array())
-            ->where('i.kid = ?', $kid)
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('q.kid = ?', $kid)
             ->where('vi.pts < ?', 4);
         $stmt = $db->query($select);
 
@@ -230,7 +233,7 @@ class Model_Votes_Individual extends Model_DbjrBase
     }
 
     /**
-     * returns the count of voted thesis of a subuser
+     * Returns the count of voted thesis of a subuser
      * @param  string  $subUid (md5-hash)
      * @return integer
      */
@@ -252,7 +255,7 @@ class Model_Votes_Individual extends Model_DbjrBase
     }
 
     /**
-     * update status of vote of a subuser
+     * Update status of vote of a subuser
      * @param integer $uid
      * @param string  $subuid       (md5-hash)
      * @param string  $status       (v = voted, s = skipped, c = confirmed)
@@ -279,11 +282,8 @@ class Model_Votes_Individual extends Model_DbjrBase
         if (!empty($statusBefore) && ($statusBefore=='v' || $statusBefore=='s' || $statusBefore=='c')) {
             $where['status = ?'] = $statusBefore;
         }
-//        $db->getProfiler()->setEnabled(true);
+
         $result = $db->update($this->_name, $data, $where);
-//        Zend_Debug::dump($db->getProfiler()->getLastQueryProfile()->getQuery());
-//        Zend_Debug::dump($db->getProfiler()->getLastQueryProfile()->getQueryParams());
-//        $db->getProfiler()->setEnabled(false);
         if ($result) {
             return true;
         }
@@ -320,40 +320,40 @@ class Model_Votes_Individual extends Model_DbjrBase
         return false;
     }
 
-	 /* gets the superbutton thesis  */
+     /* gets the superbutton thesis  */
     public function getParticularImportantVote($subUid)
     {
-		$db = $this->getAdapter();
+        $db = $this->getAdapter();
         $select = $db->select();
         $select->from(array('vi' => 'vt_indiv'));
         $select->joinLeft(array('i' => 'inpt'), 'vi.tid = i.tid');
         $select->where('sub_uid = ?', $subUid);
-		$select->where('pimp = ?', 'y');
+        $select->where('pimp = ?', 'y');
         $select->order('upd DESC');
 
         $stmt = $db->query($select);
         $row = $stmt->fetchAll();
         return $row;
     }
-	
+
     /* counts how much user clicks on superbutton */
     public function countParticularImportantVote($subUid)
     {
-    	$rowset = $this->fetchAll(
-        			$this->select()
+        $rowset = $this->fetchAll(
+            $this->select()
                 ->where('sub_uid = ?', $subUid)
-        		->where('pimp = ?', 'y')
+                ->where('pimp = ?', 'y')
         );
         $rowCount = count($rowset);
 
         return $rowCount;
     }
-	
-	/**
-     *  delete the superbutton thesis from basket
-    * @author Karsten Tackmann
-     */ 
-	 public function deleteParticularImportantVote($uid,$subUid, $tid)
+
+    /**
+     * Delete the superbutton thesis from basket
+     * @author Karsten Tackmann
+     */
+     public function deleteParticularImportantVote($uid,$subUid, $tid)
     {
         if (empty($uid) || empty($subUid) || empty($tid)) {
             return false;
@@ -407,41 +407,40 @@ class Model_Votes_Individual extends Model_DbjrBase
         return $row;
 
     }
-	
-	/**
+
+    /**
      * Get All votes from one user
-	 * @see VotingController |admin:participanteditAction()
+     * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
      */
-	
-	public function getUservotes($subuid) {
-		
-		$alnumVal = new Zend_Validate_Alnum();
+    public function getUservotes($subuid) {
+
+        $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
             throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical! getUservotes');
         }
-		
-		$select = $this->select();
+
+        $select = $this->select();
         $select->where('sub_uid = ?', $subuid);
-		$select->where('sub_uid = ?', $subuid);
-		$select->order('tid','ASC');
-		$result = $this->fetchAll($select);
-		return $result;
-	}
-	
-	/**
+        $select->where('sub_uid = ?', $subuid);
+        $select->order('tid','ASC');
+        $result = $this->fetchAll($select);
+        return $result;
+    }
+
+    /**
      * Delet all votes from one user
-	 * @see VotingController |admin:participanteditAction()
+     * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
      */
-	public function deleteUservotes($subuid) {
-		
-		$alnumVal = new Zend_Validate_Alnum();
+    public function deleteUservotes($subuid) {
+
+        $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
             throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!deleteUservotes');
         }
-		
-		$db = $this->getAdapter();
+
+        $db = $this->getAdapter();
         $where = array(
             'sub_uid = ?' => $subuid,
         );
@@ -450,22 +449,22 @@ class Model_Votes_Individual extends Model_DbjrBase
             return true;
         }
         return false;
-	}
-	
-	
-	/**
+    }
+
+
+    /**
      * Restore votes for origin user
-	 * @see VotingController |admin:participanteditAction()
+     * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
      */
-	public function insertMergedUservotes($subuid, $values) {
-		
-		$alnumVal = new Zend_Validate_Alnum();
+    public function insertMergedUservotes($subuid, $values) {
+
+        $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
             throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');
         }
 
-			$data = array(
+            $data = array(
                 'uid' => $values['uid'],
                 'tid' => $values['tid'],
                 'sub_uid' => $subuid,
@@ -476,5 +475,5 @@ class Model_Votes_Individual extends Model_DbjrBase
             );
             $row = $this->createRow($data);
             $row->save();
-	}
+    }
 }

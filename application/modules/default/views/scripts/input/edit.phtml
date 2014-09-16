@@ -1,43 +1,29 @@
-<?php
-/**
- * Input edit
- *
- * @description   Edit contribution
- * @author
- */
-?>
-
 <?php echo $this->secondNavigation('input'); ?>
 
 <div class="content-holder">
 	<div class="row">
 		<aside class="span3">
-
 			<?php echo $this->questionNavigation($this->question['qi']); ?>
-
 		</aside>
+
 		<section class="main-content span9">
 
-			<h1>Beitrag bearbeiten</h1>
+			<h1><?=$this->translate('Edit contribution')?></h1>
 			<?php if (isset($this->message)): ?>
 				<p><?php echo $this->message; ?></p>
-				<p><a href="<?php
-					echo $this->url(array(
-						'controller' => 'user',
-						'action' => 'inputlist'
-					));
-				?>">&laquo; Zurück</a></p>
+				<p>
+					<a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'])?>">
+						&laquo; <?=$this->translate('Back')?>
+					</a>
+				</p>
 			<?php endif; ?>
 
 			<?php if (isset($this->form)): ?>
 			<div class="well well-large text-right">
 				<?php echo $this->form; ?>
-				<a href="<?php
-					echo $this->url(array(
-						'controller' => 'user',
-						'action' => 'inputlist'
-					));
-				?>"><i class="icon-angle-left"></i> Zurück</a>
+				<a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'])?>">
+					<i class="icon-angle-left"></i> <?=$this->translate('Back')?>
+				</a>
 			</div><!-- .well -->
 			<?php endif; ?>
 

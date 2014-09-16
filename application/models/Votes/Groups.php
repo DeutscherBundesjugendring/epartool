@@ -4,7 +4,7 @@
  * @author Markus Hackel
  *
  */
-class Model_Votes_Groups extends Model_DbjrBase
+class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_grps';
     protected $_primary = array(
@@ -18,20 +18,26 @@ class Model_Votes_Groups extends Model_DbjrBase
      * @throws Zend_Validate_Exception
      * @return array
      */
-    public function getByConsultation($kid)
+    public function getByConsultation($kid, $uid=0)
     {
         $intVal = new Zend_Validate_Int();
         if (!$intVal->isValid($kid)) {
             throw new Zend_Validate_Exception('Given parameter kid must be integer!');
         }
+         if (!$intVal->isValid($uid)) {
+            throw new Zend_Validate_Exception('Given parameter uid must be integer!');
+        }
 
         $db = $this->getDefaultAdapter();
         $select = $db->select();
-        $select->from(array('vg' => $this->_name))
-            ->joinUsing(array('u' => 'users'), 'uid')
+        $select->from(array('vg' => $this->_name), array('*'))
+            ->joinLeft(array('u' => 'users'), 'u.uid = vg.uid', array('*'))
+            ->joinLeft(array('vt_indiv' => 'vt_indiv'), 'vg.sub_uid =vt_indiv.sub_uid ', array(new Zend_Db_Expr('COUNT(vt_indiv.sub_uid) as count')))
             ->where('vg.kid = ?', $kid)
-            ->order('vg.uid');
-
+            ->group('vg.sub_uid');
+        if ($uid!=0) {
+            $select->where('vg.uid = ?', $uid);
+        }
         $stmt = $db->query($select);
 
         return $stmt->fetchAll();
@@ -338,9 +344,9 @@ class Model_Votes_Groups extends Model_DbjrBase
             return $row->toArray();
         }
     }
-	
-	
-	/**
+
+
+    /**
      * Returns all users by consultation
      *
      * @param  integer                 $kid
@@ -354,22 +360,22 @@ class Model_Votes_Groups extends Model_DbjrBase
             throw new Zend_Validate_Exception('Given parameter kid must be integer!');
         }
 
-       $select = $this->select();
-        $select->where('kid = ?', $kid);
-		$select->order('sub_user','ASC');
-		$result = $this->fetchAll($select);
+        $select = $this->select()
+            ->where('kid = ?', $kid)
+            ->order('sub_user', 'ASC');
+        $result = $this->fetchAll($select);
         return $result;
     }
-	
-	/**
+
+    /**
      * Delete Voter
      *
      * @param  alnum subuid
-	 * @see VotingController |admin:participanteditAction()
+     * @see VotingController |admin:participanteditAction()
      * @throws Zend_Validate_Exception
      * @return boolean
      */
-	public function deleteVoterBySubUid($subuid)
+    public function deleteVoterBySubUid($subuid)
     {
         $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
@@ -386,35 +392,4 @@ class Model_Votes_Groups extends Model_DbjrBase
         }
         return false;
     }
-	
-	/**
-     * Update Votinglist for Origin User
-     *
-     * @param  alnum $subuid
-	 * @param  string $vt_inp_list
-	 * @see VotingController |admin:participanteditAction()
-     * @throws Zend_Validate_Exception
-	 * @return boolean
-     */
-	public function updateVotinglistBySubUid($subuid,$vt_inp_list) {
-		 $alnumVal = new Zend_Validate_Alnum();
-        if (!$alnumVal->isValid($subuid)) {
-            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');
-        }
-
-		$db = $this->getAdapter();
-
-        $data = array(
-            'vt_inp_list' => $vt_inp_list,
-        );
-        $where = array(
-            'sub_uid = ?' => $subuid
-        );
-        $result = $db->update($this->_name, $data, $where);
-		if ($result) {
-            return true;
-        }
-		return false;
-		
-	}
 }

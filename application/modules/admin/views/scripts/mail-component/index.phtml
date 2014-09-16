@@ -1,0 +1,46 @@
+<h1>Email components</h1>
+
+
+<a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'detail')); ?>">
+    New email component
+</a>
+
+<form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
+    <?=$this->form->getElement('email_list_control_csrf_token')?>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($this->components as $component): ?>
+                <tr>
+                    <td><?php echo $component->id?></td>
+                    <td><?php echo $component->name?></td>
+                    <td>
+                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $component->id));?>">
+                            Bearbeiten
+                        </a>
+                        <button
+                            name="deleteId"
+                            type="submit"
+                            onclick="return confirm('Are you sure?');"
+                            value="<?php echo $component->id?>"
+                        >
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            <?php endforeach?>
+        </tbody>
+    </table>
+</form>
+
+<a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'detail')); ?>">
+    New email component
+</a>

@@ -4,7 +4,7 @@
  * @desc        Class of articles
  * @author    Jan Suchandt
  */
-class Model_Articles extends Model_DbjrBase
+class Model_Articles extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'articles';
     protected $_primary = 'art_id';

@@ -1,0 +1,1557 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Dbjr Tool\n"
+"POT-Creation-Date: 2014-09-10 18:24+0100\n"
+"PO-Revision-Date: 2014-09-10 18:24+0100\n"
+"Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
+"Language-Team:  <epartool@dbjr.de>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: application/modules/default\n"
+"X-Poedit-SearchPath-1: library/Plugin\n"
+
+#: application/modules/default/controllers/ArticleController.php:67
+#: application/modules/default/controllers/InputController.php:425
+msgid "Page not found"
+msgstr "Seite nicht gefunden!"
+
+#: application/modules/default/controllers/VotingController.php:41
+msgid "This participation round is currently not open for voting."
+msgstr "In dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden."
+
+#: application/modules/default/controllers/VotingController.php:90
+msgid "It is not possible to vote at the moment."
+msgstr "Derzeit ist es nicht möglich an der Abstimmung teilzunehmen."
+
+#: application/modules/default/controllers/VotingController.php:93
+msgid "The Voting is finished. You can check the results below."
+msgstr ""
+"Die Abstimmung ist beendet. Unten k&ouml;nnt ihr euch die Ergebnisse ansehen."
+
+#: application/modules/default/controllers/VotingController.php:163
+#: application/modules/default/controllers/VotingController.php:167
+#: application/modules/default/controllers/VotingController.php:171
+msgid "Your data are not correct. Please check again."
+msgstr "Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese."
+
+#: application/modules/default/controllers/VotingController.php:400
+#: application/modules/default/controllers/VotingController.php:456
+#: application/modules/default/controllers/VotingController.php:542
+#: application/modules/default/controllers/VotingController.php:608
+msgid "Such contribution does not exist!"
+msgstr "Diese These ist nicht vorhanden!"
+
+#: application/modules/default/controllers/VotingController.php:548
+msgid "Something went wrong."
+msgstr "Etwas ist schief gelaufen."
+
+#: application/modules/default/controllers/VotingController.php:554
+msgid "The points are not correct."
+msgstr "Die vergebenen Punkte sind nicht korrekt."
+
+#: application/modules/default/controllers/VotingController.php:563
+msgid "Your vote has been counted!"
+msgstr "Deine Abstimmung wurde gezählt!"
+
+#: application/modules/default/controllers/VotingController.php:567
+#: application/modules/default/controllers/VotingController.php:629
+msgid "Your vote could not be registered. (1)"
+msgstr "Deine Abstimmung konnte nicht eingetragen werden. (1)"
+
+#: application/modules/default/controllers/VotingController.php:594
+msgid "Die Auswahl des Superbuttons ist nicht erlaubt."
+msgstr "Clicking the superbutton is not allowed."
+
+#: application/modules/default/controllers/VotingController.php:601
+msgid "Die vergebenen Punkte sind nicht korrekt."
+msgstr "The points are not correct."
+
+#: application/modules/default/controllers/VotingController.php:614
+msgid "Bitte wähle ein Frage oder ein Schlagwort aus."
+msgstr "Please choose a question or keyword."
+
+#: application/modules/default/controllers/VotingController.php:634
+msgid "Deine Abstimmung wurde gezählt."
+msgstr "Your vote has been counted."
+
+#: application/modules/default/controllers/VotingController.php:639
+msgid ""
+"The Super Button allows you to value a limited number of contributions "
+"higher. Change previous votings and make room for more important "
+"contributions!"
+msgstr ""
+"Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein "
+"stärkeres Gewicht zu verleihen. Ändere andere Votings und schaffe Platz für "
+"wichtigere Beiträge!"
+
+#: application/modules/default/controllers/VotingController.php:663
+msgid "User could not be found."
+msgstr "User konnte nicht gefunden werden."
+
+#: application/modules/default/controllers/VotingController.php:708
+#: application/modules/default/controllers/VotingController.php:718
+#: application/modules/default/controllers/VotingController.php:781
+#: application/modules/default/controllers/VotingController.php:789
+#: application/modules/default/controllers/VotingController.php:814
+msgid "The link is not correct."
+msgstr "Der angew&auml;hlte Link aus ist nicht korrekt."
+
+#: application/modules/default/controllers/VotingController.php:733
+msgid "Your contributions are now confirmed."
+msgstr "Deine Bewertungen sind jetzt bestätigt."
+
+#: application/modules/default/controllers/VotingController.php:825
+msgid "Voting results are not available yet."
+msgstr "Abstimmungsergebnisse können noch nicht gezeigt werden!"
+
+#: application/modules/default/controllers/IndexController.php:48
+msgid "Weak"
+msgstr "Schwach"
+
+#: application/modules/default/controllers/IndexController.php:49
+msgid "Normal"
+msgstr "Normal"
+
+#: application/modules/default/controllers/IndexController.php:50
+msgid "Medium"
+msgstr "Mittel"
+
+#: application/modules/default/controllers/IndexController.php:51
+msgid "Strong"
+msgstr "Stark"
+
+#: application/modules/default/controllers/IndexController.php:52
+msgid "Very Strong"
+msgstr "Sehr Stark"
+
+#: application/modules/default/controllers/FollowupController.php:33
+msgid "For this participation round, there are no Reactions at the moment."
+msgstr "Für diese Beteiligungsrunde gibt es derzeit keine Reaktionen."
+
+#: application/modules/default/controllers/FollowupController.php:45
+#: application/modules/default/controllers/InputController.php:32
+msgid "No consultation provided!"
+msgstr "Keine Beteiligungsrunde angegeben!"
+
+#: application/modules/default/controllers/FollowupController.php:532
+msgid "File does not exist."
+msgstr "Datei ist nicht vorhanden."
+
+#: application/modules/default/controllers/UserController.php:33
+msgid "Logout successful!"
+msgstr "Logout erfolgreich!"
+
+#: application/modules/default/controllers/UserController.php:66
+msgid ""
+"An email for the confimation of your contributions has been sent to your "
+"email address."
+msgstr ""
+"Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-"
+"Adresse gesendet."
+
+#: application/modules/default/controllers/UserController.php:99
+msgid "Your inputs have been saved."
+msgstr "Your inputs have been saved."
+
+#: application/modules/default/controllers/UserController.php:109
+#: application/modules/default/controllers/UserController.php:147
+#: application/modules/default/controllers/InputController.php:455
+msgid "Please check your data!"
+msgstr "Bitte prüfe Deine Eingaben!"
+
+#: application/modules/default/controllers/UserController.php:129
+#: application/modules/default/controllers/UserController.php:162
+msgid "Please log in first"
+msgstr "Bitte erst anmelden!"
+
+#: application/modules/default/controllers/UserController.php:141
+msgid ""
+"An e-mail that allows you to reset your password was sent to the provided "
+"address."
+msgstr ""
+"Eine E-Mail zum Zurücksetzen des Passworts wurde an die angegebene E-Mail-"
+"Adresse verschickt!"
+
+#: application/modules/default/controllers/UserController.php:143
+msgid "Password reset failed!"
+msgstr "Passwortwiederherstellung fehlgeschlagen!"
+
+#: application/modules/default/controllers/UrlkeyActionController.php:40
+msgid "There is no available action with such key."
+msgstr "There is no available action with such key."
+
+#: application/modules/default/controllers/InputController.php:144
+msgid "Thank you for subscribing."
+msgstr "Danke fürs Abonnieren."
+
+#: application/modules/default/controllers/InputController.php:164
+msgid "You are now subscribed. A confirmation email has been send."
+msgstr ""
+"Dein Abonnenment ist nun aktiv. Eine Bestätigung wurde per E-Mail versandt."
+
+#: application/modules/default/controllers/InputController.php:168
+msgid "You are now subscribed."
+msgstr "Dein Abonnenment ist nun aktiv."
+
+#: application/modules/default/controllers/InputController.php:175
+msgid "Subscription form is invalid."
+msgstr "Das Abonnementformular ist ungültig."
+
+#: application/modules/default/controllers/InputController.php:199
+msgid "You have been unsubscribed."
+msgstr "Das Abonnement wurde beendet."
+
+#: application/modules/default/controllers/InputController.php:261
+#, php-format
+msgid ""
+"Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale "
+"Bearbeitungszeit von %s Minuten überschritten hast."
+msgstr ""
+"Please check your data. Es könnte auch sein, dass du die maximale "
+"Bearbeitungszeit von %s Minuten überschritten hast."
+
+#: application/modules/default/controllers/InputController.php:318
+msgid "There is no input to be confirmed."
+msgstr "Es gibt keine Beiträge, die noch bestätigt werden müssen."
+
+#: application/modules/default/controllers/InputController.php:338
+msgid "It is not allowed to confirm inputs once the input phase is over."
+msgstr ""
+"Beiträge können nicht mehr bestätigt werden, wenn der Beitragszeitraum "
+"abgelaufen ist."
+
+#: application/modules/default/controllers/InputController.php:346
+msgid "Thank you! Your inputs have been confirmed!"
+msgstr "Vielen Dank! Deine Beiträge wurden bestätigt!"
+
+#: application/modules/default/controllers/InputController.php:348
+#: application/modules/default/controllers/InputController.php:377
+msgid "This confirmation link is invalid!"
+msgstr "Der eingegebene Bestätigungslink ist ungültig!"
+
+#: application/modules/default/controllers/InputController.php:366
+msgid "It is not allowed to reject inputs once the input phase is over."
+msgstr ""
+"Beiträge können nicht mehr abgelehnt werden, wenn der Beitragszeitraum "
+"abgelaufen ist."
+
+#: application/modules/default/controllers/InputController.php:375
+msgid "The contributions have already been marked as refused!"
+msgstr "Die Beiträge wurden als abgelehnt markiert!"
+
+#: application/modules/default/controllers/InputController.php:437
+msgid "Contribution updated."
+msgstr "Beitrag aktualisiert."
+
+#: application/modules/default/controllers/InputController.php:440
+msgid "Something went wrong: contribution could not be updated."
+msgstr "Etwas lief schief: Beitrag konnte nicht aktualisiert werden."
+
+#: application/modules/default/controllers/InputController.php:466
+msgid ""
+"Sorry, the contribution phase for this consultation round is already over. "
+"You may only change your contributions within that period."
+msgstr ""
+"Die Beitragszeit für diese Beteiligungsrunde ist leider vorbei. Beiträge "
+"können nur innerhalb der Beitragszeit geändert werden."
+
+#: application/modules/default/views/helpers/SecondNavigation.php:33
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:60
+msgid "Info"
+msgstr "Infos"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:38
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:65
+msgid "Questions"
+msgstr "Fragen"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:43
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:72
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:86
+#: application/modules/default/views/scripts/input/show.phtml:54
+msgid "Contributions"
+msgstr "Beiträge"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:48
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:102
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:116
+#: application/modules/default/views/scripts/voting/overview.phtml:5
+msgid "Voting"
+msgstr "Abstimmung"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:53
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:132
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:138
+#: application/modules/default/views/scripts/followup/show.phtml:19
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:20
+#: application/modules/default/views/scripts/followup/index.phtml:19
+msgid "Reactions & Impact"
+msgstr "Reaktionen & Wirkung"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:53
+msgid "after Voting has ended"
+msgstr "nach Ende der Abstimmung"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:60
+#: application/modules/default/views/helpers/SecondNavigation.php:68
+#: application/modules/default/views/helpers/Teaser.php:38
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:23
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:31
+msgid "from"
+msgstr "vom"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:63
+#: application/modules/default/views/helpers/SecondNavigation.php:71
+#: application/modules/default/views/helpers/Teaser.php:28
+#: application/modules/default/views/helpers/Teaser.php:39
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:24
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:32
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:78
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:92
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:108
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:122
+msgid "until"
+msgstr "bis"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:106
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:22
+msgid "Participate now!"
+msgstr "Jetzt mitmachen!"
+
+#: application/modules/default/views/helpers/SecondNavigation.php:108
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
+#: application/modules/default/views/scripts/voting/vote.phtml:140
+#: application/modules/default/views/scripts/voting/overview.phtml:38
+#: application/modules/default/views/scripts/voting/index.phtml:27
+msgid "Vote now!"
+msgstr "Stimme jetzt ab!"
+
+#: application/modules/default/views/helpers/FollowupNavigation.php:19
+msgid "Overview over Reactions & Impact"
+msgstr "Übersicht Reaktionen & Wirkungen"
+
+#: application/modules/default/views/helpers/FollowupNavigation.php:20
+msgid "Contributions sorted by Questions"
+msgstr "Beiträge sortiert nach Fragen"
+
+#: application/modules/default/views/helpers/FollowupNavigation.php:21
+msgid "Contributions sorted by keywords"
+msgstr "Beiträge sortiert nach Schlagwörtern"
+
+#: application/modules/default/views/helpers/RibbonImage.php:18
+#: application/modules/default/views/helpers/RibbonImage.php:27
+#: application/modules/default/views/scripts/input/createForm.phtml:8
+msgid "Participate"
+msgstr "Mitmachen"
+
+#: application/modules/default/views/helpers/RibbonImage.php:21
+#: application/modules/default/views/helpers/RibbonImage.php:30
+msgid "only today"
+msgstr "Nur Noch Heute"
+
+#: application/modules/default/views/helpers/RibbonImage.php:24
+msgid "Voting coming up"
+msgstr "Bald Abstimmen"
+
+#: application/modules/default/views/helpers/RibbonImage.php:33
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: application/modules/default/views/helpers/RibbonImage.php:36
+#: application/modules/default/views/scripts/followup/index.phtml:26
+#: application/modules/default/views/scripts/followup/index.phtml:97
+msgid "Reaction"
+msgstr "Reaktion"
+
+#: application/modules/default/views/helpers/FollowupLink.php:28
+msgid "View reactions"
+msgstr "Reaktionen ansehen"
+
+#: application/modules/default/views/helpers/FollowupLink.php:30
+msgid "There are currently no reactions to this contribution."
+msgstr "Derzeit gibt es keine Reaktionen zu diesem Beitrag."
+
+#: application/modules/default/views/helpers/UserBox.php:17
+#, php-format
+msgid "Logged in as %s with"
+msgstr "Eingeloggt als %s mit"
+
+#: application/modules/default/views/helpers/UserBox.php:23
+msgid "View all my contributions"
+msgstr "Alle meine Beiträge ansehen"
+
+#: application/modules/default/views/helpers/UserBox.php:24
+msgid "View group members"
+msgstr "Gruppenmitglieder ansehen"
+
+#: application/modules/default/views/helpers/UserBox.php:26
+msgid "To admin pages"
+msgstr "Zum Adminbereich"
+
+#: application/modules/default/views/helpers/UserBox.php:28
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: application/modules/default/views/helpers/Teaser.php:26
+msgid "You can publish your contribution now!"
+msgstr "Jetzt kannst du deinen Beitrag einstellen!"
+
+#: application/modules/default/views/helpers/Teaser.php:27
+msgid "From"
+msgstr "Vom"
+
+#: application/modules/default/views/helpers/Teaser.php:37
+msgid "The contribution phase has finished. You can vote soon:"
+msgstr "Die Beitragsphase ist vorbei! Demnächst kann abgestimmt werden:"
+
+#: application/modules/default/views/helpers/Teaser.php:48
+msgid "Vote now on the most important contributions!"
+msgstr "Jetzt ist Abstimmen über die wichtigsten Beiträge angesagt!"
+
+#: application/modules/default/views/helpers/Teaser.php:56
+msgid "Voting has finished! There will soon be reactions available"
+msgstr "Die Abstimmungsphase ist vorbei! Demnächst wird es Reaktionen geben"
+
+#: application/modules/default/views/helpers/Teaser.php:64
+msgid "Get informed now"
+msgstr "Jetzt informieren"
+
+#: application/modules/default/views/helpers/Teaser.php:79
+msgid "Looking for other consultations? View all"
+msgstr ""
+"Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Übersicht "
+"ansehen"
+
+#: application/modules/default/views/helpers/ArticleNavigation.php:56
+#: application/modules/default/views/helpers/ArticleNavigation.php:76
+msgid "Page"
+msgstr "Seite"
+
+#: application/modules/default/views/helpers/Login.php:18
+msgid "Einloggen"
+msgstr "Login"
+
+#: application/modules/default/views/helpers/Login.php:23
+#: application/modules/default/views/scripts/user/passwordrecover.phtml:5
+msgid "Forgot password?"
+msgstr "Passwort vergessen?"
+
+#: application/modules/default/forms/Register.php:19
+#: application/modules/default/forms/PasswordRecover.php:15
+#: application/modules/default/forms/PasswordRecover.php:17
+#: application/modules/default/forms/Login.php:14
+#: application/modules/default/forms/Voting/Authentification.php:14
+#: application/modules/default/forms/Voting/Authentification.php:16
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: application/modules/default/forms/Register.php:26
+msgid ""
+"The following fields are not obligatory. But you can help us to find out "
+"more about what people and groups are participating."
+msgstr ""
+"Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick "
+"zu geben, welche Zielgruppen erreicht werden."
+
+#: application/modules/default/forms/Register.php:32
+msgid "I am responding as an individual person"
+msgstr "Ich antworte als Einzelperson"
+
+#: application/modules/default/forms/Register.php:33
+msgid "I am responding in the name of a group"
+msgstr "Ich antworte für eine Gruppe"
+
+#: application/modules/default/forms/Register.php:46
+msgid "First name and surname"
+msgstr "Vorname Nachname"
+
+#: application/modules/default/forms/Register.php:48
+msgid "Name"
+msgstr "Name"
+
+#: application/modules/default/forms/Register.php:64
+msgid "Please describe origin of your contributions:"
+msgstr "Bitte beschreibt, woher eure Beiträge stammen:"
+
+#: application/modules/default/forms/Register.php:67
+msgid "Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema"
+msgstr "Results from a meeting or project related to the topic"
+
+#: application/modules/default/forms/Register.php:68
+msgid "In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)"
+msgstr "Compiled by our group (e.g. in a workshop or a group session)"
+
+#: application/modules/default/forms/Register.php:69
+msgid "Positionspapier/Beschluss unserer Gruppe/Organisation"
+msgstr "Position paper or agreement in our group/organisation"
+
+#: application/modules/default/forms/Register.php:70
+msgid "Sonstiges, und zwar:"
+msgstr "Other:"
+
+#: application/modules/default/forms/Register.php:90
+msgid "How many individuals were involved?"
+msgstr "Wie viele Personen waren beteiligt?"
+
+#: application/modules/default/forms/Register.php:97
+msgid "Group name"
+msgstr "Gruppenbezeichnung"
+
+#: application/modules/default/forms/Register.php:104
+msgid "Contact person"
+msgstr "Ansprechpartner_in"
+
+#: application/modules/default/forms/Register.php:113
+msgid "Age"
+msgstr "Alter"
+
+#: application/modules/default/forms/Register.php:117
+#: application/modules/default/forms/Register.php:118
+#: application/modules/default/forms/Register.php:119
+#, php-format
+msgid "up to %s years"
+msgstr "bis %s Jahre"
+
+#: application/modules/default/forms/Register.php:120
+msgid "all age groups"
+msgstr "Alle Altersgruppen"
+
+#: application/modules/default/forms/Register.php:121
+msgid "no information"
+msgstr "keine Angabe"
+
+#: application/modules/default/forms/Register.php:128
+msgid "State"
+msgstr "Bundesland"
+
+#: application/modules/default/forms/Register.php:135
+msgid "I want to get informed about outcomes of the consultation round."
+msgstr ""
+"Ich möchte über die Ergebnisse der Beteiligungsrunde informiert werden."
+
+#: application/modules/default/forms/Register.php:142
+msgid "I would like to subscribe to the newsletter."
+msgstr "Ich möchte den Newsletter erhalten."
+
+#: application/modules/default/forms/Register.php:149
+msgid "Any comments?"
+msgstr "Hier ist noch Platz für Kommentare:"
+
+#: application/modules/default/forms/Register.php:160
+#, php-format
+msgid ""
+"The contributions are published under a <a href=\"%s\" target=\"_blank\" "
+"title=\"Mehr über die Creative-Commons-Lizenz erfahren\">creative commons "
+"license</a>. This means that your contribution may be re-used in summaries "
+"and publications for non-commercial use. As all contributions are published "
+"anonymously on this page, this website will be referred to as the source "
+"when re-using contributions."
+msgstr ""
+"Die Beiträge werden unter einer <a href=\"%s\" target=\"_blank\" title="
+"\"Mehr über die Creative-Commons-Lizenz erfahren\">Creative-Commons-Lizenz</"
+"a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in "
+"Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle "
+"Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung "
+"als Quelle nur diese Website genannt werden."
+
+#: application/modules/default/forms/Register.php:176
+#: application/modules/default/forms/PasswordRecover.php:25
+msgid "Send"
+msgstr "Absenden"
+
+#: application/modules/default/forms/Login.php:22
+msgid "Password"
+msgstr "Passwort"
+
+#: application/modules/default/forms/Login.php:29
+msgid "Login"
+msgstr "Einloggen"
+
+#: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:10
+#: application/modules/default/forms/Input/UnsubscriptionQuestion.php:20
+#: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:4
+msgid "Unsubscribe"
+msgstr "Abbestellen"
+
+#: application/modules/default/forms/UrlkeyAction/ConfirmNotification.php:10
+#: application/modules/default/views/scripts/user/userlist.phtml:98
+#: application/modules/default/views/scripts/user/deny.phtml:3
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:9
+#, php-format
+msgid "min. %s characters"
+msgstr "min. %s Zeichen"
+
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:13
+msgid "New password"
+msgstr "Neues Passwort"
+
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:31
+msgid "Confirm new password"
+msgstr "Neues Passwort bestätigen"
+
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:39
+msgid "Save new password"
+msgstr "Neues Passwort speichern"
+
+#: application/modules/default/forms/Voting/Authentification.php:23
+msgid "Access code"
+msgstr "Zugangscode"
+
+#: application/modules/default/forms/Voting/Authentification.php:25
+msgid "Your access code"
+msgstr "Ihr Zugangscode"
+
+#: application/modules/default/forms/Voting/Authentification.php:33
+msgid "Start"
+msgstr "Loslegen"
+
+#: application/modules/default/forms/Input/Create.php:21
+msgid "+"
+msgstr "+"
+
+#: application/modules/default/forms/Input/Create.php:28
+msgid "Save and proceed"
+msgstr "Speichern und nächste Frage"
+
+#: application/modules/default/forms/Input/Create.php:35
+#: application/modules/default/views/scripts/voting/vote.phtml:84
+#: application/modules/default/views/scripts/voting/vote.phtml:203
+#: application/modules/default/views/scripts/voting/overview.phtml:71
+msgid "Finish"
+msgstr "Beenden"
+
+#: application/modules/default/forms/Input/Create.php:74
+#: application/modules/default/forms/Input/Edit.php:16
+#, php-format
+msgid "Here you can type in your contribution (up to %s characters)."
+msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben"
+
+#: application/modules/default/forms/Input/Create.php:94
+#: application/modules/default/forms/Input/Edit.php:29
+#, php-format
+msgid ""
+"Here you explain your contribution more in depth, e.g. with examples (up to "
+"%s characters)."
+msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben erläutern"
+
+#: application/modules/default/forms/Input/SubscriptionQuestion.php:19
+msgid "Subscribe thread"
+msgstr "Neuigkeiten abonnieren"
+
+#: application/modules/default/forms/Input/SubscriptionQuestion.php:45
+msgid "Email"
+msgstr "E-Mail"
+
+#: application/modules/default/forms/Input/Edit.php:18
+msgid "Contribution"
+msgstr "These"
+
+#: application/modules/default/forms/Input/Edit.php:31
+msgid "Explanation"
+msgstr "Erläuterung"
+
+#: application/modules/default/forms/Input/Edit.php:41
+msgid "Save"
+msgstr "Speichern"
+
+#: library/Plugin/Auth/AccessControl.php:34
+msgid "Bitte Benutzernamen angeben!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:36
+msgid "Bitte Passwort angeben!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:47
+msgid "Login erfolgreich!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:51
+msgid "Login fehlgeschlagen!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:80
+msgid "Keine Rechte für die angeforderte Seite!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:86
+msgid "Please log in first!"
+msgstr "Bitte erst anmelden!"
+
+#: application/modules/default/views/scripts/user/passwordrecover.phtml:7
+msgid ""
+"You can reset your password by entering your mail address here. In a few "
+"moments you will receive an e-mail, which will help you to choose a new "
+"password."
+msgstr ""
+"Du kannst dein Passwort zurücksetzen, wenn du hier deine hinterlegte E-Mail-"
+"Adresse einträgst. Du bekommst dann umgehend eine E-Mail, mit Hilfe derer du "
+"dir ein neues Passwort aussuchen kannst."
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:5
+msgid "All my contributions"
+msgstr "Alle meine Beiträge"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:8
+msgid "There are contributions in the following participation rounds:"
+msgstr "Zu folgenden Beteiligungsrunden wurden Beiträge abgegeben:"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:15
+#: application/modules/default/views/scripts/user/userlist.phtml:62
+msgid "Show my contributions to this participation round"
+msgstr "Zeige meine Beiträge zu dieser Beteiligungsrunde"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:24
+#: application/modules/default/views/scripts/user/userlist.phtml:73
+msgid "Consultation round:"
+msgstr "Beteiligungsrunde:"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:28
+msgid "Question:"
+msgstr "Frage:"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:43
+msgid "Contributions:"
+msgstr "Beiträge:"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:56
+msgid "Click to edit"
+msgstr "Klicken zum Bearbeiten"
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:67
+msgid "No contributions"
+msgstr "Keine Beiträge"
+
+#: application/modules/default/views/scripts/user/confirm.phtml:3
+#: application/modules/default/views/scripts/user/userlist.phtml:92
+msgid "Reject"
+msgstr "Ablehnen"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:3
+#: application/modules/default/views/scripts/user/userlist.phtml:35
+msgid "confirmed"
+msgstr "bestätigt"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:4
+#: application/modules/default/views/scripts/user/userlist.phtml:32
+msgid "rejected"
+msgstr "abgelehnt"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:5
+msgid "unknown"
+msgstr "unbekannt"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:24
+msgid "An error occurred!"
+msgstr "Es ist ein Fehler aufgetreten!"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:27
+#: application/modules/default/views/scripts/voting/preview.phtml:62
+#: application/modules/default/views/scripts/voting/preview.phtml:85
+msgid "Please wait…"
+msgstr "Bitte warten…"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:38
+msgid "deleted"
+msgstr "gelöscht"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:49
+msgid "Participating group members"
+msgstr "Teilnehmende Gruppenmitglieder"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:51
+msgid "No group members were found in any of the consultation rounds."
+msgstr "Es wurden in keiner Beteiligungsrunde Gruppenmitglieder gefunden."
+
+#: application/modules/default/views/scripts/user/userlist.phtml:55
+msgid "There are group members in the following consultation rounds:"
+msgstr "Zu folgenden Beteiligungsrunden wurden Gruppenmitglieder gefunden:"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:75
+msgid "Group:"
+msgstr "Gruppe:"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:76
+msgid "Contributions to vote:"
+msgstr "Abzustimmende Beiträge:"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:79
+msgid "Voters"
+msgstr "Absimmende"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:80
+msgid "Group member"
+msgstr "Gruppenmitglied"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:81
+msgid "Still to vote"
+msgstr "Noch abzustimmen"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:82
+msgid "Action"
+msgstr "Aktion"
+
+#: application/modules/default/views/scripts/user/userlist.phtml:104
+#: application/modules/default/views/scripts/user/deny.phtml:7
+msgid "Delete"
+msgstr "Löschen"
+
+#: application/modules/default/views/scripts/error/error.phtml:11
+msgid "Exception:"
+msgstr "Ausnahme:"
+
+#: application/modules/default/views/scripts/error/error.phtml:12
+msgid "Message:"
+msgstr "Nachricht:"
+
+#: application/modules/default/views/scripts/error/error.phtml:13
+msgid "Stack trace:"
+msgstr "Stack trace:"
+
+#: application/modules/default/views/scripts/_partials/header.phtml:12
+#: application/modules/default/views/scripts/_partials/heroUnit.phtml:34
+msgid "Home"
+msgstr "Startseite"
+
+#: application/modules/default/views/scripts/_partials/header.phtml:32
+msgid "What"
+msgstr "Was"
+
+#: application/modules/default/views/scripts/_partials/header.phtml:33
+msgid "We"
+msgstr "Wir"
+
+#: application/modules/default/views/scripts/_partials/header.phtml:35
+#: application/modules/default/views/scripts/_partials/header.phtml:39
+msgid "With You"
+msgstr "Mit euch"
+
+# German-English word order for What-We-Do-With You different
+#: application/modules/default/views/scripts/_partials/header.phtml:36
+#: application/modules/default/views/scripts/_partials/header.phtml:38
+msgid "Do"
+msgstr "Machen"
+
+#: application/modules/default/views/scripts/_partials/header.phtml:50
+msgid "Search…"
+msgstr "Suchbegriff…"
+
+#: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:43
+msgid "Follow this path"
+msgstr "Diesem Pfad folgen"
+
+#: application/modules/default/views/scripts/_partials/topLink.phtml:3
+msgid "up"
+msgstr "nach oben"
+
+#: application/modules/default/views/scripts/_partials/heroUnit.phtml:9
+#: application/modules/default/views/scripts/_partials/heroUnit.phtml:50
+msgid "Participation"
+msgstr "Mitwirkung"
+
+#: application/modules/default/views/scripts/_partials/heroUnit.phtml:37
+msgid "Share"
+msgstr "Share"
+
+#: application/modules/default/views/scripts/_partials/footer.phtml:16
+msgid "Creative Commons license 4.0: attribution, non-commercial"
+msgstr "Creative-Commons-Lizenz 4.0: Namensnennung, nicht-kommerziell"
+
+#: application/modules/default/views/scripts/_partials/printLink.phtml:2
+msgid "Print page"
+msgstr "Seite drucken"
+
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:33
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:50
+#: application/modules/default/views/scripts/voting/vote.phtml:30
+msgid "of"
+msgstr "von"
+
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:56
+msgid "show"
+msgstr "anzeigen"
+
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:82
+#: application/modules/default/views/scripts/_partials/voting/votingPreviewButtons.phtml:37
+msgid "No opinion"
+msgstr "Keine Meinung"
+
+#: application/modules/default/views/scripts/consultation/index.phtml:3
+msgid "Overview of all consultations"
+msgstr "Alle Beteiligungsrunden im Überblick"
+
+#: application/modules/default/views/scripts/followup/show.phtml:11
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:11
+msgid "Back to overview of Reactions & Impact"
+msgstr "Zurück zur Übersicht Reaktionen & Wirkungen"
+
+#: application/modules/default/views/scripts/followup/show.phtml:15
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:15
+msgid ""
+"Follow the Reactions to your contribution here. Click on the arrows for the "
+"next steps."
+msgstr ""
+"Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die "
+"Pfeile für nächste Schritte."
+
+#: application/modules/default/views/scripts/followup/show.phtml:26
+msgid "Back to overview of contributions sorted by questions"
+msgstr "Zurück zur Übersicht der Beiträge sortiert nach Fragen"
+
+#: application/modules/default/views/scripts/followup/show.phtml:42
+#: application/modules/default/views/scripts/followup/show.phtml:66
+msgid "Result of voting: X. position"
+msgstr "Ergebnis der Abstimmung: X. Rang"
+
+#: application/modules/default/views/scripts/followup/show.phtml:99
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:67
+msgid "Loading…"
+msgstr "Loading…"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:18
+#: application/modules/default/views/scripts/input/show.phtml:42
+#, php-format
+msgid "Only contributions with the keyword %s are shown."
+msgstr "Es werden nur Beiträge mit dem Schlagwort %s angezeigt."
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:22
+#: application/modules/default/views/scripts/input/show.phtml:44
+#, php-format
+msgid "There are no contributions with the keyword %s on this question."
+msgstr "Zu dieser Frage gibt es keine mit %s verschlagworteten Beiträge."
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:27
+#: application/modules/default/views/scripts/input/show.phtml:48
+msgid "Show all contributions"
+msgstr "Alle Beiträge anzeigen"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:32
+msgid "contributions"
+msgstr "Beiträge"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:47
+msgid "written on"
+msgstr "verfasst am"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:66
+#: application/modules/default/views/scripts/input/show.phtml:114
+msgid "I agree!"
+msgstr "Dieser Meinung bin ich auch!"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:74
+#: application/modules/default/views/scripts/input/show.phtml:128
+msgid "I would like to discuss that!"
+msgstr "Das möchte ich gerne diskutieren!"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:90
+#: application/modules/default/views/scripts/input/show.phtml:143
+msgid "Newer contributions"
+msgstr "Neuere Beiträge"
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:90
+#: application/modules/default/views/scripts/input/show.phtml:143
+msgid "Older contributions"
+msgstr "Ältere Beiträge"
+
+#: application/modules/default/views/scripts/followup/index.phtml:17
+msgid "Wie's weiterging:"
+msgstr "How it all proceeeded:"
+
+#: application/modules/default/views/scripts/followup/index.phtml:22
+msgid ""
+"Here you can find out what followed on your contributions, in which "
+"processes and documents they were included, who reacted on them and how, and "
+"whether there are already results to be mentioned."
+msgstr ""
+"Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse "
+"und Dokumente sie eingeflossen sind, wer wie darauf reagiert hat und "
+"inwieweit bereits Ergebnisse erreicht wurden."
+
+#: application/modules/default/views/scripts/followup/index.phtml:27
+msgid "Overview of reactions so far:"
+msgstr "Bisherige Reaktionen im Überblick"
+
+#: application/modules/default/views/scripts/followup/index.phtml:69
+msgid "View"
+msgstr "Ansehen"
+
+#: application/modules/default/views/scripts/followup/index.phtml:78
+msgid "Download"
+msgstr "Download"
+
+#: application/modules/default/views/scripts/followup/index.phtml:98
+msgid "Reactions and Feedback on individual contributions"
+msgstr "Reaktionen und Feedback auf einzelne Beiträge"
+
+#: application/modules/default/views/scripts/followup/index.phtml:101
+msgid "Simply click on respective question or switch to keywords."
+msgstr ""
+"Einfach auf die betreffende Fragestellung klicken oder zum Bereich "
+"Schlagwörter wechseln."
+
+#: application/modules/default/views/scripts/followup/index.phtml:106
+msgid "Sorted by keywords"
+msgstr "Sortiert nach Schlagwörtern"
+
+#: application/modules/default/views/scripts/followup/tags.phtml:13
+#: application/modules/default/views/scripts/input/index.phtml:13
+#: application/modules/default/views/scripts/input/tags.phtml:9
+msgid "confirmed contributions"
+msgstr "bestätigte Beiträge"
+
+#: application/modules/default/views/scripts/followup/tags.phtml:15
+#: application/modules/default/views/scripts/input/index.phtml:15
+#: application/modules/default/views/scripts/input/tags.phtml:11
+msgid "All contributions"
+msgstr "Alle Beiträge im Überblick"
+
+#: application/modules/default/views/scripts/followup/tags.phtml:17
+#: application/modules/default/views/scripts/input/index.phtml:17
+#: application/modules/default/views/scripts/input/tags.phtml:14
+msgid ""
+"You want to participate in this participation round? Just click on a "
+"question during the input period, and the input field will appear where you "
+"can insert your contributions. After the input period has finished, you are "
+"no longer allowed to draw up contributions, but by clicking on a question "
+"you can read all other contributions."
+msgstr ""
+"Ihr wollt bei dieser Beteiligungsrunde mitmachen? Dann klickt während der "
+"Beitragsphase einfach auf eine Frage und schon öffnet sich das Eingabefeld "
+"für eure Beiträge. Nach dem Ende der Beitragsphase könnt ihr nicht mehr "
+"mitmachen, aber über den Klick auf die Frage alle eingegangenen Beiträge "
+"lesen."
+
+#: application/modules/default/views/scripts/followup/tags.phtml:23
+#: application/modules/default/views/scripts/input/index.phtml:29
+#: application/modules/default/views/scripts/input/tags.phtml:23
+msgid "Contributions sorted by keywords:"
+msgstr "Beiträge sortiert nach Schlagwörtern:"
+
+#: application/modules/default/views/scripts/followup/tags.phtml:34
+#: application/modules/default/views/scripts/input/tags.phtml:34
+msgid "Back to overview of questions"
+msgstr "Zurück zur Fragenübersicht"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:74
+msgid ""
+"There are no more contributions to be voted in this category. Please switch "
+"to another questions or another keyword."
+msgstr ""
+"In dieser Kategorie gibt es keine Beiträge mehr zum Abstimmen. Bitte wechsle "
+"zu einer anderen Frage oder einem anderen Schlagwort."
+
+#: application/modules/default/views/scripts/voting/vote.phtml:80
+#: application/modules/default/views/scripts/voting/vote.phtml:198
+msgid "Change question or keyword"
+msgstr "Frage / Schlagwort wechseln"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:89
+#: application/modules/default/views/scripts/voting/overview.phtml:12
+#: application/modules/default/views/scripts/voting/index.phtml:25
+msgid "Join now!"
+msgstr "Mitmachen!"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:95
+#: application/modules/default/views/scripts/voting/vote.phtml:113
+msgid "hide"
+msgstr "verbergen"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:97
+msgid "Decide what is most important!"
+msgstr "Entscheide, was besonders wichtig ist!"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:101
+msgid ""
+"The superbutton allows you to give certain contributions a higher vote. The "
+"overview shows you what you already marked as \"especially important\". Use "
+"the „–“  to reset your markings and allow space for more important "
+"contributions."
+msgstr ""
+"Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein "
+"stärkeres Gewicht zu verleihen. Diese Übersicht zeigt, was du bereits als "
+"„besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl "
+"wieder rückgängig machen und Platz für wichtigere Beiträge schaffen."
+
+#: application/modules/default/views/scripts/voting/vote.phtml:137
+#: application/modules/default/views/scripts/voting/overview.phtml:35
+#, php-format
+msgid "You have voted on %s <br /> out of the total of %s contributions."
+msgstr "Du hast schon über %s  <br /> von insgesamt %s Beiträgen abgestimmt."
+
+#: application/modules/default/views/scripts/voting/vote.phtml:169
+msgid "Undo"
+msgstr "Rückgängig"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:176
+msgid ""
+"How important is this contribution for further political discussions in your "
+"opinion?"
+msgstr ""
+"Wie wichtig findest du diesen Beitrag für die weitere politische Diskussion "
+"zum Thema?"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:183
+msgid "Skip"
+msgstr "Überspringen"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:202
+#: application/modules/default/views/scripts/voting/preview.phtml:17
+msgid "Finish voting"
+msgstr "Abstimmung beenden"
+
+#: application/modules/default/views/scripts/voting/vote.phtml:205
+#: application/modules/default/views/scripts/voting/vote.phtml:206
+#: application/modules/default/views/scripts/voting/overview.phtml:74
+msgid "Preview voting"
+msgstr "Vorschau Abstimmung"
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:4
+msgid "Your votings have been confirmed."
+msgstr "Deine Bewertungen sind jetzt bestätigt."
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:6
+msgid ""
+"Thank you for confirming your vote. If you havent voted on all contributions "
+"yet, you can use the access code to get back and proceed with your votings "
+"any time."
+msgstr ""
+"Vielen Dank für die Bestätigung deiner Abstimmung. Falls du noch nicht über "
+"alle Beiträge abgestimmt hast, kannst du mit Hilfe des Zugangscodes "
+"jederzeit zurückkehren und die Abstimmung fortsetzen."
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:12
+msgid ""
+"The person responsible for your group needs to confirm that you are allowed "
+"for voting. He/she will only see your email address, not how you voted. "
+"After confirmation, your votings will be included in the voting results."
+msgstr ""
+"Der/die Verantwortliche für deine Gruppe muss noch bestätigen, dass du "
+"abstimmungsberechtigt bist. Dabei sieht er/sie nur deine E-Mail-Adresse, "
+"nicht aber wie du abgestimmt hast. Erst danach fließen deine Bewertungen "
+"endgültig in das Abstimmungsergebnis ein."
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:16
+msgid ""
+"The person responsible for your group has confirmed your email address. Your "
+"votings will now be included anonymously in the overall voting results."
+msgstr ""
+"Der/die Verantwortliche deiner Gruppe hat deine E-Mail-Adresse bereits "
+"bestätigt. Deine Bewertungen werden jetzt anonymisiert und fließen damit "
+"endgültig in das Abstimmungsergebnis ein."
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:19
+msgid "The votings have been deleted."
+msgstr "Die Bewertungen wurden gelöscht."
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:21
+msgid ""
+"The votings connected to your email address will not be included in the end "
+"results. This does not apply to votings have may have made before."
+msgstr ""
+"Die mit deiner E-Mail-Adresse abgegebenen Bewertungen fließen nicht in das "
+"Endergebnis ein. Dies betrifft keine Bewertungen, die du ggf. schon früher "
+"bestätigt hast."
+
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:25
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:17
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:18
+msgid "Back to Home"
+msgstr "Zurück zur Startseite"
+
+#: application/modules/default/views/scripts/voting/removethesis.phtml:3
+msgid "The contribution has been deleted!"
+msgstr "Der Beitrag wurde gelöscht!"
+
+#: application/modules/default/views/scripts/voting/removethesis.phtml:7
+msgid "Error, the contribution has not been deleted!"
+msgstr "Fehler, der Beitrag wurde nicht gelöscht!"
+
+#: application/modules/default/views/scripts/voting/overview.phtml:51
+msgid ""
+"Choose here the question or the keyword according to which the contributions "
+"to be voted will be shown first. You may change question or keyword any "
+"time. During the Voting, all contributions will be displayed, so that you "
+"will vote on all of them. You can edit as many contributions as you wish. "
+"Breaks or possible without any problems."
+msgstr ""
+"Hier kannst du auswählen, zu welcher Frage oder zu welchem Schlagwort dir "
+"die Beiträge zum Abstimmen zuerst angezeigt werden sollen. Ein Wechsel "
+"zwischen den verschiedenen Fragen und Begriffen ist jederzeit möglich. "
+"Während der Abstimmung werden dir nach und nach alle Beiträge angezeigt, so "
+"dass du auf jeden Fall über alle abstimmen kannst. Du kannst so viele "
+"Beiträge bearbeiten, wie du möchtest. Unterbrechungen sind problemlos "
+"möglich."
+
+#: application/modules/default/views/scripts/voting/overview.phtml:55
+msgid "Contributions by topic"
+msgstr "Beiträge nach Schlagwörtern"
+
+#: application/modules/default/views/scripts/voting/index.phtml:9
+msgid "View voting results"
+msgstr "Votingergebnisse ansehen"
+
+#: application/modules/default/views/scripts/voting/index.phtml:17
+msgid "Login for the voting"
+msgstr "Anmelden zur Abstimmung"
+
+#: application/modules/default/views/scripts/voting/index.phtml:19
+#, php-format
+msgid ""
+"Here you vote on the contributions on topic \"%s\" that are especially "
+"important in your opinion! The contributions consist of opinions, positions "
+"and suggestions which given by young people and youth groups during the last "
+"weeks and months."
+msgstr ""
+"Hier könnt ihr darüber abstimmen, welche der Beiträge zum Thema \"%s\" ihr "
+"besonders wichtig findet! Bei den Beiträgen handelt es sich um Meinungen, "
+"Positionen und Vorschläge, die uns Jugendliche und Jugendgruppen in den "
+"letzten Wochen und Monaten zurückgemeldet haben."
+
+#: application/modules/default/views/scripts/voting/index.phtml:29
+msgid ""
+"The Voting is anonymous. We just need your email address to check if you are "
+"allowed to participate in the Voting."
+msgstr ""
+"Die Abstimmung ist anonym. Deine E-Mail-Adresse benötigen wir nur, um zu "
+"überprüfen, ob du berechtigt bist, an der Abstimmung teilzunehmen."
+
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:4
+msgid "This group member has now been confirmed."
+msgstr "Dieses Gruppenmitglied ist jetzt bestätigt."
+
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:6
+#, php-format
+msgid ""
+"Thank you for confirming the group member with the email address \"%s\". The "
+"votes are now being counted for your group."
+msgstr ""
+"Vielen Dank für die Bestätigung des Gruppenmitglieds mit der E-Mail-Adresse "
+"\"%s\". Die Stimmen werden nun für die Gruppe gezählt."
+
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:9
+msgid "Individual vote has been rejected and will not be counted."
+msgstr "Der/die Abstimmende wurde abgelehnt."
+
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:11
+#, php-format
+msgid ""
+"The votings connected to the email address  \"%s\" will not be included in "
+"the end results of your group. The person will not receive information about "
+"your decision, but you may contact this person if you wish."
+msgstr ""
+"Die mit der E-Mail-Adresse \"%s\" abgegebenen Stimmen fließen nicht in das "
+"Endergebnis eurer Gruppe ein. Über eure Entscheidung wird die Person nicht "
+"informiert, aber ihr könnt diese Person gerne kontaktieren."
+
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:7
+msgid "Thank you for voting!"
+msgstr "Danke für die Teilnahme an der Abstimmung!"
+
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:9
+msgid ""
+"If you haven't finished voting on all contributions, you can login any time "
+"and finish your votings."
+msgstr ""
+"Falls du heute noch nicht über alle Beiträge abgestimmt hast, kannst du "
+"jederzeit zurückkehren und über die verbleibenden Beiträge abstimmen."
+
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:13
+#, php-format
+msgid "An email has been sent to %s. Please check your inbox!"
+msgstr ""
+"Eine E-Mail zur Bestätigung wurde an %s versandt. Bitte den Posteingang "
+"checken!"
+
+#: application/modules/default/views/scripts/voting/preview.phtml:13
+msgid "Continue voting"
+msgstr "Weiter abstimmen"
+
+#: application/modules/default/views/scripts/voting/preview.phtml:24
+#, php-format
+msgid "You have already voted on %s out of %s contributions."
+msgstr "Du hast schon über %s von insgesamt %s Beiträgen abgestimmt."
+
+#: application/modules/default/views/scripts/voting/preview.phtml:27
+msgid "Overview of your votes"
+msgstr "Übersicht über deine Abstimmung"
+
+#: application/modules/default/views/scripts/voting/preview.phtml:29
+msgid ""
+"Here you can see all contributions to be voted and your votes. You can still "
+"change your votes if you like."
+msgstr ""
+"Hier siehst du alle abzustimmenden Beiträge und deine Bewertungen. Du kannst "
+"im Folgenden noch einmal alle Bewertungen ändern."
+
+#: application/modules/default/views/scripts/voting/preview.phtml:59
+#: application/modules/default/views/scripts/voting/preview.phtml:82
+msgid "An error occurred"
+msgstr "Es ist ein Fehler aufgetreten"
+
+#: application/modules/default/views/scripts/voting/results.phtml:16
+msgid "Voting results"
+msgstr "Abstimmungsergebnisse"
+
+#: application/modules/default/views/scripts/question/index.phtml:20
+msgid "All questions"
+msgstr "Alle Fragen im Überblick"
+
+#: application/modules/default/views/scripts/question/index.phtml:43
+msgid "Click here to answer"
+msgstr "Zum Beantworten hier klicken"
+
+#: application/modules/default/views/scripts/question/index.phtml:45
+#: application/modules/default/views/scripts/input/index.phtml:75
+msgid "Write a contribution"
+msgstr "Beitrag verfassen"
+
+#: application/modules/default/views/scripts/input/show.phtml:63
+msgid "Contribution phase has not started yet."
+msgstr "Die Beitragsphase hat noch nicht begonnen."
+
+#: application/modules/default/views/scripts/input/show.phtml:65
+msgid "Contribution phase is over already."
+msgstr "Die Beitragsphase ist bereits vorbei."
+
+#: application/modules/default/views/scripts/input/show.phtml:87
+#: application/modules/default/views/scripts/input/index.phtml:62
+#, php-format
+msgid "written on %s"
+msgstr "verfasst am %s"
+
+#: application/modules/default/views/scripts/input/show.phtml:111
+#: application/modules/default/views/scripts/input/show.phtml:184
+msgid "supporters"
+msgstr "Unterstützende"
+
+#: application/modules/default/views/scripts/input/show.phtml:167
+msgid "shut again"
+msgstr "Wieder einklappen"
+
+#: application/modules/default/views/scripts/input/show.phtml:169
+#: application/modules/default/views/scripts/input/createForm.phtml:24
+msgid "Click here to explain contribution"
+msgstr "Klicken, um Eintrag zu erläutern"
+
+#: application/modules/default/views/scripts/input/edit.phtml:11
+msgid "Edit contribution"
+msgstr "Beitrag bearbeiten"
+
+#: application/modules/default/views/scripts/input/edit.phtml:16
+#: application/modules/default/views/scripts/input/edit.phtml:25
+msgid "Back"
+msgstr "Zurück"
+
+#: application/modules/default/views/scripts/input/index.phtml:40
+msgid "All tags"
+msgstr "Alle Schlagwörter"
+
+#: application/modules/default/views/scripts/input/index.phtml:77
+#, php-format
+msgid "All contributions for question %s"
+msgstr "Alle Beiträge zu Frage %s"
+
+#: application/modules/default/views/scripts/input/confirm.phtml:10
+msgid "Finish this contribution"
+msgstr "Beitrag beenden"
+
+#: application/modules/default/views/scripts/input/confirm.phtml:13
+msgid ""
+"Please fill in the form in order to confirm your contributions to this "
+"participation round!"
+msgstr ""
+"Bitte fülle das Formular aus, um deine Beiträge für diese Beteiligungsrunde "
+"zu bestätigen!"
+
+#: application/modules/default/views/scripts/input/confirm.phtml:16
+msgid ""
+"If you want to participate as a representative of a group, please fill in "
+"the registration form, no matter if the corresponding email address is "
+"already registered! The email to confirm the contributions will be sent to "
+"the registered email address."
+msgstr ""
+"Wenn du als Vertreter_in einer Gruppe beitragen willst und die entsprechende "
+"E-Mail-Adresse ist bereits registriert, trage deine Daten bitte trotzdem in "
+"das Registrierungsformular ein! Die Mail zur Bestätigung der Beiträge wird "
+"dann an die hinterlegte Adresse gesendet."
+
+#: application/modules/default/views/scripts/input/confirm.phtml:19
+msgid ""
+"If you participated in former participation rounds, and you wish to update "
+"information concerning you or your group in this participation round, please "
+"fill in the data on person/group. Your data will thus be up-to-date."
+msgstr ""
+"Wenn du schon an früheren Beteiligungsrunden teilgenommen hast und für die "
+"aktuelle Beteiligungsrunde abweichende Angaben zu dir oder deiner Gruppe "
+"übermitteln willst, fülle bitte die Angaben zu Person/Gruppe neu aus: Damit "
+"sind dann auch alle Daten auf aktuellem Stand."
+
+#: application/modules/default/views/scripts/input/createForm.phtml:9
+msgid "Create new contribution"
+msgstr "Beiträge verfassen"
+
+#: application/modules/default/views/scripts/input/createForm.phtml:40
+msgid "Click here for another contribution"
+msgstr "Klick hier für einen weiteren Beitrag"
+
+#: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:4
+msgid "Reset Password"
+msgstr "Passwort Zurücksetzen"
+
+#: application/modules/default/views/scripts/urlkey-action/confirm-notification.phtml:4
+msgid "Confirm subscription"
+msgstr "Abonnement bestätigen"
+
+#: application/modules/default/views/scripts/index/search.phtml:4
+#, php-format
+msgid "Search for \"%s\""
+msgstr "Suche nach \"%s\""
+
+#: application/modules/default/views/scripts/index/search.phtml:6
+msgid "Search in basic information"
+msgstr "Suche in Grundinformationen"
+
+#: application/modules/default/views/scripts/index/search.phtml:23
+msgid "There are no relevant search results on this term."
+msgstr "Es wurden keine relevanten Ergebnisse mit diesem Suchbegriff gefunden."
+
+#: application/modules/default/views/scripts/index/search.phtml:27
+msgid "Search in participation rounds"
+msgstr "Suche in Beteiligungsrunden"
+
+#: application/modules/default/views/scripts/index/search.phtml:39
+msgid "Information pages"
+msgstr "Informationsseiten"
+
+#: application/modules/default/views/scripts/index/search.phtml:45
+#: application/modules/default/views/scripts/index/search.phtml:47
+msgid "Overview"
+msgstr "Übersichtsseite"
+
+#~ msgid "of %s contributions on this question voted"
+#~ msgstr "von %s Beiträgen zu dieser Frage abgestimmt"
+
+#~ msgid "till"
+#~ msgstr "bis"
+
+#~ msgid "of %s contributions in total voted."
+#~ msgstr "Von insgesamt %s Beiträgen abgestimmt."
+
+#~ msgid "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben"
+#~ msgstr "Here you can type in your contribution (up to %s characters)."
+
+#~ msgid "Deine Bewertungen sind jetzt bestätigt."
+#~ msgstr "Your contributions are now confirmed."
+
+#~ msgid "Alle Altersgruppen"
+#~ msgstr "all age groups"
+
+#~ msgid "Rückgängig"
+#~ msgstr "Undo"
+
+#~ msgid "Not implemented yet!"
+#~ msgstr "Noch nicht implementiert!"
+
+#~ msgid "Ausloggen"
+#~ msgstr "Logout"
+
+#~ msgid "Diese These ist nicht vorhanden!"
+#~ msgstr "Such contribution does not exist!"
+
+#~ msgid "Clicking the superbutton is not allowed."
+#~ msgstr "Die Auswahl des Superbuttons ist nicht erlaubt."
+
+#~ msgid "Please choose a question or keyword."
+#~ msgstr "Bitte wähle ein Frage oder ein Schlagwort aus."
+
+#~ msgid "Your vote has been counted."
+#~ msgstr "Deine Abstimmung wurde gezählt."
+
+#~ msgid ""
+#~ "Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein "
+#~ "stärkeres Gewicht zu verleihen. Ändere andere Votings und schaffe Platz "
+#~ "für wichtigere Beiträge!"
+#~ msgstr ""
+#~ "The Super Button allows you to value a limited number of contributions "
+#~ "higher. Change previous votings and make room for more important "
+#~ "contributions!"
+
+#~ msgid "abgelehnt"
+#~ msgstr "rejected"
+
+#~ msgid "bestätigt"
+#~ msgstr "confirmed"
+
+#~ msgid "gelöscht"
+#~ msgstr "deleted"
+
+#~ msgid "Teilnehmende Gruppenmitglieder"
+#~ msgstr "Participating group members"
+
+#~ msgid "Es wurden in keiner Beteiligungsrunde Gruppenmitglieder gefunden."
+#~ msgstr "No group members were found in any of the consultation rounds."
+
+#~ msgid "Zu folgenden Beteiligungsrunden wurden Gruppenmitglieder gefunden:"
+#~ msgstr "There are group members in the following consultation rounds:"
+
+#~ msgid "Beteiligungsrunde:"
+#~ msgstr "Consultation round:"
+
+#~ msgid "Gruppe:"
+#~ msgstr "Group:"
+
+#~ msgid "Absimmende"
+#~ msgstr "Voters"
+
+#~ msgid "Ablehnen"
+#~ msgstr "Reject"
+
+#~ msgid "Bestätigen"
+#~ msgstr "Confirm"
+
+#~ msgid "Löschen"
+#~ msgstr "Delete"
+
+#~ msgid "How it all proceeeded:"
+#~ msgstr "Wie's weiterging:"
+
+#~ msgid "Überspringen"
+#~ msgstr "Skip"
+
+#~ msgid "Die Beitragsphase hat noch nicht begonnen."
+#~ msgstr "Contribution phase has not started yet."
+
+#~ msgid "Die Beitragsphase ist bereits vorbei."
+#~ msgstr "Contribution phase is over already."
+
+#~ msgid ""
+#~ "You have used this button too often, please change your votings first. "
+#~ "This voting has not been counted!"
+#~ msgstr ""
+#~ "Du hast schon zu oft diesen Button benutzt, bitte ändere zunächst "
+#~ "folgende Votings. Diese Abstimmung wurde nicht gezählt!"
+
+#~ msgid "You are already logged in!"
+#~ msgstr "Du bist bereits eingeloggt!"
+
+#~ msgid "Password confirmation"
+#~ msgstr "Password confirmation"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"
+
+#~ msgid ""
+#~ "You can get a new password to the email address indicated at your "
+#~ "registration:"
+#~ msgstr ""
+#~ "Du kannst dir ein neues Passwort an deine bei der Registrierung "
+#~ "hinterlegte E-Mail-Adresse schicken lassen:"

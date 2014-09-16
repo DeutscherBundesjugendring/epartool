@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width"/>
+<!-- build:css mail_clean.css -->
+<link href="../../../../www/components/bower/ink/css/ink.css" rel="stylesheet" />
+<link href="../../../../.tmp/mail.css" rel="stylesheet" />
+<!-- /build -->
+</head>
+<body>
+<table class="body">
+    <tr>
+        <td class="center" align="center" valign="top">
+            <center>
+
+                <table class="row header">
+                    <tr>
+                        <td class="center" align="center">
+                            <center>
+
+                                <table class="container">
+                                    <tr>
+                                        <td class="wrapper last">
+
+                                            <table class="twelve columns">
+                                                <tr>
+                                                    <td class="six sub-columns">
+
+                                                        <!-- project logo start-->
+                                                        <img src="<?=$this->serverUrl() . $this->baseUrl($this->logoUrl)?>">
+                                                        <!-- project logo end-->
+
+                                                    </td>
+                                                    <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
+                                                        <span class="template-label">
+
+                                                            <!-- project name start-->
+                                                            <?=$this->siteName?>
+                                                            <!-- project name end-->
+
+                                                        </span>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="container">
+                    <tr>
+                        <td>
+
+                            <table class="row copy">
+                                <tr>
+                                    <td class="wrapper last">
+
+                                        <table class="twelve columns">
+                                            <tr>
+                                                <td>
+
+                                                    <!-- email body start -->
+                                                    <?=$this->bodyHtml?>
+                                                    <!-- email body end -->
+
+                                                </td>
+                                                <td class="expander"></td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="row footer">
+                                <tr>
+                                    <td class="wrapper last">
+
+                                        <table class="twelve columns">
+                                            <tr>
+                                                <td class="last text-pad">
+                                                    <h6><?=$this->translate('Contact Info')?>:</h6>
+
+                                                    <!-- contact start -->
+                                                    <p><?=$this->translate('Phone')?>: <?=$this->contactInfo->phone?></p>
+                                                    <p><?=$this->translate('Email')?>: <a href="mailto:<?=$this->contactInfo->email?>"><?=$this->contactInfo->email?></a></p>
+                                                    <p><?=$this->translate('Www')?>: <a href="<?=Zend_Registry::get('systemconfig')->contact->www?>"><?=$this->contactInfo->www?></a></p>
+                                                    <p><?=$this->translate('Street')?>: <?=$this->contactInfo->street?></p>
+                                                    <p><?=$this->translate('Town')?>: <?=$this->contactInfo->town?></p>
+                                                    <p><?=$this->translate('Zip')?>: <?=$this->contactInfo->zip?></p>
+                                                    <!-- contact end -->
+
+                                                </td>
+                                                <td class="expander"></td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="row">
+                                <tr>
+                                    <td class="wrapper last">
+
+                                        <table class="twelve columns">
+                                            <tr>
+                                                <td align="center">
+                                                    <center>
+
+                                                        <!-- links start -->
+                                                            <a href="<?=$this->links->privacy->href?>" style="color: #0196bc; text-decoration: none;"><?=$this->links->privacy->text?></a>
+                                                        <!-- links end -->
+
+                                                    </center>
+                                                </td>
+                                                <td class="expander"></td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- container end below -->
+                        </td>
+                    </tr>
+                </table>
+
+            </center>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

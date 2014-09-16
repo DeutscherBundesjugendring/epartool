@@ -30,45 +30,45 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
         $items = array(
             'article' => array(
                 'url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid,
-                'text' => '<h2>Infos</h2>',
+                'text' => '<h2>' . $this->view->translate('Info') . '</h2>',
                 'showBubble' => FALSE
             ),
             'question' => array(
                 'url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid,
-                'text' => '<h2>Fragen</h2>',
+                'text' => '<h2>' . $this->view->translate('Questions') . '</h2>',
                 'showBubble' => FALSE
             ),
             'input' => array(
                 'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid . '#page-content',
-                'text' => '<h2>Beiträge</h2>',
+                'text' => '<h2>' . $this->view->translate('Contributions') . '</h2>',
                 'showBubble' => FALSE
             ),
             'voting' => array(
                 'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
-                'text' => '<h2>Abstimmung</h2>',
+                'text' => '<h2>' .  $this->view->translate('Voting') . '</h2>',
                 'showBubble' => FALSE
             ),
             'follow-up' => array(
                 'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
-                'text' => '<h2>Reaktionen & Wirkung</h2> <small class="info">nach Ende der Abstimmung</small>',
+                'text' => '<h2>' . $this->view->translate('Reactions & Impact') . '</h2> <small class="info">' . $this->view->translate('after Voting has ended') . '</small>',
                 'showBubble' => FALSE
             ),
         );
 
         // Add dates
         if ($con->inp_show == 'y') {
-            $items['input']['text'].= ' <small class="info">vom '
+            $items['input']['text'].= ' <small class="info">' . $this->view->translate('from') . ' '
                     . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM)
                     . '<br />'
-                    . 'bis '
+                    . $this->view->translate('until') . ' '
                     . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM)
                     . '</small>';
         }
         if ($con->vot_show == 'y') {
-            $items['voting']['text'].= ' <small class="info">vom '
+            $items['voting']['text'].= ' <small class="info">' . $this->view->translate('from') . ' '
                     . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM)
                     . '<br />'
-                    . 'bis '
+                    . $this->view->translate('until') . ' '
                     . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM)
                     . '</small>';
         }
@@ -103,9 +103,9 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
                 if ($val['showBubble']) {
                     $html .= '<span class="bubble bubble-middle"><h3>';
                     if ($item == 'input') {
-                        $html .= 'Jetzt mitmachen!';
+                        $html .= $this->view->translate('Participate now!');
                     } elseif ($item == 'voting') {
-                        $html .= 'Jetzt abstimmen!';
+                        $html .= $this->view->translate('Vote now!');
                     }
                     $html .= '</h3></span>';
                 }

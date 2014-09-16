@@ -1,60 +1,62 @@
-<?php
-/**
- * Hero Unit
- *
- * @description   Header des Inhaltsbereiches
- * @author        Markus Hackel
- */
-?>
-<?php
-$controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
-//$action = Zend_Controller_Front::getInstance()->getRequest()->getParam('action');
-?>
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();?>
+
 <?php if (isset($this->consultation)): ?>
 
-	<!-- Main title -->
-	<div class="main-title">
-		<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">Mitwirkung</a></h1>
-	</div><!-- .title -->
+    <!-- Main title -->
+    <div class="main-title">
+        <h1>
+        	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">
+        		<?=$this->translate('Participation')?>
+        	</a>
+        </h1>
+    </div><!-- .title -->
 
-	<!-- Hero unit -->
-	<div class="consultation consultation-preview hero-unit">
+    <!-- Hero unit -->
+    <div class="consultation consultation-preview hero-unit">
 
-		<hgroup>
-			<a href="<?=$this->baseUrl()?>/article/index/kid/<?=$this->consultation->kid?>">
-				<h1><?php echo $this->escape($this->consultation->titl) ?></h1>
-			</a>
-			<h2><?php echo $this->escape($this->consultation->titl_sub) ?></h2>
-		</hgroup>
+        <hgroup>
+            <a href="<?=$this->baseUrl()?>/article/index/kid/<?=$this->consultation->kid?>">
+                <h1><?php echo $this->escape($this->consultation->titl) ?></h1>
+            </a>
+            <h2><?php echo $this->escape($this->consultation->titl_sub) ?></h2>
+        </hgroup>
 
-		<?=$this->ribbonImage($this->consultation)?>
+        <?=$this->ribbonImage($this->consultation)?>
 
-		<img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $this->consultation->kid . '/'
-			. $this->consultation->img_file;
-			?>" width="144" class="title-image"
-			 alt="<?php echo $this->consultation->img_expl; ?>" />
+        <img
+            src="<?=$this->baseUrl()?>/media/consultations/<?=$this->consultation->kid?>/<?=$this->consultation->img_file?>"
+            width="144"
+            class="title-image"
+            alt="<?=$this->consultation->img_expl?>"
+        />
 
-		<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="hidden-print" rel="home">Zur Startseite … <i class="icon-angle-right icon-2x"></i></a>
-		<a href="#" class="share btn hidden-print"><i class="icon-share-alt icon-white icon-large"></i> Share</a>
-		<div class="share-dropdown" id="sharebtn-holder"></div>
+        <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="hidden-print" rel="home">
+        	<?=$this->translate('Home')?> … <i class="icon-angle-right icon-2x"></i>
+        </a>
+        <a href="#" class="share btn hidden-print">
+            <i class="icon-share-alt icon-white icon-large"></i> <?=$this->translate('Share')?>
+        </a>
+        <div class="share-dropdown" id="sharebtn-holder"></div>
 
-	</div><!-- .hero-unit -->
+    </div><!-- .hero-unit -->
 
 <?php else: ?>
 
-	<!-- Hero unit -->
-	<div class="main-header hero-unit<?php echo $controller == 'index' ? ' with-teaser' : ''; ?>">
+    <!-- Hero unit -->
+    <div class="main-header hero-unit<?php echo $controller == 'index' ? ' with-teaser' : ''; ?>">
 
-		<h1><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">Mitwirkung</a></h1>
-		<p itemprop="description"><?php echo Zend_Registry::get('systemconfig')->description->short?></p>
+        <h1>
+        	<a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" rel="home" itemprop="name">
+        		<?=$this->translate('Participation')?>
+        	</a>
+        </h1>
+        <p itemprop="description"><?php echo Zend_Registry::get('systemconfig')->site->description->short?></p>
 
-		<?php if ($controller == 'index'): ?>
+        <?php if ($controller == 'index'): ?>
+            <!-- Teaser -->
+            <?php echo $this->teaser(); ?>
+        <?php endif; ?>
 
-			<!-- Teaser -->
-			<?php echo $this->teaser(); ?>
-
-		<?php endif; ?>
-
-	</div><!-- .hero-unit -->
+    </div><!-- .hero-unit -->
 
 <?php endif; ?>

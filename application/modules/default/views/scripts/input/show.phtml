@@ -1,38 +1,31 @@
 <?php
-/**
- * Question
- *
- * @description   Beiträge zu Fragen
- * @author        Markus Hackel
- */
-$date = new Zend_Date();
-$supports = new Zend_Session_Namespace('supports');
-if (empty($supports->clicks)) {
-  $supports->clicks = array();
-}
-$supportsDisabled = (
+    $date = new Zend_Date();
+    $supports = new Zend_Session_Namespace('supports');
+    if (empty($supports->clicks)) {
+        $supports->clicks = array();
+    }
+    $supportsDisabled = (
         Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
         || Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
         || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
         || $this->consultation->spprt_to == '0000-00-00 00:00:00'
         || $this->consultation->spprt_show == 'n'
-        );
+    );
 
-$script = '
-    $(document).ready(function() {
-      var inputform = $("#input");
-      if (inputform.length > 0) {
-        $(\'.question-nav-item\').click(function(event) {
-          event.preventDefault();
-          $("#submitmode").val(\'save_goto\');
-          $("#goto").val($(this).data("qid"));
-          inputform.submit();
+    $script = '
+        $(document).ready(function() {
+          var inputform = $("#input");
+          if (inputform.length > 0) {
+            $(\'.question-nav-item\').click(function(event) {
+              event.preventDefault();
+              $("#submitmode").val(\'save_goto\');
+              $("#goto").val($(this).data("qid"));
+              inputform.submit();
+            });
+          }
         });
-      }
-    });
-    ';
-$this->headScript()->appendScript($script);
-
+        ';
+    $this->headScript()->appendScript($script);
 ?>
 
 <?php echo $this->secondNavigation('input'); ?>
@@ -40,30 +33,40 @@ $this->headScript()->appendScript($script);
 <div class="content-holder">
     <div class="row">
         <aside class="span3">
-
             <?php echo $this->questionNavigation($this->question['qi']); ?>
-
         </aside>
-        <section class="main-content span9">
 
+        <section class="main-content span9">
             <?php if (isset($this->tag) && !empty($this->tag)): ?>
                 <?php if ($this->numberInputs > 0):?>
-                <h3>Es werden nur Beiträge mit dem Schlagwort <em>"<?php echo $this->tag['tg_de']; ?>"</em> angezeigt.</h3>
+                    <h3><?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
                 <?php else: ?>
-                <h3>Zu dieser Frage gibt es keine mit <em>"<?php echo $this->tag['tg_de']; ?>"</em> verschlagworteten Beiträge.</h3>
+                    <h3><?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
                 <?php endif; ?>
-                <p><a href="<?php echo $this->url(array('tag' => null)); ?>">Alle Beiträge anzeigen</a></p>
+                <p>
+                    <a href="<?php echo $this->url(array('tag' => null)); ?>">
+                        <?=$this->translate('Show all contributions')?>
+                    </a>
+                </p>
             <?php endif; ?>
-            <small class="count muted"><?php echo $this->numberInputs; ?> Beiträge</small>
+            <small class="count muted">
+                <?php echo $this->numberInputs?>
+                <?=$this->translate('Contributions')?>
+            </small>
 
             <article class="article article-details">
                 <h1><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></h1>
                 <p><?php echo $this->question['q_xpl']; ?></p>
             </article>
 
-            <!-- New contribution -->
-            <?php echo $this->inputform; ?>
-
+            <?php if (Zend_Date::now()->isEarlier($this->consultation->inp_fr)): ?>
+                <p><?=$this->translate('Contribution phase has not started yet.')?></p>
+            <?php elseif (Zend_Date::now()->isLater($this->consultation->inp_to)): ?>
+                <p><?=$this->translate('Contribution phase is over already.')?></p>
+            <?php else: ?>
+                <?=$this->inputForm?>
+            <?php endif?>
+            <?=$this->subscriptionForm?>
             <hr />
 
             <!-- Contributions -->
@@ -81,7 +84,7 @@ $this->headScript()->appendScript($script);
                     <article class="media">
                         <header class="article-header">
                             <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                                verfasst am <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
+                                <?=sprintf($this->translate('written on %s'), $date->get(Zend_Date::DATE_MEDIUM))?>
                             </time>
                         </header>
                         <div class="article-body">
@@ -95,15 +98,20 @@ $this->headScript()->appendScript($script);
                                 <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
                                     <span>
                                 <?php else: ?>
-                                    <a href="#" id="click-support-<?php echo $input['tid']; ?>" class="click-support" rel="<?php echo $input['tid']; ?>">
+                                    <a
+                                        href="#"
+                                        id="click-support-<?php echo $input['tid']; ?>"
+                                        class="click-support"
+                                        rel="<?php echo $input['tid']; ?>"
+                                    >
                                 <?php endif; ?>
                                         <i class="icon-ok-sign icon-orange icon-2x"></i>
                                         <span id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
                                 <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                        <span class="label">Unterstützende</span>
+                                        <span class="label"><?=$this->translate('supporters')?></span>
                                     </span>
                                 <?php else: ?>
-                                        <span class="label">Dieser Meinung bin ich auch!</span>
+                                        <span class="label"><?=$this->translate('I agree!')?></span>
                                     </a>
                                 <?php endif; ?>
                             </span>
@@ -116,8 +124,8 @@ $this->headScript()->appendScript($script);
                             ): ?>
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
-                                    <small>(<?php echo $input['pts']; ?>)</small>
-                                    <a class="label" href="#">Das möchte ich gerne diskutieren!</a>
+                                    <small>(<?php echo $input['place']; ?>)</small>
+                                    <a class="label" href="#"><?$this->translate('I would like to discuss that!')?></a>
                                 </span>
                             <?php endif?>
                         </section><!-- .actions -->
@@ -128,7 +136,12 @@ $this->headScript()->appendScript($script);
             <?php endif; ?>
 
             <!-- Paging -->
-            <?php echo $this->paginationControl($this->paginator, 'Sliding', '_partials/pagination.phtml', array('titlePrev' => 'Ältere Beiträge', 'titleNext' => 'Neuere Beiträge')); ?>
+            <?php echo $this->paginationControl(
+                $this->paginator,
+                'Sliding',
+                '_partials/pagination.phtml',
+                array('titlePrev' => $this->translate('Older contributions'), 'titleNext' => $this->translate('Newer contributions'))
+            ); ?>
 
             <hr />
 
@@ -151,9 +164,9 @@ $this->headScript()->appendScript($script);
             $(this).toggleClass('expanded');
 
             if($(this).hasClass('expanded')) {
-                $(this).html('<i class="icon-angle-up icon-large"></i> Wieder einklappen <i class="icon-angle-up icon-large"></i>')
+                $(this).html('<i class="icon-angle-up icon-large"></i> <?=$this->translate('shut again')?> <i class="icon-angle-up icon-large"></i>')
             } else {
-                $(this).html('<i class="icon-angle-down icon-large"></i> Klicken, um Eintrag zu erläutern <i class="icon-angle-down icon-large"></i>')
+                $(this).html('<i class="icon-angle-down icon-large"></i> <?=$this->translate('Click here to explain contribution')?> <i class="icon-angle-down icon-large"></i>')
             }
         });
 
@@ -168,7 +181,7 @@ $this->headScript()->appendScript($script);
                 if (data.count) {
                     $('#click-support-wrap-' + tid).html('<span><i class="icon-ok-sign icon-orange icon-2x"></i>'
                         + ' <span id="badge-' + tid + '">(' + data.count + ')</span>'
-                        + ' <span class="label">Unterstützende</span></span>');
+                        + ' <span class="label"><?=$this->translate('supporters')?></span></span>');
                 }
             });
         });
@@ -178,36 +191,6 @@ $this->headScript()->appendScript($script);
         });
         $("#plus").click(function () {
             $("#submitmode").val('save_plus');
-        });
-
-        // Character counters
-        var pad = function(number, length) {
-            var str = '' + number;
-            while (str.length < length) {
-                str = '0' + str;
-            }
-            return str;
-        }
-        var updateCounter = function(el) {
-            var charsLeft = el.attr('maxlength') - el.val().length;
-            var charsLeft = pad(charsLeft, el.attr('maxlength').length);
-            var digits = charsLeft.split('');
-            var HTMLOutput = '';
-            $.each(digits, function(index, value) {
-                HTMLOutput += '<span class="counter-digit">' + value + '</span>';
-            });
-            $('#' + el.attr('id') + '_counter').html(HTMLOutput);
-        }
-        var updateCounterHandler = function(event) {
-            var el = $(event.target);
-            updateCounter(el);
-        }
-        var countees = $('textarea.js-has-counter');
-        countees.each(function(index, el) {
-            var el = $(el);
-            updateCounter(el);
-            el.change(updateCounterHandler);
-            el.keyup(updateCounterHandler);
         });
     });
 </script>

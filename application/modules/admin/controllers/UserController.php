@@ -77,15 +77,13 @@ class Admin_UserController extends Zend_Controller_Action
                     $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
                     // remove transfer if user has no input
                     $countInputByUser = $inputModel->getCountByUser($uid);
-                    // JSU array of consultation which this user has joint
-                    $this->view->inputsConsultation = $inputModel->getCountByUserGroupedConsultation($uid);
 
                     $consultationModel = new Model_Consultations();
                     if ($countInputByUser<1) {
                         $transerElement = $form->removeElement('transfer');
                     } else {
                         // generate selects for every consultation
-                        $consultations = $consultationModel->getByUserinputs($uid);
+                        $consultations = $consultationModel->getByUser($uid);
                         foreach ($consultations AS $consultation) {
                             $url = '/admin/input/list/kid/'.$consultation["kid"].'/uid/'.$uid;
                             $label = $consultation['titl'].' ('.$consultation['count'].')';
@@ -114,12 +112,13 @@ class Admin_UserController extends Zend_Controller_Action
                         }
                     }
                     if ($this->getRequest()->isPost()) {
-                        // Formular wurde abgeschickt und muss verarbeitet werden
                         $params = $this->getRequest()->getPost();
+                        if ($this->getRequest()->getPost('password')) {
+                            $form->getElement('password_confirm')->setRequired(true);
+                        }
                         if ($form->isValid($params)) {
-                            // Prüfe ob E-Mail bereits existiert
                             $emailAddress =$form->getValue('email');
-                            if ($user->email!=$emailAddress && $userModel->emailExists($emailAddress)) {
+                            if ($user->email != $emailAddress && $userModel->emailExists($emailAddress)) {
                                 $this->_flashMessenger->addMessage(
                                     'Diese E-Mail-Adresse existiert bereits! Bitte wähle eine andere.',
                                     'error'
@@ -129,32 +128,18 @@ class Admin_UserController extends Zend_Controller_Action
                                 $form->populate($params);
                             } else {
                                 $row = $userModel->find($uid)->current();
-                                $row->setFromArray($form->getValues());
-                                $userPasswort = $form->getValue('newpassword');
-                                if (!empty($userPasswort)) {
-                                    $row->pwd = md5($userPasswort);
-                                    // if send e-mail with new pwd to user
-                                    $emailsend = $form->getValue('pwdsend');
-                                    if ($emailsend === '1') {
-                                        $emailModel = new Model_Emails();
-                                        $emailSuccess = $emailModel->send(
-                                            $params['email'],
-                                            'Passwort-Aktualisierung',
-                                            'Dein Passwort wurde aktualisiert. Das neue Passwort lautet: ' . $userPasswort,
-                                            'pwdalter',
-                                            array(
-                                             '{{USER}}'=>$params['name'],
-                                             '{{EMAIL}}'=>$params['email'],
-                                             '{{PWD}}' =>$userPasswort
-                                            )
-                                        );
-                                    }
-
+                                $values = $form->getValues();
+                                unset($values['password_confirm']);
+                                if ($values['password']) {
+                                    $values['password'] = $userModel->hashPassword( $values['password']);
+                                } else {
+                                    unset($values['password']);
                                 }
+                                $row->setFromArray($values);
                                 $row->save();
 
                                 // transfer userinputs
-                                $consultations = $consultationModel->getByUserinputs($uid);
+                                $consultations = $consultationModel->getByUser($uid);
                                 foreach ($consultations AS $consultation) {
                                     if (!empty($params['transfer_'. $consultation["kid"]])) {
                                         $inputModel->transferInputs(
@@ -201,9 +186,15 @@ class Admin_UserController extends Zend_Controller_Action
         $uid = $this->getRequest()->getParam('uid', 0);
         if ($uid > 0) {
             $userModel = new Model_Users();
-            $deleted = $userModel->deleteById($uid);
-            //$this->_helper->layout()->disableLayout();
-            //$this->_helper->viewRenderer->setNoRender(true);
+            $userModel->getAdapter()->beginTransaction();
+            try {
+                $deleted = $userModel->deleteById($uid);
+                $userModel->getAdapter()->commit();
+            } catch (Exceptioin $e) {
+                $userModel->getAdapter()->rollback();
+                throw $e;
+            }
+
             if ($deleted > 0) {
                 $this->_flashMessenger->addMessage('Benutze_inr wurde gelöscht.', 'success');
             } else {

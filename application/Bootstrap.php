@@ -90,28 +90,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
     }
 
-/*
-    protected function _initTitle()
-    {
-        $view = $this->bootstrap('view')->getResource('view');
-        $view->headTitle()->setSeparator(' - ');
-
-        $sysconfig = Zend_Registry::get('systemconfig');
-        if ($sysconfig->headTitle) {
-            $view->headTitle($sysconfig->headTitle);
-        } else {
-            $view->headTitle('Strukturierter Dialog in Deutschland');
-        }
-    }
-
-*/
     protected function _initHead()
     {
         $view = $this->bootstrap('view')->getResource('view');
-            $view->headTitle()->setSeparator(' - ');
-
-        $sysconfig = Zend_Registry::get('systemconfig');
-        $view->headTitle($sysconfig->headTitle);
+        $view->headTitle()->setSeparator(' - ');
+        $view->headTitle(Zend_Registry::get('systemconfig')->site->name);
     }
 
     protected function _initSetupBaseUrl()
@@ -144,5 +127,40 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('frontController');
         $this->getResource('frontController')
             ->registerPlugin(new Plugin_Messenger());
+    }
+
+    /**
+     * Initializes the mail transport system
+     */
+    protected function _initMail()
+    {
+        $this
+            ->getPluginResource('mail')
+            ->getMail();
+        if (APPLICATION_ENV === 'development') {
+            $transport = new Zend_Mail_Transport_File(array('path' => RUNTIME_PATH . '/logs/mail'));
+            Zend_Mail::setDefaultTransport($transport);
+        }
+    }
+
+    /**
+     * Initialize translations
+     */
+    protected function _initTranslation()
+    {
+        $lang = $this
+            ->getPluginResource('locale')
+            ->getLocale()
+            ->getLanguage();
+
+        $translator = new Zend_Translate(
+            array(
+                'adapter' => 'array',
+                'content' => APPLICATION_PATH . '/../../../zendframework/zendframework1/resources/languages',
+                'locale'  => $lang,
+                'scan' => Zend_Translate::LOCALE_DIRECTORY
+            )
+        );
+        Zend_Validate_Abstract::setDefaultTranslator($translator);
     }
 }

@@ -63,15 +63,19 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     'label' => 'Reaktionen & Wirkung',
                     'href' => $this->view->baseUrl() . '/admin/followup/index/kid/' . $kid
                 ),
-				/*
+                /*
                  array(
                     'label' => 'Ordnerverwaltung',
                     'href' => $this->view->baseUrl() . '/admin/directories/index/kid/' . $kid
                 ),
-				 * */
+                */
                 array(
                     'label' => 'Statistik',
                     'href' => $this->view->baseUrl() . '/admin/consultation/report/kid/' . $kid
+                ),
+                  array(
+                    'label' => 'Beteiligungsrunde schließen',
+                    'href' => $this->view->baseUrl() . '/admin/close/index/kid/' . $kid
                 ),
                 array(
                     'label' => 'Beteiligungsrunde löschen',

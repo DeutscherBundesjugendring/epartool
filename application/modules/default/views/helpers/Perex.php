@@ -9,7 +9,7 @@ class Zend_View_Helper_Perex extends Zend_View_Helper_Abstract
      * @param  array  $conf   Configuration array. Takes following flags: HTML_ENTITY_DECODE, STRIP_TAGS, STRIPSLASHES
      * @return string         The shortened string
      */
-    public function perex($string, $length, $conf=array())
+    public function perex($string, $length, $conf = array())
     {
         if (in_array('HTML_ENTITY_DECODE', $conf)) {
             $string = html_entity_decode($string);

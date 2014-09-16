@@ -4,7 +4,7 @@
  * @desc        Class of questions, every consultation has questions (count n), users can write entries for every question
  * @author    Jan Suchandt
  */
-class Model_Questions extends Model_DbjrBase
+class Model_Questions extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'quests';
     protected $_primary = 'qi';
@@ -269,7 +269,7 @@ class Model_Questions extends Model_DbjrBase
                 array('qu'=>'quests'),
                 array('q_xpl'=>'SUBSTRING(q_xpl,1,100)', 'q', 'qi')
             );
-            $select ->where("LOWER(qu.q) LIKE '%$needle%' OR LOWER(qu.q_xpl) LIKE '%$needle%'");
+            $select ->where('LOWER(qu.q) LIKE ? OR LOWER(qu.q_xpl) LIKE ?', '%' . $needle . '%');
             // if no consultation is set, search in generell articles
             $select->where('qu.kid = ?', $consultationId);
             $select->limit($limit);

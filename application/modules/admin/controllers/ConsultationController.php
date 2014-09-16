@@ -17,16 +17,16 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
 
         $kid = $this->getRequest()->getParam('kid');
-        $consultationModel = new Model_Consultations();
-        $this->_consultation = $consultationModel->find($kid)->current();
-        $this->view->consultation = $this->_consultation;
+        if ($kid) {
+            $consultationModel = new Model_Consultations();
+            $this->_consultation = $consultationModel->find($kid)->current();
+            $this->view->consultation = $this->_consultation;
+        }
     }
 
     /**
@@ -35,8 +35,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this -> _helper -> viewRenderer -> setNoRender(true);
-        $this->_redirect('/admin/votingprepare/index/kid/' . $this->_consultation->kid);
+        $this->_helper->viewRenderer->setNoRender(true);
+        if (isset($this->_consultation)) {
+            $this->_redirect('/admin/votingprepare/index/kid/' . $this->_consultation->kid);
+        }
     }
 
     /**
@@ -152,7 +154,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         if (empty($kid)) {
-            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben!', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided!', 'error');
             $this->redirect('/admin');
         }
         $inputsModel = new Model_Inputs();
@@ -252,15 +254,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
             if ($articles) {
                 foreach ($articles As $article) {
                     $articleModel->deleteById($article['art_id']);
-                }
-            }
-
-            // Delete E-Mail-Templates
-            $mailtemplateModel = new Model_Emails_Templates();
-            $templates = $mailtemplateModel->getByConsultation($kid);
-            if ($templates) {
-                foreach ($templates As $template) {
-                    $mailtemplateModel->deleteById($template['mid']);
                 }
             }
 

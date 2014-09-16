@@ -1,0 +1,118 @@
+<h1>Beteiligungsrunde schließen: <?php echo $this -> consultation['titl']; ?></h1>
+<?php
+echo $this -> consultationNavigation('Close');
+?>
+<h2>Beteiligungsrunde schließen</h2>
+
+
+	<h3>1. Abstimmungsergebnisse speichern/aktualisieren:</h3>
+	<?php if ($this -> consultation['vt_anonymized']!="y"): ?>
+	<p>
+		<a href="#" class="write-results">Abstimmungsergebnisse speichern/aktualisieren</a>
+		<?php if ($this -> consultation['vt_finalized']=="y") echo '<span style="color: green">✓</span>'; ?>
+	</p>
+	<? else: ?>
+	<p>Die Ergebnisse sind anonymisiert. Speichern nicht mehr möglich!</p>
+	<? endif; ?>
+
+
+
+<h3>2. Gruppenergebnisse speichern:</h3>
+<?php
+$i=0;
+if ($this -> consultation['vt_anonymized']!="y"): ?>
+<p>
+	<table>
+	  <tr>
+	    <th>uid:</th>
+	    <th>Gruppe:</th>
+	    <th>Aktionen:</th>
+	  </tr>
+	<?php 
+	foreach ($this->votingRights as $item): 
+	?>
+	
+	  <tr>
+	    <td><?php echo $item['uid']; ;?></td>
+	    <td><a href="<?php echo $this->url(array(
+	      'controller' => 'input',
+	      'action' => 'list',
+	      'uid' => $item['uid'],
+	    )); ?>" title="Alle Beiträge dieses Nutzers anzeigen"><?php echo $item['email']; ?></a></td>
+	  <td><a href="<?php echo $this->url(array(
+	 	 'controller' => 'close',
+	      'action' => 'write-group-results',
+	      'uid' => $item['uid']
+	    )); ?>">Gruppenergebnisse speichern/aktualisieren</a>
+	    <?php if ($item['vt_finalized']=="y") {
+	    	$i++;
+			 echo '<span style="color: green">✓</span>';
+			} ?>
+	    </td>
+	  </tr>
+	<?php endforeach; ?>
+	</table>
+</p>
+<? else: ?>
+	<p>Die Ergebnisse sind anonymisiert. Speichern nicht mehr möglich!</p>
+	<? endif; ?>
+
+
+	
+	<h3>3. Abstimmungen anonymisieren:</h3>
+	
+	<?php if ($this -> consultation['vt_finalized']!="y"): ?>
+		<p>Bitte zuerst die Abstimmungsergebnisse speichern!</p>
+	<?php elseif ($this -> consultation['vt_anonymized']=="y"): ?>
+			<p>Die Abstimmungsergebnisse sind anonymisiert. <span style="color: green">✓</span></p>
+	<?php elseif (count($this->votingRights) != $i): ?>
+		<p>Bitte zunächst alle Gruppenergebnisse speichern!</p>
+	<?php elseif ($this -> consultation['vt_anonymized']!="y"): ?>
+		<p><a href="#" class="anonymize-votes">Abstimmungen anonymisieren!</a>
+	<? endif; ?>
+	
+	
+	<h3>4. Abstimmungsergebnisse exportieren:</h3>
+	<?php if ($this -> consultation['vt_finalized']=="y"): ?>
+		<p>
+		<table>
+			<tr>
+				<th>Frage Nr.:</th>
+				<th>Frage:</th>
+				<th>Aktion:</th>
+			</tr>
+		<?php foreach ($this -> consultation['questions'] as $item): ?>
+			<tr>
+				<td><?php echo $item['nr']; ?></td>
+				<td><?php echo $item['q']; ?></td>
+				<td><a href="<?php echo $this -> baseUrl(); ?>/admin/close/export-results/kid/<?php echo $item['kid']; ?>/qid/<?php echo $item['qi'] ?>">CSV exportieren</a></td>
+			</tr>
+		<?php endforeach; ?>
+		</table>
+		</p>
+	<? else: ?>
+		<p>Bitte zuerst die Abstimmungsergebnisse speichern!</p>
+	<? endif; ?>
+
+<script>
+  $(document).ready(function(){
+    $('a.write-results ').click(function(event){
+      event.preventDefault();
+      var check = confirm('Die Abstimmungsergebnisse werden jetzt berechnet und in der Datenbank gespeichert.');
+      if(check === true) {
+        window.location = "/admin/close/write-results/kid/<?php echo $this -> consultation['kid']; ?>";
+      }
+    });
+    $('a.anonymize-votes ').click(function(event){
+      event.preventDefault();
+      var check = confirm('ACHTUNG: Alle Abstimmungen werden anonymisiert. Eine Neuberechnung der Abstimmungsergebnisse ist nicht mehr möglich! Diese Aktion ist nicht mehr rückgängig zu machen. Sind Sie sicher?');
+      if(check === true) {
+        window.location = "/admin/close/anonymize-votes/kid/<?php echo $this -> consultation['kid']; ?>";
+      }
+    });
+  });
+</script>
+
+
+
+

@@ -51,6 +51,15 @@ class Admin_Form_User_Edit extends Zend_Form
 //        $this->getElement('transfer')->setMultioptions($transferOptions);
 
         // CSRF Protection
+
+        $this->getElement('password')->addValidator(
+            'stringLength',
+            'min',
+            Zend_Registry::get('systemconfig')->security->password->minLength
+        );
+        $this->getElement('password_confirm')->addValidator('identical', true, 'password');
+
+
         $hash = $this->createElement('hash', 'csrf_token_useredit', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {

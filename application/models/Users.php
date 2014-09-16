@@ -1,21 +1,15 @@
 <?php
-/**
- * Users
- * @desc        Class of user
- * @author    Jan Suchandt
- */
-class Model_Users extends Model_DbjrBase
+
+class Model_Users extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'users';
     protected $_primary = 'uid';
-
     protected $_dependentTables = array(
             'Model_User_Info',
             'Model_Votes_Rights'
     );
 
     protected $_flashMessenger = null;
-
     protected $_auth = null;
 
     public function init()
@@ -25,15 +19,12 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * getById
-     * @desc returns entry by id
-     * @name getById
+     * Returns user by id
      * @param  integer $id
      * @return array
      */
     public function getById($id)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return array();
@@ -45,11 +36,9 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * add
-     * @desc add new entry to db-table
-     * @name add
+     * Creates a new user
      * @param  array   $data
-     * @return integer primary key of inserted entry
+     * @return integer        Primary key of the inserted entry
      */
     public function add($data)
     {
@@ -59,72 +48,30 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * updateById
-     * @desc update entry by id
-     * @name updateById
-     * @param  integer $id
-     * @param  array   $data
-     * @return integer
+     * Deletes user by uid. All users inputs are made anonymous.
+     * @param  integer  $uid The user identifier
+     * @return integer       Number of deleted rows, that is ether 1 or 0
      */
-    public function updateById($id, $data)
+    public function deleteById($uid)
     {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return 0;
-        }
-        // exists?
-        if ($this->find($id)->count() < 1) {
-            return 0;
-        }
+        (new Model_Inputs())->update(['uid' => null], ['uid=?' => $uid]);
+        (new Model_User_Info())->delete(['uid=?' => $uid]);
 
-        $where = $this->getDefaultAdapter()
-                ->quoteInto($this->_primary[1] . '=?', $id);
-
-        return $this->update($data, $where);
+        return $this->delete(['uid=?' => $uid ]);
     }
 
     /**
-     * deleteById
-     * @desc delete entry by id
-     * @name deleteById
-     * @param  integer $id
-     * @return integer
-     */
-    public function deleteById($id)
-    {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return 0;
-        }
-        // exists?
-        if (!$this->exists($id)) {
-            return 0;
-        }
-
-        // where
-        $where = $this->getDefaultAdapter()
-                ->quoteInto($this->_primary[1] . '=?', $id);
-        $result = $this->delete($where);
-
-        return $result;
-    }
-
-    /**
-     * exists
-     * @desc check if a user exists
+     * Checks if a user exists
      * @param  integer $id user-id
      * @return boolean
      */
     public function exists($id)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($id)) {
             return false;
         }
-        // exists?
+
         if ($this->find($id)->count() < 1) {
             return false;
         } else {
@@ -133,111 +80,77 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * register user (insert entry) and send e-mail to user
-     * if already registered only add new record to user info table
-     *
-     * @param  array $data
-     * @return array ('uid' => <uid>, 'newlyRegistered' => boolean)
+     * Registers new user
+     * If user is already registered only the consultation specific data are updated
+     * @param  array    $data   User data
+     * @param  string   $string ConfirmKey for the given session
+     * @return array            Info about the user [(int) user_id, (boolean) is_user_new]
      */
-    public function register($data)
+    public function register($data, $confirmKey = null)
     {
-        $kid = 0;
-        if (isset($data['kid'])) {
-            $kid = $data['kid'];
-        }
-        $userInfoModel = new Model_User_Info();
-        $newlyRegistered = false;
-        $password = '';
-
-        // check if email address exists already
         if (!$this->emailExists($data['email'])) {
-            // email does not exist yet
-//             $confirm_key = md5($data['email'] . mt_rand() . getenv('REMOTE_ADDR') . time());
-            // confirm key not needed, user will be confirmed when he confirms his inputs
-            $confirmKey = '';
-
-            // password has to be generated because user should not be allowed to choose his own (it's a requirement):
-            $password = $this->generatePassword();
-
-            // prepare insert record
-            $insertData = array(
-                'block' => 'u',
-                'ip' => getenv('REMOTE_ADDR'),
-                'agt' => getenv('HTTP_USER_AGENT'),
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'pwd' => md5($password),
-                'confirm_key' => $confirmKey,
-                'group_type' => $data['group_type'],
-                'age_group' => $data['age_group'],
-                'regio_pax' => $data['regio_pax'],
-                'cnslt_results' => $data['cnslt_results'],
-                'newsl_subscr' => $data['newsl_subscr'],
-            );
-            // write record to database
-            $id = $this->add($insertData);
-
-            // no need for the register confirmation mail
-            // but we should send him his password with the inputs confirmation mail!
-//             $this->sendRegisterConfirmationMail($id, $kid, $password);
-
-            $newlyRegistered = true;
+            $data['uid'] = $this->add(['block' => 'u', 'email' => $data['email']]);
+            $isNew = true;
         } else {
-            $userRow = $this->getByEmail($data['email']);
-            $id = $userRow->uid;
-//             $this->_flashMessenger->addMessage('Die angegebene E-Mail-Adresse existiert schon!', 'error');
+            $data['uid'] = $this
+                ->fetchRow(
+                    $this
+                        ->select()
+                        ->from($this, ['uid'])
+                        ->where('email=?', $data['email'])
+                )
+                ->uid;
+            $isNew = false;
         }
 
-        // store user info
-        // prepare insert record
-        $insertDataUserInfo = array(
-                'uid' => $id,
-                'kid' => $kid,
-                'ip' => getenv('REMOTE_ADDR'),
-                'agt' => getenv('HTTP_USER_AGENT'),
-                'name' => $data['name'],
-                'group_type' => $data['group_type'],
-                'age_group' => $data['age_group'],
-                'regio_pax' => $data['regio_pax'],
-                'cnslt_results' => $data['cnslt_results'],
-                'newsl_subscr' => $data['newsl_subscr'],
-                'date_added' => new Zend_Db_Expr('NOW()'),
-                'cmnt_ext' => $data['cmnt_ext']
-        );
+        if (isset($data['kid'])) {
+            $this->addConsultationData($data, $confirmKey);
+        }
+
+        return [$data['uid'], $isNew];
+    }
+
+    /**
+     * Creates a new row in user_info data table
+     * @param  array   $data The user supplied data to be inserted
+     * @return integer       The user_info id
+     */
+    public function addConsultationData($data, $confirmKey = null)
+    {
+        $userConsultData = [
+            'uid' => $data['uid'],
+            'name' => $data['name'],
+            'age_group' => $data['age_group'],
+            'newsl_subscr' => $data['newsl_subscr'],
+            'regio_pax' => $data['regio_pax'],
+            'cnslt_results' => $data['cnslt_results'],
+            'kid' => $data['kid'],
+            'date_added' => new Zend_Db_Expr('NOW()'),
+            'cmnt_ext' => $data['cmnt_ext'],
+            'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
+            'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
+            'is_contrib_under_cc' => $data['is_contrib_under_cc'],
+        ];
+
         // if group then also save group specifications
-        if ($data['group_type'] == 'group' && isset($data['group_specs'])) {
-            $insertDataUserInfo = array_merge(
-                $insertDataUserInfo,
-                array(
-                    'source' => implode(',', $data['group_specs']['source']),
+        if (isset($data['group_specs'])) {
+            $userConsultData = array_merge(
+                $userConsultData,
+                [
+                    'source' => is_array($data['group_specs']['source']) ? implode(',', $data['group_specs']['source']) : null,
                     'src_misc' => $data['group_specs']['src_misc'],
                     'group_size' => $data['group_specs']['group_size'],
                     'name_group' => $data['group_specs']['name_group'],
                     'name_pers' => $data['group_specs']['name_pers'],
-                )
+                ]
             );
         } else {
-            $insertDataUserInfo = array_merge(
-                $insertDataUserInfo,
-                array('group_size' => 1)
-            );
+            $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
         }
 
-        $rowUserInfo = $userInfoModel->createRow($insertDataUserInfo);
-        $userInfoId = $rowUserInfo->save();
-
-        // write inputs from session to database
-        $inputModel = new Model_Inputs();
-        $inputModel->storeSessionInputsInDb($id);
-
-        // register time for last activity
-        $this->ping($id);
-
-        return array(
-                'uid' => $id,
-                'newlyRegistered' => $newlyRegistered,
-                'password' => $password
-        );
+        return (new Model_User_Info())
+            ->createRow($userConsultData)
+            ->save();
     }
 
     /**
@@ -253,319 +166,260 @@ class Model_Users extends Model_DbjrBase
     }
 
     /**
-     * generate a new password and send e-mail to user
-     *
-     * @param  string  $email
-     * @return boolean
+     * Creates a urlkeyAction for password reset and notifies user by email
+     * @param  string   $email  The email for which the password shoulb be changed
+     * @return boolean          True on success, false if no user matched the email
      */
     public function recoverPassword($email)
     {
-        $validator = new Zend_Validate_EmailAddress();
-        if ($validator->isValid($email)) {
-            if ($this->emailExists($email)) {
-                $newPassword = $this->generatePassword();
-                $row = $this->getByEmail($email);
-                if ($row) {
-                    $row->pwd = md5($newPassword);
-                    $row->save();
-
-                    $toName = $row->name;
-                    $toEmail = $email;
-                    $subject = "Neues Passwort für den Strukturierten Dialog";
-                    $text = "Hallo {$row->name},\n"
-                        . "du hast ein neues Passwort angefordert.\n"
-                        . "Mit folgendem Passwort und deiner E-Mail-Adresse kannst du dich anmelden:\n"
-                        . "\n"
-                        . "Kennwort: $newPassword";
-
-                    $mailModel = new Model_Emails();
-
-                    // appropriate template has to be configured in database!
-                    $template = 'pwdrequest';
-                    $replace = array(
-                        '{{USER}}' => $row->name,
-                        '{{EMAIL}}' => $email,
-                        '{{PWD}}' => $newPassword,
-                    );
-
-                    return $mailModel->send($toEmail, $subject, $text, 'pwdrequest', $replace);
-                }
-            } else {
-                $this->_flashMessenger->addMessage('Kein Nutzer zur angegebenen E-Mail-Adresse vorhanden!', 'error');
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * generate a password for user
-     * (function adopted from old system)
-     *
-     * @param  integer $length
-     * @return string
-     */
-    protected function generatePassword($length = 8)
-    {
-        $password="";
-        // define possible characters - any character in this string can be
-        // picked for use in the password, so if you want to put vowels back in
-        // or add special characters such as exclamation marks, this is where
-        // you should do it
-        $possible = "2346789abcdfghjkmnpqrtvwxyzABCDEFGHJKLMNPQRTVWXYZ";
-
-        // we refer to the length of $possible a few times, so let's grab it now
-        $maxlength = strlen($possible);
-
-        // check for length overflow and truncate if necessary
-        if ($length > $maxlength) {
-            $length = $maxlength;
-        }
-
-        // set up a counter for how many characters are in the password so far
-        $i = 0;
-
-        // add random characters to $password until $length is reached
-        while ($i < $length) {
-            // pick a random character from the possible ones
-            $char = substr($possible, mt_rand(0, $maxlength-1), 1);
-
-            // have we already used this character in $password?
-            if (!strstr($password, $char)) {
-                // no, so it's OK to add it onto the end of whatever we've already got...
-                $password .= $char;
-                // ... and increase the counter by one
-                $i++;
-            }
-        }
-
-        return $password;
-    }
-
-    /**
-     * Sends E-Mail for Registration Confirmation
-     *
-     * @param  integer        $uid User ID
-     * @param  integer        $kid
-     * @throws Zend_Exception
-     * @return boolean
-     */
-    protected function sendRegisterConfirmationMail($uid, $kid, $password)
-    {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Exception('Given uid must be integer!');
-
-            return false;
-        }
-        $userRow = $this->find($uid)->current();
-        if ($userRow->block == 'u' && !empty($userRow->confirm_key)) {
-            $mailBody = 'Herzlich willkommen ' . $userRow->name . '!' . "\n\n"
-                . 'Bitte bestätige deine Registrierung auf ' . Zend_Registry::get('httpHost') . ':' . "\n\n"
-                . Zend_Registry::get('baseUrl')
-                . '/user/registerconfirm/ckey/' . $userRow->confirm_key
-                . '/kid/' . $kid . "\n\n";
-
-            $template = 'register';
-            $aReplace = array(
-                    '{{USER}}' => $userRow->name,
-                    '{{CONFIRMLINK}}' => Zend_Registry::get('baseUrl')
-                    . '/user/registerconfirm/ckey/' . $userRow->confirm_key
-                    . '/kid/' . $kid,
-                    '{{PASSWORD}}' => $password
+        $user = $this->fetchRow($this->select()->where('email=?', $email));
+        if ($user) {
+            $action = (new Service_UrlkeyAction_ResetPassword())->create(
+                [Service_UrlkeyAction_ResetPassword::PARAM_USER_ID => $user->uid]
             );
 
-            $mailObj = new Model_Emails();
+            $mailer = new Dbjr_Mail();
+            $mailer
+                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_PASSWORD_RESET)
+                ->setPlaceholders(
+                    array(
+                        'to_name' => $user->name ? $user->name : $user->email,
+                        'to_email' => $user->email,
+                        'password_reset_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                    )
+                )
+                ->addTo($user->email);
+            (new Service_Email)->queueForSend($mailer);
 
-            return $mailObj->send($userRow->email, 'Registrierungsbestätigung', $mailBody, $template, $aReplace);
+            return true;
         }
 
         return false;
     }
 
     /**
-     * Holt unbestätigte Beiträge aus der Datenbank und verschickt eine E-Mail
-     * an den Nutzer, welche Links zur Bestätigung der Beiträge enthält
-     *
-     * @param  integer|object $identity
-     * @param  integer        $kid
-     * @param  string         $password for newly registered users
-     * @return boolean
+     * Hashes the password
+     * @param  string $password The password to be hashed
+     * @return string           The password hashed by blowfish
      */
-    public function sendInputsConfirmationMail($identity, $kid, $password = '')
+    public function hashPassword($password)
+    {
+        $passConf = Zend_Registry::get('systemconfig')->security->password;
+        $saltChars = implode('', array_merge(range(0, 9), range('a', 'z'), range('A', 'Z')));
+        $saltBase = $passConf->globalSalt . floor(microtime(true)) . $this->getRandString(22, $saltChars);
+        $salt = '$2a$' . $passConf->costParam . '$' . substr($saltBase, 0, 22);
+
+        return crypt($password, $salt);
+    }
+
+    /**
+     * Generates a pseudo random string
+     * @param  integer $length  The length of the string.
+     * @param  string  $chars   A string consisting of all characters that can be used in the string.
+     *                          Defaults to printabale ASCII characters (32-127)
+     * @return string           The pseudo random string
+     */
+    protected function getRandString($length, $chars = null)
+    {
+        $randString = '';
+        if (!$chars) {
+            $chars = '';
+            for ($i = 32; $i <= 127; $i++) {
+                $chars .= chr($i);
+            }
+        }
+
+        $charCount = mb_strlen($chars);
+        for ($i = 0; $i < $length; $i++) {
+            $randString .= substr($chars, mt_rand(0, $charCount - 1), 1);
+        }
+
+        return $randString;
+    }
+
+    /**
+     * Sends an email asking user to confirm his/her unconfirmed inputs from the given consultation if there are any
+     * @param  integer|object $identity  Either the user object or a user id
+     * @param  integer        $kid       The consultation identifier.
+     * @param  boolean        $isNew     Indicates if the recipient has been just created
+     * @throws Dbjr_Exception            If the user can not be found in the system
+     */
+    public function sendInputsConfirmationMail($identity, $kid, $confirmKey, $isNew)
     {
         $intVal = new Zend_Validate_Int();
-        $userRow = null;
         if ($intVal->isValid($identity)) {
             $userRow = $this->find($identity)->current();
         } elseif (is_object($identity)) {
             $userRow = $identity;
         }
-        if (!empty($userRow)) {
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
-            // Hole alle nicht bestätigten Beiträge
-            $inputModel = new Model_Inputs();
-            $unconfirmedInputs = $inputModel->getUnconfirmedByUser($userRow->uid, $kid, false);
-            if (count($unconfirmedInputs) > 0) {
-                // appropriate template has to be configured in database!
-                $template = 'inpt_conf';
-                $replace = array(
-                    '{{USER}}' => $userRow->name,
-                    '{{CNSLT_TITLE_SHORT}}' => '',
-                    '{{CNSLT_TITLE}}' => '',
-                    '{{INPUT_TO}}' => '',
-                    '{{PASSWORD_TEXT}}' => ''
-                );
-                if (!empty($consultation)) {
-                    $date = new Zend_Date();
-                    $replace['{{CNSLT_TITLE_SHORT}}'] = $consultation['titl_short'];
-                    $replace['{{CNSLT_TITLE}}'] = $consultation['titl'];
-                    $replace['{{INPUT_TO}}'] = $date->set($consultation['inp_to'])->get(Zend_Date::DATE_MEDIUM);
-                }
 
-                $mailBody = 'Hallo ' . $userRow->name . "\n\n"
-                    . 'Bitte bestätige folgende Beiträge:' . "\n\n";
+        if (!isset($userRow)) {
+            throw new Dbjr_Exception('Trying to send input confirmation email to a non existant user.');
+        }
 
-                $inputIds = array();
-                foreach ($unconfirmedInputs as $input) {
-                    $inputIds[] = $input->tid;
-                    $inputText = $input->thes . "\n\n";
+        $inputModel = new Model_Inputs();
+        $unconfirmedInputs = $inputModel->fetchAll(
+            $inputModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['i' => $inputModel->info(Model_Inputs::NAME)])
+                ->join(
+                    array('q' => (new Model_Questions())->info(Model_Questions::NAME)),
+                    'q.qi = i.qi',
+                    array()
+                )
+                ->where('user_conf=?', 'u')
+                ->where('confirmation_key=?', $confirmKey)
+                ->where('q.kid=?', $kid)
+        );
 
-                    $mailBody.= $inputText;
-                    $replace['{{USER_INPUTS}}'].= $inputText;
-                }
-
-                if (!empty($password)) {
-                    $replace['{{PASSWORD_TEXT}}'] = <<<EOD
-Deine E-Mail-Adresse war noch nicht bei uns im System hinterlegt.
-Wir haben deshalb ein Passwort für dich generiert, mit dem du dich in Zukunft am System anmelden kannst:
-EOD;
-                    $replace['{{PASSWORD_TEXT}}'] .= "\n\n" . $password;
-                    $mailBody.= "\n\n" . $replace['{{PASSWORD_TEXT}}'];
-                }
-
-                $ckey = $inputModel->generateConfirmationKeyBulk($inputIds);
-                $replace['{{CONFIRMLINK}}'] = Zend_Registry::get('baseUrl')
-                        . '/input/mailconfirm/kid/' . $input->kid . '/ckey/' . $ckey;
-
-                $replace['{{REJECTLINK}}'] = Zend_Registry::get('baseUrl')
-                . '/input/mailreject/kid/' . $input->kid . '/ckey/' . $ckey;
-
-                $mailObj = new Model_Emails();
-
-                return $mailObj->send($userRow->email, 'Beitragsbestätigung', $mailBody, $template, $replace);
-            } else {
-                // keine zu bestätigenden Beiträge
-                return false;
+        if (count($unconfirmedInputs) > 0) {
+            $inputIds = array();
+            $inputsText = '';
+            $inputsHtml = '';
+            foreach ($unconfirmedInputs as $input) {
+                $inputIds[] = $input->tid;
+                $inputsText .= $input->thes . "\n\n";
+                $inputsHtml .= '<p>' . $input->thes . '</p>';
             }
-        } else {
-            // keine Identität
-            return false;
+
+            $date = new Zend_Date();
+            $baseUrl = Zend_Registry::get('baseUrl');
+            $consultation = (new Model_Consultations())->find($kid)->current();
+            if ($isNew) {
+                $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION_NEW_USER;
+            } else {
+                $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION;
+            }
+
+            $mailer = new Dbjr_Mail();
+            $mailer
+                ->setTemplate($template)
+                ->setPlaceholders(
+                    array(
+                        'to_name' => $userRow->name ? $userRow->name : $userRow->email,
+                        'to_email' => $userRow->email,
+                        'confirmation_url' =>  $baseUrl . '/input/mailconfirm/kid/' . $kid . '/ckey/' . $confirmKey,
+                        'rejection_url' => $baseUrl . '/input/mailreject/kid/' . $kid . '/ckey/' . $confirmKey,
+                        'consultation_title_long' => $consultation ? $consultation->titl : '',
+                        'consultation_title_short' => $consultation ? $consultation->titl_short : '',
+                        'input_phase_end' => $consultation ? $date->set($consultation->inp_to)->get(Zend_Date::DATE_MEDIUM) : '',
+                        'input_phase_start' => $consultation ? $date->set($consultation->inp_fr)->get(Zend_Date::DATE_MEDIUM) : '',
+                        'inputs_html' => $inputsHtml,
+                        'inputs_text' => $inputsText,
+                    )
+                )
+                ->addTo($userRow->email);
+            (new Service_Email)->queueForSend($mailer);
         }
     }
 
     /**
-     * Processes Registration Confirmation
-     * @deprecated User Confirmation now is done within Inputs Confirmation
-     * @see Model_Inputs::confirmByCkey()
-     *
-     * @param  string                  $ckey
-     * @throws Zend_Validate_Exception
-     * @return boolean
+     * Confirms user
+     * @param  string         $confirmKey  The user data identifier. Identifies the session data that is to be confirmed.
+     * @return integer|false               The user id of the owner fo the inputs. False if no user could be found.
      */
-    public function confirmByCkey($ckey)
+    public function confirmByCkey($confirmKey)
     {
-        $return = false;
-        $alnumVal = new Zend_Validate_Alnum();
-        if (!$alnumVal->isValid($ckey)) {
-            throw new Zend_Validate_Exception();
+        $userConsultDataModel = new Model_User_Info();
+        $userConsultData = $userConsultDataModel->fetchRow(
+            $userConsultDataModel
+                ->select()
+                ->where('confirmation_key=?', $confirmKey)
+        );
+        $user = $this->find($userConsultData->uid)->current();
 
-            return $return;
-        }
-        $select = $this->select();
-        $select->where('confirm_key = ?', $ckey);
-        $row = $this->fetchAll($select)->current();
-        if (!empty($row)) {
-            $return = true;
-            $row->block = 'c';
-            $row->confirm_key = '';
-            $row->save();
-            // Nutzer einloggen
-            $authStorage = $this->_auth->getStorage();
-            // die gesamte Tabellenzeile in der Session speichern
-            $row->pwd = null;
-            $row->setReadOnly(true);
-            $authStorage->write($row);
-            $this->_flashMessenger->addMessage(
-                'Du hast deine Registrierung bestätigt und bist nun eingeloggt!<br/>Eine E-Mail zur Bestätigung deiner Beiträge wurde verschickt.',
-                'success'
-            );
+        if ($user) {
+            $user->block = 'c';
+            $user->name = $userConsultData->name;
+            $user->name_group = $userConsultData->name_group;
+            $user->name_pers = $userConsultData->name_pers;
+            $user->is_contrib_under_cc = $userConsultData->is_contrib_under_cc;
+            $user->age_group = $userConsultData->age_group;
+            $user->regio_pax = $userConsultData->regio_pax;
+            $user->cnslt_results = $userConsultData->cnslt_results;
+            $user->newsl_subscr = $userConsultData->newsl_subscr;
+            $user->source = $userConsultData->source;
+            $user->src_misc = $userConsultData->src_misc;
+            $user->group_size = $userConsultData->group_size;
+            $user->save();
+
+            $userConsultData->confirmation_key = null;
+            $userConsultData->time_user_confirmed = new Zend_Db_Expr('NOW()');
+            $userConsultData->save();
+
+            return $userConsultData->uid;
         }
 
-        return $return;
+        return false;
     }
 
     /**
      * Checks if given email address already exists in database
-     *
-     * @param  string  $email
-     * @return boolean
+     * @param  string   $email  The email to be checked
+     * @return boolean          Indicates if the email address exists in the system
      */
     public function emailExists($email)
     {
-        $select = $this->select();
-        $select->from($this, array(new Zend_Db_Expr('COUNT(*) as count')));
-        $select->where('email = ?', $email);
-        $row = $this->fetchAll($select)->current();
-        if ($row->count > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        $row = $this->fetchRow(
+            $this
+                ->select()
+                ->from($this->info(self::NAME), array(new Zend_Db_Expr('COUNT(*) AS count')))
+                ->where('email=?', $email)
+        );
+
+        return $row->count > 0 ? true : false;
     }
 
     /**
      * Updates value of last activity with current timestamp
-     *
-     * @param  integer        $uid
-     * @throws Zend_Exception
+     * @param  integer  $uid  The user identifier
      */
     public function ping($uid)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Exception('Given uid must be integer!');
-        }
-        $data = array('last_act' => new Zend_Db_Expr('NOW()'));
-        $this->updateById($uid, $data);
+        $this->update(['last_act' => new Zend_Db_Expr('NOW()')], ['uid=?' => $uid]);
     }
 
     /**
      * Returns all participants of given consultation.
-     * Participant is a user that has contributed to a given consultation
-     *
-     * @param  integer      $kid   Consultation ID
-     * @param  string|array $order [optional] order by spec, Defaults to array('u.name', 'u.uid')
-     * @return array
+     * @param  integer              $kid              Consultation Id
+     * @param  string               $participantType  The type of participant (see: Model_User_Info::PARTICIPANT_TYPE_*)
+     * @throws Dbjr_Exception                         If the requested participantType is invalid
+     * @return Zend_Db_Table_Rowset                   The participants matching criteria
      */
-    public function getParticipantsByConsultation($kid, $order = '')
+    public function getParticipantsByConsultation($kid, $participantType = null)
     {
-        if (empty($order)) {
-            $order = array('u.name', 'u.uid');
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['u' => $this->info(self::NAME)])
+            ->where('u.block=?', 'c');
+
+        if ($participantType === Model_User_Info::PARTICIPANT_TYPE_VOTER) {
+            $select
+                ->distinct()
+                ->join(
+                    ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
+                    'vg.uid = u.uid',
+                    []
+                )
+                ->where('kid=?', $kid);
+        } else {
+            $select
+                ->join(
+                    ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                    'u.uid = ui.uid'
+                )
+                ->where('ui.kid=?', $kid)
+                ->where('ui.confirmation_key IS NULL');
+            if ($participantType === Model_User_Info::PARTICIPANT_TYPE_NEWSLETTER_SUBSCRIBER) {
+                $select->where('u.newsl_subscr=?', 'y');
+            } elseif ($participantType === Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER) {
+                $select->where('ui.cnslt_results=?', 'y');
+            }
         }
 
-        $participants = $this->getAdapter()
-            ->select()
-            ->distinct()
-            ->from(array('u' => $this->_name))
-            ->joinInner(array('i' => 'inpt'), 'u.uid = i.uid', array())
-            ->where('i.kid = ?', $kid)
-            ->order($order)
-            ->query()
-            ->fetchAll();
-
-        return $participants;
+        return $this->fetchAll($select);
     }
 
     /**

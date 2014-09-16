@@ -4,7 +4,7 @@
  * @author Markus Hackel
  *
  */
-class Model_Projects extends Model_DbjrBase
+class Model_Projects extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'proj';
     protected $_primary = 'proj';

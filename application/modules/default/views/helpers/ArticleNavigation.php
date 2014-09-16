@@ -53,7 +53,7 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                                 'action' => 'show',
                                 'aid' => $item['art_id']), $route, null) . '">'
                         // desc als Seitentitel im Menü
-                        . (empty($item['desc']) ? 'Seite ' . $i : $item['desc'])
+                        . (empty($item['desc']) ? $this->view->translate('Page'). ' ' . $i : $item['desc'])
                         . '</a>';
                     if (!empty($item['subpages']) && $isItemInRootline) {
                         $html.= '<ul class="nav nav-list">';
@@ -73,7 +73,7 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                                             'action' => 'show',
                                             'aid' => $subpage['art_id']), 'default', null) . '">'
                                     // desc als Seitentitel im Menü
-                                    . (empty($subpage['desc']) ? 'Seite ' . $i . '.' . $j : $subpage['desc'])
+                                    . (empty($subpage['desc']) ? $this->view->translate('Page') . ' ' . $i . '.' . $j : $subpage['desc'])
                                     . '</a>';
                                 $html.= '</li>';
                                 $j++;

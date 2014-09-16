@@ -52,7 +52,7 @@ $application = new Zend_Application(
 $application = $application->bootstrap();
 
 // check if http authentication is required and crdentials
-if (Zend_Registry::get('systemconfig')->httpAuth->active) {
+if (!empty(Zend_Registry::get('systemconfig')->httpAuth->active)) {
     if (empty($_SERVER['PHP_AUTH_USER'])) {
         header('WWW-Authenticate: Basic realm="Protected"');
         header('HTTP/1.0 401 Unauthorized');
@@ -60,8 +60,7 @@ if (Zend_Registry::get('systemconfig')->httpAuth->active) {
         exit;
     }
 
-    if (
-        $_SERVER['PHP_AUTH_USER'] != Zend_Registry::get('systemconfig')->httpAuth->username
+    if ($_SERVER['PHP_AUTH_USER'] != Zend_Registry::get('systemconfig')->httpAuth->username
         || $_SERVER['PHP_AUTH_PW'] != Zend_Registry::get('systemconfig')->httpAuth->password
     ) {
         header('HTTP/1.0 401 Unauthorized');

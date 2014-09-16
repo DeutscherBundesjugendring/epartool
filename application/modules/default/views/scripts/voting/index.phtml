@@ -1,57 +1,43 @@
-<?php
-/**
- * index
- *
- * @description   Startseite Abstimmung
- * @author        Markus Hackel, Jan Suchandt
- */
-?>
-
 <?php echo $this->secondNavigation('voting') ?>
 
 <div class="content-holder">
-	<div class="row">
-		<aside class="span3">
+    <div class="row">
+        <aside class="span3">
+            <?php if ($this->consultation->vot_res_show == 'y'): ?>
+                <p>
+                    <a href="<?=$this->url(['action' => 'results', 'authcode' => null])?>">
+                        <?=$this->translate('View voting results')?>
+                    </a>
+                </p>
+            <?php endif; ?>
 
-			<?php
-			// @todo Sidebar navigation
-			?>
-			<?php if ($this->consultation->vot_res_show == 'y'): ?>
-				<p><a href="<?php
-					echo $this->url(array(
-						'action' => 'results',
-						'authcode' => null
-					));
-				?>">Votingergebnisse ansehen</a></p>
-			<?php endif; ?>
+        </aside>
 
-		</aside>
-		<section class="main-content span9">
+        <section class="main-content span9">
+            <h1><?=$this->translate('Login for the voting')?></h1>
+            <p>
+                <?=sprintf($this->translate('Here you vote on the contributions on topic "%s" that are especially important in your opinion! The contributions consist of opinions, positions and suggestions which given by young people and youth groups during the last weeks and months.'), $this->consultation['titl_short'])?>
+            </p>
 
-			<h1>Anmelden zur Abstimmung</h1>
-			<p>
-				Hier k&ouml;nnt ihr dar&uuml;ber abstimmen, welche der Beitr&auml;ge zum Thema &quot;<?php echo $this->consultation['titl_short']; ?>&quot;
-				ihr besonders wichtig findet! Bei den Beitr&auml;gen handelt es sich um Meinungen, Positionen und Vorschl&auml;ge, die uns
-				Jugendliche und Jugendgruppen in den letzten Wochen und Monaten zurückgemeldet haben.
-			</p>
+            <!-- Access form -->
+            <div class="well well-large text-center">
+                <span class="label sticker label-mitmachen-black hidden-print">
+                    <?=$this->translate('Join now!')?>
+                </span>
+                <h2><?=$this->translate('Vote now!')?></h2>
+                <p>
+                    <?=$this->translate('The Voting is anonymous. We just need your email address to check if you are allowed to participate in the Voting.')?>
+                </p>
+                <div class="form-inline">
+                    <?php echo $this->authform; ?>
+                </div>
+                <?php echo (!empty($this->votingExplanation)) ? $this->votingExplanation : ''; ?>
+            </div>
 
-			<!-- Access form -->
-			<div class="well well-large text-center">
-				<span class="label sticker label-mitmachen-black hidden-print">Mitmachen!</span>
-				<h2>Stimme jetzt ab!</h2>
-				<p>Die Abstimmung ist anonym. Deine E-Mail-Adresse benötigen wir nur, um zu überprüfen,<br />
-					ob du berechtigt bist, an der Abstimmung teilzunehmen.
-				</p>
-				<div class="form-inline">
-					<?php echo $this->authform; ?>
-				</div>
-				<?php echo (!empty($this->votingExplanation)) ? $this->votingExplanation : ''; ?>
-			</div>
+            <?php echo $this->render('_partials/printLink.phtml') ?>
 
-			<?php echo $this->render('_partials/printLink.phtml') ?>
-
-		</section>
-	</div><!-- .row -->
+        </section>
+    </div><!-- .row -->
 </div><!-- .content-holder -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

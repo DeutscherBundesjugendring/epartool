@@ -8,14 +8,18 @@
 
     <link href="<?php echo $this->baseUrl(); ?>/css/backend/style.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $this->baseUrl(); ?>/css/backend/dashboard.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->baseUrl(); ?>/components/jquery.ui/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo $this->baseUrl(); ?>/components/bower/jquery.ui/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
     <!--[if lte IE 7]>
     <link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
     <![endif]-->
 
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/bower/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/ajaxloader.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin.js"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/static/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var baseUrl = '<?php echo $this->baseUrl?>';
+    </script>
     <?php echo $this->headScript(); ?>
 </head>
 

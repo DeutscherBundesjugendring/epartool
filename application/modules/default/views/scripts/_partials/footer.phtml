@@ -8,8 +8,14 @@
 				<ul class="nav">
 					<?php echo $this->footerLinks(); ?>
 					<li class="licence">
-						<a rel="license" href="<?=Zend_Registry::get('systemconfig')->license->creative_commons->link?>" class="logo" rel="license" target="_blank" title="Creative-Commons-Lizenz 4.0: Namensnennung, nicht-kommerziell">
-							<img alt="Creative-Commons-Lizenz 4.0: Namensnennung, nicht-kommerziell" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/4.0/88x31.png" alt="CC-BY-NC 4.0" />
+						<a
+							href="<?=Zend_Registry::get('systemconfig')->license->creative_commons->link?>"
+							rel="license"
+							class="logo"
+							target="_blank"
+							title="<?=$this->translate('Creative Commons license 4.0: attribution, non-commercial')?>"
+						>
+								<img src="<?php echo $this->baseUrl(); ?>/images/licence.png" alt="CC-BY-NC 4.0" />
 						</a>
 					</li>
 				</ul>
@@ -53,14 +59,15 @@
 						<?php echo Zend_Registry::get('systemconfig')->contact->name?>
 					</p>
 					<p>
-						Mühlendamm 3<br />
-						10178 Berlin<br />
+						<?=Zend_Registry::get('systemconfig')->contact->street?><br />
+						<?=Zend_Registry::get('systemconfig')->contact->zip?>
+						<?=Zend_Registry::get('systemconfig')->contact->town?><br />
 						<a href="mailto:<?php echo Zend_Registry::get('systemconfig')->contact->email?>">
-							<?php echo Zend_Registry::get('systemconfig')->contact->email?>
+							<?=Zend_Registry::get('systemconfig')->contact->email?>
 						</a>
 						<br />
 						<a href="<?php echo Zend_Registry::get('systemconfig')->contact->www?>" rel="external" target="_blank">
-							<?php echo Zend_Registry::get('systemconfig')->contact->www?>
+							<?=Zend_Registry::get('systemconfig')->contact->www?>
 						</a>
 					</p>
 				</div>

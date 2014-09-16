@@ -49,7 +49,9 @@
 	<h3>Originalbeiträge <?php echo count($this->inputs)?></h3>
 	<form id="thesis-form" method="post">
 		<ul>
-			<?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
+			<?php foreach($this->inputs as $input): ?>
+                <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input, 'kid' => $this->consultation['kid']])?>
+            <?php endforeach?>
 		</ul>
 	</form>
 </div>
