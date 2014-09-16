@@ -5,7 +5,7 @@
  *
  * @author Marco Dinnbier
  */
-class Admin_Form_Followup_Snippet extends Zend_Form
+class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Followup/Snippet.ini';
     /**

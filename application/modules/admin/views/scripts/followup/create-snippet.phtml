@@ -1,17 +1,39 @@
-<?php
-/**
- *  create-snippet.phtml
- * 
- *  @description       create followup Snippet
- *  @author            Marco Dinnbier
- */
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Follow-up'); ?>
-<h2>Neuen Follow-up-Schnippsel erstellen</h2>
-<!--uniqueEditSnippetSTART-->
-<?php echo $this->form;?>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2><?=$this->translate('New Follow Up Snippet');?></h2>
+                <p class="back-link">
+                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Follow Up');?></a>
+                </p>
+                <?=$this->form;?>
+                <p>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>"><?=$this->translate('Cancel');?></a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO move to JS -->
 <script>
-    CKEDITOR.replace( 'expl' );   
+    CKEDITOR.replace( 'expl' );
 </script>
-<!--uniqueEditSnippetEND-->

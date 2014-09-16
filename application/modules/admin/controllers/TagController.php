@@ -13,14 +13,34 @@ class Admin_TagController extends Zend_Controller_Action
     public function indexAction()
     {
         $tagModel = new Model_Tags();
-        $this->view->tags = $tagModel->getAll();
+        $tags = $tagModel->getAll();
+
+        // Group tags by the first letter
+        $tagsGrouped = array();
+        $letters = array();
+        $currentLetter = '';
+
+        foreach ($tags as $tag) {
+            $tagFirstLetter = self::toAscii(mb_strtoupper(mb_substr($tag['tg_de'], 0, 1, 'UTF-8')));
+            if ($tagFirstLetter !== $currentLetter) {
+                $currentLetter = $tagFirstLetter;
+                if (!in_array($tagFirstLetter, $letters)) {
+                    $letters[] = $tagFirstLetter;
+                }
+            }
+            $tagsGrouped[$currentLetter][] = $tag;
+        }
+        $this->view->tags = $tagsGrouped;
+        $this->view->letters = $letters;
+
         $this->view->createForm = new Admin_Form_Tag();
     }
 
     public function createAction()
     {
+        $form = new Admin_Form_Tag();
+
         if ($this->_request->isPost()) {
-            $form = new Admin_Form_Tag();
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
                 $tagModel = new Model_Tags();
@@ -28,13 +48,12 @@ class Admin_TagController extends Zend_Controller_Action
                 if (!empty($key)) {
                     $this->_flashMessenger->addMessage('Neues Schlagwort angelegt.', 'success');
                 }
-                $this->redirect('/admin/tag');
+                $this->redirect('/admin/tag/create');
             } else {
-                $this->view->createForm = $form->populate($data);
+                $form->populate($data);
             }
-        } else {
-            $this->redirect('/admin/tag');
         }
+        $this->view->createForm = $form;
     }
 
     public function editAction()
@@ -84,5 +103,14 @@ class Admin_TagController extends Zend_Controller_Action
             }
         }
         $this->redirect('/admin/tag');
+    }
+
+    private static function toAscii($string)
+    {
+        return strtr(
+            utf8_decode($string),
+            utf8_decode('ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ'),
+            'SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy'
+        );
     }
 }

@@ -5,7 +5,7 @@
  * @description     Form for User Create
  * @author                Jan Suchandt
  */
-class Admin_Form_User_Create extends Zend_Form
+class Admin_Form_User_Create extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/User/Create.ini';
     /**
@@ -14,7 +14,6 @@ class Admin_Form_User_Create extends Zend_Form
      */
     public function init()
     {
-        $this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
         // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 

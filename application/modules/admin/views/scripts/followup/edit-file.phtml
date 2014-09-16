@@ -1,235 +1,230 @@
-<?php
-/**
- *  create-doc.phtml
- * 
- *  @description   edit followup files and handle followup snippets
- *  @author        Marco Dinnbier
- */
+<section class="section-header has-tabs">
+    <div class="container">
 
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
-$hlvl = array(
-  "Fußnote","Fließtext","Überschrift 1","Überschrift 2","Überschrift 3","Überschrift 4", "Überschrift 5"  
-);
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
 
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Follow-up'); ?>
-<h2>Follow-up-Dokument bearbeiten</h2>
-<?php echo $this->form;?>
-<!--<p><a href="<?php echo $this->url(array(
-  'action' => 'create',
-  'kid' => isset($this->consultation) ? $this->consultation['kid'] : 0
-));?>">Neues Follow-up</a></p>-->
-<h2>Übersicht der Follow-up-Dokumente</h2>
-<div id="ajaxcontent" class="followup">
-<!--uniqueEditFowupSTART-->
-<table style="width: 100%">
-    <tbody>
+                <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
 
-        <tr>
-            <th>
-            <?php if($this->movefollowup && $this->movefollowup['docorg'] != 1): ?>
-                <a href="<?php echo $this->url(array(
-                            'module' => 'admin',
-                            'controller' => 'followup',
-                            'action' => 'move',
-                            'kid' => $this->consultation['kid'],
-                            'ffid' => $this->ffid,
-                            'movefid' => $this->movefollowup['fid'],
-                            'prev' => 0
-                              ),null,true);?>">Hier einfügen</a>
-           <?php endif; ?>
-                <a class="openajaxformnew" href="<?php echo $this->url(array(
-                            'action' => 'create-snippet',
-                            'kid' => $this->consultation['kid'],
-                            'ffid' => $this->ffid,
-                            'prev' => 0                      
-                              ));?>">Neu</a>    
-                  <div class="ajaxform" id="ajaxformprev-0"></div>
-         
-          </th>
-          
-        </tr>
-         </tbody>
-</table>
-<div></div>
+            </div>
+            <div class="col-md-9">
 
-<?php 
-$i = 0;
-foreach ($this->followups as $followup): ?>
-<?php 
-    $marg = $followup['hlvl'] > 1 ? $followup['hlvl'] * 3 : 0;
-    $width = 100 - $marg;
-    $style = "margin-left:$marg%;width:$width%;";
-    if ($followup['fid'] == $this->movefollowup['fid']) $style.="background:#bbb;";
-?>
-<table style="<?php echo $style; ?>border:2px solid #888888;"><tbody>
-            <tr>                
-                <td style="vertical-align:top;width:30px;">
-                    <?php 
-                    
-                       $popupurl = $this->url(array(
-                            'action' => 'reference',
-                            'kid' => $this->consultation['kid'],
-                            'fid' => $followup['fid'],
-                            'ffid' => $this->ffid
-                              ));
-                       echo $this->Popuplink( $popupurl, 
-                                                'Followup_Referenzen_zuweisen', 
-                                                800, 
-                                                600, 
-                                                $followup['relFowupCount'], 
-                                                'Referenzen bearbeiten' , 
-                                                'fowup-related-link'); ?>
- 
-                  
-                    
-                </td>
-                <td style="width:60%;">
-                    <?php 
-                        if (strlen (html_entity_decode($followup['expl'])) > 400 ) 
-                            echo substr(html_entity_decode($followup['expl']), 0, 400).'...';
-                        else echo html_entity_decode($followup['expl']);
-                    ?>
-                </td>
-                <!--<td><?php echo $followup['lkyea']; ?> / <?php echo $followup['lknay']; ?></td>-->
-                <td style="text-align: right;"><a class="openajaxform" rel="<?php echo $followup['fid']; ?>" href="<?php echo $this->url(array(
-                            'action' => 'edit-snippet',
-                            'kid' => $this->consultation['kid'],
-                            'fid' => $followup['fid'],
-                            'ffid' => $this->ffid
-                              ));?>" title="Follow-up bearbeiten">Bearbeiten</a>
- 
-                    <!--<a href="<?php echo $this->url(array(
-                            'module' => 'admin',
-                            'controller' => 'followup',
-                            'action' => 'move',
-                            'kid' => $this->consultation['kid'],
-                            'fid' => $followup['fid'],
-                            'ffid' => $this->ffid                           
-                            ),null, true);?>" title="Artikel löschen">Verschieben</a>-->
-                    
-                    
-                              &nbsp;
-                    <a href="<?php echo $this->url(array(
-                            'action' => 'delete-snippet',
-                            'kid' => $this->consultation['kid'],
-                            'fid' => $followup['fid'],
-                            'ffid' => $this->ffid    
-                            ));?>" title="Follow-up löschen">Löschen</a>
-           
-                </td>
-                <td style="vertical-align:top;width:30px;">
-                    <?php if (!$followup['reltothisFowupCount']): ?>
+                <h2><?=$this->translate('Edit Follow Up');?></h2>
+                <p class="back-link">
+                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Follow Up');?></a>
+                </p>
 
-                    <span class="fowup-related-link" title="<?php echo $followup['reltothisFowupCount']; ?> Beziehungen"><?php echo $followup['reltothisFowupCount']; ?></span>
+                <?php $hlvl = array("Fußnote","Fließtext","Überschrift 1","Überschrift 2","Überschrift 3","Überschrift 4", "Überschrift 5"); ?>
+                <?=$this->form;?>
 
-                 <?php
-                    else:
-                    echo $this->Popuplink( $this->url(array('action' => 'show-related-snippets','fid' => $followup['fid'] )), 
-                                            'Followup_Referenzen_zuweisen', 
-                                            800, 
-                                            600, 
-                                            $followup['reltothisFowupCount'], 
-                                            $followup['reltothisFowupCount'].' Beziehungen' , 
-                                            'fowup-related-link'); 
-                    endif; ?>
-                </td>
+                <h2>Übersicht der Follow-up-Dokumente</h2>
+                <div id="ajaxcontent" class="followup">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <?php if($this->movefollowup && $this->movefollowup['docorg'] != 1): ?>
+                                        <a href="<?php echo $this->url(array(
+                                            'module' => 'admin',
+                                            'controller' => 'followup',
+                                            'action' => 'move',
+                                            'kid' => $this->consultation['kid'],
+                                            'ffid' => $this->ffid,
+                                            'movefid' => $this->movefollowup['fid'],
+                                            'prev' => 0
+                                        ),null,true);?>">Hier einfügen</a>
+                                    <?php endif; ?>
+                                    <a class="openajaxformnew" href="<?php echo $this->url(array(
+                                        'action' => 'create-snippet',
+                                        'kid' => $this->consultation['kid'],
+                                        'ffid' => $this->ffid,
+                                        'prev' => 0
+                                    ));?>">Neu</a>
+                                    <div class="ajaxform" id="ajaxformprev-0"></div>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div></div>
 
-            </tr>
-            <tr style="background:#888;color:#fff;">
-                <td colspan="3">
-                    <?php if ($followup['hlvl'] > 1): ?>
-                    <a class="hlvlarrow" href="<?php echo $this->url(array(
-                            'action' => 'hierarchy',
-                            'kid' => $this->consultation['kid'],
-                            'fid' => $followup['fid'],
-                            'ffid' => $this->ffid,
-                            'hlvl' => $followup['hlvl'] - 1
-                              ));?>" title="Level down">&#x25C0;</a>
-                    <?php endif; ?>
-                      <?php if($followup['hlvl'] < 6): ?>
-                    <a class="hlvlarrow" href="<?php echo $this->url(array(
-                            'action' => 'hierarchy',
-                            'kid' => $this->consultation['kid'],
-                            'fid' => $followup['fid'],
-                            'ffid' => $this->ffid,
-                            'hlvl' => $followup['hlvl'] + 1
-                              ));?>" title="Level up">&#x25B6;</a>&nbsp;
-                    <?php endif; ?>
-                    Hierarchy Level: <?php echo $hlvl[$followup['hlvl']]; ?> &nbsp;&bull;&nbsp;
-                    <!--Likes / Unlikes: <?php echo $followup['lkyea']; ?> / <?php echo $followup['lknay']; ?> &nbsp;&bull;&nbsp;-->
-                    Typ: <?php $typ = array('g' => 'general', 's'=>'supporting', 'a'=>'action','r'=>'rejected','e'=>'end'); echo $typ[$followup['typ']]; ?> 
-                    
-                </td>
-                <td colspan="1" align="right">
-                    <?php if($i !== 0): ?>
-                        <a class="movefowup" href="<?php echo $this->url(array(
-                                'module' => 'admin',
-                                'controller' => 'followup',
-                                'action' => 'move',
-                                'kid' => $this->consultation['kid'],
-                                'fid' => $followup['fid'],
-                                'ffid' => $this->ffid,
-                                'moveto' => $followup['docorg'] - 1
-                                ),null, true);?>" title="Nach oben verschieben">&#x25b2;</a>
-                    <?php endif; ?>                   
-                    <?php if($i < count($this->followups)-1): ?>
-                        <a class="movefowup" href="<?php echo $this->url(array(
-                                'module' => 'admin',
-                                'controller' => 'followup',
-                                'action' => 'move',
-                                'kid' => $this->consultation['kid'],
-                                'fid' => $followup['fid'],
-                                'ffid' => $this->ffid,
-                                'moveto' => $followup['docorg'] + 1
-                                ),null, true);?>" title="Nach unten verschieben">&#x25bc;</a>
-                    <?php endif; ?>                   
-                </td>
-                
-            </tr> 
-            <tr>
-                <td style="padding:0" colspan="4">
-                     <div id="ajaxform-<?php echo $followup['fid']; ?>" class="ajaxform"></div>
-                </td>
-            </tr>
-            </tbody>
-            </table>
-           
-<table style="width: 100%">
-    <tbody>
-            <tr>
-                <th colspan="4">
-                <?php if($this->movefollowup && $this->movefollowup['fid'] != $followup['fid'] && $followup['docorg'] != $this->movefollowup['docorg']-1): ?>
-                    <a href="<?php echo $this->url(array(
-                              'module' => 'admin',
-                              'controller' => 'followup',
-                              'action' => 'move',
-                              'kid' => $this->consultation['kid'],
-                              'ffid' => $this->ffid,
-                              'movefid' => $this->movefollowup['fid'],
-                              'prev' => $followup['docorg']
-                                ),null,true);?>">Hier einfügen</a>
-                <?php endif; ?>
-                    <a class="openajaxformnew" href="<?php echo $this->url(array(
-                              'module' => 'admin',
-                              'controller' => 'followup',
-                              'action' => 'create-snippet',
-                              'kid' => $this->consultation['kid'],
-                              'ffid' => $this->ffid,
-                              'prev' => $followup['docorg']
-                                ),null,true);?>">Neu</a>
-                    
-         
-                        <div class="ajaxform" id="ajaxformprev-<?php echo $followup['docorg']; ?>"></div>
-                </th>
-            </tr>
-</tbody></table>
-        <?php 
-        $i++;
-        endforeach; ?>        
-    </tbody>
-</table>
-<!--uniqueEditFowupEND-->
-</div>
+                    <?php $i = 0; ?>
+                    <?php foreach ($this->followups as $followup): ?>
+                        <?php
+                        $marg = $followup['hlvl'] > 1 ? $followup['hlvl'] * 3 : 0;
+                        $width = 100 - $marg;
+                        $style = "margin-left:$marg%;width:$width%;";
+                        if ($followup['fid'] == $this->movefollowup['fid']) $style.="background:#bbb;";
+                        ?>
+                        <table style="<?php echo $style; ?>border:2px solid #888888;">
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align:top;width:30px;">
+                                        <?php
+                                        $popupurl = $this->url(array(
+                                            'action' => 'reference',
+                                            'kid' => $this->consultation['kid'],
+                                            'fid' => $followup['fid'],
+                                            'ffid' => $this->ffid
+                                        ));
+                                        echo $this->Popuplink( $popupurl,
+                                            'Followup_Referenzen_zuweisen',
+                                            800,
+                                            600,
+                                            $followup['relFowupCount'],
+                                            'Referenzen bearbeiten' ,
+                                            'fowup-related-link'); ?>
+                                    </td>
+                                    <td style="width:60%;">
+                                        <?php
+                                        if (strlen (html_entity_decode($followup['expl'])) > 400 )
+                                            echo substr(html_entity_decode($followup['expl']), 0, 400).'...';
+                                        else echo html_entity_decode($followup['expl']);
+                                        ?>
+                                    </td>
+                                    <!--<td><?php echo $followup['lkyea']; ?> / <?php echo $followup['lknay']; ?></td>-->
+                                    <td style="text-align: right;"><a class="openajaxform" rel="<?php echo $followup['fid']; ?>" href="<?php echo $this->url(array(
+                                            'action' => 'edit-snippet',
+                                            'kid' => $this->consultation['kid'],
+                                            'fid' => $followup['fid'],
+                                            'ffid' => $this->ffid
+                                        ));?>" title="Follow-up bearbeiten">Bearbeiten</a>
+
+                                        <!--<a href="<?php echo $this->url(array(
+                                            'module' => 'admin',
+                                            'controller' => 'followup',
+                                            'action' => 'move',
+                                            'kid' => $this->consultation['kid'],
+                                            'fid' => $followup['fid'],
+                                            'ffid' => $this->ffid
+                                        ),null, true);?>" title="Artikel löschen">Verschieben</a>-->
+
+                                        <a href="<?php echo $this->url(array(
+                                            'action' => 'delete-snippet',
+                                            'kid' => $this->consultation['kid'],
+                                            'fid' => $followup['fid'],
+                                            'ffid' => $this->ffid
+                                        ));?>" title="Follow-up löschen">Löschen</a>
+
+                                    </td>
+                                    <td style="vertical-align:top;width:30px;">
+                                        <?php if (!$followup['reltothisFowupCount']): ?>
+
+                                            <span class="fowup-related-link" title="<?php echo $followup['reltothisFowupCount']; ?> Beziehungen"><?php echo $followup['reltothisFowupCount']; ?></span>
+
+                                        <?php
+                                        else:
+                                            echo $this->Popuplink( $this->url(array('action' => 'show-related-snippets','fid' => $followup['fid'] )),
+                                                'Followup_Referenzen_zuweisen',
+                                                800,
+                                                600,
+                                                $followup['reltothisFowupCount'],
+                                                $followup['reltothisFowupCount'].' Beziehungen' ,
+                                                'fowup-related-link');
+                                        endif; ?>
+                                    </td>
+
+                                </tr>
+                                <tr style="background:#888;color:#fff;">
+                                    <td colspan="3">
+                                        <?php if ($followup['hlvl'] > 1): ?>
+                                            <a class="hlvlarrow" href="<?php echo $this->url(array(
+                                                'action' => 'hierarchy',
+                                                'kid' => $this->consultation['kid'],
+                                                'fid' => $followup['fid'],
+                                                'ffid' => $this->ffid,
+                                                'hlvl' => $followup['hlvl'] - 1
+                                            ));?>" title="Level down">&#x25C0;</a>
+                                        <?php endif; ?>
+                                        <?php if($followup['hlvl'] < 6): ?>
+                                            <a class="hlvlarrow" href="<?php echo $this->url(array(
+                                                'action' => 'hierarchy',
+                                                'kid' => $this->consultation['kid'],
+                                                'fid' => $followup['fid'],
+                                                'ffid' => $this->ffid,
+                                                'hlvl' => $followup['hlvl'] + 1
+                                            ));?>" title="Level up">&#x25B6;</a>&nbsp;
+                                        <?php endif; ?>
+                                        Hierarchy Level: <?php echo $hlvl[$followup['hlvl']]; ?> &nbsp;&bull;&nbsp;
+                                        <!--Likes / Unlikes: <?php echo $followup['lkyea']; ?> / <?php echo $followup['lknay']; ?> &nbsp;&bull;&nbsp;-->
+                                        Typ: <?php $typ = array('g' => 'general', 's'=>'supporting', 'a'=>'action','r'=>'rejected','e'=>'end'); echo $typ[$followup['typ']]; ?>
+
+                                    </td>
+                                    <td colspan="1" align="right">
+                                        <?php if($i !== 0): ?>
+                                            <a class="movefowup" href="<?php echo $this->url(array(
+                                                'module' => 'admin',
+                                                'controller' => 'followup',
+                                                'action' => 'move',
+                                                'kid' => $this->consultation['kid'],
+                                                'fid' => $followup['fid'],
+                                                'ffid' => $this->ffid,
+                                                'moveto' => $followup['docorg'] - 1
+                                            ),null, true);?>" title="Nach oben verschieben">&#x25b2;</a>
+                                        <?php endif; ?>
+                                        <?php if($i < count($this->followups)-1): ?>
+                                            <a class="movefowup" href="<?php echo $this->url(array(
+                                                'module' => 'admin',
+                                                'controller' => 'followup',
+                                                'action' => 'move',
+                                                'kid' => $this->consultation['kid'],
+                                                'fid' => $followup['fid'],
+                                                'ffid' => $this->ffid,
+                                                'moveto' => $followup['docorg'] + 1
+                                            ),null, true);?>" title="Nach unten verschieben">&#x25bc;</a>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:0" colspan="4">
+                                        <div id="ajaxform-<?php echo $followup['fid']; ?>" class="ajaxform"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th colspan="4">
+                                        <?php if($this->movefollowup && $this->movefollowup['fid'] != $followup['fid'] && $followup['docorg'] != $this->movefollowup['docorg']-1): ?>
+                                            <a href="<?php echo $this->url(array(
+                                                'module' => 'admin',
+                                                'controller' => 'followup',
+                                                'action' => 'move',
+                                                'kid' => $this->consultation['kid'],
+                                                'ffid' => $this->ffid,
+                                                'movefid' => $this->movefollowup['fid'],
+                                                'prev' => $followup['docorg']
+                                            ),null,true);?>">Hier einfügen</a>
+                                        <?php endif; ?>
+                                        <a class="openajaxformnew" href="<?php echo $this->url(array(
+                                            'module' => 'admin',
+                                            'controller' => 'followup',
+                                            'action' => 'create-snippet',
+                                            'kid' => $this->consultation['kid'],
+                                            'ffid' => $this->ffid,
+                                            'prev' => $followup['docorg']
+                                        ),null,true);?>">Neu</a>
+
+                                        <div class="ajaxform" id="ajaxformprev-<?php echo $followup['docorg']; ?>"></div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

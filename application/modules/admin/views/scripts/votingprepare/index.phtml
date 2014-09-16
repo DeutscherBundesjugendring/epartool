@@ -1,8 +1,33 @@
-<h1>Abstimmung vorbereiten: <?php echo $this -> consultation['titl']; ?></h1>
-<?php
-echo $this -> consultationNavigation('Votingprepare');
-?>
-<h2>Beiträge nach Fragen:</h2>
-<ul>
-<?php echo $this ->partialLoop('_partials/votingprepare/questions.phtml', $this -> consultation['questions']); ?>
-</ul>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Voting Preparation</h2>
+
+                <h3>Beiträge nach Fragen:</h3>
+                <ul>
+                    <?=$this->partialLoop('_partials/votingprepare/questions.phtml', $this->consultation['questions']);?>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

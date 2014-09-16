@@ -106,9 +106,8 @@ class Admin_UserController extends Zend_Controller_Action
                             $form->getElement('transfer_' . $consultation["kid"])->setMultioptions($transferOptions);
                             $form
                                 ->getElement('transfer_' . $consultation["kid"])
-                                ->getDecorator('Label')
-                                ->setOption('escape', false);
-
+                                ->getDecorator('BootstrapStandard')
+                                ->setOption('escapeLabel', false);
                         }
                     }
                     if ($this->getRequest()->isPost()) {

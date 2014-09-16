@@ -1,5 +1,5 @@
 <?php
-class Admin_Form_Directory extends Zend_Form
+class Admin_Form_Directory extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Directory.ini';
     /**

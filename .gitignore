@@ -8,6 +8,7 @@
 /.tmp
 /www/css/dbjr.css
 /www/css/dbjr.min.css
+/www/css/admin.css
 /www/css/bootstrap.min.css
 /www/js/jquery.ui.min.js
 /www/js/bootstrap.min.js

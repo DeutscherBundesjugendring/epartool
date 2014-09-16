@@ -1,12 +1,14 @@
 <?php
 
-class Admin_Form_Mail_Template extends Zend_Form
+class Admin_Form_Mail_Template extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Mail/Template.ini';
 
     public function init()
     {
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $this
+            ->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile))
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/mail-template']);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_mailtemplate', array('salt' => 'unique'));

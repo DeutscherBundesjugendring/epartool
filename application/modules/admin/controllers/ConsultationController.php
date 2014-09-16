@@ -5,10 +5,10 @@
  * @desc     administrationareas
  * @author                Markus Hackel
  */
+
 class Admin_ConsultationController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
-
     protected $_consultation = null;
 
     /**
@@ -35,10 +35,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->_helper->viewRenderer->setNoRender(true);
-        if (isset($this->_consultation)) {
-            $this->_redirect('/admin/votingprepare/index/kid/' . $this->_consultation->kid);
-        }
+
     }
 
     /**

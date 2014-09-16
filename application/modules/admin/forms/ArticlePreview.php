@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_ArticlePreview extends Zend_Form
+class Admin_Form_ArticlePreview extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/ArticlePreview.ini';
 

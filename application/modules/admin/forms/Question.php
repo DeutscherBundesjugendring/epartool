@@ -5,7 +5,7 @@
  * @description     Form of question
  * @author                Markus Hackel
  */
-class Admin_Form_Question extends Zend_Form
+class Admin_Form_Question extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Question.ini';
     /**
@@ -14,7 +14,6 @@ class Admin_Form_Question extends Zend_Form
      */
     public function init()
     {
-        $this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
         // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 

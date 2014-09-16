@@ -1,16 +1,19 @@
-<?php
-/**
- * create
- *
- * @description   Benutzer erstellen Formularansicht
- * @author        Jan Suchandt
- */
-?>
-<h2>Neuen Benutzer erstellen</h2>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/user/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
-</p>
-<?php echo $this->form;?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/user/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
-</p>
+<section class="section-header">
+    <div class="container">
+        <h1><?=$this->translate('New User');?></h1>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+
+        <p class="back-link">
+            <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Users');?></a>
+        </p>
+        <?=$this->form;?>
+        <p>
+            <?=$this->translate('or');?>
+            <a href="<?=$this->url(array('action' => 'index'));?>"><?=$this->translate('Cancel');?></a>
+        </p>
+
+    </div>
+</section>

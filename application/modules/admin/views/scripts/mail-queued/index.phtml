@@ -1,21 +1,51 @@
-<h1>Queued Emails</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Email');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+            </div>
+        </div>
+        <?=$this->emailTabs('emailing');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
 
-<table>
-    <tr>
-        <th>Time Queued</th>
-        <th>Subject</th>
-    </tr>
+                <?=$this->emailNavigation('queued');?>
 
-    <?php foreach ($this->emails as $email): ?>
-        <tr>
-            <td>
-                <?php
-                    $zendDate = new Zend_Date($email->time_queued);
-                    echo($zendDate->get(Zend_Date::DATETIME_MEDIUM));
-                ?>
-            </td>
-            </td>
-            <td><?php echo $email->subject?></td>
-        </tr>
-    <?php endforeach;?>
-</table>
+            </div>
+            <div class="col-md-9">
+
+                <h2><?=$this->translate('Queued Emails');?></h2>
+
+                <table class="table" data-view="table">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Queued');?></th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->emails as $email): ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    $zendDate = new Zend_Date($email->time_queued);
+                                    echo $zendDate->get(Zend_Date::DATETIME_MEDIUM);
+                                    ?>
+                                </td>
+                                <td><?=$email->subject;?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

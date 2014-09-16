@@ -5,7 +5,7 @@
  * @description     Form new email to send
  * @author                Jan Suchandt
  */
-class Admin_Form_Mail_Send extends Zend_Form
+class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Mail/Send.ini';
 

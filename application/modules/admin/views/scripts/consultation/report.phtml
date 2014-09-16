@@ -1,75 +1,88 @@
-<?php
-/**
- * statistical Report
- */
-?>
-<h1><?php echo !empty($this->consultation) ? $this->consultation->titl : 'Übersicht'; ?></h1>
-<?php
-echo $this->consultationNavigation('Statistik');
-?>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<h2>Statistischer Bericht</h2>
-<p>
-  <b><a href="<?php echo $this->url(array(
-    'controller' => 'input',
-    'action' => 'userlist'
-  )); ?>" title="Alle Beitragende ansehen">Anzahl Beitragende im Konsultationszeitraum: <?php echo $this->nrParticipants; ?></a></b>
-  <br/>(absolute Anzahl der Einzelpersonen und Organisationen/Träger, auch wenn sie evtl. mehrere Projekte eingetragen haben)
-</p>
-<p>
-  <b>Alle Beiträge im Konsultationszeitraum: <?php echo $this->nrInputs; ?></b>
-  <br/>&raquo; davon von den Beitragendenden bestätigte: <?php echo $this->nrInputsConfirmed; ?>
-  <br/>&raquo; davon unbestätigte oder anonyme: <?php echo $this->nrInputsUnconfirmed; ?>
-  <br/>&raquo; von der Redaktion geblockte: <?php echo $this->nrInputsBlocked; ?>
-</p>
-<p>
-  <b>Zur Abstimmung gestellte Beiträge: <?php echo $this->nrInputsVoting; ?></b>
-  <br />(tw. durch die Redaktion zusammengefasst aus inhaltlich überschneidenden Beiträgen)
-</p>
+        <h1><?=$this->consultation->titl;?></h1>
+        <h2><?=$this->consultation->titl_sub;?></h2>
 
-<hr />
+        <?=$this->consultationTabs($this->consultation->kid, 'consultation');?>
 
-<?php foreach ($this->questions as $question): ?>
-<p>
-  <b><a href="<?php echo $this->url(array(
-    'controller' => 'input',
-    'action' => 'index',
-    'qid' => $question['qi']
-  )); ?>" title="Beiträge sichten"><?php echo $question['nr']; ?> <?php echo $question['q']; ?></a></b>
-  <br />Anzahl Beiträge: <?php echo $question['nrInputsConfirmed']; ?> (nur bestätigte)
-  <br />Zur Abstimmung gestellt: <?php echo $question['nrInputsVoting']; ?> (tw. durch die Redaktion bearbeitet)
-</p>
-<?php endforeach; ?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="col-md-3">
 
-<hr />
+            <?=$this->consultationNavigation($this->consultation['kid'], 'stats');?>
 
-<p><a href="<?php echo $this->url(array(
-  'controller' => 'voting',
-  'action' => 'participants'
-)); ?>" title="Übersicht über Abstimmungsteilnehmende"><b>Anzahl abgegebener Stimmen: <?php echo $this->votingCountIndiv; ?></b></a>
-<br/>(ohne Berücksichtigung unterschiedlicher Stimmengewichte)
-</p>
+        </div>
+        <div class="col-md-9">
 
-<p><a href="<?php echo $this->url(array(
-  'controller' => 'voting',
-  'action' => 'index'
-)); ?>" title="Übersicht über abstimmungsberechtigte Einzelpersonen und Gruppen">
-<b>Übersicht über abstimmungsberechtigte Gruppen</b></a></p>
-<table>
-<?php foreach ($this->weightCounts as $weight): ?>
-  <tr>
-    <th scope="row"><?php switch ($weight['vt_weight']) {
-      case 0:
-        echo 'Testzugänge:';
-        break;
-      case 1:
-        echo 'Einzelpersonen:';
-        break;
-      default:
-        echo 'Gruppenstimmgewicht '.$weight["vt_weight"].':';
-        break;
-    }?></th>
-    <td><?php echo $weight['weight_count']; ?></td>
-  </tr>
-<?php endforeach; ?>
-</table>
+            <h2><?=$this->translate('Statistics');?></h2>
+            <p>
+                <b><a href="<?php echo $this->url(array(
+                        'controller' => 'input',
+                        'action' => 'userlist'
+                    )); ?>" title="Alle Beitragende ansehen">Anzahl Beitragende im Konsultationszeitraum: <?php echo $this->nrParticipants; ?></a></b>
+                <br/>(absolute Anzahl der Einzelpersonen und Organisationen/Träger, auch wenn sie evtl. mehrere Projekte eingetragen haben)
+            </p>
+            <p>
+                <b>Alle Beiträge im Konsultationszeitraum: <?php echo $this->nrInputs; ?></b>
+                <br/>&raquo; davon von den Beitragendenden bestätigte: <?php echo $this->nrInputsConfirmed; ?>
+                <br/>&raquo; davon unbestätigte oder anonyme: <?php echo $this->nrInputsUnconfirmed; ?>
+                <br/>&raquo; von der Redaktion geblockte: <?php echo $this->nrInputsBlocked; ?>
+            </p>
+            <p>
+                <b>Zur Abstimmung gestellte Beiträge: <?php echo $this->nrInputsVoting; ?></b>
+                <br />(tw. durch die Redaktion zusammengefasst aus inhaltlich überschneidenden Beiträgen)
+            </p>
+
+            <hr />
+
+            <?php foreach ($this->questions as $question): ?>
+                <p>
+                    <b><a href="<?php echo $this->url(array(
+                            'controller' => 'input',
+                            'action' => 'index',
+                            'qid' => $question['qi']
+                        )); ?>" title="Beiträge sichten"><?php echo $question['nr']; ?> <?php echo $question['q']; ?></a></b>
+                    <br />Anzahl Beiträge: <?php echo $question['nrInputsConfirmed']; ?> (nur bestätigte)
+                    <br />Zur Abstimmung gestellt: <?php echo $question['nrInputsVoting']; ?> (tw. durch die Redaktion bearbeitet)
+                </p>
+            <?php endforeach; ?>
+
+            <hr />
+
+            <p><a href="<?php echo $this->url(array(
+                    'controller' => 'voting',
+                    'action' => 'participants'
+                )); ?>" title="Übersicht über Abstimmungsteilnehmende"><b>Anzahl abgegebener Stimmen: <?php echo $this->votingCountIndiv; ?></b></a>
+                <br/>(ohne Berücksichtigung unterschiedlicher Stimmengewichte)
+            </p>
+
+            <p><a href="<?php echo $this->url(array(
+                    'controller' => 'voting',
+                    'action' => 'index'
+                )); ?>" title="Übersicht über abstimmungsberechtigte Einzelpersonen und Gruppen">
+                    <b>Übersicht über abstimmungsberechtigte Gruppen</b></a></p>
+            <table>
+                <?php foreach ($this->weightCounts as $weight): ?>
+                    <tr>
+                        <th scope="row"><?php switch ($weight['vt_weight']) {
+                                case 0:
+                                    echo 'Testzugänge:';
+                                    break;
+                                case 1:
+                                    echo 'Einzelpersonen:';
+                                    break;
+                                default:
+                                    echo 'Gruppenstimmgewicht '.$weight["vt_weight"].':';
+                                    break;
+                            }?></th>
+                        <td><?php echo $weight['weight_count']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
+        </div>
+    </div>
+</section>

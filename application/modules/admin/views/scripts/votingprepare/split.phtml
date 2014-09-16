@@ -1,3 +1,48 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>Abstimmung vorbereiten</h2>
+
+                <h2>Beitrag aufteilen </h2>
+                <div class="input-list c50l">
+                    <h3>Originalbeitrag:</h3>
+                    <form id="thesis-form" method="post">
+                        <ul>
+                            <?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs); ?>
+                        </ul>
+                    </form>
+                </div>
+
+                <div class="input-list c50l">
+                    <h3>Neue Beiträge</h3>
+                    <div id="ajx"></div>
+                    <a class="plus" title="Klicken um Formular anzuzeigen">+ Beitrag hinzufügen</a>
+                    <?php echo $this->form; ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO fuck off -->
 <?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js'); ?>
 
 <script type="text/javascript">
@@ -27,14 +72,14 @@
         $("form#input").submit(function() {
             $('a.plus').show();
             var inputVal = $('#thes').val();
-             if(inputVal == ''){
-                 $('#thes-label label').append('<span style="color: red;"> Bitte dieses Feld ausfüllen!</span>');
-                 alert ('Bitte das Feld Beitrag ausfüllen!');
-             } else {
+            if(inputVal == ''){
+                $('#thes-label label').append('<span style="color: red;"> Bitte dieses Feld ausfüllen!</span>');
+                alert ('Bitte das Feld Beitrag ausfüllen!');
+            } else {
                 var data = $("form#input :input").serialize();
                 $.ajax({
                     type: "POST",
-                       url: "/admin/votingprepare/splitresponse/<?php echo $this->getParams ?>",
+                    url: "/admin/votingprepare/splitresponse/<?php echo $this->getParams ?>",
                     data: data,
                     cache: false,
                     async: "true",
@@ -61,9 +106,9 @@
         });
 
 
-            $(document).on("click","a.plus", function (event) {
-                event.preventDefault();
-                $('form#input').show('blind', '', 900);
+        $(document).on("click","a.plus", function (event) {
+            event.preventDefault();
+            $('form#input').show('blind', '', 900);
             $.ajax({
                 url: "/admin/votingprepare/getnewhash/<?php echo $this->getParams ?>",
                 type: "POST",
@@ -154,26 +199,3 @@
 
     });
 </script>
-
-
-<h1>Abstimmung vorbereiten: <?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Votingprepare'); ?>
-
-<h2>Beitrag aufteilen </h2>
-<div class="input-list c50l">
-    <h3>Originalbeitrag:</h3>
-    <form id="thesis-form" method="post">
-        <ul>
-            <?php foreach($this->inputs as $input): ?>
-                <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input, 'kid' => $this->consultation['kid']])?>
-            <?php endforeach?>
-        </ul>
-    </form>
-</div>
-
-<div class="input-list c50l">
-    <h3>Neue Beiträge</h3>
-    <div id="ajx"></div>
-    <a class="plus" title="Klicken um Formular anzuzeigen">+ Beitrag hinzufügen</a>
-    <?php echo $this->form; ?>
-</div>

@@ -1,8 +1,6 @@
 
 <h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Ordnerverwaltung');
-?>
+<?=$this->consultationNavigation($this->consultation['kid'], 'Ordnerverwaltung')?>
 <h2>Viruelle Ordner</h2>
 <div class="c33l pad5r">
 <h3>Ordner anlegen</h3>
@@ -24,7 +22,7 @@ echo $this->consultationNavigation('Ordnerverwaltung');
 			<a href="'.$this->baseUrl().'/admin/directories/delete/dir/'.$dir['id'].'/kid/'.$this->consultation['kid'].'" class="delete"  title="Ordner löschen?" onclick="return confirm(\'Diesen Ordner (' . $dir['dir_name'] . ') löschen?\');">Ordner löschen</a>
 			</li>';
 		}
-	}	
+	}
 ?>
 </ul>
 </div>

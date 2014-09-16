@@ -1,19 +1,41 @@
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Beiträge')?>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<p>
-    <a href="<?php echo $this->url(array('action' => 'index')); ?>">Beiträge nach Fragen &raquo;</a>
-</p>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
-<h2>Alle Teilnehmenden zu „<?php echo $this->consultation['titl_short']; ?>“</h2>
-<ol>
-    <?php foreach ($this->users as $user): ?>
-        <li>
-            <a href="<?php echo $this->baseUrl()?>/admin/input/list/kid/<?php echo $this->consultation['kid']?>/uid/<?php echo $user->uid?>">
-                <?php echo $user->name?>&nbsp;·&nbsp;<?php echo $user->email?>&nbsp;<?php echo $user->uid?>
-            </a>
-            <a href="mailto:<?php echo $user->email;?>" title="Mail in externem Programm schreiben">
-                <img src="<?php echo $this->baseUrl(); ?>/images/mail.gif" alt="E-Mail" />
-            </a>
-    <?php endforeach;?>
-</ol>
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <p>
+                    <a href="<?php echo $this->url(array('action' => 'index')); ?>">Beiträge nach Fragen &raquo;</a>
+                </p>
+                <h2>Alle Teilnehmenden zu „<?php echo $this->consultation['titl_short']; ?>“</h2>
+                <ol>
+                    <?php foreach ($this->users as $user): ?>
+                        <li>
+                            <a href="<?php echo $this->baseUrl()?>/admin/input/list/kid/<?php echo $this->consultation['kid']?>/uid/<?php echo $user->uid?>">
+                                <?php echo $user->name?>&nbsp;·&nbsp;<?php echo $user->email?>&nbsp;<?php echo $user->uid?>
+                            </a>
+                            <a href="mailto:<?php echo $user->email;?>" title="Mail in externem Programm schreiben">
+                                <img src="<?php echo $this->baseUrl(); ?>/images/mail.gif" alt="E-Mail" />
+                            </a>
+                        </li>
+                    <?php endforeach;?>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,30 +1,52 @@
-<h1><?php echo !$this->templateId ? 'Insert' : 'Edit'?> email template</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Email');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+            </div>
+        </div>
+        <?=$this->emailTabs('settings');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
 
-<a href="<?php echo $this->baseUrl(); ?>/admin/mail-template">
-    &laquo; Zur&uuml;ck zur &Uuml;bersicht
-</a>
+                <?=$this->emailSettingsNavigation('templates');?>
 
-<?php echo $this->form;?>
+            </div>
+            <div class="col-sm-9">
 
-<h3>Placeholders</h3>
-<dl>
-    <?php foreach ($this->placeholders as $placeholder): ?>
-        <dt>{{<?php echo $placeholder->name?>}}</dt>
-        <dd><?php echo $placeholder->description?></dd>
-    <?php endforeach?>
-</dl>
+                <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Template');?></h2>
+                <p class="back-link">
+                    <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template">&larr; <?=$this->translate('Back to Email Templates');?></a>
+                </p>
+                <?php echo $this->form;?>
 
-<h3>Components</h3>
-<dl>
-    <?php foreach ($this->components as $component): ?>
-        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
-        <dd><?php echo $component->description?></dd>
-    <?php endforeach?>
-</dl>
+                <h3><?=$this->translate('Placeholders');?></h3>
+                <dl>
+                    <?php foreach ($this->placeholders as $placeholder): ?>
+                        <dt>{{<?php echo $placeholder->name?>}}</dt>
+                        <dd><?php echo $placeholder->description?></dd>
+                    <?php endforeach?>
+                </dl>
 
-<a href="<?php echo $this->baseUrl(); ?>/admin/mail-template">
-    &laquo; Zur&uuml;ck zur &Uuml;bersicht
-</a>
+                <h3>Components</h3>
+                <dl>
+                    <?php foreach ($this->components as $component): ?>
+                        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
+                        <dd><?php echo $component->description?></dd>
+                    <?php endforeach?>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+</section>
 
 <script type="text/javascript">
     CKEDITOR.replace('body_html', {

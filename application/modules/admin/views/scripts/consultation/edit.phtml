@@ -1,23 +1,45 @@
-<?php
-/**
- * index
- *
- * @description   consultation edit form
- * @author        Markus Hackel
- */
-?>
-<h1><?php echo $this->consultation->titl; ?></h1>
-<?php
-echo $this->consultationNavigation('Grundeinstellungen');
-?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
-<?php echo $this->form?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation->titl;?></h1>
+        <h2><?=$this->consultation->titl_sub;?></h2>
+
+        <?=$this->consultationTabs($this->consultation->kid, 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationEditNavigation($this->consultation->kid, 'settings');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <?php if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
+                    <!-- TODO change link to POST form button -->
+                    <a href="<?=$this->url(array('action' => 'delete', $this->consultation->kid));?>" class="pull-right">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        <?=$this->translate('Delete Consultation');?>
+                    </a>
+                <?php endif; ?>
+
+                <h2><?=$this->translate('Consultation Settings');?></h2>
+                <?=$this->form?>
+                <p>
+                    <?=$this->translate('or');?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation->kid));?>"><?=$this->translate('Cancel');?></a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO move to JS -->
 <script>
-    CKEDITOR.replace( 'expl' );
-    CKEDITOR.replace( 'vot_expl' );
+    CKEDITOR.replace('expl');
+    CKEDITOR.replace('vot_expl');
 </script>

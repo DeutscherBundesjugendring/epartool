@@ -5,7 +5,7 @@
  * @description     Form for User Edit
  * @author                Jan Suchandt
  */
-class Admin_Form_Voting_Participantedit extends Zend_Form
+class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Voting/Participantedit.ini';
     /**
@@ -14,10 +14,9 @@ class Admin_Form_Voting_Participantedit extends Zend_Form
      */
     public function init()
     {
-		$this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
         // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-		
+
 
 
         // CSRF Protection

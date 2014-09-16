@@ -5,7 +5,7 @@
  * @description     Form of consultation
  * @author                Markus Hackel
  */
-class Admin_Form_Consultation extends Zend_Form
+class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Consultation.ini';
     /**
@@ -14,9 +14,9 @@ class Admin_Form_Consultation extends Zend_Form
      */
     public function init()
     {
-        $this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $this
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin'])
+            ->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 
         $consultationModel = new Model_Consultations();
         $lastId = $consultationModel->getLastId();
