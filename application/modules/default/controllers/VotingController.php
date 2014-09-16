@@ -456,7 +456,7 @@ class VotingController extends Zend_Controller_Action
                    $this->_flashMessenger->addMessage('Such contribution does not exist!', 'error');
                    $this->redirect('/voting/vote/kid/' . $this->_consultation->kid );
               }else {
-                      $$votingIndividualModel->deleteParticularImportantVote($uid,$subUid, $tid);
+                    $votingIndividualModel->deleteParticularImportantVote($uid,$subUid, $tid);
               }
 
         }
