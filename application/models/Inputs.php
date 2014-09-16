@@ -1020,6 +1020,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         # default select #
         $select = $this
             ->select()
+            ->setIntegrityCheck(false)
             ->from(['inputs' => 'inpt'])
             ->join(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
