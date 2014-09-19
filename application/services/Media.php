@@ -183,6 +183,7 @@ class Service_Media
 
     /**
      * Renames or moves a file in folders
+     * Renaming or moving consultation files is not supported.
      * @param  integer $oldName      The old folder name
      * @param  string  $newName      The new folder name
      * @param  string  $folderName   The name of the folder where the file is
