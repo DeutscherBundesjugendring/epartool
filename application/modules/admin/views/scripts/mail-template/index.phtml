@@ -28,7 +28,7 @@
                 <h2><?=$this->translate('Email Templates');?></h2>
 
                 <form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
-                    <?=$this->form->getElement('email_list_control_csrf_token')?>
+                    <?=$this->form->getElement('list_control_csrf_token')?>
                     <table class="table" data-view="table">
                         <thead>
                             <tr>

@@ -1,17 +1,17 @@
 <?php
-/**
- * Consultation
- *
- * @description     Form of consultation
- * @author                Markus Hackel
- */
+
 class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Consultation.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+    private $_kid;
+
+
+    public function setKid($kid)
+    {
+        $this->_kid = $kid;
+        return $this;
+    }
+
     public function init()
     {
         $this
@@ -39,6 +39,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->getElement('follup_show')->setUncheckedValue('n');
         $this->getElement('public')->setCheckedValue('y');
         $this->getElement('public')->setUncheckedValue('n');
+
+        $this->getElement('img_file')->setKid($this->_kid);
 
         $options = array(
                 0 => 'keiner ausgewählt'

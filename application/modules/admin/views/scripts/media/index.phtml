@@ -5,7 +5,7 @@
                 <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+                <a href="<?=$this->url(array('action' => 'upload', 'targetElId' => $this->targetElId));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
             </div>
         </div>
     </div>
@@ -19,53 +19,34 @@
 
             </div>
             <div class="col-md-9">
-
-                <?php
-                $gfx_test = array("jpg", "jpeg", "gif", "png", "svg");
-                $doc_test = array("doc", "docx", "dot", "dotx", "odt", "ott", "rtf", "txt");
-                $clc_test = array("xls", "xlsx", "xlst", "ods", "ots", "csv");
-                $vid_test = array("avi", "divx", "flv", "mkv", "mov", "mpg", "mp4", "mp4v", "m4v", "ogv", "webm", "wmv", "3gp", "3g2");
-                $aud_test = array("aac", "au", "flac", "mid", "mka", "mp3", "m4a", "m4b", "ogg", "snd", "wav", "wma");
-                $prs_test = array("ppt", "pptx", "odp", "otp");
-                $pdf_test = array("pdf", "epub", "mobi");
-                $pck_test = array("zip", "rar", "tar", "7z");
-                ?>
-
-                <h2><?=$this->translate('All Media');?></h2>
+                <h2><?=$this->title;?></h2>
 
                 <?php if (!empty($this->files)): ?>
                     <div class="row">
                         <?php foreach ($this->files as $file):?>
                             <div class="col-xs-6 col-sm-4 col-lg-3">
                                 <div class="thumbnail">
-                                    <a href="<?=$this->directory?>/<?=$file['basename']?>" target="_blank" title="<?=$file['basename'];?>">
+                                    <a
+                                        <?=$this->targetElId
+                                            ? 'onclick="mediaSelectPopup.insertValue(
+                                                \'' . substr($file['dirname'], strlen(MEDIA_PATH)) . '/' . $file['basename'] . '\',
+                                                \'' . $this->targetElId . '\',
+                                                \'' . $this->baseUrl . '/media\'
+                                            )"'
+                                            : 'href="' . $this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]) . '/"';
+                                        ?>
+                                        title="<?=$file['basename'];?>"
+                                    >
                                         <div class="thumbnail-image">
-                                            <?php if (in_array(strtolower($file['extension']), $gfx_test)): ?>
+                                            <?php if (empty($file['icon'])): ?>
                                                 <!-- TODO use resized thumbnail -->
-                                                <img src="<?=$this->directory?>/<?=$file['basename']?>" alt="<?=$this->translate('Preview');?>" />
+                                                <img src="<?=$file['dirUrl'];?>/<?=$file['basename'];?>" alt="<?=$this->translate('Preview');?>" />
                                             <?php else: ?>
                                                 <img
-                                                    src="
-                                                <?php if (in_array(strtolower($file['extension']), $pdf_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/cystal_clear_mimetype_pdf.png
-                                                <?php elseif (in_array(strtolower($file['extension']), $pck_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_filesystem_folder_tar.png
-                                                <?php elseif (in_array(strtolower($file['extension']), $doc_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_txt.png
-                                                <?php elseif (in_array(strtolower($file['extension']), $prs_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_app_display.png
-                                                <?php elseif (in_array(strtolower($file['extension']), $vid_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_video.png
-                                                <?php elseif (in_array(strtolower($file['extension']), $aud_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_app_xmms.png
-                                                <?php elseif (in_array(strtolower($file['extension']), $clc_test)): ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_spreadsheet.png
-                                                <?php else: ?>
-                                                    <?=$this->baseUrl()?>/images/crystal_clear_mimetype_encrypted.png
-                                                <?php endif?>"
+                                                    src="<?=$this->baseUrl()?>/images/<?=$file['icon']?>.png"
                                                     class="thumbnail-image-icon"
                                                     alt="<?=$this->translate('Preview');?>"
-                                                    />
+                                                />
                                             <?php endif?>
                                         </div>
                                         <div class="caption">
@@ -77,7 +58,10 @@
                                             </small>
                                         </div>
                                     </a>
-                                    <?=$file['deleteform']?>
+                                    <?php if ($file['folder']): ?>
+                                        <a href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <?php endif;?>
+                                    <?=$file['deleteForm'];?>
                                 </div>
                             </div>
                         <?php endforeach;?>

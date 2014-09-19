@@ -26,8 +26,8 @@ class Dbjr_File
             unlink($filePath);
             return true;
         }
-        catch (Exception $e) {
-            throw new Dbjr_Exception('File could not be deleted: ' . $filePath);
+        catch (Dbjr_Exception $e) {
+            throw new Dbjr_Exception(sprintf('File marked for deletion does not exist: %s.', $filePath));
         }
     }
 
@@ -39,11 +39,22 @@ class Dbjr_File
     public function getFilePath()
     {
         $filePath = realpath($this->_dirPath . '/' . $this->_filename);
-        if($filePath !== false) {
+        if ($filePath !== false) {
             return $filePath;
         } else {
-            throw new Dbjr_Exception('File set for deletion is not accessible by the application: ' . $filePath);
+            throw new Dbjr_Exception(sprintf('There is no file accessible by the application at the specified location: %s', $filePath));
         }
+    }
 
+    public function setFilename($filename)
+    {
+        $this->_filename = $filename;
+        return $this;
+    }
+
+    public function setDirPath($dirPath)
+    {
+        $this->_dirPath = $dirPath;
+        return $this;
     }
 }

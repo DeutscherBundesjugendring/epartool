@@ -14,6 +14,7 @@
 /www/js/bootstrap.min.js
 /www/js/admin.js
 /www/js/web.js
+/www/js/admin_mediaPopup.js
 
 # Ignore all runtime settings
 /runtime/cache/*

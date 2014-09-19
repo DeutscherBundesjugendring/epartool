@@ -26,5 +26,7 @@ class Admin_Form_Media_Delete extends Dbjr_Form_Admin
         }
         $hash->setDecorators(array('ViewHelper'));
         $this->addElement($hash);
+
+        return $this;
     }
 }

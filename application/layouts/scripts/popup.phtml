@@ -3,14 +3,12 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title>DBJR - Administration</title>
-		<!-- add your meta tags here -->
 
 		<link href="<?php echo $this->baseUrl(); ?>/css/backend/style.css" rel="stylesheet" type="text/css" />
 		<!--[if lte IE 7]>
 		<link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
 		<![endif]-->
-		<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/bower/jquery/jquery.min.js"></script>
-		<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/bower/ckeditor/ckeditor.js"></script>
+		<?=$this->headScript();?>
 	</head>
 	<body>
 		<div class="page_margins popup">

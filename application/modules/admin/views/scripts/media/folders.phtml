@@ -1,0 +1,63 @@
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Media');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->mediaNavigation('folders');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2><?=$this->translate('Folders');?></h2>
+
+                <form method="<?=$this->form->getMethod()?>">
+                    <?=$this->form->getElement('list_control_csrf_token');?>
+                    <table class="table" data-view="table">
+                        <thead>
+                            <tr>
+                                <th><?=$this->translate('Name');?></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->folderDirs as $folder): ?>
+                                <tr>
+                                    <td><a href="<?=$this->baseUrl?>/admin/media/index/folder/<?=$folder['name']?>"><?=$folder['name'];?></a></td>
+                                    <td class="table-cell-actions">
+                                        <a href="<?=$this->url(['action' => 'edit-folder', 'folder' => $folder['name']]);?>" title="<?=$this->translate('Edit');?>" class="item-action">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <button
+                                            <?=$folder['isEmpty'] ? '' : 'disabled'?>
+                                            name="delete"
+                                            type="submit"
+                                            onclick="return confirm('<?=$this->translate('Delete folder?');?>');"
+                                            value="<?=$folder['name'];?>"
+                                            title="<?=$this->translate('Delete');?>"
+                                            class="item-action"
+                                        >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -32,9 +32,9 @@ class Dbjr_File_Image extends Dbjr_File
 
     /**
      * Sets the image that is to be manipulated
-     * @param string $imagePath The path to the file that is to be manipulated
-     * @return $this            Fluent interface
-     * @throws Dbjr_Exception   Throws an exception if the path doesn exist or does not contain an image.
+     * @param string $imagePath      The path to the file that is to be manipulated
+     * @return $this                 Fluent interface
+     * @throws Dbjr_File_Exception   Throws an exception if the path doesn exist or does not contain an image.
      */
     public function setImage($imagePath)
     {
@@ -43,10 +43,10 @@ class Dbjr_File_Image extends Dbjr_File
                $this->_dirPath = $matches[1];
                $this->_filename = $matches[2];
             } else {
-                throw new Dbjr_Exception('The supplied path does not seem to contain an image.');
+                throw new Dbjr_File_Exception('The supplied path does not seem to contain an image.');
             }
         } else {
-            throw new Dbjr_Exception('The supplied path does not exist.');
+            throw new Dbjr_File_Exception('The supplied path does not exist.');
         }
 
         list($this->_imageWidth, $this->_imageHeight, $this->_imageType) = getimagesize($imagePath);
@@ -63,13 +63,13 @@ class Dbjr_File_Image extends Dbjr_File
 
     /**
      * Creates a resized copy of the uploaded image
-     * @param  int $width         The required width
-     * @param  int $height        The required height
-     * @param  string $outPath    The path where the copy is to be saved. Optional if $filePrefix is provided.
-     * @param  string $filePrefix The prefix to be prepended to the filename if no outpath path was supplied.
-     *                            Optional if $outPath is provided.
-     * @return $this              Fluent interface
-     * @throws Dbjr_Exception     Throws an exception if no $outPath nor $filePrefix was provided
+     * @param  int $width              The required width
+     * @param  int $height             The required height
+     * @param  string $outPath         The path where the copy is to be saved. Optional if $filePrefix is provided.
+     * @param  string $filePrefix      The prefix to be prepended to the filename if no outpath path was supplied.
+     *                                 Optional if $outPath is provided.
+     * @return $this                   Fluent interface
+     * @throws Dbjr_File_Exception     Throws an exception if no $outPath nor $filePrefix was provided
      */
     public function copyAndResize($width, $height, $outPath=null, $filePrefix=null)
     {
@@ -77,7 +77,7 @@ class Dbjr_File_Image extends Dbjr_File
 
             $outPath = $this->_dirPath . '/' . $filePrefix . $this->_filename;
         } elseif ($outPath === null) {
-            throw new Dbjr_Exception('Either a outPath or a file prefix must be provided.');
+            throw new Dbjr_File_Exception('Either a outPath or a file prefix must be provided.');
         }
 
         return $this->resizeInternal($width, $height, $outPath);
