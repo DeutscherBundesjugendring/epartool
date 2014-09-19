@@ -57,4 +57,40 @@ class Dbjr_File
         $this->_dirPath = $dirPath;
         return $this;
     }
+
+    /**
+     * adds utf8 support to pathinfo() php function
+     * pathinfo() just strips the utf8 characters
+     * @param  string           $path     The input path
+     * @param  int              $options  The options @see pathinfo() php function
+     * @return array|string               The pathinfo array or string
+     */
+    public static function pathinfoUtf8($path, $options = null)
+    {
+        if (strpos($path, '/') === false) {
+            $pathParts = pathinfo('a' . $path, $options);
+        } else {
+            $path = str_replace('/', '/a', $path);
+            if ($options) {
+                $pathParts = pathinfo($path, $options);
+            } else {
+                $pathParts = pathinfo($path);
+            }
+        }
+
+        if ($options) {
+            return substr($pathParts, 1);
+        } else {
+            foreach ($pathParts as $key => &$value) {
+                if ($key === 'extension') {
+                    continue;
+                } elseif (strpos($value, '/') === false) {
+                    $value = substr($value, 1);
+                } else {
+                    $value = str_replace('/a', '/', $value);
+                }
+            }
+            return $pathParts;
+        }
+    }
 }

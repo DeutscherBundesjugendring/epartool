@@ -1,5 +1,7 @@
 <?php
 
+use Behat\Transliterator\Transliterator;
+
 class Service_Media
 {
     const MEDIA_DIR_FOLDERS = 'folders';
@@ -116,14 +118,23 @@ class Service_Media
      * @param  integer              $kid      The consultation identifier. Mandatory if no $folder is set.
      * @param  string               $folder   The folder name. Mandatory if no $kid is set.
      * @throws Dbjr_File_Exception            Throws exception if the file already exists
-     * @return boolean                        Indicates success
+     * @return string|false                   If file was saved returns filename, otherwise false.
      */
     public function upload($filename, $kid = null, $folder = null)
     {
+        if (Transliterator::validUtf8($filename)) {
+            $filename = Transliterator::utf8ToAscii($filename);
+        }
+        $basename = pathinfo($filename, PATHINFO_FILENAME);
+        $basename = substr($basename, 0, Zend_Registry::get('systemconfig')->media->filename->maxLength);
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $filename = Transliterator::urlize($basename) . '.' . $extension;
         $uploadDir = $this->getDirPath($kid, $folder);
+
         if (file_exists($uploadDir . '/' . $filename)) {
             throw new Dbjr_File_Exception('File exists.');
         }
+
         $uploadRes = (new Zend_File_Transfer_Adapter_Http())
             ->addFilter(
                 'Rename',
@@ -131,7 +142,7 @@ class Service_Media
             )
             ->receive();
 
-        return (bool) $uploadRes;
+        return $uploadRes ? $filename : false;
     }
 
     /**

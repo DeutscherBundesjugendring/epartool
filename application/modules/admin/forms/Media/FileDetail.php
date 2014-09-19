@@ -18,7 +18,16 @@ class Admin_Form_Media_FileDetail extends Dbjr_Form_Admin
             ->addValidator(
                 (new Zend_Validate_File_NotExists())
                     ->addDirectory(MEDIA_PATH . '/' . Service_Media::MEDIA_DIR_FOLDERS . '/' . $this->_directory)
-            );
+            )
+            ->addValidator(
+                'regex',
+                false,
+                [
+                    'pattern' => '/^[-a-z0-9]+\.[a-z0-9]+$/',
+                    'messages' => [Zend_Validate_Regex::NOT_MATCH => (new Zend_View())->translate('File name has to have an extension and can contain only characters a-z, 0-9 and -.')],
+                ]
+            )
+            ->addValidator('stringLength', false, ['max' => Zend_Registry::get('systemconfig')->media->filename->maxLength]);
         $this->addElement($file);
 
         $folderDirs = (new Service_Media())->getDirs(Service_Media::MEDIA_DIR_FOLDERS);

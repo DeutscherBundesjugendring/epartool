@@ -107,6 +107,8 @@ class Admin_MediaController extends Zend_Controller_Action
     public function editFolderAction()
     {
         $form = new Admin_Form_Media_FolderDetail();
+        $form->getElement('submit')->setLabel('Rename');
+
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             $newName = $postData['name'];
@@ -126,9 +128,13 @@ class Admin_MediaController extends Zend_Controller_Action
             }
         }
 
-        $form->getElement('oldName')->setValue($this->_folder);
-        $form->getElement('name')->setValue($this->_folder);
-        $form->getElement('submit')->setLabel('Rename');
+        $form->populate(
+            [
+                'name' => isset($postData) ? $postData['name'] : $this->_folder,
+                'oldName' => $this->_folder,
+            ]
+        );
+
 
         $this->view->form = $form;
     }
@@ -166,9 +172,9 @@ class Admin_MediaController extends Zend_Controller_Action
 
         $form->populate(
             [
-                'name' => $this->_filename,
+                'name' => isset($postData) ? $postData['name'] : $this->_filename,
                 'oldName' => $this->_filename,
-                'folder' => $this->_folder,
+                'folder' => isset($postData) ? $postData['folder'] : $this->_folder,
             ]
         );
 
@@ -269,9 +275,10 @@ class Admin_MediaController extends Zend_Controller_Action
                     throw new Dbjr_Exception('Invalid directory prefix.');
                 }
 
-                $filename = pathinfo($form->file->getFileName())['basename'];
+                $filename = Dbjr_File::pathinfoUtf8($form->file->getFileName(), PATHINFO_BASENAME);
                 try {
-                    if ((new Service_Media())->upload($filename, $this->_kid, $this->_folder)) {
+                    $filename = (new Service_Media())->upload($filename, $this->_kid, $this->_folder);
+                    if ($filename) {
                         $this->_flashMessenger->addMessage(
                             sprintf('Die Datei »%s« wurde erfolgreich hinzugefügt.', $filename),
                             'success'
@@ -284,7 +291,7 @@ class Admin_MediaController extends Zend_Controller_Action
                                 'error'
                             );
                     }
-                } catch(Dbjr_File_Exception $e) {
+                } catch (Dbjr_File_Exception $e) {
                     $this->_flashMessenger->addMessage('File exists.', 'error');
                 }
             } else {
