@@ -59,7 +59,7 @@
                                         </div>
                                     </a>
                                     <?php if ($file['folder']): ?>
-                                        <a href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/" class="item-action"><span class="glyphicon glyphicon-pencil"></span></a>
                                     <?php endif;?>
                                     <?=$file['deleteForm'];?>
                                 </div>
