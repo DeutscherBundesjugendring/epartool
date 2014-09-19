@@ -15,7 +15,9 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('ViewHelper');
-            $this->setAttrib('class', 'btn btn-primary');
+            if (!$this->getAttrib('class')) {
+                $this->setAttrib('class', 'btn btn-primary');
+            }
         }
 
         return $this;
