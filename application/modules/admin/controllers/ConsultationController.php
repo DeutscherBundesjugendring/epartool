@@ -1,20 +1,11 @@
 <?php
-/**
- * ConsultationController
- *
- * @desc     administrationareas
- * @author                Markus Hackel
- */
 
 class Admin_ConsultationController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
     protected $_consultation = null;
 
-    /**
-     * @desc Construct
-     * @return void
-     */
+
     public function init()
     {
         $this->_helper->layout->setLayout('backend');
@@ -35,34 +26,31 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-
     }
 
     /**
      * create new Consultation
-     *
      */
     public function newAction()
     {
         $form = new Admin_Form_Consultation();
 
-        if ($this->getRequest()->isPost()
-                && false !== $this->getRequest()->getPost('submit', false)) {
-                    $consultationModel = new Model_Consultations();
-                    if ($form->isValid($this->getRequest()->getPost())) {
-                        $consultationRow = $consultationModel->createRow($form->getValues());
-                        $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
-                        $newId = $consultationRow->save();
-                        if ($newId > 0) {
-                            $this->_flashMessenger->addMessage('Neue Beteiligungsrunde wurde erstellt.', 'success');
-                            $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
-                        } else {
-                            $this->_flashMessenger->addMessage('Erstellen der neuen Beteiligungsrunde fehlgeschlagen!', 'error');
-                        }
-                    } else {
-                        $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
-                        $form->populate($this->getRequest()->getPost());
-                    }
+        if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
+            $consultationModel = new Model_Consultations();
+            if ($form->isValid($this->getRequest()->getPost())) {
+                $consultationRow = $consultationModel->createRow($form->getValues());
+                $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
+                $newId = $consultationRow->save();
+                if ($newId > 0) {
+                    $this->_flashMessenger->addMessage('Neue Beteiligungsrunde wurde erstellt.', 'success');
+                    $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
+                } else {
+                    $this->_flashMessenger->addMessage('Erstellen der neuen Beteiligungsrunde fehlgeschlagen!', 'error');
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
+                $form->populate($this->getRequest()->getPost());
+            }
         }
 
         foreach ($form->getElements() as $element) {
@@ -77,57 +65,55 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
     /**
      * edit Consultation settings
-     *
      */
     public function editAction()
     {
         $form = new Admin_Form_Consultation();
         $form->setAction($this->view->baseUrl() . '/admin/consultation/edit/kid/' . $this->_consultation->kid);
 
-        if ($this->getRequest()->isPost()
-                && false !== $this->getRequest()->getPost('submit', false)) {
-                    // if date-inputs not checked, remove validators and set default values
-                    $posts = $this->getRequest()->getPost();
-                    if ($posts['inp_show'] === 'n') {
-                        Zend_Debug::dump('Remove valids');
-                        $form->getElement('inp_fr')->removeValidator('NotEmpty');
-                        $form->getElement('inp_fr')->removeValidator('Date');
-                        $form->getElement('inp_fr')->setOptions(array('required'=>false));
-                        $form->getElement('inp_to')->removeValidator('NotEmpty');
-                        $form->getElement('inp_to')->removeValidator('Date');
-                        $form->getElement('inp_to')->setOptions(array('required'=>false));
-                    }
-                    if ($posts['spprt_show'] === 'n') {
-                        Zend_Debug::dump('Remove valids');
-                        $form->getElement('spprt_fr')->removeValidator('NotEmpty');
-                        $form->getElement('spprt_fr')->removeValidator('Date');
-                        $form->getElement('spprt_fr')->setOptions(array('required'=>false));
-                        $form->getElement('spprt_to')->removeValidator('NotEmpty');
-                        $form->getElement('spprt_to')->removeValidator('Date');
-                        $form->getElement('spprt_to')->setOptions(array('required'=>false));
-                    }
-                    if ($posts['vot_show'] === 'n') {
-                        Zend_Debug::dump('Remove valids');
-                        $form->getElement('vot_fr')->removeValidator('NotEmpty');
-                        $form->getElement('vot_fr')->removeValidator('Date');
-                        $form->getElement('vot_fr')->setOptions(array('required'=>false));
-                        $form->getElement('vot_to')->removeValidator('NotEmpty');
-                        $form->getElement('vot_to')->removeValidator('Date');
-                        $form->getElement('vot_to')->setOptions(array('required'=>false));
-                    }
-                    if ($form->isValid($this->getRequest()->getPost())) {
-                        $this->_consultation->setFromArray($form->getValues());
-                        $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
-                        $this->_consultation->discussion_from = $this->_consultation->discussion_from ? $this->_consultation->discussion_from : null;
-                        $this->_consultation->discussion_to = $this->_consultation->discussion_to ? $this->_consultation->discussion_to : null;
-                        $this->_consultation->save();
-                        $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
+        if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
+            // if date-inputs not checked, remove validators and set default values
+            $posts = $this->getRequest()->getPost();
+            if ($posts['inp_show'] === 'n') {
+                Zend_Debug::dump('Remove valids');
+                $form->getElement('inp_fr')->removeValidator('NotEmpty');
+                $form->getElement('inp_fr')->removeValidator('Date');
+                $form->getElement('inp_fr')->setOptions(array('required'=>false));
+                $form->getElement('inp_to')->removeValidator('NotEmpty');
+                $form->getElement('inp_to')->removeValidator('Date');
+                $form->getElement('inp_to')->setOptions(array('required'=>false));
+            }
+            if ($posts['spprt_show'] === 'n') {
+                Zend_Debug::dump('Remove valids');
+                $form->getElement('spprt_fr')->removeValidator('NotEmpty');
+                $form->getElement('spprt_fr')->removeValidator('Date');
+                $form->getElement('spprt_fr')->setOptions(array('required'=>false));
+                $form->getElement('spprt_to')->removeValidator('NotEmpty');
+                $form->getElement('spprt_to')->removeValidator('Date');
+                $form->getElement('spprt_to')->setOptions(array('required'=>false));
+            }
+            if ($posts['vot_show'] === 'n') {
+                Zend_Debug::dump('Remove valids');
+                $form->getElement('vot_fr')->removeValidator('NotEmpty');
+                $form->getElement('vot_fr')->removeValidator('Date');
+                $form->getElement('vot_fr')->setOptions(array('required'=>false));
+                $form->getElement('vot_to')->removeValidator('NotEmpty');
+                $form->getElement('vot_to')->removeValidator('Date');
+                $form->getElement('vot_to')->setOptions(array('required'=>false));
+            }
+            if ($form->isValid($this->getRequest()->getPost())) {
+                $this->_consultation->setFromArray($form->getValues());
+                $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
+                $this->_consultation->discussion_from = $this->_consultation->discussion_from ? $this->_consultation->discussion_from : null;
+                $this->_consultation->discussion_to = $this->_consultation->discussion_to ? $this->_consultation->discussion_to : null;
+                $this->_consultation->save();
+                $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
 
-                        $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
-                    } else {
-                        $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
-                        $form->populate($form->getValues());
-                    }
+                $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
+            } else {
+                $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
+                $form->populate($form->getValues());
+            }
         } else {
             $form->populate($this->_consultation->toArray());
             $form->getElement('proj')->setValue(explode(',', $this->_consultation['proj']));
@@ -145,7 +131,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
     /**
      * statistical Report
-     *
      */
     public function reportAction()
     {
@@ -206,7 +191,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        // Deaktiviere Layout und View
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
@@ -256,7 +240,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
             // Delete Consultation
             $consultationModel->deleteById($kid);
-
         }
 
         $this->_redirect('/admin/consultation/index/');
