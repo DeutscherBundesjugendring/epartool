@@ -28,6 +28,9 @@ class Admin_Form_Article extends Dbjr_Form_Admin
         $this->getElement('hid')->setCheckedValue('y');
         $this->getElement('hid')->setUncheckedValue('n');
 
+        $this->getElement('artcl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $this->getElement('sidebar')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+
         $projectModel = new Model_Projects();
         $projects = $projectModel->getAll();
         $options = array();

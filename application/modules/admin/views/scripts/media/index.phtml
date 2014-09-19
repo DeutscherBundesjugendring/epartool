@@ -31,7 +31,8 @@
                                             ? 'onclick="mediaSelectPopup.insertValue(
                                                 \'' . substr($file['dirname'], strlen(MEDIA_PATH)) . '/' . $file['basename'] . '\',
                                                 \'' . $this->targetElId . '\',
-                                                \'' . $this->baseUrl . '/media\'
+                                                \'' . $this->baseUrl . '/media\',
+                                                \'' . $this->CKEditorFuncNum .'\'
                                             )"'
                                             : 'href="' . $this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]) . '/"';
                                         ?>

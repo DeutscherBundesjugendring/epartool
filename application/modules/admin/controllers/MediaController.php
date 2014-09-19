@@ -101,7 +101,8 @@ class Admin_MediaController extends Zend_Controller_Action
             $this->view->title = $this->view->translate('All media');
         }
 
-            $this->view->files = $files;
+        $this->view->files = $files;
+        $this->view->CKEditorFuncNum = $this->getRequest()->getParam('CKEditorFuncNum', 0);
     }
 
     public function editFolderAction()

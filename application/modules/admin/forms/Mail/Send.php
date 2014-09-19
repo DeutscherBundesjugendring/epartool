@@ -36,6 +36,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         }
         $consulElement->setAttrib('data-consultations', json_encode($consuls));
 
+        $this->getElement('body_html')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_mailsend', array('salt' => 'unique'));

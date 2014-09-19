@@ -2,6 +2,17 @@
 
 class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
 {
+
+    const WYSIWYG_TYPE_STANDARD = 'standard';
+    const WYSIWYG_TYPE_EMAIL = 'email';
+
+    /**
+     * Indicates what type, if any, should by associated with this element
+     * @see  self::WYSIWYG_TYPE_*
+     * @var string
+     */
+    private $_wysiwygType;
+
     /**
      * Load default decorators
      * @return Dbjr_Form_Element_Textarea
@@ -17,5 +28,16 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
             $this->addDecorator('BootstrapStandard');
         }
         return $this;
+    }
+
+    public function setWysiwygType($wysiwygType)
+    {
+        $this->_wysiwygType = $wysiwygType;
+        return $this;
+    }
+
+    public function getWysiwygType()
+    {
+        return $this->_wysiwygType;
     }
 }

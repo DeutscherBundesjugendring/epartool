@@ -2,6 +2,7 @@ $(document).ready () ->
     bindSelectTemplate()
     bindConsultationSelect()
     initDataViewTable();
+    initCKEditor();
 
 # Binds ajax loading template data to a template selctor box
 bindSelectTemplate = () ->
@@ -132,3 +133,12 @@ initDataViewTable = () ->
         sort(defaultSort[0])
 
     return
+
+initCKEditor = () ->
+    $('.wysiwyg-standard').ckeditor({
+        filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor'
+    })
+    $('.wysiwyg-email').ckeditor({
+        removePlugins: 'horizontalrule,list,justify,indent,indentlist,indentblock,image2,flash,iframe,div',
+        removeButtons: 'Underline,Anchor,Strike'
+    })

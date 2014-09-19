@@ -21,6 +21,6 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
      $this->getElement('vot_show')->setUncheckedValue('n');
      $this->getElement('vot_res_show')->setCheckedValue('y');
      $this->getElement('vot_res_show')->setUncheckedValue('n');
-
+     $this->getElement('vot_expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
     }
 }

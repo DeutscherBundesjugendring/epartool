@@ -42,6 +42,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $this->getElement('img_file')->setKid($this->_kid);
 
+        $this->getElement('expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $this->getElement('vot_expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+
         $options = array(
                 0 => 'keiner ausgewählt'
             );
