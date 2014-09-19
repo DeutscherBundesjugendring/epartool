@@ -5,6 +5,7 @@
         "zendframework/zendframework1": "~1.12.3",
         "tracy/tracy": "~2.2.2",
         "Html2Text/Html2Text": "~1.0.1",
-        "gregwar/image": "~2.0.17"
+        "gregwar/image": "~2.0.17",
+        "jbroadway/urlify": "~1.0.3"
     }
 }
