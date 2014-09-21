@@ -49,7 +49,7 @@
             <ul class="nav nav-pills">
                 <li class="item-title">
                     <a href="<?php echo $this->url(array('controller' => 'article', 'kid' => $con->kid)); ?>">
-                        <img src="<?php echo $this->baseUrl(); ?>/media/consultations/<?php echo $con->kid . '/' . $con->img_file; ?>" width="144" alt="<?php echo $con->img_expl; ?>" />
+                        <img src="<?php echo $this->baseUrl(); ?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?php echo $con->kid . '/' . $con->img_file; ?>" width="144" alt="<?php echo $con->img_expl; ?>" />
                         <div class="description">
                             <p><?php echo nl2br(strip_tags(htmlspecialchars_decode($con->expl_short)))?></p>
                         </div>

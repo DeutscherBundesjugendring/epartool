@@ -18,12 +18,12 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
             array(
                 'name' => 'consultations',
                 'label' => 'Consultations',
-                'href' => '/admin/media/consultations',
+                'href' => '/admin/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS,
             ),
             array(
                 'name' => 'folders',
                 'label' => 'Folders',
-                'href' => '/admin/media/folders',
+                'href' => '/admin/media/' . Service_Media::MEDIA_DIR_FOLDERS,
                 'new_item' => $this->view->url(array('controller' => 'media', 'action' => 'create-folder')),
             ),
         );

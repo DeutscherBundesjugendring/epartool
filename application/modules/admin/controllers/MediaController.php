@@ -54,6 +54,7 @@ class Admin_MediaController extends Zend_Controller_Action
             $this->redirect($this->view->url(['action' => 'index', 'folder' => null, 'kid' => null, 'filename' => null]));
         }
 
+        // If targetElId is set, then the action is to be used as image selector in popup context
         $this->view->targetElId = $this->getRequest()->getParam('targetElId', null);
         if ($this->view->targetElId) {
             $this->_helper->layout->setLayout('popup');
@@ -67,7 +68,7 @@ class Admin_MediaController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $files = (new Service_Media())->getByDir($this->_kid, $this->_folder);
+        $files = (new Service_Media())->getByDir($this->_kid, $this->_folder, !$this->_kid);
         foreach ($files as $i => &$file) {
             $deleteForm = (new Admin_Form_Media_Delete());
             $deleteForm
@@ -103,6 +104,9 @@ class Admin_MediaController extends Zend_Controller_Action
 
         $this->view->files = $files;
         $this->view->CKEditorFuncNum = $this->getRequest()->getParam('CKEditorFuncNum', 0);
+        // If the consultation id is set then the path to the image folder is assumed and we only deal with filename relative to
+        // the consultation media folder. Otherwise we deal with path relative to the media/folders folder
+        $this->view->lockDir = (bool) $this->_kid;
     }
 
     public function editFolderAction()
@@ -265,8 +269,7 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         if ($this->getRequest()->isPost()) {
-            $formData = $this->_request->getPost();
-            if ($form->isValid($formData)) {
+            if ($form->isValid($this->_request->getPost())) {
                 $directory = $this->getRequest()->getParam('directory', null);
                 if (strpos($directory, Admin_Form_Media_Upload::DIR_TYPE_PREFIX_CONSULTATIONS) === 0) {
                     $this->_kid = substr_replace($directory, '', 0, strlen(Admin_Form_Media_Upload::DIR_TYPE_PREFIX_CONSULTATIONS));

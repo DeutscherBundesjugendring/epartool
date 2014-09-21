@@ -105,16 +105,16 @@
                 <li>
                     <div class="followup-preview media">
                         <a
-                            href="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filename']?>"
+                            href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>"
                             class="followup-image pull-left"
                         >
                             <img
-                                src="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
+                                src="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
                                 alt="<?php echo $followUp['title']?>"
                             />
                         </a>
                         <div class="media-body">
-                            <a href="<?php echo $this->baseUrl() . '/media/consultations/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
+                            <a href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
                                 <h3 class="followup-title"><?php echo $followUp['title']?></h3>
                             </a>
                             <time class="followup-time">

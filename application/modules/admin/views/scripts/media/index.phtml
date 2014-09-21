@@ -13,11 +13,13 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
 
-                <?=$this->mediaNavigation('all');?>
+            <?php if (!$this->lockDir): ?>
+                <div class="col-md-3">
+                    <?=$this->mediaNavigation('all');?>
+                </div>
+            <?php endif?>
 
-            </div>
             <div class="col-md-9">
                 <h2><?=$this->title;?></h2>
 
@@ -27,16 +29,18 @@
                             <div class="col-xs-6 col-sm-4 col-lg-3">
                                 <div class="thumbnail">
                                     <a
-                                        <?=$this->targetElId
-                                            ? 'onclick="mediaSelectPopup.insertValue(
-                                                \'' . substr($file['dirname'], strlen(MEDIA_PATH)) . '/' . $file['basename'] . '\',
-                                                \'' . $this->targetElId . '\',
-                                                \'' . $this->baseUrl . '/media\',
-                                                \'' . $this->CKEditorFuncNum .'\'
-                                            )"'
-                                            : 'href="' . $this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]) . '/"';
-                                        ?>
+                                        <?php if ($this->targetElId): ?>
+                                            onclick="mediaSelectPopup.insertValue(
+                                                '<?=$file['dirRefFilename'];?>',
+                                                '<?=$this->targetElId;?>',
+                                                '<?=$file['dirRefDirUrl'];?>',
+                                                '<?=$this->CKEditorFuncNum;?>'
+                                            )"
+                                        <?php else: ?>
+                                            href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
+                                        <?php endif;?>
                                         title="<?=$file['basename'];?>"
+                                        href="#"
                                     >
                                         <div class="thumbnail-image">
                                             <?php if (empty($file['icon'])): ?>

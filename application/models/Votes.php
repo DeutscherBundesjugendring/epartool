@@ -7,9 +7,7 @@
 class Model_Votes extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_final';
-    protected $_primary = array(
-        'uid', 'tid'
-    );
+    protected $_primary = 'id';
 
     protected $_referenceMap = array(
         'Consultations' => array(

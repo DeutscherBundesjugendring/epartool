@@ -24,7 +24,7 @@
         <?=$this->ribbonImage($this->consultation)?>
 
         <img
-            src="<?=$this->baseUrl()?>/media/consultations/<?=$this->consultation->kid?>/<?=$this->consultation->img_file?>"
+            src="<?=$this->baseUrl()?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$this->consultation->kid?>/<?=$this->consultation->img_file?>"
             width="144"
             class="title-image"
             alt="<?=$this->consultation->img_expl?>"

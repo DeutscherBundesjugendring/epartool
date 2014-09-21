@@ -35,13 +35,26 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $form = new Admin_Form_Consultation();
 
-        if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
             $consultationModel = new Model_Consultations();
-            if ($form->isValid($this->getRequest()->getPost())) {
-                $consultationRow = $consultationModel->createRow($form->getValues());
+            $mediaService = new Service_Media();
+
+            if ($form->isValid($postData)) {
+                $filename = $form->getElement('img_file')->getFileName();
+                $consultationRow = $consultationModel->createRow($postData);
                 $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
-                $newId = $consultationRow->save();
-                if ($newId > 0) {
+                $consultationRow->img_file = $mediaService->sanitizeFilename($filename);
+
+                $newKid = $consultationRow->save();
+
+                if ($newKid) {
+                    $mediaService->createDir($newKid);
+                    $mediaService->upload(
+                        Dbjr_File::pathinfoUtf8($filename, PATHINFO_BASENAME),
+                        $newKid
+                    );
+
                     $this->_flashMessenger->addMessage('Neue Beteiligungsrunde wurde erstellt.', 'success');
                     $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
                 } else {
@@ -69,7 +82,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     public function editAction()
     {
         $form = new Admin_Form_Consultation();
-        $form->setAction($this->view->baseUrl() . '/admin/consultation/edit/kid/' . $this->_consultation->kid);
+        $form->setKid($this->_consultation->kid);
 
         if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
             // if date-inputs not checked, remove validators and set default values
@@ -233,15 +246,16 @@ class Admin_ConsultationController extends Zend_Controller_Action
             $articleModel = new Model_Articles();
             $articles = $articleModel->getByConsultation($kid);
             if ($articles) {
-                foreach ($articles As $article) {
+                foreach ($articles as $article) {
                     $articleModel->deleteById($article['art_id']);
                 }
             }
 
             // Delete Consultation
             $consultationModel->deleteById($kid);
+            (new Service_Media())->deleteDir($kid, null, true);
         }
 
-        $this->_redirect('/admin/consultation/index/');
+        $this->_redirect('/admin');
     }
 }

@@ -3,12 +3,26 @@
 class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Consultation.ini';
-    private $_kid;
 
-
+    /**
+     * Sets the consultation to be asociated with this form
+     * Needed to offer the proper media folder.
+     * If the consuiltation is just being created no media folder exists and this method is not to be called.
+     * @param  integer                  $kid The identifier fo the consultation
+     * @return Admin_Form_Consultation   Fluent interface
+     */
     public function setKid($kid)
     {
-        $this->_kid = $kid;
+        $this->removeElement('img_file');
+
+        $imgFile = $this->createElement('media', 'img_file');
+        $imgFile
+            ->setLabel('Featured image')
+            ->setRequired(true)
+            ->setOrder(3)
+            ->setKid($kid);
+        $this->addElement($imgFile);
+
         return $this;
     }
 
@@ -39,8 +53,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->getElement('follup_show')->setUncheckedValue('n');
         $this->getElement('public')->setCheckedValue('y');
         $this->getElement('public')->setUncheckedValue('n');
-
-        $this->getElement('img_file')->setKid($this->_kid);
 
         $this->getElement('expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
         $this->getElement('vot_expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);

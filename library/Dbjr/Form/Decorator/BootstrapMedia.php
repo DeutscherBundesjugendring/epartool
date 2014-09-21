@@ -5,16 +5,22 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
 
     public function render($content)
     {
-        $imgPath = Zend_Registry::get('baseUrl') . '/media/' . $this->getElement()->getValue();
-        if ($this->getElement()->getKid()) {
-            $kidFolderPath = '/kid/' . $this->getElement()->getKid();
-        } elseif ($this->getElement()->getFolder()) {
-            $kidFolderPath = '/folder/' . $this->getElement()->getFolder();
+        $element = $this->getElement();
+
+        if ($element->getKid()) {
+            $kidFolderParam = '/kid/' . $element->getKid();
+        } elseif ($element->getFolder()) {
+            $kidFolderParam = '/folder/' . $element->getFolder();
         } else {
-            $kidFolderPath = '';
+            $kidFolderParam = '';
         }
 
-        $element = $this->getElement();
+        $mediaPath = Zend_Registry::get('baseUrl') . '/media';
+        $imgPath = $mediaPath . '/' . Service_Media::MEDIA_DIR_FOLDERS . '/' . $element->getValue();
+        if (!is_file($imgPath)) {
+            $imgPath =$mediaPath . '/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $element->getKid() . '/' . $element->getValue();
+        }
+
         $element
             ->setAttrib('class', 'form-control')
             ->clearDecorators()
@@ -36,9 +42,14 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 'Callback',
                 [
                     'callback'  => function ($content, $element, $options) {
-                        return "<a href=\"\" onclick=\"javascript:window.open('{$options['href']}', '_blank', 'width: 500, height: 500'); return false;\">{$options['label']}</a>";
+                        $html = <<<EOD
+<a href="#" onclick="javascript:window.open('{$options['href']}', '_blank', 'width: 500, height: 500'); return false;">
+    {$options['label']}
+</a>
+EOD;
+                        return $html;
                     },
-                    'href'  => Zend_Registry::get('baseUrl') . '/admin/media/index/targetElId/' . $this->getElement()->getId() . $kidFolderPath,
+                    'href'  => Zend_Registry::get('baseUrl') . '/admin/media/index/targetElId/' . $element->getId() . $kidFolderParam,
                     'label' => (new Zend_View())->translate('Change image'),
                     'placement' => Zend_Form_Decorator_Abstract::APPEND
                 ]
@@ -47,10 +58,10 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 ['hiddenInput' => 'HtmlTag'],
                 [
                     'tag' => 'input',
-                    'id' => $this->getElement()->getId(),
+                    'id' => $element->getId(),
                     'type' => 'hidden',
-                    'name' => $this->getElement()->getName(),
-                    'value' => $this->getElement()->getValue(),
+                    'name' => $element->getName(),
+                    'value' => $element->getValue(),
                 ]
             )
             ->addDecorator(
