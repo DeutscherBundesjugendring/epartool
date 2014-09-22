@@ -56,7 +56,6 @@ form dd {
 		vertical-align: baseline;
 	}
 
-	// TODO - HOTFIX: hide line breaks
 	label + br {
 		display: none;
 	}
@@ -70,6 +69,16 @@ form dd {
 
 	dd {
 		display: inline-block;
+        vertical-align: top;
 		margin-right: .75ex;
 	}
+
+    ul.errors {
+        max-width: 230px;
+        margin: .5em 0 1em;
+        text-align: left;
+        list-style: none;
+        color: @bodyText;
+    }
+}
 }
