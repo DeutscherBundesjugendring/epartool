@@ -889,6 +889,7 @@ CREATE TABLE `user_info` (
   `confirmation_key` varchar(40) DEFAULT NULL,
   `is_contrib_under_cc` tinyint(1) NOT NULL DEFAULT '0',
   `name` varchar(80) DEFAULT NULL,
+  `newsl_subscr` enum('y','n') DEFAULT NULL COMMENT 'Subscription of newsletter',
   PRIMARY KEY (`user_info_id`) USING BTREE,
   KEY `user_info_uid_ibfk` (`uid`),
   CONSTRAINT `user_info_uid_ibfk` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`)
