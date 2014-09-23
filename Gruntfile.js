@@ -24,7 +24,8 @@ module.exports = function(grunt) {
             dev: {
                 files: {
                     'www/css/<%= pkg.name %>.css': 'www/less/main.less',
-                    'www/css/admin.css': 'www/less/admin.less'
+                    'www/css/admin.css': 'www/less/admin.less',
+                    '.tmp/mail.css': 'www/less/mail.less'
                 }
             },
             dist: {
