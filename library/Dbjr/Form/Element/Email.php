@@ -33,7 +33,7 @@ class Dbjr_Form_Element_Email extends Zend_Form_Element_Xhtml
      */
     public function isValid($value, $context = null)
     {
-        $this->addValidator('Email');
+        $this->addValidator('EmailAddress');
         return parent::isValid($value, $context);
     }
 }

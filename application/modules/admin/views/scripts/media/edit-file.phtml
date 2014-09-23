@@ -15,7 +15,11 @@
         <div class="row">
             <div class="col-md-3">
 
-                <?=$this->mediaNavigation();?>
+                <?php if (!$this->lockDir): ?>
+                    <div class="col-md-3">
+                        <?=$this->mediaNavigation();?>
+                    </div>
+                <?php endif?>
 
             </div>
             <div class="col-md-9">

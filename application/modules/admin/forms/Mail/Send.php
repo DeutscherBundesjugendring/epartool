@@ -1,17 +1,39 @@
 <?php
-/**
- * Email to send
- *
- * @description     Form new email to send
- * @author                Jan Suchandt
- */
+
 class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Mail/Send.ini';
-
     public function init()
     {
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $view = new Zend_View();
+        $this->setAttrib('class', 'js-send-mail');
+
+
+        $mailto = $this->createElement('email', 'mailto');
+        $mailto
+            ->setLabel('To')
+            ->setAttrib('maxlength', 255)
+            ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
+            ->addValidator('EmailAddress');
+        $this->addElement($mailto);
+
+
+        $mailcc = $this->createElement('email', 'mailcc');
+        $mailcc
+            ->setLabel('Cc')
+            ->setAttrib('maxlength', 255)
+            ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
+            ->addValidator('EmailAddress');
+        $this->addElement($mailcc);
+
+
+        $mailbcc = $this->createElement('email', 'mailbcc');
+        $mailbcc
+            ->setLabel('To')
+            ->setAttrib('maxlength', 255)
+            ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
+            ->addValidator('EmailAddress');
+        $this->addElement($mailbcc);
+
 
         $consulModel = new Model_Consultations();
         $consultations = $consulModel
@@ -27,14 +49,87 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             $consultation['hasFollowup'] = $consulModel->hasFollowupSubscribers($consultation['kid']);
             $consultation['hasVoter'] = $consulModel->hasVoters($consultation['kid']);
         }
-        $consulElement = $this->getElement('mail_consultation');
-        $consulElement->addMultiOption('0', 'Select');
         $consuls = array();
+        $consulElement = $this->createElement('select', 'mail_consultation');
         foreach ($consultations as $cons) {
             $consulElement->addMultiOption($cons['kid'], $cons['titl_short']);
             $consuls[$cons['kid']] = $cons;
         }
-        $consulElement->setAttrib('data-consultations', json_encode($consuls));
+        $consulElement
+            ->addMultiOption('0', 'Select')
+            ->setAttrib('class', 'js-consultation-selector')
+            ->setLabel('Consultation')
+            ->setAttrib('data-consultations', json_encode($consuls));
+        $this->addElement($consulElement);
+
+
+        $consulParticipant = $this->createElement('checkbox', 'mail_consultation_participant');
+        $consulParticipant
+            ->setLabel('All Participants')
+            ->setAttrib('class', 'js-consultation-participant')
+            ->setAttrib('disabled', 'disabled');
+        $this->addElement($consulParticipant);
+
+
+        $consulVoter = $this->createElement('checkbox', 'mail_consultation_voter');
+        $consulVoter
+            ->setLabel('Participants who Voted')
+            ->setAttrib('class', 'js-consultation-vote')
+            ->setAttrib('disabled', 'disabled');
+        $this->addElement($consulVoter);
+
+
+        $consulFollowup = $this->createElement('checkbox', 'mail_consultation_followup');
+        $consulFollowup
+            ->setLabel('Participants who signed up to recieve followups')
+            ->setAttrib('class', 'js-consultation-followup')
+            ->setAttrib('disabled', 'disabled');
+        $this->addElement($consulFollowup);
+
+
+        $consulNewsletter = $this->createElement('checkbox', 'mail_consultation_newsletter');
+        $consulNewsletter
+            ->setLabel('Participants who signed up to recieve newsletter')
+            ->setAttrib('class', 'js-consultation-newsletter')
+            ->setAttrib('disabled', 'disabled');
+        $this->addElement($consulNewsletter);
+
+
+        $subject = $this->createElement('text', 'subject');
+        $subject
+            ->setLabel('Subject')
+            ->setRequired(true)
+            ->setAttrib('class', 'js-subject')
+            ->setAttrib('size', 75)
+            ->setAttrib('maxlength', 75)
+            ->setAttrib('placeholder', sprintf($view->translate('Subject (max %d characters)'), 75))
+            ->addValidator('notEmpty');
+        $this->addElement($subject);
+
+
+        $bodyText = $this->createElement('textarea', 'body_text');
+        $bodyText
+            ->setLabel('Body text')
+            ->setRequired(true)
+            ->setAttrib('class', 'js-body-text')
+            ->setAttrib('cols', 100)
+            ->setAttrib('rows', 5)
+            ->setAttrib('placeholder', $view->translate('Message as plain text'))
+            ->addValidator('notEmpty');
+        $this->addElement($bodyText);
+
+
+        $bodyHtml = $this->createElement('textarea', 'body_html');
+        $bodyHtml
+            ->setLabel('Body html')
+            ->setRequired(true)
+            ->setAttrib('class', 'js-body-html')
+            ->setAttrib('cols', 100)
+            ->setAttrib('rows', 5)
+            ->setAttrib('placeholder', $view->translate('Message as plain html'))
+            ->addValidator('notEmpty');
+        $this->addElement($bodyHtml);
+
 
         $this->getElement('body_html')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL);
 
@@ -45,12 +140,40 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         $this->addElement($hash);
+
+
+        // Media elements are to be inserted here with order > 500
+        // All elements after this point must therefore have order > 1000 to be safe
+
+
+        $addAttachment = $this->createElement('button', 'addAttachment');
+        $addAttachment
+            ->setLabel('Add attachment')
+            ->setOrder(1000);
+        self::addCssClass($addAttachment, 'js-email-add-attachment');
+        $this->addElement($addAttachment);
+
+
+        $attachment = $this->createElement('media', 'TOKEN_TO_BE_REPLACED_BY_JS');
+        $attachment
+            ->setBelongsTo('attachments')
+            ->setAttrib('disabled', 'disabled')
+            ->setOrder(1001);
+        self::addCssClass($attachment, 'hidden');
+        $this->addElement($attachment);
+
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit
+            ->setLabel('Send')
+            ->setOrder(1002);
+        $this->addElement($submit);
     }
 
     /**
      * Validates the form
      * @param  array   $data Data passed in by the user
-     * @return boolean
+     * @return boolean       Indicates if the form is valid
      */
     public function isValid($data)
     {
@@ -87,7 +210,6 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
                 $consulModel->hasVoters($data['mail_consultation']) ? null : true
             );
         }
-
 
         if ($isFormValid && $isRecipientValid) {
             return true;

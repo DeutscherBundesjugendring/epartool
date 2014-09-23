@@ -16,7 +16,13 @@
 
             <?php if (!$this->lockDir): ?>
                 <div class="col-md-3">
-                    <?=$this->mediaNavigation('all');?>
+                    <?php if ($this->folder): ?>
+                        <?=$this->mediaNavigation('folders');?>
+                    <?php elseif ($this->kid): ?>
+                        <?=$this->mediaNavigation('consultations');?>
+                    <?php else: ?>
+                        <?=$this->mediaNavigation('all');?>
+                    <?php endif;?>
                 </div>
             <?php endif?>
 
@@ -33,6 +39,7 @@
                                             onclick="mediaSelectPopup.insertValue(
                                                 '<?=$file['dirRefFilename'];?>',
                                                 '<?=$this->targetElId;?>',
+                                                '<?=$this->lockDir ? '' : $file['dirRefDirUrl'];?>',
                                                 '<?=$file['dirRefDirUrl'];?>',
                                                 '<?=$this->CKEditorFuncNum;?>'
                                             )"

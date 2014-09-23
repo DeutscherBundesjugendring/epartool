@@ -34,7 +34,11 @@
                         <tbody>
                             <?php foreach ($this->folderDirs as $folder): ?>
                                 <tr>
-                                    <td><a href="<?=$this->baseUrl?>/admin/media/index/folder/<?=$folder['name']?>"><?=$folder['name'];?></a></td>
+                                    <td>
+                                        <a href="<?=$this->url(['action' => 'index', 'folder' => $folder['name'], 'targetElId' => $this->targetElId])?>">
+                                            <?=$folder['name'];?>
+                                        </a>
+                                    </td>
                                     <td class="table-cell-actions">
                                         <a href="<?=$this->url(['action' => 'edit-folder', 'folder' => $folder['name']]);?>" title="<?=$this->translate('Edit');?>" class="item-action">
                                             <span class="glyphicon glyphicon-pencil"></span>

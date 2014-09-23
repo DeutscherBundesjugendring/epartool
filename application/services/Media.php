@@ -38,11 +38,11 @@ class Service_Media
         $dirPath = $this->getDirPath($kid, $folder);
         $files = [
             [
-                'filename' => $filename,
+                'basename' => $filename,
                 'dirPath' => $dirPath,
                 'kid' => $kid,
                 'folder' => $folder,
-                'dirUrl' => (new Zend_View())->baseUrl() . '/media/' . substr($dirPath, strlen(MEDIA_PATH)),
+                'dirUrl' => (new Zend_View())->baseUrl() . '/media' . substr($dirPath, strlen(MEDIA_PATH)),
             ]
         ];
         $files = $this->loadFileDetails($files);
@@ -82,7 +82,7 @@ class Service_Media
                 'dirPath' => $fileDirPath,
                 'kid' => $dirArr[count($dirArr) - 2] === self::MEDIA_DIR_CONSULTATIONS ? end($dirArr) : null,
                 'folder' => $dirArr[count($dirArr) - 2] === self::MEDIA_DIR_FOLDERS ? end($dirArr) : null,
-                'dirUrl' => (new Zend_View())->baseUrl() . '/media/' . substr($fileDirPath, strlen(MEDIA_PATH)),
+                'dirUrl' => (new Zend_View())->baseUrl() . '/media' . substr($fileDirPath, strlen(MEDIA_PATH)),
             ];
         }
 
@@ -107,12 +107,11 @@ class Service_Media
                     $files[$i]['folder'] = $inFiles[$i]['folder'];
                     $files[$i]['dirUrl'] = $inFiles[$i]['dirUrl'];
                     // Holds the name of the reference directory.
-                    // It can be either a particular consultation direcotry or the folders directory
-                    $files[$i]['dirRefDirUrl'] = (new Zend_View())->baseUrl() . '/media/'
-                        . ($inFiles[$i]['kid'] ? self::MEDIA_DIR_CONSULTATIONS . '/' . $inFiles[$i]['kid'] : self::MEDIA_DIR_FOLDERS);
+                    // It can be either a particular consultation direcotry or the root media directory
+                    $files[$i]['dirRefDirUrl'] = ($inFiles[$i]['kid'] ? self::MEDIA_DIR_CONSULTATIONS . '/' . $inFiles[$i]['kid'] : '');
                     // Holds the filename and possibly directory to finish the path based on reference directory.
                     // Typically this is what is saved in db as reference to this image.
-                    $files[$i]['dirRefFilename'] = ($inFiles[$i]['folder'] ? $inFiles[$i]['folder'] : '') . $files[$i]['basename'];
+                    $files[$i]['dirRefFilename'] = ($inFiles[$i]['folder'] ? self::MEDIA_DIR_FOLDERS . '/' . $inFiles[$i]['folder'] . '/' : '') . $files[$i]['basename'];
 
                     if (!getimagesize($filePath)) {
                         $files[$i]['icon'] = $this->getIconName($files[$i]['extension']);

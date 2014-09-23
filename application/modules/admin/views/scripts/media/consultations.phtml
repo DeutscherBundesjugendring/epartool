@@ -33,7 +33,9 @@
                         <?php foreach ($this->consultationDirs as $folder): ?>
                             <tr>
                                 <td class="table-cell-id">
-                                    <a href="<?=$this->baseUrl?>/admin/media/index/kid/<?=$folder?>"><?=$folder;?></a>
+                                    <a href="<?=$this->url(['action' => 'index', 'kid' => $folder]);?>">
+                                        <?=$folder;?>
+                                    </a>
                                 </td>
                                 <td><?=$this->consultations[$folder];?></td>
                             </tr>

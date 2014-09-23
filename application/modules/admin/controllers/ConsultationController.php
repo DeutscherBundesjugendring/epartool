@@ -83,6 +83,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $form = new Admin_Form_Consultation();
         $form->setKid($this->_consultation->kid);
+        $form->getElement('img_file')->setIsLockDir(true);
 
         if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
             // if date-inputs not checked, remove validators and set default values

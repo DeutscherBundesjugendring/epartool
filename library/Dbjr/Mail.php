@@ -52,6 +52,12 @@ class Dbjr_Mail extends Zend_Mail
     protected $_toFull = array();
 
     /**
+     * Holds the attachment filepaths relative to media/
+     * @var array
+     */
+    protected $_attachmentFiles = array();
+
+    /**
      * Constructor
      * @param string $charset The charset of this mail
      */
@@ -235,6 +241,7 @@ class Dbjr_Mail extends Zend_Mail
             'to' => $this->_toFull,
             'cc' => $this->_ccFull,
             'bcc' => $this->_bccFull,
+            'attachments' => $this->_attachmentFiles,
         );
 
         return $data;
@@ -387,5 +394,16 @@ class Dbjr_Mail extends Zend_Mail
                 }
             }
         }
+    }
+
+    /**
+     * Adds attachment file to the email
+     * @param   string      $file   The path to the file media root folder
+     * @return  Dbjr_Mail           Provide fluent interface
+     */
+    public function addAttachmentFile($file)
+    {
+        $this->_attachmentFiles[] = $file;
+        return $this;
     }
 }

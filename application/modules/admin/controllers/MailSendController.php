@@ -21,7 +21,19 @@ class Admin_MailSendController extends Zend_Controller_Action
     {
         $form = new Admin_Form_Mail_Send();
         if ($this->getRequest()->isPost()) {
-            if ($form->isValid($this->getRequest()->getPost())) {
+            $postData = $this->getRequest()->getPost();
+            if (isset($postData['attachments'])) {
+                foreach ($postData['attachments'] as $i => $file) {
+                    $attachment = $form->createElement('media', (string) $i);
+                    $attachment
+                        ->setBelongsTo('attachments')
+                        ->setValue($file)
+                        ->setOrder(500 + $i);
+                    $form->addElement($attachment);
+                }
+            }
+
+            if ($form->isValid($postData)) {
                 $values = $form->getValues();
                 $userTableName = (new Model_Users())->info(Model_Users::NAME);
                 $userConsultDataTableName = (new Model_User_Info())->info(Model_User_Info::NAME);
@@ -63,6 +75,13 @@ class Admin_MailSendController extends Zend_Controller_Action
                         Dbjr_Mail::RECIPIENT_TYPE_BCC,
                         Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER
                     );
+                }
+                if ($postData['attachments']) {
+                    foreach ($postData['attachments'] as $file) {
+                        if ($file) {
+                            $mailer->addAttachmentFile($file);
+                        }
+                    }
                 }
                 (new Service_Email)->queueForSend($mailer);
 

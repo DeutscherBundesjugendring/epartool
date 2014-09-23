@@ -15,12 +15,16 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
             $kidFolderParam = '';
         }
 
+        $lockDir = $element->getIsLockDir() ? '/lockDir/1' : '';
+
         $mediaPath = Zend_Registry::get('baseUrl') . '/media';
-        $imgPath = $mediaPath . '/' . Service_Media::MEDIA_DIR_FOLDERS . '/' . $element->getValue();
-        if (!is_file($imgPath)) {
-            $imgPath =$mediaPath . '/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $element->getKid() . '/' . $element->getValue();
+        if ($element->getKid()) {
+            $imgPath = $mediaPath . '/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $element->getKid() . '/' . $element->getValue();
+        } else {
+            $imgPath = $mediaPath . '/' . $element->getValue();
         }
 
+        $origClass = $element->getAttrib('class') ? ' ' . $element->getAttrib('class') : '';
         $element
             ->setAttrib('class', 'form-control')
             ->clearDecorators()
@@ -49,27 +53,30 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
 EOD;
                         return $html;
                     },
-                    'href'  => Zend_Registry::get('baseUrl') . '/admin/media/index/targetElId/' . $element->getId() . $kidFolderParam,
+                    'href' => Zend_Registry::get('baseUrl') . '/admin/media/index/targetElId/' . $element->getId() . $kidFolderParam . $lockDir,
                     'label' => (new Zend_View())->translate('Change image'),
                     'placement' => Zend_Form_Decorator_Abstract::APPEND
                 ]
             )
             ->addDecorator(
                 ['hiddenInput' => 'HtmlTag'],
-                [
-                    'tag' => 'input',
-                    'id' => $element->getId(),
-                    'type' => 'hidden',
-                    'name' => $element->getName(),
-                    'value' => $element->getValue(),
-                ]
+                array_merge(
+                    [
+                        'tag' => 'input',
+                        'id' => $element->getId(),
+                        'type' => 'hidden',
+                        'name' => ($element->getBelongsTo() ? $element->getBelongsTo() . '[' : '') . $element->getName() . ($element->getBelongsTo() ? ']' : ''),
+                        'value' => $element->getValue(),
+                    ],
+                    $element->getAttrib('disabled') ? ['disabled' => null] : []
+                )
             )
             ->addDecorator(
                 ['formGroup' => 'HtmlTag'],
                 [
                     'tag' => 'div',
                     'id' => ['callback' => [get_class($element), 'resolveElementId']],
-                    'class' => 'form-group',
+                    'class' => 'form-group' . $origClass,
                 ]
             );
 

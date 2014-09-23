@@ -2,8 +2,24 @@
 
 class Dbjr_Form_Element_Media extends Zend_Form_Element_Text
 {
+    /**
+     * Holds the consultation identifier
+     * @var integer
+     */
     private $_kid;
+
+    /**
+     * Holds the fodler name
+     * @var string
+     */
     private $_folder;
+
+    /**
+     * Indicates if the media selection popup window should be navigable
+     * or if the user is to be locked inside one directory
+     * @var boolean
+     */
+    private $_isLockDir;
 
     /**
      * Load default decorators
@@ -43,4 +59,16 @@ class Dbjr_Form_Element_Media extends Zend_Form_Element_Text
         $this->_folder = $folder;
         return $this;
     }
+
+    public function getIsLockDir()
+    {
+        return $this->_isLockDir;
+    }
+
+    public function setIsLockDir($isLockDir)
+    {
+        $this->_isLockDir = $isLockDir;
+        return $this;
+    }
+
 }

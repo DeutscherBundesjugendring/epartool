@@ -13,18 +13,54 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
             array(
                 'name' => 'all',
                 'label' => 'All Media',
-                'href' => '/admin/media/index',
+                'href' => $this->view->url(
+                    [
+                        'controller' => 'media',
+                        'action' => 'index',
+                        'targetElId' => $this->view->targetElId,
+                        'kid' => null,
+                        'folder' => null,
+                        'filename' => null,
+                    ]
+                ),
             ),
             array(
                 'name' => 'consultations',
                 'label' => 'Consultations',
-                'href' => '/admin/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS,
+                'href' => $this->view->url(
+                    [
+                        'controller' => 'media',
+                        'action' => 'consultations',
+                        'targetElId' => $this->view->targetElId,
+                        'folder' => null,
+                        'filename' => null,
+                    ]
+
+                ),
             ),
             array(
                 'name' => 'folders',
                 'label' => 'Folders',
-                'href' => '/admin/media/' . Service_Media::MEDIA_DIR_FOLDERS,
-                'new_item' => $this->view->url(array('controller' => 'media', 'action' => 'create-folder')),
+                'href' => $this->view->url(
+                    [
+                        'controller' => 'media',
+                        'action' => 'folders',
+                        'targetElId' => $this->view->targetElId,
+                        'kid' => null,
+                        'filename' => null,
+                    ]
+
+                ),
+                'new_item' => $this->view->url(
+                    [
+                        'controller' => 'media',
+                        'action' => 'create-folder',
+                        'targetElId' => $this->view->targetElId,
+                        'kid' => null,
+                        'folder' => null,
+                        'filename' => null,
+                    ]
+                ),
             ),
         );
 

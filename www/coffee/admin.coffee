@@ -1,11 +1,14 @@
 $(document).ready () ->
-    bindSelectTemplate()
-    bindConsultationSelect()
-    initDataViewTable();
-    initCKEditor();
+    bindEmailTemplateSelect()
+    bindEmailConsultationSelect()
+
+    bindEmailAddAttachment()
+
+    initDataViewTable()
+    initCKEditor()
 
 # Binds ajax loading template data to a template selctor box
-bindSelectTemplate = () ->
+bindEmailTemplateSelect = () ->
     $('.js-template-selector')
         .change ((eventObj) ->
             templateId = $(eventObj.target).val()
@@ -29,7 +32,7 @@ bindSelectTemplate = () ->
         )
 
 # Binds form element enable/disable to Consulattions selection
-bindConsultationSelect = () ->
+bindEmailConsultationSelect = () ->
     consulRecipients = $('#mail_consultation').data('consultations')
     $('.js-consultation-selector')
         .change ((eventObj) ->
@@ -54,6 +57,26 @@ bindConsultationSelect = () ->
             $('.js-consultation-voter').prop('disabled', isVoterDisabled)
             $('.js-consultation-newsletter').prop('disabled', isNewsletterDisabled)
             $('.js-consultation-followup').prop('disabled', isFollowupDisabled)
+            return
+        )
+
+# Binds appearance of new media selection element to clickng the button
+bindEmailAddAttachment = () ->
+    attachmentId = 0
+    $('.js-email-add-attachment').
+        click((ev) ->
+            ev.preventDefault()
+            button = $(ev.target)
+            html = button.next()
+                .clone()
+                .removeClass('hidden')
+            html.find('input[type=hidden]')
+                .attr('name', 'attachments[]')
+                .removeProp('disabled')
+            html = html.prop('outerHTML')
+                .replace(/TOKEN_TO_BE_REPLACED_BY_JS/g, attachmentId)
+            button.before(html)
+            attachmentId++;
             return
         )
 

@@ -9,6 +9,11 @@
 		<link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
 		<![endif]-->
 		<?=$this->headScript();?>
+
+	    <script>
+	        // TODO move to data attribute on body?
+	        var baseUrl = '<?=$this->baseUrl?>';
+	    </script>
 	</head>
 	<body>
 		<div class="page_margins popup">

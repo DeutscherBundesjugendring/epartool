@@ -15,7 +15,15 @@
         <div class="row">
             <div class="col-md-3">
 
-                <?=$this->mediaNavigation();?>
+                <?php if (!$this->lockDir): ?>
+                    <div class="col-md-3">
+                        <?=$this->mediaNavigation();?>
+                    </div>
+                <?php else: ?>
+                    <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>">
+                        Files
+                    </a>
+                <?php endif?>
 
             </div>
             <div class="col-md-9">

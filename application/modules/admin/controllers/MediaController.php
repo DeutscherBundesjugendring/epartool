@@ -39,7 +39,9 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         $this->_kid = $this->getRequest()->getParam('kid', null);
+        $this->view->kid = $this->_kid;
         $this->_folder = $this->getRequest()->getParam('folder', null);
+        $this->view->folder = $this->_folder;
         $this->_filename = $this->getRequest()->getParam('filename', null);
 
         try {
@@ -60,6 +62,7 @@ class Admin_MediaController extends Zend_Controller_Action
             $this->_helper->layout->setLayout('popup');
             $this->view->headScript()->prependFile('/components/bower/jquery/jquery.min.js');
             $this->view->headScript()->appendFile('/js/admin_mediaPopup.js');
+            $this->view->lockDir = (bool) $this->getRequest()->getParam('lockDir', null);
         }
     }
 
@@ -106,7 +109,6 @@ class Admin_MediaController extends Zend_Controller_Action
         $this->view->CKEditorFuncNum = $this->getRequest()->getParam('CKEditorFuncNum', 0);
         // If the consultation id is set then the path to the image folder is assumed and we only deal with filename relative to
         // the consultation media folder. Otherwise we deal with path relative to the media/folders folder
-        $this->view->lockDir = (bool) $this->_kid;
     }
 
     public function editFolderAction()
