@@ -9,16 +9,17 @@ class Service_Media
 
     /**
      * Maps file extensions to icon file names
+     * @see application/configs/config.ini
      * @var array
      */
     private $iconMap = [
-        'crystal_clear_mimetype_txt' => ["doc", "docx", "dot", "dotx", "odt", "ott", "rtf", "txt"],
-        'crystal_clear_mimetype_spreadsheet' => ["xls", "xlsx", "xlst", "ods", "ots", "csv"],
-        'crystal_clear_mimetype_video' => ["avi", "divx", "flv", "mkv", "mov", "mpg", "mp4", "mp4v", "m4v", "ogv", "webm", "wmv", "3gp", "3g2"],
-        'crystal_clear_app_xmms' => ["aac", "au", "flac", "mid", "mka", "mp3", "m4a", "m4b", "ogg", "snd", "wav", "wma"],
-        'crystal_clear_app_display' => ["ppt", "pptx", "odp", "otp"],
-        'cystal_clear_mimetype_pdf' => ["pdf", "epub", "mobi"],
-        'crystal_clear_filesystem_folder_tar' => ["zip", "rar", "tar", "7z"],
+        'crystal_clear_mimetype_txt' => ['doc', 'docx', 'odt', 'txt'],
+        'crystal_clear_mimetype_spreadsheet' => ['xls', 'xlsx', 'odc', 'ods'],
+        'crystal_clear_mimetype_video' => ['avi', 'mkv', 'mp4', 'm4v'],
+        'crystal_clear_app_xmms' => ['mp3'],
+        'crystal_clear_app_display' => ['ppt', 'pptx', 'odp'],
+        'cystal_clear_mimetype_pdf' => ['pdf'],
+        'crystal_clear_filesystem_folder_tar' => ['zip'],
     ];
 
     /**
