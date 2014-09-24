@@ -36,14 +36,13 @@ class Service_Media
      */
     public function getOne($filename, $kid = null, $folder = null)
     {
-        $dirPath = $this->getDirPath($kid, $folder);
+        $dirname = $this->getdirname($kid, $folder);
         $files = [
             [
                 'basename' => $filename,
-                'dirPath' => $dirPath,
+                'dirname' => $dirname,
                 'kid' => $kid,
                 'folder' => $folder,
-                'dirUrl' => (new Zend_View())->baseUrl() . '/media' . substr($dirPath, strlen(MEDIA_PATH)),
             ]
         ];
         $files = $this->loadFileDetails($files);
@@ -66,24 +65,23 @@ class Service_Media
     public function getByDir($kid = null, $folder = null, $acceptAll = null)
     {
         try {
-            $dirPath = $this->getDirPath($kid, $folder);
+            $dirname = $this->getdirname($kid, $folder);
         } catch (Dbjr_File_Exception $e) {
             if ($acceptAll) {
-                $dirPath = MEDIA_PATH;
+                $dirname = MEDIA_PATH;
             } else {
                 throw $e;
             }
         }
         $files = [];
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath)) as $file) {
-            $fileDirPath = $file->getPath();
-            $dirArr = (explode('/', $fileDirPath));
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirname)) as $file) {
+            $filedirname = $file->getPath();
+            $dirArr = (explode('/', $filedirname));
             $files[] = [
                 'basename' => $file->getFilename(),
-                'dirPath' => $fileDirPath,
+                'dirname' => $filedirname,
                 'kid' => $dirArr[count($dirArr) - 2] === self::MEDIA_DIR_CONSULTATIONS ? end($dirArr) : null,
                 'folder' => $dirArr[count($dirArr) - 2] === self::MEDIA_DIR_FOLDERS ? end($dirArr) : null,
-                'dirUrl' => (new Zend_View())->baseUrl() . '/media' . substr($fileDirPath, strlen(MEDIA_PATH)),
             ];
         }
 
@@ -95,26 +93,25 @@ class Service_Media
      * @param  array $inFiles The input array of file info arrays
      * @return array          The output array of file info arrays
      */
-    private function loadFileDetails($inFiles)
+    public function loadFileDetails($inFiles)
     {
         $files = [];
         if (!empty($inFiles)) {
             for ($i = 0; $i < count($inFiles); $i++) {
-                $filePath = $inFiles[$i]['dirPath'] . '/' . $inFiles[$i]['basename'];
+                $filePath = $inFiles[$i]['dirname'] . '/' . $inFiles[$i]['basename'];
                 if (is_file($filePath) && substr($inFiles[$i]['basename'], 0, 1) !== '.') {
                     $files[$i] = pathinfo($filePath);
                     $files[$i]['size'] = ceil(filesize($filePath) / 1024);
-                    $files[$i]['kid'] = $inFiles[$i]['kid'];
-                    $files[$i]['folder'] = $inFiles[$i]['folder'];
-                    $files[$i]['dirUrl'] = $inFiles[$i]['dirUrl'];
+                    $files[$i]['kid'] = isset($inFiles[$i]['kid']) ? $inFiles[$i]['kid'] : null;
+                    $files[$i]['folder'] = isset($inFiles[$i]['folder']) ? $inFiles[$i]['folder'] : null;
                     // Holds the name of the reference directory.
                     // It can be either a particular consultation direcotry or the root media directory
-                    $files[$i]['dirRefDirUrl'] = ($inFiles[$i]['kid'] ? self::MEDIA_DIR_CONSULTATIONS . '/' . $inFiles[$i]['kid'] : '');
+                    $files[$i]['dirRefDirUrl'] = ($files[$i]['kid'] ? self::MEDIA_DIR_CONSULTATIONS . '/' . $files[$i]['kid'] : '');
                     // Holds the filename and possibly directory to finish the path based on reference directory.
                     // Typically this is what is saved in db as reference to this image.
-                    $files[$i]['dirRefFilename'] = ($inFiles[$i]['folder'] ? self::MEDIA_DIR_FOLDERS . '/' . $inFiles[$i]['folder'] . '/' : '') . $files[$i]['basename'];
+                    $files[$i]['dirRefFilename'] = ($files[$i]['folder'] ? self::MEDIA_DIR_FOLDERS . '/' . $files[$i]['folder'] . '/' : '') . $files[$i]['basename'];
 
-                    if (!getimagesize($filePath)) {
+                    if (!@getimagesize($filePath)) {
                         $files[$i]['icon'] = $this->getIconName($files[$i]['extension']);
                     }
                 }
@@ -135,7 +132,7 @@ class Service_Media
     public function upload($filename, $kid = null, $folder = null)
     {
         $filename = $this->sanitizeFilename($filename);
-        $uploadDir = $this->getDirPath($kid, $folder);
+        $uploadDir = $this->getdirname($kid, $folder);
 
         if (file_exists($uploadDir . '/' . $filename)) {
             throw new Dbjr_File_Exception('File exists.');
@@ -182,7 +179,7 @@ class Service_Media
     {
         $res = (new Dbjr_File())
             ->setFilename($filename)
-            ->setDirPath($this->getDirPath($kid, $folder))
+            ->setdirname($this->getdirname($kid, $folder))
             ->delete();
 
         return (bool) $res;
@@ -205,7 +202,7 @@ class Service_Media
         }
 
         $res = (new Dbjr_File_Folder())
-            ->setDirPath($this->getDirPath($kid, $folder))
+            ->setdirname($this->getdirname($kid, $folder))
             ->delete();
 
         return (bool) $res;
@@ -254,9 +251,9 @@ class Service_Media
         if (!$kid && !$folder) {
             throw new Dbjr_Exception('Either Consultation Id or Folder name msut be given.');
         }
-        $dirPath = MEDIA_PATH . '/' . ($kid ? self::MEDIA_DIR_CONSULTATIONS : self::MEDIA_DIR_FOLDERS) . '/' . ($kid ? $kid : $folder);
+        $dirname = MEDIA_PATH . '/' . ($kid ? self::MEDIA_DIR_CONSULTATIONS : self::MEDIA_DIR_FOLDERS) . '/' . ($kid ? $kid : $folder);
 
-        return mkdir($dirPath, 0700);
+        return mkdir($dirname, 0700);
     }
 
     /**
@@ -292,7 +289,7 @@ class Service_Media
      * @throws Dbjr_File_Exception            Throws exception if the path does not exist
      * @return string                         The path to the relevant dir
      */
-    private function getDirPath($kid, $folder)
+    private function getdirname($kid, $folder)
     {
         if ($kid && file_exists(MEDIA_PATH . '/' . self::MEDIA_DIR_CONSULTATIONS . '/' . $kid)) {
             return MEDIA_PATH . '/' . self::MEDIA_DIR_CONSULTATIONS . '/' . $kid;

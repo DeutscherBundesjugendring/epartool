@@ -17,8 +17,13 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
             ->media
             ->presentationContext
             ->$context;
-        if (empty($file['icon'])) {
 
+        if (!is_array($file)) {
+            $file = pathinfo($file);
+            $file = reset((new Service_Media())->loadFileDetails([$file]));
+        }
+
+        if (empty($file['icon'])) {
             $imagePath = Image::open($file['dirname'] . '/' . $file['basename'])
                 ->zoomCrop($contextConf->width, $contextConf->height)
                 ->guess();
@@ -36,6 +41,6 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 ->guess();
         }
 
-        return $this->view->baseUrl() . '/' . $imagePath;
+        return (new Zend_View())->baseUrl() . '/' . $imagePath;
     }
 }

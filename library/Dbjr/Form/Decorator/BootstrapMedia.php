@@ -14,14 +14,11 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
         } else {
             $kidFolderParam = '';
         }
-
         $lockDir = $element->getIsLockDir() ? '/lockDir/1' : '';
-
-        $mediaPath = Zend_Registry::get('baseUrl') . '/media';
         if ($element->getKid()) {
-            $imgPath = $mediaPath . '/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $element->getKid() . '/' . $element->getValue();
+            $imgPath = MEDIA_PATH . '/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $element->getKid() . '/' . $element->getValue();
         } else {
-            $imgPath = $mediaPath . '/' . $element->getValue();
+            $imgPath = MEDIA_PATH . '/' . $element->getValue();
         }
 
         $origClass = $element->getAttrib('class') ? ' ' . $element->getAttrib('class') : '';
@@ -38,7 +35,7 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 ['previewImage' => 'HtmlTag'],
                 [
                     'tag' => 'img',
-                    'src' => $imgPath,
+                    'src' => (new Application_View_Helper_MediaPresenter())->mediaPresenter($imgPath, 'admin_media_form_element'),
                     'placement' => 'append',
                 ]
             )

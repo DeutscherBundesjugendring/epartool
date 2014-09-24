@@ -4,10 +4,11 @@ class mediaSelectPopup
     # @param    {string}  filename              The media filename
     # @param    {string}  targetElId            The id of the element that triggered this popup
     # @param    {string}  imgPathPrefixInput    The path to be used in media element in input field
-    # @param    {string}  imgPathPrefixImage    The path to be used in media element in image src attrib
+    # @param    {string}  imgPathImage          The path to be used in media element in image src attrib.
+                                                It points to the cache folder.
     # @param    {numeric} CKEditorFuncNum       The CKEditor callbeck identifier
     ###
-    this.insertValue = (filename, targetElId, imgPathPrefixInput, imgPathPrefixImage, CKEditorFuncNum) ->
+    this.insertValue = (filename, targetElId, imgPathPrefixInput, imgPathImage, CKEditorFuncNum) ->
         if imgPathPrefixInput.length > 0
             imgPathPrefixInput = imgPathPrefixInput + '/'
 
@@ -16,7 +17,7 @@ class mediaSelectPopup
         else
             inputEl = $(window.opener.document.getElementById(targetElId))
             inputEl.val(imgPathPrefixInput + filename)
-            inputEl.parent().find('img').attr('src', baseUrl + '/media/' + imgPathPrefixImage + '/' + filename)
+            inputEl.parent().find('img').attr('src', imgPathImage)
         window.close()
 
 document.mediaSelectPopup = mediaSelectPopup

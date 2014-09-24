@@ -40,7 +40,7 @@
                                                 '<?=$file['dirRefFilename'];?>',
                                                 '<?=$this->targetElId;?>',
                                                 '<?=$this->lockDir ? '' : $file['dirRefDirUrl'];?>',
-                                                '<?=$file['dirRefDirUrl'];?>',
+                                                '<?=$this->mediaPresenter($file, 'admin_media_form_element');?>',
                                                 '<?=$this->CKEditorFuncNum;?>'
                                             )"
                                         <?php else: ?>
