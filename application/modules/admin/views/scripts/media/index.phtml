@@ -50,16 +50,10 @@
                                         href="#"
                                     >
                                         <div class="thumbnail-image">
-                                            <?php if (empty($file['icon'])): ?>
-                                                <!-- TODO use resized thumbnail -->
-                                                <img src="<?=$file['dirUrl'];?>/<?=$file['basename'];?>" alt="<?=$this->translate('Preview');?>" />
-                                            <?php else: ?>
-                                                <img
-                                                    src="<?=$this->baseUrl()?>/images/<?=$file['icon']?>.png"
-                                                    class="thumbnail-image-icon"
-                                                    alt="<?=$this->translate('Preview');?>"
-                                                />
-                                            <?php endif?>
+                                            <img
+                                                src="<?=$this->mediaPresenter($file, 'admin_thumbnail');?>"
+                                                alt="<?=$this->translate('Preview');?>"
+                                            />
                                         </div>
                                         <div class="caption">
                                             <h4 class="thumbnail-title"><?=$file['basename'];?></h4>
