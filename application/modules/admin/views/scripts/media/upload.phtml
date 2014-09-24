@@ -16,9 +16,7 @@
             <div class="col-md-3">
 
                 <?php if (!$this->lockDir): ?>
-                    <div class="col-md-3">
-                        <?=$this->mediaNavigation();?>
-                    </div>
+                    <?=$this->mediaNavigation();?>
                 <?php else: ?>
                     <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>">
                         Files
