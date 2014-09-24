@@ -283,19 +283,18 @@ class Admin_MediaController extends Zend_Controller_Action
 
                 $filename = Dbjr_File::pathinfoUtf8($form->file->getFileName(), PATHINFO_BASENAME);
                 try {
-                    $filename = (new Service_Media())->upload($filename, $this->_kid, $this->_folder);
-                    if ($filename) {
+                    $uploadRes = (new Service_Media())->upload($filename, $this->_kid, $this->_folder);
+                    // $uploadRes is either the new filename or an array of error messages
+                    if (!is_array($uploadRes)) {
                         $this->_flashMessenger->addMessage(
-                            sprintf('Die Datei »%s« wurde erfolgreich hinzugefügt.', $filename),
+                            sprintf('Die Datei »%s« wurde erfolgreich hinzugefügt.', $uploadRes),
                             'success'
                         );
                     } else {
+                        $form->getElement('file')->addErrors($uploadRes);
                         $this
                             ->_flashMessenger
-                            ->addMessage(
-                                'Die Datei konnte nicht hinzugefügt werden. Sie war möglicherweise zu groß oder die Schreibrechte nicht ausreichend.',
-                                'error'
-                            );
+                            ->addMessage('The file could not be uploaded.', 'error');
                     }
                 } catch (Dbjr_File_Exception $e) {
                     $this->_flashMessenger->addMessage('File exists.', 'error');

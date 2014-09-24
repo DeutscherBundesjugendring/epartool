@@ -129,7 +129,7 @@ class Service_Media
      * @param  integer              $kid      The consultation identifier. Mandatory if no $folder is set.
      * @param  string               $folder   The folder name. Mandatory if no $kid is set.
      * @throws Dbjr_File_Exception            Throws exception if the file already exists
-     * @return string                         The saved filename
+     * @return string|array                   The saved filename or an array of error messages on validation fail
      */
     public function upload($filename, $kid = null, $folder = null)
     {
@@ -146,13 +146,10 @@ class Service_Media
                 'Rename',
                 ['target' => $uploadDir . '/' . $filename]
             )
+            ->addValidator('Extension', false, Zend_Registry::get('systemconfig')->media->filetype->extensions)
             ->receive();
 
-        if (!$uploadRes) {
-            throw new Dbjr_Exception('Could not upload file: ' . print_r($upload->getMessages(), true));
-        }
-
-        return $uploadRes;
+        return $uploadRes ? $filename : $upload->getMessages();
     }
 
     /**
