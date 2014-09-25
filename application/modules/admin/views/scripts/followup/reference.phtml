@@ -1,243 +1,240 @@
 <?php
-/**
- *  reference.phtml
- * 
- *  @description   handle references to followup snippets, opens in popup
- *  @author        Marco Dinnbier
- */
+    $inptids = array();
+    $docids = array();
+    $snippetids = array();
 ?>
-<?php $inptids = array(); $docids = array(); $snippetids = array(); ?>
 <h2><u>Verknüpfungen für Reaktionen & Wirkung bearbeiten</u></h2>
 
-<p><?php echo html_entity_decode($this->followup['expl']); ?></p>
+<p><?php echo html_entity_decode($this->followup['expl']);?></p>
 <hr />
 <br />
-<h3>Zugewiesene Beiträge (Gesamt: <?php echo count($this->related['inputs']); ?>)</h3>
-Frage wählen: <form style="display:inline;" id="qDropdownForm" action="" method="POST"> 
-    <?php 
-        if ($this->question){
-            echo $this->QuestionDropdown( $this->question['qi'], 'question');    
-        } else {
-            echo $this->QuestionDropdown( NULL, 'question'); 
-        }
-    ?>
+<h3>Zugewiesene Beiträge (Gesamt: <?php echo count($this->related['inputs']);?>)</h3>
+Frage wählen:
+<form style="display:inline;" id="qDropdownForm" action="" method="POST">
+    <?php if ($this->question): ?>
+        <?=$this->QuestionDropdown( $this->question['qi'], 'question');?>
+    <?php else: ?>
+        <?=$this->QuestionDropdown( NULL, 'question');?>
+    <?php endif?>
 </form>
-<?php if(count($this->related['inputs']) > 0): ?>
-<table style="width: 100%">
-    <tbody>
-        <tr>
-          
-            <th style="width: 55%">Beitrag</th>
-            <th style="text-align: right;">Aktionen</th>
-        </tr>
-        <?php foreach ($this->related['inputs'] as $input): ?>
-            <?php if($input['qi'] == $this->question["qi"]): ?>
-            <?php $inptids[] = $input['tid']; ?>
-                <tr>    
-   
-                    <td><?php echo substr(strip_tags(html_entity_decode($input['thes'])), 0, 400).'...'; ?></td>
 
-                    <td style="text-align: right;">
-                        <a href="<?php echo $this->url(array(
-                            'module' => 'admin',
-                            'controller' => 'followup',
-                            'action' => 'del-reference',
-                            'kid' => $this->consultation['kid'],
-                            'fid_ref' => $this->followup['fid'],
-                            'tid' => $input['tid'] 
-                            ),null,true);?>">Diese Verknüpfung entfernen</a>
-                    </td>
-                </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>        
-    </tbody>
-</table>
-<?php endif; ?>
+<?php if(count($this->related['inputs']) > 0): ?>
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <th style="width: 55%">Beitrag</th>
+                <th style="text-align: right;">Aktionen</th>
+            </tr>
+            <?php foreach ($this->related['inputs'] as $input): ?>
+                <?php if($input['qi'] == $this->question["qi"]): ?>
+                    <?php $inptids[] = $input['tid'];?>
+                    <tr>
+                        <td><?php echo substr(strip_tags(html_entity_decode($input['thes'])), 0, 400) . '...';?></td>
+                        <td style="text-align: right;">
+                            <a href="<?php echo $this->url(array(
+                                'module' => 'admin',
+                                'controller' => 'followup',
+                                'action' => 'del-reference',
+                                'kid' => $this->consultation['kid'],
+                                'fid_ref' => $this->followup['fid'],
+                                'tid' => $input['tid']
+                                ),null,true);?>">Diese Verknüpfung entfernen</a>
+                        </td>
+                    </tr>
+                <?php endif;?>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+<?php endif;?>
 
 <hr />
 <a class="toggleBox" href="#" data-box="chooseInput">Beiträge zuweisen</a>
 <div id="chooseInput" style="display:none;">
-<?php if ($this->question): ?>
-<form id="iChooseForm" action="" method="POST">
-    <div>
-        <table style="width: 100%">
-            <tbody>
-                <tr>
-                    <th></th>
-                    <th>These</th>
-                </tr>
-                <?php foreach ($this->question["inputs"] as $input): ?>
-                    <?php if(!in_array($input['tid'],$inptids)): ?>
+    <?php if ($this->question): ?>
+        <form id="iChooseForm" action="" method="POST">
+            <div>
+                <table style="width: 100%">
+                    <tbody>
                         <tr>
-                            <td>
-                                <input type="checkbox" name="inp_list[]" value="<?php echo $input['tid'] ?>">
-                            </td>
-                            <td><?php echo $input['thes']; ?> <?php echo $input['vot']; ?></td>
+                            <th></th>
+                            <th>These</th>
                         </tr>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <input type="hidden" name="question" value="<?php echo $this->question['qi']; ?>" />
-    <input type="submit" name="insert_inputs" value="Beiträge zuordnen" />
-</form>
-
-<?php endif; ?>
+                        <?php foreach ($this->question["inputs"] as $input): ?>
+                            <?php if(!in_array($input['tid'],$inptids)): ?>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="inp_list[]" value="<?php echo $input['tid'] ?>">
+                                    </td>
+                                    <td><?php echo $input['thes'];?> <?php echo $input['vot'];?></td>
+                                </tr>
+                            <?php endif;?>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+            <input type="hidden" name="question" value="<?php echo $this->question['qi'];?>" />
+            <input type="submit" name="insert_inputs" value="Beiträge zuordnen" />
+        </form>
+    <?php endif;?>
 </div>
 
 
-<br /><br />
-
-<h3>Zugewiesene Follow-up-Snippets (Gesamt: <?php echo count($this->related['snippets']); ?>)</h3>
-Dokument wählen: <form style="display:inline;" id="dDropdownForm" action="" method="POST"> 
-    <?php 
-        if ($this->chosenDoc){
-            echo $this->FollowupFlsDropdown( $this->chosenDoc, 'chosenDoc', $this->followup['ffid']);    
-        } else {
-            echo $this->FollowupFlsDropdown( NULL, 'chosenDoc', $this->followup['ffid']); 
-        }
-    ?>
+<br />
+<br />
+<h3>Zugewiesene Follow-up-Snippets (Gesamt: <?php echo count($this->related['snippets']);?>)</h3>
+Dokument wählen:
+<form style="display:inline;" id="dDropdownForm" action="" method="POST">
+    <?php if ($this->chosenDoc): ?>
+        <?=$this->FollowupFlsDropdown($this->chosenDoc, 'chosenDoc', $this->followup['ffid']);?>
+    <?php else: ?>
+            <?=$this->FollowupFlsDropdown(null, 'chosenDoc', $this->followup['ffid']);?>
+    <?php endif;?>
 </form>
+
 <?php if(count($this->related['snippets']) > 0): ?>
-<table style="width: 100%">
-    <tbody>
-        <tr>
-            <th style="width: 55%">Erläuterung</th>
-            <th style="text-align: right;">Aktionen</th>
-        </tr>
-        <?php foreach ($this->related['snippets'] as $snippet): ?>
-        <?php if($snippet['ffid'] == $this->chosenDoc): ?>
-         <?php $snippetids[] = $snippet['fid']; ?>
-            <tr>                
-                <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...'; ?></td>
-                
-                <td style="text-align: right;">
-                    <a href="<?php echo $this->url(array(
-                            'module' => 'admin',
-                            'controller' => 'followup',
-                            'action' => 'del-reference',
-                            'kid' => $this->consultation['kid'],
-                            'fid_ref' => $this->followup['fid'],
-                            'fid' => $snippet['fid']  
-                            ),null,true);?>">Diese Verknüpfung entfernen</a>
-                </td>
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <th style="width: 55%">Erläuterung</th>
+                <th style="text-align: right;">Aktionen</th>
             </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>        
-    </tbody>
-</table>
-<?php endif; ?>
+            <?php foreach ($this->related['snippets'] as $snippet): ?>
+                <?php if($snippet['ffid'] == $this->chosenDoc): ?>
+                    <?php $snippetids[] = $snippet['fid'];?>
+                    <tr>
+                        <td>
+                            <?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...';?>
+                        </td>
+
+                        <td style="text-align: right;">
+                            <a href="<?=$this->url(
+                                [
+                                    'module' => 'admin',
+                                    'controller' => 'followup',
+                                    'action' => 'del-reference',
+                                    'kid' => $this->consultation['kid'],
+                                    'fid_ref' => $this->followup['fid'],
+                                    'fid' => $snippet['fid']
+                                ],
+                                null,
+                                true
+                            );?>">
+                                Diese Verknüpfung entfernen
+                            </a>
+                        </td>
+                    </tr>
+                <?php endif;?>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+<?php endif;?>
 
 <hr />
 <a class="toggleBox" href="#" data-box="chooseSnippet">Follow-up-Schnippsel zuweisen</a>
 <div id="chooseSnippet" style="display:none;">
-<form id="snChooseForm" action="" method="POST">
-    <div>
-        <table style="width: 100%">
-            <tbody>
-                <tr>
-                    <th></th>
-                    <th>Erläuterung</th>
-                </tr>
-                <?php foreach ($this->snippets as $snippet): ?>
-                    <?php if(!in_array($snippet['fid'], $snippetids) && $snippet['ffid'] == $this->chosenDoc): ?>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="snippet_list[]" value="<?php echo $snippet['fid'] ?>">
-                            </td>
-                            <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400).'...'; ?></td>
-                        </tr>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <input type="submit" name="insert_snippets" value="Schnippsel zuordnen" />
-</form>
+    <form id="snChooseForm" action="" method="POST">
+        <div>
+            <table style="width: 100%">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>Erläuterung</th>
+                    </tr>
+                    <?php foreach ($this->snippets as $snippet): ?>
+                        <?php if(!in_array($snippet['fid'], $snippetids) && $snippet['ffid'] == $this->chosenDoc): ?>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="snippet_list[]" value="<?php echo $snippet['fid'] ?>">
+                                </td>
+                                <td><?php echo substr(strip_tags(html_entity_decode($snippet['expl'])), 0, 400) . '...';?></td>
+                            </tr>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+        </div>
+        <input type="submit" name="insert_snippets" value="Schnippsel zuordnen" />
+    </form>
 </div>
 
-
-<br /><br />
-<h3>Zugewiesene Follow-ups (Gesamt: <?php echo count($this->related['docs']); ?>)</h3>
+<br />
+<br />
+<h3>Zugewiesene Follow-ups (Gesamt: <?php echo count($this->related['docs']);?>)</h3>
 <?php if(count($this->related['docs']) > 0): ?>
-<table style="width: 100%">
-    <tbody>
-        <tr>
-            <th style="width: 55%">Titel</th>
-            <th style="text-align: right;">Aktionen</th>
-        </tr>
-        <?php foreach ($this->related['docs'] as $doc): ?>
-            <?php $docids[] = $doc['ffid']; ?>
-            <tr>                
-                <td><?php echo substr(strip_tags(html_entity_decode($doc['titl'])), 0, 400); ?></td>
-                
-                <td style="text-align: right;">
-                    <a href="<?php echo $this->url(array(
-                            'module' => 'admin',
-                            'controller' => 'followup',
-                            'action' => 'del-reference',
-                            'kid' => $this->consultation['kid'],
-                            'fid_ref' => $this->followup['fid'],
-                            'ffid' => $doc['ffid']  
-                            ),null,true);?>">Diese Verknüpfung entfernen</a>
-                </td>
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <th style="width: 55%">Titel</th>
+                <th style="text-align: right;">Aktionen</th>
             </tr>
-        <?php endforeach; ?>        
-    </tbody>
-</table>
-<?php endif; ?>
+            <?php foreach ($this->related['docs'] as $doc): ?>
+                <?php $docids[] = $doc['ffid'];?>
+                <tr>
+                    <td><?php echo substr(strip_tags(html_entity_decode($doc['titl'])), 0, 400);?></td>
+
+                    <td style="text-align: right;">
+                        <a href="<?php echo $this->url(array(
+                                'module' => 'admin',
+                                'controller' => 'followup',
+                                'action' => 'del-reference',
+                                'kid' => $this->consultation['kid'],
+                                'fid_ref' => $this->followup['fid'],
+                                'ffid' => $doc['ffid']
+                                ),null,true);?>">
+                                    Diese Verknüpfung entfernen
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+<?php endif;?>
 
 
 <hr />
 <?php if(count($docids) != count($this->docs)-1): ?>
-<a class="toggleBox" href="#" data-box="chooseDoc">Follow-up-Dokumente zuweisen</a>
-<div id="chooseDoc" style="display:none;">
-<form id="flsChooseForm" action="" method="POST">
-    <div>
-        <table style="width: 100%">
-            <tbody>
-                <tr>
-                    <th></th>
-                    <th>Titel</th>
-                </tr>
-                <?php foreach ($this->docs as $doc): ?>
-                    <?php if(!in_array($doc['ffid'], $docids) && $doc['ffid'] != $this->followup['ffid']): ?>
+    <a class="toggleBox" href="#" data-box="chooseDoc">Follow-up-Dokumente zuweisen</a>
+    <div id="chooseDoc" style="display:none;">
+        <form id="flsChooseForm" action="" method="POST">
+            <div>
+                <table style="width: 100%">
+                    <tbody>
                         <tr>
-                            <td>
-                                <input type="checkbox" name="doc_list[]" value="<?php echo $doc['ffid'] ?>">
-                            </td>
-                            <td><?php echo $doc['titl']; ?></td>
+                            <th></th>
+                            <th>Titel</th>
                         </tr>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                        <?php foreach ($this->docs as $doc): ?>
+                            <?php if(!in_array($doc['ffid'], $docids) && $doc['ffid'] != $this->followup['ffid']): ?>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="doc_list[]" value="<?php echo $doc['ffid'] ?>">
+                                    </td>
+                                    <td><?php echo $doc['titl'];?></td>
+                                </tr>
+                            <?php endif;?>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+            <input type="submit" name="insert_docs" value="Dokumente zuordnen" />
+        </form>
     </div>
-    <input type="submit" name="insert_docs" value="Dokumente zuordnen" />
-</form>
-</div>
-<?php endif; ?>
+<?php endif;?>
 
 <script type="text/javascript">
     jQuery(document).ready(function(){
        jQuery(".toggleBox").on("click",function(){
-           
          var id = $(this).attr('data-box');
          $("#"+id).toggle();
          return false;
        });
        jQuery("#qDropdownForm select").on("change",function(){
-           
            jQuery("#qDropdownForm").submit();
-       }) 
+       })
        jQuery("#dDropdownForm select").on("change",function(){
-           
            jQuery("#dDropdownForm").submit();
-       }) 
-        
+       })
+
     });
-
-
 </script>
 
