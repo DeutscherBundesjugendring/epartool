@@ -5,7 +5,12 @@
                 <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
             </div>
         </div>
     </div>
@@ -20,7 +25,7 @@
             </div>
             <div class="col-md-9">
 
-                <h2><?=$this->translate('Edit folder');?></h2>
+                <h2><?=$this->pageTitle;?></h2>
 
                 <?=$this->form;?>
 

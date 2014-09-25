@@ -144,6 +144,8 @@ class Admin_MediaController extends Zend_Controller_Action
 
 
         $this->view->form = $form;
+        $this->view->pageTitle = 'Edit media folder';
+        $this->render('folder-detail');
     }
 
     public function editFileAction()
@@ -253,6 +255,8 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
+        $this->view->pageTitle = 'Create media folder';
+        $this->render('folder-detail');
     }
 
     /**
