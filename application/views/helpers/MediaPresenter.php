@@ -4,6 +4,18 @@ use Gregwar\Image\Image;
 
 class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
 {
+
+    /**
+     * Holds the dirpath of the media cache dir relative to the base url
+     */
+    const CACHE_DIR = 'runtime/cache/media/images';
+
+    /**
+     * Holds the dirpath of the media cache dir relative to the RUNTIME_PATH
+     * PHP cant concatenate a constant to  a string in constant assignment
+     */
+    const CACHE_ACTUAL_DIR_IN_RUNTIME = '/cache/media/images';
+
     /**
      * Returns url to the image representation of the given media
      * Typically it is a resize image for images and an icon for other file types
@@ -26,9 +38,11 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
         if (empty($file['icon'])) {
             $imagePath = Image::open($file['dirname'] . '/' . $file['basename'])
                 ->zoomCrop($contextConf->width, $contextConf->height)
+                ->setCacheDir(self::CACHE_DIR)
+                ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
                 ->guess();
         } else {
-            $icon = Image::open(dirname(__FILE__) . '/../../../www/images/' . $file['icon'] . '.png');
+            $icon = Image::open(APPLICATION_PATH . '/../www/images/' . $file['icon'] . '.png');
             $iconWidth = $icon->width();
             $iconHeight = $icon->height();
             $imagePath = IMAGE::create($contextConf->width, $contextConf->height)
@@ -38,6 +52,8 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                     ($contextConf->width - $iconWidth) / 2,
                     ($contextConf->height - $iconHeight) / 2
                 )
+                ->setCacheDir(self::CACHE_DIR)
+                ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
                 ->guess();
         }
 
