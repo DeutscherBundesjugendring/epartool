@@ -158,6 +158,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $attachment
             ->setBelongsTo('attachments')
             ->setAttrib('disabled', 'disabled')
+            ->setIsRemovable(true)
             ->setOrder(1001);
         self::addCssClass($attachment, 'hidden');
         $this->addElement($attachment);

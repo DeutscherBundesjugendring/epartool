@@ -40,7 +40,7 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 ]
             )
             ->addDecorator(
-                'Callback',
+                ['changeBtn' => 'Callback'],
                 [
                     'callback'  => function ($content, $element, $options) {
                         $html = <<<EOD
@@ -51,11 +51,30 @@ EOD;
                         return $html;
                     },
                     'href' => Zend_Registry::get('baseUrl') . '/admin/media/index/targetElId/' . $element->getId() . $kidFolderParam . $lockDir,
-                    'label' => (new Zend_View())->translate('Change image'),
+                    'label' => (new Zend_View())->translate('Change media'),
                     'placement' => Zend_Form_Decorator_Abstract::APPEND
                 ]
-            )
-            ->addDecorator(
+            );
+
+            if ($element->getIsRemovable()) {
+                $element->addDecorator(
+                    ['removeBtn' => 'Callback'],
+                    [
+                        'callback'  => function ($content, $element, $options) {
+                            $html = <<<EOD
+<a href="#" onclick="javascript:$(this).parent('div').remove(); return false;">
+    {$options['label']}
+</a>
+EOD;
+                            return $html;
+                        },
+                        'label' => (new Zend_View())->translate('Remove media'),
+                        'placement' => Zend_Form_Decorator_Abstract::APPEND
+                    ]
+                );
+            }
+
+            $element->addDecorator(
                 ['hiddenInput' => 'HtmlTag'],
                 array_merge(
                     [

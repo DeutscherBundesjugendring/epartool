@@ -22,6 +22,13 @@ class Dbjr_Form_Element_Media extends Zend_Form_Element_Text
     private $_isLockDir;
 
     /**
+     * Indicates if the element should display a remove button
+     * Needed for forms where the number of media elements is not fixed
+     * @var boolean
+     */
+    private $_isRemovable;
+
+    /**
      * Load default decorators
      * @return Dbjr_Form_Element_Text
      */
@@ -71,4 +78,14 @@ class Dbjr_Form_Element_Media extends Zend_Form_Element_Text
         return $this;
     }
 
+    public function getIsRemovable()
+    {
+        return $this->_isRemovable;
+    }
+
+    public function setIsRemovable($isRemovable)
+    {
+        $this->_isRemovable = $isRemovable;
+        return $this;
+    }
 }
