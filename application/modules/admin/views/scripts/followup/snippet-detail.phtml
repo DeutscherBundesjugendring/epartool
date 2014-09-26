@@ -18,14 +18,18 @@
             </div>
             <div class="col-md-9">
 
-                <h2><?=$this->translate('Edit Follow Up Snippet');?></h2>
+                <h2><?=$this->pageTitle;?></h2>
                 <p class="back-link">
-                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Follow Up');?></a>
+                    <a href="<?=$this->url(['action' => 'edit-file', 'fid' => null]);?>">
+                        &larr; <?=$this->translate('Back to Follow Up');?>
+                    </a>
                 </p>
                 <?=$this->form;?>
                 <p>
                     <?=$this->translate('or');?>
-                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>"><?=$this->translate('Cancel');?></a>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>">
+                        <?=$this->translate('Cancel');?>
+                    </a>
                 </p>
 
             </div>

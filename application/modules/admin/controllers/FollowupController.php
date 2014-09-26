@@ -1,32 +1,21 @@
 <?php
 
-/**
- * Description of Admin_FollowupController
- *
- * @author Marco Dinnbier
- */
-
 class Admin_FollowupController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
     protected $_consultation = null;
     private $_kid;
 
-     /**
-    * Construct
-    * @see Zend_Controller_Action::init()
-    * @return void
-    */
     public function init()
     {
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $kid = $this->_request->getParam('kid', 0);
-        if ($kid > 0) {
+        if ($kid) {
             $consultationModel = new Model_Consultations();
             $this->_consultation = $consultationModel->find($kid)->current();
-            $this->_kid = $kid;
             $this->view->consultation = $this->_consultation;
+            $this->_kid = $kid;
         }
     }
 
@@ -54,82 +43,32 @@ class Admin_FollowupController extends Zend_Controller_Action
      */
     public function createSnippetAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
         $ffid = $this->getRequest()->getParam('ffid', 0);
-        $prev = $this->getRequest()->getParam('prev', 0);
-
         $form = new Admin_Form_Followup_Snippet();
-        $form->setAction(
-            $this->view->baseUrl() . '/admin/followup/create-snippet/kid/' . $this->_kid . '/ffid/'. $ffid . '/prev/' . $prev
-        );
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
+                $followup = (new Model_Followups())->createRow($form->getValues());
+                $followup->ffid = $ffid;
+                $newId = $followup->save();
 
-                $followups = new Model_Followups();
-                $followupsRow = $followups->createRow($form->getValues());
-                $followupsRow->ffid = $ffid;
-
-                $newId = $followupsRow->save();
-
-                if ($newId > 0) {
-                    $followupFiles = new Model_FollowupFiles();
-                    $followupRowset = $followupFiles->getFollowupsById($ffid, 'docorg ASC');
-
-                    $i = 1;
-                    foreach ($followupRowset as $followupRow) {
-                        $org = $i;
-                        if ($followupRow->docorg == 0) {
-                            if ($prev == 0) {
-                                $i++;
-                            } else {
-                                $org = $prev + 1;
-                            }
-
-                        } else {
-                            if ($followupRow->docorg == $prev) {
-                                $i++;
-                            }
-                            $i++;
-                        }
-
-                        $followupRow->docorg = $org;
-                        $followupRow->save();
-                    }
-
-                } else {
-                    $this->_flashMessenger->addMessage(
-                        'Erstellen eines neuen Follow-up-Dokuments fehlgeschlagen!',
-                        'error'
-                    );
+                $followups = (new Model_FollowupFiles())->getFollowupsById($ffid, 'docorg ASC');
+                $i = 1;
+                foreach ($followups as $followup) {
+                    $followup->docorg = $i++;
+                    $followup->save();
                 }
 
-                $this->_redirect(
-                    $this->view->url(
-                        array(
-                            'action' => 'edit-file',
-                            'kid' => $this->_kid,
-                            'ffid' => $ffid
-                        )
-                    ),
-                    array('prependBase' => false)
-                );
+                $this->_flashMessenger->addMessage('The snippet was created.', 'success');
+                $this->_redirect($this->view->url(['action' => 'edit-snippet', 'fid' => $newId]));
             } else {
-                header('HTTP/ 422 Unprocessable Entity');
-                $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
-                $form->populate($form->getValues());
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
             }
         }
 
-        $this->view->assign(
-            array(
-                'kid' => $kid,
-                //'consultation' => $consultation,
-                'form' => $form,
-                'ffid' => $ffid
-          )
-        );
-
+        $this->view->form = $form;
+        $this->view->pageTitle = 'Create Follow Up Snippet';
+        $this->render('snippet-detail');
     }
 
     /*
@@ -139,41 +78,22 @@ class Admin_FollowupController extends Zend_Controller_Action
     public function createFileAction()
     {
         $form = new Admin_Form_Followup_File();
-        // $popuplink = new Admin_Form_Decorator_Popuplink();
-
-        $form->setAction($this->view->baseUrl() . '/admin/followup/create-file/kid/' . $this->_kid);
-        $this->view->form = $form;
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
-
                 $followupFiles = new Model_FollowupFiles();
                 $followupFilesRow = $followupFiles->createRow($form->getValues());
                 $followupFilesRow->kid = $this->_kid;
                 $newId = $followupFilesRow->save();
-                if ($newId > 0) {
-                    $this->_flashMessenger->addMessage('Neues Follow-up-Dokument wurde erstellt.', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage(
-                        'Erstellen eines neuen Follow-up-Dokuments fehlgeschlagen!',
-                        'error'
-                    );
-                }
-                $this->_redirect(
-                    $this->view->url(
-                        array(
-                            'action' => 'index',
-                            'kid' => $this->_kid
-                        )
-                    ),
-                    array('prependBase' => false)
-                );
+
+                $this->_flashMessenger->addMessage('New followup file was created.', 'success');
+                $this->_redirect($this->view->url(['action' => 'edit-file', 'ffid' => $newId]));
             } else {
-                $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
-                $form->populate($form->getValues());
+                $this->_flashMessenger->addMessage('Followup file could not be created', 'error');
             }
         }
 
+        $this->view->form = $form;
     }
 
     /*
@@ -187,72 +107,39 @@ class Admin_FollowupController extends Zend_Controller_Action
      */
     public function editSnippetAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $fid = $this->getRequest()->getParam('fid', 0);
-        $ffid = $this->getRequest()->getParam('ffid', 0);
+        $fid = $this->getRequest()->getParam('fid', null);
 
-        if ($fid > 0) {
-            $followups = new Model_Followups();
-            $followupsRow = $followups->find($fid)->current();
-            $form = new Admin_Form_Followup_Snippet();
-            $form->setAction(
-                $this->view->url(
-                    array(
-                        'action' => 'edit-snippet',
-                        'kid' =>$kid,
-                        'fid' => $fid,
-                        'ffid' => $ffid
-                    )
-                )
-            );
+        $followupModel = new Model_Followups();
+        $form = new Admin_Form_Followup_Snippet();
 
-            if ($this->getRequest()->isPost()) {
-                // Formular wurde abgeschickt und muss verarbeitet werden
-                $params = $this->getRequest()->getPost();
-                if ($form->isValid($params)) {
-                    $followupsRow->setFromArray($form->getValues());
-                    $followupsRow->save();
-                    $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
-                    $followup = $followupsRow->toArray();
+        if ($this->getRequest()->isPost()) {
+            $params = $this->getRequest()->getPost();
+            if ($form->isValid($params)) {
+                $followupModel
+                    ->find($fid)
+                    ->current()
+                    ->setFromArray($form->getValues())
+                    ->save();
 
-                    $this->_redirect(
-                        $this->view->url(
-                            array(
-                                'action' => 'edit-file',
-                                'kid' => $this->_kid,
-                                'ffid' => $ffid
-                            )
-                        ),
-                        array('prependBase' => false)
-                    );
-                } else {
-                    header('HTTP/ 422 Unprocessable Entity');
-                    $this->_flashMessenger->addMessage(
-                        'Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!',
-                        'error'
-                    );
-                    $followup = $params;
-                }
+                $this->_flashMessenger->addMessage('Snippet was saved successfully.', 'success');
+                $this->_redirect($this->view->url());
             } else {
-                $followup = $followups->getById($fid);
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
             }
+        } else {
+            $followup = $followupModel->getById($fid);
             $form->populate($followup);
         }
 
+        // This is here because all data in db is saved escaped :(
         foreach ($form->getElements() as $element) {
             $element->clearFilters();
             $element->setValue(html_entity_decode($element->getValue()));
         }
 
-        $this->view->assign(
-            array(
-                 'kid' => $kid,
-                 //'consultation' => $consultation,
-                 'form' => $form,
-                 'fid' => $fid,
-                 'followups' => $followups
-            )
-        );
+        $this->view->form = $form;
+        $this->view->pageTitle = 'Edit Follow Up Snippet';
+        $this->render('snippet-detail');
     }
 
     /*
@@ -270,13 +157,14 @@ class Admin_FollowupController extends Zend_Controller_Action
         $ffid = $this->getRequest()->getParam('ffid', 0);
         $movefid = $this->getRequest()->getParam('movefid', 0);
         $movefollowup = NULL;
-        if ($ffid > 0) {
 
+        if ($ffid > 0) {
             $followupsModel = new Model_Followups();
             $followupRefModel = new Model_FollowupsRef();
             $followupFilesModel = new Model_FollowupFiles();
             $followupFilesRow = $followupFilesModel->find($ffid)->current();
             $form = new Admin_Form_Followup_File();
+            $form->setKid($kid);
 
             if ($movefid > 0) {
                 $movefollowup = $followupsModel->getById($movefid);
@@ -480,55 +368,6 @@ class Admin_FollowupController extends Zend_Controller_Action
         }
 
         $this->_forward('edit-file');
-
-//          $this->_redirect($this->view->url(array(
-//                     'action' => 'edit-file',
-//                     'kid' => $this->_kid,
-//                     'ffid' => $ffid,
-//                     'fid' => $fid
-//
-//                  )), array('prependBase' => false));
-
-//          if ($movefid) {
-//
-//                $followupsModel = new Model_Followups();
-//                $followupFiles = new Model_FollowupFiles();
-//                $followupsByFile = $followupFiles->getFollowupsById($ffid, 'docorg ASC')->toArray();
-//                $arr = array();
-//                if ($prev == 0) array_push ($arr, $followupsModel->find($movefid)->current()->toArray());
-//                foreach ($followupsByFile as $followup) {
-//
-//                     if ($followup['fid'] != $movefid) array_push ($arr, $followup);
-//                     if ($followup['docorg'] == $prev) array_push ($arr, $followupsModel->find($movefid)->current()->toArray());
-//                }
-//                $i=1;
-//                foreach ($arr as $followup) {
-//                    $followupsRow = $followupsModel->find($followup['fid'])->current();
-//                    $followupsRow->docorg = $i;
-//                    $followupsRow->save();
-//                    $i++;
-//                }
-//
-//                    $this->_redirect($this->view->url(array(
-//                     'module' => 'admin',
-//                     'controller' => 'followup',
-//                     'action' => 'edit-file',
-//                     'kid' => $this->_kid,
-//                     'ffid' => $ffid
-//
-//                  ),null,true), array('prependBase' => false));
-//
-//          } else {
-//
-//          $this->_redirect($this->view->url(array(
-//                     'action' => 'edit-file',
-//                     'kid' => $this->_kid,
-//                     'ffid' => $ffid,
-//                     'movefid' => $fid
-//
-//                  )), array('prependBase' => false));
-//
-//          }
     }
 
     /*
