@@ -104,32 +104,6 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     }
 
     /**
-     * deleteById
-     * delete entry by id
-     * @param  integer $id
-     * @return integer
-     */
-    public function deleteById($id)
-    {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return 0;
-        }
-        // exists?
-        if ($this->find($id)->count() < 1) {
-            return 0;
-        }
-
-        // where
-        $where = $this->getDefaultAdapter()
-            ->quoteInto($this->_primary[1] . '=?', $id);
-        $result = $this->delete($where);
-
-        return $result;
-    }
-
-    /**
      * getFollowupsById
      * get fowups by fowups_fls.ffid
      *

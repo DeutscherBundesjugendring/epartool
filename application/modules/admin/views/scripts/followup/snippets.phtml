@@ -1,0 +1,97 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <a
+                    href="<?=$this->url(['action' => 'create-snippet', 'ffid' => $this->ffid]);?>"
+                    class="btn btn-default pull-right"
+                >
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?=$this->translate('New Snippet');?>
+                </a>
+
+                <h2><?=$this->translate('Snippets')?></h2>
+                <p class="back-link">
+                    <a href="<?=$this->url(['action' => 'index', 'fid' => null, 'ffid' => null]);?>">
+                        &larr; <?=$this->translate('Back to Followups');?>
+                    </a>
+                </p>
+
+                <table>
+                    <tbody>
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($this->snippets as $i => $snippet): ?>
+                                    <tr>
+                                        <td style="width:<?=($snippet['hlvl'] - 1) * 10;?>px;">
+                                        <td><span class="glyphicon glyphicon-move"></span></td>
+                                        <td><?=strip_tags($this->cropText(html_entity_decode($snippet['expl']), 400));?></td>
+                                        <td>
+                                            <?=$this->translate('In');?>: <?=$snippet['relFowupCount'];?>
+                                            <br />
+                                            <?=$this->translate('Out');?>: <?=$snippet['reltothisFowupCount'];?>
+                                        </td>
+                                        <td><?=$this->hlvl[$snippet['hlvl']];?></td>
+                                        <td><?=$this->snippetTypes[$snippet['typ']];?></td>
+                                        <td>
+                                            <a
+                                                href="<?=$this->url(
+                                                    [
+                                                        'action' => 'edit-snippet',
+                                                        'fid' => $snippet['fid'],
+                                                    ]
+                                                );?>"
+                                                class="item-action"
+                                            >
+                                                <span class="glyphicon glyphicon-link"></span>
+                                            </a>
+                                            <a
+                                                href="<?=$this->url(
+                                                    [
+                                                        'action' => 'edit-snippet',
+                                                        'fid' => $snippet['fid'],
+                                                    ]
+                                                );?>"
+                                                class="item-action"
+                                            >
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+
+                                            <a
+                                                href="<?=$this->url(
+                                                    [
+                                                        'action' => 'delete-snippet',
+                                                        'fid' => $snippet['fid'],
+                                                    ]
+                                                );?>"
+                                                class="item-action item-action-danger"
+                                            >
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

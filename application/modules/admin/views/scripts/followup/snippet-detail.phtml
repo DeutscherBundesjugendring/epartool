@@ -20,17 +20,11 @@
 
                 <h2><?=$this->pageTitle;?></h2>
                 <p class="back-link">
-                    <a href="<?=$this->url(['action' => 'edit-file', 'fid' => null]);?>">
-                        &larr; <?=$this->translate('Back to Follow Up');?>
+                    <a href="<?=$this->url(['action' => 'snippets', 'fid' => null]);?>">
+                        &larr; <?=$this->translate('Back to Snippets');?>
                     </a>
                 </p>
                 <?=$this->form;?>
-                <p>
-                    <?=$this->translate('or');?>
-                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>">
-                        <?=$this->translate('Cancel');?>
-                    </a>
-                </p>
 
             </div>
         </div>
