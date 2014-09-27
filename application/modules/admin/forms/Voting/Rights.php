@@ -1,16 +1,9 @@
 <?php
-/**
- * Voting_Rights
- *
- * @author                Markus Hackel
- */
+
 class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Voting/Rights.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+
     public function init()
     {
         // set form-config

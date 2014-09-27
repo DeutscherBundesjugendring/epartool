@@ -6,13 +6,9 @@ class Admin_VotingController extends Zend_Controller_Action
 
     protected $_consultation = null;
 
-    /**
-     * Construct
-     * @return void
-     */
+
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $kid = $this->_request->getParam('kid', 0);
@@ -28,7 +24,6 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * List Voting Rights
-     *
      */
     public function indexAction()
     {
@@ -41,7 +36,6 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * Edit Voting Rights
-     *
      */
     public function editrightsAction()
     {
@@ -74,7 +68,6 @@ class Admin_VotingController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
                 }
             } else {
-                // form not submitted, initial request
                 $data = array(
                     'vt_weight' => $votingRights['vt_weight'],
                     'vt_code' => $votingRights['vt_code'],
@@ -95,7 +88,6 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * List paricipants for invitation
-     *
      */
     public function invitationsAction()
     {
@@ -132,7 +124,6 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * Send voting invitation by email via preview or directly
-     *
      */
     public function sendinvitationAction()
     {
@@ -242,29 +233,27 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * List voters
-     *
      */
     public function participantsAction()
     {
-    	$groups = array();
+        $groups = array();
         $groupsModel = new Model_Votes_Groups();
-		$inputModel = new Model_Inputs;
-		$groups = $groupsModel->getByConsultation($this -> _consultation -> kid);
+        $inputModel = new Model_Inputs;
+        $groups = $groupsModel->getByConsultation($this->_consultation->kid);
 
-		 // count of votable inputs
-		$inputModel = new Model_Inputs;
+        // count of votable inputs
+        $inputModel = new Model_Inputs;
         $filter = array(array(
             'field'=>'vot',
             'operator'=>'=',
             'value'=>'y'
         ));
-		$this->view->inputs = $inputModel->getCountByConsultationFiltered($this -> _consultation -> kid, $filter);
+        $this->view->inputs = $inputModel->getCountByConsultationFiltered($this->_consultation->kid, $filter);
         $this->view->groups = $groups;
     }
 
     /**
      * Deny voter
-     *
      */
     public function participantdenyAction()
     {
@@ -283,7 +272,6 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * Confirm voter
-     *
      */
     public function participantconfirmAction()
     {
@@ -302,7 +290,6 @@ class Admin_VotingController extends Zend_Controller_Action
 
     /**
      * Delete voter
-     *
      */
     public function participantdeleteAction()
     {
@@ -319,100 +306,96 @@ class Admin_VotingController extends Zend_Controller_Action
         $this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
     }
 
-	 /**
+    /**
      * Merge two participants
-     *
      */
-	 public function participanteditAction() {
+    public function participanteditAction()
+    {
+        $sub_uid = $this->_request->getParam('sub_uid', 0);
+        $uid = $this->_request->getParam('uid', 0);
+        $kid = $this->_request->getParam('kid', 0);
 
-		$sub_uid = $this->_request->getParam('sub_uid', 0);
-		$uid = $this->_request->getParam('uid', 0);
-		$kid = $this->_request->getParam('kid', 0);
+        // Create Form
+        $form = new Admin_Form_Voting_Participantedit();
+        $form -> setAction(
+            $this->view->baseUrl() . '/admin/voting/participantedit/kid/' . $this->_consultation->kid . '/uid/' . $uid . '/sub_uid/' . $sub_uid
+        );
+        $groupsModel = new Model_Votes_Groups();
+        $participants= $groupsModel->getUserByConsultation($this->_consultation->kid);
 
-		// Create Form
-	 	$form = new Admin_Form_Voting_Participantedit();
-        $form -> setAction($this->view->baseUrl() . '/admin/voting/participantedit/kid/' . $this->_consultation->kid.'/uid/'.$uid.'/sub_uid/'.$sub_uid);
-		$groupsModel = new Model_Votes_Groups();
-        $participants= $groupsModel->getUserByConsultation($this -> _consultation -> kid);
+        $mergeOptions = array(''=>'Bitte auswählen');
+        foreach ($participants as $user) {
+            if ($sub_uid!=$user['sub_uid']) {
+                $mergeOptions[$user['sub_uid']] = $user['sub_user'];
+            } else {
+                $this->view->user = $user['sub_user'];
+            }
+         }
+         $form->getElement('merge')->setMultioptions($mergeOptions);
+         $this->view->form = $form;
+         // End Create Form
 
-		$mergeOptions = array(''=>'Bitte auswählen');
-	     foreach ($participants As $user) {
-	         if ($sub_uid!=$user['sub_uid']) {
-	              $mergeOptions[$user['sub_uid']] = $user['sub_user'];
-	          }
-			else {
-				$this->view->user = $user['sub_user'];
-			}
-	     }
-	     $form->getElement('merge')->setMultioptions($mergeOptions);
-		 $this->view->form = $form;
-		 // End Create Form
+         // REQUEST_METHOD POST
+        $post = $this->_request->getPost();
+        if ($post) {
+            if (!$form->isValid($post)) {
+                $this->view->form->populate($post);
+            } else {
+                 $values = $this->view->form->getValues();
+                 $subUserSelected =  $values['merge'];
 
-		 // REQUEST_METHOD POST
-		$post = $this->_request->getPost();
-		 if ($post) {
-			if (!$form->isValid($post)) {
-				$this->view->form->populate($post);
-			}
-			else {
+                 $subUserOrg = $sub_uid;
+                 $messages = "";
 
-				 $values = $this->view->form->getValues();
-				 $subUserSelected =  $values['merge'];
+                // get votes from both users //
+                $votesIndividual = new Model_Votes_Individual();
+                $subUserSelectedVotes = $votesIndividual -> getUserVotes($subUserSelected)->toArray();
+                $subUserOrgVotes = $votesIndividual -> getUserVotes($subUserOrg)->toArray();
 
-				 $subUserOrg = $sub_uid;
-				 $messages = "";
+                // Votes zusammenführen
+                $VotesMerged = array();
 
-				// get votes from both users //
-				$votesIndividual = new Model_Votes_Individual();
-				$subUserSelectedVotes = $votesIndividual -> getUserVotes($subUserSelected)->toArray();
-				$subUserOrgVotes = $votesIndividual -> getUserVotes($subUserOrg)->toArray();
+                // Array of Votes User Selected
+                foreach ($subUserSelectedVotes as $key => $value) {
+                    $VotesMerged[$value['tid']] = $value;
+                }
 
-				// Votes zusammenführen
-				$VotesMerged = array();
+                // Array of Votes User Origin (overwrite dublicate keys (tid key))
+                foreach ($subUserOrgVotes as $key => $value) {
+                    $VotesMerged[$value['tid']] = $value;
+                }
 
-				// Array of Votes User Selected
-				foreach ($subUserSelectedVotes as $key => $value) {
-					$VotesMerged[$value['tid']] = $value;
-				}
+                // Delete Votes User Origin
+                if ($votesIndividual ->deleteUservotes($subUserOrg)) {
+                    $messages.= 'Votes vom Original-Nutzer wurden gelöscht!<br />';
 
-				// Array of Votes User Origin (overwrite dublicate keys (tid key))
-				foreach ($subUserOrgVotes as $key => $value) {
-					$VotesMerged[$value['tid']] = $value;
-				}
+                    // Delete Votes User Selected
+                    if ($votesIndividual->deleteUservotes($subUserSelected)) {
+                        $messages .= 'Votes vom ausgewählten Nutzer wurden gelöscht!<br />';
+                    }
 
-				// Delete Votes User Origin
-				if ($votesIndividual ->deleteUservotes($subUserOrg)) {
-					$messages.= 'Votes vom Original-Nutzer wurden gelöscht!<br />';
+                    // Restore Votes User Origin
+                    // Create vt_inp_list array()
+                    $x=0;
+                    $vt_inp_list = array();
+                    foreach ($VotesMerged as $key => $value) {
+                        $x++;
+                        $votesIndividual->insertMergedUservotes($subUserOrg, $value);
+                        $vt_inp_list["$x"]= $value['tid'];
+                    }
+                    $messages .= $x . ' Votes vom Original-Nutzer wurden wiederhergestellt!<br />';
 
-				// Delete Votes User Selected
-				if ($votesIndividual ->deleteUservotes($subUserSelected)) {
-					$messages.= 'Votes vom ausgewählten Nutzer wurden gelöscht!<br />';
-				}
+                    // Delete Subuser User Selected
+                    if ($groupsModel -> deleteVoterBySubUid($subUserSelected)) {
+                        $messages .= 'Der ausgewählten Nutzer wurde gelöscht!<br />';
+                    }
 
-				// Restore Votes User Origin
-				// Create vt_inp_list array()
-				$x=0;
-				$vt_inp_list = array();
-				foreach ($VotesMerged as $key => $value) {
-				$x++;
-					$votesIndividual -> insertMergedUservotes($subUserOrg,$value);
-					$vt_inp_list["$x"]= $value['tid'];
-				}
-				$messages.= $x.' Votes vom Original-Nutzer wurden wiederhergestellt!<br />';
-
-				// Delete Subuser User Selected
-				if ($groupsModel -> deleteVoterBySubUid($subUserSelected)) {
-					$messages.= 'Der ausgewählten Nutzer wurde gelöscht!<br />';
-				}
-
-				$this->_flashMessenger->addMessage($messages, 'success');
-				$this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
-			}
-		 }
-
-	 }
-
-}
+                    $this->_flashMessenger->addMessage($messages, 'success');
+                    $this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
+                }
+            }
+        }
+    }
 
     public function resultsAction()
     {
@@ -424,7 +407,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $this->view->assign($votingResultsValues);
     }
 
-        /**
+    /**
      * Voting settings
      */
     public function settingsAction()
@@ -463,7 +446,6 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->view->form->populate($post);
                 $this->_flashMessenger->addMessage('Bitte prüfe die Formulareingaben!', 'error');
             } else {
-
                 $values = $this->view->form->getValues();
 
                 $this->_consultation->vot_fr = $values['vot_fr'];
@@ -471,7 +453,6 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->_consultation->vot_show = $values['vot_show'];
                 $this->_consultation->vot_res_show = $values['vot_res_show'];
                 $this->_consultation->vot_expl = $values['vot_expl'];
-
                 $this->_consultation->save();
 
                 $this->_settings->btn_important = $values['btn_important'];
@@ -479,7 +460,6 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->_settings->btn_numbers = $values['btn_numbers'];
                 $this->_settings->btn_labels = $values['btn_labels'];
                 $this->_settings->btn_important_max= $values['btn_important_max'];
-
                 $this->_settings->save();
 
                 $this->_flashMessenger->addMessage('Die Änderungen wurden gespeichert', 'success');
@@ -488,5 +468,4 @@ class Admin_VotingController extends Zend_Controller_Action
             $form -> populate($settings);
         }
     }
-
 }

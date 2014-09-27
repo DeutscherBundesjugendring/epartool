@@ -20,7 +20,7 @@
 
                 <h2><?=$this->translate('Voting Permissions');?></h2>
 
-                <p>Seit dem letzten Aufruf wurden <?php echo $this->countInserted; ?> neue Nutzer_innen zu dieser Liste hinzugefügt:</p>
+                <p>Seit dem letzten Aufruf wurden <?php echo $this->countInserted;?> neue Nutzer_innen zu dieser Liste hinzugefügt:</p>
                 <table class="table">
                     <tr>
                         <th>uid</th>
@@ -33,22 +33,32 @@
                     </tr>
                     <?php foreach ($this->votingRights as $item): ?>
                         <tr>
-                            <td><?php echo $item['uid']; ?></td>
-                            <td><a href="<?php echo $this->url(array(
-                                    'controller' => 'input',
-                                    'action' => 'list',
-                                    'uid' => $item['uid'],
-                                )); ?>" title="Alle Beiträge dieses Nutzers anzeigen"><?php echo $item['email']; ?></a></td>
-                            <td><?php echo $item['vt_weight']; ?></td>
-                            <td><?php echo $item['vt_code']; ?></td>
-                            <td><?php echo $item['grp_siz']; ?></td>
-                            <td><?php echo $item['group_size_user']; ?></td>
-                            <td><a href="<?php echo $this->url(array(
-                                    'action' => 'editrights',
-                                    'uid' => $item['uid']
-                                )); ?>">Bearbeiten</a></td>
+                            <td><?php echo $item['uid'];?></td>
+                            <td>
+                                <a
+                                    href="<?php echo $this->url(
+                                        [
+                                            'controller' => 'input',
+                                            'action' => 'list',
+                                            'uid' => $item['uid'],
+                                        ]
+                                    );?>"
+                                    title="Alle Beiträge dieses Nutzers anzeigen"
+                                >
+                                    <?php echo $item['email'];?>
+                                </a>
+                            </td>
+                            <td><?php echo $item['vt_weight'];?></td>
+                            <td><?php echo $item['vt_code'];?></td>
+                            <td><?php echo $item['grp_siz'];?></td>
+                            <td><?php echo $item['group_size_user'];?></td>
+                            <td>
+                                <a href="<?php echo $this->url(['action' => 'editrights', 'uid' => $item['uid']]);?>">
+                                    Bearbeiten
+                                </a>
+                            </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;?>
                 </table>
 
             </div>

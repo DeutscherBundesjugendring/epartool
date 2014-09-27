@@ -1,23 +1,13 @@
 <?php
-/**
- * User Edit
- *
- * @description     Form for User Edit
- * @author                Jan Suchandt
- */
+
 class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
 {
     protected $_iniFile = '/modules/admin/forms/Voting/Participantedit.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+
     public function init()
     {
         // set form-config
         $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-
-
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));
