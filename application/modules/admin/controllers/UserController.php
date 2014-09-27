@@ -162,6 +162,7 @@ class Admin_UserController extends Zend_Controller_Action
                         }
                     } else {
                         $form->populate($user->toArray());
+                        $form->getElement('password')->setValue('');
                     }
             } else {
                 $this->_flashMessenger->addMessage('Nutzer_in nicht gefunden!', 'error');
