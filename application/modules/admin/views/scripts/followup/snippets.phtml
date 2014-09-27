@@ -11,12 +11,12 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="sidebar">
 
                 <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
 
             </div>
-            <div class="col-md-9">
+            <div class="content">
 
                 <a
                     href="<?=$this->url(['action' => 'create-snippet', 'ffid' => $this->ffid]);?>"
@@ -26,12 +26,9 @@
                     <?=$this->translate('New Snippet');?>
                 </a>
 
+                <a href="<?=$this->url(['action' => 'index', 'fid' => null, 'ffid' => null]);?>" class="back">&larr; <?=$this->translate('Back to Followups');?></a>
+
                 <h2><?=$this->translate('Snippets')?></h2>
-                <p class="back-link">
-                    <a href="<?=$this->url(['action' => 'index', 'fid' => null, 'ffid' => null]);?>">
-                        &larr; <?=$this->translate('Back to Followups');?>
-                    </a>
-                </p>
 
                 <table>
                     <tbody>

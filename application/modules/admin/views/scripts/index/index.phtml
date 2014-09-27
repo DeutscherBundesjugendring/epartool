@@ -21,8 +21,8 @@
                 <?php if (!empty($this->consultations)): ?>
                     <?php foreach ($this->consultations as $consultation): ?>
                         <div class="panel panel-primary">
-                            <div class="panel-heading panel-heading-big text-center">
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-heading-action" title="<?=$this->translate('Consultation settings');?>">
+                            <div class="panel-heading panel-heading-extended">
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
                                 <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $consultation->kid));?>">

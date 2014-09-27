@@ -7,9 +7,8 @@
 <section class="section-content">
     <div class="container">
 
-        <p class="back-link">
-            <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>">&larr; <?=$this->translate('Back to Sent Emails');?></a>
-        </p>
+        <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Sent Emails');?></a>
+
         <h3><?=$this->translate('Templates');?></h3>
         <select class="js-template-selector">
             <option value="0">--<?=$this->translate('Select');?>--</option>

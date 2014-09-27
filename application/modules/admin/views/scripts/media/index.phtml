@@ -15,7 +15,7 @@
         <div class="row">
 
             <?php if (!$this->lockDir): ?>
-                <div class="col-md-3">
+                <div class="sidebar">
                     <?php if ($this->folder): ?>
                         <?=$this->mediaNavigation('folders');?>
                     <?php elseif ($this->kid): ?>
@@ -26,14 +26,14 @@
                 </div>
             <?php endif?>
 
-            <div class="col-md-9">
+            <div class="content">
                 <h2><?=$this->title;?></h2>
 
                 <?php if (!empty($this->files)): ?>
                     <div class="row">
                         <?php foreach ($this->files as $file):?>
                             <div class="col-xs-6 col-sm-4 col-lg-3">
-                                <div class="thumbnail">
+                                <div class="thumbnail thumbnail-fixed">
                                     <a
                                         <?php if ($this->targetElId): ?>
                                             onclick="mediaSelectPopup.insertValue(
@@ -65,7 +65,9 @@
                                         </div>
                                     </a>
                                     <?php if ($file['folder']): ?>
-                                        <a href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/" class="item-action"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <div class="thumbnail-actions">
+                                            <a href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/" class="item-action"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        </div>
                                     <?php endif;?>
                                     <?=$file['deleteForm'];?>
                                 </div>

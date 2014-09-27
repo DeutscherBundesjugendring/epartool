@@ -13,9 +13,8 @@
 <section class="section-content">
     <div class="container">
 
-        <p class="back-link">
-            <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Users');?></a>
-        </p>
+        <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Users');?></a>
+
         <?=$this->form;?>
         <p>
             <?=$this->translate('or');?>

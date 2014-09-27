@@ -14,17 +14,16 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="sidebar">
 
                 <?=$this->emailSettingsNavigation('components');?>
 
             </div>
-            <div class="col-sm-9">
+            <div class="content">
+
+                <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Email Components');?></a>
 
                 <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Component');?></h2>
-                <p class="back-link">
-                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Email Components');?></a>
-                </p>
                 <?=$this->form;?>
 
                 <h3><?=$this->translate('Placeholders');?></h3>

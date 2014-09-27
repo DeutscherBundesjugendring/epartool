@@ -7,13 +7,9 @@
     <title><?=$this->translate('DBJR TOOL Admin');?></title>
     <meta name="robots" content="noindex, nofollow" />
 
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" type="text/css" />
-    <link href="<?=$this->baseUrl('components/bower/jquery.ui/themes/base/jquery.ui.all.css');?>" rel="stylesheet" type="text/css" />
-    <link href="<?=$this->baseUrl('css/admin.css');?>" rel="stylesheet" type="text/css" />
-
-    <!-- TODO drop YAML when all is done -->
-    <!--link href="<?=$this->baseUrl('css/backend/style.css');?>" rel="stylesheet" type="text/css" />
-    <link href="<?=$this->baseUrl('css/backend/dashboard.css');?>" rel="stylesheet" type="text/css" /-->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" />
+    <link href="<?=$this->baseUrl('components/bower/jquery.ui/themes/base/jquery.ui.all.css');?>" rel="stylesheet" />
+    <link href="<?=$this->baseUrl('components/bower/synergic-ui/dist/css/synergic-ui.min.css');?>" rel="stylesheet" />
 
     <!-- TODO favicon -->
     <!--link rel="shortcut icon" href="<?=$this->baseUrl('favicon.ico');?>" />
@@ -37,7 +33,7 @@
     <header role="banner">
 
         <!-- Main navigation -->
-        <nav class="navbar navbar-fixed-top navbar-inverse">
+        <nav class="navbar navbar-static-top navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
@@ -100,7 +96,7 @@
         <?=$this->layout()->content;?>
 
     </main>
-    <footer role="contentinfo">
+    <footer role="contentinfo" class="footer footer-sticky">
         <div class="container">
             © DBJR <?=date('Y');?>
             <span class="footer-divider">|</span>

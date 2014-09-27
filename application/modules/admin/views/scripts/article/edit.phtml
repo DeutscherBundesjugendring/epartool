@@ -14,7 +14,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="sidebar">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
                     <?=$this->consultationNavigation('info');?>
@@ -23,18 +23,14 @@
                 <?php endif; ?>
 
             </div>
-            <div class="col-md-9">
+            <div class="content">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->kid));?>" class="back">&larr; <?=$this->translate('Back to Articles');?></a>
                     <h2><?=$this->translate('Edit Article');?></h2>
-                    <p class="back-link">
-                        <a href="<?=$this->url(array('action' => 'index', $this->kid));?>">&larr; <?=$this->translate('Back to Articles');?></a>
-                    </p>
                 <?php else: ?>
+                    <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Pages');?></a>
                     <h2><?=$this->translate('Edit Page');?></h2>
-                    <p class="back-link">
-                        <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Pages');?></a>
-                    </p>
                 <?php endif; ?>
 
                 <?php echo $this->form;?>

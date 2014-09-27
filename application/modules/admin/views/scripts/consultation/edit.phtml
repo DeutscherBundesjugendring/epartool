@@ -11,12 +11,12 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="sidebar">
 
                 <?=$this->consultationEditNavigation($this->consultation->kid, 'settings');?>
 
             </div>
-            <div class="col-md-9">
+            <div class="content">
 
                 <?php if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
                     <!-- TODO change link to POST form button -->

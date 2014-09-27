@@ -12,12 +12,12 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="sidebar">
 
                 <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
 
             </div>
-            <div class="col-md-9">
+            <div class="content">
 
                 <?php $date = new Zend_Date(); ?>
                 <p><a href="<?php echo $this->baseUrl(); ?>/admin/input/userlist/kid/<?php echo $this->kid; ?>">&laquo; Alle Nutzer_innen anzeigen, die an dieser Beteiligungsrunde teilgenommen haben</a></p>

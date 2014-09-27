@@ -11,19 +11,16 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="sidebar">
 
                 <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
 
             </div>
-            <div class="col-md-9">
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'snippets', 'fid' => null]);?>" class="back">&larr; <?= $this->translate('Back to Snippets');?></a>
 
                 <h2><?=$this->pageTitle;?></h2>
-                <p class="back-link">
-                    <a href="<?=$this->url(['action' => 'snippets', 'fid' => null]);?>">
-                        &larr; <?=$this->translate('Back to Snippets');?>
-                    </a>
-                </p>
                 <?=$this->form;?>
 
             </div>

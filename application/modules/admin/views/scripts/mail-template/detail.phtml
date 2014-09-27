@@ -14,17 +14,16 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="sidebar">
 
                 <?=$this->emailSettingsNavigation('templates');?>
 
             </div>
-            <div class="col-sm-9">
+            <div class="content">
+
+                <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template" class="back">&larr; <?=$this->translate('Back to Email Templates');?></a>
 
                 <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Template');?></h2>
-                <p class="back-link">
-                    <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template">&larr; <?=$this->translate('Back to Email Templates');?></a>
-                </p>
                 <?php echo $this->form;?>
 
                 <h3><?=$this->translate('Placeholders');?></h3>

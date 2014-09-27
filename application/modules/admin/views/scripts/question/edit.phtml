@@ -11,17 +11,16 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="sidebar">
 
                 <?=$this->consultationNavigation($this->consultation['kid'], 'questions');?>
 
             </div>
-            <div class="col-md-9">
+            <div class="content">
+
+                <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Questions');?></a>
 
                 <h2><?=$this->translate('Edit Question');?></h2>
-                <p class="back-link">
-                    <a href="<?=$this->url(array('action' => 'index'));?>">&larr; <?=$this->translate('Back to Questions');?></a>
-                </p>
                 <?=$this->form;?>
                 <p>
                     <?=$this->translate('or');?>

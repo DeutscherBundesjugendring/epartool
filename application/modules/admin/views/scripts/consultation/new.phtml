@@ -8,9 +8,8 @@
 <section class="section-content">
     <div class="container">
 
-        <p class="back-link">
-            <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>">&larr; <?=$this->translate('Back to Consultations');?></a>
-        </p>
+        <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
+
         <?php echo $this->form?>
         <p>
             <?=$this->translate('or');?>
