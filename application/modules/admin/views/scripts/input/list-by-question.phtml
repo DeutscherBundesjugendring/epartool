@@ -1,0 +1,93 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+
+            </div>
+            <div class="col-md-9">
+
+                <h2>
+                    <?=$this->translate('Contributions for');?>
+                    "<?=$this->question['q'];?>"
+                </h2>
+
+                <?php if ($this->tag['tg_nr'] > 0): ?>
+                    <p>Es werden nur Beiträge mit dem Schlagwort „<?php echo $this->tag['tg_de'];?>“ angezeigt.</p>
+                    <p><a href="<?php echo $this->url(array('tag' => null));?>">Alle Beiträge anzeigen &raquo;</a></p>
+                <?php endif;?>
+
+                <form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl();?>/admin/input/editbulk" method="POST">
+                    <input name="return_url" type="hidden" value="<?php echo $this->url();?>" />
+                    <table class="table">
+                        <?php foreach ($this->inputs as $input): ?>
+                            <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
+                        <?php endforeach;?>
+                    </table>
+
+                    <?=$this->translate('Marked entries');?>:
+                    <button type="submit" name="action" value="delete"><?=$this->translate('Delete');?></button>
+                    <button type="submit" name="action" value="block"><?=$this->translate('Block');?></button>
+                    <button type="submit" name="action" value="publish"><?=$this->translate('Publish');?></button>
+                </form>
+
+                <p class="boxmsc"><b>Folgende Datensätze als CSV exportieren:</b><br />
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'export',
+                        'kid' => $this->consultation['kid'],
+                        'qid' => $this->question['qi'],
+                        'cod' => 'utf8',
+                        'mod' => 'cnf',
+                    ));?>">&raquo; Bestätigte Beiträge</a><br />
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'export',
+                        'kid' => $this->consultation['kid'],
+                        'qid' => $this->question['qi'],
+                        'cod' => 'utf8',
+                        'mod' => 'unc',
+                    ));?>">&raquo; Unbestätigte Beiträge</a><br />
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'export',
+                        'kid' => $this->consultation['kid'],
+                        'qid' => $this->question['qi'],
+                        'cod' => 'utf8',
+                        'mod' => 'all',
+                    ));?>">&raquo; Alle Nutzerbeiträge</a><br />
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'export',
+                        'kid' => $this->consultation['kid'],
+                        'qid' => $this->question['qi'],
+                        'cod' => 'utf8',
+                        'mod' => 'vot',
+                    ));?>">&raquo; Abstimmungsthesen</a><br />
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'export',
+                        'kid' => $this->consultation['kid'],
+                        'qid' => $this->question['qi'],
+                        'cod' => 'utf8',
+                        'mod' => 'edt',
+                    ));?>">&raquo; Redaktionelle Abstimmungsthesen</a><br />
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'export',
+                        'kid' => $this->consultation['kid'],
+                        'qid' => $this->question['qi'],
+                        'cod' => 'xls',
+                        'mod' => 'all',
+                    ));?>">&raquo; Alle Nutzerbeiträge (westeuropäisches MS Excel)</a><br />
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

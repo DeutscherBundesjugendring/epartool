@@ -1353,4 +1353,94 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         return $confirmKey;
     }
+
+    /**
+     * Returns the data needed to populate the input boxes in per user view
+     * @param  integer $kid      The consultation identifier
+     * @param  integer $uid      The user identifier
+     * @return array             An array of arrays
+     */
+    public function getInputBoxListDataByUser($kid, $uid)
+    {
+        $select = $this->getInputBoxListDataSelect($kid)
+            ->join(
+                (new Model_Questions())->info(Model_Questions::NAME),
+                $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
+                ['nr', 'q']
+            )
+            ->where('kid = ?', $kid)
+            ->where((new Model_Users())->info(Model_Users::NAME) . '.uid = ?', $uid);
+        $res = $this->fetchAll($select);
+
+        $inputs = [];
+        foreach ($res as $input) {
+            if (!isset($inputs[$input->nr])) {
+                $inputs[$input->nr] = [
+                    'q' => $input->q,
+                    'inputs' => [],
+                ];
+            }
+            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags');
+            $input = $input->toArray();
+            $input['tags'] = $tags;
+            $inputs[$input['nr']]['inputs'][] = $input;
+        }
+
+        return $inputs;
+    }
+
+    /**
+     * Returns the data needed to populate the input boxes in per question view
+     * @param  integer $kid      The consultation identifier
+     * @param  integer $qid      The question identifier
+     * @param  boolean $isUnread Indicates if all or unread only inputs should be returned
+     * @return array             An array of arrays
+     */
+    public function getInputListDataByQuestion($kid, $qid, $isUnread = null, $orderBy = null)
+    {
+        $select = $this->getInputBoxListDataSelect($kid)
+            ->join(
+                (new Model_Questions())->info(Model_Questions::NAME),
+                $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
+                []
+            )
+            ->where('' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi = ?', $qid);
+        if ($isUnread) {
+            $select->where($this->info(self::NAME) . '.block = ?', 'u');
+        }
+
+        $res = $this->fetchAll($select);
+
+        $inputs = [];
+        foreach ($res as $input) {
+            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags');
+            $input = $input->toArray();
+            $input['tags'] = $tags;
+            $inputs[] = $input;
+        }
+
+        return $inputs;
+    }
+
+    /**
+     * Returns the select to be used as a base for getting the data needed to populate the input boxes in a list of inputs
+     * @param  integer          $kid The consultation identifier
+     * @return Zend_Db_Select        The select object
+     */
+    private function getInputBoxListDataSelect($kid)
+    {
+        $select = $this
+            ->select()
+            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf'])
+            ->setIntegrityCheck(false)
+            ->joinLeft(
+                (new Model_Users())->info(Model_Users::NAME),
+                (new Model_Users())->info(Model_Users::NAME) . '.uid = ' . $this->info(self::NAME) . '.uid',
+                ['uid', 'name']
+            )
+            ->where('kid = ?', $kid)
+            ->order('tid');
+
+        return $select;
+    }
 }

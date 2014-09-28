@@ -1,0 +1,56 @@
+<tr>
+    <td>
+        <input type="checkbox" value="<?=$this->input['tid'];?>" name="inp_list[]" />
+        <?=$this->input['tid'];?>
+    </td>
+    <td>
+        <div><?php echo $this->input['thes'];?></div>
+        <div><?php echo $this->input['expl'];?></div>
+
+        <div>
+            <span class="glyphicon glyphicon-user"></span> <?=$this->input['name'];?>
+            <?=(new Zend_Date())->set($this->input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+        </div>
+        <div>
+            <?php foreach ($this->input['tags'] as $tag): ?>
+                <?=$tag->tg_de;?>
+            <?php endforeach;?>
+        </div>
+        <div>
+            <?=$this->input['notiz'];?>
+        </div>
+    </td>
+    <td>
+        <?=$this->translate('Admin Confirmation');?>
+        <?php if ($this->input['block'] === 'u'): ?>
+            <?=$this->translate('Unknown');?>
+        <?php elseif ($this->input['block'] === 'y'): ?>
+            <?=$this->translate('Blocked'); // Yes no is switched as in db the actial column is 'blocked', thus negative?>
+        <?php elseif ($this->input['block'] === 'n'): ?>
+            <?=$this->translate('Confirmed'); // Yes no is switched as in db the actial column is 'blocked', thus negative?>
+        <?php endif;?>
+
+        <?=$this->translate('User Confirmation');?>
+        <?php if ($this->input['user_conf'] === 'u'): ?>
+            <?=$this->translate('Unknown');?>
+        <?php elseif ($this->input['user_conf'] === 'r'): ?>
+            <?=$this->translate('Rejected');?>
+        <?php elseif ($this->input['user_conf'] === 'c'): ?>
+            <?=$this->translate('Confirmed');?>
+        <?php endif;?>
+
+        <?=$this->translate('Voting');?>
+        <?php if ($this->input['vot'] === 'u'): ?>
+            <?=$this->translate('Unknown');?>
+        <?php elseif ($this->input['vot'] === 'y'): ?>
+            <?=$this->translate('Yes');?>
+        <?php elseif ($this->input['vot'] === 'n'): ?>
+            <?=$this->translate('No');?>
+        <?php endif;?>
+    </td>
+    <td>
+        <a href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']])?>" class="item-action">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+    </td>
+</tr>

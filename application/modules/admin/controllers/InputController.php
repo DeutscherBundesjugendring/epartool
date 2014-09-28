@@ -8,67 +8,81 @@ class Admin_InputController extends Zend_Controller_Action
 
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
-        $kid = $this->_request->getParam('kid', 0);
-        if ($kid > 0) {
-            $consultationModel = new Model_Consultations();
-            $this->_consultation = $consultationModel->getById($kid);
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $kid = $this->_request->getParam('kid', null);
+        if ($kid) {
+            $this->_consultation = (new Model_Consultations())->getById($kid);
             $this->view->consultation = $this->_consultation;
         }
     }
 
     /**
-     * List of all Inputs by Question, optionally filtered by Tag
+     * Shows the list of questions and contributers
      */
     public function indexAction()
     {
-        $qid = $this->_request->getParam('qid', 0);
-        $tid = $this->_request->getParam('tid', 0);
-        $tag = $this->_request->getParam('tag', 0);
-        $questionModel = new Model_Questions();
-        $tagModel = new Model_Tags();
-
-        if ($qid > 0) {
-            $this->view->question = $questionModel->getById($qid, $tag);
-        }
-
-        if ($tag > 0) {
-            $this->view->tag = $tagModel->getById($tag);
-        }
-        $this->view->tid = $tid;
-        $this->view->qid = $qid;
-    }
-
-    /**
-     * List of all Inputs of a Consultation by User
-     */
-    public function listAction()
-    {
-        $kid = $this->_request->getParam('kid', 0);
-        $uid = $this->_request->getParam('uid', 0);
-
-        $this->view->assign(
-            [
-                'kid' => $kid,
-                'user' => (new Model_Users())->getById($uid),
-                'user_info' => (new Model_User_Info())->getLatestByUserAndConsultation($uid, $kid),
-                'questions' => (new Model_Questions())->getWithInputsByUser($uid, $kid),
-            ]
-        );
-    }
-
-    /**
-     * List of all Users who participated in a Consultation
-     */
-    public function userlistAction()
-    {
-        $kid = $this->_request->getParam('kid', 0);
         $userModel = new Model_Users();
-        $userTblName = $userModel->getName();
-        $this->view->users = $userModel->getParticipantsByConsultation($kid);
+        $questionsModel = new Model_Questions();
+
+        $inputTableAlias = 'inputTableAlias';
+        $select = $userModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($userModel->info(Model_Users::NAME), ['name', 'email', 'cmnt']);
+        $userModel->selectInputCount($select, $inputTableAlias);
+        $select
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = ' . $userModel->getAdapter()->quoteIdentifier($inputTableAlias) . '.qi'
+            )
+            ->where('q.kid = ?', $this->_consultation['kid']);
+        $users = $userModel->fetchAll($select);
+
+        $select = $questionsModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($questionsModel->info(Model_Questions::NAME), ['qi', 'q'])
+            ->where('kid = ?', $this->_consultation['kid']);
+        $questionsModel->selectInputCountByQuestion($select, 'inputCountTotal');
+        $questionsModel->selectUnreadInputCountByQuestion($select, 'inputCountUnread');
+        $questions = $questionsModel->fetchAll($select);
+
+        $this->view->questions = $questions;
+        $this->view->users = $users;
+    }
+
+    /**
+     * List inputs for the given question
+     */
+    public function listByQuestionAction()
+    {
+        $qid = $this->_request->getParam('qi', null);
+        $isUnread = $this->_request->getParam('isUnread', null);
+
+        $questionsModel = new Model_Questions();
+        $question = $questionsModel->fetchRow(
+            $questionsModel
+                ->select()
+                ->from($questionsModel->info(Model_Questions::NAME), ['q', 'nr', 'qi'])
+                ->where('qi = ?', $qid)
+        );
+
+        $this->view->inputs = (new Model_Inputs())->getInputListDataByQuestion($this->_consultation['kid'], $qid, $isUnread);
+        $this->view->question = $question;
+    }
+
+    /**
+     * List inputs for the given user
+     */
+    public function listByUserAction()
+    {
+        $uid = $this->_request->getParam('uid', null);
+
+        $this->view->user = (new Model_Users())->getById($uid);
+        $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
+        $this->view->inputs = (new Model_Inputs())->getInputBoxListDataByUser($this->_consultation['kid'], $uid);
+        $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
     }
 
     /**
@@ -77,7 +91,6 @@ class Admin_InputController extends Zend_Controller_Action
     public function editAction()
     {
         $tid = $this->_request->getParam('tid', 0);
-        $qid = $this->_request->getParam('qid', 0);
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input();
 
@@ -90,10 +103,14 @@ class Admin_InputController extends Zend_Controller_Action
                     && $data['user_conf'] !== 'r'
                 ) {
                     (new Service_Notification_Input_Created())->notify(
-                        [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
+                        [Service_Notification_Input_Created::PARAM_QUESTION_ID => $origInput['qi']]
                     );
                 }
-                $updated = $inputModel->updateById($tid, $form->getValues());
+                $formValues = $form->getValues();
+                if (!$formValues['tags']) {
+                    $formValues['tags'] = [];
+                }
+                $updated = $inputModel->updateById($tid, $formValues);
                 if ($updated == $tid) {
                     $this->_flashMessenger->addMessage('Eintrag aktualisiert', 'success');
                 } else {
@@ -107,7 +124,6 @@ class Admin_InputController extends Zend_Controller_Action
             $inputRow = $inputModel->getById($tid);
             $form->populate($inputRow);
             if (!empty($inputRow['tags'])) {
-                // gesetzte Tags als selected markieren
                 $tagsSet = array();
                 foreach ($inputRow['tags'] as $tag) {
                     $tagsSet[] = $tag['tg_nr'];
@@ -116,11 +132,9 @@ class Admin_InputController extends Zend_Controller_Action
             }
         }
 
-        $this->view->assign(array(
-            'form' => $form,
-            'qid' => $qid,
-            'tid' => $tid
-        ));
+        $this->view->form = $form;
+        $this->view->returnLinkTarget = $this->_request->getParam('qi', null) ? 'list-by-question' : 'list-by-user';
+        $this->view->tid = $tid;
     }
 
     /**
@@ -132,6 +146,7 @@ class Admin_InputController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('Ungültiger Aufruf!', 'error');
             $this->redirect('/admin');
         }
+
         $inputModel = new Model_Inputs();
         $data = $this->_request->getPost();
         switch ($data['action']) {
@@ -166,8 +181,7 @@ class Admin_InputController extends Zend_Controller_Action
      */
     public function exportAction()
     {
-        // retrieve params
-        $qid = $this->_request->getParam('qid', 0);
+        $qid = $this->_request->getParam('qi', 0);
         $kid = $this->_request->getParam('kid', 0);
         $cod = $this->_request->getParam('cod', 'utf8');
         $mod = $this->_request->getParam('mod', 'cnf');
@@ -198,11 +212,9 @@ class Admin_InputController extends Zend_Controller_Action
             $cod = "utf-8";
         }
 
-        // disable layout and view
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
 
-        // set Headers
         header("Content-type: text/csv");
         header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         header('Content-Disposition: attachment; filename=inputs_'
@@ -211,5 +223,6 @@ class Admin_InputController extends Zend_Controller_Action
         header('Pragma: no-cache');
 
         echo $csv;
+        exit;
     }
 }

@@ -1,0 +1,151 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+
+            </div>
+            <div class="content">
+
+                <p>
+                    <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>">
+                        &laquo; <?=$this->translate('Back to all contributions')?>
+                    </a>
+                </p>
+
+                <table class="table">
+                    <tr>
+                        <td class="tbl_lab">User</td>
+                        <td class="tbl_det">
+                            <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'kid' => null]);?>">
+                                <h2>
+                                    <?=$this->user['name'];?><br />
+                                    <?=$this->user['email'];?>
+                                </h2>
+                            </a>
+                        <td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Letzte Aktivität</td>
+                        <td class="tbl_det">
+                            <?php if (!empty($this->user['last_act'])): ?>
+                                <?php echo (new Zend_Date())->set($this->user['last_act'])->get(Zend_Date::DATETIME_MEDIUM);?>
+                            <?php endif; ?>
+                        <td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Kontaktperson</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['name_pers']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Gruppenbezeichnung</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['name_group']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Quelle</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['source']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Beschreibung</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['src_misc']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Gruppengröße</td>
+                        <td class="tbl_det">
+                            <?php if (array_key_exists($this->user_info['group_size'], $this->userGroupSizes)): ?>
+                                <?=$this->userGroupSizes[$this->user_info['group_size']];?>
+                            <?php else: ?>
+                                <?=$this->translate('N/A');?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Region</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['regio_pax']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Altersgruppe</td>
+                        <td class="tbl_det">
+                            <?php $age_tm = array(
+                                "1" => "bis 17 Jahre",
+                                "2" => "bis 26 Jahre",
+                                "3" => "ab 27 Jahre",
+                                "4" => "all age groups",
+                                "5" => "no information"
+                            );?>
+                            <?php if (array_key_exists($this->user_info['age_group'], $age_tm)): ?>
+                                <?=$age_tm[$this->user_info['age_group']];?>
+                            <?php else: ?>
+                                <?=$this->translate('N/A');?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Newsletter abonnieren</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['newsl_subscr']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Informieren über Konsultationsergebnisse</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['cnslt_results']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tbl_lab">Übermittelter Kommentar</td>
+                        <td class="tbl_det">
+                            <?php echo $this->escape($this->user_info['cmnt_ext']); ?>
+                        </td>
+                    </tr>
+                </table>
+
+                <form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl(); ?>/admin/input/editbulk" method="POST">
+                    <input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
+                    <?php foreach ($this->inputs as $questionNum => $inputs): ?>
+                        <div>
+                            <?=$questionNum;?>
+                            <?=$inputs['q'];?>
+                        </div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <?php foreach ($inputs['inputs'] as $input): ?>
+                                        <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endforeach;?>
+
+                    <?=$this->translate('Marked entries');?>:
+                    <button type="submit" name="action" value="delete"><?=$this->translate('Delete');?></button>
+                    <button type="submit" name="action" value="block"><?=$this->translate('Block');?></button>
+                    <button type="submit" name="action" value="publish"><?=$this->translate('Publish');?></button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
