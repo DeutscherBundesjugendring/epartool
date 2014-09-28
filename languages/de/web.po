@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-09-10 18:24+0100\n"
-"PO-Revision-Date: 2014-09-10 18:24+0100\n"
+"POT-Creation-Date: 2014-09-28 23:20+0100\n"
+"PO-Revision-Date: 2014-09-28 23:21+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -27,7 +27,7 @@ msgstr "In dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden."
 
 #: application/modules/default/controllers/VotingController.php:90
 msgid "It is not possible to vote at the moment."
-msgstr "Derzeit ist es nicht möglich an der Abstimmung teilzunehmen."
+msgstr "Derzeit ist es nicht möglich, an der Abstimmung teilzunehmen."
 
 #: application/modules/default/controllers/VotingController.php:93
 msgid "The Voting is finished. You can check the results below."
@@ -190,6 +190,7 @@ msgstr "There is no available action with such key."
 msgid "Thank you for subscribing."
 msgstr "Danke fürs Abonnieren."
 
+# CORRECT: A confirmation email has been sent.
 #: application/modules/default/controllers/InputController.php:164
 msgid "You are now subscribed. A confirmation email has been send."
 msgstr ""
@@ -213,8 +214,8 @@ msgid ""
 "Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale "
 "Bearbeitungszeit von %s Minuten überschritten hast."
 msgstr ""
-"Please check your data. Es könnte auch sein, dass du die maximale "
-"Bearbeitungszeit von %s Minuten überschritten hast."
+"Please check your data. It is also possible that the maximum editing period "
+"of %s minutes has exceeded."
 
 #: application/modules/default/controllers/InputController.php:318
 msgid "There is no input to be confirmed."
@@ -357,7 +358,7 @@ msgstr "Nur Noch Heute"
 
 #: application/modules/default/views/helpers/RibbonImage.php:24
 msgid "Voting coming up"
-msgstr "Bald Abstimmen"
+msgstr "Bald abstimmen"
 
 #: application/modules/default/views/helpers/RibbonImage.php:33
 msgid "Results"
@@ -451,6 +452,7 @@ msgstr "Passwort vergessen?"
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
+# CORRECT: The following fields are not obligatory, but the data can help us find out which target groups we are reaching.
 #: application/modules/default/forms/Register.php:26
 msgid ""
 "The following fields are not obligatory. But you can help us to find out "
@@ -555,10 +557,10 @@ msgid ""
 msgstr ""
 "Die Beiträge werden unter einer <a href=\"%s\" target=\"_blank\" title="
 "\"Mehr über die Creative-Commons-Lizenz erfahren\">Creative-Commons-Lizenz</"
-"a> veröffentlicht. Das bedeutet, dass eure Beiträge nicht-kommerziell in "
-"Zusammenfassungen und Publikationen weiterverwendet werden dürfen. Da alle "
-"Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung "
-"als Quelle nur diese Website genannt werden."
+"a> veröffentlicht. Das bedeutet, dass eure Beiträge in Zusammenfassungen und "
+"Publikationen zu nicht-kommerziellen Zwecken weiterverwendet werden dürfen. "
+"Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei "
+"Weiterverwendung als Quelle nur diese Website genannt werden."
 
 #: application/modules/default/forms/Register.php:176
 #: application/modules/default/forms/PasswordRecover.php:25
@@ -665,23 +667,23 @@ msgstr "Speichern"
 
 #: library/Plugin/Auth/AccessControl.php:34
 msgid "Bitte Benutzernamen angeben!"
-msgstr ""
+msgstr "Please insert user name!"
 
 #: library/Plugin/Auth/AccessControl.php:36
 msgid "Bitte Passwort angeben!"
-msgstr ""
+msgstr "Please insert password!"
 
 #: library/Plugin/Auth/AccessControl.php:47
 msgid "Login erfolgreich!"
-msgstr ""
+msgstr "Login successful!"
 
 #: library/Plugin/Auth/AccessControl.php:51
 msgid "Login fehlgeschlagen!"
-msgstr ""
+msgstr "Login failed!"
 
 #: library/Plugin/Auth/AccessControl.php:80
 msgid "Keine Rechte für die angeforderte Seite!"
-msgstr ""
+msgstr "No admission rights for this page!"
 
 #: library/Plugin/Auth/AccessControl.php:86
 msgid "Please log in first!"
@@ -786,7 +788,7 @@ msgstr "Abzustimmende Beiträge:"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:79
 msgid "Voters"
-msgstr "Absimmende"
+msgstr "Abstimmende"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:80
 msgid "Group member"
@@ -1152,6 +1154,7 @@ msgstr ""
 msgid "The votings have been deleted."
 msgstr "Die Bewertungen wurden gelöscht."
 
+# CORRECT: (...) This does not apply to votings you may have made before.
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:21
 msgid ""
 "The votings connected to your email address will not be included in the end "
@@ -1175,6 +1178,7 @@ msgstr "Der Beitrag wurde gelöscht!"
 msgid "Error, the contribution has not been deleted!"
 msgstr "Fehler, der Beitrag wurde nicht gelöscht!"
 
+# CORRECT: (...) Breaks are possible without any problems.
 #: application/modules/default/views/scripts/voting/overview.phtml:51
 msgid ""
 "Choose here the question or the keyword according to which the contributions "
@@ -1193,7 +1197,7 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/overview.phtml:55
 msgid "Contributions by topic"
-msgstr "Beiträge nach Schlagwörtern"
+msgstr "Beiträge nach Thema"
 
 #: application/modules/default/views/scripts/voting/index.phtml:9
 msgid "View voting results"
@@ -1203,6 +1207,7 @@ msgstr "Votingergebnisse ansehen"
 msgid "Login for the voting"
 msgstr "Anmelden zur Abstimmung"
 
+# CORRECT: (...) The contributions consist of opinions, positions and suggestions given by young people and youth groups during the last weeks and months.
 #: application/modules/default/views/scripts/voting/index.phtml:19
 #, php-format
 msgid ""
@@ -1397,7 +1402,7 @@ msgstr ""
 
 #: application/modules/default/views/scripts/input/createForm.phtml:9
 msgid "Create new contribution"
-msgstr "Beiträge verfassen"
+msgstr "Neuen Beitrag verfassen"
 
 #: application/modules/default/views/scripts/input/createForm.phtml:40
 msgid "Click here for another contribution"

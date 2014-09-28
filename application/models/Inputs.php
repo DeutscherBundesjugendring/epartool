@@ -410,7 +410,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $select
             ->where('i.qi=?', $qid)
-            ->where('i.block=?', 'n')
+            ->where('i.block!=?', 'y')
             ->where($this->getAdapter()->quoteInto('i.user_conf=? OR uid IS NULL', 'c'));
 
         if (!empty($order)) {
@@ -612,10 +612,16 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
         $csv = '';
         $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('i' => 'inpt'));
-        $select->where('kid = ?', $kid);
-        $select->where('qi = ?', $qid);
+            $select = $db->select()
+            ->from(['i' => 'inpt'])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('kid = ?', $kid)
+            ->where('q.qi = ?', $qid);
+
         switch ($mod) {
             case 'cnf':
                 $select->where('i.user_conf = ?', 'c');
