@@ -43,7 +43,7 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
         ];
         $folder = $this->createElement('select', 'directory');
         $folder
-            ->setLabel('Folder')
+            ->setLabel('Destination')
             ->setMultioptions($dirOpts);
         $this->addElement($folder);
 
@@ -53,6 +53,7 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
 
 
         $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Upload');
         $this->addElement($submit);
 
     }

@@ -5,7 +5,12 @@
                 <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload', 'targetElId' => $this->targetElId));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
             </div>
         </div>
     </div>
@@ -27,6 +32,15 @@
             <?php endif?>
 
             <div class="content">
+
+                <?php if (!$this->lockDir): ?>
+                    <?php if ($this->folder): ?>
+                        <a href="<?=$this->url(['action' => 'folders']);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
+                    <?php elseif ($this->kid): ?>
+                        <a href="<?=$this->url(['action' => 'consultations']);?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
+                    <?php endif; ?>
+                <?php endif?>
+
                 <h2><?=$this->title;?></h2>
 
                 <?php if (!empty($this->files)): ?>

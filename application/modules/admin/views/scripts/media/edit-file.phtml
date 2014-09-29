@@ -5,7 +5,12 @@
                 <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
             </div>
         </div>
     </div>
@@ -16,15 +21,13 @@
             <div class="sidebar">
 
                 <?php if (!$this->lockDir): ?>
-                    <div class="col-md-3">
-                        <?=$this->mediaNavigation();?>
-                    </div>
+                    <?=$this->mediaNavigation();?>
                 <?php endif?>
 
             </div>
             <div class="content">
 
-                <h2><?=$this->translate('Edit file');?></h2>
+                <h2><?=$this->translate('Edit File');?></h2>
 
                 <?=$this->form;?>
 

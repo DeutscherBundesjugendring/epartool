@@ -5,7 +5,12 @@
                 <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
             </div>
         </div>
     </div>
@@ -20,6 +25,10 @@
             </div>
             <div class="content">
 
+                <a href="<?=$this->url(array('action' => 'create-folder'));?>" class="btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?=$this->translate('New Folder');?>
+                </a>
                 <h2><?=$this->translate('Folders');?></h2>
 
                 <form method="<?=$this->form->getMethod()?>">
@@ -44,13 +53,17 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <button
-                                            <?=$folder['isEmpty'] ? '' : 'disabled'?>
                                             name="delete"
                                             type="submit"
                                             onclick="return confirm('<?=$this->translate('Delete folder?');?>');"
                                             value="<?=$folder['name'];?>"
-                                            title="<?=$this->translate('Delete');?>"
-                                            class="item-action"
+                                            <?php if ($folder['isEmpty']): ?>
+                                                title="<?=$this->translate('Delete');?>"
+                                            <?php else: ?>
+                                                disabled
+                                                title="<?=$this->translate('This folder contains one or more files and cannot be deleted.');?>"
+                                            <?php endif; ?>
+                                            class="item-action item-action-danger"
                                         >
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>

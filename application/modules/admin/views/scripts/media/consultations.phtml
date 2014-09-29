@@ -5,7 +5,12 @@
                 <h1><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?></a>
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
             </div>
         </div>
     </div>
@@ -26,18 +31,20 @@
                     <thead>
                         <tr>
                             <th class="table-cell-id">#</th>
-                            <th><?=$this->translate('Consultation name');?></th>
+                            <th><?=$this->translate('Consultation');?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->consultationDirs as $folder): ?>
                             <tr>
                                 <td class="table-cell-id">
+                                    <?=$folder;?>
+                                </td>
+                                <td>
                                     <a href="<?=$this->url(['action' => 'index', 'kid' => $folder]);?>">
-                                        <?=$folder;?>
+                                        <?=$this->consultations[$folder];?>
                                     </a>
                                 </td>
-                                <td><?=$this->consultations[$folder];?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

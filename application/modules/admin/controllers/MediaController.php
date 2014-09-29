@@ -95,14 +95,14 @@ class Admin_MediaController extends Zend_Controller_Action
             $consultation = $consModel->fetchRow(
                 $consModel
                     ->select()
-                    ->from($consModel->info(Model_Consultations::NAME), ['kid', 'titl'])
+                    ->from($consModel->info(Model_Consultations::NAME), ['titl'])
                     ->where('kid', $this->_kid)
             );
-            $this->view->title = $this->_kid .  ' ' . $consultation->titl;
+            $this->view->title = $consultation->titl;
         } elseif ($this->_folder) {
             $this->view->title = $this->view->translate('Folder') . ': ' . $this->_folder;
         } else {
-            $this->view->title = $this->view->translate('All media');
+            $this->view->title = $this->view->translate('All Media');
         }
 
         $this->view->files = $files;
@@ -144,7 +144,7 @@ class Admin_MediaController extends Zend_Controller_Action
 
 
         $this->view->form = $form;
-        $this->view->pageTitle = 'Edit media folder';
+        $this->view->pageTitle = 'Rename Folder';
         $this->render('folder-detail');
     }
 
@@ -255,7 +255,7 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = 'Create media folder';
+        $this->view->pageTitle = 'New Folder';
         $this->render('folder-detail');
     }
 
@@ -301,7 +301,7 @@ class Admin_MediaController extends Zend_Controller_Action
                             ->addMessage('The file could not be uploaded.', 'error');
                     }
                 } catch (Dbjr_File_Exception $e) {
-                    $this->_flashMessenger->addMessage('File exists.', 'error');
+                    $this->_flashMessenger->addMessage('File already exists.', 'error');
                 }
             } else {
                 $this->_flashMessenger->addMessage('Upload fehlgeschlagen.', 'error');
@@ -324,7 +324,7 @@ class Admin_MediaController extends Zend_Controller_Action
             if ((new Service_Media())->delete($filename, $this->_kid, $this->_folder)) {
                 $this
                     ->_flashMessenger
-                    ->addMessage(sprintf('Die Datei »%s« wurde erfolgreich gelöscht.', $filename), 'success');
+                    ->addMessage(sprintf('Die Datei %s wurde erfolgreich gelöscht.', $filename), 'success');
             } else {
                 $this->_flashMessenger->addMessage('Datei konnte nicht gelöscht werden.', 'error');
             }
