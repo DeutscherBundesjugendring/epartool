@@ -179,7 +179,7 @@ class Service_Media
     {
         $res = (new Dbjr_File())
             ->setFilename($filename)
-            ->setdirname($this->getdirname($kid, $folder))
+            ->setDirPath($this->getdirname($kid, $folder))
             ->delete();
 
         return (bool) $res;
@@ -202,7 +202,7 @@ class Service_Media
         }
 
         $res = (new Dbjr_File_Folder())
-            ->setdirname($this->getdirname($kid, $folder))
+            ->setDirPath($this->getdirname($kid, $folder))
             ->delete();
 
         return (bool) $res;
