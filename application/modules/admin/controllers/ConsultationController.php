@@ -26,10 +26,13 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->inputs = (new Model_Inputs())->getComplete(
+        $inputs = (new Model_Inputs())->getComplete(
             $this->_consultation->kid,
             [(new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?' => 'u']
         );
+
+        $this->view->inputs = $inputs;
+        $this->view->inputsCount = count($inputs);
     }
 
     /**

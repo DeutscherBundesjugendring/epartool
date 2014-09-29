@@ -22,8 +22,15 @@
 
                         <h2>
                             <?=$this->translate('New Contributions');?>
-                            <span class="badge"><?=count($this->inputs);?></span>
+                            <span class="badge"><?=$this->inputsCount;?></span>
                         </h2>
+
+                        <?php if (!$this->inputsCount): ?>
+                            <p class="alert alert-info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <?=$this->translate('There are no unprocessed contributions. Good job!');?>
+                            </p>
+                        <?php endif; ?>
 
                         <?php foreach($this->inputs as $input): ?>
                             <div class="well">

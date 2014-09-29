@@ -20,76 +20,86 @@
 
                 <h2><?=$this->translate('Contributions');?></h2>
 
-                <h3><?=$this->translate('By Question')?></h3>
-                <table class="table" data-view="table">
-                    <thead>
-                        <tr>
-                            <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                            <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Question');?></th>
-                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Unread');?></th>
-                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Total');?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($this->questions as $question): ?>
-                            <tr>
-                                <td class="table-cell-id"><?=$question->qi;?></td>
-                                <td><?=$question->q;?></td>
-                                <td>
-                                    <?php if (!empty($question->inputCountUnread)): ?>
-                                        <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => '1']);?>"><?=$this->translate('Show');?></a>
-                                        <span class="badge"><?=$question->inputCountUnread;?></span>
-                                    <?php else: ?>
-                                        <span class="badge">0</span>
-                                    <?php endif?>
-                                </td>
-                                <td>
-                                    <?php if (!empty($question->inputCountTotal)): ?>
-                                        <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => null]);?>"><?=$this->translate('Show');?></a>
-                                        <span class="badge"><?=$question->inputCountTotal;?></span>
-                                    <?php else: ?>
-                                        <span class="badge">0</span>
-                                    <?php endif?>
-                                </td>
-                            </tr>
-                        <?php endforeach;?>
-                    </tbody>
-                </table>
+                <?php if (!count($this->questions) && !count($this->users)): ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no contributions yet.');?>
+                    </p>
+                <?php endif; ?>
 
-                <h3><?=$this->translate('By User')?></h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="table-cell-id">#</th>
-                            <th><?=$this->translate('Name');?></th>
-                            <th><?=$this->translate('Email');?></th>
-                            <th><?=$this->translate('Contributions');?></th>
-                            <th><?=$this->translate('Comment');?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($this->users as $user): ?>
+                <?php if (count($this->questions)): ?>
+                    <h3><?=$this->translate('By Question')?></h3>
+                    <table class="table" data-view="table">
+                        <thead>
                             <tr>
-                                <td class="table-cell-id"><?=$user->uid;?></td>
-                                <td>
-                                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $user->uid]);?>">
-                                        <?=$user->name;?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="mailto:<?=$user->email;?>">
-                                        <?=$user->email;?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="<?=$this->url(['action' => 'list-by-user', 'uid' => $user->uid, 'qi' => null]);?>"><?=$this->translate('Show');?></a>
-                                    <span class="badge"><?=$user->inputCount;?></span>
-                                </td>
-                                <td><?=$user->cmnt ? '<span class="glyphicon glyphicon-comment"></span>' : '';?></td>
+                                <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Question');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Unread');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Total');?></th>
                             </tr>
-                        <?php endforeach;?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->questions as $question): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$question->qi;?></td>
+                                    <td><?=$question->q;?></td>
+                                    <td>
+                                        <?php if (!empty($question->inputCountUnread)): ?>
+                                            <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => '1']);?>"><?=$this->translate('Show');?></a>
+                                            <span class="badge"><?=$question->inputCountUnread;?></span>
+                                        <?php else: ?>
+                                            <span class="badge">0</span>
+                                        <?php endif?>
+                                    </td>
+                                    <td>
+                                        <?php if (!empty($question->inputCountTotal)): ?>
+                                            <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => null]);?>"><?=$this->translate('Show');?></a>
+                                            <span class="badge"><?=$question->inputCountTotal;?></span>
+                                        <?php else: ?>
+                                            <span class="badge">0</span>
+                                        <?php endif?>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+
+                <?php if (count($this->users)): ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id">#</th>
+                                <th><?=$this->translate('Name');?></th>
+                                <th><?=$this->translate('Email');?></th>
+                                <th><?=$this->translate('Contributions');?></th>
+                                <th><?=$this->translate('Comment');?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->users as $user): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$user->uid;?></td>
+                                    <td>
+                                        <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $user->uid]);?>">
+                                            <?=$user->name;?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="mailto:<?=$user->email;?>">
+                                            <?=$user->email;?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="<?=$this->url(['action' => 'list-by-user', 'uid' => $user->uid, 'qi' => null]);?>"><?=$this->translate('Show');?></a>
+                                        <span class="badge"><?=$user->inputCount;?></span>
+                                    </td>
+                                    <td><?=$user->cmnt ? '<span class="glyphicon glyphicon-comment"></span>' : '';?></td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
 
             </div>
         </div>

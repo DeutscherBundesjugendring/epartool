@@ -24,45 +24,54 @@
                 </a>
                 <h2><?=$this->translate('Followup');?></h2>
 
-                <table class="table" data-view="table">
-                    <thead>
-                        <tr>
-                            <th data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Added');?></th>
-                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Stakeholder');?></th>
-                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Title');?></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($this->followupFiles as $followupFile): ?>
+                <?php if (!count($this->followupFiles)): ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no follow-ups yet.');?>
+                    </p>
+                <?php else: ?>
+
+                    <table class="table" data-view="table">
+                        <thead>
                             <tr>
-                                <td><?php $zendDate = new Zend_Date($followupFile['when']); echo $zendDate->get(Zend_Date::DATETIME_MEDIUM); ?></td>
-                                <td><?=$followupFile['who'];?></td>
-                                <td><?=$followupFile['titl'];?></td>
-                                <td class="table-cell-actions">
-                                    <a
-                                        href="<?=$this->url(['action' => 'snippets', 'ffid' => $followupFile['ffid']]);?>"
-                                        class="item-action"
-                                    >
-                                        <span class="glyphicon glyphicon-random"></span>
-                                    </a>
-                                    <a
-                                        href="<?=$this->url(['action' => 'edit-followup', 'ffid' => $followupFile['ffid']]);?>"
-                                        class="item-action"
-                                    >
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </a>
-                                    <a
-                                        href="<?=$this->url(['action' => 'delete-followup', 'ffid' => $followupFile['ffid']]);?>"
-                                        class="item-action item-action-danger"
-                                    >
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </a>
-                                </td>
+                                <th data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Added');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Stakeholder');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Title');?></th>
+                                <th></th>
                             </tr>
-                        <?php endforeach;?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->followupFiles as $followupFile): ?>
+                                <tr>
+                                    <td><?php $zendDate = new Zend_Date($followupFile['when']); echo $zendDate->get(Zend_Date::DATETIME_MEDIUM); ?></td>
+                                    <td><?=$followupFile['who'];?></td>
+                                    <td><?=$followupFile['titl'];?></td>
+                                    <td class="table-cell-actions">
+                                        <a
+                                            href="<?=$this->url(['action' => 'snippets', 'ffid' => $followupFile['ffid']]);?>"
+                                            class="item-action"
+                                        >
+                                            <span class="glyphicon glyphicon-random"></span>
+                                        </a>
+                                        <a
+                                            href="<?=$this->url(['action' => 'edit-followup', 'ffid' => $followupFile['ffid']]);?>"
+                                            class="item-action"
+                                        >
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a
+                                            href="<?=$this->url(['action' => 'delete-followup', 'ffid' => $followupFile['ffid']]);?>"
+                                            class="item-action item-action-danger"
+                                        >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+
+                <?php endif; ?>
 
             </div>
         </div>

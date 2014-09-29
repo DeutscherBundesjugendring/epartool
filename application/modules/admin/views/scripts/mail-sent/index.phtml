@@ -23,42 +23,51 @@
 
                 <h2><?=$this->translate('Sent Emails');?></h2>
 
-                <form method="<?=$this->form->getMethod()?>">
-                    <?=$this->form->getElement('list_control_csrf_token')?>
-                    <table class="table" data-view="table">
-                        <thead>
-                            <tr>
-                                <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Sent');?></th>
-                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($this->emails as $email): ?>
+                <?php if (!count($this->emails)): ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('No emails have been sent yet.');?>
+                    </p>
+                <?php else: ?>
+
+                    <form method="<?=$this->form->getMethod()?>">
+                        <?=$this->form->getElement('list_control_csrf_token')?>
+                        <table class="table" data-view="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <?php
-                                        $zendDate = new Zend_Date($email->time_sent);
-                                        echo $zendDate->get(Zend_Date::DATETIME_MEDIUM);
-                                        ?>
-                                    </td>
-                                    <td><?=$email->subject;?></td>
-                                    <td>
-                                        <button
-                                            name="resendId"
-                                            type="submit"
-                                            onclick="return confirm('<?=$this->translate('Are you sure?');?>');"
-                                            value="<?=$email->id;?>"
-                                            title="<?=$this->translate('Resend email');?>"
-                                            >
-                                            <span class="glyphicon glyphicon-share-alt"></span>
-                                        </button>
-                                    </td>
+                                    <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Sent');?></th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
+                                    <th></th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </form>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->emails as $email): ?>
+                                    <tr>
+                                        <td>
+                                            <?php
+                                            $zendDate = new Zend_Date($email->time_sent);
+                                            echo $zendDate->get(Zend_Date::DATETIME_MEDIUM);
+                                            ?>
+                                        </td>
+                                        <td><?=$email->subject;?></td>
+                                        <td>
+                                            <button
+                                                name="resendId"
+                                                type="submit"
+                                                onclick="return confirm('<?=$this->translate('Are you sure?');?>');"
+                                                value="<?=$email->id;?>"
+                                                title="<?=$this->translate('Resend email');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-share-alt"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </form>
+
+                <?php endif; ?>
 
             </div>
         </div>
