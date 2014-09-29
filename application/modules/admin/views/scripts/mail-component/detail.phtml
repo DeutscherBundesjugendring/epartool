@@ -26,13 +26,17 @@
                 <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Component');?></h2>
                 <?=$this->form;?>
 
-                <h3><?=$this->translate('Placeholders');?></h3>
-                <dl>
-                    <?php foreach ($this->placeholders as $placeholder): ?>
-                        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
-                        <dd><?php echo $placeholder->description?></dd>
-                    <?php endforeach?>
-                </dl>
+                <div class="well">
+                    <h4><?=$this->translate('Placeholders');?></h4>
+                    <table class="table table-striped">
+                        <?php foreach ($this->placeholders as $placeholder): ?>
+                            <tr>
+                                <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></th>
+                                <td><?php echo $placeholder->description?></td>
+                            </tr>
+                        <?php endforeach?>
+                    </table>
+                </div>
 
             </div>
         </div>

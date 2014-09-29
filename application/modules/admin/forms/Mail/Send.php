@@ -5,7 +5,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
     public function init()
     {
         $view = new Zend_View();
-        $this->setAttrib('class', 'js-send-mail');
+        $this->setAttrib('class', 'offset-bottom js-send-mail');
 
 
         $mailto = $this->createElement('email', 'mailto');
