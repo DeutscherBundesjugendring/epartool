@@ -39,11 +39,6 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(array('controller' => 'votingprepare', 'action' => 'index', 'kid' => $kid)),
                 'children' => [
                     array(
-                        'name' => 'voting-settings',
-                        'label' => 'Settings',
-                        'href' => $this->view->url(array('controller' => 'voting', 'action' => 'settings', 'kid' => $kid)),
-                    ),
-                    array(
                         'name' => 'voting-permissions',
                         'label' => 'Permissions',
                         'href' => $this->view->url(array('controller' => 'voting', 'action' => 'index', 'kid' => $kid)),

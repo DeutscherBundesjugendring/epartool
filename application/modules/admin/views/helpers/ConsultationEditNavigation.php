@@ -12,9 +12,14 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
     {
         $items = array(
             array(
-                'name' => 'settings',
-                'label' => 'Settings',
+                'name' => 'general',
+                'label' => 'General',
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid)),
+            ),
+            array(
+                'name' => 'voting',
+                'label' => 'Voting',
+                'href' => $this->view->url(array('controller' => 'voting', 'action' => 'settings', 'kid' => $kid)),
             ),
             // TODO DBJR-94
             /*array(
