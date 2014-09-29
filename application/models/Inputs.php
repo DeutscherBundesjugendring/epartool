@@ -92,10 +92,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return 0;
         }
 
+        $modelInputsTags = new Model_InputsTags();
+        $modelInputsTags->deleteByInputsId($id);
         if (isset($data['tags']) && !empty($data['tags'])) {
-            // Tag Zuordnungen speichern
-            $modelInputsTags = new Model_InputsTags();
-            $modelInputsTags->deleteByInputsId($id);
             $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
         }
 
@@ -124,9 +123,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return 0;
         }
 
-        // where
-        $where = $this->getDefaultAdapter()
-                ->quoteInto($this->_primary[1] . '=?', $id);
+        (new Model_InputsTags())->deleteByInputsId($id);
+        $where = $this->getDefaultAdapter()->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);
 
         return $result;
