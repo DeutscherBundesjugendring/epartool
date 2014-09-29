@@ -57,11 +57,11 @@
                                                 '<?=$this->mediaPresenter($file, 'admin_media_form_element');?>',
                                                 '<?=$this->CKEditorFuncNum;?>'
                                             )"
+                                            href="#"
                                         <?php else: ?>
                                             href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
                                         <?php endif;?>
                                         title="<?=$file['basename'];?>"
-                                        href="#"
                                     >
                                         <div class="thumbnail-image">
                                             <img

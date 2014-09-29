@@ -308,6 +308,7 @@ class Admin_MediaController extends Zend_Controller_Action
             }
         }
 
+        $this->view->allowedFileTypes = Zend_Registry::get('systemconfig')->media->filetype->extensions->toArray();
         $this->view->form = $form;
     }
 

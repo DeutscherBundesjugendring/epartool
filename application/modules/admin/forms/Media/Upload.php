@@ -10,6 +10,7 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
         $view = new Zend_View();
 
         $this->setMethod('post');
+        $this->setAttrib('class', 'offset-bottom');
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_mediaupload', array('salt' => 'unique'));

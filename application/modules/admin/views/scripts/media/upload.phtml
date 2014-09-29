@@ -39,6 +39,15 @@
 
                 <?=$this->form;?>
 
+                <p class="well">
+                    <strong>
+                        <span class="glyphicon glyphicon-file"></span>
+                        <?=$this->translate('Following file types are allowed:');?>
+                    </strong>
+                    <br />
+                    <?=implode(', ', $this->allowedFileTypes);?>
+                </p>
+
             </div>
         </div>
     </div>
