@@ -21,7 +21,13 @@
                     <div class="col-md-6">
 
                         <h2><?=$this->translate('Contributions');?></h2>
-                        <!-- TODO -->
+                        <?php foreach($this->inputs as $input): ?>
+                            <?=$input['thes'];?>
+                            <?=$input['expl'];?>
+                            <?=$input['name'];?>
+                            <?=(new Zend_Date())->set($input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+                            <hr />
+                        <?php endforeach?>
 
                     </div>
                     <div class="col-md-6">

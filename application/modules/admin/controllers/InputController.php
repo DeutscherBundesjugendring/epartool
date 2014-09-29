@@ -68,7 +68,13 @@ class Admin_InputController extends Zend_Controller_Action
                 ->where('qi = ?', $qid)
         );
 
-        $this->view->inputs = (new Model_Inputs())->getInputListDataByQuestion($this->_consultation['kid'], $qid, $isUnread);
+        $this->view->inputs = (new Model_Inputs())->getComplete(
+            $this->_consultation['kid'],
+            [
+                (new Model_Questions())->info(Model_Questions::NAME) . '.qi = ?' => $qid,
+                (new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?' => 'u',
+            ]
+        );
         $this->view->question = $question;
         $this->view->listControlForm = new Admin_Form_ListControl();
     }
@@ -82,7 +88,10 @@ class Admin_InputController extends Zend_Controller_Action
 
         $this->view->user = (new Model_Users())->getById($uid);
         $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
-        $this->view->inputs = (new Model_Inputs())->getInputBoxListDataByUser($this->_consultation['kid'], $uid);
+        $this->view->inputs = (new Model_Inputs())->getCompleteGroupedByQuestion(
+            $this->_consultation['kid'],
+            [(new Model_Users())->info(Model_Users::NAME) . '.uid = ?' => $uid]
+        );
         $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
         $this->view->listControlForm = new Admin_Form_ListControl();
     }

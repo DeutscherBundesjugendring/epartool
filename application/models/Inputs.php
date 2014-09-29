@@ -1362,20 +1362,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     /**
      * Returns the data needed to populate the input boxes in per user view
      * @param  integer $kid      The consultation identifier
-     * @param  integer $uid      The user identifier
+     * @param  array   $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
      * @return array             An array of arrays
      */
-    public function getInputBoxListDataByUser($kid, $uid)
+    public function getCompleteGroupedByQuestion($kid, $wheres)
     {
-        $select = $this->getInputBoxListDataSelect($kid)
-            ->join(
-                (new Model_Questions())->info(Model_Questions::NAME),
-                $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
-                ['nr', 'q']
-            )
-            ->where('kid = ?', $kid)
-            ->where((new Model_Users())->info(Model_Users::NAME) . '.uid = ?', $uid);
-        $res = $this->fetchAll($select);
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($kid, $wheres));
 
         $inputs = [];
         foreach ($res as $input) {
@@ -1397,24 +1389,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     /**
      * Returns the data needed to populate the input boxes in per question view
      * @param  integer $kid      The consultation identifier
-     * @param  integer $qid      The question identifier
-     * @param  boolean $isUnread Indicates if all or unread only inputs should be returned
+     * @param  array   $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
      * @return array             An array of arrays
      */
-    public function getInputListDataByQuestion($kid, $qid, $isUnread = null, $orderBy = null)
+    public function getComplete($kid, $wheres)
     {
-        $select = $this->getInputBoxListDataSelect($kid)
-            ->join(
-                (new Model_Questions())->info(Model_Questions::NAME),
-                $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
-                []
-            )
-            ->where('' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi = ?', $qid);
-        if ($isUnread) {
-            $select->where($this->info(self::NAME) . '.block = ?', 'u');
-        }
-
-        $res = $this->fetchAll($select);
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($kid, $wheres));
 
         $inputs = [];
         foreach ($res as $input) {
@@ -1428,16 +1408,22 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns the select to be used as a base for getting the data needed to populate the input boxes in a list of inputs
-     * @param  integer          $kid The consultation identifier
-     * @return Zend_Db_Select        The select object
+     * Returns the select to be used as a base for getting the complete input data
+     * @param  integer          $kid     The consultation identifier
+     * @param  array            $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @return Zend_Db_Select            The select object
      */
-    private function getInputBoxListDataSelect($kid)
+    private function getInputBoxListDataSelect($kid, $wheres)
     {
         $select = $this
             ->select()
             ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf'])
             ->setIntegrityCheck(false)
+            ->join(
+                (new Model_Questions())->info(Model_Questions::NAME),
+                $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
+                ['nr', 'q']
+            )
             ->joinLeft(
                 (new Model_Users())->info(Model_Users::NAME),
                 (new Model_Users())->info(Model_Users::NAME) . '.uid = ' . $this->info(self::NAME) . '.uid',
@@ -1445,6 +1431,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             )
             ->where('kid = ?', $kid)
             ->order('tid');
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
+        }
 
         return $select;
     }
