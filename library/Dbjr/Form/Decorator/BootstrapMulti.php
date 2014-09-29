@@ -13,7 +13,7 @@ class Dbjr_Form_Decorator_BootstrapMulti extends Zend_Form_Decorator_Abstract
             )
             ->addDecorator(
                 ['div-label' => 'HtmlTag'],
-                ['tag' => 'div', 'class' => 'form-label']
+                ['tag' => 'h3']
             )
             ->addDecorator('ViewHelper')
             ->addDecorator('Errors')
@@ -23,7 +23,7 @@ class Dbjr_Form_Decorator_BootstrapMulti extends Zend_Form_Decorator_Abstract
                 [
                     'tag' => 'div',
                     'id' => ['callback' => [get_class($element), 'resolveElementId']],
-                    'class' => 'form-group',
+                    'class' => 'checkbox',
                 ]
             );
 
