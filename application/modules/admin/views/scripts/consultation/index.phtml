@@ -18,22 +18,32 @@
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-lg-9">
 
-                        <h2><?=$this->translate('Contributions');?></h2>
+                        <h2>
+                            <?=$this->translate('New Contributions');?>
+                            <span class="badge"><?=count($this->inputs);?></span>
+                        </h2>
+
                         <?php foreach($this->inputs as $input): ?>
-                            <?=$input['thes'];?>
-                            <?=$input['expl'];?>
-                            <?=$input['name'];?>
-                            <?=(new Zend_Date())->set($input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
-                            <hr />
+                            <div class="well">
+                                <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid']]);?>">
+                                    <p><?=$input['thes'];?></p>
+                                </a>
+
+                                <?=(!empty($input['expl']) ? ('<p>' . $input['expl'] . '</p>') : '');?>
+                                <small>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <?php if (!empty($input['name'])): ?>
+                                        <a
+                                            href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid']]);?>"
+                                            title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                            ><?=$input['name'];?></a>,
+                                    <?php endif; ?>
+                                    <?=(new Zend_Date())->set($input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+                                </small>
+                            </div>
                         <?php endforeach?>
-
-                    </div>
-                    <div class="col-md-6">
-
-                        <h2><?=$this->translate('Discussion Posts');?></h2>
-                        <!-- TODO -->
 
                     </div>
                 </div>
