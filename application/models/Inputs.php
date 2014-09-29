@@ -514,10 +514,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Saves changes for several entries at once
-     *
-     * @param  array $ids  Array of integer values (Input IDs)
-     * @param  array $data Key value pairs
-     * @return void
+     * @param  array   $ids   Array of input identifiers
+     * @param  array   $data  Key value pairs of data to be updated for all specified inputs
+     * @return integer        The number of inputs that got edited
      */
     public function editBulk($ids, $data)
     {
@@ -526,6 +525,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 $this->updateById($id, $data);
             }
         }
+
+        return count($ids);
     }
 
     /**

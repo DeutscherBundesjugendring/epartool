@@ -67,8 +67,9 @@
                     <p><a href="<?php echo $this->url(array('tag' => null));?>">Alle Beiträge anzeigen &raquo;</a></p>
                 <?php endif;?>
 
-                <form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl();?>/admin/input/editbulk" method="POST">
-                    <input name="return_url" type="hidden" value="<?php echo $this->url();?>" />
+                <form action="<?=$this->baseUrl();?>/admin/input/editbulk" method="<?=$this->listControlForm->getMethod();?>">
+                    <?=$this->listControlForm->getElement('list_control_csrf_token');?>
+                    <input name="return_url" type="hidden" value="<?=$this->url();?>" />
                     <table class="table">
                         <?php foreach ($this->inputs as $input): ?>
                             <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>

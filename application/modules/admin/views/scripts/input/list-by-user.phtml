@@ -121,8 +121,9 @@
                     </tr>
                 </table>
 
-                <form name="inp_edit" id="inp_edit" action="<?php echo $this->baseUrl(); ?>/admin/input/editbulk" method="POST">
-                    <input name="return_url" type="hidden" value="<?php echo $this->url(); ?>" />
+                <form action="<?=$this->baseUrl(); ?>/admin/input/editbulk" method="<?=$this->listControlForm->getMethod();?>">
+                    <?=$this->listControlForm->getElement('list_control_csrf_token');?>
+                    <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
                     <?php foreach ($this->inputs as $questionNum => $inputs): ?>
                         <div>
                             <?=$questionNum;?>

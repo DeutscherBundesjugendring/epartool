@@ -70,6 +70,7 @@ class Admin_InputController extends Zend_Controller_Action
 
         $this->view->inputs = (new Model_Inputs())->getInputListDataByQuestion($this->_consultation['kid'], $qid, $isUnread);
         $this->view->question = $question;
+        $this->view->listControlForm = new Admin_Form_ListControl();
     }
 
     /**
@@ -83,6 +84,7 @@ class Admin_InputController extends Zend_Controller_Action
         $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
         $this->view->inputs = (new Model_Inputs())->getInputBoxListDataByUser($this->_consultation['kid'], $uid);
         $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+        $this->view->listControlForm = new Admin_Form_ListControl();
     }
 
     /**
@@ -142,38 +144,33 @@ class Admin_InputController extends Zend_Controller_Action
      */
     public function editbulkAction()
     {
-        if (!$this->_request->isPost()) {
-            $this->_flashMessenger->addMessage('Ungültiger Aufruf!', 'error');
-            $this->redirect('/admin');
+        $form = new Admin_Form_ListControl();
+
+        if ($this->getRequest()->isPost() && $form->isValid($this->getRequest()->getPost())) {
+            $inputModel = new Model_Inputs();
+            $data = $this->_request->getPost();
+            $returnUrl = $data['return_url'];
+
+            switch ($data['action']) {
+                case 'delete':
+                    $nr = $inputModel->deleteBulk($data['inp_list']);
+                    $msg = sprintf($this->view->translate('%d inputs were deleted.'), $nr);
+                    $this->_flashMessenger->addMessage($msg, 'success');
+                    break;
+                case 'block':
+                    $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
+                    $msg = sprintf($this->view->translate('%d inputs were blocked.'), $nr);
+                    $this->_flashMessenger->addMessage($msg, 'success');
+                    break;
+                case 'publish':
+                    $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
+                    $msg = sprintf($this->view->translate('%d inputs were unblocked.'), $nr);
+                    $this->_flashMessenger->addMessage($msg, 'success');
+                    break;
+            }
         }
 
-        $inputModel = new Model_Inputs();
-        $data = $this->_request->getPost();
-        switch ($data['action']) {
-            case 'delete':
-                $nr = $inputModel->deleteBulk($data['inp_list']);
-                if ($nr > 0) {
-                    $this->_flashMessenger->addMessage($nr . ' Beiträge gelöscht!', 'success');
-                }
-                break;
-            case 'block':
-                $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
-                $this->_flashMessenger->addMessage(count($data['inp_list']) . ' Beiträge gesperrt!', 'success');
-                break;
-            case 'publish':
-                $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
-                $this->_flashMessenger->addMessage(count($data['inp_list']) . ' Beiträge freigegeben!', 'success');
-                break;
-            default:
-                $this->_flashMessenger->addMessage('Bitte eine Aktion auswählen!', 'error');
-                break;
-        }
-
-        $url = $data['return_url'];
-        if (empty($url)) {
-            $url = $this->view->baseUrl() . '/admin';
-        }
-        $this->redirect($url, array('prependBase' => false));
+        $this->redirect(!empty($returnUrl) ? $returnUrl : $this->view->baseUrl() . '/admin');
     }
 
     /**
