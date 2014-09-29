@@ -18,15 +18,29 @@
             </div>
             <div class="content">
 
-                <?php if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
-                    <!-- TODO change link to POST form button -->
-                    <a href="<?=$this->url(array('action' => 'delete', $this->consultation->kid));?>" class="pull-right">
-                        <span class="glyphicon glyphicon-trash"></span>
-                        <?=$this->translate('Delete Consultation');?>
-                    </a>
-                <?php endif; ?>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-push-8 text-right">
 
-                <h2><?=$this->translate('Consultation Settings');?></h2>
+                        <?php if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
+                            <?php // TODO change links to POST form button ?>
+                            <div class="btn-group offset-bottom">
+                                <a href="<?=$this->url(array('controller' => 'close', 'action' => 'index', $this->consultation->kid));?>" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                    <?=$this->translate('Close');?>
+                                </a>
+                                <a href="<?=$this->url(array('action' => 'delete', $this->consultation->kid));?>" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                    <?=$this->translate('Delete');?>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+
+                    </div>
+                    <div class="col-sm-8 col-sm-pull-4">
+                        <h2><?=$this->translate('Consultation Settings');?></h2>
+                    </div>
+                </div><!-- .row -->
+
                 <?=$this->form?>
                 <p>
                     <?=$this->translate('or');?>
@@ -34,6 +48,6 @@
                 </p>
 
             </div>
-        </div>
-    </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
 </section>
