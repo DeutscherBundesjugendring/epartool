@@ -16,11 +16,12 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
                 'label' => 'Settings',
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid)),
             ),
-            array(
+            // TODO DBJR-94
+            /*array(
                 'name' => 'phases',
                 'label' => 'Phase Names',
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid)),
-            ),
+            ),*/
         );
 
         return $this->view->secondaryNavigation($items, $activeItem);
