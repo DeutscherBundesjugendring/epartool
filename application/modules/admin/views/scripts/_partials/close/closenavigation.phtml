@@ -1,5 +1,6 @@
+
+
 <h1>Beteiligungsrunde schließen: <?php echo $this -> consultation['titl']; ?></h1>
-<?=$this->consultationNavigation($this->consultation['kid'], 'Close')?>
 
 <h2>Beteiligungsrunde schließen</h2>
 
@@ -10,9 +11,9 @@
 		<a href="#" class="write-results">Abstimmungsergebnisse speichern/aktualisieren</a>
 		<?php if ($this -> consultation['vt_finalized']=="y") echo '<span style="color: green">✓</span>'; ?>
 	</p>
-	<? else: ?>
+	<?php else: ?>
 	<p>Die Ergebnisse sind anonymisiert. Speichern nicht mehr möglich!</p>
-	<? endif; ?>
+	<?php endif; ?>
 
 
 
@@ -52,9 +53,9 @@ if ($this -> consultation['vt_anonymized']!="y"): ?>
 	<?php endforeach; ?>
 	</table>
 </p>
-<? else: ?>
+<?php else: ?>
 	<p>Die Ergebnisse sind anonymisiert. Speichern nicht mehr möglich!</p>
-	<? endif; ?>
+	<?php endif; ?>
 
 
 
@@ -68,7 +69,7 @@ if ($this -> consultation['vt_anonymized']!="y"): ?>
 		<p>Bitte zunächst alle Gruppenergebnisse speichern!</p>
 	<?php elseif ($this -> consultation['vt_anonymized']!="y"): ?>
 		<p><a href="#" class="anonymize-votes">Abstimmungen anonymisieren!</a>
-	<? endif; ?>
+	<?php endif; ?>
 
 
 	<h3>4. Abstimmungsergebnisse exportieren:</h3>
@@ -89,9 +90,9 @@ if ($this -> consultation['vt_anonymized']!="y"): ?>
 		<?php endforeach; ?>
 		</table>
 		</p>
-	<? else: ?>
+	<?php else: ?>
 		<p>Bitte zuerst die Abstimmungsergebnisse speichern!</p>
-	<? endif; ?>
+	<?php endif; ?>
 
 <script>
   $(document).ready(function(){

@@ -1,4 +1,26 @@
-<? 
-echo $this->render('_partials/close/closenavigation.phtml'); 
- ?>
+<section class="section-header has-tabs">
+    <div class="container">
 
+        <h1><?php //$this->consultation->titl;?></h1>
+        <h2><?php //$this->consultation->titl_sub;?></h2>
+
+        <?php //$this->consultationTabs($this->consultation->kid, 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?php //$this->consultationEditNavigation($this->consultation->kid, 'settings');?>
+
+            </div>
+            <div class="content">
+
+                    <?=$this->render('_partials/close/closenavigation.phtml');?>
+
+            </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section>
