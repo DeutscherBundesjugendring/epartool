@@ -19,9 +19,48 @@
             <div class="col-md-9">
 
                 <h2>
-                    <?=$this->translate('Contributions for');?>
-                    "<?=$this->question['q'];?>"
+                    <?=$this->translate('Contributions for');?>:
+                    <?=$this->question['q'];?>
                 </h2>
+
+                <form class="form-filter offset-bottom">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label><span class="glyphicon glyphicon-filter"></span> Admin Confirmation</label>
+                                <select class="form-control">
+                                    <option>Waiting for revision</option>
+                                    <option>Confirmed</option>
+                                    <option>Blocked</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label><span class="glyphicon glyphicon-filter"></span> User Confirmation</label>
+                                <select class="form-control">
+                                    <option>Waiting for revision</option>
+                                    <option>Confirmed</option>
+                                    <option>Blocked</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label><span class="glyphicon glyphicon-filter"></span> Voting</label>
+                                <select class="form-control">
+                                    <option>Allowed</option>
+                                    <option>Blocked</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-default">Reset Filter</button>
+                            </div>
+                        </div>
+                    </div><!-- .row -->
+                </form>
 
                 <?php if ($this->tag['tg_nr'] > 0): ?>
                     <p>Es werden nur Beiträge mit dem Schlagwort „<?php echo $this->tag['tg_de'];?>“ angezeigt.</p>
