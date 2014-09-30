@@ -294,6 +294,7 @@ class Admin_MediaController extends Zend_Controller_Action
                             sprintf('Die Datei »%s« wurde erfolgreich hinzugefügt.', $uploadRes),
                             'success'
                         );
+                        $this->redirect($this->view->url(['action' => 'index']));
                     } else {
                         $form->getElement('file')->addErrors($uploadRes);
                         $this
