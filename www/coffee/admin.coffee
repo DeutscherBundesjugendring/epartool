@@ -8,6 +8,7 @@ $(document).ready () ->
     initCKEditor()
     initDatepicker()
     initSelect2()
+    initConfirmMsg()
 
 # Binds ajax loading template data to a template selctor box
 bindEmailTemplateSelect = () ->
@@ -173,3 +174,13 @@ initDatepicker = () ->
 
 initSelect2 = () ->
     $('.select2').select2()
+
+initConfirmMsg = () ->
+    $('[data-toggle=confirm]').click (ev) ->
+        el = ev.currentTarget
+        msg = $(el).data('confirm-message')
+        if (!msg)
+            msg = 'Are you sure?'
+
+        return confirm(msg)
+

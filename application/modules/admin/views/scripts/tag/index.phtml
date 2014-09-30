@@ -61,7 +61,13 @@
                                                         <div class="input-group">
                                                             <input name="tg_de[<?=$tag['tg_nr'];?>]" class="form-control input-sm" value="<?=$tag['tg_de'];?>" />
                                                             <span class="input-group-btn">
-                                                                <a href="<?=$this->url(array('action' => 'delete', 'tag' => $tag['tg_nr']));?>" class="item-action item-action-danger" title="<?=$this->translate('Delete keyword');?>">
+                                                                <a
+                                                                    href="<?=$this->url(['action' => 'delete', 'tag' => $tag['tg_nr']]);?>"
+                                                                    class="item-action item-action-danger"
+                                                                    title="<?=$this->translate('Delete keyword');?>"
+                                                                    data-toggle="confirm"
+                                                                    data-confirm-message="<?=$this->translate('Delete keyword?');?>"
+                                                                >
                                                                     <span class="glyphicon glyphicon-remove-sign"></span>
                                                                 </a>
                                                             </span>

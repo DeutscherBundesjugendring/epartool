@@ -79,11 +79,13 @@
                                             <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="<?=$this->translate('Edit user');?>">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
-                                            <a href="<?=$this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
-                                               onclick="return confirm('Are you sure? All inputs will be amde anonymous.')"
-                                               class="item-action item-action-danger"
-                                               title="<?=$this->translate('Delete user');?>"
-                                                >
+                                            <a
+                                                href="<?=$this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
+                                                class="item-action item-action-danger"
+                                                title="<?=$this->translate('Delete user');?>"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Are you sure? All inputs will be amde anonymous.?');?>"
+                                            >
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </a>
                                         </td>

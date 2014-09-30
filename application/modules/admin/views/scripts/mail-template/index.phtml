@@ -53,7 +53,8 @@
                                                 name="deleteId"
                                                 type="submit"
                                                 class="item-action item-action-danger"
-                                                onclick="return confirm('Are you sure?');"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete email template?');?>"
                                                 value="<?php echo $template->id?>"
                                                 title="<?=$this->translate('Delete template');?>"
                                             >

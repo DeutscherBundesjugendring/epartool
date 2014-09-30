@@ -47,7 +47,13 @@
                                         <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'qid' => $question['qi']));?>" class="item-action" title="<?=$this->translate('Edit question');?>">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
-                                        <a href="<?php echo $this->url(array('action' => 'delete', 'kid' => $this->consultation['kid'], 'qid' => $question['qi'])); ?>" class="item-action item-action-danger" title="<?=$this->translate('Delete question');?>">
+                                        <a
+                                            href="<?=$this->url(['action' => 'delete', 'qid' => $question['qi']]);?>"
+                                            class="item-action item-action-danger"
+                                            title="<?=$this->translate('Delete question');?>"
+                                            data-toggle="confirm"
+                                            data-confirm-message="<?=$this->translate('Delete question?');?>"
+                                        >
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>
                                     </td>

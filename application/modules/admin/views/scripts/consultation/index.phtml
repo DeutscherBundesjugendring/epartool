@@ -58,16 +58,3 @@
         </div>
     </div>
 </section>
-
-<!-- TODO move to JS -->
-<script>
-    $(document).ready(function(){
-        $('.delete-action a').click(function(event){
-            event.preventDefault();
-            var check = confirm('Wollen sie diese Beteiligungsrunde wirklich löschen?');
-            if(check === true) {
-                window.location = "/admin/consultation/delete/kid/<?php echo $this->consultation->kid; ?>";
-            }
-        });
-    });
-</script>

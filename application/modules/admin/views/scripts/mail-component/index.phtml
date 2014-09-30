@@ -57,9 +57,10 @@
                                                 name="deleteId"
                                                 type="submit"
                                                 class="item-action item-action-danger"
-                                                onclick="return confirm('<?=$this->translate('Are you sure?');?>');"
                                                 value="<?=$component->id;?>"
                                                 title="<?=$this->translate('Delete component');?>"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete email component?');?>"
                                             >
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </button>

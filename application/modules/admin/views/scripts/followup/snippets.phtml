@@ -71,13 +71,10 @@
                                             </a>
 
                                             <a
-                                                href="<?=$this->url(
-                                                    [
-                                                        'action' => 'delete-snippet',
-                                                        'fid' => $snippet['fid'],
-                                                    ]
-                                                );?>"
+                                                href="<?=$this->url(['action' => 'delete-snippet', 'fid' => $snippet['fid']]);?>"
                                                 class="item-action item-action-danger"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete snippet?');?>"
                                             >
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </a>

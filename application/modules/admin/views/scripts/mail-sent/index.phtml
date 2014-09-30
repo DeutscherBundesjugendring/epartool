@@ -54,7 +54,8 @@
                                             <button
                                                 name="resendId"
                                                 type="submit"
-                                                onclick="return confirm('<?=$this->translate('Are you sure?');?>');"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Resend email?');?>"
                                                 value="<?=$email->id;?>"
                                                 title="<?=$this->translate('Resend email');?>"
                                                 >

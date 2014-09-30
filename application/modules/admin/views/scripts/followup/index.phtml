@@ -62,6 +62,8 @@
                                         <a
                                             href="<?=$this->url(['action' => 'delete-followup', 'ffid' => $followupFile['ffid']]);?>"
                                             class="item-action item-action-danger"
+                                            data-toggle="confirm"
+                                            data-confirm-message="<?=$this->translate('Delete followup?');?>"
                                         >
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>
