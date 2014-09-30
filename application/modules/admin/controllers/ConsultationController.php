@@ -26,7 +26,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->inputs = (new Model_Inputs())->getComplete(
+        $inputs = (new Model_Inputs())->getComplete(
             [
                 (new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?' => 'u',
                 (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
