@@ -36,16 +36,18 @@
                     </thead>
                     <tbody>
                         <?php foreach ($this->consultationDirs as $folder): ?>
-                            <tr>
-                                <td class="table-cell-id">
-                                    <?=$folder;?>
-                                </td>
-                                <td>
-                                    <a href="<?=$this->url(['action' => 'index', 'kid' => $folder]);?>">
-                                        <?=$this->consultations[$folder];?>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php if (isset($this->consultations[$folder])): ?>
+                                <tr>
+                                    <td class="table-cell-id">
+                                        <?=$folder;?>
+                                    </td>
+                                    <td>
+                                        <a href="<?=$this->url(['action' => 'index', 'kid' => $folder]);?>">
+                                            <?=$this->consultations[$folder];?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endif;?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
