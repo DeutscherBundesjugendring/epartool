@@ -4,6 +4,9 @@ $(document).ready () ->
 
     bindEmailAddAttachment()
 
+    bindTableRowToggle()
+    bindToggleAll()
+
     initDataViewTable()
     initCKEditor()
     initDatepicker()
@@ -82,6 +85,26 @@ bindEmailAddAttachment = () ->
             attachmentId++;
             return
         )
+
+bindTableRowToggle = () ->
+    $('.js-table-row-toggle').change(() ->
+        row = $(this).closest('tr')
+
+        if $(this).is(':checked')
+            row.addClass('info')
+        else
+            row.removeClass('info')
+    )
+
+bindToggleAll = () ->
+    $('.js-toggle-all').change(() ->
+        form = $(this).closest('form')
+
+        if $(this).is(':checked')
+            form.find('input:checkbox:not(:checked)').prop('checked', true).change()
+        else
+            form.find('input:checkbox:checked').prop('checked', false).change()
+    )
 
 initDataViewTable = () ->
     table = $('[data-view="table"]')
@@ -183,4 +206,3 @@ initConfirmMsg = () ->
             msg = 'Are you sure?'
 
         return confirm(msg)
-

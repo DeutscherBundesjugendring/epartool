@@ -18,59 +18,50 @@
             </div>
             <div class="content">
 
-                <p>
-                    <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>">
-                        &laquo; <?=$this->translate('Back to all contributions')?>
+                <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>" class="back">&larr; <?=$this->translate('Back to Contributions')?></a>
+                <h2>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'kid' => null]);?>">
+                        <?=$this->user['name'];?>
+                        <small><?=$this->user['email'];?></small>
                     </a>
-                </p>
+                </h2>
 
-                <table class="table">
+                <table class="table table-condensed">
                     <tr>
-                        <td class="tbl_lab">User</td>
-                        <td class="tbl_det">
-                            <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'kid' => null]);?>">
-                                <h2>
-                                    <?=$this->user['name'];?><br />
-                                    <?=$this->user['email'];?>
-                                </h2>
-                            </a>
+                        <th class="col-xs-4"><?=$this->translate('Last activity');?></th>
                         <td>
-                    </tr>
-                    <tr>
-                        <td class="tbl_lab">Letzte Aktivität</td>
-                        <td class="tbl_det">
                             <?php if (!empty($this->user['last_act'])): ?>
                                 <?php echo (new Zend_Date())->set($this->user['last_act'])->get(Zend_Date::DATETIME_MEDIUM);?>
                             <?php endif; ?>
                         <td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Kontaktperson</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Contact person');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['name_pers']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Gruppenbezeichnung</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Group name');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['name_group']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Quelle</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Source');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['source']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Beschreibung</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Description');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['src_misc']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Gruppengröße</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Group size');?></th>
+                        <td>
                             <?php if (array_key_exists($this->user_info['group_size'], $this->userGroupSizes)): ?>
                                 <?=$this->userGroupSizes[$this->user_info['group_size']];?>
                             <?php else: ?>
@@ -79,21 +70,21 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Region</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Region');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['regio_pax']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Altersgruppe</td>
-                        <td class="tbl_det">
-                            <?php $age_tm = array(
-                                "1" => "bis 17 Jahre",
-                                "2" => "bis 26 Jahre",
-                                "3" => "ab 27 Jahre",
-                                "4" => "all age groups",
-                                "5" => "no information"
-                            );?>
+                        <th><?=$this->translate('Age groups');?></th>
+                        <td>
+                            <?php $age_tm = [
+                                1 => $this->translate('up to 17'),
+                                2 => $this->translate('up to 26'),
+                                3 => $this->translate('from 27'),
+                                4 => $this->translate('all age groups'),
+                                5 => $this->translate('N/A'),
+                            ];?>
                             <?php if (array_key_exists($this->user_info['age_group'], $age_tm)): ?>
                                 <?=$age_tm[$this->user_info['age_group']];?>
                             <?php else: ?>
@@ -102,20 +93,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Newsletter abonnieren</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Newsletter');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['newsl_subscr']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Informieren über Konsultationsergebnisse</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Inform about consultation results');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['cnslt_results']); ?>
                         </td>
                     </tr>
                     <tr>
-                        <td class="tbl_lab">Übermittelter Kommentar</td>
-                        <td class="tbl_det">
+                        <th><?=$this->translate('Comment');?></th>
+                        <td>
                             <?php echo $this->escape($this->user_info['cmnt_ext']); ?>
                         </td>
                     </tr>
@@ -124,26 +115,77 @@
                 <form action="<?=$this->baseUrl(); ?>/admin/input/editbulk" method="<?=$this->listControlForm->getMethod();?>">
                     <?=$this->listControlForm->getElement('list_control_csrf_token');?>
                     <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
+
+                    <!-- Actions -->
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="js-toggle-all" />
+                                        <?=$this->translate('Marked entries');?>:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 text-right">
+                                <div class="btn-group">
+                                    <button type="submit" name="action" value="publish" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <?=$this->translate('Publish');?>
+                                    </button>
+                                    <button type="submit" name="action" value="block" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        <?=$this->translate('Block');?>
+                                    </button>
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        <?=$this->translate('Delete');?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- .row -->
+                    </div>
+
+                    <!-- Listing -->
                     <?php foreach ($this->inputs as $questionNum => $inputs): ?>
-                        <div>
-                            <?=$questionNum;?>
-                            <?=$inputs['q'];?>
-                        </div>
-                        <div>
-                            <table>
-                                <tbody>
-                                    <?php foreach ($inputs['inputs'] as $input): ?>
-                                        <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
-                                    <?php endforeach;?>
-                                </tbody>
-                            </table>
-                        </div>
+                        <h3><?=$inputs['q'];?></h3>
+                        <table class="table table-bordered table-responsive">
+                            <?php foreach ($inputs['inputs'] as $input): ?>
+                                <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
+                            <?php endforeach;?>
+                        </table>
                     <?php endforeach;?>
 
-                    <?=$this->translate('Marked entries');?>:
-                    <button type="submit" name="action" value="delete"><?=$this->translate('Delete');?></button>
-                    <button type="submit" name="action" value="block"><?=$this->translate('Block');?></button>
-                    <button type="submit" name="action" value="publish"><?=$this->translate('Publish');?></button>
+                    <!-- Actions -->
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="js-toggle-all" />
+                                        <?=$this->translate('Marked entries');?>:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 text-right">
+                                <div class="btn-group">
+                                    <button type="submit" name="action" value="publish" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <?=$this->translate('Publish');?>
+                                    </button>
+                                    <button type="submit" name="action" value="block" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        <?=$this->translate('Block');?>
+                                    </button>
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        <?=$this->translate('Delete');?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- .row -->
+                    </div>
+
                 </form>
 
             </div>

@@ -18,6 +18,7 @@
             </div>
             <div class="col-md-9">
 
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to Contributions');?></a>
                 <h2>
                     <?=$this->translate('Contributions for');?>:
                     <?=$this->question['q'];?>
@@ -63,69 +64,152 @@
                 </form>
 
                 <?php if ($this->tag['tg_nr'] > 0): ?>
-                    <p>Es werden nur Beiträge mit dem Schlagwort „<?php echo $this->tag['tg_de'];?>“ angezeigt.</p>
-                    <p><a href="<?php echo $this->url(array('tag' => null));?>">Alle Beiträge anzeigen &raquo;</a></p>
+                    <p class="alert alert-info">
+                        <?=$this->translate('Only contributions with &ldquo;%s&rdquo; keywords are listed.', $this->tag['tg_de']);?>
+                        <a href="<?php echo $this->url(array('tag' => null));?>">Show all contributions</a>
+                    </p>
                 <?php endif;?>
 
                 <form action="<?=$this->baseUrl();?>/admin/input/editbulk" method="<?=$this->listControlForm->getMethod();?>">
                     <?=$this->listControlForm->getElement('list_control_csrf_token');?>
                     <input name="return_url" type="hidden" value="<?=$this->url();?>" />
-                    <table class="table">
+
+                    <!-- Actions -->
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="js-toggle-all" />
+                                        <?=$this->translate('Marked entries');?>:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 text-right">
+                                <div class="btn-group">
+                                    <button type="submit" name="action" value="publish" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <?=$this->translate('Publish');?>
+                                    </button>
+                                    <button type="submit" name="action" value="block" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        <?=$this->translate('Block');?>
+                                    </button>
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        <?=$this->translate('Delete');?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- .row -->
+                    </div>
+
+                    <!-- Listing -->
+                    <table class="table table-bordered table-responsive">
                         <?php foreach ($this->inputs as $input): ?>
                             <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
                         <?php endforeach;?>
                     </table>
 
-                    <?=$this->translate('Marked entries');?>:
-                    <button type="submit" name="action" value="delete"><?=$this->translate('Delete');?></button>
-                    <button type="submit" name="action" value="block"><?=$this->translate('Block');?></button>
-                    <button type="submit" name="action" value="publish"><?=$this->translate('Publish');?></button>
+                    <!-- Actions -->
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="js-toggle-all" />
+                                        <?=$this->translate('Marked entries');?>:
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 text-right">
+                                <div class="btn-group">
+                                    <button type="submit" name="action" value="publish" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <?=$this->translate('Publish');?>
+                                    </button>
+                                    <button type="submit" name="action" value="block" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        <?=$this->translate('Block');?>
+                                    </button>
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        <?=$this->translate('Delete');?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- .row -->
+                    </div>
+
                 </form>
 
-                <p class="boxmsc"><b>Folgende Datensätze als CSV exportieren:</b><br />
-                    <a href="<?php echo $this->url(array(
-                        'action' => 'export',
-                        'kid' => $this->consultation['kid'],
-                        'qid' => $this->question['qi'],
-                        'cod' => 'utf8',
-                        'mod' => 'cnf',
-                    ));?>">&raquo; Bestätigte Beiträge</a><br />
-                    <a href="<?php echo $this->url(array(
-                        'action' => 'export',
-                        'kid' => $this->consultation['kid'],
-                        'qid' => $this->question['qi'],
-                        'cod' => 'utf8',
-                        'mod' => 'unc',
-                    ));?>">&raquo; Unbestätigte Beiträge</a><br />
-                    <a href="<?php echo $this->url(array(
-                        'action' => 'export',
-                        'kid' => $this->consultation['kid'],
-                        'qid' => $this->question['qi'],
-                        'cod' => 'utf8',
-                        'mod' => 'all',
-                    ));?>">&raquo; Alle Nutzerbeiträge</a><br />
-                    <a href="<?php echo $this->url(array(
-                        'action' => 'export',
-                        'kid' => $this->consultation['kid'],
-                        'qid' => $this->question['qi'],
-                        'cod' => 'utf8',
-                        'mod' => 'vot',
-                    ));?>">&raquo; Abstimmungsthesen</a><br />
-                    <a href="<?php echo $this->url(array(
-                        'action' => 'export',
-                        'kid' => $this->consultation['kid'],
-                        'qid' => $this->question['qi'],
-                        'cod' => 'utf8',
-                        'mod' => 'edt',
-                    ));?>">&raquo; Redaktionelle Abstimmungsthesen</a><br />
-                    <a href="<?php echo $this->url(array(
-                        'action' => 'export',
-                        'kid' => $this->consultation['kid'],
-                        'qid' => $this->question['qi'],
-                        'cod' => 'xls',
-                        'mod' => 'all',
-                    ));?>">&raquo; Alle Nutzerbeiträge (westeuropäisches MS Excel)</a><br />
-                </p>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h4>
+                                <span class="glyphicon glyphicon-save"></span>
+                                <?=$this->translate('CSV Export');?>:
+                            </h4>
+                            <ul class="offset-bottom">
+                                <li><a href="<?php echo $this->url(array(
+                                        'action' => 'export',
+                                        'kid' => $this->consultation['kid'],
+                                        'qid' => $this->question['qi'],
+                                        'cod' => 'utf8',
+                                        'mod' => 'all',
+                                    ));?>">All contributions</a></li>
+                                <li><a href="<?php echo $this->url(array(
+                                        'action' => 'export',
+                                        'kid' => $this->consultation['kid'],
+                                        'qid' => $this->question['qi'],
+                                        'cod' => 'utf8',
+                                        'mod' => 'cnf',
+                                    ));?>">Confirmed contributions</a></li>
+                                <li><a href="<?php echo $this->url(array(
+                                        'action' => 'export',
+                                        'kid' => $this->consultation['kid'],
+                                        'qid' => $this->question['qi'],
+                                        'cod' => 'utf8',
+                                        'mod' => 'unc',
+                                    ));?>">Unconfirmed contributions</a></li>
+                                <li><a href="<?php echo $this->url(array(
+                                        'action' => 'export',
+                                        'kid' => $this->consultation['kid'],
+                                        'qid' => $this->question['qi'],
+                                        'cod' => 'utf8',
+                                        'mod' => 'vot',
+                                    ));?>">Voting theses</a></li>
+                                <li><a href="<?php echo $this->url(array(
+                                        'action' => 'export',
+                                        'kid' => $this->consultation['kid'],
+                                        'qid' => $this->question['qi'],
+                                        'cod' => 'utf8',
+                                        'mod' => 'edt',
+                                    ));?>">Voting theses – edited</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <h4>
+                                <span class="glyphicon glyphicon-save"></span>
+                                <?=$this->translate('MS Excel Export');?>:
+                            </h4>
+                            <ul>
+                                <li><a href="<?php echo $this->url(array(
+                                    'action' => 'export',
+                                    'kid' => $this->consultation['kid'],
+                                    'qid' => $this->question['qi'],
+                                    'cod' => 'xls',
+                                    'mod' => 'all',
+                                ));?>">All contributions</a></li>
+                            </ul>
+
+                        </div>
+                    </div><!-- .row -->
+                </div>
 
             </div>
         </div>

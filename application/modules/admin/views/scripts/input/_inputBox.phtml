@@ -1,54 +1,96 @@
 <tr>
-    <td>
-        <input type="checkbox" value="<?=$this->input['tid'];?>" name="inp_list[]" />
-        <?=$this->input['tid'];?>
-    </td>
-    <td>
-        <div><?php echo $this->input['thes'];?></div>
-        <div><?php echo $this->input['expl'];?></div>
-
-        <div>
-            <span class="glyphicon glyphicon-user"></span> <?=$this->input['name'];?>
-            <?=(new Zend_Date())->set($this->input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+    <td class="table-cell-id table-cell-top">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="<?=$this->input['tid'];?>" name="inp_list[]" class="js-table-row-toggle" />
+                <span class="muted"><?=$this->input['tid'];?>
+            </label>
         </div>
-        <div>
+    </td>
+    <td class="table-cell-top">
+        <p><?php echo $this->input['thes'];?></p>
+        <p><?php echo $this->input['expl'];?></p>
+
+        <p>
+            <small>
+                <?php if (!empty($this->input['name'])): ?>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
+                <?php endif; ?>
+                <?=(new Zend_Date())->set($this->input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+            </small>
+        </p>
+        <p>
             <?php foreach ($this->input['tags'] as $tag): ?>
-                <?=$tag->tg_de;?>
+                <span class="label label-primary"><?=$tag->tg_de;?></span>
             <?php endforeach;?>
-        </div>
-        <div>
-            <?=$this->input['notiz'];?>
-        </div>
+        </p>
+        <?php if (!empty($this->input['notiz'])): ?>
+            <p>
+                <?=$this->input['notiz'];?>
+            </p>
+        <?php endif; ?>
     </td>
-    <td>
-        <?=$this->translate('Admin Confirmation');?>
-        <?php if ($this->input['block'] === 'u'): ?>
-            <?=$this->translate('Unknown');?>
-        <?php elseif ($this->input['block'] === 'y'): ?>
-            <?=$this->translate('Blocked'); // Yes no is switched as in db the actial column is 'blocked', thus negative?>
-        <?php elseif ($this->input['block'] === 'n'): ?>
-            <?=$this->translate('Confirmed'); // Yes no is switched as in db the actial column is 'blocked', thus negative?>
-        <?php endif;?>
-
-        <?=$this->translate('User Confirmation');?>
-        <?php if ($this->input['user_conf'] === 'u'): ?>
-            <?=$this->translate('Unknown');?>
-        <?php elseif ($this->input['user_conf'] === 'r'): ?>
-            <?=$this->translate('Rejected');?>
-        <?php elseif ($this->input['user_conf'] === 'c'): ?>
-            <?=$this->translate('Confirmed');?>
-        <?php endif;?>
-
-        <?=$this->translate('Voting');?>
-        <?php if ($this->input['vot'] === 'u'): ?>
-            <?=$this->translate('Unknown');?>
-        <?php elseif ($this->input['vot'] === 'y'): ?>
-            <?=$this->translate('Yes');?>
-        <?php elseif ($this->input['vot'] === 'n'): ?>
-            <?=$this->translate('No');?>
-        <?php endif;?>
+    <td class="col-xs-3 table-cell-top">
+        <p>
+            <?=$this->translate('Admin Confirmation');?><br />
+            <?php if ($this->input['block'] === 'u'): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif ($this->input['block'] === 'y'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('Blocked'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
+                </span>
+            <?php elseif ($this->input['block'] === 'n'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Confirmed'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
+                </span>
+            <?php endif;?>
+        </p>
+        <p>
+            <?=$this->translate('User Confirmation');?><br />
+            <?php if ($this->input['user_conf'] === 'u'): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif ($this->input['user_conf'] === 'r'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('Rejected');?>
+                </span>
+            <?php elseif ($this->input['user_conf'] === 'c'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Confirmed');?>
+                </span>
+            <?php endif;?>
+        </p>
+        <p>
+            <?=$this->translate('Voting');?><br />
+            <?php if ($this->input['vot'] === 'u'): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif ($this->input['vot'] === 'y'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Yes');?>
+                </span>
+            <?php elseif ($this->input['vot'] === 'n'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('No');?>
+                </span>
+            <?php endif;?>
+        </p>
     </td>
-    <td>
+    <td class="col-xs-1 table-cell-top text-center">
         <a href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']])?>" class="item-action">
             <span class="glyphicon glyphicon-pencil"></span>
         </a>
