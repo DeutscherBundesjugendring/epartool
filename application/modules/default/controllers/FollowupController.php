@@ -411,12 +411,12 @@ class FollowupController extends Zend_Controller_Action
                 $snippet['gfx_who'] = $indexeddocs[(int) $snippet['ffid']]['gfx_who'];
                 $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
-            foreach ($related['docs'] as &$doc) {
+            foreach ($related['followups'] as &$doc) {
                 $doc['when'] = strtotime($doc['when']);
             }
 
             $data['refs']['snippets'] = $related['snippets'];
-            $data['refs']['docs'] = $related['docs'];
+            $data['refs']['docs'] = $related['followups'];
             $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
         }
 

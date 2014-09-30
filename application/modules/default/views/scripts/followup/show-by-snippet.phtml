@@ -41,7 +41,7 @@
                         <?php endif; ?>
                     <?php foreach ($this->reltothis_snippets as $snippet): ?>
                         <?=$this->partial(
-                            'followup-snippet-box',
+                            '_partials/followup-snippet-box.phtml',
                             [
                                 'snippet' => $snippet,
                                 'followPathLink' => true,
@@ -53,12 +53,11 @@
                 </div>
                 <div data-id="2" class="col" id="el-1">
                     <?=$this->partial(
-                        'followup-snippet-box',
+                        '_partials/followup-snippet-box.phtml',
                         [
-                            'snippet' => $snippet,
                             'followPathLink' => true,
                             'relFollowupCount' => true,
-                            'kid' => $$this->kid
+                            'kid' => $this->kid
                         ]
                     ) ?>
                 </div>
