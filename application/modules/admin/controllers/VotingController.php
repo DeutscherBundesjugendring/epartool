@@ -448,8 +448,6 @@ class Admin_VotingController extends Zend_Controller_Action
             } else {
                 $values = $this->view->form->getValues();
 
-                $this->_consultation->vot_fr = $values['vot_fr'];
-                $this->_consultation->vot_to = $values['vot_to'];
                 $this->_consultation->vot_show = $values['vot_show'];
                 $this->_consultation->vot_res_show = $values['vot_res_show'];
                 $this->_consultation->vot_expl = $values['vot_expl'];
