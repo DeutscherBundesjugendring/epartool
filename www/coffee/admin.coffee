@@ -6,6 +6,7 @@ $(document).ready () ->
 
     initDataViewTable()
     initCKEditor()
+    initDatepicker()
 
 # Binds ajax loading template data to a template selctor box
 bindEmailTemplateSelect = () ->
@@ -165,3 +166,6 @@ initCKEditor = () ->
         removePlugins: 'horizontalrule,list,justify,indent,indentlist,indentblock,image2,flash,iframe,div',
         removeButtons: 'Underline,Anchor,Strike'
     })
+
+initDatepicker = () ->
+    $('.datepicker').datepicker()

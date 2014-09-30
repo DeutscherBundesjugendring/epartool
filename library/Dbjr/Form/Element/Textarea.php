@@ -32,6 +32,12 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
 
     public function setWysiwygType($wysiwygType)
     {
+        if ($wysiwygType !== self::WYSIWYG_TYPE_STANDARD
+            && $wysiwygType !== self::WYSIWYG_TYPE_EMAIL
+        ) {
+            throw new Dbjr_Exception('Invalid wysiwyg type.');
+        }
+
         $this->_wysiwygType = $wysiwygType;
         return $this;
     }

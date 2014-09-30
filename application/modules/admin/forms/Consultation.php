@@ -57,6 +57,15 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->getElement('expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
         $this->getElement('vot_expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
 
+        $this->getElement('inp_fr')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('inp_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('spprt_fr')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('spprt_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('vot_fr')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('vot_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('discussion_from')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+        $this->getElement('discussion_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
+
         $options = array(
                 0 => 'keiner ausgewählt'
             );

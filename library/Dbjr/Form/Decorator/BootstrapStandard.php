@@ -5,21 +5,11 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
-
-        if ($element instanceof Dbjr_Form_Element_Textarea
-            && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD
-        ) {
-            $editorClass = ' wysiwyg-standard';
-        } elseif ($element instanceof Dbjr_Form_Element_Textarea
-            && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL
-        ) {
-            $editorClass = ' wysiwyg-email';
-        } else {
-            $editorClass = '';
-        }
-
         $element
-            ->setAttrib('class', 'form-control' . $editorClass)
+            ->setAttrib(
+                'class',
+                'form-control' . $this->getWysiwygCssClass($element) . $this->getDatepickerCssClass($element)
+            )
             ->clearDecorators()
             ->addDecorator(
                 'Label',
@@ -38,5 +28,41 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
             );
 
         return $element->render();
+    }
+
+    /**
+     * Returns the datepicker css class of the element
+     * @param  Zend_Form_Element $element The form element object
+     * @return string                     The css class prefixed with empty space.
+     *                                    Empty string if not aplicable
+     */
+    private function getDatepickerCssClass($element)
+    {
+        if ($element instanceof Dbjr_Form_Element_Text && $element->getDatepicker()) {
+            return ' ' . $element->getDatepicker();
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Returns the wysiwyg css class of the element
+     * @param  Zend_Form_Element $element The form element object
+     * @return string                     The css class prefixed with empty space.
+     *                                    Empty string if not aplicable
+     */
+    private function getWysiwygCssClass($element)
+    {
+        if ($element instanceof Dbjr_Form_Element_Textarea
+            && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD
+        ) {
+            return ' wysiwyg-standard';
+        } elseif ($element instanceof Dbjr_Form_Element_Textarea
+            && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL
+        ) {
+            return ' wysiwyg-email';
+        } else {
+            return '';
+        }
     }
 }
