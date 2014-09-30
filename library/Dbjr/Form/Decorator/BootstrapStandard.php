@@ -37,12 +37,12 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
      * Returns the datepicker css class of the element
      * @param  Zend_Form_Element $element The form element object
      * @return string                     The css class prefixed with empty space.
-     *                                    Empty string if not aplicable
+     *                                    Empty string if not applicable
      */
     private function getDatepickerCssClass($element)
     {
         if ($element instanceof Dbjr_Form_Element_Text && $element->getDatepicker()) {
-            return ' ' . $element->getDatepicker();
+            return ' js-' . $element->getDatepicker();
         } else {
             return '';
         }
@@ -52,7 +52,7 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
      * Returns the wysiwyg css class of the element
      * @param  Zend_Form_Element $element The form element object
      * @return string                     The css class prefixed with empty space.
-     *                                    Empty string if not aplicable
+     *                                    Empty string if not applicable
      */
     private function getWysiwygCssClass($element)
     {
@@ -73,12 +73,12 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
      * Returns the select2 css class of the element
      * @param  Zend_Form_Element $element The form element object
      * @return string                     The css class prefixed with empty space.
-     *                                    Empty string if not aplicable
+     *                                    Empty string if not applicable
      */
     private function getSelect2CssClass($element)
     {
         if ($element instanceof Dbjr_Form_Element_Multiselect && $element->getIsSelect2()) {
-            return ' select2';
+            return ' js-select2';
         } else {
             return '';
         }

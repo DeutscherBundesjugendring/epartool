@@ -193,10 +193,10 @@ initCKEditor = () ->
     })
 
 initDatepicker = () ->
-    # $('.datepicker').datepicker()
+    $('.js-datetimepicker').datepicker()
 
 initSelect2 = () ->
-    $('.select2').select2()
+    $('.js-select2').select2()
 
 initConfirmMsg = () ->
     $('[data-toggle=confirm]').click (ev) ->
