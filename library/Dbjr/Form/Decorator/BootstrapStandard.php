@@ -8,7 +8,10 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
         $element
             ->setAttrib(
                 'class',
-                'form-control' . $this->getWysiwygCssClass($element) . $this->getDatepickerCssClass($element)
+                'form-control'
+                    . $this->getWysiwygCssClass($element)
+                    . $this->getDatepickerCssClass($element)
+                    . $this->getSelect2CssClass($element)
             )
             ->clearDecorators()
             ->addDecorator(
@@ -61,6 +64,21 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
             && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL
         ) {
             return ' wysiwyg-email';
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Returns the select2 css class of the element
+     * @param  Zend_Form_Element $element The form element object
+     * @return string                     The css class prefixed with empty space.
+     *                                    Empty string if not aplicable
+     */
+    private function getSelect2CssClass($element)
+    {
+        if ($element instanceof Dbjr_Form_Element_Multiselect && $element->getIsSelect2()) {
+            return ' select2';
         } else {
             return '';
         }

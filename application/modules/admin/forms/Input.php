@@ -16,11 +16,10 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $tagModel = new Model_Tags();
         $multiOptions = $tagModel->getAdminInputFormMulticheckboxOptions();
         if (!empty($multiOptions)) {
-            $tags = $this->getElement('tags');
-            $tags->setMultiOptions($multiOptions);
-            $htmlTag = $tags->getDecorator('HtmlTag');
-            $htmlTag->setOption('class', 'multicheckbox');
-            $tags->setSeparator(' ');
+            $this->getElement('tags')
+                ->setMultiOptions($multiOptions)
+                ->setSeparator(' ')
+                ->setIsSelect2(true);
         } else {
             $this->removeElement('tags');
         }

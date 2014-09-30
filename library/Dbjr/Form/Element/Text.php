@@ -5,7 +5,11 @@ class Dbjr_Form_Element_Text extends Zend_Form_Element_Text
     const DATEPICKER_TYPE_DATE = 'datepicker';
     const DATEPICKER_TYPE_DATETIME = 'datetimepicker';
 
-
+    /**
+     * Indicates the datepicker type to be used
+     * @see  self::DATEPICKER_TYPE_*
+     * @var string
+     */
     private $_datepickerType;
 
     /**

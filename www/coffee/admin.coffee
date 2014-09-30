@@ -7,6 +7,7 @@ $(document).ready () ->
     initDataViewTable()
     initCKEditor()
     initDatepicker()
+    initSelect2()
 
 # Binds ajax loading template data to a template selctor box
 bindEmailTemplateSelect = () ->
@@ -168,4 +169,7 @@ initCKEditor = () ->
     })
 
 initDatepicker = () ->
-    $('.datepicker').datepicker()
+    # $('.datepicker').datepicker()
+
+initSelect2 = () ->
+    $('.select2').select2()
