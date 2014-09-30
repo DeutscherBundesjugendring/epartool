@@ -78,9 +78,15 @@
                                             </small>
                                         </div>
                                     </a>
+
                                     <?php if ($file['folder']): ?>
                                         <div class="thumbnail-actions">
-                                            <a href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/" class="item-action"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            <a
+                                                href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/"
+                                                class="item-action"
+                                            >
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
                                         </div>
                                     <?php endif;?>
                                     <?=$file['deleteForm'];?>
