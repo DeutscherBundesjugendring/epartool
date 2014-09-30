@@ -144,6 +144,9 @@ class Admin_InputController extends Zend_Controller_Action
                     $tagsSet[] = $tag['tg_nr'];
                 }
                 $form->setDefault('tags', $tagsSet);
+                if ($inputRow['block'] === 'u') {
+                    $form->getElement('block')->setValue('n');
+                }
             }
         }
 
