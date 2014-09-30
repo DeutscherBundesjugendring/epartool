@@ -64,7 +64,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                 'name' => 'followup',
                 'label' => 'Follow Up',
                 'href' => $this->view->url(array('controller' => 'followup', 'action' => 'index', 'kid' => $kid)),
-                'new_item' => $this->view->url(array('controller' => 'followup', 'action' => 'create-file', 'kid' => $kid)),
+                'new_item' => $this->view->url(array('controller' => 'followup', 'action' => 'create-followup', 'kid' => $kid)),
             ),
             array(
                 'name' => 'stats',

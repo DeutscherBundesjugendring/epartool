@@ -112,10 +112,10 @@ class Admin_FollowupController extends Zend_Controller_Action
             if ($form->isValid($this->getRequest()->getPost())) {
                 $followup = (new Model_FollowupFiles())->createRow($form->getValues());
                 $followup->kid = $this->_kid;
-                $newId = $followupFilesRow->save();
+                $newId = $followup->save();
 
                 $this->_flashMessenger->addMessage('The followup was created successfully.', 'success');
-                $this->_redirect($this->view->url(['action' => 'edit-file', 'ffid' => $newId]));
+                $this->_redirect($this->view->url(['action' => 'edit-followup', 'ffid' => $newId]));
             } else {
                 $this->_flashMessenger->addMessage('Form ivalid', 'error');
             }
@@ -228,7 +228,81 @@ class Admin_FollowupController extends Zend_Controller_Action
         $this->_redirect($this->view->url(['action' => 'snippets', 'ffid' => $ffid]));
     }
 
+    /**
+     * Displays and edits snippet links
+     */
+    public function snippetReferenceAction()
+    {
+        $snippetId = $this->getRequest()->getParam('fid', null);
+        $followupId = $this->getRequest()->getParam('ffid', null);
 
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            $followupRefModel = new Model_FollowupsRef();
+
+            if (!empty($postData['link_inputs'])) {
+                $inserted = $followupRefModel->insertBulk(
+                    !empty($postData['input_links']) ? $postData['input_links'] : [],
+                    $snippetId,
+                    'tid'
+                );
+                $message = sprintf($this->view->translate('%d Inputs were liked'), $inserted);
+                $this->_flashMessenger->addMessage($message, 'success');
+            }
+            if (!empty($postData['followup_links']) && !empty($postData['link_followups'])) {
+                $inserted = $followupRefModel->insertBulk(
+                    !empty($postData['followup_links']) ? $postData['followup_links'] : [],
+                    $snippetId,
+                    'ffid'
+                );
+                $message = sprintf($this->view->translate('%d Followups were liked'), $inserted);
+                $this->_flashMessenger->addMessage($message, 'success');
+            }
+            if (!empty($postData['link_snippets'])) {
+                $inserted = $followupRefModel->insertBulk(
+                    isset($postData['snippet_links']) ? $postData['snippet_links'] : [],
+                    $snippetId,
+                    'fid'
+                );
+                $message = sprintf($this->view->translate('%d Snippets were liked'), $inserted);
+                $this->_flashMessenger->addMessage($message, 'success');
+            }
+            $this->redirect($this->view->url());
+        }
+
+        $snippetModel = new Model_Followups();
+        $followupModel = new Model_FollowupFiles();
+        $questionModel = new Model_Questions();
+
+        $questions = $questionModel->getWithInputs(
+            [$questionModel->info(Model_Questions::NAME) . '.kid = ?' => $this->_kid]
+        );
+
+        $followups = $followupModel->getWithSnippets(
+            [
+                $snippetModel->info(Model_Followups::NAME) . '.fid != ? OR '
+                    . $snippetModel->info(Model_Followups::NAME) . '.fid IS NULL' => $snippetId,
+                $followupModel->info(Model_FollowupFiles::NAME) . '.kid = ?' => $this->_kid,
+            ]
+        );
+
+        $related = [];
+        $relatedRaw = $snippetModel->getRelated($snippetId);
+        foreach ($relatedRaw['snippets'] as $snippet) {
+            $related['snippets'][$snippet['fid']] = true;
+        }
+        foreach ($relatedRaw['inputs'] as $input) {
+            $related['inputs'][$input['tid']] = true;
+        }
+        foreach ($relatedRaw['followups'] as $followup) {
+            $related['followups'][$followup['ffid']] = true;
+        }
+
+        $this->view->questions = $questions;
+        $this->view->followups = $followups;
+        $this->view->related = $related;
+        $this->view->followupId = $followupId;
+    }
 
 
 
@@ -331,86 +405,6 @@ class Admin_FollowupController extends Zend_Controller_Action
                 )
             ),
             array('prependBase' => false)
-        );
-    }
-
-    public function referenceAction()
-    {
-        $this->_helper->layout->setLayout('popup');
-        $followupsModel = new Model_Followups();
-        $inputsModel = new Model_Inputs();
-        $followupFilesModel = new Model_FollowupFiles();
-        $questionsModel = new Model_Questions();
-
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $fid = $this->getRequest()->getParam('fid', 0);
-
-        $docs = array();
-        $snippets = array();
-
-        if ($kid > 0) {
-            $ffidArray = array();
-            $docs = $followupFilesModel->getByKid($kid, 'when DESC');
-            foreach ($docs as $doc) {
-                $ffidArray[] = $doc['ffid'];
-            }
-            $snippets = $followupsModel->getByDocIdArray($ffidArray);
-        }
-
-        if ($this->getRequest()->isPost()) {
-            $params = $this->getRequest()->getPost();
-            if (!empty($params['question'])) {
-                $question = $questionsModel->getById($params['question']);
-            }
-            if (!empty($params['chosenDoc'])) {
-                $chosenDoc = $params['chosenDoc'];
-            }
-
-            $followupRefModel = new Model_FollowupsRef();
-
-            if (!empty($params['inp_list']) && !empty($params['insert_inputs'])) {
-                $inserted = $followupRefModel->insertBulk($params['inp_list'], $fid, 'tid');
-                $message = "$inserted Beiträge wurden zugeordnet.";
-                $this->_flashMessenger->addMessage($message, 'success');
-            }
-            if (!empty($params['doc_list']) && !empty($params['insert_docs'])) {
-                $inserted = $followupRefModel->insertBulk($params['doc_list'], $fid, 'ffid');
-                $message = "$inserted Dokumente wurden zugeordnet.";
-                $this->_flashMessenger->addMessage($message, 'success');
-            }
-            if (!empty($params['snippet_list']) && !empty($params['insert_snippets'])) {
-                $inserted = $followupRefModel->insertBulk($params['snippet_list'], $fid, 'fid');
-                $message = "$inserted Snippets wurden zugeordnet.";
-                $this->_flashMessenger->addMessage($message, 'success');
-            }
-
-        }
-
-        $related = $followupsModel->getRelated($fid);
-        $followup = $followupsModel->getById($fid);
-
-        if (empty($question)) {
-            // get first question of this consultation
-            $questionRow = $questionsModel->getByConsultation($kid)->current();
-            $question = $questionsModel->getById($questionRow->qi);
-        }
-        if (empty($chosenDoc)) {
-            // get first question of this consultation
-            $followupFile = $followupFilesModel->getByKid($kid, 'when DESC', NULL, $followup['ffid']);
-            if ($followupFile) {
-                $chosenDoc = $followupFile[0]['ffid'];
-            }
-        }
-        $this->view->assign(
-            array(
-                'kid' => $kid,
-                'followup' => $followup,
-                'related' => $related,
-                'snippets' => $snippets,
-                'docs' => $docs,
-                'question' => $question,
-                'chosenDoc' => isset($chosenDoc) ? $chosenDoc : null,
-            )
         );
     }
 

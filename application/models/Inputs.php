@@ -1361,13 +1361,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns the data needed to populate the input boxes in per user view
-     * @param  integer $kid      The consultation identifier
-     * @param  array   $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @param  array   $wheres   An array of [condition => value] arrays to be used in Zend_Db_Select::where()
      * @return array             An array of arrays
      */
-    public function getCompleteGroupedByQuestion($kid, $wheres)
+    public function getCompleteGroupedByQuestion($wheres)
     {
-        $res = $this->fetchAll($this->getInputBoxListDataSelect($kid, $wheres));
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
 
         $inputs = [];
         foreach ($res as $input) {
@@ -1388,13 +1387,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns the data needed to populate the input boxes in per question view
-     * @param  integer $kid      The consultation identifier
      * @param  array   $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
      * @return array             An array of arrays
      */
-    public function getComplete($kid, $wheres)
+    public function getComplete($wheres)
     {
-        $res = $this->fetchAll($this->getInputBoxListDataSelect($kid, $wheres));
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
 
         $inputs = [];
         foreach ($res as $input) {
@@ -1413,7 +1411,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  array            $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
      * @return Zend_Db_Select            The select object
      */
-    private function getInputBoxListDataSelect($kid, $wheres)
+    private function getInputBoxListDataSelect($wheres)
     {
         $select = $this
             ->select()
@@ -1429,7 +1427,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 (new Model_Users())->info(Model_Users::NAME) . '.uid = ' . $this->info(self::NAME) . '.uid',
                 ['uid', 'name']
             )
-            ->where('kid = ?', $kid)
             ->order('tid');
 
         foreach ($wheres as $cond => $value) {

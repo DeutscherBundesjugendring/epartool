@@ -40,9 +40,9 @@
                                         <td><span class="glyphicon glyphicon-move"></span></td>
                                         <td><?=strip_tags($this->cropText(html_entity_decode($snippet['expl']), 400));?></td>
                                         <td>
-                                            <?=$this->translate('In');?>: <?=$snippet['relFowupCount'];?>
+                                            <?=$this->translate('Out');?>: <?=$snippet['relFowupCount'];?>
                                             <br />
-                                            <?=$this->translate('Out');?>: <?=$snippet['reltothisFowupCount'];?>
+                                            <?=$this->translate('In');?>: <?=$snippet['reltothisFowupCount'];?>
                                         </td>
                                         <td><?=$this->hlvl[$snippet['hlvl']];?></td>
                                         <td><?=$this->snippetTypes[$snippet['typ']];?></td>
@@ -50,7 +50,7 @@
                                             <a
                                                 href="<?=$this->url(
                                                     [
-                                                        'action' => 'edit-snippet',
+                                                        'action' => 'snippet-reference',
                                                         'fid' => $snippet['fid'],
                                                     ]
                                                 );?>"

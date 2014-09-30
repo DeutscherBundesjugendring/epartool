@@ -1,0 +1,112 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
+
+            </div>
+            <div class="content">
+
+                <h2><?=$this->translate('Snippet links');?></h2>
+
+                <h3>
+                    <?=$this->translate('Contribution links');?>
+                    (<?=isset($this->related['inputs']) ? count($this->related['inputs']) : '0';?>)
+                </h3>
+                <?php foreach ($this->questions as $question): ?>
+                    <?=$question['q'];?>
+                    <form method="post">
+                        <input name="link_inputs" type="submit" value="<?=$this->translate('Save');?>" />
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($question['inputs'] as $input): ?>
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name="input_links[]"
+                                                value="<?=$input->tid;?>"
+                                                <?=!empty($this->related['inputs'][$input->tid]) ? 'checked' : '';?>
+                                            />
+                                        </td>
+                                        <td><?=$input->thes;?></td>
+                                        <td><?=$input->vot;?></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </form>
+                <?php endforeach;?>
+
+                <h3>
+                    <?=$this->translate('Snippet links');?>
+                    (<?=isset($this->related['snippets']) ? count($this->related['snippets']) : '0';?>)
+                </h3>
+                <?php foreach ($this->followups as $followup): ?>
+                    <?=$followup['titl'];?>
+                    <form method="post">
+                        <input name="link_snippets" type="submit" value="<?=$this->translate('Save');?>" />
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($followup['snippets'] as $snippet): ?>
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name="snippet_links[]"
+                                                value="<?=$snippet->fid;?>"
+                                                <?=!empty($this->related['snippets'][$snippet->fid]) ? 'checked' : '';?>
+                                            />
+                                        </td>
+                                        <td><?=strip_tags(html_entity_decode($snippet['expl']));?></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </form>
+                <?php endforeach;?>
+
+                <h3>
+                    <?=$this->translate('Followup links');?>
+                    (<?=isset($this->related['followups']) ? count($this->related['followups']) : '0';?>)
+                </h3>
+                <?php if (count($this->followups)): ?>
+                    <form method="post">
+                        <input name="link_followups" type="submit" value="<?=$this->translate('Save');?>" />
+                        <table class="table">
+                            <tbody>
+                                <?php foreach ($this->followups as $followupId => $followup): ?>
+                                    <?php if ($followupId != $this->followupId): ?>
+                                        <tr>
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    name="followup_links[]"
+                                                    value="<?=$followupId;?>"
+                                                    <?=!empty($this->related['followups'][$followupId]) ? 'checked' : '';?>
+                                                />
+                                            </td>
+                                            <td><?=$followup['titl'];?></td>
+                                        </tr>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </form>
+                <?php endif;?>
+
+            </div>
+        </div>
+    </div>
+</section>

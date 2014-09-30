@@ -35,20 +35,27 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
         ),
     );
 
+    /**
+     * Resets a link between snippet and any of the following
+     * - snippet
+     * - followup
+     * - input
+     * @param  array   $array  An array of linekd entity ids
+     * @param  integer $fid    The id of the snipped being linked
+     * @param  string  $type   Identifies the target entity type. Takes values
+     *                         - tid (input)
+     *                         - fid (snippet)
+     *                         - ffid (followup)
+     * @return integer        The number of rows inserted.
+     */
     public function insertBulk($array, $fid, $type)
     {
         $inserted = 0;
-
+        $this->delete(['fid_ref = ?' => $fid, $this->getAdapter()->quoteIdentifier($type) . '!= 0']);
         foreach ($array as $id) {
-
-             $data = array( 'fid_ref' => $fid, $type => $id);
-             try {
-                        $this->insert($data);
-                        $inserted++;
-             } catch (Zend_Db_Exception $e) {
-                    //ignore
-                    //throw new Zend_Exception("Can't insert row. Message:".$e->getMessage());
-             }
+            $data = ['fid_ref' => $fid, $type => $id];
+            $inserted++;
+            $this->insert($data);
         }
 
         return $inserted;

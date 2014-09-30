@@ -117,7 +117,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
         $result = array();
         $result['inputs'] = array();
         $result['snippets'] = array();
-        $result['docs'] = array();
+        $result['followups'] = array();
         $result['count'] = 0;
         $row = $this->find($id)->current();
         if ($row) {
@@ -143,7 +143,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
             $result['inputs'] = $modelInputs->find($inputs)->toArray();
             $result['snippets'] = $this->find($snippets)->toArray();
-            $result['docs'] = $modelFollowupFiles->find($docs)->toArray();
+            $result['followups'] = $modelFollowupFiles->find($docs)->toArray();
             $result['count'] = count($refs);
 
         }
@@ -191,21 +191,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
         return $result;
 
-    }
-
-    public function getByDocIdArray($ffidArray)
-    {
-        if (!is_array($ffidArray) || count($ffidArray) == 0) {
-          return array();
-
-        }
-        $result = array();
-        $select = $this->select();
-        $select->where('ffid IN(?)', $ffidArray);
-        $select->order('ffid ASC');
-        $result = $this->fetchAll($select)->toArray();
-
-        return $result;
     }
 
     /**

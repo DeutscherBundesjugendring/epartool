@@ -261,4 +261,44 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
 
         return $select;
     }
+
+    /**
+     * Returns snippets grouped by question
+     * @param  integer $kid      The consultation identifier
+     * @param  array   $wheres   An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @return array             An array of arrays
+     */
+    public function getWithInputs($wheres)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($this->info(self::NAME))
+            ->joinLeft(
+                (new Model_Inputs())->info(Model_Inputs::NAME),
+                $this->info(self::NAME) . '.qi = ' . (new Model_Inputs())->info(Model_Inputs::NAME) . '.qi'
+            )
+            ->order('tid');
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
+        }
+
+        $res = $this->fetchAll($select);
+
+        $inputs = [];
+        foreach ($res as $input) {
+            if (!isset($inputs[$input->nr])) {
+                $inputs[$input->nr] = [
+                    'q' => $input->q,
+                    'inputs' => [],
+                ];
+            }
+            if ($input->tid) {
+                $inputs[$input['nr']]['inputs'][] = $input;
+            }
+        }
+
+        return $inputs;
+    }
 }

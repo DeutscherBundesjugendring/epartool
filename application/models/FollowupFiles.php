@@ -134,8 +134,43 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
             return $rowset;
         } else {
             return array();
+        }
+    }
 
+    /**
+     * Returns followups with the associated snippets
+     * @param  array $wheres An array of where conditions
+     * @return array         An array of the followup arrays
+     */
+    public function getWithSnippets($wheres)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($this->info(self::NAME))
+            ->joinLeft(
+                (new Model_Followups())->info(Model_Followups::NAME),
+                (new Model_Followups())->info(Model_Followups::NAME) . '.ffid = ' . $this->info(self::NAME) . '.ffid',
+                ['fid', 'expl']
+            );
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
         }
 
+        $res = $this->fetchAll($select);
+
+        $followups = [];
+        foreach ($res as $followup) {
+            if (!isset($followups[$followup->ffid])) {
+                $followups[$followup->ffid]['titl'] = $followup->ffid;
+                $followups[$followup->ffid]['snippets'] = [];
+            }
+            if ($followup->fid) {
+                $followups[$followup->ffid]['snippets'][] = $followup;
+            }
+        }
+
+        return $followups;
     }
 }
