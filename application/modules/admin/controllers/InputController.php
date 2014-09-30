@@ -107,12 +107,14 @@ class Admin_InputController extends Zend_Controller_Action
             $inputRow = $inputModel->getById($tid);
             $form->populate($inputRow);
             if (!empty($inputRow['tags'])) {
-                // gesetzte Tags als selected markieren
                 $tagsSet = array();
                 foreach ($inputRow['tags'] as $tag) {
                     $tagsSet[] = $tag['tg_nr'];
                 }
                 $form->setDefault('tags', $tagsSet);
+                if ($inputRow['block'] === 'u') {
+                    $form->getElement('block')->setValue('n');
+                }
             }
         }
 
