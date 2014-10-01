@@ -47,11 +47,11 @@
                     </p>
                 <?php else: ?>
 
-                    <table class="table" data-view="table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Title');?></th>
+                                <th class="table-cell-id">#</th>
+                                <th><?=$this->translate('Title');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -80,7 +80,7 @@
                                 <?php if (!empty($article['subpages'])): ?>
                                     <?php foreach ($article['subpages'] as $subpage): ?>
                                         <tr class="table-row-nested">
-                                            <td class="table-cell-id"><?=$article['art_id'];?></td>
+                                            <td class="table-cell-id"><?=$subpage['art_id'];?></td>
                                             <td>
                                                 <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']));?>" title="<?=$this->translate('Edit article');?>"><?=$subpage['desc'];?></a>
                                             </td>
