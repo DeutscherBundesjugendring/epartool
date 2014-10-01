@@ -1,52 +1,36 @@
 <?php
-/**
- * QuestionController
- *
- * @desc     Questions for Consultation
- * @author                Markus Hackel
- */
+
 class Admin_QuestionController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
-
     protected $_adminIndexURL = null;
 
-    /**
-     * @desc Construct
-     * @return void
-     */
+
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
-        $this->_adminIndexURL = $this->view->url(array(
-            'controller' => 'index',
-            'action' => 'index'
-        ));
+        $this->_adminIndexURL = $this->view->url(['controller' => 'index', 'action' => 'index']);
     }
 
     /**
-     * @desc show Questions Form
-     * @return void
+     * Show the list of questions
      */
     public function indexAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $consultation = null;
-        if ($kid > 0) {
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
-            if (!empty($consultation)) {
-                $this->view->consultation = $consultation;
-            } else {
-                $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
-            }
-        } else {
-            $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
-        }
+        $kid = $this->getRequest()->getParam('kid', null);
+        $questionModel = new Model_Questions();
+        $questions = $questionModel->fetchAll(
+            $questionModel
+                ->select()
+                ->from($questionModel->info(Model_Questions::NAME), ['qi', 'nr', 'q'])
+                ->where('kid = ?', $kid)
+                ->order('nr ASC')
+        );
+
+        $this->view->questions = $questions;
+        $this->view->kid = $kid;
     }
 
     public function createAction()
