@@ -189,7 +189,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                     )
                 )
                 ->addTo($user->email);
-            (new Service_Email)->queueForSend($mailer);
+            $emailService = new Service_Email();
+            $emailService
+                ->queueForSend($mailer)
+                ->sendQueued();
 
             return true;
         }
