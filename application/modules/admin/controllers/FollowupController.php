@@ -72,7 +72,6 @@ class Admin_FollowupController extends Zend_Controller_Action
         $form = new Admin_Form_Followup_Snippet();
 
         if ($this->getRequest()->isPost()) {
-            $params = $this->getRequest()->getPost();
             if ($form->isValid($params)) {
                 $snippetModel
                     ->find($fid)
@@ -173,14 +172,30 @@ class Admin_FollowupController extends Zend_Controller_Action
     public function snippetsAction()
     {
         $ffid = $this->getRequest()->getParam('ffid', 0);
+        $form = new Admin_Form_ListControl();
 
         $snippetModel = new Model_Followups();
         $followupRefModel = new Model_FollowupsRef();
         $followupModel = new Model_FollowupFiles();
 
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            if ($form->isValid($postData)) {
+                foreach ($postData['docorg'] as $snippetId => $docorg) {
+                    $a = $snippetModel
+                        ->find($snippetId)
+                        ->current()
+                        ->setFromArray(['docorg' => $docorg])
+                        ->save();
+                    var_dump($a);
+                }
+                $this->redirect($this->view->url());
+            }
+        }
+
         $snippets = array();
-        $result = $followupModel->getFollowupsById($ffid, 'docorg ASC')->toArray();
-        foreach ($result as $followup) {
+        $res = $followupModel->getFollowupsById($ffid, 'docorg ASC')->toArray();
+        foreach ($res as $followup) {
             $rel = $snippetModel->getRelated($followup['fid']);
             $reltothis = $followupRefModel->getRelatedFollowupByFid($followup['fid']);
             $snippet = $followup;
@@ -193,6 +208,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         $this->view->ffid = $ffid;
         $this->view->snippetTypes = Model_Followups::getTypes();
         $this->view->hlvl = Model_Followups::getHierarchyLevels();
+        $this->view->listControlForm = $form;
     }
 
     /*
@@ -302,147 +318,5 @@ class Admin_FollowupController extends Zend_Controller_Action
         $this->view->followups = $followups;
         $this->view->related = $related;
         $this->view->followupId = $followupId;
-    }
-
-
-
-    function showRelatedSnippetsAction()
-    {
-        $this->_helper->layout->setLayout('popup');
-        $fid = $this->getRequest()->getParam('fid', 0);
-        if ($fid) {
-            $fidarr = array();
-            $followupRefModel = new Model_FollowupsRef();
-            $followupsModel = new Model_Followups();
-            $followupFilesModel = new Model_FollowupFiles();
-
-            $reltothis = $followupRefModel->getRelatedFollowupByFid($fid);
-            foreach ($reltothis as $value) {
-                array_push($fidarr, (int) $value['fid_ref']);
-            }
-            $snippets = $followupsModel->getByIdArray($fidarr);
-            $snippetsgrouped = array();
-            foreach ($snippets as $snippet) {
-                $snippetsgrouped[$snippet['ffid']][] = $snippet;
-            }
-
-            foreach ($snippetsgrouped as $ffid => $snippets) {
-                $snippetsgrouped[$ffid]['doc'] = $followupFilesModel->getById($ffid, true);
-            }
-            $snippet = $followupsModel->getById($fid);
-            $this->view->assign(
-                array(
-                    'snippet' => $snippet,
-                    'relsnippets' => $snippetsgrouped
-                )
-            );
-        }
-    }
-
-    /*
-     * Move snippet in fowups
-     * @see editFileAction
-     * @param $_GET['kid'] integer consultation id
-     * @param $_GET['ffid'] integer fowup_fls.ffid
-     * @param $_GET['fid'] integer fowups.fid
-     * @param $_GET['movefid'] integer fowups.fid of moved snippet
-     * @param $_GET['prev'] integer move after prev (docorg of previous snippet)
-     */
-    public function moveAction()
-    {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $fid = $this->getRequest()->getParam('fid', 0);
-        $ffid = $this->getRequest()->getParam('ffid', 0);
-        $movefid = $this->getRequest()->getParam('movefid', 0);
-        $moveto = $this->getRequest()->getParam('moveto', 0);
-        $prev = $this->getRequest()->getParam('prev');
-
-        if ($moveto) {
-            $followupFiles = new Model_FollowupFiles();
-            $followupsModel = new Model_Followups();
-            $followupsByFile = $followupFiles->getFollowupsById($ffid, 'docorg ASC');
-            $movedfollowup = $followupsModel->find($fid)->current();
-
-            foreach ($followupsByFile as $followup) {
-                if ($followup->docorg === $moveto) {
-                    $followup->docorg = $movedfollowup->docorg;
-                    $movedfollowup->docorg = $moveto;
-                    $movedfollowup->save();
-                    $followup->save();
-                }
-            }
-        }
-
-        $this->_forward('edit-file');
-    }
-
-    /*
-     * increment/decrement hierarchy level for snippets in fowups
-     * @param $_GET['kid'] integer consultation id
-     * @param $_GET['ffid'] integer fowup_fls.ffid
-     * @param $_GET['fid'] integer fowups.fid
-     * @param $_GET['hlvl'] integer fowups.hlvl
-     */
-    public function hierarchyAction()
-    {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $fid = $this->getRequest()->getParam('fid', 0);
-        $ffid = $this->getRequest()->getParam('ffid', 0);
-        $hlvl = $this->getRequest()->getParam('hlvl', 0);
-
-        if ($hlvl > 0 && $hlvl < 7 && $fid > 0) {
-            $followupsModel = new Model_Followups();
-            $followupsRow = $followupsModel->find($fid)->current();
-            $followupsRow->hlvl = $hlvl;
-         $followupsRow->save();
-        }
-        $this->_redirect(
-            $this->view->url(
-                array(
-                    'action' => 'edit-file',
-                    'kid' => $this->_kid,
-                    'ffid' => $ffid
-                )
-            ),
-            array('prependBase' => false)
-        );
-    }
-
-    public function delReferenceAction()
-    {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $fidRef = $this->getRequest()->getParam('fid_ref', 0);
-        $fid = $this->getRequest()->getParam('fid', 0);
-        $tid = $this->getRequest()->getParam('tid', 0);
-        $ffid = $this->getRequest()->getParam('ffid', 0);
-
-        if ($fid > 0) {
-            $reftype = 'fid';
-            $refkey = $fid;
-        }
-        if ($tid > 0) {
-            $reftype = 'tid';
-            $refkey = $tid;
-        }
-        if ($ffid > 0) {
-            $reftype = 'ffid';
-            $refkey = $ffid;
-        }
-
-        $followupRefModel = new Model_FollowupsRef();
-        $followupRefModel->deleteRef($fidRef, $reftype, $refkey);
-        $this->_redirect(
-            $this->view->url(
-                array(
-                    'module' => 'admin',
-                    'controller' => 'followup',
-                    'action' => 'reference',
-                    'kid' => $kid,
-                    'fid' => $fidRef
-                ),
-                null,
-                true
-            )
-        );
     }
 }

@@ -10,6 +10,7 @@ $(document).ready () ->
     initDataViewTable()
     initCKEditor()
     initDatepicker()
+    initSortableFollowupSnippets()
     initSelect2()
     initConfirmMsg()
     initFilter()
@@ -227,4 +228,14 @@ initFilter = () ->
         formEl.find(':input').val('')
         $(formEl.data('target')).show()
 
-
+initSortableFollowupSnippets = () ->
+    $('.js-sortable').disableSelection()
+    $('.js-sortable').sortable({
+        'update': (ev, ui) ->
+            i = 1
+            ui.item.parents('form').find('tr input[type=hidden]').each () ->
+                $(this).val(i)
+                i++
+            $('.js-sortable').parents('form').find('button[type=submit]').prop('disabled', false)
+            return
+    });

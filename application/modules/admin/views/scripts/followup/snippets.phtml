@@ -30,61 +30,66 @@
 
                 <h2><?=$this->translate('Snippets')?></h2>
 
-                <table>
-                    <tbody>
-                        <table class="table">
-                            <tbody>
-                                <?php foreach ($this->snippets as $i => $snippet): ?>
-                                    <tr>
-                                        <td style="width:<?=($snippet['hlvl'] - 1) * 10;?>px;">
-                                        <td><span class="glyphicon glyphicon-move"></span></td>
-                                        <td><?=strip_tags($this->cropText(html_entity_decode($snippet['expl']), 400));?></td>
-                                        <td>
-                                            <?=$this->translate('Out');?>: <?=$snippet['relFowupCount'];?>
-                                            <br />
-                                            <?=$this->translate('In');?>: <?=$snippet['reltothisFowupCount'];?>
-                                        </td>
-                                        <td><?=$this->hlvl[$snippet['hlvl']];?></td>
-                                        <td><?=$this->snippetTypes[$snippet['typ']];?></td>
-                                        <td>
-                                            <a
-                                                href="<?=$this->url(
-                                                    [
-                                                        'action' => 'snippet-reference',
-                                                        'fid' => $snippet['fid'],
-                                                    ]
-                                                );?>"
-                                                class="item-action"
-                                            >
-                                                <span class="glyphicon glyphicon-link"></span>
-                                            </a>
-                                            <a
-                                                href="<?=$this->url(
-                                                    [
-                                                        'action' => 'edit-snippet',
-                                                        'fid' => $snippet['fid'],
-                                                    ]
-                                                );?>"
-                                                class="item-action"
-                                            >
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </a>
+                <form method="<?=$this->listControlForm->getMethod();?>">
+                    <?=$this->listControlForm->getElement('list_control_csrf_token');?>
+                    <table class="table">
+                        <tbody class="js-sortable">
+                            <?php foreach ($this->snippets as $i => $snippet): ?>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-move"></span>
+                                        <input type="hidden" name="docorg[<?=$snippet['fid'];?>]" value="<?=$snippet['docorg'];?>" />
+                                    </td>
+                                    <td><?=strip_tags($this->cropText(html_entity_decode($snippet['expl']), 400));?></td>
+                                    <td>
+                                        <?=$this->translate('Out');?>: <?=$snippet['relFowupCount'];?>
+                                        <br />
+                                        <?=$this->translate('In');?>: <?=$snippet['reltothisFowupCount'];?>
+                                    </td>
+                                    <td><?=$this->hlvl[$snippet['hlvl']];?></td>
+                                    <td><?=$this->snippetTypes[$snippet['typ']];?></td>
+                                    <td>
+                                        <a
+                                            href="<?=$this->url(
+                                                [
+                                                    'action' => 'snippet-reference',
+                                                    'fid' => $snippet['fid'],
+                                                ]
+                                            );?>"
+                                            class="item-action"
+                                        >
+                                            <span class="glyphicon glyphicon-link"></span>
+                                        </a>
+                                        <a
+                                            href="<?=$this->url(
+                                                [
+                                                    'action' => 'edit-snippet',
+                                                    'fid' => $snippet['fid'],
+                                                ]
+                                            );?>"
+                                            class="item-action"
+                                        >
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
 
-                                            <a
-                                                href="<?=$this->url(['action' => 'delete-snippet', 'fid' => $snippet['fid']]);?>"
-                                                class="item-action item-action-danger"
-                                                data-toggle="confirm"
-                                                data-confirm-message="<?=$this->translate('Delete snippet?');?>"
-                                            >
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                        <a
+                                            href="<?=$this->url(['action' => 'delete-snippet', 'fid' => $snippet['fid']]);?>"
+                                            class="item-action item-action-danger"
+                                            data-toggle="confirm"
+                                            data-confirm-message="<?=$this->translate('Delete snippet?');?>"
+                                        >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
 
-                </div>
+                    <button type="submit" class="btn btn-default" disabled><?=$this->translate('Save');?>
+
+                </form>
+
             </div>
         </div>
     </div>
