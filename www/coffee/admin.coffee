@@ -12,6 +12,8 @@ $(document).ready () ->
     initDatepicker()
     initSelect2()
     initConfirmMsg()
+    initFilter()
+
 
 # Binds ajax loading template data to a template selctor box
 bindEmailTemplateSelect = () ->
@@ -206,3 +208,23 @@ initConfirmMsg = () ->
             msg = 'Are you sure?'
 
         return confirm(msg)
+
+initFilter = () ->
+    $('[data-toggle=filter]').change (ev) ->
+        formEl = $(ev.currentTarget).parents('form')
+        $(formEl.data('target')).show()
+
+        formEl.find(':input').each (index, filterEl) ->
+            filterEl = $(filterEl)
+            if filterEl.val() != ''
+                $(formEl.data('target')).each (dataIndex, dataEl) ->
+                    if $(dataEl).data(filterEl.data('target-attrib')) != filterEl.val()
+                        $(dataEl).hide()
+
+
+    $('[data-toggle=reset-filter]').click (ev) ->
+        formEl = $(ev.currentTarget).parents('form')
+        formEl.find(':input').val('')
+        $(formEl.data('target')).show()
+
+
