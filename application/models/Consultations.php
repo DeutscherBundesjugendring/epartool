@@ -458,11 +458,12 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
             ->select()
             ->from(['c' => $this->info(self::NAME)], ['titl', 'titl_sub', 'kid'])
             ->setIntegrityCheck(false)
-            ->join(
+            ->joinLeft(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'q.kid = c.kid',
                 ['qi']
-            );
+            )
+            ->order('kid DESC');
 
         $res = $this->fetchAll($select)->toArray();
 
