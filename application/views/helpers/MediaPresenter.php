@@ -17,6 +17,11 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
     const CACHE_ACTUAL_DIR_IN_RUNTIME = '/cache/media/images';
 
     /**
+     * The pathof the fallback image to be used if the real image is not available
+     */
+    const FALLBACK_IMAGE_PATH = "APPLICATION_PATH /../www/images/fallback.png";
+
+    /**
      * Returns url to the image representation of the given media
      * Typically it is a resize image for images and an icon for other file types
      * @param  string $file         The file array @see Service_Media::getOne() and Service_Media::getByDir()
@@ -36,21 +41,37 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
         }
 
         if (empty($file['icon'])) {
-            $imagePath = Image::open($file['dirname'] . '/' . $file['basename'])
-                ->zoomCrop($contextConf->width, $contextConf->height)
+            $image = Image::open($file['dirname'] . '/' . $file['basename'])
+                ->setFallback(self::FALLBACK_IMAGE_PATH);
+            if ($contextConf->method === 'zoomCropScale') {
+                $image->zoomCrop($contextConf->width, $contextConf->height);
+            } elseif ($contextConf->method === 'zoomCropFill') {
+                try {
+                    $newImage = IMAGE::create($contextConf->width, $contextConf->height)
+                        ->fill('white')
+                        ->merge(
+                            $image,
+                            ($contextConf->width - $image->width()) / 2,
+                            ($contextConf->height - $image->height()) / 2
+                        );
+                    $image = $newImage;
+                } catch (UnexpectedValueException $e) {
+                    // The file probably doens exist, we continue and let the fallback image be used
+                }
+            }
+
+            $imagePath = $image
                 ->setCacheDir(self::CACHE_DIR)
                 ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
                 ->guess();
         } else {
             $icon = Image::open(APPLICATION_PATH . '/../www/images/' . $file['icon'] . '.png');
-            $iconWidth = $icon->width();
-            $iconHeight = $icon->height();
             $imagePath = IMAGE::create($contextConf->width, $contextConf->height)
                 ->fill('white')
                 ->merge(
                     $icon,
-                    ($contextConf->width - $iconWidth) / 2,
-                    ($contextConf->height - $iconHeight) / 2
+                    ($contextConf->width - $icon->width()) / 2,
+                    ($contextConf->height - $icon->height()) / 2
                 )
                 ->setCacheDir(self::CACHE_DIR)
                 ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)

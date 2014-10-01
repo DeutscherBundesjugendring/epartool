@@ -54,7 +54,7 @@
                                                 '<?=$file['dirRefFilename'];?>',
                                                 '<?=$this->targetElId;?>',
                                                 '<?=$this->lockDir ? '' : $file['dirRefDirUrl'];?>',
-                                                '<?=$this->mediaPresenter($file, 'admin_media_form_element');?>',
+                                                '<?=$this->mediaPresenter($file, 'admin_media_form_element_lowDPI');?>',
                                                 '<?=$this->CKEditorFuncNum;?>'
                                             )"
                                             href="#"
@@ -65,7 +65,7 @@
                                     >
                                         <div class="thumbnail-image">
                                             <img
-                                                src="<?=$this->mediaPresenter($file, 'admin_thumbnail');?>"
+                                                src="<?=$this->mediaPresenter($file, 'admin_thumbnail_lowDPI');?>"
                                                 alt="<?=$this->translate('Preview');?>"
                                             />
                                         </div>
