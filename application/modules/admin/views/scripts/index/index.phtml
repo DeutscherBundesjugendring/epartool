@@ -19,24 +19,24 @@
 
                 <!-- Consultations -->
                 <?php if (!empty($this->consultations)): ?>
-                    <?php foreach ($this->consultations as $consultation): ?>
+                    <?php foreach ($this->consultations as $kid => $consultation): ?>
                         <div class="panel panel-primary">
                             <div class="panel-heading panel-heading-extended">
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $consultation->kid));?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid));?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $consultation->kid));?>">
-                                    <h2 class="panel-title panel-title-big"><?=$consultation->titl;?></h2>
-                                    <h3 class="panel-title panel-title-subtitle"><?=$consultation->titl_sub;?></h3>
+                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $kid));?>">
+                                    <h2 class="panel-title panel-title-big"><?=$consultation['titl'];?></h2>
+                                    <h3 class="panel-title panel-title-subtitle"><?=$consultation['titl_sub'];?></h3>
                                 </a>
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-justified">
-                                    <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>"><?=$this->translate('Info');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $consultation->kid));?>"><?=$this->translate('Questions');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $consultation->kid));?>"><?=$this->translate('Contributions');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $consultation->kid));?>"><?=$this->translate('Voting');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $consultation->kid));?>"><?=$this->translate('Follow Up');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $kid));?>"><?=$this->translate('Info');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $kid));?>"><?=$this->translate('Questions');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $kid));?>"><?=$this->translate('Contributions');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $kid));?>"><?=$this->translate('Voting');?></a></li>
+                                    <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $kid));?>"><?=$this->translate('Follow Up');?></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,20 +46,24 @@
             </div>
             <div class="col-md-4">
 
-                <!-- Latest posts -->
-                <!-- TODO split to individual consultations -->
                 <h2><?=$this->translate('New Contributions');?></h2>
-                <?php if (!empty($this->inputs)): ?>
-                    <ul class="media-list">
-                        <?php foreach ($this->inputs as $input): ?>
-                            <li class="media">
-                                <a href="<?=$this->url(array('module' => 'admin', 'controller' => 'input', 'action' => 'index', 'kid' => $input['kid'], 'qid' => $input['qi']), 'default', true);?>" class="media-body">
-                                    <?=$input['thes'];?>
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+                <?php if (!empty($this->consultations)): ?>
+                    <?php foreach ($this->consultations as $consultation): ?>
+                        <?=$consultation['titl']?>
+                        <ul>
+                            <?php foreach ($consultation['inputs'] as $input): ?>
+                                <li class="media">
+                                    <a
+                                        href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $kid, 'qid' => $input['qi']]);?>"
+                                        class="media-body"
+                                    >
+                                        <?=$input['thes'];?>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </li>
+                            <?php endforeach;?>
+                        </ul>
+                        <?php endforeach;?>
                 <?php else: ?>
                     <p class="alert alert-info"><?=$this->translate('No posts yet.');?></p>
                 <?php endif; ?>

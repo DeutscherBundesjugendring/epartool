@@ -446,4 +446,51 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
 
         return $row ? true : false;
     }
+
+    /**
+     * Returns a list of consultation with the the specified number of latest posts each
+     * @param  integer $inputLimit The number of inputs for each consultation
+     * @return array               An array of consultation arrays
+     */
+    public function getWithInputs($inputLimit)
+    {
+        $select = $this
+            ->select()
+            ->from(['c' => $this->info(self::NAME)], ['titl', 'titl_sub', 'kid'])
+            ->setIntegrityCheck(false)
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.kid = c.kid',
+                ['qi']
+            );
+
+        $res = $this->fetchAll($select)->toArray();
+
+        $consultations = [];
+        foreach ($res as $consultation) {
+            if (!isset($consultations[$consultation['kid']])) {
+                $consultations[$consultation['kid']] = [
+                    'titl' => $consultation['titl'],
+                    'titl_sub' => $consultation['titl_sub'],
+                    'questionIds' => [],
+                ];
+            }
+            $consultations[$consultation['kid']]['questionIds'][] = $consultation['qi'];
+        }
+
+        $inputModel = new Model_Inputs();
+        foreach ($consultations as &$consultation) {
+            $consultation['inputs'] = $inputModel->fetchAll(
+                $inputModel
+                    ->select()
+                    ->from(['i' => $inputModel->info(Model_Questions::NAME)], ['tid', 'thes', 'qi'])
+                    ->where('qi IN (?)', $consultation['questionIds'])
+                    ->order('when DESC')
+                    ->limit($inputLimit)
+            );
+            unset($consultation['questionIds']);
+        }
+
+        return $consultations;
+    }
 }

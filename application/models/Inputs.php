@@ -561,32 +561,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns entries ordered by input date descending
-     * @param  integer                 $limit
-     * @throws Zend_Validate_Exception
-     * @return Zend_Db_Table_Rowset
-     */
-    public function getLast($limit = 10)
-    {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($limit)) {
-            throw new Zend_Validate_Exception('Given limit has to be integer!');
-        }
-        $select = $this->select();
-        $select
-            ->setIntegrityCheck(false)
-            ->from(['i' => $this->info(self::NAME)])
-            ->join(
-                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                'q.qi = i.qi'
-            )
-            ->order('when DESC')
-            ->limit($limit);
-
-        return $this->fetchAll($select);
-    }
-
-    /**
      * Returns formatted CSV string
      * @param  integer                 $kid
      * @param  integer                 $qid
