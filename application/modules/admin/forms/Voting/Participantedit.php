@@ -2,12 +2,23 @@
 
 class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Voting/Participantedit.ini';
-
     public function init()
     {
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+
+        $this->setMethod('post');
+
+        $note = $this->createElement('note', 'description');
+        $note
+            ->setLabel('Mit folgendem Teilnehmer zusammenlegen:')
+            ->setValue('Die Daten des auszuwählenden Teilnehmers werden dem zu bearbeitenden Teilnehmer hinzugefügt. <br />Der hier auszuwählende Teilnehmer wird anschließend gelöscht.');
+        $this->addElement($note);
+
+        $merge = $this->createElement('select', 'merge');
+        $merge
+            ->setLabel('Bitte hier den zu löschenden Teilnehmer wählen')
+            ->setRequired(true);
+        $this->addElement($merge);
+
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));
@@ -16,5 +27,9 @@ class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         $this->addElement($hash);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }

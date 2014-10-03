@@ -2,15 +2,28 @@
 
 class Admin_Form_Media_Delete extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Media/Delete.ini';
-
     public function init()
     {
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-        $this->setDecorators(array('FormElements', 'Form'));
-        foreach ($this->getElements() as $element) {
-            $element->setDecorators(array('ViewHelper'));
-        }
+        $this->setMethod('post');
+
+        $file = $this->createElement('hidden', 'file');
+        $this->addElement($file);
+
+        $folder = $this->createElement('hidden', 'folder');
+        $this->addElement($folder);
+
+        $kid = $this->createElement('hidden', 'kid');
+        $this->addElement($kid);
+
+        $form_num = $this->createElement('hidden', 'form_num');
+        $this->addElement($form_num);
+
+        $submit = $this->createElement('button', 'submit');
+        $submit
+            ->setActionType(Dbjr_Form_Element_Button::TYPE_DELETE)
+            ->setConfirmMessage('Delete media');
+        $this->addElement($submit);
+
     }
 
     /**

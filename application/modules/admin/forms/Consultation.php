@@ -2,14 +2,261 @@
 
 class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Consultation.ini';
+    public function init()
+    {
+        $view = new Zend_View();
+
+        $this
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin'])
+            ->setMethod('post');
+
+
+        $title = $this->createElement('text', 'titl');
+        $title
+            ->setLabel('Title')
+            ->setRequired(true)
+            ->setAttrib('maxlength', 120);
+        $this->addElement($title);
+
+        $titleShort = $this->createElement('text', 'titl_short');
+        $titleShort
+            ->setLabel('Short title')
+            ->setRequired(true);
+
+        $subTitle = $this->createElement('text', 'titl_sub');
+        $subTitle->setLabel('Subtitle');
+        $this->addElement($subTitle);
+
+        $image = $this->createElement('file', 'img_file');
+        $image
+            ->setLabel('Image')
+            ->setRequired(true);
+        $this->addElement($image);
+
+        $imageDesc = $this->createElement('text', 'img_text');
+        $imageDesc->setLabel('Image description');
+        $this->addElement($imageDesc);
+
+        $desc = sprintf(
+            $view->translate('(z.B. höher=weiter vorn; z.B. derzeit neue höchste Nummer: %d)'),
+            (new Model_Consultations())->getLastId() + 1
+        );
+        $order = $this->createElement('number', 'ord');
+        $order
+            ->setLabel('Order')
+            ->setRequired(true)
+            ->setDescription($desc)
+            ->addValidator('Int');
+        $this->addElement($order);
+
+        $expl = $this->createElement('textarea', 'expl');
+        $expl
+            ->setLabel('Explanation')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setAttrib('rows', 5)
+            ->addFilter('HtmlEntities');
+        $this->addElement($expl);
+
+        $explShort = $this->createElement('textarea', 'expl_short');
+        $explShort
+            ->setLabel('Explanation short')
+            ->setAttrib('rows', 5);
+        $this->addElement($explShort);
+
+        $inputFrom = $this->createElement('text', 'inp_fr');
+        $inputFrom
+            ->setLabel('Contribution phase start')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($inputFrom);
+
+        $inputTo = $this->createElement('text', 'inp_to');
+        $inputTo
+            ->setLabel('Contribution phase end')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($inputTo);
+
+        $inputShow = $this->createElement('checkbox', 'inp_show');
+        $inputShow
+            ->setLabel('Enable input phase')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($inputShow);
+
+        $supportFrom = $this->createElement('text', 'spprt_fr');
+        $supportFrom
+            ->setLabel('Support phase start')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($supportFrom);
+
+        $supportTo = $this->createElement('text', 'spprt_to');
+        $supportTo
+            ->setLabel('Support phase end')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($supportTo);
+
+        $supportShow = $this->createElement('checkbox', 'spprt_show');
+        $supportShow
+            ->setLabel('Enable support phase')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($supportShow);
+
+        $voteFrom = $this->createElement('text', 'vot_fr');
+        $voteFrom
+            ->setLabel('Voting phase start')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($voteFrom);
+
+        $voteTo = $this->createElement('text', 'vot_to');
+        $voteTo
+            ->setLabel('Voting phase end')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($voteTo);
+
+        $voteShow = $this->createElement('checkbox', 'vot_show');
+        $voteShow
+            ->setLabel('Enable voting phase')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($voteShow);
+
+        $voteResShow = $this->createElement('checkbox', 'vot_res_show');
+        $voteResShow
+            ->setLabel('Make voting results public')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($voteResShow);
+
+        $discussionActive = $this->createElement('checkbox', 'is_discussion_active');
+        $discussionActive
+            ->setLabel('Enable discussion')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($discussionActive);
+
+        $discussionFrom = $this->createElement('text', 'discussion_fr');
+        $discussionFrom
+            ->setLabel('Discussion phase start')
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($discussionFrom);
+
+        $discussionTo = $this->createElement('text', 'discussion_to');
+        $discussionTo
+            ->setLabel('Discussion phase end')
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($discussionTo);
+
+        $discussionActive = $this->createElement('checkbox', 'is_discussion_active');
+        $discussionActive
+            ->setLabel('Enable discussion phase')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($discussionActive);
+
+        $followupSummaryShow = $this->createElement('checkbox', 'summ_show');
+        $followupSummaryShow
+            ->setLabel('Enable followup summary')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($followupSummaryShow);
+
+        $followupShow = $this->createElement('checkbox', 'follup_show');
+        $followupShow
+            ->setLabel('Enable followups')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($followupShow);
+
+        $explVoting = $this->createElement('textarea', 'vot_expl');
+        $explVoting
+            ->setLabel('Explanation')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setAttrib('rows', 5)
+            ->addFilter('HtmlEntities');
+        $this->addElement($explVoting);
+
+        $isPublic = $this->createElement('checkbox', 'public');
+        $isPublic
+            ->setLabel('Make public')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($isPublic);
+
+        $options = [0 => 'keiner ausgewählt'];
+        $admins = (new Model_Users())->getAdmins();
+        foreach ($admins as $admin) {
+            $options[$admin->uid] = $admin->email;
+        }
+        $admin = $this->createElement('select', 'adm');
+        $admin
+            ->setLabel('Responsible administrator')
+            ->setRequired(true)
+            ->setMultioptions($options);
+
+        $projects = (new Model_Projects())->getAll();
+        $options = [];
+        foreach ($projects as $project) {
+            $options[$project['proj']] = $project['titl_short'];
+        }
+        $project = $this->createElement('multiCheckbox', 'proj');
+        $project
+            ->setLabel('Project')
+            ->setDescription('Note: current project must be always selected.')
+            ->setRequired(true)
+            ->setMultiOptions($options)
+            ->setValue([Zend_Registry::get('systemconfig')->project]);
+        $this->addElement($project);
+
+        // CSRF Protection
+        $hash = $this->createElement('hash', 'csrf_token_consultation', array('salt' => 'unique'));
+        $hash->setSalt(md5(mt_rand(1, 100000) . time()));
+        if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
+            $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
+        }
+        $this->addElement($hash);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
+    }
 
     /**
      * Sets the consultation to be asociated with this form
      * Needed to offer the proper media folder.
      * If the consuiltation is just being created no media folder exists and this method is not to be called.
      * @param  integer                  $kid The identifier fo the consultation
-     * @return Admin_Form_Consultation   Fluent interface
+     * @return Admin_Form_Consultation       Fluent interface
      */
     public function setKid($kid)
     {
@@ -24,74 +271,5 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->addElement($imgFile);
 
         return $this;
-    }
-
-    public function init()
-    {
-        $this
-            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin'])
-            ->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-
-        $consultationModel = new Model_Consultations();
-        $lastId = $consultationModel->getLastId();
-        $highestId = $lastId + 1;
-        $this->getElement('ord')->setDescription(
-            '(z.B. höher=weiter vorn; z.B. derzeit neue höchste Nummer: ' . $highestId . ')'
-        );
-
-        $this->getElement('inp_show')->setCheckedValue('y');
-        $this->getElement('inp_show')->setUncheckedValue('n');
-        $this->getElement('spprt_show')->setCheckedValue('y');
-        $this->getElement('spprt_show')->setUncheckedValue('n');
-        $this->getElement('vot_show')->setCheckedValue('y');
-        $this->getElement('vot_show')->setUncheckedValue('n');
-        $this->getElement('vot_res_show')->setCheckedValue('y');
-        $this->getElement('vot_res_show')->setUncheckedValue('n');
-        $this->getElement('summ_show')->setCheckedValue('y');
-        $this->getElement('summ_show')->setUncheckedValue('n');
-        $this->getElement('follup_show')->setCheckedValue('y');
-        $this->getElement('follup_show')->setUncheckedValue('n');
-        $this->getElement('public')->setCheckedValue('y');
-        $this->getElement('public')->setUncheckedValue('n');
-
-        $this->getElement('expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
-        $this->getElement('vot_expl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
-
-        $this->getElement('inp_fr')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('inp_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('spprt_fr')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('spprt_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('vot_fr')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('vot_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('discussion_from')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-        $this->getElement('discussion_to')->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME);
-
-        $options = array(
-                0 => 'keiner ausgewählt'
-            );
-        $userModel = new Model_Users();
-        $admins = $userModel->getAdmins();
-        foreach ($admins as $admin) {
-            $options[$admin->uid] = $admin->email;
-        }
-        $this->getElement('adm')->setMultioptions($options);
-
-        $projectModel = new Model_Projects();
-        $projects = $projectModel->getAll();
-        $options = array();
-        foreach ($projects as $project) {
-            $options[$project['proj']] = $project['titl_short'];
-        }
-        $this->getElement('proj')->setMultiOptions($options);
-        // current project has to be checked always:
-        $this->getElement('proj')->setValue(array(Zend_Registry::get('systemconfig')->project));
-
-        // CSRF Protection
-        $hash = $this->createElement('hash', 'csrf_token_consultation', array('salt' => 'unique'));
-        $hash->setSalt(md5(mt_rand(1, 100000) . time()));
-        if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
-            $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
-        }
-        $this->addElement($hash);
     }
 }

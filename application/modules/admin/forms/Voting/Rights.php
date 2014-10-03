@@ -2,12 +2,48 @@
 
 class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Voting/Rights.ini';
-
     public function init()
     {
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $view = new Zend_View();
+
+        $this->setMethod('post');
+
+        $weight = $this->createElement('text', 'vt_weight');
+        $weight
+            ->setLabel('Weight')
+            ->setRequired(true)
+            ->addValidator('Int');
+        $this->addElement($weight);
+
+        $accessCode = $this->createElement('text', 'vt_code');
+        $accessCode
+            ->setLabel('Access code')
+            ->setRequired(true)
+            ->addValidator('Alnum')
+            ->addValidator('StringLength', false, ['min' => 8]);
+        $this->addElement($accessCode);
+
+        $groupSize = $this->createElement('select', 'grp_siz');
+        $groupSize
+            ->setLabel('Group size')
+            ->setMultiOptions(
+                [
+                    '0' => '?',
+                    '1' => '1-2',
+                    '10' => $view->translate('bis') . ' 10',
+                    '30' => $view->translate('bis') . ' 30',
+                    '80' => $view->translate('bis') . ' 80',
+                    '150' => $view->translate('bis') . ' 150',
+                    '200' => $view->translate('über') . ' 150',
+                ]
+            );
+        $this->addElement($groupSize);
+
+        $groupSizeUser = $this->createElement('text', 'group_size_user');
+        $groupSizeUser
+            ->setLabel('Größe laut eigener Angabe')
+            ->setAttrib('disabled', 'disabled');
+        $this->addElement($groupSizeUser);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));
@@ -16,5 +52,9 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         $this->addElement($hash);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }

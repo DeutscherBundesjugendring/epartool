@@ -1,21 +1,44 @@
 <?php
-/**
- * Question
- *
- * @description     Form of question
- * @author                Markus Hackel
- */
+
 class Admin_Form_Question extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Question.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+
     public function init()
     {
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $view = new Zend_View();
+        $this->setMethod('post');
+
+        $order = $this->createElement('text', 'nr');
+        $order
+            ->setLabel('Order')
+            ->setRequired(true)
+            ->setAttrib('maxlength', 4);
+        $this->addElement($order);
+
+        $desc = sprintf($view->translate('Max %d characters'), 300);
+        $question = $this->createElement('text', 'q');
+        $question
+            ->setLabel('Question')
+            ->setRequired(true)
+            ->setAttrib('maxlength', 300)
+            ->setDescription($desc);
+        $this->addElement($question);
+
+        $expl = $this->createElement('textarea', 'q_expl');
+        $expl
+            ->setLabel('Explanation')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setAttrib('rows', 5);
+        $this->addElement($expl);
+
+        $desc = sprintf($view->translate('Max %d characters'), 300);
+        $votingQuestion = $this->createElement('text', 'vot_q');
+        $votingQuestion
+            ->setLabel('Voting question')
+            ->setAttrib('maxlength', 300)
+            ->setDescription($desc);
+        $this->addElement($votingQuestion);
+
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_question', array('salt' => 'unique'));
@@ -25,6 +48,8 @@ class Admin_Form_Question extends Dbjr_Form_Admin
         }
         $this->addElement($hash);
 
-        $this->getElement('q_xpl')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }

@@ -72,7 +72,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         $form = new Admin_Form_Followup_Snippet();
 
         if ($this->getRequest()->isPost()) {
-            if ($form->isValid($params)) {
+            if ($form->isValid($this->getRequest()->getPost())) {
                 $snippetModel
                     ->find($fid)
                     ->current()
@@ -182,12 +182,11 @@ class Admin_FollowupController extends Zend_Controller_Action
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
                 foreach ($postData['docorg'] as $snippetId => $docorg) {
-                    $a = $snippetModel
+                    $snippetModel
                         ->find($snippetId)
                         ->current()
                         ->setFromArray(['docorg' => $docorg])
                         ->save();
-                    var_dump($a);
                 }
                 $this->redirect($this->view->url());
             }

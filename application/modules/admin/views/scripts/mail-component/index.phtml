@@ -21,7 +21,7 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'detail'));?>" class="btn btn-default pull-right">
+                <a href="<?=$this->url(['action' => 'detail', 'id' => null]);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <?=$this->translate('New Email Component');?>
                 </a>

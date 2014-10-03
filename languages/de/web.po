@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-09-28 23:20+0100\n"
-"PO-Revision-Date: 2014-09-28 23:21+0100\n"
+"POT-Creation-Date: 2014-10-03 19:26+0100\n"
+"PO-Revision-Date: 2014-10-03 19:27+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -10,7 +10,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage\n"
+"X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
+"setConfirmMessage\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/default\n"
@@ -915,7 +916,7 @@ msgid "Result of voting: X. position"
 msgstr "Ergebnis der Abstimmung: X. Rang"
 
 #: application/modules/default/views/scripts/followup/show.phtml:99
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:67
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:66
 msgid "Loading…"
 msgstr "Loading…"
 

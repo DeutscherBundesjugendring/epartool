@@ -1,17 +1,20 @@
 <?php
+
 class Admin_Form_Tag extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Tag.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+
     public function init()
     {
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
 
-        $this->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/tag/create');
+        $this
+            ->setMethod('post')
+            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/tag/create');
+
+        $tag = $this->createElement('text', 'tg_de');
+        $tag
+            ->setLabel('New keyword')
+            ->setRequired(true);
+        $this->addElement($tag);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_tagadmin', array('salt' => 'unique'));
@@ -20,5 +23,9 @@ class Admin_Form_Tag extends Dbjr_Form_Admin
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         $this->addElement($hash);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }
