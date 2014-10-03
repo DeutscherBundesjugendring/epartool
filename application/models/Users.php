@@ -89,7 +89,13 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function register($data, $confirmKey = null)
     {
         if (!$this->emailExists($data['email'])) {
-            $data['uid'] = $this->add(['block' => 'u', 'email' => $data['email']]);
+            $data['uid'] = $this->add(
+                [
+                    'block' => 'u',
+                    'email' => $data['email'],
+                    'newsl_subscr' => 'n',
+                ]
+            );
             $isNew = true;
         } else {
             $data['uid'] = $this
