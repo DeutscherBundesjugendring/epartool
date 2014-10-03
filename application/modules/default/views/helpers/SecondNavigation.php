@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Second Navigation
- *
- * @desc Navigation der 2. Ebene (Hauptaspekte einer Konsultation)
- * @author Markus Hackel
- */
 class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
 {
     public function secondNavigation($activeItem = null)
@@ -17,7 +11,6 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
             'article' => false,
             'question' => false,
             'input' => ($nowDate->isEarlier($con->inp_fr)),
-            //'voting' => ($nowDate->isEarlier($con->vot_fr) || $nowDate->isLater($con->vot_to)),
             'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->follup_show == 'n'),
             'voting' => ($nowDate->isEarlier($con->vot_fr) || $con->vot_to == '0000-00-00 00:00:00'),
         );
@@ -31,27 +24,27 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
             'article' => array(
                 'url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid,
                 'text' => '<h2>' . $this->view->translate('Info') . '</h2>',
-                'showBubble' => FALSE
+                'showBubble' => false
             ),
             'question' => array(
                 'url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid,
                 'text' => '<h2>' . $this->view->translate('Questions') . '</h2>',
-                'showBubble' => FALSE
+                'showBubble' => false
             ),
             'input' => array(
                 'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid . '#page-content',
                 'text' => '<h2>' . $this->view->translate('Contributions') . '</h2>',
-                'showBubble' => FALSE
+                'showBubble' => false
             ),
             'voting' => array(
                 'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
                 'text' => '<h2>' .  $this->view->translate('Voting') . '</h2>',
-                'showBubble' => FALSE
+                'showBubble' => false
             ),
             'follow-up' => array(
                 'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
                 'text' => '<h2>' . $this->view->translate('Reactions & Impact') . '</h2> <small class="info">' . $this->view->translate('after Voting has ended') . '</small>',
-                'showBubble' => FALSE
+                'showBubble' => false
             ),
         );
 
@@ -76,12 +69,12 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
         // Add bubbles
         if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
           if ($con->inp_show == 'y') {
-              $items['input']['showBubble'] = TRUE;
+              $items['input']['showBubble'] = true;
           }
         }
         if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
           if ($con->vot_show == 'y') {
-              $items['voting']['showBubble'] = TRUE;
+              $items['voting']['showBubble'] = true;
           }
         }
 
@@ -119,5 +112,4 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
 
         return $html;
     }
-
 }
