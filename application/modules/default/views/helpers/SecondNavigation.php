@@ -23,27 +23,27 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
         $items = array(
             'article' => array(
                 'url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_info ? $con->phase_info : $this->view->translate('Info')) . '</h2>',
+                'text' => '<h2>' . ($con->phase_info ? $this->view->escape($con->phase_info) : $this->view->translate('Info')) . '</h2>',
                 'showBubble' => false
             ),
             'question' => array(
                 'url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_support ? $con->phase_support : $this->view->translate('Questions')) . '</h2>',
+                'text' => '<h2>' . ($con->phase_support ? $this->view->escape($con->phase_support) : $this->view->translate('Questions')) . '</h2>',
                 'showBubble' => false
             ),
             'input' => array(
                 'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid . '#page-content',
-                'text' => '<h2>' . ($con->phase_input ? $con->phase_input : $this->view->translate('Contributions')) . '</h2>',
+                'text' => '<h2>' . ($con->phase_input ? $this->view->escape($con->phase_input) : $this->view->translate('Contributions')) . '</h2>',
                 'showBubble' => false
             ),
             'voting' => array(
                 'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_voting ? $con->phase_voting : $this->view->translate('Voting')) . '</h2>',
+                'text' => '<h2>' . ($con->phase_voting ? $this->view->escape($con->phase_voting) : $this->view->translate('Voting')) . '</h2>',
                 'showBubble' => false
             ),
             'follow-up' => array(
                 'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_followup ? $con->phase_followup : $this->view->translate('Reactions & Impact')) . '</h2> <small class="info">' . $this->view->translate('after Voting has ended') . '</small>',
+                'text' => '<h2>' . ($con->phase_followup ? $this->view->escape($con->phase_followup) : $this->view->translate('Reactions & Impact')) . '</h2> <small class="info">' . $this->view->translate('after Voting has ended') . '</small>',
                 'showBubble' => false
             ),
         );

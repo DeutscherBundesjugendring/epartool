@@ -61,19 +61,19 @@
                 </li>
                 <li>
                     <a href="<?=$this->url(array('controller' => 'article', 'kid' => $con->kid));?>">
-                        <h2><?=$con->phase_info ? $con->phase_info : $this->translate('Info')?></h2>
+                        <h2><?=$con->phase_info ? $this->escape($con->phase_info) : $this->translate('Info')?></h2>
                     </a>
                 </li>
                 <li>
                     <a href="<?=$this->url(array('controller' => 'question', 'kid' => $con->kid));?>">
-                        <h2><?=$con->phase_support ? $con->phase_support : $this->translate('Questions')?></h2>
+                        <h2><?=$con->phase_support ? $this->escape($con->phase_support) : $this->translate('Questions')?></h2>
                     </a>
                 </li>
 
                 <?php if (!$disabled['input']): ?>
                     <li>
                         <a href="<?=$this->url(array('controller' => 'input', 'kid' => $con->kid));?>#page-content">
-                            <h2><?=$con->phase_input ? $con->phase_input : $this->translate('Contributions')?></h2>
+                            <h2><?=$con->phase_input ? $this->escape($con->phase_input) : $this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?=$bubbles['input'];?>
                             <?php else: ?>
@@ -88,7 +88,7 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$con->phase_input ? $con->phase_input : $this->translate('Contributions')?></h2>
+                            <h2><?=$con->phase_input ? $this->escape($con->phase_input) : $this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?=$bubbles['input'];?>
                             <?php else: ?>
@@ -105,7 +105,7 @@
                 <?php if (!$disabled['voting']): ?>
                     <li>
                         <a href="<?=$this->url(array('controller' => 'voting', 'kid' => $con->kid));?>">
-                            <h2><?=$con->phase_voting ? $con->phase_voting : $this->translate('Voting')?></h2>
+                            <h2><?=$con->phase_voting ? $this->escape($con->phase_voting) : $this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?=$bubbles['voting'];?>
                             <?php else: ?>
@@ -120,7 +120,7 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$con->phase_voting ? $con->phase_voting : $this->translate('Voting')?></h2>
+                            <h2><?=$con->phase_voting ? $this->escape($con->phase_voting) : $this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?=$bubbles['voting'];?>
                             <?php else: ?>
@@ -137,13 +137,13 @@
                 <?php if (!$disabled['follow-up']): ?>
                     <li>
                         <a href="<?=$this->url(array('controller' => 'followup', 'kid' => $con->kid)) ?>">
-                            <h2><?=$con->phase_followup ? $con->phase_followup : $this->translate('Reactions & Impact')?></h2>
+                            <h2><?=$con->phase_followup ? $this->escape($con->phase_followup) : $this->translate('Reactions & Impact')?></h2>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$con->phase_followup ? $con->phase_followup : $this->translate('Reactions & Impact')?></h2>
+                            <h2><?=$con->phase_followup ? $this->escape($con->phase_followup) : $this->translate('Reactions & Impact')?></h2>
                         </div>
                     </li>
                 <?php endif;?>
