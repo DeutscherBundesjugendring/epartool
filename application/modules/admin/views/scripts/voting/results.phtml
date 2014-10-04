@@ -34,19 +34,23 @@
                 </ul>
 
                 <h3><?=$this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q'];?></h3>
-                <?php foreach ($this->theses_votes as $rank => $theses): ?>
-                    <?php $diag_lngth = round(($rank*600)/$this->highest_rank, 0);?>
-                    <?php foreach ($theses as $thesis): ?>
-                        <p><?=$thesis['thes'];?></p>
-                        <div
-                            style="background-color: #d9e8ef; color: #3f6f8d; font-size: smaller; margin-bottom: 2em; padding: 4px; width: <?=$diag_lngth;?>px;"
-                            class="voting-result-bar<?=$thesis['followup'];?>"
-                            title="(Gewichtete Punkte: <?=round($thesis['points'], 2);?> bei <?=$thesis['cast'];?> Stimmen)"
-                        >
-                            &nbsp;<?=round($rank, 2);?> Punkte
-                        </div>
+                <?php if ($this->theses_votes): ?>
+                    <?php foreach ($this->theses_votes as $rank => $theses): ?>
+                        <?php $diag_lngth = round(($rank*600)/$this->highest_rank, 0);?>
+                        <?php foreach ($theses as $thesis): ?>
+                            <p><?=$thesis['thes'];?></p>
+                            <div
+                                style="background-color: #d9e8ef; color: #3f6f8d; font-size: smaller; margin-bottom: 2em; padding: 4px; width: <?=$diag_lngth;?>px;"
+                                class="voting-result-bar<?=$thesis['followup'];?>"
+                                title="(Gewichtete Punkte: <?=round($thesis['points'], 2);?> bei <?=$thesis['cast'];?> Stimmen)"
+                            >
+                                &nbsp;<?=round($rank, 2);?> Punkte
+                            </div>
+                        <?php endforeach;?>
                     <?php endforeach;?>
-                <?php endforeach;?>
+                <?php else: ?>
+                    <?=$this->translate('There are no voting results to be shown at the moment.');?>
+                <?php endif;?>
 
             </div>
         </div>
