@@ -1,3 +1,3 @@
-ALTER TABLE `email_template`
-    DROP INDEX `email_template_name_idx`,
-    ADD UNIQUE `email_template_name_project_code_key` (`name`, `project_code`);
+-- EMPTY FILE AS THE RELEVANT ISSUE SHOULD NOT HAVE BEEN CREATED - IT WAS ALL AN ERROR
+-- AS WE SAY IN CZECH "IM DROPPING ASHES ON MY HEAD IN SHAME"
+-- NEXT TIME ILL BE MORE DILIGENT WITH DB VERSIONING, I PROMISE
