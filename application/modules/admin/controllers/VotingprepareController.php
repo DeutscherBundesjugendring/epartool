@@ -20,15 +20,14 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
     /**
      * Place-maker for error redirects messages from flashmessenger
-     **/
+     */
     public function errorAction()
     {
     }
 
     /**
      * Returns parameters for list of questions in backend
-     * @see VotingprepareController|admin: init()
-     **/
+     */
     public function indexAction()
     {
         $this->view->consultation = $this->_consultation;
@@ -36,7 +35,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
     /**
      * Returns parameters for list of inputs, questions and directories
-     **/
+     */
     public function overviewAction()
     {
         $dirs = array();
@@ -124,7 +123,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
     /**
      * Updates the status of an input for voting and responds ajaxrequest from overviewAction
-     **/
+     */
     public function votingstatusAction()
     {
         $this->_helper->layout()->disableLayout();
@@ -149,7 +148,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
     /**
      * Updates the status of an input for public viewing and responds  ajaxrequest in overview
-     **/
+     */
     public function blockstatusAction()
     {
         $this->_helper->layout()->disableLayout();
@@ -174,7 +173,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
     /**
      * Updates the directory for given inputs and redirect to overviewAction
-     **/
+     */
     public function setdirectoryAction()
     {
         $this->_helper->layout()->disableLayout();
@@ -205,7 +204,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
     /**
      * Updates votingstatus, blockstatus or delete inputs and redirect to overviewAction
-     **/
+     */
     public function updateAction()
     {
         $this->_helper->layout()->disableLayout();
