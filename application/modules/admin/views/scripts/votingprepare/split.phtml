@@ -25,7 +25,7 @@
                     <h3>Originalbeitrag:</h3>
                     <form id="thesis-form" method="post">
                         <ul>
-                            <?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs); ?>
+                            <?=$this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs);?>
                         </ul>
                     </form>
                 </div>
@@ -34,7 +34,7 @@
                     <h3>Neue Beiträge</h3>
                     <div id="ajx"></div>
                     <a class="plus" title="Klicken um Formular anzuzeigen">+ Beitrag hinzufügen</a>
-                    <?php echo $this->form; ?>
+                    <?=$this->form;?>
                 </div>
 
             </div>
@@ -43,7 +43,7 @@
 </section>
 
 <!-- TODO fuck off -->
-<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js'); ?>
+<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js');?>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -79,7 +79,7 @@
                 var data = $("form#input :input").serialize();
                 $.ajax({
                     type: "POST",
-                    url: "/admin/votingprepare/splitresponse/<?php echo $this->getParams ?>",
+                    url: "/admin/votingprepare/splitresponse/<?=$this->getParams ?>",
                     data: data,
                     cache: false,
                     async: "true",
@@ -110,7 +110,7 @@
             event.preventDefault();
             $('form#input').show('blind', '', 900);
             $.ajax({
-                url: "/admin/votingprepare/getnewhash/<?php echo $this->getParams ?>",
+                url: "/admin/votingprepare/getnewhash/<?=$this->getParams ?>",
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -159,7 +159,7 @@
             event.preventDefault();
             var elementID = $(this).attr('rel');
             $.ajax({
-                url: "/admin/votingprepare/votingstatus/<?php echo $this->getParams ?>",
+                url: "/admin/votingprepare/votingstatus/<?=$this->getParams ?>",
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -180,7 +180,7 @@
             event.preventDefault();
             var elementID = $(this).attr('rel');
             $.ajax({
-                url: "/admin/votingprepare/blockstatus/<?php echo $this->getParams ?>",
+                url: "/admin/votingprepare/blockstatus/<?=$this->getParams ?>",
                 type: "POST",
                 data: "format=html",
                 cache: false,

@@ -1,9 +1,5 @@
 <?php
-/**
- * class for handling inputs in backend votingprepare
- *
- * @author        Karsten Tackmann <info@seitenmeister.com>
- */
+
 class Admin_VotingprepareController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
@@ -17,26 +13,21 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $this->_params = $this->_request->getParams();
         $this->_consultation = $this->getKid($this->_params);
         $this->_question = $this->getQid($this->_params);
-        if (isset($this->_params["tid"]))
+        if (isset($this->_params["tid"])) {
             $this->_tid = $this->getTId($this->_params);
+        }
     }
 
     /**
-     *  errorAction
-     * place-maker for error redirects messages from flashmessenger
-     * @return array
-     *
+     * Place-maker for error redirects messages from flashmessenger
      **/
     public function errorAction()
     {
     }
 
     /**
-     *  indexAction
-     * get parameters for list of questions in backend
+     * Returns parameters for list of questions in backend
      * @see VotingprepareController|admin: init()
-     * @return array
-     *
      **/
     public function indexAction()
     {
@@ -44,10 +35,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  overviewAction
-     * get parameters for list of inputs, questions and directories
-     * @return array
-     *
+     * Returns parameters for list of inputs, questions and directories
      **/
     public function overviewAction()
     {
@@ -85,7 +73,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 } else {
                     $tags["$key"]['selected'] = '0';
                 }
-
             }
         }
 
@@ -133,33 +120,26 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         }
         (isset($options['combine'])) ? $this->view->combine = $options['combine'] : $this->view->combine = 'OR';
         (isset($options['dir'])) ? $this->view->dirs = $options['dir'] : $this->view->dirs = '';
-        #$this->view->combine = $options['combine'];
     }
 
     /**
-     * votingstatusAction
-     * updates the status of an input for voting and responds ajaxrequest from overviewAction
-     * @return array
-     *
+     * Updates the status of an input for voting and responds ajaxrequest from overviewAction
      **/
     public function votingstatusAction()
     {
         $this->_helper->layout()->disableLayout();
         $inputsModel = new Model_Inputs();
         $this->input = $inputsModel->find($this->_tid)->current();
-        // echo "<pre>";
-        // print_r($this->input->vot);
-        // echo "<pre>";
         switch ($this->input->vot) {
-            case 'y' :
+            case 'y':
                 $status = "u";
                 $inputsModel->setVotingStatusByID($status, $this->_tid);
                 break;
-            case 'n' :
+            case 'n':
                 $status = "y";
                 $inputsModel->setVotingStatusByID($status, $this->_tid);
                 break;
-            case 'u' :
+            case 'u':
                 $status = "n";
                 $inputsModel->setVotingStatusByID($status, $this->_tid);
                 break;
@@ -168,29 +148,23 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * blockstatusAction
-     * updates the status of an input for public viewing and responds  ajaxrequest in overview
-     * @return array
-     *
+     * Updates the status of an input for public viewing and responds  ajaxrequest in overview
      **/
     public function blockstatusAction()
     {
         $this->_helper->layout()->disableLayout();
         $inputsModel = new Model_Inputs();
         $this->input = $inputsModel->find($this->_tid)->current();
-        // echo "<pre>";
-        // print_r($this->input->vot);
-        // echo "<pre>";
         switch ($this->input->block) {
-            case 'y' :
+            case 'y':
                 $status = "u";
                 $inputsModel->setBlockStatusByID($status, $this->_tid);
                 break;
-            case 'n' :
+            case 'n':
                 $status = "y";
                 $inputsModel->setBlockStatusByID($status, $this->_tid);
                 break;
-            case 'u' :
+            case 'u':
                 $status = "n";
                 $inputsModel->setBlockStatusByID($status, $this->_tid);
                 break;
@@ -199,10 +173,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  setdirectoryAction
-     * updates the directory for given inputs and redirect to overviewAction
-     * @return string (flashMessenger)
-     *
+     * Updates the directory for given inputs and redirect to overviewAction
      **/
     public function setdirectoryAction()
     {
@@ -219,7 +190,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             $inputsModel = new Model_Inputs();
             $inputsModel->setDirectory($options);
             $this->_flashMessenger->addMessage('Die markierten Beiträge wurden verschoben', 'success');
-
         } else {
             $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
         }
@@ -234,10 +204,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  updateAction()
-     * updates votingstatus, blockstatus or delete inputs and redirect to overviewAction
-     * @return string (flashMessenger)
-     *
+     * Updates votingstatus, blockstatus or delete inputs and redirect to overviewAction
      **/
     public function updateAction()
     {
@@ -248,40 +215,31 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
             $inputsModel = new Model_Inputs();
             switch ($this->_params['do']) {
-                case 'enable' :
+                case 'enable':
                     $inputsModel->setBlockStatus($option, 'y');
-                    $this->_flashMessenger->addMessage(
-                        'Die markierten Beiträge wurden zur Anzeige freigegeben', 'success'
-                    );
+                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zur Anzeige freigegeben', 'success');
                     break;
-                case 'disable' :
+                case 'disable':
                     $inputsModel->setBlockStatus($option, 'n');
-                    $this->_flashMessenger->addMessage(
-                        'Die markierten Beiträge wurden zur Anzeige gesperrt', 'success'
-                    );
+                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zur Anzeige gesperrt', 'success');
                     break;
-                case 'enable-voting' :
+                case 'enable-voting':
                     $inputsModel->setVotingStatus($option, 'y');
-                    $this->_flashMessenger->addMessage(
-                        'Die markierten Beiträge wurden zum Voting freigegeben', 'success'
-                    );
+                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zum Voting freigegeben', 'success');
                     break;
-                case 'disable-voting' :
+                case 'disable-voting':
                     $inputsModel->setVotingStatus($option, 'n');
-                    $this->_flashMessenger->addMessage(
-                        'Die markierten Beiträge wurden zum Voting  gesperrt', 'success'
-                    );
+                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zum Voting  gesperrt', 'success');
                     break;
-                case 'delete' :
+                case 'delete':
                     $inputsModel->deleteInputs($option);
                     $inputTagsModel = new Model_InputsTags();
-                    foreach ($this->_params['thesis'] as $key=>$value) {
+                    foreach ($this->_params['thesis'] as $key => $value) {
                         $inputTagsModel ->deleteByInputsId($value);
                     }
-
                     $this->_flashMessenger->addMessage('Die markierten Beiträge wurden gelöscht', 'success');
                     break;
-                default :
+                default:
                     $this->_flashMessenger->addMessage('Keine Aktion!', 'error');
                     $this->_redirect('/admin/votingprepare/error');
             }
@@ -302,11 +260,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  appendinputsAction
-     *  append inputs to another input and responds ajaxrequest in overview
-     * @return array
-     *
-     **/
+     * Append inputs to another input and responds ajaxrequest in overview
+     */
     public function appendinputsAction()
     {
         $this->_helper->layout()->disableLayout();
@@ -316,8 +271,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             $inputIDs = explode(",", $this->_params['inputIDs']);
             $this->checkInputIDs($inputIDs);
             $pos = array_search($this->_tid, $inputIDs);
-            if ($pos >= 0)
+            if ($pos >= 0) {
                 unset($inputIDs["$pos"]);
+            }
             $inputIDs = implode(",", $inputIDs);
 
             $inputsModel = new Model_Inputs();
@@ -335,12 +291,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  editAction()
-     *  edit input
-     * @param get param
-     * @return bool or redirect votingprepare error
-     *
-     **/
+     *  Edits input
+     */
     public function editAction()
     {
         if (empty($this->_tid)) {
@@ -384,13 +336,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  splitAction()
-     *  gets the input wich will be splitt and a ajay-form for new inputs
+     * Gets the input wich will be splitt and a ajay-form for new inputs
      * @see VotingprepareController|admin: splitresponseAction()
-     * @param get param
-     * @return bool or redirect votingprepare error
-     *
-     **/
+     */
     public function splitAction()
     {
         if (empty($this->_tid)) {
@@ -435,12 +383,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  splitresponseAction()
-     *  gets the response for splitAction()
+     * Gets the response for splitAction()
      * @see VotingprepareController|admin: splitAction()
-     * @param get param
-     * @return bool or redirect votingprepare error
-     **/
+     */
     public function splitresponseAction()
     {
         if (!$this->getRequest()->isXmlHttpRequest()) {
@@ -468,83 +413,75 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  delinputresponseAction()()
-     *  delete inputs via ajax-link from related inputs
+     * Deletes inputs via ajax-link from related inputs
      * @see overviewAction()
-     * @param get param
-     * @return ajax response
-     **/
+     */
     public function delinputresponseAction()
     {
-            if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
-            $this->_helper->layout()->disableLayout();
-            $inputModel = new Model_Inputs();
-            $inputTagsModel = new Model_InputsTags();
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            exit;  //no AjaxRequest
+        }
+        $this->_helper->layout()->disableLayout();
+        $inputModel = new Model_Inputs();
+        $inputTagsModel = new Model_InputsTags();
 
-            $this->_tid = $this->getTId($this->_params);
-            $inputTagsModel ->deleteByInputsId($this->_tid );
+        $this->_tid = $this->getTId($this->_params);
+        $inputTagsModel ->deleteByInputsId($this->_tid);
 
-            // response
-            if ($inputModel->deleteInputs($this->_tid)) {
-                    $this->view->response = "success";
-            } else {
-                    $this->view->response = "error";
-            }
+        // response
+        if ($inputModel->deleteInputs($this->_tid)) {
+            $this->view->response = "success";
+        } else {
+            $this->view->response = "error";
+        }
     }
 
     /**
-     *  cancelshortcutAction()()
-     *  delete shotcut to origin input via ajax-link from related inputs
+     * Selete shotcut to origin input via ajax-link from related inputs
      * @see overviewAction()
-     * @param get param
-     * @return ajax response
-     **/
+     */
     public function cancelshortcutresponseAction()
     {
-            if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest? exit!
-            $this->_helper->layout()->disableLayout();
-            $this->_tid = $this->getTId($this->_params);
-            $this->_child = (int)$this->_params["child"];
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            exit;  //no AjaxRequest? exit!
+        }
+        $this->_helper->layout()->disableLayout();
+        $this->_tid = $this->getTId($this->_params);
+        $this->_child = (int)$this->_params["child"];
 
-            $inputModel = new Model_Inputs();
-            $input = $inputModel->getById($this->_tid);
+        $inputModel = new Model_Inputs();
+        $input = $inputModel->getById($this->_tid);
 
-            $relIDs= $input["rel_tid"];
-            $relIDs=  explode ( "," , $relIDs);
-            unset($relIDs[array_search($this->_child, $relIDs)]);  // delete given ID
-            $relIDs=  implode ( "," , $relIDs);
-            //update
-            if ($inputModel->setAppendInputsByID($relIDs,$this->_tid)) {
-                $this->view->response = "success";
-            } else {
-                $this->view->response = "error";
-            }
+        $relIDs= $input["rel_tid"];
+        $relIDs=  explode(",", $relIDs);
+        unset($relIDs[array_search($this->_child, $relIDs)]);  // delete given ID
+        $relIDs=  implode(",", $relIDs);
+        //update
+        if ($inputModel->setAppendInputsByID($relIDs, $this->_tid)) {
+            $this->view->response = "success";
+        } else {
+            $this->view->response = "error";
+        }
     }
 
 
     /**
-     *  getnewhashAction()
-     *  gets a valid CSRF Protection Hash for Ajax-Form()
+     * Gets a valid CSRF Protection Hash for Ajax-Form()
      * @see admin forms input.php
-     * @param get param
-     * @return CSRF hash form element
-     *
-     **/
+     */
     public function getnewhashAction()
     {
-            if(!$this->getRequest()->isXmlHttpRequest()) exit;  //no AjaxRequest
-             $this->_helper->layout()->disableLayout();
-            $form = new Admin_Form_Input();
-            $this->view->newhash = $form->getHash();
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            exit;  //no AjaxRequest
+        }
+        $this->_helper->layout()->disableLayout();
+        $form = new Admin_Form_Input();
+        $this->view->newhash = $form->getHash();
     }
 
     /**
-     *  mergeAction()
-     *  inserts a new input from admin set the old inputs as childs
-     * @param get param
-     * @return bool or redirect votingprepare error
-     *
-     **/
+     * Inserts a new input from admin set the old inputs as childs
+     */
     public function mergeAction()
     {
         if (isset($this->_params['dir']) && !empty($this->_params['dir'])) {
@@ -605,12 +542,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  copyAction()
-     *  copy a input
-     * @param get param
-     * @return redirect to editAction();
-     *
-     **/
+     * Copies an input
+     */
     public function copyAction()
     {
         $this->_helper->layout()->disableLayout();
@@ -642,8 +575,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
         //insert tags when have
         if (!empty($tags)) {
-            foreach ($tags as $key=>$value) {
-            $inputTagsModel->insertByInputsId($new, array($value["tg_nr"]));
+            foreach ($tags as $key => $value) {
+                $inputTagsModel->insertByInputsId($new, array($value["tg_nr"]));
             }
         }
 
@@ -661,12 +594,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  addNewElements
-     *  add hidden and default elements to Inputformular
-     * @param options
-     * @return bool or redirect votingprepare error
-     *
-     **/
+     * Add hidden and default elements to Inputformular
+     */
     protected function addNewElements($options, $form)
     {
         $dir = $form
@@ -712,11 +641,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     *  checkInputIDs
-     *  checks the values  from array ganzzahlen
-     * @param get param
-     * @return bool or redirect votingprepare error
-     *
+     * Checks the values from array ganzzahlen
      **/
     protected function checkInputIDs($param)
     {
@@ -733,12 +658,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * getKid
-     * checks the kid and returns the values from DB if the consultation exists
+     * Checks the kid and returns the values from DB if the consultation exists
      * @param get param kid
      * @return variables from consultation or votingprepare error
-     *
-     **/
+     */
     protected function getKid($params)
     {
         if (isset($params["kid"])) {
@@ -761,12 +684,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * getQid
-     * checks the qid
+     * Checks the qid
      * @param qid, get param
      * @return (int)
-     *
-     **/
+     */
     protected function getQid($params)
     {
         if (isset($params["qid"])) {
@@ -781,12 +702,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * getDirId
-     * checks the id
+     * Checks the id
      * @param dir, get param
      * @return (int)
-     *
-     **/
+     */
     protected function getDirId($params)
     {
         if (isset($params["dir"])) {
@@ -801,12 +720,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * getTId
-     * checks the tid
+     * Checks the tid
      * @param tid, get params
      * @return (int)
-     *
-     **/
+     */
     protected function getTId($params)
     {
         if (isset($params["tid"])) {
@@ -819,5 +736,4 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
     }
-
 }

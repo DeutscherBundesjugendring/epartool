@@ -21,26 +21,30 @@
                 <h2>Abstimmung vorbereiten</h2>
 
                 <div class="input-list c66l">
-                    <h3><? echo "Frage-Nr.:".$this->question["nr"]. " ".$this->question["q"] . '<br />Beiträge gesamt: ' . count($this->inputs)?></h3>
+                    <h3>
+                        Frage-Nr: <?=$this->question["nr"];?> <?=$this->question["q"];?>
+                        <br />
+                        Beiträge gesamt: <?=count($this->inputs);?>
+                    </h3>
                     <form id="thesis-form" method="post">
                         <ul>
-                            <?php echo $this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
+                            <?=$this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
                         </ul>
                     </form>
                 </div>
 
                 <div class="c33l">
                     <div id="directoryAnchors" class="yform">
-                        <h3 title="Klicken zum aus-/einklappen">Ordner: <? echo $this->directoryact; ?></h3>
+                        <h3 title="Klicken zum aus-/einklappen">Ordner: <?=$this->directoryact;?></h3>
 
                         <ul class="levels">
-                            <?php echo $this->partialLoop('_partials/votingprepare/directories.phtml', $this->directories); ?>
-                            <li><a href="/admin/directories/index/<?php echo $this->getParams; ?>">Ordnerverwaltung</a></li>
+                            <?=$this->partialLoop('_partials/votingprepare/directories.phtml', $this->directories);?>
+                            <li><a href="/admin/directories/index/<?=$this->getParams;?>">Ordnerverwaltung</a></li>
                         </ul>
                     </div>
                     <div id="suche" class="yform">
                         <h3>Suche:</h3>
-                        <form id="search" action="/admin/votingprepare/overview/<?php echo $this->getParams ?>" method="post">
+                        <form id="search" action="/admin/votingprepare/overview/<?=$this->getParams;?>" method="post">
                             <ul>
                                 <li>
                                     <input
@@ -48,7 +52,7 @@
                                         name="search-phrase"
                                         type="text"
                                         placeholder="Suchwörter"
-                                        value="<?php echo $this->searchphrase; ?>"
+                                        value="<?=$this->searchphrase;?>"
                                         />
                                 </li>
                                 <li>
@@ -58,8 +62,8 @@
                                         name="combine"
                                         type="radio"
                                         value="AND"
-                                        <?php if ($this->combine == "AND") echo 'checked="checked"'; ?>
-                                        />
+                                        <?=$this->combine == "AND" ? 'checked="checked"' : '';?>
+                                    />
                                 </li>
                                 <li>
                                     <label for="c-or">ODER</label>
@@ -68,21 +72,21 @@
                                         name="combine"
                                         type="radio"
                                         value="OR"
-                                        <?php if ($this->combine == "OR") echo 'checked="checked"'; ?>
-                                        />
+                                        <?=$this->combine == "OR" ? 'checked="checked"' : '';?>
+                                    />
                                 </li>
-                                <? if($this -> directory): ?>
+                                <?php if($this->directory): ?>
                                     <li>
                                         <label for="t-directory">In diesem Ordner</label>
                                         <input
                                             id="t-directory"
                                             name="directory"
                                             type="radio"
-                                            value="<? echo $this -> directory; ?>"
-                                            <?php if ($this->dirs==$this -> directory) echo 'checked="checked"'?>
-                                            />
+                                            value="<?=$this->directory;?>"
+                                            <?=$this->dirs == $this->directory ? 'checked="checked"' : '';?>
+                                        />
                                     </li>
-                                <? endif; ?>
+                                <?php endif;?>
                                 <li>
                                     <label for="a-directory">In allen Ordnern</label>
                                     <input
@@ -90,25 +94,21 @@
                                         name="directory"
                                         type="radio"
                                         value="0"
-                                        <?php if ($this->dirs == "0") echo 'checked="checked"'; ?>
-                                        />
+                                        <?=$this->dirs == "0" ? 'checked="checked"' : '';?>
+                                    />
                                 </li>
                                 <li class="tags">
                                     <label for="tags">Tags [Mehrfachauswahl: PC -> STRG, MAC -> Apfel]</label>
                                     <select name="tags[]"  id="tags "size="20" multiple>
 
                                         <?php if (!empty($this->tags)): ?>
-                                            <?php echo $this->partialLoop('_partials/votingprepare/tags-selectbox.phtml', $this->tags); ?>
-                                        <?php endif; ?>
+                                            <?=$this->partialLoop('_partials/votingprepare/tags-selectbox.phtml', $this->tags);?>
+                                        <?php endif;?>
                                     </select>
                                 </li>
                                 <li>
                                     <input type="submit" value="go &raquo;">
                                 </li>
-                                <!--
-                                 <label for="search-tags">Tags: </label>
-                                <input id="search-tags" />
-                                -->
                             </ul>
 
                         </form>
@@ -202,7 +202,7 @@
                             <li>
                                 <a
                                     class="split"
-                                    rel="/admin/votingprepare/split/<?php echo $this->getParams; ?>"
+                                    rel="/admin/votingprepare/split/<?=$this->getParams;?>"
                                     title="Ausgewählten Beitrag aufteilen"
                                     >
                                     &#8883; auftteilen (nur eine Auswahl)
@@ -211,7 +211,7 @@
                             <li>
                                 <a
                                     class="edit"
-                                    rel="/admin/votingprepare/edit/<?php echo $this->getParams; ?>"
+                                    rel="/admin/votingprepare/edit/<?=$this->getParams;?>"
                                     title="Ausgewählten Beitrag bearbeiten"
                                     >
                                     &#8883; bearbeiten (nur eine Auswahl)
@@ -220,7 +220,7 @@
                             <li>
                                 <a
                                     class="edit"
-                                    rel="/admin/votingprepare/copy/<?php echo $this->getParams; ?>"
+                                    rel="/admin/votingprepare/copy/<?=$this->getParams;?>"
                                     title="Kopie zur Bearbeitung erstellen"
                                     >
                                     &#8883; Kopie zur Bearbeitung erstellen (nur eine Auswahl)
@@ -229,7 +229,7 @@
                             <li>
                                 <a
                                     class="merge"
-                                    rel="/admin/votingprepare/merge/<?php echo $this->getParams; ?>"
+                                    rel="/admin/votingprepare/merge/<?=$this->getParams;?>"
                                     title="Ausgewählte Beiträge zusammenlegen"
                                     >
                                     &#8883; zusammenlegen
@@ -239,7 +239,7 @@
                             <li>
                                 <a
                                     class="enable"
-                                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/enable"
+                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/enable"
                                     title="Ausgewählte Beiträge zur Anzeige freigeben"
                                     >
                                     &#8883; Beiträge anzeigen
@@ -248,7 +248,7 @@
                             <li>
                                 <a
                                     class="disable"
-                                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/disable"
+                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/disable"
                                     title="Ausgewählte Beiträge zur Anzeige sperren"
                                     >
                                     &#8883; Beiträge nicht anzeigen
@@ -258,7 +258,7 @@
                             <li>
                                 <a
                                     class="enable"
-                                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/enable-voting"
+                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/enable-voting"
                                     title="Ausgewählte Beiträge zum Voting freigeben"
                                     >
                                     &#8883; Beiträge zum voten freigeben
@@ -267,7 +267,7 @@
                             <li>
                                 <a
                                     class="disable"
-                                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/disable-voting"
+                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/disable-voting"
                                     title="Ausgewählte Beiträge zum Voting freigeben"
                                     >
                                     &#8883; Beiträge zum voten sperren
@@ -277,7 +277,7 @@
                             <li>
                                 <a
                                     class="del"
-                                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/delete"
+                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/delete"
                                     title="Ausgewählte Beiträge löschen"
                                     >
                                     ! Beiträge löschen !
@@ -289,7 +289,7 @@
                     <div  id="questionAnchors" class="yform">
                         <h3 title="Klicken zum aus-/einklappen">Fragen:</h3>
                         <ul>
-                            <?php echo $this->partialLoop('_partials/votingprepare/questions.phtml', $this->consultation["questions"]); ?>
+                            <?=$this->partialLoop('_partials/votingprepare/questions.phtml', $this->consultation["questions"]);?>
                         </ul>
                     </div>
 
@@ -483,7 +483,7 @@
             var elementID = $(this).attr('rel');
 
             $.ajax({
-                url: "/admin/votingprepare/votingstatus/<?php echo $this->getParams ?>/tid/"+elementID+"",
+                url: "/admin/votingprepare/votingstatus/<?=$this->getParams ?>/tid/"+elementID+"",
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -505,7 +505,7 @@
             var elementID = $(this).attr('rel');
 
             $.ajax({
-                url: "/admin/votingprepare/blockstatus/<?php echo $this->getParams ?>/tid/"+elementID+"",
+                url: "/admin/votingprepare/blockstatus/<?=$this->getParams ?>/tid/"+elementID+"",
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -532,7 +532,7 @@
             });
 
             $.ajax({
-                url: "/admin/votingprepare/appendinputs/<?php echo $this->getParams ?>/tid/" + elementID + "/inputIDs/" + inputIDs + "",
+                url: "/admin/votingprepare/appendinputs/<?=$this->getParams ?>/tid/" + elementID + "/inputIDs/" + inputIDs + "",
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -556,7 +556,7 @@
                 var elementID = $(this).attr('rel');
 
                 $.ajax({
-                    url: "/admin/votingprepare/delinputresponse/<?php echo $this->getParams ?>/tid/" + elementID  + "",
+                    url: "/admin/votingprepare/delinputresponse/<?=$this->getParams ?>/tid/" + elementID  + "",
                     type: "GET",
                     data: "format=html",
                     cache: false,
@@ -581,7 +581,7 @@
                 var elementID = $(this).attr('rel');
                 var parentID = $(this).attr('data');
                 $.ajax({
-                    url: "/admin/votingprepare/cancelshortcutresponse/<?php echo $this->getParams ?>/tid/" + parentID  + "/child/" + elementID  + "",
+                    url: "/admin/votingprepare/cancelshortcutresponse/<?=$this->getParams ?>/tid/" + parentID  + "/child/" + elementID  + "",
                     type: "GET",
                     data: "format=html",
                     cache: false,

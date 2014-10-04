@@ -45,14 +45,11 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        // originale anzeigen //
         $('li.inputs').show('blind', '', 500);
         $('div.related-content').show('blind', '', 500);
         $('div.expl-content').show('blind', '', 500);
         $('div.append-inputs').hide();
 
-
-        // text kopieren //
         $('input.cbx-th').change(function() {
             if ($(this).is(":checked")) {
                 var label = $("label[for='"+$(this).attr('id')+"']").text();
@@ -76,7 +73,6 @@
             );
         });
 
-        // tags übernehmen
         $('div.tag').click(function() {
             var tagID = $(this).attr("rel");
             $('#tags-'+tagID).attr("checked", true);

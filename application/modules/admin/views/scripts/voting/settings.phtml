@@ -22,7 +22,9 @@
                 <?=$this->form;?>
                 <p>
                     <?=$this->translate('or');?>
-                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>"><?=$this->translate('Cancel');?></a>
+                    <a href="<?=$this->url(array('action' => 'index', $this->consultation['kid']));?>">
+                        <?=$this->translate('Cancel');?>
+                    </a>
                 </p>
 
             </div>

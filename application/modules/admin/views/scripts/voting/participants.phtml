@@ -29,7 +29,7 @@
                 $identity = Zend_Auth::getInstance()->getIdentity();
                 ?>
 
-                <p><b>Anzahl Abstimmende:</b> <?php echo count($this->groups); ?></p>
+                <p><b>Anzahl Abstimmende:</b> <?=count($this->groups);?></p>
                 <?php if (!empty($this->groups)): ?>
                     <table class="table">
                         <tr>
@@ -42,48 +42,51 @@
                         </tr>
                         <?php foreach ($this->groups as $group): ?>
                             <tr>
-                                <td><a href="<?php echo $this->url(array(
-                                        'controller' => 'input',
-                                        'action' => 'list',
-                                        'uid' => $group['uid']
-                                    )); ?>"><?php echo $group['email']; ?></a><br/><?php echo $group['name']; ?></td>
-                                <td><?php echo $group['sub_user']; ?></td>
-                                <td><?php echo $memberships[$group['member']]; ?></td>
-                                <td><?php echo substr_count($group['vt_inp_list'], ','); ?></td>
                                 <td>
-                                    <?php if (($group['member']=="y" && $identity->lvl=="adm") || $group['member']=="u"): ?>
-                                        <a href="<?php echo $this->url(array(
-                                            'action' => 'participantdeny',
-                                            'uid' => $group['uid'],
-                                            'sub_uid' => $group['sub_uid'],
-                                        )); ?>">Ablehnen</a><br/>
-                                    <?php endif; ?>
-                                    <?php if (($group['member']=="n" && $identity->lvl=="adm") || ($group['member']=="u" && $identity->lvl=="adm")): ?>
-                                        <a href="<?php echo $this->url(array(
-                                            'action' => 'participantconfirm',
-                                            'uid' => $group['uid'],
-                                            'sub_uid' => $group['sub_uid'],
-                                        )); ?>">Bestätigen</a><br/>
-                                    <?php endif; ?>
-                                    <?php if ($group['member']=="n" && $identity->lvl=="adm"): ?>
-                                        <a href="<?php echo $this->url(array(
-                                            'action' => 'participantdelete',
-                                            'uid' => $group['uid'],
-                                            'sub_uid' => $group['sub_uid'],
-                                        )); ?>" class="deleteconfirm">Löschen</a><br/>
-                                    <?php endif; ?>
+                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'list', 'uid' => $group['uid']]);?>">
+                                        <?=$group['email'];?>
+                                    </a>
+                                    <br/>
+                                    <?=$group['name'];?>
+                                </td>
+                                <td><?=$group['sub_user'];?></td>
+                                <td><?=$memberships[$group['member']];?></td>
+                                <td><?=substr_count($group['vt_inp_list'], ',');?></td>
+                                <td>
+                                    <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
+                                        <a href="<?=$this->url(['action' => 'participantdeny', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
+                                            Ablehnen
+                                        </a>
+                                        <br/>
+                                    <?php endif;?>
+                                    <?php if (($group['member'] == "n" && $identity->lvl == "adm")
+                                        || ($group['member'] == "u" && $identity->lvl == "adm")
+                                    ): ?>
+                                        <a href="<?=$this->url(['action' => 'participantconfirm', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
+                                            Bestätigen
+                                        </a>
+                                        <br/>
+                                    <?php endif;?>
+                                    <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
+                                        <a
+                                            href="<?=$this->url(['action' => 'participantdelete', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
+                                            class="deleteconfirm"
+                                        >
+                                            Löschen
+                                        </a>
+                                        <br/>
+                                    <?php endif;?>
                                 </td>
                                 <td>
-                                    <a href="<?php echo $this->url(array(
-                                        'action' => 'participantedit',
-                                        'uid' => $group['uid'],
-                                        'sub_uid' => $group['sub_uid'],
-                                    )); ?>" class="">zusammenführen</a><br/>
+                                    <a href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
+                                        zusammenführen
+                                    </a>
+                                    <br/>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                     </table>
-                <?php endif; ?>
+                <?php endif;?>
 
             </div>
         </div>

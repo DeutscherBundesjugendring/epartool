@@ -1,10 +1,10 @@
 <div class="append-header">
-  			<a class="append-<? echo $this-> tid; ?>" title="Klicken um Beiträge anzuzeigen"><? echo $this -> message;?></a>
- </div>
- 
- <div class="append-content append-<? echo $this-> tid; ?>"> 
-  	<ul>
-  	<?  echo $this -> partialLoop('_partials/votingprepare/related.phtml', $this->inputs); ?>
-  	</ul>
- </div>
+    <a class="append-<?=$this->tid;?>" title="Klicken um Beiträge anzuzeigen"><?=$this->message;?></a>
+</div>
+
+<div class="append-content append-<?=$this-> tid;?>">
+    <ul>
+        <?=$this->partialLoop('_partials/votingprepare/related.phtml', $this->inputs);?>
+    </ul>
+</div>
 
