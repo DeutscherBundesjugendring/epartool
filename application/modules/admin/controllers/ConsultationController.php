@@ -268,4 +268,43 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         $this->_redirect('/admin');
     }
+
+    /**
+     * Displays the form to edit phase names
+     */
+    public function phasesAction()
+    {
+        $form = new Admin_Form_ConsultationPhases();
+
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            if ($form->isValid($postData)) {
+                if ($postData['enableCustomNames']) {
+                    array_walk($postData, function(&$el) {$el = $el ? $el : null;});
+                } else {
+                    foreach ($form->getElements() as $element) {
+                        $postData[$element->getName()] = null;
+                    }
+                }
+                $this->_consultation
+                    ->setFromArray($postData)
+                    ->save();
+                $this->_flashMessenger->addMessage('The custom phase names were saved.', 'success');
+                $this->redirect($this->view->url());
+            } else {
+                $form->setActive();
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+            }
+        } elseif ($this->_consultation->phase_info
+            || $this->_consultation->phase_support
+            || $this->_consultation->phase_input
+            || $this->_consultation->phase_voting
+            || $this->_consultation->phase_followup
+        ) {
+            $form->setActive();
+            $form->populate($this->_consultation->toArray());
+        }
+
+        $this->view->form = $form;
+    }
 }

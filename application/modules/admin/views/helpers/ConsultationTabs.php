@@ -13,13 +13,13 @@ class Admin_View_Helper_ConsultationTabs extends Zend_View_Helper_Abstract
         $items = [
             [
                 'name' => 'consultation',
-                'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'index', $kid)),
+                'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'index')),
                 'icon' => '<span class="glyphicon glyphicon-folder-close"></span>',
                 'label' => 'Consultation',
             ],
             [
                 'name' => 'settings',
-                'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit', $kid)),
+                'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit')),
                 'icon' => '<span class="glyphicon glyphicon-cog"></span>',
                 'label' => 'Settings',
             ]

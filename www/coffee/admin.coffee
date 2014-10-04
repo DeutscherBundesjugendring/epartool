@@ -1,11 +1,10 @@
 $(document).ready () ->
     bindEmailTemplateSelect()
     bindEmailConsultationSelect()
-
     bindEmailAddAttachment()
-
     bindTableRowToggle()
     bindToggleAll()
+    bindConsultationCustomPhaseNames()
 
     initDataViewTable()
     initCKEditor()
@@ -108,6 +107,15 @@ bindToggleAll = () ->
         else
             form.find('input:checkbox:checked').prop('checked', false).change()
     )
+
+bindConsultationCustomPhaseNames = () ->
+    $('.js-enable-custom-consultation-phase-names').change (ev) ->
+        checkbox = $(ev.currentTarget)
+        inputs = checkbox.parents('form').find('input[type=text]')
+        if checkbox.prop('checked')
+            inputs.prop('disabled', false);
+        else
+            inputs.prop('disabled', true);
 
 initDataViewTable = () ->
     table = $('[data-view="table"]')
