@@ -996,10 +996,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         # add related inputs and tags to $resultSet #
         $inputs = array();
         foreach ($resultSet as $row) {
-            $id = $row["tid"];
+            $id = $row['tid'];
             $inputs[$id] = $row;
 
-            # inputs #
+            $inputs[$id]['related'] = [];
             if (!empty($row['rel_tid'])) {
                 $thesisRows = $this->fetchAll("tid IN (" . $row["rel_tid"] . ")")->toArray();
                 foreach ($thesisRows as $thesisRow) {
@@ -1007,14 +1007,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     $inputs[$id]["related"][] = $thesisRow;
                 }
             }
-            # tags #
+
+            $inputs[$id]['tags'] = [];
             $rowone = $this->find($row["tid"])->current();
             $tags = array();
             $tagRows = $rowone
                 ->findManyToManyRowset('Model_Tags', 'Model_InputsTags')
                 ->toArray();
             foreach ($tagRows as $tagRow) {
-                $inputs[$id]["tags"][] = $tagRow;
+                $inputs[$id]['tags'][] = $tagRow;
             }
         }
 

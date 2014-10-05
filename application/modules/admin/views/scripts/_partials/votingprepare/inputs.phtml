@@ -1,4 +1,9 @@
-<tr>
+<tr
+    data-admin-confirmation="<?=$this->input['block'];?>"
+    data-origin="<?=$this->input['user_conf'];?>"
+    data-voting="<?=$this->input['vot'];?>"
+    data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
+>
     <td>
         <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
         <?=$this->escape($this->input['tid']);?>
@@ -11,19 +16,15 @@
         <h6>Internal note</h6>
         <?=$this->escape($this->input['notiz'])?>
         <h6>Tags</h6>
-        <?php if (!empty($this->input['tags'])): ?>
-            <?php foreach($this->input['tags'] as $tag): ?>
-                <?=$this->escape($tag['tg_de']);?>
-            <?php endforeach?>
-        <?php endif?>
+        <?php foreach($this->input['tags'] as $tag): ?>
+            <?=$this->escape($tag['tg_de']);?>
+        <?php endforeach?>
         <h6>Related</h6>
-        <?php if (!empty($this->input['related'])): ?>
-            <?php foreach ($this->input['related'] as $relInput): ?>
-                <div>
-                    <?=$this->escape($relInput['thes']);?>
-                </div>
-            <?php endforeach;?>
-        <?php endif;?>
+        <?php foreach ($this->input['related'] as $relInput): ?>
+            <div>
+                <?=$this->escape($relInput['thes']);?>
+            </div>
+        <?php endforeach;?>
     </td>
     <td>
         <h6>Origin:</h6>

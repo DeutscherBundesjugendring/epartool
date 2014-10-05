@@ -78,7 +78,7 @@ class Admin_InputController extends Zend_Controller_Action
 
         $this->view->inputs = (new Model_Inputs())->getComplete($wheres);
         $this->view->question = $question;
-        $this->view->listControlForm = new Admin_Form_ListControl();
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     /**

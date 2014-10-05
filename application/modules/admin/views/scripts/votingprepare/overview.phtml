@@ -59,59 +59,64 @@
 
                 <div>
                     <h3><?=$this->translate('Filter');?></h3>
-                    <form>
-                        <label for="inputs">
-                            <input id="inputs" class="inputs" type="checkbox" checked="checked">
-                            Alle Beiträge
-                        </label>
-                        <label for="unfinished">
-                            <input id="unfinished" class="unfinished" type="checkbox">
-                            Unerledigte Beiträge
-                        </label>
-                        <label for="finished">
-                            <input id="finished" class="finished" type="checkbox">
-                            Erledigte Beiträge
-                        </label>
-                        <label for="org-hidden">
-                            <input id="org-hidden" class="org-hidden" type="checkbox">
-                            Ausgeblendete Originale
-                        </label>
-                        <label for="org-o">
-                            <input id="org-o" class="org-o" type="checkbox">
-                            Originale
-                        </label>
-                        <label for="org-r">
-                            <input id="org-r" class="org-r" type="checkbox">
-                            Redaktionsbeiträge:
-                        </label>
-                        <label for="vot-y">
-                            <input id="vot-y" class="vot-y" type="checkbox">
-                            Zur Abstimmung freigegegeben:
-                        </label>
-                        <label for="vot-n">
-                            <input id="vot-n" class="vot-n" type="checkbox">
-                            Zur Abstimmung nicht freigegeben
-                        </label>
-                        <label for="vot-orb">
-                            <input id="vot-orb" class="vot-orb" type="checkbox">
-                            Abstimmungsfreigaben ohne redaktionelle Beiträge
-                        </label>
-                        <label for="block-y">
-                            <input id="block-y" class="block-y" type="checkbox">
-                            Blockierte
-                        </label>
-                        <label for="block-n">
-                            <input id="block-n" class="block-n" type="checkbox">
-                            Nicht-Blockierte:
-                        </label>
-                        <label for="vot-u">
-                            <input id="vot-u" class="vot-u" type="checkbox">
-                            Unbearbeitete Beiträge: (vot-u)
-                        </label>
+                    <form data-target="#contribution-table tr">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label><?=$this->translate('Admin Confirmation');?></label>
+                                    <select
+                                        class="form-control"
+                                        data-toggle="filter"
+                                        data-target-attrib="admin-confirmation"
+                                    >
+                                        <option value=""><?=$this->translate('All');?></option>
+                                        <option value="u"><?=$this->translate('Waiting for revision');?></option>
+                                        <option value="n"><?=$this->translate('Confirmed');?></option>
+                                        <option value="y"><?=$this->translate('Blocked');?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label></span> <?=$this->translate('Origin');?></label>
+                                    <select
+                                        class="form-control"
+                                        data-toggle="filter"
+                                        data-target-attrib="origin"
+                                    >
+                                        <option value=""><?=$this->translate('All');?></option>
+                                        <option value="userCreated"><?=$this->translate('User created');?></option>
+                                        <option value="adminCreated"><?=$this->translate('Admin created');?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label><?=$this->translate('Voting');?></label>
+                                    <select
+                                        class="form-control"
+                                        data-toggle="filter"
+                                        data-target-attrib="voting"
+                                    >
+                                        <option value=""><?=$this->translate('All');?></option>
+                                        <option value="u"><?=$this->translate('Unknown');?></option>
+                                        <option value="y"><?=$this->translate('Allowed');?></option>
+                                        <option value="n"><?=$this->translate('Blocked');?></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- .row -->
+
                         <div class="row">
                             <div class="form-group">
                                 <label for="tags"><?=$this->translate('Tags');?></label>
-                                <select name="tags[]" class="form-control js-select2" multiple>
+                                <select
+                                    name="tags[]"
+                                    class="form-control js-select2"
+                                    multiple
+                                    data-toggle="filter"
+                                    data-target-attrib="tags"
+                                >
                                     <?php foreach ($this->tags as $tag): ?>
                                         <option
                                             value="<?=$tag['tg_nr'];?>"
@@ -122,7 +127,7 @@
                                     <?php endforeach;?>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label for="t-directory">Directory ???</label>
                                 <input
                                     id="t-directory"
@@ -132,7 +137,7 @@
                                     <?=$this->dirs == $this->directory ? 'checked="checked"' : '';?>
                                 />
                                 <input name="directory" type="hidden" value="0" />
-                            </div>
+                            </div>-->
                             <button
                                 type="button"
                                 class="btn btn-default"
@@ -209,7 +214,7 @@
                         </div>
 
                         <div>
-                            <table>
+                            <table id="contribution-table">
                                 <tbody>
                                     <?php foreach ($this->inputs as $input): ?>
                                         <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input])?>

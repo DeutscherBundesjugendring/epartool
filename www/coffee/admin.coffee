@@ -220,19 +220,29 @@ initConfirmMsg = () ->
 
 initFilter = () ->
     $('[data-toggle=filter]').change (ev) ->
-        formEl = $(ev.currentTarget).parents('form')
+        formEl = $(ev.currentTarget).closest('form')
         $(formEl.data('target')).show()
 
         formEl.find(':input').each (index, filterEl) ->
             filterEl = $(filterEl)
-            if filterEl.val() != ''
+            if filterEl.val() != '' && filterEl.val() != null
                 $(formEl.data('target')).each (dataIndex, dataEl) ->
-                    if $(dataEl).data(filterEl.data('target-attrib')) != filterEl.val()
+                    dataElAttribVal = $(dataEl).data(filterEl.data('target-attrib'))
+                    filterVal = filterEl.val()
+                    if $.type(dataElAttribVal) == 'string' && dataElAttribVal != filterVal
                         $(dataEl).hide()
+                    else if dataElAttribVal instanceof Array
+                        if $.type(filterVal) == 'string' && dataElAttribVal.indexof(filterVal) == -1
+                            $(dataEl).hide()
+                        else if $.type(filterVal) == 'array'
+                            $.each(filterVal, (index, el) ->
+                                if dataElAttribVal.indexOf(el) == -1
+                                    $(dataEl).hide()
+                            )
 
 
     $('[data-toggle=reset-filter]').click (ev) ->
-        formEl = $(ev.currentTarget).parents('form')
+        formEl = $(ev.currentTarget).closest('form')
         formEl.find(':input').val('')
         $(formEl.data('target')).show()
 
@@ -241,9 +251,9 @@ initSortableFollowupSnippets = () ->
     $('.js-sortable').sortable({
         'update': (ev, ui) ->
             i = 1
-            ui.item.parents('form').find('tr input[type=hidden]').each () ->
+            ui.item.closest('form').find('tr input[type=hidden]').each () ->
                 $(this).val(i)
                 i++
-            $('.js-sortable').parents('form').find('button[type=submit]').prop('disabled', false)
+            $('.js-sortable').closest('form').find('button[type=submit]').prop('disabled', false)
             return
     });
