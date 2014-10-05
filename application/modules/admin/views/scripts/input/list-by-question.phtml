@@ -28,7 +28,9 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label><span class="glyphicon glyphicon-filter"></span> <?=$this->translate('Admin Confirmation');?></label>
+                                <label>
+                                    <span class="glyphicon glyphicon-filter"></span> <?=$this->translate('Admin Confirmation');?>
+                                </label>
                                 <select
                                     class="form-control"
                                     data-toggle="filter"
@@ -43,7 +45,9 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label><span class="glyphicon glyphicon-filter"></span> <?=$this->translate('User Confirmation');?></label>
+                                <label>
+                                    <span class="glyphicon glyphicon-filter"></span> <?=$this->translate('User Confirmation');?>
+                                </label>
                                 <select
                                     class="form-control"
                                     data-toggle="filter"
@@ -58,7 +62,9 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label><span class="glyphicon glyphicon-filter"></span> <?=$this->translate('Voting');?></label>
+                                <label>
+                                    <span class="glyphicon glyphicon-filter"></span> <?=$this->translate('Voting');?>
+                                </label>
                                 <select
                                     class="form-control"
                                     data-toggle="filter"
@@ -92,8 +98,8 @@
                     </p>
                 <?php endif;?>
 
-                <form action="<?=$this->baseUrl();?>/admin/input/editbulk" method="<?=$this->listControlForm->getMethod();?>">
-                    <?=$this->listControlForm->getElement('list_control_csrf_token');?>
+                <form action="<?=$this->baseUrl();?>/admin/input/editbulk" method="<?=$this->form->getMethod();?>">
+                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <input name="return_url" type="hidden" value="<?=$this->url();?>" />
 
                     <!-- Actions -->
