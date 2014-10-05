@@ -32,7 +32,7 @@
                 <h2><?=$this->translate('Folders');?></h2>
 
                 <form method="<?=$this->form->getMethod()?>">
-                    <?=$this->form->getElement('list_control_csrf_token');?>
+                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <table class="table" data-view="table">
                         <thead>
                             <tr>

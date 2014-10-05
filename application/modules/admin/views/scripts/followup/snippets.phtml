@@ -30,8 +30,8 @@
 
                 <h2><?=$this->translate('Snippets')?></h2>
 
-                <form method="<?=$this->listControlForm->getMethod();?>">
-                    <?=$this->listControlForm->getElement('list_control_csrf_token');?>
+                <form method="<?=$this->form->getMethod();?>">
+                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <table class="table">
                         <tbody class="js-sortable">
                             <?php foreach ($this->snippets as $i => $snippet): ?>

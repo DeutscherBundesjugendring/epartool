@@ -207,7 +207,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         $this->view->ffid = $ffid;
         $this->view->snippetTypes = Model_Followups::getTypes();
         $this->view->hlvl = Model_Followups::getHierarchyLevels();
-        $this->view->listControlForm = $form;
+        $this->view->form = $form;
     }
 
     /*

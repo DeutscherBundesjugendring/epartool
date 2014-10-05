@@ -112,8 +112,8 @@
                     </tr>
                 </table>
 
-                <form action="<?=$this->baseUrl(); ?>/admin/input/editbulk" method="<?=$this->listControlForm->getMethod();?>">
-                    <?=$this->listControlForm->getElement('list_control_csrf_token');?>
+                <form action="<?=$this->baseUrl(); ?>/admin/input/editbulk" method="<?=$this->form->getMethod();?>">
+                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
 
                     <!-- Actions -->

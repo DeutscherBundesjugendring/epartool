@@ -97,7 +97,7 @@ class Admin_InputController extends Zend_Controller_Action
             ]
         );
         $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
-        $this->view->listControlForm = new Admin_Form_ListControl();
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     /**
