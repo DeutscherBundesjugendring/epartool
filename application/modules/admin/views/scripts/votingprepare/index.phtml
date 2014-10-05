@@ -22,7 +22,13 @@
 
                 <h3>Beiträge nach Fragen:</h3>
                 <ul>
-                    <?=$this->partialLoop('_partials/votingprepare/questions.phtml', $this->consultation['questions']);?>
+                    <?php foreach($this->consultation['questions'] as $question): ?>
+                        <li>
+                            <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$question['kid'];?>/qid/<?=$question['qi'];?>">
+                                <?=$question['nr'] . ' ' . $question['q'];?>
+                            </a>
+                        </li>
+                    <?php endforeach;?>
                 </ul>
 
             </div>

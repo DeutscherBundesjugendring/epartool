@@ -4,7 +4,12 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
     protected $_consultation = null;
-    protected $_question = null;
+
+    /**
+     * The current question id
+     * @var integer
+     */
+    protected $_qid;
 
     public function init()
     {
@@ -12,21 +17,14 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_params = $this->_request->getParams();
         $this->_consultation = $this->getKid($this->_params);
-        $this->_question = $this->getQid($this->_params);
+        $this->_qid = $this->getQid($this->_params);
         if (isset($this->_params["tid"])) {
             $this->_tid = $this->getTId($this->_params);
         }
     }
 
     /**
-     * Place-maker for error redirects messages from flashmessenger
-     */
-    public function errorAction()
-    {
-    }
-
-    /**
-     * Returns parameters for list of questions in backend
+     * Shows the list of questions
      */
     public function indexAction()
     {
@@ -38,137 +36,20 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      */
     public function overviewAction()
     {
-        $dirs = array();
-        $directories = new Model_Directories();
-        $dirs = $directories
-            ->getTree(
-                "node.kid = " . $this->_consultation['kid'] . " AND parent.kid = " . $this->_consultation['kid'] . ""
-            )
-            ->toArray();
+        $form = new Admin_Form_ListControl();
 
-        $questionModel = new Model_Questions();
-        $inputsModel = new Model_Inputs();
-        $tagModel = new Model_Tags();
+        $fulltext = $this->getRequest()->getParam('fulltext', null);
+        $wheres = [
+            'qid' => $this->_qid,
+            'fulltext' => $fulltext,
+        ];
 
-        foreach ($dirs as $key => $value) {
-            $dirs["$key"]['count'] = $inputsModel->getNumByDirectory(
-                $this->_consultation['kid'],
-                $this->_question,
-                $dirs["$key"]['id']
-            );
-            $dirs["$key"]['qid'] = $this->_question;
-        }
-        $options = array('kid' => $this->_consultation["kid"], 'qid' => $this->_question);
-        $options['dir'] = $this->getDirId($this->_params);
-
-        $tags = $tagModel->getAll()->toArray();
-
-        if (isset($this->_params['tags'])) {
-            $this->checkInputIDs($this->_params['tags']);
-            $options['tags'] = $this->_params['tags'];
-            foreach ($tags as $key => $value) {
-                if (in_array($value['tg_nr'], $options['tags'])) {
-                    $tags["$key"]['selected'] = 1;
-                } else {
-                    $tags["$key"]['selected'] = '0';
-                }
-            }
-        }
-
-        if (isset($this->_params['search-phrase'])) {
-            if (isset($this->_params['combine']) && $this->_params['combine'] == 'AND') {
-                $options['combine'] = 'AND';
-            } else {
-                $options['combine'] = 'OR';
-            }
-            if (isset($this->_params['directory']) && $this->_params['directory'] == '0') {
-                $options['dir'] = '0';
-            } else {
-                $options['dir'] = $options['dir'];
-            }
-            $options['search-phrase'] = trim($this->_params['search-phrase']);
-        }
-
-        $this->view->inputs = array();
-        $this->view->question = array();
-        $this->view->consultation = array();
-        $this->view->directories = array();
-        $this->view->tags = array();
-        $this->view->directoryact = "keine Auswahl";
-
-        foreach ($dirs as $key=>$value) {
-            if ($value["id"]==$options['dir']) {
-                $this->view->directoryact = $value["dir_name"];
-                break;
-            }
-        }
-
-        $this->view->inputs = $inputsModel->fetchAllInputs($options);
-        $this->view->question = $questionModel->find($this->_question)->current();
+        $this->view->inputs = (new Model_Inputs())->fetchAllInputs($wheres);
+        $this->view->fulltext = $fulltext;
         $this->view->consultation = $this->_consultation;
-        $this->view->directories = $dirs;
-        $this->view->tags = $tags;
-        $this->view->directory = $options['dir'];
-        $this->view->getParams = 'kid/' . $this->view->consultation['kid'] . '/qid/' . $this->view->question['qi'];
-        if (isset($this->view->directory))
-            $this->view->getParams = $this->view->getParams . '/dir/' . $this->view->directory;
-        if (isset($options['search-phrase'])) {
-            $this->view->searchphrase = $options['search-phrase'];
-        } else {
-            $this->view->searchphrase = "";
-        }
-        (isset($options['combine'])) ? $this->view->combine = $options['combine'] : $this->view->combine = 'OR';
-        (isset($options['dir'])) ? $this->view->dirs = $options['dir'] : $this->view->dirs = '';
-    }
-
-    /**
-     * Updates the status of an input for voting and responds ajaxrequest from overviewAction
-     */
-    public function votingstatusAction()
-    {
-        $this->_helper->layout()->disableLayout();
-        $inputsModel = new Model_Inputs();
-        $this->input = $inputsModel->find($this->_tid)->current();
-        switch ($this->input->vot) {
-            case 'y':
-                $status = "u";
-                $inputsModel->setVotingStatusByID($status, $this->_tid);
-                break;
-            case 'n':
-                $status = "y";
-                $inputsModel->setVotingStatusByID($status, $this->_tid);
-                break;
-            case 'u':
-                $status = "n";
-                $inputsModel->setVotingStatusByID($status, $this->_tid);
-                break;
-        }
-        $this->view->vot = $status;
-    }
-
-    /**
-     * Updates the status of an input for public viewing and responds  ajaxrequest in overview
-     */
-    public function blockstatusAction()
-    {
-        $this->_helper->layout()->disableLayout();
-        $inputsModel = new Model_Inputs();
-        $this->input = $inputsModel->find($this->_tid)->current();
-        switch ($this->input->block) {
-            case 'y':
-                $status = "u";
-                $inputsModel->setBlockStatusByID($status, $this->_tid);
-                break;
-            case 'n':
-                $status = "y";
-                $inputsModel->setBlockStatusByID($status, $this->_tid);
-                break;
-            case 'u':
-                $status = "n";
-                $inputsModel->setBlockStatusByID($status, $this->_tid);
-                break;
-        }
-        $this->view->block = $status;
+        $this->view->directories = (new Model_Directories())->getByQuestion($this->_qid);
+        $this->view->tags = (new Model_Tags())->getAll()->toArray();
+        $this->view->form = $form;
     }
 
     /**
@@ -196,66 +77,48 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             '/admin/votingprepare/overview/kid/'
             . $this->_consultation["kid"]
             . '/qid/'
-            . $this->_question
+            . $this->_qid
             . '/dir/'
             . $this->getDirId($this->_params)
         );
     }
 
     /**
-     * Updates votingstatus, blockstatus or delete inputs and redirect to overviewAction
+     * Updates voting status, block status and deletes inputs.
+     * Afterwords it redirects to self::overviewAction()
      */
     public function updateAction()
     {
-        $this->_helper->layout()->disableLayout();
-        if (!empty($this->_params['thesis'])) {
-            $this->checkInputIDs($this->_params['thesis']);
-            $option = implode(",", $this->_params['thesis']);
-
-            $inputsModel = new Model_Inputs();
-            switch ($this->_params['do']) {
-                case 'enable':
-                    $inputsModel->setBlockStatus($option, 'y');
-                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zur Anzeige freigegeben', 'success');
-                    break;
-                case 'disable':
-                    $inputsModel->setBlockStatus($option, 'n');
-                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zur Anzeige gesperrt', 'success');
-                    break;
-                case 'enable-voting':
-                    $inputsModel->setVotingStatus($option, 'y');
-                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zum Voting freigegeben', 'success');
-                    break;
-                case 'disable-voting':
-                    $inputsModel->setVotingStatus($option, 'n');
-                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden zum Voting  gesperrt', 'success');
-                    break;
-                case 'delete':
-                    $inputsModel->deleteInputs($option);
-                    $inputTagsModel = new Model_InputsTags();
-                    foreach ($this->_params['thesis'] as $key => $value) {
-                        $inputTagsModel ->deleteByInputsId($value);
-                    }
-                    $this->_flashMessenger->addMessage('Die markierten Beiträge wurden gelöscht', 'success');
-                    break;
-                default:
-                    $this->_flashMessenger->addMessage('Keine Aktion!', 'error');
-                    $this->_redirect('/admin/votingprepare/error');
+        if ($this->getRequest()->isPost()
+            && (new Admin_Form_ListControl())->isValid($this->getRequest()->getPost())
+        ) {
+            $inputModel = new Model_Inputs();
+            $inputIds = $this->getRequest()->getPost('inputIds');
+            if ($inputIds) {
+                if ($this->getRequest()->getPost('releaseBulk', null)) {
+                    $updatedCount = $inputModel->editBulk($inputIds, ['block' => 'n']);
+                    $msg = sprintf($this->view->translate('%d inputs were released.'), $updatedCount);
+                } elseif ($this->getRequest()->getPost('blockBulk', null)) {
+                    $updatedCount = $inputModel->editBulk($inputIds, ['block' => 'y']);
+                    $msg = sprintf($this->view->translate('%d inputs were blocked.'), $updatedCount);
+                } elseif ($this->getRequest()->getPost('enableVotingBulk', null)) {
+                    $updatedCount = $inputModel->editBulk($inputIds, ['vot' => 'y']);
+                    $msg = sprintf($this->view->translate('%d inputs were sent to voting.'), $updatedCount);
+                } elseif ($this->getRequest()->getPost('blockVotingBulk', null)) {
+                    $updatedCount = $inputModel->editBulk($inputIds, ['vot' => 'n']);
+                    $msg = sprintf($this->view->translate('%d inputs were removed from voting.'), $updatedCount);
+                } elseif ($this->getRequest()->getPost('deleteBulk', null)) {
+                    $deletedCount = $inputModel->deleteBulk($inputIds);
+                    $msg = sprintf($this->view->translate('%d inputs were deleted.'), $deletedCount);
+                }
+                $this->_flashMessenger->addMessage($msg, 'success');
+            } elseif ($this->getRequest()->getPost('delete', null)) {
+                $inputModel->deleteById($this->getRequest()->getPost('delete', null));
+                $this->_flashMessenger->addMessage('The input was deleted.', 'success');
             }
-        } else {
-            $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
         }
-        if (isset($params["dir"])) {
-            $this->redirect(
-                '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"]
-                . '/qid/' . $this->_question
-                . '/dir/' . $this->getDirId($this->_params)
-            );
-        } else {
-            $this->redirect(
-                '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
-            );
-        }
+
+        $this->redirect($this->view->url(['action' => 'overview']));
     }
 
     /**
@@ -297,7 +160,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         if (empty($this->_tid)) {
             $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
             $this->_redirect(
-                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_qid . ''
             );
         }
 
@@ -331,7 +194,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
 
-        $this->view->assign(array('form' => $form, 'qid' => $this->_question, 'tid' => $this->_tid));
+        $this->view->assign(array('form' => $form, 'qid' => $this->_qid, 'tid' => $this->_tid));
     }
 
     /**
@@ -343,7 +206,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         if (empty($this->_tid)) {
             $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
             $this->_redirect(
-                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_qid . ''
             );
         }
 
@@ -366,16 +229,16 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
         $options = array(
             'kid' => $this->_consultation['kid'],
-            'qid' => $this->_question,
+            'qid' => $this->_qid,
             'dir' => $directory,
             'inputIDs' => array($this->_tid)
         );
         $this->view->inputs = $inputModel->fetchAllInputs($options);
         $this->view->consultation = $this->_consultation;
-        $this->view->assign(array('form' => $form, 'qid' => $this->_question));
+        $this->view->assign(array('form' => $form, 'qid' => $this->_qid));
         $this->view->getParams =
             'kid/' . $this->view->consultation['kid']
-            . '/qid/' . $this->_question . '/tid/' . $this->_tid;
+            . '/qid/' . $this->_qid . '/tid/' . $this->_tid;
         if (isset($this->view->directory)) {
             $this->view->getParams = $this->view->getParams . '/dir/' . $this->view->directory;
         }
@@ -512,12 +375,12 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     if (isset($params["dir"])) {
                         $this->redirect(
                             '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"]
-                            . '/qid/' . $this->_question
+                            . '/qid/' . $this->_qid
                             . '/dir/' . $this->getDirId($this->_params)
                         );
                     } else {
                         $this->redirect(
-                            '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_question
+                            '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_qid
                         );
                     }
                 } else {
@@ -530,14 +393,14 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         }
         $options = array(
             'kid' => $this->_consultation['kid'],
-            'qid' => $this->_question,
+            'qid' => $this->_qid,
             'dir' => $directory,
             'inputIDs' => $inputIDs
         );
 
         $this->view->inputs = $inputModel->fetchAllInputs($options);
         $this->view->consultation = $this->_consultation;
-        $this->view->assign(array('form' => $form, 'qid' => $this->_question));
+        $this->view->assign(array('form' => $form, 'qid' => $this->_qid));
     }
 
     /**
@@ -549,7 +412,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         if (empty($this->_tid)) {
             $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
             $this->_redirect(
-                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_question . ''
+                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_qid . ''
             );
         }
 
@@ -584,7 +447,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             '/admin/votingprepare/edit/kid/'
             . $this->_consultation["kid"]
             . '/qid/'
-            . $this->_question
+            . $this->_qid
             . '/tid/'
             . $new
             . '/dir/'

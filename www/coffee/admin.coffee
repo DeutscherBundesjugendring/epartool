@@ -8,7 +8,7 @@ $(document).ready () ->
 
     initDataViewTable()
     initCKEditor()
-    initDatepicker()
+    # initDatepicker()
     initSortableFollowupSnippets()
     initSelect2()
     initConfirmMsg()

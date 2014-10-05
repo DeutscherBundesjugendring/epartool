@@ -18,587 +18,209 @@
             </div>
             <div class="content">
 
-                <h2>Abstimmung vorbereiten</h2>
+                <h2><?=$this->translate('Voting');?></h2>
 
-                <div class="input-list c66l">
-                    <h3>
-                        Frage-Nr: <?=$this->question["nr"];?> <?=$this->question["q"];?>
-                        <br />
-                        Beiträge gesamt: <?=count($this->inputs);?>
-                    </h3>
-                    <form id="thesis-form" method="post">
-                        <ul>
-                            <?=$this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs)?>
-                        </ul>
+                <div id="directoryAnchors" class="yform">
+                    <h3><?=$this->translate('Folders');?></h3>
+                    <ul>
+                        <?php foreach($this->directories as $directory): ?>
+                            <li>
+                                <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
+                                    &nbsp;&nbsp;&nbsp;
+                                <?php endfor;?>
+                                <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                            </li>
+                        <?php endforeach?>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3><?=$this->translate('Search');?></h3>
+                    <form method="get">
+                        <div class="row">
+                            <div class="form-group">
+                                <input
+                                    name="fulltext"
+                                    type="text"
+                                    value="<?=$this->fulltext;?>"
+                                />
+                            </div>
+                            <div class="form-actions">
+                                <button
+                                    type="submit"
+                                    class="btn btn-default"
+                                >
+                                    <?=$this->translate('Search');?>
+                                </button>
+                            </div>
+                        </div><!-- .row -->
                     </form>
                 </div>
 
-                <div class="c33l">
-                    <div id="directoryAnchors" class="yform">
-                        <h3 title="Klicken zum aus-/einklappen">Ordner: <?=$this->directoryact;?></h3>
+                <div>
+                    <h3><?=$this->translate('Filter');?></h3>
+                    <form>
+                        <label for="inputs">
+                            <input id="inputs" class="inputs" type="checkbox" checked="checked">
+                            Alle Beiträge
+                        </label>
+                        <label for="unfinished">
+                            <input id="unfinished" class="unfinished" type="checkbox">
+                            Unerledigte Beiträge
+                        </label>
+                        <label for="finished">
+                            <input id="finished" class="finished" type="checkbox">
+                            Erledigte Beiträge
+                        </label>
+                        <label for="org-hidden">
+                            <input id="org-hidden" class="org-hidden" type="checkbox">
+                            Ausgeblendete Originale
+                        </label>
+                        <label for="org-o">
+                            <input id="org-o" class="org-o" type="checkbox">
+                            Originale
+                        </label>
+                        <label for="org-r">
+                            <input id="org-r" class="org-r" type="checkbox">
+                            Redaktionsbeiträge:
+                        </label>
+                        <label for="vot-y">
+                            <input id="vot-y" class="vot-y" type="checkbox">
+                            Zur Abstimmung freigegegeben:
+                        </label>
+                        <label for="vot-n">
+                            <input id="vot-n" class="vot-n" type="checkbox">
+                            Zur Abstimmung nicht freigegeben
+                        </label>
+                        <label for="vot-orb">
+                            <input id="vot-orb" class="vot-orb" type="checkbox">
+                            Abstimmungsfreigaben ohne redaktionelle Beiträge
+                        </label>
+                        <label for="block-y">
+                            <input id="block-y" class="block-y" type="checkbox">
+                            Blockierte
+                        </label>
+                        <label for="block-n">
+                            <input id="block-n" class="block-n" type="checkbox">
+                            Nicht-Blockierte:
+                        </label>
+                        <label for="vot-u">
+                            <input id="vot-u" class="vot-u" type="checkbox">
+                            Unbearbeitete Beiträge: (vot-u)
+                        </label>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="tags"><?=$this->translate('Tags');?></label>
+                                <select name="tags[]" class="form-control js-select2" multiple>
+                                    <?php foreach ($this->tags as $tag): ?>
+                                        <option
+                                            value="<?=$tag['tg_nr'];?>"
+                                            <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
+                                        >
+                                            <?=$tag['tg_de'];?>
+                                        </option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="t-directory">Directory ???</label>
+                                <input
+                                    id="t-directory"
+                                    name="directory"
+                                    type="radio"
+                                    value="<?=$this->directory;?>"
+                                    <?=$this->dirs == $this->directory ? 'checked="checked"' : '';?>
+                                />
+                                <input name="directory" type="hidden" value="0" />
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-default"
+                                data-toggle="reset-filter"
+                            >
+                                <?=$this->translate('Reset Filter');?>
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-                        <ul class="levels">
-                            <?=$this->partialLoop('_partials/votingprepare/directories.phtml', $this->directories);?>
-                            <li><a href="/admin/directories/index/<?=$this->getParams;?>">Ordnerverwaltung</a></li>
-                        </ul>
-                    </div>
-                    <div id="suche" class="yform">
-                        <h3>Suche:</h3>
-                        <form id="search" action="/admin/votingprepare/overview/<?=$this->getParams;?>" method="post">
-                            <ul>
-                                <li>
-                                    <input
-                                        id ="search-phrase"
-                                        name="search-phrase"
-                                        type="text"
-                                        placeholder="Suchwörter"
-                                        value="<?=$this->searchphrase;?>"
-                                        />
-                                </li>
-                                <li>
-                                    <label for="c-and">UND</label>
-                                    <input
-                                        id="c-and"
-                                        name="combine"
-                                        type="radio"
-                                        value="AND"
-                                        <?=$this->combine == "AND" ? 'checked="checked"' : '';?>
-                                    />
-                                </li>
-                                <li>
-                                    <label for="c-or">ODER</label>
-                                    <input
-                                        id="c-or"
-                                        name="combine"
-                                        type="radio"
-                                        value="OR"
-                                        <?=$this->combine == "OR" ? 'checked="checked"' : '';?>
-                                    />
-                                </li>
-                                <?php if($this->directory): ?>
-                                    <li>
-                                        <label for="t-directory">In diesem Ordner</label>
-                                        <input
-                                            id="t-directory"
-                                            name="directory"
-                                            type="radio"
-                                            value="<?=$this->directory;?>"
-                                            <?=$this->dirs == $this->directory ? 'checked="checked"' : '';?>
-                                        />
-                                    </li>
-                                <?php endif;?>
-                                <li>
-                                    <label for="a-directory">In allen Ordnern</label>
-                                    <input
-                                        id="a-directory"
-                                        name="directory"
-                                        type="radio"
-                                        value="0"
-                                        <?=$this->dirs == "0" ? 'checked="checked"' : '';?>
-                                    />
-                                </li>
-                                <li class="tags">
-                                    <label for="tags">Tags [Mehrfachauswahl: PC -> STRG, MAC -> Apfel]</label>
-                                    <select name="tags[]"  id="tags "size="20" multiple>
+                <div>
+                    <h3><?=$this->translate('Inputs');?></h3>
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'update']);?>">
+                        <div>
+                            <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                            <?=$this->translate('Marked entries');?>
+                            <button class="btn btn-default" rel="/admin/votingprepare/split/<?=$this->getParams;?>">
+                                <?=$this->translate('Split');?>
+                            </button>
+                            <button class="btn btn-default" rel="/admin/votingprepare/merge/<?=$this->getParams;?>">
+                                <?=$this->translate('Merge');?>
+                            </button>
+                            <button
+                                class="btn btn-default"
+                                name="releaseBulk"
+                                type="submit"
+                                value="1"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Release inputs?');?>"
+                            >
+                                <?=$this->translate('Release');?>
+                            </button>
+                            <button
+                                class="btn btn-default"
+                                name="blockBulk"
+                                type="submit"
+                                value="1"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Block inputs?');?>"
+                            >
+                                <?=$this->translate('Block');?>
+                            </button>
+                            <button
+                                class="btn btn-default"
+                                name="enableVotingBulk"
+                                type="submit"
+                                value="1"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Set inputs for voting?');?>"
+                            >
+                                <?=$this->translate('Allow for voting');?>
+                            </button>
+                            <button
+                                class="btn btn-default"
+                                name="blockVotingBulk"
+                                type="submit"
+                                value="1"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Ban inoputs from voting?');?>"
+                            >
+                                <?=$this->translate('Ban from voting');?>
+                            </button>
+                            <button
+                                class="btn btn-default"
+                                name="deleteBulk"
+                                type="submit"
+                                value="1"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Delete inputs?');?>"
+                            >
+                                <?=$this->translate('Delete');?>
+                            </button>
+                        </div>
 
-                                        <?php if (!empty($this->tags)): ?>
-                                            <?=$this->partialLoop('_partials/votingprepare/tags-selectbox.phtml', $this->tags);?>
-                                        <?php endif;?>
-                                    </select>
-                                </li>
-                                <li>
-                                    <input type="submit" value="go &raquo;">
-                                </li>
-                            </ul>
-
-                        </form>
-                    </div>
-
-                    <div id="inputAnchors" class="yform">
-                        <h3 title="Klicken zum aus-/einklappen">Anzeigen:</h3>
-                        <form>
-                            <ul>
-                                <li><label for="inputs">Alle Beiträge</label>
-                                    <input id="inputs" class="inputs" type="checkbox" checked="checked">
-                                </li>
-                            </ul>
-                            <ul>
-                                <li><label for="unfinished">Unerledigte Beiträge</label>
-                                    <input id="unfinished" class="unfinished" type="checkbox">
-                                </li>
-                                <li><label for="finished">Erledigte Beiträge</label>
-                                    <input id="finished" class="finished" type="checkbox">
-                                </li>
-                                <div class="clearfix" style="clear: both;">
-                                    &nbsp;
-                                </div>
-                            </ul>
-                            <ul>
-                                <li><label for="org-hidden">Ausgeblendete Originale</label>
-                                    <input id="org-hidden" class="org-hidden" type="checkbox">
-                                </li>
-                                <li><label for="org-o">Originale:</label>
-                                    <input id="org-o" class="org-o" type="checkbox">
-                                </li>
-                                <li><label for="org-r">Redaktionsbeiträge:</label>
-                                    <input id="org-r" class="org-r" type="checkbox">
-                                </li>
-                                <div class="clearfix" style="clear: both;">
-                                    &nbsp;
-                                </div>
-                            </ul>
-                            <ul class="voting">
-                                <li><label for="vot-y">Zur Abstimmung freigegegeben:</label>
-                                    <input id="vot-y" class="vot-y" type="checkbox">
-                                </li>
-                                <li><label for="vot-n">Zur Abstimmung nicht freigegeben:</label>
-                                    <input id="vot-n" class="vot-n" type="checkbox">
-                                </li>
-                                <li><label for="vot-orb">Abstimmungsfreigaben ohne redaktionelle Beiträge:</label>
-                                    <input id="vot-orb" class="vot-orb" type="checkbox">
-                                </li>
-                                <div class="clearfix" style="clear: both;">
-                                    &nbsp;
-                                </div>
-                            </ul>
-                            <ul>
-                                <li><label for="block-y">Blockierte:</label>
-                                    <input id="block-y" class="block-y" type="checkbox">
-                                </li>
-                                <li><label for="block-n">Nicht-Blockierte:</label>
-                                    <input id="block-n" class="block-n" type="checkbox">
-                                </li>
-                                <li><label for="vot-u">Unbearbeitete Beiträge: (vot-u)</label>
-                                    <input id="vot-u" class="vot-u" type="checkbox">
-                                </li>
-                                <div class="clearfix" style="clear: both;">
-                                    &nbsp;
-                                </div>
-                            </ul>
-                        </form>
-                    </div>
-
-                    <div id="viewAnchors" class="yform">
-                        <h3 title="Klicken zum aus-/einklappen">Einblenden:</h3>
-                        <form>
-                            <ul>
-                                <li><label for="expl-content">Erläuterungen</label>
-                                    <input id="expl-content" class="expl-content" type="checkbox">
-                                </li>
-                                <li><label for="related-content">Original-Beiträge</label>
-                                    <input id="related-content" class="related-content" type="checkbox">
-                                </li>
-                                <li><label for="notice-content">Interne Kommentare</label>
-                                    <input id="notice-content" class="notice-content" type="checkbox">
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
-
-                    <div id="actionAnchors" class="yform">
-                        <h3 title="Klicken zum aus-/einklappen">Aktionen markierte Beiträge:</h3>
-                        <ul>
-                            <li><b>Bearbeiten</b></li>
-                            <li>
-                                <a
-                                    class="split"
-                                    rel="/admin/votingprepare/split/<?=$this->getParams;?>"
-                                    title="Ausgewählten Beitrag aufteilen"
-                                    >
-                                    &#8883; auftteilen (nur eine Auswahl)
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    class="edit"
-                                    rel="/admin/votingprepare/edit/<?=$this->getParams;?>"
-                                    title="Ausgewählten Beitrag bearbeiten"
-                                    >
-                                    &#8883; bearbeiten (nur eine Auswahl)
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    class="edit"
-                                    rel="/admin/votingprepare/copy/<?=$this->getParams;?>"
-                                    title="Kopie zur Bearbeitung erstellen"
-                                    >
-                                    &#8883; Kopie zur Bearbeitung erstellen (nur eine Auswahl)
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    class="merge"
-                                    rel="/admin/votingprepare/merge/<?=$this->getParams;?>"
-                                    title="Ausgewählte Beiträge zusammenlegen"
-                                    >
-                                    &#8883; zusammenlegen
-                                </a>
-                            </li>
-                            <li><b>Freigabe</b></li>
-                            <li>
-                                <a
-                                    class="enable"
-                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/enable"
-                                    title="Ausgewählte Beiträge zur Anzeige freigeben"
-                                    >
-                                    &#8883; Beiträge anzeigen
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    class="disable"
-                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/disable"
-                                    title="Ausgewählte Beiträge zur Anzeige sperren"
-                                    >
-                                    &#8883; Beiträge nicht anzeigen
-                                </a>
-                            </li>
-                            <li><b>Voting</b></li>
-                            <li>
-                                <a
-                                    class="enable"
-                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/enable-voting"
-                                    title="Ausgewählte Beiträge zum Voting freigeben"
-                                    >
-                                    &#8883; Beiträge zum voten freigeben
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    class="disable"
-                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/disable-voting"
-                                    title="Ausgewählte Beiträge zum Voting freigeben"
-                                    >
-                                    &#8883; Beiträge zum voten sperren
-                                </a>
-                            </li>
-                            <li><b>Löschen</b></li>
-                            <li>
-                                <a
-                                    class="del"
-                                    rel="/admin/votingprepare/update/<?=$this->getParams;?>/do/delete"
-                                    title="Ausgewählte Beiträge löschen"
-                                    >
-                                    ! Beiträge löschen !
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div  id="questionAnchors" class="yform">
-                        <h3 title="Klicken zum aus-/einklappen">Fragen:</h3>
-                        <ul>
-                            <?=$this->partialLoop('_partials/votingprepare/questions.phtml', $this->consultation["questions"]);?>
-                        </ul>
-                    </div>
-
+                        <div>
+                            <table>
+                                <tbody>
+                                    <?php foreach ($this->inputs as $input): ?>
+                                        <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input])?>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
                 </div>
 
             </div>
         </div>
     </div>
 </section>
-
-<!-- TODO fuck off -->
-<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js')?>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        $( document ).tooltip({
-            position: {
-                my: "center bottom-10",
-                at: "center top",
-                using: function( position, feedback ) {
-                    $( this ).css( position );
-                    $( "<div>" )
-                        .addClass( "arrow" )
-                        .addClass( feedback.vertical )
-                        .addClass( feedback.horizontal )
-                        .appendTo( this );
-                }
-            }
-        });
-
-        $('li.inputs').show('blind', '', 500);
-
-        $('#inputAnchors input').change(function() {
-            var checkbox_status = $(this).attr("class");
-            var checkbox_obj = $(this).attr("id");
-
-            // anzeigen nicht/anzeigen ganze liste
-            if ($(this).is(":checked")) {
-                $('li.' + checkbox_status).show('blind', '', 500);
-                $(checkbox_obj).attr("checked", true); //einblenden
-            } else {
-                $(checkbox_obj).removeAttr("checked");
-            }
-            // alle deaktiviere wenn rechts was ausgeählt wird
-            $('div.input-list').find("input:checkbox").removeAttr("checked");
-
-            $('li.' + checkbox_status).hide(); //ausblenden
-
-            // Auswahl beibehalten
-            if ($('#block-n').is(":checked")) {
-                $('li.block-n').show('blind', '', 500);
-            }
-            if ($('#block-y').is(":checked")) {
-                $('li.block-y').show('blind', '', 500);
-            }
-            if ($('#unfinished').is(":checked")) {
-                $('li.unfinished').show('blind', '', 500);
-            }
-            if ($('#finished').is(":checked")) {
-                $('li.finished').show('blind', '', 500);
-            }
-            if ($('#org-o').is(":checked")) {
-                $('li.org-o').show('blind', '', 500);
-            }
-            if ($('#inputs').is(":checked")) {
-                $('li.inputs').show('blind', '', 500);
-            }
-            if ($('#org-r').is(":checked")) {
-                $('li.org-r').show('blind', '', 500);
-            }
-            if ($('#vot-y').is(":checked")) {
-                $('li.vot-y').show('blind', '', 500);
-            }
-            if ($('#vot-n').is(":checked")) {
-                $('li.vot-n').show('blind', '', 500);
-            }
-            if ($('#vot-u').is(":checked")) {
-                $('li.vot-u').show('blind', '', 500);
-            }
-            if ($('#vot-orb').is(":checked")) {
-                $('li.vot-orb').show('blind', '', 500);
-            }
-        });
-
-        // Toggles
-        $('div.expl-header a').click(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-        $('div.notice-header a').click(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-        $('div.related-header a').click(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-
-        $('#viewAnchors input').change(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-
-        $('#inputAnchors h3').click(function() {
-            $('#inputAnchors form').slideToggle("slow");
-        });
-        $('#viewAnchors h3').click(function() {
-            $('#viewAnchors form').slideToggle("slow");
-        });
-        $('#directoryAnchors h3').click(function() {
-            $('#directoryAnchors ul').slideToggle("slow");
-        });
-        $('#questionAnchors h3').click(function() {
-            $('#questionAnchors  ul').slideToggle("slow");
-        });
-        $('#actionAnchors h3').click(function() {
-            $('#actionAnchors ul').slideToggle("slow");
-        });
-        $('#actionAnchors ul').slideToggle("slow");
-
-        // change directories //
-        $('a.moveto').click(function() {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-        });
-
-        // change blockstatus //
-        $('a.enable').click(function() {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-        });
-
-        $('a.disable').click(function() {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-        });
-
-        $('a.edit').click(function() {
-            var url = $(this).attr("rel");
-            var inputIDs = [];
-            $('input.cbx-th:checked').each(function() {
-                inputIDs.push($(this).val());
-            });
-            $("a.edit").attr("href", url+'/tid/'+inputIDs+'');
-            return true;
-        });
-        $('a.split').click(function() {
-            var url = $(this).attr("rel");
-            var inputIDs = [];
-            $('input.cbx-th:checked').each(function() {
-                inputIDs.push($(this).val());
-            });
-            $("a.split").attr("href", url+'/tid/'+inputIDs+'');
-            return true;
-        });
-        $('a.merge').click(function() {
-            var url = $(this).attr("rel");
-            var inputIDs = [];
-            $('input.cbx-th:checked').each(function() {
-                inputIDs.push($(this).val());
-            });
-            $("a.merge").attr("href", url+'/inputs/'+inputIDs+'');
-            return true;
-        });
-
-        $('a.del').click(function() {
-            if(confirm('Die ausgewählten Beiträge endgültig löschen?')) {
-                var action = $(this).attr("rel");
-                $("#thesis-form").attr("action", action);
-                $("#thesis-form").submit();
-                return false;
-            }
-        });
-
-        // tag and option box
-        $('div.tag').click(function() {
-            var tagID = $(this).attr("rel");
-            $('#option-'+tagID).attr("selected", true);
-            return false;
-        });
-
-        $(document).on("click","span.vot-box", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-            $.ajax({
-                url: "/admin/votingprepare/votingstatus/<?=$this->getParams ?>/tid/"+elementID+"",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    document.getElementById('vot-box-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                },
-                beforeSend: function(){
-                    document.getElementById('vot-box-'+elementID).innerHTML = " ... ";
-                },
-                success:function(response){
-                    document.getElementById('vot-box-'+elementID).innerHTML = response ;
-                }
-            });
-        });
-
-        $(document).on("click","span.block-box", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-            $.ajax({
-                url: "/admin/votingprepare/blockstatus/<?=$this->getParams ?>/tid/"+elementID+"",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    document.getElementById('block-box-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                },
-                beforeSend: function(){
-                    document.getElementById('block-box-'+elementID).innerHTML = " ... ";
-                },
-                success:function(response){
-                    document.getElementById('block-box-'+elementID).innerHTML = response ;
-                }
-            });
-        });
-
-        $(document).on("click","div.append-inputs", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-            var inputIDs = [];
-            $('input.cbx-th:checked').each(function() {
-                inputIDs.push($(this).val());
-            });
-
-            $.ajax({
-                url: "/admin/votingprepare/appendinputs/<?=$this->getParams ?>/tid/" + elementID + "/inputIDs/" + inputIDs + "",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    document.getElementById('append-inputs-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                },
-                beforeSend: function(){
-                    document.getElementById('append-inputs-'+elementID).innerHTML = " ... ";
-                },
-                success:function(response){
-                    document.getElementById('append-inputs-'+elementID).innerHTML = response ;
-                }
-            });
-            $("#append-inputs-"+elementID).removeClass("append-inputs");
-        });
-
-        $(document).on("click","a.del-input", function (event) {
-            if(confirm('Den Beitrag endgültig löschen?')) {
-                event.preventDefault();
-                var elementID = $(this).attr('rel');
-
-                $.ajax({
-                    url: "/admin/votingprepare/delinputresponse/<?=$this->getParams ?>/tid/" + elementID  + "",
-                    type: "GET",
-                    data: "format=html",
-                    cache: false,
-                    async: "true",
-                    error: function(){
-                        document.getElementById('work-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                    },
-                    beforeSend: function(){
-                        document.getElementById('work-'+elementID).innerHTML = " ... ";
-                    },
-                    success:function(response){
-                        document.getElementById('work-'+elementID).innerHTML = response ;
-                    }
-                });
-                return false;
-            }
-        });
-
-        $(document).on("click","a.cancel-shortcut", function (event) {
-            if(confirm('Die Verknüpfung löschen?')) {
-                event.preventDefault();
-                var elementID = $(this).attr('rel');
-                var parentID = $(this).attr('data');
-                $.ajax({
-                    url: "/admin/votingprepare/cancelshortcutresponse/<?=$this->getParams ?>/tid/" + parentID  + "/child/" + elementID  + "",
-                    type: "GET",
-                    data: "format=html",
-                    cache: false,
-                    async: "true",
-                    error: function(){
-                        document.getElementById('work-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                    },
-                    beforeSend: function(){
-                        document.getElementById('work-'+elementID).innerHTML = " ... ";
-                    },
-                    success:function(response){
-                        document.getElementById('work-'+elementID).innerHTML = response ;
-                    }
-                });
-                return false;
-            }
-        });
-
-    });
-</script>

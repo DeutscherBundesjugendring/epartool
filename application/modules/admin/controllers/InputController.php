@@ -150,8 +150,21 @@ class Admin_InputController extends Zend_Controller_Action
             }
         }
 
+        if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
+            $this->view->returnUrl = $this->view->url(
+                [
+                    'controller' => 'votingprepare',
+                    'action' => 'overview',
+                    'return' => null,
+                    'tid' => null,
+                ]
+            );
+        } elseif ($this->getRequest()->getParam('qi', null)) {
+            $this->view->returnUrl = $this->view->url(['action' => 'list-by-question', 'tid' => null]);
+        } else {
+            $this->view->returnUrl = $this->view->url(['action' => 'list-by-user', 'tid' => null]);
+        }
         $this->view->form = $form;
-        $this->view->returnLinkTarget = $this->_request->getParam('qi', null) ? 'list-by-question' : 'list-by-user';
         $this->view->tid = $tid;
     }
 
