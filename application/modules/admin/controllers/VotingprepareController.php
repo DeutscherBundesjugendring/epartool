@@ -53,37 +53,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Updates the directory for given inputs and redirect to overviewAction
-     */
-    public function setdirectoryAction()
-    {
-        $this->_helper->layout()->disableLayout();
-
-        if (!empty($this->_params['thesis'])) {
-
-            $this->checkInputIDs($this->_params['thesis']);
-
-            $options = array();
-            $options['dir'] = $this->getDirId($this->_params);
-            $options['thesis'] = implode(",", $this->_params['thesis']);
-
-            $inputsModel = new Model_Inputs();
-            $inputsModel->setDirectory($options);
-            $this->_flashMessenger->addMessage('Die markierten Beiträge wurden verschoben', 'success');
-        } else {
-            $this->_flashMessenger->addMessage('Es wurden keine Beiträge ausgewählt', 'error');
-        }
-        $this->redirect(
-            '/admin/votingprepare/overview/kid/'
-            . $this->_consultation["kid"]
-            . '/qid/'
-            . $this->_qid
-            . '/dir/'
-            . $this->getDirId($this->_params)
-        );
-    }
-
-    /**
      * Makes changes to Inputs from the input list contect in bulk and individualy
      */
     public function listControlAction()
@@ -127,82 +96,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Append inputs to another input and responds ajaxrequest in overview
-     */
-    public function appendinputsAction()
-    {
-        $this->_helper->layout()->disableLayout();
-        $inputIDs = array();
-        if (!empty($this->_params['inputIDs'])) {
-
-            $inputIDs = explode(",", $this->_params['inputIDs']);
-            $this->checkInputIDs($inputIDs);
-            $pos = array_search($this->_tid, $inputIDs);
-            if ($pos >= 0) {
-                unset($inputIDs["$pos"]);
-            }
-            $inputIDs = implode(",", $inputIDs);
-
-            $inputsModel = new Model_Inputs();
-            $this->view->inputs = array();
-            $this->view->inputs = $inputsModel->getAppendInputs($this->_tid, $inputIDs);
-            if (!empty($this->view->inputs)) {
-                $this->view->message = "Folgende Beiträge wurden hinzugefügt :  &#9660;";
-            } else {
-                $this->view->message = "Es wurden keine weiteren Beiträge hinzugefügt";
-            }
-        } else {
-            $this->view->inputs = array();
-            $this->view->message = "Es wurden keine Beiträge ausgewählt";
-        }
-    }
-
-    /**
-     *  Edits input
-     */
-    public function editAction()
-    {
-        if (empty($this->_tid)) {
-            $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
-            $this->_redirect(
-                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_qid . ''
-            );
-        }
-
-        $this->view->consultation = $this->_consultation;
-        $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input();
-
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $updated = $inputModel->updateById($this->_tid, $form->getValues());
-                if ($updated == $this->_tid) {
-                    $this->_flashMessenger->addMessage('Eintrag aktualisiert', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage('Aktualisierung fehlgeschlagen', 'error');
-                }
-            } else {
-                $this->_flashMessenger->addMessage('Bitte Eingaben prüfen!', 'error');
-                $form->populate($data);
-            }
-        } else {
-            $inputRow = $inputModel->getById($this->_tid);
-            $form->populate($inputRow);
-            if (!empty($inputRow['tags'])) {
-                // gesetzte Tags als selected markieren
-                $tagsSet = array();
-                foreach ($inputRow['tags'] as $tag) {
-                    $tagsSet[] = $tag['tg_nr'];
-                }
-                $form->setDefault('tags', $tagsSet);
-            }
-        }
-
-        $this->view->assign(array('form' => $form, 'qid' => $this->_qid, 'tid' => $this->_tid));
-    }
-
-    /**
      * Inserts a new input from admin and set the old input as its child
      */
     public function splitAction()
@@ -227,30 +120,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $this->view->inputs = $inputModel->fetchAllInputs(['tid = ?' => $inputId]);
         $this->view->consultation = $this->_consultation;
         $this->view->form = $form;
-    }
-
-    /**
-     * Deletes inputs via ajax-link from related inputs
-     * @see overviewAction()
-     */
-    public function delinputresponseAction()
-    {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit;  //no AjaxRequest
-        }
-        $this->_helper->layout()->disableLayout();
-        $inputModel = new Model_Inputs();
-        $inputTagsModel = new Model_InputsTags();
-
-        $this->_tid = $this->getTId($this->_params);
-        $inputTagsModel ->deleteByInputsId($this->_tid);
-
-        // response
-        if ($inputModel->deleteInputs($this->_tid)) {
-            $this->view->response = "success";
-        } else {
-            $this->view->response = "error";
-        }
     }
 
     /**
@@ -279,21 +148,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         } else {
             $this->view->response = "error";
         }
-    }
-
-
-    /**
-     * Gets a valid CSRF Protection Hash for Ajax-Form()
-     * @see admin forms input.php
-     */
-    public function getnewhashAction()
-    {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit;  //no AjaxRequest
-        }
-        $this->_helper->layout()->disableLayout();
-        $form = new Admin_Form_Input();
-        $this->view->newhash = $form->getHash();
     }
 
     /**
@@ -379,23 +233,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Checks the values from array ganzzahlen
-     **/
-    protected function checkInputIDs($param)
-    {
-        $isDigit = new Zend_Validate_Digits();
-        foreach ($param as $key => $value) {
-            if (!$isDigit->isValid($value)) {
-                $this->_flashMessenger->addMessage('Fehler, falsche Daten', 'error');
-                $this->_redirect('/admin/votingprepare/error');
-                break;
-
-                return;
-            }
-        }
-    }
-
-    /**
      * Checks the kid and returns the values from DB if the consultation exists
      * @param get param kid
      * @return variables from consultation or votingprepare error
@@ -434,24 +271,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 return (int) $params["qid"];
             } else {
                 $this->_flashMessenger->addMessage('QuestionID ungültig', 'error');
-                $this->_redirect('/admin/votingprepare/error');
-            }
-        }
-    }
-
-    /**
-     * Checks the id
-     * @param dir, get param
-     * @return (int)
-     */
-    protected function getDirId($params)
-    {
-        if (isset($params["dir"])) {
-            $isDigit = new Zend_Validate_Digits();
-            if ($params["dir"] > 0 && $isDigit->isValid($params["dir"])) {
-                return (int) $params["dir"];
-            } else {
-                $this->_flashMessenger->addMessage('DirectoryID ungültig', 'error');
                 $this->_redirect('/admin/votingprepare/error');
             }
         }
