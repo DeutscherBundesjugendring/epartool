@@ -9,7 +9,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
         $this->setMethod('post');
 
         $enableNames = $this->createElement('checkbox', 'enableCustomNames');
-        $enableNames->setLabel('Enable custom names');
+        $enableNames->setLabel('Enable custom phase names');
         self::addCssClass($enableNames, 'js-enable-custom-consultation-phase-names');
         $this->addElement($enableNames);
 
@@ -26,7 +26,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
         $phaseSupport = $this->createElement('text', 'phase_support');
         $phaseSupport
-            ->setLabel('Info')
+            ->setLabel('Support')
             ->setAttrib('maxlength', 50)
             ->setAttrib('disabled', 'disabled')
             ->setDescription($desc)
@@ -35,7 +35,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
         $phaseInput = $this->createElement('text', 'phase_input');
         $phaseInput
-            ->setLabel('Input')
+            ->setLabel('Contributions')
             ->setAttrib('maxlength', 50)
             ->setAttrib('disabled', 'disabled')
             ->setDescription($desc)
@@ -53,7 +53,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
         $phaseFollowup = $this->createElement('text', 'phase_followup');
         $phaseFollowup
-            ->setLabel('Followup')
+            ->setLabel('Follow Up')
             ->setAttrib('maxlength', 50)
             ->setAttrib('disabled', 'disabled')
             ->setDescription($desc)
