@@ -21,181 +21,25 @@
                 <h2>Abstimmung vorbereiten</h2>
 
                 <h2>Beitrag aufteilen </h2>
-                <div class="input-list c50l">
-                    <h3>Originalbeitrag:</h3>
-                    <form id="thesis-form" method="post">
-                        <ul>
-                            <?=$this->partialLoop('_partials/votingprepare/inputs.phtml', $this->inputs);?>
-                        </ul>
+                <div>
+                    <h3><?=$this->translate('Original input');?></h3>
+                    <form>
+                        <table id="contribution-table">
+                            <tbody>
+                                <?php foreach ($this->inputs as $input): ?>
+                                    <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input])?>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
 
-                <div class="input-list c50l">
-                    <h3>Neue Beiträge</h3>
-                    <div id="ajx"></div>
-                    <a class="plus" title="Klicken um Formular anzuzeigen">+ Beitrag hinzufügen</a>
-                    <?=$this->form;?>
+                <div>
+                    <h3><?=$this->translate('New input');?></h3>
+                    <?php echo $this->form?>
                 </div>
 
             </div>
         </div>
     </div>
 </section>
-
-<!-- TODO fuck off -->
-<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js');?>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        $(document).tooltip({
-            position: {
-                my: "center bottom-10",
-                at: "center top",
-                using: function( position, feedback ) {
-                    $( this ).css( position );
-                    $( "<div>" )
-                        .addClass( "arrow" )
-                        .addClass( feedback.vertical )
-                        .addClass( feedback.horizontal )
-                        .appendTo( this );
-                }
-            }
-        });
-
-        $('li.inputs').show('blind', '', 500);
-        $('div.related-content').show('blind', '', 500);
-        $('div.expl-content').show('blind', '', 500);
-        $('div.append-inputs').hide();
-        $('a.plus').hide();
-
-        $("form#input").submit(function() {
-            $('a.plus').show();
-            var inputVal = $('#thes').val();
-            if(inputVal == ''){
-                $('#thes-label label').append('<span style="color: red;"> Bitte dieses Feld ausfüllen!</span>');
-                alert ('Bitte das Feld Beitrag ausfüllen!');
-            } else {
-                var data = $("form#input :input").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/votingprepare/splitresponse/<?=$this->getParams ?>",
-                    data: data,
-                    cache: false,
-                    async: "true",
-                    error: function(){
-                        $("#ajx").append('<p class="error">Es ist ein Fehler aufgetreten!') ;
-                    },
-                    beforeSend: function(){
-                        $("#ajx").append('<p class="wait">... </p>');
-                        $('.error').remove();
-                        $('.success').remove();
-                        $('form#input').hide('blind', '', 900);
-                    },
-                    success:function(response){
-                        $("#ajx").append(response);
-                        $('.wait').remove();
-                        $('form#input').get(0).reset();
-                        $(".related-content ul").append('<li>'+inputVal+'</li>');
-                        $('div.expl-content').show('blind', '', 900);
-                        $('input.cbx-th').show('blind', '', 900);
-                    }
-                });
-            }
-            return false;
-        });
-
-
-        $(document).on("click","a.plus", function (event) {
-            event.preventDefault();
-            $('form#input').show('blind', '', 900);
-            $.ajax({
-                url: "/admin/votingprepare/getnewhash/<?=$this->getParams ?>",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    $('#csrf_token_inputadmin-element').html('Es ist ein Fehler aufgetreten!');
-                },
-                beforeSend: function(){
-                    $('#csrf_token_inputadmin-element').html('...') ;
-                },
-                success:function(response){
-                    $('#csrf_token_inputadmin-element').replaceWith(response);
-                    $('#csrf_token_inputadmin-label').remove();
-                }
-            });
-            return true;
-        });
-
-        //$(#input).replaceWith(csrfhash)
-
-        // tags übernehmen
-        $('div.tag').click(function() {
-            var tagID = $(this).attr("rel");
-            $('#tags-'+tagID).attr("checked", true);
-        });
-
-        // text kopieren //
-        $('input.cbx-th').change(function() {
-            if ($(this).is(":checked")) {
-                var label = $("label[for='"+$(this).attr('id')+"']").text();
-                var content = $('#thes').text();
-                $('#thes').text($.trim(content)+$.trim(label));
-                $(this).hide('blind','', 800);
-            }
-        });
-
-        $('div.expl-content').click(function() {
-            var expltext = $(this).text();
-            var content = $('#expl').text();
-            $('#expl').text($.trim(content)+$.trim(expltext));
-            $(this).prev().hide('blind','', 1600);
-            $(this).hide('blind','', 800);
-        });
-
-        $(document).on("click","span.vot-box", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-            $.ajax({
-                url: "/admin/votingprepare/votingstatus/<?=$this->getParams ?>",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    $('#vot-box-'+elementID).html('Es ist ein Fehler aufgetreten!');
-                },
-                beforeSend: function(){
-                    $('#vot-box-'+elementID).html('...') ;
-                },
-                success:function(response){
-                    $('#vot-box-'+elementID).html(response) ;
-                }
-            });
-        });
-
-        $(document).on("click","span.block-box", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-            $.ajax({
-                url: "/admin/votingprepare/blockstatus/<?=$this->getParams ?>",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    $('#block-box-'+elementID).html('Es ist ein Fehler aufgetreten!');
-                },
-                beforeSend: function(){
-                    $('#block-box-'+elementID).html('...') ;
-                },
-                success:function(response){
-                    $('#block-box-'+elementID).html(response) ;
-                }
-            });
-        });
-
-    });
-</script>

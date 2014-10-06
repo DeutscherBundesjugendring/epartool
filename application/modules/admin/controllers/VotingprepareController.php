@@ -208,75 +208,26 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      */
     public function splitAction()
     {
-        if (empty($this->_tid)) {
-            $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
-            $this->_redirect(
-                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_qid . ''
-            );
-        }
-
-        if (isset($this->_params['dir']) && !empty($this->_params['dir'])) {
-            $directory = $this->getDirId($this->_params);
-        } else {
-            $directory = 0;
-        }
-
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input();
-        $options = array(
-            'directory' => $directory,
-            'relTID' => "",
-            'uid' => null,
-            'inputs' => $this->_tid,
-            'kid' => $this->_consultation['kid']
-        );
-        $this->addNewElements($options, $form);
 
-        $options = array(
-            'kid' => $this->_consultation['kid'],
-            'qid' => $this->_qid,
-            'dir' => $directory,
-            'inputIDs' => array($this->_tid)
-        );
-        $this->view->inputs = $inputModel->fetchAllInputs($options);
-        $this->view->consultation = $this->_consultation;
-        $this->view->assign(array('form' => $form, 'qid' => $this->_qid));
-        $this->view->getParams =
-            'kid/' . $this->view->consultation['kid']
-            . '/qid/' . $this->_qid . '/tid/' . $this->_tid;
-        if (isset($this->view->directory)) {
-            $this->view->getParams = $this->view->getParams . '/dir/' . $this->view->directory;
-        }
-    }
+        $inputId = $this->getRequest()->getParam('inputId');
+        $this->addNewElements([$inputId], $form);
 
-    /**
-     * Gets the response for splitAction()
-     * @see VotingprepareController|admin: splitAction()
-     */
-    public function splitresponseAction()
-    {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit; //no AjaxRequest
-        }
-
-        $this->_helper->layout()->disableLayout();
-        $data = $this->_request->getPost();
-        $data['uid'] = null;
-
-        $form = new Admin_Form_Input();
-
-        if ($form->isValid($data)) {
-            $inputModel = new Model_Inputs();
-            $insert = $inputModel->addInputs($data);
-            if (!empty($insert)) {
-                $inputIDs = $insert['tid'];
-                $relIDs = $inputModel->getAppendInputs($this->_tid, $inputIDs);
-                $this->view->response = "success";
-                $this->view->inputs = $insert;
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            if ($form->isValid($postData)) {
+                $newTid = $inputModel->addInputs($postData);
+                $this->_flashMessenger->addMessage('The new input was created.', 'success');
+                $this->redirect($this->view->url());
             } else {
-                $this->view->response = "error";
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
             }
         }
+
+        $this->view->inputs = $inputModel->fetchAllInputs(['tid = ?' => $inputId]);
+        $this->view->consultation = $this->_consultation;
+        $this->view->form = $form;
     }
 
     /**

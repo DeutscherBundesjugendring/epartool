@@ -56,7 +56,10 @@
         <a class="btn btn-default item-action" href="<?=$this->url();?>">
             <span class="glyphicon glyphicon-tags"></span>
         </a>
-        <a class="btn btn-default item-action" href="<?=$this->url();?>">
+        <a
+            class="btn btn-default item-action"
+            href="<?=$this->url(['action' => 'split', 'inputId' => $this->input['tid']]);?>"
+        >
             <span class="glyphicon glyphicon-resize-full"></span>
         </a>
         <button
