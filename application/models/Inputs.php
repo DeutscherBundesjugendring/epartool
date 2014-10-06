@@ -970,30 +970,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns inputs with tags and related inputs by given question
-     * @param  array  $wheres   Associative array defining which inputs to rteturn
+     * @param  array  $wheres   Associative array defining the inputs to return in Zend_Db_Select::where() format
      * @return array            An array of arrays with the input data
      */
-    public function fetchAllInputs($wheres)
+    public function fetchAllInputs($wheres = [])
     {
-        $select = $this
-            ->select()
-            ->where('inpt.qi = ?', $wheres['qid']);
-
-        #params for inputs on merge #
-        if (isset($options['inputIDs']) && !empty($options['inputIDs'])) {
-            $inputphrases = array();
-            $inputphrases = implode("' OR inputs.tid= '", $options['inputIDs']);
-            $inputwhere= " inputs.tid= '" . $inputphrases."'";
-            $select ->where("$inputwhere");
+        $select = $this->select();
+        foreach ($wheres as $cond => $val) {
+            $select->where($cond, $val);
         }
-
-        if (!empty($wheres['fulltext'])) {
-            $select->where('thes LIKE ?', '%' . $wheres['fulltext'] . '%');
-        }
-
         $resultSet = $this->getAdapter()->query($select);
 
-        # add related inputs and tags to $resultSet #
         $inputs = array();
         foreach ($resultSet as $row) {
             $id = $row['tid'];
@@ -1023,28 +1010,22 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * mergeInputs
-     * Insert a new Input from Admin
-     * @see VotingprepareController|admin: mergeAction();
-     * @param Post params
-     * @param $relIDs
-     * @return row
+     * Insert a new Input including tags
+     * @param array     $data   The input data
+     * @return integer          The new row identifier
      */
     public function addInputs($data)
     {
         $row = $this->createRow($data);
-        $newInput =    (int) $row->save();
+        $tid = (int) $row->save();
 
         if (isset($data['tags']) && !empty($data['tags'])) {
-            // Tag Zuordnungen speichern
             $modelInputsTags = new Model_InputsTags();
-            $modelInputsTags->deleteByInputsId($newInput);
-            $inserted = $modelInputsTags->insertByInputsId($newInput, $data['tags']);
+            $modelInputsTags->deleteByInputsId($tid);
+            $inserted = $modelInputsTags->insertByInputsId($tid, $data['tags']);
         }
 
-        $row = $this->find($newInput)->current();
-
-        return ($row);
+        return $tid;
     }
 
     /**

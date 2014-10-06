@@ -38,11 +38,11 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     {
         $form = new Admin_Form_ListControl();
 
+        $wheres['inpt.qi = ?'] = $this->_qid;
         $fulltext = $this->getRequest()->getParam('fulltext', null);
-        $wheres = [
-            'qid' => $this->_qid,
-            'fulltext' => $fulltext,
-        ];
+        if ($fulltext) {
+            $wheres['thes LIKE ?'] = '%' . $fulltext . '%';
+        }
 
         $this->view->inputs = (new Model_Inputs())->fetchAllInputs($wheres);
         $this->view->fulltext = $fulltext;
@@ -86,7 +86,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     /**
      * Makes changes to Inputs from the input list contect in bulk and individualy
      */
-    public function updateAction()
+    public function listControlAction()
     {
         if ($this->getRequest()->isPost()
             && (new Admin_Form_ListControl())->isValid($this->getRequest()->getPost())
@@ -109,6 +109,12 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 } elseif ($this->getRequest()->getPost('deleteBulk', null)) {
                     $deletedCount = $inputModel->deleteBulk($inputIds);
                     $msg = sprintf($this->view->translate('%d inputs were deleted.'), $deletedCount);
+                } elseif ($this->getRequest()->getPost('merge', null)) {
+                    // This is awkward, but we need to utilise the same checkboxes as for bulk editing actions
+                    // Essentially this only takes values from inputIds checkboxes and constructs and url to redirect to
+                    return $this->redirect(
+                        $this->view->url(['action' => 'merge', 'inputIds' => $this->getRequest()->getPost('inputIds', null)])
+                    );
                 }
                 $this->_flashMessenger->addMessage($msg, 'success');
             } elseif ($this->getRequest()->getPost('delete', null)) {
@@ -341,65 +347,30 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Inserts a new input from admin set the old inputs as childs
+     * Inserts a new input from admin and set the old inputs as childern
      */
     public function mergeAction()
     {
-        if (isset($this->_params['dir']) && !empty($this->_params['dir'])) {
-            $directory = $this->getDirId($this->_params);
-        } else {
-            $directory = 0;
-        }
-
-        $inputIDs = explode(",", $this->_params['inputs']);
-        $this->checkInputIDs($inputIDs);
-
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input();
-        $options = array(
-            'directory' => $directory,
-            'relTID' => $this->_params['inputs'],
-            'uid' => null,
-            'kid' => $this->_consultation['kid']
-        );
-        $this->addNewElements($options, $form);
-        $form->removeElement('uid');
+        $inputIds = $this->getRequest()->getParam('inputIds');
 
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $insert = $inputModel->addInputs($data);
-                if (!empty($insert)) {
-                    $this->_flashMessenger->addMessage('Der Redaktionsbeitrag wurde hinzugefügt', 'success');
-                    if (isset($params["dir"])) {
-                        $this->redirect(
-                            '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"]
-                            . '/qid/' . $this->_qid
-                            . '/dir/' . $this->getDirId($this->_params)
-                        );
-                    } else {
-                        $this->redirect(
-                            '/admin/votingprepare/overview/kid/' . $this->_consultation["kid"] . '/qid/' . $this->_qid
-                        );
-                    }
-                } else {
-                    $this->_flashMessenger->addMessage('Fehler beim eintragen ses Redaktionsbeitrages', 'error');
-                }
+        $form = new Admin_Form_Input();
+        $this->addNewElements($inputIds, $form);
+
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            if ($form->isValid($postData)) {
+                $newTid = $inputModel->addInputs($postData);
+                $this->_flashMessenger->addMessage('The new input was created.', 'success');
+                $this->redirect($this->view->url(['action' => 'overview']));
             } else {
-                $this->_flashMessenger->addMessage('Bitte Eingaben prüfen!', 'error');
-                $form->populate($data);
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
             }
         }
-        $options = array(
-            'kid' => $this->_consultation['kid'],
-            'qid' => $this->_qid,
-            'dir' => $directory,
-            'inputIDs' => $inputIDs
-        );
 
-        $this->view->inputs = $inputModel->fetchAllInputs($options);
+        $this->view->inputs = $inputModel->fetchAllInputs(['tid IN (?)' => $inputIds]);
         $this->view->consultation = $this->_consultation;
-        $this->view->assign(array('form' => $form, 'qid' => $this->_qid));
+        $this->view->form = $form;
     }
 
     /**
@@ -455,49 +426,20 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Add hidden and default elements to Inputformular
+     * Add hidden elements to form to allow for creating relations
+     * @param array     $relTids  An array of related inputIds
+     * @param Zend_Form $form    The form object
      */
-    protected function addNewElements($options, $form)
+    protected function addNewElements($relTids, Zend_Form $form)
     {
-        $dir = $form
-            ->createElement('hidden', 'dir')
-            ->removeDecorator('DtDdWrapper')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Label')
-            ->setValue($options['directory'])
-            ->addvalidator('NotEmpty', $breakChainOnFailure = true)
-            ->addvalidator('Int', $breakChainOnFailure = true)
-            ->setRequired(true);
-        $form->addElement($dir);
-
         $relTID = $form
             ->createElement('hidden', 'rel_tid')
-            ->removeDecorator('DtDdWrapper')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Label')
-            ->setValue($options['relTID']);
+            ->setValue(implode(',', $relTids));
         $form->addElement($relTID);
-
-        $uid = $form
-            ->createElement('hidden', 'uid')
-            ->removeDecorator('DtDdWrapper')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Label')
-            ->setValue($options['uid'])
-            ->addvalidator('NotEmpty', $breakChainOnFailure = false)
-            ->addvalidator('Int', $breakChainOnFailure = true)
-            ->setRequired(true);
-        $form->addElement($uid);
 
         $kid = $form
             ->createElement('hidden', 'kid')
-            ->removeDecorator('DtDdWrapper')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Label')
-            ->setValue($options['kid'])
-            ->addvalidator('NotEmpty', $breakChainOnFailure = true)
-            ->addvalidator('Int', $breakChainOnFailure = true)
-            ->setRequired(true);
+            ->setValue($this->_consultation['kid']);
         $form->addElement($kid);
     }
 

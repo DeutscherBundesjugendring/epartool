@@ -151,14 +151,11 @@
 
                 <div>
                     <h3><?=$this->translate('Inputs');?></h3>
-                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'update']);?>">
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'list-control']);?>">
                         <div>
                             <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                             <?=$this->translate('Marked entries');?>
-                            <button class="btn btn-default" rel="/admin/votingprepare/split/<?=$this->getParams;?>">
-                                <?=$this->translate('Split');?>
-                            </button>
-                            <button class="btn btn-default" rel="/admin/votingprepare/merge/<?=$this->getParams;?>">
+                            <button class="btn btn-default" name="merge" value="1" type="submit">
                                 <?=$this->translate('Merge');?>
                             </button>
                             <button
