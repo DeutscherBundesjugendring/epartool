@@ -20,7 +20,13 @@
 
             </div>
             <div class="content">
-
+                <a
+                    href="<?php echo $this->url(array('action' => 'send-all')); ?>"
+                    class="btn btn-default pull-right"
+                >
+                    <span class="glyphicon glyphicon-send"></span>
+                    <?=$this->translate('Send all emails');?>
+                </a>
                 <h2><?=$this->translate('Queued Emails');?></h2>
 
                 <?php if (!count($this->emails)): ?>
