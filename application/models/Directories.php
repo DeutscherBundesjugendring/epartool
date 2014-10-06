@@ -28,4 +28,23 @@ class Model_Directories  extends NP_Db_Table_NestedSet
 
         return $dirs;
     }
+
+    /**
+     * Deletes a directory. If there are any inputs within it, thet are removed from it first
+     * @see  Zend_Db_Table_Abstract::delete()
+     * @param  array|string $where SQL WHERE clause(s).
+     * @return integer             The number of rows deleted.
+     */
+    public function delete($where)
+    {
+        $res = $this->fetchAll($where);
+
+        $dirIds = [];
+        foreach ($res as $dir) {
+            $dirIds[] = $dir->id;
+        }
+        (new Model_Inputs())->update(['dir' => 0], ['dir IN (?)' => $dirIds]);
+
+        return parent::delete($where);
+    }
 }

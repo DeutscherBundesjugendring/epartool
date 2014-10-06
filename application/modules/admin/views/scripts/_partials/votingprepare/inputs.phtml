@@ -3,6 +3,7 @@
     data-origin="<?=$this->input['user_conf'];?>"
     data-voting="<?=$this->input['vot'];?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
+    data-directory="<?=$this->input['dir'];?>"
 >
     <td>
         <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />

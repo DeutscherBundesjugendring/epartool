@@ -20,18 +20,31 @@
 
                 <h2><?=$this->translate('Voting');?></h2>
 
-                <div id="directoryAnchors" class="yform">
+                <div>
                     <h3><?=$this->translate('Folders');?></h3>
-                    <ul>
-                        <?php foreach($this->directories as $directory): ?>
-                            <li>
-                                <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
-                                    &nbsp;&nbsp;&nbsp;
-                                <?php endfor;?>
-                                <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
-                            </li>
-                        <?php endforeach?>
-                    </ul>
+                    <a href="<?=$this->url(['action' => 'create-directory']);?>"><?=$this->translate('Add folder');?></a>
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete-directory']);?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                        <ul>
+                            <?php foreach($this->directories as $directory): ?>
+                                <li>
+                                    <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
+                                        &nbsp;&nbsp;&nbsp;
+                                    <?php endfor;?>
+                                    <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                    <button
+                                        class="btn btn-default item-action item-action-danger"
+                                        name="delete"
+                                        value="<?=$directory['id']?>"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Delete directory?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </li>
+                            <?php endforeach?>
+                        </ul>
+                    </form>
                 </div>
 
                 <div>
@@ -108,43 +121,58 @@
                         </div><!-- .row -->
 
                         <div class="row">
-                            <div class="form-group">
-                                <label for="tags"><?=$this->translate('Tags');?></label>
-                                <select
-                                    name="tags[]"
-                                    class="form-control js-select2"
-                                    multiple
-                                    data-toggle="filter"
-                                    data-target-attrib="tags"
-                                >
-                                    <?php foreach ($this->tags as $tag): ?>
-                                        <option
-                                            value="<?=$tag['tg_nr'];?>"
-                                            <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
-                                        >
-                                            <?=$tag['tg_de'];?>
-                                        </option>
-                                    <?php endforeach;?>
-                                </select>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label><?=$this->translate('Folder');?></label>
+                                    <select
+                                        class="form-control"
+                                        data-toggle="filter"
+                                        data-target-attrib="directory"
+                                        data-filter-operator="="
+                                    >
+                                        <option value=""><?=$this->translate('All folders');?></option>
+                                        <option value="0"><?=$this->translate('Folder root');?></option>
+                                        <?php foreach($this->directories as $directory): ?>
+                                            <option value="<?=$directory['id'];?>">
+                                                <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                <?php endfor;?>
+                                                <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                            </options>
+                                        <?php endforeach?>
+                                    </select>
+                                </div>
                             </div>
-                            <!--<div class="form-group">
-                                <label for="t-directory">Directory ???</label>
-                                <input
-                                    id="t-directory"
-                                    name="directory"
-                                    type="radio"
-                                    value="<?=$this->directory;?>"
-                                    <?=$this->dirs == $this->directory ? 'checked="checked"' : '';?>
-                                />
-                                <input name="directory" type="hidden" value="0" />
-                            </div>-->
-                            <button
-                                type="button"
-                                class="btn btn-default"
-                                data-toggle="reset-filter"
-                            >
-                                <?=$this->translate('Reset Filter');?>
-                            </button>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="tags"><?=$this->translate('Tags');?></label>
+                                    <select
+                                        name="tags[]"
+                                        class="form-control js-select2"
+                                        multiple
+                                        data-toggle="filter"
+                                        data-target-attrib="tags"
+                                    >
+                                        <?php foreach ($this->tags as $tag): ?>
+                                            <option
+                                                value="<?=$tag['tg_nr'];?>"
+                                                <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
+                                            >
+                                                <?=$tag['tg_de'];?>
+                                            </option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <button
+                                    type="button"
+                                    class="btn btn-default"
+                                    data-toggle="reset-filter"
+                                >
+                                    <?=$this->translate('Reset Filter');?>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -207,6 +235,28 @@
                                 data-confirm-message="<?=$this->translate('Delete inputs?');?>"
                             >
                                 <?=$this->translate('Delete');?>
+                            </button>
+
+                            <select name="sendToDictionaryId">
+                                <option value="0"><?=$this->translate('Folder root');?></option>
+                                <?php foreach($this->directories as $directory): ?>
+                                    <option value="<?=$directory['id'];?>">
+                                        <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
+                                            &nbsp;&nbsp;&nbsp;
+                                        <?php endfor;?>
+                                        <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                    </options>
+                                <?php endforeach?>
+                            </select>
+                            <button
+                                class="btn btn-default"
+                                name="sendToDictionaryBulk"
+                                type="submit"
+                                value="1"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Move inputs?');?>"
+                            >
+                                <?=$this->translate('Add to folder');?>
                             </button>
                         </div>
 

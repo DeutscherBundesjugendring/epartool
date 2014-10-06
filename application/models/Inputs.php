@@ -1107,23 +1107,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * setDirectory
-     * Move inputs to virtual directory
-     * @see VotingprepareController|admin: setdirectoryAction()
-     * @param $options (dir, thesis)
-     * @return nothing
-     */
-    public function setDirectory($options)
-    {
-        $dir = $options['dir'];
-        $thesis= $options['thesis'];
-        $data = array(
-                  'dir' => (int) $dir
-        );
-        $this->update($data, 'tid IN ('.$thesis.')');
-    }
-
-    /**
      * getByIdArray
      * @desc returns entries by an idArray
      * @name getByIdArray

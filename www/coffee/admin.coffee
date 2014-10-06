@@ -229,16 +229,21 @@ initFilter = () ->
                 $(formEl.data('target')).each (dataIndex, dataEl) ->
                     dataElAttribVal = $(dataEl).data(filterEl.data('target-attrib'))
                     filterVal = filterEl.val()
-                    if $.type(dataElAttribVal) == 'string' && dataElAttribVal != filterVal
-                        $(dataEl).hide()
-                    else if dataElAttribVal instanceof Array
-                        if $.type(filterVal) == 'string' && dataElAttribVal.indexof(filterVal) == -1
-                            $(dataEl).hide()
-                        else if $.type(filterVal) == 'array'
+                    operator = filterEl.data('filter-operator')
+                    if dataElAttribVal instanceof Array
+                        if $.type(filterVal) == 'array'
                             $.each(filterVal, (index, el) ->
                                 if dataElAttribVal.indexOf(el) == -1
                                     $(dataEl).hide()
                             )
+                        else if dataElAttribVal.indexof(filterVal.toString()) == -1
+                            $(dataEl).hide()
+                    else if operator == '=' && dataElAttribVal.toString() != filterVal.toString()
+                        $(dataEl).hide()
+                    else if operator == '<' && dataElAttribVal + 0 >= filterVal + 0
+                        $(dataEl).hide()
+                    else if operator == '>' && dataElAttribVal + 0 <= filterVal + 0
+                        $(dataEl).hide()
 
 
     $('[data-toggle=reset-filter]').click (ev) ->

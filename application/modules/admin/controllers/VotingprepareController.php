@@ -64,20 +64,26 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             $inputIds = $this->getRequest()->getPost('inputIds');
             if ($inputIds) {
                 if ($this->getRequest()->getPost('releaseBulk', null)) {
-                    $updatedCount = $inputModel->editBulk($inputIds, ['block' => 'n']);
-                    $msg = sprintf($this->view->translate('%d inputs were released.'), $updatedCount);
+                    $count = $inputModel->editBulk($inputIds, ['block' => 'n']);
+                    $msg = sprintf($this->view->translate('%d inputs were released.'), $count);
                 } elseif ($this->getRequest()->getPost('blockBulk', null)) {
-                    $updatedCount = $inputModel->editBulk($inputIds, ['block' => 'y']);
-                    $msg = sprintf($this->view->translate('%d inputs were blocked.'), $updatedCount);
+                    $count = $inputModel->editBulk($inputIds, ['block' => 'y']);
+                    $msg = sprintf($this->view->translate('%d inputs were blocked.'), $count);
                 } elseif ($this->getRequest()->getPost('enableVotingBulk', null)) {
-                    $updatedCount = $inputModel->editBulk($inputIds, ['vot' => 'y']);
-                    $msg = sprintf($this->view->translate('%d inputs were sent to voting.'), $updatedCount);
+                    $count = $inputModel->editBulk($inputIds, ['vot' => 'y']);
+                    $msg = sprintf($this->view->translate('%d inputs were sent to voting.'), $count);
                 } elseif ($this->getRequest()->getPost('blockVotingBulk', null)) {
-                    $updatedCount = $inputModel->editBulk($inputIds, ['vot' => 'n']);
-                    $msg = sprintf($this->view->translate('%d inputs were removed from voting.'), $updatedCount);
+                    $count = $inputModel->editBulk($inputIds, ['vot' => 'n']);
+                    $msg = sprintf($this->view->translate('%d inputs were removed from voting.'), $count);
                 } elseif ($this->getRequest()->getPost('deleteBulk', null)) {
-                    $deletedCount = $inputModel->deleteBulk($inputIds);
-                    $msg = sprintf($this->view->translate('%d inputs were deleted.'), $deletedCount);
+                    $count = $inputModel->deleteBulk($inputIds);
+                    $msg = sprintf($this->view->translate('%d inputs were deleted.'), $count);
+                } elseif ($this->getRequest()->getPost('sendToDictionaryBulk', null)) {
+                    $count = $inputModel->update(
+                        ['dir' => $this->getRequest()->getPost('sendToDictionaryId')],
+                        ['tid IN (?)' => $inputIds]
+                    );
+                    $msg = sprintf($this->view->translate('%d inputs were moved.'), $count);
                 } elseif ($this->getRequest()->getPost('merge', null)) {
                     // This is awkward, but we need to utilise the same checkboxes as for bulk editing actions
                     // Essentially this only takes values from inputIds checkboxes and constructs an url to redirect to
@@ -212,6 +218,49 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
         $this->view->consultation = $this->_consultation;
         $this->view->form = $form;
+    }
+
+    /**
+     * Creates a new directory
+     */
+    public function createDirectoryAction()
+    {
+        $form = new Admin_Form_Directory();
+
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            if ($form->isValid($postData)) {
+                $newId = (new Model_Directories())->insert(
+                    [
+                        'dir_name' => $postData['dir_name'],
+                        'kid' => $this->_consultation['kid']
+                    ]
+                );
+                $this->_flashMessenger->addMessage('The new direcotry was created.', 'success');
+                $this->redirect($this->view->url());
+            } else {
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+            }
+        }
+
+        $this->view->form = $form;
+        $this->view->consultation = $this->_consultation;
+    }
+
+    /**
+     * Deletes a directory
+     */
+    public function deleteDirectoryAction()
+    {
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $dirId = $this->getRequest()->getPost('delete');
+            (new Model_Directories())->delete(['id = ?' => $dirId]);
+            $this->_flashMessenger->addMessage('Directory deleted.', 'success');
+        }
+
+        $this->_redirect($this->view->url(['action' => 'overview']));
     }
 
     /**
