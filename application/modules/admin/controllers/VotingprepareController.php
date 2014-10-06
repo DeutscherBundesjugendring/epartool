@@ -203,8 +203,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Gets the input wich will be splitt and a ajay-form for new inputs
-     * @see VotingprepareController|admin: splitresponseAction()
+     * Inserts a new input from admin and set the old input as its child
      */
     public function splitAction()
     {
