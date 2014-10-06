@@ -1,6 +1,6 @@
 <tr
     data-admin-confirmation="<?=$this->input['block'];?>"
-    data-origin="<?=$this->input['user_conf'];?>"
+    data-origin="<?=$this->input['rel_tid'] ? 'adminCreated' : 'userCreated';?>"
     data-voting="<?=$this->input['vot'];?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
     data-directory="<?=$this->input['dir'];?>"
@@ -29,7 +29,7 @@
     </td>
     <td>
         <h6>Origin:</h6>
-        <?=$this->input['uid'] ? $this->translate('User') : $this->translate('Admin');?>
+        <?=$this->input['rel_tid'] ? $this->translate('Admin') : $this->translate('User');?>
         <h6>Admin Confirmation:</h6>
         <?php if ($this->input['block'] === 'y'): ?>
             <?=$this->translate('Blocked');?>
