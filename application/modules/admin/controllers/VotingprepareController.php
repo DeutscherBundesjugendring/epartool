@@ -362,7 +362,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
                 $this->_flashMessenger->addMessage('The new input was created.', 'success');
-                $this->redirect($this->view->url(['action' => 'overview']));
+                $this->redirect($this->view->url(['action' => 'overview', 'inputIds' => null]));
             } else {
                 $this->_flashMessenger->addMessage('Form invalid.', 'error');
             }
