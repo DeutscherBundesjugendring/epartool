@@ -20,9 +20,9 @@
 
                 <a href="<?=$this->url(['action' => 'create-followup']);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    <?=$this->translate('New Followup');?>
+                    <?=$this->translate('New Follow Up');?>
                 </a>
-                <h2><?=$this->translate('Followup');?></h2>
+                <h2><?=$this->translate('Follow Up');?></h2>
 
                 <?php if (!count($this->followupFiles)): ?>
                     <p class="alert alert-info">
@@ -48,22 +48,25 @@
                                     <td><?=$followupFile['titl'];?></td>
                                     <td class="table-cell-actions">
                                         <a
-                                            href="<?=$this->url(['action' => 'snippets', 'ffid' => $followupFile['ffid']]);?>"
-                                            class="item-action"
-                                        >
-                                            <span class="glyphicon glyphicon-random"></span>
-                                        </a>
-                                        <a
                                             href="<?=$this->url(['action' => 'edit-followup', 'ffid' => $followupFile['ffid']]);?>"
                                             class="item-action"
+                                            title="<?=$this->translate('Edit follow up');?>"
                                         >
                                             <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a
+                                            href="<?=$this->url(['action' => 'snippets', 'ffid' => $followupFile['ffid']]);?>"
+                                            class="item-action"
+                                            title="<?=$this->translate('Edit snippets');?>"
+                                        >
+                                            <span class="glyphicon glyphicon-random"></span>
                                         </a>
                                         <a
                                             href="<?=$this->url(['action' => 'delete-followup', 'ffid' => $followupFile['ffid']]);?>"
                                             class="item-action item-action-danger"
                                             data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Delete followup?');?>"
+                                            data-confirm-message="<?=$this->translate('Delete follow up?');?>"
+                                            title="<?=$this->translate('Delete follow up');?>"
                                         >
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>
