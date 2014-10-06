@@ -31,6 +31,7 @@ class Admin_QuestionController extends Zend_Controller_Action
 
         $this->view->questions = $questions;
         $this->view->kid = $kid;
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     public function createAction()
@@ -120,23 +121,24 @@ class Admin_QuestionController extends Zend_Controller_Action
         ));
     }
 
+    /**
+     * Deletes the question
+     */
     public function deleteAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $qid = $this->getRequest()->getParam('qid', 0);
-        if ($kid > 0 && $qid > 0) {
-            $questionModel = new Model_Questions();
-            $inputsModel = new Model_Inputs();
-            $relatedInputs = $inputsModel->getByQuestion($qid);
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $qid = $this->getRequest()->getPost('delete');
+            $relatedInputs = (new Model_Inputs())->getByQuestion($qid);
             if (empty($relatedInputs)) {
-                $nrDeleted = $questionModel->deleteById($qid);
-                if ($nrDeleted > 0) {
-                    $this->_flashMessenger->addMessage('Die Frage wurde gelöscht.', 'success');
-                }
+                (new Model_Questions())->deleteById($qid);
+                $this->_flashMessenger->addMessage('Question deleted.', 'success');
             } else {
-                $this->_flashMessenger->addMessage('Die Frage konnte nicht gelöscht werden, da bereits Beiträge dazu existieren.', 'error');
+                $this->_flashMessenger->addMessage('Question could not be deleted as there are inputs attached to it.', 'error');
             }
         }
-        $this->_redirect('/admin/question/index/kid/' . $kid);
+
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 }

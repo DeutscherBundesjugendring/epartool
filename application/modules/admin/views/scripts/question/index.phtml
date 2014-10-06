@@ -30,41 +30,44 @@
                         <?=$this->translate('There are no questions yet.');?>
                     </p>
                 <?php else: ?>
-                    <table class="table" data-view="table">
-                        <thead>
-                            <tr>
-                                <th class="table-cell-id" data-order="default" data-toggle="sort" tabindex="0">#</th>
-                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($this->questions as $question): ?>
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                        <table class="table" data-view="table">
+                            <thead>
                                 <tr>
-                                    <td class="table-cell-id"><?=$question->nr;?></td>
-                                    <td><?=$question->q;?></td>
-                                    <td class="table-cell-actions">
-                                        <a
-                                            href="<?=$this->url(['action' => 'edit', 'qid' => $question->qi]);?>"
-                                            class="item-action"
-                                            title="<?=$this->translate('Edit question');?>"
-                                        >
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </a>
-                                        <a
-                                            href="<?=$this->url(['action' => 'delete', 'qid' => $question->qi]);?>"
-                                            class="item-action item-action-danger"
-                                            title="<?=$this->translate('Delete question');?>"
-                                            data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Delete question?');?>"
-                                        >
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </a>
-                                    </td>
+                                    <th class="table-cell-id" data-order="default" data-toggle="sort" tabindex="0">#</th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
+                                    <th></th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->questions as $question): ?>
+                                    <tr>
+                                        <td class="table-cell-id"><?=$question->nr;?></td>
+                                        <td><?=$question->q;?></td>
+                                        <td class="table-cell-actions">
+                                            <a
+                                                href="<?=$this->url(['action' => 'edit', 'qid' => $question->qi]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Edit question');?>"
+                                            >
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+                                            <button
+                                                name="delete"
+                                                value="<?=$question->qi;?>"
+                                                class="item-action item-action-danger"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete question?');?>"
+                                            >
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </form>
                 <?php endif; ?>
 
             </div>

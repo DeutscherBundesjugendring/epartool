@@ -1,9 +1,5 @@
 <?php
-/**
- * UserController
- *
- * @desc     Users for Consultation
- */
+
 class Admin_UserController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
@@ -28,6 +24,7 @@ class Admin_UserController extends Zend_Controller_Action
     {
         $userModel = new Model_Users();
         $this->view->userlist = $userModel->getAll();
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     public function createAction()
@@ -183,24 +180,21 @@ class Admin_UserController extends Zend_Controller_Action
 
     public function deleteAction()
     {
-        $uid = $this->getRequest()->getParam('uid', 0);
-        if ($uid > 0) {
+       $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
             $userModel = new Model_Users();
             $userModel->getAdapter()->beginTransaction();
             try {
-                $deleted = $userModel->deleteById($uid);
+                $deleted = $userModel->deleteById($this->getRequest()->getPost('delete'));
                 $userModel->getAdapter()->commit();
+                $this->_flashMessenger->addMessage('The user was deleted.', 'success');
             } catch (Exceptioin $e) {
                 $userModel->getAdapter()->rollback();
                 throw $e;
             }
-
-            if ($deleted > 0) {
-                $this->_flashMessenger->addMessage('Benutze_inr wurde gelöscht.', 'success');
-            } else {
-                $this->_flashMessenger->addMessage('Fehler beim Löschen von Nutzer_in. Bitte versuche es erneut.', 'error');
-            }
         }
-        $this->_redirect('/admin/user/index');
+
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 }

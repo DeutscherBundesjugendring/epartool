@@ -1,10 +1,5 @@
 <?php
-/**
- * ArticleController
- *
- * @desc     Articles for Consultation
- * @author                Markus Hackel
- */
+
 class Admin_ArticleController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
@@ -17,10 +12,8 @@ class Admin_ArticleController extends Zend_Controller_Action
      */
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
         $this->_adminIndexURL = $this->view->url(array(
             'controller' => 'index',
@@ -35,7 +28,6 @@ class Admin_ArticleController extends Zend_Controller_Action
     public function indexAction()
     {
         $kid = $this->getRequest()->getParam('kid', 0);
-        $consultation = null;
         $articles = null;
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
@@ -49,9 +41,10 @@ class Admin_ArticleController extends Zend_Controller_Action
         } else {
             $articleModel = new Model_Articles();
             $articles = $articleModel->getAllWithoutConsultation();
-//            $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
         }
+
         $this->view->articles = $articles;
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     public function createAction()
@@ -233,23 +226,26 @@ class Admin_ArticleController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Deletes an article
+     */
     public function deleteAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $aid = $this->getRequest()->getParam('aid', 0);
-        if ($aid > 0) {
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
             $articleModel = new Model_Articles();
-            $articleRow = $articleModel->getById($aid);
-            if ($articleRow['kid'] == $kid) {
-                $nrDeleted = $articleModel->deleteById($aid);
-                if ($nrDeleted > 0) {
-                    $this->_flashMessenger->addMessage('Der Artikel wurde gelöscht.', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage('Artikel konnte nicht gelöscht werden. Eventuell existieren Unterseiten. Dann bitte zuerst diese löschen!', 'error');
-                }
+            $nrDeleted = $articleModel->deleteById(
+                $this->getRequest()->getPost('delete')
+            );
+            if ($nrDeleted) {
+                $this->_flashMessenger->addMessage('Article was deleted.', 'success');
+            } else {
+                $this->_flashMessenger->addMessage('Article was not deleted. If it has subarticles, these have to be removed first.', 'error');
             }
         }
-        $this->_redirect('/admin/article/index/kid/' . $kid);
+
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 
     /**

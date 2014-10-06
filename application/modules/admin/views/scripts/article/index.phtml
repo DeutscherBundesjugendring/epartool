@@ -47,57 +47,77 @@
                     </p>
                 <?php else: ?>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="table-cell-id">#</th>
-                                <th><?=$this->translate('Title');?></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($this->articles as $article): ?>
+                    <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(['action' => 'delete'])?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td class="table-cell-id"><?=$article['art_id'];?></td>
-                                    <td>
-                                        <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" title="<?=$this->translate('Edit article');?>"><?=$article['desc'];?></a>
-                                    </td>
-                                    <td class="table-cell-actions">
-                                        <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" class="item-action" title="<?=$this->translate('Edit article');?>">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </a>
-                                        <a
-                                            href="<?=$this->url(['action' => 'delete', 'aid' => $article['art_id']]);?>"
-                                            class="item-action item-action-danger"
-                                            title="<?=$this->translate('Delete article');?>"
-                                            data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Delete article?');?>"
-                                        >
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </a>
-                                    </td>
+                                    <th class="table-cell-id">#</th>
+                                    <th><?=$this->translate('Title');?></th>
+                                    <th></th>
                                 </tr>
-                                <?php if (!empty($article['subpages'])): ?>
-                                    <?php foreach ($article['subpages'] as $subpage): ?>
-                                        <tr class="table-row-nested">
-                                            <td class="table-cell-id"><?=$subpage['art_id'];?></td>
-                                            <td>
-                                                <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']));?>" title="<?=$this->translate('Edit article');?>"><?=$subpage['desc'];?></a>
-                                            </td>
-                                            <td class="table-cell-actions">
-                                                <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']));?>" class="item-action" title="<?=$this->translate('Edit article');?>">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                </a>
-                                                <a href="<?=$this->url(array('action' => 'delete', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']));?>" class="item-action item-action-danger" title="<?=$this->translate('Delete article');?>">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->articles as $article): ?>
+                                    <tr>
+                                        <td class="table-cell-id"><?=$article['art_id'];?></td>
+                                        <td>
+                                            <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" title="<?=$this->translate('Edit article');?>"><?=$article['desc'];?></a>
+                                        </td>
+                                        <td class="table-cell-actions">
+                                            <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" class="item-action" title="<?=$this->translate('Edit article');?>">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+                                            <button
+                                                type="submit"
+                                                class="item-action item-action-danger"
+                                                name="delete"
+                                                value="<?=$article['art_id']?>"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete article?');?>"
+                                            >
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <?php if (!empty($article['subpages'])): ?>
+                                        <?php foreach ($article['subpages'] as $subpage): ?>
+                                            <tr class="table-row-nested">
+                                                <td class="table-cell-id"><?=$subpage['art_id'];?></td>
+                                                <td>
+                                                    <a
+                                                        href="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']]);?>"
+                                                        title="<?=$this->translate('Edit article');?>"
+                                                    >
+                                                        <?=$subpage['desc'];?>
+                                                    </a>
+                                                </td>
+                                                <td class="table-cell-actions">
+                                                    <a
+                                                        href="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']]);?>"
+                                                        class="item-action"
+                                                        title="<?=$this->translate('Edit article');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </a>
+                                                    <button
+                                                        type="submit"
+                                                        class="item-action item-action-danger"
+                                                        name="delete"
+                                                        value="<?=$subpage['art_id'];?>"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Delete article?');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </form>
 
                 <?php endif; ?>
 

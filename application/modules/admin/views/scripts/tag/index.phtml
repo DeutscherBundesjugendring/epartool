@@ -38,7 +38,8 @@
                         </div>
                         <div class="col-sm-11 col-sm-pull-1">
 
-                            <form name="edit_tags" action="<?=$this->url(array('action' => 'edit'));?>" method="post">
+                            <form action="<?=$this->url(['action' => 'edit']);?>" method="<?=$this->form->getMethod();?>">
+                                <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                                 <div class="form-group">
                                     <input type="submit" name="editsubmit" class="btn btn-primary pull-right" value="<?=$this->translate('Save Changes');?>" />
                                     <span class="help-block">
@@ -61,15 +62,16 @@
                                                         <div class="input-group">
                                                             <input name="tg_de[<?=$tag['tg_nr'];?>]" class="form-control input-sm" value="<?=$tag['tg_de'];?>" />
                                                             <span class="input-group-btn">
-                                                                <a
-                                                                    href="<?=$this->url(['action' => 'delete', 'tag' => $tag['tg_nr']]);?>"
+                                                                <button
+                                                                    value="<?=$tag['tg_nr'];?>"
+                                                                    name="delete"
+                                                                    type="submit"
                                                                     class="item-action item-action-danger"
-                                                                    title="<?=$this->translate('Delete keyword');?>"
                                                                     data-toggle="confirm"
                                                                     data-confirm-message="<?=$this->translate('Delete keyword?');?>"
                                                                 >
                                                                     <span class="glyphicon glyphicon-remove-sign"></span>
-                                                                </a>
+                                                                </button>
                                                             </span>
                                                         </div>
                                                         <input name="tag_old[<?=$tag['tg_nr'];?>]" value="<?=$tag['tg_de'];?>" type="hidden" />

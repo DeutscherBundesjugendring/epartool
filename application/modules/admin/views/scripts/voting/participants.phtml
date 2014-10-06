@@ -31,75 +31,82 @@
 
                 <p><b>Anzahl Abstimmende:</b> <?=count($this->groups);?></p>
                 <?php if (!empty($this->groups)): ?>
-                    <table class="table">
-                        <tr>
-                            <th>Gruppe</th>
-                            <th>Abstimmende_r</th>
-                            <th>Gruppenmitglied</th>
-                            <th>Noch abstimmen</th>
-                            <th>Aktion</th>
-                            <th>Abstimmungsteilnehmer:</th>
-                        </tr>
-                        <?php foreach ($this->groups as $group): ?>
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'participant-update']);?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                        <table class="table">
                             <tr>
-                                <td>
-                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'list', 'uid' => $group['uid']]);?>">
-                                        <?=$group['email'];?>
-                                    </a>
-                                    <br/>
-                                    <?=$group['name'];?>
-                                </td>
-                                <td><?=$group['sub_user'];?></td>
-                                <td><?=$memberships[$group['member']];?></td>
-                                <td><?=substr_count($group['vt_inp_list'], ',');?></td>
-                                <td>
-                                    <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
-                                        <a href="<?=$this->url(['action' => 'participantdeny', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
-                                            Ablehnen
-                                        </a>
-                                        <br/>
-                                    <?php endif;?>
-                                    <?php if (($group['member'] == "n" && $identity->lvl == "adm")
-                                        || ($group['member'] == "u" && $identity->lvl == "adm")
-                                    ): ?>
-                                        <a href="<?=$this->url(['action' => 'participantconfirm', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
-                                            Bestätigen
-                                        </a>
-                                        <br/>
-                                    <?php endif;?>
-                                    <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
-                                        <a
-                                            href="<?=$this->url(['action' => 'participantdelete', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
-                                            class="deleteconfirm"
-                                        >
-                                            Löschen
-                                        </a>
-                                        <br/>
-                                    <?php endif;?>
-                                </td>
-                                <td>
-                                    <a href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
-                                        zusammenführen
-                                    </a>
-                                    <br/>
-                                </td>
+                                <th>Gruppe</th>
+                                <th>Abstimmende_r</th>
+                                <th>Gruppenmitglied</th>
+                                <th>Noch abstimmen</th>
+                                <th>Aktion</th>
+                                <th>Abstimmungsteilnehmer:</th>
                             </tr>
-                        <?php endforeach;?>
-                    </table>
+                            <?php foreach ($this->groups as $group): ?>
+                                <tr>
+                                    <td>
+                                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'list', 'uid' => $group['uid']]);?>">
+                                            <?=$group['email'];?>
+                                        </a>
+                                        <br/>
+                                        <?=$group['name'];?>
+                                    </td>
+                                    <td><?=$group['sub_user'];?></td>
+                                    <td><?=$memberships[$group['member']];?></td>
+                                    <td><?=substr_count($group['vt_inp_list'], ',');?></td>
+                                    <td>
+                                        <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
+                                            <button
+                                                value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                class="item-action"
+                                                name="deny"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
+                                            >
+                                                Deny
+                                            </button>
+                                            <br/>
+                                        <?php endif;?>
+                                        <?php if (($group['member'] == "n" && $identity->lvl == "adm")
+                                            || ($group['member'] == "u" && $identity->lvl == "adm")
+                                        ): ?>
+                                            <button
+                                                value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                class="item-action"
+                                                name="confirm"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
+                                            >
+                                                Confirm
+                                            </button>
+                                            <br/>
+                                        <?php endif;?>
+                                        <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
+                                            <button
+                                                value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                class="item-action item-action-danger"
+                                                name="delete"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
+                                            >
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                            <br />
+                                        <?php endif;?>
+                                    </td>
+                                    <td>
+                                        <a href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
+                                            zusammenführen
+                                        </a>
+                                        <br/>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </table>
+                    </form>
                 <?php endif;?>
 
             </div>
         </div>
     </div>
 </section>
-
-<!-- TODO move to JS -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.deleteconfirm').click(function() {
-            if (!confirm('Wollen Sie diesen Datensatz wirklich löschen?')) {
-                return false;
-            }
-        });
-    });
-</script>

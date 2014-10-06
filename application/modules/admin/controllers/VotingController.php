@@ -236,74 +236,40 @@ class Admin_VotingController extends Zend_Controller_Action
      */
     public function participantsAction()
     {
-        $groups = array();
-        $groupsModel = new Model_Votes_Groups();
-        $inputModel = new Model_Inputs;
-        $groups = $groupsModel->getByConsultation($this->_consultation->kid);
-
-        // count of votable inputs
-        $inputModel = new Model_Inputs;
-        $filter = array(array(
-            'field'=>'vot',
-            'operator'=>'=',
-            'value'=>'y'
-        ));
-        $this->view->inputs = $inputModel->getCountByConsultationFiltered($this->_consultation->kid, $filter);
-        $this->view->groups = $groups;
+        $this->view->inputs = (new Model_Inputs())->getCountByConsultationFiltered(
+            $this->_consultation->kid,
+            [['field' => 'vot', 'operator' => '=', 'value' => 'y']]
+        );
+        $this->view->groups = (new Model_Votes_Groups())->getByConsultation($this->_consultation->kid);
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     /**
-     * Deny voter
+     * Performs deny, confirm and delete actions on a single particiapnt
      */
-    public function participantdenyAction()
+    public function participantUpdateAction()
     {
-        $uid = $this->_request->getParam('uid', 0);
-        $sub_uid = $this->_request->getParam('sub_uid', 0);
-        $votesGroupsModel = new Model_Votes_Groups();
+        $form = new Admin_Form_ListControl();
 
-        if ($votesGroupsModel->denyVoter($this -> _consultation -> kid, $uid, $sub_uid)) {
-            $this->_flashMessenger->addMessage('Teilnehmer_in wurde abgelehnt.', 'success');
-        } else {
-            $this->_flashMessenger->addMessage('Ablehnen fehlgeschlagen.', 'error');
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $votesGroupsModel = new Model_Votes_Groups();
+
+            if ($this->getRequest()->getPost('confirm')) {
+                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
+                $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
+                $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
+            } elseif ($this->getRequest()->getPost('deny')) {
+                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
+                $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
+                $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
+            } elseif ($this->getRequest()->getPost('delete')) {
+                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
+                $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
+                $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+            }
         }
 
-        $this->redirect('/admin/voting/participants/kid/' . $this -> _consultation -> kid);
-    }
-
-    /**
-     * Confirm voter
-     */
-    public function participantconfirmAction()
-    {
-        $uid = $this->_request->getParam('uid', 0);
-        $sub_uid = $this->_request->getParam('sub_uid', 0);
-        $votesGroupsModel = new Model_Votes_Groups();
-
-        if ($votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid)) {
-            $this->_flashMessenger->addMessage('Teilnehmer_in wurde bestätigt.', 'success');
-        } else {
-            $this->_flashMessenger->addMessage('Bestätigen fehlgeschlagen.', 'error');
-        }
-
-        $this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
-    }
-
-    /**
-     * Delete voter
-     */
-    public function participantdeleteAction()
-    {
-        $uid = $this->_request->getParam('uid', 0);
-        $sub_uid = $this->_request->getParam('sub_uid', 0);
-        $votesGroupsModel = new Model_Votes_Groups();
-
-        if ($votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid) > 0) {
-            $this->_flashMessenger->addMessage('Teilnehmer_in wurde gelöscht.', 'success');
-        } else {
-            $this->_flashMessenger->addMessage('Löschen fehlgeschlagen.', 'error');
-        }
-
-        $this->redirect('/admin/voting/participants/kid/' . $this->_consultation->kid);
+        $this->_redirect($this->view->url(['action' => 'participants']));
     }
 
     /**

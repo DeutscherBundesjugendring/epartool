@@ -29,71 +29,74 @@
                 <div class="col-sm-11 col-sm-pull-1">
 
                     <div class="table-responsive">
-                        <table class="table" data-view="table" data-navigation="#letterNavigation">
-                            <thead>
-                                <tr>
-                                    <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                    <th data-toggle="sort" data-order="default" data-group="first-letter" tabindex="0"><?=$this->translate('Name');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Email');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Role');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Last Activity');?></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-                                <?php foreach ($this->userlist as $user): ?>
+                        <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
+                            <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                            <table class="table" data-view="table" data-navigation="#letterNavigation">
+                                <thead>
                                     <tr>
-                                        <td class="table-cell-id"><?php echo $i; ?></td>
-                                        <td><?php echo (empty($user->name))? '<span class="text-muted">–</span>' : $user->name; ?></td>
-                                        <td>
-                                            <?php if (empty($user->email)): ?>
-                                                <em class="text-muted"><?=$this->translate('N/A');?></em>
-                                            <?php else: ?>
-                                                <a href="mailto:<?=$user->email;?>" title="<?=$this->translate('Send email to user');?>"><?=$user->email;?></a>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            switch($user->lvl) {
-                                                case 'usr':
-                                                    $userLevel = $this->translate('User');
-                                                    break;
-                                                case 'edt':
-                                                    $userLevel = $this->translate('Editor');
-                                                    break;
-                                                case 'adm':
-                                                    $userLevel = $this->translate('Administrator');
-                                                    break;
-                                            }
-                                            ?>
-                                            <?=$userLevel;?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            $zendDate = new Zend_Date($user->last_act);
-                                            echo $zendDate->get(Zend_Date::DATETIME_SHORT);
-                                            ?>
-                                        </td>
-                                        <td class="table-cell-actions">
-                                            <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="<?=$this->translate('Edit user');?>">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </a>
-                                            <a
-                                                href="<?=$this->url(array('action' => 'delete', 'uid' => $user->uid));?>"
-                                                class="item-action item-action-danger"
-                                                title="<?=$this->translate('Delete user');?>"
-                                                data-toggle="confirm"
-                                                data-confirm-message="<?=$this->translate('Are you sure? All inputs will be amde anonymous.?');?>"
-                                            >
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </a>
-                                        </td>
+                                        <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                        <th data-toggle="sort" data-order="default" data-group="first-letter" tabindex="0"><?=$this->translate('Name');?></th>
+                                        <th data-toggle="sort" tabindex="0"><?=$this->translate('Email');?></th>
+                                        <th data-toggle="sort" tabindex="0"><?=$this->translate('Role');?></th>
+                                        <th data-toggle="sort" tabindex="0"><?=$this->translate('Last Activity');?></th>
+                                        <th></th>
                                     </tr>
-                                    <?php $i++; ?>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($this->userlist as $user): ?>
+                                        <tr>
+                                            <td class="table-cell-id"><?php echo $i; ?></td>
+                                            <td><?php echo (empty($user->name))? '<span class="text-muted">–</span>' : $user->name; ?></td>
+                                            <td>
+                                                <?php if (empty($user->email)): ?>
+                                                    <em class="text-muted"><?=$this->translate('N/A');?></em>
+                                                <?php else: ?>
+                                                    <a href="mailto:<?=$user->email;?>" title="<?=$this->translate('Send email to user');?>"><?=$user->email;?></a>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                switch($user->lvl) {
+                                                    case 'usr':
+                                                        $userLevel = $this->translate('User');
+                                                        break;
+                                                    case 'edt':
+                                                        $userLevel = $this->translate('Editor');
+                                                        break;
+                                                    case 'adm':
+                                                        $userLevel = $this->translate('Administrator');
+                                                        break;
+                                                }
+                                                ?>
+                                                <?=$userLevel;?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $zendDate = new Zend_Date($user->last_act);
+                                                echo $zendDate->get(Zend_Date::DATETIME_SHORT);
+                                                ?>
+                                            </td>
+                                            <td class="table-cell-actions">
+                                                <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="<?=$this->translate('Edit user');?>">
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                </a>
+                                                <button
+                                                    value="<?=$user->uid;?>"
+                                                    class="item-action item-action-danger"
+                                                    name="delete"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Are you sure? All inputs will be amde anonymous.?');?>"
+                                                >
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
 
                 <?php endif; ?>
