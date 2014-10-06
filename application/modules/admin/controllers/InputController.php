@@ -169,33 +169,38 @@ class Admin_InputController extends Zend_Controller_Action
     }
 
     /**
-     * Edit Inputs in bulk
+     * Makes changes to Inputs from the input list contect in bulk and individualy
      */
-    public function editbulkAction()
+    public function editListAction()
     {
         $form = new Admin_Form_ListControl();
 
         if ($this->getRequest()->isPost() && $form->isValid($this->getRequest()->getPost())) {
             $inputModel = new Model_Inputs();
-            $data = $this->_request->getPost();
+            $data = $this->getRequest()->getPost();
             $returnUrl = $data['return_url'];
 
-            switch ($data['action']) {
-                case 'delete':
-                    $nr = $inputModel->deleteBulk($data['inp_list']);
-                    $msg = sprintf($this->view->translate('%d inputs were deleted.'), $nr);
-                    $this->_flashMessenger->addMessage($msg, 'success');
-                    break;
-                case 'block':
-                    $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
-                    $msg = sprintf($this->view->translate('%d inputs were blocked.'), $nr);
-                    $this->_flashMessenger->addMessage($msg, 'success');
-                    break;
-                case 'publish':
-                    $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
-                    $msg = sprintf($this->view->translate('%d inputs were unblocked.'), $nr);
-                    $this->_flashMessenger->addMessage($msg, 'success');
-                    break;
+            if (!empty($data['bulkAction'])) {
+                switch ($data['bulkAction']) {
+                    case 'delete':
+                        $nr = $inputModel->deleteBulk($data['inp_list']);
+                        $msg = sprintf($this->view->translate('%d inputs were deleted.'), $nr);
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        break;
+                    case 'block':
+                        $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
+                        $msg = sprintf($this->view->translate('%d inputs were blocked.'), $nr);
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        break;
+                    case 'publish':
+                        $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
+                        $msg = sprintf($this->view->translate('%d inputs were unblocked.'), $nr);
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        break;
+                }
+            } elseif (!empty($data['delete'])) {
+                $inputModel->deleteById($data['delete']);
+                $this->_flashMessenger->addMessage('The input was deleted.', 'success');
             }
         }
 

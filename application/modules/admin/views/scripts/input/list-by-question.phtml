@@ -98,7 +98,7 @@
                     </p>
                 <?php endif;?>
 
-                <form action="<?=$this->baseUrl();?>/admin/input/editbulk" method="<?=$this->form->getMethod();?>">
+                <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
                     <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <input name="return_url" type="hidden" value="<?=$this->url();?>" />
 
@@ -115,15 +115,15 @@
                             </div>
                             <div class="col-sm-9 text-right">
                                 <div class="btn-group">
-                                    <button type="submit" name="action" value="publish" class="btn btn-default">
+                                    <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
                                         <span class="glyphicon glyphicon-ok-sign"></span>
                                         <?=$this->translate('Publish');?>
                                     </button>
-                                    <button type="submit" name="action" value="block" class="btn btn-default">
+                                    <button type="submit" name="bulkAction" value="block" class="btn btn-default">
                                         <span class="glyphicon glyphicon-ban-circle"></span>
                                         <?=$this->translate('Block');?>
                                     </button>
-                                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                                    <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-trash"></span>
                                         <?=$this->translate('Delete');?>
                                     </button>
@@ -152,15 +152,15 @@
                             </div>
                             <div class="col-sm-9 text-right">
                                 <div class="btn-group">
-                                    <button type="submit" name="action" value="publish" class="btn btn-default">
+                                    <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
                                         <span class="glyphicon glyphicon-ok-sign"></span>
                                         <?=$this->translate('Publish');?>
                                     </button>
-                                    <button type="submit" name="action" value="block" class="btn btn-default">
+                                    <button type="submit" name="bulkAction" value="block" class="btn btn-default">
                                         <span class="glyphicon glyphicon-ban-circle"></span>
                                         <?=$this->translate('Block');?>
                                     </button>
-                                    <button type="submit" name="action" value="delete" class="btn btn-danger">
+                                    <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
                                         <span class="glyphicon glyphicon-trash"></span>
                                         <?=$this->translate('Delete');?>
                                     </button>

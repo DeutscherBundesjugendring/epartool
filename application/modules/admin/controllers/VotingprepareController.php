@@ -84,8 +84,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Updates voting status, block status and deletes inputs.
-     * Afterwords it redirects to self::overviewAction()
+     * Makes changes to Inputs from the input list contect in bulk and individualy
      */
     public function updateAction()
     {

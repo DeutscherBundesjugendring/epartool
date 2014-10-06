@@ -98,5 +98,14 @@
         <a href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']])?>" class="item-action">
             <span class="glyphicon glyphicon-pencil"></span>
         </a>
+        <button
+            class="btn btn-default item-action item-action-danger"
+            name="delete"
+            value="<?=$this->input['tid']?>"
+            data-toggle="confirm"
+            data-confirm-message="<?=$this->translate('Delete input?');?>"
+        >
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
     </td>
 </tr>
