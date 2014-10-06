@@ -68,7 +68,7 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
         $cssClass = 'btn btn-primary';
 
         if ($this->_actionType === self::TYPE_DELETE) {
-            $cssClass .= 'item-action item-action-danger';
+            $cssClass = 'item-action item-action-danger';
             $this
                 ->setOptions(['escape' => false, 'type' => 'submit'])
                 ->setLabel('<span class="glyphicon glyphicon-trash"></span>')
