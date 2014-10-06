@@ -48,7 +48,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="navbar-brand" title="<?=$this->translate('DBJR TOOL admin dashboard');?>"><?=$this->translate('DBJR TOOL');?></a>
+                    <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="navbar-brand" title="<?=$this->translate('ePartool admin dashboard');?>">
+                        <?php include(APPLICATION_PATH . '/../www/images/admin/logo.svg'); ?>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
                     <?=$this->navigation()->menu();?>
@@ -112,7 +114,7 @@
             <span class="footer-divider">|</span>
             <a href="TODO" target="_blank"><?=$this->translate('Contact');?></a>
             <a href="http://www.synergic.cz/en" target="_blank" class="footer-author" title="Created by Synergic">
-                <?php include(APPLICATION_PATH . '/../www/images/synergic.svg'); ?>
+                <?php include(APPLICATION_PATH . '/../www/images/admin/synergic.svg'); ?>
             </a>
         </div>
     </footer>
