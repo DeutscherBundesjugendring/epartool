@@ -42,7 +42,7 @@
                             <?php foreach ($this->questions as $question): ?>
                                 <tr>
                                     <td class="table-cell-id"><?=$question->qi;?></td>
-                                    <td><?=$question->q;?></td>
+                                    <td><?=strip_tags($question->q);?></td>
                                     <td>
                                         <?php if (!empty($question->inputCountUnread)): ?>
                                             <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => '1']);?>"><?=$this->translate('Show');?></a>

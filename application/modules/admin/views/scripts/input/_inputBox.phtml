@@ -95,15 +95,20 @@
         </p>
     </td>
     <td class="col-xs-1 table-cell-top text-center">
-        <a href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']])?>" class="item-action">
+        <a
+            href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']])?>"
+            class="item-action"
+            title="<?=$this->translate('Edit contribution');?>"
+            >
             <span class="glyphicon glyphicon-pencil"></span>
         </a>
         <button
-            class="btn btn-default item-action item-action-danger"
+            class="item-action item-action-danger"
             name="delete"
             value="<?=$this->input['tid']?>"
             data-toggle="confirm"
-            data-confirm-message="<?=$this->translate('Delete input?');?>"
+            data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+            title="<?=$this->translate('Delete contribution');?>"
         >
             <span class="glyphicon glyphicon-trash"></span>
         </button>

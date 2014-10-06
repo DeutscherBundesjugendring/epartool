@@ -24,7 +24,7 @@
                 </a>
                 <h2><?=$this->translate('Questions');?></h2>
 
-                <?php if (!$this->questions): ?>
+                <?php if (empty($this->questions)): ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign"></span>
                         <?=$this->translate('There are no questions yet.');?>
@@ -44,7 +44,7 @@
                                 <?php foreach ($this->questions as $question): ?>
                                     <tr>
                                         <td class="table-cell-id"><?=$question->nr;?></td>
-                                        <td><?=$question->q;?></td>
+                                        <td><?strip_tags($question->q);?></td>
                                         <td class="table-cell-actions">
                                             <a
                                                 href="<?=$this->url(['action' => 'edit', 'qid' => $question->qi]);?>"
