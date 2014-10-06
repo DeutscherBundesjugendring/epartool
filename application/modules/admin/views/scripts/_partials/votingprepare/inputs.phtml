@@ -53,7 +53,10 @@
         >
             <span class="glyphicon glyphicon-pencil"></span>
         </a>
-        <a class="btn btn-default item-action" href="<?=$this->url();?>">
+        <a
+            class="btn btn-default item-action"
+            href="<?=$this->url(['action' => 'copy', 'inputId' => $this->input['tid']]);?>"
+        >
             <span class="glyphicon glyphicon-tags"></span>
         </a>
         <a

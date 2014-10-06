@@ -1,0 +1,29 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
+
+            </div>
+            <div class="content">
+
+                <h2><?=$this->translate('Voting');?></h2>
+
+                <h3><?=$this->translate('Copy input');?></h3>
+                <?php echo $this->form; ?>
+
+            </div>
+        </div>
+    </div>
+</section>

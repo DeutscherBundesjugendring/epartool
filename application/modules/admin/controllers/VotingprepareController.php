@@ -111,7 +111,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     $msg = sprintf($this->view->translate('%d inputs were deleted.'), $deletedCount);
                 } elseif ($this->getRequest()->getPost('merge', null)) {
                     // This is awkward, but we need to utilise the same checkboxes as for bulk editing actions
-                    // Essentially this only takes values from inputIds checkboxes and constructs and url to redirect to
+                    // Essentially this only takes values from inputIds checkboxes and constructs an url to redirect to
                     return $this->redirect(
                         $this->view->url(['action' => 'merge', 'inputIds' => $this->getRequest()->getPost('inputIds', null)])
                     );
@@ -324,55 +324,40 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Copies an input
+     * Creates a copy of an input
      */
     public function copyAction()
     {
-        $this->_helper->layout()->disableLayout();
-        if (empty($this->_tid)) {
-            $this->_flashMessenger->addMessage('Kein Betrag ausgewählt', 'error');
-            $this->_redirect(
-                'admin/votingprepare/overview/kid/' . $this->_consultation['kid'] . '/qid/' . $this->_qid . ''
-            );
-        }
-
         $inputModel = new Model_Inputs();
-        $inputTagsModel = new Model_InputsTags();
+        $inputId = $this->getRequest()->getParam('inputId');
 
-        // Get the data from the database - source row
-        $copyprepare = $inputModel->getById($this->_tid);
-        $tags= $copyprepare['tags'];
+        $form = new Admin_Form_Input();
+        $this->addNewElements([$inputId], $form);
 
-        // New Owner (Admin)
-        $copyprepare['uid'] = 1;
-        // New create_date
-        $copyprepare['when'] = "";
-
-        // Unset the uid which should be the primary key and teh tag array()
-        unset ($copyprepare['tags']);
-        unset ($copyprepare['tid']);
-
-         //insert
-        $new = $inputModel ->add($copyprepare);
-
-        //insert tags when have
-        if (!empty($tags)) {
-            foreach ($tags as $key => $value) {
-                $inputTagsModel->insertByInputsId($new, array($value["tg_nr"]));
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+            if ($form->isValid($postData)) {
+                $newTid = $inputModel->addInputs($postData);
+                $this->_flashMessenger->addMessage('The input was copied. This is the copy.', 'success');
+                $this->redirect(
+                    $this->view->url(
+                        ['controller' => 'input', 'action' => 'edit', 'tid' => $inputId, 'return' => 'votingprepare']
+                    )
+                );
+            } else {
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
             }
+        } else {
+            $origData = $inputModel->getById($inputId);
+            $origData['uid'] = null;
+            $origData['rel_id'] = $origData['tid'];
+            unset($origData['when']);
+            unset($origData['tid']);
+            $form->populate($origData);
         }
 
-        //redirect to editaction
-        $this->redirect(
-            '/admin/votingprepare/edit/kid/'
-            . $this->_consultation["kid"]
-            . '/qid/'
-            . $this->_qid
-            . '/tid/'
-            . $new
-            . '/dir/'
-            . $this->getDirId($this->_params)
-        );
+        $this->view->consultation = $this->_consultation;
+        $this->view->form = $form;
     }
 
     /**
