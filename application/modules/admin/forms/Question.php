@@ -24,7 +24,7 @@ class Admin_Form_Question extends Dbjr_Form_Admin
             ->setDescription($desc);
         $this->addElement($question);
 
-        $expl = $this->createElement('textarea', 'q_expl');
+        $expl = $this->createElement('textarea', 'q_xpl');
         $expl
             ->setLabel('Explanation')
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)

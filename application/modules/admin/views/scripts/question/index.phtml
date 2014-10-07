@@ -1,10 +1,10 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
-        <?=$this->consultationTabs($this->kid, 'consultation');?>
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
     </div>
 </section>
@@ -13,12 +13,12 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->kid, 'questions');?>
+                <?=$this->consultationNavigation($this->consultation['kid'], 'questions');?>
 
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->kid));?>" class="btn btn-default pull-right">
+                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <?=$this->translate('New Question');?>
                 </a>
@@ -43,11 +43,11 @@
                             <tbody>
                                 <?php foreach ($this->questions as $question): ?>
                                     <tr>
-                                        <td class="table-cell-id"><?=$question->nr;?></td>
-                                        <td><?=strip_tags($question->q);?></td>
+                                        <td class="table-cell-id"><?=$this->escape($question->nr);?></td>
+                                        <td><?=$this->escape($question->q);?></td>
                                         <td class="table-cell-actions">
                                             <a
-                                                href="<?=$this->url(['action' => 'edit', 'qid' => $question->qi]);?>"
+                                                href="<?=$this->url(['action' => 'edit', 'qid' => $this->escape($question->qi)]);?>"
                                                 class="item-action"
                                                 title="<?=$this->translate('Edit question');?>"
                                             >
@@ -55,7 +55,7 @@
                                             </a>
                                             <button
                                                 name="delete"
-                                                value="<?=$question->qi;?>"
+                                                value="<?=$this->escape($question->qi);?>"
                                                 class="item-action item-action-danger"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete question?');?>"
