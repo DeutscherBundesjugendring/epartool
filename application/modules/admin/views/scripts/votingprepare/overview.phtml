@@ -18,229 +18,301 @@
             </div>
             <div class="content">
 
-                <h2><?=$this->translate('Voting');?></h2>
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to Questions');?></a>
+                <h2><?=$this->translate('Voting Preparation');?></h2>
 
-                <div>
-                    <h3><?=$this->translate('Folders');?></h3>
-                    <a href="<?=$this->url(['action' => 'create-directory']);?>"><?=$this->translate('Add folder');?></a>
-                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete-directory']);?>">
-                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <ul>
-                            <?php foreach($this->directories as $directory): ?>
-                                <li>
-                                    <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
-                                        &nbsp;&nbsp;&nbsp;
-                                    <?php endfor;?>
-                                    <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
-                                    <button
-                                        class="btn btn-default item-action item-action-danger"
-                                        name="delete"
-                                        value="<?=$directory['id']?>"
-                                        data-toggle="confirm"
-                                        data-confirm-message="<?=$this->translate('Delete directory?');?>"
-                                    >
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </li>
-                            <?php endforeach?>
-                        </ul>
-                    </form>
-                </div>
-
-                <div>
-                    <h3><?=$this->translate('Search');?></h3>
-                    <form method="get">
-                        <div class="row">
-                            <div class="form-group">
-                                <input
-                                    name="fulltext"
-                                    type="text"
-                                    value="<?=$this->fulltext;?>"
-                                />
-                            </div>
-                            <div class="form-actions">
-                                <button
-                                    type="submit"
-                                    class="btn btn-default"
-                                >
+                <!-- Search -->
+                <form method="get">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input
+                                name="fulltext"
+                                type="search"
+                                class="form-control"
+                                value="<?=$this->fulltext;?>"
+                                placeholder="<?=$this->translate('Search contributions');?>"
+                            />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-search"></span>
                                     <?=$this->translate('Search');?>
                                 </button>
-                            </div>
-                        </div><!-- .row -->
-                    </form>
-                </div>
+                            </span>
+                        </div>
+                    </div>
+                </form>
 
-                <div>
-                    <h3><?=$this->translate('Filter');?></h3>
-                    <form data-target="#contribution-table tr">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label><?=$this->translate('Admin Confirmation');?></label>
-                                    <select
-                                        class="form-control"
-                                        data-toggle="filter"
-                                        data-target-attrib="admin-confirmation"
-                                        data-filter-operator="="
-                                    >
-                                        <option value=""><?=$this->translate('All');?></option>
-                                        <option value="u"><?=$this->translate('Waiting for revision');?></option>
-                                        <option value="n"><?=$this->translate('Confirmed');?></option>
-                                        <option value="y"><?=$this->translate('Blocked');?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label></span> <?=$this->translate('Origin');?></label>
-                                    <select
-                                        class="form-control"
-                                        data-toggle="filter"
-                                        data-target-attrib="origin"
-                                        data-filter-operator="="
-                                    >
-                                        <option value=""><?=$this->translate('All');?></option>
-                                        <option value="userCreated"><?=$this->translate('User created');?></option>
-                                        <option value="adminCreated"><?=$this->translate('Admin created');?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label><?=$this->translate('Voting');?></label>
-                                    <select
-                                        class="form-control"
-                                        data-toggle="filter"
-                                        data-target-attrib="voting"
-                                        data-filter-operator="="
-                                    >
-                                        <option value=""><?=$this->translate('All');?></option>
-                                        <option value="u"><?=$this->translate('Unknown');?></option>
-                                        <option value="y"><?=$this->translate('Allowed');?></option>
-                                        <option value="n"><?=$this->translate('Blocked');?></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div><!-- .row -->
+                <!-- Filters -->
+                <div class="panel-group">
 
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label><?=$this->translate('Folder');?></label>
-                                    <select
-                                        class="form-control"
-                                        data-toggle="filter"
-                                        data-target-attrib="directory"
-                                        data-filter-operator="="
-                                    >
-                                        <option value=""><?=$this->translate('All folders');?></option>
-                                        <option value="0"><?=$this->translate('Folder root');?></option>
+                    <!-- Common filter -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" href="#filterCommon">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                                    <span class="glyphicon glyphicon-filter"></span>
+                                    <?=$this->translate('Filter');?>
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="filterCommon" class="panel-collapse collapse">
+                            <div class="panel-body">
+
+                                <form data-target="#contribution-table tr" class="form-filter">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><?=$this->translate('Admin Confirmation');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-target-attrib="admin-confirmation"
+                                                    data-filter-operator="="
+                                                >
+                                                    <option value=""><?=$this->translate('All');?></option>
+                                                    <option value="u"><?=$this->translate('Waiting for revision');?></option>
+                                                    <option value="n"><?=$this->translate('Confirmed');?></option>
+                                                    <option value="y"><?=$this->translate('Blocked');?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label></span> <?=$this->translate('Origin');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-target-attrib="origin"
+                                                    data-filter-operator="="
+                                                >
+                                                    <option value=""><?=$this->translate('All');?></option>
+                                                    <option value="userCreated"><?=$this->translate('User created');?></option>
+                                                    <option value="adminCreated"><?=$this->translate('Admin created');?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><?=$this->translate('Voting');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-target-attrib="voting"
+                                                    data-filter-operator="="
+                                                >
+                                                    <option value=""><?=$this->translate('All');?></option>
+                                                    <option value="u"><?=$this->translate('Unknown');?></option>
+                                                    <option value="y"><?=$this->translate('Allowed');?></option>
+                                                    <option value="n"><?=$this->translate('Blocked');?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div><!-- .row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><?=$this->translate('Folder');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-target-attrib="directory"
+                                                    data-filter-operator="="
+                                                >
+                                                    <option value=""><?=$this->translate('All folders');?></option>
+                                                    <option value="0"><?=$this->translate('Folder root');?></option>
+                                                    <?php foreach($this->directories as $directory): ?>
+                                                        <option value="<?=$directory['id'];?>">
+                                                            <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
+                                                                &nbsp;&nbsp;&nbsp;
+                                                            <?php endfor;?>
+                                                            <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                                        </option>
+                                                    <?php endforeach?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="tags"><?=$this->translate('Tags');?></label>
+                                                <select
+                                                    name="tags[]"
+                                                    class="js-select2"
+                                                    multiple
+                                                    data-toggle="filter"
+                                                    data-target-attrib="tags"
+                                                >
+                                                    <?php foreach ($this->tags as $tag): ?>
+                                                        <option
+                                                            value="<?=$tag['tg_nr'];?>"
+                                                            <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
+                                                        >
+                                                            <?=$tag['tg_de'];?>
+                                                        </option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-actions">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-default"
+                                                    data-toggle="reset-filter"
+                                                >
+                                                    <?=$this->translate('Reset Filter');?>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div><!-- .row -->
+                                </form>
+
+                            </div>
+                        </div>
+                    </div><!-- .panel -->
+
+                    <!-- Folders -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" href="#filterFolders">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <?=$this->translate('Folders');?>
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="filterFolders" class="panel-collapse collapse">
+                            <div class="panel-body">
+
+                                <a href="<?=$this->url(['action' => 'create-directory']);?>">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                    <?=$this->translate('Add folder');?>
+                                </a>
+
+                                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete-directory']);?>">
+                                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                                    <ul>
                                         <?php foreach($this->directories as $directory): ?>
-                                            <option value="<?=$directory['id'];?>">
+                                            <li>
                                                 <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
                                                     &nbsp;&nbsp;&nbsp;
                                                 <?php endfor;?>
                                                 <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
-                                            </options>
+                                                <button
+                                                    class="btn btn-default item-action item-action-danger"
+                                                    name="delete"
+                                                    value="<?=$directory['id']?>"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Delete directory?');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </li>
                                         <?php endforeach?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="tags"><?=$this->translate('Tags');?></label>
-                                    <select
-                                        name="tags[]"
-                                        class="form-control js-select2"
-                                        multiple
-                                        data-toggle="filter"
-                                        data-target-attrib="tags"
-                                    >
-                                        <?php foreach ($this->tags as $tag): ?>
-                                            <option
-                                                value="<?=$tag['tg_nr'];?>"
-                                                <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
-                                            >
-                                                <?=$tag['tg_de'];?>
-                                            </option>
-                                        <?php endforeach;?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <button
-                                    type="button"
-                                    class="btn btn-default"
-                                    data-toggle="reset-filter"
-                                >
-                                    <?=$this->translate('Reset Filter');?>
-                                </button>
+                                    </ul>
+                                </form>
+
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div><!-- .panel -->
 
-                <div>
-                    <h3><?=$this->translate('Inputs');?></h3>
-                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'list-control']);?>">
-                        <div>
-                            <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                            <?=$this->translate('Marked entries');?>
-                            <button class="btn btn-default" name="merge" value="1" type="submit">
-                                <?=$this->translate('Merge');?>
-                            </button>
-                            <button
-                                class="btn btn-default"
-                                name="releaseBulk"
-                                type="submit"
-                                value="1"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Release inputs?');?>"
-                            >
-                                <?=$this->translate('Release');?>
-                            </button>
-                            <button
-                                class="btn btn-default"
-                                name="blockBulk"
-                                type="submit"
-                                value="1"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Block inputs?');?>"
-                            >
-                                <?=$this->translate('Block');?>
-                            </button>
-                            <button
-                                class="btn btn-default"
-                                name="enableVotingBulk"
-                                type="submit"
-                                value="1"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Set inputs for voting?');?>"
-                            >
-                                <?=$this->translate('Allow for voting');?>
-                            </button>
-                            <button
-                                class="btn btn-default"
-                                name="blockVotingBulk"
-                                type="submit"
-                                value="1"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Ban inoputs from voting?');?>"
-                            >
-                                <?=$this->translate('Ban from voting');?>
-                            </button>
-                            <button
-                                class="btn btn-default"
-                                name="deleteBulk"
-                                type="submit"
-                                value="1"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Delete inputs?');?>"
-                            >
-                                <?=$this->translate('Delete');?>
-                            </button>
+                </div><!-- .panel-group -->
 
-                            <select name="sendToDictionaryId">
+                <!-- Contributions -->
+                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'list-control']);?>">
+
+                    <!-- Actions -->
+                    <div class="well well-sm">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="js-toggle-all" />
+                                <?=$this->translate('Marked entries');?>:
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="btn-toolbar">
+
+                                <div class="btn-group">
+                                    <button class="btn btn-default" name="merge" value="1" type="submit">
+                                        <span class="glyphicon glyphicon-resize-small"></span>
+                                        <span class="hidden-xs hidden-md"><?=$this->translate('Merge');?></span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-default"
+                                        name="releaseBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Release inputs?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Release');?></span>
+                                    </button>
+                                    <button
+                                        class="btn btn-default"
+                                        name="blockBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Block inputs?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Block');?></span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-default"
+                                        name="enableVotingBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Set inputs for voting?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Allow for voting');?></span>
+                                    </button>
+                                    <button
+                                        class="btn btn-default"
+                                        name="blockVotingBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Ban inoputs from voting?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Ban from voting');?></span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-danger"
+                                        name="deleteBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Delete inputs?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        <span class="visible-lg-inline"><?=$this->translate('Delete');?></span>
+                                    </button>
+                                </div>
+
+                            </div><!-- .btn-toolbar -->
+                        </div><!-- .form-group -->
+
+                        <div class="input-group">
+                            <select class="form-control" name="sendToDictionaryId">
                                 <option value="0"><?=$this->translate('Folder root');?></option>
                                 <?php foreach($this->directories as $directory): ?>
                                     <option value="<?=$directory['id'];?>">
@@ -248,32 +320,35 @@
                                             &nbsp;&nbsp;&nbsp;
                                         <?php endfor;?>
                                         <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
-                                    </options>
+                                    </option>
                                 <?php endforeach?>
                             </select>
-                            <button
-                                class="btn btn-default"
-                                name="sendToDictionaryBulk"
-                                type="submit"
-                                value="1"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Move inputs?');?>"
-                            >
-                                <?=$this->translate('Add to folder');?>
-                            </button>
+                            <span class="input-group-btn">
+                                <button
+                                    class="btn btn-default"
+                                    name="sendToDictionaryBulk"
+                                    type="submit"
+                                    value="1"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?=$this->translate('Move inputs?');?>"
+                                    >
+                                    <?=$this->translate('Move to folder');?>
+                                </button>
+                            </span>
                         </div>
 
-                        <div>
-                            <table id="contribution-table">
-                                <tbody>
-                                    <?php foreach ($this->inputs as $input): ?>
-                                        <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input])?>
-                                    <?php endforeach;?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
+                    </div><!-- .well -->
+
+                    <!-- Contribution listing -->
+                    <table id="contribution-table" class="table table-bordered table-responsive">
+                        <tbody>
+                            <?php foreach ($this->inputs as $input): ?>
+                                <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input])?>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+
+                </form>
 
             </div>
         </div>
