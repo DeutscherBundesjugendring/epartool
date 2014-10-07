@@ -173,4 +173,33 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
 
         return $followups;
     }
+
+    /**
+     * Deletes existing rows.
+     * @param  array|string $where SQL WHERE clause(s).
+     * @return int          The number of rows deleted.
+     */
+    public function delete($where)
+    {
+        $followups = $this->fetchAll($where);
+        $followupIds = [];
+        foreach ($followups as $followup) {
+            $followupIds[] = $followup->ffid;
+        }
+
+        $snippetModel = new Model_Followups();
+        $relatedSnippetCount = $snippetModel
+            ->select()
+            ->from($snippetModel, ['count' => 'COUNT(*)'])
+            ->where('ffid IN (?)', $followupIds)
+            ->query()
+            ->fetchObject()
+            ->count;
+
+        if ($relatedSnippetCount) {
+            throw new Dbjr_Exception('Cant delete followup if snippets exist.');
+        }
+
+        return parent::delete($where);
+    }
 }

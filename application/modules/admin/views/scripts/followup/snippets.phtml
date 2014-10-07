@@ -72,22 +72,24 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
 
-                                        <a
-                                            href="<?=$this->url(['action' => 'delete-snippet', 'fid' => $snippet['fid']]);?>"
+                                        <button
+                                            value="<?=$snippet['fid'];?>"
                                             class="item-action item-action-danger"
+                                            name="delete"
                                             data-toggle="confirm"
                                             data-confirm-message="<?=$this->translate('Delete snippet?');?>"
                                         >
                                             <span class="glyphicon glyphicon-trash"></span>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
 
-                    <button type="submit" class="btn btn-default" disabled><?=$this->translate('Save');?>
-
+                    <button type="submit" name="saveOrder" value="1" class="btn btn-default" disabled>
+                        <?=$this->translate('Save');?>
+                    </button>
                 </form>
 
             </div>

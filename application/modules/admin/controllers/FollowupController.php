@@ -24,9 +24,9 @@ class Admin_FollowupController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
         $followupFiles = new Model_FollowupFiles();
-        $this->view->followupFiles = $followupFiles->getByKid($kid, 'when DESC');
+        $this->view->followupFiles = $followupFiles->getByKid($this->_kid, 'when DESC');
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     /*
@@ -181,14 +181,24 @@ class Admin_FollowupController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
-                foreach ($postData['docorg'] as $snippetId => $docorg) {
-                    $snippetModel
-                        ->find($snippetId)
+                if ($this->getRequest()->getPost('delete')) {
+                    (new Model_Followups())
+                        ->find($this->getRequest()->getPost('delete'))
                         ->current()
-                        ->setFromArray(['docorg' => $docorg])
-                        ->save();
+                        ->delete();
+
+                    $this->_flashMessenger->addMessage('The snippet was deleted successfully.', 'success');
+                    $this->_redirect($this->view->url(['action' => 'snippets', 'ffid' => $ffid]));
+                } elseif ($this->getRequest()->getPost('saveOrder')) {
+                    foreach ($postData['docorg'] as $snippetId => $docorg) {
+                        $snippetModel
+                            ->find($snippetId)
+                            ->current()
+                            ->setFromArray(['docorg' => $docorg])
+                            ->save();
+                    }
+                    $this->redirect($this->view->url());
                 }
-                $this->redirect($this->view->url());
             }
         }
 
@@ -211,36 +221,27 @@ class Admin_FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * Deletes a followup
+     * Deletes a followup if there are no snippets attached to it
      */
     public function deleteFollowupAction()
     {
-        $ffid = $this->getRequest()->getParam('ffid', 0);
+        $form = new Admin_Form_ListControl();
 
-        (new Model_FollowupFiles())
-            ->find($ffid)
-            ->current()
-            ->delete();
+        if ($form->isValid($this->getRequest()->getPost())) {
+            try {
+                (new Model_FollowupFiles())
+                    ->find($this->getRequest()->getPost('delete'))
+                    ->current()
+                    ->delete();
+                $this->_flashMessenger->addMessage('Followup deleted.', 'success');
+            } catch (Dbjr_Exception $e) {
+                $this->_flashMessenger->addMessage('Followup could not be deleted as there are snippets attached to it.', 'error');
+            }
 
-        $this->_flashMessenger->addMessage('The followup was deleted successfully.', 'success');
-        $this->_redirect($this->view->url(['action' => 'index', 'ffid' => null]));
-    }
+            $this->_redirect($this->view->url(['action' => 'index', 'ffid' => null]));
+        }
 
-    /*
-     * Delete a snippet
-     */
-    public function deleteSnippetAction()
-    {
-        $fid = $this->getRequest()->getParam('fid', null);
-        $ffid = $this->getRequest()->getParam('ffid', null);
-
-        (new Model_Followups())
-            ->find($fid)
-            ->current()
-            ->delete();
-
-        $this->_flashMessenger->addMessage('The snippet was deleted successfully.', 'success');
-        $this->_redirect($this->view->url(['action' => 'snippets', 'ffid' => $ffid]));
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 
     /**
