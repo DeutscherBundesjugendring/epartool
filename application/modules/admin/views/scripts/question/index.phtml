@@ -44,7 +44,7 @@
                                 <?php foreach ($this->questions as $question): ?>
                                     <tr>
                                         <td class="table-cell-id"><?=$question->nr;?></td>
-                                        <td><?strip_tags($question->q);?></td>
+                                        <td><?=strip_tags($question->q);?></td>
                                         <td class="table-cell-actions">
                                             <a
                                                 href="<?=$this->url(['action' => 'edit', 'qid' => $question->qi]);?>"
