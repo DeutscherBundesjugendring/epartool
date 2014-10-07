@@ -1193,9 +1193,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     'inputs' => [],
                 ];
             }
-            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags');
+            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
             $input = $input->toArray();
-            $input['tags'] = $tags;
+            $input['tags'] = $tags ? $tags : [];
             $inputs[$input['nr']]['inputs'][] = $input;
         }
 
@@ -1213,9 +1213,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $inputs = [];
         foreach ($res as $input) {
-            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags');
+            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
             $input = $input->toArray();
-            $input['tags'] = $tags;
+            $input['tags'] = $tags ? $tags : [];
             $inputs[] = $input;
         }
 

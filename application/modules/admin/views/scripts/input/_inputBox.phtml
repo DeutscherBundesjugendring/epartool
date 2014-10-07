@@ -2,6 +2,7 @@
     data-admin-confirmation="<?=$this->input['block'];?>"
     data-user-confirmation="<?=$this->input['user_conf'];?>"
     data-voting="<?=$this->input['vot'];?>"
+    data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
 >
     <td class="table-cell-id table-cell-top">
         <div class="checkbox">
@@ -26,7 +27,7 @@
         </p>
         <p>
             <?php foreach ($this->input['tags'] as $tag): ?>
-                <span class="label label-primary"><?=$tag->tg_de;?></span>
+                <span class="label label-primary"><?=$tag['tg_de'];?></span>
             <?php endforeach;?>
         </p>
         <?php if (!empty($this->input['notiz'])): ?>

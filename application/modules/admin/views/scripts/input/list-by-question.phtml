@@ -26,7 +26,7 @@
 
                 <form class="form-filter offset-bottom" data-target="#contribution-table tr">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>
                                     <span class="glyphicon glyphicon-filter"></span> <?=$this->translate('Admin Confirmation');?>
@@ -43,7 +43,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>
                                     <span class="glyphicon glyphicon-filter"></span> <?=$this->translate('User Confirmation');?>
@@ -60,7 +60,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>
                                     <span class="glyphicon glyphicon-filter"></span> <?=$this->translate('Voting');?>
@@ -77,7 +77,30 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                    </div><!-- .row -->
+                    <div class="row">
+                        <div class="col-sm-10">
+                                <div class="form-group">
+                                    <label for="tags"><?=$this->translate('Tags');?></label>
+                                    <select
+                                        name="tags[]"
+                                        class="form-control js-select2"
+                                        multiple
+                                        data-toggle="filter"
+                                        data-target-attrib="tags"
+                                    >
+                                        <?php foreach ($this->tags as $tag): ?>
+                                            <option
+                                                value="<?=$tag['tg_nr'];?>"
+                                                <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
+                                            >
+                                                <?=$tag['tg_de'];?>
+                                            </option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+                        <div class="col-sm-2">
                             <div class="form-actions">
                                 <button
                                     type="button"
