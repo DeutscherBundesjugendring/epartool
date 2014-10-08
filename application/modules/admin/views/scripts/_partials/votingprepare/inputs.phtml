@@ -27,7 +27,7 @@
 
         <?php if (!empty($this->input['notiz'])): ?>
             <h5><?=$this->translate('Internal note');?></h5>
-            <p><?=$this->escape($this->input['notiz'])?></p>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['notiz'])?></p>
         <?php endif; ?>
 
         <p>
