@@ -96,9 +96,9 @@
                     <?=$this->translate('Yes');?>
                 </span>
             <?php elseif ($this->input['vot'] === 'n'): ?>
-                <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign"></span>
-                    <?=$this->translate('Unknown');?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-question-remov"></span>
+                    <?=$this->translate('No');?>
                 </span>
             <?php else: ?>
                 <span class="label label-default">

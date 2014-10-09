@@ -227,22 +227,33 @@ initFilter = () ->
             filterEl = $(filterEl)
             if filterEl.val() != '' && filterEl.val() != null
                 $(formEl.data('target')).each (dataIndex, dataEl) ->
-                    dataElAttribVal = $(dataEl).data(filterEl.data('target-attrib'))
+                    dataElAttribVal = $(dataEl).data(filterEl.data('filter-attrib'))
                     filterVal = filterEl.val()
                     operator = filterEl.data('filter-operator')
-                    if dataElAttribVal instanceof Array
+                    hideEl = false
+                    if operator == 'containsAll'
+                        $.each(filterVal, (index, el) ->
+                            if dataElAttribVal.indexOf(el) == -1
+                                hideEl == true
+                                break
+                        )
+                    else if operator == 'containsOne'
                         if $.type(filterVal) == 'array'
+                            hideEl = true
                             $.each(filterVal, (index, el) ->
-                                if dataElAttribVal.indexOf(el) == -1
-                                    $(dataEl).hide()
+                                if dataElAttribVal.indexOf(el) != -1
+                                    found == false
+                                    break
                             )
                         else if dataElAttribVal.indexof(filterVal.toString()) == -1
-                            $(dataEl).hide()
+                            hideEl == true
                     else if operator == '=' && dataElAttribVal.toString() != filterVal.toString()
-                        $(dataEl).hide()
+                        hideEl == true
                     else if operator == '<' && dataElAttribVal + 0 >= filterVal + 0
-                        $(dataEl).hide()
+                        hideEl == true
                     else if operator == '>' && dataElAttribVal + 0 <= filterVal + 0
+                        hideEl == true
+                    if hideEl == true
                         $(dataEl).hide()
 
 
@@ -262,3 +273,5 @@ initSortableFollowupSnippets = () ->
             $('.js-sortable').closest('form').find('button[type=submit]').prop('disabled', false)
             return
     });
+
+

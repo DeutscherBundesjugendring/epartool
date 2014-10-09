@@ -67,7 +67,7 @@
                                                 <select
                                                     class="form-control"
                                                     data-toggle="filter"
-                                                    data-target-attrib="admin-confirmation"
+                                                    data-filter-attrib="admin-confirmation"
                                                     data-filter-operator="="
                                                 >
                                                     <option value=""><?=$this->translate('All');?></option>
@@ -83,7 +83,7 @@
                                                 <select
                                                     class="form-control"
                                                     data-toggle="filter"
-                                                    data-target-attrib="origin"
+                                                    data-filter-attrib="origin"
                                                     data-filter-operator="="
                                                 >
                                                     <option value=""><?=$this->translate('All');?></option>
@@ -98,7 +98,7 @@
                                                 <select
                                                     class="form-control"
                                                     data-toggle="filter"
-                                                    data-target-attrib="voting"
+                                                    data-filter-attrib="voting"
                                                     data-filter-operator="="
                                                 >
                                                     <option value=""><?=$this->translate('All');?></option>
@@ -117,7 +117,7 @@
                                                 <select
                                                     class="form-control"
                                                     data-toggle="filter"
-                                                    data-target-attrib="directory"
+                                                    data-filter-attrib="directory"
                                                     data-filter-operator="="
                                                 >
                                                     <option value=""><?=$this->translate('All folders');?></option>
@@ -141,7 +141,8 @@
                                                     class="form-control js-select2"
                                                     multiple
                                                     data-toggle="filter"
-                                                    data-target-attrib="tags"
+                                                    data-filter-attrib="tags"
+                                                    data-filter-operator="arrayIntersects"
                                                 >
                                                     <?php foreach ($this->tags as $tag): ?>
                                                         <option
