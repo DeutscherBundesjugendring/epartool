@@ -27,7 +27,7 @@
                         <table id="contribution-table">
                             <tbody>
                                 <?php foreach ($this->inputs as $input): ?>
-                                    <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input])?>
+                                    <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>
                                 <?php endforeach;?>
                             </tbody>
                         </table>
