@@ -24,13 +24,13 @@
                     <thead>
                         <tr>
                             <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                            <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Question');?></th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($this->consultation['questions'] as $question): ?>
                             <tr>
-                                <td class="table-cell-id"><?=$question['qi'];?></td>
+                                <td class="table-cell-id"><?=$question['nr'];?></td>
                                 <td>
                                     <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$question['kid'];?>/qid/<?=$question['qi'];?>">
                                         <?=strip_tags($question['q']);?>
