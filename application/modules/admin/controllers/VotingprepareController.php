@@ -55,7 +55,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     /**
      * Makes changes to Inputs from the input list contect in bulk and individualy
      */
-    public function listControlAction()
+    public function inputListControlAction()
     {
         if ($this->getRequest()->isPost()
             && (new Admin_Form_ListControl())->isValid($this->getRequest()->getPost())
@@ -220,16 +220,24 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Deletes a directory
+     * Performs actions on the directory listings
      */
-    public function deleteDirectoryAction()
+    public function directoryListControlAction()
     {
         $form = new Admin_Form_ListControl();
 
-        if ($form->isValid($this->getRequest()->getPost())) {
-            $dirId = $this->getRequest()->getPost('delete');
-            (new Model_Directories())->delete(['id = ?' => $dirId]);
-            $this->_flashMessenger->addMessage('Directory deleted.', 'success');
+        if ($this->getRequest()->isPost() && $form->isValid($this->getRequest()->getPost())) {
+            $directoryModel = new Model_Directories();
+            $postData = $this->getRequest()->getPost();
+            if (isset($postData['delete'])) {
+                $dirId = $this->getRequest()->getPost('delete');
+                $directoryModel->delete(['id = ?' => $dirId]);
+                $this->_flashMessenger->addMessage('Directory deleted.', 'success');
+            } elseif (isset($postData['saveOrder'])) {
+                foreach ($postData['order'] as $dirId => $order) {
+                    $directoryModel->update(['order' => $order], ['id = ?' => $dirId]);
+                }
+            }
         }
 
         $this->_redirect($this->view->url(['action' => 'overview']));

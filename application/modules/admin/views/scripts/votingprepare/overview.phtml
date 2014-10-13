@@ -124,9 +124,6 @@
                                                     <option value="0"><?=$this->translate('Folder root');?></option>
                                                     <?php foreach($this->directories as $directory): ?>
                                                         <option value="<?=$directory['id'];?>">
-                                                            <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
-                                                                &nbsp;&nbsp;&nbsp;
-                                                            <?php endfor;?>
                                                             <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
                                                         </option>
                                                     <?php endforeach?>
@@ -192,27 +189,33 @@
                                     <?=$this->translate('Add folder');?>
                                 </a>
 
-                                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete-directory']);?>">
+                                <form
+                                    method="<?=$this->form->getMethod();?>"
+                                    action="<?=$this->url(['action' => 'directory-list-control']);?>"
+                                >
                                     <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                                    <ul>
+                                    <div class="js-sortable-voting-directory">
                                         <?php foreach($this->directories as $directory): ?>
-                                            <li>
-                                                <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
-                                                    &nbsp;&nbsp;&nbsp;
-                                                <?php endfor;?>
-                                                <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                            <div>
+                                                <span class="glyphicon glyphicon-move"></span>
+                                                <?=$directory['dir_name'];?>
+                                                (<?=$directory['count'];?>)
                                                 <button
                                                     class="btn btn-default item-action item-action-danger"
                                                     name="delete"
-                                                    value="<?=$directory['id']?>"
+                                                    value="<?=$directory['id'];?>"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete directory?');?>"
                                                     >
                                                     <span class="glyphicon glyphicon-trash"></span>
                                                 </button>
-                                            </li>
-                                        <?php endforeach?>
-                                    </ul>
+                                                <input type="hidden" name="order[<?=$directory['id'];?>]" value="<?=$directory['order'];?>" />
+                                            </div>
+                                        <?php endforeach;?>
+                                    </div>
+                                    <button type="submit" name="saveOrder" value="1" class="btn btn-default" disabled>
+                                        <?=$this->translate('Save');?>
+                                    </button>
                                 </form>
 
                             </div>
@@ -222,7 +225,7 @@
                 </div><!-- .panel-group -->
 
                 <!-- Contributions -->
-                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'list-control']);?>">
+                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'input-list-control']);?>">
 
                     <!-- Actions -->
                     <div class="well well-sm">
@@ -317,9 +320,6 @@
                                 <option value="0"><?=$this->translate('Folder root');?></option>
                                 <?php foreach($this->directories as $directory): ?>
                                     <option value="<?=$directory['id'];?>">
-                                        <?php for ($i = 0; $i < $directory['depth']; $i++): ?>
-                                            &nbsp;&nbsp;&nbsp;
-                                        <?php endfor;?>
                                         <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
                                     </option>
                                 <?php endforeach?>

@@ -10,6 +10,7 @@ $(document).ready () ->
     initCKEditor()
     # initDatepicker()
     initSortableFollowupSnippets()
+    initSortableVotingDirs()
     initSelect2()
     initConfirmMsg()
     initFilter()
@@ -274,4 +275,15 @@ initSortableFollowupSnippets = () ->
             return
     });
 
-
+initSortableVotingDirs = () ->
+    $('.js-sortable-voting-directory').disableSelection()
+    $('.js-sortable-voting-directory').sortable({
+        'update': (ev, ui) ->
+            i = 1
+            $form = ui.item.closest('form');
+            $form.find('div input[type=hidden]').each () ->
+                $(this).val(i)
+                i++
+            $form.find('button[type=submit]').prop('disabled', false)
+            return
+    });
