@@ -79,6 +79,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 
         $multiOptions = (new Model_Tags())->getAdminInputFormMulticheckboxOptions();
         $tags = $this->createElement('multiselect', 'tags')
+            ->setLabel('Tags')
             ->setMultiOptions($multiOptions)
             ->setSeparator(' ')
             ->setIsSelect2(true);
