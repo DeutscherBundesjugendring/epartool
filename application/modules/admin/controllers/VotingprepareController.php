@@ -129,34 +129,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     }
 
     /**
-     * Selete shotcut to origin input via ajax-link from related inputs
-     * @see overviewAction()
-     */
-    public function cancelshortcutresponseAction()
-    {
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit;  //no AjaxRequest? exit!
-        }
-        $this->_helper->layout()->disableLayout();
-        $this->_tid = $this->getTId($this->_params);
-        $this->_child = (int)$this->_params["child"];
-
-        $inputModel = new Model_Inputs();
-        $input = $inputModel->getById($this->_tid);
-
-        $relIDs= $input["rel_tid"];
-        $relIDs=  explode(",", $relIDs);
-        unset($relIDs[array_search($this->_child, $relIDs)]);  // delete given ID
-        $relIDs=  implode(",", $relIDs);
-        //update
-        if ($inputModel->setAppendInputsByID($relIDs, $this->_tid)) {
-            $this->view->response = "success";
-        } else {
-            $this->view->response = "error";
-        }
-    }
-
-    /**
      * Inserts a new input from admin and set the old inputs as childern
      */
     public function mergeAction()
