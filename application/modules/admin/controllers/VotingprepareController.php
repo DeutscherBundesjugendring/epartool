@@ -237,6 +237,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 foreach ($postData['order'] as $dirId => $order) {
                     $directoryModel->update(['order' => $order], ['id = ?' => $dirId]);
                 }
+                $this->_flashMessenger->addMessage('The directory order was updated.', 'success');
             }
         }
 
