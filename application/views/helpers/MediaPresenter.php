@@ -30,6 +30,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
      */
     public function mediaPresenter($file, $context)
     {
+        ini_set('memory_limit', '256M');
         $contextConf = Zend_Registry::get('systemconfig')
             ->media
             ->presentationContext
@@ -43,7 +44,9 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
         if (empty($file['icon'])) {
             $image = Image::open($file['dirname'] . '/' . $file['basename'])
                 ->setFallback(self::FALLBACK_IMAGE_PATH);
-            if ($contextConf->method === 'zoomCropScale') {
+            if ($contextConf->method === 'zoomCropScale'
+                || ($contextConf->width < $image->width() && $contextConf->height < $image->height())
+            ) {
                 $image->zoomCrop($contextConf->width, $contextConf->height);
             } elseif ($contextConf->method === 'zoomCropFill') {
                 try {
@@ -56,7 +59,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                         );
                     $image = $newImage;
                 } catch (UnexpectedValueException $e) {
-                    // The file probably doens exist, we continue and let the fallback image be used
+                    // The file probably doesnt exist, we continue and let the fallback image be used
                 }
             }
 
