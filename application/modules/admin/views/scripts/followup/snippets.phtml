@@ -26,14 +26,16 @@
                     <?=$this->translate('New Snippet');?>
                 </a>
 
-                <a href="<?=$this->url(['action' => 'index', 'fid' => null, 'ffid' => null]);?>" class="back">&larr; <?=$this->translate('Back to Followups');?></a>
+                <a href="<?=$this->url(['action' => 'index', 'fid' => null, 'ffid' => null]);?>" class="back">
+                    &larr; <?=$this->translate('Back to Followups');?>
+                </a>
 
                 <h2><?=$this->translate('Snippets')?></h2>
 
                 <form method="<?=$this->form->getMethod();?>">
                     <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <table class="table">
-                        <tbody class="js-sortable">
+                        <tbody class="js-sortable-followup-snippets">
                             <?php foreach ($this->snippets as $i => $snippet): ?>
                                 <tr>
                                     <td>
@@ -83,7 +85,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                         </tbody>
                     </table>
 

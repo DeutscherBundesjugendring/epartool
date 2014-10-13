@@ -264,14 +264,15 @@ initFilter = () ->
         $(formEl.data('target')).show()
 
 initSortableFollowupSnippets = () ->
-    $('.js-sortable').disableSelection()
-    $('.js-sortable').sortable({
+    $('.js-sortable-followup-snippets').disableSelection()
+    $('.js-sortable-followup-snippets').sortable({
         'update': (ev, ui) ->
             i = 1
-            ui.item.closest('form').find('tr input[type=hidden]').each () ->
+            $form = ui.item.closest('form')
+            $form.find('tr input[type=hidden]').each () ->
                 $(this).val(i)
                 i++
-            $('.js-sortable').closest('form').find('button[type=submit]').prop('disabled', false)
+            $form.find('button[type=submit]').prop('disabled', false)
             return
     });
 
@@ -280,7 +281,7 @@ initSortableVotingDirs = () ->
     $('.js-sortable-voting-directory').sortable({
         'update': (ev, ui) ->
             i = 1
-            $form = ui.item.closest('form');
+            $form = ui.item.closest('form')
             $form.find('div input[type=hidden]').each () ->
                 $(this).val(i)
                 i++

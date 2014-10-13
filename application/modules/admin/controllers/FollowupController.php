@@ -182,21 +182,14 @@ class Admin_FollowupController extends Zend_Controller_Action
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
                 if ($this->getRequest()->getPost('delete')) {
-                    (new Model_Followups())
-                        ->find($this->getRequest()->getPost('delete'))
-                        ->current()
-                        ->delete();
-
+                    $snippetModel->delete(['fid = ?' => $this->getRequest()->getPost('delete')]);
                     $this->_flashMessenger->addMessage('The snippet was deleted successfully.', 'success');
                     $this->_redirect($this->view->url(['action' => 'snippets', 'ffid' => $ffid]));
                 } elseif ($this->getRequest()->getPost('saveOrder')) {
                     foreach ($postData['docorg'] as $snippetId => $docorg) {
-                        $snippetModel
-                            ->find($snippetId)
-                            ->current()
-                            ->setFromArray(['docorg' => $docorg])
-                            ->save();
+                        $snippetModel->update(['docorg' => $docorg], ['fid = ?' => $snippetId]);
                     }
+                    $this->_flashMessenger->addMessage('The snippet order was updated.', 'success');
                     $this->redirect($this->view->url());
                 }
             }
