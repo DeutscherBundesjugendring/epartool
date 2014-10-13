@@ -236,7 +236,7 @@ initFilter = () ->
                         $.each(filterVal, (index, el) ->
                             if dataElAttribVal.indexOf(el) == -1
                                 hideEl == true
-                                break
+                                return false;
                         )
                     else if operator == 'containsOne'
                         if $.type(filterVal) == 'array'
@@ -244,7 +244,7 @@ initFilter = () ->
                             $.each(filterVal, (index, el) ->
                                 if dataElAttribVal.indexOf(el) != -1
                                     found == false
-                                    break
+                                    return false;
                             )
                         else if dataElAttribVal.indexof(filterVal.toString()) == -1
                             hideEl == true
