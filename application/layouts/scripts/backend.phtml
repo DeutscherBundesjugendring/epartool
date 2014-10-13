@@ -48,7 +48,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="navbar-brand" title="<?=$this->translate('ePartool admin dashboard');?>">
+                    <a
+                        href="<?=$this->url(['module' => 'admin', 'controller' => 'index', 'action' => 'index'], null, true);?>"
+                        class="navbar-brand"
+                        title="<?=$this->translate('ePartool admin dashboard');?>"
+                    >
                         <?php include(APPLICATION_PATH . '/../www/images/admin/logo.svg'); ?>
                     </a>
                 </div>
