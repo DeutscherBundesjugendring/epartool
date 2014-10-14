@@ -14,8 +14,8 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             ->setAttrib('max', 4)
             ->setAttrib('min', 1)
             ->addValidator('Int')
-            ->addValidator('LessThan', false, ['max' => 4])
-            ->addValidator('GreaterThan', false, ['min' => 1]);
+            ->addValidator('LessThan', false, ['max' => 5])
+            ->addValidator('GreaterThan', false, ['min' => 0]);
         $this->addElement($buttonNum);
 
         $desc = sprintf($view->translate('Comma separated, lower first, max. %d characters'), 220);
