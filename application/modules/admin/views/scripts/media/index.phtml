@@ -55,7 +55,7 @@
                                             onclick="mediaSelectPopup.insertValue(
                                                 '<?=$file['dirRefFilename'];?>',
                                                 '<?=$this->targetElId;?>',
-                                                '<?=$this->lockDir ? '' : $file['dirRefDirUrl'];?>',
+                                                '<?=$this->lockDir ? '' : $this->baseUrl() . '/media/' . $file['dirRefDirUrl'];?>',
                                                 '<?=$this->mediaPresenter($file, 'admin_media_form_element_lowDPI');?>',
                                                 '<?=$this->CKEditorFuncNum;?>'
                                             )"
