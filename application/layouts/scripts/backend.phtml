@@ -60,7 +60,7 @@
                     <?=$this->navigation()->menu();?>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="navbar-icon">
-                            <a href="<?=$this->url(array('module' => 'default', 'controller' => 'index'));?>" target="_blank" title="<?=$this->translate('Open site in a new tab');?>">
+                            <a href="<?=$this->url([], null, true);?>" target="_blank" title="<?=$this->translate('Open site in a new tab');?>">
                                 <span class="glyphicon glyphicon-home"></span>
                                 <span class="visible-xs-inline"><?=$this->translate('Homepage');?></span>
                             </a>
