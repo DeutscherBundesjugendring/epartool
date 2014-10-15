@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-09-28 23:21+0100\n"
-"PO-Revision-Date: 2014-09-28 23:21+0100\n"
+"POT-Creation-Date: 2014-10-15 19:38+0100\n"
+"PO-Revision-Date: 2014-10-15 19:38+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -599,7 +599,7 @@ msgid "Older contributions"
 msgstr ""
 
 #: application/modules/default/views/scripts/followup/index.phtml:17
-msgid "Wie's weiterging:"
+msgid "How it all proceeeded:"
 msgstr ""
 
 #: application/modules/default/views/scripts/followup/index.phtml:22
