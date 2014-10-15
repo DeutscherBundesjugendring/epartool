@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-09-28 23:20+0100\n"
-"PO-Revision-Date: 2014-09-28 23:21+0100\n"
+"POT-Creation-Date: 2014-10-15 19:38+0100\n"
+"PO-Revision-Date: 2014-10-15 19:38+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -965,8 +965,8 @@ msgid "Older contributions"
 msgstr "Ältere Beiträge"
 
 #: application/modules/default/views/scripts/followup/index.phtml:17
-msgid "Wie's weiterging:"
-msgstr "How it all proceeeded:"
+msgid "How it all proceeeded:"
+msgstr "Wie's weiterging:"
 
 #: application/modules/default/views/scripts/followup/index.phtml:22
 msgid ""
@@ -1442,6 +1442,9 @@ msgstr "Informationsseiten"
 msgid "Overview"
 msgstr "Übersichtsseite"
 
+#~ msgid "Wie's weiterging:"
+#~ msgstr "How it all proceeeded:"
+
 #~ msgid "of %s contributions on this question voted"
 #~ msgstr "von %s Beiträgen zu dieser Frage abgestimmt"
 
@@ -1525,9 +1528,6 @@ msgstr "Übersichtsseite"
 
 #~ msgid "Löschen"
 #~ msgstr "Delete"
-
-#~ msgid "How it all proceeeded:"
-#~ msgstr "Wie's weiterging:"
 
 #~ msgid "Überspringen"
 #~ msgstr "Skip"
