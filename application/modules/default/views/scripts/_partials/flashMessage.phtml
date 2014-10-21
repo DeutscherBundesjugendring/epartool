@@ -1,20 +1,11 @@
-<div class="alert alert-<?php echo $this->level; ?>">
+<div class="alert alert-<?php echo $this->level; ?> fade in">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<h4>
-		<?php
-		switch ($this->level) {
-			case 'error':
-				echo 'Fehler!';
-				break;
-			case 'success':
-				echo 'Erfolg!';
-				break;
-			case 'info':
-			default:
-				echo 'Info';
-				break;
-		}
-		?>
-	</h4>
+	<?php if ($this->level == 'success'): ?>
+        <span class="icon-ok-sign"></span>
+	<?php elseif ($this->level == 'error'): ?>
+        <span class="icon-warning-sign"></span>
+	<?php else: ?>
+        <span class="icon-info-sign"></span>
+    <?php endif; ?>
 	<?=$this->translate($this->message)?>
 </div>
