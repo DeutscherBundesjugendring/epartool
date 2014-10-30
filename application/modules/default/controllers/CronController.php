@@ -10,8 +10,8 @@ class CronController extends Zend_Controller_Action
         // Cron should be at leas partially protected from public
         $key = $this->getRequest()->getParam('key');
         if ($key === Zend_Registry::get('systemconfig')->cron->key) {
-            $mailCron = new Service_Cron_Mail();
-            $mailCron->execute();
+            (new Service_Cron_Mail())->execute();
+            (new Service_Cron_Logrotate())->execute();
             echo 'Success!';
         } else {
             echo 'Error!';
