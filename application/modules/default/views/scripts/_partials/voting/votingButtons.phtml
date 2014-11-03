@@ -59,7 +59,7 @@
 
     <!-- Regular votes -->
     <?php $linkOptions['action'] = 'thesisvote'; ?>
-    <?php for ($i = $settings['btn_numbers']; $i >= 0; $i--): ?>
+    <?php for ($i = $settings['btn_numbers']; $i > 0; $i--): ?>
         <?php $linkOptions['pts'] = $i; ?>
         <li>
             <a href="<?=$this->url($linkOptions)?>" class="<?=$styles["$i"]?>"<?=$this->points!= null && $this->points == $i ? ' style="color: red !important"' : ''?>>
