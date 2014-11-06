@@ -124,13 +124,13 @@ class Admin_MediaController extends Zend_Controller_Action
             }
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFolder($oldName, $newName)) {
-                    $this->_flashMessenger->addMessage(sprintf('The folder »%s« was renamed to »%s«.', $oldName, $newName), 'success');
+                    $this->_flashMessenger->addMessage(sprintf('The folder %s was renamed to %s.', $oldName, $newName), 'success');
                     $this->redirect($this->view->url(['action' => 'edit-folder', 'folder' => $newName]));
                 } else {
-                    $this->_flashMessenger->addMessage(sprintf('The folder »%s« could not be renamed to »%s«.', $oldName, $newName), 'error');
+                    $this->_flashMessenger->addMessage(sprintf('The folder %s could not be renamed to %s.', $oldName, $newName), 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('The form is invalid.', 'error');
+                $this->_flashMessenger->addMessage('The folder could not be renamed.', 'error');
             }
         }
 
@@ -165,16 +165,16 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFile($oldName, $newName, $this->_folder, $newDir)) {
                     if ($this->_folder === $newDir) {
-                        $this->_flashMessenger->addMessage(sprintf('The file »%s« was renamed to »%s«.', $oldName, $newName), 'success');
+                        $this->_flashMessenger->addMessage(sprintf('The file %s was renamed to %s.', $oldName, $newName), 'success');
                     } else {
-                        $this->_flashMessenger->addMessage(sprintf('The file »%s/%s« was moved to »%s/%s«.', $this->_folder, $oldName, $newDir, $newName), 'success');
+                        $this->_flashMessenger->addMessage(sprintf('The file %s/%s was moved to %s/%s.', $this->_folder, $oldName, $newDir, $newName), 'success');
                     }
                     $this->redirect($this->view->url(['action' => 'edit-file', 'folder' => $newDir, 'filename' => $newName]). '/');
                 } else {
-                    $this->_flashMessenger->addMessage(sprintf('The file »%s« could not be renamed to »%s«.', $oldName, $newName), 'error');
+                    $this->_flashMessenger->addMessage(sprintf('The file %s could not be renamed to %s.', $oldName, $newName), 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('The form is invalid.', 'error');
+                $this->_flashMessenger->addMessage('The file could not be renamed.', 'error');
             }
         }
 
@@ -243,13 +243,13 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($this->getRequest()->getPost())) {
                 $folderName = $form->getValue('name');
                 if ((new Service_Media())->createDir(null, $folderName)) {
-                    $this->_flashMessenger->addMessage(sprintf('The folder »%s« was created.', $folderName), 'success');
+                    $this->_flashMessenger->addMessage(sprintf('The folder %s was created.', $folderName), 'success');
                     $this->redirect($this->view->url(['action' => 'create-folder']));
                 } else {
-                    $this->_flashMessenger->addMessage(sprintf('The folder »%s« could not be created.', $folderName), 'error');
+                    $this->_flashMessenger->addMessage(sprintf('The folder %s could not be created.', $folderName), 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('The form is invalid.', 'error');
+                $this->_flashMessenger->addMessage('The folder could not be created.', 'error');
             }
         }
 
@@ -290,7 +290,7 @@ class Admin_MediaController extends Zend_Controller_Action
                     // $uploadRes is either the new filename or an array of error messages
                     if (!is_array($uploadRes)) {
                         $this->_flashMessenger->addMessage(
-                            sprintf('Die Datei »%s« wurde erfolgreich hinzugefügt.', $uploadRes),
+                            sprintf('The file %s has been successfully uploaded.', $uploadRes),
                             'success'
                         );
                         $this->redirect($this->view->url(['action' => 'index']));
@@ -304,7 +304,7 @@ class Admin_MediaController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('File already exists.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Upload fehlgeschlagen.', 'error');
+                $this->_flashMessenger->addMessage('The file could not be uploaded.', 'error');
             }
         }
 
@@ -325,12 +325,12 @@ class Admin_MediaController extends Zend_Controller_Action
             if ((new Service_Media())->delete($filename, $this->_kid, $this->_folder)) {
                 $this
                     ->_flashMessenger
-                    ->addMessage(sprintf('Die Datei %s wurde erfolgreich gelöscht.', $filename), 'success');
+                    ->addMessage(sprintf('The file %s has been deleted.', $filename), 'success');
             } else {
-                $this->_flashMessenger->addMessage('Datei konnte nicht gelöscht werden.', 'error');
+                $this->_flashMessenger->addMessage('The file cannot be deleted.', 'error');
             }
         } else {
-            $this->_flashMessenger->addMessage('Formulardaten ungültig', 'error');
+            $this->_flashMessenger->addMessage('The file cannot be deleted', 'error');
         }
 
         $this->redirect(
