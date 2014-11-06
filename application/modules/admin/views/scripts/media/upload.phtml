@@ -17,38 +17,40 @@
 </section>
 <section class="section-content">
     <div class="container">
-        <div class="row">
-            <div class="sidebar">
 
-                <?php if (!$this->lockDir): ?>
+        <?php if (!$this->lockDir): ?>
+            <div class="row">
+                <div class="sidebar">
+
                     <?=$this->mediaNavigation();?>
-                <?php else: ?>
-                    <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>">
-                        <?=$this->translate('Files');?>
-                    </a>
-                <?php endif?>
 
-            </div>
-            <div class="content">
+                </div>
+                <div class="content">
+        <?php endif?>
 
-                <?php if (!$this->lockDir): ?>
-                    <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to All Media');?></a>
-                <?php endif; ?>
+        <?php if ($this->lockDir): ?>
+            <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>" class="back">&larr; <?=$this->translate('Back to Media');?></a>
+        <?php else: ?>
+            <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to All Media');?></a>
+        <?php endif; ?>
 
-                <h2><?=$this->translate('File Upload');?></h2>
+        <h2><?=$this->translate('File Upload');?></h2>
 
-                <?=$this->form;?>
+        <?=$this->form;?>
 
-                <p class="well">
-                    <strong>
-                        <span class="glyphicon glyphicon-file"></span>
-                        <?=$this->translate('Following file types are allowed:');?>
-                    </strong>
-                    <br />
-                    <?=implode(', ', $this->allowedFileTypes);?>
-                </p>
+        <p class="well">
+            <strong>
+                <span class="glyphicon glyphicon-file"></span>
+                <?=$this->translate('Following file types are allowed:');?>
+            </strong>
+            <br />
+            <?=implode(', ', $this->allowedFileTypes);?>
+        </p>
 
-            </div>
-        </div>
+        <?php if (!$this->lockDir): ?>
+                </div>
+            </div><!-- .row -->
+        <?php endif; ?>
+
     </div>
 </section>

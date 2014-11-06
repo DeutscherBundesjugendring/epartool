@@ -17,9 +17,9 @@
 </section>
 <section class="section-content">
     <div class="container">
-        <div class="row">
 
-            <?php if (!$this->lockDir): ?>
+        <?php if (!$this->lockDir): ?>
+            <div class="row">
                 <div class="sidebar">
                     <?php if ($this->folder): ?>
                         <?=$this->mediaNavigation('folders');?>
@@ -29,78 +29,80 @@
                         <?=$this->mediaNavigation('all');?>
                     <?php endif;?>
                 </div>
-            <?php endif?>
+                <div class="content">
+        <?php endif?>
 
-            <div class="content">
+        <?php if (!$this->lockDir): ?>
+            <?php if ($this->folder): ?>
+                <a href="<?=$this->url(['action' => 'folders']);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
+            <?php elseif ($this->kid): ?>
+                <a href="<?=$this->url(['action' => 'consultations']);?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
+            <?php endif; ?>
+        <?php endif?>
 
-                <?php if (!$this->lockDir): ?>
-                    <?php if ($this->folder): ?>
-                        <a href="<?=$this->url(['action' => 'folders']);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
-                    <?php elseif ($this->kid): ?>
-                        <a href="<?=$this->url(['action' => 'consultations']);?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
-                    <?php endif; ?>
-                <?php endif?>
+        <h2><?=$this->title;?></h2>
 
-                <h2><?=$this->title;?></h2>
+        <?php if (!empty($this->files)): ?>
+            <div class="row">
 
-                <?php if (!empty($this->files)): ?>
-                    <div class="row">
+                <?php foreach ($this->files as $file):?>
+                    <div class="<?=($this->lockDir ? 'col-xs-6 col-sm-4 col-md-3' : 'col-xs-6 col-sm-4 col-lg-3');?>">
+                        <div class="thumbnail thumbnail-fixed">
 
-                        <?php foreach ($this->files as $file):?>
-                            <div class="col-xs-6 col-sm-4 col-lg-3">
-                                <div class="thumbnail thumbnail-fixed">
+                            <a
+                                <?php if ($this->targetElId): ?>
+                                    onclick="mediaSelectPopup.insertValue(
+                                        '<?=$file['dirRefFilename'];?>',
+                                        '<?=$this->targetElId;?>',
+                                        '<?=$this->lockDir ? '' : $this->baseUrl() . '/media/' . $file['dirRefDirUrl'];?>',
+                                        '<?=$this->mediaPresenter($file, 'admin_media_form_element_lowDPI');?>',
+                                        '<?=$this->CKEditorFuncNum;?>'
+                                    )"
+                                    href="#"
+                                <?php else: ?>
+                                    href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
+                                <?php endif;?>
+                                title="<?=$file['basename'];?>"
+                            >
+                                <div class="thumbnail-image" style="background-image: url(<?=$this->mediaPresenter($file, 'admin_thumbnail_lowDPI');?>);"></div>
+                                <div class="caption">
+                                    <h4 class="thumbnail-title"><?=$file['basename'];?></h4>
+                                    <small class="text-muted">
+                                        <!-- TODO file size view helper -->
+                                        <?=$file['size'];?>&nbsp;kB<br />
+                                        <!-- TODO upload time -->
+                                    </small>
+                                </div>
+                            </a>
 
-                                    <a
-                                        <?php if ($this->targetElId): ?>
-                                            onclick="mediaSelectPopup.insertValue(
-                                                '<?=$file['dirRefFilename'];?>',
-                                                '<?=$this->targetElId;?>',
-                                                '<?=$this->lockDir ? '' : $this->baseUrl() . '/media/' . $file['dirRefDirUrl'];?>',
-                                                '<?=$this->mediaPresenter($file, 'admin_media_form_element_lowDPI');?>',
-                                                '<?=$this->CKEditorFuncNum;?>'
-                                            )"
-                                            href="#"
-                                        <?php else: ?>
-                                            href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
-                                        <?php endif;?>
-                                        title="<?=$file['basename'];?>"
-                                    >
-                                        <div class="thumbnail-image" style="background-image: url(<?=$this->mediaPresenter($file, 'admin_thumbnail_lowDPI');?>);"></div>
-                                        <div class="caption">
-                                            <h4 class="thumbnail-title"><?=$file['basename'];?></h4>
-                                            <small class="text-muted">
-                                                <!-- TODO file size view helper -->
-                                                <?=$file['size'];?>&nbsp;kB<br />
-                                                <!-- TODO upload time -->
-                                            </small>
-                                        </div>
-                                    </a>
+                                <div class="thumbnail-actions">
+                                    <?php if ($file['folder']): ?>
+                                        <a
+                                            href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/"
+                                            class="item-action"
+                                        >
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                    <?php endif;?>
+                                    <?=$file['deleteForm'];?>
+                                </div>
 
-                                        <div class="thumbnail-actions">
-                                            <?php if ($file['folder']): ?>
-                                                <a
-                                                    href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/"
-                                                    class="item-action"
-                                                >
-                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                </a>
-                                            <?php endif;?>
-                                            <?=$file['deleteForm'];?>
-                                        </div>
-
-                                </div><!-- .thumbnail -->
-                            </div>
-                        <?php endforeach;?>
-
+                        </div><!-- .thumbnail -->
                     </div>
-                <?php else: ?>
-                    <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
-                        <?=$this->translate('No media has been uploaded yet.');?>
-                    </p>
-                <?php endif; ?>
+                <?php endforeach;?>
 
             </div>
-        </div>
+        <?php else: ?>
+            <p class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                <?=$this->translate('No media has been uploaded yet.');?>
+            </p>
+        <?php endif; ?>
+
+        <?php if (!$this->lockDir): ?>
+                </div>
+            </div><!-- .row -->
+        <?php endif; ?>
+
     </div>
 </section>
