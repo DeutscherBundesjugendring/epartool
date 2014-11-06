@@ -138,7 +138,7 @@ class Service_UrlkeyAction
 
     /**
      * Marks this urlkeyAction as visited
-     * @param  integer            $urlkeyActionId  Yhe urlkeyAction identifier
+     * @param  integer               $urlkeyActionId  The urlkeyAction identifier
      * @return Service_UrlkeyAction                   Fluent interface
      */
     protected function markVisited($urlkeyActionId)
