@@ -8,7 +8,7 @@ $(document).ready () ->
 
     initDataViewTable()
     initCKEditor()
-    # initDatepicker()
+    initDatepicker()
     initSortableFollowupSnippets()
     initSortableVotingDirs()
     initSelect2()
@@ -205,7 +205,14 @@ initCKEditor = () ->
     })
 
 initDatepicker = () ->
-    $('.js-datetimepicker').datepicker()
+    $('.js-datepicker').datetimepicker({
+        'format': 'YYYY-MM-DD',
+        'pickTime': false
+    })
+    $('.js-datetimepicker').datetimepicker({
+        'format': 'YYYY-MM-DD HH:mm',
+        'sideBySide': true
+    })
 
 initSelect2 = () ->
     $('.js-select2').select2()
