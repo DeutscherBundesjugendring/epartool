@@ -21,7 +21,7 @@ class Admin_Form_Media_Delete extends Dbjr_Form_Admin
         $submit = $this->createElement('button', 'submit');
         $submit
             ->setActionType(Dbjr_Form_Element_Button::TYPE_DELETE)
-            ->setConfirmMessage('Delete media');
+            ->setConfirmMessage('Delete media?');
         $this->addElement($submit);
 
     }
