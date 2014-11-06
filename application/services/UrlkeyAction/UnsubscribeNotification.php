@@ -13,8 +13,8 @@ class Service_UrlkeyAction_UnsubscribeNotification extends Service_UrlkeyAction
 
     /**
      * Executes this urlkeyAction
-     * @param  Zend_Controller_Request_Http     $request      The request object
-     * @param  Zend_Db_Table_Row                $urlkeyAction The urlkeyAction object
+     * @param  Zend_Controller_Request_Http        $request      The request object
+     * @param  Zend_Db_Table_Row                   $urlkeyAction The urlkeyAction object
      * @return Service_UrlkeyAction_ResetPassword                Fluent interface
      */
     public function execute(Zend_Controller_Request_Http $request, Zend_Db_Table_Row $urlkeyAction)
