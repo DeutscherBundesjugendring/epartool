@@ -13,13 +13,14 @@ class Service_Media
      * @var array
      */
     private $iconMap = [
-        'crystal_clear_mimetype_txt' => ['doc', 'docx', 'odt', 'txt'],
-        'crystal_clear_mimetype_spreadsheet' => ['xls', 'xlsx', 'odc', 'ods'],
-        'crystal_clear_mimetype_video' => ['avi', 'mkv', 'mp4', 'm4v'],
-        'crystal_clear_app_xmms' => ['mp3'],
-        'crystal_clear_app_display' => ['ppt', 'pptx', 'odp'],
-        'cystal_clear_mimetype_pdf' => ['pdf'],
-        'crystal_clear_filesystem_folder_tar' => ['zip'],
+        'icon_file_word' => ['doc', 'docx'],
+        'icon_file_text' =>  ['odt', 'txt'],
+        'icon_file_excel' => ['xls', 'xlsx'],
+        'icon_file_audio' => ['mp3'],
+        'icon_file_video' => ['avi', 'mkv', 'mp4', 'm4v'],
+        'icon_file_powerpoint' => ['ppt', 'pptx'],
+        'icon_file_pdf' => ['pdf'],
+        'icon_file_archive' => ['zip'],
     ];
 
     /**
@@ -112,7 +113,9 @@ class Service_Media
                     $files[$i]['dirRefFilename'] = ($files[$i]['folder'] ? self::MEDIA_DIR_FOLDERS . '/' . $files[$i]['folder'] . '/' : '') . $files[$i]['basename'];
 
                     if (!@getimagesize($filePath)) {
-                        $files[$i]['icon'] = $this->getIconName($files[$i]['extension']);
+                        if (!empty($files[$i]['extension'])) {
+                            $files[$i]['icon'] = $this->getIconName($files[$i]['extension']);
+                        }
                     }
                 }
             }

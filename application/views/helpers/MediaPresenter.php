@@ -19,7 +19,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
     /**
      * The pathof the fallback image to be used if the real image is not available
      */
-    const FALLBACK_IMAGE_PATH = "APPLICATION_PATH /../www/images/fallback.png";
+    const FALLBACK_IMAGE_PATH = "APPLICATION_PATH /../www/images/icons/icon_file_default.png";
 
     /**
      * Returns url to the image representation of the given media
@@ -51,7 +51,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
             } elseif ($contextConf->method === 'zoomCropFill') {
                 try {
                     $newImage = IMAGE::create($contextConf->width, $contextConf->height)
-                        ->fill('white')
+                        ->fill('#eeeeee')
                         ->merge(
                             $image,
                             ($contextConf->width - $image->width()) / 2,
@@ -68,9 +68,9 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
                 ->guess();
         } else {
-            $icon = Image::open(APPLICATION_PATH . '/../www/images/' . $file['icon'] . '.png');
+            $icon = Image::open(APPLICATION_PATH . '/../www/images/icons/' . $file['icon'] . '.png');
             $imagePath = IMAGE::create($contextConf->width, $contextConf->height)
-                ->fill('white')
+                ->fill('#ffffff')
                 ->merge(
                     $icon,
                     ($contextConf->width - $icon->width()) / 2,
