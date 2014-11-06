@@ -155,11 +155,17 @@ class Default_Form_Register extends Zend_Form
         $this->addElement($comment);
 
         $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
+        $lang = Zend_Controller_Front::getInstance()
+            ->getParam('bootstrap')
+            ->getPluginResource('locale')
+            ->getLocale()
+            ->getLanguage();
+
         $label = sprintf(
             (new Zend_View())->translate(
                 'The contributions are published under a <a href="%s" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">creative commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.'
             ),
-            Zend_Registry::get('systemconfig')->license->creative_commons->link
+            Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink
         );
         $ccLicense
             ->setLabel($label)

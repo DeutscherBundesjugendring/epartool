@@ -9,7 +9,15 @@
 					<?php echo $this->footerLinks(); ?>
 					<li class="licence">
 						<a
-							href="<?=Zend_Registry::get('systemconfig')->license->creative_commons->link?>"
+							href="<?=Zend_Registry::get('systemconfig')
+								->content
+								->{Zend_Controller_Front::getInstance()
+            						->getParam('bootstrap')
+            						->getPluginResource('locale')
+            						->getLocale()
+            						->getLanguage()}
+            					->creativeCommonsLicenseLink;
+            				?>"
 							rel="license"
 							class="logo"
 							target="_blank"
@@ -73,7 +81,15 @@
 				</div>
 			</div><!-- .row-fluid -->
             <p class="footer-note">
-                ePartool was developed between 2011 and 2014, co-ordinated by the German Federal Youth Council within the project “Ichmache>Politik” and the Structured Dialogue in Germany. Supported by the Federal Ministry of Family Affairs, Senior Citizens, Women and Youth.
+                <?=Zend_Registry::get('systemconfig')
+					->content
+					->{Zend_Controller_Front::getInstance()
+						->getParam('bootstrap')
+						->getPluginResource('locale')
+						->getLocale()
+						->getLanguage()}
+					->financingInfo;
+				?>
             </p>
 		</div><!-- .container -->
 	</section><!-- .footer-about -->
