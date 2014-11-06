@@ -3,6 +3,7 @@ $(document).ready () ->
     bindEmailConsultationSelect()
     bindEmailAddAttachment()
     bindTableRowToggle()
+    bindTableRowsToggle()
     bindToggleAll()
     bindConsultationCustomPhaseNames()
 
@@ -90,24 +91,37 @@ bindEmailAddAttachment = () ->
         )
 
 bindTableRowToggle = () ->
-    $('.js-table-row-toggle').change(() ->
+    $('.js-table-row-toggle').change () ->
         row = $(this).closest('tr')
 
         if $(this).is(':checked')
             row.addClass('info')
         else
             row.removeClass('info')
-    )
+
+bindTableRowsToggle = () ->
+    rows = $('.js-table-rows-toggle tr')
+    checkboxes = $('.js-table-rows-toggle input:checkbox')
+
+    rows.click (e) ->
+        if (e.target.type != 'checkbox')
+            $(':checkbox', this).trigger('click')
+
+    checkboxes.change (e) ->
+        row = $(this).closest('tr')
+        if $(this).is(':checked')
+            row.addClass('info')
+        else
+            row.removeClass('info')
 
 bindToggleAll = () ->
-    $('.js-toggle-all').change(() ->
+    $('.js-toggle-all').change () ->
         form = $(this).closest('form')
 
         if $(this).is(':checked')
             form.find('input:checkbox:not(:checked)').prop('checked', true).change()
         else
             form.find('input:checkbox:checked').prop('checked', false).change()
-    )
 
 bindConsultationCustomPhaseNames = () ->
     $('.js-enable-custom-consultation-phase-names').change (ev) ->
