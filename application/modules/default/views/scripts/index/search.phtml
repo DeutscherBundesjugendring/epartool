@@ -61,7 +61,7 @@
                         </ul>
                     <?php endif?>
                         <?php if (count($consultation['questions']) > 0): ?>
-                            <h4>Fragen</h4>
+                            <h4><?=$this->translate('Questions');?></h4>
                             <ul>
                                 <?php foreach ($consultation['questions'] AS $question): ?>
                                     <li>
@@ -79,7 +79,7 @@
                     <?php endif?>
 
                     <?php if (count($consultation['inputs']) > 0): ?>
-                        <h4>Nutzerbeitr&auml;ge</h4>
+                        <h4><?=$this->translate('User Contributions');?></h4>
                         <ul>
                             <?php foreach ($consultation['inputs'] AS $input): ?>
                                 <li>
@@ -99,7 +99,7 @@
             <?php endforeach?>
         <?php endif?>
 
-        <h2>Suche in Follow-ups</h2>
+        <h2><?=$this->translate('Search in Follow-Ups');?></h2>
         <ul class="followup-search media-list">
             <?php foreach ($this->resultsFollowUps as $followUp): ?>
                 <li>
@@ -126,7 +126,7 @@
                             </time><br />
                             <p class="followup-author"><?php echo $followUp['releasedBy']?></p>
 
-                            <h4>Reaktionen:</h4>
+                            <h4><?=$this->translate('Reactions');?></h4>
                             <ul>
                                 <?php foreach ($followUp['snippets'] as $snippet): ?>
                                     <li class="level-<?php echo $snippet['hierarchyLevel']?>">
