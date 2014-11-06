@@ -23,7 +23,7 @@ class Dbjr_Form_Decorator_BootstrapMulti extends Zend_Form_Decorator_Abstract
                 [
                     'tag' => 'div',
                     'id' => ['callback' => [get_class($element), 'resolveElementId']],
-                    'class' => 'checkbox',
+                    'class' => 'checkbox radio',
                 ]
             );
 
