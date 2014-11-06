@@ -94,20 +94,7 @@
     <main role="main">
 
         <!-- Flash Messages -->
-        <?php if(!empty($this->layout()->messages)): ?>
-            <?php foreach ($this->layout()->messages as $level => $messages): ?>
-                <?php if (!empty($messages)): ?>
-                    <?php foreach ($messages as $message): ?>
-                        <div class="alert alert-<?=$level;?> alert-full fade in">
-                            <button class="close" data-dismiss="alert">&times;</button>
-                            <div class="container">
-                                <?=$message;?>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php endif; ?>
+        <?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
 
         <!-- Content -->
         <?=$this->layout()->content;?>
