@@ -149,7 +149,7 @@
                     <!-- Listing -->
                     <?php foreach ($this->inputs as $questionNum => $inputs): ?>
                         <h3><?=$inputs['q'];?></h3>
-                        <table class="table table-bordered table-responsive">
+                        <table class="table table-bordered table-responsive js-table-rows-toggle">
                             <?php foreach ($inputs['inputs'] as $input): ?>
                                 <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
                             <?php endforeach;?>

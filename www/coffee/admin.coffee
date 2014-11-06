@@ -2,7 +2,6 @@ $(document).ready () ->
     bindEmailTemplateSelect()
     bindEmailConsultationSelect()
     bindEmailAddAttachment()
-    bindTableRowToggle()
     bindTableRowsToggle()
     bindToggleAll()
     bindConsultationCustomPhaseNames()
@@ -89,15 +88,6 @@ bindEmailAddAttachment = () ->
             attachmentId++;
             return
         )
-
-bindTableRowToggle = () ->
-    $('.js-table-row-toggle').change () ->
-        row = $(this).closest('tr')
-
-        if $(this).is(':checked')
-            row.addClass('info')
-        else
-            row.removeClass('info')
 
 bindTableRowsToggle = () ->
     rows = $('.js-table-rows-toggle tr')

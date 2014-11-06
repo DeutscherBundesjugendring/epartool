@@ -341,7 +341,7 @@
                     </div><!-- .well -->
 
                     <!-- Contribution listing -->
-                    <table id="contribution-table" class="table table-bordered table-responsive">
+                    <table id="contribution-table" class="table table-bordered table-responsive js-table-rows-toggle">
                         <tbody>
                             <?php foreach ($this->inputs as $input): ?>
                                 <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>

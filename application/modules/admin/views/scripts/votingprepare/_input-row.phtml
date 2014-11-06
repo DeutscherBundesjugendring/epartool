@@ -8,7 +8,7 @@
     <td class="table-cell-id table-cell-top">
         <div class="checkbox">
             <label>
-                <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" class="js-table-row-toggle" />
+                <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
                 <?=$this->escape($this->input['tid']);?>
             </label>
         </div>
@@ -22,7 +22,7 @@
 
         <?php if (!empty($this->input['expl'])): ?>
             <h5><?=$this->translate('Explanation');?></h5>
-            <p><?=$this->escape($this->input['expl']);?></p>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['expl']);?></p>
         <?php endif; ?>
 
         <?php if (!empty($this->input['notiz'])): ?>

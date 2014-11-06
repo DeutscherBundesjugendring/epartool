@@ -160,7 +160,7 @@
                     </div>
 
                     <!-- Listing -->
-                    <table class="table table-bordered table-responsive" id="contribution-table">
+                    <table class="table table-bordered table-responsive js-table-rows-toggle" id="contribution-table">
                         <?php foreach ($this->inputs as $input): ?>
                             <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
                         <?php endforeach;?>
