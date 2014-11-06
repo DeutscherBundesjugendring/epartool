@@ -3,83 +3,83 @@
     $nowDate = Zend_Date::now();
 ?>
 
-<?php foreach ($this->consultations as $con):?>
+<?php foreach ($this->consultations as $consultation):?>
     <?php
         $disabled = array(
-            'input' => ($nowDate->isEarlier($con->inp_fr) || $con->inp_fr == '0000-00-00 00:00:00'),
-            'voting' => ($nowDate->isEarlier($con->vot_fr) || $con->vot_fr == '0000-00-00 00:00:00'),
-            'follow-up' => (!$nowDate->isLater($con->vot_to) || $con->vot_to == '0000-00-00 00:00:00' || $con->follup_show == 'n'),
+            'input' => ($nowDate->isEarlier($consultation->inp_fr) || $consultation->inp_fr == '0000-00-00 00:00:00'),
+            'voting' => ($nowDate->isEarlier($consultation->vot_fr) || $consultation->vot_fr == '0000-00-00 00:00:00'),
+            'follow-up' => (!$nowDate->isLater($consultation->vot_to) || $consultation->vot_to == '0000-00-00 00:00:00' || $consultation->follup_show == 'n'),
         );
 
         // Voting disable result
-        if ($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
+        if ($consultation->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($consultation->vot_to) && $consultation->vot_res_show == 'n') {
             $disabled['voting'] = true;
         }
 
         $bubbles = array();
-        if ($nowDate->isLater($con->inp_fr) && $nowDate->isEarlier($con->inp_to)) {
-            if ($con->inp_show == 'y') {
+        if ($nowDate->isLater($consultation->inp_fr) && $nowDate->isEarlier($consultation->inp_to)) {
+            if ($consultation->inp_show == 'y') {
                 $bubbles['input'] = '<div class="bubble bubble-large"><h3>' . $this->translate('Participate now!') . '</h3>';
-                $bubbles['input'].= '<span>' . $this->translate('from') . ' ' . $date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
-                    . $this->translate('until') . ' ' . $date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+                $bubbles['input'].= '<span>' . $this->translate('from') . ' ' . $date->set($consultation->inp_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
+                    . $this->translate('until') . ' ' . $date->set($consultation->inp_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
                 $bubbles['input'].= '</div>';
             }
         }
-        if ($nowDate->isLater($con->vot_fr) && $nowDate->isEarlier($con->vot_to)) {
-            if ($con->vot_show == 'y') {
+        if ($nowDate->isLater($consultation->vot_fr) && $nowDate->isEarlier($consultation->vot_to)) {
+            if ($consultation->vot_show == 'y') {
                 $bubbles['voting'] = '<div class="bubble bubble-large"><h3>' . $this->translate('Vote now!') . '</h3>';
-                $bubbles['voting'].= '<span>' . $this->translate('from') . ' ' . $date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
-                    . $this->translate('until') . ' ' . $date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
+                $bubbles['voting'].= '<span>' . $this->translate('from') . ' ' . $date->set($consultation->vot_fr)->get(Zend_Date::DATE_MEDIUM) . '<br />'
+                    . $this->translate('until') . ' ' . $date->set($consultation->vot_to)->get(Zend_Date::DATE_MEDIUM) . '</span>';
                 $bubbles['voting'].= '</div>';
             }
         }
     ?>
 
     <div class="consultation consultation-preview">
-        <a href="<?=$this->url(array('controller' => 'article', 'kid' => $con->kid)) ?>" class="title">
+        <a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid)) ?>" class="title">
             <hgroup>
-                <h1><?=$con->titl ?></h1>
-                <h2><?=$con->titl_sub ?></h2>
+                <h1><?=$consultation->titl ?></h1>
+                <h2><?=$consultation->titl_sub ?></h2>
             </hgroup>
         </a>
 
-        <?=$this->ribbonImage($con)?>
+        <?=$this->ribbonImage($consultation)?>
 
         <nav role="navigation" class="consultation-nav">
             <ul class="nav nav-pills">
                 <li class="item-title">
-                    <a href="<?=$this->url(array('controller' => 'article', 'kid' => $con->kid));?>">
+                    <a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>">
                         <img
-                            src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$con->kid . '/' . $con->img_file;?>"
+                            src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$consultation->kid . '/' . $consultation->img_file;?>"
                             width="144"
-                            alt="<?=$con->img_expl;?>"
+                            alt="<?=$consultation->img_expl;?>"
                         />
                         <div class="description">
-                            <p><?=nl2br(strip_tags(htmlspecialchars_decode($con->expl_short)))?></p>
+                            <p><?=nl2br(strip_tags(htmlspecialchars_decode($consultation->expl_short)))?></p>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=$this->url(array('controller' => 'article', 'kid' => $con->kid));?>">
-                        <h2><?=$con->phase_info ? $this->escape($con->phase_info) : $this->translate('Info')?></h2>
+                    <a href="<?=$this->url(array('controller' => 'article', 'kid' => $consultation->kid));?>">
+                        <h2><?=$consultation->phase_info ? $this->escape($consultation->phase_info) : $this->translate('Info')?></h2>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=$this->url(array('controller' => 'question', 'kid' => $con->kid));?>">
-                        <h2><?=$con->phase_support ? $this->escape($con->phase_support) : $this->translate('Questions')?></h2>
+                    <a href="<?=$this->url(array('controller' => 'question', 'kid' => $consultation->kid));?>">
+                        <h2><?=$consultation->phase_support ? $this->escape($consultation->phase_support) : $this->translate('Questions')?></h2>
                     </a>
                 </li>
 
                 <?php if (!$disabled['input']): ?>
                     <li>
-                        <a href="<?=$this->url(array('controller' => 'input', 'kid' => $con->kid));?>#page-content">
-                            <h2><?=$con->phase_input ? $this->escape($con->phase_input) : $this->translate('Contributions')?></h2>
+                        <a href="<?=$this->url(array('controller' => 'input', 'kid' => $consultation->kid));?>#page-content">
+                            <h2><?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?=$bubbles['input'];?>
                             <?php else: ?>
-                                <?php if ($con->inp_show == 'y'): ?>
-                                    <small class="info">from <?=$date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
-                                        <?=$this->translate('until')?> <?=$date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM);?>
+                                <?php if ($consultation->inp_show == 'y'): ?>
+                                    <small class="info">from <?=$date->set($consultation->inp_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
+                                        <?=$this->translate('until')?> <?=$date->set($consultation->inp_to)->get(Zend_Date::DATE_MEDIUM);?>
                                     </small>
                                 <?php endif;?>
                             <?php endif;?>
@@ -88,13 +88,13 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$con->phase_input ? $this->escape($con->phase_input) : $this->translate('Contributions')?></h2>
+                            <h2><?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions')?></h2>
                             <?php if (isset($bubbles['input'])): ?>
                                 <?=$bubbles['input'];?>
                             <?php else: ?>
-                                <?php if ($con->inp_show == 'y'): ?>
-                                    <small class="info">from <?=$date->set($con->inp_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
-                                        <?=$this->translate('until')?> <?=$date->set($con->inp_to)->get(Zend_Date::DATE_MEDIUM);?>
+                                <?php if ($consultation->inp_show == 'y'): ?>
+                                    <small class="info">from <?=$date->set($consultation->inp_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
+                                        <?=$this->translate('until')?> <?=$date->set($consultation->inp_to)->get(Zend_Date::DATE_MEDIUM);?>
                                     </small>
                                 <?php endif;?>
                             <?php endif;?>
@@ -104,14 +104,14 @@
 
                 <?php if (!$disabled['voting']): ?>
                     <li>
-                        <a href="<?=$this->url(array('controller' => 'voting', 'kid' => $con->kid));?>">
-                            <h2><?=$con->phase_voting ? $this->escape($con->phase_voting) : $this->translate('Voting')?></h2>
+                        <a href="<?=$this->url(array('controller' => 'voting', 'kid' => $consultation->kid));?>">
+                            <h2><?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?=$bubbles['voting'];?>
                             <?php else: ?>
-                                <?php if ($con->vot_show == 'y'): ?>
-                                    <small class="info">from <?=$date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
-                                        <?=$this->translate('until')?> <?=$date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM);?>
+                                <?php if ($consultation->vot_show == 'y'): ?>
+                                    <small class="info">from <?=$date->set($consultation->vot_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
+                                        <?=$this->translate('until')?> <?=$date->set($consultation->vot_to)->get(Zend_Date::DATE_MEDIUM);?>
                                     </small>
                                 <?php endif;?>
                             <?php endif;?>
@@ -120,13 +120,13 @@
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$con->phase_voting ? $this->escape($con->phase_voting) : $this->translate('Voting')?></h2>
+                            <h2><?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting')?></h2>
                             <?php if (isset($bubbles['voting'])): ?>
                                 <?=$bubbles['voting'];?>
                             <?php else: ?>
-                                <?php if ($con->vot_show == 'y'): ?>
-                                    <small class="info">from <?=$date->set($con->vot_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
-                                        <?=$this->translate('until')?> <?=$date->set($con->vot_to)->get(Zend_Date::DATE_MEDIUM);?>
+                                <?php if ($consultation->vot_show == 'y'): ?>
+                                    <small class="info">from <?=$date->set($consultation->vot_fr)->get(Zend_Date::DATE_MEDIUM);?><br />
+                                        <?=$this->translate('until')?> <?=$date->set($consultation->vot_to)->get(Zend_Date::DATE_MEDIUM);?>
                                     </small>
                                 <?php endif;?>
                             <?php endif;?>
@@ -136,14 +136,14 @@
 
                 <?php if (!$disabled['follow-up']): ?>
                     <li>
-                        <a href="<?=$this->url(array('controller' => 'followup', 'kid' => $con->kid)) ?>">
-                            <h2><?=$con->phase_followup ? $this->escape($con->phase_followup) : $this->translate('Reactions & Impact')?></h2>
+                        <a href="<?=$this->url(array('controller' => 'followup', 'kid' => $consultation->kid)) ?>">
+                            <h2><?=$consultation->phase_followup ? $this->escape($consultation->phase_followup) : $this->translate('Reactions & Impact')?></h2>
                         </a>
                     </li>
                 <?php else: ?>
                     <li class="item-disabled">
                         <div>
-                            <h2><?=$con->phase_followup ? $this->escape($con->phase_followup) : $this->translate('Reactions & Impact')?></h2>
+                            <h2><?=$consultation->phase_followup ? $this->escape($consultation->phase_followup) : $this->translate('Reactions & Impact')?></h2>
                         </div>
                     </li>
                 <?php endif;?>
@@ -152,3 +152,7 @@
 
     </div><!-- .consultation -->
 <?php endforeach;?>
+
+<div class="top-link">
+    <a href="<?=$this->url(['controller' => 'consultation'], 'default', true);?>" class="btn"><?=$this->translate('Show more consultations');?></a>
+</div>

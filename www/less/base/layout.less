@@ -159,28 +159,9 @@ body {
 	text-align: center;
 	background-color: @white;
 
-	a {
-		color: @bodyText;
-
-		&:hover,
-		&:focus {
-			text-decoration: none;
-			color: @linkTextHover;
-		}
-	}
-
-	&.transparent {
-		background-color: transparent;
-
-		a {
-			color: white;
-
-			&:hover,
-			&:focus {
-				color: @bodyText;
-			}
-		}
-	}
+	a:hover {
+        text-decoration: none;
+    }
 }
 
 
