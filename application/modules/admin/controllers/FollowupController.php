@@ -53,12 +53,12 @@ class Admin_FollowupController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('The snippet was created successfully.', 'success');
                 $this->_redirect($this->view->url(['action' => 'edit-snippet', 'fid' => $newId]));
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Snippet could not be created.', 'error');
             }
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Create Followup Snippet');
+        $this->view->pageTitle = $this->view->translate('Create Follow-Up Snippet');
         $this->render('snippet-detail');
     }
 
@@ -79,10 +79,10 @@ class Admin_FollowupController extends Zend_Controller_Action
                     ->setFromArray($form->getValues())
                     ->save();
 
-                $this->_flashMessenger->addMessage('The followup snippet was saved successfully.', 'success');
+                $this->_flashMessenger->addMessage('The follow-up snippet was saved successfully.', 'success');
                 $this->_redirect($this->view->url());
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Snippet could not be saved.', 'error');
             }
         } else {
             $snippet = $snippetModel->find($fid)->current();
@@ -96,7 +96,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Edit Followup Snippet');
+        $this->view->pageTitle = $this->view->translate('Edit Follow-Up Snippet');
         $this->render('snippet-detail');
     }
 
@@ -113,15 +113,15 @@ class Admin_FollowupController extends Zend_Controller_Action
                 $followup->kid = $this->_kid;
                 $newId = $followup->save();
 
-                $this->_flashMessenger->addMessage('The followup was created successfully.', 'success');
+                $this->_flashMessenger->addMessage('The follow up was created successfully.', 'success');
                 $this->_redirect($this->view->url(['action' => 'edit-followup', 'ffid' => $newId]));
             } else {
-                $this->_flashMessenger->addMessage('Form ivalid', 'error');
+                $this->_flashMessenger->addMessage('Follow up could not be created.', 'error');
             }
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Create Followup');
+        $this->view->pageTitle = $this->view->translate('Create Follow Up');
         $this->render('followup-detail');
     }
 
@@ -144,10 +144,10 @@ class Admin_FollowupController extends Zend_Controller_Action
                     ->setFromArray($form->getValues())
                     ->save();
 
-                $this->_flashMessenger->addMessage('The followup was saved successfully.', 'success');
+                $this->_flashMessenger->addMessage('The follow up was saved successfully.', 'success');
                 $this->_redirect($this->view->url());
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Follow up could not be saved.', 'error');
                 $followupFile = $params;
             }
         } else {
@@ -162,7 +162,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Edit Followup');
+        $this->view->pageTitle = $this->view->translate('Edit Follow Up');
         $this->render('followup-detail');
     }
 
@@ -183,13 +183,13 @@ class Admin_FollowupController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 if ($this->getRequest()->getPost('delete')) {
                     $snippetModel->delete(['fid = ?' => $this->getRequest()->getPost('delete')]);
-                    $this->_flashMessenger->addMessage('The snippet was deleted successfully.', 'success');
+                    $this->_flashMessenger->addMessage('The snippet was deleted.', 'success');
                     $this->_redirect($this->view->url(['action' => 'snippets', 'ffid' => $ffid]));
                 } elseif ($this->getRequest()->getPost('saveOrder')) {
                     foreach ($postData['docorg'] as $snippetId => $docorg) {
                         $snippetModel->update(['docorg' => $docorg], ['fid = ?' => $snippetId]);
                     }
-                    $this->_flashMessenger->addMessage('The snippet order was updated.', 'success');
+                    $this->_flashMessenger->addMessage('Snippet order was updated.', 'success');
                     $this->redirect($this->view->url());
                 }
             }
@@ -226,9 +226,9 @@ class Admin_FollowupController extends Zend_Controller_Action
                     ->find($this->getRequest()->getPost('delete'))
                     ->current()
                     ->delete();
-                $this->_flashMessenger->addMessage('Followup deleted.', 'success');
+                $this->_flashMessenger->addMessage('Follow up was deleted.', 'success');
             } catch (Dbjr_Exception $e) {
-                $this->_flashMessenger->addMessage('Followup could not be deleted as there are snippets attached to it.', 'error');
+                $this->_flashMessenger->addMessage('Follow up could not be deleted as there are snippets attached to it.', 'error');
             }
 
             $this->_redirect($this->view->url(['action' => 'index', 'ffid' => null]));
@@ -255,7 +255,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'tid'
                 );
-                $message = sprintf($this->view->translate('%d Inputs were liked'), $inserted);
+                $message = sprintf($this->view->translate('%d inputs were liked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($postData['followup_links']) && !empty($postData['link_followups'])) {
@@ -264,7 +264,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'ffid'
                 );
-                $message = sprintf($this->view->translate('%d Followups were liked'), $inserted);
+                $message = sprintf($this->view->translate('%d followups were liked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($postData['link_snippets'])) {
@@ -273,7 +273,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'fid'
                 );
-                $message = sprintf($this->view->translate('%d Snippets were liked'), $inserted);
+                $message = sprintf($this->view->translate('%d snippets were liked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             $this->redirect($this->view->url());
