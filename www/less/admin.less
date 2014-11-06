@@ -10,35 +10,24 @@
 // Synergic UI and its dependencies
 @import "../components/bower/bootstrap3/less/bootstrap";
 @import "../components/bower/less-modules/less/less-modules";
+@import (inline) "../components/bower/select2/select2.css";
 @import "../components/bower/select2-bootstrap-css/lib/select2-bootstrap";
-@import "../components/bower/synergic-ui/src/less/_synergic-ui";
+@import "../components/bower/eonasdan-bootstrap-datetimepicker/src/less/bootstrap-datetimepicker";
+@import "../components/bower/synergic-ui/src/less/synergic-ui";
 
 // Configuration (must be last to override)
 @import "config/variables-admin";
 
 
 
-// TODO Temporary fixes, to be moved to Synergic UI.
-.table-cell-top {
-    vertical-align: top !important; // specificity override
-}
-
-.form-filter {
-    .form-actions {
-        padding-top: 26px;
-    }
-}
-
+// Temporary fixes.
+// TODO To be moved to Synergic UI?
 .table .checkbox {
     margin-top: 0;
 }
 
 .navbar-brand svg {
     margin-top: -3px;
-}
-
-.thumbnail-fixed .thumbnail-actions form {
-    display: inline;
 }
 
 .overflow-horizontal {
