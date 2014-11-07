@@ -222,12 +222,12 @@ Eure Koordinierungsstelle'
         @project_code,
         'Please confirm your subscription and your new user account',
         '<p>Hallo {{to_name}},</p>
-<p>Please confirm your subscriptio and your new user account:</p>
+<p>Please confirm your subscription and your new user account:</p>
 <p>{{confirmation_url}}</p>
 <p>Mit freundlichen Grüßen<br />
 Eure Koordinierungsstelle</p>',
         'Hallo {{to_name}},
-Please confirm your subscriptio and your new user account:
+Please confirm your subscription and your new user account:
 {{confirmation_url}}
 Mit freundlichen Grüßen
 Eure Koordinierungsstelle'
