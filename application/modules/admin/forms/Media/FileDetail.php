@@ -57,8 +57,8 @@ class Admin_Form_Media_FileDetail extends Dbjr_Form_Admin
         $this->addElement($submit);
     }
 
-    public function setDirectory($direcotry)
+    public function setDirectory($directory)
     {
-        $this->_directory = $direcotry;
+        $this->_directory = $directory;
     }
 }
