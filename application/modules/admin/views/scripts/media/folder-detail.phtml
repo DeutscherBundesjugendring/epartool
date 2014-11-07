@@ -25,7 +25,7 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(['action' => 'folders']);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
+                <a href="<?=$this->url(['action' => 'folders', 'folder' => null]);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
                 <h2><?=$this->pageTitle;?></h2>
 
                 <?=$this->form;?>
