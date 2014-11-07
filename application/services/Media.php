@@ -6,7 +6,7 @@ class Service_Media
 {
     const MEDIA_DIR_FOLDERS = 'folders';
     const MEDIA_DIR_CONSULTATIONS = 'consultations';
-    const FALLBACK_ICON_NAME = 'fallback';
+    const FALLBACK_ICON_NAME = 'icon_file_unknown';
 
     /**
      * Maps file extensions to icon file names
