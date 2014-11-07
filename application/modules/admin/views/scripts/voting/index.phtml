@@ -20,46 +20,58 @@
 
                 <h2><?=$this->translate('Voting Permissions');?></h2>
 
-                <p>Seit dem letzten Aufruf wurden <?php echo $this->countInserted;?> neue Nutzer_innen zu dieser Liste hinzugefügt:</p>
-                <table class="table">
-                    <tr>
-                        <th>uid</th>
-                        <th>Benutzer/-in</th>
-                        <th>Gewicht</th>
-                        <th>Zugangscode</th>
-                        <th>Anerkannte Größe</th>
-                        <th>Größe lt. eig. Angabe</th>
-                        <th>Aktionen</th>
-                    </tr>
-                    <?php foreach ($this->votingRights as $item): ?>
-                        <tr>
-                            <td><?php echo $item['uid'];?></td>
-                            <td>
-                                <a
-                                    href="<?php echo $this->url(
-                                        [
-                                            'controller' => 'input',
-                                            'action' => 'list',
-                                            'uid' => $item['uid'],
-                                        ]
-                                    );?>"
-                                    title="Alle Beiträge dieses Nutzers anzeigen"
-                                >
-                                    <?php echo $item['email'];?>
-                                </a>
-                            </td>
-                            <td><?php echo $item['vt_weight'];?></td>
-                            <td><?php echo $item['vt_code'];?></td>
-                            <td><?php echo $item['grp_siz'];?></td>
-                            <td><?php echo $item['group_size_user'];?></td>
-                            <td>
-                                <a href="<?php echo $this->url(['action' => 'editrights', 'uid' => $item['uid']]);?>">
-                                    Bearbeiten
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
-                </table>
+                <?php if ($this->countInserted): ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="badge"><?=$this->countInserted;?></span> <?=$this->translate('new users added recently.');?>
+                    </p>
+                <?php endif; ?>
+
+                <?php if (!empty($this->votingRights)): ?>
+                    <table class="table" data-view="table">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id" data-toggle="sort" data-order="default" tabindex="0">#</th>
+                                <th data-toggle="sort" tabindex="0">User</th>
+                                <th data-toggle="sort" tabindex="0">Weight</th>
+                                <th data-toggle="sort" tabindex="0">Access Code</th>
+                                <th data-toggle="sort" tabindex="0">Accepted Size</th>
+                                <th data-toggle="sort" tabindex="0">Stated Size</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->votingRights as $item): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$item['uid'];?></td>
+                                    <td>
+                                        <a href="mailto:<?=$item['email'];?>" title="<?=$this->translate('New email to user');?>"><?=$item['email'];?></a>
+                                    </td>
+                                    <td><?=$item['vt_weight'];?></td>
+                                    <td><?=$item['vt_code'];?></td>
+                                    <td><?=$item['grp_siz'];?></td>
+                                    <td><?=$item['group_size_user'];?></td>
+                                    <td class="table-cell-actions">
+                                        <a
+                                            href="<?=$this->url(['controller' => 'input', 'action' => 'list', 'uid' => $item['uid']]);?>"
+                                            title="<?=$this->translate('Show all contributions by this user');?>"
+                                            >
+                                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="<?=$this->url(['action' => 'editrights', 'uid' => $item['uid']]);?>" title="<?=$this->translate('Edit permission');?>">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no permissions to be set.');?>
+                    </p>
+                <?php endif; ?>
 
             </div>
         </div>
