@@ -31,27 +31,26 @@
 
                 <!-- Collapsible panels -->
                 <?php if (count($this->questions)): ?>
-                    <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
+                    <form method="post">
+                        <div class="form-group text-right">
+                            <input name="link_inputs" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                        </div>
+                        <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
 
-                        <?php $i = 0; ?>
-                        <?php foreach ($this->questions as $question): ?>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
-                                    <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseContributions<?=$i;?>" aria-controls="collapseContributions<?=$i;?>">
-                                        <h4 class="panel-title">
-                                            <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                            <?=$question['q'];?>
-                                        </h4>
-                                    </a>
-                                </div>
-                                <div id="collapseContributions<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
-                                    <div class="panel-body">
-
-                                        <?php if (count($question['inputs'])): ?>
-                                            <form method="post">
-                                                <div class="form-group text-right">
-                                                    <input name="link_inputs" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
-                                                </div>
+                            <?php $i = 0; ?>
+                            <?php foreach ($this->questions as $question): ?>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
+                                        <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseContributions<?=$i;?>" aria-controls="collapseContributions<?=$i;?>">
+                                            <h4 class="panel-title">
+                                                <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <?=$question['q'];?>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="collapseContributions<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
+                                        <div class="panel-body">
+                                            <?php if (count($question['inputs'])): ?>
                                                 <table class="table js-table-rows-toggle">
                                                     <tbody>
                                                         <?php foreach ($question['inputs'] as $input): ?>
@@ -88,24 +87,23 @@
                                                         <?php endforeach;?>
                                                     </tbody>
                                                 </table>
-                                                <div class="form-group text-right">
-                                                    <input name="link_inputs" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
-                                                </div>
-                                            </form>
-                                        <?php else: ?>
-                                            <p class="alert alert-info">
-                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                                <?=$this->translate('There are no contributions for this question yet.');?>
-                                            </p>
-                                        <?php endif; ?>
-    
-                                    </div>
-                                </div><!-- .panel-collapse -->
-                            </div><!-- .panel -->
-                            <?php $i++; ?>
-                        <?php endforeach;?>
+                                            <?php else: ?>
+                                                <p class="alert alert-info">
+                                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                                    <?=$this->translate('There are no contributions for this question yet.');?>
+                                                </p>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div><!-- .panel-collapse -->
+                                </div><!-- .panel -->
+                                <?php $i++; ?>
+                            <?php endforeach;?>
 
-                    </div><!-- .panel-group -->
+                        </div><!-- .panel-group -->
+                        <div class="form-group text-right">
+                            <input name="link_inputs" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                        </div>
+                    </form>
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -120,27 +118,28 @@
 
                 <!-- Collapsible panels -->
                 <?php if (count($this->followups)): ?>
-                    <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
+                    <form method="post">
+                        <div class="form-group text-right">
+                            <input name="link_snippets" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                        </div>
 
-                        <?php $i = 0; ?>
-                        <?php foreach ($this->followups as $followup): ?>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
-                                    <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseSnippets<?=$i;?>" aria-controls="collapseSnippets<?=$i;?>">
-                                        <h4 class="panel-title">
-                                            <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                            <?=$followup['titl'];?>
-                                        </h4>
-                                    </a>
-                                </div>
-                                <div id="collapseSnippets<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
-                                    <div class="panel-body">
+                        <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
 
-                                        <?php if (count($followup['snippets'])): ?>
-                                            <form method="post">
-                                                <div class="form-group text-right">
-                                                    <input name="link_snippets" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
-                                                </div>
+                            <?php $i = 0; ?>
+                            <?php foreach ($this->followups as $followup): ?>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
+                                        <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseSnippets<?=$i;?>" aria-controls="collapseSnippets<?=$i;?>">
+                                            <h4 class="panel-title">
+                                                <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <?=$followup['titl'];?>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="collapseSnippets<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
+                                        <div class="panel-body">
+
+                                            <?php if (count($followup['snippets'])): ?>
                                                 <table class="table js-table-rows-toggle">
                                                     <tbody>
                                                         <?php foreach ($followup['snippets'] as $snippet): ?>
@@ -160,24 +159,24 @@
                                                         <?php endforeach;?>
                                                     </tbody>
                                                 </table>
-                                                <div class="form-group text-right">
-                                                    <input name="link_snippets" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
-                                                </div>
-                                            </form>
-                                        <?php else: ?>
-                                            <p class="alert alert-info">
-                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                                <?=$this->translate('There are no snippets for this follow up yet.');?>
-                                            </p>
-                                        <?php endif; ?>
+                                            <?php else: ?>
+                                                <p class="alert alert-info">
+                                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                                    <?=$this->translate('There are no snippets for this follow up yet.');?>
+                                                </p>
+                                            <?php endif; ?>
 
-                                    </div>
-                                </div><!-- .panel-collapse -->
-                            </div><!-- .panel -->
-                            <?php $i++; ?>
-                        <?php endforeach;?>
+                                        </div>
+                                    </div><!-- .panel-collapse -->
+                                </div><!-- .panel -->
+                                <?php $i++; ?>
+                            <?php endforeach;?>
 
-                    </div><!-- .panel-group -->
+                        </div><!-- .panel-group -->
+                        <div class="form-group text-right">
+                            <input name="link_snippets" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                        </div>
+                    </form>
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
