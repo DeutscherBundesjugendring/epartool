@@ -3,6 +3,7 @@
 class Service_UrlkeyAction_ResetPassword extends Service_UrlkeyAction
 {
     const PARAM_USER_ID = 'user_id';
+    const NAME = 'passwordReset';
 
     /**
      * Holds the name of the view script to be used for this action.

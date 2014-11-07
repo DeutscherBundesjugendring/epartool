@@ -3,6 +3,7 @@
 class Service_UrlkeyAction_ConfirmNotification extends Service_UrlkeyAction
 {
     const PARAM_NOTIFICATION_ID = 'notification_id';
+    const NAME = 'confirmNotification';
 
     /**
      * Holds the name of the view script to be used for this action.

@@ -1,6 +1,6 @@
 <?php
 
-class Service_UrlkeyAction
+abstract class Service_UrlkeyAction
 {
     /**
      * Holds the variebles to be exported to the view
@@ -34,6 +34,15 @@ class Service_UrlkeyAction
 
 
     /**
+     * Executes the urlkeyAction
+     * @param  Zend_Controller_Request_Http        $request      The request object
+     * @param  Zend_Db_Table_Row                   $urlkeyAction The urlkeyAction object
+     * @return Service_UrlkeyAction_ResetPassword                Fluent interface
+     */
+    abstract public function execute(Zend_Controller_Request_Http $request, Zend_Db_Table_Row $urlkeyAction);
+
+
+    /**
      * Creates an urlkeyAction
      * @param  array             $params The parameters to be attached to this action
      * @return Service_UrlkeyAction         Fluent interface
@@ -42,16 +51,15 @@ class Service_UrlkeyAction
     {
         $this->generateUrlkey();
         $urlkeyActionModel = new Model_UrlkeyAction();
+        $timeout = Zend_Registry::get('systemconfig')->urlkeyAction->{static::NAME}->timeout;
+        if ((int) $timeout !== 0) {
+            $timeoutExpr = $urlkeyActionModel->getAdapter()->quoteInto('(DATE_ADD(NOW(), INTERVAL ? MINUTE))', $timeout);
+        }
         $this->_id = $urlkeyActionModel->insert(
             [
                 'urlkey' => $this->_urlkey,
                 'time_created' => date('Y-m-d H:i:s'),
-                'time_valid_to' => new Zend_Db_Expr(
-                    $urlkeyActionModel->getAdapter()->quoteInto(
-                        '(DATE_ADD(NOW(), INTERVAL ? MINUTE))',
-                        Zend_Registry::get('systemconfig')->security->password->resetRequestTimeout
-                    )
-                ),
+                'time_valid_to' => new Zend_Db_Expr(isset($timeoutExpr) ? $timeoutExpr : 'NULL'),
                 'handler_class' => get_class($this),
             ]
         );
