@@ -125,7 +125,7 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFolder($oldName, $newName)) {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s was renamed to %s.', $oldName, $newName), 'success');
-                    $this->redirect($this->view->url(['action' => 'edit-folder', 'folder' => $newName]));
+                    $this->redirect($this->view->url(['action' => 'folders', 'folder' => null]));
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s could not be renamed to %s.', $oldName, $newName), 'error');
                 }
@@ -169,7 +169,7 @@ class Admin_MediaController extends Zend_Controller_Action
                     } else {
                         $this->_flashMessenger->addMessage(sprintf('The file %s/%s was moved to %s/%s.', $this->_folder, $oldName, $newDir, $newName), 'success');
                     }
-                    $this->redirect($this->view->url(['action' => 'edit-file', 'folder' => $newDir, 'filename' => $newName]). '/');
+                    $this->redirect($this->view->url(['action' => 'index', 'folder' => $newDir, 'filename' => null]). '/');
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The file %s could not be renamed to %s.', $oldName, $newName), 'error');
                 }
@@ -244,7 +244,7 @@ class Admin_MediaController extends Zend_Controller_Action
                 $folderName = $form->getValue('name');
                 if ((new Service_Media())->createDir(null, $folderName)) {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s was created.', $folderName), 'success');
-                    $this->redirect($this->view->url(['action' => 'create-folder']));
+                    $this->redirect($this->view->url(['action' => 'folders']));
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s could not be created.', $folderName), 'error');
                 }

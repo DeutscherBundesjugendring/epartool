@@ -4,6 +4,8 @@ class Admin_Form_Media_FolderDetail extends Dbjr_Form_Admin
 {
     public function init()
     {
+        $this->setAttrib('class', 'offset-bottom');
+
         $folder = $this->createElement('text', 'name');
         $folder
             ->setLabel('Name')
