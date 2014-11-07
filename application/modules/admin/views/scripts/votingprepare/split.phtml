@@ -26,8 +26,8 @@
                     <table class="table table-bordered">
                         <tbody>
                             <?php foreach ($this->inputs as $input): ?>
-                                <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>
-                            <?php endforeach;?>
+                                <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true])?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </form>

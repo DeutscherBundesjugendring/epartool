@@ -7,10 +7,14 @@
 >
     <td class="table-cell-id table-cell-top">
         <div class="checkbox">
-            <label>
-                <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
+            <?php if(empty($this->readonly)): ?>
+                <label>
+                    <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
+                    <?=$this->escape($this->input['tid']);?>
+                </label>
+            <?php else: ?>
                 <?=$this->escape($this->input['tid']);?>
-            </label>
+            <?php endif; ?>
         </div>
     </td>
     <td class="table-cell-top">
@@ -109,37 +113,39 @@
         </p>
 
     </td>
-    <td class="col-xs-1 table-cell-top text-center">
-        <a
-            class="item-action"
-            href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $this->input['tid'], 'return' => 'votingprepare']);?>"
-            title="<?=$this->translate('Edit contribution');?>"
-        >
-            <span class="glyphicon glyphicon-pencil"></span>
-        </a>
-        <a
-            class="item-action"
-            href="<?=$this->url(['action' => 'copy', 'inputId' => $this->input['tid']]);?>"
-            title="<?=$this->translate('Copy contribution');?>"
-        >
-            <span class="glyphicon glyphicon-th-large"></span>
-        </a>
-        <a
-            class="item-action"
-            href="<?=$this->url(['action' => 'split', 'inputId' => $this->input['tid']]);?>"
-            title="<?=$this->translate('Split contribution');?>"
-        >
-            <span class="glyphicon glyphicon-resize-full"></span>
-        </a>
-        <button
-            class="item-action item-action-danger"
-            name="delete"
-            value="<?=$this->input['tid']?>"
-            data-toggle="confirm"
-            data-confirm-message="<?=$this->translate('Delete contribution?');?>"
-            title="<?=$this->translate('Delete contribution');?>"
-        >
-            <span class="glyphicon glyphicon-trash"></span>
-        </button>
-    </td>
+    <?php if(empty($this->readonly)): ?>
+        <td class="col-xs-1 table-cell-top text-center">
+            <a
+                class="item-action"
+                href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $this->input['tid'], 'return' => 'votingprepare']);?>"
+                title="<?=$this->translate('Edit contribution');?>"
+            >
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a
+                class="item-action"
+                href="<?=$this->url(['action' => 'copy', 'inputId' => $this->input['tid']]);?>"
+                title="<?=$this->translate('Copy contribution');?>"
+            >
+                <span class="glyphicon glyphicon-th-large"></span>
+            </a>
+            <a
+                class="item-action"
+                href="<?=$this->url(['action' => 'split', 'inputId' => $this->input['tid']]);?>"
+                title="<?=$this->translate('Split contribution');?>"
+            >
+                <span class="glyphicon glyphicon-resize-full"></span>
+            </a>
+            <button
+                class="item-action item-action-danger"
+                name="delete"
+                value="<?=$this->input['tid']?>"
+                data-toggle="confirm"
+                data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+                title="<?=$this->translate('Delete contribution');?>"
+            >
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </td>
+    <?php endif; ?>
 </tr>
