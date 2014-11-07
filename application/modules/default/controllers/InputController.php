@@ -288,6 +288,16 @@ class InputController extends Zend_Controller_Action
                     $inputModel->add($input);
                 }
                 $inputModel->getAdapter()->commit();
+
+                $qiSent = [];
+                foreach ($sessInputs->inputs as $input) {
+                    if (!in_array($input['qi'], $qiSent)) {
+                        $qiSent[] = $input['qi'];
+                        (new Service_Notification_Input_Created())->notify(
+                            [Service_Notification_Input_Created::PARAM_QUESTION_ID => $input['qi']]
+                        );
+                    }
+                }
                 unset($sessInputs->inputs);
             } catch (Exception $e) {
                 $inputModel->getAdapter()->rollback();
@@ -331,6 +341,12 @@ class InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $inputModel->getAdapter()->beginTransaction();
         try {
+            $inputs = $this->fetchAll(
+                $this
+                    ->select($this->info(self::NAME), ['qi'])
+                    ->where('confirmation_key=?', $ckey)
+                    ->groupBy('qi')
+            );
             $confirmedCount = $inputModel->confirmByCkey($ckey);
             $inputModel->getAdapter()->commit();
         } catch (Dbjr_UrlkeyAction_Exception $e){
@@ -344,6 +360,13 @@ class InputController extends Zend_Controller_Action
 
         if ($confirmedCount) {
             $this->_flashMessenger->addMessage('Thank you! Your inputs have been confirmed!', 'success');
+
+            // we know there are no inputs of the same question because of the groupBy statement in the query
+            foreach ($inputs as $input) {
+                (new Service_Notification_Input_Created())->notify(
+                    [Service_Notification_Input_Created::PARAM_QUESTION_ID => $input['qi']]
+                );
+            }
         } else {
             $this->_flashMessenger->addMessage('This confirmation link is invalid!', 'error');
         }

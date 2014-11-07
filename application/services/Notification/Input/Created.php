@@ -102,6 +102,8 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
                 'n.type_id = nt.id',
                 []
             )
+            ->where('u.block=?', 'c')
+            ->where('n.is_confirmed=?', 1)
             ->where('nt.name=?', static::TYPE_NAME)
             ->group('u.uid');
         foreach ($params as $key => $value) {

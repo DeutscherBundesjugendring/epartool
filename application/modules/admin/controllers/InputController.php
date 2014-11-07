@@ -113,15 +113,6 @@ class Admin_InputController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
-                $origInput = $inputModel->find($tid)->current();
-                if ($origInput->block !== 'n'
-                    && $data['block'] === 'n'
-                    && $data['user_conf'] !== 'r'
-                ) {
-                    (new Service_Notification_Input_Created())->notify(
-                        [Service_Notification_Input_Created::PARAM_QUESTION_ID => $origInput['qi']]
-                    );
-                }
                 $formValues = $form->getValues();
                 if (!$formValues['tags']) {
                     $formValues['tags'] = [];
