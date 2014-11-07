@@ -28,6 +28,10 @@
                 <a href="<?=$this->url(['action' => 'folders', 'folder' => null]);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
                 <h2><?=$this->pageTitle;?></h2>
 
+                <p class="alert alert-warning">
+                    <?=$this->translate('Folder name can contain only characters a-z, 0-9 and -.');?>
+                </p>
+
                 <?=$this->form;?>
 
             </div>
