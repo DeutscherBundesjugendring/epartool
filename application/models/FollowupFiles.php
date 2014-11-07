@@ -163,7 +163,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         $followups = [];
         foreach ($res as $followup) {
             if (!isset($followups[$followup->ffid])) {
-                $followups[$followup->ffid]['titl'] = $followup->ffid;
+                $followups[$followup->ffid]['titl'] = $followup->titl;
                 $followups[$followup->ffid]['snippets'] = [];
             }
             if ($followup->fid) {
