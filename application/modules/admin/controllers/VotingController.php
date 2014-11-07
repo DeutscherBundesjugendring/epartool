@@ -187,7 +187,6 @@ class Admin_VotingController extends Zend_Controller_Action
                         $mailer->addCc($values['mailbcc']);
                     }
                 } else {
-                    $date = new Zend_Date();
                     $mailer
                         ->setTemplate($templateName)
                         ->setPlaceholders(
@@ -198,8 +197,8 @@ class Admin_VotingController extends Zend_Controller_Action
                                     'to_email' => $user['email'],
                                     'consultation_title_long' => $this->_consultation['titl'],
                                     'consultation_title_short' => $this->_consultation['titl_short'],
-                                    'voting_phase_start' => $date->set($this->_consultation['vot_fr'])->get(Zend_Date::DATE_MEDIUM),
-                                    'voting_phase_end' => $date->set($this->_consultation['vot_to'])->get(Zend_Date::DATE_MEDIUM),
+                                    'voting_phase_start' => (new Zend_View())->formatDate($this->_consultation['vot_fr'], Zend_Date::DATE_MEDIUM),
+                                    'voting_phase_end' => (new Zend_View())->formatDate($this->_consultation['vot_to'], Zend_Date::DATE_MEDIUM),
                                     'voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
                                         . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code'],
                                 )

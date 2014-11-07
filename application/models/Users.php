@@ -292,7 +292,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 $inputsHtml .= '<p>' . $input->thes . '</p>';
             }
 
-            $date = new Zend_Date();
             $baseUrl = Zend_Registry::get('baseUrl');
             $consultation = (new Model_Consultations())->find($kid)->current();
             if ($isNew) {
@@ -312,8 +311,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         'rejection_url' => $baseUrl . '/input/mailreject/kid/' . $kid . '/ckey/' . $confirmKey,
                         'consultation_title_long' => $consultation ? $consultation->titl : '',
                         'consultation_title_short' => $consultation ? $consultation->titl_short : '',
-                        'input_phase_end' => $consultation ? $date->set($consultation->inp_to)->get(Zend_Date::DATE_MEDIUM) : '',
-                        'input_phase_start' => $consultation ? $date->set($consultation->inp_fr)->get(Zend_Date::DATE_MEDIUM) : '',
+                        'input_phase_end' => $consultation ? (new Zend_View())->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM) : '',
+                        'input_phase_start' => $consultation ? (new Zend_View())->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM) : '',
                         'inputs_html' => $inputsHtml,
                         'inputs_text' => $inputsText,
                     )

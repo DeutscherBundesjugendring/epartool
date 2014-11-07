@@ -1,8 +1,3 @@
-<?php
-    $date = new Zend_Date();
-    $locale = new Zend_Locale();
-?>
-
 <?php echo $this->secondNavigation('follow-up') ?>
 
 <div class="content-holder">
@@ -43,9 +38,9 @@
                 <?php foreach ($this->paginator as $input): ?>
                     <a name="input-<?php echo $input['tid']; ?>"></a>
                     <article class="media">
-                        <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
+                        <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
                             <?=$this->translate('written on')?>
-                            <?php echo $date->get(Zend_Date::DATE_MEDIUM); ?>
+                            <?=$this->formatDate($input['when'], Zend_Date::DATE_MEDIUM);?>
                         </time>
                         <p class="lead"><?php echo $input['thes'] ?></p>
 

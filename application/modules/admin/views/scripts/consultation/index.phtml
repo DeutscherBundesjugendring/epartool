@@ -47,7 +47,7 @@
                                             title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
                                             ><?=$input['name'];?></a>,
                                     <?php endif; ?>
-                                    <?=(new Zend_Date())->set($input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+                                    <?=$this->formatDate($input['when']);?>
                                 </small>
                             </div>
                         <?php endforeach?>

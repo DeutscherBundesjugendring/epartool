@@ -31,8 +31,8 @@
                         <th class="col-xs-4"><?=$this->translate('Last activity');?></th>
                         <td>
                             <?php if (!empty($this->user['last_act'])): ?>
-                                <?php echo (new Zend_Date())->set($this->user['last_act'])->get(Zend_Date::DATETIME_MEDIUM);?>
-                            <?php endif; ?>
+                                <?=$this->formatDate($this->user['last_act']);?>
+                            <?php endif;?>
                         <td>
                     </tr>
                     <tr>

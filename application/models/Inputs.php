@@ -489,7 +489,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ->where('i.confirmation_key=?', $confirmKey)
         )->inp_to;
 
-        if (Zend_Date::now()->isLater($inputPhaseTo)) {
+        if (Zend_Date::now()->isLater(new Zend_Date($inputPhaseTo, Zend_Date::ISO_8601))) {
             throw new Dbjr_UrlkeyAction_Exception('Cant confirm or reject once the input phase is over');
         }
     }
@@ -675,8 +675,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         if ($row) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($row->kid)->current();
-            if (Zend_Date::now()->isLater($consultation->spprt_fr)
-                && Zend_Date::now()->isEarlier($consultation->spprt_to)) {
+            if (Zend_Date::now()->isLater(new Zend_Date($consultation->spprt_fr, Zend_Date::ISO_8601))
+                && Zend_Date::now()->isEarlier(new Zend_Date($consultation->spprt_to, Zend_Date::ISO_8601))
+            ) {
                 $row->spprts++;
                 $row->save();
             }

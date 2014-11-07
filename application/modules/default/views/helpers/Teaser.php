@@ -2,13 +2,11 @@
 /**
  * Teaser, shows the most relevant consultations with links to the current
  * participation stage
- *
  */
 class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
 {
     public function teaser()
     {
-        $date = new Zend_Date();
         $html = '<ul class="nav nav-list teaser hidden-print">';
 
         $consultationModel = new Model_Consultations();
@@ -24,9 +22,10 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'kid' => $item['kid']
                     ), 'default', true);
                     $text = $this->view->translate('You can publish your contribution now!')
-                    . $this->view->translate('From') . ' '
-                    . $date->set($item['inp_fr'])->get('dd.MM.yyyy') . ' ' . $this->view->translate('until') . ' '
-                    . $date->set($item['inp_to'])->get('dd.MM.yyyy') . ' …';
+                        . $this->view->translate('From') . ' '
+                        . $this->view->formatDate($item['inp_fr'], 'dd.MM.yyyy') . ' '
+                        . $this->view->translate('until') . ' '
+                        . $this->view->formatDate($item['inp_to'], 'dd.MM.yyyy') . ' …';
                     break;
                 case 'inp_to':
                     $url = $this->view->url(array(
@@ -35,9 +34,10 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'kid' => $item['kid']
                     ), 'default', true);
                     $text = $this->view->translate('The contribution phase has finished. You can vote soon:')
-                    . $this->view->translate('from') . ' '
-                    . $date->set($item['vot_fr'])->get('dd.MM.yyyy') . ' ' . $this->view->translate('until') . ' '
-                    . $date->set($item['vot_to'])->get('dd.MM.yyyy') . ' …';
+                        . $this->view->translate('from') . ' '
+                        . $this->view->formatDate($item['vot_fr'], 'dd.MM.yyyy') . ' '
+                        . $this->view->translate('until') . ' '
+                        . $this->view->formatDate($item['vot_to'], 'dd.MM.yyyy') . ' …';
                     break;
                 case 'vot_fr':
                     $url = $this->view->url(array(

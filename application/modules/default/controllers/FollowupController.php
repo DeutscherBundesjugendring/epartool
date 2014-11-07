@@ -25,8 +25,7 @@ class FollowupController extends Zend_Controller_Action
 
             $nowDate = Zend_Date::now();
 
-            if (
-                !$nowDate->isLater($consultation->vot_to)
+            if (!$nowDate->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
                 || $consultation->follup_show == 'n'
             ) {
                 $this->_flashMessenger->addMessage(

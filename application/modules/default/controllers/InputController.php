@@ -92,7 +92,9 @@ class InputController extends Zend_Controller_Action
             $this->view->tag = $tagModel->getById($tag);
         }
 
-        if (Zend_Date::now()->isLater($this->_consultation->inp_fr) && Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
+        if (Zend_Date::now()->isLater(new Zend_Date($this->_consultation->inp_fr, Zend_Date::ISO_8601))
+            && Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation->inp_to, Zend_Date::ISO_8601))
+        ) {
             $form = $this->_getInputform();
             $sessInputs = new Zend_Session_Namespace('inputs');
             $theses = [];
@@ -448,7 +450,7 @@ class InputController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
-        if (Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
+        if (Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
             $form = new Default_Form_Input_Edit();
             if ($this->_request->isPost()) {

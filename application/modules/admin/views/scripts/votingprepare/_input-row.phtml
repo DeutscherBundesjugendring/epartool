@@ -40,7 +40,7 @@
                     <span class="glyphicon glyphicon-user"></span>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
                 <?php endif; ?>
-                <?=(new Zend_Date())->set($this->input['when'])->get(Zend_Date::DATETIME_MEDIUM);?>
+                <?=$this->formatDate($this->input['when']);?>
             </small>
         </p>
 

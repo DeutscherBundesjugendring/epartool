@@ -244,21 +244,17 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         $select->order(array('ord DESC'));
         $rowSet = $this->fetchAll($select);
 
-        $date = new Zend_Date();
         foreach ($rowSet as $row) {
-            // Berechne die Zeitabstände der einzelnen Datumsfelder zum aktuellen Zeitpunkt
             $timeDiff = array(
-                'inp_fr' => Zend_Date::now()->sub($date->set($row->inp_fr))->toValue(),
-                'inp_to' => Zend_Date::now()->sub($date->set($row->inp_to))->toValue(),
-                'vot_fr' => Zend_Date::now()->sub($date->set($row->vot_fr))->toValue(),
-                'vot_to' => Zend_Date::now()->sub($date->set($row->vot_to))->toValue(),
+                'inp_fr' => Zend_Date::now()->sub(new Zend_Date($row->inp_fr, Zend_Date::ISO_8601))->toValue(),
+                'inp_to' => Zend_Date::now()->sub(new Zend_Date($row->inp_to, Zend_Date::ISO_8601))->toValue(),
+                'vot_fr' => Zend_Date::now()->sub(new Zend_Date($row->vot_fr, Zend_Date::ISO_8601))->toValue(),
+                'vot_to' => Zend_Date::now()->sub(new Zend_Date($row->vot_to, Zend_Date::ISO_8601))->toValue(),
             );
             $relevantField = 'inp_fr';
             foreach ($timeDiff as $field => $value) {
                 if ($value > 0) {
-                    // relevantes Datumsfeld darf nicht in der Zukunft liegen
                     if ($value < $timeDiff[$relevantField]) {
-                        // relevantes Feld ist dasjenige mit dem kleinsten positiven Abstand
                         $relevantField = $field;
                     }
                 }
@@ -313,7 +309,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         $rows = $this->fetchAll($select);
         $i = 0;
 
-        foreach ($rows AS $consultation) {
+        foreach ($rows as $consultation) {
 
             $result[$i] = $consultation->toArray();
             // check if the needle is in consultation-explenation
