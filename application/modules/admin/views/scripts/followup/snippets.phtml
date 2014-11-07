@@ -22,7 +22,7 @@
                     &larr; <?=$this->translate('Back to Followups');?>
                 </a>
 
-                <h2><?=$this->translate('Snippets')?></h2>
+                <h2><?=$this->translate('Follow-Up Snippets')?></h2>
 
                 <div class="offset-bottom">
                     <a
@@ -37,7 +37,14 @@
                 <?php if(!empty($this->snippets)): ?>
                     <form method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table table-bordered">
+
+                        <div class="form-group text-right">
+                            <button type="submit" name="saveOrder" value="1" class="btn btn-primary" disabled>
+                                <?=$this->translate('Save changes');?>
+                            </button>
+                        </div>
+
+                        <table class="table table-bordered table-responsive">
                             <tbody class="sortable js-sortable-followup-snippets">
                                 <?php foreach ($this->snippets as $i => $snippet): ?>
                                     <tr>
@@ -112,10 +119,18 @@
                             </tbody>
                         </table>
 
-                        <button type="submit" name="saveOrder" value="1" class="btn btn-primary" disabled>
-                            <?=$this->translate('Save changes');?>
-                        </button>
+                        <div class="form-group text-right">
+                            <button type="submit" name="saveOrder" value="1" class="btn btn-primary" disabled>
+                                <?=$this->translate('Save changes');?>
+                            </button>
+                        </div>
+
                     </form>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <?=$this->translate('There are no snippets for this follow up yet.');?>
+                    </p>
                 <?php endif; ?>
 
             </div>

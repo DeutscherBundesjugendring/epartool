@@ -20,7 +20,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * Displayes a list of followups for the given consultation
+     * Displayes a list of follow-ups for the given consultation
      */
     public function indexAction()
     {
@@ -255,7 +255,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'tid'
                 );
-                $message = sprintf($this->view->translate('%d inputs were liked'), $inserted);
+                $message = sprintf($this->view->translate('%d contributions were linked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($postData['followup_links']) && !empty($postData['link_followups'])) {
@@ -264,7 +264,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'ffid'
                 );
-                $message = sprintf($this->view->translate('%d followups were liked'), $inserted);
+                $message = sprintf($this->view->translate('%d follow-ups were linked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($postData['link_snippets'])) {
@@ -273,7 +273,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'fid'
                 );
-                $message = sprintf($this->view->translate('%d snippets were liked'), $inserted);
+                $message = sprintf($this->view->translate('%d snippets were linked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             $this->redirect($this->view->url());

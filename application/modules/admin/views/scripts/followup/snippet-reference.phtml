@@ -18,78 +18,188 @@
             </div>
             <div class="content">
 
-                <h2><?=$this->translate('Snippet links');?></h2>
+                <a href="<?=$this->url(['action' => 'snippets']);?>" class="back">
+                    &larr; <?=$this->translate('Back to Snippets');?>
+                </a>
+
+                <h2><?=$this->translate('Snippet Links');?></h2>
 
                 <h3>
-                    <?=$this->translate('Contribution links');?>
-                    (<?=isset($this->related['inputs']) ? count($this->related['inputs']) : '0';?>)
+                    <?=$this->translate('Contributions');?>
+                    <span class="badge"><?=isset($this->related['inputs']) ? count($this->related['inputs']) : '0';?></span>
                 </h3>
-                <?php foreach ($this->questions as $question): ?>
-                    <?=$question['q'];?>
-                    <form method="post">
-                        <input name="link_inputs" type="submit" value="<?=$this->translate('Save');?>" />
-                        <table class="table">
-                            <tbody>
-                                <?php foreach ($question['inputs'] as $input): ?>
-                                    <tr>
-                                        <td>
-                                            <input
-                                                type="checkbox"
-                                                name="input_links[]"
-                                                value="<?=$input->tid;?>"
-                                                <?=!empty($this->related['inputs'][$input->tid]) ? 'checked' : '';?>
-                                            />
-                                        </td>
-                                        <td><?=$input->thes;?></td>
-                                        <td><?=$input->vot;?></td>
-                                    </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                    </form>
-                <?php endforeach;?>
+
+                <!-- Collapsible panels -->
+                <?php if (count($this->questions)): ?>
+                    <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
+
+                        <?php $i = 0; ?>
+                        <?php foreach ($this->questions as $question): ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
+                                    <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseContributions<?=$i;?>" aria-controls="collapseContributions<?=$i;?>">
+                                        <h4 class="panel-title">
+                                            <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                            <?=$question['q'];?>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseContributions<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
+                                    <div class="panel-body">
+
+                                        <?php if (count($question['inputs'])): ?>
+                                            <form method="post">
+                                                <div class="form-group text-right">
+                                                    <input name="link_inputs" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                                                </div>
+                                                <table class="table js-table-rows-toggle">
+                                                    <tbody>
+                                                        <?php foreach ($question['inputs'] as $input): ?>
+                                                            <tr<?=!empty($this->related['inputs'][$input->tid]) ? ' class="info"' : '';?>>
+                                                                <td class="table-cell-id table-cell-top">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name="input_links[]"
+                                                                        value="<?=$input->tid;?>"
+                                                                        <?=!empty($this->related['inputs'][$input->tid]) ? 'checked' : '';?>
+                                                                    />
+                                                                </td>
+                                                                <td class="table-cell-top"><?=$input->thes;?></td>
+                                                                <td class="col-xs-2 table-cell-top">
+                                                                    <?=$this->translate('Voting');?><br />
+                                                                    <?php if ($input['vot'] === 'y'): ?>
+                                                                        <span class="label label-success">
+                                                                            <span class="glyphicon glyphicon-ok"></span>
+                                                                            <?=$this->translate('Yes');?>
+                                                                         </span>
+                                                                    <?php elseif ($input['vot'] === 'n'): ?>
+                                                                        <span class="label label-danger">
+                                                                            <span class="glyphicon glyphicon-remove"></span>
+                                                                            <?=$this->translate('No');?>
+                                                                        </span>
+                                                                    <?php else: ?>
+                                                                        <span class="label label-default">
+                                                                             <span class="glyphicon glyphicon-question-sign"></span>
+                                                                            <?=$this->translate('Unknown');?>
+                                                                        </span>
+                                                                    <?php endif;?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach;?>
+                                                    </tbody>
+                                                </table>
+                                                <div class="form-group text-right">
+                                                    <input name="link_inputs" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                                                </div>
+                                            </form>
+                                        <?php else: ?>
+                                            <p class="alert alert-info">
+                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                                <?=$this->translate('There are no contributions for this question yet.');?>
+                                            </p>
+                                        <?php endif; ?>
+    
+                                    </div>
+                                </div><!-- .panel-collapse -->
+                            </div><!-- .panel -->
+                            <?php $i++; ?>
+                        <?php endforeach;?>
+
+                    </div><!-- .panel-group -->
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <?=$this->translate('There are no questions for this consultation yet.');?>
+                    </p>
+                <?php endif; ?>
 
                 <h3>
-                    <?=$this->translate('Snippet links');?>
-                    (<?=isset($this->related['snippets']) ? count($this->related['snippets']) : '0';?>)
+                    <?=$this->translate('Follow-Up Snippets');?>
+                    <span class="badge"><?=isset($this->related['snippets']) ? count($this->related['snippets']) : '0';?></span>
                 </h3>
-                <?php foreach ($this->followups as $followup): ?>
-                    <?=$followup['titl'];?>
-                    <form method="post">
-                        <input name="link_snippets" type="submit" value="<?=$this->translate('Save');?>" />
-                        <table class="table">
-                            <tbody>
-                                <?php foreach ($followup['snippets'] as $snippet): ?>
-                                    <tr>
-                                        <td>
-                                            <input
-                                                type="checkbox"
-                                                name="snippet_links[]"
-                                                value="<?=$snippet->fid;?>"
-                                                <?=!empty($this->related['snippets'][$snippet->fid]) ? 'checked' : '';?>
-                                            />
-                                        </td>
-                                        <td><?=strip_tags(html_entity_decode($snippet['expl']));?></td>
-                                    </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                    </form>
-                <?php endforeach;?>
+
+                <!-- Collapsible panels -->
+                <?php if (count($this->followups)): ?>
+                    <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
+
+                        <?php $i = 0; ?>
+                        <?php foreach ($this->followups as $followup): ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
+                                    <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseSnippets<?=$i;?>" aria-controls="collapseSnippets<?=$i;?>">
+                                        <h4 class="panel-title">
+                                            <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                            <?=$followup['titl'];?>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="collapseSnippets<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
+                                    <div class="panel-body">
+
+                                        <?php if (count($followup['snippets'])): ?>
+                                            <form method="post">
+                                                <div class="form-group text-right">
+                                                    <input name="link_snippets" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                                                </div>
+                                                <table class="table js-table-rows-toggle">
+                                                    <tbody>
+                                                        <?php foreach ($followup['snippets'] as $snippet): ?>
+                                                            <tr<?=!empty($this->related['snippets'][$snippet->fid]) ? ' class="info"' : '';?>>
+                                                                <td class="table-cell-id table-cell-top">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name="snippet_links[]"
+                                                                        value="<?=$snippet->fid;?>"
+                                                                        <?=!empty($this->related['snippets'][$snippet->fid]) ? 'checked' : '';?>
+                                                                    />
+                                                                </td>
+                                                                <td class="table-cell-top">
+                                                                    <?=strip_tags(html_entity_decode($snippet['expl']));?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach;?>
+                                                    </tbody>
+                                                </table>
+                                                <div class="form-group text-right">
+                                                    <input name="link_snippets" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                                                </div>
+                                            </form>
+                                        <?php else: ?>
+                                            <p class="alert alert-info">
+                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                                <?=$this->translate('There are no snippets for this follow up yet.');?>
+                                            </p>
+                                        <?php endif; ?>
+
+                                    </div>
+                                </div><!-- .panel-collapse -->
+                            </div><!-- .panel -->
+                            <?php $i++; ?>
+                        <?php endforeach;?>
+
+                    </div><!-- .panel-group -->
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <?=$this->translate('There are no follow-ups for this consultation yet.');?>
+                    </p>
+                <?php endif; ?>
 
                 <h3>
-                    <?=$this->translate('Followup links');?>
-                    (<?=isset($this->related['followups']) ? count($this->related['followups']) : '0';?>)
+                    <?=$this->translate('Follow-Ups');?>
+                    <span class="badge"><?=isset($this->related['followups']) ? count($this->related['followups']) : '0';?></span>
                 </h3>
                 <?php if (count($this->followups)): ?>
                     <form method="post">
-                        <input name="link_followups" type="submit" value="<?=$this->translate('Save');?>" />
-                        <table class="table">
+                        <div class="form-group text-right">
+                            <input name="link_followups" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                        </div>
+                        <table class="table table-bordered js-table-rows-toggle">
                             <tbody>
                                 <?php foreach ($this->followups as $followupId => $followup): ?>
                                     <?php if ($followupId != $this->followupId): ?>
-                                        <tr>
-                                            <td>
+                                        <tr<?=!empty($this->related['followups'][$followupId]) ? ' class="info"' : '';?>>
+                                            <td class="table-cell-id table-cell-top">
                                                 <input
                                                     type="checkbox"
                                                     name="followup_links[]"
@@ -97,13 +207,23 @@
                                                     <?=!empty($this->related['followups'][$followupId]) ? 'checked' : '';?>
                                                 />
                                             </td>
-                                            <td><?=$followup['titl'];?></td>
+                                            <td class="table-cell-top">
+                                                <?=$followup['titl'];?>
+                                            </td>
                                         </tr>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </tbody>
                         </table>
+                        <div class="form-group text-right">
+                            <input name="link_followups" type="submit" class="btn btn-primary" value="<?=$this->translate('Save changes');?>" />
+                        </div>
                     </form>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        <?=$this->translate('There are no follow-ups for this consultation yet.');?>
+                    </p>
                 <?php endif;?>
 
             </div>
