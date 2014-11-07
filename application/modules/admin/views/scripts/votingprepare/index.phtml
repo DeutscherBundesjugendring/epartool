@@ -20,26 +20,33 @@
 
                 <h2>Voting Preparation</h2>
 
-                <table class="table" data-view="table">
-                    <thead>
-                        <tr>
-                            <th class="table-cell-id" data-toggle="sort" data-order="default" tabindex="0">#</th>
-                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($this->consultation['questions'] as $question): ?>
+                <?php if (!empty($this->consultation['questions'])): ?>
+                    <table class="table" data-view="table">
+                        <thead>
                             <tr>
-                                <td class="table-cell-id"><?=$question['nr'];?></td>
-                                <td>
-                                    <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$question['kid'];?>/qid/<?=$question['qi'];?>">
-                                        <?=strip_tags($question['q']);?>
-                                    </a>
-                                </td>
+                                <th class="table-cell-id" data-toggle="sort" data-order="default" tabindex="0">#</th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
                             </tr>
-                        <?php endforeach;?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach($this->consultation['questions'] as $question): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$question['nr'];?></td>
+                                    <td>
+                                        <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$question['kid'];?>/qid/<?=$question['qi'];?>">
+                                            <?=strip_tags($question['q']);?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no questions yet.');?>
+                    </p>
+                <?php endif; ?>
 
             </div>
         </div>

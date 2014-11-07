@@ -24,12 +24,7 @@
                 </a>
                 <h2><?=$this->translate('Questions');?></h2>
 
-                <?php if (empty($this->questions)): ?>
-                    <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
-                        <?=$this->translate('There are no questions yet.');?>
-                    </p>
-                <?php else: ?>
+                <?php if (count($this->questions)): ?>
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                         <table class="table" data-view="table">
@@ -68,6 +63,11 @@
                             </tbody>
                         </table>
                     </form>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no questions yet.');?>
+                    </p>
                 <?php endif; ?>
 
             </div>
