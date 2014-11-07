@@ -6,6 +6,7 @@ class Service_Media
 {
     const MEDIA_DIR_FOLDERS = 'folders';
     const MEDIA_DIR_CONSULTATIONS = 'consultations';
+    const FALLBACK_ICON_NAME = 'fallback';
 
     /**
      * Maps file extensions to icon file names
@@ -283,6 +284,8 @@ class Service_Media
                 return $icon;
             }
         }
+
+        return self::FALLBACK_ICON_NAME;
     }
 
     /**
