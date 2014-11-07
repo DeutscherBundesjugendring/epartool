@@ -4,11 +4,11 @@
     "jquery": "~1.10.2",
     "bootstrap": "~2.3.2",
     "bootstrap3": "twbs/bootstrap#~3.2.0",
-    "synergic-ui": "~0.3.0",
+    "synergic-ui": "~0.4.0",
     "font-awesome": "~3.0.2",
     "jquery.ui": "~1.10.3",
     "html5shiv": "~3.7.0",
-    "less-modules": "~0.2.1",
+    "less-modules": "~0.3.0",
     "pwstrength-bootstrap": "~1.1.4",
     "ink": "~1.0.5"
   },
