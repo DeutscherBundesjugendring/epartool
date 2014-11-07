@@ -20,60 +20,93 @@
 
                 <h2><?=$this->translate('Voting Invitations');?></h2>
 
-                <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray()?>
+                <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
 
-                <p>
-                    <a href="mailto:<?php echo $this->mailDefaultFrom?>?bcc=<?php echo $this->emailList; ?>">
-                        &raquo; E-Mail an alle Teilnehmenden in externem Programm senden
-                    </a>
-                </p>
+                <?php if (!empty($this->emailList)): ?>
+                    <p>
+                        <a href="mailto:<?=$this->mailDefaultFrom;?>?bcc=<?=$this->emailList;?>">
+                            <?=$this->translate('Send email to all invited users');?>
+                        </a>
+                    </p>
+                <?php endif; ?>
 
-                <?php foreach ($this->participants as $user): ?>
-                    <div class="info">
-                        <p>
-                            <a
-                                href="<?php echo $this->url(array( 'controller' => 'input', 'action' => 'list', 'uid' => $user['uid']))?>"
-                                title="Anklicken, um alle Beiträge dieses Users zu sehen"
-                                >
-                                <?php if (!empty($user['name'])): ?>
-                                    <?php echo $user['name'] . ' '?>
-                                <?php endif?>
-                                <?php if (!empty($user['email'])): ?>
-                                    <?php echo $user['email'] . ' ' . $user['uid']; ?>
-                                <?php endif?>
-                            </a>
-
-                            <?php if (!empty($user['email'])): ?>
-                        <p>
-                            <a href="<?php echo $this->url(array('action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'preview',))?>">
-                                Vorschau &amp; Senden
-                            </a>
-                            &emsp;
-                            <a href="<?php echo $this->url(array('action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'instantsend',))?>">
-                                Direkt senden
-                            </a>
-                        </p>
-                        <?php else: ?>
-                            Unbekannt <?php echo $user['uid']; ?>
-                        <?php endif; ?>
-
-                        <?php if (isset($user['votingRights'])): ?>
-                            <p>
-                                Votinggewicht: <b><?php echo $user['votingRights']['vt_weight']; ?></b><br />
-                                Gruppengröße: <b><?php echo $grp_siz_def[$user['votingRights']['grp_siz']]; ?></b>
-                            </p>
-                            <?php if ($user['votingRights']['grp_siz'] != 1): ?>
-                                <hr/>
-                                <p>
-                                    Ansprechpartner: <b><?php echo $user['name_pers']; ?></b><br/>
-                                    Gruppenname: <b><?php echo $user['name_group']; ?></b><br/>
-                                    Gruppengröße: <b><?php echo $user['group_size']; ?></b>
-                                </p>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                        </p>
-                    </div>
-                <?php endforeach; ?>
+                <?php if (!empty($this->participants)): ?>
+                    <table class="table" data-view="table">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id" data-toggle="sort" data-order="default" tabindex="0">#</th>
+                                <th data-toggle="sort" tabindex="0">User Name</th>
+                                <th data-toggle="sort" tabindex="0">Email</th>
+                                <th data-toggle="sort" tabindex="0">Permissions</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->participants as $user): ?>
+                                <tr>
+                                    <td class="table-cell-id table-cell-top"><?=$user['uid'];?></td>
+                                    <td>
+                                        <?php if (!empty($user['name'])): ?>
+                                            <?=$user['name'];?>
+                                        <?php endif?>
+                                    </td>
+                                    <td class="table-cell-top">
+                                        <?php if (!empty($user['email'])): ?>
+                                            <a href="mailto:<?=$user['email'];?>"><?=$user['email'];?></a>
+                                        <?php endif?>
+                                    </td>
+                                    <td class="table-cell-top">
+                                        <?php if (isset($user['votingRights'])): ?>
+                                            <p>
+                                                <?=$this->translate('Voting weight');?>: <?=$user['votingRights']['vt_weight']; ?><br />
+                                                <?=$this->translate('Group size');?>: <?=$grp_siz_def[$user['votingRights']['grp_siz']]; ?>
+                                            </p>
+                                            <?php if ($user['votingRights']['grp_siz'] != 1): ?>
+                                                <p>
+                                                    <?=$this->translate('Partner');?>: <?=$user['name_pers']; ?><br/>
+                                                    <?=$this->translate('Group name');?>: <?=$user['name_group']; ?><br/>
+                                                    <?=$this->translate('Group size');?>: <?=$user['group_size']; ?>
+                                                </p>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="table-cell-actions table-cell-top">
+                                        <?php if (!empty($user['email'])): ?>
+                                            <a
+                                                href="<?=$this->url(['action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'preview']);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Preview and send invitation');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                            </a>
+                                            <a
+                                                href="<?=$this->url(['action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'instantsend']);?>"
+                                                class="item-action"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user?');?>"
+                                                title="<?=$this->translate('Send invitation');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                            </a>
+                                        <?php endif; ?>
+                                        <a
+                                            href="<?=$this->url(['controller' => 'input', 'action' => 'list', 'uid' => $user['uid']]);?>"
+                                            class="item-action"
+                                            title="<?=$this->translate('Show all contributions by this user');?>"
+                                            >
+                                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no participants to be invited.');?>
+                    </p>
+                <?php endif; ?>
 
             </div>
         </div>
