@@ -18,26 +18,20 @@
             </div>
             <div class="content">
 
-                <h2><?=$this->translate('Voting');?></h2>
+                <a href="<?=$this->url(['action' => 'overview']);?>" class="back">&larr; <?=$this->translate('Back to Voting Preparation');?></a>
+                <h2><?=$this->translate('Merge Contributions');?></h2>
 
-                <h3><?=$this->translate('Contribution merge');?></h3>
-                <div>
-                    <h3><?=$this->translate('Original inputs');?></h3>
-                    <form>
-                        <table id="contribution-table">
-                            <tbody>
-                                <?php foreach ($this->inputs as $input): ?>
-                                    <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
+                <h3><?=$this->translate('Original Contributions');?></h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <?php foreach ($this->inputs as $input): ?>
+                            <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true])?>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
 
-                <div>
-                    <h3><?=$this->translate('New input');?></h3>
-                    <?php echo $this->form?>
-                </div>
+                <h3><?=$this->translate('New Contribution');?></h3>
+                <?php echo $this->form?>
 
             </div>
         </div>
