@@ -289,7 +289,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $groupsModel = new Model_Votes_Groups();
         $participants= $groupsModel->getUserByConsultation($this->_consultation->kid);
 
-        $mergeOptions = array(''=>'Bitte auswählen');
+        $mergeOptions = array(''=>'Please select');
         foreach ($participants as $user) {
             if ($sub_uid!=$user['sub_uid']) {
                 $mergeOptions[$user['sub_uid']] = $user['sub_user'];

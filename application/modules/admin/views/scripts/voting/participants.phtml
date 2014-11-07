@@ -20,90 +20,121 @@
 
                 <h2><?=$this->translate('Voting Participants');?></h2>
 
-                <?php
-                $memberships = array(
-                    'y' => 'bestätigt',
-                    'n' => 'abgelehnt',
-                    'u' => '--offen--',
-                );
-                $identity = Zend_Auth::getInstance()->getIdentity();
-                ?>
-
-                <p><b>Anzahl Abstimmende:</b> <?=count($this->groups);?></p>
                 <?php if (!empty($this->groups)): ?>
+                    <?php $identity = Zend_Auth::getInstance()->getIdentity(); ?>
+
+                    <p>
+                        <?=$this->translate('Total participants');?>:
+                        <span class="badge"><?=count($this->groups);?></span>
+                    </p>
+
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'participant-update']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table">
-                            <tr>
-                                <th>Gruppe</th>
-                                <th>Abstimmende_r</th>
-                                <th>Gruppenmitglied</th>
-                                <th>Noch abstimmen</th>
-                                <th>Aktion</th>
-                                <th>Abstimmungsteilnehmer:</th>
-                            </tr>
-                            <?php foreach ($this->groups as $group): ?>
+                        <table class="table table-responsive" data-view="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'list', 'uid' => $group['uid']]);?>">
-                                            <?=$group['email'];?>
-                                        </a>
-                                        <br/>
-                                        <?=$group['name'];?>
-                                    </td>
-                                    <td><?=$group['sub_user'];?></td>
-                                    <td><?=$memberships[$group['member']];?></td>
-                                    <td><?=substr_count($group['vt_inp_list'], ',');?></td>
-                                    <td>
-                                        <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
-                                            <button
-                                                value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
-                                                class="item-action"
-                                                name="deny"
-                                                data-toggle="confirm"
-                                                data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
-                                            >
-                                                Deny
-                                            </button>
-                                            <br/>
-                                        <?php endif;?>
-                                        <?php if (($group['member'] == "n" && $identity->lvl == "adm")
-                                            || ($group['member'] == "u" && $identity->lvl == "adm")
-                                        ): ?>
-                                            <button
-                                                value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
-                                                class="item-action"
-                                                name="confirm"
-                                                data-toggle="confirm"
-                                                data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
-                                            >
-                                                Confirm
-                                            </button>
-                                            <br/>
-                                        <?php endif;?>
-                                        <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
-                                            <button
-                                                value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
-                                                class="item-action item-action-danger"
-                                                name="delete"
-                                                data-toggle="confirm"
-                                                data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
-                                            >
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                            <br />
-                                        <?php endif;?>
-                                    </td>
-                                    <td>
-                                        <a href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>">
-                                            zusammenführen
-                                        </a>
-                                        <br/>
-                                    </td>
+                                    <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Group');?></th>
+                                    <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Participant');?></th>
+                                    <th data-toggle="sort" class="col-xs-2"><?=$this->translate('Status');?></th>
+                                    <th data-toggle="sort" class="col-xs-2 text-right"><?=$this->translate('Votes Left');?></th>
+                                    <th></th>
                                 </tr>
-                            <?php endforeach;?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->groups as $group): ?>
+                                    <tr>
+                                        <td>
+                                            <?=$group['name'];?>
+                                            <div class="text-overflow">
+                                                <a href="mailto:<?=$group['email'];?>" title="<?=$group['email'];?>"><?=$group['email'];?></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-overflow">
+                                                <a href="mailto:<?=$group['sub_user'];?>" class="text-overflow" title="<?=$group['sub_user'];?>"><?=$group['sub_user'];?></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <?php if ($group['member'] == 'y'): ?>
+                                                <span class="label label-success">
+                                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                                    <?=$this->translate('Confirmed');?>
+                                                </span>
+                                            <?php elseif ($group['member'] == 'n'): ?>
+                                                <span class="label label-danger">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    <?=$this->translate('Denied');?>
+                                                </span>
+                                            <?php elseif ($group['member'] == 'u'): ?>
+                                                <span class="label label-warning">
+                                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                                    <?=$this->translate('Open');?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-right"><?=substr_count($group['vt_inp_list'], ',');?></td>
+                                        <td class="table-cell-actions">
+                                            <a
+                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Show all contributions by this user');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                            </a>
+                                            <a
+                                                href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Merge participants');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                                            </a>
+                                            <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
+                                                <button
+                                                    value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                    class="item-action"
+                                                    name="confirm"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
+                                                    title="<?=$this->translate('Confirm participant');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                                                </button>
+                                            <?php endif;?>
+                                            <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
+                                                <button
+                                                    value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                    class="item-action item-action-danger"
+                                                    name="deny"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
+                                                    title="<?=$this->translate('Deny participant');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                </button>
+                                            <?php endif;?>
+                                            <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
+                                                <button
+                                                    value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                    class="item-action item-action-danger"
+                                                    name="delete"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
+                                                    title="<?=$this->translate('Delete participant');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            <?php endif;?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </tbody>
                         </table>
                     </form>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no participants yet.');?>
+                    </p>
                 <?php endif;?>
 
             </div>

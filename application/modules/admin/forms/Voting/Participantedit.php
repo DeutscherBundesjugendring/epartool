@@ -4,21 +4,13 @@ class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
 {
     public function init()
     {
-
         $this->setMethod('post');
-
-        $note = $this->createElement('note', 'description');
-        $note
-            ->setLabel('Mit folgendem Teilnehmer zusammenlegen:')
-            ->setValue('Die Daten des auszuwählenden Teilnehmers werden dem zu bearbeitenden Teilnehmer hinzugefügt. <br />Der hier auszuwählende Teilnehmer wird anschließend gelöscht.');
-        $this->addElement($note);
 
         $merge = $this->createElement('select', 'merge');
         $merge
-            ->setLabel('Bitte hier den zu löschenden Teilnehmer wählen')
+            ->setLabel('Select a participant')
             ->setRequired(true);
         $this->addElement($merge);
-
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));
