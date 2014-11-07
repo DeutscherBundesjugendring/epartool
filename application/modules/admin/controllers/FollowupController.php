@@ -258,7 +258,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                 $message = sprintf($this->view->translate('%d contributions were linked'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
-            if (!empty($postData['followup_links']) && !empty($postData['link_followups'])) {
+            if (!empty($postData['link_followups'])) {
                 $inserted = $followupRefModel->insertBulk(
                     !empty($postData['followup_links']) ? $postData['followup_links'] : [],
                     $snippetId,
