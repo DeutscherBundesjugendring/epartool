@@ -117,7 +117,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
      * @param  integer                       $limit count of consultations
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function getLast($limit = 3)
+    public function getLast($limit)
     {
         // is int?
         $validator = new Zend_Validate_Int();

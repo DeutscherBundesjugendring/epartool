@@ -153,6 +153,8 @@
     </div><!-- .consultation -->
 <?php endforeach;?>
 
-<div class="top-link">
-    <a href="<?=$this->url(['controller' => 'consultation'], 'default', true);?>" class="btn"><?=$this->translate('Show more consultations');?></a>
-</div>
+<?php if (!empty($this->showMoreButton)): ?>
+    <div class="top-link">
+        <a href="<?=$this->url(['controller' => 'consultation'], 'default', true);?>" class="btn"><?=$this->translate('Show more consultations');?></a>
+    </div>
+<?php endif;?>
