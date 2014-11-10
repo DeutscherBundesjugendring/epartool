@@ -33,10 +33,10 @@
 
                 <form method="<?=$this->form->getMethod()?>">
                     <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                    <table class="table" data-view="table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Name');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Name');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -45,7 +45,7 @@
                                 <tr>
                                     <td>
                                         <a href="<?=$this->url(['action' => 'index', 'folder' => $folder['name'], 'targetElId' => $this->targetElId])?>">
-                                            <?=$folder['name'];?>
+                                            <?=$this->escape($folder['name']);?>
                                         </a>
                                     </td>
                                     <td class="table-cell-actions">
@@ -56,7 +56,7 @@
                                             name="delete"
                                             type="submit"
                                             onclick="return confirm('<?=$this->translate('Delete folder?');?>');"
-                                            value="<?=$folder['name'];?>"
+                                            value="<?=$this->escape($folder['name']);?>"
                                             <?php if ($folder['isEmpty']): ?>
                                                 title="<?=$this->translate('Delete');?>"
                                             <?php else: ?>

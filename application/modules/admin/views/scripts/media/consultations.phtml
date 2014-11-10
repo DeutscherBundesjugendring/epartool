@@ -27,11 +27,11 @@
 
                 <h2><?=$this->translate('Consultations');?></h2>
 
-                <table class="table" data-view="table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                            <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Consultation');?></th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Consultation');?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,11 +39,11 @@
                             <?php if (isset($this->consultations[$folder])): ?>
                                 <tr>
                                     <td class="table-cell-id">
-                                        <?=$folder;?>
+                                        <?=$this->escape($folder);?>
                                     </td>
                                     <td>
                                         <a href="<?=$this->url(['action' => 'index', 'kid' => $folder]);?>">
-                                            <?=$this->consultations[$folder];?>
+                                            <?=$this->escape($this->consultations[$folder]);?>
                                         </a>
                                     </td>
                                 </tr>

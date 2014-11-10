@@ -27,10 +27,10 @@
                 <?php if (count($this->questions)): ?>
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table" data-view="table">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="table-cell-id" data-order="default" data-toggle="sort" tabindex="0">#</th>
+                                    <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
                                     <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
                                     <th></th>
                                 </tr>

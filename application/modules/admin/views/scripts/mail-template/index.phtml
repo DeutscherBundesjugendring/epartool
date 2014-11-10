@@ -29,11 +29,11 @@
 
                 <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(['action' => 'delete']);?>">
                     <?=$this->form->getElement($this->form->getCsrfTokenName())?>
-                    <table class="table" data-view="table">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Name');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Name');?></th>
                                 <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
                                 <th></th>
                             </tr>
@@ -41,9 +41,9 @@
                         <tbody>
                             <?php foreach ($this->templates as $template): ?>
                                 <tr>
-                                    <td class="table-cell-id"><?=$template->id;?></td>
-                                    <td><?=$template->name;?></td>
-                                    <td><?=$template->subject;?></td>
+                                    <td class="table-cell-id"><?=$this->escape($template->id);?></td>
+                                    <td><?=$this->escape($template->name);?></td>
+                                    <td><?=$this->escape($template->subject);?></td>
                                     <td class="table-cell-actions">
                                         <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>" class="item-action" title="<?=$this->translate('Edit template');?>">
                                             <span class="glyphicon glyphicon-pencil"></span>
@@ -55,7 +55,7 @@
                                                 class="item-action item-action-danger"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete email template?');?>"
-                                                value="<?php echo $template->id?>"
+                                                value="<?=$this->escape($template->id)?>"
                                                 title="<?=$this->translate('Delete template');?>"
                                             >
                                                 <span class="glyphicon glyphicon-trash"></span>

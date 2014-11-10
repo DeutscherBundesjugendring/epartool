@@ -28,10 +28,10 @@
                 <?php endif; ?>
 
                 <?php if (!empty($this->votingRights)): ?>
-                    <table class="table" data-view="table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th class="table-cell-id" data-toggle="sort" data-order="default" tabindex="0">#</th>
+                                <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
                                 <th data-toggle="sort" tabindex="0">User</th>
                                 <th data-toggle="sort" tabindex="0">Voting Weight</th>
                                 <th data-toggle="sort" tabindex="0">Access Code</th>
@@ -43,14 +43,16 @@
                         <tbody>
                             <?php foreach ($this->votingRights as $item): ?>
                                 <tr>
-                                    <td class="table-cell-id"><?=$item['uid'];?></td>
+                                    <td class="table-cell-id"><?=$this->escape($item['uid']);?></td>
                                     <td>
-                                        <a href="mailto:<?=$item['email'];?>"><?=$item['email'];?></a>
+                                        <a href="mailto:<?=$this->escape($item['email']);?>">
+                                            <?=$this->escape($item['email']);?>
+                                        </a>
                                     </td>
-                                    <td><?=$item['vt_weight'];?></td>
-                                    <td><?=$item['vt_code'];?></td>
-                                    <td><?=$item['grp_siz'];?></td>
-                                    <td><?=$item['group_size_user'];?></td>
+                                    <td><?=$this->escape($item['vt_weight']);?></td>
+                                    <td><?=$this->escape($item['vt_code']);?></td>
+                                    <td><?=$this->escape($item['grp_siz']);?></td>
+                                    <td><?=$this->escape($item['group_size_user']);?></td>
                                     <td class="table-cell-actions">
                                         <a
                                             href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $item['uid']]);?>"

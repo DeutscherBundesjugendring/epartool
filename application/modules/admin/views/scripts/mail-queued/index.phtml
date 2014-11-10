@@ -36,23 +36,20 @@
                     </p>
                 <?php else: ?>
 
-                    <table class="table" data-view="table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Queued');?></th>
+                                <th class="col-xs-3" data-toggle="sort" tabindex="0"><?=$this->translate('Time Queued');?></th>
                                 <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($this->emails as $email): ?>
                                 <tr>
-                                    <td>
-                                        <?php
-                                        $zendDate = new Zend_Date($email->time_queued);
-                                        echo $zendDate->get(Zend_Date::DATETIME_MEDIUM);
-                                        ?>
+                                    <td data-sort-value="<?=$this->escape($email->time_queued);?>">
+                                        <?=$this->formatDate($email->time_queued);?>
                                     </td>
-                                    <td><?=$email->subject;?></td>
+                                    <td><?=$this->escape($email->subject);?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -36,19 +36,19 @@
 
                     <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(array('action' => 'delete'));?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table" data-view="table">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                    <th data-toggle="sort" data-order="default" tabindex="0"><?=$this->translate('Name');?></th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Name');?></th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($this->components as $component): ?>
                                     <tr>
-                                        <td class="table-cell-id"><?=$component->id;?></td>
-                                        <td><?=$component->name;?></td>
+                                        <td class="table-cell-id"><?=$this->escape($component->id);?></td>
+                                        <td><?=$this->escape($component->name);?></td>
                                         <td class="table-cell-actions">
                                             <a href="<?=$this->url(array('action' => 'detail', 'id' => $component->id));?>" class="item-action" title="<?=$this->translate('Edit component');?>">
                                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -57,7 +57,7 @@
                                                 name="deleteId"
                                                 type="submit"
                                                 class="item-action item-action-danger"
-                                                value="<?=$component->id;?>"
+                                                value="<?=$this->escape($component->id);?>"
                                                 title="<?=$this->translate('Delete component');?>"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete email component?');?>"

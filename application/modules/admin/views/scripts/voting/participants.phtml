@@ -30,7 +30,7 @@
 
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'participant-update']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table table-responsive" data-view="table">
+                        <table class="table table-responsive">
                             <thead>
                                 <tr>
                                     <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Group');?></th>
@@ -46,12 +46,16 @@
                                         <td>
                                             <?=$group['name'];?>
                                             <div class="text-overflow">
-                                                <a href="mailto:<?=$group['email'];?>" title="<?=$group['email'];?>"><?=$group['email'];?></a>
+                                                <a href="mailto:<?=$this->escape($group['email']);?>" title="<?=$this->escape($group['email']);?>">
+                                                    <?=$this->escape($group['email']);?>
+                                                </a>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="text-overflow">
-                                                <a href="mailto:<?=$group['sub_user'];?>" class="text-overflow" title="<?=$group['sub_user'];?>"><?=$group['sub_user'];?></a>
+                                                <a href="mailto:<?=$this->escape($group['sub_user']);?>" class="text-overflow" title="<?=$this->escape($group['sub_user']);?>">
+                                                    <?=$this->escape($group['sub_user']);?>
+                                                </a>
                                             </div>
                                         </td>
                                         <td>
@@ -72,20 +76,20 @@
                                                 </span>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="text-right"><?=substr_count($group['vt_inp_list'], ',');?></td>
+                                        <td class="text-right"><?=$this->escape(substr_count($group['vt_inp_list'], ','));?></td>
                                         <td class="table-cell-actions">
                                             <a
                                                 href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
                                                 class="item-action"
                                                 title="<?=$this->translate('Show all contributions by this user');?>"
-                                                >
+                                            >
                                                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                                             </a>
                                             <a
                                                 href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
                                                 class="item-action"
                                                 title="<?=$this->translate('Merge participants');?>"
-                                                >
+                                            >
                                                 <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                                             </a>
                                             <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
@@ -96,31 +100,31 @@
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
                                                     title="<?=$this->translate('Confirm participant');?>"
-                                                    >
+                                                >
                                                     <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                                                 </button>
                                             <?php endif;?>
                                             <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
                                                 <button
-                                                    value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                    value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
                                                     class="item-action item-action-danger"
                                                     name="deny"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
                                                     title="<?=$this->translate('Deny participant');?>"
-                                                    >
+                                                >
                                                     <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                                 </button>
                                             <?php endif;?>
                                             <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
                                                 <button
-                                                    value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                    value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
                                                     class="item-action item-action-danger"
                                                     name="delete"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
                                                     title="<?=$this->translate('Delete participant');?>"
-                                                    >
+                                                >
                                                     <span class="glyphicon glyphicon-trash"></span>
                                                 </button>
                                             <?php endif;?>

@@ -32,10 +32,10 @@
 
                     <form method="<?=$this->form->getMethod()?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName())?>
-                        <table class="table" data-view="table">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="col-xs-3" data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Sent');?></th>
+                                    <th class="col-xs-3" data-toggle="sort" tabindex="0"><?=$this->translate('Time Sent');?></th>
                                     <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
                                     <th></th>
                                 </tr>
@@ -43,22 +43,20 @@
                             <tbody>
                                 <?php foreach ($this->emails as $email): ?>
                                     <tr>
-                                        <td>
-                                            <?php
-                                            $zendDate = new Zend_Date($email->time_sent);
-                                            echo $zendDate->get(Zend_Date::DATETIME_MEDIUM);
-                                            ?>
+                                        <td data-sort-value="<?=$this->escape($email->time_sent);?>">
+                                            <?=$this->formatDate($email->time_sent);?>
                                         </td>
-                                        <td><?=$email->subject;?></td>
+                                        <td><?=$this->escape($email->subject);?></td>
                                         <td>
                                             <button
+                                                class="item-action item-action-danger"
                                                 name="resendId"
                                                 type="submit"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Resend email?');?>"
-                                                value="<?=$email->id;?>"
+                                                value="<?=$this->escape($email->id);?>"
                                                 title="<?=$this->translate('Resend email');?>"
-                                                >
+                                            >
                                                 <span class="glyphicon glyphicon-share-alt"></span>
                                             </button>
                                         </td>

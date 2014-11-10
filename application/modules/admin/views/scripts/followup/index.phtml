@@ -33,10 +33,11 @@
 
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete-followup']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table" data-view="table">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th data-toggle="sort" data-order="default desc" tabindex="0"><?=$this->translate('Time Added');?></th>
+                                    <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Time Added');?></th>
                                     <th data-toggle="sort" tabindex="0"><?=$this->translate('Stakeholder');?></th>
                                     <th data-toggle="sort" tabindex="0"><?=$this->translate('Title');?></th>
                                     <th></th>
@@ -45,7 +46,10 @@
                             <tbody>
                                 <?php foreach ($this->followupFiles as $followupFile): ?>
                                     <tr>
-                                        <td><?php $zendDate = new Zend_Date($followupFile['when']); echo $zendDate->get(Zend_Date::DATETIME_MEDIUM); ?></td>
+                                        <td class="table-cell-id"><?=$this->escape($followupFile['ffid']);?></td>
+                                        <td data-sort-value="<?=$followupFile['when'];?>">
+                                            <?=$this->formatDate($followupFile['when']);?>
+                                        </td>
                                         <td><?=$this->escape($followupFile['who']);?></td>
                                         <td><?=$this->escape($followupFile['titl']);?></td>
                                         <td class="table-cell-actions">

@@ -31,13 +31,13 @@
                 <?php endif; ?>
 
                 <?php if (!empty($this->participants)): ?>
-                    <table class="table" data-view="table">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th class="table-cell-id" data-toggle="sort" data-order="default" tabindex="0">#</th>
-                                <th data-toggle="sort" tabindex="0">User Name</th>
-                                <th data-toggle="sort" tabindex="0">Email</th>
-                                <th data-toggle="sort" tabindex="0">Permissions</th>
+                                <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('User Name');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Email');?></th>
+                                <th><?=$this->translate('Permissions');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -47,12 +47,14 @@
                                     <td class="table-cell-id table-cell-top"><?=$user['uid'];?></td>
                                     <td>
                                         <?php if (!empty($user['name'])): ?>
-                                            <?=$user['name'];?>
+                                            <?=$this->escape($user['name']);?>
                                         <?php endif?>
                                     </td>
                                     <td class="table-cell-top">
                                         <?php if (!empty($user['email'])): ?>
-                                            <a href="mailto:<?=$user['email'];?>"><?=$user['email'];?></a>
+                                            <a href="mailto:<?=$this->escape($user['email']);?>">
+                                                <?=$this->escape($user['email']);?>
+                                            </a>
                                         <?php endif?>
                                     </td>
                                     <td class="table-cell-top">
