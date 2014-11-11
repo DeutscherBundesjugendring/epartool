@@ -42,7 +42,7 @@ class Admin_InputController extends Zend_Controller_Action
         $select = $questionsModel
             ->select()
             ->setIntegrityCheck(false)
-            ->from($questionsModel->info(Model_Questions::NAME), ['qi', 'q'])
+            ->from($questionsModel->info(Model_Questions::NAME), ['qi', 'q', 'nr'])
             ->where('kid = ?', $this->_consultation['kid']);
         $questionsModel->selectInputCountByQuestion($select, 'inputCountTotal');
         $questionsModel->selectUnreadInputCountByQuestion($select, 'inputCountUnread');

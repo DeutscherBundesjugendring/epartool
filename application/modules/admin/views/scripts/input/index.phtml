@@ -41,20 +41,20 @@
                         <tbody>
                             <?php foreach ($this->questions as $question): ?>
                                 <tr>
-                                    <td class="table-cell-id"><?=$question->qi;?></td>
-                                    <td><?=strip_tags($question->q);?></td>
-                                    <td data-sort-value="<?=$question->inputCountUnread;?>">
+                                    <td class="table-cell-id"><?=$this->escape($question->nr);?></td>
+                                    <td><?=$this->escape(strip_tags($question->q));?></td>
+                                    <td data-sort-value="<?=$this->escape($question->inputCountUnread);?>">
                                         <?php if (!empty($question->inputCountUnread)): ?>
                                             <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => '1']);?>"><?=$this->translate('Show');?></a>
-                                            <span class="badge"><?=$question->inputCountUnread;?></span>
+                                            <span class="badge"><?=$this->escape($question->inputCountUnread);?></span>
                                         <?php else: ?>
                                             <span class="badge">0</span>
                                         <?php endif?>
                                     </td>
-                                    <td data-sort-value="<?=$question->inputCountTotal;?>">
+                                    <td data-sort-value="<?=$this->escape($question->inputCountTotal);?>">
                                         <?php if (!empty($question->inputCountTotal)): ?>
                                             <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => null]);?>"><?=$this->translate('Show');?></a>
-                                            <span class="badge"><?=$question->inputCountTotal;?></span>
+                                            <span class="badge"><?=$this->escape($question->inputCountTotal);?></span>
                                         <?php else: ?>
                                             <span class="badge">0</span>
                                         <?php endif?>
@@ -79,20 +79,20 @@
                         <tbody>
                             <?php foreach ($this->users as $user): ?>
                                 <tr>
-                                    <td class="table-cell-id"><?=$user->uid;?></td>
+                                    <td class="table-cell-id"><?=$this->escape($user->uid);?></td>
                                     <td>
                                         <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $user->uid]);?>">
-                                            <?=$user->name;?>
+                                            <?=$this->escape($user->name);?>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="mailto:<?=$user->email;?>">
-                                            <?=$user->email;?>
+                                        <a href="mailto:<?=$this->escape($user->email);?>">
+                                            <?=$this->escape($user->email);?>
                                         </a>
                                     </td>
-                                    <td data-sort-value="<?=$user->inputCount;?>">
+                                    <td data-sort-value="<?=$this->escape($user->inputCount);?>">
                                         <a href="<?=$this->url(['action' => 'list-by-user', 'uid' => $user->uid, 'qi' => null]);?>"><?=$this->translate('Show');?></a>
-                                        <span class="badge"><?=$user->inputCount;?></span>
+                                        <span class="badge"><?=$this->escape($user->inputCount);?></span>
                                     </td>
                                     <td><?=$user->cmnt ? '<span class="glyphicon glyphicon-comment"></span>' : '';?></td>
                                 </tr>
