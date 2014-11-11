@@ -18,8 +18,9 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
 
     /**
      * The pathof the fallback image to be used if the real image is not available
+     * Relative to APPLICATION_PATH
      */
-    const FALLBACK_IMAGE_PATH = "APPLICATION_PATH /../www/images/icons/icon_file_default.png";
+    const FALLBACK_IMAGE_PATH = "/../www/images/icons/icon_file_default.png";
 
     /**
      * Returns url to the image representation of the given media
@@ -42,8 +43,8 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
         }
 
         if (empty($file['icon'])) {
-            $image = Image::open($file['dirname'] . '/' . $file['basename'])
-                ->setFallback(self::FALLBACK_IMAGE_PATH);
+            $path = $file['dirname'] . '/' . $file['basename'];
+            $image = Image::open(is_file($path) ? $path :  APPLICATION_PATH . self::FALLBACK_IMAGE_PATH);
             if ($contextConf->method === 'zoomCropScale'
                 || ($contextConf->width < $image->width() && $contextConf->height < $image->height())
             ) {
