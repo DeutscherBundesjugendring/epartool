@@ -153,8 +153,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $discussionActive
             ->setLabel('Enable discussion')
             ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setCheckedValue(1)
+            ->setUncheckedValue(0);
         $this->addElement($discussionActive);
 
         $discussionFrom = $this->createElement('text', 'discussion_from');

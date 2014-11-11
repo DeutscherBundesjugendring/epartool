@@ -131,11 +131,11 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $this->_consultation->discussion_from = $this->_consultation->discussion_from ? $this->_consultation->discussion_from : null;
                 $this->_consultation->discussion_to = $this->_consultation->discussion_to ? $this->_consultation->discussion_to : null;
                 $this->_consultation->save();
-                $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
+                $this->_flashMessenger->addMessage('Consultation saved.', 'success');
 
                 $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
             } else {
-                $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
+                $this->_flashMessenger->addMessage('Form invalid.', 'error');
                 $form->populate($form->getValues());
             }
         } else {
