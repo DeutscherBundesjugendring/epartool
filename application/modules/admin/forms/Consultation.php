@@ -157,7 +157,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($discussionActive);
 
-        $discussionFrom = $this->createElement('text', 'discussion_fr');
+        $discussionFrom = $this->createElement('text', 'discussion_from');
         $discussionFrom
             ->setLabel('Discussion phase start')
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
@@ -172,14 +172,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($discussionTo);
-
-        $discussionActive = $this->createElement('checkbox', 'is_discussion_active');
-        $discussionActive
-            ->setLabel('Enable discussion phase')
-            ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
-        $this->addElement($discussionActive);
 
         $followupSummaryShow = $this->createElement('checkbox', 'summ_show');
         $followupSummaryShow
