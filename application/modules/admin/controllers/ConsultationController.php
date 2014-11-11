@@ -26,15 +26,35 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $inputs = (new Model_Inputs())->getComplete(
+        $inputsModel = (new Model_Inputs());
+        $inputs = $inputsModel->getComplete(
             [
-                (new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?' => 'u',
+                $inputsModel->info(Model_Inputs::NAME) . '.block = ?' => 'u',
                 (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
             ]
         );
 
+        $inputDiscussionModel = (new Model_InputDiscussion());
+        $discussionContribs = $inputDiscussionModel->fetchAll(
+            $inputDiscussionModel
+                ->select()
+                ->from(['id' => $inputDiscussionModel->info(Model_InputDiscussion::NAME)])
+                ->join(
+                    ['i' =>(new Model_Inputs())->info(Model_Inputs::NAME)],
+                    'id.input_id = i.tid',
+                    []
+                )
+                ->join(
+                    ['q' =>(new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    []
+                )
+                ->where('q.kid = ?', $this->_consultation['kid'])
+                ->order('time_created DESC')
+        );
+
         $this->view->inputs = $inputs;
-        $this->view->inputsCount = count($inputs);
+        $this->view->discussionContribs = $discussionContribs;
     }
 
     /**

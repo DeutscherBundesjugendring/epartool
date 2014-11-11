@@ -163,7 +163,7 @@ class InputController extends Zend_Controller_Action
                             Service_Notification_Input_Created::POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST
                         );
                         Zend_Registry::get('dbAdapter')->commit();
-                        $this->_flashMessenger->addMessage('You are now subscribed. A confirmation email has been send.', 'success');
+                        $this->_flashMessenger->addMessage('You are now subscribed. A confirmation email has been sent.', 'success');
                         $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
                     } catch (Dbjr_Notification_Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
@@ -501,6 +501,98 @@ class InputController extends Zend_Controller_Action
         $this->view->inputCount = $inputModel->getCountByConsultation($this->_consultation->kid);
 
         $this->view->tags = $tagModel->getAllByConsultation($kid);
+    }
+
+    /**
+     * Displays the discussion page and processes discussion contribution additions
+     */
+    public function discussionAction()
+    {
+        $inputId = $this->getRequest()->getParam('inputId', null);
+        if (!$inputId) {
+            $this->_redirect('/');
+        }
+        $inputDiscussModel = new Model_InputDiscussion();
+        $form = new Default_Form_InputDiscussion();
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $form->removeElement('email');
+        }
+
+        if ($this->getRequest()->isPost()
+            && Zend_Date::now()->isLater(new Zend_Date($this->_consultation->discussion_from, Zend_Date::ISO_8601))
+            && Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation->discussion_to, Zend_Date::ISO_8601))
+        ) {
+            if ($form->isValid($this->getRequest()->getPost())) {
+                Zend_Registry::get('dbAdapter')->beginTransaction();
+                $formData = $form->getValues();
+                $isNew = false;
+                try {
+                    if ($auth->hasIdentity()) {
+                        $msg = 'Your discussion contribution was saved.';
+                        $userId = $auth->getIdentity()->uid;
+                    } else {
+                        $msg = 'Your discussion contribution was saved. A confirmation email has been sent.';
+                        list($userId, $isNew) = (new Model_Users())->register(['email' => $formData['email']]);
+                    }
+
+                    $contribId = $inputDiscussModel->insert(
+                        [
+                            'body' => $formData['body'],
+                            'user_id' => $userId,
+                            'is_user_confirmed' => $auth->hasIdentity() ? true : false,
+                            'is_visible' => true,
+                            'input_id' => $inputId,
+                        ]
+                    );
+
+                    if (!$auth->hasIdentity()) {
+                        $action = (new Service_UrlkeyAction_ConfirmInputDiscussionContribution())->create(
+                            [Service_UrlkeyAction_ConfirmInputDiscussionContribution::PARAM_DISCUSSION_CONTRIBUTION_ID => $contribId]
+                        );
+
+                        $user = (new Model_Users())->find($userId)->current();
+                        $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION;
+                        if ($isNew && $user->block === 'u') {
+                            $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION_NEW_USER;
+                        }
+
+                        $mailer = new Dbjr_Mail();
+                        $mailer
+                            ->setTemplate($template)
+                            ->setPlaceholders(
+                                array(
+                                    'to_name' => $user->name ? $user->name : $user->email,
+                                    'to_email' => $user->email,
+                                    'contribution_text' => $formData['body'],
+                                    'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                                )
+                            )
+                            ->addTo($user->email);
+                        (new Service_Email)->queueForSend($mailer);
+                    }
+
+                    Zend_Registry::get('dbAdapter')->commit();
+                    $this->_flashMessenger->addMessage($msg, 'success');
+                    $this->_redirect($this->view->url());
+                } catch (Exception $e) {
+                    Zend_Registry::get('dbAdapter')->rollback();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Please check your data!', 'error');
+            }
+        }
+
+        $this->view->form = $form;
+        $this->view->discussionContribs = $inputDiscussModel->fetchAll(
+            $inputDiscussModel
+                ->select()
+                ->where('input_id=?', $inputId)
+                ->where('is_visible=?', 1)
+                ->where('is_user_confirmed=?', 1)
+                ->order('time_created ASC')
+        );
     }
 
     protected function _getInputform()

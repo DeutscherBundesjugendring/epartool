@@ -21,11 +21,30 @@
                     <div class="col-lg-9">
 
                         <h2>
-                            <?=$this->translate('New Contributions');?>
-                            <span class="badge"><?=$this->inputsCount;?></span>
+                            <?=$this->translate('Discussion contributions');?>
+                            <span class="badge"><?=count($this->discussionContribs);?></span>
                         </h2>
 
-                        <?php if (!$this->inputsCount): ?>
+                        <?php if (!$this->discussionContribs): ?>
+                            <p class="alert alert-info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <?=$this->translate('There are no discussion contributions');?>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php foreach($this->discussionContribs as $contrib): ?>
+                            <div class="well">
+                                    <?=$this->formatDate($contrib->time_created);?>
+                                    <?=$this->escape($contrib->body);?>
+                            </div>
+                        <?php endforeach?>
+
+                        <h2>
+                            <?=$this->translate('New Contributions');?>
+                            <span class="badge"><?=count($this->inputs);?></span>
+                        </h2>
+
+                        <?php if (!$this->inputs): ?>
                             <p class="alert alert-info">
                                 <span class="glyphicon glyphicon-info-sign"></span>
                                 <?=$this->translate('There are no unprocessed contributions. Good job!');?>

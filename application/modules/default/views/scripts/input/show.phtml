@@ -118,16 +118,13 @@
                                 <?php endif; ?>
                             </span>
 
-                            <?php if ($this->consultation->is_discussion_active
-                                && (!$this->consultation->discussion_to
-                                    || Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601)))
-                                && (!$this->consultation->discussion_from
-                                    || Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601)))
-                            ): ?>
+                            <?php if ($this->consultation->is_discussion_active): ?>
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
                                     <small>(<?php echo $input['place']; ?>)</small>
-                                    <a class="label" href="#"><?$this->translate('I would like to discuss that!')?></a>
+                                    <a class="label" href="<?=$this->baseUrl() . '/input/discussion/kid/' . $this->consultation->kid . '/inputId/' . $this->escape($input['tid']);?>">
+                                        <?$this->translate('I would like to discuss that!')?>
+                                    </a>
                                 </span>
                             <?php endif?>
                         </section><!-- .actions -->

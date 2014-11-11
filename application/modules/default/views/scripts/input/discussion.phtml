@@ -1,0 +1,18 @@
+<a name="page-content"></a>
+<?php echo $this->secondNavigation('input') ?>
+
+<div class="main-content content-holder">
+    <div class="row">
+        <?php foreach($this->discussionContribs as $contrib): ?>
+            <div>
+                <?=$this->formatDate($contrib->time_created);?>
+                <?=$this->escape($contrib->body);?>
+            </div>
+        <?php endforeach?>
+        <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
+            && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
+        ): ?>
+            <?=$this->form?>
+        <?php endif;?>
+    </div>
+</div>
