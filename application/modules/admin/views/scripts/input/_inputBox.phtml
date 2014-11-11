@@ -22,7 +22,7 @@
                     <span class="glyphicon glyphicon-user"></span>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
                 <?php endif; ?>
-                <?=$this->formatDate($input['when']);?>
+                <?=$this->formatDate($this->input['when']);?>
             </small>
         </p>
         <p>
