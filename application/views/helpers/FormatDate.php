@@ -11,7 +11,7 @@ class Application_View_Helper_FormatDate extends Zend_View_Helper_Abstract
     public function formatDate($dateTimeString, $format = null)
     {
         if ($format == null) {
-            $format = Zend_Date::DATE_MEDIUM;
+            $format = Zend_Date::DATETIME_MEDIUM;
         }
 
         return (new Zend_Date($dateTimeString, Zend_Date::ISO_8601))->get($format);
