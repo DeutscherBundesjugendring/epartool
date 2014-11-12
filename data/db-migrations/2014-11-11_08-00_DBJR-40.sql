@@ -12,7 +12,7 @@ CREATE TABLE `input_discussion` (
     PRIMARY KEY (`id`),
     INDEX `input_discussion_time_created_idx` (`time_created`),
     INDEX `input_discussion_is_visible_idx` (`is_visible`),
-    CONSTRAINT `input_discussion_input_id_fkey` FOREIGN KEY (`input_id`) REFERENCES `inpt` (`tid`)
+    CONSTRAINT `input_discussion_input_id_fkey` FOREIGN KEY (`input_id`) REFERENCES `inpt` (`tid`),
     CONSTRAINT `input_discussion_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`)
 ) ENGINE=InnoDb, COLLATE=utf8_unicode_ci;
 
