@@ -31,16 +31,12 @@
                     <?php foreach ($this->followups as $followup): ?>
                         <li class="span2">
                             <div class="thumbnail">
-                                <h3 class="thumbnail-title"><?php echo $followup['titl'] ?></h3>
+                                <h3 class="thumbnail-title" title="<?=$followup['titl'];?>"><?=$followup['titl'];?></h3>
                                 <a
-                                    <?php if ($followup['referenceType'] === 'http'): ?>
-                                        href="<?php echo $followup['ref_doc']; ?>"
-                                    <?php else: ?>
-                                        href="<?php echo $this->mediaCnsltDir . $followup['ref_doc']; ?>"
-                                    <?php endif?>
+                                    href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
                                     class="thumbnail-image pull-left"
                                     target="_blank"
-                                    title="Dokument ansehen"
+                                    title="<?=$this->translate('View');?>"
                                     name="<?php echo $followup['ref_doc']?>"
                                 >
                                     <img
@@ -56,15 +52,10 @@
                                             echo strftime("%d.%m.%Y", strtotime($followup['when']));
                                         ?>
                                 </time>
-                                <p class="thumbnail-author"><?php echo $followup['who']; ?></p>
+                                <p class="thumbnail-author" title="<?=$followup['who'];?>"><?=$followup['who'];?></p>
                                 <a
-                                    <?php if ($followup['referenceType'] === 'http'): ?>
-                                        href="<?php echo $followup['ref_doc']; ?>"
-                                    <?php else: ?>
-                                        href="<?php $this->mediaCnsltDir . $followup['ref_doc']; ?>"
-                                    <?php endif?>
+                                    href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
                                     target="_blank"
-                                    title="Dokument ansehen"
                                 >
                                     <i class="icon-angle-right"></i> <?=$this->translate('View')?>
                                 </a>
@@ -74,7 +65,7 @@
                                         action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>"
                                     >
                                         <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
-                                        <button type="submit" class="btn-link" title="Dokument herunterladen">
+                                        <button type="submit" class="btn-link">
                                             <i class="icon-file"></i> <?=$this->translate('Download')?>
                                         </button>
                                     </form>
