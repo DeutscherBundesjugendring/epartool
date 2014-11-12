@@ -6,7 +6,7 @@
     $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
 ?>
 
-<script type="text/javascript">
+<script>
 $(document).ready(function() {
 
 	var elements = <?php echo $this->votingBasket['countvotes'];?>;
@@ -41,7 +41,7 @@ $(document).ready(function() {
                 cache: false,
                 async: "true",
                 error: function(){
-                    document.getElementById('voting-minus-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
+                    document.getElementById('voting-minus-'+elementID).innerHTML = "<?=$this->translate('Something went wrong');?>";
                 },
                 beforeSend: function(){
                     document.getElementById('voting-minus-'+elementID).innerHTML = '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">';
@@ -64,7 +64,7 @@ $(document).ready(function() {
 
 <div class="content-holder main-content">
 
-    <h1 class="heading-centered">Abstimmung zu &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+    <h1 class="heading-centered"><?=$this->translate('Voting for');?> &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
 
     <div class="row">
         <div class="span9 offset1">
@@ -80,12 +80,12 @@ $(document).ready(function() {
                     <?=$this->translate('Change question or keyword')?>
                 </a>
 
-                <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
+                <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="<?=$this->translate('Finish voting');?>">
                     <?=$this->translate('Finish')?>
                 </a>
 
             <?php else: ?>
-                <div class="well well-large voting text-center">
+                <div id="vote" class="well well-large voting text-center">
                     <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Join now!')?></span>
 
                     <!-- Vote basket -->
@@ -98,7 +98,7 @@ $(document).ready(function() {
                                 <span class="counter counter-supervotes">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span>
                             </h3>
                             <p class="basket-info">
-                                <?=$this->translate('The superbutton allows you to give certain contributions a higher vote. The overview shows you what you already marked as "especially important". Use the „–“  to reset your markings and allow space for more important contributions.')?>
+                                <?=$this->translate('The superbutton allows you to give certain contributions a higher vote. The overview shows you what you already marked as "especially important". Use the „–“ to reset your markings and allow space for more important contributions.')?>
                             </p>
                             <ul>
                                 <?php  foreach ($this->votingBasket["votes"] as $v): ?>
@@ -143,7 +143,7 @@ $(document).ready(function() {
                     <h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
                         <?php
                         if (!empty($this->thesis['tagname_de'])) {
-                            echo('(Schlagwort: ' . $this->thesis['tagname_de']. ')');
+                            echo('(' . $this->translate('Keyword') . ': ' . $this->thesis['tagname_de']. ')');
                         }
                         ?>
                     </h3>
@@ -163,7 +163,7 @@ $(document).ready(function() {
                         <?php if (!empty($this->LastVote)): ?>
                             <?php if ($this->thesis['tid'] !== $this->LastVote[0]['tid']): ?>
                                 <a
-                                    href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>"
+                                    href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>#vote"
                                     class="btn btn-small btn-light voting-prev"
                                 >
                                     <i class="icon-angle-left icon-large"></i> <?=$this->translate('Undo')?>
@@ -177,7 +177,7 @@ $(document).ready(function() {
                             </strong>
                         </p>
                         <a
-                        	href="<?=$this->url(['kid' => $this->consultation->kid,'qid' => $this->question['qi']])?>"
+                        	href="<?=$this->url(['kid' => $this->consultation->kid,'qid' => $this->question['qi']])?>#vote"
                         	class="btn btn-small btn-light voting-next"
                         >
                             <?=$this->translate('Skip')?>
