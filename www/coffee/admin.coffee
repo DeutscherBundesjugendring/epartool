@@ -7,11 +7,18 @@ $(document).ready () ->
     bindConsultationCustomPhaseNames()
 
     initCKEditor()
+    initI18n()
     initDatepicker()
     initSortableFollowupSnippets()
     initSortableVotingDirs()
     initSelect2()
 
+    return
+
+i18n = {
+    translate: (key) ->
+        exports.I18N['en'][key]
+}
 
 # Binds ajax loading template data to a template selctor box
 bindEmailTemplateSelect = () ->
@@ -166,3 +173,13 @@ initSortableVotingDirs = () ->
             $form.find('button[type=submit]').prop('disabled', false)
             return
     });
+
+initI18n = () ->
+    $.fn.confirmation.Constructor.prototype.options = {
+        'confirm-message': i18n.translate('Are you sure?'),
+        'confirm-yes': i18n.translate('Yes'),
+        'confirm-no': i18n.translate('No')
+    }
+
+    return
+

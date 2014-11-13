@@ -19,6 +19,24 @@ module.exports = function(grunt) {
             }
         },
 
+        // Prepare i18n json file
+        po2json: {
+            all: {
+                options: {
+                    template: function(data) {
+                        return 'var exports = {};' + data;
+                    }
+                },
+                files: {
+                    'www/js/i18n/admin.cs.js': ['languages/cs/js-admin.po'],
+                    'www/js/i18n/admin.en.js': ['languages/en/js-admin.po'],
+                    'www/js/i18n/admin.de.js': ['languages/de/js-admin.po'],
+                    'www/js/i18n/admin.es.js': ['languages/es/js-admin.po'],
+                    'www/js/i18n/admin.fr.js': ['languages/fr/js-admin.po']
+                }
+            }
+        },
+
         // Compile LESS
         less: {
             dev: {
@@ -110,20 +128,20 @@ module.exports = function(grunt) {
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-shake.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-slide.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-transfer.js'
-				],
-				dest: 'www/js/jquery.ui.js'
-			}
-		},
+                ],
+                dest: 'www/js/jquery.ui.js'
+            }
+        },
 
-		// Minify all JS
-		uglify: {
-			dist: {
-				files: {
-					'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
-					'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
-				}
-			}
-		},
+        // Minify all JS
+        uglify: {
+            dist: {
+                files: {
+                    'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
+                    'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
+                }
+            }
+        },
 
         // Remove unused CSS
         uncss: {
@@ -158,14 +176,14 @@ module.exports = function(grunt) {
             }
         },
 
-		// Clean temporary files
-		clean: [
-			'www/js/bootstrap.js',
-			'www/js/jquery.ui.js',
+        // Clean temporary files
+        clean: [
+            'www/js/bootstrap.js',
+            'www/js/jquery.ui.js',
             '.tmp'
-		],
+        ],
 
-		// Watch task
+        // Watch task
         watch: {
             less: {
                 files: ['www/less/**/*.less'],
@@ -215,8 +233,9 @@ module.exports = function(grunt) {
     ]);
 
     // Default task
-	grunt.registerTask('build', [
-		'less',
+    grunt.registerTask('build', [
+        'po2json',
+        'less',
         'coffee',
         'jshint',
         'concat',

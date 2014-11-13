@@ -25,7 +25,6 @@
     <script src="<?=$this->baseUrl('components/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');?>"></script>
     <script src="<?=$this->baseUrl('components/static/ckeditor/adapters/jquery.js');?>"></script>
     <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.core.js');?>"></script>
-    <!--<script src="<?=$this->baseUrl('components/bower/synergic-ui/dist/js/synergic-ui.min.js');?>"></script>-->
 
     <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/confirmation.js');?>"></script>
     <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/sortable-table.js');?>"></script>
@@ -35,6 +34,7 @@
     <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.mouse.js');?>"></script>
     <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.sortable.js');?>"></script>
     <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/i18n/admin.' . Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('locale')->getLocale()->getLanguage() . '.js');?>"></script>
     <script>
         // TODO move to data attribute on body?
         var baseUrl = '<?=$this->baseUrl?>';
