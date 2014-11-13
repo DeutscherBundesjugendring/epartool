@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Input_SubscriptionQuestion extends Zend_Form
+class Default_Form_SubscribeNotification extends Zend_Form
 {
     public function init()
     {
@@ -34,7 +34,7 @@ class Default_Form_Input_SubscriptionQuestion extends Zend_Form
         return $this;
     }
 
-    public function addEmailField()
+    public function requireId()
     {
         $emailEl = $this->createElement('text', 'email');
         $emailEl

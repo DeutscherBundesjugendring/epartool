@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Input_UnsubscriptionQuestion extends Zend_Form
+class Default_Form_UnsubscribeNotification extends Zend_Form
 {
     public function init()
     {

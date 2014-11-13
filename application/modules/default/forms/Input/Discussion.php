@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_InputDiscussion extends Zend_Form
+class Default_Form_Input_Discussion extends Zend_Form
 {
 
     public function init()

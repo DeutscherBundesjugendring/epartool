@@ -172,6 +172,9 @@ class Admin_VotingController extends Zend_Controller_Action
             }
 
             $mailer = new Dbjr_Mail();
+            $view = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')
+                ->getResource('view');
             if ($mode === 'instantsend') {
                 if ($sentFromPreview) {
                     $values = $form->getValues();
@@ -197,8 +200,8 @@ class Admin_VotingController extends Zend_Controller_Action
                                     'to_email' => $user['email'],
                                     'consultation_title_long' => $this->_consultation['titl'],
                                     'consultation_title_short' => $this->_consultation['titl_short'],
-                                    'voting_phase_start' => (new Zend_View())->formatDate($this->_consultation['vot_fr'], Zend_Date::DATE_MEDIUM),
-                                    'voting_phase_end' => (new Zend_View())->formatDate($this->_consultation['vot_to'], Zend_Date::DATE_MEDIUM),
+                                    'voting_phase_start' => $view->formatDate($this->_consultation['vot_fr'], Zend_Date::DATE_MEDIUM),
+                                    'voting_phase_end' => $view->formatDate($this->_consultation['vot_to'], Zend_Date::DATE_MEDIUM),
                                     'voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
                                         . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code'],
                                 )

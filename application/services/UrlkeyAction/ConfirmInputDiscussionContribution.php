@@ -39,6 +39,9 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
                 $this->_viewName = null;
                 $this->_message = ['text' => 'Your discussion contribution was confirmed.', 'type' => 'success'];
                 $this->markVisited($urlkeyAction->id);
+                (new Service_Notification_Input_DiscussionContributionCreated())->notify(
+                    [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $contrib->input_id]
+                );
             } else {
                 $this->_message = ['text' => 'Form invalid.', 'type' => 'error'];
             }

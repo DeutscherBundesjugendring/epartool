@@ -9,11 +9,14 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
     const SYSTEM_TEMPLATE_VOTING_CONFIRMATION_GROUP = 'voting_confirmation_group';
     const SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE = 'voting_invitation_single';
     const SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP = 'voting_invitation_group';
-    const SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION = 'subscription_confirmation';
-    const SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'subscription_confirmation_new_user';
+    const SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION = 'question_subscription_confirmation';
+    const SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'question_subscription_confirmation_new_user';
     const SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_CREATED = 'notification_new_input_created';
+    const SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_DISCUSSION_CONTRIB_CREATED = 'notification_new_input_discussion_contrib_created';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION = 'input_discussion_contrib_confirmation';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION_NEW_USER = 'input_discussion_contrib_confirmation_new_user';
+    const SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION = 'input_discussion_subscription_confirmation';
+    const SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'input_discussion_subscription_confirmation_new_user';
 
     protected $_name = 'email_template';
     protected $_dependentTables = array('Model_Mail_Template_Type');

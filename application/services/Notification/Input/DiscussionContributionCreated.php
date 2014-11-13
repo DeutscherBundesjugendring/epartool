@@ -1,9 +1,9 @@
 <?php
 
-class Service_Notification_Input_Created extends Service_NotificationAbstract
+class Service_Notification_Input_DiscussionContributionCreated extends Service_NotificationAbstract
 {
-    const TYPE_NAME = 'input_created';
-    const PARAM_QUESTION_ID = 'question_id';
+    const TYPE_NAME = 'input_discussion_contribution_created';
+    const PARAM_INPUT_ID = 'input_id';
 
     /**
      * Notifies all users who have subscribed
@@ -21,18 +21,35 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
         foreach ($users as $user) {
             $ntfIds[] = $user->notificationId;
         }
-        $question = (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current();
+        $contribModel = new Model_InputDiscussion();
+        $contrib = $contribModel->fetchRow(
+            $contribModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['c' => $contribModel->info(Model_InputDiscussion::NAME)])
+                ->join(
+                    ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                    'i.tid = c.input_id',
+                    []
+                )
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Inputs::NAME)],
+                    'i.qi = q.qi',
+                    ['kid']
+                )
+                ->where('c.input_id=?', $params[self::PARAM_INPUT_ID])
+        );
         $urlkeys = $this->_getUrlkeys($ntfIds);
         foreach ($users as $user) {
             $mailer = new Dbjr_Mail();
             $mailer
-                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_CREATED)
+                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_DISCUSSION_CONTRIB_CREATED)
                 ->setPlaceholders(
                     array(
                         'to_name' => $user->name ? $user->name : $user->email,
                         'to_email' => $user->email,
-                        'website_url' => Zend_Registry::get('baseUrl') . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
-                        'question_text' => $question->q,
+                        'website_url' => Zend_Registry::get('baseUrl') . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
+                        'contribution_text' => $contrib->body,
                         'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                     )
                 )
@@ -54,15 +71,16 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
     {
         $user = (new Model_Users())->find($userId)->current();
         if ($user->block !== 'u') {
-            $template = Model_Mail_Template::SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION_NEW_USER;
+            $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION_NEW_USER;
         } else {
-            $template = Model_Mail_Template::SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION;
+            $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION;
         }
 
         $action = (new Service_UrlkeyAction_ConfirmNotification())->create(
             [Service_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
         );
 
+        $input = (new Model_Inputs())->find($params[self::PARAM_INPUT_ID])->current();
         $mailer = new Dbjr_Mail();
         $mailer
             ->setTemplate($template)
@@ -70,7 +88,8 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
                 array(
                     'to_name' => $user->name ? $user->name : $user->email,
                     'to_email' => $user->email,
-                    'question_text' => (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current()->q,
+                    'input_thes' => $input->thes,
+                    'input_expl' => $input->expl,
                     'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                 )
             )
