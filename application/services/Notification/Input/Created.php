@@ -54,9 +54,9 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
     {
         $user = (new Model_Users())->find($userId)->current();
         if ($user->block !== 'u') {
-            $template = Model_Mail_Template::SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION_NEW_USER;
+            $template = Model_Mail_Template::SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION_NEW_USER;
         } else {
-            $template = Model_Mail_Template::SYSTEM_TEMPLATE_SUBSCRIPTION_CONFIRMATION;
+            $template = Model_Mail_Template::SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION;
         }
 
         $action = (new Service_UrlkeyAction_ConfirmNotification())->create(
