@@ -17,27 +17,9 @@
 
             </div>
             <div class="content">
+
                 <div class="row">
-                    <div class="col-lg-9">
-
-                        <h2>
-                            <?=$this->translate('Discussion contributions');?>
-                            <span class="badge"><?=count($this->discussionContribs);?></span>
-                        </h2>
-
-                        <?php if (!$this->discussionContribs): ?>
-                            <p class="alert alert-info">
-                                <span class="glyphicon glyphicon-info-sign"></span>
-                                <?=$this->translate('There are no discussion contributions');?>
-                            </p>
-                        <?php endif; ?>
-
-                        <?php foreach($this->discussionContribs as $contrib): ?>
-                            <div class="well">
-                                    <?=$this->formatDate($contrib->time_created);?>
-                                    <?=$this->escape($contrib->body);?>
-                            </div>
-                        <?php endforeach?>
+                    <div class="col-md-6">
 
                         <h2>
                             <?=$this->translate('New Contributions');?>
@@ -69,11 +51,34 @@
                                     <?=$this->formatDate($input['when']);?>
                                 </small>
                             </div>
-                        <?php endforeach?>
+                        <?php endforeach; ?>
 
                     </div>
-                </div>
+                    <div class="col-md-6">
+
+                        <h2>
+                            <?=$this->translate('Discussion Posts');?>
+                            <span class="badge"><?=count($this->discussionContribs);?></span>
+                        </h2>
+
+                        <?php if (!$this->discussionContribs): ?>
+                            <p class="alert alert-info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <?=$this->translate('There are no discussion posts yet.');?>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php foreach($this->discussionContribs as $contrib): ?>
+                            <div class="well">
+                                <?=$this->formatDate($contrib->time_created);?>
+                                <?=$this->escape($contrib->body);?>
+                            </div>
+                        <?php endforeach; ?>
+
+                    </div>
+                </div><!-- .row -->
+
             </div>
-        </div>
+        </div><!-- .row -->
     </div>
 </section>
