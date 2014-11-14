@@ -21,13 +21,14 @@
                 <h2><?=$this->translate('Voting Results');?></h2>
 
                 <?php if (!empty($this->questions)): ?>
-                    <h3><?=$this->translate('Questions');?></h3>
-                    <div class="well">
+
+                    <div class="well offset-bottom">
+                        <h3 class="h4"><?=$this->translate('Questions');?>:</h3>
                         <ul class="list-unstyled">
                             <?php foreach ($this->questions as $question): ?>
                                 <li>
                                     <?php if ($question['qi'] == $this->currentQuestion['qi']): ?>
-                                        <strong><?=$question['nr'] . ' ' . $question['q'];?></strong>
+                                        <strong><?=$question['nr'];?> <?=$question['q'];?></strong>
                                     <?php else: ?>
                                         <a href="<?=$this->url(['qid' => $question['qi']]);?>"><?=$question['nr'] . ' ' . $question['q'];?></a>
                                     <?php endif;?>
@@ -36,25 +37,49 @@
                         </ul>
                     </div>
 
-                    <h3><?=$this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q'];?></h3>
-                    <?php if ($this->theses_votes): ?>
-                        <?php foreach ($this->theses_votes as $rank => $theses): ?>
-                            <?php $percent = round($rank * 100 / $this->highest_rank, 0);?>
-                            <?php foreach ($theses as $thesis): ?>
-                                <p><?=$thesis['thes'];?></p>
-                                <div class="progress offset-bottom" title=<?=$this->translate('"Weighted points');?>: <?=round($thesis['points'], 2);?>, <?=$thesis['cast'];?> <?=$this->translate('votes');?>">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="<?=$percent;?>" aria-valuemin="0" aria-valuemax="100" style="width: <?=$percent;?>%;">
-                                        <?=round($rank, 2);?> <?=$this->translate('points');?>
-                                    </div>
+                    <?php if ($this->votings): ?>
+                        <?php foreach ($this->votings as $theses => $thesis): ?>
+                            <div class="row">
+                                <div class="col-xs-1">
+
+                                    <span class="h3"><?=$theses + 1;?>.</span>
+
                                 </div>
-                            <?php endforeach;?>
-                        <?php endforeach;?>
+                                <div class="col-xs-11">
+
+                                    <?php if ($this->highest_rank !== 0): ?>
+                                        <?php $percent = round($thesis['rank'] * 100 / $this->highest_rank, 0);?>
+                                    <?php else: ?>
+                                        <?php $percent = 0; ?>
+                                    <?php endif; ?>
+
+                                    <p><?=$thesis['thes'];?></p>
+                                    <div
+                                        class="progress"
+                                        title="<?=$this->translate('Weighted points');?>: <?=round($thesis['points'], 2);?>, <?=$thesis['cast'];?> <?=$this->translate('votes');?>"
+                                        >
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            aria-valuenow="<?=$percent;?>"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            style="width: <?=$percent;?>%;"
+                                            >
+                                            <?=$percent;?> %
+                                        </div>
+                                    </div><!-- .progress -->
+
+                                </div>
+                            </div><!-- .row -->
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <p class="alert alert-info">
                             <span class="glyphicon glyphicon-info-sign"></span>
                             <?=$this->translate('There are no voting results to be shown at the moment.');?>
                         </p>
                     <?php endif;?>
+
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign"></span>
