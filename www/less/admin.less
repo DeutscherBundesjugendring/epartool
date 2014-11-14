@@ -34,6 +34,29 @@
     word-break: break-all;
 }
 
+.overflow-vertical {
+    @media (min-width: @screen-md-min) {
+        position: relative;
+        height: 10 * @line-height-computed;
+
+        &-inner {
+            max-height: 100%;
+            overflow-y: auto;
+            border-bottom: 1px solid @hr-border;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 20px; // make place for scrollbar
+            bottom: 1px; // make place for border
+            height: 1.5 * @line-height-computed;
+            #gradient > .vertical(fade(#fff, 0), #fff);
+        }
+    }
+}
+
 .text-overflow {
     .text-overflow();
     max-width: 9em;

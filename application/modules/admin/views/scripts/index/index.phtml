@@ -14,61 +14,97 @@
 </section>
 <section class="section-content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-8">
 
-                <!-- Consultations -->
-                <?php if (!empty($this->consultations)): ?>
-                    <?php foreach ($this->consultations as $kid => $consultation): ?>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading panel-heading-extended">
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid));?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
-                                    <span class="glyphicon glyphicon-cog"></span>
-                                </a>
-                                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $kid));?>">
-                                    <h2 class="panel-title panel-title-big"><?=$consultation['titl'];?></h2>
-                                    <h3 class="panel-title panel-title-subtitle"><?=$consultation['titl_sub'];?></h3>
-                                </a>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="nav nav-pills nav-justified">
+        <!-- Consultations -->
+        <?php if (!empty($this->consultations)): ?>
+            <?php foreach ($this->consultations as $kid => $consultation): ?>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading panel-heading-extended">
+                        <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid));?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $kid));?>">
+                            <h2 class="panel-title panel-title-big"><?=$consultation['titl'];?></h2>
+                            <h3 class="panel-title panel-title-subtitle"><?=$consultation['titl_sub'];?></h3>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+
+                                <ul class="nav nav-pills nav-stacked">
                                     <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $kid));?>"><?=$this->translate('Info');?></a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $kid));?>"><?=$this->translate('Questions');?></a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $kid));?>"><?=$this->translate('Contributions');?></a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $kid));?>"><?=$this->translate('Voting');?></a></li>
                                     <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $kid));?>"><?=$this->translate('Follow Up');?></a></li>
                                 </ul>
+
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                            <div class="col-md-5">
 
-            </div>
-            <div class="col-md-4">
+                                <h4><?=$this->translate('Latest Contributions');?></h4>
+                                <?php if (count($consultation['inputs'])): ?>
+                                    <div class="overflow-vertical offset-bottom">
+                                        <div class="overflow-vertical-inner">
+                                            <?php foreach ($consultation['inputs'] as $input): ?>
+                                                <blockquote>
+                                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'kid' => $kid, 'qid' => $input['qi'], 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
+                                                        <p>
+                                                            <?=$input['thes'];?>
+                                                        </p>
+                                                    </a>
+                                                    <footer>
+                                                        <?php if (!empty($input['name'])): ?>
+                                                            <span class="glyphicon glyphicon-user"></span>
+                                                            <a
+                                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid'], 'kid' => $kid]);?>"
+                                                                title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                                                >
+                                                                <?=$input['name'];?>
+                                                            </a>,
+                                                        <?php endif; ?>
+                                                        <?=$this->formatDate($input['when']);?>
+                                                    </footer>
+                                                </blockquote>
+                                            <?php endforeach;?>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $kid]);?>">
+                                            <?=$this->translate('Show all contributions');?> &rarr;
+                                        </a>
+                                    </p>
+                                <?php else: ?>
+                                    <p>
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                        <?=$this->translate('No contributions yet.');?>
+                                    </p>
+                                <?php endif; ?>
 
-                <h2><?=$this->translate('New Contributions');?></h2>
-                <?php if (!empty($this->consultations)): ?>
-                    <?php foreach ($this->consultations as $consultation): ?>
-                        <?=$consultation['titl']?>
-                        <ul>
-                            <?php foreach ($consultation['inputs'] as $input): ?>
-                                <li class="media">
-                                    <a
-                                        href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $kid, 'qid' => $input['qi']]);?>"
-                                        class="media-body"
-                                    >
-                                        <?=$input['thes'];?>
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </a>
-                                </li>
-                            <?php endforeach;?>
-                        </ul>
-                        <?php endforeach;?>
-                <?php else: ?>
-                    <p class="alert alert-info"><?=$this->translate('No posts yet.');?></p>
-                <?php endif; ?>
+                            </div>
+                            <div class="col-md-4">
 
-            </div>
-        </div>
+                                <h4><?=$this->translate('Latest Discussion Posts');?></h4>
+                                <p>
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <?=$this->translate('No posts yet.');?>
+                                </p>
+
+                            </div>
+                        </div><!-- .row -->
+
+                    </div>
+                </div><!-- .panel -->
+
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                <?=$this->translate('There are no consultations yet.');?>
+            </p>
+        <?php endif; ?>
+
     </div>
 </section>
