@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header has-tabs" xmlns="http://www.w3.org/1999/html">
     <div class="container">
 
         <h1><?=$this->consultation->titl;?></h1>
@@ -26,32 +26,32 @@
                             <span class="badge"><?=count($this->inputs);?></span>
                         </h2>
 
-                        <?php if (!$this->inputs): ?>
+                        <?php if ($this->inputs): ?>
+                            <?php foreach($this->inputs as $input): ?>
+                                <blockquote>
+                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid']]);?>">
+                                        <p><?=$input['thes'];?></p>
+                                    </a>
+                                    <footer>
+                                        <?php if (!empty($input['name'])): ?>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <a
+                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid']]);?>"
+                                                title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                                >
+                                                <?=$input['name'];?>
+                                            </a>,
+                                        <?php endif; ?>
+                                        <?=$this->formatDate($input['when']);?>
+                                    </footer>
+                                </blockquote>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                             <p class="alert alert-info">
                                 <span class="glyphicon glyphicon-info-sign"></span>
-                                <?=$this->translate('There are no unprocessed contributions. Good job!');?>
+                                <?=$this->translate('There are no unprocessed contributions.');?>
                             </p>
                         <?php endif; ?>
-
-                        <?php foreach($this->inputs as $input): ?>
-                            <div class="well">
-                                <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid']]);?>">
-                                    <p><?=$input['thes'];?></p>
-                                </a>
-
-                                <?=(!empty($input['expl']) ? ('<p>' . $input['expl'] . '</p>') : '');?>
-                                <small>
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <?php if (!empty($input['name'])): ?>
-                                        <a
-                                            href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid']]);?>"
-                                            title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
-                                            ><?=$input['name'];?></a>,
-                                    <?php endif; ?>
-                                    <?=$this->formatDate($input['when']);?>
-                                </small>
-                            </div>
-                        <?php endforeach; ?>
 
                     </div>
                     <div class="col-md-6">
@@ -61,19 +61,21 @@
                             <span class="badge"><?=count($this->discussionContribs);?></span>
                         </h2>
 
-                        <?php if (!$this->discussionContribs): ?>
+                        <?php if (count($this->discussionContribs)): ?>
+                            <?php foreach($this->discussionContribs as $contrib): ?>
+                                <div class="blockquote">
+                                    <?=$this->escape($contrib->body);?>
+                                    <footer>
+                                        <?=$this->formatDate($contrib->time_created);?>
+                                    </footer>
+                                </blockquote>
+                            <?php endforeach; ?>
+                        <?php else: ?>
                             <p class="alert alert-info">
                                 <span class="glyphicon glyphicon-info-sign"></span>
                                 <?=$this->translate('There are no discussion posts yet.');?>
                             </p>
                         <?php endif; ?>
-
-                        <?php foreach($this->discussionContribs as $contrib): ?>
-                            <div class="well">
-                                <?=$this->formatDate($contrib->time_created);?>
-                                <?=$this->escape($contrib->body);?>
-                            </div>
-                        <?php endforeach; ?>
 
                     </div>
                 </div><!-- .row -->
