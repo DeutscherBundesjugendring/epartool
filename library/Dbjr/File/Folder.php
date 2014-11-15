@@ -47,6 +47,7 @@ class Dbjr_File_Folder extends Dbjr_File
                 $dirs[] = $file;
             }
         }
+        sort($dirs);
 
         return $dirs;
     }

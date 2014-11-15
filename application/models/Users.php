@@ -405,7 +405,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(['u' => $this->info(self::NAME)])
-            ->where('u.block=?', 'c');
+            ->where('u.block=?', 'c')
+            ->order('u.email');
 
         if ($participantType === Model_User_Info::PARTICIPANT_TYPE_VOTER) {
             $select

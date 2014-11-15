@@ -39,7 +39,8 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
                 [new Zend_Db_Expr('COUNT(vt_indiv.sub_uid) as count')]
             )
             ->where('vg.kid = ?', $kid)
-            ->group('vg.sub_uid');
+            ->group('vg.sub_uid')
+            ->order('u.email');
         if ($uid != 0) {
             $select->where('vg.uid = ?', $uid);
         }
