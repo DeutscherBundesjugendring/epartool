@@ -63,9 +63,13 @@
 
                         <?php if (count($this->discussionContribs)): ?>
                             <?php foreach($this->discussionContribs as $contrib): ?>
-                                <div class="blockquote">
-                                    <?=$this->escape($contrib->body);?>
+                                <blockquote>
+                                    <p><?=$this->escape($contrib->body);?></p>
                                     <footer>
+                                        <?php if (!empty($contrib['name'])): ?>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <?=$contrib['name'];?>
+                                        <?php endif; ?>
                                         <?=$this->formatDate($contrib->time_created);?>
                                     </footer>
                                 </blockquote>

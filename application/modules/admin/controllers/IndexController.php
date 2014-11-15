@@ -16,6 +16,6 @@ class Admin_IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->consultations = (new Model_Consultations())->getWithInputs(5);
+        $this->view->consultations = (new Model_Consultations())->getWithInputsAndContribs(5, 5);
     }
 }

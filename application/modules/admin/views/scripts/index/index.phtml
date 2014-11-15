@@ -87,10 +87,25 @@
                             <div class="col-md-4">
 
                                 <h4><?=$this->translate('Latest Discussion Posts');?></h4>
-                                <p>
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                    <?=$this->translate('No posts yet.');?>
-                                </p>
+                                <?php if (count($consultation['discussionContribs'])): ?>
+                                    <?php foreach($consultation['discussionContribs'] as $contrib): ?>
+                                        <blockquote>
+                                            <?=$this->escape($contrib->body);?>
+                                            <footer>
+                                                <?php if (!empty($contrib['name'])): ?>
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                    <?=$contrib['name'];?>
+                                                <?php endif; ?>
+                                                <?=$this->formatDate($contrib->time_created);?>
+                                            </footer>
+                                        </blockquote>
+                                    <?php endforeach;?>
+                                <?php else: ?>
+                                    <p>
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                        <?=$this->translate('No posts yet.');?>
+                                    </p>
+                                <?php endif;?>
 
                             </div>
                         </div><!-- .row -->

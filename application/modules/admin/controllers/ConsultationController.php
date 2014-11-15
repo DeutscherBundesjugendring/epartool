@@ -38,6 +38,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $discussionContribs = $inputDiscussionModel->fetchAll(
             $inputDiscussionModel
                 ->select()
+                ->setIntegrityCheck(false)
                 ->from(['id' => $inputDiscussionModel->info(Model_InputDiscussion::NAME)])
                 ->join(
                     ['i' =>(new Model_Inputs())->info(Model_Inputs::NAME)],
@@ -48,6 +49,11 @@ class Admin_ConsultationController extends Zend_Controller_Action
                     ['q' =>(new Model_Questions())->info(Model_Questions::NAME)],
                     'q.qi = i.qi',
                     []
+                )
+                ->join(
+                    ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                    'u.uid = id.user_id',
+                    ['uid', 'name']
                 )
                 ->where('q.kid = ?', $this->_consultation['kid'])
                 ->order('time_created DESC')

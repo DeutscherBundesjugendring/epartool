@@ -444,11 +444,12 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns a list of consultation with the the specified number of latest posts each
-     * @param  integer $inputLimit The number of inputs for each consultation
-     * @return array               An array of consultation arrays
+     * Returns a list of consultations with the specified number of latest inputs and input discussion posts for each
+     * @param  integer $inputLimit             The number of inputs for each consultation
+     * @param  integer $discussionContribLimit The number of input discussion contributions for each consultation
+     * @return array                           An array of consultation arrays
      */
-    public function getWithInputs($inputLimit)
+    public function getWithInputsAndContribs($inputLimit, $discussionContribLimit)
     {
         $select = $this
             ->select()
@@ -480,16 +481,39 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
             $consultation['inputs'] = $inputModel->fetchAll(
                 $inputModel
                     ->select()
-                    ->from(['i' => $inputModel->info(Model_Questions::NAME)], ['tid', 'thes', 'qi', 'uid', 'when'])
                     ->setIntegrityCheck(false)
+                    ->from(['i' => $inputModel->info(Model_Questions::NAME)], ['tid', 'thes', 'qi', 'uid', 'when'])
                     ->join(
-                        (new Model_Users())->info(Model_Users::NAME),
-                        (new Model_Users())->info(Model_Users::NAME) . '.uid = i.uid',
+                        ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                        'u.uid = i.uid',
                         ['uid', 'name']
                     )
                     ->where('qi IN (?)', $consultation['questionIds'])
                     ->order('when DESC')
                     ->limit($inputLimit)
+            );
+        }
+
+        $discModel = new Model_InputDiscussion();
+        foreach ($consultations as &$consultation) {
+            $consultation['discussionContribs'] = $discModel->fetchAll(
+                $discModel
+                    ->select()
+                    ->setIntegrityCheck(false)
+                    ->from(['d' => $discModel->info(Model_InputDiscussion::NAME)])
+                    ->join(
+                        ['i' => $inputModel->info(Model_Questions::NAME)],
+                        'd.input_id = i.tid',
+                        []
+                    )
+                    ->join(
+                        ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                        'u.uid = d.user_id',
+                        ['uid', 'name']
+                    )
+                    ->where('i.qi IN (?)', $consultation['questionIds'])
+                    ->order('time_created DESC')
+                    ->limit($discussionContribLimit)
             );
             unset($consultation['questionIds']);
         }
