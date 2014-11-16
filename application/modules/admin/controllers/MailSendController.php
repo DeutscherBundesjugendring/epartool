@@ -90,7 +90,7 @@ class Admin_MailSendController extends Zend_Controller_Action
                     (new Service_Email)->queueForSend($mailer);
                     $db->commit();
                     $this->_flashMessenger->addMessage('Email queued for send.', 'success');
-                    $this->_redirect('/admin/mail-send');
+                    $this->_redirect('/admin/mail-queued');
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;
