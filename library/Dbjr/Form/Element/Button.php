@@ -82,7 +82,9 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
         if ($this->_confirmMessage) {
             $this->setAttrib('data-confirm-message', $this->_confirmMessage);
         }
-        $this->setAttrib('class', $cssClass);
+
+        $oldClass = $this->getAttrib('class') ? ' ' . $this->getAttrib('class') : '';
+        $this->setAttrib('class', $cssClass . $oldClass);
 
         return parent::render($view);
     }

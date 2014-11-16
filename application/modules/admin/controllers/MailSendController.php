@@ -76,7 +76,7 @@ class Admin_MailSendController extends Zend_Controller_Action
                         Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER
                     );
                 }
-                if ($postData['attachments']) {
+                if (!empty($postData['attachments'])) {
                     foreach ($postData['attachments'] as $file) {
                         if ($file) {
                             $mailer->addAttachmentFile($file);
