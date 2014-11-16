@@ -33,8 +33,8 @@
                         <table class="table table-responsive">
                             <thead>
                                 <tr>
-                                    <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Group');?></th>
-                                    <th class="sorting-asc" data-toggle="sort" class="col-xs-3"><?=$this->translate('Participant');?></th>
+                                    <th data-toggle="sort" class="sorting-asc col-xs-3"><?=$this->translate('Group');?></th>
+                                    <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Participant');?></th>
                                     <th data-toggle="sort" class="col-xs-2"><?=$this->translate('Status');?></th>
                                     <th data-toggle="sort" class="col-xs-2 text-right"><?=$this->translate('Votes Left');?></th>
                                     <th></th>
@@ -78,20 +78,6 @@
                                         </td>
                                         <td class="text-right"><?=$this->escape(substr_count($group['vt_inp_list'], ','));?></td>
                                         <td class="table-cell-actions">
-                                            <a
-                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
-                                                class="item-action"
-                                                title="<?=$this->translate('Show all contributions by this user');?>"
-                                            >
-                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                            </a>
-                                            <a
-                                                href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
-                                                class="item-action"
-                                                title="<?=$this->translate('Merge participants');?>"
-                                            >
-                                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                                            </a>
                                             <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
                                                 <button
                                                     value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
@@ -128,6 +114,20 @@
                                                     <span class="glyphicon glyphicon-trash"></span>
                                                 </button>
                                             <?php endif;?>
+                                            <a
+                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Show all contributions by this user');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                            </a>
+                                            <a
+                                                href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Merge participants');?>"
+                                                >
+                                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach;?>
