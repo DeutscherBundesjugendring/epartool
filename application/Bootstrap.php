@@ -144,20 +144,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
+     * Initialize locale
+     */
+    protected function _initLocale()
+    {
+        Zend_Registry::set('Zend_Locale', $this->getPluginResource('locale')->getLocale());
+    }
+
+
+    /**
      * Initialize translations
      */
     protected function _initTranslation()
     {
-        $lang = $this
-            ->getPluginResource('locale')
-            ->getLocale()
-            ->getLanguage();
-
         $translator = new Zend_Translate(
             array(
                 'adapter' => 'array',
                 'content' => APPLICATION_PATH . '/../../../zendframework/zendframework1/resources/languages',
-                'locale'  => $lang,
                 'scan' => Zend_Translate::LOCALE_DIRECTORY
             )
         );

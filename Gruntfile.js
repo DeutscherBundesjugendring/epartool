@@ -28,11 +28,11 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'www/js/i18n/admin.cs.js': ['languages/cs/js-admin.po'],
-                    'www/js/i18n/admin.en.js': ['languages/en/js-admin.po'],
-                    'www/js/i18n/admin.de.js': ['languages/de/js-admin.po'],
-                    'www/js/i18n/admin.es.js': ['languages/es/js-admin.po'],
-                    'www/js/i18n/admin.fr.js': ['languages/fr/js-admin.po']
+                    'www/js/i18n/admin.cs.js': ['languages/cs/admin-js.po'],
+                    'www/js/i18n/admin.en.js': ['languages/en/admin-js.po'],
+                    'www/js/i18n/admin.de.js': ['languages/de/admin-js.po'],
+                    'www/js/i18n/admin.es.js': ['languages/es/admin-js.po'],
+                    'www/js/i18n/admin.fr.js': ['languages/fr/admin-js.po']
                 }
             }
         },
