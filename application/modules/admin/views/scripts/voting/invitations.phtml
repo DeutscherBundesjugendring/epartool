@@ -45,7 +45,7 @@
                             <?php foreach ($this->participants as $user): ?>
                                 <tr>
                                     <td class="table-cell-id table-cell-top"><?=$user['uid'];?></td>
-                                    <td>
+                                    <td class="table-cell-top">
                                         <?php if (!empty($user['name'])): ?>
                                             <?=$this->escape($user['name']);?>
                                         <?php endif?>
