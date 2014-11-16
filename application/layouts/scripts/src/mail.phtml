@@ -28,7 +28,7 @@
                                                     <td class="six sub-columns">
 
                                                         <!-- project logo start-->
-                                                        <img src="<?=$this->serverUrl() . $this->baseUrl($this->logoUrl)?>">
+                                                        <img src="<?=$this->serverUrl() . $this->baseUrl($this->logoUrl);?>">
                                                         <!-- project logo end-->
 
                                                     </td>
@@ -36,7 +36,7 @@
                                                         <span class="template-label">
 
                                                             <!-- project name start-->
-                                                            <?=$this->siteName?>
+                                                            <?=$this->siteName;?>
                                                             <!-- project name end-->
 
                                                         </span>
@@ -67,7 +67,7 @@
                                                 <td>
 
                                                     <!-- email body start -->
-                                                    <?=$this->bodyHtml?>
+                                                    <?=$this->bodyHtml;?>
                                                     <!-- email body end -->
 
                                                 </td>
@@ -85,16 +85,23 @@
 
                                         <table class="twelve columns">
                                             <tr>
-                                                <td class="last text-pad">
-                                                    <h6><?=$this->translate('Contact Info')?>:</h6>
+                                                <td class="last text-pad" style="text-align: right;">
 
                                                     <!-- contact start -->
-                                                    <p><?=$this->translate('Phone')?>: <?=$this->contactInfo->phone?></p>
-                                                    <p><?=$this->translate('Email')?>: <a href="mailto:<?=$this->contactInfo->email?>"><?=$this->contactInfo->email?></a></p>
-                                                    <p><?=$this->translate('Www')?>: <a href="<?=Zend_Registry::get('systemconfig')->contact->www?>"><?=$this->contactInfo->www?></a></p>
-                                                    <p><?=$this->translate('Street')?>: <?=$this->contactInfo->street?></p>
-                                                    <p><?=$this->translate('Town')?>: <?=$this->contactInfo->town?></p>
-                                                    <p><?=$this->translate('Zip')?>: <?=$this->contactInfo->zip?></p>
+                                                    <p style="text-align: right;">
+                                                        <?=Zend_Registry::get('systemconfig')->contact->name;?>
+                                                    </p>
+                                                    <p style="text-align: right;">
+                                                        <?=$this->contactInfo->street;?><br />
+                                                        <?=$this->contactInfo->zip;?> <?=$this->contactInfo->town;?><br />
+                                                        <a href="mailto:<?=Zend_Registry::get('systemconfig')->contact->email;?>">
+                                                            <?=Zend_Registry::get('systemconfig')->contact->email;?>
+                                                        </a>
+                                                        <br />
+                                                        <a href="<?=Zend_Registry::get('systemconfig')->contact->www;?>">
+                                                            <?=Zend_Registry::get('systemconfig')->contact->www;?>
+                                                        </a>
+                                                    </p>
                                                     <!-- contact end -->
 
                                                 </td>
@@ -116,7 +123,7 @@
                                                     <center>
 
                                                         <!-- links start -->
-                                                            <a href="<?=$this->links->privacy->href?>" style="color: #0196bc; text-decoration: none;"><?=$this->links->privacy->text?></a>
+                                                        <a href="<?=$this->links->privacy->href;?>" style="color: #0196bc; text-decoration: none;"><?=$this->links->privacy->text;?></a>
                                                         <!-- links end -->
 
                                                     </center>
