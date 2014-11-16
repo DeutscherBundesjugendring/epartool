@@ -284,14 +284,14 @@ class Admin_VotingController extends Zend_Controller_Action
         $kid = $this->_request->getParam('kid', 0);
 
         // Create Form
-        $form = new Admin_Form_Voting_Participantedit();
+        $form = new Admin_Form_Voting_Participantedit($kid);
         $form -> setAction(
             $this->view->baseUrl() . '/admin/voting/participantedit/kid/' . $this->_consultation->kid . '/uid/' . $uid . '/sub_uid/' . $sub_uid
         );
         $groupsModel = new Model_Votes_Groups();
         $participants= $groupsModel->getUserByConsultation($this->_consultation->kid);
 
-        $mergeOptions = array(''=>'Please select');
+        $mergeOptions = array(''=>'Please select…');
         foreach ($participants as $user) {
             if ($sub_uid!=$user['sub_uid']) {
                 $mergeOptions[$user['sub_uid']] = $user['sub_user'];

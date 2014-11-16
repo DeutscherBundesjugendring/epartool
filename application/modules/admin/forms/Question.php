@@ -2,11 +2,20 @@
 
 class Admin_Form_Question extends Dbjr_Form_Admin
 {
+    protected $_kid;
+
+    public function __construct($kid)
+    {
+        $this->_kid = $kid;
+        parent::__construct();
+    }
 
     public function init()
     {
         $view = new Zend_View();
-        $this->setMethod('post');
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/question/index/kid/' . $this->_kid]);
 
         $order = $this->createElement('text', 'nr');
         $order

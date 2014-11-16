@@ -59,7 +59,7 @@ class Admin_ArticleController extends Zend_Controller_Action
             $consultationModel = new Model_Consultations();
             $refNameModel = new Model_ArticleRefNames();
             $consultation = $consultationModel->getById($kid);
-            $form = new Admin_Form_Article();
+            $form = new Admin_Form_Article($kid);
             $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
             $multiOptions = array(0 => $this->view->translate('Please select…'));
             if ($kid > 0) {
@@ -153,7 +153,7 @@ class Admin_ArticleController extends Zend_Controller_Action
             if ($aid > 0) {
                 $articleModel = new Model_Articles();
                 $articleRow = $articleModel->find($aid)->current();
-                $form = new Admin_Form_Article();
+                $form = new Admin_Form_Article($kid);
                 $multiOptions = array(0 => $this->view->translate('Please select…'));
                 if ($kid > 0) {
                     // set multiOptions for ref_nm

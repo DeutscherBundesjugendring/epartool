@@ -6,10 +6,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
     {
         $view = new Zend_View();
 
-        $this
-            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin'])
-            ->setMethod('post');
-
+        $this->setMethod('post');
 
         $title = $this->createElement('text', 'titl');
         $title

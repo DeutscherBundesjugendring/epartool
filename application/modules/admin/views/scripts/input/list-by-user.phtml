@@ -112,81 +112,88 @@
                     </tr>
                 </table>
 
-                <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
-                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                    <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
+                <?php if (count($this->inputs)): ?>
+                    <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                        <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
 
-                    <!-- Actions -->
-                    <div class="well well-sm">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="js-toggle-all" />
-                                        <?=$this->translate('Marked entries');?>:
-                                    </label>
+                        <!-- Actions -->
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="js-toggle-all" />
+                                            <?=$this->translate('Marked entries');?>:
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-9 text-right">
-                                <div class="btn-group">
-                                    <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Publish');?></span>
-                                    </button>
-                                    <button type="submit" name="bulkAction" value="block" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-ban-circle"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Block');?></span>
-                                    </button>
-                                    <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Delete');?></span>
-                                    </button>
+                                <div class="col-xs-6 col-sm-9 text-right">
+                                    <div class="btn-group">
+                                        <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ok-sign"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Publish');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="block" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Block');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Delete');?></span>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div><!-- .row -->
-                    </div>
+                            </div><!-- .row -->
+                        </div>
 
-                    <!-- Listing -->
-                    <?php foreach ($this->inputs as $questionNum => $inputs): ?>
-                        <h3><?=$inputs['q'];?></h3>
-                        <table class="table table-bordered table-responsive js-table-rows-toggle">
-                            <?php foreach ($inputs['inputs'] as $input): ?>
-                                <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
-                            <?php endforeach;?>
-                        </table>
-                    <?php endforeach;?>
+                        <!-- Listing -->
+                        <?php foreach ($this->inputs as $questionNum => $inputs): ?>
+                            <h3><?=$inputs['q'];?></h3>
+                            <table class="table table-bordered table-responsive js-table-rows-toggle">
+                                <?php foreach ($inputs['inputs'] as $input): ?>
+                                    <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
+                                <?php endforeach;?>
+                            </table>
+                        <?php endforeach;?>
 
-                    <!-- Actions -->
-                    <div class="well well-sm">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="js-toggle-all" />
-                                        <?=$this->translate('Marked entries');?>:
-                                    </label>
+                        <!-- Actions -->
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="js-toggle-all" />
+                                            <?=$this->translate('Marked entries');?>:
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-9 text-right">
-                                <div class="btn-group">
-                                    <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-ok-sign"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Publish');?></span>
-                                    </button>
-                                    <button type="submit" name="bulkAction" value="block" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-ban-circle"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Block');?></span>
-                                    </button>
-                                    <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Delete');?></span>
-                                    </button>
+                                <div class="col-xs-6 col-sm-9 text-right">
+                                    <div class="btn-group">
+                                        <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ok-sign"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Publish');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="block" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Block');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Delete');?></span>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div><!-- .row -->
-                    </div>
+                            </div><!-- .row -->
+                        </div>
 
-                </form>
+                    </form>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('This user has not contributed yet.');?>
+                    </p>
+                <?php endif; ?>
 
             </div>
         </div>

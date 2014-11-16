@@ -11,7 +11,9 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
 
         $this
             ->setMethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user/edit');
+            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user/edit')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/users']);
 
         $name = $this->createElement('text', 'name');
         $name

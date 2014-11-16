@@ -2,9 +2,20 @@
 
 class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
 {
+    protected $_kid;
+
+    public function __construct($kid = null)
+    {
+        $this->_kid = $kid;
+        parent::__construct();
+    }
+
     public function init()
     {
-        $this->setMethod('post');
+
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/voting/participants/kid/' . $this->_kid]);
 
         $merge = $this->createElement('select', 'merge');
         $merge

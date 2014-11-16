@@ -43,7 +43,7 @@ class Admin_QuestionController extends Zend_Controller_Action
 
     public function createAction()
     {
-        $form = new Admin_Form_Question();
+        $form = new Admin_Form_Question($this->_consultation['kid']);
         $form->setAction($this->view->baseUrl() . '/admin/question/create/kid/' . $this->_consultation['kid']);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {

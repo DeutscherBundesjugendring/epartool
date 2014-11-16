@@ -2,10 +2,24 @@
 
 class Admin_Form_Article extends Dbjr_Form_Admin
 {
+    protected $_kid;
+
+    public function __construct($kid = null)
+    {
+        $this->_kid = $kid;
+        parent::__construct();
+    }
 
     public function init()
     {
-        $this->setMethod('post');
+        $cancelUrl = Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/article';
+        if ($this->_kid) {
+            $cancelUrl .= '/index/kid/' . $this->_kid;
+        }
+
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => $cancelUrl]);
 
         $id = $this->createElement('hidden', 'art_id');
         $this->addElement($id);
@@ -25,7 +39,7 @@ class Admin_Form_Article extends Dbjr_Form_Admin
 
         $parentId = $this->createElement('select', 'parent_id');
         $parentId
-            ->setLabel('Parent Page');
+            ->setLabel('Parent page');
         $this->addElement($parentId);
 
         $body = $this->createElement('textarea', 'artcl');

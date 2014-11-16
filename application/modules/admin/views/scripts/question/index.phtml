@@ -39,7 +39,7 @@
                                 <?php foreach ($this->questions as $question): ?>
                                     <tr>
                                         <td class="table-cell-id"><?=$this->escape($question->nr);?></td>
-                                        <td><?=$this->escape($question->q);?></td>
+                                        <td><?=html_entity_decode($this->escape($question->q));?></td>
                                         <td class="table-cell-actions">
                                             <a
                                                 href="<?=$this->url(['action' => 'edit', 'qid' => $this->escape($question->qi)]);?>"

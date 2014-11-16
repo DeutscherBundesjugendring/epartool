@@ -2,12 +2,21 @@
 
 class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
 {
+    protected $_cancelUrl;
+
+    public function __construct($cancelUrl = null)
+    {
+        $this->_cancelUrl = $cancelUrl;
+        parent::__construct();
+    }
 
     public function init()
     {
         $view = new Zend_View();
 
-        $this->setMethod('post');
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => $this->_cancelUrl]);
 
         $expl = $this->createElement('textarea', 'expl');
         $expl

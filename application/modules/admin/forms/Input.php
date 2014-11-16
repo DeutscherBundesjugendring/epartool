@@ -2,13 +2,23 @@
 
 class Admin_Form_Input extends Dbjr_Form_Admin
 {
+    protected $_cancelUrl;
+
+    public function __construct($cancelUrl = null)
+    {
+        $this->_cancelUrl = $cancelUrl;
+        parent::__construct();
+    }
 
     public function init()
     {
-        $this->setMethod('post');
+        $kid = Zend_Controller_Front::getInstance()->getRequest()->getParam('kid', 0);
         $view = new Zend_View();
 
-        $kid = Zend_Controller_Front::getInstance()->getRequest()->getParam('kid', 0);
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => $this->_cancelUrl]);
+
         $selectOptions = (new Model_Questions())->getAdminInputFormSelectOptions($kid);
         $questionId = $this->createElement('select', 'qi');
         $questionId

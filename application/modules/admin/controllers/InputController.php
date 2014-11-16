@@ -107,8 +107,27 @@ class Admin_InputController extends Zend_Controller_Action
     public function editAction()
     {
         $tid = $this->_request->getParam('tid', 0);
+
+        if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
+            $url = $this->view->url(
+                [
+                    'controller' => 'votingprepare',
+                    'action' => 'overview',
+                    'return' => null,
+                    'tid' => null,
+                ]
+            );
+            $cancelUrl = $this->view->returnUrl = $url;
+        } elseif ($this->getRequest()->getParam('qi', null)) {
+            $url = $this->view->url(['action' => 'list-by-question', 'tid' => null]);
+            $cancelUrl = $this->view->returnUrl = $url;
+        } else {
+            $url = $this->view->url(['action' => 'list-by-user', 'tid' => null]);
+            $cancelUrl = $this->view->returnUrl = $url;
+        }
+
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input();
+        $form = new Admin_Form_Input($cancelUrl);
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
@@ -119,12 +138,12 @@ class Admin_InputController extends Zend_Controller_Action
                 }
                 $updated = $inputModel->updateById($tid, $formValues);
                 if ($updated == $tid) {
-                    $this->_flashMessenger->addMessage('Eintrag aktualisiert', 'success');
+                    $this->_flashMessenger->addMessage('Contribution updated.', 'success');
                 } else {
-                    $this->_flashMessenger->addMessage('Aktualisierung fehlgeschlagen', 'error');
+                    $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Bitte Eingaben prüfen!', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 $form->populate($data);
             }
         } else {
@@ -142,26 +161,12 @@ class Admin_InputController extends Zend_Controller_Action
             }
         }
 
-        if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
-            $this->view->returnUrl = $this->view->url(
-                [
-                    'controller' => 'votingprepare',
-                    'action' => 'overview',
-                    'return' => null,
-                    'tid' => null,
-                ]
-            );
-        } elseif ($this->getRequest()->getParam('qi', null)) {
-            $this->view->returnUrl = $this->view->url(['action' => 'list-by-question', 'tid' => null]);
-        } else {
-            $this->view->returnUrl = $this->view->url(['action' => 'list-by-user', 'tid' => null]);
-        }
         $this->view->form = $form;
         $this->view->tid = $tid;
     }
 
     /**
-     * Makes changes to Inputs from the input list contect in bulk and individualy
+     * Makes changes to Inputs from the input list context in bulk and individually
      */
     public function editListAction()
     {
@@ -211,11 +216,11 @@ class Admin_InputController extends Zend_Controller_Action
         $tag = $this->_request->getParam('tg');
 
         if ($kid == 0) {
-            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben.', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided.', 'error');
             $this->redirect('/admin');
         }
         if ($qid == 0) {
-            $this->_flashMessenger->addMessage('Keine Frage angegeben.', 'error');
+            $this->_flashMessenger->addMessage('No question provided.', 'error');
             $this->redirect('/admin');
         }
 

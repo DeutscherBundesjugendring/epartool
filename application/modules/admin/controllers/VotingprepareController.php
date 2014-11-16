@@ -106,8 +106,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      */
     public function splitAction()
     {
+        $cancelUrl = $this->view->url(['action' => 'overview']);
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input();
+        $form = new Admin_Form_Input($cancelUrl);
 
         $inputId = $this->getRequest()->getParam('inputId');
         $this->addNewElements([$inputId], $form);
@@ -136,7 +137,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $inputIds = $this->getRequest()->getParam('inputIds');
 
-        $form = new Admin_Form_Input();
+        $cancelUrl = $this->view->url(['action' => 'overview', 'inputIds' => null]);
+        $form = new Admin_Form_Input($cancelUrl);
         $this->addNewElements($inputIds, $form);
 
         if ($this->getRequest()->isPost()) {
@@ -163,7 +165,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $inputId = $this->getRequest()->getParam('inputId');
 
-        $form = new Admin_Form_Input();
+        $cancelUrl = $this->view->url(['action' => 'overview']);
+        $form = new Admin_Form_Input($cancelUrl);
         $this->addNewElements([$inputId], $form);
 
         if ($this->getRequest()->isPost()) {

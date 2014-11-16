@@ -10,7 +10,7 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
 
         $buttonNum = $this->createElement('number', 'btn_numbers');
         $buttonNum
-            ->setLabel('Number of Voting Buttons')
+            ->setLabel('Number of voting buttons')
             ->setAttrib('max', 4)
             ->setAttrib('min', 1)
             ->addValidator('Int')
@@ -40,12 +40,12 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
         $this->addElement($buttonImportant);
 
         $buttonImportantLabel = $this->createElement('text', 'btn_important_label');
-        $buttonImportantLabel->setLabel('Superbutton Label');
+        $buttonImportantLabel->setLabel('Superbutton label');
         $this->addElement($buttonImportantLabel);
 
         $buttonImportantClicks = $this->createElement('number', 'btn_important_max');
         $buttonImportantClicks
-            ->setLabel('Number of Clicks Allowed')
+            ->setLabel('Number of clicks allowed')
             ->setAttrib('max', 3)
             ->setAttrib('min', 1)
             ->addValidator('Int');

@@ -4,7 +4,9 @@ class Admin_Form_Media_FolderDetail extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $this->setAttrib('class', 'offset-bottom');
+        $this
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/media/folders']);
 
         $folder = $this->createElement('text', 'name');
         $folder

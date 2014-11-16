@@ -34,8 +34,12 @@ class Admin_FollowupController extends Zend_Controller_Action
      */
     public function createSnippetAction()
     {
-        $ffid = $this->getRequest()->getParam('ffid', 0);
-        $form = new Admin_Form_Followup_Snippet();
+        $kid = $this->getRequest()->getParam('kid', null);
+        $fid = $this->getRequest()->getParam('fid', null);
+        $ffid = $this->getRequest()->getParam('ffid', null);
+
+        $cancelUrl = $this->view->url(['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid]);
+        $form = new Admin_Form_Followup_Snippet($cancelUrl);
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
@@ -67,9 +71,13 @@ class Admin_FollowupController extends Zend_Controller_Action
      */
     public function editSnippetAction()
     {
+        $kid = $this->getRequest()->getParam('kid', null);
         $fid = $this->getRequest()->getParam('fid', null);
+        $ffid = $this->getRequest()->getParam('ffid', null);
+
+        $cancelUrl = $this->view->url(['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid]);
+        $form = new Admin_Form_Followup_Snippet($cancelUrl);
         $snippetModel = new Model_Followups();
-        $form = new Admin_Form_Followup_Snippet();
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
@@ -105,7 +113,7 @@ class Admin_FollowupController extends Zend_Controller_Action
      */
     public function createFollowupAction()
     {
-        $form = new Admin_Form_Followup_File();
+        $form = new Admin_Form_Followup_File($this->_kid);
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
@@ -132,7 +140,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     {
         $ffid = $this->getRequest()->getParam('ffid', null);
         $followupModel = new Model_FollowupFiles();
-        $form = new Admin_Form_Followup_File();
+        $form = new Admin_Form_Followup_File($this->_kid);
         $form->setKid($this->_kid);
 
         if ($this->getRequest()->isPost()) {

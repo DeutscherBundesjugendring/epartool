@@ -8,6 +8,7 @@ class Admin_Form_Mail_Template extends Dbjr_Form_Admin
 
         $this
             ->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/mail-template']);
 
         $id = $this->createElement('hidden', 'id');
