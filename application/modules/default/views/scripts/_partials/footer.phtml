@@ -80,17 +80,6 @@
 					</p>
 				</div>
 			</div><!-- .row-fluid -->
-            <p class="footer-note">
-                <?=Zend_Registry::get('systemconfig')
-					->content
-					->{Zend_Controller_Front::getInstance()
-						->getParam('bootstrap')
-						->getPluginResource('locale')
-						->getLocale()
-						->getLanguage()}
-					->financingInfo;
-				?>
-            </p>
 		</div><!-- .container -->
 	</section><!-- .footer-about -->
 
