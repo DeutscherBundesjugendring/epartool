@@ -57,9 +57,9 @@ class Admin_QuestionController extends Zend_Controller_Action
                 $questionRow->ln = 'de';
                 $newId = $questionRow->save();
                 if ($newId > 0) {
-                    $this->_flashMessenger->addMessage('The question was created.', 'success');
+                    $this->_flashMessenger->addMessage('New question has been created.', 'success');
                 } else {
-                    $this->_flashMessenger->addMessage('Form invalid', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 }
 
                 $this->_redirect($this->view->url(array(
@@ -88,10 +88,10 @@ class Admin_QuestionController extends Zend_Controller_Action
                     $questionRow->setFromArray($form->getValues());
                     $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                     $questionRow->save();
-                    $this->_flashMessenger->addMessage('The question was saved.', 'success');
+                    $this->_flashMessenger->addMessage('Changes saved.', 'success');
                     $question = $questionRow->toArray();
                 } else {
-                    $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                     $question = $params;
                 }
             } else {
@@ -116,9 +116,9 @@ class Admin_QuestionController extends Zend_Controller_Action
             $relatedInputs = (new Model_Inputs())->getByQuestion($qid);
             if (empty($relatedInputs)) {
                 (new Model_Questions())->deleteById($qid);
-                $this->_flashMessenger->addMessage('Question deleted.', 'success');
+                $this->_flashMessenger->addMessage('Question has been deleted.', 'success');
             } else {
-                $this->_flashMessenger->addMessage('Question could not be deleted as there are inputs attached to it.', 'error');
+                $this->_flashMessenger->addMessage('Question could not be deleted as there are contributions attached to it.', 'error');
             }
         }
 

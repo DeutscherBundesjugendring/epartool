@@ -124,7 +124,7 @@ class Admin_MediaController extends Zend_Controller_Action
             }
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFolder($oldName, $newName)) {
-                    $this->_flashMessenger->addMessage(sprintf('The folder %s was renamed to %s.', $oldName, $newName), 'success');
+                    $this->_flashMessenger->addMessage(sprintf('The folder %s has been renamed to %s.', $oldName, $newName), 'success');
                     $this->redirect($this->view->url(['action' => 'folders', 'folder' => null]));
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s could not be renamed to %s.', $oldName, $newName), 'error');
@@ -165,9 +165,9 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFile($oldName, $newName, $this->_folder, $newDir)) {
                     if ($this->_folder === $newDir) {
-                        $this->_flashMessenger->addMessage(sprintf('The file %s was renamed to %s.', $oldName, $newName), 'success');
+                        $this->_flashMessenger->addMessage(sprintf('The file %s has been renamed to %s.', $oldName, $newName), 'success');
                     } else {
-                        $this->_flashMessenger->addMessage(sprintf('The file %s/%s was moved to %s/%s.', $this->_folder, $oldName, $newDir, $newName), 'success');
+                        $this->_flashMessenger->addMessage(sprintf('The file %s/%s has been moved to %s/%s.', $this->_folder, $oldName, $newDir, $newName), 'success');
                     }
                     $this->redirect($this->view->url(['action' => 'index', 'folder' => $newDir, 'filename' => null]). '/');
                 } else {
@@ -243,7 +243,7 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($this->getRequest()->getPost())) {
                 $folderName = $form->getValue('name');
                 if ((new Service_Media())->createDir(null, $folderName)) {
-                    $this->_flashMessenger->addMessage(sprintf('The folder %s was created.', $folderName), 'success');
+                    $this->_flashMessenger->addMessage(sprintf('The folder %s has been created.', $folderName), 'success');
                     $this->redirect($this->view->url(['action' => 'folders']));
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s could not be created.', $folderName), 'error');
@@ -298,13 +298,13 @@ class Admin_MediaController extends Zend_Controller_Action
                         $form->getElement('file')->addErrors($uploadRes);
                         $this
                             ->_flashMessenger
-                            ->addMessage('The file could not be uploaded.', 'error');
+                            ->addMessage('File could not be uploaded.', 'error');
                     }
                 } catch (Dbjr_File_Exception $e) {
                     $this->_flashMessenger->addMessage('File already exists.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('The file could not be uploaded.', 'error');
+                $this->_flashMessenger->addMessage('File could not be uploaded.', 'error');
             }
         }
 
@@ -327,10 +327,10 @@ class Admin_MediaController extends Zend_Controller_Action
                     ->_flashMessenger
                     ->addMessage(sprintf('The file %s has been deleted.', $filename), 'success');
             } else {
-                $this->_flashMessenger->addMessage('The file cannot be deleted.', 'error');
+                $this->_flashMessenger->addMessage('File could not be deleted.', 'error');
             }
         } else {
-            $this->_flashMessenger->addMessage('The file cannot be deleted', 'error');
+            $this->_flashMessenger->addMessage('File could not be deleted', 'error');
         }
 
         $this->redirect(

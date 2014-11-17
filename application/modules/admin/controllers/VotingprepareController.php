@@ -65,25 +65,25 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             if ($inputIds) {
                 if ($this->getRequest()->getPost('releaseBulk', null)) {
                     $count = $inputModel->editBulk($inputIds, ['block' => 'n']);
-                    $msg = sprintf($this->view->translate('%d contributions were released.'), $count);
+                    $msg = sprintf($this->view->translate('%d contributions have been released.'), $count);
                 } elseif ($this->getRequest()->getPost('blockBulk', null)) {
                     $count = $inputModel->editBulk($inputIds, ['block' => 'y']);
-                    $msg = sprintf($this->view->translate('%d contributions were blocked.'), $count);
+                    $msg = sprintf($this->view->translate('%d contributions have been blocked.'), $count);
                 } elseif ($this->getRequest()->getPost('enableVotingBulk', null)) {
                     $count = $inputModel->editBulk($inputIds, ['vot' => 'y']);
-                    $msg = sprintf($this->view->translate('%d contributions were sent to voting.'), $count);
+                    $msg = sprintf($this->view->translate('%d contributions have been sent to voting.'), $count);
                 } elseif ($this->getRequest()->getPost('blockVotingBulk', null)) {
                     $count = $inputModel->editBulk($inputIds, ['vot' => 'n']);
-                    $msg = sprintf($this->view->translate('%d contributions were removed from voting.'), $count);
+                    $msg = sprintf($this->view->translate('%d contributions have been removed from voting.'), $count);
                 } elseif ($this->getRequest()->getPost('deleteBulk', null)) {
                     $count = $inputModel->deleteBulk($inputIds);
-                    $msg = sprintf($this->view->translate('%d contributions were deleted.'), $count);
+                    $msg = sprintf($this->view->translate('%d contributions have been deleted.'), $count);
                 } elseif ($this->getRequest()->getPost('sendToDictionaryBulk', null)) {
                     $count = $inputModel->update(
                         ['dir' => $this->getRequest()->getPost('sendToDictionaryId')],
                         ['tid IN (?)' => $inputIds]
                     );
-                    $msg = sprintf($this->view->translate('%d contributions were moved.'), $count);
+                    $msg = sprintf($this->view->translate('%d contributions have been moved.'), $count);
                 } elseif ($this->getRequest()->getPost('merge', null)) {
                     // This is awkward, but we need to utilise the same checkboxes as for bulk editing actions
                     // Essentially this only takes values from inputIds checkboxes and constructs an url to redirect to
@@ -94,7 +94,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage($msg, 'success');
             } elseif ($this->getRequest()->getPost('delete', null)) {
                 $inputModel->deleteById($this->getRequest()->getPost('delete', null));
-                $this->_flashMessenger->addMessage('Contribution was deleted.', 'success');
+                $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
             }
         }
 
@@ -117,10 +117,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
-                $this->_flashMessenger->addMessage('New contribution was created.', 'success');
+                $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect($this->view->url());
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
             }
         }
 
@@ -145,10 +145,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
-                $this->_flashMessenger->addMessage('New contribution was created.', 'success');
+                $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect($this->view->url(['action' => 'overview', 'inputIds' => null]));
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
             }
         }
 
@@ -173,14 +173,14 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
-                $this->_flashMessenger->addMessage('The contribution was copied. This is the copy.', 'success');
+                $this->_flashMessenger->addMessage('Contribution has been copied. This is the copy.', 'success');
                 $this->redirect(
                     $this->view->url(
                         ['controller' => 'input', 'action' => 'edit', 'tid' => $inputId, 'return' => 'votingprepare']
                     )
                 );
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
             }
         } else {
             $origData = $inputModel->getById($inputId);
@@ -211,7 +211,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                         'kid' => $this->_consultation['kid']
                     ]
                 );
-                $this->_flashMessenger->addMessage('New folder was created.', 'success');
+                $this->_flashMessenger->addMessage('New folder has been created.', 'success');
                 $this->redirect($this->view->url());
             } else {
                 $this->_flashMessenger->addMessage('Folder could not be created.', 'error');
@@ -240,7 +240,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 foreach ($postData['order'] as $dirId => $order) {
                     $directoryModel->update(['order' => $order], ['id = ?' => $dirId]);
                 }
-                $this->_flashMessenger->addMessage('Folder order was updated.', 'success');
+                $this->_flashMessenger->addMessage('Folder order has been updated.', 'success');
             }
         }
 

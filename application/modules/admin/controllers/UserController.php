@@ -45,10 +45,7 @@ class Admin_UserController extends Zend_Controller_Action
                     // @todo Nutzer muss über Passwortwechsel informiert werden.
                     $this->_redirect($this->view->url(array('action' => 'index')), array('prependBase' => false));
                 } else {
-                    $this->_flashMessenger->addMessage(
-                        'User with this email address already exists.',
-                        'error'
-                    );
+                    $this->_flashMessenger->addMessage('User with this email address already exists.', 'error');
                     $form->populate($form->getValues());
                 }
 
@@ -114,10 +111,7 @@ class Admin_UserController extends Zend_Controller_Action
                         if ($form->isValid($params)) {
                             $emailAddress =$form->getValue('email');
                             if ($user->email != $emailAddress && $userModel->emailExists($emailAddress)) {
-                                $this->_flashMessenger->addMessage(
-                                    'User with this email address already exists.',
-                                    'error'
-                                );
+                                $this->_flashMessenger->addMessage('User with this email address already exists.', 'error');
                                 $params = $this->getRequest()->getPost();
                                 $params['email'] = $user->email;
                                 $form->populate($params);
@@ -145,15 +139,12 @@ class Admin_UserController extends Zend_Controller_Action
                                     }
                                 }
 
-                                $this->_flashMessenger->addMessage('Changes savedt.', 'success');
+                                $this->_flashMessenger->addMessage('Changes saved.', 'success');
                                 $this->_redirect('/admin/user/edit/uid/'.$uid);
 //                                $form->populate($this->getRequest()->getPost());
                             }
                         } else {
-                            $this->_flashMessenger->addMessage(
-                                'Form is not valid.',
-                                'error'
-                            );
+                            $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                             $form->populate($this->getRequest()->getPost());
                         }
                     } else {
@@ -187,7 +178,7 @@ class Admin_UserController extends Zend_Controller_Action
             try {
                 $deleted = $userModel->deleteById($this->getRequest()->getPost('delete'));
                 $userModel->getAdapter()->commit();
-                $this->_flashMessenger->addMessage('The user was deleted.', 'success');
+                $this->_flashMessenger->addMessage('User has been deleted.', 'success');
             } catch (Exceptioin $e) {
                 $userModel->getAdapter()->rollback();
                 throw $e;

@@ -68,7 +68,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $multiOptions[$key] = $value;
                 }
                 $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                $form->getElement('ref_nm')->setDescription('Bei Unterseiten gilt der Referenzname der Elternseite!');
+                $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
             } else {
                 // set multiOptions for ref_nm
                 foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
@@ -97,9 +97,9 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $articleRow->proj = implode(',', $data['proj']);
                     $newId = $articleRow->save();
                     if ($newId > 0) {
-                        $this->_flashMessenger->addMessage('Neuer Artikel wurde erstellt.', 'success');
+                        $this->_flashMessenger->addMessage('New article has been created.', 'success');
                     } else {
-                        $this->_flashMessenger->addMessage('Erstellen des neuen Artikels fehlgeschlagen!', 'error');
+                        $this->_flashMessenger->addMessage('Creating new article failed.', 'error');
                     }
 
                     $this->_redirect($this->view->url(array(
@@ -107,7 +107,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                         'kid' => $kid
                     )), array('prependBase' => false));
                 } else {
-                    $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                     $form->populate($form->getValues());
                     $form->getElement('proj')->setValue($data['proj']);
                 }
@@ -161,7 +161,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                         $multiOptions[$key] = $value;
                     }
                     $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                    $form->getElement('ref_nm')->setDescription('Bei Unterseiten gilt der Referenzname der Elternseite!');
+                    $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
                 } else {
                     // set multiOptions for ref_nm
                     foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
@@ -189,11 +189,11 @@ class Admin_ArticleController extends Zend_Controller_Action
                         $articleRow->proj = implode(',', $params['proj']);
                         $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                         $articleRow->save();
-                        $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
+                        $this->_flashMessenger->addMessage('Changes saved.', 'success');
                         $article = $articleRow->toArray();
                         $article['proj'] = explode(',', $article['proj']);
                     } else {
-                        $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
+                        $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                         $article = $params;
                     }
                 } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
@@ -239,9 +239,9 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $this->getRequest()->getPost('delete')
             );
             if ($nrDeleted) {
-                $this->_flashMessenger->addMessage('Article was deleted.', 'success');
+                $this->_flashMessenger->addMessage('Article has been deleted.', 'success');
             } else {
-                $this->_flashMessenger->addMessage('Article was not deleted. If it has subarticles, these have to be removed first.', 'error');
+                $this->_flashMessenger->addMessage('Article could not be deleted. If there are any sub-articles, these have to be removed first.', 'error');
             }
         }
 

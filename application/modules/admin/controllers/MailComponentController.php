@@ -63,14 +63,14 @@ class Admin_MailComponentController extends Zend_Controller_Action
                         $componentId = $this->_componentModel->insert($values);
                     }
                     $db->commit();
-                    $this->_flashMessenger->addMessage('Component saved.', 'success');
+                    $this->_flashMessenger->addMessage('Component has been saved.', 'success');
                     $this->_redirect('/admin/mail-component/detail/id/' . $componentId);
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;
                 }
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid!', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
             }
         } elseif (isset($component)) {
             $form->populate($component->toArray());
@@ -96,7 +96,7 @@ class Admin_MailComponentController extends Zend_Controller_Action
                 try {
                     $this->_componentModel->delete(['id=?' => $componentId]);
                     $db->commit();
-                    $this->_flashMessenger->addMessage('Component deleted', 'success');
+                    $this->_flashMessenger->addMessage('Component has been deleted.', 'success');
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;

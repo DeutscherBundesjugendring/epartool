@@ -138,7 +138,7 @@ class Admin_InputController extends Zend_Controller_Action
                 }
                 $updated = $inputModel->updateById($tid, $formValues);
                 if ($updated == $tid) {
-                    $this->_flashMessenger->addMessage('Contribution updated.', 'success');
+                    $this->_flashMessenger->addMessage('Changes saved.', 'success');
                 } else {
                     $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
                 }
@@ -181,23 +181,23 @@ class Admin_InputController extends Zend_Controller_Action
                 switch ($data['bulkAction']) {
                     case 'delete':
                         $nr = $inputModel->deleteBulk($data['inp_list']);
-                        $msg = sprintf($this->view->translate('%d inputs were deleted.'), $nr);
+                        $msg = sprintf($this->view->translate('%d contributions have been deleted.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                     case 'block':
                         $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
-                        $msg = sprintf($this->view->translate('%d inputs were blocked.'), $nr);
+                        $msg = sprintf($this->view->translate('%d contributions have been blocked.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                     case 'publish':
                         $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
-                        $msg = sprintf($this->view->translate('%d inputs were unblocked.'), $nr);
+                        $msg = sprintf($this->view->translate('%d contributions have been unblocked.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                 }
             } elseif (!empty($data['delete'])) {
                 $inputModel->deleteById($data['delete']);
-                $this->_flashMessenger->addMessage('The input was deleted.', 'success');
+                $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
             }
         }
 

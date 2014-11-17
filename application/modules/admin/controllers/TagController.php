@@ -45,7 +45,7 @@ class Admin_TagController extends Zend_Controller_Action
                 $tagModel = new Model_Tags();
                 $key = $tagModel->add($data);
                 if (!empty($key)) {
-                    $this->_flashMessenger->addMessage('Neues Schlagwort angelegt.', 'success');
+                    $this->_flashMessenger->addMessage('New keyword has been added.', 'success');
                 }
                 $this->redirect('/admin/tag/create');
             } else {
@@ -75,13 +75,12 @@ class Admin_TagController extends Zend_Controller_Action
                         $nr = $tagModel->updateById($tg_nr, array('tg_de' => $tg_de));
                         $nrUpdated+= $nr;
                     } else {
-                        $this->_flashMessenger->addMessage('Ungültiger Wert für "'
-                            . $data['tag_old'][$tg_nr] . '"!', 'error');
+                        $this->_flashMessenger->addMessage('Invalid value of "' . $data['tag_old'][$tg_nr] . '".', 'error');
                     }
                 }
             }
             if ($nrUpdated > 0) {
-                $this->_flashMessenger->addMessage($nrUpdated . ' Einträge geändert.', 'success');
+                $this->_flashMessenger->addMessage($nrUpdated . 'Changes saved.', 'success');
             }
         }
 
@@ -99,7 +98,7 @@ class Admin_TagController extends Zend_Controller_Action
             $nr = (new Model_Tags())->deleteById(
                 $this->getRequest()->getPost('delete')
             );
-            $this->_flashMessenger->addMessage('Eintrag gelöscht.', 'success');
+            $this->_flashMessenger->addMessage('Keyword has been deleted.', 'success');
         }
 
         $this->_redirect($this->view->url(['action' => 'index']));

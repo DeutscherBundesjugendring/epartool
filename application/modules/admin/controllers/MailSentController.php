@@ -50,7 +50,7 @@ class Admin_MailSentController extends Zend_Controller_Action
                 try {
                     (new Service_Email)->queueForSend($mailer);
                     $db->commit();
-                    $this->_flashMessenger->addMessage('Email queued for resend.', 'success');
+                    $this->_flashMessenger->addMessage('Email has been queued for resending.', 'success');
                     $this->_redirect('/admin/mail-sent');
                 } catch (Exception $e) {
                     $db->rollback();
@@ -67,4 +67,3 @@ class Admin_MailSentController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 }
-

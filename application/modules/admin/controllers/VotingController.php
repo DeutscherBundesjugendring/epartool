@@ -17,7 +17,7 @@ class Admin_VotingController extends Zend_Controller_Action
             $this->_consultation = $consultationModel->find($kid)->current();
             $this->view->consultation = $this->_consultation;
         } else {
-            $this->_flashMessenger->addMessage('Keine Konsultation angegeben!', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided.', 'error');
             $this->redirect('/admin');
         }
     }
@@ -65,7 +65,7 @@ class Admin_VotingController extends Zend_Controller_Action
                         array('prependBase' => false)
                     );
                 } else {
-                    $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 }
             } else {
                 $data = array(
@@ -81,7 +81,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 array('form' => $form, 'user' => $user)
             );
         } else {
-            $this->_flashMessenger->addMessage('Keine User-ID angegeben!', 'error');
+            $this->_flashMessenger->addMessage('No user provided.', 'error');
             $this->redirect('/admin/voting');
         }
     }
@@ -166,7 +166,7 @@ class Admin_VotingController extends Zend_Controller_Action
                     $mode = 'instantsend';
                     $sentFromPreview = true;
                 } else {
-                    $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                     $form->populate($data);
                 }
             }
@@ -211,7 +211,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 }
                 (new Service_Email)->queueForSend($mailer);
 
-                $this->_flashMessenger->addMessage('Votingeinladung an <b>' . $user['email'] . '</b> versendet.', 'success');
+                $this->_flashMessenger->addMessage('Voting invitation to ' . $user['email'] . ' has been successfully sent.', 'success');
                 $this->redirect('/admin/voting/invitations/kid/' . $this -> _consultation -> kid);
             } else {
                 if (!$formSent) {
@@ -228,7 +228,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->view->form = $form;
             }
         } else {
-            $this->_flashMessenger->addMessage('Kein_e Nutzer_in angegeben!', 'error');
+            $this->_flashMessenger->addMessage('No user provided.', 'error');
             $this->redirect('/admin/voting/invitations/kid/' . $this -> _consultation -> kid);
         }
     }
@@ -259,15 +259,15 @@ class Admin_VotingController extends Zend_Controller_Action
             if ($this->getRequest()->getPost('confirm')) {
                 list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
                 $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
-                $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
+                $this->_flashMessenger->addMessage('Voting participant has been confirmed.', 'success');
             } elseif ($this->getRequest()->getPost('deny')) {
                 list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
-                $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
+                $this->_flashMessenger->addMessage('Voting participant has been denied.', 'success');
                 $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
             } elseif ($this->getRequest()->getPost('delete')) {
                 list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
                 $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
-                $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+                $this->_flashMessenger->addMessage('Voting participant has been deleted.', 'success');
             }
         }
 
@@ -335,11 +335,11 @@ class Admin_VotingController extends Zend_Controller_Action
 
                 // Delete Votes User Origin
                 if ($votesIndividual ->deleteUservotes($subUserOrg)) {
-                    $messages.= 'Votes vom Original-Nutzer wurden gelöscht!<br />';
+                    $messages.= 'Votes by the original user have been removed.<br />';
 
                     // Delete Votes User Selected
                     if ($votesIndividual->deleteUservotes($subUserSelected)) {
-                        $messages .= 'Votes vom ausgewählten Nutzer wurden gelöscht!<br />';
+                        $messages .= 'Votes by selected user have been removed.<br />';
                     }
 
                     // Restore Votes User Origin
@@ -351,11 +351,11 @@ class Admin_VotingController extends Zend_Controller_Action
                         $votesIndividual->insertMergedUservotes($subUserOrg, $value);
                         $vt_inp_list["$x"]= $value['tid'];
                     }
-                    $messages .= $x . ' Votes vom Original-Nutzer wurden wiederhergestellt!<br />';
+                    $messages .= $x . ' Votes by the original user have been restored.<br />';
 
                     // Delete Subuser User Selected
                     if ($groupsModel -> deleteVoterBySubUid($subUserSelected)) {
-                        $messages .= 'Der ausgewählten Nutzer wurde gelöscht!<br />';
+                        $messages .= 'User has been deleted.';
                     }
 
                     $this->_flashMessenger->addMessage($messages, 'success');
@@ -382,7 +382,7 @@ class Admin_VotingController extends Zend_Controller_Action
     {
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($this->_consultation->kid)) {
-            $this->_flashMessenger->addMessage('Keine KonsultationsID vorhanden', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided.', 'error');
             $this->redirect('/admin');
         }
 
@@ -392,10 +392,10 @@ class Admin_VotingController extends Zend_Controller_Action
         if (!$this->_settings) {
             $settingsResult = $settingsModel->add($this->_consultation->kid);
             if ($settingsResult) {
-                $this->_flashMessenger->addMessage('Votingsettings wurden angelegt', 'success');
+                $this->_flashMessenger->addMessage('Changes saved.', 'success');
                 $this->_settings = $settingsModel->find($this->_consultation->kid)->current();
             } else {
-                $this->_flashMessenger->addMessage('Fehler beim Speichen der Settings', 'error');
+                $this->_flashMessenger->addMessage('Saving changes failed.', 'error');
             }
         }
 
@@ -412,7 +412,7 @@ class Admin_VotingController extends Zend_Controller_Action
         if ($post) {
             if (!$form->isValid($post)) {
                 $this->view->form->populate($post);
-                $this->_flashMessenger->addMessage('Bitte prüfe die Formulareingaben!', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
             } else {
                 $values = $this->view->form->getValues();
 
@@ -423,7 +423,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->_settings->btn_important_max= $values['btn_important_max'];
                 $this->_settings->save();
 
-                $this->_flashMessenger->addMessage('Die Änderungen wurden gespeichert', 'success');
+                $this->_flashMessenger->addMessage('Changes saved.', 'success');
             }
         } else {
             $form -> populate($settings);

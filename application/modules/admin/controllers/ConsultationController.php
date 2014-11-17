@@ -90,13 +90,13 @@ class Admin_ConsultationController extends Zend_Controller_Action
                         $newKid
                     );
 
-                    $this->_flashMessenger->addMessage('Neue Beteiligungsrunde wurde erstellt.', 'success');
+                    $this->_flashMessenger->addMessage('New consultation has been created.', 'success');
                     $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
                 } else {
-                    $this->_flashMessenger->addMessage('Erstellen der neuen Beteiligungsrunde fehlgeschlagen!', 'error');
+                    $this->_flashMessenger->addMessage('Creating new consultation failed.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben!', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 $form->populate($this->getRequest()->getPost());
             }
         }
@@ -161,7 +161,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
                 $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
             } else {
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 $form->populate($form->getValues());
             }
         } else {
@@ -186,7 +186,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         if (empty($kid)) {
-            $this->_flashMessenger->addMessage('No consultation provided!', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided.', 'error');
             $this->redirect('/admin');
         }
         $inputsModel = new Model_Inputs();
@@ -258,13 +258,13 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $current_user = Zend_Auth::getInstance()->getIdentity();
         if ($current_user->lvl !== 'adm') {
             $return['success'] = false;
-            $return['message'] = 'ungültige Beteiligungsrunde';
+            $return['message'] = 'Consultation invalid.';
         }
 
         // Validation kid
         if (empty($params['kid'])) {
             $return['success'] = false;
-            $return['message'] = 'ungültige Beteiligungsrunde';
+            $return['message'] = 'Consultation invalid.';
         }
 
         // Validation consultation exists
@@ -272,7 +272,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $consultation = $consultationModel->getById($params['kid']);
         if (!$consultation) {
             $return['success'] = false;
-            $return['message'] = 'Beteiligungsrunde nicht gefunden';
+            $return['message'] = 'Consultation not found.';
         }
 
         // Validation successful
@@ -316,11 +316,11 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $this->_consultation
                     ->setFromArray($postData)
                     ->save();
-                $this->_flashMessenger->addMessage('The custom phase names were saved.', 'success');
+                $this->_flashMessenger->addMessage('Custom phase names have been saved.', 'success');
                 $this->redirect($this->view->url());
             } else {
                 $form->setActive();
-                $this->_flashMessenger->addMessage('Form invalid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
             }
         } elseif ($this->_consultation->phase_info
             || $this->_consultation->phase_support
