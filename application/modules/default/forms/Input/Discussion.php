@@ -14,14 +14,18 @@ class Default_Form_Input_Discussion extends Zend_Form
         $placeholder = $view->translate('Your discussion contribution');
         $body
             ->setRequired(true)
+            ->setAttrib('rows', 5)
+            ->setAttrib('class', 'input-block-level')
             ->setAttrib('placeholder', $placeholder);
         $this->addElement($body);
 
 
         $email = $this->createElement('text', 'email');
         $email
-            ->setLabel('Email Address')
+            ->setLabel('Your Email')
             ->setRequired(true)
+            ->setAttrib('type', 'email')
+            ->setAttrib('class', 'input-xlarge')
             ->setAttrib('placeholder', '@')
             ->setValidators([['NotEmpty', true], 'EmailAddress']);
         $this->addElement($email);

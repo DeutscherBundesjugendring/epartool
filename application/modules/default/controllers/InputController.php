@@ -598,6 +598,7 @@ class InputController extends Zend_Controller_Action
             $this->_redirect('/');
         }
         $inputDiscussModel = new Model_InputDiscussion();
+        $inputsModel = new Model_Inputs();
         $form = new Default_Form_Input_Discussion();
         $isSubsribed = false;
         $auth = Zend_Auth::getInstance();
@@ -689,10 +690,22 @@ class InputController extends Zend_Controller_Action
         $this->view->discussionContribs = $inputDiscussModel->fetchAll(
             $inputDiscussModel
                 ->select()
+                ->from(['i' => $inputDiscussModel->info(Model_InputDiscussion::NAME)], ['user_id', 'time_created', 'body'])
                 ->where('input_id=?', $inputId)
                 ->where('is_visible=?', 1)
                 ->where('is_user_confirmed=?', 1)
+                ->setIntegrityCheck(false)
+                ->join(
+                    (new Model_Users())->info(Model_Users::NAME),
+                    (new Model_Users())->info(Model_Users::NAME) . '.uid = i.user_id',
+                    ['uid', 'name']
+                )
                 ->order('time_created ASC')
+        );
+        $this->view->input = $inputsModel->fetchRow(
+            $inputsModel
+                ->select()
+                ->where('tid=?', $inputId)
         );
     }
 
