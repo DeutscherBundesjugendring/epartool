@@ -29,7 +29,7 @@
                         <?php if ($this->inputs): ?>
                             <?php foreach($this->inputs as $input): ?>
                                 <blockquote>
-                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid']]);?>">
+                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
                                         <p><?=$input['thes'];?></p>
                                     </a>
                                     <footer>
