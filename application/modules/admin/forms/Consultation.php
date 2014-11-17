@@ -26,17 +26,17 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $image = $this->createElement('file', 'img_file');
         $image
-            ->setLabel('Image')
+            ->setLabel('Featured image')
             ->setRequired(true);
         $this->addElement($image);
 
         $imageDesc = $this->createElement('text', 'img_text');
-        $imageDesc->setLabel('Image description');
+        $imageDesc->setLabel('Featured image description');
         $this->addElement($imageDesc);
 
         $desc = sprintf(
-            $view->translate('(z.B. höher=weiter vorn; z.B. derzeit neue höchste Nummer: %d)'),
-            (new Model_Consultations())->getLastId() + 1
+            $view->translate('The higher number, the higher position in consultation list. The highest position is currently %d.'),
+            (new Model_Consultations())->getLastId()
         );
         $order = $this->createElement('number', 'ord');
         $order
@@ -60,12 +60,19 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($explShort);
 
+        $inputShow = $this->createElement('checkbox', 'inp_show');
+        $inputShow
+            ->setLabel('Enable contribution phase')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($inputShow);
+
         $inputFrom = $this->createElement('text', 'inp_fr');
         $inputFrom
             ->setLabel('Contribution phase start')
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($inputFrom);
 
@@ -74,35 +81,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setLabel('Contribution phase end')
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($inputTo);
-
-        $inputShow = $this->createElement('checkbox', 'inp_show');
-        $inputShow
-            ->setLabel('Enable input phase')
-            ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
-        $this->addElement($inputShow);
-
-        $supportFrom = $this->createElement('text', 'spprt_fr');
-        $supportFrom
-            ->setLabel('Support phase start')
-            ->setRequired(true)
-            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
-            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
-        $this->addElement($supportFrom);
-
-        $supportTo = $this->createElement('text', 'spprt_to');
-        $supportTo
-            ->setLabel('Support phase end')
-            ->setRequired(true)
-            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
-            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
-        $this->addElement($supportTo);
 
         $supportShow = $this->createElement('checkbox', 'spprt_show');
         $supportShow
@@ -112,23 +92,21 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($supportShow);
 
-        $voteFrom = $this->createElement('text', 'vot_fr');
-        $voteFrom
-            ->setLabel('Voting phase start')
+        $supportFrom = $this->createElement('text', 'spprt_fr');
+        $supportFrom
+            ->setLabel('Support phase start')
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
-        $this->addElement($voteFrom);
+        $this->addElement($supportFrom);
 
-        $voteTo = $this->createElement('text', 'vot_to');
-        $voteTo
-            ->setLabel('Voting phase end')
+        $supportTo = $this->createElement('text', 'spprt_to');
+        $supportTo
+            ->setLabel('Support phase end')
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
-        $this->addElement($voteTo);
+        $this->addElement($supportTo);
 
         $voteShow = $this->createElement('checkbox', 'vot_show');
         $voteShow
@@ -138,6 +116,22 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($voteShow);
 
+        $voteFrom = $this->createElement('text', 'vot_fr');
+        $voteFrom
+            ->setLabel('Voting phase start')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($voteFrom);
+
+        $voteTo = $this->createElement('text', 'vot_to');
+        $voteTo
+            ->setLabel('Voting phase end')
+            ->setRequired(true)
+            ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
+            ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        $this->addElement($voteTo);
+
         $voteResShow = $this->createElement('checkbox', 'vot_res_show');
         $voteResShow
             ->setLabel('Make voting results public')
@@ -145,6 +139,14 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setCheckedValue('y')
             ->setUncheckedValue('n');
         $this->addElement($voteResShow);
+
+        $explVoting = $this->createElement('textarea', 'vot_expl');
+        $explVoting
+            ->setLabel('Voting phase explanation')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setAttrib('rows', 5)
+            ->addFilter('HtmlEntities');
+        $this->addElement($explVoting);
 
         $discussionActive = $this->createElement('checkbox', 'is_discussion_active');
         $discussionActive
@@ -158,7 +160,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $discussionFrom
             ->setLabel('Discussion phase start')
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($discussionFrom);
 
@@ -166,17 +167,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $discussionTo
             ->setLabel('Discussion phase end')
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($discussionTo);
-
-        $followupSummaryShow = $this->createElement('checkbox', 'summ_show');
-        $followupSummaryShow
-            ->setLabel('Enable followup summary')
-            ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
-        $this->addElement($followupSummaryShow);
 
         $followupShow = $this->createElement('checkbox', 'follup_show');
         $followupShow
@@ -186,13 +178,13 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($followupShow);
 
-        $explVoting = $this->createElement('textarea', 'vot_expl');
-        $explVoting
-            ->setLabel('Explanation')
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
-            ->setAttrib('rows', 5)
-            ->addFilter('HtmlEntities');
-        $this->addElement($explVoting);
+        $followupSummaryShow = $this->createElement('checkbox', 'summ_show');
+        $followupSummaryShow
+            ->setLabel('Enable followup summary')
+            ->setRequired(true)
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($followupSummaryShow);
 
         $isPublic = $this->createElement('checkbox', 'public');
         $isPublic
@@ -202,7 +194,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($isPublic);
 
-        $options = [0 => 'keiner ausgewählt'];
+        $options = [0 => 'Please select…'];
         $admins = (new Model_Users())->getAdmins();
         foreach ($admins as $admin) {
             $options[$admin->uid] = $admin->email;
@@ -221,7 +213,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $project = $this->createElement('multiCheckbox', 'proj');
         $project
             ->setLabel('Project')
-            ->setDescription('Note: current project must be always selected.')
+            ->setDescription('Current project must be always selected.')
             ->setRequired(true)
             ->setMultiOptions($options)
             ->setValue([Zend_Registry::get('systemconfig')->project]);
@@ -255,7 +247,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $imgFile
             ->setLabel('Featured image')
             ->setRequired(true)
-            ->setOrder(3)
+            ->setOrder(2)
             ->setKid($kid);
         $this->addElement($imgFile);
 
