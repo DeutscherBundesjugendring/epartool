@@ -39,7 +39,7 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->addValidator('EmailAddress');
         $this->addElement($email);
 
-        $role = $this->createElement('select', 'role');
+        $role = $this->createElement('select', 'lvl');
         $role
             ->setLabel('Role')
             ->setRequired(true)
