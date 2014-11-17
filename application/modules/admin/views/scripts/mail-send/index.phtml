@@ -9,9 +9,9 @@
 
         <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Sent Emails');?></a>
 
-        <h3><?=$this->translate('Templates');?></h3>
-        <select class="js-template-selector">
-            <option value="0">--<?=$this->translate('Select');?>--</option>
+        <h3><?=$this->translate('Create from template');?></h3>
+        <select class="form-control js-template-selector">
+            <option value="0"><?=$this->translate('Please select…');?></option>
             <?php foreach ($this->templates as $template): ?>
                 <option value="<?php echo $template->id?>"><?php echo $template->name?></option>
             <?php endforeach ?>

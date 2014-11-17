@@ -31,7 +31,7 @@ class Admin_Form_Mail_Component extends Dbjr_Form_Admin
 
         $bodyHtml = $this->createElement('textarea', 'body_html');
         $bodyHtml
-            ->setLabel('Message (html)')
+            ->setLabel('Message (HTML)')
             ->setRequired(true)
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL)
             ->setAttrib('rows', 5);

@@ -29,7 +29,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $mailbcc = $this->createElement('email', 'mailbcc');
         $mailbcc
-            ->setLabel('To')
+            ->setLabel('Bcc')
             ->setAttrib('maxlength', 255)
             ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
             ->addValidator('EmailAddress');
@@ -57,7 +57,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             $consuls[$cons['kid']] = $cons;
         }
         $consulElement
-            ->addMultiOption('0', 'Select')
+            ->addMultiOption('0', 'Please select…')
             ->setAttrib('class', 'js-consultation-selector')
             ->setLabel('Consultation')
             ->setAttrib('data-consultations', json_encode($consuls));
@@ -66,7 +66,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $consulParticipant = $this->createElement('checkbox', 'mail_consultation_participant');
         $consulParticipant
-            ->setLabel('All Participants')
+            ->setLabel('All participants')
             ->setAttrib('class', 'js-consultation-participant')
             ->setAttrib('disabled', 'disabled');
         $this->addElement($consulParticipant);
@@ -74,7 +74,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $consulVoter = $this->createElement('checkbox', 'mail_consultation_voter');
         $consulVoter
-            ->setLabel('Participants who Voted')
+            ->setLabel('Participants who voted')
             ->setAttrib('class', 'js-consultation-vote')
             ->setAttrib('disabled', 'disabled');
         $this->addElement($consulVoter);
@@ -82,7 +82,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $consulFollowup = $this->createElement('checkbox', 'mail_consultation_followup');
         $consulFollowup
-            ->setLabel('Participants who signed up to recieve followups')
+            ->setLabel('Participants who signed up to receive followups')
             ->setAttrib('class', 'js-consultation-followup')
             ->setAttrib('disabled', 'disabled');
         $this->addElement($consulFollowup);
@@ -90,7 +90,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $consulNewsletter = $this->createElement('checkbox', 'mail_consultation_newsletter');
         $consulNewsletter
-            ->setLabel('Participants who signed up to recieve newsletter')
+            ->setLabel('Participants who signed up to receive newsletter')
             ->setAttrib('class', 'js-consultation-newsletter')
             ->setAttrib('disabled', 'disabled');
         $this->addElement($consulNewsletter);
@@ -110,7 +110,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $bodyText = $this->createElement('textarea', 'body_text');
         $bodyText
-            ->setLabel('Body text')
+            ->setLabel('Message (plain text)')
             ->setRequired(true)
             ->setAttrib('class', 'js-body-text')
             ->setAttrib('cols', 100)
@@ -122,12 +122,12 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $bodyHtml = $this->createElement('textarea', 'body_html');
         $bodyHtml
-            ->setLabel('Body html')
+            ->setLabel('Message (HTML)')
             ->setRequired(true)
             ->setAttrib('class', 'js-body-html')
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 5)
-            ->setAttrib('placeholder', $view->translate('Message as plain html'))
+            ->setAttrib('placeholder', $view->translate('Message as HTML'))
             ->addValidator('notEmpty');
         $this->addElement($bodyHtml);
 
