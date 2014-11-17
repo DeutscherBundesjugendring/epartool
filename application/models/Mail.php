@@ -28,6 +28,8 @@ class Model_Mail extends Dbjr_Db_Table_Abstract
         unset($data['cc']);
         $bcc = $data['bcc'];
         unset($data['bcc']);
+        $attachments = $data['attachments'];
+        unset($data['attachments']);
 
         $mailId = parent::insert($data);
 
@@ -59,6 +61,15 @@ class Model_Mail extends Dbjr_Db_Table_Abstract
                     'type' => Model_Mail_Recipient::TYPE_BCC,
                     'name' => !is_int($name) ? $name : null,
                     'email' => $email,
+                )
+            );
+        }
+        $attachmentModel = new Model_Mail_Attachment();
+        foreach ($attachments as $file) {
+            $attachmentModel->insert(
+                array(
+                    'email_id' => $mailId,
+                    'filepath' => $file,
                 )
             );
         }

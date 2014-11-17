@@ -12,26 +12,37 @@ class Zend_View_Helper_RibbonImage extends Zend_View_Helper_Abstract
         $nowDatePlusOne = Zend_Date::now()->addDay(1);
         $nowDate = Zend_Date::now();
 
-        // var_dump($con);exit;
-        if ($nowDatePlusOne->isEarlier($con->inp_to)) {
+        if ($nowDatePlusOne->isEarlier(new Zend_Date($con->inp_to, Zend_Date::ISO_8601))) {
             $imgPart = 'mitmachen';
             $text = $this->view->translate('Participate');
-        } elseif ($nowDate->isEarlier($con->inp_to) && $nowDatePlusOne->isLater($con->inp_to)) {
+        } elseif ($nowDate->isEarlier(new Zend_Date($con->inp_to, Zend_Date::ISO_8601))
+            && $nowDatePlusOne->isLater(new Zend_Date($con->inp_to, Zend_Date::ISO_8601))
+        ) {
             $imgPart = 'nur-noch-heute';
             $text = $this->view->translate('only today');
-        } elseif ($nowDate->isLater($con->inp_to) && $nowDate->isEarlier($con->vot_fr)) {
+        } elseif ($nowDate->isLater(new Zend_Date($con->inp_to, Zend_Date::ISO_8601))
+            && $nowDate->isEarlier(new Zend_Date($con->vot_fr, Zend_Date::ISO_8601))
+        ) {
             $imgPart = 'bald-abstimmen';
             $text = $this->view->translate('Voting coming up');
-        } elseif ($nowDate->isLater($con->vot_fr) && $nowDatePlusOne->isEarlier($con->vot_to)) {
+        } elseif ($nowDate->isLater(new Zend_Date($con->vot_fr, Zend_Date::ISO_8601))
+            && $nowDatePlusOne->isEarlier(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
+        ) {
             $imgPart = 'mitmachen';
             $text = $this->view->translate('Participate');
-        } elseif ($nowDate->isEarlier($con->vot_to) && $nowDatePlusOne->isLater($con->vot_to)) {
+        } elseif ($nowDate->isEarlier(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
+            && $nowDatePlusOne->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
+        ) {
             $imgPart = 'nur-noch-heute';
             $text = $this->view->translate('only today');
-        } elseif ($nowDate->isLater($con->vot_to) && $con->follup_show == 'n') {
+        } elseif ($nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
+            && $con->follup_show == 'n'
+        ) {
             $imgPart = 'ergebnisse';
             $text = $this->view->translate('Results');
-        } elseif ($nowDate->isLater($con->vot_to) && $con->follup_show == 'y') {
+        } elseif ($nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
+            && $con->follup_show == 'y'
+        ) {
             $imgPart = 'reaktion';
             $text = $this->view->translate('Reaction');
         }

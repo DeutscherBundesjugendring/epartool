@@ -9,7 +9,15 @@
 					<?php echo $this->footerLinks(); ?>
 					<li class="licence">
 						<a
-							href="<?=Zend_Registry::get('systemconfig')->license->creative_commons->link?>"
+							href="<?=Zend_Registry::get('systemconfig')
+								->content
+								->{Zend_Controller_Front::getInstance()
+            						->getParam('bootstrap')
+            						->getPluginResource('locale')
+            						->getLocale()
+            						->getLanguage()}
+            					->creativeCommonsLicenseLink;
+            				?>"
 							rel="license"
 							class="logo"
 							target="_blank"

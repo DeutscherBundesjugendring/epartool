@@ -1,40 +1,93 @@
-<?php ?>
-<h1><?=$this->consultation['titl']?></h1>
-<?=$this->consultationNavigation('Votingergebnisse')?>
-<h2>Abstimmungsergebnisse</h2>
-<h3>Fragen:</h3>
-<ul>
-	<?php foreach ($this->questions as $question): ?>
-			<?php if ($question['qi'] == $this->currentQuestion['qi']): ?>
-		  		<li>
-		  			<strong><?php echo $question['nr'] . ' ' . $question['q']; ?></strong>
-		  		</li>
-			<?php else: ?>
-			  	<li>
-			  		<a href="<?php echo $this -> url(array('qid' => $question['qi'])); ?>">
-			  			<?php echo $question['nr'] . ' ' . $question['q']; ?>
-			  		</a>
-			  	</li>
-			<?php endif; ?>
-	<?php endforeach; ?>
-</ul>
+<section class="section-header has-tabs">
+    <div class="container">
 
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
-<h3><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h3>
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
-<?php foreach ($this->votings as $key => $value): ?>
-	<?php
-		$diag_lngth = 0;
-		if ( $this -> highest_rank!=0) $diag_lngth = round(($value['rank'] * 600) / $this -> highest_rank, 0);
-	?>
-	<p><?php echo $value['thes']; ?></p>
-	<div
-		style="background-color: #d9e8ef; color: #3f6f8d; font-size: smaller; margin-bottom: 2em; padding: 4px; width: <?=$diag_lngth?>px;"
-		class="voting-result-bar<?php if ($value['fowups']=="y") echo "-fup"; ?>"
-		title="(Gewichtete Punkte: <?=round($value['points'], 2)?> bei <?=$value['cast']?> Stimmen)"
-	>
-		&nbsp;<?php echo round($value['rank'], 2); ?> Punkte
-	</div>
-<?php endforeach; ?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
 
-<p><a href="#">&uarr; Nach oben</a></p>
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-results');?>
+
+            </div>
+            <div class="content">
+
+                <h2><?=$this->translate('Voting Results');?></h2>
+
+                <?php if (!empty($this->questions)): ?>
+
+                    <div class="well offset-bottom">
+                        <h3 class="h4"><?=$this->translate('Questions');?>:</h3>
+                        <ul class="list-unstyled">
+                            <?php foreach ($this->questions as $question): ?>
+                                <li>
+                                    <?php if ($question['qi'] == $this->currentQuestion['qi']): ?>
+                                        <strong><?=$question['nr'];?> <?=$question['q'];?></strong>
+                                    <?php else: ?>
+                                        <a href="<?=$this->url(['qid' => $question['qi']]);?>"><?=$question['nr'] . ' ' . $question['q'];?></a>
+                                    <?php endif;?>
+                                </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
+
+                    <?php if ($this->votings): ?>
+                        <?php foreach ($this->votings as $theses => $thesis): ?>
+                            <div class="row">
+                                <div class="col-xs-1">
+
+                                    <span class="h3"><?=$theses + 1;?>.</span>
+
+                                </div>
+                                <div class="col-xs-11">
+
+                                    <?php if ($this->highest_rank !== 0): ?>
+                                        <?php $percent = round($thesis['rank'] * 100 / $this->highest_rank, 0);?>
+                                    <?php else: ?>
+                                        <?php $percent = 0; ?>
+                                    <?php endif; ?>
+
+                                    <p><?=$thesis['thes'];?></p>
+                                    <div
+                                        class="progress"
+                                        title="<?=$this->translate('Weighted points');?>: <?=round($thesis['points'], 2);?>, <?=$thesis['cast'];?> <?=$this->translate('votes');?>"
+                                        >
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            aria-valuenow="<?=$percent;?>"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            style="width: <?=$percent;?>%;"
+                                            >
+                                            <?=$percent;?> %
+                                        </div>
+                                    </div><!-- .progress -->
+
+                                </div>
+                            </div><!-- .row -->
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="alert alert-info">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <?=$this->translate('There are no voting results to be shown at the moment.');?>
+                        </p>
+                    <?php endif;?>
+
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no voting results to be shown at the moment.');?>
+                    </p>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</section>

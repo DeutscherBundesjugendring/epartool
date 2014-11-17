@@ -32,17 +32,10 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
      */
     public function getById($id, $tag = 0)
     {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return array();
-        }
 
         $row = $this->find($id)->current();
-        // ohne Tags
         $subRow = $row->findDependentRowset('Model_Inputs');
 
-        // hole zu jedem Input noch die zugeordneten Tags mit
         $modelInputs = new Model_Inputs();
         $inputs = array();
         $tmpInputs = $subRow->toArray();
@@ -211,50 +204,6 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Liefert ein Array mit Fragen inkl. Beiträgen, die ein bestimmter Nutzer ($uid)
-     * verfasst hat. Es werden nur Fragen zurückgeliefert, für welche Beiträge des
-     * Nutzers existieren
-     *
-     * @param  integer $uid User ID
-     * @param  integer $kid Consultation ID
-     * @return array
-     */
-    public function getWithInputsByUser($uid, $kid)
-    {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($uid)) {
-            throw new Zend_Exception('Given uid must be integer!');
-        }
-        if (!$validator->isValid($kid)) {
-            throw new Zend_Exception('Given kid must be integer!');
-        }
-
-        $inputsModel = new Model_Inputs();
-        $order = array('when ASC');
-        $userInputs = $inputsModel->getByUserAndConsultation($uid, $kid, $order);
-        $questions = array();
-        foreach ($userInputs as $input) {
-            if (!array_key_exists($input['qi'], $questions)) {
-                $question = $this->find($input['qi'])->current();
-                if (!empty($question)) {
-                    $questions[$input['qi']] = $question->toArray();
-                }
-            }
-            if (array_key_exists($input['qi'], $questions)) {
-                $questions[$input['qi']]['inputs'][] = $input;
-            }
-        }
-        // Sortieren nach nr
-        $aReturn = array();
-        foreach ($questions as $question) {
-            $aReturn[$question['nr']] = $question;
-        }
-
-        return $aReturn;
-    }
-
-    /**
      * Search in questions by consultations
      * @param string  $needle
      * @param integer $consultationId
@@ -279,5 +228,77 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Modifies the Select object to also select info about the number of inputs per question
+     * @param  Zend_Db_Select  $select     The select object to modify
+     * @param  string          $tableAlias The table alias to be used for the subquery
+     * @return Zend_Db_Select              The modified select
+     */
+    public function selectInputCountByQuestion(Zend_Db_Select $select, $tableAlias)
+    {
+        $select->joinLeft(
+            [$tableAlias => new Zend_Db_Expr('(SELECT qi AS tmpQi, COUNT(*) AS inputCountTotal FROM inpt GROUP BY qi)')],
+            $this->info(self::NAME) . '.qi = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.tmpQi'
+        );
+
+        return $select;
+    }
+
+    /**
+     * Modifies the Select object to also select info about the number of unread inputs per question
+     * @param  Zend_Db_Select  $select     The select object to modify
+     * @param  string          $tableAlias The table alias to be used for the subquery
+     * @return Zend_Db_Select              The modified select
+     */
+    public function selectUnreadInputCountByQuestion(Zend_Db_Select $select, $tableAlias)
+    {
+        $select->joinLeft(
+            [$tableAlias => new Zend_Db_Expr("(SELECT qi AS tmpQi, COUNT(*) AS inputCountUnread FROM inpt WHERE `block`='u' GROUP BY qi)")],
+            $this->info(self::NAME) . '.qi = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.tmpQi'
+        );
+
+        return $select;
+    }
+
+    /**
+     * Returns snippets grouped by question
+     * @param  integer $kid      The consultation identifier
+     * @param  array   $wheres   An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @return array             An array of arrays
+     */
+    public function getWithInputs($wheres)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($this->info(self::NAME))
+            ->joinLeft(
+                (new Model_Inputs())->info(Model_Inputs::NAME),
+                $this->info(self::NAME) . '.qi = ' . (new Model_Inputs())->info(Model_Inputs::NAME) . '.qi'
+            )
+            ->order('tid');
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
+        }
+
+        $res = $this->fetchAll($select);
+
+        $inputs = [];
+        foreach ($res as $input) {
+            if (!isset($inputs[$input->nr])) {
+                $inputs[$input->nr] = [
+                    'q' => $input->q,
+                    'inputs' => [],
+                ];
+            }
+            if ($input->tid) {
+                $inputs[$input['nr']]['inputs'][] = $input;
+            }
+        }
+
+        return $inputs;
     }
 }

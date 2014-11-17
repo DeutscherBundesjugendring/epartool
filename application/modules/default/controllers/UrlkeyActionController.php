@@ -22,7 +22,7 @@ class UrlkeyActionController extends Zend_Controller_Action
                     ->select()
                     ->where('urlkey=?', $urlkey)
                     ->where('time_visited IS NULL')
-                    ->where('time_valid_to > NOW()')
+                    ->where('time_valid_to > NOW() OR time_valid_to IS NULL')
             );
 
             if ($urlkeyAction) {

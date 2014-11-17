@@ -1,0 +1,38 @@
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Media');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?php if (!$this->lockDir): ?>
+                    <?=$this->mediaNavigation();?>
+                <?php endif?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'index', 'filename' => null]);?>" class="back">&larr; <?=$this->translate('Back to Folder');?></a>
+                <h2><?=$this->translate('Edit File');?></h2>
+
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

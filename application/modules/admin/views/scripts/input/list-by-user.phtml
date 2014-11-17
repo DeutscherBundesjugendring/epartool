@@ -1,0 +1,201 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>" class="back">&larr; <?=$this->translate('Back to Contributions')?></a>
+                <h2>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'kid' => null]);?>">
+                        <?=$this->user['name'];?>
+                        <small><?=$this->user['email'];?></small>
+                    </a>
+                </h2>
+
+                <table class="table table-condensed">
+                    <tr>
+                        <th class="col-xs-4"><?=$this->translate('Last activity');?></th>
+                        <td>
+                            <?php if (!empty($this->user['last_act'])): ?>
+                                <?=$this->formatDate($this->user['last_act']);?>
+                            <?php endif;?>
+                        <td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Contact person');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['name_pers']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Group name');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['name_group']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Source');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['source']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Description');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['src_misc']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Group size');?></th>
+                        <td>
+                            <?php if (array_key_exists($this->user_info['group_size'], $this->userGroupSizes)): ?>
+                                <?=$this->userGroupSizes[$this->user_info['group_size']];?>
+                            <?php else: ?>
+                                <?=$this->translate('N/A');?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Region');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['regio_pax']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Age groups');?></th>
+                        <td>
+                            <?php $age_tm = [
+                                1 => $this->translate('up to 17'),
+                                2 => $this->translate('up to 26'),
+                                3 => $this->translate('from 27'),
+                                4 => $this->translate('all age groups'),
+                                5 => $this->translate('N/A'),
+                            ];?>
+                            <?php if (array_key_exists($this->user_info['age_group'], $age_tm)): ?>
+                                <?=$age_tm[$this->user_info['age_group']];?>
+                            <?php else: ?>
+                                <?=$this->translate('N/A');?>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Newsletter');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['newsl_subscr']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Inform about consultation results');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['cnslt_results']); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?=$this->translate('Comment');?></th>
+                        <td>
+                            <?php echo $this->escape($this->user_info['cmnt_ext']); ?>
+                        </td>
+                    </tr>
+                </table>
+
+                <?php if (count($this->inputs)): ?>
+                    <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                        <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
+
+                        <!-- Actions -->
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="js-toggle-all" />
+                                            <?=$this->translate('Marked entries');?>:
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-9 text-right">
+                                    <div class="btn-group">
+                                        <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ok-sign"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Publish');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="block" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Block');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Delete');?></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div><!-- .row -->
+                        </div>
+
+                        <!-- Listing -->
+                        <?php foreach ($this->inputs as $questionNum => $inputs): ?>
+                            <h3><?=$inputs['q'];?></h3>
+                            <table class="table table-bordered table-responsive js-table-rows-toggle">
+                                <?php foreach ($inputs['inputs'] as $input): ?>
+                                    <?=$this->partial('input/_inputBox.phtml', ['input' => $input]);?>
+                                <?php endforeach;?>
+                            </table>
+                        <?php endforeach;?>
+
+                        <!-- Actions -->
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="js-toggle-all" />
+                                            <?=$this->translate('Marked entries');?>:
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-9 text-right">
+                                    <div class="btn-group">
+                                        <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ok-sign"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Publish');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="block" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Block');?></span>
+                                        </button>
+                                        <button type="submit" name="bulkAction" value="delete" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            <span class="hidden-xs"><?=$this->translate('Delete');?></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div><!-- .row -->
+                        </div>
+
+                    </form>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('This user has not contributed yet.');?>
+                    </p>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</section>

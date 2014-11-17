@@ -1,8 +1,56 @@
-<?php
-/**
- * index
- *
- * @description   Media Dashboard
- * @author        Markus Hackel
- */
-?>
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Media');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+
+        <?php if (!$this->lockDir): ?>
+            <div class="row">
+                <div class="sidebar">
+
+                    <?=$this->mediaNavigation();?>
+
+                </div>
+                <div class="content">
+        <?php endif?>
+
+        <?php if ($this->lockDir): ?>
+            <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>" class="back">&larr; <?=$this->translate('Back to Media');?></a>
+        <?php else: ?>
+            <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to All Media');?></a>
+        <?php endif; ?>
+
+        <h2><?=$this->translate('File Upload');?></h2>
+
+        <?=$this->form;?>
+
+        <p class="well">
+            <strong>
+                <span class="glyphicon glyphicon-file"></span>
+                <?=$this->translate('Following file types are allowed:');?>
+            </strong>
+            <br />
+            <?=implode(', ', $this->allowedFileTypes);?>
+        </p>
+
+        <?php if (!$this->lockDir): ?>
+                </div>
+            </div><!-- .row -->
+        <?php endif; ?>
+
+    </div>
+</section>

@@ -8,67 +8,97 @@ class Admin_InputController extends Zend_Controller_Action
 
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
-        $kid = $this->_request->getParam('kid', 0);
-        if ($kid > 0) {
-            $consultationModel = new Model_Consultations();
-            $this->_consultation = $consultationModel->getById($kid);
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $kid = $this->_request->getParam('kid', null);
+        if ($kid) {
+            $this->_consultation = (new Model_Consultations())->getById($kid);
             $this->view->consultation = $this->_consultation;
         }
     }
 
     /**
-     * List of all Inputs by Question, optionally filtered by Tag
+     * Shows the list of questions and contributers
      */
     public function indexAction()
     {
-        $qid = $this->_request->getParam('qid', 0);
-        $tid = $this->_request->getParam('tid', 0);
-        $tag = $this->_request->getParam('tag', 0);
-        $questionModel = new Model_Questions();
-        $tagModel = new Model_Tags();
+        $userModel = new Model_Users();
+        $questionsModel = new Model_Questions();
 
-        if ($qid > 0) {
-            $this->view->question = $questionModel->getById($qid, $tag);
-        }
+        $inputTableAlias = 'inputTableAlias';
+        $select = $userModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($userModel->info(Model_Users::NAME), ['name', 'email', 'cmnt']);
+        $userModel->selectInputCount($select, $inputTableAlias);
+        $select
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = ' . $userModel->getAdapter()->quoteIdentifier($inputTableAlias) . '.qi'
+            )
+            ->where('q.kid = ?', $this->_consultation['kid']);
+        $users = $userModel->fetchAll($select);
 
-        if ($tag > 0) {
-            $this->view->tag = $tagModel->getById($tag);
-        }
-        $this->view->tid = $tid;
-        $this->view->qid = $qid;
+        $select = $questionsModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($questionsModel->info(Model_Questions::NAME), ['qi', 'q', 'nr'])
+            ->where('kid = ?', $this->_consultation['kid']);
+        $questionsModel->selectInputCountByQuestion($select, 'inputCountTotal');
+        $questionsModel->selectUnreadInputCountByQuestion($select, 'inputCountUnread');
+        $questions = $questionsModel->fetchAll($select);
+
+        $this->view->questions = $questions;
+        $this->view->users = $users;
     }
 
     /**
-     * List of all Inputs of a Consultation by User
+     * List inputs for the given question
      */
-    public function listAction()
+    public function listByQuestionAction()
     {
-        $kid = $this->_request->getParam('kid', 0);
-        $uid = $this->_request->getParam('uid', 0);
+        $qid = $this->_request->getParam('qi', null);
+        $isUnread = $this->_request->getParam('isUnread', null);
 
-        $this->view->assign(
+        $questionsModel = new Model_Questions();
+        $question = $questionsModel->fetchRow(
+            $questionsModel
+                ->select()
+                ->from($questionsModel->info(Model_Questions::NAME), ['q', 'nr', 'qi'])
+                ->where('qi = ?', $qid)
+        );
+
+        $wheres = [
+            $questionsModel->info(Model_Questions::NAME) . '.qi = ?' => $qid,
+            $questionsModel->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
+        ];
+        if ($isUnread) {
+            $wheres[(new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?'] = 'u';
+        }
+
+        $this->view->inputs = (new Model_Inputs())->getComplete($wheres);
+        $this->view->question = $question;
+        $this->view->form = new Admin_Form_ListControl();
+        $this->view->tags = (new Model_Tags())->getAll()->toArray();
+    }
+
+    /**
+     * List inputs for the given user
+     */
+    public function listByUserAction()
+    {
+        $uid = $this->_request->getParam('uid', null);
+
+        $this->view->user = (new Model_Users())->getById($uid);
+        $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation($this->_consultation['kid'], $this->_consultation['kid']);
+        $this->view->inputs = (new Model_Inputs())->getCompleteGroupedByQuestion(
             [
-                'kid' => $kid,
-                'user' => (new Model_Users())->getById($uid),
-                'user_info' => (new Model_User_Info())->getLatestByUserAndConsultation($uid, $kid),
-                'questions' => (new Model_Questions())->getWithInputsByUser($uid, $kid),
+                (new Model_Users())->info(Model_Users::NAME) . '.uid = ?' => $uid,
+                (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
             ]
         );
-    }
-
-    /**
-     * List of all Users who participated in a Consultation
-     */
-    public function userlistAction()
-    {
-        $kid = $this->_request->getParam('kid', 0);
-        $userModel = new Model_Users();
-        $userTblName = $userModel->getName();
-        $this->view->users = $userModel->getParticipantsByConsultation($kid);
+        $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     /**
@@ -77,30 +107,45 @@ class Admin_InputController extends Zend_Controller_Action
     public function editAction()
     {
         $tid = $this->_request->getParam('tid', 0);
+        $uid = $this->_request->getParam('uid', 0);
         $qid = $this->_request->getParam('qid', 0);
+
+        if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
+            $url = $this->view->url(
+                [
+                    'controller' => 'votingprepare',
+                    'action' => 'overview',
+                    'return' => null,
+                    'tid' => null,
+                ]
+            );
+            $cancelUrl = $this->view->returnUrl = $url;
+        } elseif ($this->getRequest()->getParam('qi', null)) {
+            $url = $this->view->url(['action' => 'list-by-question', 'qid' => $qid, 'tid' => null]);
+            $cancelUrl = $this->view->returnUrl = $url;
+        } else {
+            $url = $this->view->url(['action' => 'list-by-user', 'uid' => $uid, 'tid' => null]);
+            $cancelUrl = $this->view->returnUrl = $url;
+        }
+
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input();
+        $form = new Admin_Form_Input($cancelUrl);
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
-                $origInput = $inputModel->find($tid)->current();
-                if ($origInput->block !== 'n'
-                    && $data['block'] === 'n'
-                    && $data['user_conf'] !== 'r'
-                ) {
-                    (new Service_Notification_Input_Created())->notify(
-                        [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
-                    );
+                $formValues = $form->getValues();
+                if (!$formValues['tags']) {
+                    $formValues['tags'] = [];
                 }
-                $updated = $inputModel->updateById($tid, $form->getValues());
+                $updated = $inputModel->updateById($tid, $formValues);
                 if ($updated == $tid) {
-                    $this->_flashMessenger->addMessage('Eintrag aktualisiert', 'success');
+                    $this->_flashMessenger->addMessage('Changes saved.', 'success');
                 } else {
-                    $this->_flashMessenger->addMessage('Aktualisierung fehlgeschlagen', 'error');
+                    $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Bitte Eingaben prüfen!', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 $form->populate($data);
             }
         } else {
@@ -118,49 +163,47 @@ class Admin_InputController extends Zend_Controller_Action
             }
         }
 
-        $this->view->assign(array(
-            'form' => $form,
-            'qid' => $qid,
-            'tid' => $tid
-        ));
+        $this->view->form = $form;
+        $this->view->tid = $tid;
     }
 
     /**
-     * Edit Inputs in bulk
+     * Makes changes to Inputs from the input list context in bulk and individually
      */
-    public function editbulkAction()
+    public function editListAction()
     {
-        if (!$this->_request->isPost()) {
-            $this->_flashMessenger->addMessage('Ungültiger Aufruf!', 'error');
-            $this->redirect('/admin');
-        }
-        $inputModel = new Model_Inputs();
-        $data = $this->_request->getPost();
-        switch ($data['action']) {
-            case 'delete':
-                $nr = $inputModel->deleteBulk($data['inp_list']);
-                if ($nr > 0) {
-                    $this->_flashMessenger->addMessage($nr . ' Beiträge gelöscht!', 'success');
+        $form = new Admin_Form_ListControl();
+
+        if ($this->getRequest()->isPost() && $form->isValid($this->getRequest()->getPost())) {
+            $inputModel = new Model_Inputs();
+            $data = $this->getRequest()->getPost();
+            $returnUrl = $data['return_url'];
+
+            if (!empty($data['bulkAction'])) {
+                switch ($data['bulkAction']) {
+                    case 'delete':
+                        $nr = $inputModel->deleteBulk($data['inp_list']);
+                        $msg = sprintf($this->view->translate('%d contributions have been deleted.'), $nr);
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        break;
+                    case 'block':
+                        $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
+                        $msg = sprintf($this->view->translate('%d contributions have been blocked.'), $nr);
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        break;
+                    case 'publish':
+                        $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
+                        $msg = sprintf($this->view->translate('%d contributions have been unblocked.'), $nr);
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        break;
                 }
-                break;
-            case 'block':
-                $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
-                $this->_flashMessenger->addMessage(count($data['inp_list']) . ' Beiträge gesperrt!', 'success');
-                break;
-            case 'publish':
-                $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
-                $this->_flashMessenger->addMessage(count($data['inp_list']) . ' Beiträge freigegeben!', 'success');
-                break;
-            default:
-                $this->_flashMessenger->addMessage('Bitte eine Aktion auswählen!', 'error');
-                break;
+            } elseif (!empty($data['delete'])) {
+                $inputModel->deleteById($data['delete']);
+                $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
+            }
         }
 
-        $url = $data['return_url'];
-        if (empty($url)) {
-            $url = $this->view->baseUrl() . '/admin';
-        }
-        $this->redirect($url, array('prependBase' => false));
+        $this->redirect(!empty($returnUrl) ? $returnUrl : $this->view->baseUrl() . '/admin');
     }
 
     /**
@@ -168,19 +211,18 @@ class Admin_InputController extends Zend_Controller_Action
      */
     public function exportAction()
     {
-        // retrieve params
-        $qid = $this->_request->getParam('qid', 0);
+        $qid = $this->_request->getParam('qi', 0);
         $kid = $this->_request->getParam('kid', 0);
         $cod = $this->_request->getParam('cod', 'utf8');
         $mod = $this->_request->getParam('mod', 'cnf');
         $tag = $this->_request->getParam('tg');
 
         if ($kid == 0) {
-            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben.', 'error');
+            $this->_flashMessenger->addMessage('No consultation provided.', 'error');
             $this->redirect('/admin');
         }
         if ($qid == 0) {
-            $this->_flashMessenger->addMessage('Keine Frage angegeben.', 'error');
+            $this->_flashMessenger->addMessage('No question provided.', 'error');
             $this->redirect('/admin');
         }
 
@@ -200,11 +242,9 @@ class Admin_InputController extends Zend_Controller_Action
             $cod = "utf-8";
         }
 
-        // disable layout and view
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
 
-        // set Headers
         header("Content-type: text/csv");
         header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         header('Content-Disposition: attachment; filename=inputs_'
@@ -213,5 +253,6 @@ class Admin_InputController extends Zend_Controller_Action
         header('Pragma: no-cache');
 
         echo $csv;
+        exit;
     }
 }

@@ -1,8 +1,56 @@
-<h1>Abstimmung vorbereiten: <?php echo $this -> consultation['titl']; ?></h1>
-<?php
-echo $this -> consultationNavigation('Votingprepare');
-?>
-<h2>Beiträge nach Fragen:</h2>
-<ul>
-<?php echo $this ->partialLoop('_partials/votingprepare/questions.phtml', $this -> consultation['questions']); ?>
-</ul>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
+
+            </div>
+            <div class="content">
+
+                <h2>Voting Preparation</h2>
+
+                <?php if (!empty($this->consultation['questions'])): ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id sorting-asc" data-toggle="sort" tabindex="0">#</th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($this->consultation['questions'] as $question): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
+                                    <td>
+                                        <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$this->escape($question['kid']);?>/qid/<?=$this->escape($question['qi']);?>">
+                                            <?=html_entity_decode($this->escape(strip_tags($question['q'])));?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('There are no questions yet.');?>
+                    </p>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

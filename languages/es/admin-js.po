@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2014-11-13 16:51+0100\n"
+"PO-Revision-Date: 2014-11-13 16:54+0100\n"
+"Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: ../../www\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: coffee\n"
+
+#: coffee/admin.coffee:173
+msgid "Are you sure?"
+msgstr "Estás seguro?"
+
+#: coffee/admin.coffee:174
+msgid "Yes"
+msgstr "Sí"
+
+#: coffee/admin.coffee:175
+msgid "No"
+msgstr "No"
+
+#~ msgid "Info"
+#~ msgstr "Info"

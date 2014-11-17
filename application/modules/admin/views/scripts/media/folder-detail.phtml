@@ -1,0 +1,40 @@
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Media');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->mediaNavigation('folders');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'folders', 'folder' => null]);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
+                <h2><?=$this->pageTitle;?></h2>
+
+                <?=$this->form;?>
+
+                <p class="well">
+                    <?=$this->translate('Folder name can contain only characters a-z, 0-9 and -.');?>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

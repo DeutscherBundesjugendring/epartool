@@ -1,14 +1,22 @@
 <?php
-class Admin_Form_Directory extends Zend_Form
+
+class Admin_Form_Directory extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Directory.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+
     public function init()
     {
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $view = new Zend_View();
+        $this->setMethod('post');
+
+        $dirName = $this->createElement('text', 'dir_name');
+        $dirName
+            ->setLabel('Name')
+            ->setRequired(true)
+            ->setAttrib('maxlength', 120);
+        $this->addElement($dirName);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }

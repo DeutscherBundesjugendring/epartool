@@ -92,10 +92,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return 0;
         }
 
+        $modelInputsTags = new Model_InputsTags();
+        $modelInputsTags->deleteByInputsId($id);
         if (isset($data['tags']) && !empty($data['tags'])) {
-            // Tag Zuordnungen speichern
-            $modelInputsTags = new Model_InputsTags();
-            $modelInputsTags->deleteByInputsId($id);
             $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
         }
 
@@ -124,9 +123,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return 0;
         }
 
-        // where
-        $where = $this->getDefaultAdapter()
-                ->quoteInto($this->_primary[1] . '=?', $id);
+        (new Model_InputsTags())->deleteByInputsId($id);
+        $where = $this->getDefaultAdapter()->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);
 
         return $result;
@@ -491,7 +489,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ->where('i.confirmation_key=?', $confirmKey)
         )->inp_to;
 
-        if (Zend_Date::now()->isLater($inputPhaseTo)) {
+        if (Zend_Date::now()->isLater(new Zend_Date($inputPhaseTo, Zend_Date::ISO_8601))) {
             throw new Dbjr_UrlkeyAction_Exception('Cant confirm or reject once the input phase is over');
         }
     }
@@ -516,10 +514,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Saves changes for several entries at once
-     *
-     * @param  array $ids  Array of integer values (Input IDs)
-     * @param  array $data Key value pairs
-     * @return void
+     * @param  array   $ids   Array of input identifiers
+     * @param  array   $data  Key value pairs of data to be updated for all specified inputs
+     * @return integer        The number of inputs that got edited
      */
     public function editBulk($ids, $data)
     {
@@ -528,6 +525,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 $this->updateById($id, $data);
             }
         }
+
+        return count($ids);
     }
 
     /**
@@ -559,32 +558,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         return $entries;
-    }
-
-    /**
-     * Returns entries ordered by input date descending
-     * @param  integer                 $limit
-     * @throws Zend_Validate_Exception
-     * @return Zend_Db_Table_Rowset
-     */
-    public function getLast($limit = 10)
-    {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($limit)) {
-            throw new Zend_Validate_Exception('Given limit has to be integer!');
-        }
-        $select = $this->select();
-        $select
-            ->setIntegrityCheck(false)
-            ->from(['i' => $this->info(self::NAME)])
-            ->join(
-                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                'q.qi = i.qi'
-            )
-            ->order('when DESC')
-            ->limit($limit);
-
-        return $this->fetchAll($select);
     }
 
     /**
@@ -702,8 +675,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         if ($row) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($row->kid)->current();
-            if (Zend_Date::now()->isLater($consultation->spprt_fr)
-                && Zend_Date::now()->isEarlier($consultation->spprt_to)) {
+            if (Zend_Date::now()->isLater(new Zend_Date($consultation->spprt_fr, Zend_Date::ISO_8601))
+                && Zend_Date::now()->isEarlier(new Zend_Date($consultation->spprt_to, Zend_Date::ISO_8601))
+            ) {
                 $row->spprts++;
                 $row->save();
             }
@@ -996,98 +970,40 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * fetchAllInputs
-     * get all inputs with tags and related inputs by given question
-     * @seeVotingprepareController|admin:overviewAction()
-     * @param $kid consultation
-     * @param $qid question
-     * @param $dir directory
-     * @return array
+     * Returns inputs with tags and related inputs by given question
+     * @param  array  $wheres   Associative array defining the inputs to return in Zend_Db_Select::where() format
+     * @return array            An array of arrays with the input data
      */
-    public function fetchAllInputs($options)
+    public function fetchAllInputs($wheres = [])
     {
-        # parameters #
-        $kid = $options['kid'];
-        $qid = $options['qid'];
-        (isset($options['dir'])) ? $dir = (int) $options['dir']    : $dir=0;
-
-        # validate #
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($qid)) {
-            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+        $select = $this->select();
+        foreach ($wheres as $cond => $val) {
+            $select->where($cond, $val);
         }
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter qid must be integer!');
-        }
-        if (!$intVal->isValid($dir)) {
-            throw new Zend_Validate_Exception('Given parameter dir must be integer!');
-        }
-
-        # default select #
-        $select = $this
-            ->select()
-            ->setIntegrityCheck(false)
-            ->from(['inputs' => 'inpt'])
-            ->join(
-                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                'q.qi = inputs.qi',
-                []
-            )
-            ->where('q.kid = ?', $kid)
-            ->where('inputs.qi = ?', $qid);
-        if ($dir != 0) {
-            $select->where('inputs.dir = ?', $dir);
-        }
-
-        #params for inputs on merge #
-        if (isset($options['inputIDs']) && !empty($options['inputIDs'])) {
-            $inputphrases = array();
-            $inputphrases = implode("' OR inputs.tid= '", $options['inputIDs']);
-            $inputwhere= " inputs.tid= '" . $inputphrases."'";
-            $select ->where("$inputwhere");
-        }
-
-        # params for tagsearch #
-        if (isset($options['tags']) && !empty($options['tags'])) {
-                $tagphrase = implode("' OR tags.tg_nr= '", $options['tags']);
-                $tagwhere = " AND (tags.tg_nr= '" . $tagphrase . "')";
-                #echo $tagwhere;
-                $select
-                    ->join(array('tags' => 'inpt_tgs'), '(inputs.tid = tags.tid    ' . $tagwhere . ')', array('tags.tg_nr AS number'))
-                    ->group('inputs.tid');
-        }
-
-        # params for searchphrase #
-        if (isset($options['search-phrase']) && !empty($options['search-phrase'])) {
-            $searchphrases = array();
-            $searchphrases = explode(" ", $options['search-phrase']);
-            $searchphrases = implode("%' ".$options['combine']." thes LIKE '%", $searchphrases);
-            $select->where('thes LIKE ?', '%' . $searchphrases . '%');
-        }
-
         $resultSet = $this->getAdapter()->query($select);
 
-        # add related inputs and tags to $resultSet #
         $inputs = array();
         foreach ($resultSet as $row) {
-            $id= $row["tid"];
-            $inputs["$id"] = $row;
-            # inputs #
-            if (!empty ($row["rel_tid"])) {
-                $thesisRows = $this->fetchAll("tid IN (".$row["rel_tid"].")")->toArray();
+            $id = $row['tid'];
+            $inputs[$id] = $row;
+
+            $inputs[$id]['related'] = [];
+            if (!empty($row['rel_tid'])) {
+                $thesisRows = $this->fetchAll("tid IN (" . $row["rel_tid"] . ")")->toArray();
                 foreach ($thesisRows as $thesisRow) {
-                    $thesisRow["parent"]= $id;
-                    $inputs["$id"]["related"][]= $thesisRow;
+                    $thesisRow["parent"] = $id;
+                    $inputs[$id]["related"][] = $thesisRow;
                 }
             }
-            # tags #
+
+            $inputs[$id]['tags'] = [];
             $rowone = $this->find($row["tid"])->current();
-            $tags =array();
+            $tags = array();
             $tagRows = $rowone
                 ->findManyToManyRowset('Model_Tags', 'Model_InputsTags')
                 ->toArray();
             foreach ($tagRows as $tagRow) {
-                $inputs["$id"]["tags"][] = $tagRow;
+                $inputs[$id]['tags'][] = $tagRow;
             }
         }
 
@@ -1095,28 +1011,22 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * mergeInputs
-     * Insert a new Input from Admin
-     * @see VotingprepareController|admin: mergeAction();
-     * @param Post params
-     * @param $relIDs
-     * @return row
+     * Insert a new Input including tags
+     * @param array     $data   The input data
+     * @return integer          The new row identifier
      */
     public function addInputs($data)
     {
         $row = $this->createRow($data);
-        $newInput =    (int) $row->save();
+        $tid = (int) $row->save();
 
         if (isset($data['tags']) && !empty($data['tags'])) {
-            // Tag Zuordnungen speichern
             $modelInputsTags = new Model_InputsTags();
-            $modelInputsTags->deleteByInputsId($newInput);
-            $inserted = $modelInputsTags->insertByInputsId($newInput, $data['tags']);
+            $modelInputsTags->deleteByInputsId($tid);
+            $inserted = $modelInputsTags->insertByInputsId($tid, $data['tags']);
         }
 
-        $row = $this->find($newInput)->current();
-
-        return ($row);
+        return $tid;
     }
 
     /**
@@ -1180,114 +1090,21 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * getNumByDirectory
-     * Count inputs from a given directory
-     * @see VotingprepareController|admin: overviewAction()
-     * @param $kid consultation
-     * @param $qid question
-     * @param $dir directory
-     * @return number
+     * Returns the number of inputs in directory for the given directory and question combination
+     * @param  integer  $qid  The question identifier
+     * @param  integer  $dir  The direcry identifier
+     * @return integer        The number of inputs for the given question-direcory combination
      */
-    public function getNumByDirectory($kid, $qid, $dir)
+    public function getNumByDirectory($qid, $dir)
     {
-        $select = $this->select();
-        $select
+        $select = $this
+            ->select()
             ->from(array('inputs' => 'inpt'), 'COUNT(tid) as count')
             ->where('inputs.qi = ?', $qid)
             ->where('inputs.dir = ?', $dir);
         $resultSet = $this->fetchRow($select);
 
         return $resultSet['count'];
-    }
-
-    /**
-     * setDirectory
-     * Move inputs to virtual directory
-     * @see VotingprepareController|admin: setdirectoryAction()
-     * @param $options (dir, thesis)
-     * @return nothing
-     */
-    public function setDirectory($options)
-    {
-        $dir = $options['dir'];
-        $thesis= $options['thesis'];
-        $data = array(
-                  'dir' => (int) $dir
-        );
-        $this->update($data, 'tid IN ('.$thesis.')');
-    }
-
-    /**
-     * setBlockStatus
-     * enable/disable many inputs for public-viewing in frontend
-     * @see VotingprepareController|admin: updateAction()
-     * @param $options (thesis)
-     * @return nothing
-     *
-     */
-    public function setBlockStatus($thesis, $status)
-    {
-        $data = array('block' => $status);
-        $this->update($data, 'tid IN ('.$thesis.')');
-    }
-    /**
-     * setBlockStatusByID
-     * enable/disable one input for public-viewing in frontend
-     * @see VotingprepareController|admin: blockstatusAction()
-     * @param $tid ID from input
-     * @param $status y or n
-     * @return nothing
-     *
-     */
-    public function setBlockStatusByID($status, $tid)
-    {
-        $data = array('block' => $status);
-        $where = $this->getAdapter()->quoteInto('tid= ?', $tid);
-        $this->update($data, $where);
-    }
-
-    /**
-     * setVotingStatus
-     * enable/disable many inputs for voting in frontend
-     * @see VotingprepareController|admin: updateAction()
-     * @param $thesis ID as comma separated list
-     * @param $status y or n
-     * @return nothing
-     *
-     */
-    public function setVotingStatus($thesis, $status)
-    {
-        $data = array('vot' => $status);
-        $this->update($data, 'tid IN ('.$thesis.')');
-    }
-
-    /**
-     * setVotingStatusByID
-     * enable/disable one input for voting in frontend
-     * @see VotingprepareController|admin: votingstatusAction()
-     * @param $tid ID from input
-     * @param $status y or n
-     * @return nothing
-     */
-    public function setVotingStatusByID($status, $tid)
-    {
-        $data = array('vot' => $status);
-        $where = $this->getAdapter()->quoteInto('tid= ?', $tid);
-        $this->update($data, $where);
-    }
-
-    /**
-     * DeleteInputs
-     * Remove inputs from the database
-     * @see VotingprepareController|admin: updateAction()
-     * @param        $thesis ID as comma separated list
-     * @return bool
-     *
-     **/
-    public function deleteInputs($thesis)
-    {
-        $this->delete('tid IN ('.$thesis.')');
-        return true;
     }
 
     /**
@@ -1358,5 +1175,82 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         return $confirmKey;
+    }
+
+    /**
+     * Returns the data needed to populate the input boxes in per user view
+     * @param  array   $wheres   An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @return array             An array of arrays
+     */
+    public function getCompleteGroupedByQuestion($wheres)
+    {
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
+
+        $inputs = [];
+        foreach ($res as $input) {
+            if (!isset($inputs[$input->nr])) {
+                $inputs[$input->nr] = [
+                    'q' => $input->q,
+                    'inputs' => [],
+                ];
+            }
+            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
+            $input = $input->toArray();
+            $input['tags'] = $tags ? $tags : [];
+            $inputs[$input['nr']]['inputs'][] = $input;
+        }
+
+        return $inputs;
+    }
+
+    /**
+     * Returns the data needed to populate the input boxes in per question view
+     * @param  array   $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @return array             An array of arrays
+     */
+    public function getComplete($wheres)
+    {
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
+
+        $inputs = [];
+        foreach ($res as $input) {
+            $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
+            $input = $input->toArray();
+            $input['tags'] = $tags ? $tags : [];
+            $inputs[] = $input;
+        }
+
+        return $inputs;
+    }
+
+    /**
+     * Returns the select to be used as a base for getting the complete input data
+     * @param  integer          $kid     The consultation identifier
+     * @param  array            $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @return Zend_Db_Select            The select object
+     */
+    private function getInputBoxListDataSelect($wheres)
+    {
+        $select = $this
+            ->select()
+            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf'])
+            ->setIntegrityCheck(false)
+            ->join(
+                (new Model_Questions())->info(Model_Questions::NAME),
+                $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
+                ['nr', 'q']
+            )
+            ->joinLeft(
+                (new Model_Users())->info(Model_Users::NAME),
+                (new Model_Users())->info(Model_Users::NAME) . '.uid = ' . $this->info(self::NAME) . '.uid',
+                ['uid', 'name']
+            )
+            ->order('tid');
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
+        }
+
+        return $select;
     }
 }

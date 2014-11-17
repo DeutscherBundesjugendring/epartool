@@ -26,8 +26,8 @@ class Dbjr_File
             unlink($filePath);
             return true;
         }
-        catch (Exception $e) {
-            throw new Dbjr_Exception('File could not be deleted: ' . $filePath);
+        catch (Dbjr_Exception $e) {
+            throw new Dbjr_Exception(sprintf('File marked for deletion does not exist: %s.', $filePath));
         }
     }
 
@@ -39,11 +39,58 @@ class Dbjr_File
     public function getFilePath()
     {
         $filePath = realpath($this->_dirPath . '/' . $this->_filename);
-        if($filePath !== false) {
+        if ($filePath !== false) {
             return $filePath;
         } else {
-            throw new Dbjr_Exception('File set for deletion is not accessible by the application: ' . $filePath);
+            throw new Dbjr_Exception(sprintf('There is no file accessible by the application at the specified location: %s', $filePath));
+        }
+    }
+
+    public function setFilename($filename)
+    {
+        $this->_filename = $filename;
+        return $this;
+    }
+
+    public function setDirPath($dirPath)
+    {
+        $this->_dirPath = $dirPath;
+        return $this;
+    }
+
+    /**
+     * adds utf8 support to pathinfo() php function
+     * pathinfo() just strips the utf8 characters
+     * @param  string           $path     The input path
+     * @param  int              $options  The options @see pathinfo() php function
+     * @return array|string               The pathinfo array or string
+     */
+    public static function pathinfoUtf8($path, $options = null)
+    {
+        if (strpos($path, '/') === false) {
+            $pathParts = pathinfo('a' . $path, $options);
+        } else {
+            $path = str_replace('/', '/a', $path);
+            if ($options) {
+                $pathParts = pathinfo($path, $options);
+            } else {
+                $pathParts = pathinfo($path);
+            }
         }
 
+        if ($options) {
+            return substr($pathParts, 1);
+        } else {
+            foreach ($pathParts as $key => &$value) {
+                if ($key === 'extension') {
+                    continue;
+                } elseif (strpos($value, '/') === false) {
+                    $value = substr($value, 1);
+                } else {
+                    $value = str_replace('/a', '/', $value);
+                }
+            }
+            return $pathParts;
+        }
     }
 }

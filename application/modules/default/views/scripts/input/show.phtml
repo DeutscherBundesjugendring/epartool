@@ -1,12 +1,11 @@
 <?php
-    $date = new Zend_Date();
     $supports = new Zend_Session_Namespace('supports');
     if (empty($supports->clicks)) {
         $supports->clicks = array();
     }
     $supportsDisabled = (
-        Zend_Date::now()->isEarlier($date->set($this->consultation->spprt_fr))
-        || Zend_Date::now()->isLater($date->set($this->consultation->spprt_to))
+        Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->spprt_fr, Zend_Date::ISO_8601))
+        || Zend_Date::now()->isLater(new Zend_Date($this->consultation->spprt_to, Zend_Date::ISO_8601))
         || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
         || $this->consultation->spprt_to == '0000-00-00 00:00:00'
         || $this->consultation->spprt_show == 'n'
@@ -59,9 +58,9 @@
                 <p><?php echo $this->question['q_xpl']; ?></p>
             </article>
 
-            <?php if (Zend_Date::now()->isEarlier($this->consultation->inp_fr)): ?>
+            <?php if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))): ?>
                 <p><?=$this->translate('Contribution phase has not started yet.')?></p>
-            <?php elseif (Zend_Date::now()->isLater($this->consultation->inp_to)): ?>
+            <?php elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))): ?>
                 <p><?=$this->translate('Contribution phase is over already.')?></p>
             <?php else: ?>
                 <?=$this->inputForm?>
@@ -83,8 +82,11 @@
                     <a name="input-<?php echo $input['tid']; ?>"></a>
                     <article class="media">
                         <header class="article-header">
-                            <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                                <?=sprintf($this->translate('written on %s'), $date->get(Zend_Date::DATE_MEDIUM))?>
+                            <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd') ?>">
+                                <?=sprintf(
+                                    $this->translate('written on %s'),
+                                    $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
+                                )?>
                             </time>
                         </header>
                         <div class="article-body">
@@ -116,16 +118,13 @@
                                 <?php endif; ?>
                             </span>
 
-                            <?php if ($this->consultation->is_discussion_active
-                                && (!$this->consultation->discussion_to
-                                    || Zend_Date::now()->isEarlier($date->set($this->consultation->discussion_to)))
-                                && (!$this->consultation->discussion_from
-                                    || Zend_Date::now()->isLater($date->set($this->consultation->discussion_from)))
-                            ): ?>
+                            <?php if ($this->consultation->is_discussion_active): ?>
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
                                     <small>(<?php echo $input['place']; ?>)</small>
-                                    <a class="label" href="#"><?$this->translate('I would like to discuss that!')?></a>
+                                    <a class="label" href="<?=$this->baseUrl() . '/input/discussion/kid/' . $this->consultation->kid . '/inputId/' . $this->escape($input['tid']);?>">
+                                        <?=$this->translate('I would like to discuss that!')?>
+                                    </a>
                                 </span>
                             <?php endif?>
                         </section><!-- .actions -->

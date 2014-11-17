@@ -2,13 +2,24 @@
 
 class IndexController extends Zend_Controller_Action
 {
+    const LAST_CONSULTATION_COUNT = 3;
+
     /**
      * The home page
      */
     public function indexAction()
     {
-        $conList = (new Model_Consultations())->getLast();
-        $this->view->consultations = $conList;
+        $consModel = new Model_Consultations();
+        $consCount = $consModel->fetchRow(
+            $consModel
+                ->select()
+                ->from($consModel->info(Model_Consultations::NAME), ['count' => 'COUNT(*)'])
+                ->where('public = ?', 'y')
+        )
+        ->count;
+
+        $this->view->consultations = $consModel->getLast(self::LAST_CONSULTATION_COUNT);
+        $this->view->showMoreButton = $consCount > self::LAST_CONSULTATION_COUNT;
     }
 
     /**

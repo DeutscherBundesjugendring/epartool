@@ -28,19 +28,27 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
             throw new Zend_Validate_Exception('Given parameter uid must be integer!');
         }
 
-        $db = $this->getDefaultAdapter();
-        $select = $db->select();
-        $select->from(array('vg' => $this->_name), array('*'))
+        $select = $this
+            ->getDefaultAdapter()
+            ->select()
+            ->from(array('vg' => $this->_name), array('*'))
             ->joinLeft(array('u' => 'users'), 'u.uid = vg.uid', array('*'))
-            ->joinLeft(array('vt_indiv' => 'vt_indiv'), 'vg.sub_uid =vt_indiv.sub_uid ', array(new Zend_Db_Expr('COUNT(vt_indiv.sub_uid) as count')))
+            ->joinLeft(
+                ['vt_indiv' => 'vt_indiv'],
+                'vg.sub_uid =vt_indiv.sub_uid ',
+                [new Zend_Db_Expr('COUNT(vt_indiv.sub_uid) as count')]
+            )
             ->where('vg.kid = ?', $kid)
-            ->group('vg.sub_uid');
-        if ($uid!=0) {
+            ->group('vg.sub_uid')
+            ->order('u.email');
+        if ($uid != 0) {
             $select->where('vg.uid = ?', $uid);
         }
-        $stmt = $db->query($select);
+        $res = $select
+            ->query()
+            ->fetchAll();
 
-        return $stmt->fetchAll();
+        return $res;
     }
 
     /**

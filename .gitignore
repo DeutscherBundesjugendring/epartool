@@ -8,11 +8,13 @@
 /.tmp
 /www/css/dbjr.css
 /www/css/dbjr.min.css
+/www/css/admin.css
 /www/css/bootstrap.min.css
 /www/js/jquery.ui.min.js
 /www/js/bootstrap.min.js
 /www/js/admin.js
 /www/js/web.js
+/www/js/admin_mediaPopup.js
 
 # Ignore all runtime settings
 /runtime/cache/*
@@ -24,3 +26,6 @@
 
 # Ignore envspecific configuration files
 /application/configs/*-envspecific.ini
+
+# Ignore generated i18n source files
+/www/js/i18n/*

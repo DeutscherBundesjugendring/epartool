@@ -15,6 +15,7 @@ body {
 // -------------------------
 
 .document-wrap {
+    position: relative;
 	padding-top: 1.2em;
 
 	> .container {
@@ -158,28 +159,9 @@ body {
 	text-align: center;
 	background-color: @white;
 
-	a {
-		color: @bodyText;
-
-		&:hover,
-		&:focus {
-			text-decoration: none;
-			color: @linkTextHover;
-		}
-	}
-
-	&.transparent {
-		background-color: transparent;
-
-		a {
-			color: white;
-
-			&:hover,
-			&:focus {
-				color: @bodyText;
-			}
-		}
-	}
+	a:hover {
+        text-decoration: none;
+    }
 }
 
 
@@ -187,6 +169,7 @@ body {
 // -------------------------
 
 body > footer {
+    position: relative;
 	background-color: @footerBackground;
 	color: @footerText;
 

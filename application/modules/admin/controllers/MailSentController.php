@@ -44,10 +44,18 @@ class Admin_MailSentController extends Zend_Controller_Action
                         $mailer->addBcc($recipient->email, $recipient->name);
                     }
                 }
-                (new Service_Email)->queueForSend($mailer);
 
-                $this->_flashMessenger->addMessage('Email queued for resend.', 'success');
-                $this->_redirect('/admin/mail-sent');
+                $db = $mailModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    (new Service_Email)->queueForSend($mailer);
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Email has been queued for resending.', 'success');
+                    $this->_redirect('/admin/mail-sent');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
             }
         }
 
@@ -59,4 +67,3 @@ class Admin_MailSentController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 }
-

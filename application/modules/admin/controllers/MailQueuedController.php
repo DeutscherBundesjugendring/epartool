@@ -26,5 +26,14 @@ class Admin_MailQueuedController extends Zend_Controller_Action
 
         $this->view->emails = $emails;
     }
-}
 
+    /**
+     * Sends all queued emails.
+     */
+    public function sendAllAction()
+    {
+        (new Service_Email())->sendQueued();
+        $this->_flashMessenger->addMessage('All emails have been successfully sent.', 'success');
+        $this->redirect($this->view->url(['action' => 'index']));
+    }
+}

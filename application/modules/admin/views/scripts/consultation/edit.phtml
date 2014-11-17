@@ -1,23 +1,58 @@
-<?php
-/**
- * index
- *
- * @description   consultation edit form
- * @author        Markus Hackel
- */
-?>
-<h1><?php echo $this->consultation->titl; ?></h1>
-<?php
-echo $this->consultationNavigation('Grundeinstellungen');
-?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
-<?php echo $this->form?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
-<script>
-    CKEDITOR.replace( 'expl' );
-    CKEDITOR.replace( 'vot_expl' );
-</script>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation->titl;?></h1>
+        <h2><?=$this->consultation->titl_sub;?></h2>
+
+        <?=$this->consultationTabs($this->consultation->kid, 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationEditNavigation($this->consultation->kid, 'general');?>
+
+            </div>
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-sm-4 col-sm-push-8 text-right">
+
+                        <?php /*if (Zend_Auth::getInstance()->getIdentity()->lvl === 'adm'): ?>
+                            <?php // TODO DBJR-255 change links to POST forms ?>
+                            <div class="btn-group offset-bottom">
+                                <a
+                                    href="<?=$this->url(['controller' => 'close', 'action' => 'index']);?>" class="btn btn-default"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?=$this->translate('Close consultation?');?>"
+                                >
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                    <?=$this->translate('Close');?>
+                                </a>
+                                <a
+                                    href="<?=$this->url(['action' => 'delete']);?>"
+                                    class="btn btn-danger"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?=$this->translate('Delete consultation?');?>"
+                                >
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                    <?=$this->translate('Delete');?>
+                                </a>
+                            </div>
+                        <?php endif;*/ ?>
+
+                    </div>
+                    <div class="col-sm-8 col-sm-pull-4">
+                        <h2><?=$this->translate('Consultation Settings');?></h2>
+                    </div>
+                </div><!-- .row -->
+
+                <?=$this->form?>
+
+            </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section>

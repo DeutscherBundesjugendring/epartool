@@ -1,35 +1,74 @@
-<h1>Sent Emails</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Email');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+            </div>
+        </div>
+        <?=$this->emailTabs('emailing');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
 
-<form method="<?=$this->form->getMethod()?>">
-    <?=$this->form->getElement('email_list_control_csrf_token')?>
-    <table>
-        <tr>
-            <th>Time Sent</th>
-            <th>Subject</th>
-            <th>Aktionen</th>
-        </tr>
+                <?=$this->emailNavigation('sent');?>
 
-                <?php foreach ($this->emails as $email): ?>
-            <tr>
-                <td>
-                    <?php
-                        $zendDate = new Zend_Date($email->time_sent);
-                        echo($zendDate->get(Zend_Date::DATETIME_MEDIUM));
-                    ?>
-                </td>
-                <td><?php echo $email->subject?></td>
-                <td>
-                    <button
-                        name="resendId"
-                        type="submit"
-                        onclick="return confirm('Are you sure?');"
-                        value="<?php echo $email->id?>"
-                    >
-                        Resend
-                    </button>
-                </td>
-            </tr>
-        <?php endforeach;?>
+            </div>
+            <div class="content">
 
-    </table>
-</form>
+                <h2><?=$this->translate('Sent Emails');?></h2>
+
+                <?php if (!count($this->emails)): ?>
+                    <p class="alert alert-info">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <?=$this->translate('No emails have been sent yet.');?>
+                    </p>
+                <?php else: ?>
+
+                    <form method="<?=$this->form->getMethod()?>">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName())?>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-3 sorting-desc" data-toggle="sort" tabindex="0"><?=$this->translate('Time Sent');?></th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->emails as $email): ?>
+                                    <tr>
+                                        <td data-sort-value="<?=$this->escape($email->time_sent);?>">
+                                            <?=$this->formatDate($email->time_sent);?>
+                                        </td>
+                                        <td><?=$this->escape($email->subject);?></td>
+                                        <td>
+                                            <button
+                                                class="item-action item-action-danger"
+                                                name="resendId"
+                                                type="submit"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Resend email?');?>"
+                                                value="<?=$this->escape($email->id);?>"
+                                                title="<?=$this->translate('Resend email');?>"
+                                            >
+                                                <span class="glyphicon glyphicon-share-alt"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </form>
+
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</section>

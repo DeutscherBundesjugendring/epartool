@@ -212,83 +212,35 @@ class UserController extends Zend_Controller_Action
                 }
             }
         }
+
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     /**
-     * Ajaxresponse from userlistAction by click deny link
+     * Performs deny, confirm and delete actions on a single particiapnt
      */
-    public function denyAction()
+    public function participantUpdateAction()
     {
-        $this->_helper->layout()->disableLayout();
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit; //no AjaxRequest
-        }
-        if (!$this->_auth->hasIdentity()) {
-            exit; //no Login
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $votesGroupsModel = new Model_Votes_Groups();
+
+            if ($this->getRequest()->getPost('confirm')) {
+                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
+                $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
+                $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
+            } elseif ($this->getRequest()->getPost('deny')) {
+                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
+                $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
+                $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
+            } elseif ($this->getRequest()->getPost('delete')) {
+                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
+                $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
+                $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+            }
         }
 
-        $uid = $this->_request->getParam('uid', 0);
-        $sub_uid = $this->_request->getParam('subuid', 0);
-        $kid = isset($this->_consultation->kid) ? $this->_consultation->kid : 0;
-
-        $votesGroupsModel = new Model_Votes_Groups();
-        if ($votesGroupsModel->denyVoter($kid, $uid, $sub_uid)) {
-            $user = array();
-            $user['uid'] = $uid;
-            $user['sub_uid'] = $sub_uid;
-            $this->view->user = $user;
-        } else {
-            $this->view->error = 'error';
-        }
-    }
-
-    /**
-     * Ajaxresponse from userlistAction by click confirm link
-     */
-    public function confirmAction()
-    {
-        $this->_helper->layout()->disableLayout();
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit; //no AjaxRequest
-        }
-        if (!$this->_auth->hasIdentity()) {
-            exit; //no Login
-        }
-
-        $uid = $this->_request->getParam('uid', 0);
-        $sub_uid = $this->_request->getParam('subuid', 0);
-        $kid = isset($this->_consultation->kid) ? $this->_consultation->kid : 0;
-
-        $votesGroupsModel = new Model_Votes_Groups();
-        if ($votesGroupsModel->confirmVoter($kid, $uid, $sub_uid)) {
-            $user = array();
-            $user['uid'] = $uid;
-            $user['sub_uid'] = $sub_uid;
-            $this->view->user = $user;
-        } else {
-            $this->view->error = 'error';
-        }
-    }
-
-    /**
-     * Ajaxresponse from uuserlistAction by click delete link
-     */
-    public function deleteAction()
-    {
-        $this->_helper->layout()->disableLayout();
-        if (!$this->getRequest()->isXmlHttpRequest()) {
-            exit; //no AjaxRequest
-        }
-        if (!$this->_auth->hasIdentity()) {
-            exit; //no Login
-        }
-
-        $uid = $this->_request->getParam('uid', 0);
-        $sub_uid = $this->_request->getParam('subuid', 0);
-        $kid = isset($this->_consultation->kid) ? $this->_consultation->kid : 0;
-        $votesGroupsModel = new Model_Votes_Groups();
-        if ($votesGroupsModel->deleteVoter($kid, $uid, $sub_uid) == 0) {
-            $this->view->error = 'error';
-        }
+        $this->_redirect($this->view->url(['action' => 'userlist']));
     }
 }

@@ -3,6 +3,9 @@
     "type": "zend-library",
     "require": {
         "zendframework/zendframework1": "~1.12.3",
-        "Html2Text/Html2Text": "~1.0.1"
+        "tracy/tracy": "~2.2.2",
+        "Html2Text/Html2Text": "~1.0.1",
+        "gregwar/image": "~2.0.17",
+        "behat/transliterator": "~1.0.1"
     }
 }

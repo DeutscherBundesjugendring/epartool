@@ -89,7 +89,13 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function register($data, $confirmKey = null)
     {
         if (!$this->emailExists($data['email'])) {
-            $data['uid'] = $this->add(['block' => 'u', 'email' => $data['email']]);
+            $data['uid'] = $this->add(
+                [
+                    'block' => 'u',
+                    'email' => $data['email'],
+                    'newsl_subscr' => 'n',
+                ]
+            );
             $isNew = true;
         } else {
             $data['uid'] = $this
@@ -189,7 +195,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                     )
                 )
                 ->addTo($user->email);
-            (new Service_Email)->queueForSend($mailer);
+            $emailService = new Service_Email();
+            $emailService
+                ->queueForSend($mailer)
+                ->sendQueued();
 
             return true;
         }
@@ -283,7 +292,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 $inputsHtml .= '<p>' . $input->thes . '</p>';
             }
 
-            $date = new Zend_Date();
             $baseUrl = Zend_Registry::get('baseUrl');
             $consultation = (new Model_Consultations())->find($kid)->current();
             if ($isNew) {
@@ -291,6 +299,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             } else {
                 $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_CONFIRMATION;
             }
+
+            $view = Zend_Controller_Front::getInstance()
+                ->getParam('bootstrap')
+                ->getResource('view');
 
             $mailer = new Dbjr_Mail();
             $mailer
@@ -303,8 +315,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                         'rejection_url' => $baseUrl . '/input/mailreject/kid/' . $kid . '/ckey/' . $confirmKey,
                         'consultation_title_long' => $consultation ? $consultation->titl : '',
                         'consultation_title_short' => $consultation ? $consultation->titl_short : '',
-                        'input_phase_end' => $consultation ? $date->set($consultation->inp_to)->get(Zend_Date::DATE_MEDIUM) : '',
-                        'input_phase_start' => $consultation ? $date->set($consultation->inp_fr)->get(Zend_Date::DATE_MEDIUM) : '',
+                        'input_phase_end' => $consultation ? $view->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM) : '',
+                        'input_phase_start' => $consultation ? $view->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM) : '',
                         'inputs_html' => $inputsHtml,
                         'inputs_text' => $inputsText,
                     )
@@ -393,7 +405,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(['u' => $this->info(self::NAME)])
-            ->where('u.block=?', 'c');
+            ->where('u.block=?', 'c')
+            ->order('u.email');
 
         if ($participantType === Model_User_Info::PARTICIPANT_TYPE_VOTER) {
             $select
@@ -452,5 +465,28 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         $select->where("block ='c'")->order('email');
 
         return $this->fetchAll($select)->toArray();
+    }
+
+    /**
+     * Modifies the Select object to also select info about the number of inputs for each user
+     * @param  Zend_Db_Select  $select     The select object to modify
+     * @param  string          $tableAlias The table alias to be used for the subquery
+     * @return Zend_Db_Select              The modified select
+     */
+    public function selectInputCount(Zend_Db_Select $select, $tableAlias)
+    {
+        $inputModel = new Model_Inputs();
+        $select->join(
+            [
+                $tableAlias => new Zend_Db_Expr(
+                    '(SELECT qi, uid, COUNT(*) AS inputCount FROM '
+                    . $this->getAdapter()->quoteIdentifier($inputModel->info(Model_Inputs::NAME))
+                    . ' GROUP BY uid)'
+                )
+            ],
+            $this->info(self::NAME) . '.uid = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.uid'
+        );
+
+        return $select;
     }
 }

@@ -1,17 +1,41 @@
-<?php
-/**
- * index
- *
- * @description   Article create view
- * @author        Markus Hackel
- */
-?>
-<h2>Neuen Artikel f&uuml;r <?php echo !empty($this->consultation) ? 'Beteiligungsrunde ' . $this->consultation['titl'] : 'Allgemein';?> erstellen</h2>
-<?php echo $this->form;?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/article/index/kid/<?php echo $this->kid?>">Zur&uuml;ck</a>
-</p>
-<script>
-    CKEDITOR.replace( 'artcl' );
-    CKEDITOR.replace( 'sidebar' );
-</script>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+            <h1><?=$this->consultation['titl'];?></h1>
+            <h2><?=$this->consultation['titl_sub'];?></h2>
+            <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+        <?php else: ?>
+            <h1><?=$this->translate('General Settings');?></h1>
+        <?php endif; ?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+                    <?=$this->consultationNavigation($this->consultation['kid'], 'info');?>
+                <?php else: ?>
+                    <?=$this->settingsNavigation('pages');?>
+                <?php endif; ?>
+
+            </div>
+            <div class="content">
+
+                <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
+                    <a href="<?=$this->url(array('action' => 'index', $this->kid));?>" class="back">&larr; <?=$this->translate('Back to Articles');?></a>
+                    <h2><?=$this->translate('New Article');?></h2>
+                <?php else: ?>
+                    <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Pages');?></a>
+                    <h2><?=$this->translate('New Page');?></h2>
+                <?php endif; ?>
+
+                <?php echo $this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

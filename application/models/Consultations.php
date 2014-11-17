@@ -117,7 +117,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
      * @param  integer                       $limit count of consultations
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function getLast($limit = 3)
+    public function getLast($limit)
     {
         // is int?
         $validator = new Zend_Validate_Int();
@@ -244,21 +244,17 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         $select->order(array('ord DESC'));
         $rowSet = $this->fetchAll($select);
 
-        $date = new Zend_Date();
         foreach ($rowSet as $row) {
-            // Berechne die Zeitabstände der einzelnen Datumsfelder zum aktuellen Zeitpunkt
             $timeDiff = array(
-                'inp_fr' => Zend_Date::now()->sub($date->set($row->inp_fr))->toValue(),
-                'inp_to' => Zend_Date::now()->sub($date->set($row->inp_to))->toValue(),
-                'vot_fr' => Zend_Date::now()->sub($date->set($row->vot_fr))->toValue(),
-                'vot_to' => Zend_Date::now()->sub($date->set($row->vot_to))->toValue(),
+                'inp_fr' => Zend_Date::now()->sub(new Zend_Date($row->inp_fr, Zend_Date::ISO_8601))->toValue(),
+                'inp_to' => Zend_Date::now()->sub(new Zend_Date($row->inp_to, Zend_Date::ISO_8601))->toValue(),
+                'vot_fr' => Zend_Date::now()->sub(new Zend_Date($row->vot_fr, Zend_Date::ISO_8601))->toValue(),
+                'vot_to' => Zend_Date::now()->sub(new Zend_Date($row->vot_to, Zend_Date::ISO_8601))->toValue(),
             );
             $relevantField = 'inp_fr';
             foreach ($timeDiff as $field => $value) {
                 if ($value > 0) {
-                    // relevantes Datumsfeld darf nicht in der Zukunft liegen
                     if ($value < $timeDiff[$relevantField]) {
-                        // relevantes Feld ist dasjenige mit dem kleinsten positiven Abstand
                         $relevantField = $field;
                     }
                 }
@@ -313,7 +309,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         $rows = $this->fetchAll($select);
         $i = 0;
 
-        foreach ($rows AS $consultation) {
+        foreach ($rows as $consultation) {
 
             $result[$i] = $consultation->toArray();
             // check if the needle is in consultation-explenation
@@ -445,5 +441,83 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
         );
 
         return $row ? true : false;
+    }
+
+    /**
+     * Returns a list of consultations with the specified number of latest inputs and input discussion posts for each
+     * @param  integer $inputLimit             The number of inputs for each consultation
+     * @param  integer $discussionContribLimit The number of input discussion contributions for each consultation
+     * @return array                           An array of consultation arrays
+     */
+    public function getWithInputsAndContribs($inputLimit, $discussionContribLimit)
+    {
+        $select = $this
+            ->select()
+            ->from(['c' => $this->info(self::NAME)], ['titl', 'titl_sub', 'kid'])
+            ->setIntegrityCheck(false)
+            ->joinLeft(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.kid = c.kid',
+                ['qi']
+            )
+            ->order('kid DESC');
+
+        $res = $this->fetchAll($select)->toArray();
+
+        $consultations = [];
+        foreach ($res as $consultation) {
+            if (!isset($consultations[$consultation['kid']])) {
+                $consultations[$consultation['kid']] = [
+                    'titl' => $consultation['titl'],
+                    'titl_sub' => $consultation['titl_sub'],
+                    'questionIds' => [],
+                ];
+            }
+            $consultations[$consultation['kid']]['questionIds'][] = $consultation['qi'];
+        }
+
+        $inputModel = new Model_Inputs();
+        foreach ($consultations as &$consultation) {
+            $consultation['inputs'] = $inputModel->fetchAll(
+                $inputModel
+                    ->select()
+                    ->setIntegrityCheck(false)
+                    ->from(['i' => $inputModel->info(Model_Questions::NAME)], ['tid', 'thes', 'qi', 'uid', 'when'])
+                    ->join(
+                        ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                        'u.uid = i.uid',
+                        ['uid', 'name']
+                    )
+                    ->where('qi IN (?)', $consultation['questionIds'])
+                    ->order('when DESC')
+                    ->limit($inputLimit)
+            );
+        }
+
+        $discModel = new Model_InputDiscussion();
+        foreach ($consultations as &$consultation) {
+            $consultation['discussionContribs'] = $discModel->fetchAll(
+                $discModel
+                    ->select()
+                    ->setIntegrityCheck(false)
+                    ->from(['d' => $discModel->info(Model_InputDiscussion::NAME)])
+                    ->join(
+                        ['i' => $inputModel->info(Model_Questions::NAME)],
+                        'd.input_id = i.tid',
+                        []
+                    )
+                    ->join(
+                        ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                        'u.uid = d.user_id',
+                        ['uid', 'name']
+                    )
+                    ->where('i.qi IN (?)', $consultation['questionIds'])
+                    ->order('time_created DESC')
+                    ->limit($discussionContribLimit)
+            );
+            unset($consultation['questionIds']);
+        }
+
+        return $consultations;
     }
 }

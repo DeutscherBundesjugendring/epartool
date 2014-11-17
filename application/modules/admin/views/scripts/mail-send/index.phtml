@@ -1,41 +1,48 @@
-<h1>Send email</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <h1><?=$this->translate('New Email');?></h1>
+        <?=$this->emailTabs('emailing');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
 
-<a href="<?php echo $this->baseUrl(); ?>/admin/email/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>
+        <a href="<?=$this->url(array('controller' => 'mail-sent', 'action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Sent Emails');?></a>
 
-<h3>Templates</h3>
-<select class="js-template-selector">
-    <option value="0">--Select--</option>
-    <?php foreach ($this->templates as $template): ?>
-        <option value="<?php echo $template->id?>"><?php echo $template->name?></option>
-    <?php endforeach ?>
-</select>
+        <h3><?=$this->translate('Create from template');?></h3>
+        <select class="form-control js-template-selector">
+            <option value="0"><?=$this->translate('Please select…');?></option>
+            <?php foreach ($this->templates as $template): ?>
+                <option value="<?php echo $template->id?>"><?php echo $template->name?></option>
+            <?php endforeach ?>
+        </select>
 
-<h3>Email</h3>
-<?php echo $this->form?>
+        <h3><?=$this->translate('Email');?></h3>
+        <?php echo $this->form?>
 
-<h3>Placeholders</h3>
-<dl>
-    <?php foreach ($this->placeholders as $placeholder): ?>
-        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
-        <dd><?php echo $placeholder->description?></dd>
-    <?php endforeach?>
-</dl>
+        <div class="well">
+            <h4><?=$this->translate('Placeholders');?></h4>
+            <table class="table table-striped">
+                <?php foreach ($this->placeholders as $placeholder): ?>
+                    <tr>
+                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></th>
+                        <td><?php echo $placeholder->description?></td>
+                    </tr>
+                <?php endforeach?>
+            </table>
+        </div>
 
-<h3>Components</h3>
-<dl>
-    <?php foreach ($this->components as $component): ?>
-        <dt><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></dt>
-        <dd><?php echo $component->description?></dd>
-    <?php endforeach?>
-</dl>
+        <div class="well">
+            <h4><?=$this->translate('Components');?></h4>
+            <table class="table table-striped">
+                <?php foreach ($this->components as $component): ?>
+                    <tr>
+                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></th>
+                        <td><?php echo $component->description?></td>
+                    </tr>
+                <?php endforeach?>
+            </table>
+        </div>
 
-<a href="<?php echo $this->baseUrl(); ?>/admin/email/">&laquo; Zur&uuml;ck zur &Uuml;bersicht</a>ss
-
-<script type="text/javascript">
-    CKEDITOR.replace('body_html', {
-        removePlugins: 'horizontalrule,list,justify,indent,indentlist,indentblock,image2,flash,div,iframe',
-        removeButtons: 'Underline,Anchor,Superscript,Subscript,Strike'
-        // filebrowserImageBrowseUrl: '/';
-        // filebrowserImageUploadUrl: '/';
-    });
-</script>
+    </div>
+</section>

@@ -19,7 +19,7 @@
         <?php $linkOptions['pts'] = 'y'; ?>
         <li>
             <?php if ($votingBasket['countvotes'] != $settings['btn_important_max']): ?>
-                <a href="<?=$this->url($linkOptions); ?>" class="voting-particularly-important"<?=$this->pimp == 'y' ?' style="color: red !important"' : ''?>>
+                <a href="<?=$this->url($linkOptions); ?>#vote" class="voting-particularly-important"<?=$this->pimp == 'y' ?' style="color: red !important"' : ''?>>
                     <img
                         src="<?php echo $this->baseUrl(); ?>/images/voting-rate-superbtn.png"
                         alt="<?php echo $this->escape($settings['btn_important_label']); ?>"
@@ -62,7 +62,7 @@
     <?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--): ?>
         <?php $linkOptions['pts'] = $i; ?>
         <li>
-            <a href="<?=$this->url($linkOptions)?>" class="<?=$styles["$i"]?>">
+            <a href="<?=$this->url($linkOptions)?>#vote" class="<?=$styles["$i"]?>">
                 <img
                     src="<?=$this->baseUrl();?>/images/voting-rate-<?=$i?>.png"
                     alt="<?=$this->escape($labels[$i]);?>"
@@ -76,7 +76,7 @@
 
     <!-- No opinion -->
     <li>
-        <a href="<?php $linkOptions['pts'] = 5;  echo $this->url($linkOptions); ?>" class="no-opinion">
+        <a href="<?php $linkOptions['pts'] = 5;  echo $this->url($linkOptions); ?>#vote" class="no-opinion">
             <img src="<?php echo $this->baseUrl(); ?>/images/voting-rate-no-opinion.png" alt="" />
             <br />
             <strong><?=$this->translate('No opinion')?></strong>

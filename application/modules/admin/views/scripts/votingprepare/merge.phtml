@@ -1,62 +1,39 @@
-<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js')?>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		// originale anzeigen //
-		$('li.inputs').show('blind', '', 500);
-		$('div.related-content').show('blind', '', 500);
-		$('div.expl-content').show('blind', '', 500);
-		$('div.append-inputs').hide();
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
-		// text kopieren //
-		$('input.cbx-th').change(function() {
-			if ($(this).is(":checked")) {
-				var label = $("label[for='"+$(this).attr('id')+"']").text();
-				var content = $('#thes').text();
-				$('#thes').text($.trim(content)+$.trim(label));
-				$(this).hide('blind','', 800,
-						function() {$(this).remove();}
-						);
-			}
-		});
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
 
-		$('div.expl-content').click(function() {
-				var expltext = $(this).text();
-				var content = $('#expl').text();
-				$('#expl').text($.trim(content)+$.trim(expltext));
-				$(this).prev().hide('blind','', 1600,
-						function() {$(this).remove();}
-				);
-				$(this).hide('blind','', 800,
-						function() {$(this).remove();}
-			);
-		});
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
 
-		// tags übernehmen
-		$('div.tag').click(function() {
-			var tagID = $(this).attr("rel");
-			$('#tags-'+tagID).attr("checked", true);
-		});
-	});
-</script>
+            </div>
+            <div class="content">
 
-<h1>Abstimmung vorbereiten: <?php echo $this->consultation['titl']?></h1>
-<?php echo $this->consultationNavigation('Votingprepare')?>
+                <a href="<?=$this->url(['action' => 'overview', 'inputIds' => null]);?>" class="back">&larr; <?=$this->translate('Back to Voting Preparation');?></a>
+                <h2><?=$this->translate('Merge Contributions');?></h2>
 
-<h2>Beiträge zusammenfassen</h2>
-<div class="input-list c50l">
-	<h3>Originalbeiträge <?php echo count($this->inputs)?></h3>
-	<form id="thesis-form" method="post">
-		<ul>
-			<?php foreach($this->inputs as $input): ?>
-                <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input, 'kid' => $this->consultation['kid']])?>
-            <?php endforeach?>
-		</ul>
-	</form>
-</div>
+                <h3><?=$this->translate('Original Contributions');?></h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <?php foreach ($this->inputs as $input): ?>
+                            <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true])?>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
 
-<div class="input-list c50l">
-	<h3>Neuer Beitrag</h3>
-	<?php echo $this->form?>
-</div>
+                <h3><?=$this->translate('New Contribution');?></h3>
+                <?php echo $this->form?>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,27 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation->titl;?></h1>
+        <h2><?=$this->consultation->titl_sub;?></h2>
+
+        <?=$this->consultationTabs($this->consultation->kid, 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationEditNavigation($this->consultation->kid, 'phases');?>
+
+            </div>
+            <div class="content">
+
+                <h2>Phases</h2>
+                <?=$this->form?>
+
+            </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section>

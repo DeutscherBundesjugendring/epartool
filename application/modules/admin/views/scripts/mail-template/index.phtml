@@ -1,49 +1,74 @@
-<h1>Email templates</h1>
+<section class="section-header has-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Email');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+            </div>
+        </div>
+        <?=$this->emailTabs('settings');?>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
 
+                <?=$this->emailSettingsNavigation('templates');?>
 
-<a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'detail')); ?>">
-    New email template
-</a>
+            </div>
+            <div class="content">
 
-<form method="<?=$this->form->getMethod()?>" action="<?php echo $this->url(array('action' => 'delete'));?>">
-    <?=$this->form->getElement('email_list_control_csrf_token')?>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Subject</th>
-                <th></th>
-            </tr>
-        </thead>
+                <a href="<?php echo $this->url(array('action' => 'detail')); ?>" class="btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?=$this->translate('New Email Template');?>
+                </a>
+                <h2><?=$this->translate('Email Templates');?></h2>
 
-        <tbody>
-            <?php foreach ($this->templates as $template): ?>
-                <tr>
-                    <td><?php echo $template->id?></td>
-                    <td><?php echo $template->name?></td>
-                    <td><?php echo $template->subject?></td>
-                    <td>
-                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>">
-                            Bearbeiten
-                        </a>
-                        <?php if($template->findModel_Mail_Template_Type()->current()->name !== Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM): ?>
-                            <button
-                                name="deleteId"
-                                type="submit"
-                                onclick="return confirm('Are you sure?');"
-                                value="<?php echo $template->id?>"
-                            >
-                                Delete
-                            </button>
-                        <?php endif?>
-                    </td>
-                </tr>
-            <?php endforeach?>
-        </tbody>
-    </table>
-</form>
+                <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(['action' => 'delete']);?>">
+                    <?=$this->form->getElement($this->form->getCsrfTokenName())?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="table-cell-id sorting-asc" data-toggle="sort" tabindex="0">#</th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Name');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->templates as $template): ?>
+                                <tr>
+                                    <td class="table-cell-id"><?=$this->escape($template->id);?></td>
+                                    <td><?=$this->escape($template->name);?></td>
+                                    <td><?=$this->escape($template->subject);?></td>
+                                    <td class="table-cell-actions">
+                                        <a href="<?php echo $this->url(array('action' => 'detail', 'id' => $template->id));?>" class="item-action" title="<?=$this->translate('Edit template');?>">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <?php if($template->findModel_Mail_Template_Type()->current()->name !== Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM): ?>
+                                            <button
+                                                name="deleteId"
+                                                type="submit"
+                                                class="item-action item-action-danger"
+                                                data-toggle="confirm"
+                                                data-confirm-message="<?=$this->translate('Delete email template?');?>"
+                                                value="<?=$this->escape($template->id)?>"
+                                                title="<?=$this->translate('Delete template');?>"
+                                            >
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        <?php endif?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
 
-<a class="icon icon-plus" href="<?php echo $this->url(array('action' => 'detail')); ?>">
-    New email template
-</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,17 +1,31 @@
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Beiträge');
-?>
-<p>
-<?php foreach ($this->consultation['questions'] as $question): ?>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<a href="<?php echo $this->baseUrl(); ?>/admin/input/index/kid/<?php echo $this->consultation['kid'];
-?>/qid/<?php echo $question['qi']; ?>"<?php if ($this->qid == $question['qi']):
-?> class="active"<?php endif;?>>
-  <?php echo $question['nr'] . ' ' . $question['q'];?>
-</a>&emsp;
-<?php endforeach;?>
-</p>
-<h2>Beitrag bearbeiten</h2>
-<p>Dieser Beitrag trägt die Datenbank-interne Nr. <?php echo $this->tid; ?>.</p>
-<?php echo $this->form; ?>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->returnUrl;?>" class="back">
+                    &larr; <?=$this->translate('Back to Contributions');?>
+                </a>
+
+                <h2><?=$this->translate('Edit Contribution');?></h2>
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

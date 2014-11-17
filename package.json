@@ -8,19 +8,21 @@
     "node": "~0.8.11"
   },
   "dependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-less": "~0.6.1",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-concat": "~0.3",
-    "grunt-contrib-uglify": "~0.2",
-    "grunt-contrib-clean": "~0.5",
+    "grunt": "~0.4.5",
+    "grunt-contrib-less": "~0.12.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-concat": "~0.5",
+    "grunt-contrib-uglify": "~0.6",
+    "grunt-contrib-clean": "~0.6",
     "matchdep": "~0.3.0",
-    "coffee-script": "~1.7.1",
-    "grunt-contrib-coffee": "~0.10.1"
+    "coffee-script": "~1.8.0",
+    "grunt-contrib-coffee": "~0.12.0",
+    "grunt-po2json-simple": "~0.1.8"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~0.2.0",
-    "grunt-uncss": "~0.3.5",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-browser-sync": "~1.5.3",
+    "grunt-uncss": "~0.3.7",
     "grunt-processhtml": "~0.3.3",
     "grunt-premailer": "~0.2.10"
   }

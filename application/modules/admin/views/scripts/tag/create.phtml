@@ -1,6 +1,23 @@
-<?php
+<section class="section-header">
+    <div class="container">
+        <h1><?=$this->translate('General Settings');?></h1>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
 
-?>
-<h1>Neues Schlagwort erstellen</h1>
-<?php echo $this->createForm; ?>
-<p><a href="<?php echo $this->baseUrl(); ?>/admin/tag">&laquo; Zurück</a></p>
+                <?=$this->settingsNavigation('keywords');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to Keywords');?></a>
+                <h2><?=$this->translate('Add New Keyword');?></h2>
+                <?=$this->createForm;?>
+
+            </div>
+        </div>
+    </div>
+</section>

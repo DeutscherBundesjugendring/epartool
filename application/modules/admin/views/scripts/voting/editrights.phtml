@@ -1,21 +1,28 @@
-<?php
-/**
- * Edit Voting Rights
- */
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Votingberechtigungen');
-?>
-<h2>Voting-Berechtigungen für <?php echo $this->user['email']; ?> bearbeiten</h2>
-<p><a href="<?php echo $this->url(array(
-  'action' => 'index',
-  'uid' => null,
-)); ?>">&laquo; Zurück</a></p>
+<section class="section-header has-tabs">
+    <div class="container">
 
-<?php echo $this->form; ?>
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
-<p><a href="<?php echo $this->url(array(
-  'action' => 'index',
-  'uid' => null,
-)); ?>">&laquo; Zurück</a></p>
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-permissions');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>" class="back">&larr; <?=$this->translate('Back to Voting Permissions');?></a>
+                <h2><?=$this->translate('Voting Permissions for');?> <?=$this->user['email'];?></h2>
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

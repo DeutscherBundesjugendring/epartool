@@ -86,10 +86,13 @@ class VotingController extends Zend_Controller_Action
         $date = new Zend_Date();
         $nowDate = Zend_Date::now();
 
-        if ($nowDate->isEarlier($this->_consultation->vot_fr)) {
+        if ($nowDate->isEarlier(new Zend_Date($this->_consultation->vot_fr, Zend_Date::ISO_8601))) {
             $this->_flashMessenger->addMessage('It is not possible to vote at the moment.', 'info');
             $this->redirect('/');
-        } elseif ($nowDate->isLater($this->_consultation->vot_to) && $this->_consultation->vot_to != '0000-00-00 00:00:00' && $this->_consultation->vot_res_show == 'y') {
+        } elseif ($nowDate->isLater(new Zend_Date($this->_consultation->vot_to, Zend_Date::ISO_8601))
+            && $this->_consultation->vot_to != '0000-00-00 00:00:00'
+            && $this->_consultation->vot_res_show == 'y'
+        ) {
             $this->_flashMessenger->addMessage('The Voting is finished. You can check the results below.', 'info');
             $this->redirect('/voting/results/kid/' . $this->_consultation->kid);
         }

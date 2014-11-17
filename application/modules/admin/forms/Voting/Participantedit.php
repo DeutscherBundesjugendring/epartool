@@ -1,24 +1,27 @@
 <?php
-/**
- * User Edit
- *
- * @description     Form for User Edit
- * @author                Jan Suchandt
- */
-class Admin_Form_Voting_Participantedit extends Zend_Form
+
+class Admin_Form_Voting_Participantedit extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Voting/Participantedit.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+    protected $_kid;
+
+    public function __construct($kid = null)
+    {
+        $this->_kid = $kid;
+        parent::__construct();
+    }
+
     public function init()
     {
-		$this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
-		
 
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/voting/participants/kid/' . $this->_kid]);
+
+        $merge = $this->createElement('select', 'merge');
+        $merge
+            ->setLabel('Select a participant')
+            ->setRequired(true);
+        $this->addElement($merge);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));
@@ -27,5 +30,9 @@ class Admin_Form_Voting_Participantedit extends Zend_Form
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         $this->addElement($hash);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
     }
 }

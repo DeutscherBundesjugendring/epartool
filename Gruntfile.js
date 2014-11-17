@@ -13,63 +13,83 @@ module.exports = function(grunt) {
             compile: {
                 files: {
                     "www/js/admin.js": "www/coffee/admin.coffee",
-                    "www/js/web.js": "www/coffee/web.coffee"
+                    "www/js/web.js": "www/coffee/web.coffee",
+                    "www/js/admin_mediaPopup.js": "www/coffee/admin_mediaPopup.coffee"
                 }
             }
         },
 
-		// Compile LESS
+        // Prepare i18n json file
+        po2json: {
+            all: {
+                options: {
+                    template: function(data) {
+                        return 'var exports = {};' + data;
+                    }
+                },
+                files: {
+                    'www/js/i18n/admin.cs.js': ['languages/cs/admin-js.po'],
+                    'www/js/i18n/admin.en.js': ['languages/en/admin-js.po'],
+                    'www/js/i18n/admin.de.js': ['languages/de/admin-js.po'],
+                    'www/js/i18n/admin.es.js': ['languages/es/admin-js.po'],
+                    'www/js/i18n/admin.fr.js': ['languages/fr/admin-js.po']
+                }
+            }
+        },
+
+        // Compile LESS
         less: {
             dev: {
-				files: {
-					'www/css/<%= pkg.name %>.css': 'www/less/main.less',
+                files: {
+                    'www/css/<%= pkg.name %>.css': 'www/less/main.less',
+                    'www/css/admin.css': 'www/less/admin.less',
                     '.tmp/mail.css': 'www/less/mail.less'
-				}
+                }
             },
             dist: {
                 options: {
                     yuicompress: true
                 },
-				files: {
-					'www/css/bootstrap.min.css': 'www/components/bower/bootstrap/less/bootstrap.less',
-					'www/css/<%= pkg.name %>.min.css': 'www/less/main.less'
-				}
+                files: {
+                    'www/css/bootstrap.min.css': 'www/components/bower/bootstrap/less/bootstrap.less',
+                    'www/css/<%= pkg.name %>.min.css': 'www/less/main.less'
+                }
             }
         },
 
-		// Lint custom JS
-		jshint: {
-			files: ['www/js/main.js']
-		},
+        // Lint custom JS
+        jshint: {
+            files: ['www/js/main.js']
+        },
 
-		// Concat all JS
-		concat: {
-			bootstrap: {
-				options: {
-					separator: ';'
-				},
-				src: [
-					'www/components/bower/bootstrap/js/bootstrap-affix.js',
-					'www/components/bower/bootstrap/js/bootstrap-alert.js',
-					'www/components/bower/bootstrap/js/bootstrap-button.js',
-					'www/components/bower/bootstrap/js/bootstrap-carousel.js',
-					'www/components/bower/bootstrap/js/bootstrap-collapse.js',
-					'www/components/bower/bootstrap/js/bootstrap-dropdown.js',
-					'www/components/bower/bootstrap/js/bootstrap-modal.js',
-					'www/components/bower/bootstrap/js/bootstrap-scrollspy.js',
-					'www/components/bower/bootstrap/js/bootstrap-tab.js',
-					'www/components/bower/bootstrap/js/bootstrap-tooltip.js',
-					'www/components/bower/bootstrap/js/bootstrap-popover.js',
-					'www/components/bower/bootstrap/js/bootstrap-transition.js',
-					'www/components/bower/bootstrap/js/bootstrap-typeahead.js'
-				],
-				dest: 'www/js/bootstrap.js'
-			},
-			jqueryUi: {
-				options: {
-					separator: ';'
-				},
-				src: [
+        // Concat all JS
+        concat: {
+            bootstrap: {
+                options: {
+                    separator: ';'
+                },
+                src: [
+                    'www/components/bower/bootstrap/js/bootstrap-affix.js',
+                    'www/components/bower/bootstrap/js/bootstrap-alert.js',
+                    'www/components/bower/bootstrap/js/bootstrap-button.js',
+                    'www/components/bower/bootstrap/js/bootstrap-carousel.js',
+                    'www/components/bower/bootstrap/js/bootstrap-collapse.js',
+                    'www/components/bower/bootstrap/js/bootstrap-dropdown.js',
+                    'www/components/bower/bootstrap/js/bootstrap-modal.js',
+                    'www/components/bower/bootstrap/js/bootstrap-scrollspy.js',
+                    'www/components/bower/bootstrap/js/bootstrap-tab.js',
+                    'www/components/bower/bootstrap/js/bootstrap-tooltip.js',
+                    'www/components/bower/bootstrap/js/bootstrap-popover.js',
+                    'www/components/bower/bootstrap/js/bootstrap-transition.js',
+                    'www/components/bower/bootstrap/js/bootstrap-typeahead.js'
+                ],
+                dest: 'www/js/bootstrap.js'
+            },
+            jqueryUi: {
+                options: {
+                    separator: ';'
+                },
+                src: [
                     'www/components/bower/jquery.ui/ui/jquery.ui.core.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.widget.js',
 
@@ -108,21 +128,20 @@ module.exports = function(grunt) {
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-shake.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-slide.js',
                     'www/components/bower/jquery.ui/ui/jquery.ui.effect-transfer.js'
+                ],
+                dest: 'www/js/jquery.ui.js'
+            }
+        },
 
-				],
-				dest: 'www/js/jquery.ui.js'
-			}
-		},
-
-		// Minify all JS
-		uglify: {
-			dist: {
-				files: {
-					'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
-					'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
-				}
-			}
-		},
+        // Minify all JS
+        uglify: {
+            dist: {
+                files: {
+                    'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
+                    'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
+                }
+            }
+        },
 
         // Remove unused CSS
         uncss: {
@@ -157,14 +176,14 @@ module.exports = function(grunt) {
             }
         },
 
-		// Clean temporary files
-		clean: [
-			'www/js/bootstrap.js',
-			'www/js/jquery.ui.js',
+        // Clean temporary files
+        clean: [
+            'www/js/bootstrap.js',
+            'www/js/jquery.ui.js',
             '.tmp'
-		],
+        ],
 
-		// Watch task
+        // Watch task
         watch: {
             less: {
                 files: ['www/less/**/*.less'],
@@ -178,11 +197,33 @@ module.exports = function(grunt) {
                 files: ['www/js/**/*(!.min).js'],
                 tasks: ['jshint']
             }
+        },
+
+        // Inject updated templates and assets to connected browsers during development
+        browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'www/css/*.css',
+                        'www/js/*.js',
+                        'www/images/**/*.svg',
+                        'www/images/**/*.png',
+                        'www/images/**/*.jpg',
+                        'application/layouts/scripts/*.phtml',
+                        'application/modules/admin/views/**/*.phtml',
+                        'application/modules/default/views/**/*.phtml'
+                    ]
+                },
+                options: {
+                    proxy: 'dbjr-ip.local',
+                    watchTask: true
+                }
+            }
         }
     });
 
     // Build email phtml template.
-    // Task not executed by default as it requires Ruby and Premailer gem in the system.
+    // WARNING: Task not executed by default as it requires Ruby and Premailer gem in the system.
     grunt.registerTask('mail', [
         'less:dev',
         'uncss:mail',
@@ -192,12 +233,21 @@ module.exports = function(grunt) {
     ]);
 
     // Default task
-	grunt.registerTask('default', [
-		'less',
+    grunt.registerTask('build', [
+        'po2json',
+        'less',
         'coffee',
-		'jshint',
-		'concat',
-		'uglify',
-		'clean'
-	]);
+        'jshint',
+        'concat',
+        'uglify',
+        'clean'
+    ]);
+
+    grunt.registerTask('dev', [
+        'build',
+        'browserSync',
+        'watch'
+    ]);
+
+    grunt.registerTask('default', 'build');
 };

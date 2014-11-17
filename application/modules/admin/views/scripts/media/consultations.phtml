@@ -1,0 +1,58 @@
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Media');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->mediaNavigation('consultations');?>
+
+            </div>
+            <div class="content">
+
+                <h2><?=$this->translate('Consultations');?></h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="table-cell-id sorting-asc" data-toggle="sort" tabindex="0">#</th>
+                            <th data-toggle="sort" tabindex="0"><?=$this->translate('Consultation');?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->consultationDirs as $folder): ?>
+                            <?php if (isset($this->consultations[$folder])): ?>
+                                <tr>
+                                    <td class="table-cell-id">
+                                        <?=$this->escape($folder);?>
+                                    </td>
+                                    <td>
+                                        <a href="<?=$this->url(['action' => 'index', 'kid' => $folder]);?>">
+                                            <?=$this->escape($this->consultations[$folder]);?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endif;?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

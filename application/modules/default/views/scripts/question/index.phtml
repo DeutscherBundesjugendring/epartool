@@ -1,8 +1,7 @@
 <?php
-    $date = new Zend_Date();
     $linkHeadlineToInputs = false;
-    if ($date->set($this->consultation->inp_fr)->isEarlier(Zend_Date::now())
-        && $date->set($this->consultation->inp_to)->isLater(Zend_Date::now())
+    if ((new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))->isEarlier(Zend_Date::now())
+        && (new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))->isLater(Zend_Date::now())
         && $this->consultation->inp_show == 'y') {
               $linkHeadlineToInputs = true;
         }

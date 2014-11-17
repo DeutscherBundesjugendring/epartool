@@ -1,585 +1,359 @@
-<?php $this->headScript()->appendFile($this->baseUrl() . '/js/jquery.ui.min.js')?>
-<script type="text/javascript">
-    $(document).ready(function() {
+<section class="section-header has-tabs">
+    <div class="container">
 
-        $( document ).tooltip({
-            position: {
-                my: "center bottom-10",
-                at: "center top",
-                using: function( position, feedback ) {
-                    $( this ).css( position );
-                    $( "<div>" )
-                        .addClass( "arrow" )
-                        .addClass( feedback.vertical )
-                        .addClass( feedback.horizontal )
-                        .appendTo( this );
-                }
-            }
-        });
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
 
-        $('li.inputs').show('blind', '', 500);
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
-        $('#inputAnchors input').change(function() {
-            var checkbox_status = $(this).attr("class");
-            var checkbox_obj = $(this).attr("id");
-
-            // anzeigen nicht/anzeigen ganze liste
-            if ($(this).is(":checked")) {
-                $('li.' + checkbox_status).show('blind', '', 500);
-                $(checkbox_obj).attr("checked", true); //einblenden
-            } else {
-                $(checkbox_obj).removeAttr("checked");
-            }
-            // alle deaktiviere wenn rechts was ausgeählt wird
-            $('div.input-list').find("input:checkbox").removeAttr("checked");
-
-            $('li.' + checkbox_status).hide(); //ausblenden
-
-            // Auswahl beibehalten
-            if ($('#block-n').is(":checked")) {
-                $('li.block-n').show('blind', '', 500);
-            }
-            if ($('#block-y').is(":checked")) {
-                $('li.block-y').show('blind', '', 500);
-            }
-            if ($('#unfinished').is(":checked")) {
-                $('li.unfinished').show('blind', '', 500);
-            }
-            if ($('#finished').is(":checked")) {
-                $('li.finished').show('blind', '', 500);
-            }
-            if ($('#org-o').is(":checked")) {
-                $('li.org-o').show('blind', '', 500);
-            }
-            if ($('#inputs').is(":checked")) {
-                $('li.inputs').show('blind', '', 500);
-            }
-            if ($('#org-r').is(":checked")) {
-                $('li.org-r').show('blind', '', 500);
-            }
-            if ($('#vot-y').is(":checked")) {
-                $('li.vot-y').show('blind', '', 500);
-            }
-            if ($('#vot-n').is(":checked")) {
-                $('li.vot-n').show('blind', '', 500);
-            }
-            if ($('#vot-u').is(":checked")) {
-                $('li.vot-u').show('blind', '', 500);
-            }
-            if ($('#vot-orb').is(":checked")) {
-                $('li.vot-orb').show('blind', '', 500);
-            }
-        });
-
-        // Toggles
-        $('div.expl-header a').click(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-        $('div.notice-header a').click(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-        $('div.related-header a').click(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-
-        $('#viewAnchors input').change(function() {
-            var css_class = $(this).attr("class");
-            $('div.'+css_class).slideToggle("slow");
-        });
-
-        $('#inputAnchors h3').click(function() {
-            $('#inputAnchors form').slideToggle("slow");
-        });
-        $('#viewAnchors h3').click(function() {
-            $('#viewAnchors form').slideToggle("slow");
-        });
-        $('#directoryAnchors h3').click(function() {
-            $('#directoryAnchors ul').slideToggle("slow");
-        });
-        $('#questionAnchors h3').click(function() {
-            $('#questionAnchors  ul').slideToggle("slow");
-        });
-        $('#actionAnchors h3').click(function() {
-            $('#actionAnchors ul').slideToggle("slow");
-        });
-        $('#actionAnchors ul').slideToggle("slow");
-
-        // change directories //
-        $('a.moveto').click(function() {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-        });
-
-        // change blockstatus //
-        $('a.enable').click(function() {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-        });
-
-        $('a.disable').click(function() {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-        });
-
-        $('a.edit').click(function() {
-            var url = $(this).attr("rel");
-            var inputIDs = [];
-              $('input.cbx-th:checked').each(function() {
-                        inputIDs.push($(this).val());
-              });
-            $("a.edit").attr("href", url+'/tid/'+inputIDs+'');
-            return true;
-        });
-        $('a.split').click(function() {
-            var url = $(this).attr("rel");
-            var inputIDs = [];
-              $('input.cbx-th:checked').each(function() {
-                        inputIDs.push($(this).val());
-              });
-            $("a.split").attr("href", url+'/tid/'+inputIDs+'');
-            return true;
-        });
-        $('a.merge').click(function() {
-            var url = $(this).attr("rel");
-            var inputIDs = [];
-              $('input.cbx-th:checked').each(function() {
-                        inputIDs.push($(this).val());
-              });
-            $("a.merge").attr("href", url+'/inputs/'+inputIDs+'');
-            return true;
-        });
-
-        $('a.del').click(function() {
-            if(confirm('Die ausgewählten Beiträge endgültig löschen?')) {
-            var action = $(this).attr("rel");
-            $("#thesis-form").attr("action", action);
-            $("#thesis-form").submit();
-            return false;
-            }
-        });
-
-        // tag and option box
-        $('div.tag').click(function() {
-            var tagID = $(this).attr("rel");
-            $('#option-'+tagID).attr("selected", true);
-            return false;
-        });
-
-        $(document).on("click","span.vot-box", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-              $.ajax({
-                  url: "/admin/votingprepare/votingstatus/<?php echo $this->getParams ?>/tid/"+elementID+"",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                document.getElementById('vot-box-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                },
-                beforeSend: function(){
-                document.getElementById('vot-box-'+elementID).innerHTML = " ... ";
-                },
-                success:function(response){
-                document.getElementById('vot-box-'+elementID).innerHTML = response ;
-                }
-            });
-         });
-
-         $(document).on("click","span.block-box", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-              $.ajax({
-                  url: "/admin/votingprepare/blockstatus/<?php echo $this->getParams ?>/tid/"+elementID+"",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                document.getElementById('block-box-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                },
-                beforeSend: function(){
-                document.getElementById('block-box-'+elementID).innerHTML = " ... ";
-                },
-                success:function(response){
-                document.getElementById('block-box-'+elementID).innerHTML = response ;
-                }
-            });
-         });
-
-         $(document).on("click","div.append-inputs", function (event) {
-             event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-              var inputIDs = [];
-              $('input.cbx-th:checked').each(function() {
-                        inputIDs.push($(this).val());
-              });
-
-             $.ajax({
-                url: "/admin/votingprepare/appendinputs/<?php echo $this->getParams ?>/tid/" + elementID + "/inputIDs/" + inputIDs + "",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                document.getElementById('append-inputs-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                },
-                beforeSend: function(){
-                document.getElementById('append-inputs-'+elementID).innerHTML = " ... ";
-                },
-                success:function(response){
-                document.getElementById('append-inputs-'+elementID).innerHTML = response ;
-                }
-            });
-            $("#append-inputs-"+elementID).removeClass("append-inputs");
-         });
-
-        $(document).on("click","a.del-input", function (event) {
-			if(confirm('Den Beitrag endgültig löschen?')) {
-				event.preventDefault();
-				var elementID = $(this).attr('rel');
-
-				$.ajax({
-                	url: "/admin/votingprepare/delinputresponse/<?php echo $this->getParams ?>/tid/" + elementID  + "",
-                	type: "GET",
-                	data: "format=html",
-                	cache: false,
-                	async: "true",
-                	error: function(){
-                	document.getElementById('work-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                	},
-                	beforeSend: function(){
-                	document.getElementById('work-'+elementID).innerHTML = " ... ";
-                	},
-                	success:function(response){
-                	document.getElementById('work-'+elementID).innerHTML = response ;
-                	}
-            	});
-				return false;
-			}
-		});
-
-
-         $(document).on("click","a.cancel-shortcut", function (event) {
-         	if(confirm('Die Verknüpfung löschen?')) {
-				event.preventDefault();
-				var elementID = $(this).attr('rel');
-				var parentID = $(this).attr('data');
-				$.ajax({
-                	url: "/admin/votingprepare/cancelshortcutresponse/<?php echo $this->getParams ?>/tid/" + parentID  + "/child/" + elementID  + "",
-                	type: "GET",
-                	data: "format=html",
-                	cache: false,
-                	async: "true",
-                	error: function(){
-                	document.getElementById('work-'+elementID).innerHTML = "Es ist ein Fehler aufgetreten!";
-                	},
-                	beforeSend: function(){
-                	document.getElementById('work-'+elementID).innerHTML = " ... ";
-                	},
-                	success:function(response){
-                	document.getElementById('work-'+elementID).innerHTML = response ;
-                	}
-            	});
-				return false;
-			}
-         });
-
-
-    });
-</script>
-
-
-<h1>Abstimmung vorbereiten: <?php echo $this -> consultation['titl']; ?></h1>
-<?php echo $this->consultationNavigation('Votingprepare')?>
-
-<div class="input-list c66l">
-    <h3><? echo "Frage-Nr.:".$this->question["nr"]. " ".$this->question["q"] . '<br />Beiträge gesamt: ' . count($this->inputs)?></h3>
-    <form id="thesis-form" method="post">
-        <ul>
-            <?php foreach($this->inputs as $input): ?>
-                <?=$this->partial('_partials/votingprepare/inputs.phtml', ['input' => $input, 'kid' => $this->consultation['kid']])?>
-            <?php endforeach?>
-        </ul>
-    </form>
-</div>
-
-<div class="c33l">
-	<div id="directoryAnchors" class="yform">
-        <h3 title="Klicken zum aus-/einklappen">Ordner: <? echo $this->directoryact; ?></h3>
-
-        <ul class="levels">
-            <?php echo $this->partialLoop('_partials/votingprepare/directories.phtml', $this->directories); ?>
-            <li><a href="/admin/directories/index/<?php echo $this->getParams; ?>">Ordnerverwaltung</a></li>
-        </ul>
     </div>
-    <div id="suche" class="yform">
-        <h3>Suche:</h3>
-        <form id="search" action="/admin/votingprepare/overview/<?php echo $this->getParams ?>" method="post">
-            <ul>
-                <li>
-                    <input
-                        id ="search-phrase"
-                        name="search-phrase"
-                        type="text"
-                        placeholder="Suchwörter"
-                        value="<?php echo $this->searchphrase; ?>"
-                    />
-                </li>
-                <li>
-                    <label for="c-and">UND</label>
-                    <input
-                        id="c-and"
-                        name="combine"
-                        type="radio"
-                        value="AND"
-                        <?php if ($this->combine == "AND") echo 'checked="checked"'; ?>
-                    />
-                </li>
-                <li>
-                    <label for="c-or">ODER</label>
-                    <input
-                        id="c-or"
-                        name="combine"
-                        type="radio"
-                        value="OR"
-                        <?php if ($this->combine == "OR") echo 'checked="checked"'; ?>
-                    />
-                </li>
-                <? if($this -> directory): ?>
-                <li>
-                    <label for="t-directory">In diesem Ordner</label>
-                    <input
-                        id="t-directory"
-                        name="directory"
-                        type="radio"
-                        value="<? echo $this -> directory; ?>"
-                        <?php if ($this->dirs==$this -> directory) echo 'checked="checked"'?>
-                    />
-                </li>
-                <? endif; ?>
-                <li>
-                    <label for="a-directory">In allen Ordnern</label>
-                    <input
-                        id="a-directory"
-                        name="directory"
-                        type="radio"
-                        value="0"
-                        <?php if ($this->dirs == "0") echo 'checked="checked"'; ?>
-                    />
-                </li>
-                <li class="tags">
-                    <label for="tags">Tags [Mehrfachauswahl: PC -> STRG, MAC -> Apfel]</label>
-                    <select name="tags[]"  id="tags "size="20" multiple>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
 
-                        <?php if (!empty($this->tags)): ?>
-                            <?php echo $this->partialLoop('_partials/votingprepare/tags-selectbox.phtml', $this->tags); ?>
-                        <?php endif; ?>
-                    </select>
-                </li>
-                <li>
-                    <input type="submit" value="go &raquo;">
-                </li>
-                <!--
-                 <label for="search-tags">Tags: </label>
-                <input id="search-tags" />
-                -->
-            </ul>
+                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
 
-        </form>
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to Questions');?></a>
+                <h2><?=$this->translate('Voting Preparation');?></h2>
+
+                <!-- Search -->
+                <form method="get">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input
+                                name="fulltext"
+                                type="search"
+                                class="form-control"
+                                value="<?=$this->fulltext;?>"
+                                placeholder="<?=$this->translate('Search contributions');?>"
+                            />
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <?=$this->translate('Search');?>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Filters -->
+                <div class="panel-group">
+
+                    <!-- Common filter -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" href="#filterCommon">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                                    <span class="glyphicon glyphicon-filter"></span>
+                                    <?=$this->translate('Filter');?>
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="filterCommon" class="panel-collapse collapse">
+                            <div class="panel-body">
+
+                                <form data-target="#contribution-table tr" class="form-filter">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><?=$this->translate('Admin Confirmation');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-filter-attrib="admin-confirmation"
+                                                    data-filter-operator="intersect"
+                                                >
+                                                    <option value=""><?=$this->translate('All');?></option>
+                                                    <option value="u"><?=$this->translate('Waiting for revision');?></option>
+                                                    <option value="n"><?=$this->translate('Confirmed');?></option>
+                                                    <option value="y"><?=$this->translate('Blocked');?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label></span> <?=$this->translate('Origin');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-filter-attrib="origin"
+                                                    data-filter-operator="intersect"
+                                                >
+                                                    <option value=""><?=$this->translate('All');?></option>
+                                                    <option value="userCreated"><?=$this->translate('User created');?></option>
+                                                    <option value="adminCreated"><?=$this->translate('Admin created');?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><?=$this->translate('Voting');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-filter-attrib="voting"
+                                                    data-filter-operator="intersect"
+                                                >
+                                                    <option value=""><?=$this->translate('All');?></option>
+                                                    <option value="u"><?=$this->translate('Unknown');?></option>
+                                                    <option value="y"><?=$this->translate('Allowed');?></option>
+                                                    <option value="n"><?=$this->translate('Blocked');?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div><!-- .row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label><?=$this->translate('Folder');?></label>
+                                                <select
+                                                    class="form-control"
+                                                    data-toggle="filter"
+                                                    data-filter-attrib="directory"
+                                                    data-filter-operator="="
+                                                >
+                                                    <option value=""><?=$this->translate('All folders');?></option>
+                                                    <option value="0"><?=$this->translate('Folder root');?></option>
+                                                    <?php foreach($this->directories as $directory): ?>
+                                                        <option value="<?=$directory['id'];?>">
+                                                            <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                                        </option>
+                                                    <?php endforeach?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="tags"><?=$this->translate('Tags');?></label>
+                                                <select
+                                                    name="tags[]"
+                                                    class="form-control js-select2"
+                                                    multiple
+                                                    data-toggle="filter"
+                                                    data-filter-attrib="tags"
+                                                    data-filter-operator="subset"
+                                                >
+                                                    <?php foreach ($this->tags as $tag): ?>
+                                                        <option
+                                                            value="<?=$tag['tg_nr'];?>"
+                                                            <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
+                                                        >
+                                                            <?=$tag['tg_de'];?>
+                                                        </option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-actions">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-default"
+                                                    data-toggle="filter-reset"
+                                                >
+                                                    <?=$this->translate('Reset Filter');?>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div><!-- .row -->
+                                </form>
+
+                            </div>
+                        </div>
+                    </div><!-- .panel -->
+
+                    <!-- Folders -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" href="#filterFolders">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <?=$this->translate('Folders');?>
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="filterFolders" class="panel-collapse collapse">
+                            <div class="panel-body">
+
+                                <p>
+                                    <a href="<?=$this->url(['action' => 'create-directory']);?>">
+                                        <span class="glyphicon glyphicon-plus-sign"></span>
+                                        <?=$this->translate('Add folder');?>
+                                    </a>
+                                </p>
+
+                                <form
+                                    method="<?=$this->form->getMethod();?>"
+                                    action="<?=$this->url(['action' => 'directory-list-control']);?>"
+                                >
+                                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                                    <div class="list-group sortable js-sortable-voting-directory">
+                                        <?php foreach($this->directories as $directory): ?>
+                                            <div class="list-group-item">
+                                                <span class="glyphicon glyphicon-move"></span>
+                                                <?=$directory['dir_name'];?>
+                                                <button
+                                                    class="item-action item-action-danger"
+                                                    name="delete"
+                                                    value="<?=$directory['id'];?>"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Delete folder?');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                                <span class="badge"><?=$directory['count'];?></span>
+                                                <input type="hidden" name="order[<?=$directory['id'];?>]" value="<?=$directory['order'];?>" />
+                                            </div>
+                                        <?php endforeach;?>
+                                    </div>
+                                    <button type="submit" name="saveOrder" value="1" class="btn btn-default" disabled>
+                                        <?=$this->translate('Save changes');?>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div><!-- .panel -->
+
+                </div><!-- .panel-group -->
+
+                <!-- Contributions -->
+                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'input-list-control']);?>">
+
+                    <!-- Actions -->
+                    <div class="well well-sm">
+                        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="js-toggle-all" />
+                                <?=$this->translate('Marked entries');?>:
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="btn-toolbar">
+
+                                <div class="btn-group">
+                                    <button class="btn btn-default" name="merge" value="1" type="submit">
+                                        <span class="glyphicon glyphicon-resize-small"></span>
+                                        <span class="hidden-xs hidden-md"><?=$this->translate('Merge');?></span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-default"
+                                        name="releaseBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Release contributions?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Release');?></span>
+                                    </button>
+                                    <button
+                                        class="btn btn-default"
+                                        name="blockBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Block contributions?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Block');?></span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-default"
+                                        name="enableVotingBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Set contributions for voting?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Allow for voting');?></span>
+                                    </button>
+                                    <button
+                                        class="btn btn-default"
+                                        name="blockVotingBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Ban contributions from voting?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Ban from voting');?></span>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-danger"
+                                        name="deleteBulk"
+                                        type="submit"
+                                        value="1"
+                                        data-toggle="confirm"
+                                        data-confirm-message="<?=$this->translate('Delete contributions?');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        <span class="visible-lg-inline"><?=$this->translate('Delete');?></span>
+                                    </button>
+                                </div>
+
+                            </div><!-- .btn-toolbar -->
+                        </div><!-- .form-group -->
+
+                        <div class="input-group">
+                            <select class="form-control" name="sendToDictionaryId">
+                                <option value="0"><?=$this->translate('Folder root');?></option>
+                                <?php foreach($this->directories as $directory): ?>
+                                    <option value="<?=$directory['id'];?>">
+                                        <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                    </option>
+                                <?php endforeach?>
+                            </select>
+                            <span class="input-group-btn">
+                                <button
+                                    class="btn btn-default"
+                                    name="sendToDictionaryBulk"
+                                    type="submit"
+                                    value="1"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?=$this->translate('Move contributions?');?>"
+                                    >
+                                    <?=$this->translate('Move to folder');?>
+                                </button>
+                            </span>
+                        </div>
+
+                    </div><!-- .well -->
+
+                    <!-- Contribution listing -->
+                    <table id="contribution-table" class="table table-bordered table-responsive js-table-rows-toggle">
+                        <tbody>
+                            <?php foreach ($this->inputs as $input): ?>
+                                <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+
+                </form>
+
+            </div>
+        </div>
     </div>
-
-    <div id="inputAnchors" class="yform">
-        <h3 title="Klicken zum aus-/einklappen">Anzeigen:</h3>
-        <form>
-            <ul>
-                <li><label for="inputs">Alle Beiträge</label>
-                    <input id="inputs" class="inputs" type="checkbox" checked="checked">
-                </li>
-            </ul>
-            <ul>
-                <li><label for="unfinished">Unerledigte Beiträge</label>
-                    <input id="unfinished" class="unfinished" type="checkbox">
-                </li>
-                <li><label for="finished">Erledigte Beiträge</label>
-                    <input id="finished" class="finished" type="checkbox">
-                </li>
-                <div class="clearfix" style="clear: both;">
-                    &nbsp;
-                </div>
-            </ul>
-            <ul>
-                <li><label for="org-hidden">Ausgeblendete Originale</label>
-                    <input id="org-hidden" class="org-hidden" type="checkbox">
-                </li>
-                <li><label for="org-o">Originale:</label>
-                    <input id="org-o" class="org-o" type="checkbox">
-                </li>
-                <li><label for="org-r">Redaktionsbeiträge:</label>
-                    <input id="org-r" class="org-r" type="checkbox">
-                </li>
-                <div class="clearfix" style="clear: both;">
-                    &nbsp;
-                </div>
-            </ul>
-            <ul class="voting">
-                <li><label for="vot-y">Zur Abstimmung freigegegeben:</label>
-                    <input id="vot-y" class="vot-y" type="checkbox">
-                </li>
-                <li><label for="vot-n">Zur Abstimmung nicht freigegeben:</label>
-                    <input id="vot-n" class="vot-n" type="checkbox">
-                </li>
-                <li><label for="vot-orb">Abstimmungsfreigaben ohne redaktionelle Beiträge:</label>
-                    <input id="vot-orb" class="vot-orb" type="checkbox">
-                </li>
-                <div class="clearfix" style="clear: both;">
-                    &nbsp;
-                </div>
-            </ul>
-            <ul>
-                <li><label for="block-y">Blockierte:</label>
-                    <input id="block-y" class="block-y" type="checkbox">
-                </li>
-                <li><label for="block-n">Nicht-Blockierte:</label>
-                    <input id="block-n" class="block-n" type="checkbox">
-                </li>
-                <li><label for="vot-u">Unbearbeitete Beiträge: (vot-u)</label>
-                    <input id="vot-u" class="vot-u" type="checkbox">
-                </li>
-                <div class="clearfix" style="clear: both;">
-                    &nbsp;
-                </div>
-            </ul>
-        </form>
-    </div>
-
-    <div id="viewAnchors" class="yform">
-        <h3 title="Klicken zum aus-/einklappen">Einblenden:</h3>
-        <form>
-            <ul>
-                <li><label for="expl-content">Erläuterungen</label>
-                    <input id="expl-content" class="expl-content" type="checkbox">
-                </li>
-                <li><label for="related-content">Original-Beiträge</label>
-                    <input id="related-content" class="related-content" type="checkbox">
-                </li>
-                <li><label for="notice-content">Interne Kommentare</label>
-                    <input id="notice-content" class="notice-content" type="checkbox">
-                </li>
-            </ul>
-        </form>
-    </div>
-
-    <div id="actionAnchors" class="yform">
-        <h3 title="Klicken zum aus-/einklappen">Aktionen markierte Beiträge:</h3>
-        <ul>
-            <li><b>Bearbeiten</b></li>
-            <li>
-                <a
-                    class="split"
-                    rel="/admin/votingprepare/split/<?php echo $this->getParams; ?>"
-                    title="Ausgewählten Beitrag aufteilen"
-                >
-                    &#8883; auftteilen (nur eine Auswahl)
-                </a>
-            </li>
-            <li>
-                <a
-                    class="edit"
-                    rel="/admin/votingprepare/edit/<?php echo $this->getParams; ?>"
-                    title="Ausgewählten Beitrag bearbeiten"
-                >
-                    &#8883; bearbeiten (nur eine Auswahl)
-                </a>
-            </li>
-            <li>
-                <a
-                    class="edit"
-                    rel="/admin/votingprepare/copy/<?php echo $this->getParams; ?>"
-                    title="Kopie zur Bearbeitung erstellen"
-                >
-                    &#8883; Kopie zur Bearbeitung erstellen (nur eine Auswahl)
-                </a>
-            </li>
-            <li>
-                <a
-                    class="merge"
-                    rel="/admin/votingprepare/merge/<?php echo $this->getParams; ?>"
-                    title="Ausgewählte Beiträge zusammenlegen"
-                >
-                    &#8883; zusammenlegen
-                </a>
-            </li>
-            <li><b>Freigabe</b></li>
-            <li>
-                <a
-                    class="enable"
-                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/enable"
-                    title="Ausgewählte Beiträge zur Anzeige freigeben"
-                >
-                    &#8883; Beiträge anzeigen
-                </a>
-            </li>
-            <li>
-                <a
-                    class="disable"
-                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/disable"
-                    title="Ausgewählte Beiträge zur Anzeige sperren"
-                >
-                    &#8883; Beiträge nicht anzeigen
-                </a>
-            </li>
-            <li><b>Voting</b></li>
-            <li>
-                <a
-                    class="enable"
-                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/enable-voting"
-                    title="Ausgewählte Beiträge zum Voting freigeben"
-                >
-                    &#8883; Beiträge zum voten freigeben
-                </a>
-            </li>
-            <li>
-                <a
-                    class="disable"
-                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/disable-voting"
-                    title="Ausgewählte Beiträge zum Voting freigeben"
-                >
-                    &#8883; Beiträge zum voten sperren
-                </a>
-            </li>
-            <li><b>Löschen</b></li>
-            <li>
-                <a
-                    class="del"
-                    rel="/admin/votingprepare/update/<?php echo $this->getParams; ?>/do/delete"
-                    title="Ausgewählte Beiträge löschen"
-                >
-                    ! Beiträge löschen !
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div  id="questionAnchors" class="yform">
-        <h3 title="Klicken zum aus-/einklappen">Fragen:</h3>
-        <ul>
-            <?php echo $this->partialLoop('_partials/votingprepare/questions.phtml', $this->consultation["questions"]); ?>
-        </ul>
-    </div>
-
-</div>
-
-
+</section>

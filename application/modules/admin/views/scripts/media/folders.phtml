@@ -1,0 +1,80 @@
+<section class="section-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1><?=$this->translate('Media');?></h1>
+            </div>
+            <div class="col-sm-4">
+                <a
+                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
+                    class="btn btn-primary cta"
+                    >
+                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->mediaNavigation('folders');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(array('action' => 'create-folder'));?>" class="btn btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?=$this->translate('New Folder');?>
+                </a>
+                <h2><?=$this->translate('Folders');?></h2>
+
+                <form method="<?=$this->form->getMethod()?>">
+                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="sorting-asc" data-toggle="sort" tabindex="0"><?=$this->translate('Name');?></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->folderDirs as $folder): ?>
+                                <tr>
+                                    <td>
+                                        <a href="<?=$this->url(['action' => 'index', 'folder' => $folder['name'], 'targetElId' => $this->targetElId])?>">
+                                            <?=$this->escape($folder['name']);?>
+                                        </a>
+                                    </td>
+                                    <td class="table-cell-actions">
+                                        <a href="<?=$this->url(['action' => 'edit-folder', 'folder' => $folder['name']]);?>" title="<?=$this->translate('Edit');?>" class="item-action">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <button
+                                            name="delete"
+                                            type="submit"
+                                            onclick="return confirm('<?=$this->translate('Delete folder?');?>');"
+                                            value="<?=$this->escape($folder['name']);?>"
+                                            <?php if ($folder['isEmpty']): ?>
+                                                title="<?=$this->translate('Delete');?>"
+                                            <?php else: ?>
+                                                disabled
+                                                title="<?=$this->translate('This folder contains one or more files and cannot be deleted.');?>"
+                                            <?php endif; ?>
+                                            class="item-action item-action-danger"
+                                        >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

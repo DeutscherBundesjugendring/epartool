@@ -1,10 +1,5 @@
 <?php
-/**
- * ArticleController
- *
- * @desc     Articles for Consultation
- * @author                Markus Hackel
- */
+
 class Admin_ArticleController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
@@ -17,10 +12,8 @@ class Admin_ArticleController extends Zend_Controller_Action
      */
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
         $this->_adminIndexURL = $this->view->url(array(
             'controller' => 'index',
@@ -35,7 +28,6 @@ class Admin_ArticleController extends Zend_Controller_Action
     public function indexAction()
     {
         $kid = $this->getRequest()->getParam('kid', 0);
-        $consultation = null;
         $articles = null;
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
@@ -49,9 +41,10 @@ class Admin_ArticleController extends Zend_Controller_Action
         } else {
             $articleModel = new Model_Articles();
             $articles = $articleModel->getAllWithoutConsultation();
-//            $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
         }
+
         $this->view->articles = $articles;
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     public function createAction()
@@ -66,17 +59,16 @@ class Admin_ArticleController extends Zend_Controller_Action
             $consultationModel = new Model_Consultations();
             $refNameModel = new Model_ArticleRefNames();
             $consultation = $consultationModel->getById($kid);
-            $form = new Admin_Form_Article();
-
+            $form = new Admin_Form_Article($kid);
             $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
-            $multiOptions = array(0 => 'Bitte auswählen...');
+            $multiOptions = array(0 => $this->view->translate('Please select…'));
             if ($kid > 0) {
                 // set multiOptions for ref_nm
                 foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
                     $multiOptions[$key] = $value;
                 }
                 $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                $form->getElement('ref_nm')->setDescription('Bei Unterseiten gilt der Referenzname der Elternseite!');
+                $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
             } else {
                 // set multiOptions for ref_nm
                 foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
@@ -87,7 +79,7 @@ class Admin_ArticleController extends Zend_Controller_Action
             $articleModel = new Model_Articles();
             $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
             $parentOptions = array(
-                0 => 'Keine'
+                0 => $this->view->translate('None')
             );
             foreach ($firstLevelPages as $page) {
                 $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
@@ -101,12 +93,13 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $articleModel = new Model_Articles();
                     $articleRow = $articleModel->createRow($form->getValues());
                     $articleRow->kid = $kid;
+                    $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                     $articleRow->proj = implode(',', $data['proj']);
                     $newId = $articleRow->save();
                     if ($newId > 0) {
-                        $this->_flashMessenger->addMessage('Neuer Artikel wurde erstellt.', 'success');
+                        $this->_flashMessenger->addMessage('New article has been created.', 'success');
                     } else {
-                        $this->_flashMessenger->addMessage('Erstellen des neuen Artikels fehlgeschlagen!', 'error');
+                        $this->_flashMessenger->addMessage('Creating new article failed.', 'error');
                     }
 
                     $this->_redirect($this->view->url(array(
@@ -114,7 +107,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                         'kid' => $kid
                     )), array('prependBase' => false));
                 } else {
-                    $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben!', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                     $form->populate($form->getValues());
                     $form->getElement('proj')->setValue($data['proj']);
                 }
@@ -160,15 +153,15 @@ class Admin_ArticleController extends Zend_Controller_Action
             if ($aid > 0) {
                 $articleModel = new Model_Articles();
                 $articleRow = $articleModel->find($aid)->current();
-                $form = new Admin_Form_Article();
-                $multiOptions = array(0 => 'Bitte auswählen...');
+                $form = new Admin_Form_Article($kid);
+                $multiOptions = array(0 => $this->view->translate('Please select…'));
                 if ($kid > 0) {
                     // set multiOptions for ref_nm
                     foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
                         $multiOptions[$key] = $value;
                     }
                     $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                    $form->getElement('ref_nm')->setDescription('Bei Unterseiten gilt der Referenzname der Elternseite!');
+                    $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
                 } else {
                     // set multiOptions for ref_nm
                     foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
@@ -178,7 +171,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                 }
                 $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
                 $parentOptions = array(
-                    0 => 'Keine'
+                    0 => $this->view->translate('None')
                 );
                 foreach ($firstLevelPages as $page) {
                     if ($page['art_id'] != $aid) {
@@ -194,12 +187,13 @@ class Admin_ArticleController extends Zend_Controller_Action
                     if ($form->isValid($params)) {
                         $articleRow->setFromArray($form->getValues());
                         $articleRow->proj = implode(',', $params['proj']);
+                        $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                         $articleRow->save();
-                        $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
+                        $this->_flashMessenger->addMessage('Changes saved.', 'success');
                         $article = $articleRow->toArray();
                         $article['proj'] = explode(',', $article['proj']);
                     } else {
-                        $this->_flashMessenger->addMessage('Bitte prüfen Sie Ihre Eingaben und versuchen Sie es erneut!', 'error');
+                        $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                         $article = $params;
                     }
                 } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
@@ -232,23 +226,26 @@ class Admin_ArticleController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Deletes an article
+     */
     public function deleteAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $aid = $this->getRequest()->getParam('aid', 0);
-        if ($aid > 0) {
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
             $articleModel = new Model_Articles();
-            $articleRow = $articleModel->getById($aid);
-            if ($articleRow['kid'] == $kid) {
-                $nrDeleted = $articleModel->deleteById($aid);
-                if ($nrDeleted > 0) {
-                    $this->_flashMessenger->addMessage('Der Artikel wurde gelöscht.', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage('Artikel konnte nicht gelöscht werden. Eventuell existieren Unterseiten. Dann bitte zuerst diese löschen!', 'error');
-                }
+            $nrDeleted = $articleModel->deleteById(
+                $this->getRequest()->getPost('delete')
+            );
+            if ($nrDeleted) {
+                $this->_flashMessenger->addMessage('Article has been deleted.', 'success');
+            } else {
+                $this->_flashMessenger->addMessage('Article could not be deleted. If there are any sub-articles, these have to be removed first.', 'error');
             }
         }
-        $this->_redirect('/admin/article/index/kid/' . $kid);
+
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 
     /**

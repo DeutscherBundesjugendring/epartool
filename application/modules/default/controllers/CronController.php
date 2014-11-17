@@ -9,7 +9,7 @@ class CronController extends Zend_Controller_Action
     {
         // Cron should be at leas partially protected from public
         $key = $this->getRequest()->getParam('key');
-        if ($key === Zend_Registry::get('systemconfig')->cron->key) {
+        if ($key && $key === Zend_Registry::get('systemconfig')->cron->key) {
             Service_Cron::executeAll();
             echo 'Success!';
         } else {

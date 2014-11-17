@@ -1,14 +1,90 @@
-<h1><?php echo !empty($this->consultation) ? $this->consultation->titl : 'Übersicht'; ?></h1>
-<?php echo $this->consultationNavigation()?>
+<section class="section-header has-tabs" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
 
-<script>
-  $(document).ready(function(){
-    $('.delete-action a').click(function(event){
-      event.preventDefault();
-      var check = confirm('Wollen sie diese Beteiligungsrunde wirklich löschen?');
-      if(check === true) {
-        window.location = "/admin/consultation/delete/kid/<?php echo $this->consultation->kid; ?>";
-      }
-    });
-  });
-</script>
+        <h1><?=$this->consultation->titl;?></h1>
+        <h2><?=$this->consultation->titl_sub;?></h2>
+
+        <?=$this->consultationTabs($this->consultation->kid, 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation['kid'], 'dashboard');?>
+
+            </div>
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <h2>
+                            <?=$this->translate('New Contributions');?>
+                            <span class="badge"><?=count($this->inputs);?></span>
+                        </h2>
+
+                        <?php if ($this->inputs): ?>
+                            <?php foreach($this->inputs as $input): ?>
+                                <blockquote>
+                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
+                                        <p><?=$input['thes'];?></p>
+                                    </a>
+                                    <footer>
+                                        <?php if (!empty($input['name'])): ?>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <a
+                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid']]);?>"
+                                                title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                                >
+                                                <?=$input['name'];?>
+                                            </a>,
+                                        <?php endif; ?>
+                                        <?=$this->formatDate($input['when']);?>
+                                    </footer>
+                                </blockquote>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="alert alert-info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <?=$this->translate('There are no unprocessed contributions.');?>
+                            </p>
+                        <?php endif; ?>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <h2>
+                            <?=$this->translate('Discussion Posts');?>
+                            <span class="badge"><?=count($this->discussionContribs);?></span>
+                        </h2>
+
+                        <?php if (count($this->discussionContribs)): ?>
+                            <?php foreach($this->discussionContribs as $contrib): ?>
+                                <blockquote>
+                                    <p><?=$this->escape($contrib->body);?></p>
+                                    <footer>
+                                        <?php if (!empty($contrib['name'])): ?>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <?=$contrib['name'];?>,
+                                        <?php endif; ?>
+                                        <?=$this->formatDate($contrib->time_created);?>
+                                    </footer>
+                                </blockquote>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="alert alert-info">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <?=$this->translate('There are no discussion posts yet.');?>
+                            </p>
+                        <?php endif; ?>
+
+                    </div>
+                </div><!-- .row -->
+
+            </div>
+        </div><!-- .row -->
+    </div>
+</section>

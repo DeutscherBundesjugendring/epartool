@@ -1,76 +1,121 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>DBJR - Administration</title>
-    <!-- add your meta tags here -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href="<?php echo $this->baseUrl(); ?>/css/backend/style.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->baseUrl(); ?>/css/backend/dashboard.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->baseUrl(); ?>/components/bower/jquery.ui/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-    <!--[if lte IE 7]>
-    <link href="<?php echo $this->baseUrl(); ?>/css/backend/patches/patch_layout.css" rel="stylesheet" type="text/css" />
-    <![endif]-->
+    <title><?=$this->translate('DBJR TOOL Admin');?></title>
+    <meta name="robots" content="noindex, nofollow" />
 
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/bower/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/ajaxloader.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/admin.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/components/static/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript">
-        var baseUrl = '<?php echo $this->baseUrl?>';
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" />
+    <link href="<?=$this->baseUrl('components/bower/jquery.ui/themes/base/jquery.ui.all.css');?>" rel="stylesheet" />
+    <link href="<?=$this->baseUrl('css/admin.css');?>" rel="stylesheet" />
+
+    <!-- TODO favicon -->
+    <!--link rel="shortcut icon" href="<?=$this->baseUrl('favicon.ico');?>" />
+    <link rel="shortcut icon" href="<?=$this->baseUrl('images/icon/favicon.png');?>" />
+    <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('images/icon/touch-icon.png');?>" /-->
+
+    <!-- TODO move to footer? -->
+    <script src="<?=$this->baseUrl('components/bower/jquery/jquery.min.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/moment/min/moment-with-locales.min.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/bootstrap3/dist/js/bootstrap.min.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/static/ckeditor/ckeditor.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/select2/select2.min.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/static/ckeditor/adapters/jquery.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.core.js');?>"></script>
+
+    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/confirmation.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/sortable-table.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/filterable.js');?>"></script>
+
+    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.widget.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.mouse.js');?>"></script>
+    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.sortable.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/i18n/admin.' . Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('locale')->getLocale()->getLanguage() . '.js');?>"></script>
+    <script>
+        // TODO move to data attribute on body?
+        var baseUrl = '<?=$this->baseUrl?>';
     </script>
-    <?php echo $this->headScript(); ?>
+    <?=$this->headScript();?>
 </head>
-
 <body>
-    <div class="page_margins">
-        <!-- start: skip link navigation -->
-        <!-- end: skip link navigation -->
-        <div class="page">
-            <div id="header">
-                <h1><a href="<?php echo $this->baseUrl(); ?>/admin">Administration</a></h1>
-                <div id="topnav">
-                    <a href="<?php echo $this->baseUrl(); ?>/">Startseite</a><br />
-                    <a href="<?php echo $this->baseUrl(); ?>/admin">Startseite Administration</a><br />
-                </div>
-            </div>
-            <div id="main">
-                <div id="col1">
-                    <div id="col1_content" class="clearfix">
-                        <!-- Navigation -->
-                        <?php echo $this->navigation()->menu(); ?>
-                    </div>
-                </div>
-                <div id="col3">
-                    <div id="col3_content" class="clearfix">
-                        <!-- Flash Messages -->
-                        <?php if(!empty($this->layout()->messages)): ?>
-                            <?php foreach ($this->layout()->messages as $level => $messages): ?>
-                                <?php if (!empty($messages)): ?>
-                                    <?php foreach ($messages as $message): ?>
-                                        <p class="<?php echo $level; ?>">
-                                            <?php echo $message; ?>
-                                        </p>
-                                    <?php endforeach;?>
-                                <?php endif;?>
-                            <?php endforeach;?>
-                        <?php endif;?>
 
-                        <!-- Content -->
-                        <?php echo $this->layout()->content; ?>
-                    </div>
-                    <!-- IE Column Clearing -->
-                    <div id="ie_clearing"> &#160; </div>
+    <header role="banner">
+
+        <!-- Main navigation -->
+        <nav class="navbar navbar-static-top navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="sr-only"><?=$this->translate('Menu');?></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a
+                        href="<?=$this->url(['module' => 'admin', 'controller' => 'index', 'action' => 'index'], null, true);?>"
+                        class="navbar-brand"
+                        title="<?=$this->translate('ePartool admin dashboard');?>"
+                    >
+                        <?php include(APPLICATION_PATH . '/../www/images/admin/logo.svg'); ?>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="menu">
+                    <?=$this->navigation()->menu();?>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="navbar-icon">
+                            <a href="<?=$this->url([], null, true);?>" target="_blank" title="<?=$this->translate('Open site in a new tab');?>">
+                                <span class="glyphicon glyphicon-home"></span>
+                                <span class="visible-xs-inline"><?=$this->translate('Homepage');?></span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user visible-sm-inline-block"></span>
+                                <span class="hidden-sm">
+                                    <?=Zend_Auth::getInstance()->getIdentity()->name;?>
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header visible-sm"><?=Zend_Auth::getInstance()->getIdentity()->name;?></li>
+                                <li class="divider visible-sm"></li>
+                                <li>
+                                    <a href="/user/logout">
+                                        <span class="glyphicon glyphicon-off"></span>
+                                        <?=$this->translate('Log off');?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <!-- begin: #footer -->
-            <div id="footer">
-                <p>Layout based on <a href="http://www.yaml.de">YAML</a></p>
-            </div>
+        </nav>
+
+    </header>
+    <main role="main">
+
+        <!-- Flash Messages -->
+        <?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
+
+        <!-- Content -->
+        <?=$this->layout()->content;?>
+
+    </main>
+    <footer role="contentinfo" class="footer footer-sticky">
+        <div class="container">
+            © DBJR <?=date('Y');?>
+            <span class="footer-divider">|</span>
+            <a href="TODO" target="_blank"><?=$this->translate('Contact');?></a>
+            <a href="http://www.synergic.cz/en" target="_blank" class="footer-author" title="Created by Synergic">
+                <?php include(APPLICATION_PATH . '/../www/images/admin/synergic.svg'); ?>
+            </a>
         </div>
-    </div>
+    </footer>
+
 </body>
-
 </html>
-

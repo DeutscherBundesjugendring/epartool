@@ -52,30 +52,30 @@ $sysconfig = Zend_Registry::get('systemconfig');
 	</head>
 	<body>
 
+        <!-- Flash messages -->
+        <?php if (!empty($this->layout()->messages)): ?>
+            <?php foreach ($this->layout()->messages as $level => $messages): ?>
+                <?php if (!empty($messages)): ?>
+                    <?php foreach ($messages as $message): ?>
+                        <?php echo $this->partial('_partials/flashMessage.phtml', array('message' => $message, 'level' => $level))?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
 		<!-- Document wrap -->
 		<div class="document-wrap" id="top">
 			<div class="container">
 
 				<!-- Header -->
-				<?php echo $this -> partial('_partials/header.phtml', $this -> layout() -> getView()); ?>
+				<?php echo $this->partial('_partials/header.phtml', $this->layout()->getView()); ?>
 
 				<!-- Body copy -->
 				<div role="main" class="main">
 
-					<!-- Flash messages -->
-					<?php if (!empty($this->layout()->messages)): ?>
-					<?php foreach ($this->layout()->messages as $level => $messages): ?>
-					<?php if (!empty($messages)): ?>
-					<?php foreach ($messages as $message): ?>
-					<?php echo $this->partial('_partials/flashMessage.phtml', array('message' => $message, 'level' => $level))?>
-					<?php endforeach; ?>
-					<?php endif; ?>
-					<?php endforeach; ?>
-					<?php endif; ?>
-
 					<!-- Content start -->
 
-					<?php echo $this -> layout() -> content; ?>
+					<?php echo $this->layout()->content; ?>
 
 					<!-- Content end -->
 

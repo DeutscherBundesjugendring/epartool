@@ -1,0 +1,117 @@
+<tr
+    data-admin-confirmation="<?=$this->input['block'];?>"
+    data-user-confirmation="<?=$this->input['user_conf'];?>"
+    data-voting="<?=$this->input['vot'];?>"
+    data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
+>
+    <td class="table-cell-id table-cell-top">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="<?=$this->input['tid'];?>" name="inp_list[]" />
+                <span class="muted"><?=$this->input['tid'];?>
+            </label>
+        </div>
+    </td>
+    <td class="table-cell-top">
+        <p><?php echo $this->input['thes'];?></p>
+        <p><?php echo $this->input['expl'];?></p>
+
+        <p>
+            <small>
+                <?php if (!empty($this->input['name'])): ?>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
+                <?php endif; ?>
+                <?=$this->formatDate($this->input['when']);?>
+            </small>
+        </p>
+        <p>
+            <?php foreach ($this->input['tags'] as $tag): ?>
+                <span class="label label-primary"><?=$tag['tg_de'];?></span>
+            <?php endforeach;?>
+        </p>
+        <?php if (!empty($this->input['notiz'])): ?>
+            <p>
+                <?=$this->input['notiz'];?>
+            </p>
+        <?php endif; ?>
+    </td>
+    <td class="col-xs-3 table-cell-top">
+        <p>
+            <?=$this->translate('Admin Confirmation');?><br />
+            <?php if ($this->input['block'] === 'u'): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif ($this->input['block'] === 'y'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('Blocked'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
+                </span>
+            <?php elseif ($this->input['block'] === 'n'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Confirmed'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
+                </span>
+            <?php endif;?>
+        </p>
+        <p>
+            <?=$this->translate('User Confirmation');?><br />
+            <?php if ($this->input['user_conf'] === 'u'): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif ($this->input['user_conf'] === 'r'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('Rejected');?>
+                </span>
+            <?php elseif ($this->input['user_conf'] === 'c'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Confirmed');?>
+                </span>
+            <?php endif;?>
+        </p>
+        <p>
+            <?=$this->translate('Voting');?><br />
+            <?php if ($this->input['vot'] === 'u'): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif ($this->input['vot'] === 'y'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Yes');?>
+                </span>
+            <?php elseif ($this->input['vot'] === 'n'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('No');?>
+                </span>
+            <?php endif;?>
+        </p>
+    </td>
+    <td class="col-xs-1 table-cell-top text-center">
+        <a
+            href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']])?>"
+            class="item-action"
+            title="<?=$this->translate('Edit contribution');?>"
+            >
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+        <button
+            class="item-action item-action-danger"
+            name="delete"
+            value="<?=$this->input['tid']?>"
+            data-toggle="confirm"
+            data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+            title="<?=$this->translate('Delete contribution');?>"
+        >
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </td>
+</tr>

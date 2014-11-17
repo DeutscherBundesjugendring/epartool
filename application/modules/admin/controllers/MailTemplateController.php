@@ -72,14 +72,17 @@ class Admin_MailTemplateController extends Zend_Controller_Action
                         $templateId = $this->_templateModel->insert($values);
                     }
                     $db->commit();
-                    $this->_flashMessenger->addMessage('Änderungen gespeichert.', 'success');
+                    $this->_flashMessenger->addMessage('Email template has been saved.', 'success');
                     $this->_redirect('/admin/mail-template/detail/id/' . $templateId);
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;
                 }
             } else {
-                $form->getElement('name')->setValue($template->name);
+                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                if (isset($template)) {
+                    $form->getElement('name')->setValue($template->name);
+                }
             }
         } elseif (isset($template)) {
             $form->populate($template->toArray());
@@ -106,7 +109,7 @@ class Admin_MailTemplateController extends Zend_Controller_Action
                     $templateId = $this->getRequest()->getPost('deleteId');
                     $this->_templateModel->delete(['id=?' => $templateId]);
                     $db->commit();
-                    $this->_flashMessenger->addMessage('Template deleted', 'success');
+                    $this->_flashMessenger->addMessage('Template has been deleted.', 'success');
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;

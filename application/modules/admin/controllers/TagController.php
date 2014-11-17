@@ -6,40 +6,64 @@ class Admin_TagController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }
 
     public function indexAction()
     {
         $tagModel = new Model_Tags();
-        $this->view->tags = $tagModel->getAll();
+        $tags = $tagModel->getAll();
+
+        // Group tags by the first letter
+        $tagsGrouped = array();
+        $letters = array();
+        $currentLetter = '';
+
+        foreach ($tags as $tag) {
+            $tagFirstLetter = self::toAscii(mb_strtoupper(mb_substr($tag['tg_de'], 0, 1, 'UTF-8')));
+            if ($tagFirstLetter !== $currentLetter) {
+                $currentLetter = $tagFirstLetter;
+                if (!in_array($tagFirstLetter, $letters)) {
+                    $letters[] = $tagFirstLetter;
+                }
+            }
+            $tagsGrouped[$currentLetter][] = $tag;
+        }
+        $this->view->tags = $tagsGrouped;
+        $this->view->letters = $letters;
+        $this->view->form = new Admin_Form_ListControl();
         $this->view->createForm = new Admin_Form_Tag();
     }
 
     public function createAction()
     {
+        $form = new Admin_Form_Tag();
+
         if ($this->_request->isPost()) {
-            $form = new Admin_Form_Tag();
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
                 $tagModel = new Model_Tags();
                 $key = $tagModel->add($data);
                 if (!empty($key)) {
-                    $this->_flashMessenger->addMessage('Neues Schlagwort angelegt.', 'success');
+                    $this->_flashMessenger->addMessage('New keyword has been added.', 'success');
                 }
-                $this->redirect('/admin/tag');
+                $this->redirect('/admin/tag/create');
             } else {
-                $this->view->createForm = $form->populate($data);
+                $form->populate($data);
             }
-        } else {
-            $this->redirect('/admin/tag');
         }
+        $this->view->createForm = $form;
     }
 
     public function editAction()
     {
-        if ($this->_request->isPost()) {
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            if ($this->getRequest()->getPost('delete', null)) {
+                return $this->_forward('delete');
+            }
+
             $data = $this->_request->getPost();
             $validator = new Zend_Validate_NotEmpty();
             $tagModel = new Model_Tags();
@@ -51,38 +75,41 @@ class Admin_TagController extends Zend_Controller_Action
                         $nr = $tagModel->updateById($tg_nr, array('tg_de' => $tg_de));
                         $nrUpdated+= $nr;
                     } else {
-                        $this->_flashMessenger->addMessage('Ungültiger Wert für "'
-                            . $data['tag_old'][$tg_nr] . '"!', 'error');
+                        $this->_flashMessenger->addMessage('Invalid value of "' . $data['tag_old'][$tg_nr] . '".', 'error');
                     }
                 }
             }
             if ($nrUpdated > 0) {
-                $this->_flashMessenger->addMessage($nrUpdated . ' Einträge geändert.', 'success');
+                $this->_flashMessenger->addMessage($nrUpdated . 'Changes saved.', 'success');
             }
         }
-        $this->redirect('/admin/tag');
+
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 
+    /**
+     * Deletes a tag
+     */
     public function deleteAction()
     {
-        $validator = new Zend_Validate_Int();
-        $tg_nr = $this->_request->getParam('tag', 0);
-        if (!$validator->isValid($tg_nr)) {
-            throw new Zend_Validate_Exception('Given parameter "tag" must be integer!');
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $nr = (new Model_Tags())->deleteById(
+                $this->getRequest()->getPost('delete')
+            );
+            $this->_flashMessenger->addMessage('Keyword has been deleted.', 'success');
         }
-        if ($tg_nr > 0) {
-            $inputsTagsModel = new Model_InputsTags();
-            if (!$inputsTagsModel->tagExists($tg_nr)) {
-                $tagModel = new Model_Tags();
-                $nr = $tagModel->deleteById($tg_nr);
-                if ($nr > 0) {
-                    $this->_flashMessenger->addMessage('Eintrag gelöscht.', 'success');
-                }
-            } else {
-                $this->_flashMessenger
-                    ->addMessage('Dieser Tag ist bereits Beiträgen zugeordnet und kann deshalb nicht gelöscht werden!', 'error');
-            }
-        }
-        $this->redirect('/admin/tag');
+
+        $this->_redirect($this->view->url(['action' => 'index']));
+    }
+
+    private static function toAscii($string)
+    {
+        return strtr(
+            utf8_decode($string),
+            utf8_decode('ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ'),
+            'SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy'
+        );
     }
 }

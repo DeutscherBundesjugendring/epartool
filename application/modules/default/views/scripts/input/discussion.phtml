@@ -1,0 +1,54 @@
+<a name="page-content"></a>
+<?php echo $this->secondNavigation('input') ?>
+
+<div class="main-content content-holder">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+
+            <h1><?=$this->translate('Contribution Discussion');?></h1>
+            <p>
+                <a href="<?=$this->url(['action' => 'show']);?>">&larr; <?=$this->translate('Back to contribution');?></a>
+            </p>
+
+            <blockquote class="offset-bottom-large">
+                <p>
+                    <?=$this->escape($this->input->thes);?>
+                </p>
+                <?php if (!empty($this->input->expl)): ?>
+                    <p>
+                        <?=$this->escape($this->input->expl);?>
+                    </p>
+                <?php endif; ?>
+                <small><?=$this->formatDate($this->input->when);?></small>
+            </blockquote>
+
+            <div class="media-list">
+                <?php foreach($this->discussionContribs as $contrib): ?>
+                    <div class="media">
+                        <small class="muted">
+                            <span class="icon-user"></span>
+                            <?php if (!empty($contrib->name)): ?>
+                                <?=$this->escape($contrib->name);?>,
+                            <?php endif; ?>
+                            <?=$this->formatDate($contrib->time_created);?>
+                        </small>
+                        <p><?=$this->escape($contrib->body);?></p>
+                    </div>
+                <?php endforeach?>
+            </div>
+
+            <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
+                && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
+            ): ?>
+                <?=$this->form?>
+            <?php endif;?>
+
+            <?=$this->subscriptionForm;?>
+
+        </div>
+    </div>
+
+    <?php echo $this->render('_partials/printLink.phtml') ?>
+</div>
+
+<?php echo $this->render('_partials/topLink.phtml') ?>

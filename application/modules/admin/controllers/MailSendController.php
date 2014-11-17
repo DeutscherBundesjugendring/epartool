@@ -21,7 +21,19 @@ class Admin_MailSendController extends Zend_Controller_Action
     {
         $form = new Admin_Form_Mail_Send();
         if ($this->getRequest()->isPost()) {
-            if ($form->isValid($this->getRequest()->getPost())) {
+            $postData = $this->getRequest()->getPost();
+            if (isset($postData['attachments'])) {
+                foreach ($postData['attachments'] as $i => $file) {
+                    $attachment = $form->createElement('media', (string) $i);
+                    $attachment
+                        ->setBelongsTo('attachments')
+                        ->setValue($file)
+                        ->setOrder(500 + $i);
+                    $form->addElement($attachment);
+                }
+            }
+
+            if ($form->isValid($postData)) {
                 $values = $form->getValues();
                 $userTableName = (new Model_Users())->info(Model_Users::NAME);
                 $userConsultDataTableName = (new Model_User_Info())->info(Model_User_Info::NAME);
@@ -64,10 +76,25 @@ class Admin_MailSendController extends Zend_Controller_Action
                         Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER
                     );
                 }
-                (new Service_Email)->queueForSend($mailer);
+                if (!empty($postData['attachments'])) {
+                    foreach ($postData['attachments'] as $file) {
+                        if ($file) {
+                            $mailer->addAttachmentFile($file);
+                        }
+                    }
+                }
 
-                $this->_flashMessenger->addMessage('Email sent.', 'success');
-                $this->_redirect('/admin/mail-send');
+                $db = (new Model_Users())->getAdapter();
+                $db->beginTransaction();
+                try {
+                    (new Service_Email)->queueForSend($mailer);
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Email has been queued for sending.', 'success');
+                    $this->_redirect('/admin/mail-queued');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
             }
         }
 

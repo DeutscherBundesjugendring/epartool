@@ -104,32 +104,6 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     }
 
     /**
-     * deleteById
-     * delete entry by id
-     * @param  integer $id
-     * @return integer
-     */
-    public function deleteById($id)
-    {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return 0;
-        }
-        // exists?
-        if ($this->find($id)->count() < 1) {
-            return 0;
-        }
-
-        // where
-        $where = $this->getDefaultAdapter()
-            ->quoteInto($this->_primary[1] . '=?', $id);
-        $result = $this->delete($where);
-
-        return $result;
-    }
-
-    /**
      * getFollowupsById
      * get fowups by fowups_fls.ffid
      *
@@ -160,8 +134,72 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
             return $rowset;
         } else {
             return array();
+        }
+    }
 
+    /**
+     * Returns followups with the associated snippets
+     * @param  array $wheres An array of where conditions
+     * @return array         An array of the followup arrays
+     */
+    public function getWithSnippets($wheres)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from($this->info(self::NAME))
+            ->joinLeft(
+                (new Model_Followups())->info(Model_Followups::NAME),
+                (new Model_Followups())->info(Model_Followups::NAME) . '.ffid = ' . $this->info(self::NAME) . '.ffid',
+                ['fid', 'expl']
+            );
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
         }
 
+        $res = $this->fetchAll($select);
+
+        $followups = [];
+        foreach ($res as $followup) {
+            if (!isset($followups[$followup->ffid])) {
+                $followups[$followup->ffid]['titl'] = $followup->titl;
+                $followups[$followup->ffid]['snippets'] = [];
+            }
+            if ($followup->fid) {
+                $followups[$followup->ffid]['snippets'][] = $followup;
+            }
+        }
+
+        return $followups;
+    }
+
+    /**
+     * Deletes existing rows.
+     * @param  array|string $where SQL WHERE clause(s).
+     * @return int          The number of rows deleted.
+     */
+    public function delete($where)
+    {
+        $followups = $this->fetchAll($where);
+        $followupIds = [];
+        foreach ($followups as $followup) {
+            $followupIds[] = $followup->ffid;
+        }
+
+        $snippetModel = new Model_Followups();
+        $relatedSnippetCount = $snippetModel
+            ->select()
+            ->from($snippetModel, ['count' => 'COUNT(*)'])
+            ->where('ffid IN (?)', $followupIds)
+            ->query()
+            ->fetchObject()
+            ->count;
+
+        if ($relatedSnippetCount) {
+            throw new Dbjr_Exception('Cant delete followup if snippets exist.');
+        }
+
+        return parent::delete($where);
     }
 }

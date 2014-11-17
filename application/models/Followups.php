@@ -18,10 +18,34 @@ class Model_Followups extends Zend_Db_Table_Abstract
       )
     );
 
+    private static $_types = [
+        'g' => 'general',
+        's' => 'supporting',
+        'a' => 'action',
+        'r' => 'rejected',
+        'e' => 'end'
+    ];
+
+    private static $_hierarchyLevels = [
+        "Fußnote",
+        "Fließtext",
+        "Überschrift 1",
+        "Überschrift 2",
+        "Überschrift 3",
+        "Überschrift 4",
+        "Überschrift 5",
+    ];
+
+    public static function getTypes() {
+        return self::$_types;
+    }
+
+    public static function getHierarchyLevels() {
+        return self::$_hierarchyLevels;
+    }
+
     public function getByKid($kid, $order = NULL, $limit = NULL)
     {
-        //$result = array();
-
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($kid)) {
             return array();
@@ -39,7 +63,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
         $result = $this->fetchAll($select);
 
         return $result->toArray();
-
     }
 
     /**
@@ -71,6 +94,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
         return $result;
 
     }
+
     /**
     * getRelated
     * get related fowups/fowup_fls by fowups.fid
@@ -93,7 +117,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
         $result = array();
         $result['inputs'] = array();
         $result['snippets'] = array();
-        $result['docs'] = array();
+        $result['followups'] = array();
         $result['count'] = 0;
         $row = $this->find($id)->current();
         if ($row) {
@@ -119,13 +143,12 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
             $result['inputs'] = $modelInputs->find($inputs)->toArray();
             $result['snippets'] = $this->find($snippets)->toArray();
-            $result['docs'] = $modelFollowupFiles->find($docs)->toArray();
+            $result['followups'] = $modelFollowupFiles->find($docs)->toArray();
             $result['count'] = count($refs);
 
         }
 
         return $result;
-
      }
 
     /**
@@ -168,48 +191,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
         return $result;
 
-    }
-
-    public function getByDocIdArray($ffidArray)
-    {
-        if (!is_array($ffidArray) || count($ffidArray) == 0) {
-          return array();
-
-        }
-        $result = array();
-        $select = $this->select();
-        $select->where('ffid IN(?)', $ffidArray);
-        $select->order('ffid ASC');
-        $result = $this->fetchAll($select)->toArray();
-
-        return $result;
-    }
-
-    /**
-    * getById
-    * delete followup by fowups.fid
-    * @param integer $fid
-    */
-    public function deleteById($fid)
-    {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($fid)) {
-          return 0;
-        }
-        // exists?
-        if ($this->find($fid)->count() < 1) {
-          return 0;
-        }
-
-        // where
-        $snippet = $this->find($fid)->current();
-        $result = $snippet->delete();
-       /* $where = $this->getDefaultAdapter()
-            ->quoteInto($this->_primary[1] . '=?', $id);
-        $result = $this->delete($where);*/
-
-        return $result;
     }
 
     /**

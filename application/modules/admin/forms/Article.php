@@ -1,41 +1,85 @@
 <?php
-/**
- * Article
- *
- * @description     Form of Article
- * @author                Markus Hackel
- */
-class Admin_Form_Article extends Zend_Form
+
+class Admin_Form_Article extends Dbjr_Form_Admin
 {
-    protected $_iniFile = '/modules/admin/forms/Article.ini';
-    /**
-     * Initialisieren des Formulars
-     *
-     */
+    protected $_kid;
+
+    public function __construct($kid = null)
+    {
+        $this->_kid = $kid;
+        parent::__construct();
+    }
+
     public function init()
     {
-        $this->addPrefixPath('Dbjr_Form', 'Dbjr/Form/');
-        // set form-config
-        $this->setConfig(new Zend_Config_Ini(APPLICATION_PATH . $this->_iniFile));
+        $cancelUrl = Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/article';
+        if ($this->_kid) {
+            $cancelUrl .= '/index/kid/' . $this->_kid;
+        }
 
-        $options = array(
-            0 => 'Bitte auswählen...',
-        );
+        $this->setMethod('post')
+            ->setAttrib('class', 'offset-bottom')
+            ->setCancelLink(['url' => $cancelUrl]);
 
-        $this->getElement('ref_nm')->setMultioptions($options);
+        $id = $this->createElement('hidden', 'art_id');
+        $this->addElement($id);
 
-        $this->getElement('hid')->setCheckedValue('y');
-        $this->getElement('hid')->setUncheckedValue('n');
+        $desc = $this->createElement('text', 'desc');
+        $desc
+            ->setLabel('Title')
+            ->setRequired(true)
+            ->setAttrib('maxlength', 44);
+        $this->addElement($desc);
 
-        $projectModel = new Model_Projects();
-        $projects = $projectModel->getAll();
-        $options = array();
+        $refName = $this->createElement('select', 'ref_nm');
+        $refName
+            ->setLabel('Reference name')
+            ->setMultioptions([0 => (new Zend_View())->translate('Please select…')]);
+        $this->addElement($refName);
+
+        $parentId = $this->createElement('select', 'parent_id');
+        $parentId
+            ->setLabel('Parent page');
+        $this->addElement($parentId);
+
+        $body = $this->createElement('textarea', 'artcl');
+        $body
+            ->setLabel('Body')
+            ->setRequired(true)
+            ->setAttrib('rows', 12)
+            ->addFilter('HtmlEntities')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $this->addElement($body);
+
+        $sidebar = $this->createElement('textarea', 'sidebar');
+        $sidebar
+            ->setLabel('Sidebar text')
+            ->setRequired(true)
+            ->setAttrib('rows', 12)
+            ->addFilter('HtmlEntities')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $this->addElement($sidebar);
+
+        $hide = $this->createElement('checkbox', 'hid');
+        $hide
+            ->setLabel('Unpublished')
+            ->setCheckedValue('y')
+            ->setUncheckedValue('n');
+        $this->addElement($hide);
+
+        $projects = (new Model_Projects())->getAll();
+        $options = [];
         foreach ($projects as $project) {
             $options[$project['proj']] = $project['titl_short'];
         }
-        $this->getElement('proj')->setMultiOptions($options);
-        // current project has to be checked always:
-        $this->getElement('proj')->setValue(array(Zend_Registry::get('systemconfig')->project));
+        $project = $this->createElement('multiCheckbox', 'proj');
+        $project
+            ->setLabel('Project')
+            ->setDescription('Note: current project must be always selected.')
+            ->setRequired(true)
+            ->setMultiOptions($options)
+            ->setValue([Zend_Registry::get('systemconfig')->project]);
+        $this->addElement($project);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_article', array('salt' => 'unique'));
@@ -44,5 +88,13 @@ class Admin_Form_Article extends Zend_Form
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         $this->addElement($hash);
+
+        $submit = $this->createElement('submit', 'submit');
+        $submit->setLabel('Save');
+        $this->addElement($submit);
+
+        $preview = $this->createElement('submit', 'preview');
+        $preview->setLabel('Preview');
+        $this->addElement($preview);
     }
 }

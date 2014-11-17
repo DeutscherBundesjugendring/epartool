@@ -1,12 +1,8 @@
-<?php
-    $date = new Zend_Date();
-    $locale = new Zend_Locale();
-?>
 <a name="page-content"></a>
 <?php echo $this->secondNavigation('input') ?>
 
 <div class="main-content content-holder">
-    <div class="row">
+    <div class="row-fluid">
         <div class="text-center span10 offset1">
 
             <small class="count muted">
@@ -58,8 +54,11 @@
                             <?php foreach ($question['inputs'] as $input): ?>
                                 <a href="<?php echo $url ?>">
                                     <article class="media">
-                                        <time pubdate datetime="<?php echo $date->set($input['when'])->get('y-MM-dd') ?>">
-                                            <?=sprintf($this->translate('written on %s'), $date->get(Zend_Date::DATE_MEDIUM, $locale))?>
+                                        <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd') ?>">
+                                            <?=sprintf(
+                                                $this->translate('written on %s'),
+                                                $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
+                                            )?>
                                         </time>
                                         <p><?php echo mb_substr($input['thes'], 0, 120, 'UTF-8') ?></p>
                                     </article>
@@ -68,8 +67,8 @@
                         </div>
                         <a href="<?php echo $url; ?>" class="btn edit">
                             <?php if (
-                                $this->nowDate->isLater($this->consultation->inp_fr)
-                                && $this->nowDate->isEarlier($this->consultation->inp_to)
+                                $this->nowDate->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
+                                && $this->nowDate->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
                             ): ?>
                                 <i class="icon-edit-alt"></i>
                                 <?=$this->translate('Write a contribution')?> ›››

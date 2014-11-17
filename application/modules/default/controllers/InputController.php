@@ -92,7 +92,9 @@ class InputController extends Zend_Controller_Action
             $this->view->tag = $tagModel->getById($tag);
         }
 
-        if (Zend_Date::now()->isLater($this->_consultation->inp_fr) && Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
+        if (Zend_Date::now()->isLater(new Zend_Date($this->_consultation->inp_fr, Zend_Date::ISO_8601))
+            && Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation->inp_to, Zend_Date::ISO_8601))
+        ) {
             $form = $this->_getInputform();
             $sessInputs = new Zend_Session_Namespace('inputs');
             $theses = [];
@@ -114,7 +116,15 @@ class InputController extends Zend_Controller_Action
         $maxPage = ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
-        $this->view->subscriptionForm = isset($sbsForm) ? $sbsForm : $this->_getSubscriptionForm($qid);
+        $isSubsribed = false;
+        if ($auth->hasIdentity()) {
+            $isSubsribed = (new Service_Notification_Input_Created())->isSubscribed(
+                $auth->getIdentity()->uid,
+                [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
+            );
+        }
+
+        $this->view->subscriptionForm = isset($sbsForm) ? $sbsForm : $this->_getSubscriptionForm($isSubsribed);
         $this->view->paginator = $paginator;
         $this->view->inputForm = isset($form) ? $form : null;
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
@@ -148,8 +158,7 @@ class InputController extends Zend_Controller_Action
                 throw $e;
             }
         } else {
-            $sbsForm = new Default_Form_Input_SubscriptionQuestion();
-            $sbsForm->addEmailField();
+            $sbsForm = $this->_getSubscriptionForm(false);
             if (isset($post['email'])) {
                 if ($sbsForm->isValid($post)) {
                     Zend_Registry::get('dbAdapter')->beginTransaction();
@@ -161,18 +170,75 @@ class InputController extends Zend_Controller_Action
                             Service_Notification_Input_Created::POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST
                         );
                         Zend_Registry::get('dbAdapter')->commit();
-                        $this->_flashMessenger->addMessage('You are now subscribed. A confirmation email has been send.', 'success');
+                        $this->_flashMessenger->addMessage('You are now subscribed. A confirmation email has been sent.', 'success');
                         $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
                     } catch (Dbjr_Notification_Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
-                        $this->_flashMessenger->addMessage('You are now subscribed.', 'success');
+                        $this->_flashMessenger->addMessage('You are already subscribed.', 'success');
                         $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
                     } catch (Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
                         throw $e;
                     }
                 } else {
-                    $this->_flashMessenger->addMessage('Subscription form is invalid.', 'error');
+                    $this->_flashMessenger->addMessage('The subscription form is invalid.', 'error');
+                }
+            }
+        }
+
+        return isset($sbsForm) ? $sbsForm : null;
+    }
+
+    /**
+     * Handles request to subscribe user to recieve notifications of new inputs belonging to this question
+     * @param $post     The data received in post request
+     * @param $kid      The consultation identifier
+     * @param $inputId  The qiestion identifier
+     * @param $auth     The auth adapter
+     */
+    private function _handleSubscribeInputDiscussion($post, $kid, $inputId, $auth)
+    {
+        if ($auth->hasIdentity()) {
+            Zend_Registry::get('dbAdapter')->beginTransaction();
+            try {
+                $userId = $auth->getIdentity()->uid;
+                (new Service_Notification_Input_DiscussionContributionCreated())->subscribeUser(
+                    $userId,
+                    [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $inputId],
+                    Service_Notification_Input_DiscussionContributionCreated::POSTSUBSCRIBE_ACTION_CONFIRM_IMMEDIATE
+                );
+                Zend_Registry::get('dbAdapter')->commit();
+                $this->_flashMessenger->addMessage('Thank you for subscribing.', 'success');
+                $this->_redirect('/input/discussion/kid/' . $kid . '/inputId/' . $inputId);
+            } catch (Exception $e) {
+                Zend_Registry::get('dbAdapter')->rollback();
+                throw $e;
+            }
+        } else {
+            $sbsForm = $this->_getSubscriptionForm(false);
+            if (isset($post['email'])) {
+                if ($sbsForm->isValid($post)) {
+                    Zend_Registry::get('dbAdapter')->beginTransaction();
+                    try {
+                        list($userId, $isNew) = (new Model_Users())->register($sbsForm->getValues());
+                        (new Service_Notification_Input_DiscussionContributionCreated())->subscribeUser(
+                            $userId,
+                            [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $inputId],
+                            Service_Notification_Input_DiscussionContributionCreated::POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST
+                        );
+                        Zend_Registry::get('dbAdapter')->commit();
+                        $this->_flashMessenger->addMessage('You are now subscribed. A confirmation email has been sent.', 'success');
+                        $this->_redirect('/input/discussion/kid/' . $kid . '/inputId/' . $inputId);
+                    } catch (Dbjr_Notification_Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        $this->_flashMessenger->addMessage('You are now subscribed.', 'success');
+                        $this->_redirect('/input/discussion/kid/' . $kid . '/inputId/' . $inputId);
+                    } catch (Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        throw $e;
+                    }
+                } else {
+                    $this->_flashMessenger->addMessage('The subscription form is invalid.', 'error');
                 }
             }
         }
@@ -184,12 +250,12 @@ class InputController extends Zend_Controller_Action
      * Handles request to unsubscribe user from recieving notifications of new inputs belonging to this question
      * @param $post  The data received in post request
      * @param $kid   The consultation identifier
-     * @param $qid   The qiestion identifier
+     * @param $qid   The question identifier
      * @param $auth  The auth adapter
      */
     private function _handleUnsubscribeQuestion($post, $kid, $qid, $auth)
     {
-        $unsbsForm = new Default_Form_Input_UnsubscriptionQuestion();
+        $unsbsForm = new Default_Form_UnsubscribeNotification();
         if ($unsbsForm->isValid($post)) {
             $userId = $auth->getIdentity()->uid;
             (new Service_Notification_Input_Created())->unsubscribeUser(
@@ -198,6 +264,27 @@ class InputController extends Zend_Controller_Action
             );
             $this->_flashMessenger->addMessage('You have been unsubscribed.', 'success');
             $this->_redirect('/input/show/kid/' . $kid . '/qid/' . $qid);
+        }
+    }
+
+    /**
+     * Handles request to unsubscribe user from recieving notifications of new input discussion contributions
+     * @param $post     The data received in post request
+     * @param $kid      The consultation identifier
+     * @param $inputId  The input identifier
+     * @param $auth     The auth adapter
+     */
+    private function _handleUnsubscribeInputDiscussion($post, $kid, $inputId, $auth)
+    {
+        $unsbsForm = new Default_Form_UnsubscribeNotification();
+        if ($unsbsForm->isValid($post)) {
+            $userId = $auth->getIdentity()->uid;
+            (new Service_Notification_Input_DiscussionContributionCreated())->unsubscribeUser(
+                $userId,
+                [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $inputId]
+            );
+            $this->_flashMessenger->addMessage('You have been unsubscribed.', 'success');
+            $this->_redirect('/input/discussion/kid/' . $kid . '/inputId/' . $inputId);
         }
     }
 
@@ -288,6 +375,16 @@ class InputController extends Zend_Controller_Action
                     $inputModel->add($input);
                 }
                 $inputModel->getAdapter()->commit();
+
+                $qiSent = [];
+                foreach ($sessInputs->inputs as $input) {
+                    if (!in_array($input['qi'], $qiSent)) {
+                        $qiSent[] = $input['qi'];
+                        (new Service_Notification_Input_Created())->notify(
+                            [Service_Notification_Input_Created::PARAM_QUESTION_ID => $input['qi']]
+                        );
+                    }
+                }
                 unset($sessInputs->inputs);
             } catch (Exception $e) {
                 $inputModel->getAdapter()->rollback();
@@ -331,6 +428,12 @@ class InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $inputModel->getAdapter()->beginTransaction();
         try {
+            $inputs = $this->fetchAll(
+                $this
+                    ->select($this->info(self::NAME), ['qi'])
+                    ->where('confirmation_key=?', $ckey)
+                    ->groupBy('qi')
+            );
             $confirmedCount = $inputModel->confirmByCkey($ckey);
             $inputModel->getAdapter()->commit();
         } catch (Dbjr_UrlkeyAction_Exception $e){
@@ -344,6 +447,13 @@ class InputController extends Zend_Controller_Action
 
         if ($confirmedCount) {
             $this->_flashMessenger->addMessage('Thank you! Your inputs have been confirmed!', 'success');
+
+            // we know there are no inputs of the same question because of the groupBy statement in the query
+            foreach ($inputs as $input) {
+                (new Service_Notification_Input_Created())->notify(
+                    [Service_Notification_Input_Created::PARAM_QUESTION_ID => $input['qi']]
+                );
+            }
         } else {
             $this->_flashMessenger->addMessage('This confirmation link is invalid!', 'error');
         }
@@ -425,7 +535,7 @@ class InputController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
-        if (Zend_Date::now()->isEarlier($this->_consultation->inp_to)) {
+        if (Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
             $form = new Default_Form_Input_Edit();
             if ($this->_request->isPost()) {
@@ -478,6 +588,127 @@ class InputController extends Zend_Controller_Action
         $this->view->tags = $tagModel->getAllByConsultation($kid);
     }
 
+    /**
+     * Displays the discussion page and processes discussion contribution additions
+     */
+    public function discussionAction()
+    {
+        $inputId = $this->getRequest()->getParam('inputId', null);
+        if (!$inputId) {
+            $this->_redirect('/');
+        }
+        $inputDiscussModel = new Model_InputDiscussion();
+        $inputsModel = new Model_Inputs();
+        $form = new Default_Form_Input_Discussion();
+        $isSubsribed = false;
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $form->removeElement('email');
+            $isSubsribed = (new Service_Notification_Input_DiscussionContributionCreated())->isSubscribed(
+                $auth->getIdentity()->uid,
+                [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $inputId]
+            );
+        }
+
+        if ($this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost();
+            if (isset($post['subscribe'])) {
+                $sbsForm = $this->_handleSubscribeInputDiscussion($post, $this->_consultation['kid'], $inputId, $auth);
+            } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
+                $this->_handleUnsubscribeInputDiscussion($post, $this->_consultation['kid'], $inputId, $auth);
+            } elseif (Zend_Date::now()->isLater(new Zend_Date($this->_consultation->discussion_from, Zend_Date::ISO_8601))
+                && Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation->discussion_to, Zend_Date::ISO_8601))
+            ) {
+                if ($form->isValid($post)) {
+                    Zend_Registry::get('dbAdapter')->beginTransaction();
+                    $formData = $form->getValues();
+                    $isNew = false;
+                    try {
+                        if ($auth->hasIdentity()) {
+                            $msg = 'Your discussion contribution was saved.';
+                            $userId = $auth->getIdentity()->uid;
+                        } else {
+                            $msg = 'Your discussion contribution was saved. A confirmation email has been sent.';
+                            list($userId, $isNew) = (new Model_Users())->register(['email' => $formData['email']]);
+                        }
+
+                        $contribId = $inputDiscussModel->insert(
+                            [
+                                'body' => $formData['body'],
+                                'user_id' => $userId,
+                                'is_user_confirmed' => $auth->hasIdentity() ? true : false,
+                                'is_visible' => true,
+                                'input_id' => $inputId,
+                            ]
+                        );
+
+                        if (!$auth->hasIdentity()) {
+                            $action = (new Service_UrlkeyAction_ConfirmInputDiscussionContribution())->create(
+                                [Service_UrlkeyAction_ConfirmInputDiscussionContribution::PARAM_DISCUSSION_CONTRIBUTION_ID => $contribId]
+                            );
+
+                            $user = (new Model_Users())->find($userId)->current();
+                            $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION;
+                            if ($isNew && $user->block === 'u') {
+                                $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION_NEW_USER;
+                            }
+
+                            $mailer = new Dbjr_Mail();
+                            $mailer
+                                ->setTemplate($template)
+                                ->setPlaceholders(
+                                    array(
+                                        'to_name' => $user->name ? $user->name : $user->email,
+                                        'to_email' => $user->email,
+                                        'contribution_text' => $formData['body'],
+                                        'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                                    )
+                                )
+                                ->addTo($user->email);
+                            (new Service_Email)->queueForSend($mailer);
+                        } else {
+                            (new Service_Notification_Input_DiscussionContributionCreated())->notify(
+                                [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $inputId]
+                            );
+                        }
+
+                        Zend_Registry::get('dbAdapter')->commit();
+                        $this->_flashMessenger->addMessage($msg, 'success');
+                        $this->_redirect($this->view->url());
+                    } catch (Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        throw $e;
+                    }
+                } else {
+                    $this->_flashMessenger->addMessage('Please check your data!', 'error');
+                }
+            }
+        }
+
+        $this->view->form = $form;
+        $this->view->subscriptionForm = isset($sbsForm) ? $sbsForm : $this->_getSubscriptionForm($isSubsribed);
+        $this->view->discussionContribs = $inputDiscussModel->fetchAll(
+            $inputDiscussModel
+                ->select()
+                ->from(['i' => $inputDiscussModel->info(Model_InputDiscussion::NAME)], ['user_id', 'time_created', 'body'])
+                ->where('input_id=?', $inputId)
+                ->where('is_visible=?', 1)
+                ->where('is_user_confirmed=?', 1)
+                ->setIntegrityCheck(false)
+                ->join(
+                    (new Model_Users())->info(Model_Users::NAME),
+                    (new Model_Users())->info(Model_Users::NAME) . '.uid = i.user_id',
+                    ['uid', 'name']
+                )
+                ->order('time_created ASC')
+        );
+        $this->view->input = $inputsModel->fetchRow(
+            $inputsModel
+                ->select()
+                ->where('tid=?', $inputId)
+        );
+    }
+
     protected function _getInputform()
     {
         if (null === $this->_inputform) {
@@ -495,20 +726,15 @@ class InputController extends Zend_Controller_Action
      * @param integer $qid  The question identifier
      * @return Zend_Form    The form object
      */
-    private function _getSubscriptionForm($qid)
+    private function _getSubscriptionForm($isSubscribed)
     {
         $auth = Zend_Auth::getInstance();
-        if ($auth->hasIdentity()
-            && (new Service_Notification_Input_Created())->isSubscribed(
-                $auth->getIdentity()->uid,
-                [Service_Notification_Input_Created::PARAM_QUESTION_ID => $qid]
-            )
-        ) {
-            $form = new Default_Form_Input_UnsubscriptionQuestion();
+        if ($auth->hasIdentity() && $isSubscribed) {
+            $form = new Default_Form_UnsubscribeNotification();
         } else {
-            $form = new Default_Form_Input_SubscriptionQuestion();
+            $form = new Default_Form_SubscribeNotification();
             if (!$auth->hasIdentity()) {
-                $form->addEmailField();
+                $form->requireId();
             }
         }
 

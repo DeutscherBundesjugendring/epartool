@@ -1,156 +1,127 @@
 <?php
-/**
- * QuestionController
- *
- * @desc     Questions for Consultation
- * @author                Markus Hackel
- */
+
 class Admin_QuestionController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
-
     protected $_adminIndexURL = null;
 
     /**
-     * @desc Construct
-     * @return void
+     * Holds the consultation data
+     * @var array
      */
+    protected $_consultation;
+
+
     public function init()
     {
-        // Setzen des Standardlayouts
         $this->_helper->layout->setLayout('backend');
-        $this->_flashMessenger =
-                $this->_helper->getHelper('FlashMessenger');
+        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
-        $this->_adminIndexURL = $this->view->url(array(
-            'controller' => 'index',
-            'action' => 'index'
-        ));
+        $this->_adminIndexURL = $this->view->url(['controller' => 'index', 'action' => 'index']);
+        $kid = $this->getRequest()->getParam('kid', null);
+        $this->_consultation = (new Model_Consultations())->getById($kid);
     }
 
     /**
-     * @desc show Questions Form
-     * @return void
+     * Show the list of questions
      */
     public function indexAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $consultation = null;
-        if ($kid > 0) {
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
-            if (!empty($consultation)) {
-                $this->view->consultation = $consultation;
-            } else {
-                $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
-            }
-        } else {
-            $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
-        }
+        $questionModel = new Model_Questions();
+        $questions = $questionModel->fetchAll(
+            $questionModel
+                ->select()
+                ->from($questionModel->info(Model_Questions::NAME), ['qi', 'nr', 'q'])
+                ->where('kid = ?', $this->_consultation['kid'])
+                ->order('nr ASC')
+        );
+
+        $this->view->questions = $questions;
+        $this->view->consultation = $this->_consultation;
+        $this->view->form = new Admin_Form_ListControl();
     }
 
     public function createAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $consultation = null;
-        $form = null;
-        if ($kid > 0) {
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
-            if (!empty($consultation)) {
-                $form = new Admin_Form_Question();
-                $form->setAction($this->view->baseUrl() . '/admin/question/create/kid/' . $kid);
-                if ($this->getRequest()->isPost()) {
-                    if ($form->isValid($this->getRequest()->getPost())) {
-                        $questionModel = new Model_Questions();
-                        // get max qi:
-                        $maxId = $questionModel->getMaxId();
-                        // create new qi:
-                        $newQi = intval($maxId)+rand(1,300);
-                        $questionRow = $questionModel->createRow($form->getValues());
-                        $questionRow->qi = $newQi;
-                        $questionRow->kid = $kid;
-                        $questionRow->ln = 'de';
-                        $newId = $questionRow->save();
-                        if ($newId > 0) {
-                            $this->_flashMessenger->addMessage('Neue Frage wurde erstellt.', 'success');
-                        } else {
-                            $this->_flashMessenger->addMessage('Erstellen neuer Frage fehlgeschlagen!', 'error');
-                        }
-
-                        $this->_redirect($this->view->url(array(
-                            'action' => 'index',
-                            'kid' => $kid
-                        )), array('prependBase' => false));
-                    } else {
-                        $form->populate($form->getValues());
-                    }
+        $form = new Admin_Form_Question($this->_consultation['kid']);
+        $form->setAction($this->view->baseUrl() . '/admin/question/create/kid/' . $this->_consultation['kid']);
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getPost())) {
+                $questionModel = new Model_Questions();
+                $maxId = $questionModel->getMaxId();
+                $newQi = intval($maxId) + rand(1, 300);
+                $questionRow = $questionModel->createRow($form->getValues());
+                $questionRow->qi = $newQi;
+                $questionRow->kid = $this->_consultation['kid'];
+                $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
+                $questionRow->ln = 'de';
+                $newId = $questionRow->save();
+                if ($newId > 0) {
+                    $this->_flashMessenger->addMessage('New question has been created.', 'success');
+                } else {
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
                 }
+
+                $this->_redirect($this->view->url(array(
+                    'action' => 'index',
+                    'kid' => $this->_consultation['kid']
+                )), array('prependBase' => false));
+            } else {
+                $form->populate($form->getValues());
             }
         }
-        $this->view->assign(array(
-            'consultation' => $consultation,
-            'form' => $form
-        ));
+
+        $this->view->consultation = $this->_consultation;
+        $this->view->form = $form;
     }
 
     public function editAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
-        $consultation = null;
-        $form = null;
-        if ($kid > 0) {
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
-            if (!empty($consultation)) {
-                $qid = $this->getRequest()->getParam('qid', 0);
-                if ($qid > 0) {
-                    $questionModel = new Model_Questions();
-                    $questionRow = $questionModel->find($qid)->current();
-                    $form = new Admin_Form_Question();
-                    if ($this->getRequest()->isPost()) {
-                        // Formular wurde abgeschickt und muss verarbeitet werden
-                        $params = $this->getRequest()->getPost();
-                        if ($form->isValid($params)) {
-                            $questionRow->setFromArray($form->getValues());
-                            $questionRow->save();
-                            $this->_flashMessenger->addMessage('Änderungen wurden gespeichert.', 'success');
-                            $question = $questionRow->toArray();
-                        } else {
-                            $this->_flashMessenger->addMessage('Bitte überprüfe die Eingaben und versuche es noch einmal!', 'error');
-                            $question = $params;
-                        }
-                    } else {
-                        $question = $questionModel->getById($qid);
-                    }
-                    $form->populate($question);
-                }
-            }
-        }
-
-        $this->view->assign(array(
-            'consultation' => $consultation,
-            'form' => $form
-        ));
-    }
-
-    public function deleteAction()
-    {
-        $kid = $this->getRequest()->getParam('kid', 0);
         $qid = $this->getRequest()->getParam('qid', 0);
-        if ($kid > 0 && $qid > 0) {
+        if ($qid > 0) {
             $questionModel = new Model_Questions();
-            $inputsModel = new Model_Inputs();
-            $relatedInputs = $inputsModel->getByQuestion($qid);
-            if (empty($relatedInputs)) {
-                $nrDeleted = $questionModel->deleteById($qid);
-                if ($nrDeleted > 0) {
-                    $this->_flashMessenger->addMessage('Die Frage wurde gelöscht.', 'success');
+            $form = new Admin_Form_Question();
+            if ($this->getRequest()->isPost()) {
+                $params = $this->getRequest()->getPost();
+                if ($form->isValid($params)) {
+                    $questionRow = $questionModel->find($qid)->current();
+                    $questionRow->setFromArray($form->getValues());
+                    $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
+                    $questionRow->save();
+                    $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                    $question = $questionRow->toArray();
+                } else {
+                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                    $question = $params;
                 }
             } else {
-                $this->_flashMessenger->addMessage('Die Frage konnte nicht gelöscht werden, da bereits Beiträge dazu existieren.', 'error');
+                $question = $questionModel->getById($qid);
+            }
+            $form->populate($question);
+        }
+
+        $this->view->consultation = $this->_consultation;
+        $this->view->form = $form;
+    }
+
+    /**
+     * Deletes the question
+     */
+    public function deleteAction()
+    {
+        $form = new Admin_Form_ListControl();
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $qid = $this->getRequest()->getPost('delete');
+            $relatedInputs = (new Model_Inputs())->getByQuestion($qid);
+            if (empty($relatedInputs)) {
+                (new Model_Questions())->deleteById($qid);
+                $this->_flashMessenger->addMessage('Question has been deleted.', 'success');
+            } else {
+                $this->_flashMessenger->addMessage('Question could not be deleted as there are contributions attached to it.', 'error');
             }
         }
-        $this->_redirect('/admin/question/index/kid/' . $kid);
+
+        $this->_redirect($this->view->url(['action' => 'index']));
     }
 }

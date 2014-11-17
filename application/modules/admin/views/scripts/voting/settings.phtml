@@ -1,20 +1,27 @@
-<?php
-/**
- * List Voting Rights
- */
-?>
-<h1><?php echo $this->consultation['titl']; ?></h1>
-<?php
-echo $this->consultationNavigation('Votingeinstellungen');
-?>
-<h2>Voting-Einstellungen</h2>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
-<?php echo $this->form?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/consultation/index/kid/<?php echo $this->consultation->kid; ?>">&laquo; Zur&uuml;ck</a>
-</p>
-<script>
-    CKEDITOR.replace( 'vot_expl' );
-</script>
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1><?=$this->consultation['titl'];?></h1>
+        <h2><?=$this->consultation['titl_sub'];?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationEditNavigation($this->consultation['kid'], 'voting');?>
+
+            </div>
+            <div class="content">
+
+                <h2><?=$this->translate('Voting Settings');?></h2>
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

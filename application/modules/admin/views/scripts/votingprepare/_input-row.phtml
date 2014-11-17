@@ -1,0 +1,151 @@
+<tr
+    data-admin-confirmation="<?=$this->input['block'];?>"
+    data-origin="<?=$this->input['rel_tid'] ? 'adminCreated' : 'userCreated';?>"
+    data-voting="<?=$this->input['vot'];?>"
+    data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
+    data-directory="<?=$this->input['dir'];?>"
+>
+    <td class="table-cell-id table-cell-top">
+        <div class="checkbox">
+            <?php if(empty($this->readonly)): ?>
+                <label>
+                    <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
+                    <?=$this->escape($this->input['tid']);?>
+                </label>
+            <?php else: ?>
+                <?=$this->escape($this->input['tid']);?>
+            <?php endif; ?>
+        </div>
+    </td>
+    <td class="table-cell-top">
+
+        <?php if (!empty($this->input['thes'])): ?>
+            <h5><?=$this->translate('Contribution');?></h5>
+            <p><?=$this->escape($this->input['thes']);?></p>
+        <?php endif; ?>
+
+        <?php if (!empty($this->input['expl'])): ?>
+            <h5><?=$this->translate('Explanation');?></h5>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['expl']);?></p>
+        <?php endif; ?>
+
+        <?php if (!empty($this->input['notiz'])): ?>
+            <h5><?=$this->translate('Internal note');?></h5>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['notiz'])?></p>
+        <?php endif; ?>
+
+        <p>
+            <small>
+                <?php if (!empty($this->input['name'])): ?>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
+                <?php endif; ?>
+                <?=$this->formatDate($this->input['when']);?>
+            </small>
+        </p>
+
+        <?php if (!empty($this->input['tags'])): ?>
+            <p>
+                <?php foreach($this->input['tags'] as $tag): ?>
+                    <span class="label label-primary"><?=$this->escape($tag['tg_de']);?></span>
+                <?php endforeach?>
+            </p>
+        <?php endif; ?>
+
+        <?php if (!empty($this->input['related'])): ?>
+            <h5><?=$this->translate('Related');?></h5>
+            <ul>
+                <?php foreach ($this->input['related'] as $relInput): ?>
+                    <li>
+                        <?=$this->escape($relInput['thes']);?>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        <?php endif; ?>
+
+    </td>
+    <td class="col-xs-3 table-cell-top">
+
+        <p>
+            <?=$this->translate('Origin');?><br />
+            <span class="label label-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <?=$this->input['rel_tid'] ? $this->translate('Admin') : $this->translate('User');?>
+            </span>
+        </p>
+        <p>
+            <?=$this->translate('Admin Confirmation');?><br />
+            <?php if ($this->input['block'] === 'y'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('Blocked');?>
+                </span>
+            <?php elseif ($this->input['block'] === 'n'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Confirmed');?>
+                </span>
+            <?php else: ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php endif;?>
+        </p>
+        <p>
+            <?=$this->translate('Voting');?><br />
+            <?php if ($this->input['vot'] === 'y'): ?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <?=$this->translate('Yes');?>
+                </span>
+            <?php elseif ($this->input['vot'] === 'n'): ?>
+                <span class="label label-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    <?=$this->translate('No');?>
+                </span>
+            <?php else: ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php endif;?>
+        </p>
+
+    </td>
+    <?php if(empty($this->readonly)): ?>
+        <td class="col-xs-1 table-cell-top text-center">
+            <a
+                class="item-action"
+                href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $this->input['tid'], 'return' => 'votingprepare']);?>"
+                title="<?=$this->translate('Edit contribution');?>"
+            >
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a
+                class="item-action"
+                href="<?=$this->url(['action' => 'copy', 'inputId' => $this->input['tid']]);?>"
+                title="<?=$this->translate('Copy contribution');?>"
+            >
+                <span class="glyphicon glyphicon-th-large"></span>
+            </a>
+            <a
+                class="item-action"
+                href="<?=$this->url(['action' => 'split', 'inputId' => $this->input['tid']]);?>"
+                title="<?=$this->translate('Split contribution');?>"
+            >
+                <span class="glyphicon glyphicon-resize-full"></span>
+            </a>
+            <button
+                class="item-action item-action-danger"
+                name="delete"
+                value="<?=$this->input['tid']?>"
+                data-toggle="confirm"
+                data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+                title="<?=$this->translate('Delete contribution');?>"
+            >
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </td>
+    <?php endif; ?>
+</tr>

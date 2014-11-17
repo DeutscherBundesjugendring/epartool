@@ -1,3 +1,6 @@
+# Version 2.3
+* Application requires the ability to use 256MB of RAM. Either by default or by ini_set()
+
 # Version 2.2
 
 ## Environment

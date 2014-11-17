@@ -1,17 +1,16 @@
-<?php
-/**
- * index
- *
- * @description   consultation create form
- * @author        Markus Hackel
- */
-?>
-<h2>Neue Beteiligungsrunde</h2>
-<?php echo $this->form?>
-<p>
-  <a href="<?php echo $this->baseUrl(); ?>/admin/index">Zur&uuml;ck</a>
-</p>
-<script>
-    CKEDITOR.replace( 'expl' );
-    CKEDITOR.replace( 'vot_expl' );
-</script>
+<section class="section-header">
+    <div class="container">
+
+        <h1><?=$this->translate('New Consultation');?></h1>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+
+        <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
+
+        <?php echo $this->form?>
+
+    </div>
+</section>
