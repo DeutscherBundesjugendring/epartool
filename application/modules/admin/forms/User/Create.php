@@ -10,14 +10,14 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setmethod('post')
             ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user/create')
             ->setAttrib('class', 'offset-bottom')
-            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/users']);
+            ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user']);
 
         $name = $this->createElement('text', 'name');
         $name
             ->setLabel('Name')
             ->setRequired(true)
             ->setAttrib('maxlength', 80)
-            ->setDescription(sprintf($view->translate('Max %d characters.'), 80));
+            ->setDescription(sprintf($view->translate('Max %d characters'), 80));
         $this->addElement($name);
 
         $email = $this->createElement('email', 'email');
@@ -25,12 +25,12 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setLabel('Email')
             ->setRequired(true)
             ->setAttrib('maxlength', 60)
-            ->setDescription(sprintf($view->translate('Max %d characters.'), 60))
+            ->setDescription(sprintf($view->translate('Max %d characters'), 60))
             ->addValidator('Db_NoRecordExists', false, ['table' => 'users', 'field' => 'email'])
             ->addValidator('EmailAddress');
         $this->addElement($email);
 
-        $role = $this->createElement('radio', 'role');
+        $role = $this->createElement('select', 'role');
         $role
             ->setLabel('Role')
             ->setRequired(true)
@@ -44,20 +44,7 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setValue('usr');
         $this->addElement($role);
 
-        $newsletter = $this->createElement('radio', 'newsl_subscr');
-        $newsletter
-            ->setLabel('Newsletter subscription')
-            ->setRequired(true)
-            ->setMultiOptions(
-                [
-                    'y' => $view->translate('Yes'),
-                    'n' => $view->translate('No'),
-                ]
-            )
-            ->setValue('n');
-        $this->addElement($newsletter);
-
-        $block = $this->createElement('radio', 'block');
+        $block = $this->createElement('select', 'block');
         $block
             ->setLabel('Status')
             ->setRequired(true)
@@ -76,6 +63,19 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setLabel('Internal note')
             ->setAttrib('rows', 5);
         $this->addElement($note);
+
+        $newsletter = $this->createElement('checkbox', 'newsl_subscr');
+        $newsletter
+            ->setLabel('Receive newsletter')
+            ->setRequired(true)
+            ->setOptions(
+                [
+                    'checkedValue' => 'y',
+                    'uncheckedValue' => 'n',
+                ]
+            )
+            ->setValue('n');
+        $this->addElement($newsletter);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_usercreate', array('salt' => 'unique'));
