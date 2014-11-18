@@ -54,7 +54,6 @@ class Admin_Form_Article extends Dbjr_Form_Admin
         $sidebar = $this->createElement('textarea', 'sidebar');
         $sidebar
             ->setLabel('Sidebar text')
-            ->setRequired(true)
             ->setAttrib('rows', 12)
             ->addFilter('HtmlEntities')
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
