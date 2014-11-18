@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2014-11-18 21:52+0100\n"
-"PO-Revision-Date: 2014-11-18 21:52+0100\n"
+"PO-Revision-Date: 2014-11-18 21:55+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -760,7 +760,7 @@ msgstr "Deine Bewertungen sind jetzt bestätigt."
 
 #: application/services/UrlkeyAction/ResetPassword.php:42
 msgid "Your password was set."
-msgstr ""
+msgstr "Das Passwort wurde gespeichert."
 
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
 msgid ""
