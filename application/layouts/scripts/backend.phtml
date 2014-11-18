@@ -84,7 +84,7 @@
                                 <li class="dropdown-header visible-sm"><?=Zend_Auth::getInstance()->getIdentity()->name;?></li>
                                 <li class="divider visible-sm"></li>
                                 <li>
-                                    <a href="/user/logout">
+                                    <a href="<?=$this->baseUrl();?>/user/logout">
                                         <span class="glyphicon glyphicon-off"></span>
                                         <?=$this->translate('Log off');?>
                                     </a>
