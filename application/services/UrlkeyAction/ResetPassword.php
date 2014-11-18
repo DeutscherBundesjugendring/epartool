@@ -22,6 +22,8 @@ class Service_UrlkeyAction_ResetPassword extends Service_UrlkeyAction
     {
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_PasswordReset();
         if ($request->isPost()) {
+            $translator = Zend_Registry::get('Zend_Translate');
+
             if ($this->_viewData['form']->isValid($request->getPost())) {
                 $urlkeyActionParamModel = new Model_UrlkeyAction_Parameter();
                 $userId = $urlkeyActionParamModel->fetchRow(
@@ -37,10 +39,10 @@ class Service_UrlkeyAction_ResetPassword extends Service_UrlkeyAction
                     ['uid' => $userId]
                 );
                 $this->_viewName = null;
-                $this->_message = ['text' => 'Your password was set.', 'type' => 'success'];
+                $this->_message = ['text' => $translator->translate('Your password was set.'), 'type' => 'success'];
                 $this->markVisited($urlkeyAction->id);
             } else {
-                $this->_message = ['text' => 'Form invalid.', 'type' => 'error'];
+                $this->_message = ['text' => $translator->translate('Form invalid.'), 'type' => 'error'];
             }
         }
 

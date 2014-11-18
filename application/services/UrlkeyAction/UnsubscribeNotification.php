@@ -32,7 +32,10 @@ class Service_UrlkeyAction_UnsubscribeNotification extends Service_UrlkeyAction
                 )->value;
                 (new Service_Notification_Input_Created())->unsubscribeById($ntfId);
                 $this->_viewName = null;
-                $this->_message = ['text' => 'Your subscription was canceled.', 'type' => 'success'];
+                $this->_message = [
+                    'text' => $translator->translate('Your subscription was canceled.'),
+                    'type' => 'success',
+                ];
                 $this->markVisited($urlkeyAction->id);
             } else {
                 $this->_message = ['text' => 'Form invalid.', 'type' => 'error'];

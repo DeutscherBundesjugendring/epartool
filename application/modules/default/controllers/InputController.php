@@ -345,7 +345,7 @@ class InputController extends Zend_Controller_Action
             }
             $this->redirect($redirectURL);
         } else {
-            $msg = (new Zend_View())->translate('Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale Bearbeitungszeit von %s Minuten überschritten hast.');
+            $msg = (new Zend_View())->translate('Please check your data. It is also possible that the maximum editing period of %s minutes has exceeded.');
             $this->_flashMessenger->addMessage(
                 sprintf($msg, number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)),
                 'error'

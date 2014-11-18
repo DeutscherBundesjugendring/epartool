@@ -64,10 +64,10 @@ class Default_Form_Register extends Zend_Form
             ->setLabel('Please describe origin of your contributions:')
             ->setMultiOptions(
                 [
-                    'd' => $view->translate('Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema'),
-                    'g' => $view->translate('In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)'),
-                    'p' => $view->translate('Positionspapier/Beschluss unserer Gruppe/Organisation'),
-                    'm' => $view->translate('Sonstiges, und zwar:'),
+                    'd' => $view->translate('Results from a meeting or project related to the topic'),
+                    'g' => $view->translate('Compiled by our group (e.g. in a workshop or a group session)'),
+                    'p' => $view->translate('Position paper or agreement in our group/organisation'),
+                    'm' => $view->translate('Other:'),
                 ]
             );
         $groupSubForm->addElement($source);

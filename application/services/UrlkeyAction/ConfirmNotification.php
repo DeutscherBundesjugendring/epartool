@@ -33,10 +33,13 @@ class Service_UrlkeyAction_ConfirmNotification extends Service_UrlkeyAction
                 (new Service_Notification_Input_Created())->confirm($ntfId);
                 (new Service_Notification_Input_Created())->confirmUser($ntfId);
                 $this->_viewName = null;
-                $this->_message = ['text' => 'Your subscription was confirmed.', 'type' => 'success'];
+                $this->_message = [
+                    'text' => $translator->translate('Your subscription was confirmed.'),
+                    'type' => 'success',
+                ];
                 $this->markVisited($urlkeyAction->id);
             } else {
-                $this->_message = ['text' => 'Form invalid.', 'type' => 'error'];
+                $this->_message = ['text' => $translator->translate('Form invalid.'), 'type' => 'error'];
             }
         }
 

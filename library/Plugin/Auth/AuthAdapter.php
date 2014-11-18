@@ -38,17 +38,18 @@ class Plugin_Auth_AuthAdapter implements Zend_Auth_Adapter_Interface
     {
         $userModel = new Model_Users();
         $user = $userModel->getByEmail($this->_identity);
+        $translator = Zend_Registry::get('Zend_Translate');
         if (!$user) {
             $code = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
-            $message = 'A record with the supplied identity could not be found.';
+            $message = $translator->translate('A record with the supplied identity could not be found.');
         } else {
             if (crypt($this->_password, $user->password) === $user->password) {
                 $code = Zend_Auth_Result::SUCCESS;
-                $message = 'Authentication successful.';
+                $message = $translator->translate('Authentication successful.');
                 $this->_user = $user;
             } else {
                 $code = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
-                $message = 'Supplied credential is invalid.';
+                $message = $translator->translate('Supplied credential is invalid.');
             }
         }
 

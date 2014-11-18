@@ -594,14 +594,14 @@ class VotingController extends Zend_Controller_Action
             $tid =(int)$param['tid'];
 
             if ($this -> settings['btn_important'] == 'n') {
-                    $this -> _flashMessenger -> addMessage('Die Auswahl des Superbuttons ist nicht erlaubt.', 'info');
+                    $this -> _flashMessenger -> addMessage('Clicking the superbutton is not allowed.', 'info');
                     $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid );
                     return;
             }
 
             // check if the points are correct
             if ($pts != 'y') {
-                $this -> _flashMessenger -> addMessage('Die vergebenen Punkte sind nicht korrekt.', 'info');
+                $this -> _flashMessenger -> addMessage('The points are not correct.', 'info');
                 $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid );
             }
 
@@ -614,7 +614,7 @@ class VotingController extends Zend_Controller_Action
 
             // check if a tid is given
             if (empty($tid) || (empty($param['qid']) && empty($param['tag']))) {
-                $this -> _flashMessenger -> addMessage('Bitte wähle ein Frage oder ein Schlagwort aus.', 'info');
+                $this -> _flashMessenger -> addMessage('Please choose a question or keyword.', 'info');
                 $this -> redirect('/voting/overview');
             }
 
@@ -634,7 +634,7 @@ class VotingController extends Zend_Controller_Action
 
             } elseif (!isset($votingSuccess['max'])) {
 
-                    $this -> _flashMessenger -> addMessage('Deine Abstimmung wurde gezählt.', 'info');
+                    $this -> _flashMessenger -> addMessage('Your vote has been counted.', 'info');
                     $this -> redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
 
             }

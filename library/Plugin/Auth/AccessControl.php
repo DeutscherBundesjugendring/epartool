@@ -31,9 +31,9 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                 $username = $filter->filter($request->getPost('username'));
                 $password = $filter->filter($request->getPost('password'));
                 if (empty($username)) {
-                    $this->_flashMessenger->addMessage('Bitte Benutzernamen angeben!', 'error');
+                    $this->_flashMessenger->addMessage('Please insert user name!', 'error');
                 } elseif (empty($password)) {
-                    $this->_flashMessenger->addMessage('Bitte Passwort angeben!', 'error');
+                    $this->_flashMessenger->addMessage('Please insert password!', 'error');
                 } else {
                     $authAdapter = new Plugin_Auth_AuthAdapter($username, $password);
                     $result = $this->_auth->authenticate($authAdapter);
@@ -44,11 +44,11 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                     } else {
                         $storage = $this->_auth->getStorage();
                         $storage->write($authAdapter->getResultRowObject());
-                        $this->_flashMessenger->addMessage('Login erfolgreich!', 'success');
+                        $this->_flashMessenger->addMessage('Login successful!', 'success');
                     }
                 }
             } else {
-                $this->_flashMessenger->addMessage('Login fehlgeschlagen!', 'error');
+                $this->_flashMessenger->addMessage('Login failed!', 'error');
             }
         }
     }
@@ -77,7 +77,7 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
 //                $request->setActionName('noAccess');
                 $request->setControllerName('index');
                 $request->setActionName('index');
-                $this->_flashMessenger->addMessage('Keine Rechte für die angeforderte Seite!', 'error');
+                $this->_flashMessenger->addMessage('No admission rights for this page!', 'error');
             } else {
                 //nicht angemeldet -> Login
                 $request->setModuleName('default');

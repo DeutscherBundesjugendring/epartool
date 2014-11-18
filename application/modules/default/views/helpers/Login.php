@@ -15,7 +15,7 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract
                 . '<a href="#" role="button" class="btn btn-block" id="loginDropdown" data-toggle="dropdown">Login</a>';
             $form = new Default_Form_Login();
             $html.= '<div class="login dropdown-menu pull-right" role="menu" aria-labelledby="loginDropdown">'
-                . '        <h3 id="loginLabel">' . $this->view->translate('Einloggen') . '</h3>'
+                . '        <h3 id="loginLabel">' . $this->view->translate('Login') . '</h3>'
                 . $form
                 . '<hr />'
                 . '<p><a href="'

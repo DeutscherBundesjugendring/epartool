@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-11-08 00:02+0100\n"
-"PO-Revision-Date: 2014-11-08 00:02+0100\n"
+"POT-Creation-Date: 2014-11-18 21:51+0100\n"
+"PO-Revision-Date: 2014-11-18 21:52+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -15,6 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/default\n"
 "X-Poedit-SearchPath-1: library/Plugin\n"
+"X-Poedit-SearchPath-2: application/services/UrlkeyAction\n"
 
 #: application/modules/default/controllers/VotingController.php:736
 msgid "Your contributions are now confirmed."
@@ -40,14 +41,14 @@ msgstr ""
 msgid "Very Strong"
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:263
+#: application/modules/default/controllers/InputController.php:348
 #, php-format
 msgid ""
-"Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale "
-"Bearbeitungszeit von %s Minuten überschritten hast."
+"Please check your data. It is also possible that the maximum editing period "
+"of %s minutes has exceeded."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:491
+#: application/modules/default/controllers/InputController.php:576
 msgid ""
 "Sorry, the contribution phase for this consultation round is already over. "
 "You may only change your contributions within that period."
@@ -162,7 +163,7 @@ msgstr ""
 
 #: application/modules/default/views/helpers/RibbonImage.php:47
 #: application/modules/default/views/scripts/followup/index.phtml:26
-#: application/modules/default/views/scripts/followup/index.phtml:97
+#: application/modules/default/views/scripts/followup/index.phtml:88
 msgid "Reaction"
 msgstr ""
 
@@ -229,12 +230,16 @@ msgid "Page"
 msgstr ""
 
 #: application/modules/default/views/helpers/Login.php:18
-msgid "Einloggen"
+msgid "Login"
 msgstr ""
 
 #: application/modules/default/views/helpers/Login.php:23
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:5
 msgid "Forgot password?"
+msgstr ""
+
+#: application/modules/default/forms/SubscribeNotification.php:19
+msgid "Subscribe thread"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:26
@@ -256,19 +261,19 @@ msgid "First name and surname"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:67
-msgid "Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema"
+msgid "Results from a meeting or project related to the topic"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:68
-msgid "In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)"
+msgid "Compiled by our group (e.g. in a workshop or a group session)"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:69
-msgid "Positionspapier/Beschluss unserer Gruppe/Organisation"
+msgid "Position paper or agreement in our group/organisation"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:70
-msgid "Sonstiges, und zwar:"
+msgid "Other:"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:117
@@ -325,8 +330,42 @@ msgid ""
 "%s characters)."
 msgstr ""
 
-#: application/modules/default/forms/Input/SubscriptionQuestion.php:19
-msgid "Subscribe thread"
+#: application/modules/default/forms/Input/Discussion.php:14
+msgid "Your discussion contribution"
+msgstr ""
+
+#: library/Plugin/Auth/AuthAdapter.php:44
+msgid "A record with the supplied identity could not be found."
+msgstr ""
+
+#: library/Plugin/Auth/AuthAdapter.php:48
+msgid "Authentication successful."
+msgstr ""
+
+#: library/Plugin/Auth/AuthAdapter.php:52
+msgid "Supplied credential is invalid."
+msgstr ""
+
+#: application/services/UrlkeyAction/UnsubscribeNotification.php:36
+msgid "Your subscription was canceled."
+msgstr ""
+
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:41
+msgid "Your discussion contribution was confirmed."
+msgstr ""
+
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:49
+#: application/services/UrlkeyAction/ConfirmNotification.php:42
+#: application/services/UrlkeyAction/ResetPassword.php:45
+msgid "Form invalid."
+msgstr ""
+
+#: application/services/UrlkeyAction/ConfirmNotification.php:37
+msgid "Your subscription was confirmed."
+msgstr ""
+
+#: application/services/UrlkeyAction/ResetPassword.php:42
+msgid "Your password was set."
 msgstr ""
 
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
@@ -590,17 +629,17 @@ msgid "I agree!"
 msgstr ""
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:69
-#: application/modules/default/views/scripts/input/show.phtml:130
+#: application/modules/default/views/scripts/input/show.phtml:126
 msgid "I would like to discuss that!"
 msgstr ""
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:85
-#: application/modules/default/views/scripts/input/show.phtml:145
+#: application/modules/default/views/scripts/input/show.phtml:142
 msgid "Newer contributions"
 msgstr ""
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:85
-#: application/modules/default/views/scripts/input/show.phtml:145
+#: application/modules/default/views/scripts/input/show.phtml:142
 msgid "Older contributions"
 msgstr ""
 
@@ -619,23 +658,24 @@ msgstr ""
 msgid "Overview of reactions so far:"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:69
+#: application/modules/default/views/scripts/followup/index.phtml:39
+#: application/modules/default/views/scripts/followup/index.phtml:60
 msgid "View"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:78
+#: application/modules/default/views/scripts/followup/index.phtml:69
 msgid "Download"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:98
+#: application/modules/default/views/scripts/followup/index.phtml:89
 msgid "Reactions and Feedback on individual contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:101
+#: application/modules/default/views/scripts/followup/index.phtml:92
 msgid "Simply click on respective question or switch to keywords."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:106
+#: application/modules/default/views/scripts/followup/index.phtml:97
 msgid "Sorted by keywords"
 msgstr ""
 
@@ -673,6 +713,14 @@ msgstr ""
 msgid "Back to overview of questions"
 msgstr ""
 
+#: application/modules/default/views/scripts/voting/vote.phtml:44
+msgid "Something went wrong"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:67
+msgid "Voting for"
+msgstr ""
+
 #: application/modules/default/views/scripts/voting/vote.phtml:74
 msgid ""
 "There are no more contributions to be voted in this category. Please switch "
@@ -682,6 +730,12 @@ msgstr ""
 #: application/modules/default/views/scripts/voting/vote.phtml:80
 #: application/modules/default/views/scripts/voting/vote.phtml:198
 msgid "Change question or keyword"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:83
+#: application/modules/default/views/scripts/voting/vote.phtml:202
+#: application/modules/default/views/scripts/voting/preview.phtml:17
+msgid "Finish voting"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:84
@@ -709,7 +763,7 @@ msgstr ""
 msgid ""
 "The superbutton allows you to give certain contributions a higher vote. The "
 "overview shows you what you already marked as \"especially important\". Use "
-"the „–“  to reset your markings and allow space for more important "
+"the „–“ to reset your markings and allow space for more important "
 "contributions."
 msgstr ""
 
@@ -717,6 +771,10 @@ msgstr ""
 #: application/modules/default/views/scripts/voting/overview.phtml:35
 #, php-format
 msgid "You have voted on %s <br /> out of the total of %s contributions."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:146
+msgid "Keyword"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:169
@@ -731,11 +789,6 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:183
 msgid "Skip"
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/vote.phtml:202
-#: application/modules/default/views/scripts/voting/preview.phtml:17
-msgid "Finish voting"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:205
@@ -927,15 +980,15 @@ msgid "written on %s"
 msgstr ""
 
 #: application/modules/default/views/scripts/input/show.phtml:113
-#: application/modules/default/views/scripts/input/show.phtml:186
+#: application/modules/default/views/scripts/input/show.phtml:183
 msgid "supporters"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/show.phtml:169
+#: application/modules/default/views/scripts/input/show.phtml:166
 msgid "shut again"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/show.phtml:171
+#: application/modules/default/views/scripts/input/show.phtml:168
 #: application/modules/default/views/scripts/input/createForm.phtml:24
 msgid "Click here to explain contribution"
 msgstr ""
@@ -956,6 +1009,14 @@ msgstr ""
 #: application/modules/default/views/scripts/input/index.phtml:76
 #, php-format
 msgid "All contributions for question %s"
+msgstr ""
+
+#: application/modules/default/views/scripts/input/discussion.phtml:8
+msgid "Contribution Discussion"
+msgstr ""
+
+#: application/modules/default/views/scripts/input/discussion.phtml:10
+msgid "Back to contribution"
 msgstr ""
 
 #: application/modules/default/views/scripts/input/confirm.phtml:10
@@ -993,6 +1054,10 @@ msgstr ""
 
 #: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:4
 msgid "Reset Password"
+msgstr ""
+
+#: application/modules/default/views/scripts/urlkey-action/confirm-input-discussion-contribution.phtml:4
+msgid "Confirm contribution"
 msgstr ""
 
 #: application/modules/default/views/scripts/urlkey-action/confirm-notification.phtml:4
