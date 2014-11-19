@@ -1,0 +1,80 @@
+<form role="form" enctype="multipart/form-data" method="post" action="">
+    <?=$this->form->getElement('titl')?>
+    <?=$this->form->getElement('titl_short')?>
+    <?=$this->form->getElement('titl_sub')?>
+    <?=$this->form->getElement('img_file')?>
+    <?=$this->form->getElement('img_text')?>
+    <?=$this->form->getElement('ord')?>
+    <?=$this->form->getElement('expl')?>
+    <?=$this->form->getElement('expl_short')?>
+
+    <fieldset>
+        <h3><?=$this->translate('Contributions');?></h3>
+        <?=$this->form->getElement('inp_show')?>
+        <div class="row">
+            <div class="col-sm-6">
+                <?=$this->form->getElement('inp_fr')?>
+            </div>
+            <div class="col-sm-6">
+                <?=$this->form->getElement('inp_to')?>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h3><?=$this->translate('Support');?></h3>
+        <?=$this->form->getElement('spprt_show')?>
+        <div class="row">
+            <div class="col-sm-6">
+                <?=$this->form->getElement('spprt_fr')?>
+            </div>
+            <div class="col-sm-6">
+                <?=$this->form->getElement('spprt_to')?>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h3><?=$this->translate('Discussion');?></h3>
+        <?=$this->form->getElement('is_discussion_active')?>
+        <div class="row">
+            <div class="col-sm-6">
+                <?=$this->form->getElement('discussion_from')?>
+            </div>
+            <div class="col-sm-6">
+                <?=$this->form->getElement('discussion_to')?>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h3><?=$this->translate('Voting');?></h3>
+        <?=$this->form->getElement('vot_show')?>
+        <div class="row">
+            <div class="col-sm-6">
+                <?=$this->form->getElement('vot_fr')?>
+            </div>
+            <div class="col-sm-6">
+                <?=$this->form->getElement('vot_to')?>
+            </div>
+        </div>
+        <?=$this->form->getElement('vot_res_show')?>
+        <?=$this->form->getElement('vot_expl')?>
+    </fieldset>
+
+    <fieldset>
+        <h3><?=$this->translate('Follow Up');?></h3>
+        <?=$this->form->getElement('follup_show')?>
+        <?=$this->form->getElement('summ_show')?>
+    </fieldset>
+
+    <?=$this->form->getElement('adm')?>
+    <div class="offset-bottom">
+        <?=$this->form->getElement('proj')?>
+    </div>
+
+    <?=$this->form->getElement('public')?>
+
+    <?=$this->form->getElement('csrf_token_consultation')?>
+    <?=$this->form->getElement('submit')?>
+</form>

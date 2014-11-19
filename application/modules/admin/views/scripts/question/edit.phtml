@@ -22,7 +22,7 @@
 
                 <h2><?=$this->translate('Edit Question');?></h2>
 
-                <form enctype="application/x-www-form-urlencoded" action="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid']]);?>" method="post" class="offset-bottom">
+                <form role="form" enctype="application/x-www-form-urlencoded" action="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid']]);?>" method="post" class="offset-bottom">
                     <div class="row">
                         <div class="col-sm-2">
                             <?=$this->form->getElement('nr')?>

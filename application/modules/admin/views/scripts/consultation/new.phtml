@@ -10,7 +10,7 @@
 
         <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
 
-        <?php echo $this->form?>
+        <?=$this->partial('consultation/_consultationForm.phtml', ['form' => $this->form]);?>
 
     </div>
 </section>
