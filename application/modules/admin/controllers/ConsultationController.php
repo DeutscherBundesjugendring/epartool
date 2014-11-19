@@ -96,7 +96,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('Creating new consultation failed.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 $form->populate($this->getRequest()->getPost());
             }
         }
@@ -161,7 +161,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
                 $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 $form->populate($form->getValues());
             }
         } else {
@@ -320,7 +320,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $this->redirect($this->view->url());
             } else {
                 $form->setActive();
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } elseif ($this->_consultation->phase_info
             || $this->_consultation->phase_support

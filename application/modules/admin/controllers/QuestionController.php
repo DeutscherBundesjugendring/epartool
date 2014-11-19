@@ -59,7 +59,7 @@ class Admin_QuestionController extends Zend_Controller_Action
                 if ($newId > 0) {
                     $this->_flashMessenger->addMessage('New question has been created.', 'success');
                 } else {
-                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 }
 
                 $this->_redirect($this->view->url(array(
@@ -91,7 +91,7 @@ class Admin_QuestionController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('Changes saved.', 'success');
                     $question = $questionRow->toArray();
                 } else {
-                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                     $question = $params;
                 }
             } else {

@@ -70,7 +70,7 @@ class Admin_MailComponentController extends Zend_Controller_Action
                     throw $e;
                 }
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } elseif (isset($component)) {
             $form->populate($component->toArray());

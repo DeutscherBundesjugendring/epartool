@@ -107,7 +107,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                         'kid' => $kid
                     )), array('prependBase' => false));
                 } else {
-                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                     $form->populate($form->getValues());
                     $form->getElement('proj')->setValue($data['proj']);
                 }
@@ -193,7 +193,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                         $article = $articleRow->toArray();
                         $article['proj'] = explode(',', $article['proj']);
                     } else {
-                        $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                        $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                         $article = $params;
                     }
                 } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {

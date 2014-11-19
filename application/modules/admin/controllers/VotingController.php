@@ -65,7 +65,7 @@ class Admin_VotingController extends Zend_Controller_Action
                         array('prependBase' => false)
                     );
                 } else {
-                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 }
             } else {
                 $data = array(
@@ -166,7 +166,7 @@ class Admin_VotingController extends Zend_Controller_Action
                     $mode = 'instantsend';
                     $sentFromPreview = true;
                 } else {
-                    $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                     $form->populate($data);
                 }
             }
@@ -412,7 +412,7 @@ class Admin_VotingController extends Zend_Controller_Action
         if ($post) {
             if (!$form->isValid($post)) {
                 $this->view->form->populate($post);
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             } else {
                 $values = $this->view->form->getValues();
 

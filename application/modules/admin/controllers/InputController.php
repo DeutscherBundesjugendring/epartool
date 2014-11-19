@@ -150,7 +150,7 @@ class Admin_InputController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 $form->populate($data);
             }
         } else {

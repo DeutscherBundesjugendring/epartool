@@ -120,7 +120,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect($this->view->url());
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         }
 
@@ -148,7 +148,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect($this->view->url(['action' => 'overview', 'inputIds' => null]));
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         }
 
@@ -180,7 +180,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     )
                 );
             } else {
-                $this->_flashMessenger->addMessage('Form is not valid.', 'error');
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
             $origData = $inputModel->getById($inputId);
