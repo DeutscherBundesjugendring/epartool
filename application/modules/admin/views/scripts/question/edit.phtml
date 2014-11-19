@@ -18,10 +18,28 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Questions');?></a>
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to Questions');?></a>
 
                 <h2><?=$this->translate('Edit Question');?></h2>
-                <?=$this->form;?>
+
+                <form enctype="application/x-www-form-urlencoded" action="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid']]);?>" method="post" class="offset-bottom">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <?=$this->form->getElement('nr')?>
+                        </div>
+                        <div class="col-sm-10">
+                            <?=$this->form->getElement('q')?>
+                        </div>
+                    </div>
+                    <?=$this->form->getElement('q_xpl')?>
+                    <?=$this->form->getElement('vot_q')?>
+                    <?=$this->form->getElement('csrf_token_question')?>
+                    <?=$this->form->getElement('submit')?>
+                    <div class="cancel-link">
+                        <?=$this->translate('or');?>
+                        <a href="<?=$this->url(['action' => 'index']);?>"><?=$this->translate('Cancel');?></a>
+                    </div>
+                </form>
 
             </div>
         </div>
