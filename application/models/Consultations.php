@@ -453,7 +453,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     {
         $select = $this
             ->select()
-            ->from(['c' => $this->info(self::NAME)], ['titl', 'titl_sub', 'kid'])
+            ->from(['c' => $this->info(self::NAME)], ['titl', 'titl_sub', 'kid', 'img_file', 'img_expl'])
             ->setIntegrityCheck(false)
             ->joinLeft(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
@@ -470,6 +470,8 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
                 $consultations[$consultation['kid']] = [
                     'titl' => $consultation['titl'],
                     'titl_sub' => $consultation['titl_sub'],
+                    'img_file' => $consultation['img_file'],
+                    'img_expl' => $consultation['img_expl'],
                     'questionIds' => [],
                 ];
             }

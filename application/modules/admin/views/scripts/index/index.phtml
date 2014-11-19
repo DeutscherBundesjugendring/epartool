@@ -5,7 +5,7 @@
                 <h1><?=$this->translate('Consultations');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'new'));?>" class="cta btn btn-primary">
+                <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'new']);?>" class="cta btn btn-primary">
                     <span class="glyphicon glyphicon-plus-sign"></span> <?=$this->translate('New Consultation');?>
                 </a>
             </div>
@@ -21,10 +21,10 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading panel-heading-extended">
-                        <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid));?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
+                        <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'edit', 'kid' => $kid]);?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
-                        <a href="<?=$this->url(array('controller' => 'consultation', 'action' => 'index', 'kid' => $kid));?>">
+                        <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'index', 'kid' => $kid]);?>">
                             <h2 class="panel-title panel-title-big"><?=$consultation['titl'];?></h2>
                             <h3 class="panel-title panel-title-subtitle"><?=$consultation['titl_sub'];?></h3>
                         </a>
@@ -33,12 +33,18 @@
                         <div class="row">
                             <div class="col-md-3">
 
+                                <img
+                                    src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . '/' . $consultation['img_file'];?>"
+                                    class="img-responsive img-thumbnail offset-bottom"
+                                    alt="<?=$consultation['img_expl'];?>"
+                                    />
+
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li><a href="<?=$this->url(array('controller' => 'article', 'kid' => $kid));?>"><?=$this->translate('Info');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'question', 'kid' => $kid));?>"><?=$this->translate('Questions');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'input', 'kid' => $kid));?>"><?=$this->translate('Contributions');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'votingprepare', 'kid' => $kid));?>"><?=$this->translate('Voting');?></a></li>
-                                    <li><a href="<?=$this->url(array('controller' => 'followup', 'kid' => $kid));?>"><?=$this->translate('Follow Up');?></a></li>
+                                    <li><a href="<?=$this->url(['controller' => 'article', 'kid' => $kid]);?>"><?=$this->translate('Info');?></a></li>
+                                    <li><a href="<?=$this->url(['controller' => 'question', 'kid' => $kid]);?>"><?=$this->translate('Questions');?></a></li>
+                                    <li><a href="<?=$this->url(['controller' => 'input', 'kid' => $kid]);?>"><?=$this->translate('Contributions');?></a></li>
+                                    <li><a href="<?=$this->url(['controller' => 'votingprepare', 'kid' => $kid]);?>"><?=$this->translate('Voting');?></a></li>
+                                    <li><a href="<?=$this->url(['controller' => 'followup', 'kid' => $kid]);?>"><?=$this->translate('Follow Up');?></a></li>
                                 </ul>
 
                             </div>
