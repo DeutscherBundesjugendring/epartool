@@ -8,7 +8,7 @@ class Dbjr_Form_Decorator_BootstrapRadio extends Zend_Form_Decorator_Abstract
         $element
             ->clearDecorators()
             ->addDecorator('ViewHelper')
-            ->addDecorator('Errors')
+            ->addDecorator('Errors', ['class' => 'text-danger-block'])
             ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
             ->addDecorator(
                 'labelText',
