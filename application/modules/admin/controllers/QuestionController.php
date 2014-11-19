@@ -80,7 +80,7 @@ class Admin_QuestionController extends Zend_Controller_Action
         $qid = $this->getRequest()->getParam('qid', 0);
         if ($qid > 0) {
             $questionModel = new Model_Questions();
-            $form = new Admin_Form_Question();
+            $form = new Admin_Form_Question($this->_consultation['kid']);
             if ($this->getRequest()->isPost()) {
                 $params = $this->getRequest()->getPost();
                 if ($form->isValid($params)) {
