@@ -64,7 +64,9 @@
                         <?php if (count($this->discussionContribs)): ?>
                             <?php foreach($this->discussionContribs as $contrib): ?>
                                 <blockquote>
-                                    <p><?=$this->escape($contrib->body);?></p>
+                                    <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$this->consultation['kid'];?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                        <?=$this->escape($contrib->body);?>
+                                    </a>
                                     <footer>
                                         <?php if (!empty($contrib['name'])): ?>
                                             <span class="glyphicon glyphicon-user"></span>

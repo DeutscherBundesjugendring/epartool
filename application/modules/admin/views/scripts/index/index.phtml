@@ -92,7 +92,9 @@
                                         <div class="overflow-vertical-inner">
                                             <?php foreach($consultation['discussionContribs'] as $contrib): ?>
                                                 <blockquote>
-                                                    <?=$this->escape($contrib->body);?>
+                                                    <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$kid;?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                                        <?=$this->escape($contrib->body);?>
+                                                    </a>
                                                     <footer>
                                                         <?php if (!empty($contrib['name'])): ?>
                                                             <span class="glyphicon glyphicon-user"></span>

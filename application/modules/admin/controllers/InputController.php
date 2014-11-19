@@ -76,10 +76,13 @@ class Admin_InputController extends Zend_Controller_Action
             $wheres[(new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?'] = 'u';
         }
 
-        $this->view->inputs = (new Model_Inputs())->getComplete($wheres);
+        $inputModel = new Model_Inputs();
+
+        $this->view->inputs = $inputModel->getComplete($wheres);
         $this->view->question = $question;
         $this->view->form = new Admin_Form_ListControl();
         $this->view->tags = (new Model_Tags())->getAll()->toArray();
+        $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['qi=?' => $qid]);
     }
 
     /**
@@ -88,10 +91,11 @@ class Admin_InputController extends Zend_Controller_Action
     public function listByUserAction()
     {
         $uid = $this->_request->getParam('uid', null);
+        $inputModel = new Model_Inputs();
 
         $this->view->user = (new Model_Users())->getById($uid);
         $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation($this->_consultation['kid'], $this->_consultation['kid']);
-        $this->view->inputs = (new Model_Inputs())->getCompleteGroupedByQuestion(
+        $this->view->inputs = $inputModel->getCompleteGroupedByQuestion(
             [
                 (new Model_Users())->info(Model_Users::NAME) . '.uid = ?' => $uid,
                 (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
@@ -99,6 +103,7 @@ class Admin_InputController extends Zend_Controller_Action
         );
         $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
         $this->view->form = new Admin_Form_ListControl();
+        $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['uid=?' => $uid]);
     }
 
     /**

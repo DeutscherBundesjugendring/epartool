@@ -20,7 +20,9 @@
             <small>
                 <?php if (!empty($this->input['name'])): ?>
                     <span class="glyphicon glyphicon-user"></span>
-                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>">
+                        <?=$this->input['name'];?>
+                    </a>,
                 <?php endif; ?>
                 <?=$this->formatDate($this->input['when']);?>
             </small>
@@ -113,5 +115,14 @@
         >
             <span class="glyphicon glyphicon-trash"></span>
         </button>
+        <?php if (in_array($this->input['tid'], $this->inputsWithDiscussion)): ?>
+            <a
+                href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$this->kid;?>/inputId/<?=$this->escape($this->input['tid']);?>"
+                class="item-action"
+                title="<?=$this->translate('Show discussion');?>"
+                >
+                <span class="glyphicon glyphicon-comment"></span>
+            </a>
+        <?php endif;?>
     </td>
 </tr>

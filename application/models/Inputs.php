@@ -1253,4 +1253,40 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         return $select;
     }
+
+    /**
+     * Returns an aray of input ids that have discussion contributions and match the where criteria
+     * @param  array $wheres The where conditions
+     * @return array         An array of the input ids
+     */
+    public function getInputsWithDiscussionIds($wheres)
+    {
+        $discModel = new Model_InputDiscussion();
+
+        $select = $discModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => $this->info(self::NAME)],
+                ['tid']
+            )
+            ->join(
+                ['d' => $discModel->info(Model_InputDiscussion::NAME)],
+                'i.tid = d.input_id',
+                []
+            )
+            ->group('i.tid');
+
+        foreach ($wheres as $cond => $value) {
+            $select->where($cond, $value);
+        }
+        $inputs = $discModel->fetchAll($select);
+
+        $inputIds = [];
+        foreach ($inputs as $input) {
+            $inputIds[] = $input->tid;
+        }
+
+        return $inputIds;
+    }
 }
