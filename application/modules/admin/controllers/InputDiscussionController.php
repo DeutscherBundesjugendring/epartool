@@ -22,6 +22,7 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
     public function indexAction()
     {
         $inputId = $this->getRequest()->getParam('inputId');
+        $qid = $this->getRequest()->getParam('qi');
         $form = new Admin_Form_ListControl();
 
         $discModel = new Model_InputDiscussion();
@@ -59,6 +60,7 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
             }
         }
 
+        $this->view->qid = $qid;
         $this->view->discussionContribs = $discussionContribs;
         $this->view->form = $form;
     }

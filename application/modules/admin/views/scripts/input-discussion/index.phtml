@@ -18,40 +18,88 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    <?=$this->translate('New Question');?>
-                </a>
-                <h2><?=$this->translate('Input Discussion Contributions');?></h2>
+                <a href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-question', 'kid' => $this->consultation['kid'], 'qi' => $this->qid]);?>" class="back">&larr; <?=$this->translate('Back to Contributions');?></a>
+                <h2><?=$this->translate('Contribution Discussion');?></h2>
 
                 <?php if (count($this->discussionContribs)): ?>
                     <form method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="table-cell-id sorting-asc" data-toggle="sort" tabindex="0">#</th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Discussion contribution');?></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
+                        <table class="table table-bordered">
                             <tbody>
                                 <?php foreach ($this->discussionContribs as $contrib): ?>
                                     <tr>
-                                        <td class="table-cell-id">
-                                            <a name="<?=$this->escape($contrib->id);?>"><?=$this->escape($contrib->id);?></a>
+                                        <td class="table-cell-id table-cell-top">
+                                            <span id="<?=$this->escape($contrib->id);?>"><?=$this->escape($contrib->id);?></span>
                                         </td>
-                                        <td>
-                                            <?=$contrib->is_user_confirmed ? $this->translate('User confirmed') : $this->translate('Not user confirmed');?><br />
-                                            <?=$contrib->is_visible ? $this->translate('Visible') : $this->translate('Hidden');?><br />
-                                            <?=$this->escape($contrib->time_created);?><br />
-                                            <?=$this->escape($contrib->body);?>
+                                        <td class="table-cell-top">
+                                            <p>
+                                                <?=$this->escape($contrib->body);?>
+                                            </p>
+                                            <p>
+                                                <small>
+                                                    <?=$this->escape($contrib->time_created);?>
+                                                </small>
+                                            </p>
                                         </td>
-                                        <td class="table-cell-actions">
+                                        <td class="col-xs-3 table-cell-top">
+                                            <p>
+                                                <?=$this->translate('User Confirmation');?><br />
+                                                <?php if ($contrib->is_user_confirmed): ?>
+                                                    <span class="label label-success">
+                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                        <?=$this->translate('User confirmed');?>
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="label label-danger">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                        <?=$this->translate('Not user confirmed');?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </p>
+                                            <p>
+                                                <?=$this->translate('Visibility');?><br />
+                                                <?php if ($contrib->is_visible): ?>
+                                                    <span class="label label-success">
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                        <?=$this->translate('Visible');?>
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="label label-danger">
+                                                        <span class="glyphicon glyphicon-eye-close"></span>
+                                                        <?=$this->translate('Hidden');?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </p>
+                                        </td>
+                                        <td class="table-cell-top">
+                                            <?php if (!$contrib->is_user_confirmed): ?>
+                                                <button
+                                                    name="confirm"
+                                                    title="<?=$this->translate('Confirm');?>"
+                                                    value="<?=$this->escape($contrib->id);?>"
+                                                    class="item-action item-action-danger"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Mark as user confirmed?');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                </button>
+                                            <?php else: ?>
+                                                <button
+                                                    name="unconfirm"
+                                                    title="<?=$this->translate('Deny');?>"
+                                                    value="<?=$this->escape($contrib->id);?>"
+                                                    class="item-action"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Remove user confirmation?');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </button>
+                                            <?php endif;?>
+
                                             <?php if ($contrib->is_visible): ?>
                                                 <button
                                                     name="hide"
-                                                    title="<?=$this->translate('Mark as hidden.')?>"
+                                                    title="<?=$this->translate('Mark as hidden')?>"
                                                     value="<?=$this->escape($contrib->id);?>"
                                                     class="item-action item-action-danger"
                                                     data-toggle="confirm"
@@ -63,34 +111,12 @@
                                                 <button
                                                     name="show"
                                                     value="<?=$this->escape($contrib->id);?>"
-                                                    title="<?=$this->translate('Mark as visible.')?>"
+                                                    title="<?=$this->translate('Mark as visible')?>"
                                                     class="item-action"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Mark as visible?');?>"
                                                 >
                                                     <span class="glyphicon glyphicon-eye-open"></span>
-                                                </button>
-                                            <?php endif;?>
-
-                                            <?php if (!$contrib->is_user_confirmed): ?>
-                                                <button
-                                                    name="confirm"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action item-action-danger"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Mark as user confirmed?');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </button>
-                                            <?php else: ?>
-                                                <button
-                                                    name="unconfirm"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Remove user confirmation?');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-remove"></span>
                                                 </button>
                                             <?php endif;?>
                                         </td>
@@ -102,7 +128,7 @@
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign"></span>
-                        <?=$this->translate('There are no discussion contributions yet.');?>
+                        <?=$this->translate('There are no discussion posts yet.');?>
                     </p>
                 <?php endif; ?>
 
