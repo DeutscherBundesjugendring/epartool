@@ -13,7 +13,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     public function init()
     {
         $kid = Zend_Controller_Front::getInstance()->getRequest()->getParam('kid', 0);
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
@@ -53,9 +53,9 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'u' => $view->translate('Unknown'),
-                    'c' => $view->translate('Confirmed'),
-                    'r' => $view->translate('Rejected'),
+                    'u' => $translator->translate('Unknown'),
+                    'c' => $translator->translate('Confirmed'),
+                    'r' => $translator->translate('Rejected'),
                 ]
             );
         $this->addElement($userConfirmation);
@@ -66,9 +66,9 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'u' => $view->translate('Unknown'),
-                    'n' => $view->translate('Confirmed'),
-                    'y' => $view->translate('Blocked'),
+                    'u' => $translator->translate('Unknown'),
+                    'n' => $translator->translate('Confirmed'),
+                    'y' => $translator->translate('Blocked'),
                 ]
             );
         $this->addElement($adminConfirmation);
@@ -79,9 +79,9 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'u' => $view->translate('Unknown'),
-                    'n' => $view->translate('No'),
-                    'y' => $view->translate('Yes'),
+                    'u' => $translator->translate('Unknown'),
+                    'n' => $translator->translate('No'),
+                    'y' => $translator->translate('Yes'),
                 ]
             );
         $this->addElement($enableVoting);

@@ -4,7 +4,7 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
 
@@ -30,11 +30,11 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
                 [
                     '0' => '?',
                     '1' => '1-2',
-                    '10' => $view->translate('bis') . ' 10',
-                    '30' => $view->translate('bis') . ' 30',
-                    '80' => $view->translate('bis') . ' 80',
-                    '150' => $view->translate('bis') . ' 150',
-                    '200' => $view->translate('über') . ' 150',
+                    '10' => $translator->translate('bis') . ' 10',
+                    '30' => $translator->translate('bis') . ' 30',
+                    '80' => $translator->translate('bis') . ' 80',
+                    '150' => $translator->translate('bis') . ' 150',
+                    '200' => $translator->translate('über') . ' 150',
                 ]
             );
         $this->addElement($groupSize);

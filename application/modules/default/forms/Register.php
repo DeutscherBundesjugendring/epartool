@@ -5,7 +5,7 @@ class Default_Form_Register extends Zend_Form
 
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this
             ->setMethod('post')
@@ -23,14 +23,14 @@ class Default_Form_Register extends Zend_Form
         $this->addElement($email);
 
         $hint = $this->createElement('hidden', ' hint');
-        $description = $view->translate('The following fields are not obligatory. But you can help us to find out more about what people and groups are participating.');
+        $description = $translator->translate('The following fields are not obligatory. But you can help us to find out more about what people and groups are participating.');
         $hint
             ->setDescription('<dd><p class="help-block help-block-offset">' . $description . '</p></dd>')
             ->setDecorators([['Description', ['escape' => false]]]);
 
         $groupType = $this->createElement('radio', 'group_type');
-        $singleOpt = $view->translate('I am responding as an individual person');
-        $groupOpt = $view->translate('I am responding in the name of a group');
+        $singleOpt = $translator->translate('I am responding as an individual person');
+        $groupOpt = $translator->translate('I am responding in the name of a group');
         $groupType
             ->setMultiOptions(
                 [
@@ -43,7 +43,7 @@ class Default_Form_Register extends Zend_Form
         $this->addElement($groupType);
 
         $name = $this->createElement('text', 'name');
-        $placeholder = $view->translate('First name and surname');
+        $placeholder = $translator->translate('First name and surname');
         $name
             ->setLabel('Name')
             ->setRequired(false)
@@ -64,10 +64,10 @@ class Default_Form_Register extends Zend_Form
             ->setLabel('Please describe origin of your contributions:')
             ->setMultiOptions(
                 [
-                    'd' => $view->translate('Results from a meeting or project related to the topic'),
-                    'g' => $view->translate('Compiled by our group (e.g. in a workshop or a group session)'),
-                    'p' => $view->translate('Position paper or agreement in our group/organisation'),
-                    'm' => $view->translate('Other:'),
+                    'd' => $translator->translate('Results from a meeting or project related to the topic'),
+                    'g' => $translator->translate('Compiled by our group (e.g. in a workshop or a group session)'),
+                    'p' => $translator->translate('Position paper or agreement in our group/organisation'),
+                    'm' => $translator->translate('Other:'),
                 ]
             );
         $groupSubForm->addElement($source);
@@ -114,11 +114,11 @@ class Default_Form_Register extends Zend_Form
             ->setAttrib('class', 'input-xlarge')
             ->setMultiOptions(
                 [
-                    '1' => sprintf($view->translate('up to %s years'), 17),
-                    '2' => sprintf($view->translate('up to %s years'), 26),
-                    '3' => sprintf($view->translate('up to %s years'), 27),
-                    '4' => $view->translate('all age groups'),
-                    '5' => $view->translate('no information'),
+                    '1' => sprintf($translator->translate('up to %s years'), 17),
+                    '2' => sprintf($translator->translate('up to %s years'), 26),
+                    '3' => sprintf($translator->translate('up to %s years'), 27),
+                    '4' => $translator->translate('all age groups'),
+                    '5' => $translator->translate('no information'),
                 ]
             );
         $this->addElement($age);
@@ -162,7 +162,7 @@ class Default_Form_Register extends Zend_Form
             ->getLanguage();
 
         $label = sprintf(
-            (new Zend_View())->translate(
+            $translator->translate(
                 'The contributions are published under a <a href="%s" target="_blank" title="Mehr über die Creative-Commons-Lizenz erfahren">creative commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.'
             ),
             Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink

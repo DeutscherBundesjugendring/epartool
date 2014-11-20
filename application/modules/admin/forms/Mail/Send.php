@@ -4,7 +4,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
         $this->setAttrib('class', 'offset-bottom js-send-mail')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/mail-sent']);
 
@@ -13,7 +13,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $mailto
             ->setLabel('To')
             ->setAttrib('maxlength', 255)
-            ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
+            ->setAttrib('placeholder', sprintf($translator->translate('Email address (max %d characters)'), 255))
             ->addValidator('EmailAddress');
         $this->addElement($mailto);
 
@@ -22,7 +22,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $mailcc
             ->setLabel('Cc')
             ->setAttrib('maxlength', 255)
-            ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
+            ->setAttrib('placeholder', sprintf($translator->translate('Email address (max %d characters)'), 255))
             ->addValidator('EmailAddress');
         $this->addElement($mailcc);
 
@@ -31,7 +31,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $mailbcc
             ->setLabel('Bcc')
             ->setAttrib('maxlength', 255)
-            ->setAttrib('placeholder', sprintf($view->translate('Email address (max %d characters)'), 255))
+            ->setAttrib('placeholder', sprintf($translator->translate('Email address (max %d characters)'), 255))
             ->addValidator('EmailAddress');
         $this->addElement($mailbcc);
 
@@ -103,7 +103,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             ->setAttrib('class', 'js-subject')
             ->setAttrib('size', 75)
             ->setAttrib('maxlength', 75)
-            ->setAttrib('placeholder', sprintf($view->translate('Subject (max %d characters)'), 75))
+            ->setAttrib('placeholder', sprintf($translator->translate('Subject (max %d characters)'), 75))
             ->addValidator('notEmpty');
         $this->addElement($subject);
 
@@ -115,7 +115,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             ->setAttrib('class', 'js-body-text')
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 5)
-            ->setAttrib('placeholder', $view->translate('Message as plain text'))
+            ->setAttrib('placeholder', $translator->translate('Message as plain text'))
             ->addValidator('notEmpty');
         $this->addElement($bodyText);
 
@@ -127,7 +127,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             ->setAttrib('class', 'js-body-html')
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 5)
-            ->setAttrib('placeholder', $view->translate('Message as HTML'))
+            ->setAttrib('placeholder', $translator->translate('Message as HTML'))
             ->addValidator('notEmpty');
         $this->addElement($bodyHtml);
 

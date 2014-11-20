@@ -5,8 +5,6 @@ class Admin_Form_Mail_Component extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
-
         $this
             ->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
@@ -17,7 +15,7 @@ class Admin_Form_Mail_Component extends Dbjr_Form_Admin
             ->setLabel('Name')
             ->setRequired(true)
             ->setAttrib('maxlength', 50)
-            ->setDescription(sprintf($view->translate('Max %d characters.'), 50))
+            ->setDescription(sprintf(Zend_Registry::get('Zend_Translate')->translate('Max %d characters.'), 50))
             ->addValidator('Db_NoRecordExists', false, ['table' => 'email_component', 'field' => 'name'])
             ->addValidator('Regex', false, ['pattern' => '/[_a-z0-9]{3,50}/']);
         $this->addElement($name);

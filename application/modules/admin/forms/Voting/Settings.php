@@ -4,7 +4,7 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
 
@@ -18,7 +18,7 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             ->addValidator('GreaterThan', false, ['min' => 0]);
         $this->addElement($buttonNum);
 
-        $desc = sprintf($view->translate('Comma separated, lower first, max. %d characters'), 220);
+        $desc = sprintf($translator->translate('Comma separated, lower first, max. %d characters'), 220);
         $buttonLabels = $this->createElement('text', 'btn_labels');
         $buttonLabels
             ->setLabel('Button labels')
@@ -33,8 +33,8 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'y' => $view->translate('Enable'),
-                    'n' => $view->translate('Disable'),
+                    'y' => $translator->translate('Enable'),
+                    'n' => $translator->translate('Disable'),
                 ]
             );
         $this->addElement($buttonImportant);

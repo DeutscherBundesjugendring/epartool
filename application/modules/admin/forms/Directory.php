@@ -5,7 +5,6 @@ class Admin_Form_Directory extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
         $this->setMethod('post');
 
         $dirName = $this->createElement('text', 'dir_name');

@@ -6,6 +6,7 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
     public function render($content)
     {
         $element = $this->getElement();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         if ($element->getKid()) {
             $kidFolderParam = '/kid/' . $element->getKid();
@@ -51,7 +52,7 @@ EOD;
                         return $html;
                     },
                     'href' => Zend_Registry::get('baseUrl') . '/admin/media/index/targetElId/' . $element->getId() . $kidFolderParam . $lockDir,
-                    'label' => (new Zend_View())->translate('Change media'),
+                    'label' => $translator->translate('Change media'),
                     'placement' => Zend_Form_Decorator_Abstract::APPEND
                 ]
             );
@@ -68,7 +69,7 @@ EOD;
 EOD;
                             return $html;
                         },
-                        'label' => (new Zend_View())->translate('Remove media'),
+                        'label' => $translator->translate('Remove media'),
                         'placement' => Zend_Form_Decorator_Abstract::APPEND
                     ]
                 );

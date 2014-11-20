@@ -16,7 +16,7 @@ class Default_Form_SubscribeNotification extends Zend_Form
      */
     private function prepareElements()
     {
-        $label = '<span class="icon-rss"></span>' . (new Zend_View())->translate('Subscribe thread');
+        $label = '<span class="icon-rss"></span>' . Zend_Registry::get('Zend_Translate')->translate('Subscribe thread');
         $subscribe = $this->createElement('button', 'subscribe')
             ->setAttrib('class', 'btn')
             ->setAttrib('type', 'submit')

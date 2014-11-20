@@ -6,7 +6,7 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
     {
         $minPassLength = Zend_Registry::get('systemconfig')->security->password->minLength;
 
-        $description = '(' . sprintf((new Zend_View())->translate('min. %s characters'), $minPassLength) . ')';
+        $description = '(' . sprintf(Zend_Registry::get('Zend_Translate')->translate('min. %s characters'), $minPassLength) . ')';
         $this->addElement(
             $this
                 ->createElement('password', 'password')

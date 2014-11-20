@@ -7,7 +7,7 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
@@ -37,8 +37,8 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
         }
 
         $dirOpts = [
-            $view->translate('Consultations') => $consultationOpts,
-            $view->translate('Folders') => array_combine(
+            $translator->translate('Consultations') => $consultationOpts,
+            $translator->translate('Folders') => array_combine(
                 array_map(function($el) {return Admin_Form_Media_Upload::DIR_TYPE_PREFIX_FOLDERS . $el;}, $folderDirs),
                 $folderDirs
             ),

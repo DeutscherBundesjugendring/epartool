@@ -4,7 +4,7 @@ class Admin_Form_Mail_Template extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this
             ->setMethod('post')
@@ -22,7 +22,7 @@ class Admin_Form_Mail_Template extends Dbjr_Form_Admin
             ->setLabel('Name')
             ->setRequired(true)
             ->setAttrib('maxlength', 50)
-            ->setDescription(sprintf($view->translate('Max %d characters.'), 50))
+            ->setDescription(sprintf($translator->translate('Max %d characters.'), 50))
             ->addValidator('Db_NoRecordExists', false, ['table' => 'email_template', 'field' => 'name'])
             ->addValidator('Regex', false, ['pattern' => '/[_a-z0-9]{3,50}/']);
         $this->addElement($name);
@@ -32,7 +32,7 @@ class Admin_Form_Mail_Template extends Dbjr_Form_Admin
             ->setLabel('Subject')
             ->setRequired(true)
             ->setAttrib('maxlength', 75)
-            ->setDescription(sprintf($view->translate('Max %d characters.'), 75));
+            ->setDescription(sprintf($translator->translate('Max %d characters.'), 75));
         $this->addElement($subject);
 
         $bodyText = $this->createElement('textarea', 'body_text');

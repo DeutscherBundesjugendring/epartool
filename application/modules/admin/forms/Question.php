@@ -12,7 +12,7 @@ class Admin_Form_Question extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
         $this->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/question/index/kid/' . $this->_kid]);
@@ -24,7 +24,7 @@ class Admin_Form_Question extends Dbjr_Form_Admin
             ->setAttrib('maxlength', 4);
         $this->addElement($order);
 
-        $desc = sprintf($view->translate('Max %d characters'), 300);
+        $desc = sprintf($translator->translate('Max %d characters'), 300);
         $question = $this->createElement('text', 'q');
         $question
             ->setLabel('Question')
@@ -40,7 +40,7 @@ class Admin_Form_Question extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($expl);
 
-        $desc = sprintf($view->translate('Max %d characters'), 300);
+        $desc = sprintf($translator->translate('Max %d characters'), 300);
         $votingQuestion = $this->createElement('text', 'vot_q');
         $votingQuestion
             ->setLabel('Voting question')

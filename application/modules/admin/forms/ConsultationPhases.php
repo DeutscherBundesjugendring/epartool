@@ -5,7 +5,6 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
         $this->setMethod('post');
 
         $enableNames = $this->createElement('checkbox', 'enableCustomNames');
@@ -13,7 +12,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
         self::addCssClass($enableNames, 'js-enable-custom-consultation-phase-names');
         $this->addElement($enableNames);
 
-        $desc = sprintf($view->translate('Max %d characters'), 50);
+        $desc = sprintf(Zend_Registry::get('Zend_Translate')->translate('Max %d characters'), 50);
 
         $phaseInfo = $this->createElement('text', 'phase_info');
         $phaseInfo

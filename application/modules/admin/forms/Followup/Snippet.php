@@ -12,7 +12,7 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
@@ -41,13 +41,13 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    '0' => $view->translate('Footnote'),
-                    '1' => $view->translate('Body'),
-                    '2' => $view->translate('Heading 1'),
-                    '3' => $view->translate('Heading 2'),
-                    '4' => $view->translate('Heading 3'),
-                    '5' => $view->translate('Heading 4'),
-                    '6' => $view->translate('Heading 5'),
+                    '0' => $translator->translate('Footnote'),
+                    '1' => $translator->translate('Body'),
+                    '2' => $translator->translate('Heading 1'),
+                    '3' => $translator->translate('Heading 2'),
+                    '4' => $translator->translate('Heading 3'),
+                    '5' => $translator->translate('Heading 4'),
+                    '6' => $translator->translate('Heading 5'),
                 ]
             )
             ->setValue(1);

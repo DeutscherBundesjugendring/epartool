@@ -4,8 +4,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $view = new Zend_View();
-
         $this->setMethod('post');
 
         $title = $this->createElement('text', 'titl');
@@ -35,7 +33,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->addElement($imageDesc);
 
         $desc = sprintf(
-            $view->translate('The higher number, the higher position in consultation list. The highest position is currently %d.'),
+            Zend_Registry::get('Zend_Translate')->translate('The higher number, the higher position in consultation list. The highest position is currently %d.'),
             (new Model_Consultations())->getLastId()
         );
         $order = $this->createElement('number', 'ord');

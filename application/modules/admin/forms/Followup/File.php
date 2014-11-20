@@ -12,8 +12,6 @@ class Admin_Form_Followup_File extends Dbjr_Form_Admin
 
     public function init()
     {
-        $view = new Zend_View();
-
         $this->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/followup/index/kid/' . $this->_kid]);
@@ -42,7 +40,7 @@ class Admin_Form_Followup_File extends Dbjr_Form_Admin
         $timeCreated
             ->setLabel('Time created')
             ->setRequired(true)
-            ->setDescription(sprintf($view->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
+            ->setDescription(sprintf(Zend_Registry::get('Zend_Translate')->translate('Date format: %s'), 'yyyy-mm-dd hh:mm:ss'))
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($timeCreated);

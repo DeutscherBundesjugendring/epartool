@@ -4,14 +4,14 @@ class Default_Form_Voting_Authentification extends Zend_Form
 {
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $this
             ->setMethod('post')
             ->setAttrib('autocomplete', 'off');
 
         $email = $this->createElement('text', 'email');
-        $placeholder = $view->translate('Email Address');
+        $placeholder = $translator->translate('Email Address');
         $email
             ->setLabel('Email Address')
             ->setRequired(true)
@@ -20,7 +20,7 @@ class Default_Form_Voting_Authentification extends Zend_Form
         $this->addElement($email);
 
         $code = $this->createElement('text', 'authcode');
-        $placeholder = $view->translate('Access code');
+        $placeholder = $translator->translate('Access code');
         $code
             ->setLabel('Your access code')
             ->setRequired(true)

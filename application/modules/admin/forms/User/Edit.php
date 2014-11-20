@@ -4,7 +4,7 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $view = new Zend_View();
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $userId = $this->createElement('hidden', 'uid');
         $this->addElement($userId);
@@ -19,7 +19,7 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
         $name
             ->setLabel('Name')
             ->setAttrib('maxlength', 80)
-            ->setDescription(sprintf($view->translate('Max %d characters'), 80));
+            ->setDescription(sprintf($translator->translate('Max %d characters'), 80));
         $this->addElement($name);
 
         $email = $this->createElement('email', 'email');
@@ -27,7 +27,7 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->setLabel('Email')
             ->setRequired(true)
             ->setAttrib('maxlength', 60)
-            ->setDescription(sprintf($view->translate('Max %d characters'), 60))
+            ->setDescription(sprintf($translator->translate('Max %d characters'), 60))
             ->addValidator(
                 'Db_NoRecordExists',
                 false,
@@ -45,9 +45,9 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'usr' => $view->translate('User'),
-                    'edt' => $view->translate('Editor'),
-                    'adm' => $view->translate('Admin'),
+                    'usr' => $translator->translate('User'),
+                    'edt' => $translator->translate('Editor'),
+                    'adm' => $translator->translate('Admin'),
                 ]
             )
             ->setValue('usr');
@@ -59,9 +59,9 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'b' => $view->translate('Blocked'),
-                    'u' => $view->translate('Unconfirmed'),
-                    'c' => $view->translate('Confirmed'),
+                    'b' => $translator->translate('Blocked'),
+                    'u' => $translator->translate('Unconfirmed'),
+                    'c' => $translator->translate('Confirmed'),
                 ]
             )
             ->setValue('b');

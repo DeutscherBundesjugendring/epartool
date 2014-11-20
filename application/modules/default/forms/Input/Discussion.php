@@ -5,13 +5,11 @@ class Default_Form_Input_Discussion extends Zend_Form
 
     public function init()
     {
-        $view = new Zend_View();
-
         $this->setMethod('post');
 
 
         $body = $this->createElement('textarea', 'body');
-        $placeholder = $view->translate('Your discussion contribution');
+        $placeholder = Zend_Registry::get('Zend_Translate')->translate('Your discussion contribution');
         $body
             ->setRequired(true)
             ->setAttrib('rows', 5)

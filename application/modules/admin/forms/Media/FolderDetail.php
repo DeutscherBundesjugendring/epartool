@@ -21,7 +21,9 @@ class Admin_Form_Media_FolderDetail extends Dbjr_Form_Admin
                 false,
                 [
                     'pattern' => '/^[-a-z0-9]+$/',
-                    'messages' => [Zend_Validate_Regex::NOT_MATCH => (new Zend_View())->translate('Folder name can contain only characters a-z, 0-9 and -.')],
+                    'messages' => [Zend_Validate_Regex::NOT_MATCH => Zend_Registry::get('Zend_Translate')->translate(
+                        'Folder name can contain only characters a-z, 0-9 and -.'
+                    )],
                 ]
             )
             ->addValidator('stringLength', false, ['max' => Zend_Registry::get('systemconfig')->media->filename->maxLength]);

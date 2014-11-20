@@ -5,14 +5,12 @@ class Default_Form_PasswordRecover extends Zend_Form
 
     public function init()
     {
-        $view = new Zend_View();
-
         $this
             ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/passwordrecover')
             ->setMethod('post');
 
         $email = $this->createElement('text', 'email');
-        $placeholder = $view->translate('Email Address');
+        $placeholder = Zend_Registry::get('Zend_Translate')->translate('Email Address');
         $email
             ->setLabel('Email Address')
             ->setRequired(true)

@@ -28,7 +28,9 @@ class Admin_Form_Media_FileDetail extends Dbjr_Form_Admin
                 false,
                 [
                     'pattern' => '/^[-a-z0-9]+\.[a-z0-9]+$/',
-                    'messages' => [Zend_Validate_Regex::NOT_MATCH => (new Zend_View())->translate('File name has to have an extension and can contain only characters a-z, 0-9 and -.')],
+                    'messages' => [Zend_Validate_Regex::NOT_MATCH => Zend_Registry::get('Zend_Translate')->translate(
+                        'File name has to have an extension and can contain only characters a-z, 0-9 and -.'
+                    )],
                 ]
             )
             ->addValidator('stringLength', false, ['max' => Zend_Registry::get('systemconfig')->media->filename->maxLength]);

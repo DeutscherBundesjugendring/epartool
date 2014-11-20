@@ -34,7 +34,7 @@ class Admin_Form_Article extends Dbjr_Form_Admin
         $refName = $this->createElement('select', 'ref_nm');
         $refName
             ->setLabel('Reference name')
-            ->setMultioptions([0 => (new Zend_View())->translate('Please select…')]);
+            ->setMultioptions([0 => Zend_Registry::get('Zend_Translate')->translate('Please select…')]);
         $this->addElement($refName);
 
         $parentId = $this->createElement('select', 'parent_id');
