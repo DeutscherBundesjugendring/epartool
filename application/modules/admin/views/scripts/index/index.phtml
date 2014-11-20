@@ -112,6 +112,9 @@
                                             <?php endforeach;?>
                                         </div>
                                     </div>
+                                    <a href="<?=$this->url(['controller' => 'consultation', 'kid' => $kid]);?>">
+                                        <?=$this->translate('Show all discussion posts');?> &rarr;
+                                    </a>
                                 <?php else: ?>
                                     <p>
                                         <span class="glyphicon glyphicon-info-sign"></span>
