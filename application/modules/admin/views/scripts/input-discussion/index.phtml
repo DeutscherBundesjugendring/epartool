@@ -39,7 +39,7 @@
                                             </p>
                                             <p>
                                                 <small>
-                                                    <?=$this->escape($contrib->time_created);?>
+                                                    <?=$this->formatDate($contrib->time_created);?>
                                                 </small>
                                             </p>
                                         </td>
@@ -73,7 +73,7 @@
                                                 <?php endif; ?>
                                             </p>
                                         </td>
-                                        <td class="table-cell-top">
+                                        <td class="table-cell-top col-xs-1">
                                             <?php if (!$contrib->is_user_confirmed): ?>
                                                 <button
                                                     name="confirm"
