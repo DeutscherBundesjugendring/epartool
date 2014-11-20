@@ -79,7 +79,7 @@
                 $inputs = array_reverse($inputs);
                 ?>
                 <?php foreach ($inputs as $input): ?>
-                    <a name="input-<?php echo $input['tid']; ?>"></a>
+                    <a name="input-<?=$this->escape($input['tid']);?>"></a>
                     <article class="media">
                         <header class="article-header">
                             <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd') ?>">
@@ -90,25 +90,25 @@
                             </time>
                         </header>
                         <div class="article-body">
-                            <p class="lead"><?php echo $input['thes'] ?></p>
-                            <p><?php echo $input['expl'] ?></p>
+                            <p class="lead"><?=$this->escape($input['thes']);?></p>
+                            <p><?=$this->escape($input['expl']);?></p>
                         </div>
 
                         <!-- Actions -->
                         <section class="article-actions">
-                            <span class="article-action" id="click-support-wrap-<?php echo $input['tid']; ?>">
+                            <span class="article-action" id="click-support-wrap-<?=$this->escape($input['tid']);?>">
                                 <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
                                     <span>
                                 <?php else: ?>
                                     <a
                                         href="#"
-                                        id="click-support-<?php echo $input['tid']; ?>"
+                                        id="click-support-<?=$this->escape($input['tid']);?>"
                                         class="click-support"
-                                        rel="<?php echo $input['tid']; ?>"
+                                        rel="<?=$this->escape($input['tid']);?>"
                                     >
                                 <?php endif; ?>
                                         <i class="icon-ok-sign icon-orange icon-2x"></i>
-                                        <span id="badge-<?php echo $input['tid']; ?>">(<?php echo $input['spprts']; ?>)</span>
+                                        <span id="badge-<?=$this->escape($input['tid']);?>">(<?=$this->escape($input['spprts']);?>)</span>
                                 <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
                                         <span class="label"><?=$this->translate('supporters')?></span>
                                     </span>
@@ -121,7 +121,7 @@
                             <?php if ($this->consultation->is_discussion_active): ?>
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
-                                    <small>(<?php echo $input['place']; ?>)</small>
+                                    <small>(<?=$this->escape($input['place']);?>)</small>
                                     <a class="label" href="<?=$this->baseUrl() . '/input/discussion/kid/' . $this->consultation->kid . '/inputId/' . $this->escape($input['tid']);?>">
                                         <?=$this->translate('I would like to discuss that!')?>
                                     </a>
