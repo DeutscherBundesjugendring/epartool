@@ -37,6 +37,14 @@
                 <?=$this->input['notiz'];?>
             </p>
         <?php endif; ?>
+        <?php if ($this->input['input_discussion_contrib']): ?>
+            <p>
+                <span class="label label-warning">
+                    <span class="glyphicon glyphicon-comment"></span>
+                    <?=$this->translate('Created from discussion post.');?>
+                </span>
+            </p>
+        <?php endif; ?>
     </td>
     <td class="col-xs-3 table-cell-top">
         <p>

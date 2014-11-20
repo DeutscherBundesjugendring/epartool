@@ -24,16 +24,25 @@
 
             <div class="media-list">
                 <?php foreach($this->discussionContribs as $contrib): ?>
-                    <div class="media">
-                        <small class="muted">
-                            <span class="icon-user"></span>
-                            <?php if (!empty($contrib->name)): ?>
-                                <?=$this->escape($contrib->name);?>,
-                            <?php endif; ?>
-                            <?=$this->formatDate($contrib->time_created);?>
-                        </small>
-                        <p><?=$this->escape($contrib->body);?></p>
-                    </div>
+                    <?php if ($contrib->is_visible): ?>
+                        <div class="media">
+                            <small class="muted">
+                                <span class="icon-user"></span>
+                                <?php if (!empty($contrib->name)): ?>
+                                    <?=$this->escape($contrib->name);?>,
+                                <?php endif; ?>
+                                <?=$this->formatDate($contrib->time_created);?>
+                            </small>
+                            <p><?=$this->escape($contrib->body);?></p>
+                        </div>
+                    <?php else: ?>
+                        <div class="media">
+                            <small class="muted">
+                                <?=$this->formatDate($contrib->time_created);?>
+                            </small>
+                            <p><?=$this->translate('This post was hidden by admin.');?></p>
+                        </div>
+                    <?php endif;?>
                 <?php endforeach?>
             </div>
 

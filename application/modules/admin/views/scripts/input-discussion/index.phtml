@@ -79,7 +79,7 @@
                                                     name="confirm"
                                                     title="<?=$this->translate('Confirm');?>"
                                                     value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action item-action-danger"
+                                                    class="item-action"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Mark as user confirmed?');?>"
                                                     >
@@ -103,7 +103,7 @@
                                                     name="hide"
                                                     title="<?=$this->translate('Mark as hidden')?>"
                                                     value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action item-action-danger"
+                                                    class="item-action"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Mark as hidden?');?>"
                                                 >
@@ -119,6 +119,22 @@
                                                     data-confirm-message="<?=$this->translate('Mark as visible?');?>"
                                                 >
                                                     <span class="glyphicon glyphicon-eye-open"></span>
+                                                </button>
+                                            <?php endif;?>
+
+                                            <?php if (!$contrib->childInputId
+                                                && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation['inp_to'], Zend_Date::ISO_8601))
+                                                && Zend_Date::now()->isLater(new Zend_Date($this->consultation['inp_fr'], Zend_Date::ISO_8601))
+                                            ): ?>
+                                                <button
+                                                    name="createInput"
+                                                    value="<?=$this->escape($contrib->id);?>"
+                                                    title="<?=$this->translate('Create an input from this discussion contribution.')?>"
+                                                    class="item-action"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Create an input from this discussion contribution?');?>"
+                                                >
+                                                    <span class="glyphicon glyphicon-asterisk"></span>
                                                 </button>
                                             <?php endif;?>
                                         </td>

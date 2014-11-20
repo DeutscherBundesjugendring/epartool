@@ -1233,7 +1233,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $select = $this
             ->select()
-            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf'])
+            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf', 'input_discussion_contrib'])
             ->setIntegrityCheck(false)
             ->join(
                 (new Model_Questions())->info(Model_Questions::NAME),
