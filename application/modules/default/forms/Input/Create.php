@@ -76,7 +76,6 @@ class Default_Form_Input_Create extends Zend_Form
             ),
             'filters' => array(
                 'striptags' => 'StripTags',
-                'htmlentities' => 'HtmlEntities',
             ),
         );
         $thesEl = $this->createElement('textarea', 'thes');
@@ -96,7 +95,6 @@ class Default_Form_Input_Create extends Zend_Form
             ),
             'filters' => array(
                 'striptags' => 'StripTags',
-                'htmlentities' => 'HtmlEntities',
             ),
         );
         $explEl = $this->createElement('textarea', 'expl');

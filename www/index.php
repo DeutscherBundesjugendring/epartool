@@ -5,6 +5,11 @@ defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 
+<<<<<<< HEAD
+require_once(APPLICATION_PATH . '/init.php');
+
+// check if http authentication is required and crdentials
+=======
 // Enable Tracy for error visualization
 Tracy\Debugger::enable(APPLICATION_ENV === 'development' ? Tracy\Debugger::DEVELOPMENT : Tracy\Debugger::PRODUCTION);
 // Also report E_NOTICE and E_WARNING
@@ -15,6 +20,7 @@ require_once(APPLICATION_PATH . '/init.php');
 
 
 // Check if http authentication is required and crdentials
+>>>>>>> develop
 if (!empty(Zend_Registry::get('systemconfig')->httpAuth->active)) {
     if (empty($_SERVER['PHP_AUTH_USER'])) {
         header('WWW-Authenticate: Basic realm="Protected"');
