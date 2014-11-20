@@ -18,7 +18,9 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-question', 'kid' => $this->consultation['kid'], 'qi' => $this->qid]);?>" class="back">&larr; <?=$this->translate('Back to Contributions');?></a>
+                <?php if (!empty($this->qid)): ?>
+                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-question', 'kid' => $this->consultation['kid'], 'qi' => $this->qid]);?>" class="back">&larr; <?=$this->translate('Back to Contributions');?></a>
+                <?php endif; ?>
                 <h2><?=$this->translate('Contribution Discussion');?></h2>
 
                 <?php if (count($this->discussionContribs)): ?>
