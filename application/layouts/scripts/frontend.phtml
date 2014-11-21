@@ -3,7 +3,7 @@ $config = Zend_Registry::get('config');
 $sysconfig = Zend_Registry::get('systemconfig');
 ?>
 <!DOCTYPE html>
-<html lang="de" itemscope itemtype="http://schema.org/Event">
+<html lang="<?=Zend_Registry::get('Zend_Locale')->getLanguage();?>" itemscope itemtype="http://schema.org/Event">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
