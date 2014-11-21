@@ -51,15 +51,15 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
                     if (isset($postData['hide'])) {
                         $contribId = $postData['hide'];
                         $res = $discModel->update(['is_visible' => false], ['id=?' => $contribId]);
-                        $message = $this->view->translate('The discussion contribution was hidden');
+                        $message = $this->view->translate('The discussion contribution was hidden.');
                     } elseif (isset($postData['show'])) {
                         $contribId = $postData['show'];
                         $res = $discModel->update(['is_visible' => true], ['id=?' => $contribId]);
-                        $message = $this->view->translate('The discussion contribution was shown');
+                        $message = $this->view->translate('The discussion contribution was shown.');
                     } elseif (isset($postData['confirm'])) {
                         $contribId = $postData['confirm'];
                         $res = $discModel->update(['is_user_confirmed' => true], ['id=?' => $contribId]);
-                        $message = $this->view->translate('The discussion contribution was set as user confirmed');
+                        $message = $this->view->translate('The discussion contribution was set as user confirmed.');
                     } elseif (isset($postData['unconfirm'])) {
                         $contribId = $postData['unconfirm'];
                         $res = $discModel->update(['is_user_confirmed' => false], ['id=?' => $contribId]);

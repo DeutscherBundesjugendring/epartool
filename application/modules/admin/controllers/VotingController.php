@@ -57,7 +57,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 if ($form->isValid($data)) {
                     $votingRights->setFromArray($data)->save();
                     $this->_flashMessenger->addMessage(
-                        'Änderungen für <b>' . $user['email'] . '</b> gespeichert.',
+                        sprintf($this->view->translate('Änderungen für <b>%s</b> gespeichert.'), $user['email']),
                         'success'
                     );
                     $this->redirect(
@@ -210,8 +210,11 @@ class Admin_VotingController extends Zend_Controller_Action
                         ->addTo($user['email']);
                 }
                 (new Service_Email)->queueForSend($mailer);
-
-                $this->_flashMessenger->addMessage('Voting invitation to ' . $user['email'] . ' has been successfully sent.', 'success');
+                $message = sprintf(
+                    $this->view->translate('Voting invitation to %s has been successfully sent.'),
+                    $user['email']
+                );
+                $this->_flashMessenger->addMessage($message, 'success');
                 $this->redirect('/admin/voting/invitations/kid/' . $this -> _consultation -> kid);
             } else {
                 if (!$formSent) {

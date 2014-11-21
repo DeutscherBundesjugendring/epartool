@@ -75,7 +75,10 @@ class Admin_TagController extends Zend_Controller_Action
                         $nr = $tagModel->updateById($tg_nr, array('tg_de' => $tg_de));
                         $nrUpdated+= $nr;
                     } else {
-                        $this->_flashMessenger->addMessage('Invalid value of "' . $data['tag_old'][$tg_nr] . '".', 'error');
+                        $this->_flashMessenger->addMessage(
+                            sprintf($this->view->translate('Invalid value of "%s".'), $data['tag_old'][$tg_nr]),
+                            'error'
+                        );
                     }
                 }
             }
