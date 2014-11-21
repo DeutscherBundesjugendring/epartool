@@ -19,6 +19,11 @@ class Admin_ArticleController extends Zend_Controller_Action
             'controller' => 'index',
             'action' => 'index'
         ));
+        $kid = $this->_request->getParam('kid', null);
+        if ($kid) {
+            $this->_consultation = (new Model_Consultations())->getById($kid);
+            $this->view->consultation = $this->_consultation;
+        }
     }
 
     /**
