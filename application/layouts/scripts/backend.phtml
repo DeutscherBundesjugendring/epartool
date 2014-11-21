@@ -37,7 +37,7 @@
     <script src="<?=$this->baseUrl('js/i18n/admin.' . Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('locale')->getLocale()->getLanguage() . '.js');?>"></script>
     <script>
         // TODO move to data attribute on body?
-        var baseUrl = '<?=$this->baseUrl?>';
+        var baseUrl = '<?=$this->baseUrl()?>';
     </script>
     <?=$this->headScript();?>
 </head>
