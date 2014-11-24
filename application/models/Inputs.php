@@ -409,7 +409,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select
             ->where('i.qi=?', $qid)
             ->where('i.block!=?', 'y')
-            ->where($this->getAdapter()->quoteInto('i.user_conf=? OR uid IS NULL', 'c'));
+            ->where($this->getAdapter()->quoteInto('i.user_conf=?', 'c'));
 
         if (!empty($order)) {
             $select->order($order);
