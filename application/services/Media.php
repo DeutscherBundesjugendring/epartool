@@ -257,7 +257,7 @@ class Service_Media
         }
         $dirname = MEDIA_PATH . '/' . ($kid ? self::MEDIA_DIR_CONSULTATIONS : self::MEDIA_DIR_FOLDERS) . '/' . ($kid ? $kid : $folder);
 
-        return mkdir($dirname, 0700);
+        return mkdir($dirname, 0777);
     }
 
     /**
