@@ -430,11 +430,11 @@ class InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $inputModel->getAdapter()->beginTransaction();
         try {
-            $inputs = $this->fetchAll(
-                $this
-                    ->select($this->info(self::NAME), ['qi'])
+            $inputs = $inputModel->fetchAll(
+                $inputModel
+                    ->select($inputModel->info(Model_Inputs::NAME), ['qi'])
                     ->where('confirmation_key=?', $ckey)
-                    ->groupBy('qi')
+                    ->group('qi')
             );
             $confirmedCount = $inputModel->confirmByCkey($ckey);
             $inputModel->getAdapter()->commit();
