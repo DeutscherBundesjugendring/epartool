@@ -29,7 +29,7 @@ class Admin_Form_Media_FileDetail extends Dbjr_Form_Admin
                 [
                     'pattern' => '/^[-a-z0-9]+\.[a-z0-9]+$/',
                     'messages' => [Zend_Validate_Regex::NOT_MATCH => Zend_Registry::get('Zend_Translate')->translate(
-                        'File name has to have an extension and can contain only characters a-z, 0-9 and -.'
+                        'File name has to have an extension and can contain only characters a-z, 0-9 and -. The file must also have an extension.'
                     )],
                 ]
             )
