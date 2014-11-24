@@ -208,7 +208,7 @@ class Admin_InputController extends Zend_Controller_Action
             }
         }
 
-        $this->redirect(!empty($returnUrl) ? $returnUrl : $this->view->baseUrl() . '/admin');
+        $this->redirect(!empty($returnUrl) ? $returnUrl : $this->view->baseUrl() . '/admin', ['prependBase' => false]);
     }
 
     /**
