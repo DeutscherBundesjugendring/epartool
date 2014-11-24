@@ -53,7 +53,9 @@ class Admin_MediaController extends Zend_Controller_Action
             $invalidUrl = true;
         }
         if ($invalidUrl) {
-            $this->redirect($this->view->url(['action' => 'index', 'folder' => null, 'kid' => null, 'filename' => null]));
+            $this->redirect(
+                $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true)
+            );
         }
 
         // If targetElId is set, then the action is to be used as image selector in popup context
@@ -125,7 +127,9 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFolder($oldName, $newName)) {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s has been renamed to %s.', $oldName, $newName), 'success');
-                    $this->redirect($this->view->url(['action' => 'folders', 'folder' => null]));
+                    $this->redirect(
+                        $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'folders'], null, true)
+                    );
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s could not be renamed to %s.', $oldName, $newName), 'error');
                 }
@@ -165,13 +169,24 @@ class Admin_MediaController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFile($oldName, $newName, $this->_folder, $newDir)) {
                     if ($this->_folder === $newDir) {
-                        $this->_flashMessenger->addMessage(sprintf('The file %s has been renamed to %s.', $oldName, $newName), 'success');
+                        $this->_flashMessenger->addMessage(
+                            sprintf('The file %s has been renamed to %s.', $oldName, $newName),
+                            'success'
+                        );
                     } else {
-                        $this->_flashMessenger->addMessage(sprintf('The file %s/%s has been moved to %s/%s.', $this->_folder, $oldName, $newDir, $newName), 'success');
+                        $this->_flashMessenger->addMessage(
+                            sprintf('The file %s/%s has been moved to %s/%s.', $this->_folder, $oldName, $newDir, $newName),
+                            'success'
+                        );
                     }
-                    $this->redirect($this->view->url(['action' => 'index', 'folder' => $newDir, 'filename' => null]). '/');
+                    $this->redirect(
+                        $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index', 'folder' => $newDir], null, true) . '/'
+                    );
                 } else {
-                    $this->_flashMessenger->addMessage(sprintf('The file %s could not be renamed to %s.', $oldName, $newName), 'error');
+                    $this->_flashMessenger->addMessage(
+                        sprintf('The file %s could not be renamed to %s.', $oldName, $newName),
+                        'error'
+                    );
                 }
             } else {
                 $this->_flashMessenger->addMessage('The file could not be renamed.', 'error');
@@ -244,7 +259,9 @@ class Admin_MediaController extends Zend_Controller_Action
                 $folderName = $form->getValue('name');
                 if ((new Service_Media())->createDir(null, $folderName)) {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s has been created.', $folderName), 'success');
-                    $this->redirect($this->view->url(['action' => 'folders']));
+                    $this->redirect(
+                        $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'folders'], null, true)
+                    );
                 } else {
                     $this->_flashMessenger->addMessage(sprintf('The folder %s could not be created.', $folderName), 'error');
                 }
@@ -293,7 +310,9 @@ class Admin_MediaController extends Zend_Controller_Action
                             sprintf('The file %s has been successfully uploaded.', $uploadRes),
                             'success'
                         );
-                        $this->redirect($this->view->url(['action' => 'index']));
+                        $this->redirect(
+                            $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true)
+                        );
                     } else {
                         $form->getElement('file')->addErrors($uploadRes);
                         $this
@@ -334,8 +353,17 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         $this->redirect(
-            $this->view->url(['action' => 'index', 'kid' => $this->_kid, 'folder' => $this->_folder]),
-            array('prependBase' => false)
+            $this->view->url(
+                [
+                    'module' => 'admin',
+                    'controller' => 'media',
+                    'action' => 'index',
+                    'kid' => $this->_kid,
+                    'folder' => $this->_folder
+                ],
+                null,
+                true
+            )
         );
     }
 
@@ -362,8 +390,7 @@ class Admin_MediaController extends Zend_Controller_Action
         } else {
             $this->_flashMessenger->addMessage('File does not exist.', 'error');
             $this->redirect(
-                $this->view->url(['action' => 'index']),
-                ['prependBase' => false]
+                $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true)
             );
         }
     }
