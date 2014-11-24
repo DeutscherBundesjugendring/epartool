@@ -108,18 +108,6 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $this->addElement($subject);
 
 
-        $bodyText = $this->createElement('textarea', 'body_text');
-        $bodyText
-            ->setLabel('Message (plain text)')
-            ->setRequired(true)
-            ->setAttrib('class', 'js-body-text')
-            ->setAttrib('cols', 100)
-            ->setAttrib('rows', 5)
-            ->setAttrib('placeholder', $translator->translate('Message as plain text'))
-            ->addValidator('notEmpty');
-        $this->addElement($bodyText);
-
-
         $bodyHtml = $this->createElement('textarea', 'body_html');
         $bodyHtml
             ->setLabel('Message (HTML)')
@@ -130,6 +118,17 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             ->setAttrib('placeholder', $translator->translate('Message as HTML'))
             ->addValidator('notEmpty');
         $this->addElement($bodyHtml);
+
+
+        $bodyText = $this->createElement('textarea', 'body_text');
+        $bodyText
+            ->setLabel('Message (plain text)')
+            ->setAttrib('class', 'js-body-text')
+            ->setAttrib('cols', 100)
+            ->setAttrib('rows', 5)
+            ->setAttrib('placeholder', $translator->translate('Message as plain text'))
+            ->addValidator('notEmpty');
+        $this->addElement($bodyText);
 
 
         $this->getElement('body_html')->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL);
