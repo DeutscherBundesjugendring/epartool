@@ -485,7 +485,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
                     ->select()
                     ->setIntegrityCheck(false)
                     ->from(['i' => $inputModel->info(Model_Questions::NAME)], ['tid', 'thes', 'qi', 'uid', 'when'])
-                    ->join(
+                    ->joinLeft(
                         ['u' => (new Model_Users())->info(Model_Users::NAME)],
                         'u.uid = i.uid',
                         ['uid', 'name']
