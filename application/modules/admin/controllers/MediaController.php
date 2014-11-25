@@ -63,7 +63,7 @@ class Admin_MediaController extends Zend_Controller_Action
         $this->view->targetElId = $this->getRequest()->getParam('targetElId', null);
         if ($this->view->targetElId) {
             $this->_helper->layout->setLayout('popup');
-            $this->view->headScript()->appendFile('/js/admin_mediaPopup.js');
+            $this->view->headScript()->appendFile($this->view->baseUrl() . '/js/admin_mediaPopup.js');
             $this->view->lockDir = (bool) $this->getRequest()->getParam('lockDir', null);
         }
     }
