@@ -22,4 +22,6 @@ ALTER TABLE `inpt`
 
 INSERT INTO `email_placeholder` (`name`, `description`, `is_global`)
 VALUES
-    ('contribution_text', 'The text of the contribution.', 0);
+    ('contribution_text', 'The text of the contribution.', 0),
+    ('input_thes', 'The text of the contribution.', 0),
+    ('input_expl', 'The text of the contribution.', 0);

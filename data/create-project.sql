@@ -319,7 +319,7 @@ Mit freundlichen Grüßen
 Eure Koordinierungsstelle'
     ),
     (
-        'input_discussion_question_subscription_confirmation',
+        'input_discussion_subscription_confirmation',
         (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
         @project_code,
         'Please confirm your subscription',
@@ -672,9 +672,65 @@ VALUES
 
     (
         (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_discussion_contrib_created' AND `project_code`=@project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='unsubscribe_url')
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_discussion_contrib_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
     ),
     (
         (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_discussion_contrib_created' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='website_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_discussion_contrib_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='contribution_text')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='notification_new_input_discussion_contrib_created' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='unsubscribe_url')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='input_thes')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='input_expl')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='input_thes')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='input_expl')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
     );
