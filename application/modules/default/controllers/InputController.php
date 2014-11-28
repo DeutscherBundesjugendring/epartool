@@ -676,7 +676,7 @@ class InputController extends Zend_Controller_Action
 
                         Zend_Registry::get('dbAdapter')->commit();
                         $this->_flashMessenger->addMessage($msg, 'success');
-                        $this->_redirect($this->view->url());
+                        $this->_redirect($this->view->url(), ['prependBase' => false]);
                     } catch (Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
                         throw $e;

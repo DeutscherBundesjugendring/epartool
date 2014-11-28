@@ -87,7 +87,7 @@ class Admin_TagController extends Zend_Controller_Action
             }
         }
 
-        $this->_redirect($this->view->url(['action' => 'index']));
+        $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
     }
 
     /**
@@ -104,7 +104,7 @@ class Admin_TagController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('Keyword has been deleted.', 'success');
         }
 
-        $this->_redirect($this->view->url(['action' => 'index']));
+        $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
     }
 
     private static function toAscii($string)

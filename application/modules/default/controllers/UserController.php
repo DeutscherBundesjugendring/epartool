@@ -241,6 +241,6 @@ class UserController extends Zend_Controller_Action
             }
         }
 
-        $this->_redirect($this->view->url(['action' => 'userlist']));
+        $this->_redirect($this->view->url(['action' => 'userlist']), ['prependBase' => false]);
     }
 }

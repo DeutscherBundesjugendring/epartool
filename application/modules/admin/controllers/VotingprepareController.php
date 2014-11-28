@@ -244,7 +244,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
 
-        $this->_redirect($this->view->url(['action' => 'overview']));
+        $this->_redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
     }
 
     /**

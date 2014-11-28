@@ -210,7 +210,8 @@ class FollowupController extends Zend_Controller_Action
         } else {
             if ($kid) {
                 $this->_redirect(
-                    $this->view->url(array('action' => 'index', 'kid' => $kid), null, true)
+                    $this->view->url(array('action' => 'index', 'kid' => $kid), null, true),
+                    ['prependBase' => false]
                 );
             } else {
                 $this->_redirect('/');
@@ -321,7 +322,8 @@ class FollowupController extends Zend_Controller_Action
             if ($kid) {
 
                 $this->_redirect(
-                    $this->view->url(array('action' => 'index', 'kid' => $kid), null, true)
+                    $this->view->url(array('action' => 'index', 'kid' => $kid), null, true),
+                    ['prependBase' => false]
                 );
             } else {
                 $this->_redirect('/');
