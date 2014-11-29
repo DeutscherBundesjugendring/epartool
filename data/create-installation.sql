@@ -147,7 +147,6 @@ CREATE TABLE `email` (
   `subject` varchar(75) DEFAULT NULL,
   `body_html` text,
   `body_text` text,
-  `attachment` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `email_project_code_ibfk` (`project_code`),
   KEY `email_time_sent_idx` (`time_sent`),
