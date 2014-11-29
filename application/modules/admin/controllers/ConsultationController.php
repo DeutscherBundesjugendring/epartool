@@ -76,19 +76,23 @@ class Admin_ConsultationController extends Zend_Controller_Action
             $mediaService = new Service_Media();
 
             if ($form->isValid($postData)) {
-                $filename = $form->getElement('img_file')->getFileName();
                 $consultationRow = $consultationModel->createRow($postData);
                 $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
-                $consultationRow->img_file = $mediaService->sanitizeFilename($filename);
+                $filename = $form->getElement('img_file')->getFileName();
+                if ($filename) {
+                    $consultationRow->img_file = $mediaService->sanitizeFilename($filename);
+                }
 
                 $newKid = $consultationRow->save();
 
                 if ($newKid) {
                     $mediaService->createDir($newKid);
-                    $mediaService->upload(
-                        Dbjr_File::pathinfoUtf8($filename, PATHINFO_BASENAME),
-                        $newKid
-                    );
+                    if ($filename) {
+                        $mediaService->upload(
+                            Dbjr_File::pathinfoUtf8($filename, PATHINFO_BASENAME),
+                            $newKid
+                        );
+                    }
 
                     $this->_flashMessenger->addMessage('New consultation has been created.', 'success');
                     $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
@@ -121,36 +125,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $form->getElement('img_file')->setIsLockDir(true);
 
         if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
-            // if date-inputs not checked, remove validators and set default values
             $posts = $this->getRequest()->getPost();
-            if ($posts['inp_show'] === 'n') {
-                $form->getElement('inp_fr')->removeValidator('NotEmpty');
-                $form->getElement('inp_fr')->removeValidator('Date');
-                $form->getElement('inp_fr')->setOptions(array('required'=>false));
-                $form->getElement('inp_to')->removeValidator('NotEmpty');
-                $form->getElement('inp_to')->removeValidator('Date');
-                $form->getElement('inp_to')->setOptions(array('required'=>false));
-            }
-            if ($posts['spprt_show'] === 'n') {
-                $form->getElement('spprt_fr')->removeValidator('NotEmpty');
-                $form->getElement('spprt_fr')->removeValidator('Date');
-                $form->getElement('spprt_fr')->setOptions(array('required'=>false));
-                $form->getElement('spprt_to')->removeValidator('NotEmpty');
-                $form->getElement('spprt_to')->removeValidator('Date');
-                $form->getElement('spprt_to')->setOptions(array('required'=>false));
-            }
-            if ($posts['vot_show'] === 'n') {
-                $form->getElement('vot_fr')->removeValidator('NotEmpty');
-                $form->getElement('vot_fr')->removeValidator('Date');
-                $form->getElement('vot_fr')->setOptions(array('required'=>false));
-                $form->getElement('vot_to')->removeValidator('NotEmpty');
-                $form->getElement('vot_to')->removeValidator('Date');
-                $form->getElement('vot_to')->setOptions(array('required'=>false));
-            }
-            if ($posts['is_discussion_active'] === 'y') {
-                $form->getElement('discussion_from')->setOptions(['required' => true]);
-                $form->getElement('discussion_to')->setOptions(['required' => true]);
-            }
             if ($form->isValid($this->getRequest()->getPost())) {
                 $this->_consultation->setFromArray($form->getValues());
                 $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
@@ -165,6 +140,28 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $form->populate($form->getValues());
             }
         } else {
+            // Martin 2014-11-28
+            // This should not be here as the default values in db should be null.
+            // However that is not the case and changing it could break all the display logic on the front end.
+            if ($this->_consultation->inp_fr === '0000-00-00 00:00:00') {
+                $this->_consultation->inp_fr = null;
+            }
+            if ($this->_consultation->inp_to === '0000-00-00 00:00:00') {
+                $this->_consultation->inp_to = null;
+            }
+            if ($this->_consultation->vot_fr === '0000-00-00 00:00:00') {
+                $this->_consultation->vot_fr = null;
+            }
+            if ($this->_consultation->vot_to === '0000-00-00 00:00:00') {
+                $this->_consultation->vot_to = null;
+            }
+            if ($this->_consultation->spprt_fr === '0000-00-00 00:00:00') {
+                $this->_consultation->spprt_fr = null;
+            }
+            if ($this->_consultation->spprt_to === '0000-00-00 00:00:00') {
+                $this->_consultation->spprt_to = null;
+            }
+
             $form->populate($this->_consultation->toArray());
             $form->getElement('proj')->setValue(explode(',', $this->_consultation['proj']));
         }

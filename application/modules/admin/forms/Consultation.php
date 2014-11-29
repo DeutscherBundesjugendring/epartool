@@ -4,7 +4,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $this->setMethod('post');
+        $this
+            ->setMethod('post')
+            ->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
 
         $title = $this->createElement('text', 'titl');
         $title
@@ -36,8 +38,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $image = $this->createElement('file', 'img_file');
         $image
-            ->setLabel('Featured image')
-            ->setRequired(true);
+            ->setLabel('Featured image');
         $this->addElement($image);
 
         $imageDesc = $this->createElement('text', 'img_text');
@@ -169,6 +170,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $discussionFrom = $this->createElement('text', 'discussion_from');
         $discussionFrom
             ->setLabel('Discussion phase start')
+            ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($discussionFrom);
@@ -176,6 +178,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $discussionTo = $this->createElement('text', 'discussion_to');
         $discussionTo
             ->setLabel('Discussion phase end')
+            ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($discussionTo);
@@ -256,11 +259,62 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $imgFile = $this->createElement('media', 'img_file');
         $imgFile
             ->setLabel('Featured image')
-            ->setRequired(true)
             ->setOrder(2)
             ->setKid($kid);
         $this->addElement($imgFile);
 
         return $this;
+    }
+
+    public function isValid($data)
+    {
+        if ($data['inp_show'] === 'n') {
+            $this->getElement('inp_fr')->setOptions(['required'=>false]);
+            $data['inp_fr'] = null;
+            $this->getElement('inp_to')->setOptions(['required'=>false]);
+            $data['inp_to'] = null;
+        }
+        if ($data['spprt_show'] === 'n') {
+            $this->getElement('spprt_fr')->setOptions(['required'=>false]);
+            $data['spprt_fr'] = null;
+            $this->getElement('spprt_to')->setOptions(['required'=>false]);
+            $data['spprt_to'] = null;
+        }
+        if ($data['vot_show'] === 'n') {
+            $this->getElement('vot_fr')->setOptions(['required'=>false]);
+            $data['vot_fr'] = null;
+            $this->getElement('vot_to')->setOptions(['required'=>false]);
+            $data['vot_to'] = null;
+        }
+        if (!$data['is_discussion_active']) {
+            $this->getElement('discussion_from')->setOptions(['required' => false]);
+            $data['discussion_from'] = null;
+            $this->getElement('discussion_to')->setOptions(['required' => false]);
+            $data['discussion_to'] = null;
+        }
+
+        return parent::isValid($data);
+    }
+
+    public function populate(array $values)
+    {
+        if ($values['inp_show'] === 'n') {
+            $this->getElement('inp_fr')->setAttrib('disabled', 'disabled');
+            $this->getElement('inp_to')->setAttrib('disabled', 'disabled');
+        }
+        if ($values['spprt_show'] === 'n') {
+            $this->getElement('spprt_fr')->setAttrib('disabled', 'disabled');
+            $this->getElement('spprt_to')->setAttrib('disabled', 'disabled');
+        }
+        if ($values['vot_show'] === 'n') {
+            $this->getElement('vot_fr')->setAttrib('disabled', 'disabled');
+            $this->getElement('vot_to')->setAttrib('disabled', 'disabled');
+        }
+        if (!$values['is_discussion_active']) {
+            $this->getElement('discussion_from')->setAttrib('disabled', 'disabled');
+            $this->getElement('discussion_to')->setAttrib('disabled', 'disabled');
+        }
+
+        return parent::populate($values);
     }
 }
