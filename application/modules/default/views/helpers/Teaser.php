@@ -21,7 +21,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = $this->view->translate('You can publish your contribution now!')
+                    $text = $this->view->translate('You can publish your contribution now!') . ' '
                         . $this->view->translate('From') . ' '
                         . $this->view->formatDate($item['inp_fr'], 'dd.MM.yyyy') . ' '
                         . $this->view->translate('until') . ' '
@@ -33,7 +33,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = $this->view->translate('The contribution phase has finished. You can vote soon:')
+                    $text = $this->view->translate('The contribution phase has finished. You can vote soon:') . ' '
                         . $this->view->translate('from') . ' '
                         . $this->view->formatDate($item['vot_fr'], 'dd.MM.yyyy') . ' '
                         . $this->view->translate('until') . ' '
