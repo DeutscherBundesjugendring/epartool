@@ -63,7 +63,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
                 . $this->view->formatDate($con->vot_fr, Zend_Date::DATE_MEDIUM)
                 . '<br />'
                 . $this->view->translate('until') . ' '
-                . $this->view->formatDate($con->vot_fr, Zend_Date::DATE_MEDIUM)
+                . $this->view->formatDate($con->vot_to, Zend_Date::DATE_MEDIUM)
                 . '</small>';
         }
 
