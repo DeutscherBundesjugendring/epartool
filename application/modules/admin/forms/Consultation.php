@@ -13,13 +13,25 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setAttrib('maxlength', 120);
         $this->addElement($title);
 
+        $desc = sprintf(
+            Zend_Registry::get('Zend_Translate')->translate(
+                'The title to be used where space is limited, i.e. email subjects. Max %d characters.'
+            ),
+            40
+        );
         $titleShort = $this->createElement('text', 'titl_short');
         $titleShort
             ->setLabel('Short title')
+            ->addValidator('maxlength', 40)
+            ->setDescription($desc)
+            ->setAttrib('maxlength', 40)
             ->setRequired(true);
+        $this->addElement($titleShort);
 
         $subTitle = $this->createElement('text', 'titl_sub');
-        $subTitle->setLabel('Subtitle');
+        $subTitle
+            ->setLabel('Subtitle')
+            ->addValidator('maxlength', 200);
         $this->addElement($subTitle);
 
         $image = $this->createElement('file', 'img_file');
