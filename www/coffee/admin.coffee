@@ -17,7 +17,10 @@ $(document).ready () ->
 
 i18n = {
     translate: (key) ->
-        exports.I18N['en'][key]
+        if exports.I18N['en'][key]
+            return exports.I18N['en'][key]
+        else
+            return key
 }
 
 # Binds ajax loading template data to a template selctor box
