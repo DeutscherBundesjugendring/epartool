@@ -22,7 +22,7 @@
             <div class="content">
                 <a
                     href="<?=$this->url(['action' => 'send-all']); ?>"
-                    class="btn btn-default pull-right"
+                    class="btn btn-default pull-right<?=!count($this->emails) ? ' disabled' : '';?>"
                 >
                     <span class="glyphicon glyphicon-send"></span>
                     <?=$this->translate('Send all emails');?>
