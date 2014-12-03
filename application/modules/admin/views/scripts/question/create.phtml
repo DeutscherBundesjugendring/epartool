@@ -22,7 +22,7 @@
 
                 <h2><?=$this->translate('New Question');?></h2>
 
-                <form role="form" enctype="application/x-www-form-urlencoded" action="<?=$this->url(['action' => 'create', 'kid' => $this->consultation['kid']]);?>" method="post" class="offset-bottom">
+                <form role="form" enctype="<?=$this->form->getEnctype();?>" method="<?=$this->form->getMethod();?>" action="<?=$this->form->getAction();?>" class="offset-bottom">
                     <div class="row">
                         <div class="col-sm-2">
                             <?=$this->form->getElement('nr')?>
