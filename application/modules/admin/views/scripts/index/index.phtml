@@ -48,81 +48,103 @@
                                 </ul>
 
                             </div>
-                            <div class="col-md-5">
-
-                                <h4><?=$this->translate('Latest Contributions');?></h4>
-                                <?php if (count($consultation['inputs'])): ?>
-                                    <div class="overflow-vertical offset-bottom">
-                                        <div class="overflow-vertical-inner">
-                                            <?php foreach ($consultation['inputs'] as $input): ?>
-                                                <blockquote>
-                                                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'kid' => $kid, 'qid' => $input['qi'], 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
-                                                        <p>
-                                                            <?=$input['thes'];?>
-                                                        </p>
-                                                    </a>
-                                                    <footer>
-                                                        <?php if (!empty($input['name'])): ?>
-                                                            <span class="glyphicon glyphicon-user"></span>
-                                                            <a
-                                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid'], 'kid' => $kid]);?>"
-                                                                title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
-                                                                >
-                                                                <?=$input['name'];?>
-                                                            </a>,
-                                                        <?php endif; ?>
-                                                        <?=$this->formatDate($input['when']);?>
-                                                    </footer>
-                                                </blockquote>
-                                            <?php endforeach;?>
+                            <form method="<?=$this->form->getMethod();?>">
+                                <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                                <div class="col-md-5">
+                                    <h4><?=$this->translate('Latest Contributions');?></h4>
+                                    <?php if (count($consultation['inputs'])): ?>
+                                        <div class="overflow-vertical offset-bottom">
+                                            <div class="overflow-vertical-inner">
+                                                <?php foreach ($consultation['inputs'] as $input): ?>
+                                                    <blockquote>
+                                                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'kid' => $kid, 'qid' => $input['qi'], 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
+                                                            <p>
+                                                                <?=$input['thes'];?>
+                                                            </p>
+                                                        </a>
+                                                        <footer>
+                                                            <?php if (!empty($input['name'])): ?>
+                                                                <span class="glyphicon glyphicon-user"></span>
+                                                                <a
+                                                                    href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid'], 'kid' => $kid]);?>"
+                                                                    title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                                                    >
+                                                                    <?=$input['name'];?>
+                                                                </a>,
+                                                            <?php endif; ?>
+                                                            <?=$this->formatDate($input['when']);?>
+                                                        </footer>
+                                                        <button
+                                                            class="item-action item-action-danger"
+                                                            name="deleteInput"
+                                                            value="<?=$input['tid'];?>"
+                                                            data-toggle="confirm"
+                                                            data-confirm-message="<?=$this->translate('Delete input?');?>"
+                                                            title="<?=$this->translate('Delete');?>"
+                                                        >
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                    </blockquote>
+                                                <?php endforeach;?>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p>
-                                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $kid]);?>">
-                                            <?=$this->translate('Show all contributions');?> &rarr;
+                                        <p>
+                                            <a href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $kid]);?>">
+                                                <?=$this->translate('Show all contributions');?> &rarr;
+                                            </a>
+                                        </p>
+                                    <?php else: ?>
+                                        <p>
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <?=$this->translate('No contributions yet.');?>
+                                        </p>
+                                    <?php endif; ?>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <h4><?=$this->translate('Latest Discussion Posts');?></h4>
+                                    <?php if (count($consultation['discussionContribs'])): ?>
+                                        <div class="overflow-vertical offset-bottom">
+                                            <div class="overflow-vertical-inner">
+                                                <?php foreach($consultation['discussionContribs'] as $contrib): ?>
+                                                    <blockquote>
+                                                        <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$kid;?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                                            <?=$this->escape($contrib->body);?>
+                                                        </a>
+                                                        <footer>
+                                                            <?php if (!empty($contrib['name'])): ?>
+                                                                <span class="glyphicon glyphicon-user"></span>
+                                                                <?=$contrib['name'];?>,
+                                                            <?php endif; ?>
+                                                            <?=$this->formatDate($contrib->time_created);?>
+                                                        </footer>
+                                                        <button
+                                                            class="item-action item-action-danger"
+                                                            name="deleteDiscContrib"
+                                                            value="<?=$contrib->id;?>"
+                                                            data-toggle="confirm"
+                                                            data-confirm-message="<?=$this->translate('Delete discussion contribution?');?>"
+                                                            title="<?=$this->translate('Delete');?>"
+                                                        >
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button>
+                                                    </blockquote>
+                                                <?php endforeach;?>
+                                            </div>
+                                        </div>
+                                        <a href="<?=$this->url(['controller' => 'consultation', 'kid' => $kid]);?>">
+                                            <?=$this->translate('Show all discussion posts');?> &rarr;
                                         </a>
-                                    </p>
-                                <?php else: ?>
-                                    <p>
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                        <?=$this->translate('No contributions yet.');?>
-                                    </p>
-                                <?php endif; ?>
+                                    <?php else: ?>
+                                        <p>
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <?=$this->translate('No posts yet.');?>
+                                        </p>
+                                    <?php endif;?>
 
-                            </div>
-                            <div class="col-md-4">
-
-                                <h4><?=$this->translate('Latest Discussion Posts');?></h4>
-                                <?php if (count($consultation['discussionContribs'])): ?>
-                                    <div class="overflow-vertical offset-bottom">
-                                        <div class="overflow-vertical-inner">
-                                            <?php foreach($consultation['discussionContribs'] as $contrib): ?>
-                                                <blockquote>
-                                                    <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$kid;?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
-                                                        <?=$this->escape($contrib->body);?>
-                                                    </a>
-                                                    <footer>
-                                                        <?php if (!empty($contrib['name'])): ?>
-                                                            <span class="glyphicon glyphicon-user"></span>
-                                                            <?=$contrib['name'];?>,
-                                                        <?php endif; ?>
-                                                        <?=$this->formatDate($contrib->time_created);?>
-                                                    </footer>
-                                                </blockquote>
-                                            <?php endforeach;?>
-                                        </div>
-                                    </div>
-                                    <a href="<?=$this->url(['controller' => 'consultation', 'kid' => $kid]);?>">
-                                        <?=$this->translate('Show all discussion posts');?> &rarr;
-                                    </a>
-                                <?php else: ?>
-                                    <p>
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                        <?=$this->translate('No posts yet.');?>
-                                    </p>
-                                <?php endif;?>
-
-                            </div>
+                                </div>
+                            </form>
                         </div><!-- .row -->
 
                     </div>

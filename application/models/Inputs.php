@@ -124,6 +124,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         (new Model_InputsTags())->deleteByInputsId($id);
+        (new Model_InputDiscussion())->delete(['input_id=?' => $id]);
         $where = $this->getDefaultAdapter()->quoteInto($this->_primary[1] . '=?', $id);
         $result = $this->delete($where);
 

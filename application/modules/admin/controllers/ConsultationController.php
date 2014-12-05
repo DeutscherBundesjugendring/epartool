@@ -27,38 +27,63 @@ class Admin_ConsultationController extends Zend_Controller_Action
     public function indexAction()
     {
         $inputsModel = (new Model_Inputs());
-        $inputs = $inputsModel->getComplete(
-            [
-                $inputsModel->info(Model_Inputs::NAME) . '.block = ?' => 'u',
-                (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
-            ]
-        );
+        $form = new Admin_Form_ListControl();
 
-        $inputDiscussionModel = (new Model_InputDiscussion());
-        $discussionContribs = $inputDiscussionModel->fetchAll(
-            $inputDiscussionModel
-                ->select()
-                ->setIntegrityCheck(false)
-                ->from(['id' => $inputDiscussionModel->info(Model_InputDiscussion::NAME)])
-                ->join(
-                    ['i' =>(new Model_Inputs())->info(Model_Inputs::NAME)],
-                    'id.input_id = i.tid',
-                    []
-                )
-                ->join(
-                    ['q' =>(new Model_Questions())->info(Model_Questions::NAME)],
-                    'q.qi = i.qi',
-                    []
-                )
-                ->join(
-                    ['u' => (new Model_Users())->info(Model_Users::NAME)],
-                    'u.uid = id.user_id',
-                    ['uid', 'name']
-                )
-                ->where('q.kid = ?', $this->_consultation['kid'])
-                ->order('time_created DESC')
-        );
+        $db = $inputsModel->getAdapter();
+        $db->beginTransaction();
+        try {
+            if ($this->getRequest()->isPost()) {
+                $data = $this->getRequest()->getPost();
+                if ($form->isValid($data)) {
+                    if (isset($data['deleteInput'])) {
+                        $inputsModel->deleteById($data['deleteInput']);
+                        $this->_flashMessenger->addMessage('Input was deleted.', 'success');
+                    } elseif (isset($data['deleteDiscContrib'])) {
+                        (new Model_InputDiscussion())->delete(['id=?' => $data['deleteDiscContrib']]);
+                        $this->_flashMessenger->addMessage('Discussion contribution was deleted.', 'success');
+                    }
+                }
+            }
 
+            $inputs = $inputsModel->getComplete(
+                [
+                    $inputsModel->info(Model_Inputs::NAME) . '.block = ?' => 'u',
+                    (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
+                ]
+            );
+
+            $inputDiscussionModel = (new Model_InputDiscussion());
+            $discussionContribs = $inputDiscussionModel->fetchAll(
+                $inputDiscussionModel
+                    ->select()
+                    ->setIntegrityCheck(false)
+                    ->from(['id' => $inputDiscussionModel->info(Model_InputDiscussion::NAME)])
+                    ->join(
+                        ['i' =>(new Model_Inputs())->info(Model_Inputs::NAME)],
+                        'id.input_id = i.tid',
+                        []
+                    )
+                    ->join(
+                        ['q' =>(new Model_Questions())->info(Model_Questions::NAME)],
+                        'q.qi = i.qi',
+                        []
+                    )
+                    ->join(
+                        ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                        'u.uid = id.user_id',
+                        ['uid', 'name']
+                    )
+                    ->where('q.kid = ?', $this->_consultation['kid'])
+                    ->order('time_created DESC')
+            );
+
+            $db->commit();
+        } catch (Exception $e) {
+            $db->rollback();
+            throw $e;
+        }
+
+        $this->view->form = $form;
         $this->view->inputs = $inputs;
         $this->view->discussionContribs = $discussionContribs;
     }

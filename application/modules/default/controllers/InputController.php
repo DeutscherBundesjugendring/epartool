@@ -706,11 +706,17 @@ class InputController extends Zend_Controller_Action
                 )
                 ->order('time_created ASC')
         );
-        $this->view->input = $inputsModel->fetchRow(
+        $input = $inputsModel->fetchRow(
             $inputsModel
                 ->select()
                 ->where('tid=?', $inputId)
         );
+
+        if (!$input) {
+            $this->_redirect('/');
+        }
+
+        $this->view->input = $input;
     }
 
     protected function _getInputform()
