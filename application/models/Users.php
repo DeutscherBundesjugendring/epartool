@@ -216,7 +216,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         $passConf = Zend_Registry::get('systemconfig')->security->password;
         $saltChars = implode('', array_merge(range(0, 9), range('a', 'z'), range('A', 'Z')));
         $saltBase = $passConf->globalSalt . floor(microtime(true)) . $this->getRandString(22, $saltChars);
-        $salt = '$2a$' . $passConf->costParam . '$' . substr($saltBase, 0, 22);
+        $salt = '$2y$' . $passConf->costParam . '$' . substr($saltBase, 0, 22);
 
         return crypt($password, $salt);
     }
