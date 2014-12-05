@@ -69,10 +69,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
     public function newAction()
     {
         $form = new Admin_Form_Consultation();
+        $consultationModel = new Model_Consultations();
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
-            $consultationModel = new Model_Consultations();
             $mediaService = new Service_Media();
 
             if ($form->isValid($postData)) {
@@ -103,6 +103,8 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 $form->populate($this->getRequest()->getPost());
             }
+        } else {
+            $form->getElement('ord')->setValue($consultationModel->getMaxOrder() + 1);
         }
 
         foreach ($form->getElements() as $element) {

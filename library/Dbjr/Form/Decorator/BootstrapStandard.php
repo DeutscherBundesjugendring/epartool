@@ -9,9 +9,10 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
             ->setAttrib(
                 'class',
                 'form-control'
-                    . $this->getWysiwygCssClass($element)
-                    . $this->getDatepickerCssClass($element)
-                    . $this->getSelect2CssClass($element)
+                . $this->getWysiwygCssClass($element)
+                . $this->getDatepickerCssClass($element)
+                . $this->getSelect2CssClass($element)
+                . ($element->getAttrib('class') ? ' ' . $element->getAttrib('class') : '')
             )
             ->clearDecorators()
             ->addDecorator(

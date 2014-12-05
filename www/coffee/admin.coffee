@@ -148,6 +148,24 @@ initDatepicker = () ->
         'sideBySide': true
     })
 
+    # An ugly hack added so that datetimepicker can be triggered if the field was enabled by js after page load
+    $(document).on('change', '[data-toggle=disable]', () ->
+        $this = $(this)
+        $el = $($this.data('disable-target') + '.js-datetimepicker');
+        $el.data('DateTimePicker', null);
+        $el.datetimepicker({
+            'format': 'YYYY-MM-DD HH:mm:ss',
+            'sideBySide': true
+        })
+        $el = $($this.data('disable-target') + '.js-datepicker')
+        $el.data('DateTimePicker', null);
+        $el.datetimepicker({
+            'format': 'YYYY-MM-DD',
+            'pickTime': false
+        })
+        return
+    );
+
 initSelect2 = () ->
     $('.js-select2').select2()
 

@@ -180,18 +180,18 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns highest ID from database
-     * @return integer
+     * Returns the highest order value of all consultations in
+     * @return integer      the highest order value of all consultations
      */
-    public function getLastId()
+    public function getMaxOrder()
     {
         $row = $this->fetchRow(
             $this
                 ->select()
-                ->from($this, array(new Zend_Db_Expr('max(kid) as maxId')))
+                ->from($this, array(new Zend_Db_Expr('max(ord) as maxOrder')))
         );
 
-        return $row->maxId;
+        return $row->maxOrder;
     }
 
     /**

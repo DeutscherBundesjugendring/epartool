@@ -24,7 +24,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $titleShort = $this->createElement('text', 'titl_short');
         $titleShort
             ->setLabel('Short title')
-            ->addValidator('maxlength', 40)
+            ->addValidator('stringLength', ['max' => 40])
             ->setDescription($desc)
             ->setAttrib('maxlength', 40)
             ->setRequired(true);
@@ -33,7 +33,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $subTitle = $this->createElement('text', 'titl_sub');
         $subTitle
             ->setLabel('Subtitle')
-            ->addValidator('maxlength', 200);
+            ->addValidator('stringLength', ['max' => 200]);
         $this->addElement($subTitle);
 
         $image = $this->createElement('file', 'img_file');
@@ -47,7 +47,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $desc = sprintf(
             Zend_Registry::get('Zend_Translate')->translate('The higher number, the higher position in consultation list. The highest position is currently %d.'),
-            (new Model_Consultations())->getLastId()
+            (new Model_Consultations())->getMaxOrder()
         );
         $order = $this->createElement('number', 'ord');
         $order
@@ -75,8 +75,11 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $inputShow
             ->setLabel('Enable contribution phase')
             ->setRequired(true)
+            ->setAttrib('data-toggle', 'disable')
+            ->setAttrib('data-disable-target', '.js-input-dates')
             ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setUncheckedValue('n')
+            ->setValue('y');
         $this->addElement($inputShow);
 
         $inputFrom = $this->createElement('text', 'inp_fr');
@@ -85,6 +88,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($inputFrom, 'js-input-dates');
         $this->addElement($inputFrom);
 
         $inputTo = $this->createElement('text', 'inp_to');
@@ -93,14 +97,18 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($inputTo, 'js-input-dates');
         $this->addElement($inputTo);
 
         $supportShow = $this->createElement('checkbox', 'spprt_show');
         $supportShow
             ->setLabel('Enable support phase')
             ->setRequired(true)
+            ->setAttrib('data-toggle', 'disable')
+            ->setAttrib('data-disable-target', '.js-support-dates')
             ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setUncheckedValue('n')
+            ->setValue('y');
         $this->addElement($supportShow);
 
         $supportFrom = $this->createElement('text', 'spprt_fr');
@@ -109,6 +117,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($supportFrom, 'js-support-dates');
         $this->addElement($supportFrom);
 
         $supportTo = $this->createElement('text', 'spprt_to');
@@ -117,14 +126,18 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($supportTo, 'js-support-dates');
         $this->addElement($supportTo);
 
         $voteShow = $this->createElement('checkbox', 'vot_show');
         $voteShow
             ->setLabel('Enable voting phase')
             ->setRequired(true)
+            ->setAttrib('data-toggle', 'disable')
+            ->setAttrib('data-disable-target', '.js-vote-dates')
             ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setUncheckedValue('n')
+            ->setValue('y');
         $this->addElement($voteShow);
 
         $voteFrom = $this->createElement('text', 'vot_fr');
@@ -133,6 +146,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($voteFrom, 'js-vote-dates');
         $this->addElement($voteFrom);
 
         $voteTo = $this->createElement('text', 'vot_to');
@@ -141,6 +155,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($voteTo, 'js-vote-dates');
         $this->addElement($voteTo);
 
         $voteResShow = $this->createElement('checkbox', 'vot_res_show');
@@ -163,8 +178,11 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $discussionActive
             ->setLabel('Enable discussion')
             ->setRequired(true)
+            ->setAttrib('data-toggle', 'disable')
+            ->setAttrib('data-disable-target', '.js-discussion-dates')
             ->setCheckedValue(1)
-            ->setUncheckedValue(0);
+            ->setUncheckedValue(0)
+            ->setValue(1);
         $this->addElement($discussionActive);
 
         $discussionFrom = $this->createElement('text', 'discussion_from');
@@ -173,6 +191,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($discussionFrom, 'js-discussion-dates');
         $this->addElement($discussionFrom);
 
         $discussionTo = $this->createElement('text', 'discussion_to');
@@ -181,6 +200,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setDatepicker(Dbjr_Form_Element_Text::DATEPICKER_TYPE_DATETIME)
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
+        self::addCssClass($discussionTo, 'js-discussion-dates');
         $this->addElement($discussionTo);
 
         $followupShow = $this->createElement('checkbox', 'follup_show');
