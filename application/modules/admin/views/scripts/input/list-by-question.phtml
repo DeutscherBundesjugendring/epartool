@@ -27,7 +27,7 @@
                 <?php if (count($this->inputs)): ?>
 
                     <!-- Filter -->
-                    <form class="form-filter offset-bottom" data-target="#contribution-table tr">
+                    <form class="form-filter offset-bottom" data-filter-target="#contribution-table tr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -38,7 +38,7 @@
                                         class="form-control"
                                         data-toggle="filter"
                                         data-filter-attrib="admin-confirmation"
-                                        data-filter-operator="="
+                                        data-filter-operator="intersect"
                                     >
                                         <option value=""><?=$this->translate('All');?></option>
                                         <option value="u"><?=$this->translate('Waiting for revision');?></option>
@@ -56,7 +56,7 @@
                                         class="form-control"
                                         data-toggle="filter"
                                         data-filter-attrib="user-confirmation"
-                                        data-filter-operator="="
+                                        data-filter-operator="intersect"
                                     >
                                         <option value=""><?=$this->translate('All');?></option>
                                         <option value="u"><?=$this->translate('Waiting for revision');?></option>
@@ -74,7 +74,7 @@
                                         class="form-control"
                                         data-toggle="filter"
                                         data-filter-attrib="voting"
-                                        data-filter-operator="="
+                                        data-filter-operator="intersect"
                                     >
                                         <option value=""><?=$this->translate('All');?></option>
                                         <option value="u"><?=$this->translate('Unknown');?></option>
@@ -94,7 +94,7 @@
                                             multiple
                                             data-toggle="filter"
                                             data-filter-attrib="tags"
-                                            data-filter-operator="arrayIntersects"
+                                            data-filter-operator="subset"
                                         >
                                             <?php foreach ($this->tags as $tag): ?>
                                                 <option
@@ -112,7 +112,7 @@
                                     <button
                                         type="button"
                                         class="btn btn-default"
-                                        data-toggle="reset-filter"
+                                        data-toggle="filter-reset"
                                     >
                                         <?=$this->translate('Reset Filter');?>
                                     </button>
