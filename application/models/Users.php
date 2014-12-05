@@ -214,36 +214,9 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function hashPassword($password)
     {
         $passConf = Zend_Registry::get('systemconfig')->security->password;
-        $saltChars = implode('', array_merge(range(0, 9), range('a', 'z'), range('A', 'Z')));
-        $saltBase = $passConf->globalSalt . floor(microtime(true)) . $this->getRandString(22, $saltChars);
-        $salt = '$2y$' . $passConf->costParam . '$' . substr($saltBase, 0, 22);
+        $salt = '$2y$' . $passConf->costParam . '$' . bin2hex(openssl_random_pseudo_bytes(22));
 
         return crypt($password, $salt);
-    }
-
-    /**
-     * Generates a pseudo random string
-     * @param  integer $length  The length of the string.
-     * @param  string  $chars   A string consisting of all characters that can be used in the string.
-     *                          Defaults to printabale ASCII characters (32-127)
-     * @return string           The pseudo random string
-     */
-    protected function getRandString($length, $chars = null)
-    {
-        $randString = '';
-        if (!$chars) {
-            $chars = '';
-            for ($i = 32; $i <= 127; $i++) {
-                $chars .= chr($i);
-            }
-        }
-
-        $charCount = mb_strlen($chars);
-        for ($i = 0; $i < $length; $i++) {
-            $randString .= substr($chars, mt_rand(0, $charCount - 1), 1);
-        }
-
-        return $randString;
     }
 
     /**
