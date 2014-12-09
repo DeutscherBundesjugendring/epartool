@@ -98,7 +98,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
 
-        $this->redirect($this->view->url(['action' => 'overview']));
+        $this->redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
     }
 
     /**
@@ -118,7 +118,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
-                $this->redirect($this->view->url());
+                $this->redirect($this->view->url(), ['prependBase' => false]);
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
@@ -146,7 +146,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
-                $this->redirect($this->view->url(['action' => 'overview', 'inputIds' => null]));
+                $this->redirect($this->view->url(['action' => 'overview', 'inputIds' => null]), ['prependBase' => false]);
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
@@ -212,7 +212,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     ]
                 );
                 $this->_flashMessenger->addMessage('New folder has been created.', 'success');
-                $this->redirect($this->view->url());
+                $this->redirect($this->view->url(), ['prependBase' => false]);
             } else {
                 $this->_flashMessenger->addMessage('Folder could not be created.', 'error');
             }

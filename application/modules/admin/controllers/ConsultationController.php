@@ -341,7 +341,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                     ->setFromArray($postData)
                     ->save();
                 $this->_flashMessenger->addMessage('Custom phase names have been saved.', 'success');
-                $this->redirect($this->view->url());
+                $this->redirect($this->view->url(), ['prependBase' => false]);
             } else {
                 $form->setActive();
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');

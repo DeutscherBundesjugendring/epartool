@@ -198,7 +198,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                         $snippetModel->update(['docorg' => $docorg], ['fid = ?' => $snippetId]);
                     }
                     $this->_flashMessenger->addMessage('Snippet order has been updated.', 'success');
-                    $this->redirect($this->view->url());
+                    $this->redirect($this->view->url(), ['prependBase' => false]);
                 }
             }
         }
@@ -284,7 +284,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                 $message = sprintf($this->view->translate('%d snippets linked.'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
-            $this->redirect($this->view->url());
+            $this->redirect($this->view->url(), ['prependBase' => false]);
         }
 
         $snippetModel = new Model_Followups();
