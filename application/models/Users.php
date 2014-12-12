@@ -248,7 +248,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 ->join(
                     array('q' => (new Model_Questions())->info(Model_Questions::NAME)),
                     'q.qi = i.qi',
-                    array()
+                    array('q')
                 )
                 ->where('user_conf=?', 'u')
                 ->where('confirmation_key=?', $confirmKey)
@@ -259,10 +259,21 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $inputIds = array();
             $inputsText = '';
             $inputsHtml = '';
+            $unconfInputsSorted = [];
+            $questions = [];
+
             foreach ($unconfirmedInputs as $input) {
-                $inputIds[] = $input->tid;
-                $inputsText .= $input->thes . "\n\n";
-                $inputsHtml .= '<p>' . $input->thes . '</p>';
+                $unconfInputsSorted[$input->qi][] = $input;
+                $questions[$input->qi] = $input->q;
+            }
+            foreach ($unconfInputsSorted as $questionId => $qInputs) {
+                $inputsText .= $questions[$questionId] . "\n" . '---------------------------------' . "\n\n";
+                $inputsHtml .= '<b>' . $questions[$questionId] . '</b>';
+                foreach ($qInputs as $input) {
+                    $inputIds[] = $input->tid;
+                    $inputsText .= $input->thes . "\n\n";
+                    $inputsHtml .= '<p>' . $input->thes . '</p>';
+                }
             }
 
             $baseUrl = Zend_Registry::get('baseUrl');
