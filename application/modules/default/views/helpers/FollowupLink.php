@@ -1,11 +1,11 @@
 <?php
 /**
- * Decides if a link to the inputs followup chart or static text should be provided
+ * Decides if a link to the inputs follow-up chart or static text should be provided
  */
 class Zend_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
 {
     /**
-     * Returns a link to inputs followup chart or static text
+     * Returns a link to inputs follow-up chart or static text
      * @param  integer $inputId    The input identifier
      * @param  integer $questionId The question identifier
      * @param  array   $relIds     Array of related input ids

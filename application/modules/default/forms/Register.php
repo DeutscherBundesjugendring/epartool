@@ -23,7 +23,7 @@ class Default_Form_Register extends Zend_Form
         $this->addElement($email);
 
         $hint = $this->createElement('hidden', ' hint');
-        $description = $translator->translate('The following fields are not obligatory. But you can help us to find out more about what people and groups are participating.');
+        $description = $translator->translate('The following fields are not obligatory, but the data can help us find out which target groups we are reaching.');
         $hint
             ->setDescription('<dd><p class="help-block help-block-offset">' . $description . '</p></dd>')
             ->setDecorators([['Description', ['escape' => false]]]);

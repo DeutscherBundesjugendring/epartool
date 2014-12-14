@@ -134,7 +134,7 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
             foreach ($theses as $thesis) {
                 $theses_votes[$thesis['tid']] = $votesIndivModel ->getVotingValuesByThesis($thesis['tid'], $kid, $votingWeights);
                 $theses_values[$thesis['tid']] = $thesis->toArray();
-                // get followUps?
+                // get follow-ups?
                 $followUps = $followUpModel ->  getFollowupCountByTids($thesis['tid']);
                 $theses_values[$thesis['tid']]['fowups']="n";
                 if (isset($followUps[$thesis['tid']])) {

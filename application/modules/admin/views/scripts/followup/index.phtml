@@ -20,9 +20,9 @@
 
                 <a href="<?=$this->url(['action' => 'create-followup']);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    <?=$this->translate('New Follow Up');?>
+                    <?=$this->translate('New Follow-up');?>
                 </a>
-                <h2><?=$this->translate('Follow Up');?></h2>
+                <h2><?=$this->translate('Follow-up');?></h2>
 
                 <?php if (!count($this->followupFiles)): ?>
                     <p class="alert alert-info">
@@ -56,7 +56,7 @@
                                             <a
                                                 href="<?=$this->url(['action' => 'edit-followup', 'ffid' => $followupFile['ffid']]);?>"
                                                 class="item-action"
-                                                title="<?=$this->translate('Edit follow up');?>"
+                                                title="<?=$this->translate('Edit follow-up');?>"
                                             >
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
@@ -72,8 +72,8 @@
                                                 class="item-action item-action-danger"
                                                 name="delete"
                                                 data-toggle="confirm"
-                                                data-confirm-message="<?=$this->translate('Delete follow up?');?>"
-                                                title="<?=$this->translate('Delete follow up');?>"
+                                                data-confirm-message="<?=$this->translate('Delete follow-up?');?>"
+                                                title="<?=$this->translate('Delete follow-up');?>"
                                             >
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </button>

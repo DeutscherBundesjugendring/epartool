@@ -354,7 +354,7 @@ class Admin_MediaController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('File could not be deleted.', 'error');
             }
         } else {
-            $this->_flashMessenger->addMessage('File could not be deleted', 'error');
+            $this->_flashMessenger->addMessage('File could not be deleted.', 'error');
         }
 
         $this->redirect(

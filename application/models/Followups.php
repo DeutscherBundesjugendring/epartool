@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Model Followups
- *
- * @author Marco Dinnbier
- */
 class Model_Followups extends Zend_Db_Table_Abstract
 {
     protected $_name = 'fowups';
@@ -67,7 +62,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
     /**
     * getFollowupsbyInput
-    * get followup-files by inpt.tid
+    * get follow-up files by inpt.tid
     * @param integer $tid
     * @return Zend_DB_Table_Rowset
     */
@@ -153,7 +148,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
     /**
     * getById
-    * get followup by fowups.fid
+    * get follow-up by fowups.fid
     * @param integer $fid
     * @return array
     */
@@ -174,7 +169,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
     /**
     * getByIdArray
-    * get followup by fowups.fid array
+    * get follow-up by fowups.fid array
     * @param array $idarray
     * @return array
     */
@@ -237,9 +232,9 @@ class Model_Followups extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Search in followup snippets
+     * Search in follow-up snippets
      * @param string  $needle   The term being searchd for
-     * @return array            An array of followups with snippets
+     * @return array            An array of follow-ups with snippets
      */
     public function search($needle)
     {

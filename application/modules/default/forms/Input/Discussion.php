@@ -9,7 +9,7 @@ class Default_Form_Input_Discussion extends Zend_Form
 
 
         $body = $this->createElement('textarea', 'body');
-        $placeholder = Zend_Registry::get('Zend_Translate')->translate('Your discussion contribution');
+        $placeholder = Zend_Registry::get('Zend_Translate')->translate('Your discussion post');
         $body
             ->setRequired(true)
             ->setAttrib('rows', 5)
@@ -20,7 +20,7 @@ class Default_Form_Input_Discussion extends Zend_Form
 
         $email = $this->createElement('text', 'email');
         $email
-            ->setLabel('Your Email')
+            ->setLabel('Your email')
             ->setRequired(true)
             ->setAttrib('type', 'email')
             ->setAttrib('class', 'input-xlarge')

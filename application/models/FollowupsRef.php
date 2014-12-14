@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Model FollowupsRef
- *
- * @author Marco Dinnbier
- */
 class Model_FollowupsRef extends Zend_Db_Table_Abstract
 {
     protected $_name = 'fowups_rid';
@@ -38,7 +33,7 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
     /**
      * Resets a link between snippet and any of the following
      * - snippet
-     * - followup
+     * - follow-up
      * - input
      * @param  array   $array  An array of linekd entity ids
      * @param  integer $fid    The id of the snipped being linked

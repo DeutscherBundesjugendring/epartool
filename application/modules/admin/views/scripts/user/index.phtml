@@ -48,7 +48,7 @@
                                             </td>
                                             <td>
                                                 <?php if (empty($user->email)): ?>
-                                                    <em class="text-muted"><?=$this->translate('N/A');?></em>
+                                                    <em class="text-muted"><?=$this->translate('Not available');?></em>
                                                 <?php else: ?>
                                                     <a href="mailto:<?=$this->escape($user->email);?>" title="<?=$this->translate('Send email to user');?>">
                                                         <?=$this->escape($user->email);?>

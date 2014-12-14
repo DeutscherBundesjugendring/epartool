@@ -627,10 +627,10 @@ class InputController extends Zend_Controller_Action
                     $isNew = false;
                     try {
                         if ($auth->hasIdentity()) {
-                            $msg = 'Your discussion contribution was saved.';
+                            $msg = 'Your discussion post was saved.';
                             $userId = $auth->getIdentity()->uid;
                         } else {
-                            $msg = 'Your discussion contribution was saved. A confirmation email has been sent.';
+                            $msg = 'Your discussion post was saved. A confirmation email has been sent.';
                             list($userId, $isNew) = (new Model_Users())->register(['email' => $formData['email']]);
                         }
 

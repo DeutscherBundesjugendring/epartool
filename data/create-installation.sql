@@ -904,7 +904,7 @@ CREATE TABLE `vt_final` (
   `points` float NOT NULL COMMENT 'summary points (accumulated value)',
   `cast` int(11) NOT NULL COMMENT 'summary votes (accumulated value)',
   `rank` float NOT NULL COMMENT 'divident points/cast',
-  `fowups` enum('y','n') NOT NULL DEFAULT 'n' COMMENT 'follow up exists?',
+  `fowups` enum('y','n') NOT NULL DEFAULT 'n' COMMENT 'follow-up exists?',
   `id` varchar(255) NOT NULL COMMENT 'md5 (tid''.-.''uid)',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM COMMENT='All votes cast';

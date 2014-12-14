@@ -205,7 +205,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $followupShow = $this->createElement('checkbox', 'follup_show');
         $followupShow
-            ->setLabel('Enable followups')
+            ->setLabel('Enable follow-ups')
             ->setRequired(true)
             ->setCheckedValue('y')
             ->setUncheckedValue('n');
@@ -213,7 +213,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $followupSummaryShow = $this->createElement('checkbox', 'summ_show');
         $followupSummaryShow
-            ->setLabel('Enable followup summary')
+            ->setLabel('Enable follow-up summary')
             ->setRequired(true)
             ->setCheckedValue('y')
             ->setUncheckedValue('n');

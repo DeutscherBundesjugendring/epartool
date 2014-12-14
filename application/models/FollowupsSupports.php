@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Model Followups
- *
- * @author Marco Dinnbier
- */
 class Model_FollowupsSupports extends Zend_Db_Table_Abstract
 {
     protected $_name = 'fowups_supports';

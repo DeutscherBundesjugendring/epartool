@@ -407,9 +407,9 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Finds out if there are any participants in this consultation who have subscribed to the followups
+     * Finds out if there are any participants in this consultation who have subscribed to the follow-ups
      * @param  integer  $kid The consultation identificator
-     * @return boolean       Indicates if there are any participants followup subscribed participants
+     * @return boolean       Indicates if there are any participants follow-up subscribed participants
      */
     public function hasFollowupSubscribers($kid)
     {

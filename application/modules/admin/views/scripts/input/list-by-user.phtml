@@ -65,7 +65,7 @@
                             <?php if (array_key_exists($this->user_info['group_size'], $this->userGroupSizes)): ?>
                                 <?=$this->userGroupSizes[$this->user_info['group_size']];?>
                             <?php else: ?>
-                                <?=$this->translate('N/A');?>
+                                <?=$this->translate('Not available');?>
                             <?php endif;?>
                         </td>
                     </tr>
@@ -83,12 +83,12 @@
                                 2 => $this->translate('up to 26'),
                                 3 => $this->translate('from 27'),
                                 4 => $this->translate('all age groups'),
-                                5 => $this->translate('N/A'),
+                                5 => $this->translate('Not available'),
                             ];?>
                             <?php if (array_key_exists($this->user_info['age_group'], $age_tm)): ?>
                                 <?=$age_tm[$this->user_info['age_group']];?>
                             <?php else: ?>
-                                <?=$this->translate('N/A');?>
+                                <?=$this->translate('Not available');?>
                             <?php endif;?>
                         </td>
                     </tr>

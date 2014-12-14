@@ -52,7 +52,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
         $phaseFollowup = $this->createElement('text', 'phase_followup');
         $phaseFollowup
-            ->setLabel('Follow Up')
+            ->setLabel('Follow-up')
             ->setAttrib('maxlength', 50)
             ->setAttrib('disabled', 'disabled')
             ->setDescription($desc)

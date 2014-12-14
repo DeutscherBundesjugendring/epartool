@@ -38,7 +38,7 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
 
                 $this->_viewName = null;
                 $this->_message = [
-                    'text' => $translator->translate('Your discussion contribution was confirmed.'),
+                    'text' => $translator->translate('Your discussion post was confirmed.'),
                     'type' => 'success',
                 ];
                 $this->markVisited($urlkeyAction->id);

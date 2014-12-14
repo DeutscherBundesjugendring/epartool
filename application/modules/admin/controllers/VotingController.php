@@ -57,7 +57,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 if ($form->isValid($data)) {
                     $votingRights->setFromArray($data)->save();
                     $this->_flashMessenger->addMessage(
-                        sprintf($this->view->translate('Änderungen für <b>%s</b> gespeichert.'), $user['email']),
+                        sprintf($this->view->translate('Changes for <b>%s</b> were saved.'), $user['email']),
                         'success'
                     );
                     $this->redirect(

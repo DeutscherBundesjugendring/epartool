@@ -82,7 +82,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $consulFollowup = $this->createElement('checkbox', 'mail_consultation_followup');
         $consulFollowup
-            ->setLabel('Participants who signed up to receive followups')
+            ->setLabel('Participants who signed up to receive follow-ups')
             ->setAttrib('class', 'js-consultation-followup')
             ->setAttrib('disabled', 'disabled');
         $this->addElement($consulFollowup);

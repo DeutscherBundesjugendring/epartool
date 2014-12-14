@@ -77,7 +77,7 @@ class Admin_CloseController extends Zend_Controller_Action {
         $consultationModel->updateById($this->_consultation["kid"], $closedata);
 
         $message = sprintf(
-            $this->view->translate('Es wurden %s Datensätze gelöscht. Die Abstimmung ist somit anonymisiert!'),
+            $this->view->translate('%s sets of data have been deleted. The vote is now anonymised!'),
             $records
         );
         $this->_flashMessenger->addMessage($message, 'success');
@@ -190,7 +190,7 @@ class Admin_CloseController extends Zend_Controller_Action {
         $closedata = array();
         $closedata['vt_finalized'] = "y"; //set flag its finalized!
         $consultationModel->updateById($this->_consultation["kid"], $closedata);
-        $message = sprintf($this->view->translate('Es wurden %s Datensätze erstellt/aktualisiert'), $sumInputs);
+        $message = sprintf($this->view->translate('%s sets of data have been created/updated.'), $sumInputs);
         $this->_flashMessenger->addMessage($message, 'success');
          $this->redirect('/admin/close/index/kid/' . $this->_consultation["kid"]);
      }
@@ -271,7 +271,7 @@ class Admin_CloseController extends Zend_Controller_Action {
             }
         }
 
-        $message = sprintf($this->view->translate('Es wurden Datensätze erstellt/aktualisiert'), $summary);
+        $message = sprintf($this->view->translate('Data was created/updated.'), $summary);
         $this->_flashMessenger->addMessage($message, 'success');
          $this->redirect('/admin/close/index/kid/' . $this->_consultation["kid"]);
     }
@@ -285,7 +285,7 @@ class Admin_CloseController extends Zend_Controller_Action {
     public function exportResultsAction() {
 
         if ($this->_consultation["kid"] == 0) {
-            $this->_flashMessenger->addMessage('Keine Beteiligungsrunde angegeben.', 'error');
+            $this->_flashMessenger->addMessage('No consultation named.', 'error');
             $this->redirect('/admin');
         }
         $csv="";
@@ -362,7 +362,7 @@ class Admin_CloseController extends Zend_Controller_Action {
                 $consultationModel = new Model_Consultations();
                 $this->_consultation = $consultationModel->getById($params["kid"]);
                 if (count($this->_consultation) == 0) {
-                    $this->_flashMessenger->addMessage('keine Beteiligungsrunde zu dieser ID vorhanden', 'error');
+                    $this->_flashMessenger->addMessage('There is no consultation round with this ID.', 'error');
                     $this->_redirect('/admin/close/error');
                 } else {
                     return $this->_consultation;

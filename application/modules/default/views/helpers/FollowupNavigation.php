@@ -1,11 +1,5 @@
-
 <?php
 
-/**
- * Description of FollowupNavigation
- *
- * @author Marco Dinnbier
- */
 class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract
 {
 

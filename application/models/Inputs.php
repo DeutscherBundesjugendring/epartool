@@ -937,7 +937,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * getFollowups
-     * get the followups by a given tid
+     * get the follow-ups by a given tid
      * @param int $id
      * @param string $where
      * @return array

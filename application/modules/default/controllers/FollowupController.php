@@ -48,8 +48,8 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /**
-     * Followups Page: Index
-     * assigns the latest FollowupDocs by kid from fowup_fls
+     * Follow-ups Page: Index
+     * assigns the latest Follow-up docs by kid from fowup_fls
      *
      * @name index
      * @param $_GET['kid'] consultation id
@@ -74,7 +74,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /**
-     * Followups Page: Inputs by Questions
+     * Follow-up Page: Inputs by Questions
      * assigns the data for questions and inputs
      *
      * @param $_GET['qid'] question id
@@ -111,7 +111,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * shows the initial timeline for followups by chosen input
+     * shows the initial timeline for follow-ups by chosen input
      *
      * @param $_GET['kid'] consultation id
      * @param $_GET['qid'] question id
@@ -219,11 +219,11 @@ class FollowupController extends Zend_Controller_Action
         }
     }
     /*
-     * shows the initial timeline for followups by chosen snippet
+     * shows the initial timeline for follow-ups by chosen snippet
      *
      * @param $_GET['kid'] consultation id
      * @param $_GET['qid'] question id
-     * @param $_GET['fid'] followup id
+     * @param $_GET['fid'] follow-up id
      *
      * @return void
      */
@@ -336,7 +336,7 @@ class FollowupController extends Zend_Controller_Action
      * sends jsondata
      *
      * @param $_GET['kid'] consultation id
-     * @param $_GET['tid'] show followups by fowup_rid.tid
+     * @param $_GET['tid'] show follow-ups by fowup_rid.tid
      * @param $_GET['fid'] show References by fowups.fid
      * @param $_GET['ffid'] show followup_fls by followup_fls.ffid
      * @return void
@@ -351,7 +351,7 @@ class FollowupController extends Zend_Controller_Action
         $ffid = $this->_getParam('ffid', 0);
         $data = array();
 
-        //show followups by fowup_rid.tid
+        //show follow-ups by fowup_rid.tid
 
         $inputsModel = new Model_Inputs();
         $followupsModel = new Model_Followups();
@@ -421,7 +421,7 @@ class FollowupController extends Zend_Controller_Action
             $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
         }
 
-        //show followup_fls by followup_fls.ffid
+        //show follow-up_fls by followup_fls.ffid
         if ($ffid > 0) {
 
             $data['doc'] = $followupFilesModel->getById($ffid);
@@ -449,7 +449,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * like a followup-snippet
+     * like a follow-up snippet
      * checks if UserAgent+IP combination has liked/unliked
      * sends json with like/unlike count after database update
      *
@@ -471,7 +471,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * unlike a followup-snippet
+     * unlike a follow-up snippet
      * checks if UserAgent+IP combination has liked/unliked
      * sends json with like/unlike count after database update
      *
