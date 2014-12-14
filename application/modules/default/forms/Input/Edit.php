@@ -13,7 +13,10 @@ class Default_Form_Input_Edit extends Zend_Form
             ->setMethod('post');
 
         $thes = $this->createElement('textarea', 'thes');
-        $placeholder = sprintf($translator->translate('Here you can type in your contribution (up to %s characters).'), 300),
+        $placeholder = sprintf(
+            $translator->translate('Here you can type in your contribution (up to %s characters).'),
+            300
+        );
         $thes
             ->setLabel('Contribution')
             ->setAttrib('cols', 85)
@@ -26,7 +29,7 @@ class Default_Form_Input_Edit extends Zend_Form
         $this->addElement($thes);
 
         $expl = $this->createElement('textarea', 'expl');
-        $placeholder = sprintf($translator->translate('Here you explain your contribution more in depth, e.g. with examples (up to %s characters).'), 2000),
+        $placeholder = sprintf($translator->translate('Here you explain your contribution more in depth, e.g. with examples (up to %s characters).'), 2000);
         $expl
             ->setLabel('Explanation')
             ->setAttrib('cols', 85)

@@ -16,14 +16,14 @@ class Dbjr_Form_Element_Image extends Zend_Form_Element_Image
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this
-            ->addDecorator('Label');
+            ->addDecorator('Label')
             ->addDecorator('Image')
             ->addDecorator('Errors')
             ->addDecorator(
                 'HtmlTag',
                 [
                     'tag' => 'div',
-                    'id' => ['callback' => [get_class($element), 'resolveElementId']],
+                    'id' => ['callback' => [get_class($this), 'resolveElementId']],
                     'class' => 'form-group',
                 ]
             );
