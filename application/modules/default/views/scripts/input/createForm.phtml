@@ -1,7 +1,7 @@
 <form
     enctype="<?=$this->element->getEnctype()?>"
     method="<?=$this->element->getMethod()?>"
-    class="form-contribution well well-large text-center"
+    class="form-contribution well well-large text-center offset-bottom-large"
 >
     <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'))?>
 
