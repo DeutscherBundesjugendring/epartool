@@ -58,6 +58,7 @@
                 <p><?php echo $this->question['q_xpl']; ?></p>
             </article>
 
+            <!-- Contribution form -->
             <?php if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))): ?>
                 <p><?=$this->translate('Contribution phase has not started yet.')?></p>
             <?php elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))): ?>
@@ -65,8 +66,6 @@
             <?php else: ?>
                 <?=$this->inputForm?>
             <?php endif?>
-            <?=$this->subscriptionForm?>
-            <hr />
 
             <!-- Contributions -->
             <?php if (count($this->paginator)): ?>
@@ -143,6 +142,9 @@
             ); ?>
 
             <hr />
+
+            <!-- Sign up -->
+            <?=$this->subscriptionForm?>
 
             <?php echo $this->render('_partials/printLink.phtml') ?>
 

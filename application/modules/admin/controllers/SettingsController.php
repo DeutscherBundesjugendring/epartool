@@ -2,8 +2,6 @@
 
 /**
  * Class Admin_SettingsController
- *
- * TODO create abstract base controller, WTF set layout and flash messenger everywhere. DRY! DRY!
  */
 
 class Admin_SettingsController extends Zend_Controller_Action

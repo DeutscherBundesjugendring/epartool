@@ -71,6 +71,7 @@
 	.print,
 	.hidden-print,
 	.top-link,
+	.main-header h1:after,
 	.secondary-navigation {
 		display: none !important;
 	}
@@ -230,6 +231,29 @@
 
 		// Navigation
 		.consultation-nav {
+
+			// Bubbles
+			.bubble {
+				position: static;
+				display: block !important;
+				width: auto !important;
+				height: auto !important;
+				margin: 0 !important;
+				padding: 0 !important;
+				text-align: left;
+
+				h3 {
+					display: block;
+					margin-top: .2em;
+					margin-right: 1ex;
+					font-size: 1em;
+				}
+
+				span {
+					font-size: .9em;
+				}
+			}
+
 			.nav {
 				margin: 0;
 			}
@@ -243,6 +267,16 @@
 				h2 {
 					margin-bottom: 0;
 					font-size: 1.5em;
+				}
+
+				.info {
+					position: static;
+					margin-bottom: @baseLineHeight / 2;
+					text-align: left;
+
+					br {
+						display: none;
+					}
 				}
 			}
 		}

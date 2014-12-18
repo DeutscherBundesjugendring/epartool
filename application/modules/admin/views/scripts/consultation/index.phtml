@@ -31,9 +31,27 @@
                             <?php if ($this->inputs): ?>
                                 <?php foreach($this->inputs as $input): ?>
                                     <blockquote>
-                                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
-                                            <p><?=$input['thes'];?></p>
-                                        </a>
+
+                                        <div class="media">
+                                            <div class="media-right pull-right">
+                                                <button
+                                                    class="item-action item-action-danger"
+                                                    name="deleteInput"
+                                                    value="<?=$input['tid'];?>"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+                                                    title="<?=$this->translate('Delete');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
+                                                    <p><?=$input['thes'];?></p>
+                                                </a>
+                                            </div>
+                                        </div><!-- .media -->
+
                                         <footer>
                                             <?php if (!empty($input['name'])): ?>
                                                 <span class="glyphicon glyphicon-user"></span>
@@ -46,16 +64,7 @@
                                             <?php endif; ?>
                                             <?=$this->formatDate($input['when']);?>
                                         </footer>
-                                        <button
-                                            class="item-action item-action-danger"
-                                            name="deleteInput"
-                                            value="<?=$input['tid'];?>"
-                                            data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Delete input?');?>"
-                                            title="<?=$this->translate('Delete');?>"
-                                        >
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
+
                                     </blockquote>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -76,9 +85,27 @@
                             <?php if (count($this->discussionContribs)): ?>
                                 <?php foreach($this->discussionContribs as $contrib): ?>
                                     <blockquote>
-                                        <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$this->consultation['kid'];?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
-                                            <?=$this->escape($contrib->body);?>
-                                        </a>
+
+                                        <div class="media">
+                                            <div class="media-right pull-right">
+                                                <button
+                                                    class="item-action item-action-danger"
+                                                    name="deleteDiscContrib"
+                                                    value="<?=$contrib->id;?>"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Delete discussion post?');?>"
+                                                    title="<?=$this->translate('Delete');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$this->consultation['kid'];?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                                    <?=$this->escape($contrib->body);?>
+                                                </a>
+                                            </div>
+                                        </div><!-- .media -->
+
                                         <footer>
                                             <?php if (!empty($contrib['name'])): ?>
                                                 <span class="glyphicon glyphicon-user"></span>
@@ -86,16 +113,7 @@
                                             <?php endif; ?>
                                             <?=$this->formatDate($contrib->time_created);?>
                                         </footer>
-                                        <button
-                                            class="item-action item-action-danger"
-                                            name="deleteDiscContrib"
-                                            value="<?=$contrib->id;?>"
-                                            data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Delete discussion contribution?');?>"
-                                            title="<?=$this->translate('Delete');?>"
-                                        >
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
+
                                     </blockquote>
                                 <?php endforeach; ?>
                             <?php else: ?>

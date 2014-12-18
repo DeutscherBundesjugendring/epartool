@@ -10,7 +10,6 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
     public function settingsNavigation($activeItem = null)
     {
         $items = array(
-            // TODO DBJR-364
             /*array(
                 'name' => 'site',
                 'label' => 'Site',
@@ -28,7 +27,6 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(array('controller' => 'tag', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'tag', 'action' => 'create')),
             ),
-            // TODO DBJR-89
             /*array(
                 'name' => 'header',
                 'label' => 'Header',
