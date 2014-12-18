@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-12-18 09:51+0100\n"
-"PO-Revision-Date: 2014-12-18 09:51+0100\n"
+"POT-Creation-Date: 2014-12-18 19:01+0100\n"
+"PO-Revision-Date: 2014-12-18 19:01+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
-"setConfirmMessage\n"
+"setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/admin\n"
@@ -142,6 +142,11 @@ msgstr "Komponente wurde gelöscht."
 #: application/modules/admin/views/scripts/mail-send/index.phtml:14
 msgid "Please select…"
 msgstr "Bitte auswählen..."
+
+#: application/modules/admin/controllers/ArticleController.php:76
+#: application/modules/admin/controllers/ArticleController.php:169
+msgid "On subpages, reference name of parent page is used."
+msgstr ""
 
 #: application/modules/admin/controllers/ArticleController.php:87
 #: application/modules/admin/controllers/ArticleController.php:179
@@ -772,6 +777,11 @@ msgstr "Verantwortlicher Admin"
 msgid "Project"
 msgstr "Projekt"
 
+#: application/modules/admin/forms/Consultation.php:249
+#: application/modules/admin/forms/Article.php:77
+msgid "Current project must be always selected."
+msgstr ""
+
 #: application/modules/admin/forms/Article.php:36
 msgid "Reference name"
 msgstr "Referenzname"
@@ -1011,6 +1021,10 @@ msgstr "Anzahl erlaubter Klicks"
 msgid "Rating factor"
 msgstr "Bewertungsfaktor"
 
+#: application/modules/admin/forms/Voting/Settings.php:57
+msgid "Max. rating × factor = total points"
+msgstr ""
+
 #: application/modules/admin/forms/Voting/Settings.php:66
 #: application/modules/admin/forms/Media/FileDetail.php:62
 #: application/modules/admin/forms/Media/FolderDetail.php:48
@@ -1124,6 +1138,10 @@ msgstr "Newsletter erhalten"
 #: application/modules/admin/forms/User/Edit.php:78
 msgid "Password"
 msgstr "Passwort"
+
+#: application/modules/admin/forms/User/Edit.php:80
+msgid "Leave blank to leave unchanged."
+msgstr ""
 
 #: application/modules/admin/forms/User/Edit.php:90
 msgid "Password confirmation"
@@ -1331,7 +1349,9 @@ msgid "Split contribution"
 msgstr "Beitrag aufteilen"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:144
+#: application/modules/admin/views/scripts/consultation/index.phtml:42
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:130
+#: application/modules/admin/views/scripts/index/index.phtml:68
 msgid "Delete contribution?"
 msgstr "Beitrag löschen?"
 
@@ -1471,15 +1491,15 @@ msgid "Delete contributions?"
 msgstr "Beiträge löschen?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:313
-#: application/modules/admin/views/scripts/consultation/index.phtml:55
-#: application/modules/admin/views/scripts/consultation/index.phtml:95
+#: application/modules/admin/views/scripts/consultation/index.phtml:43
+#: application/modules/admin/views/scripts/consultation/index.phtml:97
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:143
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:190
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:158
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:201
 #: application/modules/admin/views/scripts/media/folders.phtml:61
-#: application/modules/admin/views/scripts/index/index.phtml:83
-#: application/modules/admin/views/scripts/index/index.phtml:128
+#: application/modules/admin/views/scripts/index/index.phtml:69
+#: application/modules/admin/views/scripts/index/index.phtml:130
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1613,7 +1633,7 @@ msgstr ""
 "Beitrag für die Beteiligungsrunde aus diesem Diskussionsbeitrag erstellen?"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:149
-#: application/modules/admin/views/scripts/consultation/index.phtml:104
+#: application/modules/admin/views/scripts/consultation/index.phtml:122
 msgid "There are no discussion posts yet."
 msgstr "Es gibt noch keine Diskussionsbeiträge."
 
@@ -1665,7 +1685,7 @@ msgstr "Komponenten"
 msgid "Discussion"
 msgstr "Diskussion"
 
-#: application/modules/admin/views/scripts/consultation/edit.phtml:49
+#: application/modules/admin/views/scripts/consultation/edit.phtml:48
 msgid "Consultation Settings"
 msgstr "Einstellungen der Beteiligungsrunde"
 
@@ -1677,28 +1697,23 @@ msgstr "Statistik"
 msgid "New Contributions"
 msgstr "Neue Beiträge"
 
-#: application/modules/admin/views/scripts/consultation/index.phtml:42
-#: application/modules/admin/views/scripts/index/index.phtml:70
+#: application/modules/admin/views/scripts/consultation/index.phtml:60
+#: application/modules/admin/views/scripts/index/index.phtml:88
 msgid "Show contributions by"
 msgstr "Beiträge anzeigen nach"
 
-#: application/modules/admin/views/scripts/consultation/index.phtml:54
-#: application/modules/admin/views/scripts/index/index.phtml:82
-msgid "Delete input?"
-msgstr "Schnippsel löschen?"
-
-#: application/modules/admin/views/scripts/consultation/index.phtml:64
+#: application/modules/admin/views/scripts/consultation/index.phtml:73
 msgid "There are no unprocessed contributions."
 msgstr "Keine unbearbeiteten Beiträge vorhanden."
 
-#: application/modules/admin/views/scripts/consultation/index.phtml:72
+#: application/modules/admin/views/scripts/consultation/index.phtml:81
 msgid "Discussion Posts"
 msgstr "Diskussionsbeiträge"
 
-#: application/modules/admin/views/scripts/consultation/index.phtml:94
-#: application/modules/admin/views/scripts/index/index.phtml:127
-msgid "Delete discussion contribution?"
-msgstr "Beitrag löschen?"
+#: application/modules/admin/views/scripts/consultation/index.phtml:96
+#: application/modules/admin/views/scripts/index/index.phtml:129
+msgid "Delete discussion post?"
+msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/new.phtml:4
 #: application/modules/admin/views/scripts/index/index.phtml:9
@@ -2265,7 +2280,7 @@ msgstr "Zurück zu Ordner"
 msgid "Edit File"
 msgstr "Datei bearbeiten"
 
-#: application/modules/admin/views/scripts/media/index.phtml:98
+#: application/modules/admin/views/scripts/media/index.phtml:96
 msgid "No media has been uploaded yet."
 msgstr "Es wurden noch keine Medien hochgeladen."
 
@@ -2345,29 +2360,32 @@ msgstr "Follow-Up"
 msgid "Latest Contributions"
 msgstr "Neueste Beiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:93
+#: application/modules/admin/views/scripts/index/index.phtml:102
 msgid "Show all contributions"
 msgstr "Alle Beiträge anzeigen"
 
-#: application/modules/admin/views/scripts/index/index.phtml:99
+#: application/modules/admin/views/scripts/index/index.phtml:108
 msgid "No contributions yet."
 msgstr "Noch keine Beiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:106
+#: application/modules/admin/views/scripts/index/index.phtml:115
 msgid "Latest Discussion Posts"
 msgstr "Neueste Diskussionsbeiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:137
+#: application/modules/admin/views/scripts/index/index.phtml:155
 msgid "Show all discussion posts"
 msgstr "Zeige alle Diskussionsbeiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:142
+#: application/modules/admin/views/scripts/index/index.phtml:160
 msgid "No posts yet."
 msgstr "Noch keine Beiträge."
 
-#: application/modules/admin/views/scripts/index/index.phtml:157
+#: application/modules/admin/views/scripts/index/index.phtml:175
 msgid "There are no consultations yet."
 msgstr "Es gibt noch keine Beteiligungsrunden."
+
+#~ msgid "Delete input?"
+#~ msgstr "Schnippsel löschen?"
 
 # TS: German / English order
 #, fuzzy

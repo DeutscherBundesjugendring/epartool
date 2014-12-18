@@ -74,7 +74,7 @@ class Admin_Form_Article extends Dbjr_Form_Admin
         $project = $this->createElement('multiCheckbox', 'proj');
         $project
             ->setLabel('Project')
-            ->setDescription('Note: current project must be always selected.')
+            ->setDescription('Current project must be always selected.')
             ->setRequired(true)
             ->setMultiOptions($options)
             ->setValue([Zend_Registry::get('systemconfig')->project]);

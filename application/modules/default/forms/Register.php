@@ -24,8 +24,9 @@ class Default_Form_Register extends Zend_Form
 
         $hint = $this->createElement('hidden', ' hint');
         $description = $translator->translate('The following fields are not obligatory, but the data can help us find out which target groups we are reaching.');
+        $description = '<dd><p class="help-block help-block-offset">' . $description . '</p></dd>';
         $hint
-            ->setDescription('<dd><p class="help-block help-block-offset">' . $description . '</p></dd>')
+            ->setDescription($description)
             ->setDecorators([['Description', ['escape' => false]]]);
 
         $groupType = $this->createElement('radio', 'group_type');
