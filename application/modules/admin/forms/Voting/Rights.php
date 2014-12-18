@@ -41,7 +41,7 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
 
         $groupSizeUser = $this->createElement('text', 'group_size_user');
         $groupSizeUser
-            ->setLabel('Größe laut eigener Angabe')
+            ->setLabel('Size according to user')
             ->setAttrib('disabled', 'disabled');
         $this->addElement($groupSizeUser);
 

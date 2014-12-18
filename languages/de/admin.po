@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-12-14 14:14+0100\n"
-"PO-Revision-Date: 2014-12-14 14:20+0100\n"
+"POT-Creation-Date: 2014-12-18 09:51+0100\n"
+"PO-Revision-Date: 2014-12-18 09:51+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -78,8 +78,8 @@ msgstr ""
 
 #: application/modules/admin/controllers/CloseController.php:102
 #: application/modules/admin/controllers/CloseController.php:214
-msgid "Die Daten werden geschrieben, Bitte warten Sie!"
-msgstr ""
+msgid "Please wait: saving data."
+msgstr "Die Daten werden geschrieben, Bitte warten Sie!"
 
 #: application/modules/admin/controllers/CloseController.php:193
 #, php-format
@@ -88,8 +88,8 @@ msgstr "Es wurden %s Datensätze erstellt/aktualisiert."
 
 #: application/modules/admin/controllers/CloseController.php:210
 #: application/modules/admin/controllers/CloseController.php:247
-msgid "Keine GruppenID vorhanden"
-msgstr ""
+msgid "No group ID available"
+msgstr "Keine GruppenID vorhanden"
 
 #: application/modules/admin/controllers/CloseController.php:274
 msgid "Data was created/updated."
@@ -104,12 +104,12 @@ msgid "There is no consultation round with this ID."
 msgstr "Es gibt keine Beteiligungsrunde mit dieser ID."
 
 #: application/modules/admin/controllers/CloseController.php:371
-msgid "ID der Beteiligungsrunde ungültig"
-msgstr "Id of consultation round invalid"
+msgid "Id of consultation round invalid"
+msgstr "ID der Beteiligungsrunde ungültig"
 
 #: application/modules/admin/controllers/CloseController.php:391
 msgid "QuestionID ungültig"
-msgstr "FrageID ungültig"
+msgstr "Frage-ID ungültig"
 
 #: application/modules/admin/controllers/TagController.php:48
 msgid "New keyword has been added."
@@ -126,7 +126,7 @@ msgstr "%d Beiträge wurde gelöscht."
 
 #: application/modules/admin/controllers/MailSentController.php:53
 msgid "Email has been queued for resending."
-msgstr "Email in Warteschleife für erneuten Versand."
+msgstr "E-Mail in Warteschleife für erneuten Versand."
 
 #: application/modules/admin/controllers/MailComponentController.php:66
 msgid "Component has been saved."
@@ -141,7 +141,7 @@ msgstr "Komponente wurde gelöscht."
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:14
 msgid "Please select…"
-msgstr "Please choose..."
+msgstr "Bitte auswählen..."
 
 #: application/modules/admin/controllers/ArticleController.php:87
 #: application/modules/admin/controllers/ArticleController.php:179
@@ -314,7 +314,7 @@ msgid "New snippet has been successfully created."
 msgstr "Der Schnippsel wurde erfolgreich erstellt."
 
 #: application/modules/admin/controllers/FollowupController.php:60
-msgid "Snippet could not be created."
+msgid "The snippet could not be created."
 msgstr "Schnippsel konnte nicht erstellt werden."
 
 #: application/modules/admin/controllers/FollowupController.php:65
@@ -322,27 +322,27 @@ msgid "Create Follow-Up Snippet"
 msgstr "Erstelle Follow-up-Schnippsel"
 
 #: application/modules/admin/controllers/FollowupController.php:93
-msgid "Snippet could not be saved."
+msgid "The snippet could not be saved."
 msgstr "Schnippsel konnte nicht gespeichert werden."
 
 #: application/modules/admin/controllers/FollowupController.php:107
 msgid "Edit Follow-Up Snippet"
-msgstr "Ändere Follow-Up-Schnippsel"
+msgstr "Follow-Up-Schnippsel bearbeiten"
 
 #: application/modules/admin/controllers/FollowupController.php:124
 msgid "New follow-up has been successfully created."
 msgstr "Das Follow-up wurde erfolgreich erstellt."
 
 #: application/modules/admin/controllers/FollowupController.php:127
-msgid "Follow-up could not be created."
+msgid "The follow-up could not be created."
 msgstr "Follow-Up konnte nicht erstellt werden."
 
 #: application/modules/admin/controllers/FollowupController.php:132
-msgid "Create Follow Up"
+msgid "Create Follow-up"
 msgstr "Follow-Up erstellen"
 
 #: application/modules/admin/controllers/FollowupController.php:158
-msgid "Follow up could not be saved."
+msgid "The follow-up could not be saved."
 msgstr "Follow-Up konnte nicht gespeichert werden."
 
 #: application/modules/admin/controllers/FollowupController.php:173
@@ -389,7 +389,7 @@ msgstr "Der Schnippsel wurde erfolgreich erstellt."
 #: application/modules/admin/controllers/UserController.php:48
 #: application/modules/admin/controllers/UserController.php:114
 msgid "User with this email address already exists."
-msgstr ""
+msgstr "User mit dieser E-Mail-Adresse existiert bereits."
 
 #: application/modules/admin/controllers/UserController.php:155
 #: application/modules/admin/controllers/UserController.php:159
@@ -493,7 +493,7 @@ msgstr "Beitrags-ID ungültig"
 
 #: application/modules/admin/controllers/MailSendController.php:92
 msgid "Email has been queued for sending."
-msgstr "Email in Warteschleife für Versand."
+msgstr "E-Mail in Warteschleife für Versand."
 
 #: application/modules/admin/views/helpers/SecondaryNavigation.php:62
 msgid "Create new item"
@@ -657,6 +657,8 @@ msgid ""
 "The title to be used where space is limited, i.e. email subjects. Max %d "
 "characters."
 msgstr ""
+"Der Kurztitel bei beschränkter Länge, z.B. Betreffzeilen in E-Mails. Max. %d "
+"Zeichen."
 
 #: application/modules/admin/forms/Consultation.php:26
 msgid "Short title"
@@ -845,8 +847,8 @@ msgstr "Abstimmung"
 
 #: application/modules/admin/forms/ConsultationPhases.php:55
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:71
-#: application/modules/admin/views/scripts/index/index.phtml:47
-msgid "Follow Up"
+#: application/modules/admin/views/scripts/followup/index.phtml:25
+msgid "Follow-up"
 msgstr "Follow-Up"
 
 #: application/modules/admin/forms/ArticlePreview.php:52
@@ -969,8 +971,8 @@ msgid "über"
 msgstr "über"
 
 #: application/modules/admin/forms/Voting/Rights.php:44
-msgid "Größe laut eigener Angabe"
-msgstr ""
+msgid "Size according to user"
+msgstr "Größe laut eigener Angabe"
 
 #: application/modules/admin/forms/Voting/Settings.php:13
 msgid "Number of voting buttons"
@@ -1743,7 +1745,7 @@ msgstr "Schnippsel-Verknüpfungen speichern"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:175
 #: application/modules/admin/views/scripts/followup/snippets.phtml:132
-msgid "There are no snippets for this follow up yet."
+msgid "There are no snippets for this follow-up yet."
 msgstr "Es gibt für dieses Follow-Up noch keine Schnippsel."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:193
@@ -1762,16 +1764,12 @@ msgstr "Links Follow-Up speichern"
 
 #: application/modules/admin/views/scripts/followup/followup-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippets.phtml:22
-msgid "Back to Followups"
+msgid "Back to Follow-ups"
 msgstr "Zurück zu Follow-Up"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:23
 msgid "New Follow-up"
 msgstr "Neues Follow-Up"
-
-#: application/modules/admin/views/scripts/followup/index.phtml:25
-msgid "Follow-up"
-msgstr "Follow-Up"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:30
 msgid "There are no follow-ups yet."
@@ -1794,11 +1792,11 @@ msgid "Edit snippets"
 msgstr "Schnippsel bearbeiten"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:75
-msgid "Delete follow up?"
+msgid "Delete follow-up?"
 msgstr "Follow-Up löschen?"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:76
-msgid "Delete follow up"
+msgid "Delete follow-up"
 msgstr "Follow-Up löschen"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:33
@@ -1814,13 +1812,10 @@ msgstr "Links Auszüge"
 msgid "in"
 msgstr "in"
 
-# TS: what is that? "out" of what? out of order, out of money, out of ideas?
-# The provided German translation would work for "x out of y" = "x aus y". If that's the intended thing, then it's okay
-# MB: It is meant in the sense of direction of a relationship. Namely that a follow-up snippet has 'in' and 'out' links
+# It is meant in the sense of direction of a relationship. Namely that a follow-up snippet has 'in' and 'out' links
 #: application/modules/admin/views/scripts/followup/snippets.phtml:64
-#, fuzzy
 msgid "out"
-msgstr "aus"
+msgstr "ausgehend"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:68
 msgid "Level"
@@ -2342,6 +2337,10 @@ msgstr ""
 msgid "Consultation settings"
 msgstr "Einstellungen der Beteiligungsrunde"
 
+#: application/modules/admin/views/scripts/index/index.phtml:47
+msgid "Follow Up"
+msgstr "Follow-Up"
+
 #: application/modules/admin/views/scripts/index/index.phtml:54
 msgid "Latest Contributions"
 msgstr "Neueste Beiträge"
@@ -2369,6 +2368,29 @@ msgstr "Noch keine Beiträge."
 #: application/modules/admin/views/scripts/index/index.phtml:157
 msgid "There are no consultations yet."
 msgstr "Es gibt noch keine Beteiligungsrunden."
+
+# TS: German / English order
+#, fuzzy
+#~ msgid "ID der Beteiligungsrunde ungültig"
+#~ msgstr "Id of consultation round invalid"
+
+# TS: German / English wrong order
+# "Gruppen-ID"
+#, fuzzy
+#~ msgid "Keine GruppenID vorhanden"
+#~ msgstr "No group ID available"
+
+# TS: English / German order
+#, fuzzy
+#~ msgid "Größe laut eigener Angabe"
+#~ msgstr "Size according to user"
+
+# TS: The German version needs correction, even though I am not sure what the label stands for...
+# You meant "saved" or "written"? I think it's "saved", right?
+# "Bitte warten: Die Daten werden gespeichert."
+#, fuzzy
+#~ msgid "Die Daten werden geschrieben, Bitte warten Sie!"
+#~ msgstr "Please wait: saving data."
 
 # TS: if there's space, please use "not available" and "nicht vorhanden", because users might not know the abbreviation.
 #~ msgid "N/A"
