@@ -683,7 +683,9 @@ class VotingController extends Zend_Controller_Action
                     )
                 )
                 ->addTo($subuser['sub_user']);
-            (new Service_Email)->queueForSend($mailer);
+            (new Service_Email)
+                ->queueForSend($mailer)
+                ->sendQueued();
 
             $this->view->groupmember = $subuser['sub_user'];
         } else { // if singleuser (no group) just update status of his votes
@@ -764,7 +766,9 @@ class VotingController extends Zend_Controller_Action
                     )
                 )
                 ->addTo($leader['email']);
-            (new Service_Email)->queueForSend($mailer);
+            (new Service_Email)
+                ->queueForSend($mailer)
+                ->sendQueued();
         }
 
         $this->view->act = $act;

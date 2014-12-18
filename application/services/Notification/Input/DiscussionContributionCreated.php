@@ -54,7 +54,9 @@ class Service_Notification_Input_DiscussionContributionCreated extends Service_N
                     )
                 )
                 ->addTo($user->email);
-            (new Service_Email)->queueForSend($mailer);
+            (new Service_Email)
+                ->queueForSend($mailer)
+                ->sendQueued();
         }
 
         return $this;
@@ -94,7 +96,9 @@ class Service_Notification_Input_DiscussionContributionCreated extends Service_N
                 )
             )
             ->addTo($user->email);
-        (new Service_Email)->queueForSend($mailer);
+        (new Service_Email)
+            ->queueForSend($mailer)
+            ->sendQueued();
 
         return $this;
     }

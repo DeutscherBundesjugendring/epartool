@@ -667,7 +667,9 @@ class InputController extends Zend_Controller_Action
                                     )
                                 )
                                 ->addTo($user->email);
-                            (new Service_Email)->queueForSend($mailer);
+                            (new Service_Email)
+                                ->queueForSend($mailer)
+                                ->sendQueued();
                         } else {
                             (new Service_Notification_Input_DiscussionContributionCreated())->notify(
                                 [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $inputId]

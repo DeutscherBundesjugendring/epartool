@@ -209,7 +209,9 @@ class Admin_VotingController extends Zend_Controller_Action
                         )
                         ->addTo($user['email']);
                 }
-                (new Service_Email)->queueForSend($mailer);
+                (new Service_Email)
+                    ->queueForSend($mailer)
+                    ->sendQueued();
                 $message = sprintf(
                     $this->view->translate('Voting invitation to %s has been successfully sent.'),
                     $user['email']
