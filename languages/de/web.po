@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2014-12-14 10:34+0100\n"
-"PO-Revision-Date: 2014-12-14 10:34+0100\n"
+"PO-Revision-Date: 2014-12-18 09:52+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: application/modules/default/controllers/UserController.php:99
 msgid "Your inputs have been saved."
-msgstr ""
+msgstr "Deine Eingaben wurden gespeichert."
 
 #: application/modules/default/controllers/UserController.php:109
 #: application/modules/default/controllers/UserController.php:147
@@ -184,11 +184,11 @@ msgstr "Passwortwiederherstellung fehlgeschlagen!"
 
 #: application/modules/default/controllers/UserController.php:232
 msgid "The voting participant was confirmed."
-msgstr "Teilnehmer_in für Voting wurde bestätigt."
+msgstr "Teilnehmer_in zur Abstimmung wurde bestätigt."
 
 #: application/modules/default/controllers/UserController.php:235
 msgid "The voting participant was denied."
-msgstr "Teilnehmer_in für Voting wurde abgelehnt."
+msgstr "Teilnehmer_in für Abstimmung wurde abgelehnt."
 
 #: application/modules/default/controllers/UserController.php:240
 msgid "The voting participant was deleted."
@@ -196,7 +196,7 @@ msgstr "Die Bewertungen wurden gelöscht."
 
 #: application/modules/default/controllers/UrlkeyActionController.php:40
 msgid "There is no available action with such key."
-msgstr "There is no available action with such key."
+msgstr "Zu diesem Schlüssel existiert keine Aktion."
 
 #: application/modules/default/controllers/InputController.php:154
 #: application/modules/default/controllers/InputController.php:211
@@ -233,7 +233,7 @@ msgid ""
 "Please check your data. It is also possible that the maximum editing period "
 "of %s minutes has exceeded."
 msgstr ""
-"Bitte prüfe Deine Eingaben! Es könnte auch sein, dass du die maximale "
+"Bitte prüfe deine Eingaben! Es könnte auch sein, dass du die maximale "
 "Bearbeitungszeit von %s Minuten überschritten hast."
 
 #: application/modules/default/controllers/InputController.php:417
@@ -1456,7 +1456,7 @@ msgstr "Zurück zum Beitragen"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:43
 msgid "This post was hidden by admin."
-msgstr ""
+msgstr "Dieser Beitrag wurde von der Redaktion verborgen."
 
 #: application/modules/default/views/scripts/input/confirm.phtml:10
 msgid "Finish this contribution"
@@ -1499,7 +1499,7 @@ msgstr "Neuen Beitrag verfassen"
 
 #: application/modules/default/views/scripts/input/createForm.phtml:40
 msgid "Click here for another contribution"
-msgstr "Klick hier für einen weiteren Beitrag"
+msgstr "Klicke hier für einen weiteren Beitrag"
 
 #: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:4
 msgid "Reset Password"

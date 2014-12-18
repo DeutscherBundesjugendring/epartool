@@ -99,7 +99,7 @@ class Admin_CloseController extends Zend_Controller_Action {
         $page = $this->_request->getParam('page', 0);
         $pages = $this->_request->getParam('pages', 0);
 
-        $this->_flashMessenger->addMessage("Die Daten werden geschrieben, Bitte warten Sie!", 'success');
+        $this->_flashMessenger->addMessage("Please wait: saving data.", 'success');
 
         // gets the input ids
         $inputsModel = new Model_Inputs();
@@ -207,11 +207,11 @@ class Admin_CloseController extends Zend_Controller_Action {
 
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($groupUid)) {
-            $this->_flashMessenger->addMessage('Keine GruppenID vorhanden', 'error');
+            $this->_flashMessenger->addMessage('No group ID available', 'error');
             $this->redirect('/admin');
         }
 
-        $this->_flashMessenger->addMessage("Die Daten werden geschrieben, Bitte warten Sie!", 'success');
+        $this->_flashMessenger->addMessage("Please wait: saving data.", 'success');
 
         // gets the input ids
         $inputsModel = new Model_Inputs();
@@ -244,7 +244,7 @@ class Admin_CloseController extends Zend_Controller_Action {
 
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($groupUid)) {
-            $this->_flashMessenger->addMessage('Keine GruppenID vorhanden', 'error');
+            $this->_flashMessenger->addMessage('No group ID available', 'error');
             $this->redirect('/admin');
         }
 
@@ -368,7 +368,7 @@ class Admin_CloseController extends Zend_Controller_Action {
                     return $this->_consultation;
                 }
             } else {
-                $this->_flashMessenger->addMessage('ID der Beteiligungsrunde ungültig', 'error');
+                $this->_flashMessenger->addMessage('Id of consultation round invalid', 'error');
                 $this->_redirect('/admin/close/error');
             }
         }
