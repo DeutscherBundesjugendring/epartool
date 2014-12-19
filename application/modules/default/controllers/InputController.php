@@ -378,13 +378,15 @@ class InputController extends Zend_Controller_Action
                 }
                 $inputModel->getAdapter()->commit();
 
-                $qiSent = [];
-                foreach ($sessInputs->inputs as $input) {
-                    if (!in_array($input['qi'], $qiSent)) {
-                        $qiSent[] = $input['qi'];
-                        (new Service_Notification_Input_Created())->notify(
-                            [Service_Notification_Input_Created::PARAM_QUESTION_ID => $input['qi']]
-                        );
+                if ($auth->hasIdentity()) {
+                    $qiSent = [];
+                    foreach ($sessInputs->inputs as $input) {
+                        if (!in_array($input['qi'], $qiSent)) {
+                            $qiSent[] = $input['qi'];
+                            (new Service_Notification_Input_Created())->notify(
+                                [Service_Notification_Input_Created::PARAM_QUESTION_ID => $input['qi']]
+                            );
+                        }
                     }
                 }
                 unset($sessInputs->inputs);
