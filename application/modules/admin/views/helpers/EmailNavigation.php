@@ -12,12 +12,12 @@ class Admin_View_Helper_EmailNavigation extends Zend_View_Helper_Abstract
         $items = array(
             array(
                 'name' => 'sent',
-                'label' => 'Sent',
+                'label' => $this->view->translate('Sent'),
                 'href' => $this->view->url(array('controller' => 'mail-sent', 'action' => 'index')),
             ),
             array(
                 'name' => 'queued',
-                'label' => 'Queued',
+                'label' => $this->view->translate('Queued'),
                 'href' => $this->view->url(array('controller' => 'mail-queued', 'action' => 'index')),
             ),
         );

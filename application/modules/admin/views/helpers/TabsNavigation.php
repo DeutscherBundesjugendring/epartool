@@ -23,7 +23,7 @@ class Admin_View_Helper_TabsNavigation extends Zend_View_Helper_Abstract
             $html .= '<li' . ($activeItem === $item['name'] ? ' class="active"' : '') . '>';
             $html .= '<a href="' . $item['href'] . '">';
             $html .= isset($item['icon']) ? ($item['icon'] . ' ') : '';
-            $html .= $this->view->translate($item['label']);
+            $html .= $item['label'];
             $html .= '</a>';
             $html .= "</li>";
         }

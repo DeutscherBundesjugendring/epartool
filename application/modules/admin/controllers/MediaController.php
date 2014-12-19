@@ -311,7 +311,7 @@ class Admin_MediaController extends Zend_Controller_Action
                     // $uploadRes is either the new filename or an array of error messages
                     if (!is_array($uploadRes)) {
                         $this->_flashMessenger->addMessage(
-                            sprintf('The file %s has been successfully uploaded.', $uploadRes),
+                            sprintf($this->view->translate('The file %s has been successfully uploaded.'), $uploadRes),
                             'success'
                         );
                         $this->redirect(

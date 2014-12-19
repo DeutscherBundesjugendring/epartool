@@ -12,29 +12,29 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
         $items = array(
             /*array(
                 'name' => 'site',
-                'label' => 'Site',
+                'label' => $this->view->translate('Site'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
             ),*/
             array(
                 'name' => 'pages',
-                'label' => 'Pages',
+                'label' => $this->view->translate('Pages'),
                 'href' => $this->view->url(array('controller' => 'article', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'article', 'action' => 'create')),
             ),
             array(
                 'name' => 'keywords',
-                'label' => 'Keywords',
+                'label' => $this->view->translate('Keywords'),
                 'href' => $this->view->url(array('controller' => 'tag', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'tag', 'action' => 'create')),
             ),
             /*array(
                 'name' => 'header',
-                'label' => 'Header',
+                'label' => $this->view->translate('Header'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
             ),
             array(
                 'name' => 'footer',
-                'label' => 'Footer',
+                'label' => $this->view->translate('Footer'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
             ),*/
         );

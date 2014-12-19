@@ -13,17 +13,17 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
         $items = array(
             array(
                 'name' => 'general',
-                'label' => 'General',
+                'label' => $this->view->translate('General'),
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit', 'kid' => $kid)),
             ),
             array(
                 'name' => 'voting',
-                'label' => 'Voting',
+                'label' => $this->view->translate('Voting'),
                 'href' => $this->view->url(array('controller' => 'voting', 'action' => 'settings', 'kid' => $kid)),
             ),
             array(
                 'name' => 'phases',
-                'label' => 'Phases',
+                'label' => $this->view->translate('Phases'),
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'phases', 'kid' => $kid)),
             ),
         );

@@ -13,8 +13,10 @@ class Admin_View_Helper_SecondaryNavigation extends Zend_View_Helper_Abstract
     {
         $html = '<div class="list-group list-group-nested">';
         foreach ($items as $item) {
-            $current_user = Zend_Auth::getInstance()->getIdentity();
-            if (!array_key_exists('required_user_level', $item) || $current_user->lvl === $item['required_user_level']) {
+            $currentUser = Zend_Auth::getInstance()->getIdentity();
+            if (!array_key_exists('required_user_level', $item)
+                || $currentUser->lvl === $item['required_user_level']
+            ) {
                 $this->getItemHtml($item, $html, $activeItem);
             }
         }
@@ -50,11 +52,11 @@ class Admin_View_Helper_SecondaryNavigation extends Zend_View_Helper_Abstract
         $item['active'] = !empty($item['active']) ? true : ($item['name'] === $activeItem);
         if ($isNested) {
             $html .= '<a href="' . $item['href'] . '" class="list-group-item list-group-item-nested' . ($item['active'] ? ' active' : '' ) . '">';
-            $html .= $this->view->translate($item['label']);
+            $html .= $item['label'];
             $html .= "</a>";
         } else {
             $html .= '<a href="' . $item['href'] . '" class="list-group-item' . ($item['active'] ? ' active' : '' ) . '">';
-            $html .= '<h4 class="list-group-item-heading">' . $this->view->translate($item['label']) . '</h4>';
+            $html .= '<h4 class="list-group-item-heading">' . $item['label'] . '</h4>';
             $html .= "</a>";
         }
 

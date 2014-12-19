@@ -12,7 +12,7 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
         $items = array(
             array(
                 'name' => 'all',
-                'label' => 'All Media',
+                'label' => $this->view->translate('All Media'),
                 'href' => $this->view->url(
                     [
                         'controller' => 'media',
@@ -26,7 +26,7 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
             ),
             array(
                 'name' => 'consultations',
-                'label' => 'Consultations',
+                'label' => $this->view->translate('Consultations'),
                 'href' => $this->view->url(
                     [
                         'controller' => 'media',
@@ -35,12 +35,11 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
                         'folder' => null,
                         'filename' => null,
                     ]
-
                 ),
             ),
             array(
                 'name' => 'folders',
-                'label' => 'Folders',
+                'label' => $this->view->translate('Folders'),
                 'href' => $this->view->url(
                     [
                         'controller' => 'media',
@@ -49,7 +48,6 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
                         'kid' => null,
                         'filename' => null,
                     ]
-
                 ),
                 'new_item' => $this->view->url(
                     [

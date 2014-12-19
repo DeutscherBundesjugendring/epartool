@@ -12,13 +12,13 @@ class Admin_View_Helper_EmailSettingsNavigation extends Zend_View_Helper_Abstrac
         $items = array(
             array(
                 'name' => 'templates',
-                'label' => 'Templates',
+                'label' => $this->view->translate('Templates'),
                 'href' => $this->view->url(array('controller' => 'mail-template', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'mail-template', 'action' => 'detail')),
             ),
             array(
                 'name' => 'components',
-                'label' => 'Components',
+                'label' => $this->view->translate('Components'),
                 'href' => $this->view->url(array('controller' => 'mail-component', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'mail-component', 'action' => 'detail')),
             ),
