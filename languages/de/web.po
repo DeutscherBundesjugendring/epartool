@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-12-18 19:05+0100\n"
-"PO-Revision-Date: 2014-12-18 19:08+0100\n"
+"POT-Creation-Date: 2014-12-29 09:33+0100\n"
+"PO-Revision-Date: 2014-12-29 09:33+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: application/services/UrlkeyAction\n"
 
 #: application/modules/default/controllers/ArticleController.php:67
-#: application/modules/default/controllers/InputController.php:537
+#: application/modules/default/controllers/InputController.php:539
 msgid "Page not found"
 msgstr "Seite nicht gefunden!"
 
@@ -93,19 +93,19 @@ msgstr ""
 msgid "User could not be found."
 msgstr "User konnte nicht gefunden werden."
 
-#: application/modules/default/controllers/VotingController.php:711
-#: application/modules/default/controllers/VotingController.php:721
-#: application/modules/default/controllers/VotingController.php:784
-#: application/modules/default/controllers/VotingController.php:792
-#: application/modules/default/controllers/VotingController.php:817
+#: application/modules/default/controllers/VotingController.php:713
+#: application/modules/default/controllers/VotingController.php:723
+#: application/modules/default/controllers/VotingController.php:788
+#: application/modules/default/controllers/VotingController.php:796
+#: application/modules/default/controllers/VotingController.php:821
 msgid "The link is not correct."
 msgstr "Der angew&auml;hlte Link aus ist nicht korrekt."
 
-#: application/modules/default/controllers/VotingController.php:736
+#: application/modules/default/controllers/VotingController.php:738
 msgid "Your contributions are now confirmed."
 msgstr "Deine Bewertungen sind jetzt bestätigt."
 
-#: application/modules/default/controllers/VotingController.php:828
+#: application/modules/default/controllers/VotingController.php:832
 msgid "Voting results are not available yet."
 msgstr "Abstimmungsergebnisse können noch nicht gezeigt werden!"
 
@@ -160,8 +160,8 @@ msgstr "Deine Eingaben wurden gespeichert."
 
 #: application/modules/default/controllers/UserController.php:109
 #: application/modules/default/controllers/UserController.php:147
-#: application/modules/default/controllers/InputController.php:567
-#: application/modules/default/controllers/InputController.php:685
+#: application/modules/default/controllers/InputController.php:569
+#: application/modules/default/controllers/InputController.php:689
 msgid "Please check your data!"
 msgstr "Bitte prüfe Deine Eingaben!"
 
@@ -236,44 +236,44 @@ msgstr ""
 "Bitte prüfe deine Eingaben! Es könnte auch sein, dass du die maximale "
 "Bearbeitungszeit von %s Minuten überschritten hast."
 
-#: application/modules/default/controllers/InputController.php:417
+#: application/modules/default/controllers/InputController.php:419
 msgid "There is no input to be confirmed."
 msgstr "Es gibt keine Beiträge, die noch bestätigt werden müssen."
 
-#: application/modules/default/controllers/InputController.php:443
+#: application/modules/default/controllers/InputController.php:445
 msgid "It is not allowed to confirm inputs once the input phase is over."
 msgstr ""
 "Beiträge können nicht mehr bestätigt werden, wenn der Beitragszeitraum "
 "abgelaufen ist."
 
-#: application/modules/default/controllers/InputController.php:451
+#: application/modules/default/controllers/InputController.php:453
 msgid "Thank you! Your inputs have been confirmed!"
 msgstr "Vielen Dank! Deine Beiträge wurden bestätigt!"
 
-#: application/modules/default/controllers/InputController.php:460
-#: application/modules/default/controllers/InputController.php:489
+#: application/modules/default/controllers/InputController.php:462
+#: application/modules/default/controllers/InputController.php:491
 msgid "This confirmation link is invalid!"
 msgstr "Der eingegebene Bestätigungslink ist ungültig!"
 
-#: application/modules/default/controllers/InputController.php:478
+#: application/modules/default/controllers/InputController.php:480
 msgid "It is not allowed to reject inputs once the input phase is over."
 msgstr ""
 "Beiträge können nicht mehr abgelehnt werden, wenn der Beitragszeitraum "
 "abgelaufen ist."
 
-#: application/modules/default/controllers/InputController.php:487
+#: application/modules/default/controllers/InputController.php:489
 msgid "The contributions have already been marked as refused!"
 msgstr "Die Beiträge wurden als abgelehnt markiert!"
 
-#: application/modules/default/controllers/InputController.php:549
+#: application/modules/default/controllers/InputController.php:551
 msgid "Contribution updated."
 msgstr "Beitrag aktualisiert."
 
-#: application/modules/default/controllers/InputController.php:552
+#: application/modules/default/controllers/InputController.php:554
 msgid "Something went wrong: contribution could not be updated."
 msgstr "Etwas lief schief: Beitrag konnte nicht aktualisiert werden."
 
-#: application/modules/default/controllers/InputController.php:578
+#: application/modules/default/controllers/InputController.php:580
 msgid ""
 "Sorry, the contribution phase for this consultation round is already over. "
 "You may only change your contributions within that period."
@@ -1459,8 +1459,8 @@ msgid "This post was hidden by admin."
 msgstr "Dieser Beitrag wurde von der Redaktion verborgen."
 
 #: application/modules/default/views/scripts/input/confirm.phtml:10
-msgid "Finish this contribution"
-msgstr "Beitrag beenden"
+msgid "Finish Contributing"
+msgstr "Beitragen beenden"
 
 #: application/modules/default/views/scripts/input/confirm.phtml:13
 msgid ""

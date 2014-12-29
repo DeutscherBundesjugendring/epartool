@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2014-12-19 13:10+0100\n"
-"PO-Revision-Date: 2014-12-19 13:21+0100\n"
+"PO-Revision-Date: 2014-12-29 09:28+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -509,15 +509,16 @@ msgstr "E-Mail in Warteschleife für Versand."
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:20
 msgid "Pages"
-msgstr ""
+msgstr "Seiten"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:26
 msgid "Keywords"
-msgstr ""
+msgstr "Schlagwörter"
 
+# TS: not sure what you label with it. Is it similar to "E-mail sending"? Then in German it's okay to simply write E-Mails.
 #: application/modules/admin/views/helpers/EmailTabs.php:17
 msgid "Emailing"
-msgstr ""
+msgstr "E-Mails"
 
 #: application/modules/admin/views/helpers/EmailTabs.php:23
 #: application/modules/admin/views/helpers/ConsultationTabs.php:24
@@ -563,7 +564,7 @@ msgstr "Teilnehmende"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:62
 msgid "Results"
-msgstr ""
+msgstr "Ergebnisse"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:69
 #: application/modules/admin/forms/ConsultationPhases.php:55
@@ -606,11 +607,11 @@ msgstr "Neuen Beitrag erstellen"
 
 #: application/modules/admin/views/helpers/EmailNavigation.php:15
 msgid "Sent"
-msgstr ""
+msgstr "Gesendet"
 
 #: application/modules/admin/views/helpers/EmailNavigation.php:20
 msgid "Queued"
-msgstr ""
+msgstr "In Warteschlange"
 
 #: application/modules/admin/views/helpers/MediaNavigation.php:29
 #: application/modules/admin/forms/Media/Upload.php:40
@@ -1123,7 +1124,7 @@ msgstr "Bewertungsfaktor"
 
 #: application/modules/admin/forms/Voting/Settings.php:57
 msgid "Max. rating × factor = total points"
-msgstr ""
+msgstr "Max. Gewicht x Faktor = Gesamtpunkte"
 
 #: application/modules/admin/forms/Voting/Settings.php:66
 #: application/modules/admin/forms/Media/FileDetail.php:62
@@ -1229,7 +1230,7 @@ msgstr "Passwort"
 
 #: application/modules/admin/forms/User/Edit.php:80
 msgid "Leave blank to leave unchanged."
-msgstr ""
+msgstr "Leer lassen, um keine Veränderungen vorzunehmen."
 
 #: application/modules/admin/forms/User/Edit.php:90
 msgid "Password confirmation"
@@ -1793,7 +1794,7 @@ msgstr "Diskussionsbeiträge"
 #: application/modules/admin/views/scripts/consultation/index.phtml:96
 #: application/modules/admin/views/scripts/index/index.phtml:129
 msgid "Delete discussion post?"
-msgstr ""
+msgstr "Diskussionsbeitrag löschen?"
 
 #: application/modules/admin/views/scripts/consultation/new.phtml:4
 #: application/modules/admin/views/scripts/index/index.phtml:9
