@@ -37,14 +37,14 @@
 	font: 0.6em/90% "Yanone Kaffeesatz",sans-serif;
 	float: right;
 	padding: 0 0.8em 0 0;
-	
+
 }
 
 .vote-basket p.basket-info {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
-	background: url(../images/voting-rate-superbtn.png) no-repeat right;
+	background: url(../../images/voting-rate-superbtn.png) no-repeat right;
 	min-height: 62px;
 	margin-top: -1em;
 	padding-top: 1em;
@@ -83,7 +83,7 @@
 }
 
 a.view-basket {
-	background: url(../images/basket-toggle.png) no-repeat bottom center;
+	background: url(../../images/basket-toggle.png) no-repeat bottom center;
 	text-indent: 100em;
 	height: 20px;
 	display: block !important;
@@ -110,4 +110,4 @@ p.voting-expl {
     display: none;
 }
 
-	
+
