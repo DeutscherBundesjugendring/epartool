@@ -3,7 +3,7 @@
   "dependencies": {
     "jquery": "~1.10.2",
     "bootstrap": "~2.3.2",
-    "bootstrap3": "twbs/bootstrap#~3.2.0",
+    "bootstrap3": "twbs/bootstrap#~3.3.2",
     "synergic-ui": "master",
     "font-awesome": "~3.0.2",
     "jquery.ui": "~1.10.3",
