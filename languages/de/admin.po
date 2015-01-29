@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2014-12-19 13:10+0100\n"
-"PO-Revision-Date: 2014-12-29 09:28+0100\n"
+"PO-Revision-Date: 2015-01-29 10:10+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -2073,7 +2073,7 @@ msgstr "Genehmigungen bearbeiten"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:79
 msgid "There are no permissions to be set."
-msgstr "Es gibt keine Genehmigungen zu vergeben."
+msgstr "Keine neuen Berechtigungen vorhanden."
 
 #: application/modules/admin/views/scripts/voting/editrights.phtml:21
 msgid "Back to Voting Permissions"
