@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-12-19 13:10+0100\n"
-"PO-Revision-Date: 2015-01-29 10:10+0100\n"
+"POT-Creation-Date: 2015-01-29 10:26+0100\n"
+"PO-Revision-Date: 2015-01-29 10:31+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -396,7 +396,7 @@ msgstr "%d Auszüge wurden verlinkt"
 
 #: application/modules/admin/controllers/UserController.php:44
 msgid "New user has been successfully added."
-msgstr "Der Schnippsel wurde erfolgreich erstellt."
+msgstr "Neue_r User_in wurde erfolgreich hinzugefügt."
 
 #: application/modules/admin/controllers/UserController.php:48
 #: application/modules/admin/controllers/UserController.php:114
@@ -535,6 +535,16 @@ msgstr "Übersicht"
 #: application/modules/admin/views/scripts/index/index.phtml:44
 msgid "Questions"
 msgstr "Fragen"
+
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:33
+#: application/modules/admin/forms/ConsultationPhases.php:37
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:17
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:33
+#: application/modules/admin/views/scripts/input/index.phtml:21
+#: application/modules/admin/views/scripts/input/index.phtml:76
+#: application/modules/admin/views/scripts/index/index.phtml:45
+msgid "Contributions"
+msgstr "Beiträge"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:38
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
@@ -958,15 +968,6 @@ msgstr "Infos"
 msgid "Support"
 msgstr "Unterstützen"
 
-#: application/modules/admin/forms/ConsultationPhases.php:37
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:17
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:33
-#: application/modules/admin/views/scripts/input/index.phtml:21
-#: application/modules/admin/views/scripts/input/index.phtml:76
-#: application/modules/admin/views/scripts/index/index.phtml:45
-msgid "Contributions"
-msgstr "Beiträge"
-
 #: application/modules/admin/forms/ArticlePreview.php:52
 msgid "< Back to edit mode"
 msgstr "< zurück zum Bearbeitungsmodus"
@@ -1325,18 +1326,19 @@ msgid "Back to Email Templates"
 msgstr "Zurück zu E-Mail-Vorlagen"
 
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:26
-msgid "Email Template"
-msgstr "E-Mail-Vorlage"
+#: application/modules/admin/views/scripts/mail-template/index.phtml:26
+msgid "New Email Template"
+msgstr "Neue E-Mail-Vorlage"
+
+#: application/modules/admin/views/scripts/mail-template/detail.phtml:26
+msgid "Edit Email Template"
+msgstr "E-Mail-Vorlagen bearbeiten"
 
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:30
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:30
 #: application/modules/admin/views/scripts/mail-send/index.phtml:24
 msgid "Placeholders"
 msgstr "Platzhalter"
-
-#: application/modules/admin/views/scripts/mail-template/index.phtml:26
-msgid "New Email Template"
-msgstr "Neue E-Mail-Vorlage"
 
 #: application/modules/admin/views/scripts/mail-template/index.phtml:28
 msgid "Email Templates"
