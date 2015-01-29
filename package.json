@@ -5,7 +5,7 @@
   "homepage": "http://www.strukturierter-dialog.de",
   "version": "2.0.0",
   "engines": {
-    "node": "~0.8.11"
+    "node": "~0.10.1"
   },
   "dependencies": {
     "grunt": "~0.4.5",

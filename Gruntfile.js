@@ -33,7 +33,6 @@ module.exports = function (grunt) {
           yuicompress: true
         },
         files: {
-          '<%= paths.dist %>/css/bootstrap.min.css': '<%= paths.bower %>/bootstrap/less/bootstrap.less',
           '<%= paths.dist %>/css/<%= pkg.name %>.min.css': '<%= paths.src %>/less/main.less'
         }
       }
@@ -113,19 +112,7 @@ module.exports = function (grunt) {
           separator: ';'
         },
         src: [
-          '<%= paths.bower %>/bootstrap/js/bootstrap-affix.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-alert.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-button.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-carousel.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-collapse.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-dropdown.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-modal.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-scrollspy.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-tab.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-tooltip.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-popover.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-transition.js',
-          '<%= paths.bower %>/bootstrap/js/bootstrap-typeahead.js'
+          '<%= paths.bower %>/bootstrap/js/*.js'
         ],
         dest: '<%= paths.dist %>/js/bootstrap.js'
       },
@@ -204,7 +191,7 @@ module.exports = function (grunt) {
       js: {
         files: [
           '<%= paths.src %>/coffee/*.coffee',
-          '<%= paths.dist %>/js/**/*(!.min).js'
+          '<%= paths.src %>/js/*.js'
         ],
         tasks: ['build-js']
       }
