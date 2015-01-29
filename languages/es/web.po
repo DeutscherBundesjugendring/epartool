@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-12-29 09:33+0100\n"
-"PO-Revision-Date: 2014-12-29 09:33+0100\n"
+"POT-Creation-Date: 2015-01-29 09:41+0100\n"
+"PO-Revision-Date: 2015-01-29 09:41+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -597,11 +597,15 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:31
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:27
+msgid "The passwords do not match."
+msgstr ""
+
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:34
 msgid "Confirm new password"
 msgstr ""
 
-#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:39
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:42
 msgid "Save new password"
 msgstr ""
 

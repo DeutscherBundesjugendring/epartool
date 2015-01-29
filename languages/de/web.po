@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2014-12-29 09:33+0100\n"
-"PO-Revision-Date: 2014-12-29 09:33+0100\n"
+"POT-Creation-Date: 2015-01-29 09:40+0100\n"
+"PO-Revision-Date: 2015-01-29 09:40+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -625,11 +625,15 @@ msgstr "min. %s Zeichen"
 msgid "New password"
 msgstr "Neues Passwort"
 
-#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:31
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:27
+msgid "The passwords do not match."
+msgstr "Die angegebenen Passwörter stimmen nicht überein."
+
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:34
 msgid "Confirm new password"
 msgstr "Neues Passwort bestätigen"
 
-#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:39
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:42
 msgid "Save new password"
 msgstr "Neues Passwort speichern"
 

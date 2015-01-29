@@ -21,10 +21,13 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
         $identicalValidator = (new Zend_Validate_Identical())
             ->setToken('password')
             ->setStrict(true)
-            ->setMessages([
-                Zend_Validate_Identical::NOT_SAME => 'The passwords do not match.',
-                Zend_Validate_Identical::MISSING_TOKEN => 'You must provide confirmation password.',
-            ]);
+            ->setMessages(
+                [
+                    Zend_Validate_Identical::NOT_SAME => Zend_Registry::get('Zend_Translate')->translate(
+                        'The passwords do not match.'
+                    ),
+                ]
+            );
         $this->addElement(
             $this
                 ->createElement('password', 'password_confirm')
