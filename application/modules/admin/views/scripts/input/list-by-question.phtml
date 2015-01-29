@@ -18,7 +18,9 @@
             </div>
             <div class="col-md-9">
 
-                <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to Contributions');?></a>
+                <a href="<?=$this->url(['action' => 'index', 'qi' => null]);?>" class="back">
+                    <?=$this->translate('Back to Overview');?>
+                </a>
                 <h2>
                     <?=$this->translate('Contributions for');?>:
                     <?=$this->question['q'];?>

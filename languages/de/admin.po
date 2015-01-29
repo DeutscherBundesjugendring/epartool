@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-01-29 10:26+0100\n"
-"PO-Revision-Date: 2015-01-29 10:31+0100\n"
+"POT-Creation-Date: 2015-01-29 10:49+0100\n"
+"PO-Revision-Date: 2015-01-29 10:53+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -553,7 +553,7 @@ msgstr "Beiträge"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:97
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:56
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:73
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:71
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:73
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:89
 #: application/modules/admin/views/scripts/index/index.phtml:46
 msgid "Voting"
@@ -714,7 +714,7 @@ msgstr "User-Bestätigung"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:105
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:87
 #: application/modules/admin/views/scripts/followup/snippets.phtml:76
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:80
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:82
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:55
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:74
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:93
@@ -728,8 +728,8 @@ msgstr "unbekannt"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:86
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:75
 #: application/modules/admin/views/scripts/voting/participants.phtml:65
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:45
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:63
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:47
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:65
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:65
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:84
 msgid "Confirmed"
@@ -750,9 +750,9 @@ msgstr "Admin-Bestätigung"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:81
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:76
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:107
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:46
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:64
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:82
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:48
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:66
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:84
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:60
 msgid "Blocked"
 msgstr "Blockiert"
@@ -777,7 +777,7 @@ msgstr "Ja"
 
 #: application/modules/admin/forms/Input.php:92
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:135
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:90
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:92
 msgid "Tags"
 msgstr "Schlagwörter"
 
@@ -1067,7 +1067,7 @@ msgstr "Zugangscode"
 #: application/modules/admin/forms/Voting/Rights.php:28
 #: application/modules/admin/views/scripts/voting/invitations.phtml:64
 #: application/modules/admin/views/scripts/voting/invitations.phtml:70
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:63
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:65
 msgid "Group size"
 msgstr "Gruppengröße"
 
@@ -1384,9 +1384,9 @@ msgid "Last Activity"
 msgstr "Letzte Aktivität"
 
 #: application/modules/admin/views/scripts/user/index.phtml:51
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:68
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:86
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:91
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:70
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:88
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:93
 msgid "Not available"
 msgstr "Nicht vorhanden"
 
@@ -1421,7 +1421,7 @@ msgstr "Ursprung"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:77
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:66
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:35
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:37
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:51
 msgid "Admin Confirmation"
 msgstr "Bestätigung von Admin"
@@ -1475,15 +1475,15 @@ msgstr "Filter"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:73
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:89
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:104
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:43
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:61
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:79
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:45
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:63
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:81
 msgid "All"
 msgstr "Alle"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:74
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:44
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:62
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:46
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:64
 msgid "Waiting for revision"
 msgstr "Auf Überprüfung wartend"
 
@@ -1496,7 +1496,7 @@ msgid "Admin created"
 msgstr "Admin erstellt"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:106
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:81
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:83
 msgid "Allowed"
 msgstr "Erlaubt"
 
@@ -1510,7 +1510,7 @@ msgid "Folder root"
 msgstr "Ordnerstamm"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:162
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:117
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:119
 msgid "Reset Filter"
 msgstr "Filter zurücksetzen"
 
@@ -1530,10 +1530,10 @@ msgid "Save changes"
 msgstr "Änderungen speichern"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:239
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:127
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:174
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:142
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:185
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:129
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:176
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:144
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:187
 msgid "Marked entries"
 msgstr "Markierte Eintragungen"
 
@@ -1554,10 +1554,10 @@ msgid "Block contributions?"
 msgstr "Beiträge blocken?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:274
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:139
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:186
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:154
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:197
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:141
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:188
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:156
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:199
 msgid "Block"
 msgstr "Blockieren"
 
@@ -1584,10 +1584,10 @@ msgstr "Beiträge löschen?"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:313
 #: application/modules/admin/views/scripts/consultation/index.phtml:43
 #: application/modules/admin/views/scripts/consultation/index.phtml:97
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:143
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:190
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:158
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:201
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:145
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:192
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:160
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:203
 #: application/modules/admin/views/scripts/media/folders.phtml:61
 #: application/modules/admin/views/scripts/index/index.phtml:69
 #: application/modules/admin/views/scripts/index/index.phtml:130
@@ -1644,9 +1644,7 @@ msgid "Copy Contribution"
 msgstr "Beitrag kopieren"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:22
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:21
 #: application/modules/admin/views/scripts/input/edit.phtml:22
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:21
 msgid "Back to Contributions"
 msgstr "Zurück zu Beiträgen"
 
@@ -1655,7 +1653,7 @@ msgid "Contribution Discussion"
 msgstr "Diskussion über Beitrag"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:48
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:53
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:55
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:70
 msgid "User Confirmation"
 msgstr "Userbestätigung"
@@ -1823,7 +1821,7 @@ msgid "Save contribution links"
 msgstr "Links zu Beiträgen speichern"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:98
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:281
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:283
 msgid "There are no contributions for this question yet."
 msgstr "Zu dieser Frage gibt es noch keine Beiträge."
 
@@ -2019,7 +2017,7 @@ msgid "Partner"
 msgstr "Partner"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:69
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:45
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:47
 msgid "Group name"
 msgstr "Gruppenbezeichnung"
 
@@ -2172,67 +2170,72 @@ msgstr "Bitte beachte, dass nur unbenutzte Schlagworte gelöscht werden können.
 msgid "Delete keyword?"
 msgstr "Schlagwort löschen?"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:31
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:22
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:22
+msgid "Back to Overview"
+msgstr "Zurück zur Übersicht"
+
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:33
 msgid "Last activity"
 msgstr "Letzte Aktivität"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:39
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:41
 msgid "Contact person"
 msgstr "Ansprechpartner_in"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:51
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:53
 msgid "Source"
 msgstr "Quelle"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:57
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:59
 msgid "Description"
 msgstr "Beschreibung"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:73
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:75
 msgid "Region"
 msgstr "Region"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:79
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:81
 msgid "Age groups"
 msgstr "Altersgruppen"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:82
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:84
 msgid "up to 17"
 msgstr "bis 17"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:83
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:85
 msgid "up to 26"
 msgstr "bis 26"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:84
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:86
 msgid "from 27"
 msgstr "ab 27"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:85
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:87
 msgid "all age groups"
 msgstr "Alle Altersgruppen"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:96
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:98
 msgid "Newsletter"
 msgstr "Newsletter"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:102
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:104
 msgid "Inform about consultation results"
 msgstr "Information zu Abstimmungsergebnissen"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:108
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:110
 #: application/modules/admin/views/scripts/input/index.phtml:77
 msgid "Comment"
 msgstr "Hier ist noch Platz für Kommentare"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:135
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:182
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:150
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:193
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:137
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:184
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:152
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:195
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:201
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:203
 msgid "This user has not contributed yet."
 msgstr "Es gibt noch keine Beiträge dieses Users."
 
@@ -2266,20 +2269,20 @@ msgstr "Zeige"
 msgid "By User"
 msgstr "Nach User"
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:23
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:25
 msgid "Contributions for"
 msgstr "Beiträge für"
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:126
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:128
 #, php-format
 msgid "Only contributions with &ldquo;%s&rdquo; keywords are listed."
 msgstr "Es werden nur Beiträge mit dem Schlagwort &rdquo;%s&ldquo; angezeigt."
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:216
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:218
 msgid "CSV Export"
 msgstr "CSV-Export"
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:262
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:264
 msgid "MS Excel Export"
 msgstr "MS Excel-Export"
 
