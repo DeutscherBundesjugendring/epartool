@@ -137,15 +137,13 @@
                         <!-- Actions -->
                         <div class="well well-sm">
                             <div class="row">
-                                <div class="col-xs-6 col-sm-3">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" class="js-toggle-all" />
-                                            <?=$this->translate('Marked entries');?>:
-                                        </label>
+                                <div class="col-xs-3">
+                                    <div class="checkbox-inline">
+                                        <label for="markAllTop" class="sr-only"><?=$this->translate('Mark all');?></label>
+                                        <input type="checkbox" id="markAllTop" class="js-toggle-all" title="<?=$this->translate('Mark all');?>" />
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-9 text-right">
+                                <div class="col-xs-9 text-right">
                                     <div class="btn-group">
                                         <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
                                             <span class="glyphicon glyphicon-ok-sign"></span>
@@ -180,15 +178,13 @@
                         <!-- Actions -->
                         <div class="well well-sm">
                             <div class="row">
-                                <div class="col-xs-6 col-sm-3">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" class="js-toggle-all" />
-                                            <?=$this->translate('Marked entries');?>:
-                                        </label>
+                                <div class="col-xs-3">
+                                    <div class="checkbox-inline">
+                                        <label for="markAllBottom" class="sr-only"><?=$this->translate('Mark all');?></label>
+                                        <input type="checkbox" id="markAllBottom" class="js-toggle-all" title="<?=$this->translate('Mark all');?>" />
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-9 text-right">
+                                <div class="col-xs-9 text-right">
                                     <div class="btn-group">
                                         <button type="submit" name="bulkAction" value="publish" class="btn btn-default">
                                             <span class="glyphicon glyphicon-ok-sign"></span>
