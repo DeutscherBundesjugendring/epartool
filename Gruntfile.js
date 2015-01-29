@@ -174,10 +174,23 @@ module.exports = function (grunt) {
       }
     },
 
+    // Copy files
+    copy: {
+      fonts: {
+        files: [{
+          expand: true,
+          cwd: '<%= paths.src %>',
+          src: ['fonts/**/*.{eot,svg,ttf,woff}'],
+          dest: '<%= paths.dist %>'
+        }]
+      }
+    },
+
     // Clean temporary files
     clean: {
       css: '<%= paths.dist %>/css/*',
       js: '<%= paths.dist %>/js/*',
+      fonts: '<%= paths.dist %>/fonts/*',
       //images: '<%= paths.dist %>/images/*',
       temp: '<%= paths.temp %>'
     },
@@ -248,8 +261,10 @@ module.exports = function (grunt) {
   // Build task
   grunt.registerTask('build', [
     'clean:temp',
+    'clean:fonts',
     'build-css',
-    'build-js'
+    'build-js',
+    'copy'
   ]);
 
   // Development

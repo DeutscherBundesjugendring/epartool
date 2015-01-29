@@ -8,6 +8,7 @@
 /.tmp
 /www/css/*
 /www/js/*
+/www/fonts/*
 
 # Ignore all runtime settings
 /runtime/cache/*
