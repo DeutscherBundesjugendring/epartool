@@ -5,63 +5,114 @@
 // ======
 
 // Grays
-@gray-darker:                   #1a1f24;
-@gray-dark:                     #444;
-@gray:                          #666;
-@gray-light:                    #999;
-@gray-lighter:                  #a69f9f;
-@gray-lightest:                 #f7f7f7;
+@gray-darker:                    #1a1f24;
+@gray-dark:                      #444;
+@gray:                           #666;
+@gray-light:                     #999;
+@gray-lighter:                   #a69f9f;
+@gray-lightest:                  #f7f7f7;
 
 // Accent colors
-@orange:                        #fc9026;
-@green:                         #a3b225;
-@turqoise:                      #5fa4a0;
-@blue-dark:                     #0196bc;
-@blue:                          #00cbff;
-@blue-light:                    #7ac8f6;
+@orange:                         #fc9026;
+@green:                          #a3b225;
+@turqoise:                       #5fa4a0;
+@blue-dark:                      #0196bc;
+@blue:                           #00cbff;
+@blue-light:                     #7ac8f6;
 
 // Color scheme
-@brand-primary:                 @turqoise;
-@brand-accent:                  @orange;
-@brand-accent-alt-dark:         @blue-dark;
-@brand-accent-alt:              @blue;
-@brand-accent-alt-light:        @blue-light;
+@brand-primary:                  @turqoise;
+@brand-accent:                   @orange;
+@brand-accent-alt-dark:          @blue-dark;
+@brand-accent-alt:               @blue;
+@brand-accent-alt-light:         @blue-light;
 
 
 // Typography
 // ==========
 
-@link-color:                    @brand-accent-alt-dark;
-@link-hover-color:              @brand-primary;
+@link-color:                     @brand-accent-alt-dark;
+@link-hover-color:               @brand-primary;
 
 @body-bg: #fff;
 @text-color: #000;
 
-@font-family-sans-serif:        Helvetica, Arial, sans-serif;
-@font-family-black:             "Paytone One", Impact, Arial, sans-serif;
-@font-family-condensed:         "Yanone Kaffeesat", Impact, Arial, sans-serif;
+@font-family-sans-serif:         Helvetica, Arial, sans-serif;
+@font-family-black:              "Paytone One", Impact, Arial, sans-serif;
+@font-family-condensed:          "Yanone Kaffeesatz", Impact, Arial, sans-serif;
 
-@font-family-base:              @font-family-sans-serif;
-@font-size-base:                14px;
-@font-size-small:               ceil((0.9 * @font-size-base));
-@font-size-large:               ceil((1.25 * @font-size-base));
-@line-height-base:              1.4;
+@font-family-base:               @font-family-sans-serif;
+@font-size-base:                 14px;
+@font-size-small:                ceil((0.9 * @font-size-base));
+@font-size-large:                ceil((1.25 * @font-size-base));
+@line-height-base:               1.4;
 
-@headings-font-family:          @font-family-sans-serif;
-@headings-font-weight:          bold;
-@headings-line-height:          1.2;
-@headings-color:                @brand-accent;
-@headings-small-color:          inherit;
+@headings-font-family:           @font-family-sans-serif;
+@headings-font-weight:           bold;
+@headings-line-height:           1.2;
+@headings-color:                 @brand-accent;
+@headings-small-color:           inherit;
 
-@font-size-h1:                  2em;
-@font-size-h2:                  1.2em;
-@font-size-h3:                  1.1em;
-@font-size-h4:                  1em;
+@font-size-h1:                   2em;
+@font-size-h2:                   1.2em;
+@font-size-h3:                   1.1em;
+@font-size-h4:                   1em;
+
+@border-radius-small:            0;
+@border-radius-base:             0;
+@border-radius-large:            20px;
+
+
+// Paths
+// =====
+
+@font-path:                      '../font/paytone-one-yanone-kaffeesatz/';
+@icon-font-path:                 '../font/glyphicons/';
 
 
 // Components
 // ==========
 
-@icon-font-path:                '../font/glyphicons/';
+// Layout
+@container-md:                   980px + 30;
+@container-lg:                   @container-md;
 
-@footer-height:                 140px;
+// Frame
+@frame-bg:                       @brand-primary;
+@frame-text-color:               #fff;
+
+// Header
+@header-text-color:              @text-color;
+@header-bg:                      #fff;
+
+// Footer
+@footer-height:                  140px;
+
+// Buttons
+@btn-default-color:              #000;
+@btn-default-bg:                 @brand-accent-alt;
+@btn-default-border:             @btn-default-bg;
+
+@btn-primary-color:              #fff;
+@btn-primary-bg:                 @brand-accent;
+@btn-primary-border:             @btn-primary-bg;
+
+// Navigation
+@nav-link-padding:               .5em .5em .3em;
+@nav-link-hover-bg:              @brand-accent;
+
+@nav-pills-link-bg:                     @brand-accent-alt;
+@nav-pills-link-color:                  #000;
+@nav-pills-link-hover-bg:               @brand-accent;
+@nav-pills-link-hover-color:            #000;
+@nav-pills-active-link-hover-color:     #000;
+@nav-pills-active-link-hover-bg:        @brand-accent;
+
+// Forms
+@input-border:                   @text-color;
+@input-border-focus:             @brand-accent;
+@input-border-radius-large:      @border-radius-base;
+
+@input-search-color:             #fff;
+@input-search-border:            @brand-accent;
+@input-search-bg:                @brand-accent;

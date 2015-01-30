@@ -1,0 +1,32 @@
+// Navigation: Pills
+
+
+.nav-pills {
+    > li > a {
+        font-family: @font-family-condensed;
+        font-size: @font-size-large;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: @nav-pills-link-color;
+        background-color: @nav-pills-link-bg;
+
+        &:hover,
+        &:focus {
+            color: @nav-pills-link-hover-color;
+            background-color: @nav-pills-link-hover-bg;
+        }
+    }
+
+    &.nav-centered {
+        text-align: center;
+
+        > li {
+            float: none;
+            display: inline-block;
+
+            + li {
+                margin-left: 0;
+            }
+        }
+    }
+}

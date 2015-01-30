@@ -33,7 +33,7 @@
     <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.mouse.js');?>"></script>
     <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.sortable.js');?>"></script>
     <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
-    <script src="<?=$this->baseUrl('js/i18n/admin.' . Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('locale')->getLocale()->getLanguage() . '.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/i18n/admin.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
     <script>
         var baseUrl = '<?=$this->baseUrl()?>';
     </script>
