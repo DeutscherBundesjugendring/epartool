@@ -20,8 +20,26 @@
     }
 
     &-box {
+        margin-bottom: @line-height-computed;
+        padding: @line-height-computed;
+        text-align: center;
         color: @header-text-color;
         background-color: @header-bg;
+
+        &-title {
+            margin-bottom: @line-height-computed;
+            font-size: 2em;
+
+            > a {
+                text-decoration: none;
+                color: @header-box-title-color;
+
+                &:hover,
+                &:focus {
+                    color: @header-box-title-hover-color;
+                }
+            }
+        }
     }
 
     @media (min-width: @grid-float-breakpoint) {
@@ -54,6 +72,12 @@
             padding-left: @grid-gutter-width / 2;
             padding-right: @grid-gutter-width / 2;
         }
+
+        &-box {
+            &-title {
+                font-size: 4em;
+            }
+        }
     }
 
     @media (min-width: @screen-md-min) {
@@ -66,6 +90,14 @@
 
         &-widgets {
             width: 260px;
+        }
+
+        &-box {
+            padding: 2 * @line-height-computed;
+
+            &-title {
+                font-size: 6em;
+            }
         }
     }
 }

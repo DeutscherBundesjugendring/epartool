@@ -90,8 +90,29 @@
 
             </div>
 
-            <!-- Hero unit -->
+            <!-- Header box -->
             <?php //=$this->partial('_partials/heroUnit.phtml', $this);?>
+
+            <?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
+
+            <div class="header-box<?=($controller == 'index' ? ' has-teaser' : '');?>">
+
+                <h1 class="header-box-title">
+                    <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
+                        <?=$this->translate('Participation');?>
+                    </a>
+                </h1>
+
+                <p itemprop="description">
+                    <?php echo Zend_Registry::get('systemconfig')->site->description->short?>
+                </p>
+
+                <?php if ($controller == 'index'): ?>
+                    <!-- Teaser -->
+                    <?php //echo $this->teaser(); ?>
+                <?php endif; ?>
+
+            </div>
 
         </header>
 
