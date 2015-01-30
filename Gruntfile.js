@@ -177,12 +177,20 @@ module.exports = function (grunt) {
     // Copy files
     copy: {
       fonts: {
-        files: [{
-          expand: true,
-          cwd: '<%= paths.src %>',
-          src: ['fonts/**/*.{eot,svg,ttf,woff}'],
-          dest: '<%= paths.dist %>'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= paths.src %>/fonts',
+            src: ['**/*.{eot,svg,ttf,woff}'],
+            dest: '<%= paths.dist %>/font'
+          },
+          {
+            expand: true,
+            cwd: '<%= paths.bower %>/bootstrap/dist/fonts',
+            src: ['*'],
+            dest: '<%= paths.dist %>/font/glyphicons'
+          }
+        ]
       }
     },
 
@@ -190,7 +198,7 @@ module.exports = function (grunt) {
     clean: {
       css: '<%= paths.dist %>/css/*',
       js: '<%= paths.dist %>/js/*',
-      fonts: '<%= paths.dist %>/fonts/*',
+      fonts: '<%= paths.dist %>/font/*',
       //images: '<%= paths.dist %>/images/*',
       temp: '<%= paths.temp %>'
     },
