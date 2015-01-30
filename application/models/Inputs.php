@@ -660,32 +660,35 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Adds one point to support counter of given inputs ID
-     * and returns the new number of supports
-     * @param  integer $tid
-     * @return integer
+     * Adds one point to specified input and returns the new number of supports
+     * @param  integer $tid  The identifier of the input
+     * @return integer       The updated number of inputs or 0 if no inut could be found
      */
     public function addSupport($tid)
     {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($tid)) {
-            throw new Zend_Validate_Exception('Given parameter tid must be integer!');
-        }
-        $countSupports = 0;
         $row = $this->find($tid)->current();
         if ($row) {
             $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->find($row->kid)->current();
+            $consultation = $consultationModel->fetchRow(
+                $consultationModel
+                    ->select()
+                    ->from(['c' => 'cnslt'], ['spprt_fr', 'spprt_to'])
+                    ->join(['q' => 'quests'], 'q.kid = c.kid', [])
+                    ->where('q.qi=?', $row->qi)
+            );
+
             if (Zend_Date::now()->isLater(new Zend_Date($consultation->spprt_fr, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($consultation->spprt_to, Zend_Date::ISO_8601))
+                || $this->consultation->spprt_fr !== '0000-00-00 00:00:00'
+                || $this->consultation->spprt_to !== '0000-00-00 00:00:00'
+                || $this->consultation->spprt_show === 'y'
             ) {
                 $row->spprts++;
                 $row->save();
             }
-            $countSupports = $row->spprts;
         }
 
-        return $countSupports;
+        return !empty($row->spprts) ? $row->spprts : 0;
     }
 
     /**
