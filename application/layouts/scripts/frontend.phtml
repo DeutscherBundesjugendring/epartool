@@ -1,5 +1,6 @@
+<?php $lang = Zend_Registry::get('Zend_Locale')->getLanguage(); ?>
 <!DOCTYPE html>
-<html lang="<?=Zend_Registry::get('Zend_Locale')->getLanguage();?>" itemscope itemtype="http://schema.org/Event">
+<html lang="<?=$lang;?>" itemscope itemtype="http://schema.org/Event">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -122,7 +123,7 @@
 
                 <li class="licence">
                     <a
-                        href="<?=Zend_Registry::get('systemconfig')->content->en->creativeCommonsLicenseLink;?>"
+                        href="<?=Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink;?>"
                         rel="license"
                         class="logo"
                         target="_blank"
@@ -149,7 +150,7 @@
 
                         <?php for ($i = 1, $size = count($footerLogos); $i <= $size; ++$i): ?>
                             <div class="col-sm-4">
-                                <h3><?=$footerLogos[$i]['name'];?></h3>
+                                <p><?=$footerLogos[$i]['name'];?></p>
                                 <p>
                                     <?php if (isset($footerLogos[$i]['image'])): ?>
                                         <a href="<?=$footerLogos[$i]['link'];?>" rel="external" target="_blank" title="<?=$footerLogos[$i]['title'];?>">
@@ -169,21 +170,23 @@
                 <div class="col-sm-3">
 
                     <!-- Contact -->
-                    <p>
-                        <?=Zend_Registry::get('systemconfig')->contact->name;?>
-                    </p>
-                    <p>
-                        <?=Zend_Registry::get('systemconfig')->contact->street;?><br />
-                        <?=Zend_Registry::get('systemconfig')->contact->zip;?>
-                        <?=Zend_Registry::get('systemconfig')->contact->town;?><br />
-                        <a href="mailto:<?=Zend_Registry::get('systemconfig')->contact->email;?>">
-                            <?=Zend_Registry::get('systemconfig')->contact->email;?>
-                        </a>
-                        <br />
-                        <a href="<?=Zend_Registry::get('systemconfig')->contact->www;?>" rel="external" target="_blank">
-                            <?=Zend_Registry::get('systemconfig')->contact->www;?>
-                        </a>
-                    </p>
+                    <div class="footer-contact">
+                        <p>
+                            <?=Zend_Registry::get('systemconfig')->contact->name;?>
+                        </p>
+                        <p>
+                            <?=Zend_Registry::get('systemconfig')->contact->street;?><br />
+                            <?=Zend_Registry::get('systemconfig')->contact->zip;?>
+                            <?=Zend_Registry::get('systemconfig')->contact->town;?><br />
+                            <a href="mailto:<?=Zend_Registry::get('systemconfig')->contact->email;?>">
+                                <?=Zend_Registry::get('systemconfig')->contact->email;?>
+                            </a>
+                            <br />
+                            <a href="<?=Zend_Registry::get('systemconfig')->contact->www;?>" rel="external" target="_blank">
+                                <?=Zend_Registry::get('systemconfig')->contact->www;?>
+                            </a>
+                        </p>
+                    </div>
 
                 </div>
             </div><!-- .row -->

@@ -2,5 +2,15 @@
 
 
 .footer {
+    font-size: @font-size-small;
 
+    &-contact {
+        text-align: center;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &-contact {
+            text-align: right;
+        }
+    }
 }
