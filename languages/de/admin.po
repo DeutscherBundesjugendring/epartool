@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-01-29 10:49+0100\n"
-"PO-Revision-Date: 2015-01-29 10:53+0100\n"
+"POT-Creation-Date: 2015-01-30 10:32+0100\n"
+"PO-Revision-Date: 2015-01-30 10:32+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -1505,7 +1505,7 @@ msgid "All folders"
 msgstr "Alle Ordner"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:124
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:322
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:333
 msgid "Folder root"
 msgstr "Ordnerstamm"
 
@@ -1529,76 +1529,81 @@ msgstr "Ordner löschen?"
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:239
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:129
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:176
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:144
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:187
-msgid "Marked entries"
-msgstr "Markierte Eintragungen"
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:241
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:247
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:128
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:134
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:180
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:185
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:143
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:149
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:191
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:197
+msgid "Mark all contributions"
+msgstr "Alle Beiträge auswählen"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:249
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:260
 msgid "Merge"
 msgstr "Zusammenfügen"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:260
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:271
 msgid "Release contributions?"
 msgstr "Beiträge freigeben?"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:263
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:274
 msgid "Release"
 msgstr "Freigeben"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:271
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:282
 msgid "Block contributions?"
 msgstr "Beiträge blocken?"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:274
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:141
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:188
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:156
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:199
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:285
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:146
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:197
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:161
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:209
 msgid "Block"
 msgstr "Blockieren"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:285
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:296
 msgid "Set contributions for voting?"
 msgstr "Beiträge für Abstimmung festlegen?"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:288
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:299
 msgid "Allow for voting"
 msgstr "Zulassen zur Abstimmung"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:296
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:307
 msgid "Ban contributions from voting?"
 msgstr "Beiträge von der Abstimmung ausschließen?"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:299
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:310
 msgid "Ban from voting"
 msgstr "von der Abstimmung ausschließen"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:310
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:321
 msgid "Delete contributions?"
 msgstr "Beiträge löschen?"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:313
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:324
 #: application/modules/admin/views/scripts/consultation/index.phtml:43
 #: application/modules/admin/views/scripts/consultation/index.phtml:97
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:145
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:192
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:160
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:203
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:150
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:201
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:165
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:213
 #: application/modules/admin/views/scripts/media/folders.phtml:61
 #: application/modules/admin/views/scripts/index/index.phtml:69
 #: application/modules/admin/views/scripts/index/index.phtml:130
 msgid "Delete"
 msgstr "Löschen"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:336
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:347
 msgid "Move contributions?"
 msgstr "Beiträge verschieben?"
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:338
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:349
 msgid "Move to folder"
 msgstr "In Ordner verschieben"
 
@@ -1821,7 +1826,7 @@ msgid "Save contribution links"
 msgstr "Links zu Beiträgen speichern"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:98
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:283
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:293
 msgid "There are no contributions for this question yet."
 msgstr "Zu dieser Frage gibt es noch keine Beiträge."
 
@@ -2228,14 +2233,14 @@ msgstr "Information zu Abstimmungsergebnissen"
 msgid "Comment"
 msgstr "Hier ist noch Platz für Kommentare"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:137
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:184
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:152
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:195
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:142
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:193
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:157
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:205
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:203
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:212
 msgid "This user has not contributed yet."
 msgstr "Es gibt noch keine Beiträge dieses Users."
 
@@ -2278,11 +2283,11 @@ msgstr "Beiträge für"
 msgid "Only contributions with &ldquo;%s&rdquo; keywords are listed."
 msgstr "Es werden nur Beiträge mit dem Schlagwort &rdquo;%s&ldquo; angezeigt."
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:218
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:228
 msgid "CSV Export"
 msgstr "CSV-Export"
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:264
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:274
 msgid "MS Excel Export"
 msgstr "MS Excel-Export"
 
@@ -2459,6 +2464,9 @@ msgstr "Noch keine Beiträge."
 #: application/modules/admin/views/scripts/index/index.phtml:175
 msgid "There are no consultations yet."
 msgstr "Es gibt noch keine Beteiligungsrunden."
+
+#~ msgid "Marked entries"
+#~ msgstr "Markierte Eintragungen"
 
 #~ msgid "Delete input?"
 #~ msgstr "Schnippsel löschen?"
