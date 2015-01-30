@@ -30,7 +30,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
             ),
             array(
                 'name' => 'contributions',
-                'label' => 'Contributions',
+                'label' => $this->view->translate('Contributions'),
                 'href' => $this->view->url(array('controller' => 'input', 'action' => 'index', 'kid' => $kid)),
             ),
             array(
