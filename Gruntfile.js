@@ -235,7 +235,18 @@ module.exports = function (grunt) {
         },
         options: {
           proxy: 'dbjr-ip.local',
-          watchTask: true
+          watchTask: true,
+          snippetOptions: {
+            rule: {
+              match: /<body[^>]*>/i,
+              fn: function (snippet, match) {
+                if (match === '<body id=\\"tracy-debug\\">') {
+                  return match
+                }
+                return match + snippet;
+              }
+            }
+          }
         }
       }
     }
