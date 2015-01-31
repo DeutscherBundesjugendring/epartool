@@ -113,31 +113,6 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * returns the last consultations
-     * @param  integer                       $limit count of consultations
-     * @return Zend_Db_Table_Rowset_Abstract
-     */
-    public function getLast($limit)
-    {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($limit)) {
-            return array();
-        }
-
-        // fetch
-        $where = array(
-            'public="y"'
-        );
-        $order = array(
-            'ord DESC'
-        );
-        $result = $this->fetchAll($where, $order, $limit);
-
-        return $result;
-    }
-
-    /**
      * getVotingRights
      * @desc return the rights of
      * @param  integer $id consultations-id

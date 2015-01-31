@@ -1,6 +1,8 @@
 $(document).ready () ->
     bindCharacterCounters()
     bindToggleGroupRegister()
+    bindLoadMoreConsultations()
+
     $('.js-has-password-meter').pwstrength({'ui': {
         'bootstrap2': true,
         'verdicts': [i18n['Weak'], i18n['Normal'], i18n['Medium'], i18n['Strong'], i18n['Very Strong']]
@@ -59,3 +61,14 @@ bindToggleGroupRegister = () ->
             container.slideUp()
             $('select#age_group option').filter("[value='4']").remove()
     )
+
+bindLoadMoreConsultations = () ->
+    $('.js-load-more-consultations').click (e) ->
+        e.preventDefault()
+        $.get(
+            baseUrl + '/index/ajax-consultation',
+            {},
+            (data) ->
+                $('.js-load-more-consultations').remove()
+                $('.js-consultations-container').append(data)
+        )

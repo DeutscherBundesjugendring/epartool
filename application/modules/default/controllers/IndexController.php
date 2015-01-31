@@ -18,7 +18,15 @@ class IndexController extends Zend_Controller_Action
         )
         ->count;
 
-        $this->view->consultations = $consModel->getLast(self::LAST_CONSULTATION_COUNT);
+        $consultations = $consModel->fetchAll(
+            $consModel
+                ->select()
+                ->where('public=?', 'y')
+                ->order('ord DESC')
+                ->limit(self::LAST_CONSULTATION_COUNT)
+        );
+
+        $this->view->consultations = $consultations;
         $this->view->showMoreButton = $consCount > self::LAST_CONSULTATION_COUNT;
     }
 
@@ -66,5 +74,23 @@ class IndexController extends Zend_Controller_Action
         header('Content-Type: application/javascript; charset=utf-8');
         echo 'var i18n = ' . json_encode($i18n);
         die();
+    }
+
+    public function ajaxConsultationAction()
+    {
+        $consModel = new Model_Consultations();
+        $consultations = $consModel->fetchAll(
+            $consModel
+                ->select()
+                ->where('public=?', 'y')
+                ->order('ord DESC')
+                ->limit(0, self::LAST_CONSULTATION_COUNT)
+        );
+
+        $this->view->consultations = $consultations;
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->renderScript('_partials/consultationPreviews.phtml');
     }
 }
