@@ -13,6 +13,8 @@ $(document).ready () ->
     initSortableVotingDirs()
     initSelect2()
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     return
 
 i18n = {

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-01-30 10:32+0100\n"
-"PO-Revision-Date: 2015-01-30 10:32+0100\n"
+"POT-Creation-Date: 2015-01-31 09:46+0100\n"
+"PO-Revision-Date: 2015-01-31 09:46+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Thesis ID is invalid."
 msgstr ""
 
-#: application/modules/admin/controllers/MailSendController.php:94
+#: application/modules/admin/controllers/MailSendController.php:95
 msgid "Email has been queued for sending."
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:33
 #: application/modules/admin/forms/ConsultationPhases.php:37
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:17
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:18
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:33
 #: application/modules/admin/views/scripts/input/index.phtml:21
 #: application/modules/admin/views/scripts/input/index.phtml:76
@@ -542,7 +542,7 @@ msgstr ""
 #: application/modules/admin/forms/ConsultationPhases.php:46
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:96
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:97
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:56
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:66
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:73
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:73
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:89
@@ -569,7 +569,7 @@ msgstr ""
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:69
 #: application/modules/admin/forms/ConsultationPhases.php:55
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:71
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:83
 #: application/modules/admin/views/scripts/followup/index.phtml:25
 msgid "Follow-up"
 msgstr ""
@@ -951,7 +951,7 @@ msgid "Info"
 msgstr "Info"
 
 #: application/modules/admin/forms/ConsultationPhases.php:28
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:30
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:34
 msgid "Support"
 msgstr ""
 
@@ -972,7 +972,7 @@ msgid "Subject"
 msgstr ""
 
 #: application/modules/admin/forms/Mail/Template.php:40
-#: application/modules/admin/forms/Mail/Send.php:125
+#: application/modules/admin/forms/Mail/Send.php:124
 #: application/modules/admin/forms/Mail/Component.php:25
 msgid "Message (plain text)"
 msgstr ""
@@ -1023,19 +1023,19 @@ msgstr ""
 msgid "Subject (max %d characters)"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:118
+#: application/modules/admin/forms/Mail/Send.php:117
 msgid "Message as HTML"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:129
+#: application/modules/admin/forms/Mail/Send.php:128
 msgid "Message as plain text"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:151
+#: application/modules/admin/forms/Mail/Send.php:150
 msgid "Add attachment"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:169
+#: application/modules/admin/forms/Mail/Send.php:168
 msgid "Send"
 msgstr ""
 
@@ -1753,7 +1753,11 @@ msgstr ""
 msgid "Create from template"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:43
+#: application/modules/admin/views/scripts/consultation/_serverTimeTooltip.phtml:5
+msgid "Server time (when opening this page):"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:50
 msgid "Discussion"
 msgstr ""
 

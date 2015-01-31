@@ -14,7 +14,10 @@
     <?=$this->form->getElement('expl_short')?>
 
     <fieldset>
-        <h3><?=$this->translate('Contributions');?></h3>
+        <h3>
+            <?=$this->translate('Contributions');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
         <?=$this->form->getElement('inp_show')?>
         <div class="row">
             <div class="col-sm-6">
@@ -27,7 +30,10 @@
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('Support');?></h3>
+        <h3>
+            <?=$this->translate('Support');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
         <?=$this->form->getElement('spprt_show')?>
         <div class="row">
             <div class="col-sm-6">
@@ -40,7 +46,10 @@
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('Discussion');?></h3>
+        <h3>
+            <?=$this->translate('Discussion');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
         <?=$this->form->getElement('is_discussion_active')?>
         <div class="row">
             <div class="col-sm-6">
@@ -53,7 +62,10 @@
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('Voting');?></h3>
+        <h3>
+            <?=$this->translate('Voting');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
         <?=$this->form->getElement('vot_show')?>
         <div class="row">
             <div class="col-sm-6">
