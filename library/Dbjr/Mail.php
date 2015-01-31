@@ -220,9 +220,10 @@ class Dbjr_Mail extends Zend_Mail
 
         $bodyText = $this->getBodyText()->getRawContent();
         $bodyHtml = $this->getBodyHtml()->getRawContent();
-        if (!$bodyText) {
-            $html2text = new Html2Text\Html2Text($bodyHtml);
-            $bodyText = $html2text->get_text();
+        if (!$bodyText && $bodyHtml) {
+            $bodyText = (new Html2Text\Html2Text($bodyHtml))->get_text();
+        } elseif (!$bodyHtml && $bodyText) {
+            $bodyHtml = nl2br($bodyText);
         }
         $config = Zend_Registry::get('systemconfig');
         $view = new Zend_View();

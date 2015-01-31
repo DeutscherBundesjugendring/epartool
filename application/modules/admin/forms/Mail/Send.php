@@ -111,7 +111,6 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $bodyHtml = $this->createElement('textarea', 'body_html');
         $bodyHtml
             ->setLabel('Message (HTML)')
-            ->setRequired(true)
             ->setAttrib('class', 'js-body-html')
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 5)
