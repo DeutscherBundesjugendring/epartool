@@ -214,8 +214,8 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         if ($isFormValid && $isRecipientValid) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

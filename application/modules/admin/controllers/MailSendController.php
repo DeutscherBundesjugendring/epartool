@@ -35,8 +35,6 @@ class Admin_MailSendController extends Zend_Controller_Action
 
             if ($form->isValid($postData)) {
                 $values = $form->getValues();
-                $userTableName = (new Model_Users())->info(Model_Users::NAME);
-                $userConsultDataTableName = (new Model_User_Info())->info(Model_User_Info::NAME);
                 $mailer = new Dbjr_Mail();
                 $mailer
                     ->setManualSent(true)
@@ -53,7 +51,10 @@ class Admin_MailSendController extends Zend_Controller_Action
                     $mailer->addBcc($values['mailbcc']);
                 }
                 if ($values['mail_consultation_participant']) {
-                    $mailer->addRecipientsConsultationParticipants($values['mail_consultation'], Dbjr_Mail::RECIPIENT_TYPE_BCC);
+                    $mailer->addRecipientsConsultationParticipants(
+                        $values['mail_consultation'],
+                        Dbjr_Mail::RECIPIENT_TYPE_BCC
+                    );
                 }
                 if ($values['mail_consultation_voter']) {
                     $mailer->addRecipientsConsultationParticipants(
@@ -121,7 +122,6 @@ class Admin_MailSendController extends Zend_Controller_Action
     {
         $templateId = $this->getRequest()->getParam('templateId');
         $templateModel = new Model_Mail_Template();
-        $templateTypeModel = new Model_Mail_Template_Type();
         $template = $templateModel->fetchRow(
             $templateModel
                 ->select()

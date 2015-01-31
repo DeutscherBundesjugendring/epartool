@@ -188,11 +188,15 @@ class Dbjr_Mail extends Zend_Mail
      */
     public function send($transport = null)
     {
-        throw new Dbjr_Mail_Exception('Dbjr_Mail is not to be send directly. It is to be processed by another object, i.e. Service_Email::queueForSend()');
+        throw new Dbjr_Mail_Exception(
+            'Dbjr_Mail is not to be send directly.'
+            . ' It is to be processed by another object, i.e. Service_Email::queueForSend()'
+        );
     }
 
     /**
-     * Saves the email in db so it can be later send by a cronjob. The placeholders in body and subject field are replaced.
+     * Saves the email in db so it can be later send by a cronjob.
+     * The placeholders in body and subject field are replaced.
      * @throws Dbjr_Mail_Exception                     Throws exception if no recipients are specified
      * @return array                                   The data to be used for sending/processing the mail.
      */
@@ -223,13 +227,15 @@ class Dbjr_Mail extends Zend_Mail
         $config = Zend_Registry::get('systemconfig');
         $view = new Zend_View();
         $view->addScriptPath(APPLICATION_PATH . '/layouts/scripts');
-        $view->assign([
-            'siteName' => $config->site->name,
-            'logoUrl' => $config->email->logoUrl,
-            'bodyHtml' => $bodyHtml,
-            'contactInfo' => $config->contact,
-            'links' => $config->email->links,
-        ]);
+        $view->assign(
+            [
+                'siteName' => $config->site->name,
+                'logoUrl' => $config->email->logoUrl,
+                'bodyHtml' => $bodyHtml,
+                'contactInfo' => $config->contact,
+                'links' => $config->email->links,
+            ]
+        );
         $bodyHtml = $view->render('mail.phtml');
 
         $data = array(
