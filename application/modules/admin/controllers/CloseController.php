@@ -46,26 +46,22 @@ class Admin_CloseController extends Zend_Controller_Action
         $inputs = array();
 
         // gets the input ids
-        $inputsModel = new Model_Inputs();
-        $inputs = $inputsModel -> getVotingchain($this->_consultation["kid"]);
-        $inputs = $inputs['tid'];
+        $inputs = (new Model_Inputs())->getVotingchain($this->_consultation["kid"])['tid'];
 
         $votesIndivModel = new Model_Votes_Individual();
-        foreach ($inputs  as $value) {
+        foreach ($inputs as $value) {
             $result = 0;
             $result = $votesIndivModel->anonymizeVotes($value);
             $records = $records+$result;
         }
 
-        $consultationModel = new Model_Consultations;
-        $closedata = array();
-        $closedata['vt_anonymized'] = "y";
-        $consultationModel->updateById($this->_consultation["kid"], $closedata);
+        (new Model_Consultations())->updateById($this->_consultation["kid"], ['vt_anonymized' => 'y']);
 
         $message = sprintf(
             $this->view->translate('%s sets of data have been deleted. The vote is now anonymised!'),
             $records
         );
+
         $this->_flashMessenger->addMessage($message, 'success');
         $this->redirect('/admin/close/index/kid/' . $this->_consultation["kid"]);
      }
@@ -82,7 +78,7 @@ class Admin_CloseController extends Zend_Controller_Action
 
         // vars for redirecting
         $sumInputs = count($inputs);
-        $pages = round(($sumInputs/$steps), 0);
+        $pages = round(($sumInputs / $steps), 0);
 
         //extract 20 records
         $inputs = array_slice($inputs, $page * $steps, $steps);
@@ -108,6 +104,7 @@ class Admin_CloseController extends Zend_Controller_Action
             }
             $votingFinal->addOrUpdateFinalVote($data);
         }
+
         // as often as needed. When finish go to the writeResultsFinishAction()
         if ($page <= $pages) {
             $this->redirect(
@@ -119,27 +116,19 @@ class Admin_CloseController extends Zend_Controller_Action
                 '/admin/close/write-results-finish/kid/' . $this->_consultation["kid"] . '/suminputs/' . $sumInputs
             );
         }
-
-     }
+    }
 
     /**
      * Finish the vt_final with the places, updates the consultation table  and says i am ready
      */
     public function writeResultsFinishAction()
     {
-        $questions = array();
-        $finalVotes = array();
-        $data= array();
-        $dataInputs = array();
-
         $sumInputs = $this->_request->getParam('suminputs', 0);
-
-        // get the questions
-        $questionModel = new Model_Questions();
-        $questions = $questionModel->getByConsultation($this->_consultation["kid"]);
+        $questions = (new Model_Questions())->getByConsultation($this->_consultation["kid"]);
 
         // get the sorted vt_final data for each question (rank ASC cast DESC)
         $votingFinal = new Model_VotingFinal();
+        $finalVotes = array();
         foreach ($questions as $question) {
             $finalVotes[$question['qi']] = $votingFinal -> getFinalVotesByQuestion($question['qi']);
         }
@@ -148,10 +137,10 @@ class Admin_CloseController extends Zend_Controller_Action
         // update the place column in vt_final
         // update the place and votes column in inpt
         foreach ($finalVotes as $key=>$value) {
-            $data= array();
-            foreach ($value as $k=>$v) {
-                $data['place'] = $k+1;
-                $data['tid']= $v['tid'];
+            $data = array();
+            foreach ($value as $k => $v) {
+                $data['place'] = $k + 1;
+                $data['tid'] = $v['tid'];
                 $dataInputs = $data;
                 // casts = summary votes its in use?? if not delete this and update only the place in inpt table
                 $dataInputs['votes'] = $v['cast'];
@@ -161,12 +150,11 @@ class Admin_CloseController extends Zend_Controller_Action
             }
         }
 
-        $consultationModel = new Model_Consultations;
-        $closedata = array();
-        $closedata['vt_finalized'] = "y"; //set flag its finalized!
-        $consultationModel->updateById($this->_consultation["kid"], $closedata);
-        $message = sprintf($this->view->translate('%s sets of data have been created/updated.'), $sumInputs);
-        $this->_flashMessenger->addMessage($message, 'success');
+        (new Model_Consultations())->updateById($this->_consultation["kid"], ['vt_finalized' => 'y']);
+        $this->_flashMessenger->addMessage(
+            sprintf($this->view->translate('%s sets of data have been created/updated.'), $sumInputs),
+            'success'
+        );
         $this->redirect('/admin/close/index/kid/' . $this->_consultation["kid"]);
     }
 
@@ -184,19 +172,15 @@ class Admin_CloseController extends Zend_Controller_Action
 
         $this->_flashMessenger->addMessage("Please wait: saving data.", 'success');
 
-        // gets the input ids
-        $inputsModel = new Model_Inputs();
-        $inputs = $inputsModel -> getVotingchain($this->_consultation["kid"]);
+        $inputs = (new Model_Inputs())->getVotingchain($this->_consultation["kid"]);
 
         $votesIndivModel = new Model_Votes_Individual();
         $votingFinal = new Model_VotingFinal();
-
-        // get and write votingresults for every group and input
-        foreach ($inputs['tid'] as $v) {
-            $tid = $v;
+        foreach ($inputs['tid'] as $tid) {
             $data = $votesIndivModel->getVotingValuesByGroupAndThesis($tid, $this->_consultation["kid"], $groupUid);
             $votingFinal->addOrUpdateFinalVote($data);
         }
+
         $this->redirect(
             '/admin/close/write-group-results-finish/kid/' . $this->_consultation["kid"] . '/uid/' . $groupUid
         );
@@ -216,9 +200,7 @@ class Admin_CloseController extends Zend_Controller_Action
         }
 
         $summary = 0;
-        // get the questions
-        $questionModel = new Model_Questions();
-        $questions = $questionModel->getByConsultation($this->_consultation["kid"]);
+        $questions = (new Model_Questions())->getByConsultation($this->_consultation["kid"]);
 
         $votingFinal = new Model_VotingFinal();
         foreach ($questions as $question) {
@@ -235,8 +217,10 @@ class Admin_CloseController extends Zend_Controller_Action
             }
         }
 
-        $message = sprintf($this->view->translate('Data was created/updated.'), $summary);
-        $this->_flashMessenger->addMessage($message, 'success');
+        $this->_flashMessenger->addMessage(
+            sprintf($this->view->translate('Data was created/updated.'), $summary),
+            'success'
+        );
         $this->redirect('/admin/close/index/kid/' . $this->_consultation["kid"]);
     }
 
@@ -250,15 +234,14 @@ class Admin_CloseController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('No consultation named.', 'error');
             $this->redirect('/admin');
         }
-        $csv = "";
+        $csv = '';
 
         // for str_replace because semicolons und quotation marks are unfavorable
         $search= array(";", "\"");
         $replace = array("#", "*");
 
-        $consultationModel = new Model_Consultations();
-        $consultation = $consultationModel->find($this->_consultation["kid"])->current()->toArray();
-        if (!empty($consultation)) {
+        $consultation = (new Model_Consultations())->find($this->_consultation["kid"])->current()->toArray();
+        if ($consultation) {
             $consultation['titl']= str_replace($search, $replace, $consultation['titl']);
             $consultation['titl'] = str_replace($search, $replace, $consultation['titl']);
             $csv .= '"Beteiligungsrunde: "' . $consultation['titl'];
@@ -266,9 +249,7 @@ class Admin_CloseController extends Zend_Controller_Action
             $csv .= 'Beteiligungsrunde nicht gefunden!';
         }
 
-        $votesModel = new Model_Votes();
-        $votingResultsValues = $votesModel->getResultsValues($this->_consultation["kid"], $this->_question);
-
+        $votingResultsValues = (new Model_Votes())->getResultsValues($this->_consultation["kid"], $this->_question);
         if (!empty($votingResultsValues['currentQuestion'])) {
             $votingResultsValues['currentQuestion']['q']= str_replace(
                 $search,
@@ -300,11 +281,8 @@ class Admin_CloseController extends Zend_Controller_Action
                 . round($value['rank'], 2) . '"'. "\r\n";
         }
 
-        // disable layout and view
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-
-        // set Headers
         header("Content-type: text/csv");
         header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         header(
@@ -319,7 +297,6 @@ class Admin_CloseController extends Zend_Controller_Action
      * Checks the kid and returns the values from DB if the consultation exists
      * @param get param kid
      * @return variables from consultation or votingprepare error
-     *
      */
     protected function getKid($params)
     {
@@ -327,8 +304,7 @@ class Admin_CloseController extends Zend_Controller_Action
             $isDigit = new Zend_Validate_Digits();
 
             if ($params["kid"] > 0 && $isDigit->isValid($params["kid"])) {
-                $consultationModel = new Model_Consultations();
-                $this->_consultation = $consultationModel->getById($params["kid"]);
+                $this->_consultation = (new Model_Consultations())->getById($params["kid"]);
                 if (count($this->_consultation) == 0) {
                     $this->_flashMessenger->addMessage('There is no consultation round with this ID.', 'error');
                     $this->_redirect('/admin/close/error');
