@@ -117,6 +117,10 @@ module.exports = function(grunt) {
             }
         },
 
+        phplint: {
+          all: ['application/**/*.php', 'application/**/*.phtml']
+        },
+
         // Remove unused CSS
         uncss: {
             mail: {
@@ -206,6 +210,7 @@ module.exports = function(grunt) {
 
     // Default task
     grunt.registerTask('build', [
+        'phplint',
         'po2json',
         'less',
         'coffee',

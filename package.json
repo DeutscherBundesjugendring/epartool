@@ -24,6 +24,7 @@
     "grunt-browser-sync": "~1.5.3",
     "grunt-uncss": "~0.3.7",
     "grunt-processhtml": "~0.3.3",
-    "grunt-premailer": "~0.2.10"
+    "grunt-premailer": "~0.2.10",
+    "grunt-phplint": "~0.0.5"
   }
 }
