@@ -133,20 +133,20 @@
                             </div>
                         </div>
 
-                        <div class="panel-group" id="accordionContributions" role="tablist" aria-multiselectable="true">
+                        <div class="panel-group" id="accordionSnippets" role="tablist" aria-multiselectable="true">
 
                             <?php $i = 0; ?>
                             <?php foreach ($this->followups as $followup): ?>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingContributions<?=$i;?>">
-                                        <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseSnippets<?=$i;?>" aria-controls="collapseSnippets<?=$i;?>">
+                                    <div class="panel-heading" role="tab" id="headingSnippets<?=$i;?>">
+                                        <a data-toggle="collapse" data-parent="#accordionSnippets" href="#collapseSnippets<?=$i;?>" aria-controls="collapseSnippets<?=$i;?>">
                                             <h4 class="panel-title">
                                                 <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                                 <?=$followup['titl'];?>
                                             </h4>
                                         </a>
                                     </div>
-                                    <div id="collapseSnippets<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingContributions<?=$i;?>">
+                                    <div id="collapseSnippets<?=$i;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSnippets<?=$i;?>">
                                         <div class="panel-body">
 
                                             <?php if (count($followup['snippets'])): ?>
