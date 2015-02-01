@@ -15,25 +15,6 @@
     <link rel="shortcut icon" href="<?=$this->baseUrl('images/icon/favicon.png');?>" />
     <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('images/icon/touch-icon.png');?>" /-->
 
-    <script src="<?=$this->baseUrl('components/bower/jquery/jquery.min.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/moment/min/moment-with-locales.min.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/bootstrap3/dist/js/bootstrap.min.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/static/ckeditor/ckeditor.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/select2/select2.min.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/static/ckeditor/adapters/jquery.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.core.js');?>"></script>
-
-    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/confirmation.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/sortable-table.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/filterable.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/synergic-ui/src/js/disable.js');?>"></script>
-
-    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.widget.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.mouse.js');?>"></script>
-    <script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.sortable.js');?>"></script>
-    <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
-    <script src="<?=$this->baseUrl('js/i18n/admin.' . Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('locale')->getLocale()->getLanguage() . '.js');?>"></script>
     <script>
         var baseUrl = '<?=$this->baseUrl()?>';
     </script>
@@ -114,6 +95,14 @@
             </a>
         </div>
     </footer>
+
+
+    <?php if (APPLICATION_ENV === 'development'): ?>
+        <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
+    <?php else: ?>
+        <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
+    <?php endif;?>
+    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
 
 </body>
 </html>

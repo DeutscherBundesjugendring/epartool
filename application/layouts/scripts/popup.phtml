@@ -15,31 +15,25 @@
     <link rel="shortcut icon" href="<?=$this->baseUrl('images/icon/favicon.png');?>" />
     <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('images/icon/touch-icon.png');?>" /-->
 </head>
+
 <body>
 
-<!-- Flash Messages -->
-<?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
+    <!-- Flash Messages -->
+    <?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
 
-<!-- Content -->
-<?=$this->layout()->content;?>
+    <!-- Content -->
+    <?=$this->layout()->content;?>
 
-<!-- Scripts -->
-<script src="<?=$this->baseUrl('components/bower/jquery/jquery.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/moment/min/moment-with-locales.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/bootstrap3/dist/js/bootstrap.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/static/ckeditor/ckeditor.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/select2/select2.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/static/ckeditor/adapters/jquery.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.core.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.widget.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.mouse.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/jquery.ui/ui/jquery.ui.sortable.js');?>"></script>
-<script src="<?=$this->baseUrl('js/admin.js');?>"></script>
-<script>
-    var baseUrl = '<?=$this->baseUrl?>';
-</script>
-<?=$this->headScript();?>
+    <!-- Scripts -->
+    <?php if (APPLICATION_ENV === 'development'): ?>
+        <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
+    <?php else: ?>
+        <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
+    <?php endif;?>
+    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
+    <script>
+        var baseUrl = '<?=$this->baseUrl?>';
+    </script>
 
 </body>
 </html>

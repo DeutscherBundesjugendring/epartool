@@ -1,0 +1,34 @@
+{
+  "name": "less-modules",
+  "description": "LESS modules",
+  "version": "0.3.0",
+  "homepage": "https://github.com/adamkudrna/less-modules",
+  "authors": [
+    "(Adam Kudrna <adam@adamkudrna.cz>)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "less",
+    "modules",
+    "css",
+    "responsive",
+    "front-end",
+    "web",
+    "grid"
+  ],
+  "main": [
+    "./less/less-modules.less"
+  ],
+  "ignore": [
+    ".*"
+  ],
+  "_release": "0.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.0",
+    "commit": "5ec1861e3691e34b9f910de85198b2e590b2c2fc"
+  },
+  "_source": "git://github.com/adamkudrna/less-modules.git",
+  "_target": "~0.3.0",
+  "_originalSource": "less-modules"
+}

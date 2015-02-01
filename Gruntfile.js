@@ -12,9 +12,8 @@ module.exports = function(grunt) {
         coffee: {
             compile: {
                 files: {
-                    "www/js/admin.js": "www/coffee/admin.coffee",
-                    "www/js/web.js": "www/coffee/web.coffee",
-                    "www/js/admin_mediaPopup.js": "www/coffee/admin_mediaPopup.coffee"
+                    "assets/js/admin.js": "assets/coffee/admin.coffee",
+                    "assets/js/web.js": "assets/coffee/web.coffee",
                 }
             }
         },
@@ -28,11 +27,11 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'www/js/i18n/admin.cs.js': ['languages/cs/admin-js.po'],
-                    'www/js/i18n/admin.en.js': ['languages/en/admin-js.po'],
-                    'www/js/i18n/admin.de.js': ['languages/de/admin-js.po'],
-                    'www/js/i18n/admin.es.js': ['languages/es/admin-js.po'],
-                    'www/js/i18n/admin.fr.js': ['languages/fr/admin-js.po']
+                    'www/js/admin.i18n.cs.js': ['languages/cs/admin-js.po'],
+                    'www/js/admin.i18n.en.js': ['languages/en/admin-js.po'],
+                    'www/js/admin.i18n.de.js': ['languages/de/admin-js.po'],
+                    'www/js/admin.i18n.es.js': ['languages/es/admin-js.po'],
+                    'www/js/admin.i18n.fr.js': ['languages/fr/admin-js.po']
                 }
             }
         },
@@ -41,8 +40,8 @@ module.exports = function(grunt) {
         less: {
             dev: {
                 files: {
-                    'www/css/<%= pkg.name %>.css': 'www/less/main.less',
-                    'www/css/admin.css': 'www/less/admin.less',
+                    'www/css/<%= pkg.name %>.css': 'assets/less/main.less',
+                    'www/css/admin.css': 'assets/less/admin.less',
                     '.tmp/mail.css': 'www/less/mail.less'
                 }
             },
@@ -51,8 +50,8 @@ module.exports = function(grunt) {
                     yuicompress: true
                 },
                 files: {
-                    'www/css/bootstrap.min.css': 'www/components/bower/bootstrap/less/bootstrap.less',
-                    'www/css/<%= pkg.name %>.min.css': 'www/less/main.less'
+                    'www/css/bootstrap.min.css': 'assets/components/bower/bootstrap/less/bootstrap.less',
+                    'www/css/<%= pkg.name %>.min.css': 'assets/less/main.less'
                 }
             }
         },
@@ -64,72 +63,47 @@ module.exports = function(grunt) {
 
         // Concat all JS
         concat: {
-            bootstrap: {
-                options: {
-                    separator: ';'
-                },
-                src: [
-                    'www/components/bower/bootstrap/js/bootstrap-affix.js',
-                    'www/components/bower/bootstrap/js/bootstrap-alert.js',
-                    'www/components/bower/bootstrap/js/bootstrap-button.js',
-                    'www/components/bower/bootstrap/js/bootstrap-carousel.js',
-                    'www/components/bower/bootstrap/js/bootstrap-collapse.js',
-                    'www/components/bower/bootstrap/js/bootstrap-dropdown.js',
-                    'www/components/bower/bootstrap/js/bootstrap-modal.js',
-                    'www/components/bower/bootstrap/js/bootstrap-scrollspy.js',
-                    'www/components/bower/bootstrap/js/bootstrap-tab.js',
-                    'www/components/bower/bootstrap/js/bootstrap-tooltip.js',
-                    'www/components/bower/bootstrap/js/bootstrap-popover.js',
-                    'www/components/bower/bootstrap/js/bootstrap-transition.js',
-                    'www/components/bower/bootstrap/js/bootstrap-typeahead.js'
-                ],
-                dest: 'www/js/bootstrap.js'
+            options: {
+                separator: ';',
+                sourceMap: true,
             },
-            jqueryUi: {
-                options: {
-                    separator: ';'
-                },
+            admin: {
                 src: [
-                    'www/components/bower/jquery.ui/ui/jquery.ui.core.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.widget.js',
-
-                    'www/components/bower/jquery.ui/ui/jquery.ui.position.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.mouse.js',
-
-                    'www/components/bower/jquery.ui/ui/jquery.ui.draggable.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.droppable.js',
-
-                    'www/components/bower/jquery.ui/ui/jquery.ui.accordion.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.autocomplete.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.button.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.datepicker.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.dialog.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.menu.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.progressbar.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.resizable.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.selectable.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.slider.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.sortable.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.spinner.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.tabs.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.tooltip.js',
-
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-blind.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-bounce.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-clip.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-drop.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-explode.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-fade.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-fold.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-highlight.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-pulsate.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-scale.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-shake.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-slide.js',
-                    'www/components/bower/jquery.ui/ui/jquery.ui.effect-transfer.js'
+                    'assets/components/bower/jquery/jquery.min.js',
+                    'assets/components/bower/moment/min/moment-with-locales.min.js',
+                    'assets/components/bower/select2/select2.min.js',
+                    'assets/components/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+                    'assets/components/static/ckeditor/ckeditor.js',
+                    'assets/components/static/ckeditor/adapters/jquery.js',
+                    'assets/components/bower/bootstrap3/js/alert.js',
+                    'assets/components/bower/bootstrap3/js/collapse.js',
+                    'assets/components/bower/bootstrap3/js/modal.js',
+                    'assets/components/bower/bootstrap3/js/tooltip.js',
+                    'assets/components/bower/bootstrap3/js/transition.js',
+                    'assets/components/bower/jquery.ui/ui/jquery.ui.core.js',
+                    'assets/components/bower/jquery.ui/ui/jquery.ui.widget.js',
+                    'assets/components/bower/jquery.ui/ui/jquery.ui.mouse.js',
+                    'assets/components/bower/jquery.ui/ui/jquery.ui.sortable.js',
+                    'assets/components/bower/synergic-ui/src/js/confirmation.js',
+                    'assets/components/bower/synergic-ui/src/js/disable.js',
+                    'assets/components/bower/synergic-ui/src/js/filterable.js',
+                    'assets/components/bower/synergic-ui/src/js/sortable-table.js',
+                    'assets/js/admin.js'
                 ],
-                dest: 'www/js/jquery.ui.js'
+                dest: 'www/js/admin.js'
+            },
+            web: {
+                src: [
+                    'assets/components/bower/jquery/jquery.min.js',
+                    'assets/components/bower/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.5.js',
+                    'assets/components/bower/bootstrap/js/bootstrap-alert.js',
+                    'assets/components/bower/bootstrap/js/bootstrap-dropdown.js',
+                    'assets/components/bower/bootstrap/js/bootstrap-transition.js',
+                    'assets/js/FollowUp.js',
+                    'assets/js/SocialShare.js',
+                    'assets/js/web.js'
+                ],
+                dest: 'www/js/web.js'
             }
         },
 
@@ -137,8 +111,8 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'www/js/bootstrap.min.js': ['www/js/bootstrap.js'],
-                    'www/js/jquery.ui.min.js': ['www/js/jquery.ui.js']
+                    'www/js/web.min.js': ['www/js/web.js'],
+                    'www/js/admin.min.js': ['www/js/admin.js']
                 }
             }
         },
@@ -178,23 +152,21 @@ module.exports = function(grunt) {
 
         // Clean temporary files
         clean: [
-            'www/js/bootstrap.js',
-            'www/js/jquery.ui.js',
             '.tmp'
         ],
 
         // Watch task
         watch: {
             less: {
-                files: ['www/less/**/*.less'],
+                files: ['assets/less/**/*.less'],
                 tasks: ['less']
             },
             coffee: {
-                files: ['www/coffee/**/*.coffee'],
+                files: ['assets/coffee/**/*.coffee'],
                 tasks: ['coffee']
             },
             js: {
-                files: ['www/js/**/*(!.min).js'],
+                files: ['assets/js/**/*.js'],
                 tasks: ['jshint']
             }
         },

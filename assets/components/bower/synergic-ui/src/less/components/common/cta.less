@@ -1,0 +1,27 @@
+// Call to Action
+//
+// A simple helper for responsive call to action. Made for use in header section.
+//
+// Markup:
+// <a href="#" class="btn btn-primary cta">
+//     <span class="glyphicon glyphicon-plus-sign"></span>
+//     New Page
+// </a>
+//
+// Styleguide 5.11
+
+
+.cta {
+    margin-top: @line-height-computed;
+
+    @media screen and (min-width: @screen-sm-min) {
+        float: right;
+        margin-top: 0;
+        text-align: right;
+
+        &.btn,
+        > .btn {
+            float: right;
+        }
+    }
+}

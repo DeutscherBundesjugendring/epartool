@@ -1,0 +1,40 @@
+//
+// Responsive Background
+//
+// Generates CSS code with different retina sized backgrounds for phone (default), tablet, and desktop:
+// .responsive-background( @image [, @tablet [, @desktop [, @path ]]] );
+//
+// Assumes that following images exist:
+// [path][image]_xs@2x.jpg (retina phone)
+// [path][image]_sm@2x.jpg (retina tablet)
+// [path][image]_lg@2x.jpg (retina desktop)
+//
+// Parameters
+// @image      image base name, can contain subfolders; required
+// @tablet     tablet breakpoint (default 768px)
+// @desktop    desktop breakpoint (default 992px)
+// @path       path to directory with images (defaults to '../images')
+//
+// Default breakpoint values are based on Bootstrap 3.
+//
+// Example use:
+// .section {
+//     .responsive-background('image');
+// }
+//
+// .header {
+//     .responsive-background('subfolder/image', 800px, 1024px, '../assets/images');
+// }
+
+
+.responsive-background(@image: 'default', @tablet: 768px, @desktop: 992px, @path: '../images') {
+    background-image: url('@{path}/@{image}_xs@2x.jpg');
+
+    @media screen and (min-width: @tablet) {
+        background-image: url('@{path}/@{image}_sm@2x.jpg');
+    }
+
+    @media screen and (min-width: @desktop) {
+        background-image: url('@{path}/@{image}_lg@2x.jpg');
+    }
+}

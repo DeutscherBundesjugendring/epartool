@@ -38,12 +38,17 @@ $sysconfig = Zend_Registry::get('systemconfig');
 
 		<!--[if lte IE 7]><link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->ie7 ?>" type="text/css" /><![endif]-->
 
-		<script src="<?= $this->baseUrl() . $config->path->js->jquery ?>"></script>
-
 		<!-- HTML5 shim for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]><script src="<?= $this->baseUrl() . $config->path->js->html5shim ?>"></script><![endif]-->
+		<!--[if lt IE 9]><script src="components/bower/html5shiv/dist/html5shiv.js"></script><![endif]-->
 
-		<?php echo $this->headScript(); ?>
+		<!--script has to be included here as there is still inline js code depending on jQuery-->
+		<?php if (APPLICATION_ENV === 'development'): ?>
+			<script src="<?=$this->baseUrl('js/web.js');?>"></script>
+		<?php else: ?>
+			<script src="<?=$this->baseUrl('js/web.min.js');?>"></script>
+		<?php endif;?>
+		<script src="<?=$this->baseUrl('/index/i18n');?>"></script>
+
 		<script type="text/javascript">
 			var baseUrl = '<?php echo $this->baseUrl(); ?>';
 		</script>
@@ -117,15 +122,6 @@ $sysconfig = Zend_Registry::get('systemconfig');
 //
 		// echo '</pre>';
 		?>
-
-		<!-- Scripts -->
-		<script src="<?php echo $this->baseUrl() . $config->path->js->i18n ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->pwstrength ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->main ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->web ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->followUp ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->socialShare ?>"></script>
 
 	</body>
 </html>
