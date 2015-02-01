@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-01-31 09:46+0100\n"
-"PO-Revision-Date: 2015-01-31 09:46+0100\n"
+"POT-Creation-Date: 2015-02-01 16:54+0100\n"
+"PO-Revision-Date: 2015-02-01 16:54+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -69,44 +69,44 @@ msgstr ""
 msgid "Template has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:80
+#: application/modules/admin/controllers/CloseController.php:66
 #, php-format
 msgid "%s sets of data have been deleted. The vote is now anonymised!"
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:102
-#: application/modules/admin/controllers/CloseController.php:214
+#: application/modules/admin/controllers/CloseController.php:81
+#: application/modules/admin/controllers/CloseController.php:185
 msgid "Please wait: saving data."
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:193
+#: application/modules/admin/controllers/CloseController.php:168
 #, php-format
 msgid "%s sets of data have been created/updated."
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:210
-#: application/modules/admin/controllers/CloseController.php:247
+#: application/modules/admin/controllers/CloseController.php:181
+#: application/modules/admin/controllers/CloseController.php:214
 msgid "No group ID available"
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:274
+#: application/modules/admin/controllers/CloseController.php:238
 msgid "Data was created/updated."
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:288
+#: application/modules/admin/controllers/CloseController.php:250
 msgid "No consultation named."
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:365
+#: application/modules/admin/controllers/CloseController.php:333
 msgid "There is no consultation round with this ID."
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:371
+#: application/modules/admin/controllers/CloseController.php:339
 msgid "Id of consultation round invalid"
 msgstr ""
 
-#: application/modules/admin/controllers/CloseController.php:391
-msgid "QuestionID ungültig"
+#: application/modules/admin/controllers/CloseController.php:357
+msgid "Invalid question id."
 msgstr ""
 
 #: application/modules/admin/controllers/TagController.php:48

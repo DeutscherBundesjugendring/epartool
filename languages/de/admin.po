@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-01-31 09:45+0100\n"
-"PO-Revision-Date: 2015-01-31 09:46+0100\n"
+"POT-Creation-Date: 2015-02-01 16:53+0100\n"
+"PO-Revision-Date: 2015-02-01 16:53+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -70,45 +70,45 @@ msgstr "Die Email-Vorlage wurde gespeichert."
 msgid "Template has been deleted."
 msgstr "Die Vorlage wurde gelöscht."
 
-#: application/modules/admin/controllers/CloseController.php:80
+#: application/modules/admin/controllers/CloseController.php:66
 #, php-format
 msgid "%s sets of data have been deleted. The vote is now anonymised!"
 msgstr ""
 "Es wurden %s Datensätze gelöscht. Die Abstimmung ist somit anonymisiert!"
 
-#: application/modules/admin/controllers/CloseController.php:102
-#: application/modules/admin/controllers/CloseController.php:214
+#: application/modules/admin/controllers/CloseController.php:81
+#: application/modules/admin/controllers/CloseController.php:185
 msgid "Please wait: saving data."
 msgstr "Die Daten werden geschrieben, Bitte warten Sie!"
 
-#: application/modules/admin/controllers/CloseController.php:193
+#: application/modules/admin/controllers/CloseController.php:168
 #, php-format
 msgid "%s sets of data have been created/updated."
 msgstr "Es wurden %s Datensätze erstellt/aktualisiert."
 
-#: application/modules/admin/controllers/CloseController.php:210
-#: application/modules/admin/controllers/CloseController.php:247
+#: application/modules/admin/controllers/CloseController.php:181
+#: application/modules/admin/controllers/CloseController.php:214
 msgid "No group ID available"
 msgstr "Keine GruppenID vorhanden"
 
-#: application/modules/admin/controllers/CloseController.php:274
+#: application/modules/admin/controllers/CloseController.php:238
 msgid "Data was created/updated."
 msgstr "Es wurden Datensätze erstellt/aktualisiert."
 
-#: application/modules/admin/controllers/CloseController.php:288
+#: application/modules/admin/controllers/CloseController.php:250
 msgid "No consultation named."
 msgstr "Keine Beteiligungsrunde angegeben!"
 
-#: application/modules/admin/controllers/CloseController.php:365
+#: application/modules/admin/controllers/CloseController.php:333
 msgid "There is no consultation round with this ID."
 msgstr "Es gibt keine Beteiligungsrunde mit dieser ID."
 
-#: application/modules/admin/controllers/CloseController.php:371
+#: application/modules/admin/controllers/CloseController.php:339
 msgid "Id of consultation round invalid"
 msgstr "ID der Beteiligungsrunde ungültig"
 
-#: application/modules/admin/controllers/CloseController.php:391
-msgid "QuestionID ungültig"
+#: application/modules/admin/controllers/CloseController.php:357
+msgid "Invalid question id."
 msgstr "Frage-ID ungültig"
 
 #: application/modules/admin/controllers/TagController.php:48
@@ -2468,6 +2468,9 @@ msgstr "Noch keine Beiträge."
 #: application/modules/admin/views/scripts/index/index.phtml:175
 msgid "There are no consultations yet."
 msgstr "Es gibt noch keine Beteiligungsrunden."
+
+#~ msgid "QuestionID ungültig"
+#~ msgstr "Frage-ID ungültig"
 
 #~ msgid "Marked entries"
 #~ msgstr "Markierte Eintragungen"
