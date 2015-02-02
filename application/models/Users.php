@@ -467,7 +467,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 $tableAlias => new Zend_Db_Expr(
                     '(SELECT qi, uid, COUNT(*) AS inputCount FROM '
                     . $this->getAdapter()->quoteIdentifier($inputModel->info(Model_Inputs::NAME))
-                    . ' GROUP BY uid)'
+                    . ' GROUP BY qi, uid)'
                 )
             ],
             $this->info(self::NAME) . '.uid = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.uid'
