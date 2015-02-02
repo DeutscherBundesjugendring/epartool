@@ -80,27 +80,29 @@
 
                         <!-- Actions -->
                         <section class="article-actions">
-                            <span class="article-action" id="click-support-wrap-<?=$this->escape($input['tid']);?>">
-                                <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                    <span>
-                                <?php else: ?>
-                                    <a
-                                        href="#"
-                                        id="click-support-<?=$this->escape($input['tid']);?>"
-                                        class="click-support"
-                                        rel="<?=$this->escape($input['tid']);?>"
-                                    >
-                                <?php endif; ?>
-                                        <i class="icon-ok-sign icon-orange icon-2x"></i>
-                                        <span id="badge-<?=$this->escape($input['tid']);?>">(<?=$this->escape($input['spprts']);?>)</span>
-                                <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                        <span class="label"><?=$this->translate('supporters')?></span>
-                                    </span>
-                                <?php else: ?>
-                                        <span class="label"><?=$this->translate('I agree!')?></span>
-                                    </a>
-                                <?php endif; ?>
-                            </span>
+                            <?php if ($this->consultation->spprt_show === 'y'): ?>
+                                <span class="article-action" id="click-support-wrap-<?=$this->escape($input['tid']);?>">
+                                    <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+                                        <span>
+                                    <?php else: ?>
+                                        <a
+                                            href="#"
+                                            id="click-support-<?=$this->escape($input['tid']);?>"
+                                            class="click-support"
+                                            rel="<?=$this->escape($input['tid']);?>"
+                                        >
+                                    <?php endif; ?>
+                                            <i class="icon-ok-sign icon-orange icon-2x"></i>
+                                            <span id="badge-<?=$this->escape($input['tid']);?>">(<?=$this->escape($input['spprts']);?>)</span>
+                                    <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+                                            <span class="label"><?=$this->translate('supporters')?></span>
+                                        </span>
+                                    <?php else: ?>
+                                            <span class="label"><?=$this->translate('I agree!')?></span>
+                                        </a>
+                                    <?php endif; ?>
+                                </span>
+                            <?php endif;?>
 
                             <?php if ($this->consultation->is_discussion_active): ?>
                                 <span class="article-action">
