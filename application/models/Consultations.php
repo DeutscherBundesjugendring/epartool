@@ -428,7 +428,10 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     {
         $select = $this
             ->select()
-            ->from(['c' => $this->info(self::NAME)], ['titl', 'titl_sub', 'kid', 'img_file', 'img_expl'])
+            ->from(
+                ['c' => $this->info(self::NAME)],
+                ['titl', 'titl_sub', 'kid', 'img_file', 'img_expl', 'inp_show', 'vot_show', 'follup_show']
+            )
             ->setIntegrityCheck(false)
             ->joinLeft(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
@@ -447,6 +450,9 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
                     'titl_sub' => $consultation['titl_sub'],
                     'img_file' => $consultation['img_file'],
                     'img_expl' => $consultation['img_expl'],
+                    'inp_show' => $consultation['inp_show'],
+                    'vot_show' => $consultation['vot_show'],
+                    'follup_show' => $consultation['follup_show'],
                     'questionIds' => [],
                 ];
             }

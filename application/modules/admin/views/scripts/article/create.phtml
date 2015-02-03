@@ -17,7 +17,7 @@
             <div class="sidebar">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-                    <?=$this->consultationNavigation($this->consultation['kid'], 'info');?>
+                    <?=$this->consultationNavigation($this->consultation, 'info');?>
                 <?php else: ?>
                     <?=$this->settingsNavigation('pages');?>
                 <?php endif; ?>

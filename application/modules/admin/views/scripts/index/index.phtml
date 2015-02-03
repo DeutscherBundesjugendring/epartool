@@ -42,9 +42,27 @@
                                 <ul class="nav nav-pills nav-stacked">
                                     <li><a href="<?=$this->url(['controller' => 'article', 'kid' => $kid]);?>"><?=$this->translate('Info');?></a></li>
                                     <li><a href="<?=$this->url(['controller' => 'question', 'kid' => $kid]);?>"><?=$this->translate('Questions');?></a></li>
-                                    <li><a href="<?=$this->url(['controller' => 'input', 'kid' => $kid]);?>"><?=$this->translate('Contributions');?></a></li>
-                                    <li><a href="<?=$this->url(['controller' => 'votingprepare', 'kid' => $kid]);?>"><?=$this->translate('Voting');?></a></li>
-                                    <li><a href="<?=$this->url(['controller' => 'followup', 'kid' => $kid]);?>"><?=$this->translate('Follow Up');?></a></li>
+                                    <?php if ($consultation['inp_show'] === 'y'): ?>
+                                        <li>
+                                            <a href="<?=$this->url(['controller' => 'input', 'kid' => $kid]);?>">
+                                                <?=$this->translate('Contributions');?>
+                                            </a>
+                                        </li>
+                                    <?php endif;?>
+                                    <?php if ($consultation['vot_show'] === 'y'): ?>
+                                        <li>
+                                            <a href="<?=$this->url(['controller' => 'votingprepare', 'kid' => $kid]);?>">
+                                                <?=$this->translate('Voting');?>
+                                            </a>
+                                        </li>
+                                    <?php endif;?>
+                                    <?php if ($consultation['follup_show'] === 'y'): ?>
+                                        <li>
+                                            <a href="<?=$this->url(['controller' => 'followup', 'kid' => $kid]);?>">
+                                                <?=$this->translate('Follow Up');?>
+                                            </a>
+                                        </li>
+                                    <?php endif;?>
                                 </ul>
 
                             </div>
