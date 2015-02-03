@@ -113,7 +113,7 @@ class Admin_InputController extends Zend_Controller_Action
     {
         $tid = $this->_request->getParam('tid', 0);
         $uid = $this->_request->getParam('uid', 0);
-        $qid = $this->_request->getParam('qid', 0);
+        $qi = $this->_request->getParam('qi', 0);
 
         if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
             $url = $this->view->url(
@@ -126,7 +126,7 @@ class Admin_InputController extends Zend_Controller_Action
             );
             $cancelUrl = $this->view->returnUrl = $url;
         } elseif ($this->getRequest()->getParam('qi', null)) {
-            $url = $this->view->url(['action' => 'list-by-question', 'qid' => $qid, 'tid' => null]);
+            $url = $this->view->url(['action' => 'list-by-question', 'qi' => $qi, 'tid' => null]);
             $cancelUrl = $this->view->returnUrl = $url;
         } else {
             $url = $this->view->url(['action' => 'list-by-user', 'uid' => $uid, 'tid' => null]);
