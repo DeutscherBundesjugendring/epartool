@@ -24,29 +24,46 @@ class Admin_InputController extends Zend_Controller_Action
     {
         $userModel = new Model_Users();
         $questionsModel = new Model_Questions();
+        $inputModel = new Model_Inputs();
 
-        $inputTableAlias = 'inputTableAlias';
-        $select = $userModel
-            ->select()
-            ->setIntegrityCheck(false)
-            ->from($userModel->info(Model_Users::NAME), ['name', 'email', 'cmnt']);
-        $userModel->selectInputCount($select, $inputTableAlias);
-        $select
-            ->join(
-                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                'q.qi = ' . $userModel->getAdapter()->quoteIdentifier($inputTableAlias) . '.qi'
-            )
-            ->where('q.kid = ?', $this->_consultation['kid']);
-        $users = $userModel->fetchAll($select);
+        $users = $userModel->fetchAll(
+            $userModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['u' => $userModel->info(Model_Users::NAME)], ['uid', 'name', 'email', 'cmnt'])
+                ->join(
+                    ['i' => $inputModel->info(Model_Inputs::NAME)],
+                    'i.uid = u.uid',
+                    ['inputCount' => 'COUNT(*)']
+                )
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    null
+                )
+                ->group('uid')
+                ->where('q.kid = ?', $this->_consultation['kid'])
+        );
 
-        $select = $questionsModel
-            ->select()
-            ->setIntegrityCheck(false)
-            ->from($questionsModel->info(Model_Questions::NAME), ['qi', 'q', 'nr'])
-            ->where('kid = ?', $this->_consultation['kid']);
-        $questionsModel->selectInputCountByQuestion($select, 'inputCountTotal');
-        $questionsModel->selectUnreadInputCountByQuestion($select, 'inputCountUnread');
-        $questions = $questionsModel->fetchAll($select);
+        $questions = $questionsModel->fetchAll(
+            $questionsModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from($questionsModel->info(Model_Questions::NAME), ['qi', 'q', 'nr'])
+                ->joinLeft(
+                    ['tmp1' => new Zend_Db_Expr(
+                        '(SELECT qi AS tmpQi, COUNT(*) AS inputCountTotal FROM inpt GROUP BY qi)'
+                    )],
+                    $questionsModel->info(Model_Questions::NAME) . '.qi = ' . 'tmp1.tmpQi'
+                )
+                ->joinLeft(
+                    ['tmp2' => new Zend_Db_Expr(
+                        "(SELECT qi AS tmpQi, COUNT(*) AS inputCountUnread FROM inpt WHERE `block`='u' GROUP BY qi)"
+                    )],
+                    $questionsModel->info(Model_Questions::NAME) . '.qi = ' . 'tmp2.tmpQi'
+                )
+                ->where('kid = ?', $this->_consultation['kid'])
+        );
 
         $this->view->questions = $questions;
         $this->view->users = $users;
