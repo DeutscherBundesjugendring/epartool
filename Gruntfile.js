@@ -23,7 +23,10 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= paths.dist %>/css/<%= pkg.name %>.css': '<%= paths.src %>/less/main.less',
-          '<%= paths.dist %>/css/admin.css': '<%= paths.src %>/less/admin.less',
+          '<%= paths.dist %>/css/admin.css': [
+              '<%= paths.src %>/less/admin.less'
+              //'<%= paths.bower %>/jquery.ui/themes/base/jquery.ui.core.css'
+            ],
           '<%= paths.temp %>/mail.css': '<%= paths.src %>/less/mail.less'
         }
       },
@@ -33,7 +36,8 @@ module.exports = function (grunt) {
           yuicompress: true
         },
         files: {
-          '<%= paths.dist %>/css/<%= pkg.name %>.min.css': '<%= paths.src %>/less/main.less'
+          '<%= paths.dist %>/css/<%= pkg.name %>.min.css': '<%= paths.src %>/less/main.less',
+          '<%= paths.dist %>/css/admin.min.css': '<%= paths.src %>/less/admin.less'
         }
       }
     },
@@ -72,17 +76,16 @@ module.exports = function (grunt) {
     },
 
     // Lint custom JS
-    jshint: {
+    /*jshint: {
       files: ['<%= paths.src %>/js/main.js']
-    },
+    },*/
 
     // Compile Coffee script
     coffee: {
       compile: {
         files: {
-          '<%= paths.dist %>/js/admin.js': '<%= paths.src %>/coffee/admin.coffee',
-          '<%= paths.dist %>/js/web.js': '<%= paths.src %>/coffee/web.coffee',
-          '<%= paths.dist %>/js/admin_mediaPopup.js': '<%= paths.src %>/coffee/admin_mediaPopup.coffee'
+          '<%= paths.temp %>/web.js': '<%= paths.src %>/coffee/web.coffee',
+          '<%= paths.temp %>/admin.js': '<%= paths.src %>/coffee/admin.coffee'
         }
       }
     },
@@ -96,71 +99,59 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= paths.dist %>/js/i18n/admin.cs.js': ['languages/cs/admin-js.po'],
-          '<%= paths.dist %>/js/i18n/admin.en.js': ['languages/en/admin-js.po'],
-          '<%= paths.dist %>/js/i18n/admin.de.js': ['languages/de/admin-js.po'],
-          '<%= paths.dist %>/js/i18n/admin.es.js': ['languages/es/admin-js.po'],
-          '<%= paths.dist %>/js/i18n/admin.fr.js': ['languages/fr/admin-js.po']
+          '<%= paths.dist %>/js/admin.i18n.cs.js': ['languages/cs/admin-js.po'],
+          '<%= paths.dist %>/js/admin.i18n.en.js': ['languages/en/admin-js.po'],
+          '<%= paths.dist %>/js/admin.i18n.de.js': ['languages/de/admin-js.po'],
+          '<%= paths.dist %>/js/admin.i18n.es.js': ['languages/es/admin-js.po'],
+          '<%= paths.dist %>/js/admin.i18n.fr.js': ['languages/fr/admin-js.po']
         }
       }
     },
 
     // Concat all JS
     concat: {
-      bootstrap: {
-        options: {
-          separator: ';'
-        },
-        src: [
-          '<%= paths.bower %>/bootstrap/js/*.js'
-        ],
-        dest: '<%= paths.dist %>/js/bootstrap.js'
+      options: {
+        separator: ';',
+        sourceMap: true
       },
-      jqueryUi: {
-        options: {
-          separator: ';'
-        },
+      web: {
         src: [
+          '<%= paths.bower %>/jquery/jquery.min.js',
+          '<%= paths.bower %>/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.5.js',
+          '<%= paths.bower %>/bootstrap/js/bootstrap-alert.js',
+          '<%= paths.bower %>/bootstrap/js/bootstrap-dropdown.js',
+          '<%= paths.bower %>/bootstrap/js/bootstrap-transition.js',
+          '<%= paths.src %>/js/FollowUp.js',
+          '<%= paths.src %>/js/SocialShare.js',
+          //'<%= paths.src %>/js/main.js',
+          '<%= paths.temp %>/web.js'
+        ],
+        dest: '<%= paths.dist %>/js/web.js'
+      },
+      admin: {
+        src: [
+          '<%= paths.bower %>/jquery/jquery.min.js',
+          '<%= paths.bower %>/moment/min/moment-with-locales.min.js',
+          '<%= paths.bower %>/select2/select2.min.js',
+          '<%= paths.bower %>/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+          '<%= paths.src %>/vendor/ckeditor/ckeditor.js',
+          '<%= paths.src %>/vendor/ckeditor/adapters/jquery.js',
+          '<%= paths.bower %>/bootstrap/js/alert.js',
+          '<%= paths.bower %>/bootstrap/js/collapse.js',
+          '<%= paths.bower %>/bootstrap/js/modal.js',
+          '<%= paths.bower %>/bootstrap/js/tooltip.js',
+          '<%= paths.bower %>/bootstrap/js/transition.js',
           '<%= paths.bower %>/jquery.ui/ui/jquery.ui.core.js',
           '<%= paths.bower %>/jquery.ui/ui/jquery.ui.widget.js',
-
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.position.js',
           '<%= paths.bower %>/jquery.ui/ui/jquery.ui.mouse.js',
-
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.draggable.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.droppable.js',
-
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.accordion.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.autocomplete.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.button.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.datepicker.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.dialog.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.menu.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.progressbar.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.resizable.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.selectable.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.slider.js',
           '<%= paths.bower %>/jquery.ui/ui/jquery.ui.sortable.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.spinner.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.tabs.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.tooltip.js',
-
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-blind.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-bounce.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-clip.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-drop.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-explode.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-fade.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-fold.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-highlight.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-pulsate.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-scale.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-shake.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-slide.js',
-          '<%= paths.bower %>/jquery.ui/ui/jquery.ui.effect-transfer.js'
+          '<%= paths.bower %>/synergic-ui/src/js/confirmation.js',
+          '<%= paths.bower %>/synergic-ui/src/js/disable.js',
+          '<%= paths.bower %>/synergic-ui/src/js/filterable.js',
+          '<%= paths.bower %>/synergic-ui/src/js/sortable-table.js',
+          '<%= paths.temp %>/admin.js'
         ],
-        dest: '<%= paths.dist %>/js/jquery.ui.js'
+        dest: '<%= paths.dist %>/js/admin.js'
       }
     },
 
@@ -168,8 +159,8 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= paths.dist %>/js/bootstrap.min.js': ['<%= paths.dist %>/js/bootstrap.js'],
-          '<%= paths.dist %>/js/jquery.ui.min.js': ['<%= paths.dist %>/js/jquery.ui.js']
+          '<%= paths.dist %>/js/web.min.js': ['<%= paths.dist %>/js/web.js'],
+          '<%= paths.dist %>/js/admin.min.js': ['<%= paths.dist %>/js/admin.js']
         }
       }
     },
@@ -189,6 +180,21 @@ module.exports = function (grunt) {
             cwd: '<%= paths.bower %>/bootstrap/dist/fonts',
             src: ['*'],
             dest: '<%= paths.dist %>/font/glyphicons'
+          }
+        ]
+      },
+      bower: {
+        files: {
+          '<%= paths.dist %>/js/html5shiv.min.js': '<%= paths.bower %>/html5shiv/dist/html5shiv.min.js'
+        }
+      },
+      vendor: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= paths.src %>/vendor',
+            src: ['**/*'],
+            dest: '<%= paths.dist %>/vendor'
           }
         ]
       }
@@ -270,7 +276,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-js', [
     'clean:js',
-    'jshint',
+    //'jshint',
     'coffee',
     'concat',
     'uglify',

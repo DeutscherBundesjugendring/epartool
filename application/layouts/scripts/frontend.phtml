@@ -17,17 +17,17 @@
     <meta property="og:image" content="" />
     <meta property="og:description" content="<?=Zend_Registry::get('systemconfig')->meta->property->ogDescription;?>" />
 
-    <?=$this->headLink();?>
-    <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
+    <?php if (APPLICATION_ENV === 'development'): ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" />
+    <?php else: ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.min.css');?>" />
+    <?php endif;?>
+
     <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
 
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/favicon.ico');?>" />
 
-    <!--[if lt IE 9]><script src="<?=$this->baseUrl('components/bower/html5shiv/dist/html5shiv.min.js');?>"></script><![endif]-->
-
-    <script>
-        var baseUrl = '<?=$this->baseUrl();?>';
-    </script>
+    <!--[if lt IE 9]><script src="<?=$this->baseUrl('js/html5shiv.min.js');?>"></script><![endif]-->
 </head>
 <body>
 
@@ -219,15 +219,13 @@
 
 
 <!-- Scripts -->
-<script src="<?=$this->baseUrl('components/bower/jquery/jquery.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/bootstrap/dist/js/bootstrap.min.js');?>"></script>
-<script src="<?=$this->baseUrl('components/bower/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.4.min.js');?>"></script>
-<script src="<?=$this->url(['controller' => 'index', 'action' => 'i18n'], 'default', true);?>"></script>
-<script src="<?=$this->baseUrl('js/web.js');?>"></script>
-<!--script src="<?=$this->baseUrl('js/main.js');?>"></script>
-<script src="<?=$this->baseUrl('src/js/FollowUp.js');?>"></script>
-<script src="<?=$this->baseUrl('src/js/SocialShare.js');?>"></script-->
-<?=$this->headScript();?>
+<?php if (APPLICATION_ENV === 'development'): ?>
+    <script src="<?=$this->baseUrl('js/web.js');?>"></script>
+<?php else: ?>
+    <script src="<?=$this->baseUrl('js/web.min.js');?>"></script>
+<?php endif;?>
+
+<script src="<?=$this->baseUrl('/index/i18n');?>"></script>
 
 </body>
 </html>

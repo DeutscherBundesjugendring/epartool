@@ -9,6 +9,7 @@
 /www/css/*
 /www/js/*
 /www/font/*
+/www/vendor/*
 
 # Ignore all runtime settings
 /runtime/cache/*
