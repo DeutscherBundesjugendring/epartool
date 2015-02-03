@@ -1,5 +1,5 @@
 <?php
-    $this->headLink()->appendStylesheet('/css/vote.css');
+    $this->headLink()->appendStylesheet($this->baseUrl('css/vote.css'));
     $settings = $this->settings;
     $this->layout()->settings = $settings;
     $this->layout()->votingBasket= $this->votingBasket;
