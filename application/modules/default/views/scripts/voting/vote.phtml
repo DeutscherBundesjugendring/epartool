@@ -176,7 +176,7 @@ $(document).ready(function() {
                             </strong>
                         </p>
                         <a
-                        	href="<?=$this->url(['kid' => $this->consultation->kid,'qid' => $this->question['qi']])?>#vote"
+                        	href="<?=$this->url(['kid' => $this->consultation->kid, 'qid' => $this->question['qi'], 'token' => time()])?>#vote"
                         	class="btn btn-small btn-light voting-next"
                         >
                             <?=$this->translate('Skip')?>
