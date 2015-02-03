@@ -192,23 +192,23 @@ class Admin_VotingController extends Zend_Controller_Action
                 } else {
                     $mailer
                         ->setTemplate($templateName)
-                        ->setPlaceholders(
-                            array_merge(
-                                $placeholders,
-                                array(
-                                    'to_name' => empty($user['name']) ? $user['email'] : $user['name'],
-                                    'to_email' => $user['email'],
-                                    'consultation_title_long' => $this->_consultation['titl'],
-                                    'consultation_title_short' => $this->_consultation['titl_short'],
-                                    'voting_phase_start' => $view->formatDate($this->_consultation['vot_fr'], Zend_Date::DATE_MEDIUM),
-                                    'voting_phase_end' => $view->formatDate($this->_consultation['vot_to'], Zend_Date::DATE_MEDIUM),
-                                    'voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
-                                        . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code'],
-                                )
-                            )
-                        )
                         ->addTo($user['email']);
                 }
+                $mailer->setPlaceholders(
+                    array_merge(
+                        $placeholders,
+                        array(
+                            'to_name' => empty($user['name']) ? $user['email'] : $user['name'],
+                            'to_email' => $user['email'],
+                            'consultation_title_long' => $this->_consultation['titl'],
+                            'consultation_title_short' => $this->_consultation['titl_short'],
+                            'voting_phase_start' => $view->formatDate($this->_consultation['vot_fr'], Zend_Date::DATE_MEDIUM),
+                            'voting_phase_end' => $view->formatDate($this->_consultation['vot_to'], Zend_Date::DATE_MEDIUM),
+                            'voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
+                                . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code'],
+                        )
+                    )
+                );
                 (new Service_Email)
                     ->queueForSend($mailer)
                     ->sendQueued();
