@@ -48,26 +48,6 @@ class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns multiOptions for field ref_nm in Admin_Form_Article by type
-     *
-     * @return array
-     */
-    public function getMultioptionsByType($type = null)
-    {
-        $options = array();
-        if (is_null($type)) {
-            return $options;
-        }
-        $rowSet = $this->getAllByType($type);
-
-        foreach ($rowSet as $row) {
-            $options[$row->ref_nm] = $row->desc . ' [Bereich: ' . $row->scope . ']';
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns array of ref_names for the given scope
      *
      * @param  string $scope

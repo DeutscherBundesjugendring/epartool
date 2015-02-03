@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-02-01 16:53+0100\n"
-"PO-Revision-Date: 2015-02-01 16:53+0100\n"
+"POT-Creation-Date: 2015-02-03 10:27+0100\n"
+"PO-Revision-Date: 2015-02-03 10:27+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -24,8 +24,8 @@ msgstr "Die Frage wurde erstellt."
 #: application/modules/admin/controllers/QuestionController.php:94
 #: application/modules/admin/controllers/MailTemplateController.php:82
 #: application/modules/admin/controllers/MailComponentController.php:73
-#: application/modules/admin/controllers/ArticleController.php:115
-#: application/modules/admin/controllers/ArticleController.php:201
+#: application/modules/admin/controllers/ArticleController.php:114
+#: application/modules/admin/controllers/ArticleController.php:199
 #: application/modules/admin/controllers/VotingController.php:68
 #: application/modules/admin/controllers/VotingController.php:169
 #: application/modules/admin/controllers/VotingController.php:420
@@ -33,7 +33,7 @@ msgstr "Die Frage wurde erstellt."
 #: application/modules/admin/controllers/ConsultationController.php:166
 #: application/modules/admin/controllers/ConsultationController.php:347
 #: application/modules/admin/controllers/UserController.php:147
-#: application/modules/admin/controllers/InputController.php:153
+#: application/modules/admin/controllers/InputController.php:170
 #: application/modules/admin/controllers/VotingprepareController.php:123
 #: application/modules/admin/controllers/VotingprepareController.php:151
 #: application/modules/admin/controllers/VotingprepareController.php:183
@@ -43,13 +43,13 @@ msgstr ""
 
 #: application/modules/admin/controllers/QuestionController.php:91
 #: application/modules/admin/controllers/TagController.php:86
-#: application/modules/admin/controllers/ArticleController.php:197
+#: application/modules/admin/controllers/ArticleController.php:195
 #: application/modules/admin/controllers/VotingController.php:400
 #: application/modules/admin/controllers/VotingController.php:431
 #: application/modules/admin/controllers/FollowupController.php:90
 #: application/modules/admin/controllers/FollowupController.php:155
 #: application/modules/admin/controllers/UserController.php:142
-#: application/modules/admin/controllers/InputController.php:148
+#: application/modules/admin/controllers/InputController.php:165
 msgid "Changes saved."
 msgstr "Veränderungen wurden gespeichert."
 
@@ -70,44 +70,44 @@ msgstr "Die Email-Vorlage wurde gespeichert."
 msgid "Template has been deleted."
 msgstr "Die Vorlage wurde gelöscht."
 
-#: application/modules/admin/controllers/CloseController.php:66
+#: application/modules/admin/controllers/CloseController.php:61
 #, php-format
 msgid "%s sets of data have been deleted. The vote is now anonymised!"
 msgstr ""
 "Es wurden %s Datensätze gelöscht. Die Abstimmung ist somit anonymisiert!"
 
-#: application/modules/admin/controllers/CloseController.php:81
-#: application/modules/admin/controllers/CloseController.php:185
+#: application/modules/admin/controllers/CloseController.php:77
+#: application/modules/admin/controllers/CloseController.php:173
 msgid "Please wait: saving data."
 msgstr "Die Daten werden geschrieben, Bitte warten Sie!"
 
-#: application/modules/admin/controllers/CloseController.php:168
+#: application/modules/admin/controllers/CloseController.php:155
 #, php-format
 msgid "%s sets of data have been created/updated."
 msgstr "Es wurden %s Datensätze erstellt/aktualisiert."
 
-#: application/modules/admin/controllers/CloseController.php:181
-#: application/modules/admin/controllers/CloseController.php:214
+#: application/modules/admin/controllers/CloseController.php:169
+#: application/modules/admin/controllers/CloseController.php:198
 msgid "No group ID available"
 msgstr "Keine GruppenID vorhanden"
 
-#: application/modules/admin/controllers/CloseController.php:238
+#: application/modules/admin/controllers/CloseController.php:221
 msgid "Data was created/updated."
 msgstr "Es wurden Datensätze erstellt/aktualisiert."
 
-#: application/modules/admin/controllers/CloseController.php:250
+#: application/modules/admin/controllers/CloseController.php:234
 msgid "No consultation named."
 msgstr "Keine Beteiligungsrunde angegeben!"
 
-#: application/modules/admin/controllers/CloseController.php:333
+#: application/modules/admin/controllers/CloseController.php:309
 msgid "There is no consultation round with this ID."
 msgstr "Es gibt keine Beteiligungsrunde mit dieser ID."
 
-#: application/modules/admin/controllers/CloseController.php:339
+#: application/modules/admin/controllers/CloseController.php:315
 msgid "Id of consultation round invalid"
 msgstr "ID der Beteiligungsrunde ungültig"
 
-#: application/modules/admin/controllers/CloseController.php:357
+#: application/modules/admin/controllers/CloseController.php:333
 msgid "Invalid question id."
 msgstr "Frage-ID ungültig"
 
@@ -136,43 +136,47 @@ msgstr "Komponente wurde gespeichert."
 msgid "Component has been deleted."
 msgstr "Komponente wurde gelöscht."
 
-#: application/modules/admin/controllers/ArticleController.php:69
-#: application/modules/admin/controllers/ArticleController.php:162
+#: application/modules/admin/controllers/ArticleController.php:68
+#: application/modules/admin/controllers/ArticleController.php:160
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:14
 msgid "Please select…"
 msgstr "Bitte auswählen..."
 
-#: application/modules/admin/controllers/ArticleController.php:76
-#: application/modules/admin/controllers/ArticleController.php:169
+#: application/modules/admin/controllers/ArticleController.php:75
+#: application/modules/admin/controllers/ArticleController.php:167
 msgid "On subpages, reference name of parent page is used."
 msgstr ""
 "Unterseiten nutzen denselben Referenznamen wie die jeweilige Elternseite."
 
-#: application/modules/admin/controllers/ArticleController.php:87
-#: application/modules/admin/controllers/ArticleController.php:179
+#: application/modules/admin/controllers/ArticleController.php:86
+#: application/modules/admin/controllers/ArticleController.php:177
 msgid "None"
 msgstr "Keine"
 
-#: application/modules/admin/controllers/ArticleController.php:105
+#: application/modules/admin/controllers/ArticleController.php:104
 msgid "New article has been created."
 msgstr "Neuer Artikel wurde erstellt."
 
-#: application/modules/admin/controllers/ArticleController.php:107
+#: application/modules/admin/controllers/ArticleController.php:106
 msgid "Creating new article failed."
 msgstr "Die Erstellung des neuen Artikels konnte nicht durchgeführt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:247
+#: application/modules/admin/controllers/ArticleController.php:245
 msgid "Article has been deleted."
 msgstr "Artikel wurde gelöscht."
 
-#: application/modules/admin/controllers/ArticleController.php:249
+#: application/modules/admin/controllers/ArticleController.php:247
 msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
 msgstr ""
 "Artikel konnte nicht gelöscht werden: Wenn er Unter-Artikel hat, müssen "
 "diese zuerst entfernt werden."
+
+#: application/modules/admin/controllers/ArticleController.php:320
+msgid "Area:"
+msgstr "Bereich:"
 
 #: application/modules/admin/controllers/MailQueuedController.php:36
 msgid "All emails have been successfully sent."
@@ -260,7 +264,7 @@ msgstr "Datei ist nicht vorhanden."
 #: application/modules/admin/controllers/VotingController.php:20
 #: application/modules/admin/controllers/VotingController.php:390
 #: application/modules/admin/controllers/ConsultationController.php:213
-#: application/modules/admin/controllers/InputController.php:226
+#: application/modules/admin/controllers/InputController.php:243
 msgid "No consultation provided."
 msgstr "Keine Beteiligungsrunde angegeben!"
 
@@ -412,33 +416,33 @@ msgstr "Seite nicht gefunden!"
 msgid "User has been deleted."
 msgstr "Nutzer_in wurde gelöscht."
 
-#: application/modules/admin/controllers/InputController.php:150
+#: application/modules/admin/controllers/InputController.php:167
 msgid "Contribution update failed."
 msgstr "Aktualisierung des Beitrags ist gescheitert."
 
-#: application/modules/admin/controllers/InputController.php:191
+#: application/modules/admin/controllers/InputController.php:208
 #: application/modules/admin/controllers/VotingprepareController.php:80
 #, php-format
 msgid "%d contributions have been deleted."
 msgstr "%d Beiträge wurden gelöscht."
 
-#: application/modules/admin/controllers/InputController.php:196
+#: application/modules/admin/controllers/InputController.php:213
 #: application/modules/admin/controllers/VotingprepareController.php:71
 #, php-format
 msgid "%d contributions have been blocked."
 msgstr "%d Beiträge wurden geblockt."
 
-#: application/modules/admin/controllers/InputController.php:201
+#: application/modules/admin/controllers/InputController.php:218
 #, php-format
 msgid "%d contributions have been unblocked."
 msgstr "%d Beiträge wurden wieder freigegeben."
 
-#: application/modules/admin/controllers/InputController.php:207
+#: application/modules/admin/controllers/InputController.php:224
 #: application/modules/admin/controllers/VotingprepareController.php:97
 msgid "Contribution has been deleted."
 msgstr "Beitrag gelöscht."
 
-#: application/modules/admin/controllers/InputController.php:230
+#: application/modules/admin/controllers/InputController.php:247
 msgid "No question provided."
 msgstr "Keine Frage angegeben!"
 

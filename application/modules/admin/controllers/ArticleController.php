@@ -62,21 +62,20 @@ class Admin_ArticleController extends Zend_Controller_Action
             $consultation = null;
             $form = null;
             $consultationModel = new Model_Consultations();
-            $refNameModel = new Model_ArticleRefNames();
             $consultation = $consultationModel->getById($kid);
             $form = new Admin_Form_Article($kid);
             $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
             $multiOptions = array(0 => $this->view->translate('Please select…'));
             if ($kid > 0) {
                 // set multiOptions for ref_nm
-                foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
+                foreach ($this->getMultioptionsByType('b') as $key => $value) {
                     $multiOptions[$key] = $value;
                 }
                 $form->getElement('ref_nm')->setMultioptions($multiOptions);
                 $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
             } else {
                 // set multiOptions for ref_nm
-                foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
+                foreach ($this->getMultioptionsByType('g') as $key => $value) {
                     $multiOptions[$key] = $value;
                 }
                 $form->getElement('ref_nm')->setMultioptions($multiOptions);
@@ -152,7 +151,6 @@ class Admin_ArticleController extends Zend_Controller_Action
             $consultation = null;
             $form = null;
             $consultationModel = new Model_Consultations();
-            $refNameModel = new Model_ArticleRefNames();
             $consultation = $consultationModel->getById($kid);
             $aid = $this->getRequest()->getParam('aid', 0);
             if ($aid > 0) {
@@ -162,14 +160,14 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $multiOptions = array(0 => $this->view->translate('Please select…'));
                 if ($kid > 0) {
                     // set multiOptions for ref_nm
-                    foreach ($refNameModel->getMultioptionsByType('b') as $key => $value) {
+                    foreach ($this->getMultioptionsByType('b') as $key => $value) {
                         $multiOptions[$key] = $value;
                     }
                     $form->getElement('ref_nm')->setMultioptions($multiOptions);
                     $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
                 } else {
                     // set multiOptions for ref_nm
-                    foreach ($refNameModel->getMultioptionsByType('g') as $key => $value) {
+                    foreach ($this->getMultioptionsByType('g') as $key => $value) {
                         $multiOptions[$key] = $value;
                     }
                     $form->getElement('ref_nm')->setMultioptions($multiOptions);
@@ -303,5 +301,25 @@ class Admin_ArticleController extends Zend_Controller_Action
         }
 
         return $data;
+    }
+
+    /**
+     * Returns multiOptions for field ref_nm in Admin_Form_Article by type
+     * @return array
+     */
+    private function getMultioptionsByType($type = null)
+    {
+        $options = array();
+        if (is_null($type)) {
+            return $options;
+        }
+
+        $rowSet = (new Model_ArticleRefNames())->getAllByType($type);
+        foreach ($rowSet as $row) {
+            $options[$row->ref_nm] = $row->desc
+                . ' [' . Zend_Registry::get('Zend_Translate')->translate('Area:') . ' ' . $row->scope . ']';
+        }
+
+        return $options;
     }
 }
