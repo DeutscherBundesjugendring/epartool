@@ -231,38 +231,6 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Modifies the Select object to also select info about the number of inputs per question
-     * @param  Zend_Db_Select  $select     The select object to modify
-     * @param  string          $tableAlias The table alias to be used for the subquery
-     * @return Zend_Db_Select              The modified select
-     */
-    public function selectInputCountByQuestion(Zend_Db_Select $select, $tableAlias)
-    {
-        $select->joinLeft(
-            [$tableAlias => new Zend_Db_Expr('(SELECT qi AS tmpQi, COUNT(*) AS inputCountTotal FROM inpt GROUP BY qi)')],
-            $this->info(self::NAME) . '.qi = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.tmpQi'
-        );
-
-        return $select;
-    }
-
-    /**
-     * Modifies the Select object to also select info about the number of unread inputs per question
-     * @param  Zend_Db_Select  $select     The select object to modify
-     * @param  string          $tableAlias The table alias to be used for the subquery
-     * @return Zend_Db_Select              The modified select
-     */
-    public function selectUnreadInputCountByQuestion(Zend_Db_Select $select, $tableAlias)
-    {
-        $select->joinLeft(
-            [$tableAlias => new Zend_Db_Expr("(SELECT qi AS tmpQi, COUNT(*) AS inputCountUnread FROM inpt WHERE `block`='u' GROUP BY qi)")],
-            $this->info(self::NAME) . '.qi = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.tmpQi'
-        );
-
-        return $select;
-    }
-
-    /**
      * Returns snippets grouped by question
      * @param  integer $kid      The consultation identifier
      * @param  array   $wheres   An array of [condition => value] arrays to be used in Zend_Db_Select::where()

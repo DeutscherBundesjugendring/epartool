@@ -452,27 +452,4 @@ class Model_Users extends Dbjr_Db_Table_Abstract
 
         return $this->fetchAll($select)->toArray();
     }
-
-    /**
-     * Modifies the Select object to also select info about the number of inputs for each user
-     * @param  Zend_Db_Select  $select     The select object to modify
-     * @param  string          $tableAlias The table alias to be used for the subquery
-     * @return Zend_Db_Select              The modified select
-     */
-    public function selectInputCount(Zend_Db_Select $select, $tableAlias)
-    {
-        $inputModel = new Model_Inputs();
-        $select->join(
-            [
-                $tableAlias => new Zend_Db_Expr(
-                    '(SELECT qi, uid, COUNT(*) AS inputCount FROM '
-                    . $this->getAdapter()->quoteIdentifier($inputModel->info(Model_Inputs::NAME))
-                    . ' GROUP BY qi, uid)'
-                )
-            ],
-            $this->info(self::NAME) . '.uid = ' . $this->getAdapter()->quoteIdentifier($tableAlias) . '.uid'
-        );
-
-        return $select;
-    }
 }
