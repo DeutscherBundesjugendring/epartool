@@ -42,8 +42,7 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                             ->joinLeft (
                                 array('tags' => 'tgs'),
                                         '(tags.tg_nr= tagid.tg_nr)',
-                                        array('tags.tg_de AS tagname_de',
-                                                'tags.tg_en AS tagname_en')
+                                        array('tagname_de' => 'tags.tg_de')
                             )
                             ->where('tagid.tg_nr = ?', $tagId);
                       }
