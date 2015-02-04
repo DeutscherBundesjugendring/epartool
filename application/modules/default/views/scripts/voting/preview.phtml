@@ -50,7 +50,7 @@
             var points = $(this).attr('data');
 
             $.ajax({
-                url: "/voting/previewfeedback/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/" + statementId + "/points/" + points,
+                url: baseUrl + "/voting/previewfeedback/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/" + statementId + "/points/" + points,
                 type: "POST",
                 data: "format=html",
                 cache: false,
@@ -73,7 +73,7 @@
             var points = $(this).attr('data');
 
             $.ajax({
-                url: "/voting/previewfeedbackpi/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/" + statementId + "/points/" + points,
+                url: baseUrl + "/voting/previewfeedbackpi/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/id/" + statementId + "/points/" + points,
                 type: "POST",
                 data: "format=html",
                 cache: false,
