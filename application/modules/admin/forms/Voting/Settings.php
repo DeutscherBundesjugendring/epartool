@@ -46,7 +46,7 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
         $buttonImportantClicks = $this->createElement('number', 'btn_important_max');
         $buttonImportantClicks
             ->setLabel('Number of clicks allowed')
-            ->setAttrib('max', 3)
+            ->setAttrib('max', 9999)
             ->setAttrib('min', 1)
             ->addValidator('Int');
         $this->addElement($buttonImportantClicks);
