@@ -3,13 +3,17 @@
 
 .footer {
     font-size: @font-size-small;
+    text-align: center;
 
     &-contact {
-        text-align: center;
+        margin-top: @line-height-computed;
     }
 
     @media (min-width: @screen-sm-min) {
+        text-align: left;
+
         &-contact {
+            margin-top: 0;
             text-align: right;
         }
     }

@@ -8,6 +8,7 @@
 
         > img {
             &:extend(.img-responsive);
+            width: @header-logo-width;
         }
     }
 
@@ -40,6 +41,11 @@
                 }
             }
         }
+
+        &-description {
+            .center-block();
+            max-width: @line-length-base;
+        }
     }
 
     @media (min-width: @grid-float-breakpoint) {
@@ -66,7 +72,7 @@
         }
 
         &-widgets {
-            top: -@line-height-computed / 2;
+            top: -0.8em;
             z-index: 1;
             width: 220px;
             padding-left: @grid-gutter-width / 2;
@@ -89,7 +95,7 @@
         }
 
         &-widgets {
-            width: 260px;
+            width: 250px;
         }
 
         &-box {

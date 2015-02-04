@@ -6,4 +6,12 @@
     font-size: @font-size-large;
     text-transform: uppercase;
     text-decoration: none;
+
+    &.text-left {
+        text-align: left;
+    }
+
+    &-sm {
+        .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-large; 1; @border-radius-small);
+    }
 }

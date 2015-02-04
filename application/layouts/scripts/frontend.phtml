@@ -72,7 +72,7 @@
 
                 <!-- Search -->
                 <form class="form-search" method="get" action="<?=$this->baseUrl('index/search');?>">
-                    <div class="input-group">
+                    <div class="input-group input-group-sm">
                         <input type="text" class="form-control" name="q" placeholder="<?=$this->translate('Search…');?>" value="" />
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-primary">
@@ -103,7 +103,7 @@
                     </a>
                 </h1>
 
-                <p itemprop="description">
+                <p class="header-box-description" itemprop="description">
                     <?php echo Zend_Registry::get('systemconfig')->site->description->short?>
                 </p>
 
@@ -146,7 +146,6 @@
                     <a
                         href="<?=Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink;?>"
                         rel="license"
-                        class="logo"
                         target="_blank"
                         title="<?=$this->translate('Creative Commons license 4.0: attribution, non-commercial');?>"
                         >
