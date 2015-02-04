@@ -16,7 +16,7 @@
     </li>
 <?php endif; ?>
 
-<?php for ($i = $settings['btn_numbers']; $i >= 0; $i--): ?>
+<?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--): ?>
     <li<?php echo ($this->points != null && $this->points == $i) ? ' class="active"' : ''; ?>>
         <a href="#"
            rel="<?php echo $this->tid; ?>"
