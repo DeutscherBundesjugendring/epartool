@@ -43,8 +43,7 @@
         }
 
         &-description {
-            .center-block();
-            max-width: @line-length-base;
+            display: none;
         }
     }
 
@@ -80,8 +79,19 @@
         }
 
         &-box {
+            &.has-nav-list {
+                margin-bottom: 4 * @line-height-computed;
+                padding-bottom: 1px;
+            }
+
             &-title {
                 font-size: 4em;
+            }
+
+            &-description {
+                .center-block();
+                display: block;
+                max-width: @line-length-base;
             }
         }
     }

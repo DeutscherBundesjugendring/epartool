@@ -1,4 +1,5 @@
 <?php $lang = Zend_Registry::get('Zend_Locale')->getLanguage(); ?>
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 <!DOCTYPE html>
 <html lang="<?=$lang;?>" itemscope itemtype="http://schema.org/Event">
 <head>
@@ -91,11 +92,7 @@
             </div>
 
             <!-- Header box -->
-            <?php //=$this->partial('_partials/heroUnit.phtml', $this);?>
-
-            <?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
-
-            <div class="header-box<?=($controller == 'index' ? ' has-teaser' : '');?>">
+            <div class="header-box<?=($controller == 'index' ? ' has-nav-list' : '');?>">
 
                 <h1 class="header-box-title">
                     <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
@@ -107,9 +104,9 @@
                     <?php echo Zend_Registry::get('systemconfig')->site->description->short?>
                 </p>
 
+                <!-- Menu -->
                 <?php if ($controller == 'index'): ?>
-                    <!-- Teaser -->
-                    <?php //echo $this->teaser(); ?>
+                    <?=$this->teaser();?>
                 <?php endif; ?>
 
             </div>
