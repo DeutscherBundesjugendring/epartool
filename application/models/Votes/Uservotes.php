@@ -21,6 +21,12 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                                         		'votes.status AS status',  // add this line for dedugging votes counter
                                                 'votes.pimp AS pimp')
                             )
+                        ->join(
+                            ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                            'q.qi = inputs.qi',
+                            null
+                        )
+                        ->where('kid=?', $kid)
                         ->where('inputs.vot = ?', "y")
                         ->order('inputs.vot DESC')
                         ->group('inputs.tid');
