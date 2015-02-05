@@ -20,6 +20,22 @@
         margin-bottom: @line-height-computed;
     }
 
+    &-title {
+        margin-bottom: @line-height-computed;
+        font-size: 2em;
+        text-align: center;
+
+        > a {
+            text-decoration: none;
+            color: @header-box-title-color;
+
+            &:hover,
+            &:focus {
+                color: @header-box-title-hover-color;
+            }
+        }
+    }
+
     &-box {
         margin-bottom: @line-height-computed;
         padding: @line-height-computed;
@@ -40,10 +56,39 @@
                     color: @header-box-title-hover-color;
                 }
             }
+
+            &-small {
+                margin-bottom: 0;
+
+                > a {
+                    color: @header-box-title-small-color;
+                }
+            }
+        }
+
+        &-subtitle {
+            margin-bottom: @line-height-computed;
+            font-family: @font-family-black;
+            text-transform: uppercase;
+            color: @header-box-subtitle-color;
         }
 
         &-description {
             display: none;
+        }
+
+        &-image {
+            &:extend(.center-block);
+            margin-bottom: @line-height-computed;
+        }
+
+        &-home {
+            display: none;
+        }
+
+        &-share {
+            position: relative;
+            z-index: 1;
         }
     }
 
@@ -78,6 +123,10 @@
             padding-right: @grid-gutter-width / 2;
         }
 
+        &-title {
+            font-size: 3.25em;
+        }
+
         &-box {
             &.has-nav-list {
                 margin-bottom: 4 * @line-height-computed;
@@ -86,6 +135,14 @@
 
             &-title {
                 font-size: 4em;
+
+                &-small {
+                    font-size: 3em;
+                }
+            }
+
+            &-subtitle {
+                font-size: 1.8em;
             }
 
             &-description {
@@ -108,11 +165,54 @@
             width: 250px;
         }
 
+        &-title {
+            margin-top: -(1.5 * @line-height-computed);
+        }
+
         &-box {
+            position: relative;
             padding: 2 * @line-height-computed;
+
+            // Make place for other elements in header box.
+            &-title,
+            &-subtitle {
+                margin-left: 160px;
+                margin-right: 160px;
+            }
 
             &-title {
                 font-size: 6em;
+
+                &-small {
+                    font-size: 3.25em;
+                }
+            }
+
+            &-image {
+                position: absolute;
+                left: 1.5 * @line-height-computed;
+                top: 1.5 * @line-height-computed;
+            }
+
+            &-home {
+                position: absolute;
+                top: 1.5 * @line-height-computed;
+                right: @line-height-computed;
+                display: inline-block;
+                font-size: @font-size-small;
+                text-decoration: none;
+                color: @text-color;
+
+                &:hover,
+                &:focus {
+                    color: @link-hover-color;
+                }
+            }
+
+            &-share {
+                position: absolute;
+                top: 3 * @line-height-computed;
+                right: -(@line-height-computed / 2);
             }
         }
     }

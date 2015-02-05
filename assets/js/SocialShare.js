@@ -39,7 +39,7 @@
         }
 
         function _initEventlistener() {
-            $("a.share").on('click', toggleButtons);
+            $(".js-share").on('click', toggleButtons);
             $(document).on('click', 'a#facebookshare', function() {
                 var enc_uri = $(this).attr('href');
                 var popupurl = 'https://www.facebook.com/sharer/sharer.php?u='+enc_uri;

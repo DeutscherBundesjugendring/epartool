@@ -91,25 +91,75 @@
 
             </div>
 
-            <!-- Header box -->
-            <div class="header-box<?=($controller == 'index' ? ' has-nav-list' : '');?>">
+            <?php if (isset($this->consultation)): ?>
 
-                <h1 class="header-box-title">
+                <!-- Main title -->
+                <h1 class="header-title">
                     <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
                         <?=$this->translate('Participation');?>
                     </a>
                 </h1>
 
-                <p class="header-box-description" itemprop="description">
-                    <?php echo Zend_Registry::get('systemconfig')->site->description->short?>
-                </p>
+                <!-- Header box: Consultation -->
+                <div class="header-box">
 
-                <!-- Menu -->
-                <?php if ($controller == 'index'): ?>
-                    <?=$this->teaser();?>
-                <?php endif; ?>
+                    <h1 class="header-box-title header-box-title-small">
+                        <a href="<?=$this->baseUrl()?>/article/index/kid/<?=$this->consultation->kid;?>">
+                            <?=$this->escape($this->consultation->titl);?>
+                        </a>
+                    </h1>
+                    <h2 class="header-box-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
 
-            </div>
+                    <?php //=$this->ribbonImage($this->consultation);?>
+
+                    <img
+                        src="<?=$this->baseUrl()?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$this->consultation->kid?>/<?=$this->consultation->img_file?>"
+                        width="144"
+                        class="header-box-image"
+                        alt="<?=$this->consultation->img_expl?>"
+                        />
+
+                    <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="header-box-home" rel="home">
+                        <?=$this->translate('Home')?>… <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                    </a>
+
+                    <!-- Share -->
+                    <div class="header-box-share">
+                        <button
+                            type="button"
+                            class="btn btn-default btn-sm has-icon-lg dropdown-toggle js-share"
+                            >
+                            <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                            <?=$this->translate('Share');?>
+                        </button>
+                        <div id="sharebtn-holder" class="share-dropdown"></div>
+                    </div>
+
+                </div><!-- .header-box -->
+
+            <?php else: ?>
+
+                <!-- Header box: Homepage -->
+                <div class="header-box<?=($controller == 'index' ? ' has-nav-list' : '');?>">
+
+                    <h1 class="header-box-title">
+                        <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
+                            <?=$this->translate('Participation');?>
+                        </a>
+                    </h1>
+
+                    <p class="header-box-description" itemprop="description">
+                        <?php echo Zend_Registry::get('systemconfig')->site->description->short?>
+                    </p>
+
+                    <!-- Menu -->
+                    <?php if ($controller == 'index'): ?>
+                        <?=$this->teaser();?>
+                    <?php endif; ?>
+
+                </div><!-- .header-box -->
+
+            <?php endif; ?>
 
         </header>
 
@@ -215,6 +265,10 @@
 
 
 <!-- Scripts -->
+<script>
+    var baseUrl = '<?=$this->baseUrl()?>';
+</script>
+
 <?php if (APPLICATION_ENV === 'development'): ?>
     <script src="<?=$this->baseUrl('js/web.js');?>"></script>
 <?php else: ?>

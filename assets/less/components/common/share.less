@@ -1,0 +1,51 @@
+// Share
+
+
+.share-dropdown {
+    @dropdown-width: 140px;
+    @dropdown-bg: @gray-lighter;
+    position: absolute;
+    top: 2.5 * @line-height-computed;
+    left: 50%;
+    width: @dropdown-width;
+    margin-left: -(@dropdown-width / 2);
+    padding: @line-height-computed;
+    background-color: @dropdown-bg;
+    box-shadow: 0 .2em .8em fade(#000, 30%);
+
+    &:empty {
+        display: none;
+    }
+
+    &:before {
+        .caret-up(@dropdown-bg, 20px, 16px);
+        position: absolute;
+        left: 50%;
+        bottom: 100%;
+        margin-left: -10px;
+    }
+}
+
+// LEGACY CODE: Individual sharing buttons.
+.social-share-btn {
+    position: absolute;
+    height: 21px;
+    right: 0;
+}
+
+.social-share-btn.fb {
+    width: 110px;
+    top: -11px;
+    right: -25px;
+    overflow: hidden;
+}
+
+.social-share-btn.tw {
+    top: 20px;
+    width: 68px;
+}
+
+.social-share-btn.gp {
+    top: 52px;
+    width: 39px;
+}
