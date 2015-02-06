@@ -50,115 +50,106 @@ class Admin_UserController extends Zend_Controller_Action
 
     public function editAction()
     {
-        $uid = $this->getRequest()->getParam('uid', 0);
-        $this->view->uid = $uid;
-        if ($uid > 0) {
-            $userModel = new Model_Users();
-            $inputModel = new Model_Inputs();
-            $user = $userModel->getById($uid);
-            if (!empty($user)) {
-                    $form = new Admin_Form_User_Edit();
-                    $form->setAction($this->view->baseUrl() . '/admin/user/edit/uid/' . $uid);
-                    // remove transfer if user has no input
-                    $countInputByUser = $inputModel->getCountByUser($uid);
+        $uid = $this->getRequest()->getParam('uid');
+        $userModel = new Model_Users();
+        $user = $userModel->getById($uid);
 
-                    $consultationModel = new Model_Consultations();
-                    if ($countInputByUser < 1) {
-                        $transerElement = $form->removeElement('transfer');
-                    } else {
-                        // generate selects for every consultation
-                        $consultations = $consultationModel->getByUser($uid);
-                        foreach ($consultations as $consultation) {
-                            $url = '/admin/input/list-by-user/kid/' . $consultation["kid"] . '/uid/' . $uid;
-                            $label = $consultation['titl'] . ' (' . $consultation['count'] . ')';
-                            $form->addElement(
-                                'select',
-                                'transfer_' . $consultation["kid"],
-                                array(
-                                    'label' => 'Transfer contributions from: <a href="'
-                                        . $url . '" target="_blank">' . $label . '</a>',
-                                    'required' => false,
-                                    'options' => array(0 => '…')
-                                )
-                            );
-                            $transferOptions = array(0 => 'Please select');
-                            $users = $userModel->getAllConfirmed();
-                            foreach ($users As $tmpuser) {
-                                if (!empty($tmpuser['email'])) {
-                                    $transferOptions[$tmpuser['uid']] = $tmpuser['email'];
-                                }
-                            }
-                            $form->getElement('transfer_' . $consultation["kid"])->setMultioptions($transferOptions);
-                            $form
-                                ->getElement('transfer_' . $consultation["kid"])
-                                ->getDecorator('BootstrapStandard')
-                                ->setOption('escapeLabel', false);
-                        }
-                    }
-                    if ($this->getRequest()->isPost()) {
-                        $params = $this->getRequest()->getPost();
-                        if ($this->getRequest()->getPost('password')) {
-                            $form->getElement('password_confirm')->setRequired(true);
-                        }
-                        if ($form->isValid($params)) {
-                            $emailAddress =$form->getValue('email');
-                            if ($user->email != $emailAddress && $userModel->emailExists($emailAddress)) {
-                                $this->_flashMessenger->addMessage(
-                                    'User with this email address already exists.',
-                                    'error'
-                                );
-                                $params = $this->getRequest()->getPost();
-                                $params['email'] = $user->email;
-                                $form->populate($params);
-                            } else {
-                                $row = $userModel->find($uid)->current();
-                                $values = $form->getValues();
-                                unset($values['password_confirm']);
-                                if ($values['password']) {
-                                    $values['password'] = $userModel->hashPassword($values['password']);
-                                } else {
-                                    unset($values['password']);
-                                }
-                                $row->setFromArray($values);
-                                $row->save();
-
-                                // transfer userinputs
-                                $consultations = $consultationModel->getByUser($uid);
-                                foreach ($consultations AS $consultation) {
-                                    if (!empty($params['transfer_'. $consultation["kid"]])) {
-                                        $inputModel->transferInputs(
-                                            $uid,
-                                            $params['transfer_'. $consultation["kid"]],
-                                            $consultation["kid"]
-                                        );
-                                    }
-                                }
-
-                                $this->_flashMessenger->addMessage('Changes saved.', 'success');
-                                $this->_redirect('/admin/user/edit/uid/'.$uid);
-//                                $form->populate($this->getRequest()->getPost());
-                            }
-                        } else {
-                            $this->_flashMessenger->addMessage(
-                                'Form is not valid, please check the values entered.',
-                                'error'
-                            );
-                            $form->populate($this->getRequest()->getPost());
-                        }
-                    } else {
-                        $form->populate($user->toArray());
-                        $form->getElement('password')->setValue('');
-                    }
-            } else {
-                $this->_flashMessenger->addMessage('User not found.', 'error');
-                $this->_redirect('/admin/user/index');
-            }
-        } else {
+        if (!$user) {
             $this->_flashMessenger->addMessage('User not found.', 'error');
             $this->_redirect('/admin/user/index');
         }
 
+        $form = new Admin_Form_User_Edit();
+
+        if ($this->getRequest()->isPost()) {
+            $params = $this->getRequest()->getPost();
+            if ($form->isValid($params)) {
+                $values = $form->getValues();
+                if ($values['password']) {
+                    $values['password'] = $userModel->hashPassword($values['password']);
+                } else {
+                    unset($values['password']);
+                }
+                $user->setFromArray($values);
+                $user->save();
+                $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                $this->_redirect('/admin/user/edit/uid/' . $uid);
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Form is not valid, please check the values entered.',
+                    'error'
+                );
+            }
+        } else {
+            $form->populate($user->toArray());
+            $form->getElement('password')->setValue('');
+        }
+
         $this->view->user = $user;
+        $this->view->form = $form;
+    }
+
+    public function transferContributionsAction()
+    {
+        $uid = $this->getRequest()->getParam('uid');
+        $userModel = new Model_Users();
+        $user = $userModel->getById($uid);
+
+        if (!$user) {
+            $this->_flashMessenger->addMessage('User not found.', 'error');
+            $this->_redirect('/admin/user/index');
+        }
+
+        $inputModel = new Model_Inputs();
+        $countInputByUser = $inputModel->getCountByUser($uid);
+        $consultationModel = new Model_Consultations();
+        $form = new Admin_Form_User_TransferContributions();
+
+        $consultations = $consultationModel->getByUser($uid);
+        foreach ($consultations as $i => $consultation) {
+            $url = '/admin/input/list-by-user/kid/' . $consultation["kid"] . '/uid/' . $uid;
+            $label = $consultation['titl'] . ' (' . $consultation['count'] . ')';
+            $form->addElement(
+                'select',
+                'transfer_' . $consultation["kid"],
+                [
+                    'label' => 'Transfer contributions from: <a href="'
+                        . $url . '" target="_blank">' . $label . '</a>',
+                    'required' => false,
+                    'options' => array(0 => '…'),
+                    'order' => $i,
+                ]
+            );
+            $transferOptions = array(0 => 'Please select');
+            $users = $userModel->getAllConfirmed();
+            foreach ($users as $tmpuser) {
+                if (!empty($tmpuser['email'])) {
+                    $transferOptions[$tmpuser['uid']] = $tmpuser['email'];
+                }
+            }
+            $form->getElement('transfer_' . $consultation["kid"])->setMultioptions($transferOptions);
+            $form
+                ->getElement('transfer_' . $consultation["kid"])
+                ->getDecorator('BootstrapStandard')
+                ->setOption('escapeLabel', false);
+        }
+
+        if ($this->getRequest()->isPost()) {
+            $params = $this->getRequest()->getPost();
+            foreach ($consultations as $consultation) {
+                if (!empty($params['transfer_'. $consultation['kid']])) {
+                    $inputModel->transferInputs(
+                        $uid,
+                        $params['transfer_'. $consultation['kid']],
+                        $consultation['kid']
+                    );
+                }
+            }
+
+            $this->_flashMessenger->addMessage('Contributions transfered.', 'success');
+            $this->_redirect('/admin/user/transfer-contributions/uid/' . $uid);
+        }
+
         $this->view->form = $form;
     }
 

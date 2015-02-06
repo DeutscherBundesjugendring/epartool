@@ -131,6 +131,12 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->getValidator('Db_NoRecordExists')
             ->setExclude(['field' => 'uid', 'value' => $data['uid']]);
 
+        if ($data['password']) {
+            $this->getElement('password_confirm')->setRequired(true);
+        } else {
+            $this->getElement('password_confirm')->setRequired(false);
+        }
+
         return parent::isValid($data);
     }
 }
