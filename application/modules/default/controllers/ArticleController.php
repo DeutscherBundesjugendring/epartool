@@ -1,9 +1,5 @@
 <?php
-/**
- * ArticleController
- * @desc         Artikel zu Konsultationen
- * @author                Markus Hackel
- */
+
 class ArticleController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
@@ -12,18 +8,12 @@ class ArticleController extends Zend_Controller_Action
 
     protected $_staticPage = null;
 
-    /**
-     * Construct
-     * @see Zend_Controller_Action::init()
-     * @return void
-     */
     public function init()
     {
         $this->_flashMessenger = $this->getHelper('flashMessenger');
         $kid = $this->getRequest()->getParam('kid', 0);
         // Param 'ref' added through static route definition if applicable
         $ref = $this->getRequest()->getParam('ref');
-//        $route = $this->getFrontController()->getRouter()->getCurrentRouteName();
         if ($kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->find($kid)->current();
@@ -35,22 +25,15 @@ class ArticleController extends Zend_Controller_Action
             }
         } elseif (!empty($ref)) {
             $this->_staticPage = $ref;
-        } else {
-            // general info page (ref_nm 'static')
         }
     }
-    /**
-     * index
-     * @desc Übersicht der Artikel
-     * @return void
-     */
+
     public function indexAction()
     {
     }
 
     /**
      * Show single Article
-     *
      */
     public function showAction()
     {
