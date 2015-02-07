@@ -5,6 +5,8 @@
  */
 class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
 {
+    const ARTICLE_EXPLANATION = 'article_explanation';
+
     protected $_name = 'articles_refnm';
     protected $_primary = array('ref_nm', 'lng');
 

@@ -57,14 +57,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->addValidator('Int');
         $this->addElement($order);
 
-        $expl = $this->createElement('textarea', 'expl');
-        $expl
-            ->setLabel('Explanation')
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
-            ->setAttrib('rows', 5)
-            ->addFilter('HtmlEntities');
-        $this->addElement($expl);
-
         $explShort = $this->createElement('textarea', 'expl_short');
         $explShort
             ->setLabel('Explanation short')

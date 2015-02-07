@@ -56,7 +56,7 @@
         <nav role="navigation" class="consultation-nav">
             <ul class="nav nav-pills">
                 <li class="item-title">
-                    <a href="<?=$this->url(['controller' => 'article', 'action' => 'index', 'kid' => $consultation->kid]);?>">
+                    <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>">
                         <img
                             src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$consultation->kid . '/' . $consultation->img_file;?>"
                             width="144"
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=$this->url(['controller' => 'article', 'action' => 'index', 'kid' => $consultation->kid]);?>">
+                    <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>">
                         <h2><?=$consultation->phase_info ? $this->escape($consultation->phase_info) : $this->translate('Info')?></h2>
                     </a>
                 </li>

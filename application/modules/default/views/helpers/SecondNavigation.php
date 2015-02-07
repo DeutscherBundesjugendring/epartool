@@ -21,7 +21,7 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
 
         $items = array(
             'article' => array(
-                'url' => $this->view->baseUrl() . '/article/index/kid/' . $con->kid,
+                'url' => $this->view->baseUrl() . '/article/show/kid/' . $con->kid,
                 'text' => '<h2>' . ($con->phase_info ? $this->view->escape($con->phase_info) : $this->view->translate('Info')) . '</h2>',
                 'showBubble' => false
             ),
