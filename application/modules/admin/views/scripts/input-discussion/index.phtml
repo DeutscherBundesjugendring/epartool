@@ -39,9 +39,21 @@
                                             <span id="<?=$this->escape($contrib->id);?>"><?=$this->escape($contrib->id);?></span>
                                         </td>
                                         <td class="table-cell-top">
-                                            <p>
-                                                <?=$this->escape($contrib->body);?>
-                                            </p>
+                                            <?php if ($contrib->body): ?>
+                                                <p><?=$this->escape($contrib->body);?></p>
+                                            <?php endif;?>
+                                            <?php if ($contrib->video_id): ?>
+                                                <iframe
+                                                    width="560"
+                                                    height="315"
+                                                    src="<?=sprintf(
+                                                        Zend_Registry::get('systemconfig')->video->url->format->embed,
+                                                        $this->escape($contrib->video_id)
+                                                    );?>"
+                                                    frameborder="0"
+                                                    allowfullscreen
+                                                ></iframe>
+                                            <?php endif;?>
                                             <p>
                                                 <small>
                                                     <?=$this->formatDate($contrib->time_created);?>

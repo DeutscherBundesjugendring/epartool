@@ -638,7 +638,8 @@ class InputController extends Zend_Controller_Action
 
                         $contribId = $inputDiscussModel->insert(
                             [
-                                'body' => $formData['body'],
+                                'body' => $formData['body'] ? $formData['body'] : null,
+                                'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
                                 'user_id' => $userId,
                                 'is_user_confirmed' => $auth->hasIdentity() ? true : false,
                                 'is_visible' => true,
@@ -665,6 +666,10 @@ class InputController extends Zend_Controller_Action
                                         'to_name' => $user->name ? $user->name : $user->email,
                                         'to_email' => $user->email,
                                         'contribution_text' => $formData['body'],
+                                        'video_url' => sprintf(
+                                            Zend_Registry::get('systemconfig')->video->url->format->link,
+                                            $formData['video_id']
+                                        ),
                                         'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                                     )
                                 )
@@ -698,7 +703,7 @@ class InputController extends Zend_Controller_Action
                 ->select()
                 ->from(
                     ['i' => $inputDiscussModel->info(Model_InputDiscussion::NAME)],
-                    ['user_id', 'time_created', 'body', 'is_visible']
+                    ['user_id', 'time_created', 'body', 'is_visible', 'video_id']
                 )
                 ->where('input_id=?', $inputId)
                 ->where('is_user_confirmed=?', 1)

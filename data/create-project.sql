@@ -265,6 +265,7 @@ Eure Koordinierungsstelle'
 <p>Please confirm your input discussion contribution and your new user account:</p>
 <p>Your contribution:</p>
 <p>{{contribution_text}}</p>
+<p>{{video_url}}</p>
 <p>{{confirmation_url}}</p>
 <p>Mit freundlichen Grüßen<br />
 Eure Koordinierungsstelle</p>',
@@ -272,6 +273,8 @@ Eure Koordinierungsstelle</p>',
 Please confirm your input discussion contribution and your new user account:
 Your contribution:
 {{contribution_text}}
+
+{{video_url}}
 
 {{confirmation_url}}
 Mit freundlichen Grüßen
@@ -286,6 +289,7 @@ Eure Koordinierungsstelle'
 <p>Please confirm your input discussion contribution:</p>
 <p>Your contribution:</p>
 <p>{{contribution_text}}</p>
+<p>{{video_url}}</p>
 <p>{{confirmation_url}}</p>
 <p>Mit freundlichen Grüßen<br />
 Eure Koordinierungsstelle</p>',
@@ -293,6 +297,8 @@ Eure Koordinierungsstelle</p>',
 Please confirm your input discussion contribution:
 Your contribution:
 {{contribution_text}}
+
+{{video_url}}
 
 {{confirmation_url}}
 Mit freundlichen Grüßen
@@ -650,6 +656,10 @@ VALUES
         (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_contrib_confirmation_new_user' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
     ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_contrib_confirmation_new_user' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='video_url')
+    ),
 
 
     (
@@ -667,6 +677,10 @@ VALUES
     (
         (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_contrib_confirmation' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_contrib_confirmation' AND `project_code`=@project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='video_url')
     ),
 
 
