@@ -8,23 +8,11 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract
 {
     public function login()
     {
-        $html = '';
-        $auth = Zend_Auth::getInstance();
-        if (!$auth->hasIdentity()) {
-            $html = '<div class="dropdown">'
-                . '<a href="#" role="button" class="btn btn-default btn-sm btn-block text-left" id="loginDropdown" data-toggle="dropdown">' . $this->view->translate('Login') . '</a>';
-            $form = new Default_Form_Login();
-            $html.= '<div class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="loginDropdown">'
-                . '<h3 id="loginLabel">' . $this->view->translate('Login') . '</h3>'
-                . $form
-                . '<hr />'
-                . '<p><a href="'
-                . $this->view->url(array('controller' => 'user', 'action' => 'passwordrecover'), 'default', true)
-                . '">' . $this->view->translate('Forgot password?') . '</a></p>'
-                . '</div>'
-                . '</div><!-- .dropdown -->';
+        if (!Zend_Auth::getInstance()->hasIdentity()) {
+            return $this->view->partial(
+                '_helpers/user-box.phtml',
+                ['form' => new Default_Form_Login()]
+            );
         }
-
-        return $html;
     }
 }

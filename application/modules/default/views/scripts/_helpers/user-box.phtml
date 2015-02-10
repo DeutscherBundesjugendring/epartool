@@ -1,0 +1,16 @@
+<div class="dropdown hidden-print">
+    <a href="#" role="button" class="btn btn-default btn-sm btn-block text-left" id="loginDropdown" data-toggle="dropdown">
+        <?=$this->translate('Login');?>
+    </a>
+
+    <div class="login dropdown-menu pull-right" role="menu" aria-labelledby="loginDropdown">
+        <h3 id="loginLabel"><?=$this->translate('Login');?></h3>
+        <?=$this->form;?>
+        <hr />
+        <p>
+            <a href="<?=$this->url(array('controller' => 'user', 'action' => 'passwordrecover'), 'default', true);?>">
+                <?=$this->translate('Forgot password?');?>
+            </a>
+        </p>
+    </div>
+</div><!-- .dropdown -->
