@@ -1,106 +1,104 @@
 <?php echo $this->secondNavigation('follow-up') ?>
 
-<div class="content-holder">
-    <section class="main-content">
+<div class="main-content">
 
-        <div class="well well-large well-alt" id="followup">
-            <div class="followuphead">
-                <a
-                    href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
-                    class="back-link"
-                    title="<?=$this->translate('Back to overview of Reactions & Impact')?>"
-                >
-                    <div class="sprite question-mark"><p>?</p></div>
-                    <h3 class="question-h3">
-                        <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.')?>
+    <div class="well well-large well-alt" id="followup">
+        <div class="followuphead">
+            <a
+                href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
+                class="back-link"
+                title="<?=$this->translate('Back to overview of Reactions & Impact')?>"
+            >
+                <div class="sprite question-mark"><p>?</p></div>
+                <h3 class="question-h3">
+                    <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.')?>
+                </h3>
+            </a>
+        </div>
+        <h2 class="well-title text-center"><?=$this->translate('Reactions & Impact')?></h2>
+        <div class="wrapper">
+            <div class="col">
+                <div class="timeline-box">
+                    <h3>
+                        <a
+                            class="whitelink"
+                            title="<?=$this->translate('Back to overview of contributions sorted by questions')?>"
+                            href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"
+                        >
+                            <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
+                        </a>
                     </h3>
-                </a>
-            </div>
-            <h2 class="well-title text-center"><?=$this->translate('Reactions & Impact')?></h2>
-            <div class="wrapper">
-                <div class="col">
-                    <div class="timeline-box">
-                        <h3>
-                            <a
-                                class="whitelink"
-                                title="<?=$this->translate('Back to overview of contributions sorted by questions')?>"
-                                href="<?php echo $this->url(array('action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null)) ?>"
-                            >
-                                <?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
-                            </a>
-                        </h3>
-                        <div class="content">
-                            <p><?php echo $this->input['thes']; ?></p>
-                            <?php if (!empty($this->input['expl'])): ?>
-                                <div class="explbutton"><i class="icon-angle-down"></i></div>
-                                <div class="toggleexpl">
-                                    <p><?php echo $this->input['expl']; ?></p>
-                                </div>
-
-                            <?php endif; ?>
-                            <?php if ($this->input['vot'] == 'y'): ?>
-                                <p class="score"><?=$this->translate('Result of voting: X. position')?></p>
-                            <?php endif; ?>
-                        </div>
-                        <?php if ($this->relatedCount): ?>
-                            <div class="timeline-countlink sprite">
-                                <a
-                                    class="ajaxclick reset"
-                                    href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"
-                                >
-                                    <?php echo $this->relatedCount; ?>
-                                </a>
-                                <!--<p><?php echo count($this->relInput); ?></p>-->
+                    <div class="content">
+                        <p><?php echo $this->input['thes']; ?></p>
+                        <?php if (!empty($this->input['expl'])): ?>
+                            <div class="explbutton"><i class="icon-angle-down"></i></div>
+                            <div class="toggleexpl">
+                                <p><?php echo $this->input['expl']; ?></p>
                             </div>
+
+                        <?php endif; ?>
+                        <?php if ($this->input['vot'] == 'y'): ?>
+                            <p class="score"><?=$this->translate('Result of voting: X. position')?></p>
                         <?php endif; ?>
                     </div>
-                </div>
-
-                <div class="col">
-                    <?php if (count($this->relInput)): ?>
-                        <?php foreach ($this->relInput as $relInput): ?>
-                            <div class="timeline-box">
-                                <div class="content">
-                                    <p><?php echo $relInput['thes']; ?></p>
-                                    <?php if ($relInput['vot'] == 'y'): ?>
-                                        <p class="score"><?=$this->translate('Result of voting: X. position')?></p>
-                                    <?php endif?>
-                                </div>
-                                <?php if ($relInput['relFowupCount'] != 0): ?>
-                                    <div class="timeline-countlink sprite">
-                                        <a
-                                            class="ajaxclick"
-                                            href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"
-                                        >
-                                            <?php echo $relInput['relFowupCount']; ?>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-
-                    <?php if (count($this->relSnippets)): ?>
-                        <?php foreach ($this->relSnippets as $snippet): ?>
-                            <?=$this->partial(
-                                '_partials/followup-snippet-box.phtml',
-                                [
-                                    'snippet' => $snippet,
-                                    'followPathLink' => true,
-                                    'relFollowupCount' => true,
-                                    'kid' => $this->kid
-                                ]
-                            ) ?>
-                        <?php endforeach; ?>
+                    <?php if ($this->relatedCount): ?>
+                        <div class="timeline-countlink sprite">
+                            <a
+                                class="ajaxclick reset"
+                                href="<?php echo $this->url(array('action' => 'show', 'tid' => $this->input['tid'], 'page' => null)) ?>/foreset/1"
+                            >
+                                <?php echo $this->relatedCount; ?>
+                            </a>
+                            <!--<p><?php echo count($this->relInput); ?></p>-->
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
 
-            <div id="followuploader"><?=$this->translate('Loading…')?></div>
+            <div class="col">
+                <?php if (count($this->relInput)): ?>
+                    <?php foreach ($this->relInput as $relInput): ?>
+                        <div class="timeline-box">
+                            <div class="content">
+                                <p><?php echo $relInput['thes']; ?></p>
+                                <?php if ($relInput['vot'] == 'y'): ?>
+                                    <p class="score"><?=$this->translate('Result of voting: X. position')?></p>
+                                <?php endif?>
+                            </div>
+                            <?php if ($relInput['relFowupCount'] != 0): ?>
+                                <div class="timeline-countlink sprite">
+                                    <a
+                                        class="ajaxclick"
+                                        href="<?php echo $this->url(array('action' => 'json', 'tid' => $relInput['tid'], 'page' => null)) ?>"
+                                    >
+                                        <?php echo $relInput['relFowupCount']; ?>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <?php if (count($this->relSnippets)): ?>
+                    <?php foreach ($this->relSnippets as $snippet): ?>
+                        <?=$this->partial(
+                            '_partials/followup-snippet-box.phtml',
+                            [
+                                'snippet' => $snippet,
+                                'followPathLink' => true,
+                                'relFollowupCount' => true,
+                                'kid' => $this->kid
+                            ]
+                        ) ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
 
-    </section>
-</div><!-- .content-holder -->
+        <div id="followuploader"><?=$this->translate('Loading…')?></div>
+    </div>
+
+</div><!-- .main-content -->
 
 <script type="text/javascript">
     $(document).ready(function() {

@@ -1,13 +1,13 @@
 <?php echo $this->secondNavigation('article') ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
+        <div class="sidebar-left">
 
             <?php echo $this->articleNavigation(null, 'info'); ?>
 
-        </aside>
-        <section class="main-content span6">
+        </div>
+        <div class="content">
 
             <article class="article article-detail">
                 <?php echo html_entity_decode($this->consultation->expl, ENT_COMPAT, 'UTF-8'); ?>
@@ -15,11 +15,8 @@
 
             <?php echo $this->render('_partials/printLink.phtml') ?>
 
-        </section>
-        <aside class="span3">
-
-        </aside>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
+</div><!-- .main-content -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>

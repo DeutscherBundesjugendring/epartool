@@ -29,13 +29,15 @@
 
 <?php echo $this->secondNavigation('input'); ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->questionNavigation($this->question['qi']); ?>
-        </aside>
+        <div class="sidebar-left">
 
-        <section class="main-content span9">
+            <?php echo $this->questionNavigation($this->question['qi']); ?>
+
+        </div>
+        <div class="content">
+
             <?php if (isset($this->tag) && !empty($this->tag)): ?>
                 <?php if ($this->numberInputs > 0):?>
                     <h3><?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
@@ -148,9 +150,9 @@
 
             <?php echo $this->render('_partials/printLink.phtml') ?>
 
-        </section>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
+</div><!-- .main-content -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
 

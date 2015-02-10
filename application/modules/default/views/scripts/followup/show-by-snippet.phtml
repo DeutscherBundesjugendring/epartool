@@ -1,73 +1,71 @@
 <?php echo $this->secondNavigation('follow-up') ?>
 
-<div class="content-holder">
-    <section class="main-content">
+<div class="main-content">
 
-        <div class="well well-large well-alt" id="followup">
-            <div class="followuphead">
-                <a
-                    href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
-                    class="back-link"
-                    title="<?=$this->translate('Back to overview of Reactions & Impact')?>"
-                >
-                    <div class="sprite question-mark"><p>?</p></div>
-                    <h3 class="question-h3">
-                        <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.');?>
-                    </h3>
-                </a>
-            </div>
+    <div class="well well-large well-alt" id="followup">
+        <div class="followuphead">
+            <a
+                href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
+                class="back-link"
+                title="<?=$this->translate('Back to overview of Reactions & Impact')?>"
+            >
+                <div class="sprite question-mark"><p>?</p></div>
+                <h3 class="question-h3">
+                    <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.');?>
+                </h3>
+            </a>
+        </div>
 
-            <h2 class="well-title text-center"><?=$this->translate('Reactions & Impact')?></h2>
-            <div class="wrapper">
-                <div data-id="0" class="col">
-                    <?php if (count($this->reltothis_inputs)): ?>
-                            <?php foreach ($this->reltothis_inputs as $relInput): ?>
-                                <div class="timeline-box">
-                                    <div class="content">
-                                        <p><?php echo $relInput['thes']; ?></p>
-                                        <p class="score">Ergebnis der Abstimmung: X. Rang</p>
-                                    </div>
-                                    <?php if ($relInput['relFowupCount'] != 0): ?>
-                                        <div class="timeline-countlink sprite">
-                                            <a class="ajaxclick"
-                                               href="<?=$this->url(['action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null]) ?>"
-                                            >
-                                                <?php echo $relInput['relFowupCount']; ?>
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
+        <h2 class="well-title text-center"><?=$this->translate('Reactions & Impact')?></h2>
+        <div class="wrapper">
+            <div data-id="0" class="col">
+                <?php if (count($this->reltothis_inputs)): ?>
+                        <?php foreach ($this->reltothis_inputs as $relInput): ?>
+                            <div class="timeline-box">
+                                <div class="content">
+                                    <p><?php echo $relInput['thes']; ?></p>
+                                    <p class="score">Ergebnis der Abstimmung: X. Rang</p>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    <?php foreach ($this->reltothis_snippets as $snippet): ?>
-                        <?=$this->partial(
-                            '_partials/followup-snippet-box.phtml',
-                            [
-                                'snippet' => $snippet,
-                                'followPathLink' => true,
-                                'relFollowupCount' => true,
-                                'kid' => $$this->kid
-                            ]
-                        ) ?>
-                    <?php endforeach; ?>
-                </div>
-                <div data-id="2" class="col" id="el-1">
+                                <?php if ($relInput['relFowupCount'] != 0): ?>
+                                    <div class="timeline-countlink sprite">
+                                        <a class="ajaxclick"
+                                           href="<?=$this->url(['action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null]) ?>"
+                                        >
+                                            <?php echo $relInput['relFowupCount']; ?>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <?php foreach ($this->reltothis_snippets as $snippet): ?>
                     <?=$this->partial(
                         '_partials/followup-snippet-box.phtml',
                         [
+                            'snippet' => $snippet,
                             'followPathLink' => true,
                             'relFollowupCount' => true,
-                            'kid' => $this->kid
+                            'kid' => $$this->kid
                         ]
                     ) ?>
-                </div>
-
+                <?php endforeach; ?>
             </div>
-            <div id="followuploader"><?=$this->translate('Loading…')?></div>
-        </div>
+            <div data-id="2" class="col" id="el-1">
+                <?=$this->partial(
+                    '_partials/followup-snippet-box.phtml',
+                    [
+                        'followPathLink' => true,
+                        'relFollowupCount' => true,
+                        'kid' => $this->kid
+                    ]
+                ) ?>
+            </div>
 
-    </section>
-</div><!-- .content-holder -->
+        </div>
+        <div id="followuploader"><?=$this->translate('Loading…')?></div>
+    </div>
+
+</div><!-- .main-content -->
 
 <script type="text/javascript">
     $(document).ready(function() {

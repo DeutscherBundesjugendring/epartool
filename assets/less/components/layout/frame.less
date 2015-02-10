@@ -3,13 +3,13 @@
 
 .frame {
     margin-top: @line-height-computed;
-    padding: @line-height-computed / 2;
+    padding: (@line-height-computed / 2) (@line-height-computed / 2) 0;
     color: @frame-text-color;
     background-color: @frame-bg;
     box-shadow: 0 8px 16px fade(#000, 40%);
 
     @media (min-width: @screen-sm-min) {
         position: relative;
-        padding: @line-height-computed;
+        padding: @line-height-computed @line-height-computed 0;
     }
 }

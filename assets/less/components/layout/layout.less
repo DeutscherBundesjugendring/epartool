@@ -1,0 +1,27 @@
+// Layout
+
+
+.sidebar-left,
+.sidebar-right {
+    .make-md-column(3);
+
+    @media (min-width: @screen-md-min) {
+        width: @sidebar-width;
+    }
+}
+
+.content {
+    .make-md-column(9);
+
+    &-narrow {
+        .make-md-column(6);
+    }
+
+    @media (min-width: @screen-md-min) {
+        width: 100% - @sidebar-width;
+
+        &-narrow {
+            width: 100% - 2 * @sidebar-width;
+        }
+    }
+}

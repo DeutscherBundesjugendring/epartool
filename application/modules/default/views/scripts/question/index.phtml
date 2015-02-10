@@ -9,53 +9,46 @@
 
 <?php echo $this->secondNavigation('question') ?>
 
-<div class="content-holder">
-    <div class="row">
-        <aside class="span3">
+<div class="main-content">
 
-        </aside>
-        <div class="main-content span9">
+    <h1><?=$this->translate('All questions')?></h1>
 
-            <h1><?=$this->translate('All questions')?></h1>
+    <?php foreach ($this->questions as $question): ?>
+        <article class="article article-preview">
+            <?php if (!empty($question['nr'])): ?>
+                <h2 class="alt numbered heading-with-cta">
+                    <span class="numbered-number pull-left"><?= $question['nr'] ?></span>
+                    <span class="numbered-title"><?= $question['q'] ?></span>
+                </h2>
+            <?php else: ?>
+                <h2 class="alt"><?= $question['q'] ?></h2>
+            <?php endif; ?>
+            <?php if ($linkHeadlineToInputs): ?>
+                <a
+                    href="<?=$this->url(
+                        array(
+                            'controller' => 'input',
+                            'action' => 'show',
+                            'kid' => $this->consultation->kid,
+                            'qid' => $question['qi'],
+                           )
+                   );?>"
+                   class="btn edit pull-right hidden-print"
+                   title="<?=$this->translate('Click here to answer')?>"
+                >
+                    <i class="icon-edit-alt"></i> <?=$this->translate('Write a contribution')?>
+                </a>
+            <?php endif; ?>
+            <div class="row-fluid">
+                <div class="span9">
+                    <?php echo $question['q_xpl'] ?>
+                </div>
+            </div>
+        </article>
+    <?php endforeach; ?>
 
-            <?php foreach ($this->questions as $question): ?>
-                <article class="article article-preview">
-                    <?php if (!empty($question['nr'])): ?>
-                        <h2 class="alt numbered heading-with-cta">
-                            <span class="numbered-number pull-left"><?= $question['nr'] ?></span>
-                            <span class="numbered-title"><?= $question['q'] ?></span>
-                        </h2>
-                    <?php else: ?>
-                        <h2 class="alt"><?= $question['q'] ?></h2>
-                    <?php endif; ?>
-                    <?php if ($linkHeadlineToInputs): ?>
-                        <a
-                            href="<?=$this->url(
-                                array(
-                                    'controller' => 'input',
-                                    'action' => 'show',
-                                    'kid' => $this->consultation->kid,
-                                    'qid' => $question['qi'],
-                                   )
-                           );?>"
-                           class="btn edit pull-right hidden-print"
-                           title="<?=$this->translate('Click here to answer')?>"
-                        >
-                            <i class="icon-edit-alt"></i> <?=$this->translate('Write a contribution')?>
-                        </a>
-                    <?php endif; ?>
-                    <div class="row-fluid">
-                        <div class="span9">
-                            <?php echo $question['q_xpl'] ?>
-                        </div>
-                    </div>
-                </article>
-            <?php endforeach; ?>
+    <?php echo $this->render('_partials/printLink.phtml') ?>
 
-            <?php echo $this->render('_partials/printLink.phtml') ?>
-
-        </div>
-    </div><!-- .row -->
-</div><!-- .content-holder -->
+</div><!-- .main-content -->
 
 <?php echo $this->render('_partials/topLink.phtml') ?>
