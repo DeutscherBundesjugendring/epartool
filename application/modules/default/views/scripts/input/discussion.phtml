@@ -2,7 +2,7 @@
 <?php echo $this->secondNavigation('input') ?>
 
 <div class="main-content">
-    <div class="row-fluid">
+    <div class="row">
         <div class="span10 offset1">
 
             <h1><?=$this->translate('Contribution Discussion');?></h1>
@@ -55,9 +55,8 @@
             <?=$this->subscriptionForm;?>
 
         </div>
-    </div>
+    </div><!-- .row -->
 
-    <?php echo $this->render('_partials/printLink.phtml') ?>
-</div>
+    <?=$this->render('_partials/pageLinks.phtml');?>
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+</div><!-- .main-content -->

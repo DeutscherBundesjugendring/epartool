@@ -1,21 +1,13 @@
-<!-- Content start -->
-
 <div class="main-content">
-    <div class="row">
-        <div class="span9">
 
-            <h1>Uups</h1>
-            <p><?php echo $this->message; ?></p>
+    <h1>Uups</h1>
+    <p><?php echo $this->message; ?></p>
 
-            <?php if ('development' == $this->environment || 'development2' == $this->environment || 'development_karsten' == $this->environment) : ?>
-                <h2><?=$this->translate('Exception:')?></h2>
-                <p><b><?=$this->translate('Message:')?></b> <?php echo $this->exception->getMessage(); ?></p>
-                <h2><?=$this->translate('Stack trace:')?></h2>
-                <pre><?php echo $this->exception->getTraceAsString(); ?></pre>
-            <?php endif; ?>
+    <?php if ('development' == $this->environment || 'development2' == $this->environment || 'development_karsten' == $this->environment) : ?>
+        <h2><?=$this->translate('Exception:')?></h2>
+        <p><b><?=$this->translate('Message:')?></b> <?php echo $this->exception->getMessage(); ?></p>
+        <h2><?=$this->translate('Stack trace:')?></h2>
+        <pre><?php echo $this->exception->getTraceAsString(); ?></pre>
+    <?php endif; ?>
 
-        </div>
-    </div><!-- .row -->
 </div><!-- .main-content -->
-
-<!-- Content end -->

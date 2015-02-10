@@ -69,12 +69,11 @@
 
         &-subtitle {
             margin-bottom: @line-height-computed;
-            font-family: @font-family-black;
-            text-transform: uppercase;
             color: @header-box-subtitle-color;
         }
 
-        &-description {
+        &-description,
+        &-home {
             display: none;
         }
 
@@ -83,10 +82,6 @@
             &:extend(.img-responsive);
             width: @header-box-image-width;
             margin-bottom: @line-height-computed;
-        }
-
-        &-home {
-            display: none;
         }
 
         &-share {
@@ -194,16 +189,6 @@
                 float: right;
                 margin: -1em -@line-height-computed (@line-height-computed / 2);
                 font-size: @font-size-small;
-
-                > a {
-                    text-decoration: none;
-                    color: @text-color;
-
-                    &:hover,
-                    &:focus {
-                        color: @link-hover-color;
-                    }
-                }
             }
 
             &-share {

@@ -14,8 +14,6 @@
                 <p><?php echo $this->question['q_xpl'] ?></p>
             </article>
 
-            <?php echo $this->render('_partials/printLink.phtml') ?>
-
         </div>
         <aside class="sidebar-right">
 
@@ -23,6 +21,7 @@
 
         </aside>
     </div><!-- .row -->
-</div><!-- .main-content -->
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
+
+</div><!-- .main-content -->
