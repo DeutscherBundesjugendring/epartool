@@ -58,7 +58,8 @@
             }
 
             &-small {
-                margin-bottom: 0;
+                margin-bottom: @line-height-computed / 2;
+                line-height: 1;
 
                 > a {
                     color: @header-box-title-small-color;
@@ -79,6 +80,8 @@
 
         &-image {
             &:extend(.center-block);
+            &:extend(.img-responsive);
+            width: @header-box-image-width;
             margin-bottom: @line-height-computed;
         }
 
@@ -147,7 +150,7 @@
 
             &-description {
                 .center-block();
-                display: block;
+                display: block; // reveal
                 max-width: @line-length-base;
             }
         }
@@ -170,49 +173,43 @@
         }
 
         &-box {
-            position: relative;
             padding: 2 * @line-height-computed;
-
-            // Make place for other elements in header box.
-            &-title,
-            &-subtitle {
-                margin-left: 160px;
-                margin-right: 160px;
-            }
 
             &-title {
                 font-size: 6em;
 
                 &-small {
+                    margin-top: .25em;
                     font-size: 3.25em;
                 }
             }
 
             &-image {
-                position: absolute;
-                left: 1.5 * @line-height-computed;
-                top: 1.5 * @line-height-computed;
+                float: left;
+                margin-bottom: 0;
             }
 
             &-home {
-                position: absolute;
-                top: 1.5 * @line-height-computed;
-                right: @line-height-computed;
-                display: inline-block;
+                display: block; // reveal
+                float: right;
+                margin: -1em -@line-height-computed (@line-height-computed / 2);
                 font-size: @font-size-small;
-                text-decoration: none;
-                color: @text-color;
 
-                &:hover,
-                &:focus {
-                    color: @link-hover-color;
+                > a {
+                    text-decoration: none;
+                    color: @text-color;
+
+                    &:hover,
+                    &:focus {
+                        color: @link-hover-color;
+                    }
                 }
             }
 
             &-share {
-                position: absolute;
-                top: 3 * @line-height-computed;
-                right: -(@line-height-computed / 2);
+                float: right;
+                clear: right;
+                margin-right: -(2.5 * @line-height-computed);
             }
         }
     }

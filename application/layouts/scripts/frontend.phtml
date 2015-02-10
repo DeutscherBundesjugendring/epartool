@@ -72,7 +72,7 @@
             <div class="header-widgets">
 
                 <!-- Search -->
-                <form class="form-search" method="get" action="<?=$this->baseUrl('index/search');?>">
+                <form class="form-search" method="get" action="<?=$this->url(['controller' => 'index', 'action' => 'search'], 'default', true);?>">
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control" name="q" placeholder="<?=$this->translate('Search…');?>" value="" />
                         <span class="input-group-btn">
@@ -102,45 +102,60 @@
 
                 <!-- Header box: Consultation -->
                 <div class="header-box">
+                    <div class="row">
+                        <div class="col-md-6 col-md-push-3">
 
-                    <h1 class="header-box-title header-box-title-small">
-                        <a href="<?=$this->baseUrl()?>/article/index/kid/<?=$this->consultation->kid;?>">
-                            <?=$this->escape($this->consultation->titl);?>
-                        </a>
-                    </h1>
-                    <h2 class="header-box-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
+                            <!-- Title -->
+                            <h1 class="header-box-title header-box-title-small">
+                                <a href="<?=$this->url(['controller' => 'article', 'kid' => $this->consultation->kid], 'default', true);?>">
+                                    <?=$this->escape($this->consultation->titl);?>
+                                </a>
+                            </h1>
+                            <h2 class="header-box-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
 
-                    <?php //=$this->ribbonImage($this->consultation);?>
+                        </div>
+                        <div class="col-md-3 col-md-pull-6">
 
-                    <img
-                        src="<?=$this->baseUrl()?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$this->consultation->kid?>/<?=$this->consultation->img_file?>"
-                        width="144"
-                        class="header-box-image"
-                        alt="<?=$this->consultation->img_expl?>"
-                        />
+                            <?php //=$this->ribbonImage($this->consultation);?>
 
-                    <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true) ?>" class="header-box-home" rel="home">
-                        <?=$this->translate('Home')?>… <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </a>
+                            <!-- Image -->
+                            <img
+                                src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $this->consultation->kid . '/' . $this->consultation->img_file);?>"
+                                class="header-box-image"
+                                alt="<?=$this->consultation->img_expl;?>"
+                                />
 
-                    <!-- Share -->
-                    <div class="header-box-share">
-                        <button
-                            type="button"
-                            class="btn btn-default btn-sm has-icon-lg dropdown-toggle js-share"
-                            >
-                            <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-                            <?=$this->translate('Share');?>
-                        </button>
-                        <div id="sharebtn-holder" class="share-dropdown"></div>
-                    </div>
+                        </div>
+                        <div class="col-md-3">
 
+                            <!-- Home link -->
+                            <div class="header-box-home">
+                                <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home">
+                                    <?=$this->translate('Home');?>…
+                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                </a>
+                            </div>
+
+                            <!-- Share -->
+                            <div class="header-box-share">
+                                <button
+                                    type="button"
+                                    class="btn btn-default btn-sm has-icon-lg dropdown-toggle js-share"
+                                    >
+                                    <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                    <?=$this->translate('Share');?>
+                                </button>
+                                <div id="sharebtn-holder" class="share-dropdown"></div>
+                            </div>
+
+                        </div>
+                    </div><!-- .row -->
                 </div><!-- .header-box -->
 
             <?php else: ?>
 
                 <!-- Header box: Homepage -->
-                <div class="header-box<?=($controller == 'index' ? ' has-nav-list' : '');?>">
+                <div class="header-box<?=($controller === 'index' ? ' has-nav-list' : '');?>">
 
                     <h1 class="header-box-title">
                         <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
@@ -149,11 +164,11 @@
                     </h1>
 
                     <p class="header-box-description" itemprop="description">
-                        <?php echo Zend_Registry::get('systemconfig')->site->description->short?>
+                        <?=Zend_Registry::get('systemconfig')->site->description->short;?>
                     </p>
 
                     <!-- Menu -->
-                    <?php if ($controller == 'index'): ?>
+                    <?php if ($controller === 'index'): ?>
                         <?=$this->teaser();?>
                     <?php endif; ?>
 
@@ -226,7 +241,7 @@
                                                 alt="<?=$footerLogos[$i]['image']['alt'];?>"
                                                 />
                                         </a>
-                                    <?php endif?>
+                                    <?php endif; ?>
                                 </p>
                             </div>
                         <?php endfor; ?>
