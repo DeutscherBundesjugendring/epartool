@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?=Zend_Registry::get('Zend_Locale')->getLanguage();?>">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,32 +8,36 @@
     <meta name="robots" content="noindex, nofollow" />
 
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" />
-    <link href="<?=$this->baseUrl('components/bower/jquery.ui/themes/base/jquery.ui.all.css');?>" rel="stylesheet" />
-    <link href="<?=$this->baseUrl('css/admin.css');?>" rel="stylesheet" />
+
+    <?php if (APPLICATION_ENV === 'development'): ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>" />
+    <?php else: ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>" />
+    <?php endif;?>
 
     <!--link rel="shortcut icon" href="<?=$this->baseUrl('favicon.ico');?>" />
     <link rel="shortcut icon" href="<?=$this->baseUrl('images/icon/favicon.png');?>" />
     <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('images/icon/touch-icon.png');?>" /-->
-</head>
 
-<body>
-
-    <!-- Flash Messages -->
-    <?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
-
-    <!-- Content -->
-    <?=$this->layout()->content;?>
-
-    <!-- Scripts -->
     <?php if (APPLICATION_ENV === 'development'): ?>
         <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
     <?php else: ?>
         <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
     <?php endif;?>
+
     <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
+
     <script>
-        var baseUrl = '<?=$this->baseUrl?>';
+        var baseUrl = '<?=$this->baseUrl()?>';
     </script>
+</head>
+<body>
+
+<!-- Flash Messages -->
+<?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
+
+<!-- Content -->
+<?=$this->layout()->content;?>
 
 </body>
 </html>

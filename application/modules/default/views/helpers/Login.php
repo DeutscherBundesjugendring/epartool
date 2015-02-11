@@ -11,11 +11,11 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract
         $html = '';
         $auth = Zend_Auth::getInstance();
         if (!$auth->hasIdentity()) {
-            $html = '<div class="dropdown hidden-print">'
-                . '<a href="#" role="button" class="btn btn-block" id="loginDropdown" data-toggle="dropdown">Login</a>';
+            $html = '<div class="dropdown">'
+                . '<a href="#" role="button" class="btn btn-default btn-sm btn-block text-left" id="loginDropdown" data-toggle="dropdown">' . $this->view->translate('Login') . '</a>';
             $form = new Default_Form_Login();
-            $html.= '<div class="login dropdown-menu pull-right" role="menu" aria-labelledby="loginDropdown">'
-                . '        <h3 id="loginLabel">' . $this->view->translate('Login') . '</h3>'
+            $html.= '<div class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="loginDropdown">'
+                . '<h3 id="loginLabel">' . $this->view->translate('Login') . '</h3>'
                 . $form
                 . '<hr />'
                 . '<p><a href="'

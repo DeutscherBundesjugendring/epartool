@@ -1,11 +1,11 @@
 <div class="js-consultations-container">
-    <?php echo $this->render('_partials/consultationPreviews.phtml'); ?>
+    <?=$this->render('_partials/consultationPreviews.phtml');?>
 </div>
 
 <?php if (!empty($this->showMoreButton)): ?>
-    <div class="top-link">
-        <a href="#" class="btn js-load-more-consultations">
+    <div class="main-bottom-bar">
+        <button type="button" class="btn btn-default js-load-more-consultations">
             <?=$this->translate('Show more consultations');?>
-        </a>
+        </button>
     </div>
 <?php endif;?>

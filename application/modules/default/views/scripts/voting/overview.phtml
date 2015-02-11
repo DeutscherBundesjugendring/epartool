@@ -1,6 +1,6 @@
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder main-content">
+<div class="main-content">
 
     <h1 class="heading-centered"><?=$this->translate('Voting')?></h1>
 
@@ -77,10 +77,9 @@
 
             </div><!-- .well -->
 
-			<?php echo $this->render('_partials/printLink.phtml') ?>
-
 		</section>
 	</div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
+
+</div><!-- .main-content -->

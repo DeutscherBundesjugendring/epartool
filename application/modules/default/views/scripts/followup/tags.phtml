@@ -1,12 +1,13 @@
 <?php echo $this->secondNavigation('follow-up') ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->followupNavigation('tags') ?>
-        </aside>
+        <div class="sidebar-left">
 
-        <div class="main-content span9">
+            <?php echo $this->followupNavigation('tags') ?>
+
+        </div>
+        <div class="content">
 
             <small class="count muted">
                 <?php echo $this->inputCount ?>
@@ -39,8 +40,6 @@
         </div><!-- .main-content -->
     </div><!-- .row -->
 
-    <?php echo $this->render('_partials/printLink.phtml') ?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
 
-</div><!-- .content-holder -->
-
-<?php echo $this->render('_partials/topLink.phtml') ?>
+</div><!-- .main-content -->

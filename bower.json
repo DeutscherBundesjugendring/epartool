@@ -1,18 +1,13 @@
 {
   "name": "dbjr",
   "dependencies": {
-    "jquery": "~1.10.2",
-    "bootstrap": "~2.3.2",
-    "bootstrap3": "twbs/bootstrap#~3.2.0",
-    "synergic-ui": "master",
-    "font-awesome": "~3.0.2",
-    "jquery.ui": "~1.10.3",
-    "html5shiv": "~3.7.0",
+    "bootstrap": "~3.3.2",
     "less-modules": "~0.3.0",
+    "synergic-ui": "master",
+    "html5shiv": "~3.7.0",
+    "jquery": "~1.10.2",
+    "jquery.ui": "~1.10.3",
     "pwstrength-bootstrap": "~1.1.4",
     "ink": "~1.0.5"
-  },
-  "resolutions": {
-    "bootstrap": "~2.3.2"
   }
 }

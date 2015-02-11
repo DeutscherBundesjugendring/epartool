@@ -1,7 +1,6 @@
-<a name="page-content"></a>
 <?php echo $this->secondNavigation('input') ?>
 
-<div class="main-content content-holder">
+<div class="main-content">
     <div class="row-fluid">
         <div class="text-center span10 offset1">
 
@@ -82,7 +81,6 @@
         <?php endforeach; ?>
     </ul><!-- .questions -->
 
-    <?php echo $this->render('_partials/printLink.phtml') ?>
-</div>
+    <?=$this->render('_partials/pageLinks.phtml');?>
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+</div><!-- .main-content -->

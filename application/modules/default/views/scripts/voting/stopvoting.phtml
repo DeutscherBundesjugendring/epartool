@@ -1,8 +1,8 @@
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder">
+<div class="main-content">
 	<div class="row">
-		<div class="main-content span6 offset3">
+		<div class="col-md-9 col-md-offset-3">
 
 			<h1><?=$this->translate('Thank you for voting!')?></h1>
 			<p>
@@ -20,6 +20,7 @@
             </p>
 		</div>
 	</div><!-- .row -->
-</div><!-- .main-content -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+	<?=$this->render('_partials/pageLinks.phtml');?>
+
+</div><!-- .main-content -->

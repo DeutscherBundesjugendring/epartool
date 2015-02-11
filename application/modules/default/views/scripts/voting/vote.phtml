@@ -62,7 +62,7 @@ $(document).ready(function() {
 
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder main-content">
+<div class="main-content">
 
     <h1 class="heading-centered"><?=$this->translate('Voting for');?> &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
 
@@ -213,6 +213,6 @@ $(document).ready(function() {
         </div>
     </div><!-- .row -->
 
-</div><!-- .content-holder -->
+    <?=$this->render('_partials/pageLinks.phtml');?>
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+</div><!-- .main-content -->

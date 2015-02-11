@@ -7,7 +7,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
 {
     public function teaser()
     {
-        $html = '<ul class="nav nav-list teaser hidden-print">';
+        $html = '<ul class="nav nav-list">';
 
         $consultationModel = new Model_Consultations();
         $items = $consultationModel->getTeaserEntries();
@@ -25,7 +25,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         . $this->view->translate('From') . ' '
                         . $this->view->formatDate($item['inp_fr'], 'dd.MM.yyyy') . ' '
                         . $this->view->translate('until') . ' '
-                        . $this->view->formatDate($item['inp_to'], 'dd.MM.yyyy') . ' …';
+                        . $this->view->formatDate($item['inp_to'], 'dd.MM.yyyy') . '…';
                     break;
                 case 'inp_to':
                     $url = $this->view->url(array(
@@ -37,7 +37,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         . $this->view->translate('from') . ' '
                         . $this->view->formatDate($item['vot_fr'], 'dd.MM.yyyy') . ' '
                         . $this->view->translate('until') . ' '
-                        . $this->view->formatDate($item['vot_to'], 'dd.MM.yyyy') . ' …';
+                        . $this->view->formatDate($item['vot_to'], 'dd.MM.yyyy') . '…';
                     break;
                 case 'vot_fr':
                     $url = $this->view->url(array(
@@ -45,7 +45,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = $this->view->translate('Vote now on the most important contributions!') . ' …';
+                    $text = $this->view->translate('Vote now on the most important contributions!') . '…';
                     break;
                 case 'vot_to':
                     $url = $this->view->url(array(
@@ -53,7 +53,7 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = $this->view->translate('Voting has finished! There will soon be reactions available') . ' …';
+                    $text = $this->view->translate('Voting has finished! There will soon be reactions available') . '…';
                     break;
                 default:
                     $url = $this->view->url(array(
@@ -61,13 +61,13 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
                         'action' => 'index',
                         'kid' => $item['kid']
                     ), 'default', true);
-                    $text = $this->view->translate('Get informed now') . ' …';
+                    $text = $this->view->translate('Get informed now') . '…';
             }
-            $html.= '<a href="' . $url . '"><span class="title">'
-                . '<h2>' . $item['titl'] . ':</h2> '
+            $html.= '<a href="' . $url . '"><span class="nav-list-item">'
+                . '<strong class="nav-list-item-title">' . $item['titl'] . ':</strong> '
                 . $text
                 . '</span>'
-                . '<i class="icon-angle-right icon-white icon-2x"></i>'
+                . '<span class="nav-list-icon glyphicon glyphicon-menu-right" aria-hidden="true"></span>'
                 . '</a>'
                 . '</li>';
         }
@@ -76,8 +76,8 @@ class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
         $html.= '<li><a href="' . $this->view->url(array(
                 'controller' => 'consultation'
             ), 'default', true) . '">'
-            . '<strong>' . $this->view->translate('Looking for other consultations? View all') . ' …</strong>'
-            . '<i class="icon-angle-right icon-white icon-2x"></i>'
+            . '<strong>' . $this->view->translate('Looking for other consultations? View all') . '…</strong>'
+            . '<span class="nav-list-icon glyphicon glyphicon-menu-right" aria-hidden="true"></span>'
             . '</a></li>';
 
         $html.= '</ul>';

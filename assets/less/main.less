@@ -2,67 +2,101 @@
  * DBJR TOOL
  *
  * Developed by Synergic (www.synergic.cz)
- * HTML & LESS/CSS © 2013-2014 Adam Kudrna
+ * HTML & LESS © 2012-2015 Adam Kudrna
  */
 
 
-// Bootstrap variables and mix-ins for later use
-@import '../components/bower/bootstrap/less/variables'; // required in mixins since v2.2.1 (w)
-@import '../components/bower/bootstrap/less/mixins';
+// Bootstrap
+// =========
 
-// Project variables and mix-ins
-@import 'config/variables';
-@import 'modules/mixins';
+// Core variables and mixins
+@import "bootstrap/less/variables";
+@import "bootstrap/less/mixins";
 
-// Base styles
-@import 'base/typography';
-@import 'base/layout';
-//@import 'base/tables';
+// Reset and dependencies
+@import "bootstrap/less/normalize";
+@import "bootstrap/less/print";
+@import "bootstrap/less/glyphicons";
 
-// Components: Common
-@import 'components/alerts';
-@import 'components/article-preview';
-@import 'components/articles';
-@import 'components/buttons';
-@import 'components/counter';
-@import 'components/dropdowns';
-@import 'components/followup';
-@import 'components/hero-unit';
-@import 'components/icons';
-@import 'components/labels';
-@import 'components/media';
-@import 'components/offset';
-//@import 'components/modals';
-@import 'components/tag-cloud';
-@import 'components/thumbnails';
-@import 'components/voting';
-@import 'components/wells';
+// Core CSS
+@import "bootstrap/less/scaffolding";
+@import "bootstrap/less/type";
+@import "bootstrap/less/code";
+@import "bootstrap/less/grid";
+@import "bootstrap/less/tables";
+@import "bootstrap/less/forms";
+@import "bootstrap/less/buttons";
 
-// Components: Navigation
-@import 'components/navigation/navs';
-@import 'components/navigation/navbar';
-@import 'components/navigation/pagination';
+// Components
+@import "bootstrap/less/component-animations";
+@import "bootstrap/less/dropdowns";
+@import "bootstrap/less/button-groups";
+@import "bootstrap/less/input-groups";
+@import "bootstrap/less/navs";
+@import "bootstrap/less/navbar";
+@import "bootstrap/less/breadcrumbs";
+@import "bootstrap/less/pagination";
+@import "bootstrap/less/pager";
+@import "bootstrap/less/labels";
+@import "bootstrap/less/badges";
+@import "bootstrap/less/jumbotron";
+@import "bootstrap/less/thumbnails";
+@import "bootstrap/less/alerts";
+@import "bootstrap/less/progress-bars";
+@import "bootstrap/less/media";
+@import "bootstrap/less/list-group";
+@import "bootstrap/less/panels";
+@import "bootstrap/less/responsive-embed";
+@import "bootstrap/less/wells";
+@import "bootstrap/less/close";
 
-// Components: Forms
-@import 'components/forms/inputs';
-@import 'components/forms/input-groups';
-@import 'components/forms/form-layouts';
-@import 'components/forms/help';
-@import 'components/forms/validation';
-@import 'components/forms/contribution-form';
-@import 'components/forms/login-form';
-@import 'components/forms/password-meter';
-@import 'components/forms/registration-form';
-@import 'components/forms/search-form';
+// Components w/ JavaScript
+@import "bootstrap/less/modals";
+@import "bootstrap/less/tooltip";
+@import "bootstrap/less/popovers";
+@import "bootstrap/less/carousel";
 
-// Components: Custom
-@import 'components/bubbles';
-@import 'components/consultation';
-@import 'components/share';
-@import 'components/user-box';
+// Utility classes
+@import "bootstrap/less/utilities";
+@import "bootstrap/less/responsive-utilities";
 
-// Print styles
-@import 'print/print';
 
-// Temporary styles
-@import "_temp_followUp";
+// LESS Modules
+// ==============
+
+@import "less-modules/less/caret";
+
+
+// Project Styles
+// ==============
+
+// Configuration
+@import "config/variables-main";
+
+// Typography
+@import "components/typography/fonts";
+@import "components/typography/typography";
+
+// Layout
+@import "components/layout/frame";
+@import "components/layout/header";
+@import "components/layout/main";
+@import "components/layout/footer";
+@import "components/layout/layout";
+
+// Navigation
+@import "components/navigation/nav";
+@import "components/navigation/nav-centered";
+@import "components/navigation/nav-list";
+@import "components/navigation/nav-pills";
+@import "components/navigation/navbar";
+@import "components/navigation/top-link";
+
+// Forms
+@import "components/forms/form-search";
+@import "components/forms/inputs";
+
+// Common
+@import "components/common/buttons";
+@import "components/common/icons";
+@import "components/common/share";

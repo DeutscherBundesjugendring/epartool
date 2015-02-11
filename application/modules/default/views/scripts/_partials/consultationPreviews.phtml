@@ -44,7 +44,7 @@
     ?>
 
     <div class="consultation consultation-preview">
-        <a href="<?=$this->url(['controller' => 'article', 'action' => 'index', 'kid' => $consultation->kid]) ?>" class="title">
+        <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="title">
             <hgroup>
                 <h1><?=$consultation->titl ?></h1>
                 <h2><?=$consultation->titl_sub ?></h2>

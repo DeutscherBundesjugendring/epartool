@@ -6,9 +6,10 @@
 
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
+        <div class="sidebar-left">
+
             <a href="<?php echo $this -> url(array('action' => 'overview')); ?>">
                 <i class="icon-reply"></i> <?=$this->translate('Continue voting')?>
             </a>
@@ -17,9 +18,9 @@
                 <i class="icon-signout"></i> <?=$this->translate('Finish voting')?>
             </a>
 
-        </aside>
+        </div>
+        <div class="content">
 
-        <section class="main-content span9">
             <small class="muted">
                 <?=sprintf($this->translate('You have already voted on %s out of %s contributions.'), $this->escape($this->votedInputs), $this->escape($this->votableInputs))?>
             </small>
@@ -32,14 +33,12 @@
             <!-- Questions -->
             <?php echo $this ->partialLoop('_partials/voting/votingPreviewItem.phtml', $this->questions); ?>
 
-            <?php echo $this->render('_partials/printLink.phtml') ?>
-
-        </section>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
 
+</div><!-- .main-content -->
 
 <script type="text/javascript">
     $(document).ready(function() {

@@ -1,6 +1,6 @@
 INSERT INTO `articles_refnm` (`ref_nm`, `lng`, `desc`, `type`, `scope`)
 VALUES
-    ('article_explanation', 'de', 'Mauin consultation eplanation text', 'b', 'info');
+    ('article_explanation', 'de', 'Main consultation explanation text', 'b', 'info');
 
 INSERT INTO `articles` (`kid`, `proj`, `desc`, `hid`, `ref_nm`, `artcl`, `sidebar`, `parent_id`)
 SELECT

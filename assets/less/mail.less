@@ -5,7 +5,7 @@
  */
 
 
-@import 'config/variables';
+@import 'config/variables-main';
 
 
 // Typography
@@ -19,20 +19,19 @@ a {
     h4 &,
     h5 &,
     h6 & {
-        color: @linkText;
+        color: @link-color;
     }
 
     &:hover {
-        color: @linkTextHover !important;
+        color: @link-hover-color !important;
     }
 
     &:active {
-        color: @linkText !important;
+        color: @link-color !important;
     }
 
-
     &:visited {
-        color: @linkText !important;
+        color: @link-color !important;
     }
 }
 

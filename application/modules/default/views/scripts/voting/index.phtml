@@ -1,8 +1,9 @@
 <?php echo $this->secondNavigation('voting') ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
+        <div class="sidebar-left">
+
             <?php if ($this->consultation->vot_res_show == 'y'): ?>
                 <p>
                     <a href="<?=$this->url(['action' => 'results', 'authcode' => null])?>">
@@ -11,9 +12,9 @@
                 </p>
             <?php endif; ?>
 
-        </aside>
+        </div>
+        <div class="content">
 
-        <section class="main-content span9">
             <h1><?=$this->translate('Login for the voting')?></h1>
             <p>
                 <?=sprintf($this->translate('Here you vote on the contributions on topic "%s" that are especially important in your opinion! The contributions consist of opinions, positions and suggestions given by young people and youth groups during the last weeks and months.'), $this->consultation['titl_short'])?>
@@ -34,10 +35,9 @@
                 <?php echo (!empty($this->votingExplanation)) ? $this->votingExplanation : ''; ?>
             </div>
 
-            <?php echo $this->render('_partials/printLink.phtml') ?>
-
-        </section>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
+
+</div><!-- .main-content -->

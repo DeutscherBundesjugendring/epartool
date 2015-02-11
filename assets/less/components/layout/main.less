@@ -1,0 +1,40 @@
+// Main
+
+
+.main {
+    &-content {
+        padding: (2 * @line-height-computed) (@grid-gutter-width / 2) @line-height-computed;
+        background-color: @main-content-bg;
+    }
+
+    &-page-tools {
+        margin-top: 2 * @line-height-computed;
+        margin-bottom: @line-height-computed;
+    }
+
+    &-bottom-bar {
+        margin-top: @line-height-computed;
+        padding: @line-height-computed (@grid-gutter-width / 2);
+        text-align: center;
+        background-color: @main-content-bg;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &-page-tools {
+            text-align: center;
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        &-content {
+            position: relative;
+        }
+
+        &-page-tools {
+            position: absolute;
+            top: 0;
+            right: @line-height-computed;
+            text-align: right;
+        }
+    }
+}

@@ -1,0 +1,72 @@
+//
+// Component: Forms: Inputs
+// --------------------------------------------------
+
+
+label,
+input,
+button,
+select,
+textarea {
+	font-size: 13px;
+	line-height: @baseLineHeight;
+}
+
+// General input fields
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+	padding: .3em .8em; // base height 30px
+	font-size: 13px;
+	line-height: 20px;
+	color: @inputText;
+	border-color: @inputBorderColor;
+	.border-radius(@inputBorderRadius);
+	background-color: @inputBackground;
+	.box-shadow(none);
+
+	&:focus {
+		border-color: @inputFocusBorder;
+		.box-shadow(none);
+	}
+}
+
+.input-alt {
+	color: @white;
+	background-color: @black;
+
+	&:focus {
+		border-color: @white;
+	}
+}
+
+textarea.input-block-level {
+	min-height: 6.5em;
+}
+
+// Reset Bootstrap HTML5 validation states
+input:focus:required:invalid,
+textarea:focus:required:invalid,
+select:focus:required:invalid {
+	border-color: @inputBorderColor;
+	color: @bodyText;
+
+	&:focus {
+		border-color: @inputFocusBorder;
+		.box-shadow(none);
+	}
+}

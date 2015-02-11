@@ -1,0 +1,49 @@
+// List Navigation
+
+
+.nav-list {
+    .center-block();
+    max-width: 40em;
+
+    > li > a {
+        padding-top: @line-height-computed / 2;
+        padding-bottom: @line-height-computed / 2;
+        color: @nav-list-link-color;
+        border-bottom: 1px solid #fff;
+        background-color: @nav-list-link-bg;
+
+        &:hover,
+        &:focus {
+            color: @nav-list-link-hover-color;
+            background-color: @nav-list-link-hover-bg;
+        }
+    }
+
+    &-item-title {
+        font-family: @font-family-black;
+        font-size: 1.1em;
+        text-transform: uppercase;
+    }
+
+    &-icon {
+        color: @nav-list-icon-color;
+    }
+
+    @media (min-width: @grid-float-breakpoint) {
+        max-width: none;
+        margin-left: 3 * @line-height-computed;
+        margin-right: 3 * @line-height-computed;
+        margin-bottom: -3 * @line-height-computed;
+
+        &-item {
+            .text-overflow();
+            max-width: 92%;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        &-icon {
+            float: right;
+        }
+    }
+}

@@ -1,6 +1,6 @@
 <?php echo $this->secondNavigation('input') ?>
 
-<div class="main-content content-holder">
+<div class="main-content">
     <div class="row">
         <div class="text-center span10 offset1">
 
@@ -36,8 +36,6 @@
         </div>
     <?php endif; ?>
 
-    <?php echo $this->render('_partials/printLink.phtml') ?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
 
-</div>
-
-<?php echo $this->render('_partials/topLink.phtml') ?>
+</div><!-- .main-content -->

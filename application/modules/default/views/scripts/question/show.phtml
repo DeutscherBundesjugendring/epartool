@@ -1,24 +1,27 @@
 <?php echo $this->secondNavigation('question') ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->questionNavigation($this->question['qi']); ?>
-        </aside>
+        <div class="sidebar-left">
 
-        <section class="main-content span6">
+            <?php echo $this->questionNavigation($this->question['qi']); ?>
+
+        </div>
+        <div class="content content-narrow">
+
             <article class="article article-detail">
                 <h1><?php echo $this->question['q'] ?></h1>
                 <p><?php echo $this->question['q_xpl'] ?></p>
             </article>
 
-            <?php echo $this->render('_partials/printLink.phtml') ?>
-        </section>
+        </div>
+        <aside class="sidebar-right">
 
-        <aside class="span3">
             <p><?php echo $this->question['vot_q'] ?></p>
+
         </aside>
     </div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
+
+</div><!-- .main-content -->

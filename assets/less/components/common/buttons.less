@@ -1,0 +1,35 @@
+// Buttons
+
+
+.btn {
+    font-family: @font-family-condensed;
+    font-size: @font-size-large;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &.text-left {
+        text-align: left;
+    }
+
+    &.has-icon-lg {
+        > .glyphicon {
+            line-height: .8;
+            vertical-align: bottom;
+        }
+    }
+
+    // Variants
+    &-default {
+        &:hover,
+        &:focus {
+            color: @btn-default-hover-color;
+            border-color: @btn-default-hover-border;
+            background-color: @btn-default-hover-bg;
+        }
+    }
+
+    // Sizes
+    &-sm {
+        .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-large; 1; @border-radius-small);
+    }
+}

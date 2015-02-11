@@ -5,13 +5,14 @@
 
 <?php echo $this->secondNavigation('follow-up') ?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->followupNavigation('overview') ?>
-        </aside>
+        <div class="sidebar-left">
 
-        <section class="main-content span9">
+            <?php echo $this->followupNavigation('overview') ?>
+
+        </div>
+        <div class="content">
 
             <h1>
                 <?=$this->translate("How it all proceeeded:")?>
@@ -98,8 +99,9 @@
                 </a>
             </div><!-- .well-large-alt -->
 
-        </section>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->render('_partials/pageLinks.phtml');?>
+
+</div><!-- .main-content -->
