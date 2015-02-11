@@ -1,5 +1,6 @@
-<?php foreach ($this->consultations as $consultation):?>
+<?php foreach ($this->consultations as $consultation): ?>
     <?php
+        $bubbles = array();
         $disabled = array(
             'input' => (Zend_Date::now()->isEarlier($consultation->inp_fr) || $consultation->inp_fr == '0000-00-00 00:00:00'),
             'voting' => (Zend_Date::now()->isEarlier($consultation->vot_fr) || $consultation->vot_fr == '0000-00-00 00:00:00'),
@@ -14,7 +15,6 @@
             $disabled['voting'] = true;
         }
 
-        $bubbles = array();
         if (Zend_Date::now()->isLater(new Zend_Date($consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($consultation->inp_to, Zend_Date::ISO_8601))
         ) {
@@ -43,136 +43,145 @@
         }
     ?>
 
-    <div class="consultation consultation-preview">
-        <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="title">
-            <hgroup>
-                <h1><?=$consultation->titl ?></h1>
-                <h2><?=$consultation->titl_sub ?></h2>
-            </hgroup>
+    <!-- Consultation box -->
+    <div class="consultation">
+
+        <!-- Heading -->
+        <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-heading">
+            <h2 class="consultation-heading-title">
+                <?=$this->escape($consultation->titl);?>
+            </h2>
+            <h3 class="consultation-heading-subtitle">
+                <?=$this->escape($consultation->titl_sub);?>
+            </h3>
         </a>
 
-        <?=$this->ribbonImage($consultation)?>
+        <?php //=$this->ribbonImage($consultation);?>
 
-        <nav role="navigation" class="consultation-nav">
-            <ul class="nav nav-pills">
-                <li class="item-title">
-                    <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>">
-                        <img
-                            src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$consultation->kid . '/' . $consultation->img_file;?>"
-                            width="144"
-                            alt="<?=$consultation->img_expl;?>"
-                        />
-                        <div class="description">
-                            <p><?=nl2br(strip_tags(htmlspecialchars_decode($consultation->expl_short)))?></p>
-                        </div>
-                    </a>
-                </li>
+        <!-- Phases navigation -->
+        <ul class="consultation-nav">
+
+            <!-- Title image with explanation -->
+            <li>
+                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-nav-image">
+                    <img
+                        src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid . '/' . $consultation->img_file);?>"
+                        alt="<?=$this->escape($consultation->img_expl);?>"
+                    />
+                    <div class="consultation-nav-image-description">
+                        <p><?=nl2br($this->escape(strip_tags(htmlspecialchars_decode($consultation->expl_short))));?></p>
+                    </div>
+                </a>
+            </li>
+
+            <!-- Info -->
+            <li>
+                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-nav-block">
+                    <h3 class="consultation-nav-block-title"><?=$consultation->phase_info ? $this->escape($consultation->phase_info) : $this->translate('Info');?></h3>
+                </a>
+            </li>
+
+            <!-- Questions -->
+            <li>
+                <a href="<?=$this->url(['controller' => 'question', 'action' => 'index', 'kid' => $consultation->kid]);?>" class="consultation-nav-block">
+                    <h3 class="consultation-nav-block-title"><?=$consultation->phase_support ? $this->escape($consultation->phase_support) : $this->translate('Questions');?></h3>
+                </a>
+            </li>
+
+            <!-- Contributions -->
+            <?php if (!$disabled['input']): ?>
                 <li>
-                    <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>">
-                        <h2><?=$consultation->phase_info ? $this->escape($consultation->phase_info) : $this->translate('Info')?></h2>
+                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $consultation->kid]);?>" class="consultation-nav-block">
+                        <h3 class="consultation-nav-block-title"><?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions');?></h3>
+                        <?php if (isset($bubbles['input'])): ?>
+                            <?=$bubbles['input'];?>
+                        <?php else: ?>
+                            <?php if ($consultation->inp_show == 'y'): ?>
+                                <div class="consultation-nav-block-info">
+                                    <?=$this->translate('from');?>
+                                    <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?><br />
+                                    <?=$this->translate('until');?>
+                                    <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </a>
                 </li>
+            <?php else: ?>
                 <li>
-                    <a href="<?=$this->url(['controller' => 'question', 'action' => 'index', 'kid' => $consultation->kid]);?>">
-                        <h2><?=$consultation->phase_support ? $this->escape($consultation->phase_support) : $this->translate('Questions')?></h2>
+                    <div class="consultation-nav-block disabled">
+                        <h3 class="consultation-nav-block-title"><?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions');?></h3>
+                        <?php if (isset($bubbles['input'])): ?>
+                            <?=$bubbles['input'];?>
+                        <?php else: ?>
+                            <?php if ($consultation->inp_show == 'y'): ?>
+                                <div class="consultation-nav-block-info">
+                                    <?=$this->translate('from');?>
+                                    <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?><br />
+                                    <?=$this->translate('until');?>
+                                    <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                </li>
+            <?php endif; ?>
+
+            <!-- Voting -->
+            <?php if (!$disabled['voting']): ?>
+                <li>
+                    <a href="<?=$this->url(['controller' => 'voting', 'action' => 'index', 'kid' => $consultation->kid]);?>" class="consultation-nav-block">
+                        <h3 class="consultation-nav-block-title"><?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting');?></h3>
+                        <?php if (isset($bubbles['voting'])): ?>
+                            <?=$bubbles['voting'];?>
+                        <?php else: ?>
+                            <?php if ($consultation->vot_show == 'y'): ?>
+                                <div class="consultation-nav-block-info">
+                                    <?=$this->translate('from');?>
+                                    <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?><br />
+                                    <?=$this->translate('until');?>
+                                    <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </a>
                 </li>
+            <?php else: ?>
+                <li>
+                    <div class="consultation-nav-block disabled">
+                        <h3 class="consultation-nav-block-title"><?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting');?></h3>
+                        <?php if (isset($bubbles['voting'])): ?>
+                            <?=$bubbles['voting'];?>
+                        <?php else: ?>
+                            <?php if ($consultation->vot_show == 'y'): ?>
+                                <div class="consultation-nav-block-info">
+                                    <?=$this->translate('from');?>
+                                    <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?><br />
+                                    <?=$this->translate('until');?>
+                                    <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                </li>
+            <?php endif; ?>
 
-                <?php if (!$disabled['input']): ?>
-                    <li>
-                        <a href="<?=$this->url(['controller' => 'input', 'action' => 'index', 'kid' => $consultation->kid]);?>#page-content">
-                            <h2><?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions')?></h2>
-                            <?php if (isset($bubbles['input'])): ?>
-                                <?=$bubbles['input'];?>
-                            <?php else: ?>
-                                <?php if ($consultation->inp_show == 'y'): ?>
-                                    <small class="info">
-                                        <?=$this->translate('from')?>
-                                        <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?>
-                                        <br />
-                                        <?=$this->translate('until')?>
-                                        <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
-                                    </small>
-                                <?php endif;?>
-                            <?php endif;?>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li class="item-disabled">
-                        <div>
-                            <h2><?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions')?></h2>
-                            <?php if (isset($bubbles['input'])): ?>
-                                <?=$bubbles['input'];?>
-                            <?php else: ?>
-                                <?php if ($consultation->inp_show == 'y'): ?>
-                                    <small class="info">
-                                        <?=$this->translate('from')?>
-                                        <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?>
-                                        <br />
-                                        <?=$this->translate('until')?>
-                                        <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
-                                    </small>
-                                <?php endif;?>
-                            <?php endif;?>
-                        </div>
-                    </li>
-                <?php endif;?>
+            <!-- Follow Up -->
+            <?php if (!$disabled['follow-up']): ?>
+                <li>
+                    <a href="<?=$this->url(['controller' => 'followup', 'action' => 'index', 'kid' => $consultation->kid]);?>" class="consultation-nav-block">
+                        <h3 class="consultation-nav-block-title"><?=$consultation->phase_followup ? $this->escape($consultation->phase_followup) : $this->translate('Reactions & Impact');?></h3>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li>
+                    <div class="consultation-nav-block disabled">
+                        <h3 class="consultation-nav-block-title"><?=$consultation->phase_followup ? $this->escape($consultation->phase_followup) : $this->translate('Reactions & Impact');?></h3>
+                    </div>
+                </li>
+            <?php endif; ?>
 
-                <?php if (!$disabled['voting']): ?>
-                    <li>
-                        <a href="<?=$this->url(['controller' => 'voting', 'action' => 'index', 'kid' => $consultation->kid]);?>">
-                            <h2><?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting')?></h2>
-                            <?php if (isset($bubbles['voting'])): ?>
-                                <?=$bubbles['voting'];?>
-                            <?php else: ?>
-                                <?php if ($consultation->vot_show == 'y'): ?>
-                                    <small class="info">
-                                        <?=$this->translate('from')?>
-                                        <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?>
-                                        <br />
-                                        <?=$this->translate('until')?>
-                                        <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
-                                    </small>
-                                <?php endif;?>
-                            <?php endif;?>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li class="item-disabled">
-                        <div>
-                            <h2><?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting')?></h2>
-                            <?php if (isset($bubbles['voting'])): ?>
-                                <?=$bubbles['voting'];?>
-                            <?php else: ?>
-                                <?php if ($consultation->vot_show == 'y'): ?>
-                                    <small class="info">
-                                        <?=$this->translate('from')?>
-                                        <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?>
-                                        <br />
-                                        <?=$this->translate('until')?>
-                                        <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
-                                    </small>
-                                <?php endif;?>
-                            <?php endif;?>
-                        </div>
-                    </li>
-                <?php endif;?>
-
-                <?php if (!$disabled['follow-up']): ?>
-                    <li>
-                        <a href="<?=$this->url(['controller' => 'followup', 'action' => 'index', 'kid' => $consultation->kid]);?>">
-                            <h2><?=$consultation->phase_followup ? $this->escape($consultation->phase_followup) : $this->translate('Reactions & Impact')?></h2>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li class="item-disabled">
-                        <div>
-                            <h2><?=$consultation->phase_followup ? $this->escape($consultation->phase_followup) : $this->translate('Reactions & Impact')?></h2>
-                        </div>
-                    </li>
-                <?php endif;?>
-            </ul>
-        </nav>
-
+        </ul><!-- .consultation-nav -->
     </div><!-- .consultation -->
-<?php endforeach;?>
+
+<?php endforeach; ?>

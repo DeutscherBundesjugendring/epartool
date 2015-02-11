@@ -1,0 +1,223 @@
+// Consultation
+
+
+.consultation {
+    margin-bottom: @line-height-computed;
+    padding: @line-height-computed;
+    background-color: @consultation-bg;
+
+    &-heading {
+        text-decoration: none;
+        text-align: center;
+
+        &-title,
+        &-subtitle {
+            color: @consultation-title-color;
+        }
+
+        &-title {
+            margin-bottom: 0;
+            font-family: @font-family-black;
+            text-transform: uppercase;
+        }
+
+        &-subtitle {
+            margin-bottom: @line-height-computed;
+        }
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+
+            .consultation-heading-title,
+            .consultation-heading-subtitle {
+                color: @consultation-title-hover-color;
+            }
+        }
+    }
+
+    // Phases navigation
+    &-nav {
+        &:extend(.list-unstyled all);
+        margin-bottom: 0;
+
+        > li {
+            display: block;
+
+            > a {
+                text-decoration: none;
+            }
+        }
+
+        &-image {
+            display: block;
+            margin-bottom: @line-height-computed;
+            text-align: center;
+
+            > img {
+                &:extend(.img-responsive);
+                .center-block();
+                width: @consultation-image-width;
+            }
+
+            &-description {
+                display: none;
+            }
+        }
+
+        &-block {
+            .item-arrowed-vertical(@consultation-bg, @consultation-block-bg, @consultation-block-hover-bg, @consultation-block-disabled-bg);
+            display: block;
+            margin-bottom: 1px;
+            padding: 1em 1em (@line-height-computed / 2);
+            text-align: center;
+            color: @consultation-block-color;
+            background-color: @consultation-block-bg;
+
+            &-title {
+                margin-bottom: 0;
+                font-family: @font-family-condensed;
+                font-size: @font-size-large;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: @consultation-block-color;
+            }
+
+            a&:hover,
+            a&:focus {
+                background-color: @consultation-block-hover-bg;
+
+                &,
+                > .consultation-nav-block-title {
+                    color: @consultation-block-hover-color;
+                }
+            }
+
+            &.disabled {
+                background-color: @consultation-block-disabled-bg;
+
+                &,
+                > .consultation-nav-block-title {
+                    color: @consultation-block-disabled-color;
+                }
+            }
+        }
+
+        // Remove arrow decorations from the first and last item.
+        > li:nth-child(2) > .consultation-nav-block:before,
+        > li:last-child > .consultation-nav-block:after {
+            display: none;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        &-heading {
+            &-title {
+                font-size: 2em;
+            }
+
+            &-subtitle {
+                font-size: 1.5em;
+            }
+        }
+
+        // Make phases navigation horizontal.
+        &-nav {
+            .grid(floor((100% / 5) - 1), @font-size-base, @line-height-base);
+
+            > li {
+                display: inline-block;
+                font-size: @font-size-base;
+
+                // Hide image with explanation.
+                &:first-child {
+                    display: none;
+                }
+            }
+
+            &-block {
+                .item-arrowed-horizontal(@consultation-bg, @consultation-block-bg, @consultation-block-hover-bg, @consultation-block-disabled-bg);
+                height: @consultation-block-height-sm;
+                padding: (@line-height-computed / 3);
+                text-align: left;
+
+                // Title and info.
+                &-title {
+                    font-size: 1.5em;
+                    line-height: 1.2;
+                }
+
+                &-info {
+                    position: absolute;
+                    right: @line-height-computed / 3;
+                    bottom: @line-height-computed / 3;
+                    font-size: @font-size-small;
+                    text-align: right;
+                }
+            }
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        &-heading {
+            &-title {
+                font-size: 2.5em;
+            }
+
+            &-subtitle {
+                font-size: 1.75em;
+            }
+        }
+
+        &-nav {
+            > li {
+                width: floor((100% / 6));
+
+                // Reveal image with explanation.
+                &:first-child {
+                    display: inline-block;
+                }
+            }
+
+            &-image,
+            &-block {
+                height: @consultation-block-height-md;
+            }
+
+            &-image {
+                position: relative;
+                overflow: hidden;
+                margin-bottom: 0;
+                background-color: @gray-lighter;
+
+                &-description {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 100%;
+                    height: 100%;
+                    display: block;
+                    padding: @line-height-computed / 2;
+                    font-size: @font-size-small;
+                    text-align: left;
+                    color: @consultation-image-description-color;
+                    background-color: @consultation-image-description-bg;
+                    transition: top 250ms ease-out;
+                }
+
+                &:hover,
+                &:focus {
+                    > .consultation-nav-image-description {
+                        top: 0;
+                    }
+                }
+            }
+
+            &-block {
+                &-title {
+                    font-size: 1.8em;
+                }
+            }
+        }
+    }
+}

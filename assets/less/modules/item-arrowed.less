@@ -1,0 +1,99 @@
+// Arrow-decorated List
+
+
+.item-arrowed() {
+    position: relative;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        display: block;
+    }
+
+    &:before {
+        z-index: 0;
+    }
+
+    &:after {
+        z-index: 1;
+    }
+}
+
+.item-arrowed-vertical(@bg, @default-color, @hover-color, @disabled-color) {
+    @arrow-width: 36px;
+    @arrow-height: 8px;
+
+    .item-arrowed();
+
+    &:before,
+    &:after {
+        left: 50%;
+        margin-left: -(@arrow-width / 2);
+        // Reset possible previously applied horizontal variation.
+        margin-top: 0;
+        border-bottom: none;
+    }
+
+    &:before {
+        top: 0;
+        border-left: (@arrow-width / 2) solid transparent;
+        border-right: (@arrow-width / 2) solid transparent;
+        border-top: @arrow-height solid @bg;
+    }
+
+    &:after {
+        top: 100%;
+        border-left: (@arrow-width / 2) solid transparent;
+        border-right: (@arrow-width / 2) solid transparent;
+        border-top: @arrow-height solid @default-color;
+    }
+
+    &.disabled:after {
+        border-color: @disabled-color transparent transparent;
+    }
+
+    a&:hover:after,
+    a&:focus:after {
+        border-color: @hover-color transparent transparent;
+    }
+}
+
+.item-arrowed-horizontal(@bg, @default-color, @hover-color, @disabled-color) {
+    @arrow-width: 8px;
+    @arrow-height: 36px;
+
+    .item-arrowed();
+
+    &:before,
+    &:after {
+        top: 50%;
+        margin-top: -(@arrow-height / 2);
+        // Reset possible previously applied vertical variation.
+        margin-left: 0;
+        border-right: none;
+    }
+
+    &:before {
+        left: 0;
+        border-left: @arrow-width solid @bg;
+        border-top: (@arrow-height / 2) solid transparent;
+        border-bottom: (@arrow-height / 2) solid transparent;
+    }
+
+    &:after {
+        left: 100%;
+        border-left: @arrow-width solid @default-color;
+        border-top: (@arrow-height / 2) solid transparent;
+        border-bottom: (@arrow-height / 2) solid transparent;
+    }
+
+    &.disabled:after {
+        border-color: transparent transparent transparent @disabled-color;
+    }
+
+    a&:hover:after,
+    a&:focus:after {
+        border-color: transparent transparent transparent @hover-color;
+    }
+}

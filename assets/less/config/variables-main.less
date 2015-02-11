@@ -16,13 +16,15 @@
 @orange:                         #fc9026;
 @green:                          #a3b225;
 @turqoise:                       #5fa4a0;
-@blue-dark:                      #0196bc;
+@blue-darker:                    #0196bc;
+@blue-dark:                      #02afdb;
 @blue:                           #00cbff;
 @blue-light:                     #7ac8f6;
 
 // Color scheme
 @brand-primary:                  @turqoise;
 @brand-accent:                   @orange;
+@brand-accent-alt-darker:        @blue-darker;
 @brand-accent-alt-dark:          @blue-dark;
 @brand-accent-alt:               @blue;
 @brand-accent-alt-light:         @blue-light;
@@ -31,7 +33,7 @@
 // Typography
 // ==========
 
-@link-color:                     @brand-accent-alt-dark;
+@link-color:                     @brand-accent-alt-darker;
 @link-hover-color:               @brand-primary;
 
 @body-bg: #fff;
@@ -133,16 +135,16 @@
 @nav-pills-active-link-hover-color:     #000;
 @nav-pills-active-link-hover-bg:        @brand-accent;
 
-@navbar-default-color:             #000;
-@navbar-default-bg:                @brand-accent-alt;
-@navbar-default-border:            #fff;
+@navbar-default-color:           #000;
+@navbar-default-bg:              @brand-accent-alt;
+@navbar-default-border:          #fff;
 
-@navbar-default-link-color:                #000;
-@navbar-default-link-hover-color:          #000;
-@navbar-default-link-hover-bg:             @brand-accent;
-@navbar-default-link-active-color:         #fff;
-@navbar-default-link-active-bg:            #000;
-@navbar-default-link-disabled-bg:          transparent;
+@navbar-default-link-color:             #000;
+@navbar-default-link-hover-color:       #000;
+@navbar-default-link-hover-bg:          @brand-accent;
+@navbar-default-link-active-color:      #fff;
+@navbar-default-link-active-bg:         #000;
+@navbar-default-link-disabled-bg:       transparent;
 
 // Forms
 @input-border:                   @text-color;
@@ -152,3 +154,21 @@
 @input-search-color:             #fff;
 @input-search-border:            @brand-accent;
 @input-search-bg:                @brand-accent;
+
+// Consultation
+@consultation-bg:                #fff;
+@consultation-title-color:       @brand-accent-alt-dark;
+@consultation-title-hover-color: @brand-accent;
+@consultation-image-width:       144px;
+
+@consultation-block-height-sm:          180px;
+@consultation-block-height-md:          215px;
+@consultation-block-color:              @gray-lightest;
+@consultation-block-bg:                 #000;
+@consultation-block-hover-color:        @gray-lightest;
+@consultation-block-hover-bg:           @brand-accent;
+@consultation-block-disabled-color:     @gray-lightest;
+@consultation-block-disabled-bg:        @gray-light;
+
+@consultation-image-description-color:  #000;
+@consultation-image-description-bg:     @brand-accent;
