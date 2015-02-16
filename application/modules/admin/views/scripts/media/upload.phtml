@@ -29,9 +29,9 @@
         <?php endif?>
 
         <?php if ($this->lockDir): ?>
-            <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>" class="back">&larr; <?=$this->translate('Back to Media');?></a>
+            <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>" class="back"><?=$this->translate('Back to Media');?></a>
         <?php else: ?>
-            <a href="<?=$this->url(['action' => 'index']);?>" class="back">&larr; <?=$this->translate('Back to All Media');?></a>
+            <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to All Media');?></a>
         <?php endif; ?>
 
         <h2><?=$this->translate('File Upload');?></h2>

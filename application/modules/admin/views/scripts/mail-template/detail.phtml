@@ -21,7 +21,7 @@
             </div>
             <div class="content">
 
-                <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template" class="back">&larr; <?=$this->translate('Back to Email Templates');?></a>
+                <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template" class="back"><?=$this->translate('Back to Email Templates');?></a>
 
                 <h2><?=!$this->templateId ? $this->translate('New Email Template') : $this->translate('Edit Email Template')?></h2>
                 <?php echo $this->form;?>

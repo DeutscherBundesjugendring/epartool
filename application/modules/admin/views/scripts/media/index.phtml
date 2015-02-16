@@ -34,9 +34,9 @@
 
         <?php if (!$this->lockDir): ?>
             <?php if ($this->folder): ?>
-                <a href="<?=$this->url(['action' => 'folders', 'folder' => null]);?>" class="back">&larr; <?=$this->translate('Back to Folders');?></a>
+                <a href="<?=$this->url(['action' => 'folders', 'folder' => null]);?>" class="back"><?=$this->translate('Back to Folders');?></a>
             <?php elseif ($this->kid): ?>
-                <a href="<?=$this->url(['action' => 'consultations']);?>" class="back">&larr; <?=$this->translate('Back to Consultations');?></a>
+                <a href="<?=$this->url(['action' => 'consultations']);?>" class="back"><?=$this->translate('Back to Consultations');?></a>
             <?php endif; ?>
         <?php endif?>
 
