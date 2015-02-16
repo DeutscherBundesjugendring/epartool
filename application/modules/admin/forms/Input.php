@@ -41,11 +41,13 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($expl);
 
-        $note = $this->createElement('textarea', 'notiz');
-        $note
-            ->setLabel('Internal note')
-            ->setAttrib('rows', 5);
-        $this->addElement($note);
+        $multiOptions = (new Model_Tags())->getAdminInputFormMulticheckboxOptions();
+        $tags = $this->createElement('multiselect', 'tags')
+            ->setLabel('Tags')
+            ->setMultiOptions($multiOptions)
+            ->setSeparator(' ')
+            ->setIsSelect2(true);
+        $this->addElement($tags);
 
         $userConfirmation = $this->createElement('radio', 'user_conf');
         $userConfirmation
@@ -86,14 +88,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             );
         $this->addElement($enableVoting);
 
-
-        $multiOptions = (new Model_Tags())->getAdminInputFormMulticheckboxOptions();
-        $tags = $this->createElement('multiselect', 'tags')
-            ->setLabel('Tags')
-            ->setMultiOptions($multiOptions)
-            ->setSeparator(' ')
-            ->setIsSelect2(true);
-        $this->addElement($tags);
+        $note = $this->createElement('textarea', 'notiz');
+        $note
+            ->setLabel('Internal note')
+            ->setAttrib('rows', 5);
+        $this->addElement($note);
 
         // CSRF Protection
         $hash = $this->getHash();
