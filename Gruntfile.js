@@ -146,6 +146,7 @@ module.exports = function (grunt) {
           '<%= paths.src %>/vendor/ckeditor/adapters/jquery.js',
           '<%= paths.bower %>/bootstrap/js/alert.js',
           '<%= paths.bower %>/bootstrap/js/collapse.js',
+          '<%= paths.bower %>/bootstrap/js/dropdown.js',
           '<%= paths.bower %>/bootstrap/js/modal.js',
           '<%= paths.bower %>/bootstrap/js/tooltip.js',
           '<%= paths.bower %>/bootstrap/js/transition.js',
