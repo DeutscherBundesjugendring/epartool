@@ -18,9 +18,11 @@ class Admin_Form_Media_Delete extends Dbjr_Form_Admin
         $form_num = $this->createElement('hidden', 'form_num');
         $this->addElement($form_num);
 
+        $title = Zend_Registry::get('Zend_Translate')->translate('Delete');
         $submit = $this->createElement('button', 'submit');
         $submit
             ->setActionType(Dbjr_Form_Element_Button::TYPE_DELETE)
+            ->setAttrib('title', $title)
             ->setConfirmMessage('Delete media?');
         $this->addElement($submit);
 

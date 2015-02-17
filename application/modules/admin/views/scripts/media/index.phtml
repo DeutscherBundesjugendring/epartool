@@ -45,12 +45,14 @@
         <?php if (!empty($this->files)): ?>
             <div class="row">
 
+                <!-- Media thumbnails -->
                 <?php foreach ($this->files as $file):?>
                     <div class="<?=($this->lockDir ? 'col-xs-6 col-sm-4 col-md-3' : 'col-xs-6 col-sm-4 col-lg-3');?>">
                         <div class="thumbnail thumbnail-fixed">
 
                             <a
                                 <?php if ($this->targetElId): ?>
+                                    <?php // We are in select mode. ?>
                                     onclick="mediaSelectPopup.insertValue(
                                         '<?=$file['dirRefFilename'];?>',
                                         '<?=$this->targetElId;?>',
@@ -59,10 +61,13 @@
                                         '<?=$this->CKEditorFuncNum;?>'
                                     )"
                                     href="#"
+                                    title="<?=$this->translate('Select');?> <?=$file['basename'];?>"
                                 <?php else: ?>
+                                    <?php // We are in listing mode. ?>
                                     href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
+                                    target="_blank"
+                                    title="<?=$this->translate('Open');?> <?=$file['basename'];?>"
                                 <?php endif;?>
-                                title="<?=$file['basename'];?>"
                             >
                                 <div class="thumbnail-image" style="background-image: url(<?=$this->mediaPresenter($file, 'admin_thumbnail_lowDPI');?>);"></div>
                                 <div class="caption">
@@ -75,13 +80,22 @@
 
                                 <div class="thumbnail-actions">
                                     <?php if ($file['folder']): ?>
+                                        <?php // File is located in a custom folder and thus can be renamed. ?>
                                         <a
                                             href="<?=$this->url(['action' => 'edit-file', 'folder' => $file['folder'], 'filename' => $file['basename']]);?>/"
                                             class="item-action"
+                                            title="<?=$this->translate('Rename');?>"
                                         >
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
-                                    <?php endif;?>
+                                    <?php endif; ?>
+                                    <a
+                                        href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
+                                        class="item-action"
+                                        title="<?=$this->translate('Download');?>"
+                                        >
+                                        <span class="glyphicon glyphicon-download-alt"></span>
+                                    </a>
                                     <?=$file['deleteForm'];?>
                                 </div>
 
