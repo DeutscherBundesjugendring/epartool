@@ -18,7 +18,7 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
+                <a href="<?=$this->url(['action' => 'create', 'kid' => $this->consultation['kid']]);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <?=$this->translate('New Question');?>
                 </a>

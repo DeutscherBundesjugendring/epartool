@@ -5,7 +5,10 @@
                 <h1><?=$this->translate('Edit User');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'create'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-plus-sign"></span> <?=$this->translate('New User');?></a>
+                <a href="<?=$this->url(['action' => 'create']);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?=$this->translate('New User');?>
+                </a>
             </div>
         </div>
     </div>
@@ -13,7 +16,7 @@
 <section class="section-content">
     <div class="container">
 
-        <a href="<?=$this->url(array('action' => 'index'));?>" class="back"><?=$this->translate('Back to Users');?></a>
+        <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to Users');?></a>
 
         <?=$this->form;?>
 

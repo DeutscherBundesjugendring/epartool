@@ -19,7 +19,7 @@
             <div class="content">
 
                 <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>" class="back">
-                    <?=$this->translate('Back to Overview')?>
+                    <?=$this->translate('Back to Overview');?>
                 </a>
                 <h2>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'kid' => null]);?>">
@@ -34,7 +34,7 @@
                         <td>
                             <?php if (!empty($this->user['last_act'])): ?>
                                 <?=$this->formatDate($this->user['last_act']);?>
-                            <?php endif;?>
+                            <?php endif; ?>
                         <td>
                     </tr>
                     <tr>
@@ -68,7 +68,7 @@
                                 <?=$this->userGroupSizes[$this->user_info['group_size']];?>
                             <?php else: ?>
                                 <?=$this->translate('Not available');?>
-                            <?php endif;?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
@@ -91,7 +91,7 @@
                                 <?=$age_tm[$this->user_info['age_group']];?>
                             <?php else: ?>
                                 <?=$this->translate('Not available');?>
-                            <?php endif;?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
@@ -117,7 +117,7 @@
                 <?php if (count($this->inputs)): ?>
                     <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
+                        <input name="return_url" type="hidden" value="<?=$this->url();?>" />
 
                         <!-- Actions -->
                         <div class="well well-sm">
@@ -168,10 +168,10 @@
                                                 'inputsWithDiscussion' => $this->inputsWithDiscussion
                                             ]
                                         );?>
-                                    <?php endforeach;?>
+                                    <?php endforeach; ?>
                                 </table>
                             </div>
-                        <?php endforeach;?>
+                        <?php endforeach; ?>
 
                         <!-- Actions -->
                         <div class="well well-sm">

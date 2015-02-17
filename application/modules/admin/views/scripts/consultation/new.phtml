@@ -8,7 +8,7 @@
 <section class="section-content">
     <div class="container">
 
-        <a href="<?=$this->url(array('controller' => 'index', 'action' => 'index'));?>" class="back"><?=$this->translate('Back to Consultations');?></a>
+        <a href="<?=$this->url(['controller' => 'index', 'action' => 'index']);?>" class="back"><?=$this->translate('Back to Consultations');?></a>
 
         <?=$this->partial('consultation/_consultationForm.phtml', ['form' => $this->form]);?>
 

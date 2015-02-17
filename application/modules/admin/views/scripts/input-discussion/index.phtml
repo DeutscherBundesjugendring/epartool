@@ -19,7 +19,12 @@
             <div class="content">
 
                 <?php if (!empty($this->qid)): ?>
-                    <a href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-question', 'kid' => $this->consultation['kid'], 'qi' => $this->qid]);?>" class="back"><?=$this->translate('Back to Contributions');?></a>
+                    <a
+                        href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-question', 'kid' => $this->consultation['kid'], 'qi' => $this->qid]);?>"
+                        class="back"
+                    >
+                        <?=$this->translate('Back to Contributions');?>
+                    </a>
                 <?php endif; ?>
                 <h2><?=$this->translate('Contribution Discussion');?></h2>
 
@@ -96,12 +101,12 @@
                                                     >
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                 </button>
-                                            <?php endif;?>
+                                            <?php endif; ?>
 
                                             <?php if ($contrib->is_visible): ?>
                                                 <button
                                                     name="hide"
-                                                    title="<?=$this->translate('Mark as hidden')?>"
+                                                    title="<?=$this->translate('Mark as hidden');?>"
                                                     value="<?=$this->escape($contrib->id);?>"
                                                     class="item-action"
                                                     data-toggle="confirm"
@@ -113,14 +118,14 @@
                                                 <button
                                                     name="show"
                                                     value="<?=$this->escape($contrib->id);?>"
-                                                    title="<?=$this->translate('Mark as visible')?>"
+                                                    title="<?=$this->translate('Mark as visible');?>"
                                                     class="item-action"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Mark as visible?');?>"
                                                 >
                                                     <span class="glyphicon glyphicon-eye-open"></span>
                                                 </button>
-                                            <?php endif;?>
+                                            <?php endif; ?>
 
                                             <?php if (!$contrib->childInputId
                                                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation['inp_to'], Zend_Date::ISO_8601))
@@ -129,14 +134,14 @@
                                                 <button
                                                     name="createInput"
                                                     value="<?=$this->escape($contrib->id);?>"
-                                                    title="<?=$this->translate('Create an input from this discussion contribution.')?>"
+                                                    title="<?=$this->translate('Create an input from this discussion contribution.');?>"
                                                     class="item-action"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Create an input from this discussion contribution?');?>"
                                                 >
                                                     <span class="glyphicon glyphicon-asterisk"></span>
                                                 </button>
-                                            <?php endif;?>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

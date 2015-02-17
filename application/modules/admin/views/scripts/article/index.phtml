@@ -26,7 +26,7 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
+                <a href="<?=$this->url(['action' => 'create', 'kid' => $this->consultation['kid']]);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <?php if (isset($this->consultation)): ?>
                         <?=$this->translate('New Article');?>
@@ -47,7 +47,7 @@
                     </p>
                 <?php else: ?>
 
-                    <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(['action' => 'delete'])?>">
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                         <table class="table">
                             <thead>

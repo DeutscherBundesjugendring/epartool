@@ -49,7 +49,7 @@
                                             <span class="badge"><?=$this->escape($question->inputCountUnread);?></span>
                                         <?php else: ?>
                                             <span class="badge">0</span>
-                                        <?php endif?>
+                                        <?php endif; ?>
                                     </td>
                                     <td data-sort-value="<?=$this->escape($question->inputCountTotal);?>">
                                         <?php if (!empty($question->inputCountTotal)): ?>
@@ -57,10 +57,10 @@
                                             <span class="badge"><?=$this->escape($question->inputCountTotal);?></span>
                                         <?php else: ?>
                                             <span class="badge">0</span>
-                                        <?php endif?>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 <?php endif; ?>
@@ -97,7 +97,7 @@
                                     </td>
                                     <td><?=$user->cmnt ? '<span class="glyphicon glyphicon-comment"></span>' : '';?></td>
                                 </tr>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 <?php endif; ?>

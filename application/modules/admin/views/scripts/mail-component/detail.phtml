@@ -5,7 +5,10 @@
                 <h1><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+                <a href="<?=$this->url(['controller' => 'mail-send', 'action' => 'index']);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <?=$this->translate('New Email');?>
+                </a>
             </div>
         </div>
         <?=$this->emailTabs('settings');?>
@@ -21,9 +24,9 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'index'));?>" class="back"><?=$this->translate('Back to Email Components');?></a>
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to Email Components');?></a>
 
-                <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Component');?></h2>
+                <h2><?=(!$this->templateId ? 'New' : 'Edit');?> <?=$this->translate('Email Component');?></h2>
                 <?=$this->form;?>
 
                 <div class="well">
@@ -34,7 +37,7 @@
                                 <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></th>
                                 <td><?=$this->escape($placeholder->description);?></td>
                             </tr>
-                        <?php endforeach?>
+                        <?php endforeach; ?>
                     </table>
                 </div>
 

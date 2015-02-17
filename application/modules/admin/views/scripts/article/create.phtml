@@ -26,14 +26,14 @@
             <div class="content">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-                    <a href="<?=$this->url(array('action' => 'index', $this->kid));?>" class="back"><?=$this->translate('Back to Articles');?></a>
+                    <a href="<?=$this->url(['action' => 'index', $this->kid]);?>" class="back"><?=$this->translate('Back to Articles');?></a>
                     <h2><?=$this->translate('New Article');?></h2>
                 <?php else: ?>
-                    <a href="<?=$this->url(array('action' => 'index'));?>" class="back"><?=$this->translate('Back to Pages');?></a>
+                    <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to Pages');?></a>
                     <h2><?=$this->translate('New Page');?></h2>
                 <?php endif; ?>
 
-                <?php echo $this->form;?>
+                <?=$this->form;?>
 
             </div>
         </div>

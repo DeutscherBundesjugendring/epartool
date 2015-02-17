@@ -7,7 +7,7 @@
 >
     <td class="table-cell-id table-cell-top">
         <div class="checkbox">
-            <?php if(empty($this->readonly)): ?>
+            <?php if (empty($this->readonly)): ?>
                 <label>
                     <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
                     <?=$this->escape($this->input['tid']);?>
@@ -31,7 +31,7 @@
 
         <?php if (!empty($this->input['notiz'])): ?>
             <h5><?=$this->translate('Internal note');?></h5>
-            <p class="overflow-horizontal"><?=$this->escape($this->input['notiz'])?></p>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['notiz']);?></p>
         <?php endif; ?>
 
         <p>
@@ -48,7 +48,7 @@
             <p>
                 <?php foreach($this->input['tags'] as $tag): ?>
                     <span class="label label-primary"><?=$this->escape($tag['tg_de']);?></span>
-                <?php endforeach?>
+                <?php endforeach; ?>
             </p>
         <?php endif; ?>
 
@@ -59,7 +59,7 @@
                     <li>
                         <?=$this->escape($relInput['thes']);?>
                     </li>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </ul>
         <?php endif; ?>
 
@@ -90,7 +90,7 @@
                     <span class="glyphicon glyphicon-question-sign"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
-            <?php endif;?>
+            <?php endif; ?>
         </p>
         <p>
             <?=$this->translate('Voting');?><br />
@@ -109,7 +109,7 @@
                     <span class="glyphicon glyphicon-question-sign"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
-            <?php endif;?>
+            <?php endif; ?>
         </p>
 
     </td>

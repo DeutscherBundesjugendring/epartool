@@ -230,41 +230,41 @@
                                     <?=$this->translate('CSV Export');?>:
                                 </h4>
                                 <ul class="offset-bottom">
-                                    <li><a href="<?php echo $this->url(array(
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'all',
-                                        ));?>">All contributions</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>">All contributions</a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'cnf',
-                                        ));?>">Confirmed contributions</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>">Confirmed contributions</a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'unc',
-                                        ));?>">Unconfirmed contributions</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>">Unconfirmed contributions</a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'vot',
-                                        ));?>">Voting theses</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>">Voting theses</a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'edt',
-                                        ));?>">Voting theses – edited</a>
+                                        ]);?>">Voting theses – edited</a>
                                     </li>
                                 </ul>
 
@@ -276,13 +276,13 @@
                                     <?=$this->translate('MS Excel Export');?>:
                                 </h4>
                                 <ul>
-                                    <li><a href="<?php echo $this->url(array(
+                                    <li><a href="<?=$this->url([
                                         'action' => 'export',
                                         'kid' => $this->consultation['kid'],
                                         'qid' => $this->question['qi'],
                                         'cod' => 'xls',
                                         'mod' => 'all',
-                                    ));?>">All contributions</a></li>
+                                    ]);?>"><?=$this->translate('All contributions');?></a></li>
                                 </ul>
 
                             </div>

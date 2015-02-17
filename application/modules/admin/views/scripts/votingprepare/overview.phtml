@@ -126,7 +126,7 @@
                                                         <option value="<?=$this->escape($directory['id']);?>">
                                                             <?=$this->escape($directory['dir_name']);?> (<?=$directory['count'];?>)
                                                         </option>
-                                                    <?php endforeach?>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -335,7 +335,7 @@
                                             <option value="<?=$this->escape($directory['id']);?>">
                                                 <?=$this->escape($directory['dir_name']);?> (<?=$directory['count'];?>)
                                             </option>
-                                        <?php endforeach?>
+                                        <?php endforeach; ?>
                                     </select>
                                     <span class="input-group-btn">
                                         <button
@@ -360,7 +360,7 @@
                         <table id="contribution-table" class="table table-bordered js-table-rows-toggle">
                             <tbody>
                                 <?php foreach ($this->inputs as $input): ?>
-                                    <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>
+                                    <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input]);?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>

@@ -31,7 +31,7 @@
                 <?php endif; ?>
 
                 <?php if (!empty($this->participants)): ?>
-                    <form method="<?=$this->listControlForm->getMethod()?>">
+                    <form method="<?=$this->listControlForm->getMethod();?>">
                         <?=$this->listControlForm->getElement($this->listControlForm->getCsrfTokenName());?>
                         <table class="table">
                             <thead>
@@ -50,14 +50,14 @@
                                         <td class="table-cell-top">
                                             <?php if (!empty($user['name'])): ?>
                                                 <?=$this->escape($user['name']);?>
-                                            <?php endif?>
+                                            <?php endif; ?>
                                         </td>
                                         <td class="table-cell-top">
                                             <?php if (!empty($user['email'])): ?>
                                                 <a href="mailto:<?=$this->escape($user['email']);?>">
                                                     <?=$this->escape($user['email']);?>
                                                 </a>
-                                            <?php endif?>
+                                            <?php endif; ?>
                                         </td>
                                         <td class="table-cell-top">
                                             <?php if (isset($user['votingRights'])): ?>

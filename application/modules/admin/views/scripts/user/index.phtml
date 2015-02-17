@@ -5,7 +5,10 @@
                 <h1><?=$this->translate('Users');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('action' => 'create'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-plus-sign"></span> <?=$this->translate('New User');?></a>
+                <a href="<?=$this->url(['action' => 'create']);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <?=$this->translate('New User');?>
+                </a>
             </div>
         </div>
     </div>
@@ -73,7 +76,7 @@
                                                 <?=$this->formatDate($user->last_act, Zend_Date::DATETIME_SHORT);?>
                                             </td>
                                             <td class="table-cell-actions">
-                                                <a class="item-action" href="<?=$this->url(array('action' => 'edit', 'uid' => $user->uid));?>" title="<?=$this->translate('Edit user');?>">
+                                                <a class="item-action" href="<?=$this->url(['action' => 'edit', 'uid' => $user->uid]);?>" title="<?=$this->translate('Edit user');?>">
                                                     <span class="glyphicon glyphicon-pencil"></span>
                                                 </a>
                                                 <a
