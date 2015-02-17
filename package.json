@@ -21,11 +21,12 @@
     "matchdep": "~0.3.0"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~0.6.1",
     "grunt-browser-sync": "~2.0.0",
-    "grunt-uncss": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1",
     "grunt-phplint": "0.0.5",
+    "grunt-premailer": "~0.2.11",
     "grunt-processhtml": "~0.3.7",
-    "grunt-premailer": "~0.2.11"
+    "grunt-text-replace": "^0.4.0",
+    "grunt-uncss": "~0.4.0"
   }
 }

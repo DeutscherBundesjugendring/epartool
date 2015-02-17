@@ -23,10 +23,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= paths.dist %>/css/<%= pkg.name %>.css': '<%= paths.src %>/less/main.less',
-          '<%= paths.dist %>/css/admin.css': [
-              '<%= paths.src %>/less/admin.less'
-              //'<%= paths.bower %>/jquery.ui/themes/base/jquery.ui.core.css'
-            ],
+          '<%= paths.dist %>/css/admin.css': '<%= paths.src %>/less/admin.less',
           '<%= paths.temp %>/mail.css': '<%= paths.src %>/less/mail.less'
         }
       },
@@ -45,10 +42,8 @@ module.exports = function (grunt) {
     // Remove unused CSS
     uncss: {
       mail: {
-        src: ['application/layouts/scripts/src/*.phtml'],
-        dest: '<%= paths.temp %>/mail_clean.css',
-        options: {
-          report: 'min' // optional: include to report savings
+        files: {
+          '<%= paths.temp %>/mail_clean.css': ['application/layouts/scripts/src/mail.html']
         }
       }
     },
@@ -61,25 +56,44 @@ module.exports = function (grunt) {
       ]
     },
 
-      // Process HTML
+    // Process HTML
     processhtml: {
       mail: {
         files: {
-          '<%= paths.temp %>/mail.phtml': ['application/layouts/scripts/src/mail.phtml']
+          '<%= paths.temp %>/mail.html': ['application/layouts/scripts/src/mail.html']
         }
       }
     },
 
     // Inject inline CSS to mail templates from linked stylesheets.
-    // Behold! Requires Premailer gem installed in the system (gem install premailer).
+    // BEHOLD! Requires Premailer gem (https://github.com/premailer/premailer) installed in the system
+    // (`$ gem install premailer`).
     premailer: {
       main: {
         options: {
           verbose: true
         },
         files: {
-          'application/layouts/scripts/mail.phtml': ['<%= paths.temp %>/mail.phtml']
+          '<%= paths.temp %>/mail_inline_css.html': ['<%= paths.temp %>/mail.html']
         }
+      }
+    },
+
+    // Text replacements
+    replace: {
+      mail: {
+        src: '<%= paths.temp %>/mail_inline_css.html',
+        dest: 'application/layouts/scripts/mail.phtml',
+        replacements: [
+          {
+            from: '<!-- <?',
+            to: '<?'
+          },
+          {
+            from: '?> -->',
+            to: '?>'
+          }
+        ]
       }
     },
 
@@ -277,11 +291,12 @@ module.exports = function (grunt) {
   // Build email phtml template.
   // WARNING: Task not executed by default as it requires Ruby and Premailer gem in the system.
   grunt.registerTask('mail', [
+    'clean:temp',
     'less:dev',
     'uncss:mail',
     'processhtml:mail',
     'premailer',
-    'clean'
+    'replace:mail'
   ]);
 
   // Build subtasks
