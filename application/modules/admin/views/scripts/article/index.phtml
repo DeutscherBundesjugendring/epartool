@@ -35,9 +35,9 @@
                     <?php endif; ?>
                 </a>
                 <?php if (isset($this->consultation)): ?>
-                    <h2>Info</h2>
+                    <h2><?=$this->translate('Info');?></h2>
                 <?php else: ?>
-                    <h2>Pages</h2>
+                    <h2><?=$this->translate('Pages');?></h2>
                 <?php endif; ?>
 
                 <?php if (!count($this->articles)): ?>
