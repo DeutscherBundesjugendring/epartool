@@ -7,7 +7,7 @@
 
             <h1><?=$this->translate('Contribution Discussion');?></h1>
             <p>
-                <a href="<?=$this->url(['action' => 'show']);?>">&larr; <?=$this->translate('Back to contribution');?></a>
+                <a href="<?=$this->url(['action' => 'show']);?>">&larr; <?=$this->translate('Back to contributions');?></a>
             </p>
 
             <blockquote class="offset-bottom-large">
@@ -35,7 +35,7 @@
                             </small>
                             <?php if ($contrib->body): ?>
                                 <p><?=$this->escape($contrib->body);?></p>
-                            <?php endif;?>
+                            <?php endif; ?>
                             <?php if ($contrib->video_id): ?>
                                 <iframe
                                     width="560"
@@ -47,7 +47,7 @@
                                     frameborder="0"
                                     allowfullscreen
                                 ></iframe>
-                            <?php endif;?>
+                            <?php endif; ?>
                         </div>
                     <?php else: ?>
                         <div class="media">
@@ -56,15 +56,17 @@
                             </small>
                             <p><?=$this->translate('This post was hidden by admin.');?></p>
                         </div>
-                    <?php endif;?>
+                    <?php endif; ?>
                 <?php endforeach?>
             </div>
 
             <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
             ): ?>
-                <?=$this->form?>
-            <?php endif;?>
+                <hr class="hr-alt" />
+                <h2><?=$this->translate('Your Comment');?></h2>
+                <?=$this->form;?>
+            <?php endif; ?>
 
             <?=$this->subscriptionForm;?>
 

@@ -26,10 +26,15 @@ class Default_Form_Input_Discussion extends Zend_Form
             ->setValidators([['NotEmpty', true], 'EmailAddress']);
         $this->addElement($email);
 
+        $placeholder = Zend_Registry::get('Zend_Translate')->translate('e.g.');
+        $description = Zend_Registry::get('Zend_Translate')->translate('Example:');
         $videoId = $this->createElement('text', 'video_id');
         $videoId
-            ->setLabel('Video Id')
-            ->setAttrib('class', 'input-xlarge');
+            ->setLabel('YouTube video ID')
+            ->setAttrib('class', 'input-xlarge')
+            ->setAttrib('placeholder', $placeholder . ' V75dMMIW2B4')
+            ->setDescription($description . ' <span class="muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>')
+            ->getDecorator('Description')->setEscape(false);
         $this->addElement($videoId);
 
 
