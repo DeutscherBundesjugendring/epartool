@@ -33,11 +33,16 @@
                         <div class="row">
                             <div class="col-md-3">
 
-                                <img
-                                    src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . '/' . $consultation['img_file'];?>"
-                                    class="img-responsive img-thumbnail offset-bottom"
-                                    alt="<?=$consultation['img_expl'];?>"
-                                    />
+                                <a
+                                    href="<?=$this->url(['controller' => 'media', 'action' => 'index', 'kid' => $kid]);?>"
+                                    title="<?=$this->translate('Open media manager for');?> <?=$consultation['titl'];?>"
+                                >
+                                    <img
+                                        src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . '/' . $consultation['img_file'];?>"
+                                        class="img-responsive img-thumbnail offset-bottom"
+                                        alt="<?=$consultation['img_expl'];?>"
+                                        />
+                                </a>
 
                                 <ul class="nav nav-pills nav-stacked">
                                     <li><a href="<?=$this->url(['controller' => 'article', 'kid' => $kid]);?>"><?=$this->translate('Info');?></a></li>
