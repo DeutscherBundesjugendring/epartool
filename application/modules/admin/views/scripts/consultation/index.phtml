@@ -100,7 +100,7 @@
                                                 </button>
                                             </div>
                                             <div class="media-body">
-                                                <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$this->consultation['kid'];?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                                <a href="<?=$this->url(['controller' => 'input-discussion', 'action' => 'index', 'kid' => $this->consultation['kid'], 'inputId' => $contrib->input_id]);?>#<?=$this->escape($contrib->id);?>">
                                                     <?=$this->escape($contrib->body);?>
                                                 </a>
                                             </div>

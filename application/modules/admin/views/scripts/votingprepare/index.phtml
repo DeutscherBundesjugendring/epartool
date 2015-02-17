@@ -33,12 +33,12 @@
                                 <tr>
                                     <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
                                     <td>
-                                        <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$this->escape($question['kid']);?>/qid/<?=$this->escape($question['qi']);?>">
+                                        <a href="<?=$this->url(['controller' => 'votingprepare', 'action' => 'overview', 'kid' => $question['kid'], 'qid' => $question['qi']]);?>">
                                             <?=html_entity_decode($this->escape(strip_tags($question['q'])));?>
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 <?php else: ?>

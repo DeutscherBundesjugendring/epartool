@@ -57,21 +57,21 @@
                                                 <?=$this->translate('Contributions');?>
                                             </a>
                                         </li>
-                                    <?php endif;?>
+                                    <?php endif; ?>
                                     <?php if ($consultation['vot_show'] === 'y'): ?>
                                         <li>
                                             <a href="<?=$this->url(['controller' => 'votingprepare', 'kid' => $kid]);?>">
                                                 <?=$this->translate('Voting');?>
                                             </a>
                                         </li>
-                                    <?php endif;?>
+                                    <?php endif; ?>
                                     <?php if ($consultation['follup_show'] === 'y'): ?>
                                         <li>
                                             <a href="<?=$this->url(['controller' => 'followup', 'kid' => $kid]);?>">
                                                 <?=$this->translate('Follow Up');?>
                                             </a>
                                         </li>
-                                    <?php endif;?>
+                                    <?php endif; ?>
                                 </ul>
 
                             </div>
@@ -121,7 +121,7 @@
                                                         </footer>
 
                                                     </blockquote>
-                                                <?php endforeach;?>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                         <p>
@@ -160,7 +160,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="media-body">
-                                                                <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$kid;?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                                                <a href="<?=$this->url(['controller' => 'input-discussion', 'action' => 'index', 'kid' => $kid, 'inputId' => $contrib->input_id]);?>#<?=$this->escape($contrib->id);?>">
                                                                     <?=$this->escape($contrib->body);?>
                                                                 </a>
                                                             </div>
@@ -175,7 +175,7 @@
                                                         </footer>
 
                                                     </blockquote>
-                                                <?php endforeach;?>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                         <a href="<?=$this->url(['controller' => 'consultation', 'kid' => $kid]);?>">
@@ -186,7 +186,7 @@
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                             <?=$this->translate('No posts yet.');?>
                                         </p>
-                                    <?php endif;?>
+                                    <?php endif; ?>
 
                                 </div>
                             </form>
