@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -51,7 +51,7 @@
                                         <tr>
                                             <td>
                                                 <span class="glyphicon glyphicon-move"></span>
-                                                <input type="hidden" name="docorg[<?=$snippet['fid'];?>]" value="<?=$snippet['docorg'];?>" />
+                                                <input type="hidden" name="docorg[<?=$this->escape($snippet['fid']);?>]" value="<?=$this->escape($snippet['docorg']);?>" />
                                             </td>
                                             <td class="table-cell-top">
                                                 <p><?=strip_tags($this->cropText(html_entity_decode($snippet['expl']), 400));?></p>
@@ -67,7 +67,7 @@
                                             <td class="col-xs-2 table-cell-top">
                                                 <p>
                                                     <?=$this->translate('Level');?><br />
-                                                    <span class="label label-primary"><?=$this->hlvl[$snippet['hlvl']];?></span>
+                                                    <span class="label label-primary"><?=$this->escape($this->hlvl[$snippet['hlvl']]);?></span>
                                                 </p>
                                                 <p>
                                                     <?=$this->translate('Type');?><br />
@@ -105,7 +105,7 @@
                                                 </a>
 
                                                 <button
-                                                    value="<?=$snippet['fid'];?>"
+                                                    value="<?=$this->escape($snippet['fid']);?>"
                                                     class="item-action item-action-danger"
                                                     name="delete"
                                                     data-toggle="confirm"

@@ -60,10 +60,14 @@
                                                 <?php foreach ($tags as $tag): ?>
                                                     <div class="form-group">
                                                         <div class="input-group">
-                                                            <input name="tg_de[<?=$tag['tg_nr'];?>]" class="form-control input-sm" value="<?=$tag['tg_de'];?>" />
+                                                            <input
+                                                                name="tg_de[<?=$this->escape($tag['tg_nr']);?>]"
+                                                                class="form-control input-sm"
+                                                                value="<?=$this->escape($tag['tg_de']);?>"
+                                                            />
                                                             <span class="input-group-btn">
                                                                 <button
-                                                                    value="<?=$tag['tg_nr'];?>"
+                                                                    value="<?=$this->escape($tag['tg_nr']);?>"
                                                                     name="delete"
                                                                     type="submit"
                                                                     class="item-action item-action-danger"
@@ -74,7 +78,7 @@
                                                                 </button>
                                                             </span>
                                                         </div>
-                                                        <input name="tag_old[<?=$tag['tg_nr'];?>]" value="<?=$tag['tg_de'];?>" type="hidden" />
+                                                        <input name="tag_old[<?=$this->escape($tag['tg_nr']);?>]" value="<?=$this->escape($tag['tg_de']);?>" type="hidden" />
                                                     </div>
                                                     <?php if ($i == $breakAfter): ?>
                                                         </div>

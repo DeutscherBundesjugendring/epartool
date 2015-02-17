@@ -1,27 +1,27 @@
 <tr
-    data-admin-confirmation="<?=$this->input['block'];?>"
-    data-user-confirmation="<?=$this->input['user_conf'];?>"
-    data-voting="<?=$this->input['vot'];?>"
+    data-admin-confirmation="<?=$this->escape($this->input['block']);?>"
+    data-user-confirmation="<?=$this->escape($this->input['user_conf']);?>"
+    data-voting="<?=$this->escape($this->input['vot']);?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
 >
     <td class="table-cell-id table-cell-top">
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="<?=$this->input['tid'];?>" name="inp_list[]" />
-                <span class="muted"><?=$this->input['tid'];?>
+                <input type="checkbox" value="<?=$this->escape($this->input['tid']);?>" name="inp_list[]" />
+                <span class="muted"><?=$this->escape($this->input['tid']);?>
             </label>
         </div>
     </td>
     <td class="table-cell-top">
-        <p><?php echo $this->input['thes'];?></p>
-        <p><?php echo $this->input['expl'];?></p>
+        <p><?=$this->escape($this->input['thes']);?></p>
+        <p><?=$this->escape($this->input['expl']);?></p>
 
         <p>
             <small>
                 <?php if (!empty($this->input['name'])): ?>
                     <span class="glyphicon glyphicon-user"></span>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>">
-                        <?=$this->input['name'];?>
+                        <?=$this->escape($this->input['name']);?>
                     </a>,
                 <?php endif; ?>
                 <?=$this->formatDate($this->input['when']);?>
@@ -29,12 +29,12 @@
         </p>
         <p>
             <?php foreach ($this->input['tags'] as $tag): ?>
-                <span class="label label-primary"><?=$tag['tg_de'];?></span>
-            <?php endforeach;?>
+                <span class="label label-primary"><?=$this->escape($tag['tg_de']);?></span>
+            <?php endforeach; ?>
         </p>
         <?php if (!empty($this->input['notiz'])): ?>
             <p>
-                <?=$this->input['notiz'];?>
+                <?=$this->escape($this->input['notiz']);?>
             </p>
         <?php endif; ?>
         <?php if ($this->input['input_discussion_contrib']): ?>
@@ -64,7 +64,7 @@
                     <span class="glyphicon glyphicon-ok"></span>
                     <?=$this->translate('Confirmed'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
                 </span>
-            <?php endif;?>
+            <?php endif; ?>
         </p>
         <p>
             <?=$this->translate('User Confirmation');?><br />
@@ -83,7 +83,7 @@
                     <span class="glyphicon glyphicon-ok"></span>
                     <?=$this->translate('Confirmed');?>
                 </span>
-            <?php endif;?>
+            <?php endif; ?>
         </p>
         <p>
             <?=$this->translate('Voting');?><br />
@@ -102,19 +102,19 @@
                     <span class="glyphicon glyphicon-remove"></span>
                     <?=$this->translate('No');?>
                 </span>
-            <?php endif;?>
+            <?php endif; ?>
         </p>
     </td>
     <td class="col-xs-1 table-cell-top text-center">
         <?php if (in_array($this->input['tid'], $this->inputsWithDiscussion)): ?>
             <a
-                href="<?=$this->url(['controller' => 'input-discussion', 'action' => 'index', 'kid' => $this->kid, 'inputId' => $this->escape($this->input['tid'])]);?>"
+                href="<?=$this->url(['controller' => 'input-discussion', 'action' => 'index', 'kid' => $this->kid, 'inputId' => $this->input['tid']]);?>"
                 class="item-action"
                 title="<?=$this->translate('Show discussion');?>"
                 >
                 <span class="glyphicon glyphicon-comment"></span>
             </a>
-        <?php endif;?>
+        <?php endif; ?>
         <a
             href="<?=$this->url(['action' => 'edit', 'tid' => $this->input['tid']]);?>"
             class="item-action"
@@ -125,7 +125,7 @@
         <button
             class="item-action item-action-danger"
             name="delete"
-            value="<?=$this->input['tid'];?>"
+            value="<?=$this->escape($this->input['tid']);?>"
             data-toggle="confirm"
             data-confirm-message="<?=$this->translate('Delete contribution?');?>"
             title="<?=$this->translate('Delete contribution');?>"

@@ -27,7 +27,7 @@
                         <?=$this->mediaNavigation('consultations');?>
                     <?php else: ?>
                         <?=$this->mediaNavigation('all');?>
-                    <?php endif;?>
+                    <?php endif; ?>
                 </div>
                 <div class="content">
         <?php endif?>
@@ -66,14 +66,14 @@
                                     <?php // We are in listing mode. ?>
                                     href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
                                     target="_blank"
-                                    title="<?=$this->translate('Open');?> <?=$file['basename'];?>"
-                                <?php endif;?>
+                                    title="<?=$this->translate('Open');?> <?=$this->escape($file['basename']);?>"
+                                <?php endif; ?>
                             >
                                 <div class="thumbnail-image" style="background-image: url(<?=$this->mediaPresenter($file, 'admin_thumbnail_lowDPI');?>);"></div>
                                 <div class="caption">
-                                    <h4 class="thumbnail-title"><?=$file['basename'];?></h4>
+                                    <h4 class="thumbnail-title"><?=$this->escape($file['basename']);?></h4>
                                     <small class="text-muted">
-                                        <?=$file['size'];?>&nbsp;kB<br />
+                                        <?=$this->escape($file['size']);?>&nbsp;kB<br />
                                     </small>
                                 </div>
                             </a>
@@ -101,7 +101,7 @@
 
                         </div><!-- .thumbnail -->
                     </div>
-                <?php endforeach;?>
+                <?php endforeach; ?>
 
             </div>
         <?php else: ?>

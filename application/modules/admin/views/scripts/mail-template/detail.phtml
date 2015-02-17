@@ -31,8 +31,8 @@
                     <table class="table table-striped">
                         <?php foreach ($this->placeholders as $placeholder): ?>
                             <tr>
-                                <th class="col-sm-3">{{<?php echo $placeholder->name?>}}</th>
-                                <td><?php echo $placeholder->description?></td>
+                                <th class="col-sm-3">{{<?=$this->escape($placeholder->name);?>}}</th>
+                                <td><?=$this->escape($placeholder->description);?></td>
                             </tr>
                         <?php endforeach?>
                     </table>
@@ -43,8 +43,8 @@
                     <table class="table table-striped">
                         <?php foreach ($this->components as $component): ?>
                             <tr>
-                                <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></th>
-                                <td><?php echo $component->description?></td>
+                                <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE; ?></th>
+                                <td><?=$this->escape($component->description);?></td>
                             </tr>
                         <?php endforeach?>
                     </table>

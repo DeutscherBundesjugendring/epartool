@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -28,12 +28,12 @@
                             <?php foreach ($this->questions as $question): ?>
                                 <li>
                                     <?php if ($question['qi'] == $this->currentQuestion['qi']): ?>
-                                        <strong><?=$question['nr'];?> <?=$question['q'];?></strong>
+                                        <strong><?=$this->escape($question['nr']);?> <?=$this->escape($question['q']);?></strong>
                                     <?php else: ?>
-                                        <a href="<?=$this->url(['qid' => $question['qi']]);?>"><?=$question['nr'] . ' ' . $question['q'];?></a>
-                                    <?php endif;?>
+                                        <a href="<?=$this->url(['qid' => $question['qi']]);?>"><?=$this->escape($question['nr']);?> <?=$this->escape($question['q']);?></a>
+                                    <?php endif; ?>
                                 </li>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
 
@@ -53,10 +53,10 @@
                                         <?php $percent = 0; ?>
                                     <?php endif; ?>
 
-                                    <p><?=$thesis['thes'];?></p>
+                                    <p><?=$this->escape($thesis['thes']);?></p>
                                     <div
                                         class="progress"
-                                        title="<?=$this->translate('Weighted points');?>: <?=round($thesis['points'], 2);?>, <?=$thesis['cast'];?> <?=$this->translate('votes');?>"
+                                        title="<?=$this->translate('Weighted points');?>: <?=round($thesis['points'], 2);?>, <?=$this->escape($thesis['cast']);?> <?=$this->translate('votes');?>"
                                         >
                                         <div
                                             class="progress-bar"
@@ -78,7 +78,7 @@
                             <span class="glyphicon glyphicon-info-sign"></span>
                             <?=$this->translate('There are no voting results to be shown at the moment.');?>
                         </p>
-                    <?php endif;?>
+                    <?php endif; ?>
 
                 <?php else: ?>
                     <p class="alert alert-info">

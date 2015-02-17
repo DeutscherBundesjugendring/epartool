@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -23,7 +23,7 @@
                 </a>
                 <h2>
                     <?=$this->translate('Contributions for');?>:
-                    <?=$this->question['q'];?>
+                    <?=$this->escape($this->question['q']);?>
                 </h2>
 
                 <?php if (count($this->inputs)): ?>
@@ -100,12 +100,12 @@
                                         >
                                             <?php foreach ($this->tags as $tag): ?>
                                                 <option
-                                                    value="<?=$tag['tg_nr'];?>"
+                                                    value="<?=$this->escape($tag['tg_nr']);?>"
                                                     <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
                                                 >
-                                                    <?=$tag['tg_de'];?>
+                                                    <?=$this->escape($tag['tg_de']);?>
                                                 </option>
-                                            <?php endforeach;?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                             <?=$this->translate('Only contributions with &ldquo;%s&rdquo; keywords are listed.', $this->tag['tg_de']);?>
                             <a href="<?php echo $this->url(array('tag' => null));?>">Show all contributions</a>
                         </p>
-                    <?php endif;?>
+                    <?php endif; ?>
 
                     <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
@@ -180,7 +180,7 @@
                                             'kid' => $this->consultation['kid'],
                                             'inputsWithDiscussion' => $this->inputsWithDiscussion]
                                     );?>
-                                <?php endforeach;?>
+                                <?php endforeach; ?>
                             </table>
                         </div>
 

@@ -43,7 +43,7 @@
                                     <?php foreach ($this->userlist as $user): ?>
                                         <tr>
                                             <td class="table-cell-id"><?=$i;?></td>
-                                            <td data-sort-group="<?=empty($user->name)? '–' : strtoupper(substr($user->name, 0, 1));?>">
+                                            <td data-sort-group="<?=empty($user->name)? '–' : strtoupper(substr($this->escape($user->name), 0, 1));?>">
                                                 <?=(empty($user->name))? '<span class="text-muted">–</span>' : $this->escape($user->name);?>
                                             </td>
                                             <td>

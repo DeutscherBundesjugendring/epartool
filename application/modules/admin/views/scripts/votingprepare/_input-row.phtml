@@ -1,9 +1,9 @@
 <tr
-    data-admin-confirmation="<?=$this->input['block'];?>"
+    data-admin-confirmation="<?=$this->escape($this->input['block']);?>"
     data-origin="<?=$this->input['rel_tid'] ? 'adminCreated' : 'userCreated';?>"
-    data-voting="<?=$this->input['vot'];?>"
+    data-voting="<?=$this->escape($this->input['vot']);?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
-    data-directory="<?=$this->input['dir'];?>"
+    data-directory="<?=$this->escape($this->input['dir']);?>"
 >
     <td class="table-cell-id table-cell-top">
         <div class="checkbox">
@@ -38,7 +38,7 @@
             <small>
                 <?php if (!empty($this->input['name'])): ?>
                     <span class="glyphicon glyphicon-user"></span>
-                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->input['name'];?></a>,
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->escape($this->input['name']);?></a>,
                 <?php endif; ?>
                 <?=$this->formatDate($this->input['when']);?>
             </small>
@@ -139,7 +139,7 @@
             <button
                 class="item-action item-action-danger"
                 name="delete"
-                value="<?=$this->input['tid']?>"
+                value="<?=$this->escape($this->input['tid']);?>"
                 data-toggle="confirm"
                 data-confirm-message="<?=$this->translate('Delete contribution?');?>"
                 title="<?=$this->translate('Delete contribution');?>"

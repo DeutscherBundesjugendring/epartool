@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -49,7 +49,7 @@
                                         <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseContributions<?=$i;?>" aria-controls="collapseContributions<?=$i;?>">
                                             <h4 class="panel-title">
                                                 <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                                <?=$question['q'];?>
+                                                <?=$this->escape($question['q']);?>
                                             </h4>
                                         </a>
                                     </div>
@@ -64,11 +64,11 @@
                                                                     <input
                                                                         type="checkbox"
                                                                         name="input_links[]"
-                                                                        value="<?=$input->tid;?>"
+                                                                        value="<?=$this->escape($input->tid);?>"
                                                                         <?=!empty($this->related['inputs'][$input->tid]) ? 'checked' : '';?>
                                                                     />
                                                                 </td>
-                                                                <td class="table-cell-top"><?=$input->thes;?></td>
+                                                                <td class="table-cell-top"><?=$this->escape($input->thes);?></td>
                                                                 <td class="col-xs-1 table-cell-top">
                                                                     <?=$this->translate('Voting');?><br />
                                                                     <?php if ($input['vot'] === 'y'): ?>
@@ -86,10 +86,10 @@
                                                                              <span class="glyphicon glyphicon-question-sign"></span>
                                                                             <?=$this->translate('Unknown');?>
                                                                         </span>
-                                                                    <?php endif;?>
+                                                                    <?php endif; ?>
                                                                 </td>
                                                             </tr>
-                                                        <?php endforeach;?>
+                                                        <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             <?php else: ?>
@@ -102,7 +102,7 @@
                                     </div><!-- .panel-collapse -->
                                 </div><!-- .panel -->
                                 <?php $i++; ?>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
 
                         </div><!-- .panel-group -->
                         <div class="form-group text-right">
@@ -142,7 +142,7 @@
                                         <a data-toggle="collapse" data-parent="#accordionSnippets" href="#collapseSnippets<?=$i;?>" aria-controls="collapseSnippets<?=$i;?>">
                                             <h4 class="panel-title">
                                                 <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                                                <?=$followup['titl'];?>
+                                                <?=$this->escape($followup['titl']);?>
                                             </h4>
                                         </a>
                                     </div>
@@ -158,15 +158,15 @@
                                                                     <input
                                                                         type="checkbox"
                                                                         name="snippet_links[]"
-                                                                        value="<?=$snippet->fid;?>"
+                                                                        value="<?=$this->escape($snippet->fid);?>"
                                                                         <?=!empty($this->related['snippets'][$snippet->fid]) ? 'checked' : '';?>
                                                                     />
                                                                 </td>
                                                                 <td class="table-cell-top">
-                                                                    <?=strip_tags(html_entity_decode($snippet['expl']));?>
+                                                                    <?=html_entity_decode($this->escape(strip_tags($snippet['expl'])));?>
                                                                 </td>
                                                             </tr>
-                                                        <?php endforeach;?>
+                                                        <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             <?php else: ?>
@@ -180,7 +180,7 @@
                                     </div><!-- .panel-collapse -->
                                 </div><!-- .panel -->
                                 <?php $i++; ?>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
 
                         </div><!-- .panel-group -->
                         <div class="form-group text-right">
@@ -212,16 +212,16 @@
                                                 <input
                                                     type="checkbox"
                                                     name="followup_links[]"
-                                                    value="<?=$followupId;?>"
+                                                    value="<?=$this->escape($followupId);?>"
                                                     <?=!empty($this->related['followups'][$followupId]) ? 'checked' : '';?>
                                                 />
                                             </td>
                                             <td class="table-cell-top">
-                                                <?=$followup['titl'];?>
+                                                <?=$this->escape($followup['titl']);?>
                                             </td>
                                         </tr>
-                                    <?php endif;?>
-                                <?php endforeach;?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                         <div class="form-group text-right">
@@ -233,7 +233,7 @@
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no follow-ups for this consultation yet.');?>
                     </p>
-                <?php endif;?>
+                <?php endif; ?>
 
             </div>
         </div>

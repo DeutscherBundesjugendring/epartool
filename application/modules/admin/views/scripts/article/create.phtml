@@ -2,8 +2,8 @@
     <div class="container">
 
         <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-            <h1><?=$this->consultation['titl'];?></h1>
-            <h2><?=$this->consultation['titl_sub'];?></h2>
+            <h1><?=$this->escape($this->consultation['titl']);?></h1>
+            <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
             <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
         <?php else: ?>
             <h1><?=$this->translate('General Settings');?></h1>

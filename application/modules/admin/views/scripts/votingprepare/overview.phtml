@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -29,7 +29,7 @@
                                 name="fulltext"
                                 type="search"
                                 class="form-control"
-                                value="<?=$this->fulltext;?>"
+                                value="<?=$this->escape($this->fulltext);?>"
                                 placeholder="<?=$this->translate('Search contributions');?>"
                             />
                             <span class="input-group-btn">
@@ -123,8 +123,8 @@
                                                     <option value=""><?=$this->translate('All folders');?></option>
                                                     <option value="0"><?=$this->translate('Folder root');?></option>
                                                     <?php foreach($this->directories as $directory): ?>
-                                                        <option value="<?=$directory['id'];?>">
-                                                            <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                                        <option value="<?=$this->escape($directory['id']);?>">
+                                                            <?=$this->escape($directory['dir_name']);?> (<?=$directory['count'];?>)
                                                         </option>
                                                     <?php endforeach?>
                                                 </select>
@@ -143,12 +143,12 @@
                                                 >
                                                     <?php foreach ($this->tags as $tag): ?>
                                                         <option
-                                                            value="<?=$tag['tg_nr'];?>"
+                                                            value="<?=$this->escape($tag['tg_nr']);?>"
                                                             <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
                                                         >
-                                                            <?=$tag['tg_de'];?>
+                                                            <?=$this->escape($tag['tg_de']);?>
                                                         </option>
-                                                    <?php endforeach;?>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -200,20 +200,20 @@
                                         <?php foreach($this->directories as $directory): ?>
                                             <div class="list-group-item">
                                                 <span class="glyphicon glyphicon-move"></span>
-                                                <?=$directory['dir_name'];?>
+                                                <?=$this->escape($directory['dir_name']);?>
                                                 <button
                                                     class="item-action item-action-danger"
                                                     name="delete"
-                                                    value="<?=$directory['id'];?>"
+                                                    value="<?=$this->escape($directory['id']);?>"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete folder?');?>"
                                                     >
                                                     <span class="glyphicon glyphicon-trash"></span>
                                                 </button>
                                                 <span class="badge"><?=$directory['count'];?></span>
-                                                <input type="hidden" name="order[<?=$directory['id'];?>]" value="<?=$directory['order'];?>" />
+                                                <input type="hidden" name="order[<?=$this->escape($directory['id']);?>]" value="<?=$this->escape($directory['order']);?>" />
                                             </div>
-                                        <?php endforeach;?>
+                                        <?php endforeach; ?>
                                     </div>
                                     <button type="submit" name="saveOrder" value="1" class="btn btn-default" disabled>
                                         <?=$this->translate('Save changes');?>
@@ -332,8 +332,8 @@
                                     <select class="form-control" name="sendToDictionaryId">
                                         <option value="0"><?=$this->translate('Folder root');?></option>
                                         <?php foreach($this->directories as $directory): ?>
-                                            <option value="<?=$directory['id'];?>">
-                                                <?=$directory['dir_name'];?> (<?=$directory['count'];?>)
+                                            <option value="<?=$this->escape($directory['id']);?>">
+                                                <?=$this->escape($directory['dir_name']);?> (<?=$directory['count'];?>)
                                             </option>
                                         <?php endforeach?>
                                     </select>
@@ -361,7 +361,7 @@
                             <tbody>
                                 <?php foreach ($this->inputs as $input): ?>
                                     <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input])?>
-                                <?php endforeach;?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -46,7 +46,7 @@
                             <tbody>
                                 <?php foreach ($this->participants as $user): ?>
                                     <tr>
-                                        <td class="table-cell-id table-cell-top"><?=$user['uid'];?></td>
+                                        <td class="table-cell-id table-cell-top"><?=$this->escape($user['uid']);?></td>
                                         <td class="table-cell-top">
                                             <?php if (!empty($user['name'])): ?>
                                                 <?=$this->escape($user['name']);?>
@@ -67,9 +67,9 @@
                                                 </p>
                                                 <?php if ($user['votingRights']['grp_siz'] != 1): ?>
                                                     <p>
-                                                        <?=$this->translate('Partner');?>: <?=$user['name_pers']; ?><br/>
-                                                        <?=$this->translate('Group name');?>: <?=$user['name_group']; ?><br/>
-                                                        <?=$this->translate('Group size');?>: <?=$user['group_size']; ?>
+                                                        <?=$this->translate('Partner');?>: <?=$this->escape($user['name_pers']);?><br/>
+                                                        <?=$this->translate('Group name');?>: <?=$this->escape($user['name_group']);?><br/>
+                                                        <?=$this->translate('Group size');?>: <?=$this->escape($user['group_size']);?>
                                                     </p>
                                                 <?php endif; ?>
                                             <?php endif; ?>
@@ -84,7 +84,7 @@
                                                     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                                                 </a>
                                                 <button
-                                                    value="<?=$user['uid'];?>"
+                                                    value="<?=$this->escape($user['uid']);?>"
                                                     name="instantSendUserId"
                                                     class="item-action"
                                                     data-toggle="confirm"

@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -45,7 +45,7 @@
                                     <?php foreach ($this->groups as $group): ?>
                                         <tr>
                                             <td>
-                                                <?=$group['name'];?>
+                                                <?=$this->escape($group['name']);?>
                                                 <div class="text-overflow">
                                                     <a href="mailto:<?=$this->escape($group['email']);?>" title="<?=$this->escape($group['email']);?>">
                                                         <?=$this->escape($group['email']);?>
@@ -81,7 +81,7 @@
                                             <td class="table-cell-actions">
                                                 <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
                                                     <button
-                                                        value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
+                                                        value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
                                                         class="item-action"
                                                         name="confirm"
                                                         data-toggle="confirm"
@@ -90,7 +90,7 @@
                                                     >
                                                         <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                                                     </button>
-                                                <?php endif;?>
+                                                <?php endif; ?>
                                                 <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
                                                     <button
                                                         value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
@@ -102,7 +102,7 @@
                                                     >
                                                         <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                                     </button>
-                                                <?php endif;?>
+                                                <?php endif; ?>
                                                 <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
                                                     <button
                                                         value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
@@ -114,7 +114,7 @@
                                                     >
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
-                                                <?php endif;?>
+                                                <?php endif; ?>
                                                 <a
                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
                                                     class="item-action"
@@ -131,7 +131,7 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                    <?php endforeach;?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -141,7 +141,7 @@
                         <span class="glyphicon glyphicon-info-sign"></span>
                         <?=$this->translate('There are no participants yet.');?>
                     </p>
-                <?php endif;?>
+                <?php endif; ?>
 
             </div>
         </div>

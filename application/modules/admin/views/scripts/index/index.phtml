@@ -21,12 +21,16 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading panel-heading-extended">
-                        <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'edit', 'kid' => $kid]);?>" class="panel-action" title="<?=$this->translate('Consultation settings');?>">
+                        <a
+                            href="<?=$this->url(['controller' => 'consultation', 'action' => 'edit', 'kid' => $kid]);?>"
+                            class="panel-action"
+                            title="<?=$this->translate('Consultation settings');?>"
+                        >
                             <span class="glyphicon glyphicon-cog"></span>
                         </a>
                         <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'index', 'kid' => $kid]);?>">
-                            <h2 class="panel-title panel-title-big"><?=$consultation['titl'];?></h2>
-                            <h3 class="panel-title panel-title-subtitle"><?=$consultation['titl_sub'];?></h3>
+                            <h2 class="panel-title panel-title-big"><?=$this->escape($consultation['titl']);?></h2>
+                            <h3 class="panel-title panel-title-subtitle"><?=$this->escape($consultation['titl_sub']);?></h3>
                         </a>
                     </div>
                     <div class="panel-body">
@@ -35,12 +39,12 @@
 
                                 <a
                                     href="<?=$this->url(['controller' => 'media', 'action' => 'index', 'kid' => $kid]);?>"
-                                    title="<?=$this->translate('Open media manager for');?> <?=$consultation['titl'];?>"
+                                    title="<?=$this->translate('Open media manager for');?> <?=$this->escape($consultation['titl']);?>"
                                 >
                                     <img
                                         src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . '/' . $consultation['img_file'];?>"
                                         class="img-responsive img-thumbnail offset-bottom"
-                                        alt="<?=$consultation['img_expl'];?>"
+                                        alt="<?=$this->escape($consultation['img_expl']);?>"
                                         />
                                 </a>
 
@@ -86,7 +90,7 @@
                                                                 <button
                                                                     class="item-action item-action-danger"
                                                                     name="deleteInput"
-                                                                    value="<?=$input['tid'];?>"
+                                                                    value="<?=$this->escape($input['tid']);?>"
                                                                     data-toggle="confirm"
                                                                     data-confirm-message="<?=$this->translate('Delete contribution?');?>"
                                                                     title="<?=$this->translate('Delete');?>"
@@ -97,7 +101,7 @@
                                                             <div class="media-body">
                                                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'kid' => $kid, 'qid' => $input['qi'], 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
                                                                     <p>
-                                                                        <?=$input['thes'];?>
+                                                                        <?=$this->escape($input['thes']);?>
                                                                     </p>
                                                                 </a>
                                                             </div>
@@ -108,9 +112,9 @@
                                                                 <span class="glyphicon glyphicon-user"></span>
                                                                 <a
                                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid'], 'kid' => $kid]);?>"
-                                                                    title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                                                    title="<?=$this->translate('Show contributions by');?> <?=$this->escape($input['name']);?>"
                                                                     >
-                                                                    <?=$input['name'];?>
+                                                                    <?=$this->escape($input['name']);?>
                                                                 </a>,
                                                             <?php endif; ?>
                                                             <?=$this->formatDate($input['when']);?>
@@ -147,7 +151,7 @@
                                                                 <button
                                                                     class="item-action item-action-danger"
                                                                     name="deleteDiscContrib"
-                                                                    value="<?=$contrib->id;?>"
+                                                                    value="<?=$this->escape($contrib->id);?>"
                                                                     data-toggle="confirm"
                                                                     data-confirm-message="<?=$this->translate('Delete discussion post?');?>"
                                                                     title="<?=$this->translate('Delete');?>"
@@ -165,7 +169,7 @@
                                                         <footer>
                                                             <?php if (!empty($contrib['name'])): ?>
                                                                 <span class="glyphicon glyphicon-user"></span>
-                                                                <?=$contrib['name'];?>,
+                                                                <?=$this->escape($contrib['name']);?>,
                                                             <?php endif; ?>
                                                             <?=$this->formatDate($contrib->time_created);?>
                                                         </footer>

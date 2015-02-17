@@ -13,8 +13,8 @@
         <select class="form-control js-template-selector">
             <option value="0"><?=$this->translate('Please select…');?></option>
             <?php foreach ($this->templates as $template): ?>
-                <option value="<?php echo $template->id?>"><?php echo $template->name?></option>
-            <?php endforeach ?>
+                <option value="<?=$this->escape($template->id);?>"><?=$this->escape($template->name);?></option>
+            <?php endforeach; ?>
         </select>
 
         <h3><?=$this->translate('Email');?></h3>
@@ -25,8 +25,8 @@
             <table class="table table-striped">
                 <?php foreach ($this->placeholders as $placeholder): ?>
                     <tr>
-                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></th>
-                        <td><?php echo $placeholder->description?></td>
+                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE; ?></th>
+                        <td><?=$this->escape($placeholder->description);?></td>
                     </tr>
                 <?php endforeach?>
             </table>
@@ -37,8 +37,8 @@
             <table class="table table-striped">
                 <?php foreach ($this->components as $component): ?>
                     <tr>
-                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></th>
-                        <td><?php echo $component->description?></td>
+                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE; ?></th>
+                        <td><?=$this->escape($component->description);?></td>
                     </tr>
                 <?php endforeach?>
             </table>

@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1><?=$this->consultation['titl'];?></h1>
-        <h2><?=$this->consultation['titl_sub'];?></h2>
+        <h1><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -19,7 +19,7 @@
             <div class="content">
 
                 <a href="<?=$this->url(['action' => 'participants', 'uid' => null, 'sub_uid' => null]);?>" class="back"><?=$this->translate('Back to Voting Participants');?></a>
-                <h2><?=$this->translate('Edit Voting Participant:');?> <?php echo $this->user?></h2>
+                <h2><?=$this->translate('Edit Voting Participant:');?> <?=$this->escape($this->user);?></h2>
 
                 <p class="alert alert-warning">
                     <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
