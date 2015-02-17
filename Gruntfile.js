@@ -23,7 +23,11 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= paths.dist %>/css/<%= pkg.name %>.css': '<%= paths.src %>/less/main.less',
-          '<%= paths.dist %>/css/admin.css': '<%= paths.src %>/less/admin.less',
+          '<%= paths.dist %>/css/admin.css': '<%= paths.src %>/less/admin.less'
+        }
+      },
+      mail: {
+        files: {
           '<%= paths.temp %>/mail.css': '<%= paths.src %>/less/mail.less'
         }
       },
@@ -292,7 +296,7 @@ module.exports = function (grunt) {
   // WARNING: Task not executed by default as it requires Ruby and Premailer gem in the system.
   grunt.registerTask('mail', [
     'clean:temp',
-    'less:dev',
+    'less:mail',
     'uncss:mail',
     'processhtml:mail',
     'premailer',
@@ -302,7 +306,8 @@ module.exports = function (grunt) {
   // Build subtasks
   grunt.registerTask('build-css', [
     'clean:css',
-    'less'
+    'less:dev',
+    'less:dist'
   ]);
 
   grunt.registerTask('build-js', [
