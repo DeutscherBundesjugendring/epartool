@@ -126,7 +126,7 @@
                     <?php if ($this->tag['tg_nr'] > 0): ?>
                         <p class="alert alert-info">
                             <?=$this->translate('Only contributions with &ldquo;%s&rdquo; keywords are listed.', $this->tag['tg_de']);?>
-                            <a href="<?php echo $this->url(array('tag' => null));?>">Show all contributions</a>
+                            <a href="<?=$this->url(['tag' => null]);?>"><?=$this->translate('Show all contributions');?></a>
                         </p>
                     <?php endif; ?>
 
