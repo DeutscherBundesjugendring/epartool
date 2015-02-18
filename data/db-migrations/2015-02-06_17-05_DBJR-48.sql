@@ -8,7 +8,6 @@ VALUES
 
 
 
-SET @project_code = ;
 INSERT INTO `email_template_has_email_placeholder` (`email_template_id`, `email_placeholder_id`)
 SELECT
     `id`,
