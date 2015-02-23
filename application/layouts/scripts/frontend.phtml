@@ -19,9 +19,9 @@
     <meta property="og:description" content="<?=Zend_Registry::get('systemconfig')->meta->property->ogDescription;?>" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
     <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.min.css');?>" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.min.css');?>" type="text/css" />
     <?php endif;?>
 
     <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
