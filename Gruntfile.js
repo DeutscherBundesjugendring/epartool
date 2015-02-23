@@ -102,9 +102,9 @@ module.exports = function (grunt) {
     },
 
     // Lint custom JS
-    /*jshint: {
+    jshint: {
       files: ['<%= paths.src %>/js/main.js']
-    },*/
+    },
 
     // Compile Coffee script
     coffee: {
@@ -247,7 +247,7 @@ module.exports = function (grunt) {
           '<%= paths.src %>/coffee/*.coffee',
           '<%= paths.src %>/js/*.js'
         ],
-        tasks: ['build-js']
+        tasks: ['build-js-dev']
       },
       php: {
         files: [
@@ -310,32 +310,50 @@ module.exports = function (grunt) {
     'less:dist'
   ]);
 
-  grunt.registerTask('build-js', [
+  grunt.registerTask('build-js-dev', [
     'clean:js',
-    //'jshint',
+    'jshint',
+    'coffee',
+    'concat',
+    'po2json'
+  ]);
+
+  grunt.registerTask('build-js-dist', [
+    'clean:js',
+    'jshint',
     'coffee',
     'concat',
     'uglify',
     'po2json'
   ]);
 
-  // Build task
-  grunt.registerTask('build', [
+  // Build task - distribution
+  grunt.registerTask('build-dev', [
     'clean:temp',
     'clean:fonts',
     'phplint',
     'build-css',
-    'build-js',
+    'build-js-dev',
+    'copy'
+  ]);
+
+  // Build task - development
+  grunt.registerTask('build-dist', [
+    'clean:temp',
+    'clean:fonts',
+    'phplint',
+    'build-css',
+    'build-js-dist',
     'copy'
   ]);
 
   // Development
   grunt.registerTask('dev', [
-    'build',
+    'build-dev',
     'browserSync',
     'watch'
   ]);
 
   // Default task
-  grunt.registerTask('default', 'build');
+  grunt.registerTask('default', 'build-dist');
 };
