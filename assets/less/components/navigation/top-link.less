@@ -11,6 +11,8 @@
     }
 
     @media (min-width: @screen-md-min) {
-        margin-top: 2 * @line-height-computed;
+        &:not(:first-child) {
+            margin-top: 2 * @line-height-computed;
+        }
     }
 }

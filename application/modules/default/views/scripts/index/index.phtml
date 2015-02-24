@@ -4,8 +4,17 @@
 
 <?php if (!empty($this->showMoreButton)): ?>
     <div class="main-bottom-bar">
+
         <button type="button" class="btn btn-default js-load-more-consultations">
             <?=$this->translate('Show more consultations');?>
         </button>
+
+        <div class="top-link hidden js-top-link">
+            <a href="#top" class="has-icon js-scroll">
+                <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                <?=$this->translate('up');?>
+            </a>
+        </div>
+
     </div>
 <?php endif; ?>

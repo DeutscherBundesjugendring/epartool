@@ -71,6 +71,7 @@ bindLoadMoreConsultations = () ->
             {},
             (data) ->
                 $('.js-load-more-consultations').remove()
+                $('.js-top-link').removeClass('hidden')
                 $('.js-consultations-container').append(data)
         )
 
