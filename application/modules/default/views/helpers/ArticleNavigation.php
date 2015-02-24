@@ -14,8 +14,8 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
             $items = $articleModel->getStaticPages();
         }
 
-        $html = '<nav role="navigation" class="tertiary-navigation">'
-            . '<ul class="nav nav-list">';
+        $html = '<nav>'
+            . '<ul class="nav nav-stacked">';
         $i = 1;
         foreach ($items as $item) {
             if ($item['ref_nm'] == 'about') {
@@ -51,7 +51,7 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                     . (empty($item['desc']) ? $this->view->translate('Page'). ' ' . $i : $item['desc'])
                     . '</a>';
                 if (!empty($item['subpages']) && $isItemInRootline) {
-                    $html.= '<ul class="nav nav-list">';
+                    $html.= '<ul>';
                     $j = 1;
                     foreach ($item['subpages'] as $subpage) {
                         // second level (subpages)

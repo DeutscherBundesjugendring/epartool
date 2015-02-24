@@ -15,8 +15,8 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract
                 'tags' => array('title' => $this->view->translate('Contributions sorted by keywords'),'url'=>array('action' => 'tags', 'page' => null))
             );
 
-            $html = '<nav role="navigation" class="tertiary-navigation">'
-                 . '<ul class="nav nav-list">';
+            $html = '<nav>'
+                 . '<ul class="nav nav-stacked">';
 
             foreach ($navItems as $key => $val) {
                 $liClasses = array();

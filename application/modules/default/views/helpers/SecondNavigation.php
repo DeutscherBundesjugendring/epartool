@@ -82,8 +82,8 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
         }
 
         // Render
-        $html = '<nav role="navigation" class="consultation-nav secondary-navigation">'
-                . '<ul class="nav nav-tabs">';
+        $html = '<nav class="consultation-nav secondary-navigation">'
+                . '<ul class="nav">';
         foreach ($items as $item => $val) {
             $liClasses = array();
             if ($item == $activeItem) {

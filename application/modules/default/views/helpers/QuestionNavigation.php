@@ -41,9 +41,9 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
 
         if ($for !== 'follow-up-box') {
             if ($for !== 'follow-up') {
-                $html .= '<nav role="navigation" class="tertiary-navigation">';
+                $html .= '<nav>';
             }
-            $html .= '<ul class="nav nav-list">';
+            $html .= '<ul class="nav nav-stacked">';
         }
 
         $i = 1;

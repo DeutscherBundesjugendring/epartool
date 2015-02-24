@@ -1,0 +1,29 @@
+// Stacked Navigation
+
+
+.nav-stacked {
+    margin-bottom: 2 * @line-height-computed;
+
+    > li > a {
+        font-family: @font-family-condensed;
+        font-size: @font-size-large;
+        text-transform: uppercase;
+        color: @nav-stacked-color;
+        background-color: @nav-stacked-bg;
+
+        &:hover,
+        &:focus {
+            color: @nav-stacked-hover-color;
+            background-color: @nav-stacked-hover-bg;
+        }
+    }
+
+    > .active > a {
+        &,
+        &:hover,
+        &:focus {
+            color: @nav-stacked-active-color;
+            background-color: @nav-stacked-active-bg;
+        }
+    }
+}
