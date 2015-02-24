@@ -56,14 +56,14 @@
             <!-- Main navigation -->
             <nav role="navigation" class="header-nav" aria-label="<?=$this->translate('Menu');?>">
                 <ul class="nav nav-pills nav-centered">
-                    <li><a href="<?=$this->url(array(), 'about');?>#what"><?=$this->translate('What');?></a></li>
-                    <li><a href="<?=$this->url(array(), 'about');?>#us"><?=$this->translate('We');?></a></li>
+                    <li><a href="<?=$this->url([], 'about');?>#what"><?=$this->translate('What');?></a></li>
+                    <li><a href="<?=$this->url([], 'about');?>#us"><?=$this->translate('We');?></a></li>
                     <?php if (Zend_Registry::get('Zend_Translate')->getAdapter()->getLocale() === 'de'): ?>
-                        <li><a href="<?=$this->url(array(), 'about');?>#you"><?=$this->translate('With You');?></a></li>
-                        <li><a href="<?=$this->url(array(), 'about');?>#vision"><?=$this->translate('Do');?></a></li>
+                        <li><a href="<?=$this->url([], 'about');?>#you"><?=$this->translate('With You');?></a></li>
+                        <li><a href="<?=$this->url([], 'about');?>#vision"><?=$this->translate('Do');?></a></li>
                     <?php elseif (Zend_Registry::get('Zend_Translate')->getAdapter()->getLocale() === 'en'): ?>
-                        <li><a href="<?=$this->url(array(), 'about');?>#vision"><?=$this->translate('Do');?></a></li>
-                        <li><a href="<?=$this->url(array(), 'about');?>#you"><?=$this->translate('With You');?></a></li>
+                        <li><a href="<?=$this->url([], 'about');?>#vision"><?=$this->translate('Do');?></a></li>
+                        <li><a href="<?=$this->url([], 'about');?>#you"><?=$this->translate('With You');?></a></li>
                     <?php endif; ?>
                 </ul>
             </nav>

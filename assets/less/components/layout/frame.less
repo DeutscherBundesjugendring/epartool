@@ -8,6 +8,15 @@
     background-color: @frame-bg;
     box-shadow: 0 8px 16px fade(#000, 40%);
 
+    // Heading inside the frame.
+    &-title {
+        margin-bottom: @line-height-computed;
+        font-weight: bold;
+        font-size: 1.6em;
+        line-height: @headings-line-height;
+        text-align: center;
+    }
+
     @media (min-width: @screen-sm-min) {
         position: relative;
         padding: @line-height-computed @line-height-computed 0;
