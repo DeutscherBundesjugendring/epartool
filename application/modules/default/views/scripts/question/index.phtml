@@ -14,7 +14,7 @@
     <h1><?=$this->translate('All questions')?></h1>
 
     <?php foreach ($this->questions as $question): ?>
-        <article class="article article-preview">
+        <article class="article">
             <?php if (!empty($question['nr'])): ?>
                 <h2 class="alt numbered heading-with-cta">
                     <span class="numbered-number pull-left"><?= $question['nr'] ?></span>
