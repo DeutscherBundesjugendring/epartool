@@ -1,0 +1,41 @@
+// Articles
+
+
+.article {
+
+    // Custom bullets of user content.
+    ul {
+        margin: 0 0 @line-height-computed;
+        list-style: none;
+
+        > li {
+            margin-left: 1.25em;
+
+            &:before {
+                content: '>';
+                float: left;
+                margin-left: -1.25em;
+            }
+        }
+
+        > li > ul {
+            margin: .5em 0;
+
+            > li:before {
+                content: '»';
+            }
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+
+        // Justify and hyphenate article paragraphs.
+        p {
+            text-align: justify;
+            -webkit-hyphens: auto;
+               -moz-hyphens: auto;
+                -ms-hyphens: auto;
+                    hyphens: auto;
+        }
+    }
+}
