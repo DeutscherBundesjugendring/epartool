@@ -101,11 +101,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Lint custom JS
-    jshint: {
-      files: ['<%= paths.src %>/js/main.js']
-    },
-
     // Compile Coffee script
     coffee: {
       compile: {
@@ -311,7 +306,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-js-dev', [
     'clean:js',
-    'jshint',
     'coffee',
     'concat',
     'po2json'
@@ -319,7 +313,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-js-dist', [
     'clean:js',
-    'jshint',
     'coffee',
     'concat',
     'uglify',

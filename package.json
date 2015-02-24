@@ -14,7 +14,6 @@
     "grunt-contrib-coffee": "~0.12.0",
     "grunt-contrib-concat": "~0.5",
     "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-jshint": "~0.11.0",
     "grunt-contrib-less": "~1.0.0",
     "grunt-contrib-uglify": "~0.7",
     "grunt-po2json-simple": "~0.1.8",
