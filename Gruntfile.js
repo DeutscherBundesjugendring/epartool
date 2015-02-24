@@ -149,7 +149,6 @@ module.exports = function (grunt) {
           '<%= paths.bower %>/bootstrap/js/transition.js',
           '<%= paths.src %>/js/FollowUp.js',
           '<%= paths.src %>/js/SocialShare.js',
-          //'<%= paths.src %>/js/main.js',
           '<%= paths.temp %>/web.js'
         ],
         dest: '<%= paths.dist %>/js/web.js'

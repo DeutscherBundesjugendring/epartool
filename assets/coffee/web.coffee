@@ -2,6 +2,7 @@ $(document).ready () ->
     bindCharacterCounters()
     bindToggleGroupRegister()
     bindLoadMoreConsultations()
+    bindAnimatedScrolling()
 
     $('.js-has-password-meter').pwstrength({'ui': {
         'bootstrap2': true,
@@ -72,3 +73,8 @@ bindLoadMoreConsultations = () ->
                 $('.js-load-more-consultations').remove()
                 $('.js-consultations-container').append(data)
         )
+
+bindAnimatedScrolling = () ->
+    $('.js-scroll').click (e) ->
+        e.preventDefault()
+        $('html, body').animate({ scrollTop: $(this.hash).offset().top }, 500);
