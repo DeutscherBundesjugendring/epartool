@@ -1,8 +1,19 @@
 <?php
 
+use \Facebook\FacebookSession;
+use \Facebook\FacebookRequest;
+use \Facebook\FacebookAuthorizationException;
+
 class IndexController extends Zend_Controller_Action
 {
     const LAST_CONSULTATION_COUNT = 3;
+
+    private $_flashMessenger;
+
+    public function init()
+    {
+        $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
+    }
 
     /**
      * The home page
@@ -92,5 +103,72 @@ class IndexController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         $this->renderScript('_partials/consultationPreviews.phtml');
+    }
+
+    public function authenticateWithFacebookAction()
+    {
+        $accessToken = $this->getRequest()->getPost('accessToken');
+        $csrfToken = $this->getRequest()->getPost('webserviceLoginCsrf');
+
+        $webserviceLoginSess = new Zend_Session_Namespace('webserviceLoginCsrf');
+        if ($webserviceLoginSess->csrf !== $csrfToken) {
+            throw new Exception('Invalid csrf token.');
+        }
+
+        $facebookConf = Zend_Registry::get('systemconfig')->webservice->facebook;
+        FacebookSession::setDefaultApplication($facebookConf->appId, $facebookConf->appSecret);
+        $session = new FacebookSession($accessToken);
+        $request = new FacebookRequest($session, 'GET', '/me');
+        try {
+            $response = $request->execute()->getGraphObject();
+            $user = (new Model_Users())->getByEmail($response->getProperty('email'));
+            $storage = Zend_Auth::getInstance()->getStorage();
+            $storage->write($user);
+            $this->_flashMessenger->addMessage('Login successful!', 'success');
+            die('true');
+        } catch (FacebookAuthorizationException $e) {
+            $this->getResponse()->setHttpResponseCode(401);
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->layout->disableLayout();
+        }
+    }
+
+    public function authenticateWithGoogleAction()
+    {
+        $authCode = $this->getRequest()->getPost('authCode');
+        $csrfToken = $this->getRequest()->getPost('webserviceLoginCsrf');
+
+        $webserviceLoginSess = new Zend_Session_Namespace('webserviceLoginCsrf');
+        if ($webserviceLoginSess->csrf !== $csrfToken) {
+            throw new Exception('Invalid csrf token.');
+        }
+
+        $googleConf = Zend_Registry::get('systemconfig')->webservice->google;
+        $client = new Google_Client();
+        $client->setClientId($googleConf->clientId);
+        $client->setClientSecret($googleConf->clientSecret);
+        $client->setRedirectUri('postmessage');
+        $client->setScopes('email', 'profile');
+        $client->authenticate($authCode);
+
+        $token = json_decode($client->getAccessToken())->access_token;
+        $req = new Google_Http_Request('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' . $token);
+        $tokenInfo = json_decode($client->getAuth()->authenticatedRequest($req)->getResponseBody());
+
+        if (!empty($tokenInfo->error)) {
+            throw new Exception($tokenInfo->error);
+        }
+
+        if ($tokenInfo->audience !== Zend_Registry::get('systemconfig')->webservice->google->clientId) {
+            $this->getResponse()->setHttpResponseCode(401);
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+        }
+
+        $user = (new Model_Users())->getByEmail($tokenInfo->email);
+        $storage = Zend_Auth::getInstance()->getStorage();
+        $storage->write($user);
+        $this->_flashMessenger->addMessage('Login successful!', 'success');
+        die('true');
     }
 }

@@ -116,3 +116,34 @@ bindSaveAndContinueContributing = () ->
     $('#plus').click ->
         $('#submitmode').val 'save_plus'
         return
+
+# function has to be attached to window for google js script to find it
+window.googleSignInCallback = (authResult) ->
+    if authResult.status.method == 'PROMPT'
+        if authResult['status']['signed_in']
+            $.post(
+                baseUrl + '/index/authenticate-with-google',
+                {
+                    authCode: authResult['code'],
+                    webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
+
+                },
+                (data) ->
+                    if data == 'true'
+                        location.reload()
+        )
+
+window.facebookSignInCallback = () ->
+    FB.getLoginStatus((response) ->
+        if response.status == 'connected'
+            $.post(
+                baseUrl + '/index/authenticate-with-facebook',
+                {
+                    accessToken: response['authResponse']['accessToken'],
+                    webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
+                },
+                (data) ->
+                    if data == 'true'
+                        location.reload()
+            )
+    )
