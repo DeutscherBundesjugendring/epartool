@@ -11,7 +11,7 @@ class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             return $this->view->partial(
-                '_helpers/userBox.phtml',
+                '_helpers/user-box.phtml',
                 ['user' => $auth->getIdentity()]
             );
         }
