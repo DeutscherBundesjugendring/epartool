@@ -1,0 +1,100 @@
+// Shared Consultation Phases Styling
+
+
+.consultation-phases {
+    &:extend(.list-unstyled);
+
+    > li {
+        display: block;
+    }
+
+    &-item {
+        .item-arrowed-vertical(@consultation-bg, @consultation-phase-bg, @consultation-phase-hover-bg, @consultation-phase-disabled-bg);
+        display: block;
+        margin-bottom: 1px;
+        padding: 1em 1em (@line-height-computed / 2);
+        text-decoration: none;
+        text-align: center;
+        color: @consultation-phase-color;
+        background-color: @consultation-phase-bg;
+
+        &-title {
+            font-family: @font-family-condensed;
+            font-size: @font-size-large;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: @consultation-phase-color;
+        }
+
+        // Link styling
+        a& {
+            text-decoration: none;
+        }
+
+        a&:hover,
+        a&:focus {
+            background-color: @consultation-phase-hover-bg;
+
+            &,
+            > .consultation-phases-item-title {
+                color: @consultation-phase-hover-color;
+            }
+        }
+
+        // Disabled state
+        &.disabled {
+            background-color: @consultation-phase-disabled-bg;
+            cursor: pointer;
+
+            &,
+            > .consultation-phases-item-title {
+                color: @consultation-phase-disabled-color;
+            }
+        }
+    }
+
+    // Remove arrow decorations from the first and last item.
+    > li:first-child > .consultation-phases-item:before,
+    > li:last-child > .consultation-phases-item:after {
+        display: none;
+    }
+
+    // Make phases navigation horizontal on small screens.
+    @media (min-width: @screen-sm-min) {
+        .grid(floor((100% / 5) - 1), @font-size-base, @line-height-base);
+
+        > li {
+            display: inline-block;
+            font-size: @font-size-base;
+        }
+
+        &-item {
+            .item-arrowed-horizontal(@consultation-bg, @consultation-phase-bg, @consultation-phase-hover-bg, @consultation-phase-disabled-bg);
+            margin-bottom: 0;
+            padding: floor((@line-height-computed / 3));
+            text-align: left;
+
+            // Title and info
+            &-title {
+                font-size: 1.5em;
+                line-height: 1;
+            }
+
+            &-info {
+                position: absolute;
+                right: floor((@line-height-computed / 3));
+                bottom: floor((@line-height-computed / 3));
+                font-size: @font-size-small;
+                line-height: 1.2;
+                text-align: right;
+            }
+        }
+    }
+
+    // Extend phases navigation on big screens.
+    @media (min-width: @screen-md-min) {
+        &-item-title {
+            font-size: 1.8em;
+        }
+    }
+}
