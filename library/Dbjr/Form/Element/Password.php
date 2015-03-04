@@ -1,6 +1,6 @@
 <?php
 
-class Zend_Form_Element_Password extends Zend_Form_Element_Xhtml
+class Dbjr_Form_Element_Password extends Zend_Form_Element_Password
 {
     /**
      * Load default decorators
