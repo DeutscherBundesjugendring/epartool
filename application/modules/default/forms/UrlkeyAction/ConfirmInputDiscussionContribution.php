@@ -8,6 +8,7 @@ class Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution extends Zend_
             $this
                 ->createElement('button', 'submit')
                 ->setLabel('Confirm')
+                ->setAttrib('class', 'btn btn-default')
                 ->setAttrib('type', 'submit')
         );
 
