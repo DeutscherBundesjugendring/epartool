@@ -66,6 +66,7 @@ bindToggleGroupRegister = () ->
 bindLoadMoreConsultations = () ->
     $('.js-load-more-consultations').click (e) ->
         e.preventDefault()
+        $(this).addClass('disabled');
         $.get(
             baseUrl + '/index/ajax-consultation',
             {},
