@@ -1,8 +1,12 @@
 <div class="main-content">
 
     <h1><?=$this->translate('Confirm contribution')?></h1>
-    <?=$this->discussionContrib->time_created;?>
-    <?=$this->discussionContrib->body;?>
+
+    <blockquote>
+        <p><?=$this->discussionContrib->body;?></p>
+        <small><?=$this->formatDate($this->discussionContrib->time_created);?></small>
+    </blockquote>
+
     <?=$this->form;?>
 
 </div><!-- .main-content -->
