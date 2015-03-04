@@ -7,6 +7,7 @@ $(document).ready () ->
     bindSupportContribution()
     bindSaveAndFinishContributing()
     bindSaveAndContinueContributing()
+    initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
         'bootstrap2': true,
@@ -147,3 +148,15 @@ window.facebookSignInCallback = () ->
                         location.reload()
             )
     )
+
+initFB = (d, s, id) ->
+    fjs = d.getElementsByTagName(s)[0];
+    if d.getElementById(id)
+        return
+
+    appId = $('.fb-login-button').data('app-id');
+    js = d.createElement(s)
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=" + appId + "&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs)
+
