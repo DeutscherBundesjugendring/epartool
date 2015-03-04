@@ -346,6 +346,8 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
+  grunt.registerTask('build', 'build-dist');
+
   // Default task
   grunt.registerTask('default', 'build-dist');
 };
