@@ -98,7 +98,7 @@ class Admin_MediaController extends Zend_Controller_Action
                 $consModel
                     ->select()
                     ->from($consModel->info(Model_Consultations::NAME), ['titl'])
-                    ->where('kid', $this->_kid)
+                    ->where('kid=?', $this->_kid)
             );
             $this->view->title = $consultation->titl;
         } elseif ($this->_folder) {
