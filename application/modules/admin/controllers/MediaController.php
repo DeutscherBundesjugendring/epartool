@@ -401,4 +401,33 @@ class Admin_MediaController extends Zend_Controller_Action
             );
         }
     }
+
+    /**
+     * Sends a file to be opened by the browser
+     */
+    public function openAction()
+    {
+        $file = (new Service_Media())->getOne($this->_filename, $this->_kid, $this->_folder);
+        $filePath = realpath($file['dirname'] . '/' . $file['basename']);
+
+        if (is_file($filePath)) {
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header('Content-type:');
+            header("Content-Transfer-Encoding: Binary");
+            header("Content-Disposition: inline");
+            header("Content-Description: File Transfer");
+            readfile($filePath);
+            exit;
+        } else {
+            $this->_flashMessenger->addMessage('File does not exist.', 'error');
+            $this->redirect(
+                $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true),
+                ['prependBase' => false]
+            );
+        }
+    }
 }

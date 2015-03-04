@@ -62,7 +62,7 @@
                                     title="<?=$this->translate('Select');?> <?=$file['basename'];?>"
                                 <?php else: ?>
                                     <?php // We are in listing mode. ?>
-                                    href="<?=$this->url(['action' => 'download', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
+                                    href="<?=$this->url(['action' => 'open', 'filename' => $file['basename'], 'kid' => $file['kid'], 'folder' => $file['folder']]);?>/"
                                     target="_blank"
                                     title="<?=$this->translate('Open');?> <?=$this->escape($file['basename']);?>"
                                 <?php endif; ?>
