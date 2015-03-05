@@ -1,6 +1,6 @@
 <section class="section-header">
     <div class="container">
-        <h1><?=$this->translate('General Settings');?></h1>
+        <h1><?=$this->translate('Help Texts');?></h1>
     </div>
 </section>
 <section class="section-content">
@@ -8,12 +8,13 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->settingsNavigation('site');?>
+                <?=$this->settingsNavigation('helpTexts');?>
 
             </div>
             <div class="content">
 
-                <h2><?=$this->translate('Site');?></h2>
+            <h2><?=$this->escape($this->helpTextTitle);?></h2>
+                <?=$this->form;?>
 
             </div>
         </div>
