@@ -4,7 +4,9 @@ class Default_Form_Login extends Dbjr_Form_Web
 {
     public function init()
     {
-        $this->setMethod('post');
+        $this
+            ->setMethod('post')
+            ->setAttrib('class', 'offset-bottom');
 
         $email = $this->createElement('email', 'username');
         $email

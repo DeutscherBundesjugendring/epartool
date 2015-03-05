@@ -3,6 +3,7 @@
         <?=$this->translate('Login');?>
     </button>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-combo" role="menu" aria-labelledby="loginDropdown">
+
         <h3 id="loginLabel" class="dropdown-title"><?=$this->translate('Login');?></h3>
 
         <?=$this->form;?>
@@ -37,8 +38,10 @@
         <?php endif;?>
 
         <hr class="divider" />
+
         <a href="<?=$this->url(['controller' => 'user', 'action' => 'passwordrecover'], 'default', true);?>">
             <?=$this->translate('Forgot password?');?>
         </a>
+
     </div>
 </div>
