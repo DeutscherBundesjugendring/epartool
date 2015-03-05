@@ -1,0 +1,90 @@
+// Consultation Phases Navigation in Consultation Listing (Preview Mode)
+
+
+.consultation-phases-preview {
+    margin-bottom: 0;
+
+    // Consultation image
+    &-image {
+        display: block;
+        margin-bottom: @line-height-computed;
+        text-align: center;
+
+        > img {
+            &:extend(.img-responsive);
+            .center-block();
+            width: @consultation-image-width;
+        }
+
+        &-description {
+            display: none;
+        }
+    }
+
+    .consultation-phases-item-title {
+        margin-bottom: 0;
+    }
+
+    // Remove arrow decorations from the first item (which comes after consultation image).
+    > li:nth-child(2) > .consultation-phases-item:before {
+        display: none;
+    }
+
+    @media (min-width: @screen-sm-min) {
+
+        // Hide image with explanation on small screens (w).
+        > li:first-child {
+            display: none;
+        }
+
+        .consultation-phases-item {
+            height: @consultation-phase-preview-height-md;
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        > li {
+            width: floor((100% / 6));
+
+            // Reveal image with explanation on big screens (f).
+            &:first-child {
+                display: inline-block;
+            }
+        }
+
+        &-image,
+        .consultation-phases-item {
+            height: @consultation-phase-preview-height-md;
+        }
+
+        &-image {
+            position: relative;
+            overflow: hidden;
+            max-width: @consultation-image-width;
+            margin-bottom: 0;
+            background-color: @gray-lighter;
+
+            &-description {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 100%;
+                display: block;
+                padding: @line-height-computed / 2;
+                font-size: @font-size-small;
+                text-align: left;
+                color: @consultation-image-description-color;
+                background-color: @consultation-image-description-bg;
+                transition: top 250ms ease-out;
+            }
+
+            &:hover,
+            &:focus {
+                > .consultation-phases-preview-image-description {
+                    top: 0;
+                }
+            }
+        }
+    }
+}

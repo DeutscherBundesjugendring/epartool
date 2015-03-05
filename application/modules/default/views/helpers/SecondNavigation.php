@@ -22,49 +22,46 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
         $items = array(
             'article' => array(
                 'url' => $this->view->baseUrl() . '/article/show/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_info ? $this->view->escape($con->phase_info) : $this->view->translate('Info')) . '</h2>',
+                'text' => $con->phase_info ? $this->view->escape($con->phase_info) : $this->view->translate('Info'),
                 'showBubble' => false
             ),
             'question' => array(
                 'url' => $this->view->baseUrl() . '/question/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_support ? $this->view->escape($con->phase_support) : $this->view->translate('Questions')) . '</h2>',
+                'text' => $con->phase_support ? $this->view->escape($con->phase_support) : $this->view->translate('Questions'),
                 'showBubble' => false
             ),
             'input' => array(
                 'url' => $this->view->baseUrl() . '/input/index/kid/' . $con->kid . '#page-content',
-                'text' => '<h2>' . ($con->phase_input ? $this->view->escape($con->phase_input) : $this->view->translate('Contributions')) . '</h2>',
+                'text' => $con->phase_input ? $this->view->escape($con->phase_input) : $this->view->translate('Contributions'),
                 'showBubble' => false
             ),
             'voting' => array(
                 'url' => $this->view->baseUrl() . '/voting/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_voting ? $this->view->escape($con->phase_voting) : $this->view->translate('Voting')) . '</h2>',
+                'text' => $con->phase_voting ? $this->view->escape($con->phase_voting) : $this->view->translate('Voting'),
                 'showBubble' => false
             ),
             'follow-up' => array(
                 'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
-                'text' => '<h2>' . ($con->phase_followup ? $this->view->escape($con->phase_followup) : $this->view->translate('Reactions & Impact')) . '</h2> <small class="info">' . $this->view->translate('after Voting has ended') . '</small>',
+                'text' => $con->phase_followup ? $this->view->escape($con->phase_followup) : $this->view->translate('Reactions & Impact'),
+                'info' => $this->view->translate('after Voting has ended'),
                 'showBubble' => false
             ),
         );
 
         // Add dates
         if ($con->inp_show == 'y') {
-            $items['input']['text'].= ' <small class="info">'
-                . $this->view->translate('from') . ' '
+            $items['input']['info'] = $this->view->translate('from') . ' '
                 . $this->view->formatDate($con->inp_fr, Zend_Date::DATE_MEDIUM)
                 . '<br />'
                 . $this->view->translate('until') . ' '
-                . $this->view->formatDate($con->inp_to, Zend_Date::DATE_MEDIUM)
-                . '</small>';
+                . $this->view->formatDate($con->inp_to, Zend_Date::DATE_MEDIUM);
         }
         if ($con->vot_show == 'y') {
-            $items['voting']['text'] .= ' <small class="info">'
-                . $this->view->translate('from') . ' '
+            $items['voting']['info'] = $this->view->translate('from') . ' '
                 . $this->view->formatDate($con->vot_fr, Zend_Date::DATE_MEDIUM)
                 . '<br />'
                 . $this->view->translate('until') . ' '
-                . $this->view->formatDate($con->vot_to, Zend_Date::DATE_MEDIUM)
-                . '</small>';
+                . $this->view->formatDate($con->vot_to, Zend_Date::DATE_MEDIUM);
         }
 
         // Add bubbles
@@ -82,36 +79,58 @@ class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
         }
 
         // Render
-        $html = '<nav class="consultation-nav secondary-navigation">'
-                . '<ul class="nav">';
+        $html  = '<nav>' . "\n";
+        $html .= '<ul class="consultation-phases consultation-phases-full">' . "\n";
+
         foreach ($items as $item => $val) {
             $liClasses = array();
+
             if ($item == $activeItem) {
                 $liClasses[] = 'active';
             }
+
             if ($disabled[$item]) {
-                $liClasses[] = 'item-disabled';
+                $liClasses[] = 'disabled';
             }
-            $html .= '<li class="' . implode(' ', $liClasses) . '">';
+
+            $html .= '<li>';
+
             if (!empty($val['url']) && !in_array('disabled', $liClasses)) {
-                $html .= '<a href="' . $val['url'] . '">';
-                $html .= $val['text'];
+                $html .= '<a href="' . $val['url'] . '" class="consultation-phases-item consultation-phases-full-item ' . implode($liClasses) . '">' . "\n";
+                $html .= '<div class="consultation-phases-item-title">' . $val['text'] . '</div>' . "\n";
+
+                if (isset($val['info'])) {
+                    $html .= '<div class="consultation-phases-item-info">' . $val['info'] . '</div>' . "\n";
+                }
+
                 if ($val['showBubble']) {
-                    $html .= '<span class="bubble bubble-middle"><h3>';
+                    $html .= '<div class="bubble bubble-middle">';
+
                     if ($item == 'input') {
                         $html .= $this->view->translate('Participate now!');
                     } elseif ($item == 'voting') {
                         $html .= $this->view->translate('Vote now!');
                     }
-                    $html .= '</h3></span>';
+
+                    $html .= '</div>' . "\n";
                 }
-                $html .= '</a>';
+
+                $html .= '</a>' . "\n";
             } else {
-                $html .= '<div>' . $val['text'] . '</div>';
+                $html .= '<div class="consultation-phases-item ' . implode($liClasses) . '">' . "\n";
+                $html .= '<div class="consultation-phases-item-title">' . $val['text'] . '</div>' . "\n";
+
+                if (isset($val['info'])) {
+                    $html .= '<div class="consultation-phases-item-info">' . $val['info'] . '</div>' . "\n";
+                }
+
+                $html .= '</div>' . "\n";
             }
-            $html .= '</li>';
+
+            $html .= '</li>' . "\n";
         }
-        $html .= '</ul></nav>';
+        $html .= '</ul>' . "\n";
+        $html .= '</nav>' . "\n\n";
 
         return $html;
     }

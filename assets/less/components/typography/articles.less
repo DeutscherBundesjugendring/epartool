@@ -3,6 +3,11 @@
 
 .article {
 
+    // Make all images responsive.
+    img {
+        &:extend(.img-responsive);
+    }
+
     // Custom bullets of user content.
     ul {
         margin: 0 0 @line-height-computed;
