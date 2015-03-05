@@ -1,12 +1,14 @@
-<div class="main-content">
+<div class="main-content content-holder">
+    <div class="row">
+        <div class="span9">
 
-    <h1><?=$this->translate('Confirm contribution')?></h1>
+            <h1><?=$this->translate('Confirm contribution')?></h1>
+            <blockquote>
+                <p><?=$this->discussionContrib->body;?></p>
+                <small><?=$this->formatDate($this->discussionContrib->time_created);?></small>
+            </blockquote>
+            <?=$this->form;?>
 
-    <blockquote>
-        <p><?=$this->discussionContrib->body;?></p>
-        <small><?=$this->formatDate($this->discussionContrib->time_created);?></small>
-    </blockquote>
-
-    <?=$this->form;?>
-
+        </div>
+    </div>
 </div><!-- .main-content -->
