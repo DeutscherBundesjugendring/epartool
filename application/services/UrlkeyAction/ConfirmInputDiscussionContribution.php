@@ -37,6 +37,7 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
                 (new Model_Users())->update(['block' => 'c'], ['uid=?' => $contrib->user_id]);
 
                 $this->_viewName = null;
+                $translator = Zend_Registry::get('Zend_Translate');
                 $this->_message = [
                     'text' => $translator->translate('Your discussion post was confirmed.'),
                     'type' => 'success',
