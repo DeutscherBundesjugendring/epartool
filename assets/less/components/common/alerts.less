@@ -1,0 +1,12 @@
+// Alerts
+
+
+.alert {
+    &-error {
+        &:extend(.alert-danger);
+    }
+
+    & + & {
+        margin-top: -@line-height-computed;
+    }
+}
