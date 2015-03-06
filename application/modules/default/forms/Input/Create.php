@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Input_Create extends Zend_Form
+class Default_Form_Input_Create extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -70,7 +70,7 @@ class Default_Form_Input_Create extends Zend_Form
             'rows' => 2,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
-                'class' => 'input-block-level input-extensible input-alt js-has-counter',
+                'class' => 'form-control form-control-alt js-has-counter',
                 'placeholder' => sprintf($view->translate('Here you can type in your contribution (up to %s characters).'), 300),
                 'maxlength' => '300',
             ),
@@ -88,7 +88,7 @@ class Default_Form_Input_Create extends Zend_Form
             'rows' => 5,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
-                'class' => 'extension input-block-level input-extensible input-alt js-has-counter',
+                'class' => 'form-control form-control-alt js-has-counter',
                 'style' => 'display: none;',
                 'placeholder' => sprintf($view->translate('Here you explain your contribution more in depth, e.g. with examples (up to %s characters).'), 2000),
                 'maxlength' => '2000'
