@@ -3,6 +3,10 @@ $(document).ready () ->
     bindToggleGroupRegister()
     bindLoadMoreConsultations()
     bindAnimatedScrolling()
+    bindToggleExtendedInput()
+    bindSupportContribution()
+    bindSaveAndFinishContributing()
+    bindSaveAndContinueContributing()
 
     $('.js-has-password-meter').pwstrength({'ui': {
         'bootstrap2': true,
@@ -80,3 +84,35 @@ bindAnimatedScrolling = () ->
     $('.js-scroll').click (e) ->
         e.preventDefault()
         $('html, body').animate({ scrollTop: $(this.hash).offset().top }, 500);
+
+bindToggleExtendedInput = () ->
+    $('.js-toggle-extended-input').click (event) ->
+        event.preventDefault()
+        $(this).next('textarea').toggle()
+        $(this).nextAll('.js-character-counter').toggle()
+        $(this).toggleClass 'expanded'
+        if $(this).hasClass('expanded')
+            $(this).html '<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> Shut back<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>'
+        else
+            $(this).html '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Click here to explain contribution<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>'
+        return
+
+bindSupportContribution = () ->
+    $('.click-support').click (event) ->
+        event.preventDefault()
+        tid = $(this).attr('rel')
+        $.post('<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json', 'tid': tid).done (data) ->
+            if data.count
+                $('#click-support-wrap-' + tid).html '<span><span class="glyphicon glyphicon-ok-sign icon-orange icon-2x" aria-hidden="true"></span>' + ' <span id="badge-' + tid + '">(' + data.count + ')</span>' + ' <span class="label label-default">supporters</span></span>'
+            return
+        return
+
+bindSaveAndFinishContributing = () ->
+    $('#finish').click ->
+        $('#submitmode').val 'save_finish'
+        return
+
+bindSaveAndContinueContributing = () ->
+    $('#plus').click ->
+        $('#submitmode').val 'save_plus'
+        return
