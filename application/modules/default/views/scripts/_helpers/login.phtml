@@ -12,7 +12,7 @@
             <input type="hidden" value="<?=$this->webserviceLoginCsrf;?>" id="webserviceLoginCsrf" />
         <?php endif;?>
 
-        <?php if (Zend_Registry::get('systemconfig')->webservice->google->clientId): ?>
+        <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
             <span id="signinButton">
                 <span
                     class="g-signin"
@@ -24,7 +24,7 @@
             </span>
         <?php endif;?>
 
-        <?php if (Zend_Registry::get('systemconfig')->webservice->facebook->appId): ?>
+        <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->facebook->appId)): ?>
             <div id="fb-root"></div>
             <div
                 class="fb-login-button"

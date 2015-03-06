@@ -6,7 +6,7 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract
     {
         if (!Zend_Auth::getInstance()->hasIdentity()) {
             $webserviceLoginSess = new Zend_Session_Namespace('webserviceLoginCsrf');
-            if (Zend_Registry::get('systemconfig')->webservice->toArray()) {
+            if (Zend_Registry::get('systemconfig')->webservice) {
                 $webserviceLoginSess->csrf = sha1(rand(0, 100) . time());
             } else {
                 $webserviceLoginSess->csrf = null;
