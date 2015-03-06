@@ -57,12 +57,12 @@
             <!-- Contributions -->
             <?php if (count($this->paginator)): ?>
                 <?php
-                // Reverse order of entries to show latest first
-                $inputs = array();
-                foreach ($this->paginator as $item) {
-                    $inputs[] = $item;
-                }
-                $inputs = array_reverse($inputs);
+                    // Reverse order of entries to show latest first
+                    $inputs = array();
+                    foreach ($this->paginator as $item) {
+                        $inputs[] = $item;
+                    }
+                    $inputs = array_reverse($inputs);
                 ?>
                 <?php foreach ($inputs as $input): ?>
                     <a name="input-<?=$this->escape($input['tid']);?>"></a>
@@ -109,7 +109,7 @@
                             <?php if ($this->consultation->is_discussion_active): ?>
                                 <span class="article-action">
                                     <i class="icon-comments icon-orange icon-2x"></i>
-                                    <small>(<?=$this->escape($input['place']);?>)</small>
+                                    <small>(<?=$this->escape($input['discussionPostCount']);?>)</small>
                                     <a class="label" href="<?=$this->baseUrl() . '/input/discussion/kid/' . $this->consultation->kid . '/inputId/' . $this->escape($input['tid']);?>">
                                         <?=$this->translate('I would like to discuss that!')?>
                                     </a>
