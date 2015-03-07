@@ -86,6 +86,7 @@ bindAnimatedScrolling = () ->
         e.preventDefault()
         $('html, body').animate({ scrollTop: $(this.hash).offset().top }, 500);
 
+<<<<<<< HEAD
 bindToggleExtendedInput = () ->
     $('.js-toggle-extended-input').click (event) ->
         event.preventDefault()
@@ -118,7 +119,7 @@ bindSaveAndContinueContributing = () ->
         $('#submitmode').val 'save_plus'
         return
 
-# function has to be attached to window for google js script to find it
+# function has to be attached to window for google js SDK script to find it
 window.googleSignInCallback = (authResult) ->
     if authResult.status.method == 'PROMPT'
         if authResult['status']['signed_in']
@@ -134,6 +135,7 @@ window.googleSignInCallback = (authResult) ->
                         location.reload()
         )
 
+# function has to be attached to window for facebook js SDK script to find it
 window.facebookSignInCallback = () ->
     FB.getLoginStatus((response) ->
         if response.status == 'connected'
