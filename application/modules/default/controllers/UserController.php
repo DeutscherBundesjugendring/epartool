@@ -63,7 +63,7 @@ class UserController extends Zend_Controller_Action
                         list($uid, $isNew) = $userModel->register($data, $confirmKey);
                         $userModel->sendInputsConfirmationMail($uid, $form->getValue('kid'), $confirmKey, $isNew);
                         $this->_flashMessenger->addMessage(
-                            'An email for the confimation of your contributions has been sent to your email address.',
+                            'An email for the confirmation of your contributions has been sent to your email address.',
                             'success'
                         );
                     } else {
