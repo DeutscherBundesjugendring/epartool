@@ -120,34 +120,38 @@ bindSaveAndContinueContributing = () ->
         return
 
 # function has to be attached to window for google js SDK script to find it
-window.googleSignInCallback = (authResult) ->
+window.googleAuthenticateCallback = (authResult) ->
     if authResult.status.method == 'PROMPT'
         if authResult['status']['signed_in']
             $.post(
-                baseUrl + '/index/authenticate-with-google',
+                baseUrl + '/index/google-authenticate',
                 {
-                    authCode: authResult['code'],
+                    token: authResult['code'],
                     webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
 
                 },
                 (data) ->
                     if data == 'true'
                         location.reload()
+                    else
+                        $('body').prepend(data)
         )
 
 # function has to be attached to window for facebook js SDK script to find it
-window.facebookSignInCallback = () ->
+window.facebookAuthenticateCallback = () ->
     FB.getLoginStatus((response) ->
         if response.status == 'connected'
             $.post(
-                baseUrl + '/index/authenticate-with-facebook',
+                baseUrl + '/index/facebook-authenticate',
                 {
-                    accessToken: response['authResponse']['accessToken'],
+                    token: response['authResponse']['accessToken'],
                     webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
                 },
                 (data) ->
                     if data == 'true'
                         location.reload()
+                    else
+                        $('body').prepend(data)
             )
     )
 

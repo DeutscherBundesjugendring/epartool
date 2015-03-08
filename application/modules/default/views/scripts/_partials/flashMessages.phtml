@@ -2,17 +2,10 @@
     <?php foreach ($this->layout()->messages as $level => $messages): ?>
         <?php if (!empty($messages)): ?>
             <?php foreach ($messages as $message): ?>
-                <div class="alert alert-<?=$level;?> fade in">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <?php if ($level == 'success'): ?>
-                        <span class="glyphicon glyphicon-ok-sign"></span>
-                    <?php elseif ($level == 'error'): ?>
-                        <span class="glyphicon glyphicon-warning-sign"></span>
-                    <?php else: ?>
-                        <span class="glyphicon glyphicon-info-sign"></span>
-                    <?php endif; ?>
-                    <?=$this->translate($message);?>
-                </div>
+                <?=$this->partial(
+                    '_partials/flashMessage.phtml',
+                    ['message' => $message, 'level' => $level]
+                );?>
             <?php endforeach; ?>
         <?php endif; ?>
     <?php endforeach; ?>
