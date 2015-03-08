@@ -33,6 +33,7 @@
                 data-show-faces="false"
                 data-auto-logout-link="false"
                 data-onlogin="facebookSignInCallback"
+                data-scope="public_profile,email"
                 data-app-id="<?=Zend_Registry::get('systemconfig')->webservice->facebook->appId;?>"
             ></div>
         <?php endif;?>
