@@ -31,134 +31,137 @@
                 <?php if (count($this->discussionContribs)): ?>
                     <form method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table table-bordered">
-                            <tbody>
-                                <?php foreach ($this->discussionContribs as $contrib): ?>
-                                    <tr>
-                                        <td class="table-cell-id table-cell-top">
-                                            <span id="<?=$this->escape($contrib->id);?>"><?=$this->escape($contrib->id);?></span>
-                                        </td>
-                                        <td class="table-cell-top">
-                                            <?php if ($contrib->body): ?>
-                                                <p><?=$this->escape($contrib->body);?></p>
-                                            <?php endif;?>
-                                            <?php if ($contrib->video_id): ?>
-                                                <iframe
-                                                    width="560"
-                                                    height="315"
-                                                    src="<?=sprintf(
-                                                        Zend_Registry::get('systemconfig')->video->url->format->embed,
-                                                        $this->escape($contrib->video_id)
-                                                    );?>"
-                                                    frameborder="0"
-                                                    allowfullscreen
-                                                ></iframe>
-                                            <?php endif;?>
-                                            <p>
-                                                <small>
-                                                    <?=$this->formatDate($contrib->time_created);?>
-                                                </small>
-                                            </p>
-                                        </td>
-                                        <td class="col-xs-3 table-cell-top">
-                                            <p>
-                                                <?=$this->translate('User Confirmation');?><br />
-                                                <?php if ($contrib->is_user_confirmed): ?>
-                                                    <span class="label label-success">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <?php foreach ($this->discussionContribs as $contrib): ?>
+                                        <tr>
+                                            <td class="table-cell-id table-cell-top">
+                                                <span id="<?=$this->escape($contrib->id);?>"><?=$this->escape($contrib->id);?></span>
+                                            </td>
+                                            <td class="table-cell-top">
+                                                <?php if ($contrib->body): ?>
+                                                    <p><?=$this->escape($contrib->body);?></p>
+                                                <?php endif;?>
+                                                <?php if ($contrib->video_id): ?>
+                                                    <div class="embed-responsive embed-responsive-16by9">
+                                                        <iframe
+                                                            width="560"
+                                                            height="315"
+                                                            src="<?=sprintf(
+                                                                Zend_Registry::get('systemconfig')->video->url->format->embed,
+                                                                $this->escape($contrib->video_id)
+                                                            );?>"
+                                                            allowfullscreen
+                                                        ></iframe>
+                                                    </div>
+                                                <?php endif;?>
+                                                <p>
+                                                    <small>
+                                                        <?=$this->formatDate($contrib->time_created);?>
+                                                    </small>
+                                                </p>
+                                            </td>
+                                            <td class="col-xs-3 table-cell-top">
+                                                <p>
+                                                    <?=$this->translate('User Confirmation');?><br />
+                                                    <?php if ($contrib->is_user_confirmed): ?>
+                                                        <span class="label label-success">
+                                                            <span class="glyphicon glyphicon-ok"></span>
+                                                            <?=$this->translate('User confirmed');?>
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <span class="label label-danger">
+                                                            <span class="glyphicon glyphicon-remove"></span>
+                                                            <?=$this->translate('Not user confirmed');?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </p>
+                                                <p>
+                                                    <?=$this->translate('Visibility');?><br />
+                                                    <?php if ($contrib->is_visible): ?>
+                                                        <span class="label label-success">
+                                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                                            <?=$this->translate('Visible');?>
+                                                        </span>
+                                                    <?php else: ?>
+                                                        <span class="label label-danger">
+                                                            <span class="glyphicon glyphicon-eye-close"></span>
+                                                            <?=$this->translate('Hidden');?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </p>
+                                            </td>
+                                            <td class="table-cell-top col-xs-1">
+                                                <?php if (!$contrib->is_user_confirmed): ?>
+                                                    <button
+                                                        name="confirm"
+                                                        title="<?=$this->translate('Confirm');?>"
+                                                        value="<?=$this->escape($contrib->id);?>"
+                                                        class="item-action"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Mark as user confirmed?');?>"
+                                                        >
                                                         <span class="glyphicon glyphicon-ok"></span>
-                                                        <?=$this->translate('User confirmed');?>
-                                                    </span>
+                                                    </button>
                                                 <?php else: ?>
-                                                    <span class="label label-danger">
+                                                    <button
+                                                        name="unconfirm"
+                                                        title="<?=$this->translate('Deny');?>"
+                                                        value="<?=$this->escape($contrib->id);?>"
+                                                        class="item-action"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Remove user confirmation?');?>"
+                                                        >
                                                         <span class="glyphicon glyphicon-remove"></span>
-                                                        <?=$this->translate('Not user confirmed');?>
-                                                    </span>
+                                                    </button>
                                                 <?php endif; ?>
-                                            </p>
-                                            <p>
-                                                <?=$this->translate('Visibility');?><br />
+
                                                 <?php if ($contrib->is_visible): ?>
-                                                    <span class="label label-success">
-                                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                                        <?=$this->translate('Visible');?>
-                                                    </span>
-                                                <?php else: ?>
-                                                    <span class="label label-danger">
+                                                    <button
+                                                        name="hide"
+                                                        title="<?=$this->translate('Mark as hidden');?>"
+                                                        value="<?=$this->escape($contrib->id);?>"
+                                                        class="item-action"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Mark as hidden?');?>"
+                                                    >
                                                         <span class="glyphicon glyphicon-eye-close"></span>
-                                                        <?=$this->translate('Hidden');?>
-                                                    </span>
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button
+                                                        name="show"
+                                                        value="<?=$this->escape($contrib->id);?>"
+                                                        title="<?=$this->translate('Mark as visible');?>"
+                                                        class="item-action"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Mark as visible?');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                    </button>
                                                 <?php endif; ?>
-                                            </p>
-                                        </td>
-                                        <td class="table-cell-top col-xs-1">
-                                            <?php if (!$contrib->is_user_confirmed): ?>
-                                                <button
-                                                    name="confirm"
-                                                    title="<?=$this->translate('Confirm');?>"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Mark as user confirmed?');?>"
-                                                    >
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                </button>
-                                            <?php else: ?>
-                                                <button
-                                                    name="unconfirm"
-                                                    title="<?=$this->translate('Deny');?>"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Remove user confirmation?');?>"
-                                                    >
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                </button>
-                                            <?php endif; ?>
 
-                                            <?php if ($contrib->is_visible): ?>
-                                                <button
-                                                    name="hide"
-                                                    title="<?=$this->translate('Mark as hidden');?>"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Mark as hidden?');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-eye-close"></span>
-                                                </button>
-                                            <?php else: ?>
-                                                <button
-                                                    name="show"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    title="<?=$this->translate('Mark as visible');?>"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Mark as visible?');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                                </button>
-                                            <?php endif; ?>
-
-                                            <?php if (!$contrib->childInputId
-                                                && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation['inp_to'], Zend_Date::ISO_8601))
-                                                && Zend_Date::now()->isLater(new Zend_Date($this->consultation['inp_fr'], Zend_Date::ISO_8601))
-                                            ): ?>
-                                                <button
-                                                    name="createInput"
-                                                    value="<?=$this->escape($contrib->id);?>"
-                                                    title="<?=$this->translate('Create an input from this discussion contribution.');?>"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Create an input from this discussion contribution?');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-asterisk"></span>
-                                                </button>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                                <?php if (!$contrib->childInputId
+                                                    && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation['inp_to'], Zend_Date::ISO_8601))
+                                                    && Zend_Date::now()->isLater(new Zend_Date($this->consultation['inp_fr'], Zend_Date::ISO_8601))
+                                                ): ?>
+                                                    <button
+                                                        name="createInput"
+                                                        value="<?=$this->escape($contrib->id);?>"
+                                                        title="<?=$this->translate('Create an input from this discussion contribution.');?>"
+                                                        class="item-action"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Create an input from this discussion contribution?');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-asterisk"></span>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div><!-- .table-responsive -->
                     </form>
                 <?php else: ?>
                     <p class="alert alert-info">
