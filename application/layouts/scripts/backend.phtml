@@ -24,12 +24,12 @@
     <?php else: ?>
         <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
     <?php endif;?>
-
     <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
-
     <script>
         var baseUrl = '<?=$this->baseUrl()?>';
     </script>
+    <script src="<?=$this->baseUrl('vendor/ckeditor/ckeditor.js');?>"></script>
+    <script src="<?=$this->baseUrl('vendor/ckeditor/adapters/jquery.js');?>"></script>
 </head>
 <body class="has-footer-sticky">
 
