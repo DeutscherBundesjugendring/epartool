@@ -123,6 +123,7 @@ bindSaveAndContinueContributing = () ->
 window.googleAuthenticateCallback = (authResult) ->
     if authResult.status.method == 'PROMPT'
         if authResult['status']['signed_in']
+            indicateLoginInProgress()
             $.post(
                 baseUrl + '/index/google-authenticate',
                 {
@@ -134,6 +135,7 @@ window.googleAuthenticateCallback = (authResult) ->
                     if data == 'true'
                         location.reload()
                     else
+                        loginProcessEnd()
                         $('body').prepend(data)
         )
 
@@ -141,6 +143,7 @@ window.googleAuthenticateCallback = (authResult) ->
 window.facebookAuthenticateCallback = () ->
     FB.getLoginStatus((response) ->
         if response.status == 'connected'
+            indicateLoginInProgress()
             $.post(
                 baseUrl + '/index/facebook-authenticate',
                 {
@@ -151,9 +154,74 @@ window.facebookAuthenticateCallback = () ->
                     if data == 'true'
                         location.reload()
                     else
+                        loginProcessEnd()
                         $('body').prepend(data)
             )
     )
+
+
+# function has to be attached to window for google js SDK script to find it
+window.googleRegisterCallback = (authResult) ->
+    if authResult.status.method == 'PROMPT'
+        if authResult['status']['signed_in']
+            indicateLoginInProgress()
+            $.post(
+                baseUrl + '/index/google-register',
+                {
+                    token: authResult['code'],
+                    webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
+                },
+                (data) ->
+                    loginProcessEnd()
+                    if data != 'false'
+                        $emailField = $('#email')
+                        $emailField.prop('disabled', true).val(data);
+                        $emailEl = $('<input name="email" type="hidden" />')
+                        $emailEl.val(data)
+                        $emailField.closest('form').append($emailEl)
+                        return
+        )
+
+# function has to be attached to window for facebook js SDK script to find it
+window.facebookRegisterCallback = () ->
+    FB.getLoginStatus((response) ->
+        if response.status == 'connected'
+            indicateLoginInProgress()
+            $.post(
+                baseUrl + '/index/facebook-register',
+                {
+                    token: response['authResponse']['accessToken'],
+                    webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
+                },
+                (data) ->
+                    loginProcessEnd()
+                    if data != 'false'
+                        $emailField = $('#email')
+                        $emailField.prop('disabled', true).val(data);
+                        $emailEl = $('<input name="email" type="hidden" />')
+                        $emailEl.val(data)
+                        $emailField.closest('form').append($emailEl)
+                        return
+
+            )
+    )
+
+indicateLoginInProgress = () ->
+    showOverlay()
+    $('body').prepend($('<div id="loginFlashMessage" class="alert alert-info fade in">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        ' + i18n['You are being logged in. Please wait...'] + '</span>
+    </div>'))
+
+loginProcessEnd = () ->
+    $('#loginFlashMessage').remove();
+    hideOverlay()
+
+showOverlay = () ->
+    $('body').append($('<div id="overlay" class="overlay">!!!OVERLAY!!!</div>'))
+
+hideOverlay = () ->
+    $('#overlay').remove()
 
 initFB = (d, s, id) ->
     fjs = d.getElementsByTagName(s)[0];

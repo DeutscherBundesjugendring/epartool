@@ -43,11 +43,18 @@ class UserController extends Zend_Controller_Action
             $this->redirect('/');
         } else {
             $form = new Default_Form_Register();
-            $raw_data = $this->_request->getPost();
+            $rawData = $this->_request->getPost();
             $userModel = new Model_Users();
             $populateForm = new Zend_Session_Namespace('populateForm');
 
-            if ($form->isValid($raw_data)) {
+            // If user authenticated by webservice, the emial is not required
+            if ($this->_auth->hasIdentity()) {
+                $form->getElement('email')
+                    ->setRequired(false)
+                    ->setAttrib('disabled', 'disabled');
+            }
+
+            if ($form->isValid($rawData)) {
                 unset($populateForm->register);
 
                 $data = $form->getValues();
@@ -78,7 +85,9 @@ class UserController extends Zend_Controller_Action
                             $userConsultRow->cnslt_results = $data['cnslt_results'];
                             $userConsultRow->cmnt_ext = $data['cmnt_ext'];
                             if (isset($data['group_specs'])) {
-                                $userConsultRow->source = is_array($data['group_specs']['source']) ? implode(',', $data['group_specs']['source']) : null;
+                                $userConsultRow->source = is_array($data['group_specs']['source'])
+                                    ? implode(',', $data['group_specs']['source'])
+                                    : null;
                                 $userConsultRow->src_misc = $data['group_specs']['src_misc'];
                                 $userConsultRow->group_size = $data['group_specs']['group_size'];
                                 $userConsultRow->name_group = $data['group_specs']['name_group'];
@@ -95,7 +104,12 @@ class UserController extends Zend_Controller_Action
                             $data = array_merge($data, $data['group_specs']);
                             unset($data['group_specs']);
                         }
+                        $data['email'] = $this->_auth->getIdentity()->email;
                         $userModel->update($data, ['uid=?' => $uid]);
+
+                        $inputModel = new Model_Inputs();
+                        $inputModel->confirmByCkey($confirmKey, $uid);
+
                         $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
                     }
                     $userModel->getAdapter()->commit();
@@ -105,6 +119,10 @@ class UserController extends Zend_Controller_Action
                 }
                 $this->redirect('/');
             } else {
+                // Reset the email value as isValid() sets it to blank since for loged in users the field is disabled
+                if ($this->_auth->hasIdentity()) {
+                    $form->getElement('email')->setValue($this->_auth->getIdentity()->email);
+                }
                 $populateForm->register = serialize($form);
                 $this->_flashMessenger->addMessage('Please check your data!', 'error');
                 $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));

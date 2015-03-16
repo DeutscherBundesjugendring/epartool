@@ -84,7 +84,7 @@
                 </form>
 
                 <!-- Login -->
-                <?=$this->login();?>
+                <?=$this->login($this->layout()->disableLoginMsg);?>
 
                 <!-- User box (user is logged in) -->
                 <?=$this->userBox();?>

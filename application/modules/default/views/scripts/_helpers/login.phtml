@@ -6,43 +6,48 @@
 
         <h3 id="loginLabel" class="dropdown-title"><?=$this->translate('Login');?></h3>
 
-        <?=$this->form;?>
-
         <?php if ($this->webserviceLoginCsrf): ?>
             <input type="hidden" value="<?=$this->webserviceLoginCsrf;?>" id="webserviceLoginCsrf" />
         <?php endif;?>
 
-        <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
-            <span id="signinButton">
-                <span
-                    class="g-signin"
-                    data-callback="googleAuthenticateCallback"
-                    data-clientid="<?=Zend_Registry::get('systemconfig')->webservice->google->clientId;?>"
-                    data-cookiepolicy="single_host_origin"
-                    data-scope="profile email">
+        <?php if (empty($this->disableLoginMsg)): ?>
+            <?=$this->form;?>
+
+
+            <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
+                <span id="signinButton">
+                    <span
+                        class="g-signin"
+                        data-callback="googleAuthenticateCallback"
+                        data-clientid="<?=Zend_Registry::get('systemconfig')->webservice->google->clientId;?>"
+                        data-cookiepolicy="single_host_origin"
+                        data-scope="profile email">
+                    </span>
                 </span>
-            </span>
+            <?php endif;?>
+
+            <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->facebook->appId)): ?>
+                <div id="fb-root"></div>
+                <div
+                    class="fb-login-button"
+                    data-max-rows="1"
+                    data-size="large"
+                    data-show-faces="false"
+                    data-auto-logout-link="false"
+                    data-onlogin="facebookAuthenticateCallback"
+                    data-scope="public_profile,email"
+                    data-app-id="<?=Zend_Registry::get('systemconfig')->webservice->facebook->appId;?>"
+                ></div>
+            <?php endif;?>
+
+            <hr class="divider" />
+
+            <a href="<?=$this->url(['controller' => 'user', 'action' => 'passwordrecover'], 'default', true);?>">
+                <?=$this->translate('Forgot password?');?>
+            </a>
+        <?php else: ?>
+            <?=$this->disableLoginMsg;?>
         <?php endif;?>
-
-        <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->facebook->appId)): ?>
-            <div id="fb-root"></div>
-            <div
-                class="fb-login-button"
-                data-max-rows="1"
-                data-size="large"
-                data-show-faces="false"
-                data-auto-logout-link="false"
-                data-onlogin="facebookAuthenticateCallback"
-                data-scope="public_profile,email"
-                data-app-id="<?=Zend_Registry::get('systemconfig')->webservice->facebook->appId;?>"
-            ></div>
-        <?php endif;?>
-
-        <hr class="divider" />
-
-        <a href="<?=$this->url(['controller' => 'user', 'action' => 'passwordrecover'], 'default', true);?>">
-            <?=$this->translate('Forgot password?');?>
-        </a>
 
     </div>
 </div>

@@ -2,7 +2,7 @@
 
 class Zend_View_Helper_Login extends Zend_View_Helper_Abstract
 {
-    public function login()
+    public function login($disableLoginMsg = null)
     {
         if (!Zend_Auth::getInstance()->hasIdentity()) {
             $webserviceLoginSess = new Zend_Session_Namespace('webserviceLoginCsrf');
@@ -17,6 +17,7 @@ class Zend_View_Helper_Login extends Zend_View_Helper_Abstract
                 [
                     'form' => new Default_Form_Login(),
                     'webserviceLoginCsrf' => $webserviceLoginSess->csrf,
+                    'disableLoginMsg' => $disableLoginMsg
                 ]
             );
         }

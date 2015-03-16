@@ -366,13 +366,16 @@ class InputController extends Zend_Controller_Action
         $regFormData = new Zend_Session_Namespace('populateForm');
 
         if (!empty($sessInputs->inputs)) {
+            // This is needed when creating user with webservice registration
+            $sessInputs->kid = $kid;
+
             $inputModel = new Model_Inputs();
             $confirmKey = $inputModel->getConfirmationKey();
             try {
                 $inputModel->getAdapter()->beginTransaction();
                 foreach ($sessInputs->inputs as $input) {
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
-                    $input['confirmation_key'] = $auth->hasIdentity() ? null : $confirmKey;
+                    $input['confirmation_key'] = $confirmKey;
                     $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
                     $inputModel->add($input);
                 }
@@ -421,6 +424,15 @@ class InputController extends Zend_Controller_Action
             );
             $this->redirect('/');
         }
+
+        // Logging in on this page would cause redirect and thus there would be no way to tie them to the user
+        // as the session is already emptied
+        Zend_Layout::getMvcInstance()->assign(
+            'disableLoginMsg',
+            Zend_Registry::get('Zend_Translate')->translate(
+                'Please finish contributing before loging in.'
+            )
+        );
     }
 
     /**

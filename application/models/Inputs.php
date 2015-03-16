@@ -431,13 +431,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     /**
      * Confirms inputs and confirms user registration if applicable
      * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
+     * @param  integer   $uid         The user identifier in cases when user is already confirmed (i.e. social login)
      * @return integer                Number of inputs confirmed
      */
-    public function confirmByCkey($confirmKey)
+    public function confirmByCkey($confirmKey, $uid = null)
     {
         $this->isConfirmOrRejectAllowed($confirmKey);
+
         $userModel = new Model_Users();
-        $uid = $userModel->confirmbyCkey($confirmKey);
+        if (!$uid) {
+            $uid = $userModel->confirmbyCkey($confirmKey);
+        }
         $userModel->ping($uid);
 
         return $this->update(

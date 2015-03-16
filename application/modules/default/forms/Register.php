@@ -19,7 +19,7 @@ class Default_Form_Register extends Zend_Form
             ->setLabel('Email Address')
             ->setRequired(true)
             ->setAttrib('placeholder', '@')
-            ->setValidators([['NotEmpty', true], 'EmailAddress']);
+            ->setValidators(['EmailAddress']);
         $this->addElement($email);
 
         $hint = $this->createElement('hidden', ' hint');
