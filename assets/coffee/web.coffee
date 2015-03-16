@@ -208,20 +208,22 @@ window.facebookRegisterCallback = () ->
 
 indicateLoginInProgress = () ->
     showOverlay()
-    $('body').prepend($('<div id="loginFlashMessage" class="alert alert-info fade in">
-        <span class="glyphicon glyphicon-info-sign"></span>
-        ' + i18n['You are being logged in. Please wait...'] + '</span>
-    </div>'))
+    $('body').prepend($('<div id="loginFlashMessage" class="alert alert-info alert-on-overlay">
+        <span class="icon-offset glyphicon glyphicon-transfer"></span>
+        ' + i18n['You are being logged in. Please wait…']
+    + '</div>'))
 
 loginProcessEnd = () ->
     $('#loginFlashMessage').remove();
     hideOverlay()
 
 showOverlay = () ->
-    $('body').append($('<div id="overlay" class="overlay">!!!OVERLAY!!!</div>'))
+    $('body').append($('<div id="overlay" class="overlay"></div>'))
+    $('body').addClass('has-overlay')
 
 hideOverlay = () ->
     $('#overlay').remove()
+    $('body').removeClass('has-overlay')
 
 initFB = (d, s, id) ->
     fjs = d.getElementsByTagName(s)[0];

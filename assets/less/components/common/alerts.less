@@ -6,6 +6,11 @@
         &:extend(.alert-danger);
     }
 
+    &-on-overlay {
+        position: relative;
+        z-index: @zindex-modal + 1;
+    }
+
     & + & {
         margin-top: -@line-height-computed;
     }
