@@ -32,6 +32,19 @@
         }
     }
 
+    // Limit iframe size since we cannot change the markup of embedded videos to use Bootstrap's `.embed-responsive`.
+    iframe {
+        max-width: 100%;
+
+        @media (max-width: 419px) {
+            max-height: 200px;
+        }
+
+        @media (min-width: 420px) and (max-width: @screen-xs-max) {
+            max-height: 300px;
+        }
+    }
+
     @media (min-width: @screen-sm-min) {
 
         // Justify and hyphenate article paragraphs.
