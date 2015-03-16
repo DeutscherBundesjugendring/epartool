@@ -86,7 +86,6 @@ bindAnimatedScrolling = () ->
         e.preventDefault()
         $('html, body').animate({ scrollTop: $(this.hash).offset().top }, 500);
 
-<<<<<<< HEAD
 bindToggleExtendedInput = () ->
     $('.js-toggle-extended-input').click (event) ->
         event.preventDefault()
