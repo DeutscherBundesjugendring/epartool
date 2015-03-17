@@ -46,7 +46,10 @@
                 <?=$this->translate('Forgot password?');?>
             </a>
         <?php else: ?>
-            <?=$this->disableLoginMsg;?>
+            <div class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                <?=$this->disableLoginMsg;?>
+            </div>
         <?php endif;?>
 
     </div>
