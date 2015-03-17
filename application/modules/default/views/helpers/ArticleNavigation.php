@@ -4,9 +4,9 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
 {
     public function articleNavigation($activeItem = null, $scope = 'info')
     {
-        $html = '';
         $con = $this->view->consultation;
         $articleModel = new Model_Articles();
+
         if ($con) {
             $items = $articleModel->getByConsultation($con->kid, $scope);
         } else {
@@ -14,14 +14,15 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
             $items = $articleModel->getStaticPages();
         }
 
-        $html = '<nav>'
-            . '<ul class="nav nav-stacked">';
+        $html = '<nav><ul class="nav nav-stacked">' . "\n";
         $i = 1;
+
         foreach ($items as $item) {
             if ($item['ref_nm'] == 'about') {
                 // "about" page should not be visible in this menu
                 continue;
             }
+
             switch ($scope) {
                 case 'static':
                     $route = $item['ref_nm'];
@@ -30,7 +31,7 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                 default:
                     $route = 'default';
             }
-            $isItemInRootline = false;
+
             // first level
             if ($item['hid'] == 'n') {
                 // show only unhidden pages
@@ -38,11 +39,13 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                 // is item active itself OR is in rootline (i.e. one of its subpages is active)?
                 $isItemInRootline = ($item['art_id'] == $activeItem
                     || (!empty($item['subpages']) && array_key_exists($activeItem, $item['subpages'])));
+
                 if ($isItemInRootline) {
                     $liClasses[] = 'active';
                 }
-                $html.= '<li class="' . implode(' ', $liClasses) . '">';
-                $html.= '<a href="'
+
+                $html .= '<li class="' . implode(' ', $liClasses) . '">';
+                $html .= '<a href="'
                     . $this->view->url(
                         ['controller' => 'article', 'action' => 'show', 'aid' => $item['art_id']],
                         $route,
@@ -50,19 +53,25 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                     ) . '">'
                     . (empty($item['desc']) ? $this->view->translate('Page'). ' ' . $i : $item['desc'])
                     . '</a>';
+
                 if (!empty($item['subpages']) && $isItemInRootline) {
-                    $html.= '<ul>';
+                    $html .= '<ul class="nav">';
                     $j = 1;
+
                     foreach ($item['subpages'] as $subpage) {
+
                         // second level (subpages)
                         if ($subpage['hid'] == 'n') {
+
                             // show only unhidden pages
                             $liClassesSub = array();
+
                             if ($subpage['art_id'] == $activeItem) {
                                 $liClassesSub[] = 'active';
                             }
-                            $html.= '<li class="' . implode(' ', $liClassesSub) . '">';
-                            $html.= '<a href="'
+
+                            $html .= '<li class="' . implode(' ', $liClassesSub) . '">';
+                            $html .= '<a href="'
                                 . $this->view->url(
                                     ['controller' => 'article', 'action' => 'show', 'aid' => $subpage['art_id']],
                                     'default',
@@ -73,17 +82,20 @@ class Zend_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
                                     ? $this->view->translate('Page') . ' ' . $i . '.' . $j
                                     : $subpage['desc'])
                                 . '</a>';
-                            $html.= '</li>';
+                            $html .= '</li>' . "\n";
                             $j++;
                         }
                     }
-                    $html .= '</ul>';
+
+                    $html .= '</ul>' . "\n";
                 }
-                $html .= '</li>';
+
+                $html .= '</li>' . "\n";
                 $i++;
             }
         }
-        $html .= '</ul></nav>';
+
+        $html .= '</ul></nav>' . "\n\n";
 
         return $html;
     }

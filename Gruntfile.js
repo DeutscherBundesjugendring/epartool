@@ -154,8 +154,6 @@ module.exports = function (grunt) {
           '<%= paths.bower %>/moment/min/moment-with-locales.min.js',
           '<%= paths.bower %>/select2/select2.min.js',
           '<%= paths.bower %>/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-          '<%= paths.src %>/vendor/ckeditor/ckeditor.js',
-          '<%= paths.src %>/vendor/ckeditor/adapters/jquery.js',
           '<%= paths.bower %>/bootstrap/js/alert.js',
           '<%= paths.bower %>/bootstrap/js/collapse.js',
           '<%= paths.bower %>/bootstrap/js/dropdown.js',
@@ -205,18 +203,20 @@ module.exports = function (grunt) {
         ]
       },
       bower: {
-        files: {
-          '<%= paths.dist %>/js/html5shiv.min.js': '<%= paths.bower %>/html5shiv/dist/html5shiv.min.js'
-        }
-      },
-      vendor: {
         files: [
+          {'<%= paths.dist %>/js/html5shiv.min.js': '<%= paths.bower %>/html5shiv/dist/html5shiv.min.js'},
           {
             expand: true,
-            cwd: '<%= paths.src %>/vendor',
+            cwd: '<%= paths.bower %>/ckeditor',
             src: ['**/*'],
-            dest: '<%= paths.dist %>/vendor'
+            dest: '<%= paths.dist %>/vendor/ckeditor'
           }
+        ]
+      },
+      js: {
+        files: [
+          {'<%= paths.dist %>/js/ckeditor.web_config.js': '<%= paths.src %>/js/ckeditor.web_config.js'},
+          {'<%= paths.dist %>/js/ckeditor.email_config.js': '<%= paths.src %>/js/ckeditor.email_config.js'},
         ]
       }
     },
@@ -345,6 +345,8 @@ module.exports = function (grunt) {
     'browserSync',
     'watch'
   ]);
+
+  grunt.registerTask('build', 'build-dist');
 
   // Default task
   grunt.registerTask('default', 'build-dist');

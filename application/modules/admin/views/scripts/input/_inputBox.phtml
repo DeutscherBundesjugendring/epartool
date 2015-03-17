@@ -18,11 +18,13 @@
 
         <p>
             <small>
-                <?php if (!empty($this->input['name'])): ?>
-                    <span class="glyphicon glyphicon-user"></span>
+                <?php if (!empty($this->input['uid'])): ?>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>">
-                        <?=$this->escape($this->input['name']);?>
-                    </a>,
+                        <span class="glyphicon glyphicon-user"></span>
+                        <?php if ($this->input['name']): ?>
+                            <?=$this->escape($this->input['name']);?>,
+                        <?php endif;?>
+                    </a>
                 <?php endif; ?>
                 <?=$this->formatDate($this->input['when']);?>
             </small>

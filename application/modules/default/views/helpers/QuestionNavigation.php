@@ -40,13 +40,16 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
         $html = '';
 
         if ($for !== 'follow-up-box') {
+
             if ($for !== 'follow-up') {
-                $html .= '<nav>';
+                $html .= '<nav>' . "\n";
             }
-            $html .= '<ul class="nav nav-stacked">';
+
+            $html .= '<ul class="nav nav-stacked">' . "\n";
         }
 
         $i = 1;
+
         foreach ($items as $item) {
             $number = $numbered ? $i . '. ' : '';
             $liClasses = array();
@@ -74,18 +77,19 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
                 . '</a>';
 
             if ($for == 'follow-up-box') {
-                $html .= '</p>';
+                $html .= '</p>' . "\n";
             } else {
-                $html .= '</li>';
+                $html .= '</li>' . "\n";
             }
 
             $i++;
         }
 
         if ($for !== 'follow-up-box') {
-            $html .= '</ul>';
+            $html .= '</ul>' . "\n";
+
             if ($for !== 'follow-up') {
-                $html .= '</nav>';
+                $html .= '</nav>' . "\n";
             }
         }
 

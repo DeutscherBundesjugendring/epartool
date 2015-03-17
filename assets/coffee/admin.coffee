@@ -133,11 +133,11 @@ bindConsultationCustomPhaseNames = () ->
 
 initCKEditor = () ->
     $('.wysiwyg-standard').ckeditor({
-        filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor'
+        customConfig: '/js/ckeditor.web_config.js'
+        filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor',
     })
     $('.wysiwyg-email').ckeditor({
-        removePlugins: 'horizontalrule,list,justify,indent,indentlist,indentblock,image2,flash,iframe,div',
-        removeButtons: 'Underline,Anchor,Strike'
+        customConfig: '/js/ckeditor.email_config.js'
     })
 
 initDatepicker = () ->

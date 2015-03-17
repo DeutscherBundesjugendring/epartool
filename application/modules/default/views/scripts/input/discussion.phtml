@@ -37,16 +37,17 @@
                                 <p><?=$this->escape($contrib->body);?></p>
                             <?php endif; ?>
                             <?php if ($contrib->video_id): ?>
-                                <iframe
-                                    width="560"
-                                    height="315"
-                                    src="<?=sprintf(
-                                        Zend_Registry::get('systemconfig')->video->url->format->embed,
-                                        $this->escape($contrib->video_id)
-                                    );?>"
-                                    frameborder="0"
-                                    allowfullscreen
-                                ></iframe>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe
+                                        width="560"
+                                        height="315"
+                                        src="<?=sprintf(
+                                            Zend_Registry::get('systemconfig')->video->url->format->embed,
+                                            $this->escape($contrib->video_id)
+                                        );?>"
+                                        allowfullscreen
+                                    ></iframe>
+                                </div>
                             <?php endif; ?>
                         </div>
                     <?php else: ?>

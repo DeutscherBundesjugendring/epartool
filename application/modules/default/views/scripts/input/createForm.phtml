@@ -1,44 +1,44 @@
 <form
-    enctype="<?=$this->element->getEnctype()?>"
-    method="<?=$this->element->getMethod()?>"
+    enctype="<?=$this->element->getEnctype();?>"
+    method="<?=$this->element->getMethod();?>"
     class="form-contribution well well-large text-center offset-bottom-large"
 >
-    <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'))?>
+    <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'));?>
 
-    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Participate')?></span>
-    <h2><?=$this->translate('Create new contribution')?></h2>
+    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Participate');?></span>
+    <h2><?=$this->translate('Create new contribution');?></h2>
     <br />
 
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
-        <div class="control-group">
+        <div class="form-group">
             <span class="counter counter-characters js-character-counter">
-                <span id="inputs-<?=$input->getName()?>-thes_counter">
+                <span id="inputs-<?=$input->getName();?>-thes_counter">
                     <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
             </span>
 
-            <?=$input->getElements()['thes']->setDecorators(array('ViewHelper'))?>
+            <?=$input->getElements()['thes']->setDecorators(array('ViewHelper'));?>
 
-            <a href="#" class="btn btn-block btn-small btn-extend js-toggle-extended-input">
-                <i class="icon-angle-down icon-large"></i>
-                <?=$this->translate('Click here to explain contribution')?>
-                <i class="icon-angle-down icon-large"></i>
+            <a href="#" class="btn btn-default btn-block btn-sm btn-extend js-toggle-extended-input">
+                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                <?=$this->translate('Click here to explain contribution');?>
+                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
             </a>
 
-            <?=$input->getElements()['expl']->setDecorators(array('ViewHelper'))?>
+            <?=$input->getElements()['expl']->setDecorators(array('ViewHelper'));?>
 
             <span class="counter counter-characters js-character-counter" style="display: none">
-                <span id="inputs-<?=$input->getName()?>-expl_counter">
+                <span id="inputs-<?=$input->getName();?>-expl_counter">
                     <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
             </span>
         </div>
     <?php endforeach?>
 
-    <div class="form-actions form-actions-unstyled text-center">
-        <?=$this->element->add_input_field->setDecorators(array('ViewHelper'))?>
-        <p class="hint"><?=$this->translate('Click here for another contribution')?></p>
-        <?=$this->element->next_question->setDecorators(array('ViewHelper'))?>
-        <?=$this->element->finished->setDecorators(array('ViewHelper'))?>
+    <div class="form-group form-actions form-actions-unstyled text-center">
+        <?=$this->element->add_input_field->setDecorators(array('ViewHelper'));?>
+        <p class="hint"><?=$this->translate('Click here for another contribution');?></p>
+        <?=$this->element->next_question->setDecorators(array('ViewHelper'));?>
+        <?=$this->element->finished->setDecorators(array('ViewHelper'));?>
     </div>
 </form>

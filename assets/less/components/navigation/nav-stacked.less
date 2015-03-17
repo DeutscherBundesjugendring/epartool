@@ -26,4 +26,48 @@
             background-color: @nav-stacked-active-bg;
         }
     }
+
+    // Second level
+    > li > .nav {
+        @item-spacing: 2px; // Boostrap's spacing for .nav-stacked.
+
+        &,
+        > li + li {
+            margin-top: @item-spacing;
+        }
+
+        > li > a {
+            font-family: @font-family-condensed;
+            font-size: @font-size-large;
+            text-transform: uppercase;
+            color: @nav-stacked-level-2-color;
+            background-color: @nav-stacked-level-2-bg;
+
+            &:hover,
+            &:focus {
+                color: @nav-stacked-level-2-hover-color;
+                background-color: @nav-stacked-level-2-hover-bg;
+            }
+        }
+
+        // Add arrow decoration to the first item.
+        > li:first-child > a {
+            .item-arrowed();
+            .item-arrowed-vertical(@main-content-bg, @nav-stacked-active-bg, @nav-stacked-active-bg, @nav-stacked-active-bg);
+
+            // Put the other arrow on top.
+            &:after {
+                top: -@item-spacing;
+            }
+        }
+
+        > .active > a {
+            &,
+            &:hover,
+            &:focus {
+                color: @nav-stacked-level-2-active-color;
+                background-color: @nav-stacked-level-2-active-bg;
+            }
+        }
+    }
 }
