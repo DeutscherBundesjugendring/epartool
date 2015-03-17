@@ -1,8 +1,4 @@
 module.exports = function (grunt) {
-
-  // Autoload all tasks instead of grunt.loadNpmTasks(...)
-  require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
-
   grunt.initConfig({
 
     // Load meta info from package.json
@@ -30,16 +26,31 @@ module.exports = function (grunt) {
         files: {
           '<%= paths.temp %>/mail.css': '<%= paths.src %>/less/mail.less'
         }
+      }
+    },
+
+    // Add vendor prefixes to CSS, based on Bootstrap settings
+    autoprefixer: {
+      options: {
+        browsers: [
+          'Android 2.3',
+          'Android >= 4',
+          'Chrome >= 20',
+          'Firefox >= 24', // Firefox 24 is the latest ESR
+          'Explorer >= 8',
+          'iOS >= 6',
+          'Opera >= 12',
+          'Safari >= 6'
+        ]
       },
-      dist: {
+      dev: {
         options: {
-          paths: ['<%= paths.bower %>'],
-          yuicompress: true
+          map: true
         },
-        files: {
-          '<%= paths.dist %>/css/<%= pkg.name %>.min.css': '<%= paths.src %>/less/main.less',
-          '<%= paths.dist %>/css/admin.min.css': '<%= paths.src %>/less/admin.less'
-        }
+        src: [
+          '<%= paths.dist %>/css/<%= pkg.name %>.css',
+          '<%= paths.dist %>/css/admin.css'
+        ]
       }
     },
 
@@ -48,6 +59,16 @@ module.exports = function (grunt) {
       mail: {
         files: {
           '<%= paths.temp %>/mail_clean.css': ['application/layouts/scripts/src/mail.html']
+        }
+      }
+    },
+
+    // Minify CSS
+    cssmin: {
+      dist: {
+        files: {
+          '<%= paths.dist %>/css/<%= pkg.name %>.min.css': '<%= paths.dist %>/css/<%= pkg.name %>.css',
+          '<%= paths.dist %>/css/admin.min.css': '<%= paths.dist %>/css/admin.css'
         }
       }
     },
@@ -234,7 +255,7 @@ module.exports = function (grunt) {
     watch: {
       less: {
         files: ['<%= paths.src %>/less/**/*.less'],
-        tasks: ['build-css']
+        tasks: ['build-css-dev']
       },
       js: {
         files: [
@@ -286,6 +307,12 @@ module.exports = function (grunt) {
     }
   });
 
+  // Autoload all Grunt tasks
+  require('load-grunt-tasks')(grunt);
+
+  // Measure task execution times
+  require('time-grunt')(grunt);
+
   // Build email phtml template.
   // WARNING: Task not executed by default as it requires Ruby and Premailer gem in the system.
   grunt.registerTask('mail', [
@@ -298,10 +325,15 @@ module.exports = function (grunt) {
   ]);
 
   // Build subtasks
-  grunt.registerTask('build-css', [
+  grunt.registerTask('build-css-dev', [
     'clean:css',
     'less:dev',
-    'less:dist'
+    'autoprefixer:dev'
+  ]);
+
+  grunt.registerTask('build-css-dist', [
+    'build-css-dev',
+    'cssmin'
   ]);
 
   grunt.registerTask('build-js-dev', [
@@ -312,11 +344,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build-js-dist', [
-    'clean:js',
-    'coffee',
-    'concat',
-    'uglify',
-    'po2json'
+    'build-js-dev',
+    'uglify'
   ]);
 
   // Build task - distribution
@@ -324,17 +353,20 @@ module.exports = function (grunt) {
     'clean:temp',
     'clean:fonts',
     'phplint',
-    'build-css',
+    'build-css-dev',
     'build-js-dev',
     'copy'
   ]);
+
+  // Conventional alias for build task
+  grunt.registerTask('build', 'build-dist');
 
   // Build task - development
   grunt.registerTask('build-dist', [
     'clean:temp',
     'clean:fonts',
     'phplint',
-    'build-css',
+    'build-css-dist',
     'build-js-dist',
     'copy'
   ]);
@@ -346,8 +378,6 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('build', 'build-dist');
-
   // Default task
-  grunt.registerTask('default', 'build-dist');
+  grunt.registerTask('default', 'build');
 };
