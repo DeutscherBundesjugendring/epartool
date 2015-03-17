@@ -4,15 +4,24 @@
     </button>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-combo" role="menu" aria-labelledby="loginDropdown">
 
-        <h3 id="loginLabel" class="dropdown-title"><?=$this->translate('Login');?></h3>
+        <div class="row">
+            <div class="col-xs-9">
+                <h3 id="loginLabel" class="dropdown-title"><?=$this->translate('Login');?></h3>
+            </div>
+            <div class="col-xs-3 text-right">
+                <a href="<?=$this->url(['controller' => 'help', 'action' => 'index', 'name' => 'help-text-login']);?>" class="link-transparent has-icon" title="<?=$this->translate('Help');?>">
+                    <span class="icon-md glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div><!-- .row -->
 
         <?php if ($this->webserviceLoginCsrf): ?>
             <input type="hidden" value="<?=$this->webserviceLoginCsrf;?>" id="webserviceLoginCsrf" />
         <?php endif;?>
 
         <?php if (empty($this->disableLoginMsg)): ?>
-            <?=$this->form;?>
 
+            <?=$this->form;?>
 
             <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
                 <span id="signinButton">
@@ -45,6 +54,7 @@
             <a href="<?=$this->url(['controller' => 'user', 'action' => 'passwordrecover'], 'default', true);?>">
                 <?=$this->translate('Forgot password?');?>
             </a>
+
         <?php else: ?>
             <?=$this->disableLoginMsg;?>
         <?php endif;?>
