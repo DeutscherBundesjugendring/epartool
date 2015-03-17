@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Input_Discussion extends Zend_Form
+class Default_Form_Input_Discussion extends Dbjr_Form_Web
 {
 
     public function init()
@@ -11,7 +11,6 @@ class Default_Form_Input_Discussion extends Zend_Form
         $placeholder = Zend_Registry::get('Zend_Translate')->translate('Your discussion post');
         $body
             ->setAttrib('rows', 5)
-            ->setAttrib('class', 'input-block-level')
             ->setAttrib('placeholder', $placeholder);
         $this->addElement($body);
 
@@ -21,7 +20,6 @@ class Default_Form_Input_Discussion extends Zend_Form
             ->setLabel('Your email')
             ->setRequired(true)
             ->setAttrib('type', 'email')
-            ->setAttrib('class', 'input-xlarge')
             ->setAttrib('placeholder', '@')
             ->setValidators([['NotEmpty', true], 'EmailAddress']);
         $this->addElement($email);
@@ -31,17 +29,14 @@ class Default_Form_Input_Discussion extends Zend_Form
         $videoId = $this->createElement('text', 'video_id');
         $videoId
             ->setLabel('YouTube video ID')
-            ->setAttrib('class', 'input-xlarge')
             ->setAttrib('placeholder', $placeholder . ' V75dMMIW2B4')
-            ->setDescription($description . ' <span class="muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>')
-            ->getDecorator('Description')->setEscape(false);
+            ->setDescription($description . ' <span class="muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>');
+            //->getDecorator('Description')->setEscape(false);
         $this->addElement($videoId);
 
 
         $submit = $this->createElement('submit', 'submit');
-        $submit
-            ->setLabel('Send')
-            ->setAttrib('class', 'btn');
+        $submit->setLabel('Send');
         $this->addElement($submit);
 
         $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);

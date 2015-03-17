@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Register extends Zend_Form
+class Default_Form_Register extends Dbjr_Form_Web
 {
 
     public function init()
@@ -14,7 +14,7 @@ class Default_Form_Register extends Zend_Form
         $kid = $this->createElement('hidden', 'kid');
         $this->addElement($kid);
 
-        $email = $this->createElement('text', 'email');
+        $email = $this->createElement('email', 'email');
         $email
             ->setLabel('Email Address')
             ->setRequired(true)
@@ -24,7 +24,7 @@ class Default_Form_Register extends Zend_Form
 
         $hint = $this->createElement('hidden', ' hint');
         $description = $translator->translate('The following fields are not obligatory, but the data can help us find out which target groups we are reaching.');
-        $description = '<dd><p class="help-block help-block-offset">' . $description . '</p></dd>';
+        $description = '<p class="help-block help-block-offset">' . $description . '</p>';
         $hint
             ->setDescription($description)
             ->setDecorators([['Description', ['escape' => false]]]);
@@ -49,7 +49,6 @@ class Default_Form_Register extends Zend_Form
             ->setLabel('Name')
             ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
-            ->setAttrib('class', 'input-xlarge')
             ->setValidators(['NotEmpty'])
             ->setFilters(['StripTags']);
         $this->addElement($name);
@@ -77,7 +76,6 @@ class Default_Form_Register extends Zend_Form
         $srcMisc
             ->setAttrib('cols', 60)
             ->setAttrib('rows', 2)
-            ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags', 'HtmlEntities']);
         $groupSubForm->addElement($srcMisc);
 
@@ -89,21 +87,18 @@ class Default_Form_Register extends Zend_Form
         unset($grpSizeDef['1']);
         $groupSize
             ->setLabel('How many individuals were involved?')
-            ->setMultioptions($grpSizeDef)
-            ->setAttrib('class', 'input-xlarge');
+            ->setMultioptions($grpSizeDef);
         $groupSubForm->addElement($groupSize);
 
         $nameGroup = $this->createElement('text', 'name_group');
         $nameGroup
             ->setLabel('Group name')
-            ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags']);
         $groupSubForm->addElement($nameGroup);
 
         $namePers = $this->createElement('text', 'name_pers');
         $namePers
             ->setLabel('Contact person')
-            ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags']);
         $groupSubForm->addElement($namePers);
 
@@ -112,7 +107,6 @@ class Default_Form_Register extends Zend_Form
         $age = $this->createElement('select', 'age_group');
         $age
             ->setLabel('Age')
-            ->setAttrib('class', 'input-xlarge')
             ->setMultiOptions(
                 [
                     '1' => sprintf($translator->translate('up to %s years'), 17),
@@ -127,7 +121,6 @@ class Default_Form_Register extends Zend_Form
         $regioPax = $this->createElement('text', 'regio_pax');
         $regioPax
             ->setLabel('State')
-            ->setAttrib('class', 'input-xlarge')
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($regioPax);
 
@@ -151,7 +144,6 @@ class Default_Form_Register extends Zend_Form
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 3)
             ->setAttrib('maxlength', 600)
-            ->setAttrib('class', 'input-block-level')
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($comment);
 
@@ -173,15 +165,12 @@ class Default_Form_Register extends Zend_Form
             ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
             ->setCheckedValue('1')
             ->setUnCheckedValue(null)
-            ->setRequired(true)
-            ->getDecorator('Label')
-                ->setOptions(['escape' => false]);
+            ->setRequired(true);
+            //->getDecorator('Label')->setOptions(['escape' => false]);
         $this->addElement($ccLicense);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit
-            ->setLabel('Send')
-            ->setAttrib('class', 'btn');
+        $submit->setLabel('Send');
         $this->addElement($submit);
 
         $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);

@@ -1,16 +1,12 @@
 <?php
 
-class Default_Form_Input_Edit extends Zend_Form
+class Default_Form_Input_Edit extends Dbjr_Form_Web
 {
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this
-            ->setDecorators(array('FormElements', 'Form'))
-            ->setElementDecorators(array('ViewHelper', 'Errors', 'Description'))
-            ->setAttrib('class', 'form-contribution')
-            ->setMethod('post');
+        $this->setMethod('post');
 
         $thes = $this->createElement('textarea', 'thes');
         $placeholder = sprintf(
@@ -20,9 +16,8 @@ class Default_Form_Input_Edit extends Zend_Form
         $thes
             ->setLabel('Contribution')
             ->setAttrib('cols', 85)
-            ->setAttrib('rows', 2)
+            ->setAttrib('rows', 3)
             ->setRequired(true)
-            ->setAttrib('class', 'input-block-level')
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags', 'HtmlEntities'])
             ->addValidators(['NotEmpty']);
@@ -34,15 +29,12 @@ class Default_Form_Input_Edit extends Zend_Form
             ->setLabel('Explanation')
             ->setAttrib('cols', 85)
             ->setAttrib('rows', 5)
-            ->setAttrib('class', 'extension input-block-level')
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($expl);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit
-            ->setLabel('Save')
-            ->setAttrib('class', 'btn pull-left');
+        $submit->setLabel('Save');
         $this->addElement($submit);
 
         // CSRF Protection

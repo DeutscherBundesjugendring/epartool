@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Voting_Authentification extends Zend_Form
+class Default_Form_Voting_Authentification extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -8,9 +8,10 @@ class Default_Form_Voting_Authentification extends Zend_Form
 
         $this
             ->setMethod('post')
+            ->setAttrib('class', 'form-inline')
             ->setAttrib('autocomplete', 'off');
 
-        $email = $this->createElement('text', 'email');
+        $email = $this->createElement('email', 'email');
         $placeholder = $translator->translate('Email Address');
         $email
             ->setLabel('Email Address')
@@ -29,9 +30,7 @@ class Default_Form_Voting_Authentification extends Zend_Form
         $this->addElement($code);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit
-            ->setLabel('Start')
-            ->setAttrib('class', 'btn');
+        $submit->setLabel('Start');
         $this->addElement($submit);
 
         // CSRF Protection

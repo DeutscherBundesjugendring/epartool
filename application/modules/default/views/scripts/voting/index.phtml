@@ -29,10 +29,8 @@
                 <p>
                     <?=$this->translate('The Voting is anonymous. We just need your email address to check if you are allowed to participate in the Voting.')?>
                 </p>
-                <div class="form-inline">
-                    <?php echo $this->authform; ?>
-                </div>
-                <?php echo (!empty($this->votingExplanation)) ? $this->votingExplanation : ''; ?>
+                <?=$this->authform;?>
+                <?=((!empty($this->votingExplanation)) ? $this->votingExplanation : '');?>
             </div>
 
         </div>

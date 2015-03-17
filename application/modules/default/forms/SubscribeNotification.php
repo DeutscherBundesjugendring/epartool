@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_SubscribeNotification extends Zend_Form
+class Default_Form_SubscribeNotification extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -16,9 +16,8 @@ class Default_Form_SubscribeNotification extends Zend_Form
      */
     private function prepareElements()
     {
-        $label = '<span class="icon-rss"></span>' . Zend_Registry::get('Zend_Translate')->translate('Subscribe thread');
+        $label = '<span class="glyphicon glyphicon-saved icon-offset" aria-hidden="true"></span>' . Zend_Registry::get('Zend_Translate')->translate('Subscribe thread');
         $subscribe = $this->createElement('button', 'subscribe')
-            ->setAttrib('class', 'btn')
             ->setAttrib('type', 'submit')
             ->setAttrib('escape', false)
             ->setLabel($label);
@@ -36,12 +35,10 @@ class Default_Form_SubscribeNotification extends Zend_Form
 
     public function requireId()
     {
-        $emailEl = $this->createElement('text', 'email');
+        $emailEl = $this->createElement('email', 'email');
         $emailEl
             ->setOrder(0)
-            ->setAttrib('type', 'email')
             ->setAttrib('placeholder', 'me@example.com')
-            ->setAttrib('class', 'input-xlarge')
             ->setLabel('Email')
             ->addValidator('emailAddress')
             ->setRequired(true);

@@ -16,21 +16,21 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
 
         $addInputFieldBtn = $this->createElement('button', 'add_input_field');
         $addInputFieldBtn
-            ->setAttrib('class', 'btn pull-left')
+            ->setAttrib('class', 'pull-left')
             ->setAttrib('type', 'submit')
             ->setLabel('+');
         $this->addElement($addInputFieldBtn);
 
         $nextQuestionBtn = $this->createElement('button', 'next_question');
         $nextQuestionBtn
-            ->setAttrib('class', 'btn arrow-right')
+            ->setAttrib('class', 'arrow-right')
             ->setAttrib('type', 'submit')
             ->setLabel('Save and proceed');
         $this->addElement($nextQuestionBtn);
 
         $finishedBtn = $this->createElement('button', 'finished');
         $finishedBtn
-            ->setAttrib('class', 'btn pull-right')
+            ->setAttrib('class', 'pull-right')
             ->setAttrib('type', 'submit')
             ->setLabel('Finish');
         $this->addElement($finishedBtn);
@@ -67,7 +67,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $view = new Zend_View();
         $thesElOpts = array(
             'cols' => 85,
-            'rows' => 2,
+            'rows' => 3,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
                 'class' => 'form-control form-control-alt js-has-counter',
