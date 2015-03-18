@@ -65,7 +65,7 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
 
     public function render(Zend_View_Interface $view = null)
     {
-        $cssClass = 'btn btn-primary';
+        $cssClass = 'btn';
 
         if ($this->_actionType === self::TYPE_DELETE) {
             $cssClass = 'item-action item-action-danger';
