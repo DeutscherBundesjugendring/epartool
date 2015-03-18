@@ -93,6 +93,20 @@
             margin-bottom: @line-height-computed;
         }
 
+        &-help {
+            position: absolute;
+            right: floor((@line-height-computed / 2 + @grid-gutter-width / 2));
+            top: floor((1.5 * @line-height-computed));
+            font-size: 1.5em;
+            line-height: 1;
+
+            &,
+            &:hover,
+            &:focus {
+                color: #fff;
+            }
+        }
+
         &-share {
             position: relative;
         }
@@ -134,6 +148,8 @@
         }
 
         &-box {
+            position: relative;
+
             &.has-nav-list {
                 margin-bottom: 4 * @line-height-computed;
                 padding-bottom: 1px;
@@ -155,6 +171,17 @@
                 .center-block();
                 display: block; // reveal
                 max-width: @line-length-base;
+            }
+
+            &-help {
+                right: @line-height-computed / 2;
+                top: @line-height-computed / 2;
+
+                &,
+                &:hover,
+                &:focus {
+                    color: @gray-light;
+                }
             }
         }
     }

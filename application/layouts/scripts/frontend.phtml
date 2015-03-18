@@ -160,6 +160,17 @@
                         </a>
                     </h1>
 
+                    <!-- Help -->
+                    <?php if ($controller === 'index'): ?>
+                        <a
+                            href="<?=$this->url(['controller' => 'help', 'action' => 'index', 'name' => 'help-text-home']);?>"
+                            class="header-box-help link-transparent has-icon"
+                            title="<?=$this->translate('Help');?>"
+                        >
+                            <span class="icon-md glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                        </a>
+                    <?php endif; ?>
+
                     <p class="header-box-description" itemprop="description">
                         <?=Zend_Registry::get('systemconfig')->site->description->short;?>
                     </p>

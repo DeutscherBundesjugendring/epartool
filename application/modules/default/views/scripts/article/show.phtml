@@ -35,6 +35,10 @@
         </aside>
     </div><!-- .row -->
 
-    <?=$this->render('_partials/pageLinks.phtml');?>
+    <?php if ($this->consultation): ?>
+        <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-info']);?>
+    <?php else: ?>
+        <?=$this->partial('_partials/pageLinks.phtml');?>
+    <?php endif; ?>
 
 </div><!-- .main-content -->

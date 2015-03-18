@@ -11,6 +11,14 @@
     &-page-tools {
         margin-top: 2 * @line-height-computed;
         margin-bottom: @line-height-computed;
+
+        > a {
+            display: inline-block;
+        }
+
+        > a + a {
+            margin-top: floor((@line-height-computed / 4));
+        }
     }
 
     &-bottom-bar {
@@ -40,6 +48,10 @@
             top: 0;
             right: @line-height-computed;
             text-align: right;
+
+            > a {
+                display: block;
+            }
         }
     }
 }
