@@ -208,9 +208,8 @@ window.facebookRegisterCallback = () ->
 indicateLoginInProgress = () ->
     showOverlay()
     $('body').prepend($('<div id="loginFlashMessage" class="alert alert-info alert-on-overlay">
-        <span class="icon-offset glyphicon glyphicon-transfer"></span>
-        ' + i18n['You are being logged in. Please wait…']
-    + '</div>'))
+        <span class="icon-offset glyphicon glyphicon-transfer"></span>' +
+            i18n['You are being logged in. Please wait…'] + '</div>'))
 
 loginProcessEnd = () ->
     $('#loginFlashMessage').remove();

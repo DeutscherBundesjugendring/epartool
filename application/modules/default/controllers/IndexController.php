@@ -76,12 +76,12 @@ class IndexController extends Zend_Controller_Action
             'Medium' => $this->view->translate('Medium'),
             'Strong' => $this->view->translate('Strong'),
             'Very Strong' => $this->view->translate('Very Strong'),
-            'You are being logged in. Please wait...' =>
-                $this->view->translate('You are being logged in. Please wait...'),
+            'You are being logged in. Please wait…' =>
+                $this->view->translate('You are being logged in. Please wait…'),
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');
-        echo 'var i18n = ' . json_encode($i18n);
+        echo 'var i18n = ' . json_encode($i18n, JSON_UNESCAPED_UNICODE);
         die();
     }
 
