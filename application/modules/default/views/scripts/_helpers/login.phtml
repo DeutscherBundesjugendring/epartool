@@ -24,10 +24,15 @@
             <?=$this->form;?>
 
             <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
-                <div
+                <button
+                    type="button"
                     data-clientid="<?=Zend_Registry::get('systemconfig')->webservice->google->clientId;?>"
                     id="googleSignInButton"
-                >Google Sign in button here</div>
+                    class="social-button social-button-google"
+                    title="<?=$this->translate('Sign in with Google');?>"
+                >
+                    <?=$this->translate('Sign in with Google');?>
+                </button>
             <?php endif;?>
 
             <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->facebook->appId)): ?>
