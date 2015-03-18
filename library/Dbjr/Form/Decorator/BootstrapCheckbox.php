@@ -9,7 +9,14 @@ class Dbjr_Form_Decorator_BootstrapCheckbox extends Zend_Form_Decorator_Abstract
             ->clearDecorators()
             ->addDecorator('ViewHelper')
             ->addDecorator('Errors', ['class' => 'text-danger-block'])
-            ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
+            ->addDecorator(
+                'Description',
+                [
+                    'tag' => 'p',
+                    'class' => 'help-block',
+                    'escape' => $this->getOption('escapeDescription') === false ? false : true
+                ]
+            )
             ->addDecorator(
                 'labelText',
                 ['escape' => $this->getOption('escapeLabel') === false ? false : true]

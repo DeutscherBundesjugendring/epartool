@@ -14,7 +14,14 @@ class Dbjr_Form_Decorator_BootstrapFile extends Zend_Form_Decorator_Abstract imp
             )
             ->addDecorator('File')
             ->addDecorator('Errors', ['class' => 'text-danger-block'])
-            ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
+            ->addDecorator(
+                'Description',
+                [
+                    'tag' => 'p',
+                    'class' => 'help-block',
+                    'escape' => $this->getOption('escapeDescription') === false ? false : true
+                ]
+            )
             ->addDecorator(
                 'HtmlTag',
                 [

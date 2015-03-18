@@ -30,8 +30,11 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
         $videoId
             ->setLabel('YouTube video ID')
             ->setAttrib('placeholder', $placeholder . ' V75dMMIW2B4')
-            ->setDescription($description . ' <span class="muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>');
-            //->getDecorator('Description')->setEscape(false);
+            ->setDescription(
+                $description
+                . ' <span class="muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>'
+            );
+        $videoId->getDecorator('BootstrapStandard')->setOption('escapeDescription', false);
         $this->addElement($videoId);
 
 
