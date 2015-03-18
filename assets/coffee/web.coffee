@@ -235,3 +235,12 @@ initFB = (d, s, id) ->
     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=" + appId + "&version=v2.0";
     fjs.parentNode.insertBefore(js, fjs)
 
+window.initGoogle = () ->
+    gapi.signin.render('googleSignInButton', {
+      'callback': 'googleAuthenticateCallback',
+      'clientid': $('#googleSignInButton').data('clientid'),
+      'cookiepolicy': 'single_host_origin',
+      'scope': 'profile email'
+    });
+
+
