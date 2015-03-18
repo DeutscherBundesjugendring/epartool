@@ -236,7 +236,7 @@ initFB = (d, s, id) ->
 
 window.initGoogle = () ->
     gapi.signin.render('googleSignInButton', {
-      'callback': 'googleAuthenticateCallback',
+      'callback': $('#googleSignInButton').data('callback'),
       'clientid': $('#googleSignInButton').data('clientid'),
       'cookiepolicy': 'single_host_origin',
       'scope': 'profile email'

@@ -27,6 +27,7 @@
                 <button
                     type="button"
                     data-clientid="<?=Zend_Registry::get('systemconfig')->webservice->google->clientId;?>"
+                    data-callback="googleAuthenticateCallback"
                     id="googleSignInButton"
                     class="social-button social-button-google"
                     title="<?=$this->translate('Sign in with Google');?>"
