@@ -30,7 +30,9 @@ class Default_Form_Voting_Authentification extends Dbjr_Form_Web
         $this->addElement($code);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Start');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Start');
         $this->addElement($submit);
 
         // CSRF Protection

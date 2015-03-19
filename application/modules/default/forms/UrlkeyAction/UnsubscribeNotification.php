@@ -7,8 +7,9 @@ class Default_Form_UrlkeyAction_UnsubscribeNotification extends Dbjr_Form_Web
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Unsubscribe')
                 ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn-primary')
+                ->setLabel('Unsubscribe')
         );
 
         $this->addElement(

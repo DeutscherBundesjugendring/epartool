@@ -7,8 +7,9 @@ class Default_Form_UrlkeyAction_ConfirmNotification extends Dbjr_Form_Web
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Confirm')
                 ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn-primary')
+                ->setLabel('Confirm')
         );
 
         $this->addElement(

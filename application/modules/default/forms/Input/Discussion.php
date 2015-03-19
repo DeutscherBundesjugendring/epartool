@@ -39,7 +39,9 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
 
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Send');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Send');
         $this->addElement($submit);
 
         $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);

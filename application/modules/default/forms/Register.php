@@ -166,11 +166,13 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->setCheckedValue('1')
             ->setUnCheckedValue(null)
             ->setRequired(true);
-            //->getDecorator('Label')->setOptions(['escape' => false]);
+        $ccLicense->getDecorator('BootstrapCheckbox')->setOption('escapeLabel', false);
         $this->addElement($ccLicense);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Send');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Send');
         $this->addElement($submit);
 
         $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);

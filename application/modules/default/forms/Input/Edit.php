@@ -34,7 +34,9 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
         $this->addElement($expl);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save');
         $this->addElement($submit);
 
         // CSRF Protection

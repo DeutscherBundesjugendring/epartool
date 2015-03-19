@@ -19,7 +19,9 @@ class Default_Form_PasswordRecover extends Dbjr_Form_Web
         $this->addElement($email);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Send');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Send');
         $this->addElement($submit);
 
         // CSRF Protection

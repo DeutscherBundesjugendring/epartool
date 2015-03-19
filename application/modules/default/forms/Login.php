@@ -26,7 +26,7 @@ class Default_Form_Login extends Dbjr_Form_Web
         $submit = $this->createElement('submit', 'submit');
         $submit
             ->setLabel('Login')
-            ->setAttrib('class', 'btn btn-default btn-sm');
+            ->setAttrib('class', 'btn-default btn-sm');
         $this->addElement($submit);
 
 

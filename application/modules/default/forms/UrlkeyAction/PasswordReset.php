@@ -39,8 +39,9 @@ class Default_Form_UrlkeyAction_PasswordReset extends Dbjr_Form_Web
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Save new password')
                 ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn-primary')
+                ->setLabel('Save new password')
         );
 
         $this->addElement(
