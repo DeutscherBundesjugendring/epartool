@@ -225,7 +225,7 @@ module.exports = function (grunt) {
       },
       bower: {
         files: [
-          {'<%= paths.dist %>/js/html5shiv.min.js': '<%= paths.bower %>/html5shiv/dist/html5shiv.min.js'},
+          {'<%= paths.dist %>/vendor/html5shiv.min.js': '<%= paths.bower %>/html5shiv/dist/html5shiv.min.js'},
           {
             expand: true,
             cwd: '<%= paths.bower %>/ckeditor',
