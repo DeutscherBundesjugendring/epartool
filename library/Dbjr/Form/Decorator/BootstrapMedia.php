@@ -52,7 +52,7 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 [
                     'callback'  => function ($content, $element, $options) {
                         $html = <<<EOD
-<a href="#" onclick="javascript:window.open('{$options['href']}', '_blank', 'width: 500, height: 500'); return false;" class="btn btn-default">
+<a href="#" onclick="javascript:window.open('{$options['href']}', '_blank', 'width=800, height=800, resizable=yes, scrollbars=yes'); return false;" class="btn btn-default">
     {$options['label']}
 </a>
 EOD;
