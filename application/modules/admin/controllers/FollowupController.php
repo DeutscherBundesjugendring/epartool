@@ -114,6 +114,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     public function createFollowupAction()
     {
         $form = new Admin_Form_Followup_File($this->_kid);
+        $form->setKid($this->_kid);
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
