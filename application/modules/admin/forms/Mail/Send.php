@@ -147,6 +147,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $addAttachment = $this->createElement('button', 'addAttachment');
         $addAttachment
+            ->setAttrib('class', 'btn-default')
             ->setLabel('Add attachment')
             ->setOrder(1000);
         self::addCssClass($addAttachment, 'js-email-add-attachment');
@@ -165,6 +166,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $submit = $this->createElement('submit', 'submit');
         $submit
+            ->setAttrib('class', 'btn-primary')
             ->setLabel('Send')
             ->setOrder(1002);
         $this->addElement($submit);

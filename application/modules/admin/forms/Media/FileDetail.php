@@ -59,7 +59,9 @@ class Admin_Form_Media_FileDetail extends Dbjr_Form_Admin
 
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Submit');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Submit');
         $this->addElement($submit);
     }
 

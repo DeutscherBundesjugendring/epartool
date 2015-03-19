@@ -120,7 +120,9 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
         $this->addElement($hash);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save');
         $this->addElement($submit);
     }
 

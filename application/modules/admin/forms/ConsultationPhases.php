@@ -60,7 +60,9 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
         $this->addElement($phaseFollowup);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save');
         $this->addElement($submit);
     }
 

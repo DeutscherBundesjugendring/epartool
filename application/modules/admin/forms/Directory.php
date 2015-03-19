@@ -15,7 +15,9 @@ class Admin_Form_Directory extends Dbjr_Form_Admin
         $this->addElement($dirName);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save');
         $this->addElement($submit);
     }
 }
