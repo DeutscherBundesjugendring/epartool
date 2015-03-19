@@ -340,7 +340,8 @@ module.exports = function (grunt) {
     'clean:js',
     'coffee',
     'concat',
-    'po2json'
+    'po2json',
+    'copy:js'
   ]);
 
   grunt.registerTask('build-js-dist', [
@@ -355,11 +356,9 @@ module.exports = function (grunt) {
     'phplint',
     'build-css-dev',
     'build-js-dev',
-    'copy'
+    'copy:fonts',
+    'copy:bower'
   ]);
-
-  // Conventional alias for build task
-  grunt.registerTask('build', 'build-dist');
 
   // Build task - development
   grunt.registerTask('build-dist', [
@@ -368,8 +367,12 @@ module.exports = function (grunt) {
     'phplint',
     'build-css-dist',
     'build-js-dist',
-    'copy'
+    'copy:fonts',
+    'copy:bower'
   ]);
+
+  // Conventional alias for build task
+  grunt.registerTask('build', 'build-dist');
 
   // Development
   grunt.registerTask('dev', [
