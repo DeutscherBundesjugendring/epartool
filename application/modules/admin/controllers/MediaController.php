@@ -26,6 +26,11 @@ class Admin_MediaController extends Zend_Controller_Action
      */
     private $_filename;
 
+    /**
+     * Identifies the target element if the media are displayed in popup context
+     * @var string
+     */
+    private $_targetElId;
 
     public function init()
     {
@@ -43,6 +48,7 @@ class Admin_MediaController extends Zend_Controller_Action
         $this->_folder = $this->getRequest()->getParam('folder', null);
         $this->view->folder = $this->_folder;
         $this->_filename = $this->getRequest()->getParam('filename', null);
+        $this->_targetElId = $this->getRequest()->getParam('targetElId', null);
 
         try {
             $invalidUrl = false;
@@ -60,7 +66,7 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         // If targetElId is set, then the action is to be used as image selector in popup context
-        $this->view->targetElId = $this->getRequest()->getParam('targetElId', null);
+        $this->view->targetElId = $this->_targetElId;
         if ($this->view->targetElId) {
             $this->_helper->layout->setLayout('popup');
             $this->view->headScript()->appendFile($this->view->baseUrl() . '/js/admin_mediaPopup.js');
@@ -314,10 +320,22 @@ class Admin_MediaController extends Zend_Controller_Action
                             sprintf($this->view->translate('The file %s has been successfully uploaded.'), $uploadRes),
                             'success'
                         );
-                        $this->redirect(
-                            $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true),
-                            ['prependBase' => false]
-                        );
+
+                        $redirectArr = ['module' => 'admin', 'controller' => 'media', 'action' => 'index'];
+                        if ($this->_targetElId) {
+                            $redirectArr['targetElId'] = $this->_targetElId;
+                        }
+                        $lockDir = $this->getRequest()->getParam('lockDir', null);
+                        if ($lockDir) {
+                            $redirectArr['lockDir'] = $lockDir;
+                        }
+                        if ($this->_kid) {
+                          $redirectArr['kid'] = $this->_kid;
+                        }
+                        if ($this->_folder) {
+                          $redirectArr['folder'] = $this->_folder;
+                        }
+                        $this->redirect($this->view->url($redirectArr, null, true), ['prependBase' => false]);
                     } else {
                         $form->getElement('file')->addErrors($uploadRes);
                         $this
