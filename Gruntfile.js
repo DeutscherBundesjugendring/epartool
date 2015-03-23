@@ -162,6 +162,7 @@ module.exports = function (grunt) {
           '<%= paths.bower %>/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.5.js',
           '<%= paths.bower %>/bootstrap/js/alert.js',
           '<%= paths.bower %>/bootstrap/js/dropdown.js',
+          '<%= paths.bower %>/bootstrap/js/modal.js',
           '<%= paths.bower %>/bootstrap/js/transition.js',
           '<%= paths.src %>/js/FollowUp.js',
           '<%= paths.src %>/js/SocialShare.js',

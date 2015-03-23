@@ -20,6 +20,10 @@ class HelpController extends Zend_Controller_Action
         }
         $helpText['body'] = $dom->saveHTML();
 
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $this->_helper->layout->setLayout('frontend-help-modal');
+        }
+
         $this->view->helpText = $helpText;
     }
 }

@@ -7,6 +7,7 @@ $(document).ready () ->
     bindSupportContribution()
     bindSaveAndFinishContributing()
     bindSaveAndContinueContributing()
+    bindHelpTextModal()
     initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
@@ -242,4 +243,13 @@ window.initGoogle = () ->
       'scope': 'profile email'
     });
 
+bindHelpTextModal = () ->
+    $('.js-toggle-help').click () ->
+        $.get(this.href, {}, (data) ->
+            modalHtml = $(data)
+            $('body').append(modalHtml)
+            modalHtml.modal('show')
+        )
+
+        return false
 
