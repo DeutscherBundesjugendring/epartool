@@ -34,7 +34,7 @@
                                     <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
                                     <td>
                                         <a href="<?=$this->url(['controller' => 'votingprepare', 'action' => 'overview', 'kid' => $question['kid'], 'qid' => $question['qi']]);?>">
-                                            <?=html_entity_decode($this->escape(strip_tags($question['q'])));?>
+                                            <?=strip_tags(html_entity_decode($question['q']));?>
                                         </a>
                                     </td>
                                 </tr>

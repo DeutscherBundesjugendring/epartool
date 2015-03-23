@@ -44,10 +44,10 @@
             ?>
             <li class="span4">
                 <div class="thumbnail">
-                    <span class="badge badge-tag badge-tag-small"><?php echo $question['nr'] ?></span>
+                    <span class="badge badge-tag badge-tag-small"><?=$this->escape($question['nr']);?></span>
                     <div class="thumbnail-content">
                         <h2>
-                            <a href="<?php echo $url ?>"><?php echo $question['q'] ?></a>
+                            <a href="<?php echo $url ?>"><?=$this->escape($question['q']);?></a>
                         </h2>
                         <div class="article-list">
                             <?php foreach ($question['inputs'] as $input): ?>

@@ -163,7 +163,7 @@
                                                                     />
                                                                 </td>
                                                                 <td class="table-cell-top">
-                                                                    <?=html_entity_decode($this->escape(strip_tags($snippet['expl'])));?>
+                                                                    <?=strip_tags(html_entity_decode($snippet['expl']));?>
                                                                 </td>
                                                             </tr>
                                                         <?php endforeach; ?>
