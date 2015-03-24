@@ -225,18 +225,10 @@ class Dbjr_Mail extends Zend_Mail
         } elseif (!$bodyHtml && $bodyText) {
             $bodyHtml = nl2br($bodyText);
         }
-        $config = Zend_Registry::get('systemconfig');
+
         $view = new Zend_View();
         $view->addScriptPath(APPLICATION_PATH . '/layouts/scripts');
-        $view->assign(
-            [
-                'siteName' => $config->site->name,
-                'logoUrl' => $config->email->logoUrl,
-                'bodyHtml' => $bodyHtml,
-                'contactInfo' => $config->contact,
-                'links' => $config->email->links,
-            ]
-        );
+        $view->assign(['bodyHtml' => $bodyHtml]);
         $bodyHtml = $view->render('mail.phtml');
 
         $data = array(
