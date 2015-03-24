@@ -8,15 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
 
-    <?=$this->headTitle();?>
+    <title><?=$this->parameter('web.siteTitle');?></title>
 
-    <meta name="description" content="<?=Zend_Registry::get('systemconfig')->meta->description;?>" />
+    <meta name="description" content="<?=$this->parameter('web.siteDescription');?>" />
     <meta name="author" content="Content © <?=date('Y');?> DBJR" />
-    <meta name="DC.title" content="Mitwirkung mit Wirkung" />
-    <meta name="DC.creator" content="" />
-    <meta property="og:title" content="Mitwirkung mit Wirkung" />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="<?=Zend_Registry::get('systemconfig')->meta->property->ogDescription;?>" />
+    <meta name="DC.title" content="<?=$this->parameter('web.siteTitle');?>" />
+    <meta property="og:title" content="<?=$this->parameter('web.siteTitle');?>" />
+    <meta property="og:description" content="<?=$this->parameter('web.siteDescription');?>" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
         <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
@@ -50,7 +48,7 @@
 
             <!-- Logo -->
             <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand" title="<?=$this->translate('Home');?>">
-                <img src="<?=$this->baseUrl('project/images/logo.png');?>" itemprop="image" alt="<?= Zend_Registry::get('systemconfig')->site->name;?>" />
+                <img src="<?=$this->baseUrl('project/images/logo.png');?>" itemprop="image" alt="<?=$this->parameter('web.siteTitle');?>" />
             </a>
 
             <!-- Main navigation -->
@@ -172,7 +170,7 @@
                     <?php endif; ?>
 
                     <p class="header-box-description" itemprop="description">
-                        <?=Zend_Registry::get('systemconfig')->site->description->short;?>
+                        <?=$this->parameter('web.siteMotto');?>
                     </p>
 
                     <!-- Menu -->
@@ -262,18 +260,18 @@
                     <!-- Contact -->
                     <div class="footer-contact">
                         <p>
-                            <?=Zend_Registry::get('systemconfig')->contact->name;?>
+                            <?=$this->parameter('contact.name');?>
                         </p>
                         <p>
-                            <?=Zend_Registry::get('systemconfig')->contact->street;?><br />
-                            <?=Zend_Registry::get('systemconfig')->contact->zip;?>
-                            <?=Zend_Registry::get('systemconfig')->contact->town;?><br />
-                            <a href="mailto:<?=Zend_Registry::get('systemconfig')->contact->email;?>">
-                                <?=Zend_Registry::get('systemconfig')->contact->email;?>
+                            <?=$this->parameter('contact.street');?><br />
+                            <?=$this->parameter('contact.zip');?>
+                            <?=$this->parameter('contact.town');?><br />
+                            <a href="mailto:<?=$this->parameter('contact.email');?>">
+                                <?=$this->parameter('contact.email');?>
                             </a>
                             <br />
-                            <a href="<?=Zend_Registry::get('systemconfig')->contact->www;?>" rel="external" target="_blank">
-                                <?=Zend_Registry::get('systemconfig')->contact->www;?>
+                            <a href="<?=$this->parameter('contact.www');?>" rel="external" target="_blank">
+                                <?=$this->parameter('contact.www');?>
                             </a>
                         </p>
                     </div>

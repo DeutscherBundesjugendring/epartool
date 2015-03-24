@@ -15,6 +15,42 @@ class Admin_SettingsController extends Zend_Controller_Action
         $this->initView();
     }
 
+    public function indexAction()
+    {
+        $paramModel = new Model_Parameter();
+        $params = $paramModel->getAsArray();
+        $form = new Admin_Form_Settings();
+
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            if ($form->isValid($data)) {
+                $proj = Zend_Registry::get('systemconfig')->project;
+                $db = $paramModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    foreach ($data as $field => $value) {
+                        $paramModel->update(
+                            ['value' => $value],
+                            ['name=?' => str_replace('_', '.', $field), 'proj=?' => $proj]
+                        );
+                    }
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Settings were saved.', 'success');
+                    $this->_redirect('/admin/settings');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Form invalid', 'error');
+            }
+        } else {
+            $form->populate($params);
+        }
+
+        $this->view->form = $form;
+    }
+
     public function helpTextIndexAction()
     {
         $helpTextModel = new Model_HelpText();

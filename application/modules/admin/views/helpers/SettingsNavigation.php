@@ -10,11 +10,11 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
     public function settingsNavigation($activeItem = null)
     {
         $items = array(
-            /*array(
+            array(
                 'name' => 'site',
                 'label' => $this->view->translate('Site'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),*/
+            ),
             array(
                 'name' => 'pages',
                 'label' => $this->view->translate('Pages'),
