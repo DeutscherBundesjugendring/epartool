@@ -1,8 +1,9 @@
 <?php
+
 /**
- * Decides if a link to the inputs follow-up chart or static text should be provided
+ * Renders either a link to the inputs follow-up chart or static text
  */
-class Zend_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
 {
     /**
      * Returns a link to inputs follow-up chart or static text

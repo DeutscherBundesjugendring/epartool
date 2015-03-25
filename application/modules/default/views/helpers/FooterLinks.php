@@ -1,6 +1,6 @@
 <?php
 
-class Zend_View_Helper_FooterLinks extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_FooterLinks extends Zend_View_Helper_Abstract
 {
     public function footerLinks()
     {

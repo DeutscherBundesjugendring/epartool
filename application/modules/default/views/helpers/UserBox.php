@@ -4,7 +4,7 @@
  * @author Markus
  *
  */
-class Zend_View_Helper_UserBox extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_UserBox extends Zend_View_Helper_Abstract
 {
     public function userBox()
     {

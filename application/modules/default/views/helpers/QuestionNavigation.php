@@ -1,12 +1,9 @@
 <?php
+
 /**
- * Question Navigation
- *
- * @desc Navigation 3rd Level: Questions of a consultation
- * used in controllers: question, input, voting
- * @author Markus Hackel
+ * Navigation 3rd Level: Questions of a consultation
  */
-class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
 {
 
     public function questionNavigation($activeItem = null, $for = NULL, $numbered = false)

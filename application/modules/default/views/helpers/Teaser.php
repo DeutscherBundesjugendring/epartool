@@ -3,7 +3,7 @@
  * Teaser, shows the most relevant consultations with links to the current
  * participation stage
  */
-class Zend_View_Helper_Teaser extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_Teaser extends Zend_View_Helper_Abstract
 {
     public function teaser()
     {

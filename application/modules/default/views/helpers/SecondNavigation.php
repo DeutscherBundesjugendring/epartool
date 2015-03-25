@@ -1,6 +1,6 @@
 <?php
 
-class Zend_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstract
 {
     public function secondNavigation($activeItem = null)
     {
