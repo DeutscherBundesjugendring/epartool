@@ -2,8 +2,9 @@ CREATE TABLE `parameter` (
     `name` varchar(255) NOT NULL,
     `proj` char(2),
     `value` text NULL DEFAULT NULL,
-    PRIMARY KEY (`name`, `proj`)
-);
+    PRIMARY KEY (`name`, `proj`),
+    CONSTRAINT `parameter_proj_ibfk` FOREIGN KEY (`proj`) REFERENCES `proj`(`proj`)
+) Engine=InnoDb, COLLATE=utf8_unicode_ci;
 
 INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.title', `proj` FROM `proj`);
 INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.description', `proj` FROM `proj`);
