@@ -233,25 +233,7 @@
 
                     <!-- Logos -->
                     <div class="row">
-
-                        <?php $footerLogos = Zend_Registry::get('systemconfig')->footerLogo->toArray(); ?>
-
-                        <?php for ($i = 1, $size = count($footerLogos); $i <= $size; ++$i): ?>
-                            <div class="col-sm-4">
-                                <p><?=$footerLogos[$i]['name'];?></p>
-                                <p>
-                                    <?php if (isset($footerLogos[$i]['image'])): ?>
-                                        <a href="<?=$footerLogos[$i]['link'];?>" rel="external" target="_blank" title="<?=$footerLogos[$i]['title'];?>">
-                                            <img
-                                                src="<?=$this->baseUrl('project/images/' . $footerLogos[$i]['image']['name']);?>"
-                                                alt="<?=$footerLogos[$i]['image']['alt'];?>"
-                                                />
-                                        </a>
-                                    <?php endif; ?>
-                                </p>
-                            </div>
-                        <?php endfor; ?>
-
+                        <?=$this->partnerLogos();?>
                     </div><!-- .row -->
 
                 </div>

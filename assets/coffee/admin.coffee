@@ -11,6 +11,7 @@ $(document).ready () ->
     initDatepicker()
     initSortableFollowupSnippets()
     initSortableVotingDirs()
+    initSortablePartners()
     initSelect2()
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -172,21 +173,17 @@ initSelect2 = () ->
     $('.js-select2').select2()
 
 initSortableFollowupSnippets = () ->
-    $('.js-sortable-followup-snippets').disableSelection()
-    $('.js-sortable-followup-snippets').sortable({
-        'update': (ev, ui) ->
-            i = 1
-            $form = ui.item.closest('form')
-            $form.find('tr input[type=hidden]').each () ->
-                $(this).val(i)
-                i++
-            $form.find('button[type=submit]').prop('disabled', false)
-            return
-    });
+    return initSortableGeneral('.js-sortable-followup-snippets')
 
 initSortableVotingDirs = () ->
-    $('.js-sortable-voting-directory').disableSelection()
-    $('.js-sortable-voting-directory').sortable({
+    return initSortableGeneral('.js-sortable-voting-directory')
+
+initSortablePartners = () ->
+    return initSortableGeneral('.js-sortable-partners')
+
+initSortableGeneral = (sortableClass) ->
+    $(sortableClass).disableSelection()
+    $(sortableClass).sortable({
         'update': (ev, ui) ->
             i = 1
             $form = ui.item.closest('form')

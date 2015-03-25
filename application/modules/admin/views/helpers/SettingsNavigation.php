@@ -32,16 +32,12 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'label' => $this->view->translate('Help Texts'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'help-text-index')),
             ),
-            /*array(
-                'name' => 'header',
-                'label' => $this->view->translate('Header'),
-                'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),
             array(
-                'name' => 'footer',
-                'label' => $this->view->translate('Footer'),
-                'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),*/
+                'name' => 'partners',
+                'label' => $this->view->translate('Partners'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'partner-index', 'id' => null]),
+                'new_item' => $this->view->url(['controller' => 'settings', 'action' => 'partner-edit', 'id' => null]),
+            ),
         );
 
         return $this->view->secondaryNavigation($items, $activeItem);
