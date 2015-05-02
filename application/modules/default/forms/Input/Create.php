@@ -16,21 +16,21 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
 
         $addInputFieldBtn = $this->createElement('button', 'add_input_field');
         $addInputFieldBtn
-            ->setAttrib('class', 'pull-left')
+            ->setAttrib('class', 'btn-default pull-left')
             ->setAttrib('type', 'submit')
             ->setLabel('+');
         $this->addElement($addInputFieldBtn);
 
         $nextQuestionBtn = $this->createElement('button', 'next_question');
         $nextQuestionBtn
-            ->setAttrib('class', 'arrow-right')
+            ->setAttrib('class', 'btn-default arrow-right')
             ->setAttrib('type', 'submit')
             ->setLabel('Save and proceed');
         $this->addElement($nextQuestionBtn);
 
         $finishedBtn = $this->createElement('button', 'finished');
         $finishedBtn
-            ->setAttrib('class', 'pull-right')
+            ->setAttrib('class', 'btn-default pull-right')
             ->setAttrib('type', 'submit')
             ->setLabel('Finish');
         $this->addElement($finishedBtn);
