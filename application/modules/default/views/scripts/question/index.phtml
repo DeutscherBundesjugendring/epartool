@@ -7,45 +7,55 @@
         }
 ?>
 
-<?php echo $this->secondNavigation('question') ?>
+<?=$this->secondNavigation('question');?>
 
 <div class="main-content">
+    <div class="row">
+        <div class="content content-offset">
 
-            <h1><?=$this->translate('All questions')?></h1>
+            <h1><?=$this->translate('All questions');?></h1>
 
             <?php foreach ($this->questions as $question): ?>
                 <article class="article">
+
                     <?php if (!empty($question['nr'])): ?>
-                        <h2 class="alt numbered heading-with-cta">
-                            <span class="numbered-number pull-left"><?= $question['nr'] ?></span>
-                            <span class="numbered-title"><?= $question['q'] ?></span>
+                        <h2 class="page-header">
+                            <?=$this->escape($question['nr']);?>
+                            <?=$this->escape($question['q']);?>
                         </h2>
                     <?php else: ?>
-                        <h2 class="alt"><?= $question['q'] ?></h2>
+                        <h2 class="page-header">
+                            <?=$this->escape($question['q']);?>
+                        </h2>
                     <?php endif; ?>
-                    <?php if ($linkHeadlineToInputs): ?>
+
+                    <?php //if ($linkHeadlineToInputs): ?>
                         <a
-                            href="<?=$this->url(
-                                array(
+                            href="<?=$this->url([
                                     'controller' => 'input',
                                     'action' => 'show',
                                     'kid' => $this->consultation->kid,
                                     'qid' => $question['qi'],
-                                   )
-                           );?>"
-                           class="btn edit pull-right hidden-print"
-                           title="<?=$this->translate('Click here to answer')?>"
+                           ]);?>"
+                           class="btn btn-default has-icon-pencil pull-right hidden-print"
+                           title="<?=$this->translate('Click here to answer');?>"
                         >
-                            <i class="icon-edit-alt"></i> <?=$this->translate('Write a contribution')?>
+                            <span class="icon icon-pencil" aria-hidden="true"></span>
+                            <?=$this->translate('Write a contribution');?>
                         </a>
-                    <?php endif; ?>
-            <div class="row-fluid">
-                <div class="span9">
-                            <?php echo $question['q_xpl'] ?>
+                    <?php //endif; ?>
+
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <?=$question['q_xpl'];?>
                         </div>
-            </div>
+                    </div><!-- .row -->
+
                 </article>
             <?php endforeach; ?>
+
+        </div>
+    </div><!-- .row -->
 
     <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-question']);?>
 
