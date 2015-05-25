@@ -211,14 +211,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($followupShow);
 
-        $followupSummaryShow = $this->createElement('checkbox', 'summ_show');
-        $followupSummaryShow
-            ->setLabel('Enable follow-up summary')
-            ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
-        $this->addElement($followupSummaryShow);
-
         $isPublic = $this->createElement('checkbox', 'public');
         $isPublic
             ->setLabel('Make public')
