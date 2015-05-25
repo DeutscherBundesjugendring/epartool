@@ -143,6 +143,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from($this->info(self::NAME))
+            ->order('docorg')
             ->joinLeft(
                 (new Model_Followups())->info(Model_Followups::NAME),
                 (new Model_Followups())->info(Model_Followups::NAME) . '.ffid = ' . $this->info(self::NAME) . '.ffid',
