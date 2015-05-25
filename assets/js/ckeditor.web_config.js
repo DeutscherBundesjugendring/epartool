@@ -1,6 +1,6 @@
 CKEDITOR.editorConfig = function( config ) {
   config.extraPlugins = 'colorbutton,colordialog,div,find,flash,font,iframe,image2,selectall,smiley';
-
+  config.allowedContent = true,
   config.toolbar = [
     {name: 'document', items: ['Source']},
     {name: 'clipboard', items: ['PasteText', 'PasteFromWord']},
