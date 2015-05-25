@@ -25,7 +25,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     public function indexAction()
     {
         $followupFiles = new Model_FollowupFiles();
-        $this->view->followupFiles = $followupFiles->getByKid($this->_kid, 'when DESC');
+        $this->view->followupFiles = $followupFiles->getByKid($this->_kid, 'when ASC');
         $this->view->form = new Admin_Form_ListControl();
     }
 
