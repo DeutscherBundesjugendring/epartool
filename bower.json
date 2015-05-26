@@ -10,7 +10,8 @@
     "html5shiv": "~3.7.0",
     "less-modules": "~0.3.0",
     "pwstrength-bootstrap": "~1.1.4",
-    "ink": "~1.0.5"
+    "ink": "~1.0.5",
+    "ckeditor": "~4.4.7"
   },
   "resolutions": {
     "bootstrap": "~2.3.2"
