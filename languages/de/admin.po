@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2015-03-05 18:05+0100\n"
-"PO-Revision-Date: 2015-03-05 18:05+0100\n"
+"PO-Revision-Date: 2015-05-26 10:12+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -865,7 +865,7 @@ msgstr "Erläuterung kurz"
 
 #: application/modules/admin/forms/Consultation.php:68
 msgid "Enable contribution phase"
-msgstr "Abstimmungszeitraum aktivieren"
+msgstr "Beitragszeitraum aktivieren"
 
 #: application/modules/admin/forms/Consultation.php:79
 msgid "Contribution phase start"
