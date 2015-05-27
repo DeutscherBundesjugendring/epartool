@@ -21,7 +21,7 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'index'));?>" class="back">&larr; <?=$this->translate('Back to Email Components');?></a>
+                <a href="<?=$this->url(array('action' => 'index'));?>" class="back"><?=$this->translate('Back to Email Components');?></a>
 
                 <h2><?php echo !$this->templateId ? 'New' : 'Edit'?> <?=$this->translate('Email Component');?></h2>
                 <?=$this->form;?>
