@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2015-01-30 10:32+0100\n"
-"PO-Revision-Date: 2015-05-29 17:55+0100\n"
+"PO-Revision-Date: 2015-05-29 18:00+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -51,7 +51,7 @@ msgstr ""
 #: application/modules/admin/controllers/UserController.php:142
 #: application/modules/admin/controllers/InputController.php:148
 msgid "Changes saved."
-msgstr "Veränderungen wurden gespeichert."
+msgstr "Änderungen wurden gespeichert."
 
 #: application/modules/admin/controllers/QuestionController.php:119
 msgid "Question has been deleted."
