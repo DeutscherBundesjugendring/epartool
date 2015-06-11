@@ -140,13 +140,15 @@ initCKEditor = () ->
     })
 
 initDatepicker = () ->
-    $('.js-datepicker').datetimepicker({
-        'format': 'YYYY-MM-DD',
-        'pickTime': false
-    })
     $('.js-datetimepicker').datetimepicker({
         'format': 'YYYY-MM-DD HH:mm:ss',
-        'sideBySide': true
+        'sideBySide': true,
+        'locale': moment.locale()
+    })
+    $('.js-datepicker').datetimepicker({
+        'format': 'YYYY-MM-DD',
+        'pickTime': false,
+        'locale': moment.locale()
     })
 
     # An ugly hack added so that datetimepicker can be triggered if the field was enabled by js after page load
@@ -156,16 +158,19 @@ initDatepicker = () ->
         $el.data('DateTimePicker', null);
         $el.datetimepicker({
             'format': 'YYYY-MM-DD HH:mm:ss',
-            'sideBySide': true
+            'sideBySide': true,
+            'locale': moment.locale()
         })
         $el = $($this.data('disable-target') + '.js-datepicker')
         $el.data('DateTimePicker', null);
         $el.datetimepicker({
             'format': 'YYYY-MM-DD',
-            'pickTime': false
+            'pickTime': false,
+            'locale': moment.locale()
         })
         return
     );
+    return
 
 initSelect2 = () ->
     $('.js-select2').select2()
@@ -197,6 +202,7 @@ initSortableVotingDirs = () ->
     });
 
 initI18n = () ->
+    moment.locale($('html').attr('lang'))
     $.fn.confirmation.Constructor.prototype.options = {
         'confirm-message': i18n.translate('Are you sure?'),
         'confirm-yes': i18n.translate('Yes'),
