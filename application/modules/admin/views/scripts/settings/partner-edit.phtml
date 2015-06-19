@@ -1,19 +1,23 @@
 <section class="section-header">
     <div class="container">
-        <h1 class="section-header-title"><?=$this->translate('Partners');?></h1>
+        <h1 class="section-header-title"><?=$this->translate('General Settings');?></h1>
     </div>
 </section>
 <section class="section-content">
     <div class="container">
         <div class="row">
             <div class="sidebar">
+
                 <?=$this->settingsNavigation('partners');?>
-            </div>
 
+            </div>
             <div class="content">
-                <?=$this->form;?>
-            </div>
 
+                <a href="<?=$this->url(['action' => 'partner-index']);?>" class="back"><?=$this->translate('Back to Partners');?></a>
+                <h2><?=$this->translate('Partner');?></h2>
+                <?=$this->form;?>
+
+            </div>
         </div>
     </div>
 </section>

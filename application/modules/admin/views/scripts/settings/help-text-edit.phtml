@@ -7,14 +7,17 @@
     <div class="container">
         <div class="row">
             <div class="sidebar">
-                <?=$this->settingsNavigation('helpTexts');?>
-            </div>
 
+                <?=$this->settingsNavigation('helpTexts');?>
+
+            </div>
             <div class="content">
+
+                <a href="<?=$this->url(['action' => 'help-text-index']);?>" class="back"><?=$this->translate('Back to Help Texts');?></a>
                 <h2><?=$this->escape($this->helpTextTitle);?></h2>
                 <?=$this->form;?>
-            </div>
 
+            </div>
         </div>
     </div>
 </section>
