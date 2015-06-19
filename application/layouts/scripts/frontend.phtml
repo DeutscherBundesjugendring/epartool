@@ -275,9 +275,9 @@
 <script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
 
 <?php if (APPLICATION_ENV === 'development'): ?>
-    <script src="<?=$this->baseUrl('js/web.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/dbjr.js');?>"></script>
 <?php else: ?>
-    <script src="<?=$this->baseUrl('js/web.min.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/dbjr.min.js');?>"></script>
 <?php endif;?>
 
 <script src="<?=$this->baseUrl('/index/i18n');?>"></script>

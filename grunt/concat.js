@@ -18,7 +18,7 @@ module.exports = {
       '<%= paths.src %>/js/SocialShare.js',
       '<%= paths.temp %>/front.js'
     ],
-    dest: '<%= paths.dist %>/js/web.js'
+    dest: '<%= paths.dist %>/js/<%= pkg.name %>.js'
   },
   admin: {
     src: [

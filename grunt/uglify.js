@@ -4,7 +4,7 @@ module.exports = {
 
   front: {
     files: {
-      '<%= paths.dist %>/js/web.min.js': '<%= paths.dist %>/js/web.js'
+      '<%= paths.dist %>/js/<%= pkg.name %>.min.js': '<%= paths.dist %>/js/<%= pkg.name %>.js'
     }
   },
   admin: {
