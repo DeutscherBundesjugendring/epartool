@@ -94,9 +94,9 @@ bindToggleExtendedInput = () ->
         $(this).nextAll('.js-character-counter').toggle()
         $(this).toggleClass 'expanded'
         if $(this).hasClass('expanded')
-            $(this).html '<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> Shut back<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>'
+            $(this).html '<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> ' + i18n['Shut back'] + ' <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>'
         else
-            $(this).html '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Click here to explain contribution<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>'
+            $(this).html '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> ' + i18n['Click here to explain contribution'] + ' <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>'
         return
 
 bindSupportContribution = () ->
@@ -105,7 +105,7 @@ bindSupportContribution = () ->
         tid = $(this).attr('rel')
         $.post('<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json', 'tid': tid).done (data) ->
             if data.count
-                $('#click-support-wrap-' + tid).html '<span><span class="glyphicon glyphicon-ok-sign icon-orange icon-2x" aria-hidden="true"></span>' + ' <span id="badge-' + tid + '">(' + data.count + ')</span>' + ' <span class="label label-default">supporters</span></span>'
+                $('#click-support-wrap-' + tid).html '<span><span class="glyphicon glyphicon-ok-sign icon-orange icon-2x" aria-hidden="true"></span>' + ' <span id="badge-' + tid + '">(' + data.count + ')</span>' + ' <span class="label label-default">' + i18n['supporters'] + '</span></span>'
             return
         return
 
