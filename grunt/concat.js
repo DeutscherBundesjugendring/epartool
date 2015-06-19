@@ -16,7 +16,7 @@ module.exports = {
       '<%= paths.bower %>/bootstrap/js/transition.js',
       '<%= paths.src %>/js/FollowUp.js',
       '<%= paths.src %>/js/SocialShare.js',
-      '<%= paths.temp %>/web.js'
+      '<%= paths.temp %>/front.js'
     ],
     dest: '<%= paths.dist %>/js/web.js'
   },

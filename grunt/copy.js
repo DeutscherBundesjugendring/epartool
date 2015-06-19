@@ -6,7 +6,7 @@ module.exports = {
     files: [
       {
         expand: true,
-        cwd: '<%= paths.src %>/fonts',
+        cwd: '<%= paths.src.front %>/fonts',
         src: ['**/*.{eot,svg,ttf,woff}'],
         dest: '<%= paths.dist %>/font'
       },
@@ -29,10 +29,10 @@ module.exports = {
       }
     ]
   },
-  js: {
+  admin: {
     files: [
-      {'<%= paths.dist %>/js/ckeditor.web_config.js': '<%= paths.src %>/js/ckeditor.web_config.js'},
-      {'<%= paths.dist %>/js/ckeditor.email_config.js': '<%= paths.src %>/js/ckeditor.email_config.js'},
+      {'<%= paths.dist %>/js/ckeditor.web_config.js': '<%= paths.src.admin %>/js/ckeditor.web_config.js'},
+      {'<%= paths.dist %>/js/ckeditor.email_config.js': '<%= paths.src.admin %>/js/ckeditor.email_config.js'},
     ]
   }
 

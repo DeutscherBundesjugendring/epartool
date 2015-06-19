@@ -6,7 +6,10 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     paths: {
-      src: 'assets',
+      src: {
+        front: 'assets/front',
+        admin: 'assets/admin'
+      },
       dist: 'www',
       bower: 'bower_components',
       temp: '.tmp'

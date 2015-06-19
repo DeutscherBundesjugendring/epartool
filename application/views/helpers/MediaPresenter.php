@@ -20,7 +20,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
      * The pathof the fallback image to be used if the real image is not available
      * Relative to APPLICATION_PATH
      */
-    const FALLBACK_IMAGE_PATH = "/../www/images/icons/icon_file_default.png";
+    const FALLBACK_IMAGE_PATH = "/../www/images/admin/file-type-icons/icon_file_default.png";
 
     /**
      * Returns url to the image representation of the given media
@@ -69,7 +69,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
                 ->guess();
         } else {
-            $icon = Image::open(APPLICATION_PATH . '/../www/images/icons/' . $file['icon'] . '.png');
+            $icon = Image::open(APPLICATION_PATH . '/../www/images/admin/file-type-icons/' . $file['icon'] . '.png');
             $imagePath = IMAGE::create($contextConf->width, $contextConf->height)
                 ->fill('#ffffff')
                 ->merge(

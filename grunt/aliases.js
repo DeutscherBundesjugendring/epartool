@@ -2,13 +2,21 @@
 
 module.exports = {
 
-  'test': [
-    'phplint'
-  ],
+  // Tests
+  // =====
 
+  'test-php': 'phplint',
+
+  'test': 'test-php',
+
+
+  // Build
+  // =====
+
+  // Email template
   // BEHOLD! Requires Premailer gem (https://github.com/premailer/premailer) installed in the system
   // (`$ gem install premailer`).
-  'mail': [
+  'build-mail': [
     'clean:temp',
     'less:mail',
     'uncss:mail',
@@ -17,58 +25,90 @@ module.exports = {
     'replace:mail'
   ],
 
-  'build-css-dev': [
-    'clean:css',
+  // CSS
+  'build-css-front': [
     'less:front',
-    'less:admin',
     'autoprefixer:front',
-    'autoprefixer:admin'
+    'cssmin:front'
   ],
 
-  'build-css-dist': [
-    'build-css-dev',
-    'cssmin'
+  'build-css-admin': [
+    'less:admin',
+    'autoprefixer:admin',
+    'cssmin:admin'
   ],
 
-  'build-js-dev': [
+  'build-css': [
+    'clean:css',
+    'build-css-front',
+    'build-css-admin'
+  ],
+
+  // JS
+  'build-js-front': [
+    'coffee:front',
+    'concat:front',
+    'uglify:front'
+  ],
+
+  'build-js-admin': [
+    'coffee:admin',
+    'concat:admin',
+    'po2json:admin',
+    'uglify:admin',
+    'copy:admin'
+  ],
+
+  'build-js': [
     'clean:js',
-    'coffee',
-    'concat',
-    'po2json',
-    'copy:js'
+    'build-js-front',
+    'build-js-admin'
   ],
 
-  'build-js-dist': [
-    'build-js-dev',
-    'uglify'
+  // Images
+  'build-images-front': [
+    'svgmin:front',
+    'imagemin:front'
   ],
 
-  'build-dev': [
+  'build-images-admin': [
+    'svgmin:admin',
+    'imagemin:admin'
+  ],
+
+  'build-images': [
+    'clean:images',
+    'build-images-front',
+    'build-images-admin'
+  ],
+
+  // All together
+  'build': [
     'clean:temp',
     'clean:fonts',
-    'build-css-dev',
-    'build-js-dev',
+    'build-css',
+    'build-js',
+    'build-images',
     'copy:fonts',
     'copy:bower'
   ],
 
-  'build-dist': [
-    'clean:temp',
-    'clean:fonts',
-    'build-css-dist',
-    'build-js-dist',
-    'copy:fonts',
-    'copy:bower'
-  ],
 
-  'build': 'build-dist',
+  // Development
+  // ===========
 
   'dev': [
     'test',
-    'build-dev',
+    'build',
     'browserSync',
     'watch'
   ],
+
+
+  // Aliases
+  // =======
+
+  'mail': 'build-mail',
 
   'default': [
     'test',

@@ -2,6 +2,9 @@
 
 module.exports = {
 
+  options: {
+    restructuring: false
+  },
   front: {
     files: {
       '<%= paths.dist %>/css/<%= pkg.name %>.min.css': '<%= paths.dist %>/css/<%= pkg.name %>.css'
