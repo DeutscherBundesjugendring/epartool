@@ -6,7 +6,7 @@ module.exports = {
     separator: ';',
     sourceMap: true
   },
-  web: {
+  front: {
     src: [
       '<%= paths.bower %>/jquery/jquery.min.js',
       '<%= paths.bower %>/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.5.js',

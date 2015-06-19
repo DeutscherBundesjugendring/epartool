@@ -2,6 +2,10 @@
 
 module.exports = {
 
+  'test': [
+    'phplint'
+  ],
+
   // BEHOLD! Requires Premailer gem (https://github.com/premailer/premailer) installed in the system
   // (`$ gem install premailer`).
   'mail': [
@@ -15,12 +19,14 @@ module.exports = {
 
   'build-css-dev': [
     'clean:css',
-    'less:dev',
-    'autoprefixer:dev'
+    'less:front',
+    'less:admin',
+    'autoprefixer:front',
+    'autoprefixer:admin'
   ],
 
   'build-css-dist': [
-  'build-css-dev',
+    'build-css-dev',
     'cssmin'
   ],
 
@@ -40,7 +46,6 @@ module.exports = {
   'build-dev': [
     'clean:temp',
     'clean:fonts',
-    'phplint',
     'build-css-dev',
     'build-js-dev',
     'copy:fonts',
@@ -50,7 +55,6 @@ module.exports = {
   'build-dist': [
     'clean:temp',
     'clean:fonts',
-    'phplint',
     'build-css-dist',
     'build-js-dist',
     'copy:fonts',
@@ -60,11 +64,15 @@ module.exports = {
   'build': 'build-dist',
 
   'dev': [
+    'test',
     'build-dev',
     'browserSync',
     'watch'
   ],
 
-  'default': 'build'
+  'default': [
+    'test',
+    'build'
+  ]
 
 };

@@ -12,16 +12,14 @@ module.exports = {
       'iOS >= 6',
       'Opera >= 12',
       'Safari >= 6'
-    ]
+    ],
+    map: true
   },
-  dev: {
-    options: {
-      map: true
-    },
-    src: [
-      '<%= paths.dist %>/css/<%= pkg.name %>.css',
-      '<%= paths.dist %>/css/admin.css'
-    ]
+  front: {
+    src: '<%= paths.dist %>/css/<%= pkg.name %>.css'
+  },
+  admin: {
+    src: '<%= paths.dist %>/css/admin.css'
   }
 
 };

@@ -2,12 +2,12 @@
 
 module.exports = {
 
-  main: {
+  mail: {
     options: {
       verbose: true
     },
     files: {
-      '<%= paths.temp %>/mail_inline_css.html': ['<%= paths.temp %>/mail.html']
+      '<%= paths.temp %>/mail_inline_css.html': '<%= paths.temp %>/mail.html'
     }
   }
 

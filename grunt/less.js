@@ -2,12 +2,16 @@
 
 module.exports = {
 
-  dev: {
-    options: {
-      paths: ['<%= paths.bower %>']
-    },
+  options: {
+    paths: ['<%= paths.bower %>']
+  },
+  front: {
     files: {
-      '<%= paths.dist %>/css/<%= pkg.name %>.css': '<%= paths.src %>/less/main.less',
+      '<%= paths.dist %>/css/<%= pkg.name %>.css': '<%= paths.src %>/less/main.less'
+    }
+  },
+  admin: {
+    files: {
       '<%= paths.dist %>/css/admin.css': '<%= paths.src %>/less/admin.less'
     }
   },

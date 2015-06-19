@@ -2,7 +2,7 @@
 
 module.exports = {
 
-  all: {
+  admin: {
     options: {
       template: function (data) {
         return 'var exports = {};' + data;
