@@ -14,10 +14,6 @@
     &:before {
         z-index: 0;
     }
-
-    &:after {
-        z-index: 1;
-    }
 }
 
 .item-arrowed-vertical(@bg, @default-color, @hover-color, @disabled-color) {
@@ -42,6 +38,7 @@
 
     &:after {
         top: 100%;
+        z-index: 1;
         border-left: (@arrow-width / 2) solid transparent;
         border-right: (@arrow-width / 2) solid transparent;
         border-top: @arrow-height solid @default-color;
@@ -79,6 +76,7 @@
 
     &:after {
         left: 100%;
+        z-index: 0;
         border-left: @arrow-width solid @default-color;
         border-top: (@arrow-height / 2) solid transparent;
         border-bottom: (@arrow-height / 2) solid transparent;
