@@ -14,8 +14,8 @@ module.exports = {
       '<%= paths.bower %>/bootstrap/js/dropdown.js',
       '<%= paths.bower %>/bootstrap/js/modal.js',
       '<%= paths.bower %>/bootstrap/js/transition.js',
-      '<%= paths.src %>/js/FollowUp.js',
-      '<%= paths.src %>/js/SocialShare.js',
+      '<%= paths.src.front %>/js/FollowUp.js',
+      '<%= paths.src.front %>/js/SocialShare.js',
       '<%= paths.temp %>/front.js'
     ],
     dest: '<%= paths.dist %>/js/<%= pkg.name %>.js'
