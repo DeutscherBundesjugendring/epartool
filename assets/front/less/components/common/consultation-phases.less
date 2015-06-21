@@ -26,6 +26,10 @@
             color: @consultation-phase-color;
         }
 
+        &-bubble {
+            .center-block();
+        }
+
         // Link styling
         a& {
             text-decoration: none;
@@ -44,7 +48,6 @@
         // Disabled state
         &.disabled {
             background-color: @consultation-phase-disabled-bg;
-            cursor: pointer;
 
             &,
             > .consultation-phases-item-title {
@@ -84,7 +87,6 @@
                 position: absolute;
                 right: floor((@line-height-computed / 3));
                 bottom: floor((@line-height-computed / 3));
-                font-size: @font-size-small;
                 line-height: 1.2;
                 text-align: right;
             }

@@ -107,19 +107,23 @@
                 </h3>
 
                 <?php if ($consultation->inp_show == 'y' && $inputIsOpen): ?>
-                    <div class="bubble bubble-large">
+                    <div class="bubble bubble-lg consultation-phases-item-bubble">
                         <h4 class="bubble-title"><?=$this->translate('Participate now!');?></h4>
-                        <?=$this->translate('from');?>
-                        <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?><br />
-                        <?=$this->translate('until');?>
-                        <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
+                        <small>
+                            <?=$this->translate('from');?>
+                            <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?><br />
+                            <?=$this->translate('until');?>
+                            <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
+                        </small>
                     </div>
                 <?php elseif ($consultation->inp_show == 'y'): ?>
                     <div class="consultation-phases-item-info">
-                        <?=$this->translate('from');?>
-                        <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?><br />
-                        <?=$this->translate('until');?>
-                        <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
+                        <small>
+                            <?=$this->translate('from');?>
+                            <?=$this->formatDate($consultation->inp_fr, Zend_Date::DATE_MEDIUM);?><br />
+                            <?=$this->translate('until');?>
+                            <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
+                        </small>
                     </div>
                 <?php endif; ?>
 
@@ -143,19 +147,23 @@
                 </h3>
 
                 <?php if ($consultation->vot_show == 'y' && $votingIsOpen): ?>
-                    <div class="bubble bubble-large">
+                    <div class="bubble bubble-lg consultation-phases-item-bubble">
                         <h4 class="bubble-title"><?=$this->translate('Vote now!');?></h4>
-                        <?=$this->translate('from');?>
-                        <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?><br />
-                        <?=$this->translate('until');?>
-                        <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
+                        <small>
+                            <?=$this->translate('from');?>
+                            <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?><br />
+                            <?=$this->translate('until');?>
+                            <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
+                        </small>
                     </div>
                 <?php elseif ($consultation->vot_show == 'y'): ?>
                     <div class="consultation-phases-item-info">
-                        <?=$this->translate('from');?>
-                        <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?><br />
-                        <?=$this->translate('until');?>
-                        <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
+                        <small>
+                            <?=$this->translate('from');?>
+                            <?=$this->formatDate($consultation->vot_fr, Zend_Date::DATE_MEDIUM);?><br />
+                            <?=$this->translate('until');?>
+                            <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
+                        </small>
                     </div>
                 <?php endif; ?>
 

@@ -100,11 +100,12 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
                 $html .= '<div class="consultation-phases-item-title">' . $val['text'] . '</div>' . "\n";
 
                 if (isset($val['info'])) {
-                    $html .= '<div class="consultation-phases-item-info">' . $val['info'] . '</div>' . "\n";
+                    $html .= '<div class="consultation-phases-item-info"><small>' . $val['info'] . '</small></div>' . "\n";
                 }
 
                 if ($val['showBubble']) {
-                    $html .= '<div class="bubble bubble-middle">';
+                    $html .= '<div class="bubble consultation-phases-item-bubble">';
+                    $html .= '<h4 class="bubble-title">';
 
                     if ($item == 'input') {
                         $html .= $this->view->translate('Participate now!');
@@ -112,6 +113,7 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
                         $html .= $this->view->translate('Vote now!');
                     }
 
+                    $html .= '</h4>';
                     $html .= '</div>' . "\n";
                 }
 
@@ -121,7 +123,7 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
                 $html .= '<div class="consultation-phases-item-title">' . $val['text'] . '</div>' . "\n";
 
                 if (isset($val['info'])) {
-                    $html .= '<div class="consultation-phases-item-info">' . $val['info'] . '</div>' . "\n";
+                    $html .= '<div class="consultation-phases-item-info"><small>' . $val['info'] . '</small></div>' . "\n";
                 }
 
                 $html .= '</div>' . "\n";

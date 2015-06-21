@@ -39,6 +39,21 @@
 
         .consultation-phases-item {
             height: @consultation-phase-preview-height-md;
+
+            &:hover,
+            &:focus {
+                > .consultation-phases-item-bubble {
+                    transform: translate(0, -20px);
+                }
+            }
+        }
+
+        .consultation-phases-item-bubble {
+            position: absolute;
+            left: 12px;
+            bottom: -5px;
+            z-index: 3;
+            transition: transform 250ms ease;
         }
     }
 
