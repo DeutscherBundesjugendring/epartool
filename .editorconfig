@@ -13,5 +13,8 @@ indent_size = 4
 [*.{js,json}]
 indent_size = 2
 
+[.*rc]
+indent_size = 2
+
 [*.md]
 trim_trailing_whitespace = false
