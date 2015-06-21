@@ -1,33 +1,47 @@
+
 <?php if ($this->pageCount): ?>
-    <nav class="pagination pagination-centered">
-        <ul>
+
+    <?php // Page Menu should be in descending order. ?>
+    <?php $this->pagesInRange = array_reverse($this->pagesInRange);?>
+
+    <nav class="text-center">
+        <ul class="pagination">
+
             <?php if (isset($this->next)): ?>
                 <li class="prev">
-                    <a href="<?php echo $this->url(array('page' => $this->next)); ?>" class="btn">
-                        <i class="icon-angle-left"></i> <?php echo $this->titleNext; ?>
+                    <a href="<?=$this->url(['page' => $this->next]);?>" title="<?=$this->titleNext;?>">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        <span class="hidden-xs hidden-sm"><?=$this->titleNext;?></span>
                     </a>
                 </li>
             <?php endif; ?>
 
-            <!-- Anzahl an Seitenlinks -->
-            <?php $this->pagesInRange = array_reverse($this->pagesInRange); // Page Menu should be in descending order ?>
             <?php foreach ($this->pagesInRange as $page): ?>
                 <?php if ($page != $this->current): ?>
-                    <li><a href="<?php echo $this->url(array('page' => $page)); ?>" class="btn">
-                            <?php echo $page; ?>
-                        </a></li>
+                    <li>
+                        <a href="<?=$this->url(['page' => $page]);?>">
+                            <?=$page;?>
+                        </a>
+                    </li>
                 <?php else: ?>
-                    <li class="active"><span class="btn"><?php echo $page; ?></span></li>
+                    <li class="active">
+                        <a href="<?=$this->url(['page' => $page]);?>">
+                            <?=$page;?>
+                            <span class="sr-only">(<?=$this->translate('current');?>)</span>
+                        </a>
+                    </li>
                 <?php endif; ?>
             <?php endforeach; ?>
 
             <?php if (isset($this->previous)): ?>
                 <li class="next">
-                    <a href="<?php echo $this->url(array('page' => $this->previous)); ?>" class="btn">
-                        <?php echo $this->titlePrev; ?> <i class="icon-angle-right"></i>
+                    <a href="<?=$this->url(array('page' => $this->previous));?>" title="<?=$this->titlePrev;?>">
+                        <span class="hidden-xs hidden-sm"><?=$this->titlePrev;?></span>
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </a>
                 </li>
             <?php endif; ?>
+
         </ul>
     </nav>
 <?php endif; ?>
