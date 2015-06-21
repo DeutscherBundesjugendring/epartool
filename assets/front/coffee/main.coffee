@@ -252,4 +252,3 @@ bindHelpTextModal = () ->
         )
 
         return false
-

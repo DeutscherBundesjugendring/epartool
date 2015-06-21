@@ -3,7 +3,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="<?=$this->translate('Close');?>"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><?=$this->translate('Help');?></h4>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-question-sign icon-offset text-info" aria-hidden="true"></span>
+                    <?=$this->translate('Help');?>
+                </h4>
             </div>
             <div class="modal-body">
                 <?=$this->layout()->content;?>

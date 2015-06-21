@@ -1,3 +1,18 @@
-<h2><?=Model_HelpText::getTranslatedName($this->helpText->name);?></h2>
+<?php if(!$this->isAjax): ?>
+    <div class="main-content">
+        <div class="row">
+            <div class="content content-narrow content-offset">
+<?php endif; ?>
+
+<?=$this->isAjax ? '<h2>' : '<h1>';?>
+    <?=Model_HelpText::getTranslatedName($this->helpText->name);?>
+<?=$this->isAjax ? '</h2>' : '</h1>';?>
+
 <?php // Do not escape as the script tag has been stripped in controller and we need other tags ;?>
 <?=$this->helpText->body;?>
+
+<?php if(!$this->isAjax): ?>
+            </div>
+        </div><!-- .row -->
+    </div><!-- .main-content -->
+<?php endif; ?>
