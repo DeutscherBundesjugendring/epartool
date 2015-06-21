@@ -1,11 +1,17 @@
 <form
     enctype="<?=$this->element->getEnctype();?>"
     method="<?=$this->element->getMethod();?>"
-    class="form-contribution well well-large text-center offset-bottom-large"
+    class="form-contribution well well-large text-center offset-bottom-large has-sticker"
 >
     <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'));?>
 
-    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Participate');?></span>
+    <!-- Sticker -->
+    <div class="sticker sticker-right hidden-print">
+        <div class="sticker-label sticker-label-dark">
+            <?=$this->translate('Participate');?>
+        </div>
+    </div>
+
     <h2><?=$this->translate('Create new contribution');?></h2>
     <br />
 

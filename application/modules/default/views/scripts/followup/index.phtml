@@ -23,8 +23,15 @@
                 <?=$this->translate('Here you can find out what followed on your contributions, in which processes and documents they were included, who reacted on them and how, and whether there are already results to be mentioned.')?>
             </p>
 
-            <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaction')?></span>
+            <div class="well well-lg well-alt text-center has-sticker">
+
+                <!-- Sticker -->
+                <div class="sticker sticker-right hidden-print">
+                    <div class="sticker-label">
+                        <?=$this->translate('Reaction')?>
+                    </div>
+                </div>
+
                 <h2 class="alt"><?=$this->translate('Overview of reactions so far:')?></h2>
                 <ul class="thumbnails thumbnails-follow-up">
 

@@ -46,7 +46,7 @@
     ?>
 
     <!-- Consultation box -->
-    <div class="consultation">
+    <div class="consultation has-sticker">
 
         <!-- Heading -->
         <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-heading">
@@ -58,7 +58,8 @@
             </h3>
         </a>
 
-        <?php //=$this->ribbonImage($consultation);?>
+        <!-- Sticker -->
+        <?=$this->ribbonImage($consultation);?>
 
         <!-- Phases navigation -->
         <ul class="consultation-phases consultation-phases-preview">

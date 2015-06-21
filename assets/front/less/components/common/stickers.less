@@ -1,0 +1,54 @@
+// Stickers
+
+
+.sticker {
+    margin-bottom: @line-height-computed;
+    text-align: center;
+
+    &-label {
+        display: inline-block;
+        padding: .55em 1.5em .3em;
+        font: bold 1.2em/1 @font-family-condensed;
+        text-transform: uppercase;
+        color: #000;
+        background-color: @orange;
+
+        &-dark {
+            color: #fff;
+            background-color: #000;
+        }
+    }
+}
+
+@media (min-width: @screen-sm-min) {
+    .has-sticker {
+        position: relative;
+    }
+
+    .sticker {
+        @sticker-size: 130px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        overflow: hidden;
+        width: @sticker-size;
+        height: @sticker-size;
+        margin-bottom: 0;
+
+        &-label {
+            width: @sticker-size + 100;
+            display: block;
+            transform: translate(-65px, 30px) rotate(-40deg);
+        }
+
+        &-right {
+            left: auto;
+            right: 0;
+
+            > .sticker-label {
+                transform: translate(-35px, 30px) rotate(40deg);
+            }
+        }
+    }
+}
