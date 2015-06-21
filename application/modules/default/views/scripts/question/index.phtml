@@ -29,7 +29,7 @@
                         </h2>
                     <?php endif; ?>
 
-                    <?php //if ($linkHeadlineToInputs): ?>
+                    <?php if ($linkHeadlineToInputs): ?>
                         <a
                             href="<?=$this->url([
                                     'controller' => 'input',
@@ -43,7 +43,7 @@
                             <span class="icon icon-pencil" aria-hidden="true"></span>
                             <?=$this->translate('Write a contribution');?>
                         </a>
-                    <?php //endif; ?>
+                    <?php endif; ?>
 
                     <div class="row">
                         <div class="col-sm-9">

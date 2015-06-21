@@ -1,0 +1,21 @@
+// Clip
+
+
+.clip-vertical {
+    position: relative;
+    overflow: hidden;
+    max-height: 85%;
+
+    // Fade out overflowing lines
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        display: block;
+        height: 60px;
+        background: linear-gradient(to bottom, fade(#fff, 0) 0%, fade(#fff, 100%) 75%, fade(#fff, 100%) 100%);
+    }
+}

@@ -3,9 +3,23 @@
 
 .well {
     &-bordered {
-        border: 10px solid @gray-lightest;
-        border-radius: 20px;
+        border: 10px solid @gray-lighter-2;
+        border-radius: @border-radius-large;
         background-color: #fff;
-        box-shadow: 1px 2px 8px fade(#000, 25%);
+        box-shadow: 2px 4px 8px fade(#000, 40%);
+    }
+
+    &-fixed-height {
+        height: 450px;
+    }
+
+    &-bubble {
+        position: absolute;
+        left: 45px;
+        top: -10px;
+    }
+
+    &-title-with-bubble {
+        text-indent: 5em;
     }
 }
