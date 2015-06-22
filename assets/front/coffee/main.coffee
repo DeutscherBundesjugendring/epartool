@@ -100,12 +100,13 @@ bindToggleExtendedInput = () ->
         return
 
 bindSupportContribution = () ->
-    $('.click-support').click (event) ->
+    $('.js-click-support').click (event) ->
         event.preventDefault()
+        kid = $(this).data('kid')
         tid = $(this).attr('rel')
-        $.post('<?php echo $this->baseUrl(); ?>/input/support/kid/<?php echo $this->consultation->kid; ?>/format/json', 'tid': tid).done (data) ->
+        $.post(baseUrl + '/input/support/kid/' + kid + '/format/json', 'tid': tid).done (data) ->
             if data.count
-                $('#click-support-wrap-' + tid).html '<span><span class="glyphicon glyphicon-ok-sign icon-orange icon-2x" aria-hidden="true"></span>' + ' <span id="badge-' + tid + '">(' + data.count + ')</span>' + ' <span class="label label-default">' + i18n['supporters'] + '</span></span>'
+                $('#click-support-wrap-' + tid).html '<span class="glyphicon glyphicon-ok-sign text-accent" aria-hidden="true"></span>' + ' <small id="badge-' + tid + '">(' + data.count + ')</small><small> ' + i18n['supporters'] + '</small>'
             return
         return
 
@@ -129,7 +130,6 @@ window.googleAuthenticateCallback = (authResult) ->
                 {
                     token: authResult['code'],
                     webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
-
                 },
                 (data) ->
                     if data == 'true'

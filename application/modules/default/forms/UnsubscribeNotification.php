@@ -16,7 +16,7 @@ class Default_Form_UnsubscribeNotification extends Dbjr_Form_Web
     private function prepareElements()
     {
         $subscribe = $this->createElement('submit', 'unsubscribe')
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-default')
             ->setLabel('Unsubscribe');
 
         $hash = $this->createElement('hash', 'csrf_token_input_unsubscribe_question', array('salt' => 'unique'));

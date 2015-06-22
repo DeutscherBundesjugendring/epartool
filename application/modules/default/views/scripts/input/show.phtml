@@ -12,44 +12,64 @@
     );
 ?>
 
-<?php echo $this->secondNavigation('input'); ?>
+<?=$this->secondNavigation('input');?>
 
 <div class="main-content">
     <div class="row">
         <div class="sidebar-left">
 
-            <?php echo $this->questionNavigation($this->question['qi']); ?>
+            <?=$this->questionNavigation($this->question['qi']);?>
 
         </div>
         <div class="content">
 
-            <?php if (isset($this->tag) && !empty($this->tag)): ?>
-                <?php if ($this->numberInputs > 0):?>
-                    <h3><?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
-                <?php else: ?>
-                    <h3><?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>')?></h3>
-                <?php endif; ?>
-                <p>
-                    <a href="<?php echo $this->url(array('tag' => null)); ?>">
-                        <?=$this->translate('Show all contributions')?>
-                    </a>
-                </p>
-            <?php endif; ?>
-            <small class="text-muted">
-                <?php echo $this->numberInputs?>
-                <?=$this->translate('Contributions')?>
-            </small>
+            <div class="row">
+                <div class="col-md-10">
 
-            <article class="articles">
-                <h1><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?></h1>
-                <p><?php echo $this->question['q_xpl']; ?></p>
-            </article>
+                    <?php if (isset($this->tag) && !empty($this->tag)): ?>
+                        <p class="alert alert-info">
+                            <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                            <?php if ($this->numberInputs > 0): ?>
+                                <?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
+                            <?php else: ?>
+                                <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
+                            <?php endif; ?>
+                            <a href="<?php echo $this->url(array('tag' => null)); ?>">
+                                <?=$this->translate('Show all contributions');?>.
+                            </a>
+                        </p>
+                    <?php endif; ?>
+
+                    <div class="text-muted">
+                        <small>
+                            <?=$this->numberInputs;?>
+                            <?=$this->translate('Contributions');?>
+                        </small>
+                    </div>
+
+                    <h1>
+                        <?=$this->question['nr'];?>
+                        <?=$this->question['q'];?>
+                    </h1>
+
+                </div>
+            </div><!-- .row -->
+
+            <div class="offset-bottom-large">
+                <?=$this->question['q_xpl'];?>
+            </div>
 
             <!-- Contribution form -->
             <?php if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))): ?>
-                <p><?=$this->translate('Contribution phase has not started yet.')?></p>
+                <p class="alert alert-info offset-bottom-large">
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('Contribution phase has not started yet.');?>
+                </p>
             <?php elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))): ?>
-                <p><?=$this->translate('Contribution phase is over already.')?></p>
+                <p class="alert alert-info offset-bottom-large">
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('Contribution phase is over already.');?>
+                </p>
             <?php else: ?>
                 <?=$this->inputForm?>
             <?php endif?>
@@ -57,8 +77,8 @@
             <!-- Contributions -->
             <?php if (count($this->paginator)): ?>
                 <?php
-                    // Reverse order of entries to show latest first
-                    $inputs = array();
+                    // Reverse order of entries to show latest first.
+                    $inputs = [];
                     foreach ($this->paginator as $item) {
                         $inputs[] = $item;
                     }
@@ -66,74 +86,84 @@
                 ?>
                 <?php foreach ($inputs as $input): ?>
                     <a name="input-<?=$this->escape($input['tid']);?>"></a>
+
                     <article class="media">
-                        <header class="article-header">
-                            <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd') ?>">
+                        <header>
+                            <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
                                 <?=sprintf(
                                     $this->translate('written on %s'),
                                     $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
-                                )?>
+                                );?>
                             </time>
                         </header>
-                        <div class="article-body">
-                            <p class="lead"><?=$this->escape($input['thes']);?></p>
-                            <p><?=$this->escape($input['expl']);?></p>
-                        </div>
+
+                        <p>
+                            <strong><?=$this->escape($input['thes']);?></strong>
+                        </p>
+
+                        <?php if (!empty($input['expl'])): ?>
+                            <p>
+                                <?=$this->escape($input['expl']);?>
+                            </p>
+                        <?php endif; ?>
 
                         <!-- Actions -->
-                        <section class="article-actions">
+                        <footer>
+
+                            <!-- Support -->
                             <?php if ($this->consultation->spprt_show === 'y'): ?>
-                                <span class="article-action" id="click-support-wrap-<?=$this->escape($input['tid']);?>">
+                                <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="icon-offset">
+                                    <span class="glyphicon glyphicon-ok-sign text-accent" aria-hidden="true"></span>
+                                    <small id="badge-<?=$this->escape($input['tid']);?>">
+                                        (<?=$this->escape($input['spprts']);?>)
+                                    </small>
                                     <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                        <span>
+                                        <small><?=$this->translate('supporters');?></small>
                                     <?php else: ?>
                                         <a
                                             href="#"
                                             id="click-support-<?=$this->escape($input['tid']);?>"
-                                            class="click-support"
+                                            class="btn btn-default btn-xs js-click-support"
+                                            data-kid="<?=$this->consultation->kid;?>"
                                             rel="<?=$this->escape($input['tid']);?>"
                                         >
-                                    <?php endif; ?>
-                                            <i class="icon-ok-sign icon-orange icon-2x"></i>
-                                            <span id="badge-<?=$this->escape($input['tid']);?>">(<?=$this->escape($input['spprts']);?>)</span>
-                                    <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                            <span class="label"><?=$this->translate('supporters')?></span>
-                                        </span>
-                                    <?php else: ?>
-                                            <span class="label"><?=$this->translate('I agree!')?></span>
+                                            <?=$this->translate('I agree!');?>
                                         </a>
                                     <?php endif; ?>
                                 </span>
                             <?php endif;?>
 
+                            <!-- Discussion -->
                             <?php if ($this->consultation->is_discussion_active): ?>
-                                <span class="article-action">
-                                    <i class="icon-comments icon-orange icon-2x"></i>
-                                    <small>(<?=$this->escape($input['discussionPostCount']);?>)</small>
-                                    <a class="label" href="<?=$this->baseUrl() . '/input/discussion/kid/' . $this->consultation->kid . '/inputId/' . $this->escape($input['tid']);?>">
-                                        <?=$this->translate('I would like to discuss that!')?>
-                                    </a>
-                                </span>
+                                <span class="glyphicon glyphicon-comment text-accent" aria-hidden="true"></span>
+                                <small>(<?=$this->escape($input['discussionPostCount']);?>)</small>
+                                <a
+                                    href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
+                                    class="btn btn-default btn-xs"
+                                >
+                                    <?=$this->translate('I would like to discuss that!');?>
+                                </a>
                             <?php endif?>
-                        </section><!-- .actions -->
 
+                        </footer>
                     </article>
+
                     <hr />
                 <?php endforeach; ?>
             <?php endif; ?>
 
             <!-- Paging -->
-            <?php echo $this->paginationControl(
+            <?=$this->paginationControl(
                 $this->paginator,
                 'Sliding',
                 '_partials/pagination.phtml',
-                array('titlePrev' => $this->translate('Older contributions'), 'titleNext' => $this->translate('Newer contributions'))
-            ); ?>
+                ['titlePrev' => $this->translate('Older contributions'), 'titleNext' => $this->translate('Newer contributions')]
+            );?>
 
             <hr />
 
             <!-- Sign up -->
-            <?=$this->subscriptionForm?>
+            <?=$this->subscriptionForm;?>
 
         </div>
     </div><!-- .row -->

@@ -19,7 +19,7 @@ class Default_Form_SubscribeNotification extends Dbjr_Form_Web
         $label = '<span class="glyphicon glyphicon-saved icon-offset" aria-hidden="true"></span>' . Zend_Registry::get('Zend_Translate')->translate('Subscribe thread');
         $subscribe = $this->createElement('button', 'subscribe')
             ->setAttrib('type', 'submit')
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-default')
             ->setAttrib('escape', false)
             ->setLabel($label);
 

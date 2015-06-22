@@ -4,7 +4,7 @@
 .clip-vertical {
     position: relative;
     overflow: hidden;
-    max-height: 85%;
+    height: 85%;
 
     // Fade out overflowing lines
     &:after {
@@ -15,7 +15,7 @@
         bottom: 0;
         z-index: 1;
         display: block;
-        height: 60px;
-        background: linear-gradient(to bottom, fade(#fff, 0) 0%, fade(#fff, 100%) 75%, fade(#fff, 100%) 100%);
+        height: 3 * @line-height-computed;
+        background: linear-gradient(to bottom, fade(#fff, 0) 0%, fade(#fff, 100%) 85%, fade(#fff, 100%) 100%);
     }
 }
