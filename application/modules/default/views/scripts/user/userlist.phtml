@@ -1,102 +1,128 @@
 <?php
- $memberships = array(
+ $memberships = [
   'y' => $this->translate('confirmed'),
   'n' => $this->translate('rejected'),
   'u' => $this->translate('unknown'),
-);
+];
 ?>
 
 <div class="main-content">
     <div class="row">
-        <div class="span9">
-            <h1><?=$this->translate('Participating group members')?></h1>
+        <div class="col-sm-12">
+
+            <h1><?=$this->translate('Participating group members');?></h1>
+
             <?php if (empty($this->consultationList) && !isset($this->consultation)): ?>
-                <p><?=$this->translate('No group members were found in any of the consultation rounds.')?></p>
+                <p class="alert alert-info offset-bottom">
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('No group members were found in any of the consultation rounds.');?>
+                </p>
             <?php endif; ?>
 
             <?php if (!empty($this->consultationList)): ?>
-                <p><?=$this->translate('There are group members in the following consultation rounds:')?></p>
+                <p>
+                    <?=$this->translate('There are group members in the following consultation rounds:');?>
+                </p>
+
                 <ul>
-                <?php foreach ($this->consultationList as $consultation): ?>
-                    <li>
-                        <h2>
-                            <a
-                                href="<?=$this->url(array('kid' => $consultation['kid']));?>"
-                                title="<?=$this->translate('Show my contributions to this participation round')?>"
-                            >
-                                <?php echo $consultation['titl']; ?>
-                            </a>
-                        </h2>
-                    </li>
-                <?php endforeach; ?>
+                    <?php foreach ($this->consultationList as $consultation): ?>
+                        <li>
+                            <h2>
+                                <a
+                                    href="<?=$this->url(['kid' => $consultation['kid']]);?>"
+                                    title="<?=$this->translate('Show my contributions to this participation round');?>"
+                                >
+                                    <?=$consultation['titl'];?>
+                                </a>
+                            </h2>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
 
             <?php elseif (isset($this->consultation)): ?>
 
-                <h2><?=$this->translate('Consultation round:')?> <?php echo $this->consultation->titl; ?></h2>
+                <h2>
+                    <?=$this->translate('Consultation round:');?>
+                    <?=$this->consultation->titl;?>
+                </h2>
+
                 <?php if (!empty($this->group)): ?>
-                    <h3><?=$this->translate('Group:')?> <?php echo $this->identity->name.' '.$this->identity->email; ?></h3>
-                    <h3><?=$this->translate('Contributions to vote:')?> <?php echo $this->inputs; ?></h3>
+
+                    <h3>
+                        <?=$this->translate('Group:')?>
+                        <?=$this->identity->name;?>
+                        (<?=$this->identity->email;?>)
+                    </h3>
+
+                    <p>
+                        <?=$this->translate('Contributions to vote:');?>
+                        <strong><?=$this->inputs;?></strong>
+                    </p>
 
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'participant-update']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table style="width: 100%;" border="1" cellpadding="4">
-                            <tr>
-                                <th><?=$this->translate('Voters')?></th>
-                                <th><?=$this->translate('Group member')?></th>
-                                <th><?=$this->translate('Still to vote')?></th>
-                                <th><?=$this->translate('Action')?></th>
-                            </tr>
-                        <?php foreach ($this->group as $value): ?>
-                            <tr>
-                                <td><?php echo $value['sub_user']; ?></td>
-                                <td id="ms-<?php echo $value['sub_uid']; ?>"><?php echo $memberships[$value['member']]; ?></td>
-                                <td><?php echo $this->inputs - $value['count']; ?></td>
-                                <td id="ua-<?php echo $value['sub_uid']; ?>">
-                                    <?php if ($value['member']=="y" || $value['member']=="u"): ?>
-                                        <button
-                                            value="<?=$value['uid'];?>_<?=$value['sub_uid'];?>"
-                                            class="item-action"
-                                            name="deny"
-                                            data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
-                                        >
-                                            <?=$this->translate('Deny');?>
-                                        </button>
-                                        <br/>
-                                    <?php endif; ?>
-                                    <?php if ($value['member']=="n" || $value['member']=="u"): ?>
-                                        <button
-                                            value="<?=$value['uid'];?>_<?=$value['sub_uid'];?>"
-                                            class="item-action"
-                                            name="confirm"
-                                            data-toggle="confirm"value
-                                            data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
-                                        >
-                                            <?=$this->translate('Confirm');?>
-                                        </button>
-                                        <br/>
-                                    <?php endif; ?>
-                                    <?php if ($value['member']=="n"): ?>
-                                        <button
-                                            value="<?=$value['uid'];?>_<?=$value['sub_uid'];?>"
-                                            class="item-action item-action-danger"
-                                            name="delete"
-                                            data-toggle="confirm"
-                                            data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
-                                        >
-                                            <?=$this->translate('Delete');?>
-                                        </button>
-                                        <br/>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><?=$this->translate('Voters')?></th>
+                                    <th><?=$this->translate('Group member')?></th>
+                                    <th><?=$this->translate('Still to vote')?></th>
+                                    <th><?=$this->translate('Action')?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($this->group as $value): ?>
+                                    <tr>
+                                        <td><?=$value['sub_user'];?></td>
+                                        <td id="ms-<?=$value['sub_uid'];?>"><?=$memberships[$value['member']];?></td>
+                                        <td><?=($this->inputs - $value['count']);?></td>
+                                        <td id="ua-<?=$value['sub_uid'];?>">
+                                            <?php if ($value['member']=="y" || $value['member']=="u"): ?>
+                                                <button
+                                                    value="<?=$value['uid'];?>_<?=$value['sub_uid'];?>"
+                                                    class="btn btn-default btn-sm"
+                                                    name="deny"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
+                                                >
+                                                    <?=$this->translate('Deny');?>
+                                                </button>
+                                                <br/>
+                                            <?php endif; ?>
+                                            <?php if ($value['member']=="n" || $value['member']=="u"): ?>
+                                                <button
+                                                    value="<?=$value['uid'];?>_<?=$value['sub_uid'];?>"
+                                                    class="btn btn-default btn-sm"
+                                                    name="confirm"
+                                                    data-toggle="confirm"value
+                                                    data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
+                                                >
+                                                    <?=$this->translate('Confirm');?>
+                                                </button>
+                                                <br/>
+                                            <?php endif; ?>
+                                            <?php if ($value['member']=="n"): ?>
+                                                <button
+                                                    value="<?=$value['uid'];?>_<?=$value['sub_uid'];?>"
+                                                    class="btn btn-danger btn-sm"
+                                                    name="delete"
+                                                    data-toggle="confirm"
+                                                    data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
+                                                >
+                                                    <?=$this->translate('Delete');?>
+                                                </button>
+                                                <br/>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </form>
 
                 <?php endif; ?>
             <?php endif; ?>
+
         </div>
     </div><!-- .row -->
 
