@@ -18,20 +18,20 @@
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="userDropdown">
                 <li>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'], 'default', true);?>">
-                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-list-alt icon-offset" aria-hidden="true"></span>
                         <?=$this->translate('View all my contributions');?>
                     </a>
                 </li>
                 <li>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'userlist'], 'default', true);?>">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
                         <?=$this->translate('View group members');?>
                     </a>
                 </li>
                 <?php if ($this->user->lvl == 'adm' || $this->user->lvl == 'edt'): ?>
                     <li>
                         <a href="<?=$this->url(['module' => 'admin', 'controller' => 'index'], 'default', true);?>" target="_blank">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-cog icon-offset" aria-hidden="true"></span>
                             <?=$this->translate('To admin pages');?>
                         </a>
                     </li>
@@ -39,7 +39,7 @@
                 <li class="divider"></li>
                 <li>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'logout'], 'default', true);?>">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-off icon-offset" aria-hidden="true"></span>
                         <?=$this->translate('Logout');?>
                     </a>
                 </li>

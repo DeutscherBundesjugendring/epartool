@@ -430,7 +430,7 @@ class InputController extends Zend_Controller_Action
         Zend_Layout::getMvcInstance()->assign(
             'disableLoginMsg',
             Zend_Registry::get('Zend_Translate')->translate(
-                'Please finish contributing before loging in.'
+                'Please finish contributing before logging in.'
             )
         );
     }
