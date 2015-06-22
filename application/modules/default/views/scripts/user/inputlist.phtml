@@ -56,10 +56,10 @@
                                             href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'kid' => $this->consultation->kid, 'tid' => $input['tid']]);?>"
                                             title="<?=$this->translate('Click to edit');?>"
                                         >
-                                            <?=$input['thes'];?>
+                                            <p><?=$input['thes'];?></p>
                                         </a>
                                         <?php if (!empty($input['expl'])): ?>
-                                            <p><?=$input['expl'];?></p>
+                                            <p class="small"><?=$input['expl'];?></p>
                                         <?php endif; ?>
                                     </li>
                                 <?php endforeach; ?>

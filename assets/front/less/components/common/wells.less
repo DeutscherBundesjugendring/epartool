@@ -27,6 +27,11 @@
     &-accent {
         color: #fff;
         background: @brand-accent linear-gradient(to right, darken(@brand-accent, 11%) 0%, lighten(@brand-accent, 5%) 100%);
+
+        .link-alt:hover,
+        .link-alt:focus {
+            color: @link-alt-color;
+        }
     }
 
     &-fixed-height {

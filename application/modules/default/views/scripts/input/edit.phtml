@@ -1,31 +1,37 @@
-<?php echo $this->secondNavigation('input'); ?>
+<?=$this->secondNavigation('input');?>
 
 <div class="main-content">
 	<div class="row">
 		<div class="sidebar-left">
 
-			<?php echo $this->questionNavigation($this->question['qi']); ?>
+			<?=$this->questionNavigation($this->question['qi']);?>
 
 		</div>
 		<div class="content">
 
-			<h1><?=$this->translate('Edit contribution')?></h1>
+			<h1><?=$this->translate('Edit contribution');?></h1>
+
 			<?php if (isset($this->message)): ?>
-				<p><?php echo $this->message; ?></p>
-				<p>
-					<a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'])?>">
-						&laquo; <?=$this->translate('Back')?>
-					</a>
-				</p>
+				<p class="alert alert-info">
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                    <?=$this->message;?><br />
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist']);?>">
+                        &laquo; <?=$this->translate('Back')?>
+                    </a>
+                </p>
 			<?php endif; ?>
 
 			<?php if (isset($this->form)): ?>
-			<div class="well well-large text-right">
-				<?php echo $this->form; ?>
-				<a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'])?>">
-					<i class="icon-angle-left"></i> <?=$this->translate('Back')?>
-				</a>
-			</div><!-- .well -->
+                <div class="well well-bordered well-accent">
+                    <div class="offset-bottom">
+                        <?=$this->form;?>
+                    </div>
+                    <div class="offset-bottom">
+                        <a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist']);?>" class="link-alt">
+                            <span class="glyphicon glyphicon-menu-left icon-offset" aria-hidden="true"></span><?=$this->translate('Back');?>
+                        </a>
+                    </div>
+                </div><!-- .well -->
 			<?php endif; ?>
 
 		</div>

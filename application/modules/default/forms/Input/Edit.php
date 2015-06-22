@@ -35,7 +35,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-default btn-default-alt pull-right')
             ->setLabel('Save');
         $this->addElement($submit);
 
