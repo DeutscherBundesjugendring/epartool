@@ -1,24 +1,26 @@
-<?php echo $this->secondNavigation('input'); ?>
+<?=$this->secondNavigation('input');?>
 
 <div class="main-content">
     <div class="row">
         <div class="sidebar-left">
 
-            <?php echo $this->questionNavigation($this->question['qi']); ?>
+            <?=$this->questionNavigation($this->question['qi']);?>
 
         </div>
         <div class="content">
 
-            <h1><?=$this->translate('Finish Contributing')?></h1>
-            <p class="alert alert-info">
-                <i class="icon-info-sign"></i>
-                <?=$this->translate('Please fill in the form in order to confirm your contributions to this participation round!')?>
+            <h1><?=$this->translate('Finish Contributing');?></h1>
+
+            <p class="alert alert-info offset-bottom">
+                <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                <?=$this->translate('Please fill in the form in order to confirm your contributions to this participation round!');?>
+            </p>
+
+            <p>
+                <?=$this->translate('If you want to participate as a representative of a group, please fill in the registration form, no matter if the corresponding email address is already registered! The email to confirm the contributions will be sent to the registered email address.');?>
             </p>
             <p>
-                <?=$this->translate('If you want to participate as a representative of a group, please fill in the registration form, no matter if the corresponding email address is already registered! The email to confirm the contributions will be sent to the registered email address.')?>
-            </p>
-            <p>
-                <?=$this->translate('If you participated in former participation rounds, and you wish to update information concerning you or your group in this participation round, please fill in the data on person/group. Your data will thus be up-to-date.')?>
+                <?=$this->translate('If you participated in former participation rounds, and you wish to update information concerning you or your group in this participation round, please fill in the data on person/group. Your data will thus be up-to-date.');?>
             </p>
             <hr />
 
@@ -55,7 +57,7 @@
                 </div>
             <?php endif;?>
 
-            <?php echo $this->registerForm; ?>
+            <?=$this->registerForm;?>
 
         </div>
     </div><!-- .row -->

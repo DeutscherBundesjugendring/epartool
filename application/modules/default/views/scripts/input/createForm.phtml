@@ -3,7 +3,7 @@
     method="<?=$this->element->getMethod();?>"
     class="well well-bordered well-accent text-center offset-bottom-large has-sticker"
 >
-    <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'));?>
+    <?=$this->element->csrf_token_input->setDecorators(['ViewHelper']);?>
 
     <!-- Sticker -->
     <div class="sticker sticker-right hidden-print">
@@ -24,7 +24,7 @@
                 </span>
             </span>
 
-            <?=$input->getElements()['thes']->setDecorators(array('ViewHelper'));?>
+            <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
 
             <a href="#" class="btn btn-inverse btn-alt btn-block btn-xs js-toggle-extended-input">
                 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
@@ -32,7 +32,7 @@
                 <span class="glyphicon glyphicon-menu-down hidden-xs" aria-hidden="true"></span>
             </a>
 
-            <?=$input->getElements()['expl']->setDecorators(array('ViewHelper'));?>
+            <?=$input->getElements()['expl']->setDecorators(['ViewHelper']);?>
 
             <span class="counter counter-characters text-right js-character-counter" style="display: none">
                 <span id="inputs-<?=$input->getName();?>-expl_counter">
@@ -40,7 +40,7 @@
                 </span>
             </span>
         </div>
-    <?php endforeach?>
+    <?php endforeach; ?>
 
     <!-- Actions -->
     <div class="row">
@@ -50,18 +50,18 @@
                 <p class="small help-block">
                     <?=$this->translate('Click here for another contribution');?>
                 </p>
-                <?=$this->element->next_question->setDecorators(array('ViewHelper'));?>
+                <?=$this->element->next_question->setDecorators(['ViewHelper']);?>
             </div>
 
         </div>
         <div class="col-xs-6 col-sm-2 col-sm-pull-8 text-left">
 
-            <?=$this->element->add_input_field->setDecorators(array('ViewHelper'));?>
+            <?=$this->element->add_input_field->setDecorators(['ViewHelper']);?>
 
         </div>
         <div class="col-xs-6 col-sm-2 text-right">
 
-            <?=$this->element->finished->setDecorators(array('ViewHelper'));?>
+            <?=$this->element->finished->setDecorators(['ViewHelper']);?>
 
         </div>
     </div><!-- .row -->
