@@ -49,14 +49,20 @@
     <div class="consultation has-sticker">
 
         <!-- Heading -->
-        <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-heading">
-            <h2 class="consultation-heading-title">
-                <?=$this->escape($consultation->titl);?>
-            </h2>
-            <h3 class="consultation-heading-subtitle">
-                <?=$this->escape($consultation->titl_sub);?>
-            </h3>
-        </a>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+
+                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-heading">
+                    <h2 class="consultation-heading-title">
+                        <?=$this->escape($consultation->titl);?>
+                    </h2>
+                    <h3 class="consultation-heading-subtitle">
+                        <?=$this->escape($consultation->titl_sub);?>
+                    </h3>
+                </a>
+
+            </div>
+        </div><!-- .row -->
 
         <!-- Sticker -->
         <?=$this->ribbonImage($consultation);?>
