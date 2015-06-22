@@ -9,8 +9,13 @@
         box-shadow: 2px 4px 8px fade(#000, 40%);
     }
 
-    &-fixed-height {
-        height: 450px;
+    &-title {
+        font-size: @font-size-h1;
+        color: inherit;
+
+        &-with-bubble {
+            text-indent: 5em;
+        }
     }
 
     &-bubble {
@@ -19,7 +24,12 @@
         top: -10px;
     }
 
-    &-title-with-bubble {
-        text-indent: 5em;
+    &-accent {
+        color: #fff;
+        background: @brand-accent linear-gradient(to right, darken(@brand-accent, 11%) 0%, lighten(@brand-accent, 5%) 100%);
+    }
+
+    &-fixed-height {
+        height: 450px;
     }
 }

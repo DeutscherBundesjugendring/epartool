@@ -1,0 +1,31 @@
+// Counter
+
+
+.counter {
+    line-height: 1.4;
+
+    &-digit {
+        display: inline-block;
+        padding: .15em .3em;
+        color: @brand-accent;
+        background-color: #000;
+
+        & + & {
+            margin-left: 1px;
+        }
+    }
+
+    // Character counter
+    &-characters {
+        display: block;
+        padding: 1px 0;
+    }
+
+    // Vote counter
+    &-voting {
+        position: absolute;
+        left: @grid-gutter-width / 2;
+        top: 1.4em;
+        color: @text-color;
+    }
+}

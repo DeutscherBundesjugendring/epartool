@@ -94,9 +94,9 @@ bindToggleExtendedInput = () ->
         $(this).nextAll('.js-character-counter').toggle()
         $(this).toggleClass 'expanded'
         if $(this).hasClass('expanded')
-            $(this).html '<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> ' + i18n['Shut back'] + ' <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>'
+            $(this).html '<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="hidden-xs"> ' + i18n['Shut back'] + ' </span><span class="glyphicon glyphicon-menu-up hidden-xs" aria-hidden="true"></span>'
         else
-            $(this).html '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> ' + i18n['Click here to explain contribution'] + ' <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>'
+            $(this).html '<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span><span class="hidden-xs"> ' + i18n['Click here to explain contribution'] + ' </span><span class="glyphicon glyphicon-menu-down hidden-xs" aria-hidden="true"></span>'
         return
 
 bindSupportContribution = () ->

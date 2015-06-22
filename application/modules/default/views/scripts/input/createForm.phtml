@@ -1,7 +1,7 @@
 <form
     enctype="<?=$this->element->getEnctype();?>"
     method="<?=$this->element->getMethod();?>"
-    class="form-contribution well well-large text-center offset-bottom-large has-sticker"
+    class="well well-bordered well-accent text-center offset-bottom-large has-sticker"
 >
     <?=$this->element->csrf_token_input->setDecorators(array('ViewHelper'));?>
 
@@ -12,12 +12,13 @@
         </div>
     </div>
 
-    <h2><?=$this->translate('Create new contribution');?></h2>
-    <br />
+    <h2 class="well-title offset-bottom-large">
+        <?=$this->translate('Create new contribution');?>
+    </h2>
 
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
         <div class="form-group">
-            <span class="counter counter-characters js-character-counter">
+            <span class="counter counter-characters text-right js-character-counter">
                 <span id="inputs-<?=$input->getName();?>-thes_counter">
                     <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
@@ -25,15 +26,15 @@
 
             <?=$input->getElements()['thes']->setDecorators(array('ViewHelper'));?>
 
-            <a href="#" class="btn btn-default btn-block btn-sm btn-extend js-toggle-extended-input">
+            <a href="#" class="btn btn-inverse btn-alt btn-block btn-xs js-toggle-extended-input">
                 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                <?=$this->translate('Click here to explain contribution');?>
-                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                <span class="hidden-xs"><?=$this->translate('Click here to explain contribution');?></span>
+                <span class="glyphicon glyphicon-menu-down hidden-xs" aria-hidden="true"></span>
             </a>
 
             <?=$input->getElements()['expl']->setDecorators(array('ViewHelper'));?>
 
-            <span class="counter counter-characters js-character-counter" style="display: none">
+            <span class="counter counter-characters text-right js-character-counter" style="display: none">
                 <span id="inputs-<?=$input->getName();?>-expl_counter">
                     <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
@@ -41,10 +42,27 @@
         </div>
     <?php endforeach?>
 
-    <div class="form-group form-actions form-actions-unstyled text-center">
-        <?=$this->element->add_input_field->setDecorators(array('ViewHelper'));?>
-        <p class="hint"><?=$this->translate('Click here for another contribution');?></p>
-        <?=$this->element->next_question->setDecorators(array('ViewHelper'));?>
-        <?=$this->element->finished->setDecorators(array('ViewHelper'));?>
-    </div>
-</form>
+    <!-- Actions -->
+    <div class="row">
+        <div class="col-sm-8 col-sm-push-2">
+
+            <div class="offset-bottom-xs-max">
+                <p class="small help-block">
+                    <?=$this->translate('Click here for another contribution');?>
+                </p>
+                <?=$this->element->next_question->setDecorators(array('ViewHelper'));?>
+            </div>
+
+        </div>
+        <div class="col-xs-6 col-sm-2 col-sm-pull-8 text-left">
+
+            <?=$this->element->add_input_field->setDecorators(array('ViewHelper'));?>
+
+        </div>
+        <div class="col-xs-6 col-sm-2 text-right">
+
+            <?=$this->element->finished->setDecorators(array('ViewHelper'));?>
+
+        </div>
+    </div><!-- .row -->
+</form><!-- .well -->

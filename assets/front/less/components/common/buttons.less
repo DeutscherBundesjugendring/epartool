@@ -37,6 +37,32 @@
             border-color: @btn-default-hover-border;
             background-color: @btn-default-hover-bg;
         }
+
+        &-alt {
+            &:hover,
+            &:focus {
+                color: @btn-default-hover-color;
+                border-color: darken(@btn-default-border, 10%);
+                background-color: darken(@btn-default-bg, 10%);
+            }
+        }
+    }
+
+    &-inverse {
+        color: #fff;
+        border-top: 1px solid @gray-lightest;
+        background-color: @gray;
+
+        &:hover,
+        &:focus {
+            color: #fff;
+        }
+    }
+
+    &-alt {
+        font-family: @font-family-base;
+        font-size: @font-size-small;
+        text-transform: none;
     }
 
     // Sizes
