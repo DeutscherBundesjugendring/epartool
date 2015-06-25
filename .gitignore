@@ -22,3 +22,7 @@
 
 # Ignore envspecific configuration files
 /application/configs/*-envspecific.ini
+
+# IDE settings
+/.idea
+dbjr.iml
