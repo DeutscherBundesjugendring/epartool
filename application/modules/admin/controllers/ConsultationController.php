@@ -159,7 +159,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $this->_consultation->discussion_from = $this->_consultation->discussion_from ? $this->_consultation->discussion_from : null;
                 $this->_consultation->discussion_to = $this->_consultation->discussion_to ? $this->_consultation->discussion_to : null;
                 $this->_consultation->save();
-                $this->_flashMessenger->addMessage('Consultation saved.', 'success');
+                $this->_flashMessenger->addMessage('Changes saved.', 'success');
 
                 $this->_redirect('/admin/consultation/edit/kid/' . $this->_consultation->kid);
             } else {
