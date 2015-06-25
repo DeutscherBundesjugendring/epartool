@@ -748,3 +748,9 @@ VALUES
         (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
     );
+
+
+INSERT INTO `footer` (`proj`) VALUES (@project_code);
+INSERT INTO `footer` (`proj`) VALUES (@project_code);
+INSERT INTO `footer` (`proj`) VALUES (@project_code);
+INSERT INTO `footer` (`proj`) VALUES (@project_code);

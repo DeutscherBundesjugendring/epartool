@@ -238,36 +238,9 @@
     <div role="contentinfo">
         <div class="container">
             <div class="row">
-                <div class="col-sm-9">
 
-                    <!-- Logos -->
-                    <div class="row">
-                        <?=$this->partnerLogos();?>
-                    </div><!-- .row -->
+                <?=$this->footer();?>
 
-                </div>
-                <div class="col-sm-3">
-
-                    <!-- Contact -->
-                    <div class="footer-contact">
-                        <p>
-                            <?=$this->parameter('contact.name');?>
-                        </p>
-                        <p>
-                            <?=$this->parameter('contact.street');?><br />
-                            <?=$this->parameter('contact.zip');?>
-                            <?=$this->parameter('contact.town');?><br />
-                            <a href="mailto:<?=$this->parameter('contact.email');?>">
-                                <?=$this->parameter('contact.email');?>
-                            </a>
-                            <br />
-                            <a href="<?=$this->parameter('contact.www');?>" rel="external" target="_blank">
-                                <?=$this->parameter('contact.www');?>
-                            </a>
-                        </p>
-                    </div>
-
-                </div>
             </div><!-- .row -->
         </div><!-- .container -->
     </div>

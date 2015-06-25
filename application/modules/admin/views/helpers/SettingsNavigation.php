@@ -33,10 +33,9 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'help-text-index')),
             ),
             array(
-                'name' => 'partners',
-                'label' => $this->view->translate('Partners'),
-                'href' => $this->view->url(['controller' => 'settings', 'action' => 'partner-index', 'id' => null]),
-                'new_item' => $this->view->url(['controller' => 'settings', 'action' => 'partner-edit', 'id' => null]),
+                'name' => 'footer',
+                'label' => $this->view->translate('Footer'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'footer', 'id' => null]),
             ),
         );
 
