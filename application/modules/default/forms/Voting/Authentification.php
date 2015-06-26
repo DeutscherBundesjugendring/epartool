@@ -8,7 +8,7 @@ class Default_Form_Voting_Authentification extends Dbjr_Form_Web
 
         $this
             ->setMethod('post')
-            ->setAttrib('class', 'form-inline')
+            ->setAttrib('class', 'form-inline offset-bottom-large')
             ->setAttrib('autocomplete', 'off');
 
         $email = $this->createElement('email', 'email');
@@ -17,7 +17,9 @@ class Default_Form_Voting_Authentification extends Dbjr_Form_Web
             ->setLabel('Email Address')
             ->setRequired(true)
             ->setAttrib('placeholder', $placeholder)
-            ->setValidators([['NotEmpty', true], 'EmailAddress']);
+            ->setAttrib('class', 'form-control')
+            ->setValidators([['NotEmpty', true], 'EmailAddress'])
+            ->setDecorators(['ViewHelper', ['HtmlTag', ['tag' => 'div', 'class' => 'form-group']], ['Label', ['class' => 'sr-only']]]);
         $this->addElement($email);
 
         $code = $this->createElement('text', 'authcode');
@@ -26,12 +28,14 @@ class Default_Form_Voting_Authentification extends Dbjr_Form_Web
             ->setLabel('Your access code')
             ->setRequired(true)
             ->setAttrib('placeholder', $placeholder)
-            ->setValidators(['NotEmpty']);
+            ->setAttrib('class', 'form-control')
+            ->setValidators(['NotEmpty'])
+            ->setDecorators(['ViewHelper', ['HtmlTag', ['tag' => 'div', 'class' => 'form-group']], ['Label', ['class' => 'sr-only']]]);
         $this->addElement($code);
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-default btn-default-alt')
             ->setLabel('Start');
         $this->addElement($submit);
 
