@@ -32,7 +32,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             ->setAttrib('placeholder', $placeholder . ' V75dMMIW2B4')
             ->setDescription(
                 $description
-                . ' <span class="muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>'
+                . ' <span class="text-muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>'
             );
         $videoId->getDecorator('BootstrapStandard')->setOption('escapeDescription', false);
         $this->addElement($videoId);
@@ -40,7 +40,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-default')
             ->setLabel('Send');
         $this->addElement($submit);
 
