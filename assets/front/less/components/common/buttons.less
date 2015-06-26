@@ -50,12 +50,12 @@
 
     &-inverse {
         color: #fff;
-        border-top: 1px solid @gray-lightest;
         background-color: @gray;
 
         &:hover,
         &:focus {
             color: #fff;
+            background-color: @gray-light;
         }
     }
 
@@ -63,6 +63,10 @@
         font-family: @font-family-base;
         font-size: @font-size-small;
         text-transform: none;
+    }
+
+    &-separated {
+        border-top: 1px solid @gray-lightest;
     }
 
     // Sizes

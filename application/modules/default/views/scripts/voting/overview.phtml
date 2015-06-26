@@ -19,30 +19,29 @@
                 <div class="row">
                     <div class="col-sm-4 text-left">
 
-                        <!-- Voting counter -->
+                        <!-- Counter -->
                         <div class="offset-bottom">
-                            <span class="counter">
-                                <?php
-                                    // Add leading zeros to count voted
-                                    $countTotal = $this->votableInputs;
-                                    $countVoted = $this->votedInputs;
+                            <?php
+                                // Add leading zeros to count voted
+                                $countTotal = $this->votableInputs;
+                                $countVoted = $this->votedInputs;
 
-                                    if (strlen($countTotal) > strlen($countVoted)) {
-                                        $format = '%0' . strlen($countTotal) . 'd';
-                                        $countVoted = sprintf($format, $countVoted);
-                                    }
+                                if (strlen($countTotal) > strlen($countVoted)) {
+                                    $format = '%0' . strlen($countTotal) . 'd';
+                                    $countVoted = sprintf($format, $countVoted);
+                                }
 
-                                    // Print count voted by number
-                                    $countVoted = str_split($countVoted);
-                                    $countVotedText = '';
+                                // Print count voted by number
+                                $countVoted = str_split($countVoted);
+                                $countVotedText = '';
 
-                                    foreach ($countVoted as $number) {
-                                        $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
-                                    }
-                                ?>
-                            </span>
-                            <br />
-                            <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $countVotedText, $countTotal);?>
+                                foreach ($countVoted as $number) {
+                                    $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
+                                }
+
+                                $counter = '<span class="counter">' . $countVotedText . '</span>';
+                            ?>
+                            <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $counter, $countTotal);?>
                         </div>
 
                     </div>
@@ -76,7 +75,7 @@
                     <ul class="list-inline tag-cloud small offset-bottom">
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?=$tag['frequency'];?>">
-                                <a href="<?=$this->url(['action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null]);?>" class="link-unstyled">
+                                <a href="<?=$this->url(['action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null]);?>" class="link-unstyled link-unstyled-alt">
                                     <?=$tag['tg_de'];?>
                                 </a>
                             </li>
