@@ -113,10 +113,10 @@
 
                             <!-- Support -->
                             <?php if ($this->consultation->spprt_show === 'y'): ?>
-                                <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="icon-offset">
-                                    <span class="glyphicon glyphicon-ok-sign text-accent" aria-hidden="true"></span>
-                                    <small id="badge-<?=$this->escape($input['tid']);?>">
-                                        (<?=$this->escape($input['spprts']);?>)
+                                <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="offset-right">
+                                    <span class="glyphicon glyphicon-ok-sign icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                    <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
+                                        <?=$this->escape($input['spprts']);?>
                                     </small>
                                     <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
                                         <small><?=$this->translate('supporters');?></small>
@@ -136,8 +136,10 @@
 
                             <!-- Discussion -->
                             <?php if ($this->consultation->is_discussion_active): ?>
-                                <span class="glyphicon glyphicon-comment text-accent" aria-hidden="true"></span>
-                                <small>(<?=$this->escape($input['discussionPostCount']);?>)</small>
+                                <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                <small class="badge<?=$this->escape($input['discussionPostCount']) > 0 ? ' badge-accent' : '';?>">
+                                    <?=$this->escape($input['discussionPostCount']);?>
+                                </small>
                                 <a
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                     class="btn btn-default btn-xs"

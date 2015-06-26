@@ -106,7 +106,7 @@ bindSupportContribution = () ->
         tid = $(this).attr('rel')
         $.post(baseUrl + '/input/support/kid/' + kid + '/format/json', 'tid': tid).done (data) ->
             if data.count
-                $('#click-support-wrap-' + tid).html '<span class="glyphicon glyphicon-ok-sign text-accent" aria-hidden="true"></span>' + ' <small id="badge-' + tid + '">(' + data.count + ')</small><small> ' + i18n['supporters'] + '</small>'
+                $('#click-support-wrap-' + tid).html '<span class="glyphicon glyphicon-ok-sign text-accent" aria-hidden="true"></span>' + ' <small id="badge-' + tid + '" class="badge badge-accent">' + data.count + '</small><small> ' + i18n['supporters'] + '</small>'
             return
         return
 
@@ -159,7 +159,6 @@ window.facebookAuthenticateCallback = () ->
             )
     )
 
-
 # function has to be attached to window for google js SDK script to find it
 window.googleRegisterCallback = (authResult) ->
     if authResult.status.method == 'PROMPT'
@@ -202,7 +201,6 @@ window.facebookRegisterCallback = () ->
                         $emailEl.val(data)
                         $emailField.closest('form').append($emailEl)
                         return
-
             )
     )
 
