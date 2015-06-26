@@ -56,6 +56,17 @@ a {
     }
 }
 
+.link-unstyled {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        color: @link-hover-color;
+    }
+}
+
 .link-transparent {
     opacity: .5;
 

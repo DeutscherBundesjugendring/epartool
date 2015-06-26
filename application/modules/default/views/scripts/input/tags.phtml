@@ -22,10 +22,10 @@
     <?php if (!empty($this->tags)): ?>
         <div class="well well-bordered text-center">
             <h2><?=$this->translate('Contributions sorted by keywords:');?></h2>
-            <ul class="list-inline tag-cloud tag-cloud-full small offset-bottom">
+            <ul class="list-inline tag-cloud tag-cloud-large small offset-bottom">
                 <?php foreach ($this->tags as $tag): ?>
                     <li class="tag-<?=$tag['frequency'];?>">
-                        <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>">
+                        <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled">
                         	<?=$tag['tg_de'];?>
                         </a>
                     </li>

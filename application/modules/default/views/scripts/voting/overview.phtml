@@ -57,11 +57,12 @@
 
                 <!-- Tags -->
                 <h3><?=$this->translate('Contributions by topic')?></h3>
+
                 <?php if (!empty($this->tags)): ?>
-                    <ul class="tag-cloud tag-cloud-alt">
+                    <ul class="list-inline tag-cloud tag-cloud-alt small offset-bottom">
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?php echo $tag['frequency']; ?>">
-                                <a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>">
+                                <a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>" class="link-unstyled">
                                     <?php echo $tag['tg_de']; ?>
                                 </a>
                             </li>

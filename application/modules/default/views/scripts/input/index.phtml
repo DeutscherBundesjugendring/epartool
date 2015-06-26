@@ -29,7 +29,7 @@
                         <ul class="list-inline tag-cloud small text-center">
                             <?php foreach ($this->tags as $tag): ?>
                                 <li class="tag-<?=$tag['frequency'];?>">
-                                    <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>">
+                                    <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled">
                                         <?=$tag['tg_de'];?>
                                     </a>
                                 </li>
@@ -59,15 +59,17 @@
                         </h2>
 
                         <?php foreach ($question['inputs'] as $input): ?>
-                            <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
-                                <?=sprintf(
-                                    $this->translate('written on %s'),
-                                    $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
-                                );?>
-                            </time>
-                            <p>
-                                <?=mb_substr($this->escape($input['thes']), 0, 120, 'UTF-8');?>
-                            </p>
+                            <a href="<?=$this->url(['action' => 'show', 'qid' => $question['qi']]);?>#input-<?=$input['tid'];?>" class="link-unstyled">
+                                <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
+                                    <?=sprintf(
+                                        $this->translate('written on %s'),
+                                        $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
+                                    );?>
+                                </time>
+                                <p>
+                                    <?=mb_substr($this->escape($input['thes']), 0, 120, 'UTF-8');?>
+                                </p>
+                            </a>
                         <?php endforeach; ?>
                     </div><!-- .clip-vertical -->
 
