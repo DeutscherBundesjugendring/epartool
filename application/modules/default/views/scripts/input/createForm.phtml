@@ -18,14 +18,17 @@
 
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
         <div class="form-group">
-            <span class="counter counter-characters text-right js-character-counter">
-                <span id="inputs-<?=$input->getName();?>-thes_counter">
+
+            <!-- Counter -->
+            <div class="text-right js-character-counter">
+                <span id="inputs-<?=$input->getName();?>-thes_counter" class="counter">
                     <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
-            </span>
+            </div>
 
             <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
 
+            <!-- Expand -->
             <a href="#" class="btn btn-inverse btn-alt btn-block btn-xs js-toggle-extended-input">
                 <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                 <span class="hidden-xs"><?=$this->translate('Click here to explain contribution');?></span>
@@ -34,11 +37,13 @@
 
             <?=$input->getElements()['expl']->setDecorators(['ViewHelper']);?>
 
-            <span class="counter counter-characters text-right js-character-counter" style="display: none">
-                <span id="inputs-<?=$input->getName();?>-expl_counter">
+            <!-- Counter -->
+            <div class="text-right js-character-counter" style="display: none">
+                <span id="inputs-<?=$input->getName();?>-expl_counter" class="counter">
                     <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
-            </span>
+            </div>
+
         </div>
     <?php endforeach; ?>
 

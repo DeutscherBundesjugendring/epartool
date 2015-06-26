@@ -1,69 +1,83 @@
-<?php echo $this->secondNavigation('voting') ?>
+<?=$this->secondNavigation('voting');?>
 
 <div class="main-content">
 
-    <h1 class="heading-centered"><?=$this->translate('Voting')?></h1>
+    <h1 class="text-center"><?=$this->translate('Voting');?></h1>
 
     <div class="row">
-		<section class="span9 offset1">
+		<section class="col-sm-12 col-md-10 col-md-offset-1">
 
-            <div class="well well-large text-center has-sticker">
+            <div class="well well-bordered well-accent text-center has-sticker">
 
                 <!-- Sticker -->
                 <div class="sticker sticker-right hidden-print">
                     <div class="sticker-label sticker-label-dark">
-                        <?=$this->translate('Join now!')?>
+                        <?=$this->translate('Join now!');?>
                     </div>
                 </div>
 
-                <!-- Voting counter -->
-                <span class="counter counter-voting">
-                    <?php
-                        // Add leading zeros to count voted
-                        $countTotal = $this->votableInputs;
-                        $countVoted = $this->votedInputs;
+                <div class="row">
+                    <div class="col-sm-4 text-left">
 
-                        if (strlen($countTotal) > strlen($countVoted)) {
-                            $format = '%0' . strlen($countTotal) . 'd';
-                            $countVoted = sprintf($format, $countVoted);
-                        }
+                        <!-- Voting counter -->
+                        <div class="offset-bottom">
+                            <span class="counter">
+                                <?php
+                                    // Add leading zeros to count voted
+                                    $countTotal = $this->votableInputs;
+                                    $countVoted = $this->votedInputs;
 
-                        // Print count voted by number
-                        $countVoted = str_split($countVoted);
-                        $countVotedText = '';
-                        foreach ($countVoted as $number) {
-                            $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
-                        }
-                    ?>
-                    <br />
-                    <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $countVotedText, $countTotal)?>
-                </span>
+                                    if (strlen($countTotal) > strlen($countVoted)) {
+                                        $format = '%0' . strlen($countTotal) . 'd';
+                                        $countVoted = sprintf($format, $countVoted);
+                                    }
 
-                <h2><?=$this->translate('Vote now!')?></h2>
+                                    // Print count voted by number
+                                    $countVoted = str_split($countVoted);
+                                    $countVotedText = '';
+
+                                    foreach ($countVoted as $number) {
+                                        $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
+                                    }
+                                ?>
+                            </span>
+                            <br />
+                            <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $countVotedText, $countTotal);?>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+
+                        <h2 class="well-title offset-bottom-large"><?=$this->translate('Vote now!');?></h2>
+
+                    </div>
+                </div><!-- .row -->
 
                 <!-- Questions -->
-                <div class="offset-top-large">
+                <div class="offset-bottom-large">
                     <?php foreach ($this->questions as $question): ?>
-                        <?php $url = $this->url(array('action' => 'vote', 'qid' => $question['qi'])); ?>
-                        <p class="no-offset">
-                            <a href="<?php echo $url ?>" class="btn"><?php echo $question['nr'] . ' ' . $question['q']; ?></a>
-                        </p>
+                        <div class="form-group">
+                            <a href="<?=$this->url(['action' => 'vote', 'qid' => $question['qi']]);?>" class="btn btn-default btn-default-alt text-wrap">
+                                <?=$question['nr'];?>
+                                <?=$question['q'];?>
+                            </a>
+                        </div>
                     <?php endforeach; ?>
                 </div>
 
-                <p class="offset-top-large offset-bottom-large">
-                    <?=$this->translate('Choose here the question or the keyword according to which the contributions to be voted will be shown first. You may change question or keyword any time. During the Voting, all contributions will be displayed, so that you will vote on all of them. You can edit as many contributions as you wish. Breaks are possible without any problems.')?>
+                <p class="offset-bottom-large">
+                    <?=$this->translate('Choose here the question or the keyword according to which the contributions to be voted will be shown first. You may change question or keyword any time. During the Voting, all contributions will be displayed, so that you will vote on all of them. You can edit as many contributions as you wish. Breaks are possible without any problems.');?>
                 </p>
 
                 <!-- Tags -->
-                <h3><?=$this->translate('Contributions by topic')?></h3>
+                <h3><?=$this->translate('Contributions by topic');?></h3>
 
                 <?php if (!empty($this->tags)): ?>
-                    <ul class="list-inline tag-cloud tag-cloud-alt small offset-bottom">
+                    <ul class="list-inline tag-cloud small offset-bottom">
                         <?php foreach ($this->tags as $tag): ?>
-                            <li class="tag-<?php echo $tag['frequency']; ?>">
-                                <a href="<?php echo $this->url(array('action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null)); ?>" class="link-unstyled">
-                                    <?php echo $tag['tg_de']; ?>
+                            <li class="tag-<?=$tag['frequency'];?>">
+                                <a href="<?=$this->url(['action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null]);?>" class="link-unstyled">
+                                    <?=$tag['tg_de'];?>
                                 </a>
                             </li>
                         <?php endforeach; ?>
@@ -71,14 +85,14 @@
                 <?php endif; ?>
 
                 <!-- Actions -->
-                <p>
-                    <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="Abstimmung beenden">
-                        <i class="icon-signout"></i> <?=$this->translate('Finish')?>
-                    </a>
-                    <a href="<?php echo $this->url(array('action' => 'preview')); ?>" class="btn" title="Vorschau Abstimmung">
-                        <i class="icon-eye-open"></i> <?=$this->translate('Preview voting')?>
-                    </a>
-                </p>
+                <a href="<?=$this->url(['action' => 'stopvoting']);?>" class="btn btn-default btn-default-alt">
+                    <span class="glyphicon glyphicon-log-out icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('Finish');?>
+                </a>
+                <a href="<?=$this->url(['action' => 'preview']);?>" class="btn btn-default btn-default-alt">
+                    <span class="glyphicon glyphicon-eye-open icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('Preview voting');?>
+                </a>
 
             </div><!-- .well -->
 
