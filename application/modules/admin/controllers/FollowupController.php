@@ -35,7 +35,6 @@ class Admin_FollowupController extends Zend_Controller_Action
     public function createSnippetAction()
     {
         $kid = $this->getRequest()->getParam('kid', null);
-        $fid = $this->getRequest()->getParam('fid', null);
         $ffid = $this->getRequest()->getParam('ffid', null);
 
         $cancelUrl = $this->view->url(['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid]);
@@ -55,7 +54,20 @@ class Admin_FollowupController extends Zend_Controller_Action
                 }
 
                 $this->_flashMessenger->addMessage('New snippet has been successfully created.', 'success');
-                $this->_redirect($this->view->url(['action' => 'edit-snippet', 'fid' => $newId]), ['prependBase' => false]);
+                $isReturnToIndex = (bool) $form->getValue('submitAndIndex');
+                if ($isReturnToIndex) {
+                    $this->_redirect(
+                        $this->view->url(
+                            ['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid, 'fid' => null]
+                        ),
+                        ['prependBase' => false]
+                    );
+                } else {
+                    $this->_redirect(
+                        $this->view->url(['action' => 'edit-snippet', 'fid' => $newId]),
+                        ['prependBase' => false]
+                    );
+                }
             } else {
                 $this->_flashMessenger->addMessage('The snippet could not be created.', 'error');
             }
@@ -88,7 +100,17 @@ class Admin_FollowupController extends Zend_Controller_Action
                     ->save();
 
                 $this->_flashMessenger->addMessage('Changes saved.', 'success');
-                $this->_redirect($this->view->url(), ['prependBase' => false]);
+                $isReturnToIndex = (bool) $form->getValue('submitAndIndex');
+                if ($isReturnToIndex) {
+                    $this->_redirect(
+                        $this->view->url(
+                            ['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid, 'fid' => null]
+                        ),
+                        ['prependBase' => false]
+                    );
+                } else {
+                    $this->_redirect($this->view->url(), ['prependBase' => false]);
+                }
             } else {
                 $this->_flashMessenger->addMessage('The snippet could not be saved.', 'error');
             }

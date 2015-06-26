@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-06-25 14:40+0100\n"
-"PO-Revision-Date: 2015-06-25 14:41+0100\n"
+"POT-Creation-Date: 2015-06-26 12:40+0100\n"
+"PO-Revision-Date: 2015-06-26 12:40+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -47,8 +47,8 @@ msgstr ""
 #: application/modules/admin/controllers/VotingController.php:383
 #: application/modules/admin/controllers/VotingController.php:414
 #: application/modules/admin/controllers/ConsultationController.php:162
-#: application/modules/admin/controllers/FollowupController.php:90
-#: application/modules/admin/controllers/FollowupController.php:156
+#: application/modules/admin/controllers/FollowupController.php:102
+#: application/modules/admin/controllers/FollowupController.php:178
 #: application/modules/admin/controllers/UserController.php:75
 #: application/modules/admin/controllers/InputController.php:165
 msgid "Changes saved."
@@ -319,74 +319,74 @@ msgstr ""
 msgid "Custom phase names have been saved."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:57
+#: application/modules/admin/controllers/FollowupController.php:56
 msgid "New snippet has been successfully created."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:60
+#: application/modules/admin/controllers/FollowupController.php:72
 msgid "The snippet could not be created."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:65
+#: application/modules/admin/controllers/FollowupController.php:77
 msgid "Create Follow-Up Snippet"
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:93
+#: application/modules/admin/controllers/FollowupController.php:115
 msgid "The snippet could not be saved."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:107
+#: application/modules/admin/controllers/FollowupController.php:129
 msgid "Edit Follow-Up Snippet"
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:125
+#: application/modules/admin/controllers/FollowupController.php:147
 msgid "New follow-up has been successfully created."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:128
+#: application/modules/admin/controllers/FollowupController.php:150
 msgid "The follow-up could not be created."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:133
+#: application/modules/admin/controllers/FollowupController.php:155
 msgid "Create Follow-up"
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:159
+#: application/modules/admin/controllers/FollowupController.php:181
 msgid "The follow-up could not be saved."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:174
+#: application/modules/admin/controllers/FollowupController.php:196
 msgid "Edit Follow-Up"
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:195
+#: application/modules/admin/controllers/FollowupController.php:217
 msgid "The snippet has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:201
+#: application/modules/admin/controllers/FollowupController.php:223
 msgid "Snippet order has been updated."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:238
+#: application/modules/admin/controllers/FollowupController.php:260
 msgid "The follow-up has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:240
+#: application/modules/admin/controllers/FollowupController.php:262
 msgid ""
 "The follow-up could not be deleted as there are snippets attached to it."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:267
+#: application/modules/admin/controllers/FollowupController.php:289
 #, php-format
 msgid "%d contributions linked."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:276
+#: application/modules/admin/controllers/FollowupController.php:298
 #, php-format
 msgid "%d follow-ups linked."
 msgstr ""
 
-#: application/modules/admin/controllers/FollowupController.php:285
+#: application/modules/admin/controllers/FollowupController.php:307
 #, php-format
 msgid "%d snippets linked."
 msgstr ""
@@ -510,7 +510,6 @@ msgstr ""
 #: application/modules/admin/controllers/SettingsController.php:45
 #: application/modules/admin/controllers/SettingsController.php:84
 #: application/modules/admin/controllers/SettingsController.php:121
-#: application/modules/admin/controllers/SettingsController.php:159
 msgid "Form invalid"
 msgstr ""
 
@@ -518,16 +517,8 @@ msgstr ""
 msgid "Help text was saved."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:104
-msgid "Partner was deleted."
-msgstr ""
-
-#: application/modules/admin/controllers/SettingsController.php:113
-msgid "Order was updated."
-msgstr ""
-
-#: application/modules/admin/controllers/SettingsController.php:152
-msgid "Partners were saved."
+#: application/modules/admin/controllers/SettingsController.php:114
+msgid "Footer was updated."
 msgstr ""
 
 #: application/modules/admin/controllers/MailSendController.php:95
@@ -556,8 +547,8 @@ msgid "Help Texts"
 msgstr ""
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:37
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:16
-msgid "Partners"
+#: application/modules/admin/views/scripts/settings/footer.phtml:16
+msgid "Footer"
 msgstr ""
 
 #: application/modules/admin/views/helpers/EmailTabs.php:17
@@ -683,7 +674,6 @@ msgid "Folders"
 msgstr ""
 
 #: application/modules/admin/forms/Directory.php:12
-#: application/modules/admin/forms/Partner.php:12
 #: application/modules/admin/forms/Settings.php:45
 #: application/modules/admin/forms/Mail/Template.php:22
 #: application/modules/admin/forms/Mail/Component.php:15
@@ -695,14 +685,12 @@ msgstr ""
 #: application/modules/admin/views/scripts/user/index.phtml:37
 #: application/modules/admin/views/scripts/mail-component/index.phtml:46
 #: application/modules/admin/views/scripts/input/index.phtml:74
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:32
 #: application/modules/admin/views/scripts/media/folders.phtml:37
 msgid "Name"
 msgstr ""
 
 #: application/modules/admin/forms/Directory.php:20
 #: application/modules/admin/forms/Tag.php:32
-#: application/modules/admin/forms/Partner.php:51
 #: application/modules/admin/forms/Input.php:104
 #: application/modules/admin/forms/Consultation.php:250
 #: application/modules/admin/forms/Article.php:94
@@ -710,6 +698,7 @@ msgstr ""
 #: application/modules/admin/forms/ConsultationPhases.php:65
 #: application/modules/admin/forms/Question.php:63
 #: application/modules/admin/forms/HelpText.php:34
+#: application/modules/admin/forms/Footer.php:37
 #: application/modules/admin/forms/Mail/Template.php:64
 #: application/modules/admin/forms/Mail/Component.php:55
 #: application/modules/admin/forms/Voting/Rights.php:59
@@ -717,27 +706,12 @@ msgstr ""
 #: application/modules/admin/forms/User/TransferContributions.php:18
 #: application/modules/admin/forms/User/Create.php:91
 #: application/modules/admin/forms/User/Edit.php:125
-#: application/modules/admin/forms/Followup/Snippet.php:67
 #: application/modules/admin/forms/Followup/File.php:79
 msgid "Save"
 msgstr ""
 
 #: application/modules/admin/forms/Tag.php:17
 msgid "New keyword"
-msgstr ""
-
-#: application/modules/admin/forms/Partner.php:18
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:59
-msgid "Description"
-msgstr ""
-
-#: application/modules/admin/forms/Partner.php:24
-#: application/modules/admin/forms/Partner.php:30
-msgid "Link URL"
-msgstr ""
-
-#: application/modules/admin/forms/Partner.php:36
-msgid "Logo"
 msgstr ""
 
 #: application/modules/admin/forms/Input.php:25
@@ -1380,6 +1354,14 @@ msgstr ""
 msgid "Heading 5"
 msgstr ""
 
+#: application/modules/admin/forms/Followup/Snippet.php:67
+msgid "Save and continue editing"
+msgstr ""
+
+#: application/modules/admin/forms/Followup/Snippet.php:73
+msgid "Save and return to index"
+msgstr ""
+
 #: application/modules/admin/forms/Followup/File.php:28
 msgid "Author"
 msgstr ""
@@ -1676,7 +1658,6 @@ msgstr ""
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:219
 #: application/modules/admin/views/scripts/followup/snippets.phtml:43
 #: application/modules/admin/views/scripts/followup/snippets.phtml:126
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:24
 msgid "Save changes"
 msgstr ""
 
@@ -2157,7 +2138,6 @@ msgid "Voting weight"
 msgstr ""
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:70
-#: application/modules/admin/views/scripts/settings/partner-edit.phtml:17
 msgid "Partner"
 msgstr ""
 
@@ -2288,9 +2268,8 @@ msgstr ""
 #: application/modules/admin/views/scripts/tag/create.phtml:3
 #: application/modules/admin/views/scripts/tag/index.phtml:3
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:3
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:3
 #: application/modules/admin/views/scripts/settings/index.phtml:3
-#: application/modules/admin/views/scripts/settings/partner-edit.phtml:3
+#: application/modules/admin/views/scripts/settings/footer.phtml:3
 #: application/modules/admin/views/scripts/article/create.phtml:9
 #: application/modules/admin/views/scripts/article/edit.phtml:9
 #: application/modules/admin/views/scripts/article/index.phtml:9
@@ -2342,6 +2321,10 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:53
 msgid "Source"
+msgstr ""
+
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:59
+msgid "Description"
 msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:75
@@ -2458,28 +2441,11 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:33
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:42
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:59
 msgid "Edit help text"
-msgstr ""
-
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:50
-msgid "Edit partner data"
-msgstr ""
-
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:69
-msgid "Delete partner?"
-msgstr ""
-
-#: application/modules/admin/views/scripts/settings/partner-index.phtml:82
-msgid "There are no partners yet."
 msgstr ""
 
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:16
 msgid "Back to Help Texts"
-msgstr ""
-
-#: application/modules/admin/views/scripts/settings/partner-edit.phtml:16
-msgid "Back to Partners"
 msgstr ""
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:27
