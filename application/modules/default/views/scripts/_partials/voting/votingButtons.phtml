@@ -13,51 +13,44 @@
     }
 ?>
 
-<ul class="list-inline rating-bar-buttons offset-bottom">
+<ul class="list-inline rating-bar-buttons">
 
     <!-- Super button -->
     <?php if ($settings['btn_important'] == 'y'): ?>
         <?php $linkOptions['pts'] = 'y'; ?>
         <li class="offset-bottom-small">
-            <?php if ($votingBasket['countvotes'] != $settings['btn_important_max']): ?>
-                <a href="<?=$this->url($linkOptions);?>#vote"<?=$this->pimp == 'y' ? ' class="text-danger"' : '';?>>
+            <div class="offset-bottom-small">
+
+                <?php if ($votingBasket['countvotes'] !== $settings['btn_important_max']): ?>
+                    <a href="<?=$this->url($linkOptions);?>#vote" class="link-unstyled link-unstyled-alt">
+                <?php else: ?>
+                    <a href="#modalVoting" data-toggle="modal" class="link-unstyled link-unstyled-alt">
+                <?php endif; ?>
                     <img
                         src="<?=$this->baseUrl('images/voting-rate-superbtn.png');?>"
+                        class="offset-bottom-small"
                         alt="<?=$this->escape($settings['btn_important_label']);?>"
                         title="<?=$this->escape($settings['btn_important_label']);?>"
                     />
                     <br />
-                    <strong>
+                    <strong<?=$this->pimp == 'y' ? ' class="text-danger"' : '';?>>
                         <?=$this->escape($settings['btn_important_label']);?>
-                        <span class="counter">
-                            (<?=$votingBasket['countvotes'];?>
-                            <?=$this->translate('of');?>
-                            <?=$settings['btn_important_max'];?>)
-                        </span>
-                    </strong>
-                </a>
-            <?php else: ?>
-            <a class="view-basket-btn">
-                <img
-                    src="<?=$this->baseUrl('images/voting-rate-superbtn.png');?>"
-                    class="offset-bottom-small"
-                    alt="<?=$this->escape($settings['btn_important_label']);?>"
-                    title="<?=$this->escape($settings['btn_important_label']);?>"
-                />
-                <br />
-                <strong>
-                    <?=$this->escape($settings['btn_important_label']);?>
-                    <span class="counter">
-                        (<?=$votingBasket['countvotes'];?>
+                        <br />
+                        (<span class="js-supervotes-used"><?=$votingBasket['countvotes'];?></span>
                         <?=$this->translate('of');?>
                         <?=$settings['btn_important_max'];?>)
-                    </span>
-                </strong>
+                    </strong>
+                </a>
+
+            </div>
+
+            <!-- Voting basket toggle -->
+            <a href="#modalVoting"  data-toggle="modal" class="link-unstyled link-unstyled-alt" title="<?=$this->translate('Open voting basket');?>">
+                <span class="glyphicon glyphicon-menu-down icon-md" aria-hidden="true"></span>
             </a>
-            <?php endif; ?>
-            <a class="view-basket"><?=$this->translate('show');?></a>
+
         </li>
-    <?php endif?>
+    <?php endif; ?>
 
     <!-- Regular votes -->
     <?php $linkOptions['action'] = 'thesisvote'; ?>

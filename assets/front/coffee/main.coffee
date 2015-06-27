@@ -8,6 +8,7 @@ $(document).ready () ->
     bindSaveAndFinishContributing()
     bindSaveAndContinueContributing()
     bindHelpTextModal()
+    bindRemoveSupervote()
     initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
@@ -250,3 +251,30 @@ bindHelpTextModal = () ->
         )
 
         return false
+
+bindRemoveSupervote = () ->
+    votesUsed = $('.js-supervotes-used').html()
+
+    $('.js-voting-remove-supervote').on 'click', (e) ->
+        tid = $(this).data('tid')
+        kid = $(this).data('kid')
+
+        $.ajax
+            url: baseUrl + '/voting/removethesis/kid/' + kid + '/tid/' + tid
+            type: 'POST'
+            data: 'format=html'
+            cache: false
+            async: 'true'
+            error: ->
+                $(e.target).html = i18n['Something went wrong']
+                return
+            beforeSend: ->
+                $(e.target).html = i18n['Loading…']
+                return
+            success: (response) ->
+                votesUsed -= 1
+                $(e.target).html = i18n['Loading…']
+                $('#thes-' + tid).remove()
+                $('.js-supervotes-used').html votesUsed
+                return
+        return
