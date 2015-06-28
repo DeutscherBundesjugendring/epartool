@@ -8,13 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
 
-    <title><?=$this->parameter('web.siteTitle');?></title>
+    <title><?=$this->parameter('site.title');?></title>
 
-    <meta name="description" content="<?=$this->parameter('web.siteDescription');?>" />
+    <meta name="description" content="<?=$this->parameter('site.description');?>" />
     <meta name="author" content="Content © <?=date('Y');?> DBJR" />
-    <meta name="DC.title" content="<?=$this->parameter('web.siteTitle');?>" />
-    <meta property="og:title" content="<?=$this->parameter('web.siteTitle');?>" />
-    <meta property="og:description" content="<?=$this->parameter('web.siteDescription');?>" />
+    <meta name="DC.title" content="<?=$this->parameter('site.title');?>" />
+    <meta property="og:title" content="<?=$this->parameter('site.title');?>" />
+    <meta property="og:description" content="<?=$this->parameter('site.description');?>" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
         <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
@@ -48,7 +48,7 @@
 
             <!-- Logo -->
             <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand" title="<?=$this->translate('Home');?>">
-                <img src="<?=$this->baseUrl('project/images/logo.png');?>" itemprop="image" alt="<?=$this->parameter('web.siteTitle');?>" />
+                <img src="<?=$this->baseUrl('project/images/logo.png');?>" itemprop="image" alt="<?=$this->parameter('site.title');?>" />
             </a>
 
             <!-- Main navigation -->
@@ -179,7 +179,7 @@
                     <?php endif; ?>
 
                     <p class="header-box-description" itemprop="description">
-                        <?=$this->parameter('web.siteMotto');?>
+                        <?=$this->parameter('site.motto');?>
                     </p>
 
                     <!-- Menu -->

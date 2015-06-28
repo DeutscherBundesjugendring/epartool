@@ -1,6 +1,14 @@
 {
   "name": "dbjr/tool",
   "type": "zend-library",
+  "autoload": {
+    "psr-0": {
+      "Dbjr_": "library/"
+    }
+  },
+  "include-path": [
+    "library/"
+  ],
   "require": {
     "zendframework/zendframework1": "~1.12.3",
     "tracy/tracy": "~2.2.2",
