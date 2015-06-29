@@ -6,6 +6,7 @@
 
             <?php if ($this->consultation->vot_res_show == 'y'): ?>
                 <p>
+                    <span class="glyphicon glyphicon-align-left icon-offset text-muted" aria-hidden="true"></span>
                     <a href="<?=$this->url(['action' => 'results', 'authcode' => null]);?>">
                         <?=$this->translate('View voting results');?>
                     </a>

@@ -1,37 +1,44 @@
-<?php echo $this->secondNavigation('voting') ?>
+<?=$this->secondNavigation('voting');?>
 
 <div class="main-content">
 	<div class="row">
 		<div class="sidebar-left">
 
-			<?php echo $this->questionNavigation($this->currentQuestion['qi']); ?>
+			<?=$this->questionNavigation($this->currentQuestion['qi']);?>
 
 		</div>
 		<div class="content">
 
 			<h1><?=$this->translate('Voting results')?></h1>
+
 			<?php if (!empty($this->articleGeneral)): ?>
-				<?php echo html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8'); ?>
-			<?php endif; ?>
-			<?php if (!empty($this->articleConsultation)): ?>
-				<?php echo html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8'); ?>
+				<?=html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8');?>
 			<?php endif; ?>
 
-			<h2 class="alt"><?php echo $this->currentQuestion['nr'] . ' ' . $this->currentQuestion['q']; ?></h2>
+			<?php if (!empty($this->articleConsultation)): ?>
+				<?=html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8');?>
+			<?php endif; ?>
+
+			<h2>
+                <?=$this->currentQuestion['nr'];?>
+                <?=$this->currentQuestion['q'];?>
+            </h2>
 
 			<hr class="hr-alt" />
 
 			<?php foreach ($this->votings as $key => $value): ?>
-				<?php
-					$diag_lngth = 0;
-					if ( $this -> highest_rank!=0) $diag_lngth = round(($value['rank'] * 100) / $this->highest_rank, 0); ?>
-					<div class="voting-result">
-						<span class="voting-result-number"><?php echo $key+1; ?>.</span>
-						<p><strong><?php echo $value['thes']; ?></strong></p>
-						<div class="voting-result-bar" style="width: <?php echo $diag_lngth; ?>%;"></div>
-					</div>
-					<hr class="hr-alt" />
-
+				<?php $percent = 0; ?>
+                <?php if ($this->highest_rank != 0) $percent = round(($value['rank'] * 100) / $this->highest_rank, 0); ?>
+                <div class="result">
+                    <span class="result-number"><?=$key + 1;?>.</span>
+                    <p>
+                        <strong>
+                            <?=$value['thes'];?>
+                        </strong>
+                    </p>
+                    <div class="result-bar" style="width: <?=$percent;?>%;"></div>
+                </div>
+                <hr />
 			<?php endforeach; ?>
 
 		</div>
