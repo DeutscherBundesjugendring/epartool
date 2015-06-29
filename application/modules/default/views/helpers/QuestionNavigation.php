@@ -6,7 +6,7 @@
 class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
 {
 
-    public function questionNavigation($activeItem = null, $for = NULL, $numbered = false)
+    public function questionNavigation($activeItem = null, $for = null, $numbered = false)
     {
         $con = $this->view->consultation;
         $questionModel = new Model_Questions();
@@ -42,7 +42,7 @@ class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abs
                 $html .= '<nav>' . "\n";
             }
 
-            $html .= '<ul class="nav">' . "\n";
+            $html .= '<ul class="nav nav-stacked">' . "\n";
         }
 
         $i = 1;

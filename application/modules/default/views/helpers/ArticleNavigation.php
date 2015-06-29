@@ -14,7 +14,7 @@ class Module_Default_View_Helper_ArticleNavigation extends Zend_View_Helper_Abst
             $items = $articleModel->getStaticPages();
         }
 
-        $html = '<nav><ul class="nav nav-stacked">' . "\n";
+        $html = '<nav class="offset-bottom-large"><ul class="nav nav-stacked">' . "\n";
         $i = 1;
 
         foreach ($items as $item) {
