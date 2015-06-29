@@ -42,7 +42,7 @@ class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abs
                 $html .= '<nav>' . "\n";
             }
 
-            $html .= '<ul class="nav nav-stacked">' . "\n";
+            $html .= '<ul class="nav">' . "\n";
         }
 
         $i = 1;
@@ -56,7 +56,7 @@ class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abs
             }
 
             if ($for == 'follow-up-box') {
-                $html .= '<p class="no-offset">';
+                $html .= '<p class="offset-bottom-small">';
             } else {
                 $html .= '<li class="' . implode(' ', $liClasses) . '">';
             }
@@ -64,7 +64,7 @@ class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abs
             $urlParams['qid'] = $item->qi;
             $html .= '<a href="'
                 . $this->view->url($urlParams) . '"'
-                . ($for == 'follow-up-box'? ' class="btn"'
+                . ($for == 'follow-up-box'? ' class="btn btn-default btn-default-alt"'
                     : ' class="question-nav-item" data-qid="' . $item->qi . '"')
                 . '>'
                 // Number

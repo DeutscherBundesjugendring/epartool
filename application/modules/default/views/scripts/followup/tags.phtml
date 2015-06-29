@@ -1,40 +1,45 @@
-<?php echo $this->secondNavigation('follow-up') ?>
+<?=$this->secondNavigation('follow-up');?>
 
 <div class="main-content">
     <div class="row">
         <div class="sidebar-left">
 
-            <?php echo $this->followupNavigation('tags') ?>
+            <?=$this->followupNavigation('tags');?>
 
         </div>
         <div class="content">
 
-            <small class="count muted">
-                <?php echo $this->inputCount ?>
-                <?=$this->translate('confirmed contributions')?>
-            </small>
-            <h1><?=$this->translate('All contributions')?></h1>
-            <p>
-                <?=$this->translate('You want to participate in this participation round? Just click on a question during the input period, and the input field will appear where you can insert your contributions. After the input period has finished, you are no longer allowed to draw up contributions, but by clicking on a question you can read all other contributions.')?>
+            <div class="text-muted">
+                <small>
+                    <?=$this->inputCount;?>
+                    <?=$this->translate('confirmed contributions');?>
+                </small>
+            </div>
+
+            <h1><?=$this->translate('All contributions');?></h1>
+
+            <p class="offset-bottom-large">
+                <?=$this->translate('You want to participate in this participation round? Just click on a question during the input period, and the input field will appear where you can insert your contributions. After the input period has finished, you are no longer allowed to draw up contributions, but by clicking on a question you can read all other contributions.');?>
             </p>
 
             <!-- Questions -->
             <?php if (!empty($this->tags)): ?>
-                <div class="well-large-alt text-center">
-                    <h2><?=$this->translate('Contributions sorted by keywords:')?></h2>
-                    <ul class="list-inline tag-cloud small offset-bottom">
+                <div class="well well-bordered text-center">
+                    <h2><?=$this->translate('Contributions sorted by keywords:');?></h2>
+                    <ul class="list-inline tag-cloud tag-cloud-large small offset-bottom">
                         <?php foreach ($this->tags as $tag): ?>
-                            <li class="tag-<?php echo $tag['frequency']; ?>">
-                                <a href="<?php echo $this->url(array('action' => 'inputs-by-question', 'tag' => $tag['tg_nr'])); ?>" class="link-unstyled">
-                                    <?php echo $tag['tg_de']; ?>
+                            <li class="tag-<?=$tag['frequency'];?>">
+                                <a href="<?=$this->url(['action' => 'inputs-by-question', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled">
+                                    <?=$tag['tg_de'];?>
                                 </a>
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                    <a href="<?php echo $this->url(array('action' => 'inputs-by-question')); ?>" class="btn">
-                        <?=$this->translate('Back to overview of questions')?>
+                    <a href="<?=$this->url(['action' => 'index', 'qid' => null]);?>" class="btn btn-default">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        <?=$this->translate('Back to overview of questions');?>
                     </a>
-                </div><!-- .well-large-alt -->
+                </div><!-- .well -->
             <?php endif; ?>
 
         </div><!-- .main-content -->

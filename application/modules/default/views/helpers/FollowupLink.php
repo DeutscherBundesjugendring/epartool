@@ -17,7 +17,7 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
         $con = $this->view->consultation;
         $inputModel = new Model_Inputs();
         $hasFollowup = count($inputModel->getFollowups($inputId));
-        $hasFollowup += $inputModel->fetchRow(
+        $hasFollowup += (int) $inputModel->fetchRow(
             $inputModel
                 ->select()
                 ->from($inputModel->info(Model_Inputs::NAME), ['count' => 'COUNT(*) AS count'])
@@ -25,10 +25,16 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
         )->count;
 
         if ($hasFollowup) {
-            $url = $this->view->url(array('action' => 'show', 'kid'=>$con->kid, 'qid' => $questionId, 'tid' => $inputId, 'page' => null));
-            $html = "<a href=\"$url\" class=\"label\">" . $this->view->translate('View reactions') . " <i class=\"icon-angle-right\"></i></a>";
+            $url = $this->view->url(['action' => 'show', 'kid' => $con->kid, 'qid' => $questionId, 'tid' => $inputId, 'page' => null]);
+
+            $html = '<a href="' . $url . '" class="btn btn-default btn-xs">';
+            $html .= $this->view->translate('View reactions');
+            $html .= ' <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>';
+            $html .= '</a>';
         } else {
-            $html = "<span class=\"muted\">" . $this->view->translate('There are currently no reactions to this contribution.') . "</span>";
+            $html = '<br class="hidden-md hidden-lg" />';
+            $html .= '<br class="hidden-md hidden-lg" />';
+            $html .= '<span class="text-muted">' . $this->view->translate('There are currently no reactions to this contribution.') . '</span>';
         }
 
         return $html;

@@ -34,7 +34,7 @@
                             <?php else: ?>
                                 <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
                             <?php endif; ?>
-                            <a href="<?php echo $this->url(array('tag' => null)); ?>">
+                            <a href="<?=$this->url(['tag' => null]);?>">
                                 <?=$this->translate('Show all contributions');?>.
                             </a>
                         </p>
@@ -153,6 +153,11 @@
 
                     <hr />
                 <?php endforeach; ?>
+            <?php else: ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('There are no contributions on this question.');?>
+                </p>
             <?php endif; ?>
 
             <!-- Paging -->
