@@ -1,27 +1,31 @@
 <div class="main-content">
 
     <?php if ($this->act == 'acc'): ?>
-        <h1><?=$this->translate('Your votings have been confirmed.')?></h1>
+        <h1><?=$this->translate('Your votings have been confirmed.');?></h1>
         <p>
-            <?=$this->translate("Thank you for confirming your vote. If you havent voted on all contributions yet, you can use the access code to get back and proceed with your votings any time.")?>
+            <?=$this->translate("Thank you for confirming your vote. If you haven't voted on all contributions yet, you can use the access code to get back and proceed with your votings any time.");?>
         </p>
     <?php endif; ?>
 
     <?php if ($this->memberstatus == 'u' && $this->act == 'acc'): ?>
         <p>
-            <?=$this->translate('The person responsible for your group needs to confirm that you are allowed for voting. He/she will only see your email address, not how you voted. After confirmation, your votings will be included in the voting results.')?>
+            <?=$this->translate('The person responsible for your group needs to confirm that you are allowed for voting. He/she will only see your email address, not how you voted. After confirmation, your votings will be included in the voting results.');?>
         </p>
     <?php elseif ($this->memberstatus == 'y' && $this->act == 'acc'): ?>
         <p>
-            <?=$this->translate('The person responsible for your group has confirmed your email address. Your votings will now be included anonymously in the overall voting results.')?>
+            <?=$this->translate('The person responsible for your group has confirmed your email address. Your votings will now be included anonymously in the overall voting results.');?>
         </p>
     <?php elseif ($this->act == 'rej'): ?>
-        <h1><?=$this->translate('The votings have been deleted.')?></h1>
+        <h1><?=$this->translate('The votings have been deleted.');?></h1>
         <p>
-            <?=$this->translate('The votings connected to your email address will not be included in the end results. This does not apply to votings you may have made before.')?>
+            <?=$this->translate('The votings connected to your email address will not be included in the end results. This does not apply to votings you may have made before.');?>
         </p>
     <?php endif; ?>
 
-    <p><a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>"><?=$this->translate('Back to Home')?></a></p>
+    <p>
+        <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>">
+            <?=$this->translate('Back to Home');?>
+        </a>
+    </p>
 
 </div><!-- .main-content -->

@@ -81,6 +81,10 @@ class IndexController extends Zend_Controller_Action
             'Shut back' => $this->view->translate('Shut back'),
             'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
             'supporters' => $this->view->translate('supporters'),
+            'Something went wrong' => $this->view->translate('Something went wrong'),
+            'Loading…' => $this->view->translate('Loading…'),
+            'All age groups' => $this->view->translate('All age groups'),
+            'Using the superbutton is not allowed.' => $this->view->translate('Using of superbutton is not allowed.'),
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');

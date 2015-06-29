@@ -9,6 +9,7 @@ $(document).ready () ->
     bindSaveAndContinueContributing()
     bindHelpTextModal()
     bindRemoveSupervote()
+    bindVotingRate()
     initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
@@ -62,7 +63,7 @@ bindToggleGroupRegister = () ->
             labelName.hide()
             elementName.hide()
             container.slideDown()
-            $('select#age_group').append($('<option></option>').val('4').html('Alle Altersgruppen'))
+            $('select#age_group').append($('<option></option>').val('4').html(i18n['All age groups']))
         else
             labelName.show()
             elementName.show()
@@ -278,3 +279,40 @@ bindRemoveSupervote = () ->
                 $('.js-supervotes-used').html votesUsed
                 return
         return
+
+bindVotingRate = () ->
+    $('.js-voting').on 'click', (e) ->
+        e.preventDefault()
+
+        if e.target.tagName == 'SPAN' # deal with superbutton icon
+            target = e.target.parentNode
+        else
+            target = e.target
+
+        tid = $(target).data('tid')
+        kid = $(target).data('kid')
+        rating = $(target).data('rating')
+        container = $('#thesis-' + tid)
+
+        if rating == 'y'
+            url = baseUrl + '/voting/previewfeedbackpi/kid/' + kid + '/id/' + tid + '/points/' + rating
+        else
+            url = baseUrl + '/voting/previewfeedback/kid/' + kid + '/id/' + tid + '/points/' + rating
+
+        if target.tagName == 'A' # only send request when actual link is clicked
+            $.ajax
+                url: url
+                type: 'POST'
+                data: 'format=html'
+                cache: false
+                async: 'true'
+                error: ->
+                    $(container).html = i18n['Something went wrong']
+                    return
+                beforeSend: ->
+                    $(container).html = i18n['Loading…']
+                    return
+                success: (response) ->
+                    $(container).html response
+                    return
+            return

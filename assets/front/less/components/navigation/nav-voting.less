@@ -1,0 +1,55 @@
+// Voting Navigation
+
+
+.nav-voting {
+    @media (max-width: @screen-xs-max) {
+        > li {
+            display: inline-block;
+        }
+    }
+
+    > li > a {
+        max-width: 5em;
+        display: inline-block;
+        margin-bottom: 1em;
+        padding: 0 .2em;
+        vertical-align: top;
+        line-height: 1.2;
+        color: @text-color;
+
+        // Add circle
+        &:before {
+            content: '';
+            width: 2em;
+            height: 2em;
+            display: block;
+            margin: 0 auto .5em;
+            border-radius: 50%;
+            background-color: @gray-light;
+        }
+
+        &:hover,
+        &:focus {
+            color: @link-hover-color;
+            background-color: transparent;
+        }
+    }
+
+    > .active > a:before {
+        background-color: @brand-accent;
+    }
+
+    // Superbutton has a star instead of circle
+    > .nav-voting-superbutton > a:before {
+        display: none;
+    }
+
+    &-superbutton-icon {
+        margin: 0 auto .2em;
+        color: @gray-light;
+    }
+
+    > .active .nav-voting-superbutton-icon {
+        color: @brand-accent;
+    }
+}

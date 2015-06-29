@@ -273,7 +273,7 @@ class VotingController extends Zend_Controller_Action
 
         if ($pts < 0 || $pts > 5) {
             $this->view->error = "1";
-            $this->view->error_comment = "Die Anzahl der vergebenen Punkte ist nicht korrekt";
+            $this->view->error_comment = $this->view->translate('Your rating is out of accepted range.');
 
             return;
         }
@@ -286,7 +286,7 @@ class VotingController extends Zend_Controller_Action
         // check wheter the thesisID is correct
         if (!(new Model_Inputs())->thesisExists($tid, $kid)) {
             $this->view->error = "1";
-            $this->view->error_comment = "Die These wurde nicht gefunden!";
+            $this->view->error_comment = $this->view->translate('Contribution not found.');
             return;
         }
 
@@ -294,10 +294,15 @@ class VotingController extends Zend_Controller_Action
 
         if (!$votingSuccess) {
             $this->view->error = "1";
-            $this->view->error_comment = "Es ist ein Fehler aufgetreten";
+            $this->view->error_comment = $this->view->translate('An error occured.');
             return;
         } else {
-            $feedback = array('points' => $votingSuccess['points'],'pimp' => $votingSuccess['pimp'], 'tid' => $tid );
+            $feedback = array(
+                'points' => $votingSuccess['points'],
+                'pimp' => $votingSuccess['pimp'],
+                'tid' => $tid,
+                'kid' => $kid
+            );
             $this->view->feedback = $feedback;
         }
 
@@ -319,7 +324,7 @@ class VotingController extends Zend_Controller_Action
 
         if ($this->view->settings['btn_important'] == 'n') {
             $this->view->error = "1";
-            $this->view->error_comment = "Die Auswahl des Superbuttons ist nicht erlaubt";
+            $this->view->error_comment = $this->view->translate('Using of superbutton is not allowed.');
             return;
         }
 
@@ -334,7 +339,7 @@ class VotingController extends Zend_Controller_Action
         // check wheter the thesisID is correct
         if (!(new Model_Inputs())->thesisExists($tid, $kid)) {
             $this->view->error = "1";
-             $this->view->error_comment = "Die These wurde nicht gefunden!";
+             $this->view->error_comment = $this->view->translate('Contribution not found.');
         }
 
         $votingSuccess = $votingIndividualModel->updateParticularImportantVote(
@@ -347,13 +352,23 @@ class VotingController extends Zend_Controller_Action
         );
 
         if (isset ($votingSuccess['points'])) {
-            $feedback = array('points' => $votingSuccess['points'], 'tid' => $tid, 'pimp' => $votingSuccess['pimp']);
+            $feedback = array(
+                'points' => $votingSuccess['points'],
+                'tid' => $tid,
+                'pimp' => $votingSuccess['pimp'],
+                'kid' => $kid
+            );
         } elseif (isset($votingSuccess['max'])) {
             $this->view->error = "1";
             $this->view->error_comment = 'The Super Button allows you to value a limited number of contributions'
                 . ' higher. Change previous votings and make room for more important contributions!';
             $currentVote = $votingIndividualModel->getCurrentVote($tid, $votingRightsSession->subUid);
-            $feedback = array('points' => $currentVote['pts'], 'tid' => $tid, 'pimp' => $currentVote['pimp']);
+            $feedback = array(
+                'points' => $currentVote['pts'],
+                'tid' => $tid,
+                'pimp' => $currentVote['pimp'],
+                'kid' => $kid
+            );
         } else {
             $this->view->error = "1";
             $feedback = array();
