@@ -12,12 +12,14 @@
 
 			<?php if (!empty($this->groupmember)): ?>
 				<p>
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
                     <?=sprintf($this->translate('An email has been sent to %s. Please check your inbox!'), '<strong>' . $this->groupmember . '</strong>');?>
                 </p>
 			<?php endif; ?>
 
 			<p>
-                <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>">
+                <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="btn btn-default">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                     <?=$this->translate('Back to Home');?>
                 </a>
             </p>
