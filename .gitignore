@@ -12,16 +12,8 @@
 /www/js/*
 /www/vendor/*
 
-# Ignore all runtime settings
-/runtime/cache/*
-/runtime/logs/*
-/runtime/sessions/*
-
 # Never ignore files used to keep empty folders in repo
 !.keep
-
-# Ignore envspecific configuration files
-/application/configs/*-envspecific.ini
 
 # IDE settings
 /.idea
