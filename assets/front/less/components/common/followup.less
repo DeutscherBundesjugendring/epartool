@@ -1,0 +1,86 @@
+// Followup
+
+
+.followup {
+    position: relative;
+
+    &-link {
+        display: block;
+        color: #000;
+
+        &:hover,
+        &:focus {
+            color: #000;
+        }
+    }
+
+    &-back-link {
+        display: block;
+        line-height: @line-height-large;
+
+        &-question-mark {
+            display: block;
+            margin-right: 10px;
+            padding: 10px 17px;
+        }
+    }
+
+    &-well {
+        max-height: 320px;
+        overflow-y: auto;
+
+        &-link {
+            cursor: pointer;
+
+            &:hover {
+                border-color: @brand-accent-alt;
+            }
+        }
+    }
+
+    &-timeline {
+        &-box {
+            position: relative;
+
+            &-image {
+                float: left;
+                margin: 0 1em 1em 0;
+            }
+        }
+
+        &-count {
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            z-index: 1;
+            display: block;
+            margin-left: -20px;
+            margin-top: -10px;
+            padding: 10px 17px 10px 15px;
+
+            @media (min-width: @grid-float-breakpoint) {
+                left: 100%;
+                top: 50%;
+                margin-left: 0;
+                margin-top: -20px;
+            }
+        }
+    }
+
+    // Sprites
+    &-sprite {
+        background: transparent url(../images/followup-sprite.png) no-repeat left top;
+
+        &-question-mark {
+            width: 40px;
+            height: 40px;
+            background-position: 0 0;
+        }
+
+        &-timeline-count {
+            width: 43px;
+            height: 40px;
+            background-position: -45px 0;
+        }
+    }
+}

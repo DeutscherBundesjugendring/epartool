@@ -264,5 +264,17 @@
 
 <script src="<?=$this->baseUrl('/index/i18n');?>"></script>
 
+<?php if (isset($this->hasFollowupTimeline)): ?>
+    <script>
+        $(document).ready(function() {
+            /**
+             * instance of follow-up created
+             * @type {FollowUp}
+             */
+            var followUp = new FollowUp(<?=$this->question['kid'];?>);
+        });
+    </script>
+<?php endif; ?>
+
 </body>
 </html>

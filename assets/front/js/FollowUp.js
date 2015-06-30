@@ -21,8 +21,6 @@
      */
 
     function FollowUp(kid) {
-
-
         var _instance = this;
         var _colWidth;
         var _kid = kid;
@@ -34,12 +32,11 @@
         function _init() {
             _setVerticalAlign();
             _initEventListener();
-          // if ($("#followup .col").length === 1) $('.ajaxclick').trigger('click');
-
+          // if ($("#followup .col").length === 1) $('.js-ajaxclick').trigger('click');
         }
 
         function _initEventListener() {
-            $(document).on('click', '.ajaxclick', function(el) {
+            $(document).on('click', '.js-ajaxclick', function(el) {
                 el.preventDefault();
                 el.stopPropagation();
                 var _request = $(this).attr('href');
@@ -51,23 +48,18 @@
 
                 var _obj = {'request': _request, 'colid': _colId, 'reset': _reset};
 
-
                 if (!$(this).hasClass('active')) {
                     _getAjaxData(_obj, _addItemCallback);
-
                 }
 
-
-                $('.ajaxclick').removeClass('active');
+                $('.js-ajaxclick').removeClass('active');
                 $(this).addClass('active');
 
+                $(this).parent().parent().parent().find('.js-timeline-box').hide();
+                $(this).parent().parent('.js-timeline-box').show();
+            });
 
-                $(this).parent().parent().parent().find('.timeline-box').hide();
-                $(this).parent().parent('.timeline-box').show();
-
-            })
-
-            $(document).on('click', 'a.voting', function(el) {
+            $(document).on('click', '.js-voting', function(el) {
                 el.preventDefault();
                 el.stopPropagation();
                 var _thisEl = $(this);
@@ -76,19 +68,17 @@
                 var _obj = {'request': _request, 'target': _target};
 
                 _getAjaxData(_obj, function(data, status, obj) {
-
                     var _amount = data.lkyea || data.lknay;
                     // obj.target.innerText = '(' + _amount + ')';
-                    _thisEl.children("span.amount").text('(' + _amount + ')');
+                    _thisEl.children(".js-amount").text(_amount);
 
-                   var cls = _thisEl.hasClass("like") ? ".like" : ".dislike";
+                    var cls = _thisEl.hasClass("js-voting-like") ? ".js-like" : ".js-dislike";
                     var fid = _thisEl.parents(".snippet").data('fid');
-                    $("#followup .wrapper .timeline-box[data-fid="+fid+"] "+cls+" .amount").text('(' + _amount + ')');
+                    $(".js-timeline-box[data-fid=" + fid + "] .js-amount" + cls).text(_amount);
                 })
+            });
 
-            })
-
-            $(document).on('click', '.openoverlay', function() {
+            $(document).on('click', '.js-openoverlay', function() {
                 var _request = $(this).data('href');
                 var params = {};
                 params.fid = $(this).data('fid');
@@ -96,27 +86,24 @@
                 var _obj = {'request': _request};
 
                 _getAjaxData(_obj, function(data, status, obj) {
-
                     _addOverlay(data, params);
                 });
             });
+
             $(document).on('click', '.overlayclose', function() {
                 $('.overlaywrapper').remove();
                 return false;
             });
 
-
             $('.explbutton').click(function() {
                 $('.toggleexpl').toggle();
                 if ($('.toggleexpl').is(':visible')) {
-                    $(this).html('<i class="icon-angle-up"></i>');
+                    $(this).html('<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>');
                 } else {
-                    $(this).html('<i class="icon-angle-down"></i>');
+                    $(this).html('<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>');
                 }
                 _setVerticalAlign();
             });
-
-
         }
 
         /**
@@ -124,12 +111,12 @@
          * @private
          */
         function _setVerticalAlign() {
-            var colHeight;
+            /*var colHeight;
             var newHeight;
             var _posTop;
             var maxColHeight = 0;
 
-            $('#followup .wrapper').children('.col').each(function(index, element) {
+            $('#followup').children('.js-row > div').each(function(index, element) {
                 maxColHeight = $(this).height() > maxColHeight ? $(this).height() : maxColHeight;
             });
 
@@ -137,18 +124,15 @@
             $('#followup').animate({height:newHeight+100+"px"},200);
 
             $("body").scrollTop($('#followup').position().top)
-            $('#followup .wrapper').children('.col').each(function(index, element) {
+            $('#followup').children('.js-row > div').each(function(index, element) {
                 $(this).attr('data-id', index);
                 colHeight = $(this).height();
                 _colWidth = $(this).width();
                 _posTop = ((newHeight / 2) - (colHeight / 2)) + 90;
                 $(this).css('top', _posTop);
                 $(this).css('left', index * _colWidth);
-
-            });
-
+            });*/
         }
-
 
         /**
          * add New Item to the View, called from ajaxRequest
@@ -163,18 +147,14 @@
             var _colId = obj.colid;
             var _statusCode = statuscode;
             if (_statusCode === 200) {
-                $('#followup .wrapper').children('.col').each(function(index, element) {
+                $('#followup').children('.js-col').each(function(index, element) {
                     if (index == _colId) {
-                        var _newCol = '<div class="col" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>';
+                        var _newCol = '<div class="col-sm-4" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>';
 
-
-                        $('#followup .wrapper').append($(_newCol).html(_buildNewCol(_jsonData)).hide().fadeIn());
-
-                        $('#followup .wrapper').animate({
+                        $('#followup').append($(_newCol).html(_buildNewCol(_jsonData)).hide().fadeIn());
+                        $('#followup').animate({
                             scrollLeft: _colWidth * _colId
                         });
-
-
                     } else if (index >= _colId) {
                         $('#el-' + index).remove();
                           $(this).append(_buildNewCol(_jsonData))
@@ -182,20 +162,14 @@
                 });
 
                 if (obj.reset) {
-                    $('.timeline-box').fadeIn();
+                    $('.js-timeline-box').fadeIn();
                 }
 
-
                 _setVerticalAlign();
-
-
-
-
             } else {
                 alert('Ups, die Anfrage lieferte kein Ergebnis');
             }
         }
-
 
         /**
          * @method _buildNewCol
@@ -204,9 +178,7 @@
          * @private
          */
         function _buildNewCol(data) {
-
             var _html = "";
-
             var _link = "";
             var _overlayLink = "";
             var _img = "";
@@ -217,13 +189,11 @@
             var _gfxwho_overlay = "";
             var _hasTypOverlay = "";
 
-
             if (data.byinput) {
-
                 for (var i in data.byinput.snippets) {
                     //followup/json/kid/8/fid/1
-                    _likeYes = '<a class="voting like" href="' + _host + '/followup/like/fid/' + data.byinput.snippets[i].fid + '"><span class="amount">(' + data.byinput.snippets[i].lkyea + ')</span><span class="thumb-up"></span></a>';
-                    _likeNo = '<a class="voting dislike" href="' + _host + '/followup/unlike/fid/' + data.byinput.snippets[i].fid + '"><span class="amount">(' + data.byinput.snippets[i].lknay + ')</span> <span class="thumb-down"></span></a>';
+                    _likeYes = '<span class="badge js-amount js-like">' + data.byinput.snippets[i].lkyea + '</span> <a class="link-alt link-unstyled js-voting js-like" href="' + _host + '/followup/like/fid/' + data.byinput.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>';
+                    _likeNo = '<span class="badge js-amount js-dislike">' + data.byinput.snippets[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + _host + '/followup/unlike/fid/' + data.byinput.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.byinput.snippets[i].ffid;
                     _edgeLeft = data.byinput.snippets[i].typ !== 'g' ? '<div class="followup-typ edge-left followup-typ-'+data.byinput.snippets[i].typ+'"> </div>' : '';
@@ -231,40 +201,36 @@
                     _hasTypOverlay = data.byinput.snippets[i].typ !== 'g' ? 'has-typ-overlay' : '';
                     if (data.byinput.snippets[i].relFowupCount > 0 && data.byinput.snippets[i].typ !== "r" && data.byinput.snippets[i].typ !== "e") {
 
-                        _link = '<div class="timeline-countlink sprite">';
-                        _link += '<a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">' + data.byinput.snippets[i].relFowupCount + '</a>';
-                        _link += ' </div>';
+                        _link = '<a class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick"'
+                        + ' href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">' + data.byinput.snippets[i].relFowupCount + '</a>';
 
                     } else
                         _link = '';
 
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.byinput.snippets[i].fid + '">' +
-                            ' <div class="content clearfix '+_hasTypOverlay+'">' +
+                    _html += '<div class="followup-timeline-box js-timeline-box js-openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.byinput.snippets[i].fid + '">' +
+                            ' <div class="well well-bordered followup-well-link '+_hasTypOverlay+'">' +
                             _edgeLeft + _gfxwho_overlay +
                             ' <div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb" src="'+data.mediafolder+data.byinput.snippets[i].gfx_who+'" /></div>' +
                               data.byinput.snippets[i].expl  +
-                            '<div class="clearleft">'+_likeYes + _likeNo +'</div>'+
+                            '<div class="offset-bottom-small">'+_likeYes + _likeNo +'</div>'+
                             ' </div>' +
                             _link +
                             '</div>';
-
                 }
             } else if (data.inputs) {
-                //nothing to do, just show the timeline-box
+                //nothing to do, just show the js-timeline-box
             }
             else if (data.refs) {
-
                 for (var i in data.refs.docs) {
                     var whendate = data.refs.docs[i].show_no_day === 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
-                        _when = '<p class="clearleft">' + whendate + '</p>';
+                        _when = '<p>' + whendate + '</p>';
 
                     } else {
                         _overlayLink = '';
                         _when = '';
                     }
-
 
                     if (data.refs.docs.length != 0) {
                         _img = '<div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb refimg" src="' + data.mediafolder + data.refs.docs[i].gfx_who + '" /></div>';
@@ -272,27 +238,26 @@
                         _img = '';
                     }
 
-
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-ffid="' + data.refs.docs[i].ffid + '">' +
-                            ' <div class="content">' +
+                    _html += '<div class="followup-timeline-box js-timeline-box js-openoverlay" data-href="' + _overlayLink + '" data-ffid="' + data.refs.docs[i].ffid + '">' +
+                            ' <div class="well well-bordered followup-well-link">' +
                             _img +
-                            '     <p class="">' + data.refs.docs[i].titl + '</p>' +
+                            '     <p>' + data.refs.docs[i].titl + '</p>' +
                             _when +
                             ' </div>' +
                             '</div>';
 
                 }
+
                 for (var i in data.refs.snippets) {
                     var snippet = data.refs.snippets[i];
                     if (snippet.relFowupCount > 0 && snippet.typ !== "r" && snippet.typ !== "e") {
-
-                        _link = '<div class="timeline-countlink sprite"><a class="ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a></div>';
+                        _link = '<a class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a>';
                     } else {
                         _link = '';
                     }
 
-                    _likeYes = '<a class="clearleft voting like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lkyea + ')</span><span class="thumb-up"></span></a>';
-                    _likeNo = '<a class="clearleft voting dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="amount">(' + data.refs.snippets[i].lknay + ')</span><span class="thumb-down"></span></a>';
+                    _likeYes = '<span class="badge js-amount js-like">' + data.refs.snippets[i].lkyea + '</span> <a class="link-alt link-unstyled js-voting js-like" href="' + _host + '/followup/like/fid/' + data.refs.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>';
+                    _likeNo = '<span class="badge js-amount js-dislike">' + data.refs.snippets[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + _host + '/followup/unlike/fid/' + data.refs.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
 
@@ -300,21 +265,17 @@
                     _gfxwho_overlay = snippet.typ !== 'g' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+snippet.typ+'"> </div>' : '';
                     _hasTypOverlay = snippet.typ !== 'g' ? 'has-typ-overlay' : '';
 
-                    _html += '<div class="timeline-box openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.refs.snippets[i].fid + '">' +
-                            ' <div class="content clearfix '+_hasTypOverlay+'">' +
+                    _html += '<div class="followup-timeline-box js-timeline-box js-openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.refs.snippets[i].fid + '">' +
+                            ' <div class="well well-bordered followup-well followup-well-link '+_hasTypOverlay+'">' +
                             _edgeLeft + _gfxwho_overlay +
                              ' <div class="followup-gfx-who-wrapper"><img class="gfx_who_thumb" src="'+data.mediafolder+snippet.gfx_who+'" /></div>' +
                             '     ' + data.refs.snippets[i].expl + '' +
-                            '<div class="clearleft">'+_likeYes + _likeNo +'</div>' +
+                            '<div class="offset-bottom-small">'+_likeYes + _likeNo +'</div>' +
                             ' </div>' +
                             _link +
                             '</div>';
-
-
                 }
-
             }
-
             return _html;
         }
 
@@ -331,54 +292,73 @@
              * Snippets
              */
             for (var i in data.doc.fowups) {
+                var _likeYes = '<span class="badge js-amount js-like">' + data.doc.fowups[i].lkyea + '</span> <a class="link-alt link-unstyled js-voting js-like" href="' + baseUrl + '/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>';
+                var _likeNo = '<span class="badge js-amount js-dislike">' + data.doc.fowups[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + baseUrl + '/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
 
-                var _likeYes = '<a class="voting like" href="http://dev.dbjr/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lkyea + ')</span><span class="thumb-up"></span></a>';
-                var _likeNo = '<a class="voting dislike" href="http://dev.dbjr/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="amount">(' + data.doc.fowups[i].lknay + ')</span><span class="thumb-down"></span></a>';
                 _activeSnippet = typeof params.fid != "undefined"  && data.doc.fowups[i].fid == params.fid ? true : false;
                 _activeSnippetClass = _activeSnippet ? 'active' : '';
                 _activeDocClass = typeof params.ffid != "undefined"  && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
+
                 if (_activeSnippet) {
-                    _show_in_timeline_link = '<a class="btn overlayclose" href="'+data.doc.fowups[i].show_in_timeline_link+'">Zurück zur Zeitleiste</a>';
+                    _show_in_timeline_link = '<a class="btn btn-default" data-dismiss="modal" href="'+data.doc.fowups[i].show_in_timeline_link+'">Back to timeline</a>';
                 } else {
-                    _show_in_timeline_link = '<a class="btn" href="'+data.doc.fowups[i].show_in_timeline_link+'">Diesem Pfad folgen.</a>';
+                    _show_in_timeline_link = '<a class="btn btn-default" href="'+data.doc.fowups[i].show_in_timeline_link+'">Follow path</a>';
 
                 }
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ+'"> </div>' : '';
 
-                _snippets += '<div class="clearfix snippet ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
+                _snippets += '<div class="well well-simple well-simple-light ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
                         _edgeRight +
-                        '<div class="span6">' + data.doc.fowups[i].expl + '</div>' +
-                        '<div class="likeyes_likeno">'+_likeYes + _likeNo + '</div>' +
+                        data.doc.fowups[i].expl +
+                        '<span class="offset-right">' +
+                        _likeYes + ' ' +
+                        _likeNo +
+                        '</span>' +
                         _show_in_timeline_link +
                         '</div>';
             }
-
 
             /**
              *
              * doc + Snippets
              *
              */
-
             var when = data.doc.show_no_day === 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
-            var _content = '<div class="overlayclose overlayclosebutton">&times;</div><div class="overlaycontent">' +
-                    '<div class="">' +
-                    '<h1>' + data.doc.titl + '</h1>' +
-                    '<div class="docs ' + _activeDocClass + '">' +
-                    '<p>' + data.doc.who + '</p>' +
-                    '<p>' + when + '</p>' +
-                    '<a class="" target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '">' + data.doc.ref_doc + '</a>' +
-                    '</div>' +
-                    _snippets +
-                    '</div>';
 
-            '</div>';
+            var _content =
+                //'<h2>' + data.doc.titl + '</h2>' +
+                '<div class="well well-accent ' + _activeDocClass + '">' +
+                '<p>' + data.doc.who + '</p>' +
+                '<p class="small">' + when + '</p>' +
+                  '<span class="glyphicon glyphicon-file icon-white icon-offset text-muted"></span>' +
+                '<a target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '" class="link-unstyled link-unstyled-alt">' + data.doc.ref_doc + '</a>' +
+                '</div>' +
+                  '<hr />' +
+                _snippets;
 
-            var _overlay = '<div class="overlaywrapper">' +
-                    _content +
-                    '</div>';
-            _$followup.append(_overlay);
-            $('.overlaywrapper').fadeIn(function() {
+            var _modal = '<div class="modal fade" id="modalFollowup" tabindex="-1" role="dialog" aria-labelledby="modalFollowupLabel" aria-hidden="true">'
+                + '<div class="modal-dialog">'
+                + '<div class="modal-content">'
+                + '<div class="modal-header">'
+                + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+                + '<span aria-hidden="true">&times;</span>'
+                + '</button>'
+                + '<h4 class="modal-title" id="modalFollowupLabel">'
+                + data.doc.titl
+                + '</h4>'
+                + '</div>'
+                + '<div class="modal-body">'
+                + _content
+                + '</div>'
+                + '</div>'
+                + '</div>'
+                + '</div>';
+
+            _$followup.append(_modal);
+
+            $('#modalFollowup').modal();
+
+            /*$('.overlaywrapper').fadeIn(function() {
                 try {
                     var top = $(".overlaycontent .snippet.active").position().top - 30 || 0;
                     $(".overlaycontent").scrollTop(top);
@@ -386,10 +366,8 @@
                 } catch(e) {
 
                 }
-            });
-
+            });*/
         }
-
 
         /**
          * AjaxRequest for Data
@@ -412,35 +390,24 @@
                 },
                 statusCode: {
                     200: function(_json) {
-
                         _callback(_json, 200, obj);
-
                     },
                     400: function(_json) {
-
-
                     },
                     403: function(_json) {
-
-
                     },
                     404: function(_json) {
                         _callback(_json, 404);
-
                     },
                     410: function(_json) {
                         _callback(_json, 410);
-
                     },
                     409: function(_json) {
-
                     },
                     500: function() {
-
                     }
                 }
             });
-
         }
 
         /**
@@ -509,7 +476,6 @@
                     break;
             }
         }
-
     }
 
     FollowUp.EVENTS = {};

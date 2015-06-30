@@ -203,7 +203,8 @@ class FollowupController extends Zend_Controller_Action
                         'relatedCount' => $relatedCount,
                         'relInput' => $relInputs,
                         'relSnippets' => $relSnippets,
-                        'kid' => $kid
+                        'kid' => $kid,
+                        'hasFollowupTimeline' => true,
                     )
                 );
             }
@@ -312,7 +313,8 @@ class FollowupController extends Zend_Controller_Action
                         'snippet' => $currentSnippet,
                         'reltothis_snippets' => $reltothisSnippets,
                         'reltothis_inputs' => $reltothisInputs,
-                        'kid' => $kid
+                        'kid' => $kid,
+                        'hasFollowupTimeline' => true,
                     )
                 );
 
