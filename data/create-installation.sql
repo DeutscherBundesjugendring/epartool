@@ -1050,9 +1050,107 @@ ALTER TABLE `cnslt`
     CHANGE `img_file` `img_file` varchar(64) NULL DEFAULT NULL COMMENT 'File name of the title image.';
 
 
+
+-- Migration 2015-02-06_17-05_DBJR-48.sql
+ALTER TABLE `input_discussion`
+    ADD COLUMN `video_id` varchar(255) NULL DEFAULT NULL,
+    CHANGE `body` `body` text NULL DEFAULT NULL;
+
+INSERT INTO `email_placeholder` (`name`, `description`, `is_global`)
+VALUES
+    ('video_url', 'Link to the video contribution.', 0);
+
+INSERT INTO `email_template_has_email_placeholder` (`email_template_id`, `email_placeholder_id`)
+SELECT
+    `id`,
+    (SELECT `id` FROM `email_placeholder` WHERE `name`='video_url')
+FROM `email_template`
+WHERE `name`='input_discussion_contrib_confirmation_new_user';
+
+INSERT INTO `email_template_has_email_placeholder` (`email_template_id`, `email_placeholder_id`)
+SELECT
+    `id`,
+    (SELECT `id` FROM `email_placeholder` WHERE `name`='video_url')
+FROM `email_template`
+WHERE `name`='input_discussion_contrib_confirmation';
+
+
+
+-- Migration 2015-02-07_23-00_DBJR-396.sql
+INSERT INTO `articles_refnm` (`ref_nm`, `lng`, `desc`, `type`, `scope`)
+VALUES
+    ('article_explanation', 'de', 'Main consultation explanation text', 'b', 'info');
+
+INSERT INTO `articles` (`kid`, `proj`, `desc`, `hid`, `ref_nm`, `artcl`, `sidebar`, `parent_id`)
+SELECT
+    `kid`, `proj`, '', 'n', 'article_explanation', `expl`, '', NULL
+FROM
+    `cnslt`;
+
+ALTER TABLE `cnslt` DROP COLUMN `expl`;
+
+
+
+-- Migration 2015-03-03_16-00_DBJR-92.sql
+CREATE TABLE `help_text` (
+    `id` int unsigned AUTO_INCREMENT,
+    `name` varchar(255),
+    `body` text,
+    PRIMARY KEY (`id`)
+) Engine=InnoDb;
+
+INSERT INTO `help_text` (`name`, `body`)
+VALUES
+    ('help-text-home', 'Sample home page text.'),
+    ('help-text-consultation-info', 'Sample consultation-info page text.'),
+    ('help-text-consultation-question', 'Sample consultation-question page text.'),
+    ('help-text-consultation-input', 'Sample consultation-input page text.'),
+    ('help-text-consultation-voting', 'Sample consultation-voting page text.'),
+    ('help-text-consultation-followup', 'Sample consultation-followup page text.'),
+    ('help-text-login', 'Sample consultation-followup page text.');
+
+
+
+-- Migration 2015-03-24_16-10_DBJR-364.sql
+CREATE TABLE `parameter` (
+    `name` varchar(255) NOT NULL,
+    `proj` char(2),
+    `value` text NULL DEFAULT NULL,
+    PRIMARY KEY (`name`, `proj`),
+    CONSTRAINT `parameter_proj_ibfk` FOREIGN KEY (`proj`) REFERENCES `proj`(`proj`)
+) Engine=InnoDb, COLLATE=utf8_unicode_ci;
+
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.title', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.description', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.motto', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'contact.name', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'contact.email', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'contact.www', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'contact.street', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'contact.town', `proj` FROM `proj`);
+INSERT INTO `parameter` (`name`, `proj`) (SELECT 'contact.zip', `proj` FROM `proj`);
+
+
+-- Migration 2015-03-25_10-50_DBJR-89.sql
+CREATE TABLE `partner` (
+    `id` int unsigned AUTO_INCREMENT,
+    `proj` char(2) NOT NULL,
+    `description` varchar(255) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `link_url` varchar(255),
+    `image` varchar(255),
+    `order` smallint NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `partner_order_idx` (`order`),
+    CONSTRAINT `partner_proj_ibfk` FOREIGN KEY (`proj`) REFERENCES `proj`(`proj`)
+) Engine=InnoDb, COLLATE=utf8_unicode_ci;
+
+
+-- Migration 2015-05-25_20-15_DBJR-510.sql
 ALTER TABLE `cnslt` DROP COLUMN `summ_show`;
 
 
+-- Migration 2015-06-25_15-15_DBJR-89.sql
 DROP TABLE `partner`;
 
 CREATE TABLE `footer` (
@@ -1067,6 +1165,7 @@ INSERT INTO footer (proj) (SELECT proj FROM proj);
 INSERT INTO footer (proj) (SELECT proj FROM proj);
 INSERT INTO footer (proj) (SELECT proj FROM proj);
 INSERT INTO footer (proj) (SELECT proj FROM proj);
+
 
 -- Migration 2015-06-26_13-45_DBJR-209.sql
 DELETE FROM `parameter` WHERE name IN ('contact.street', 'contact.town', 'contact.zip');
