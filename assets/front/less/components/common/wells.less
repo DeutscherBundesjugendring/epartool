@@ -4,7 +4,7 @@
 .well {
     &-title {
         font-size: @font-size-h1;
-        color: inherit;
+        color: @brand-accent;
 
         &-with-bubble {
             text-indent: 5em;
@@ -41,6 +41,10 @@
     &-accent {
         color: #fff;
         background: @brand-accent linear-gradient(to right, darken(@brand-accent, 11%) 0%, lighten(@brand-accent, 5%) 100%);
+
+        .well-title {
+            color: inherit;
+        }
     }
 
     &-fixed-height {

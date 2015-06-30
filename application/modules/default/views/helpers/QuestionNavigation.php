@@ -64,7 +64,7 @@ class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abs
             $urlParams['qid'] = $item->qi;
             $html .= '<a href="'
                 . $this->view->url($urlParams) . '"'
-                . ($for == 'follow-up-box'? ' class="btn btn-default btn-default-alt"'
+                . ($for == 'follow-up-box'? ' class="btn btn-default"'
                     : ' class="question-nav-item" data-qid="' . $item->qi . '"')
                 . '>'
                 // Number

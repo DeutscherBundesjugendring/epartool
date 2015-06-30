@@ -1,0 +1,31 @@
+// Cards
+
+
+.card {
+    &-image {
+        display: block;
+        height: 180px;
+        overflow: hidden;
+        border: 1px solid @gray-light;
+
+        > img {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: @grid-float-breakpoint) {
+        &-title,
+        &-description {
+            overflow: hidden;
+        }
+
+        &-title {
+            height: 6em * @line-height-base - 0.1em;
+            line-height: @line-height-base; // reset heading line height
+        }
+
+        &-description {
+            height: 4em * @line-height-base;
+        }
+    }
+}

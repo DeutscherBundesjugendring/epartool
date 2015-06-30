@@ -43,26 +43,25 @@
                 </div><!-- .row -->
 
                 <?php if (!empty($this->followups)): ?>
-                    <ul class="thumbnails thumbnails-follow-up">
+                    <div class="row">
 
-                        <?php $i = 1; ?>
                         <?php foreach ($this->followups as $followup): ?>
-                            <li class="span2">
-                                <div class="thumbnail">
-                                    <h3 class="thumbnail-title" title="<?=$followup['titl'];?>"><?=$followup['titl'];?></h3>
+                            <div class="col-sm-4">
+
+                                <div class="card text-left offset-bottom-large">
+                                    <h4 class="card-title">
+                                        <?=$followup['titl'];?>
+                                    </h4>
                                     <a
                                         href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
-                                        class="thumbnail-image pull-left"
                                         target="_blank"
+                                        name="<?=$followup['ref_doc'];?>"
+                                        class="card-image offset-bottom-small"
                                         title="<?=$this->translate('View');?>"
-                                        name="<?php echo $followup['ref_doc']?>"
                                     >
-                                        <img
-                                            alt="Vorschau <?php echo $followup['titl'] ?>"
-                                            src="<?php echo $this->mediaCnsltDir . $followup['gfx_who']; ?>"
-                                        />
+                                        <img src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" class="img-responsive" alt="<?=$this->translate('Preview');?>" />
                                     </a>
-                                    <time class="muted">
+                                    <time class="text-muted">
                                         <?php
                                             if ($followup['show_no_day'] === "y") {
                                                 echo strftime("%m/%Y", strtotime($followup['when']));
@@ -70,36 +69,32 @@
                                                 echo strftime("%d.%m.%Y", strtotime($followup['when']));
                                             ?>
                                     </time>
-                                    <p class="thumbnail-author" title="<?=$followup['who'];?>"><?=$followup['who'];?></p>
+                                    <p class="card-description small">
+                                        <?=$followup['who'];?>
+                                    </p>
+                                    <span class="glyphicon glyphicon-menu-right icon-offset text-muted" aria-hidden="true"></span>
                                     <a
-                                        href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
+                                        href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']);?>"
                                         target="_blank"
                                     >
-                                        <i class="icon-angle-right"></i> <?=$this->translate('View')?>
+                                        <?=$this->translate('View');?>
                                     </a>
                                     <?php if ($followup['referenceType'] === 'file'): ?>
-                                        <form
-                                            method="post"
-                                            action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>"
-                                        >
-                                            <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
+                                        <form method="post" action="<?= $this->url(['action' => 'download', 'page' => null]);?>">
+                                            <input type="hidden" name="filename" value="<?=$followup['ref_doc'];?>" />
+                                            <span class="glyphicon glyphicon-file icon-offset text-muted" aria-hidden="true"></span>
                                             <button type="submit" class="btn-link">
-                                                <i class="icon-file"></i> <?=$this->translate('Download')?>
+                                                <?=$this->translate('Download');?>
                                             </button>
                                         </form>
-                                    <?php endif?>
+                                    <?php endif; ?>
 
-                                </div><!-- .thumbnail -->
-                            </li>
-                            <?php if ($i === 4): ?>
-                                </ul>
-                                <hr />
-                                <ul class="thumbnails thumbnails-follow-up">
-                            <?php endif; ?>
-                            <?php $i++; ?>
+                                </div><!-- .card -->
+
+                            </div>
                         <?php endforeach; ?>
 
-                    </ul>
+                    </div><!-- .row -->
                 <?php else: ?>
                     <p class="alert alert-info text-left">
                         <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
@@ -110,11 +105,11 @@
             </div><!-- .well -->
 
             <!-- Followups by contribution -->
-            <div class="well well-bordered well-accent text-center has-sticker">
+            <div class="well well-bordered text-center has-sticker">
 
                 <!-- Sticker -->
                 <div class="sticker sticker-right hidden-print">
-                    <div class="sticker-label sticker-label-dark">
+                    <div class="sticker-label">
                         <?=$this->translate('Reaction');?>
                     </div>
                 </div>
@@ -134,7 +129,7 @@
                 <?=$this->questionNavigation(null, 'follow-up-box');?>
                 <br/>
 
-                <a href="<?=$this->url(['action' => 'tags', 'page' => null]);?>" class="btn btn-default btn-default-alt">
+                <a href="<?=$this->url(['action' => 'tags', 'page' => null]);?>" class="btn btn-default">
                     <span class="glyphicon glyphicon-tag icon-offset icon-vertically-aligned" aria-hidden="true"></span>
                     <?=$this->translate('Sorted by keywords');?>
                 </a>
