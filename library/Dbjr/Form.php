@@ -6,7 +6,7 @@ class Dbjr_Form extends Zend_Form
      * Default display group class
      * @var string
      */
-    protected $_defaultDisplayGroupClass = 'Zend_Form_DisplayGroup';
+    protected $_defaultDisplayGroupClass = 'Dbjr_Form_DisplayGroup';
 
     /**
      * Holds the info about the cancel link

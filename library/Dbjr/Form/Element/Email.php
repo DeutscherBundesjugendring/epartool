@@ -6,7 +6,7 @@ class Dbjr_Form_Element_Email extends Zend_Form_Element_Xhtml
      * Defines default view helper
      * @var string
      */
-    public $helper = 'formEmail';
+    public $helper = 'FormEmail';
 
     /**
      * Load default decorators
