@@ -236,7 +236,7 @@ CREATE TABLE `email_recipient` (
 DROP TABLE IF EXISTS `email_template`;
 CREATE TABLE `email_template` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `type_id` int(10) unsigned NOT NULL,
   `project_code` char(2) NOT NULL,
   `subject` varchar(75) NOT NULL,
