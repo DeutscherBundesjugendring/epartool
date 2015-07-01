@@ -267,10 +267,6 @@
 <?php if (isset($this->hasFollowupTimeline)): ?>
     <script>
         $(document).ready(function() {
-            /**
-             * instance of follow-up created
-             * @type {FollowUp}
-             */
             var followUp = new FollowUp(<?=$this->question['kid'];?>);
         });
     </script>
