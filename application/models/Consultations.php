@@ -260,48 +260,34 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Search for inputs, questions and articles of consultations
+     * Search for texts in inputs, questions and articles of consultations
+     * @param string $needle The searched for string
+     * @return array
      */
     public function search($needle)
     {
-        $result = array();
-
-        if ($needle==='') {
+        $result = [];
+        if ($needle === '') {
             return $result;
         }
 
-        $select = $this->select();
-        $select->from(
-            array('c'=>'cnslt'),
-            array(
-                'cid'=>'kid',
-                'titel'=>'titl',
-                'expl'=>'LOWER(expl)'
-            )
+        $rows = $this->fetchAll(
+            $this
+                ->select()
+                ->from(
+                    ['c'=>'cnslt'],
+                    [
+                        'cid' => 'kid',
+                        'titel' => 'titl'
+                    ]
+                )
+                ->order('ord DESC')
         );
-
-        $select->order('ord DESC');
-        $rows = $this->fetchAll($select);
-        $i = 0;
-
-        foreach ($rows as $consultation) {
-
+        foreach ($rows as $i => $consultation) {
             $result[$i] = $consultation->toArray();
-            // check if the needle is in consultation-explenation
-            if (strpos($consultation->expl, htmlentities($needle))!==false) {
-                $result[$i]['inExpl'] = true;
-            }
-            // search articles
-            $articles = new Model_Articles();
-            $result[$i]['articles'] = $articles->search($needle, (int) $consultation->cid);
-
-            // search questions
-            $questions = new Model_Questions();
-            $result[$i]['questions'] = $questions->search($needle, $consultation->cid);
-            // search questions
-            $inputs = new Model_Inputs();
-            $result[$i]['inputs'] = $inputs->search($needle, $consultation->cid);
-            $i++;
+            $result[$i]['articles'] = (new Model_Articles())->search($needle, (int) $consultation->cid);
+            $result[$i]['questions'] = (new Model_Questions())->search($needle, $consultation->cid);
+            $result[$i]['inputs'] = (new Model_Inputs())->search($needle, $consultation->cid);
         }
 
         return $result;

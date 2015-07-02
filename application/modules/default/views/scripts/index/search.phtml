@@ -31,23 +31,12 @@
                     count($consultation['articles']) > 0
                     || count($consultation['questions']) > 0
                     || count($consultation['inputs']) > 0
-                    || isset($consultation['inExpl']))
-                : ?>
+                ): ?>
                     <h3><?php echo $consultation['titel']?></h3>
 
-                    <?php if (count($consultation['articles']) > 0 || isset($consultation['inExpl'])): ?>
+                    <?php if (count($consultation['articles']) > 0): ?>
                         <h4><?=$this->translate('Information pages')?></h4>
                         <ul>
-                            <?php if (isset($consultation['inExpl'])): ?>
-                                <li>
-                                    <a
-                                        href="<?php echo $this->baseUrl()?>/article/index/kid/<?php echo $consultation['cid']?>"
-                                        title="<?=$this->translate('Overview')?>"
-                                    >
-                                        <?=$this->translate('Overview')?>
-                                    </a>
-                                </li>
-                            <?php endif?>
                             <?php foreach ($consultation['articles'] AS $article): ?>
                                 <li>
                                     <a
