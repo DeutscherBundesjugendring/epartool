@@ -1,8 +1,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2015-07-02 09:10+0100\n"
 "PO-Revision-Date: 2015-07-02 09:10+0100\n"
+=======
+"POT-Creation-Date: 2015-07-02 19:38+0100\n"
+"PO-Revision-Date: 2015-07-02 19:43+0100\n"
+>>>>>>> develop
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -48,6 +53,7 @@ msgstr ""
 
 #: application/modules/default/controllers/VotingController.php:289
 #: application/modules/default/controllers/VotingController.php:342
+<<<<<<< HEAD
 #, fuzzy
 msgid "Contribution not found."
 msgstr "Beitrag aktualisiert."
@@ -62,6 +68,19 @@ msgstr "Es ist ein Fehler aufgetreten"
 #, fuzzy
 msgid "Using of superbutton is not allowed."
 msgstr "Die Auswahl des Superbuttons ist nicht erlaubt."
+=======
+msgid "Contribution not found."
+msgstr ""
+
+#: application/modules/default/controllers/VotingController.php:297
+msgid "An error occured."
+msgstr ""
+
+#: application/modules/default/controllers/VotingController.php:327
+#: application/modules/default/controllers/IndexController.php:87
+msgid "Using of superbutton is not allowed."
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/controllers/VotingController.php:403
 #: application/modules/default/controllers/VotingController.php:459
@@ -179,9 +198,14 @@ msgid "Loading…"
 msgstr "Loading…"
 
 #: application/modules/default/controllers/IndexController.php:86
+<<<<<<< HEAD
 #, fuzzy
 msgid "All age groups"
 msgstr "Alle Altersgruppen"
+=======
+msgid "All age groups"
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/controllers/IndexController.php:152
 #: library/Plugin/Auth/AccessControl.php:47
@@ -210,13 +234,14 @@ msgid "Logout successful!"
 msgstr "Logout erfolgreich!"
 
 #: application/modules/default/controllers/UserController.php:73
+<<<<<<< HEAD
 #, fuzzy
+=======
+>>>>>>> develop
 msgid ""
 "An email for the confirmation of your contributions has been sent to your "
 "email address."
 msgstr ""
-"Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-"
-"Adresse gesendet."
 
 #: application/modules/default/controllers/UserController.php:113
 msgid "Your inputs have been saved."
@@ -356,7 +381,11 @@ msgstr "Infos"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:30
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:99
+<<<<<<< HEAD
 #: application/modules/default/views/scripts/index/search.phtml:64
+=======
+#: application/modules/default/views/scripts/index/search.phtml:53
+>>>>>>> develop
 msgid "Questions"
 msgstr "Fragen"
 
@@ -615,7 +644,11 @@ msgid "Any comments?"
 msgstr "Hier ist noch Platz für Kommentare:"
 
 #: application/modules/default/forms/Register.php:159
+<<<<<<< HEAD
 #, fuzzy, php-format
+=======
+#, php-format
+>>>>>>> develop
 msgid ""
 "The contributions are published under a <a href=\"%s\" target=\"_blank\" "
 "title=\"More about creative commons license\">creative commons license</a>. "
@@ -624,12 +657,6 @@ msgid ""
 "anonymously on this page, this website will be referred to as the source "
 "when re-using contributions."
 msgstr ""
-"Die Beiträge werden unter einer <a href=\"%s\" target=\"_blank\" title="
-"\"Mehr über die Creative-Commons-Lizenz erfahren\">Creative-Commons-Lizenz</"
-"a> veröffentlicht. Das bedeutet, dass eure Beiträge in Zusammenfassungen und "
-"Publikationen zu nicht-kommerziellen Zwecken weiterverwendet werden dürfen. "
-"Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei "
-"Weiterverwendung als Quelle nur diese Website genannt werden."
 
 #: application/modules/default/forms/Register.php:175
 #: application/modules/default/forms/PasswordRecover.php:24
@@ -740,6 +767,11 @@ msgid ""
 " <span class=\"text-muted\">http://www.youtube.com/watch?v=</"
 "span><strong>V75dMMIW2B4</strong>"
 msgstr ""
+<<<<<<< HEAD
+=======
+" <span class=\"text-muted\">http://www.youtube.com/watch?v=</"
+"span><strong>V75dMMIW2B4</strong>"
+>>>>>>> develop
 
 #: application/modules/default/forms/Input/Discussion.php:59
 msgid "Either text or video have to be submitted."
@@ -840,9 +872,14 @@ msgid "Show my contributions to this participation round"
 msgstr "Zeige meine Beiträge zu dieser Beteiligungsrunde"
 
 #: application/modules/default/views/scripts/user/inputlist.phtml:29
+<<<<<<< HEAD
 #, fuzzy
 msgid "You haven't contributed yet."
 msgstr "Das Abonnement wurde beendet."
+=======
+msgid "You haven't contributed yet."
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/user/inputlist.phtml:36
 #: application/modules/default/views/scripts/user/userlist.phtml:45
@@ -862,9 +899,14 @@ msgid "Click to edit"
 msgstr "Klicken zum Bearbeiten"
 
 #: application/modules/default/views/scripts/user/inputlist.phtml:71
+<<<<<<< HEAD
 #, fuzzy
 msgid "No contributions for this question."
 msgstr "von %s Beiträgen zu dieser Frage abgestimmt"
+=======
+msgid "No contributions for this question."
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/user/userlist.phtml:3
 msgid "confirmed"
@@ -1048,9 +1090,14 @@ msgstr "Das möchte ich gerne diskutieren!"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:127
 #: application/modules/default/views/scripts/input/show.phtml:161
+<<<<<<< HEAD
 #, fuzzy
 msgid "There are no contributions on this question."
 msgstr "Zu dieser Frage gibt es keine mit %s verschlagworteten Beiträge."
+=======
+msgid "There are no contributions on this question."
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:136
 #: application/modules/default/views/scripts/input/show.phtml:170
@@ -1086,18 +1133,28 @@ msgid "View"
 msgstr "Ansehen"
 
 #: application/modules/default/views/scripts/followup/index.phtml:62
+<<<<<<< HEAD
 #, fuzzy
 msgid "Preview"
 msgstr "Vorschau Abstimmung"
+=======
+msgid "Preview"
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/followup/index.phtml:87
 msgid "Download"
 msgstr "Download"
 
 #: application/modules/default/views/scripts/followup/index.phtml:101
+<<<<<<< HEAD
 #, fuzzy
 msgid "There are no reactions yet."
 msgstr "Es wurden keine relevanten Ergebnisse für diesen Suchbegriff gefunden."
+=======
+msgid "There are no reactions yet."
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/followup/index.phtml:120
 msgid "Reactions and Feedback on individual contributions"
@@ -1159,6 +1216,7 @@ msgstr "Zurück zur Fragenübersicht"
 #: application/modules/default/views/scripts/input/confirm.phtml:39
 msgid "Sign in with Google"
 msgstr ""
+<<<<<<< HEAD
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:22
 msgid "View all my contributions"
@@ -1168,6 +1226,17 @@ msgstr "Alle meine Beiträge ansehen"
 msgid "View group members"
 msgstr "Gruppenmitglieder ansehen"
 
+=======
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:22
+msgid "View all my contributions"
+msgstr "Alle meine Beiträge ansehen"
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:28
+msgid "View group members"
+msgstr "Gruppenmitglieder ansehen"
+
+>>>>>>> develop
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:35
 msgid "To admin pages"
 msgstr "Zum Adminbereich"
@@ -1246,17 +1315,23 @@ msgid "Decide what is most important!"
 msgstr "Entscheide, was besonders wichtig ist!"
 
 #: application/modules/default/views/scripts/voting/vote.phtml:195
+<<<<<<< HEAD
 #, fuzzy
+=======
+>>>>>>> develop
 msgid ""
 "The superbutton allows you to give certain contributions a higher vote. The "
 "overview shows you what you already marked as \"especially important\". Use "
 "the \"–\" to reset your markings and allow space for more important "
 "contributions."
 msgstr ""
+<<<<<<< HEAD
 "Der Superbutton ermöglicht dir einer begrenzten Anzahl Beiträge ein "
 "stärkeres Gewicht zu verleihen. Diese Übersicht zeigt, was du bereits als "
 "„besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl "
 "wieder rückgängig machen und Platz für wichtigere Beiträge schaffen."
+=======
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/voting/vote.phtml:204
 msgid "Supervotes used:"
@@ -1277,9 +1352,6 @@ msgid ""
 "contributions yet, you can use the access code to get back and proceed with "
 "your votings any time."
 msgstr ""
-"Vielen Dank für die Bestätigung deiner Abstimmung. Falls du noch nicht über "
-"alle Beiträge abgestimmt hast, kannst du mit Hilfe des Zugangscodes "
-"jederzeit zurückkehren und die Abstimmung fortsetzen."
 
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:12
 msgid ""
@@ -1401,9 +1473,6 @@ msgid ""
 "the end results of your group. The person will not receive information about "
 "your decision, but you may contact this person if you wish."
 msgstr ""
-"Die mit der E-Mail-Adresse \"%s\" abgegebenen Stimmen fließen nicht in das "
-"Endergebnis eurer Gruppe ein. Über eure Entscheidung wird die Person nicht "
-"informiert, aber ihr könnt diese Person gerne kontaktieren."
 
 #: application/modules/default/views/scripts/voting/stopvoting.phtml:7
 msgid "Thank you for voting!"
@@ -1494,9 +1563,14 @@ msgid "Contribution Discussion"
 msgstr "Diskussionsbeitrag"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:11
+<<<<<<< HEAD
 #, fuzzy
 msgid "Back to contributions"
 msgstr "Zurück zum Beitragen"
+=======
+msgid "Back to contributions"
+msgstr ""
+>>>>>>> develop
 
 #: application/modules/default/views/scripts/input/discussion.phtml:63
 msgid "This post was hidden by admin."
@@ -1582,24 +1656,19 @@ msgstr "Es wurden keine relevanten Ergebnisse für diesen Suchbegriff gefunden."
 msgid "Search in participation rounds"
 msgstr "Suche in Beteiligungsrunden"
 
-#: application/modules/default/views/scripts/index/search.phtml:39
+#: application/modules/default/views/scripts/index/search.phtml:38
 msgid "Information pages"
 msgstr "Informationsseiten"
 
-#: application/modules/default/views/scripts/index/search.phtml:45
-#: application/modules/default/views/scripts/index/search.phtml:47
-msgid "Overview"
-msgstr "Übersichtsseite"
-
-#: application/modules/default/views/scripts/index/search.phtml:82
+#: application/modules/default/views/scripts/index/search.phtml:71
 msgid "User Contributions"
 msgstr "Beiträge"
 
-#: application/modules/default/views/scripts/index/search.phtml:102
+#: application/modules/default/views/scripts/index/search.phtml:91
 msgid "Search in Follow-Ups"
 msgstr "Suche in Follow-Up"
 
-#: application/modules/default/views/scripts/index/search.phtml:129
+#: application/modules/default/views/scripts/index/search.phtml:118
 msgid "Reactions"
 msgstr "Reaktion"
 

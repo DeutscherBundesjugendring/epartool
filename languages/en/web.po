@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-01-29 09:40+0100\n"
-"PO-Revision-Date: 2015-01-29 09:40+0100\n"
+"POT-Creation-Date: 2015-07-02 19:46+0100\n"
+"PO-Revision-Date: 2015-07-02 19:46+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -18,33 +18,51 @@ msgstr ""
 "X-Poedit-SearchPath-1: library/Plugin\n"
 "X-Poedit-SearchPath-2: application/services/UrlkeyAction\n"
 
-#: application/modules/default/controllers/ArticleController.php:67
-#: application/modules/default/controllers/InputController.php:539
+#: application/modules/default/controllers/ArticleController.php:57
+#: application/modules/default/controllers/InputController.php:551
 msgid "Page not found"
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:41
+#: application/modules/default/controllers/VotingController.php:34
 msgid "This participation round is currently not open for voting."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:90
+#: application/modules/default/controllers/VotingController.php:80
 msgid "It is not possible to vote at the moment."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:96
+#: application/modules/default/controllers/VotingController.php:86
 msgid "The Voting is finished. You can check the results below."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:166
-#: application/modules/default/controllers/VotingController.php:170
-#: application/modules/default/controllers/VotingController.php:174
+#: application/modules/default/controllers/VotingController.php:155
+#: application/modules/default/controllers/VotingController.php:159
+#: application/modules/default/controllers/VotingController.php:163
 msgid "Your data are not correct. Please check again."
+msgstr ""
+
+#: application/modules/default/controllers/VotingController.php:276
+msgid "Your rating is out of accepted range."
+msgstr ""
+
+#: application/modules/default/controllers/VotingController.php:289
+#: application/modules/default/controllers/VotingController.php:342
+msgid "Contribution not found."
+msgstr ""
+
+#: application/modules/default/controllers/VotingController.php:297
+msgid "An error occured."
+msgstr ""
+
+#: application/modules/default/controllers/VotingController.php:327
+#: application/modules/default/controllers/IndexController.php:87
+msgid "Using of superbutton is not allowed."
 msgstr ""
 
 #: application/modules/default/controllers/VotingController.php:403
 #: application/modules/default/controllers/VotingController.php:459
 #: application/modules/default/controllers/VotingController.php:545
-#: application/modules/default/controllers/VotingController.php:611
+#: application/modules/default/controllers/VotingController.php:604
 msgid "Such contribution does not exist!"
 msgstr ""
 
@@ -53,76 +71,117 @@ msgid "Something went wrong."
 msgstr ""
 
 #: application/modules/default/controllers/VotingController.php:557
-#: application/modules/default/controllers/VotingController.php:604
+#: application/modules/default/controllers/VotingController.php:597
 msgid "The points are not correct."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:566
+#: application/modules/default/controllers/VotingController.php:563
 msgid "Your vote has been counted!"
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:570
-#: application/modules/default/controllers/VotingController.php:632
+#: application/modules/default/controllers/VotingController.php:566
+#: application/modules/default/controllers/VotingController.php:624
 msgid "Your vote could not be registered. (1)"
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:597
+#: application/modules/default/controllers/VotingController.php:590
 msgid "Clicking the superbutton is not allowed."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:617
+#: application/modules/default/controllers/VotingController.php:610
 msgid "Please choose a question or keyword."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:637
+#: application/modules/default/controllers/VotingController.php:628
 msgid "Your vote has been counted."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:642
+#: application/modules/default/controllers/VotingController.php:633
 msgid ""
 "The Super Button allows you to value a limited number of contributions "
 "higher. Change previous votings and make room for more important "
 "contributions!"
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:666
+#: application/modules/default/controllers/VotingController.php:659
 msgid "User could not be found."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:713
-#: application/modules/default/controllers/VotingController.php:723
-#: application/modules/default/controllers/VotingController.php:788
-#: application/modules/default/controllers/VotingController.php:796
-#: application/modules/default/controllers/VotingController.php:821
+#: application/modules/default/controllers/VotingController.php:706
+#: application/modules/default/controllers/VotingController.php:716
+#: application/modules/default/controllers/VotingController.php:781
+#: application/modules/default/controllers/VotingController.php:789
+#: application/modules/default/controllers/VotingController.php:814
 msgid "The link is not correct."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:738
+#: application/modules/default/controllers/VotingController.php:731
 msgid "Your contributions are now confirmed."
 msgstr ""
 
-#: application/modules/default/controllers/VotingController.php:832
+#: application/modules/default/controllers/VotingController.php:825
 msgid "Voting results are not available yet."
 msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:59
+#: application/modules/default/controllers/IndexController.php:74
 msgid "Weak"
 msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:60
+#: application/modules/default/controllers/IndexController.php:75
 msgid "Normal"
 msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:61
+#: application/modules/default/controllers/IndexController.php:76
 msgid "Medium"
 msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:62
+#: application/modules/default/controllers/IndexController.php:77
 msgid "Strong"
 msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:63
+#: application/modules/default/controllers/IndexController.php:78
 msgid "Very Strong"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:80
+msgid "You are being logged in. Please wait…"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:81
+msgid "Shut back"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:82
+#: application/modules/default/views/scripts/input/createForm.phtml:34
+msgid "Click here to explain contribution"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:83
+#: application/modules/default/views/scripts/input/show.phtml:124
+msgid "supporters"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:84
+msgid "Something went wrong"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:85
+#: application/modules/default/views/scripts/followup/show.phtml:131
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:92
+msgid "Loading…"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:86
+msgid "All age groups"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:152
+#: library/Plugin/Auth/AccessControl.php:47
+msgid "Login successful!"
+msgstr ""
+
+#: application/modules/default/controllers/IndexController.php:159
+msgid "Only users who submitted a contribution can log in."
 msgstr ""
 
 #: application/modules/default/controllers/FollowupController.php:32
@@ -134,7 +193,7 @@ msgstr ""
 msgid "No consultation provided!"
 msgstr ""
 
-#: application/modules/default/controllers/FollowupController.php:533
+#: application/modules/default/controllers/FollowupController.php:535
 msgid "File does not exist."
 msgstr ""
 
@@ -142,47 +201,47 @@ msgstr ""
 msgid "Logout successful!"
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:66
+#: application/modules/default/controllers/UserController.php:73
 msgid ""
-"An email for the confimation of your contributions has been sent to your "
+"An email for the confirmation of your contributions has been sent to your "
 "email address."
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:99
+#: application/modules/default/controllers/UserController.php:113
 msgid "Your inputs have been saved."
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:109
-#: application/modules/default/controllers/UserController.php:147
-#: application/modules/default/controllers/InputController.php:569
-#: application/modules/default/controllers/InputController.php:689
+#: application/modules/default/controllers/UserController.php:127
+#: application/modules/default/controllers/UserController.php:165
+#: application/modules/default/controllers/InputController.php:581
+#: application/modules/default/controllers/InputController.php:706
 msgid "Please check your data!"
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:129
-#: application/modules/default/controllers/UserController.php:162
+#: application/modules/default/controllers/UserController.php:147
+#: application/modules/default/controllers/UserController.php:180
 msgid "Please log in first"
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:141
+#: application/modules/default/controllers/UserController.php:159
 msgid ""
 "An e-mail that allows you to reset your password was sent to the provided "
 "address."
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:143
+#: application/modules/default/controllers/UserController.php:161
 msgid "Password reset failed!"
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:232
+#: application/modules/default/controllers/UserController.php:250
 msgid "The voting participant was confirmed."
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:235
+#: application/modules/default/controllers/UserController.php:253
 msgid "The voting participant was denied."
 msgstr ""
 
-#: application/modules/default/controllers/UserController.php:240
+#: application/modules/default/controllers/UserController.php:258
 msgid "The voting participant was deleted."
 msgstr ""
 
@@ -225,118 +284,116 @@ msgid ""
 "of %s minutes has exceeded."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:419
+#: application/modules/default/controllers/InputController.php:422
 msgid "There is no input to be confirmed."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:445
+#: application/modules/default/controllers/InputController.php:433
+msgid "Please finish contributing before logging in."
+msgstr ""
+
+#: application/modules/default/controllers/InputController.php:457
 msgid "It is not allowed to confirm inputs once the input phase is over."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:453
+#: application/modules/default/controllers/InputController.php:465
 msgid "Thank you! Your inputs have been confirmed!"
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:462
-#: application/modules/default/controllers/InputController.php:491
+#: application/modules/default/controllers/InputController.php:474
+#: application/modules/default/controllers/InputController.php:503
 msgid "This confirmation link is invalid!"
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:480
+#: application/modules/default/controllers/InputController.php:492
 msgid "It is not allowed to reject inputs once the input phase is over."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:489
+#: application/modules/default/controllers/InputController.php:501
 msgid "The contributions have already been marked as refused!"
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:551
+#: application/modules/default/controllers/InputController.php:563
 msgid "Contribution updated."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:554
+#: application/modules/default/controllers/InputController.php:566
 msgid "Something went wrong: contribution could not be updated."
 msgstr ""
 
-#: application/modules/default/controllers/InputController.php:580
+#: application/modules/default/controllers/InputController.php:592
 msgid ""
 "Sorry, the contribution phase for this consultation round is already over. "
 "You may only change your contributions within that period."
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:25
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:76
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:90
 msgid "Info"
 msgstr "Info"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:30
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:81
-#: application/modules/default/views/scripts/index/search.phtml:64
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:99
+#: application/modules/default/views/scripts/index/search.phtml:53
 msgid "Questions"
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:35
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:88
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:107
-#: application/modules/default/views/scripts/input/show.phtml:53
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:113
+#: application/modules/default/views/scripts/input/show.phtml:48
 msgid "Contributions"
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:40
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:128
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:147
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:153
 #: application/modules/default/views/scripts/voting/overview.phtml:5
 msgid "Voting"
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:45
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:168
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:174
-#: application/modules/default/views/scripts/followup/show.phtml:19
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:20
-#: application/modules/default/views/scripts/followup/index.phtml:19
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:189
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:197
+#: application/modules/default/views/scripts/followup/show.phtml:5
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:5
+#: application/modules/default/views/scripts/followup/index.phtml:20
 msgid "Reactions & Impact"
 msgstr ""
 
-#: application/modules/default/views/helpers/SecondNavigation.php:45
+#: application/modules/default/views/helpers/SecondNavigation.php:46
 msgid "after Voting has ended"
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:53
-#: application/modules/default/views/helpers/SecondNavigation.php:62
+#: application/modules/default/views/helpers/SecondNavigation.php:60
 #: application/modules/default/views/helpers/Teaser.php:37
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:28
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:41
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:94
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:113
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:134
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:153
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:120
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:129
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:160
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:169
 msgid "from"
 msgstr ""
 
 #: application/modules/default/views/helpers/SecondNavigation.php:56
-#: application/modules/default/views/helpers/SecondNavigation.php:65
+#: application/modules/default/views/helpers/SecondNavigation.php:63
 #: application/modules/default/views/helpers/Teaser.php:27
 #: application/modules/default/views/helpers/Teaser.php:39
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:30
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:43
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:97
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:116
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:137
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:156
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:122
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:131
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:162
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:171
 msgid "until"
 msgstr ""
 
-#: application/modules/default/views/helpers/SecondNavigation.php:102
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:27
+#: application/modules/default/views/helpers/SecondNavigation.php:111
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:118
 msgid "Participate now!"
 msgstr ""
 
-#: application/modules/default/views/helpers/SecondNavigation.php:104
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:40
-#: application/modules/default/views/scripts/voting/vote.phtml:139
-#: application/modules/default/views/scripts/voting/overview.phtml:38
-#: application/modules/default/views/scripts/voting/index.phtml:27
+#: application/modules/default/views/helpers/SecondNavigation.php:113
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:158
+#: application/modules/default/views/scripts/voting/vote.phtml:79
+#: application/modules/default/views/scripts/voting/overview.phtml:50
+#: application/modules/default/views/scripts/voting/index.phtml:34
 msgid "Vote now!"
 msgstr ""
 
@@ -352,58 +409,37 @@ msgstr ""
 msgid "Contributions sorted by keywords"
 msgstr ""
 
-#: application/modules/default/views/helpers/RibbonImage.php:17
-#: application/modules/default/views/helpers/RibbonImage.php:32
-#: application/modules/default/views/scripts/input/createForm.phtml:8
+#: application/modules/default/views/helpers/RibbonImage.php:16
+#: application/modules/default/views/helpers/RibbonImage.php:28
+#: application/modules/default/views/scripts/input/createForm.phtml:11
 msgid "Participate"
 msgstr ""
 
-#: application/modules/default/views/helpers/RibbonImage.php:22
-#: application/modules/default/views/helpers/RibbonImage.php:37
+#: application/modules/default/views/helpers/RibbonImage.php:20
+#: application/modules/default/views/helpers/RibbonImage.php:32
 msgid "only today"
 msgstr ""
 
-#: application/modules/default/views/helpers/RibbonImage.php:27
+#: application/modules/default/views/helpers/RibbonImage.php:24
 msgid "Voting coming up"
 msgstr ""
 
-#: application/modules/default/views/helpers/RibbonImage.php:42
+#: application/modules/default/views/helpers/RibbonImage.php:36
 msgid "Results"
 msgstr ""
 
-#: application/modules/default/views/helpers/RibbonImage.php:47
-#: application/modules/default/views/scripts/followup/index.phtml:26
-#: application/modules/default/views/scripts/followup/index.phtml:88
+#: application/modules/default/views/helpers/RibbonImage.php:40
+#: application/modules/default/views/scripts/followup/index.phtml:33
+#: application/modules/default/views/scripts/followup/index.phtml:113
 msgid "Reaction"
 msgstr ""
 
-#: application/modules/default/views/helpers/FollowupLink.php:28
+#: application/modules/default/views/helpers/FollowupLink.php:31
 msgid "View reactions"
 msgstr ""
 
-#: application/modules/default/views/helpers/FollowupLink.php:30
+#: application/modules/default/views/helpers/FollowupLink.php:37
 msgid "There are currently no reactions to this contribution."
-msgstr ""
-
-#: application/modules/default/views/helpers/UserBox.php:17
-#, php-format
-msgid "Logged in as %s with"
-msgstr ""
-
-#: application/modules/default/views/helpers/UserBox.php:23
-msgid "View all my contributions"
-msgstr ""
-
-#: application/modules/default/views/helpers/UserBox.php:24
-msgid "View group members"
-msgstr ""
-
-#: application/modules/default/views/helpers/UserBox.php:26
-msgid "To admin pages"
-msgstr ""
-
-#: application/modules/default/views/helpers/UserBox.php:28
-msgid "Logout"
 msgstr ""
 
 #: application/modules/default/views/helpers/Teaser.php:24
@@ -434,24 +470,14 @@ msgstr ""
 msgid "Looking for other consultations? View all"
 msgstr ""
 
-#: application/modules/default/views/helpers/ArticleNavigation.php:56
-#: application/modules/default/views/helpers/ArticleNavigation.php:76
+#: application/modules/default/views/helpers/ArticleNavigation.php:54
+#: application/modules/default/views/helpers/ArticleNavigation.php:82
 msgid "Page"
 msgstr ""
 
-#: application/modules/default/views/helpers/Login.php:18
-#: application/modules/default/forms/Login.php:29
-msgid "Login"
-msgstr ""
-
-#: application/modules/default/views/helpers/Login.php:23
-#: application/modules/default/views/scripts/user/passwordrecover.phtml:5
-msgid "Forgot password?"
-msgstr ""
-
 #: application/modules/default/forms/UnsubscribeNotification.php:20
-#: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:10
-#: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:4
+#: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:12
+#: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:3
 msgid "Unsubscribe"
 msgstr ""
 
@@ -459,16 +485,16 @@ msgstr ""
 msgid "Subscribe thread"
 msgstr ""
 
-#: application/modules/default/forms/SubscribeNotification.php:45
+#: application/modules/default/forms/SubscribeNotification.php:43
 msgid "Email"
 msgstr ""
 
 #: application/modules/default/forms/Register.php:19
 #: application/modules/default/forms/PasswordRecover.php:13
 #: application/modules/default/forms/PasswordRecover.php:15
-#: application/modules/default/forms/Login.php:14
-#: application/modules/default/forms/Voting/Authentification.php:14
-#: application/modules/default/forms/Voting/Authentification.php:16
+#: application/modules/default/forms/Login.php:13
+#: application/modules/default/forms/Voting/Authentification.php:15
+#: application/modules/default/forms/Voting/Authentification.php:17
 msgid "Email Address"
 msgstr ""
 
@@ -494,97 +520,103 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:65
+#: application/modules/default/forms/Register.php:64
 msgid "Please describe origin of your contributions:"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:68
+#: application/modules/default/forms/Register.php:67
 msgid "Results from a meeting or project related to the topic"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:69
+#: application/modules/default/forms/Register.php:68
 msgid "Compiled by our group (e.g. in a workshop or a group session)"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:70
+#: application/modules/default/forms/Register.php:69
 msgid "Position paper or agreement in our group/organisation"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:71
+#: application/modules/default/forms/Register.php:70
 msgid "Other:"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:91
+#: application/modules/default/forms/Register.php:89
 msgid "How many individuals were involved?"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:98
+#: application/modules/default/forms/Register.php:95
 msgid "Group name"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:105
+#: application/modules/default/forms/Register.php:101
 msgid "Contact person"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:114
+#: application/modules/default/forms/Register.php:109
 msgid "Age"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:118
-#: application/modules/default/forms/Register.php:119
-#: application/modules/default/forms/Register.php:120
+#: application/modules/default/forms/Register.php:112
+#: application/modules/default/forms/Register.php:113
+#: application/modules/default/forms/Register.php:114
 #, php-format
 msgid "up to %s years"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:121
+#: application/modules/default/forms/Register.php:115
 msgid "all age groups"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:122
+#: application/modules/default/forms/Register.php:116
 msgid "no information"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:129
+#: application/modules/default/forms/Register.php:123
 msgid "State"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:136
+#: application/modules/default/forms/Register.php:129
 msgid "I want to get informed about outcomes of the consultation round."
 msgstr ""
 
-#: application/modules/default/forms/Register.php:143
+#: application/modules/default/forms/Register.php:136
 msgid "I would like to subscribe to the newsletter."
 msgstr ""
 
-#: application/modules/default/forms/Register.php:150
+#: application/modules/default/forms/Register.php:143
 msgid "Any comments?"
 msgstr ""
 
-#: application/modules/default/forms/Register.php:167
+#: application/modules/default/forms/Register.php:159
 #, php-format
 msgid ""
 "The contributions are published under a <a href=\"%s\" target=\"_blank\" "
-"title=\"Mehr über die Creative-Commons-Lizenz erfahren\">creative commons "
-"license</a>. This means that your contribution may be re-used in summaries "
-"and publications for non-commercial use. As all contributions are published "
+"title=\"More about creative commons license\">creative commons license</a>. "
+"This means that your contribution may be re-used in summaries and "
+"publications for non-commercial use. As all contributions are published "
 "anonymously on this page, this website will be referred to as the source "
 "when re-using contributions."
 msgstr ""
 
-#: application/modules/default/forms/Register.php:183
-#: application/modules/default/forms/PasswordRecover.php:23
-#: application/modules/default/forms/Input/Discussion.php:34
+#: application/modules/default/forms/Register.php:175
+#: application/modules/default/forms/PasswordRecover.php:24
+#: application/modules/default/forms/Input/Discussion.php:44
 msgid "Send"
 msgstr ""
 
-#: application/modules/default/forms/Login.php:22
+#: application/modules/default/forms/Login.php:21
 msgid "Password"
 msgstr ""
 
-#: application/modules/default/forms/UrlkeyAction/ConfirmInputDiscussionContribution.php:10
-#: application/modules/default/forms/UrlkeyAction/ConfirmNotification.php:10
-#: application/modules/default/views/scripts/user/userlist.phtml:76
+#: application/modules/default/forms/Login.php:28
+#: application/modules/default/views/scripts/_helpers/login.phtml:3
+#: application/modules/default/views/scripts/_helpers/login.phtml:9
+msgid "Login"
+msgstr ""
+
+#: application/modules/default/forms/UrlkeyAction/ConfirmInputDiscussionContribution.php:12
+#: application/modules/default/forms/UrlkeyAction/ConfirmNotification.php:12
+#: application/modules/default/views/scripts/user/userlist.phtml:100
 msgid "Confirm"
 msgstr ""
 
@@ -605,19 +637,19 @@ msgstr ""
 msgid "Confirm new password"
 msgstr ""
 
-#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:42
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:44
 msgid "Save new password"
 msgstr ""
 
-#: application/modules/default/forms/Voting/Authentification.php:23
+#: application/modules/default/forms/Voting/Authentification.php:26
 msgid "Access code"
 msgstr ""
 
-#: application/modules/default/forms/Voting/Authentification.php:25
+#: application/modules/default/forms/Voting/Authentification.php:28
 msgid "Your access code"
 msgstr ""
 
-#: application/modules/default/forms/Voting/Authentification.php:33
+#: application/modules/default/forms/Voting/Authentification.php:39
 msgid "Start"
 msgstr ""
 
@@ -630,43 +662,65 @@ msgid "Save and proceed"
 msgstr ""
 
 #: application/modules/default/forms/Input/Create.php:35
-#: application/modules/default/views/scripts/voting/vote.phtml:84
-#: application/modules/default/views/scripts/voting/vote.phtml:202
-#: application/modules/default/views/scripts/voting/overview.phtml:71
+#: application/modules/default/views/scripts/voting/vote.phtml:33
+#: application/modules/default/views/scripts/voting/vote.phtml:159
+#: application/modules/default/views/scripts/voting/overview.phtml:89
 msgid "Finish"
 msgstr ""
 
 #: application/modules/default/forms/Input/Create.php:74
-#: application/modules/default/forms/Input/Edit.php:17
+#: application/modules/default/forms/Input/Edit.php:13
 #, php-format
 msgid "Here you can type in your contribution (up to %s characters)."
 msgstr ""
 
 #: application/modules/default/forms/Input/Create.php:93
-#: application/modules/default/forms/Input/Edit.php:32
+#: application/modules/default/forms/Input/Edit.php:27
 #, php-format
 msgid ""
 "Here you explain your contribution more in depth, e.g. with examples (up to "
 "%s characters)."
 msgstr ""
 
-#: application/modules/default/forms/Input/Discussion.php:12
+#: application/modules/default/forms/Input/Discussion.php:11
 msgid "Your discussion post"
 msgstr ""
 
-#: application/modules/default/forms/Input/Discussion.php:23
+#: application/modules/default/forms/Input/Discussion.php:20
 msgid "Your email"
 msgstr ""
 
-#: application/modules/default/forms/Input/Edit.php:21
+#: application/modules/default/forms/Input/Discussion.php:27
+msgid "e.g."
+msgstr ""
+
+#: application/modules/default/forms/Input/Discussion.php:28
+msgid "Example:"
+msgstr ""
+
+#: application/modules/default/forms/Input/Discussion.php:31
+msgid "YouTube video ID"
+msgstr ""
+
+#: application/modules/default/forms/Input/Discussion.php:35
+msgid ""
+" <span class=\"text-muted\">http://www.youtube.com/watch?v=</"
+"span><strong>V75dMMIW2B4</strong>"
+msgstr ""
+
+#: application/modules/default/forms/Input/Discussion.php:59
+msgid "Either text or video have to be submitted."
+msgstr ""
+
+#: application/modules/default/forms/Input/Edit.php:17
 msgid "Contribution"
 msgstr ""
 
-#: application/modules/default/forms/Input/Edit.php:34
+#: application/modules/default/forms/Input/Edit.php:29
 msgid "Explanation"
 msgstr ""
 
-#: application/modules/default/forms/Input/Edit.php:44
+#: application/modules/default/forms/Input/Edit.php:39
 msgid "Save"
 msgstr ""
 
@@ -690,10 +744,6 @@ msgstr ""
 msgid "Please insert password!"
 msgstr ""
 
-#: library/Plugin/Auth/AccessControl.php:47
-msgid "Login successful!"
-msgstr ""
-
 #: library/Plugin/Auth/AccessControl.php:51
 msgid "Login failed!"
 msgstr ""
@@ -710,11 +760,11 @@ msgstr ""
 msgid "Your subscription was canceled."
 msgstr ""
 
-#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:41
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:42
 msgid "Your discussion post was confirmed."
 msgstr ""
 
-#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:49
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:50
 #: application/services/UrlkeyAction/ConfirmNotification.php:42
 #: application/services/UrlkeyAction/ResetPassword.php:45
 msgid "Form invalid."
@@ -728,6 +778,11 @@ msgstr ""
 msgid "Your password was set."
 msgstr ""
 
+#: application/modules/default/views/scripts/user/passwordrecover.phtml:5
+#: application/modules/default/views/scripts/_helpers/login.phtml:56
+msgid "Forgot password?"
+msgstr ""
+
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
 msgid ""
 "You can reset your password by entering your mail address here. In a few "
@@ -739,34 +794,38 @@ msgstr ""
 msgid "All my contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:8
+#: application/modules/default/views/scripts/user/inputlist.phtml:9
 msgid "There are contributions in the following participation rounds:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:15
-#: application/modules/default/views/scripts/user/userlist.phtml:25
+#: application/modules/default/views/scripts/user/inputlist.phtml:18
+#: application/modules/default/views/scripts/user/userlist.phtml:33
 msgid "Show my contributions to this participation round"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:24
-#: application/modules/default/views/scripts/user/userlist.phtml:36
+#: application/modules/default/views/scripts/user/inputlist.phtml:29
+msgid "You haven't contributed yet."
+msgstr ""
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:36
+#: application/modules/default/views/scripts/user/userlist.phtml:45
 msgid "Consultation round:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:28
+#: application/modules/default/views/scripts/user/inputlist.phtml:44
 msgid "Question:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:43
+#: application/modules/default/views/scripts/user/inputlist.phtml:51
 msgid "Contributions:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:56
+#: application/modules/default/views/scripts/user/inputlist.phtml:57
 msgid "Click to edit"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:67
-msgid "No contributions"
+#: application/modules/default/views/scripts/user/inputlist.phtml:71
+msgid "No contributions for this question."
 msgstr ""
 
 #: application/modules/default/views/scripts/user/userlist.phtml:3
@@ -781,275 +840,247 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:12
+#: application/modules/default/views/scripts/user/userlist.phtml:13
 msgid "Participating group members"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:14
+#: application/modules/default/views/scripts/user/userlist.phtml:18
 msgid "No group members were found in any of the consultation rounds."
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:18
+#: application/modules/default/views/scripts/user/userlist.phtml:24
 msgid "There are group members in the following consultation rounds:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:38
+#: application/modules/default/views/scripts/user/userlist.phtml:52
 msgid "Group:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:39
+#: application/modules/default/views/scripts/user/userlist.phtml:58
 msgid "Contributions to vote:"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:45
+#: application/modules/default/views/scripts/user/userlist.phtml:67
 msgid "Voters"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:46
+#: application/modules/default/views/scripts/user/userlist.phtml:68
 msgid "Group member"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:47
+#: application/modules/default/views/scripts/user/userlist.phtml:69
 msgid "Still to vote"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:48
+#: application/modules/default/views/scripts/user/userlist.phtml:70
 msgid "Action"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:62
+#: application/modules/default/views/scripts/user/userlist.phtml:86
 msgid "Deny voting participant?"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:64
+#: application/modules/default/views/scripts/user/userlist.phtml:88
 msgid "Deny"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:74
+#: application/modules/default/views/scripts/user/userlist.phtml:98
 msgid "Confirm voting participant?"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:86
+#: application/modules/default/views/scripts/user/userlist.phtml:110
 msgid "Delete voting participant?"
 msgstr ""
 
-#: application/modules/default/views/scripts/user/userlist.phtml:88
+#: application/modules/default/views/scripts/user/userlist.phtml:112
 msgid "Delete"
 msgstr ""
 
-#: application/modules/default/views/scripts/error/error.phtml:11
+#: application/modules/default/views/scripts/error/error.phtml:7
 msgid "Exception:"
 msgstr ""
 
-#: application/modules/default/views/scripts/error/error.phtml:12
+#: application/modules/default/views/scripts/error/error.phtml:8
 msgid "Message:"
 msgstr ""
 
-#: application/modules/default/views/scripts/error/error.phtml:13
+#: application/modules/default/views/scripts/error/error.phtml:9
 msgid "Stack trace:"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/header.phtml:12
-#: application/modules/default/views/scripts/_partials/heroUnit.phtml:34
-msgid "Home"
+#: application/modules/default/views/scripts/_partials/pagination.phtml:30
+msgid "current"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/header.phtml:28
-msgid "Menu"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/header.phtml:32
-msgid "What"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/header.phtml:33
-msgid "We"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/header.phtml:35
-#: application/modules/default/views/scripts/_partials/header.phtml:39
-msgid "With You"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/header.phtml:36
-#: application/modules/default/views/scripts/_partials/header.phtml:38
-msgid "Do"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/header.phtml:50
-msgid "Search…"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:43
+#: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:32
 msgid "Follow this path"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/topLink.phtml:3
-msgid "up"
+#: application/modules/default/views/scripts/_partials/pageLinks.phtml:8
+#: application/modules/default/views/scripts/_helpers/login.phtml:12
+msgid "Help"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:186
-msgid "Show more consultations"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/heroUnit.phtml:9
-#: application/modules/default/views/scripts/_partials/heroUnit.phtml:50
-msgid "Participation"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/heroUnit.phtml:37
-msgid "Share"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/footer.phtml:24
-msgid "Creative Commons license 4.0: attribution, non-commercial"
-msgstr ""
-
-#: application/modules/default/views/scripts/_partials/printLink.phtml:2
+#: application/modules/default/views/scripts/_partials/pageLinks.phtml:14
 msgid "Print page"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:33
-#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:50
-#: application/modules/default/views/scripts/voting/vote.phtml:30
+#: application/modules/default/views/scripts/_partials/pageLinks.phtml:23
+#: application/modules/default/views/scripts/consultation/index.phtml:11
+#: application/modules/default/views/scripts/index/index.phtml:15
+msgid "up"
+msgstr ""
+
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:40
+#: application/modules/default/views/scripts/voting/vote.phtml:208
 msgid "of"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:56
-msgid "show"
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:48
+msgid "Open voting basket"
 msgstr ""
 
-#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:82
-#: application/modules/default/views/scripts/_partials/voting/votingPreviewButtons.phtml:37
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:79
+#: application/modules/default/views/scripts/_partials/voting/votingPreviewButtons.phtml:43
 msgid "No opinion"
 msgstr ""
 
-#: application/modules/default/views/scripts/consultation/index.phtml:3
+#: application/modules/default/views/scripts/consultation/index.phtml:2
 msgid "Overview of all consultations"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/show.phtml:11
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:11
+#: application/modules/default/views/scripts/followup/show.phtml:16
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:16
 msgid "Back to overview of Reactions & Impact"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/show.phtml:15
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:15
+#: application/modules/default/views/scripts/followup/show.phtml:23
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:23
 msgid ""
 "Follow the Reactions to your contribution here. Click on the arrows for the "
 "next steps."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/show.phtml:26
+#: application/modules/default/views/scripts/followup/show.phtml:42
 msgid "Back to overview of contributions sorted by questions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/show.phtml:42
 #: application/modules/default/views/scripts/followup/show.phtml:66
+#: application/modules/default/views/scripts/followup/show.phtml:95
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:46
 msgid "Result of voting: X. position"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/show.phtml:99
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:66
-msgid "Loading…"
-msgstr ""
-
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:13
-#: application/modules/default/views/scripts/input/show.phtml:41
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:19
+#: application/modules/default/views/scripts/input/show.phtml:35
 #, php-format
 msgid "Only contributions with the keyword %s are shown."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:17
-#: application/modules/default/views/scripts/input/show.phtml:43
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:21
+#: application/modules/default/views/scripts/input/show.phtml:37
 #, php-format
 msgid "There are no contributions with the keyword %s on this question."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:22
-#: application/modules/default/views/scripts/input/show.phtml:47
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:24
+#: application/modules/default/views/scripts/input/show.phtml:40
 msgid "Show all contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:27
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:32
 msgid "contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:42
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:58
 msgid "written on"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:61
-#: application/modules/default/views/scripts/input/show.phtml:115
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:94
+#: application/modules/default/views/scripts/input/show.phtml:133
 msgid "I agree!"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:69
-#: application/modules/default/views/scripts/input/show.phtml:125
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:111
+#: application/modules/default/views/scripts/input/show.phtml:149
 msgid "I would like to discuss that!"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:85
-#: application/modules/default/views/scripts/input/show.phtml:141
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:127
+#: application/modules/default/views/scripts/input/show.phtml:161
+msgid "There are no contributions on this question."
+msgstr ""
+
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:136
+#: application/modules/default/views/scripts/input/show.phtml:170
 msgid "Newer contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:85
-#: application/modules/default/views/scripts/input/show.phtml:141
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:136
+#: application/modules/default/views/scripts/input/show.phtml:170
 msgid "Older contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:17
+#: application/modules/default/views/scripts/followup/index.phtml:18
 msgid "How it all proceeeded:"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:22
+#: application/modules/default/views/scripts/followup/index.phtml:24
 msgid ""
 "Here you can find out what followed on your contributions, in which "
 "processes and documents they were included, who reacted on them and how, and "
 "whether there are already results to be mentioned."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:27
+#: application/modules/default/views/scripts/followup/index.phtml:40
 msgid "Overview of reactions so far:"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:39
 #: application/modules/default/views/scripts/followup/index.phtml:60
+#: application/modules/default/views/scripts/followup/index.phtml:80
 msgid "View"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:69
+#: application/modules/default/views/scripts/followup/index.phtml:62
+msgid "Preview"
+msgstr ""
+
+#: application/modules/default/views/scripts/followup/index.phtml:87
 msgid "Download"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:89
+#: application/modules/default/views/scripts/followup/index.phtml:101
+msgid "There are no reactions yet."
+msgstr ""
+
+#: application/modules/default/views/scripts/followup/index.phtml:120
 msgid "Reactions and Feedback on individual contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:92
+#: application/modules/default/views/scripts/followup/index.phtml:126
 msgid "Simply click on respective question or switch to keywords."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/index.phtml:97
+#: application/modules/default/views/scripts/followup/index.phtml:134
 msgid "Sorted by keywords"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/tags.phtml:13
-#: application/modules/default/views/scripts/input/index.phtml:9
-#: application/modules/default/views/scripts/input/tags.phtml:9
+#: application/modules/default/views/scripts/followup/tags.phtml:15
+#: application/modules/default/views/scripts/input/index.phtml:10
+#: application/modules/default/views/scripts/input/tags.phtml:10
 msgid "confirmed contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/tags.phtml:15
-#: application/modules/default/views/scripts/input/index.phtml:11
-#: application/modules/default/views/scripts/input/tags.phtml:11
+#: application/modules/default/views/scripts/followup/tags.phtml:19
+#: application/modules/default/views/scripts/input/index.phtml:13
+#: application/modules/default/views/scripts/input/index.phtml:93
+#: application/modules/default/views/scripts/input/tags.phtml:13
 msgid "All contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/tags.phtml:17
-#: application/modules/default/views/scripts/input/index.phtml:13
-#: application/modules/default/views/scripts/input/tags.phtml:14
+#: application/modules/default/views/scripts/followup/tags.phtml:22
+#: application/modules/default/views/scripts/input/index.phtml:15
+#: application/modules/default/views/scripts/input/tags.phtml:15
 msgid ""
 "You want to participate in this participation round? Just click on a "
 "question during the input period, and the input field will appear where you "
@@ -1058,93 +1089,119 @@ msgid ""
 "you can read all other contributions."
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/tags.phtml:23
-#: application/modules/default/views/scripts/input/index.phtml:25
-#: application/modules/default/views/scripts/input/tags.phtml:23
+#: application/modules/default/views/scripts/followup/tags.phtml:28
+#: application/modules/default/views/scripts/input/index.phtml:28
+#: application/modules/default/views/scripts/input/tags.phtml:24
 msgid "Contributions sorted by keywords:"
 msgstr ""
 
-#: application/modules/default/views/scripts/followup/tags.phtml:34
-#: application/modules/default/views/scripts/input/tags.phtml:34
+#: application/modules/default/views/scripts/followup/tags.phtml:40
+#: application/modules/default/views/scripts/input/tags.phtml:36
 msgid "Back to overview of questions"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:44
-msgid "Something went wrong"
+#: application/modules/default/views/scripts/_helpers/login.phtml:33
+#: application/modules/default/views/scripts/_helpers/login.phtml:35
+#: application/modules/default/views/scripts/input/confirm.phtml:37
+#: application/modules/default/views/scripts/input/confirm.phtml:39
+msgid "Sign in with Google"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:67
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:22
+msgid "View all my contributions"
+msgstr ""
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:28
+msgid "View group members"
+msgstr ""
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:35
+msgid "To admin pages"
+msgstr ""
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:43
+msgid "Logout"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:13
 msgid "Voting for"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:74
+#: application/modules/default/views/scripts/voting/vote.phtml:24
 msgid ""
 "There are no more contributions to be voted in this category. Please switch "
 "to another questions or another keyword."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:80
-#: application/modules/default/views/scripts/voting/vote.phtml:197
+#: application/modules/default/views/scripts/voting/vote.phtml:29
+#: application/modules/default/views/scripts/voting/vote.phtml:153
 msgid "Change question or keyword"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:83
-#: application/modules/default/views/scripts/voting/vote.phtml:201
-#: application/modules/default/views/scripts/voting/preview.phtml:17
+#: application/modules/default/views/scripts/voting/vote.phtml:31
+#: application/modules/default/views/scripts/voting/vote.phtml:157
+#: application/modules/default/views/scripts/voting/preview.phtml:18
 msgid "Finish voting"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:89
-#: application/modules/default/views/scripts/voting/overview.phtml:12
-#: application/modules/default/views/scripts/voting/index.phtml:25
+#: application/modules/default/views/scripts/voting/vote.phtml:44
+#: application/modules/default/views/scripts/voting/overview.phtml:15
+#: application/modules/default/views/scripts/voting/index.phtml:30
 msgid "Join now!"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:94
-#: application/modules/default/views/scripts/voting/vote.phtml:112
-msgid "hide"
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/vote.phtml:96
-msgid "Decide what is most important!"
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/vote.phtml:100
-msgid ""
-"The superbutton allows you to give certain contributions a higher vote. The "
-"overview shows you what you already marked as \"especially important\". Use "
-"the „–“ to reset your markings and allow space for more important "
-"contributions."
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/vote.phtml:136
-#: application/modules/default/views/scripts/voting/overview.phtml:35
+#: application/modules/default/views/scripts/voting/vote.phtml:73
+#: application/modules/default/views/scripts/voting/overview.phtml:44
 #, php-format
 msgid "You have voted on %s <br /> out of the total of %s contributions."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:145
+#: application/modules/default/views/scripts/voting/vote.phtml:91
 msgid "Keyword"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:168
+#: application/modules/default/views/scripts/voting/vote.phtml:119
 msgid "Undo"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:175
+#: application/modules/default/views/scripts/voting/vote.phtml:126
 msgid ""
 "How important is this contribution for further political discussions in your "
 "opinion?"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:182
+#: application/modules/default/views/scripts/voting/vote.phtml:135
 msgid "Skip"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/vote.phtml:204
-#: application/modules/default/views/scripts/voting/vote.phtml:205
-#: application/modules/default/views/scripts/voting/overview.phtml:74
+#: application/modules/default/views/scripts/voting/vote.phtml:161
+#: application/modules/default/views/scripts/voting/vote.phtml:163
+#: application/modules/default/views/scripts/voting/overview.phtml:93
 msgid "Preview voting"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:182
+msgid "Close"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:187
+msgid "Decide what is most important!"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:195
+msgid ""
+"The superbutton allows you to give certain contributions a higher vote. The "
+"overview shows you what you already marked as \"especially important\". Use "
+"the \"–\" to reset your markings and allow space for more important "
+"contributions."
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:204
+msgid "Supervotes used:"
+msgstr ""
+
+#: application/modules/default/views/scripts/voting/vote.phtml:225
+msgid "Remove"
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:4
@@ -1153,9 +1210,9 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:6
 msgid ""
-"Thank you for confirming your vote. If you havent voted on all contributions "
-"yet, you can use the access code to get back and proceed with your votings "
-"any time."
+"Thank you for confirming your vote. If you haven't voted on all "
+"contributions yet, you can use the access code to get back and proceed with "
+"your votings any time."
 msgstr ""
 
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:12
@@ -1181,9 +1238,9 @@ msgid ""
 "results. This does not apply to votings you may have made before."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/confirmvoting.phtml:25
-#: application/modules/default/views/scripts/voting/confirmmember.phtml:17
-#: application/modules/default/views/scripts/voting/stopvoting.phtml:18
+#: application/modules/default/views/scripts/voting/confirmvoting.phtml:28
+#: application/modules/default/views/scripts/voting/confirmmember.phtml:18
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:23
 msgid "Back to Home"
 msgstr ""
 
@@ -1195,7 +1252,7 @@ msgstr ""
 msgid "Error, the contribution has not been deleted!"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/overview.phtml:51
+#: application/modules/default/views/scripts/voting/overview.phtml:68
 msgid ""
 "Choose here the question or the keyword according to which the contributions "
 "to be voted will be shown first. You may change question or keyword any "
@@ -1204,19 +1261,19 @@ msgid ""
 "Breaks are possible without any problems."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/overview.phtml:55
+#: application/modules/default/views/scripts/voting/overview.phtml:72
 msgid "Contributions by topic"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/index.phtml:9
+#: application/modules/default/views/scripts/voting/index.phtml:11
 msgid "View voting results"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/index.phtml:17
+#: application/modules/default/views/scripts/voting/index.phtml:19
 msgid "Login for the voting"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/index.phtml:19
+#: application/modules/default/views/scripts/voting/index.phtml:21
 #, php-format
 msgid ""
 "Here you vote on the contributions on topic \"%s\" that are especially "
@@ -1225,7 +1282,7 @@ msgid ""
 "and months."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/index.phtml:29
+#: application/modules/default/views/scripts/voting/index.phtml:36
 msgid ""
 "The Voting is anonymous. We just need your email address to check if you are "
 "allowed to participate in the Voting."
@@ -1249,7 +1306,7 @@ msgstr ""
 #: application/modules/default/views/scripts/voting/confirmmember.phtml:11
 #, php-format
 msgid ""
-"The votings connected to the email address  \"%s\" will not be included in "
+"The votings connected to the email address \"%s\" will not be included in "
 "the end results of your group. The person will not receive information about "
 "your decision, but you may contact this person if you wish."
 msgstr ""
@@ -1258,132 +1315,107 @@ msgstr ""
 msgid "Thank you for voting!"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/stopvoting.phtml:9
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:10
 msgid ""
 "If you haven't finished voting on all contributions, you can login any time "
 "and finish your votings."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/stopvoting.phtml:13
+#: application/modules/default/views/scripts/voting/stopvoting.phtml:16
 #, php-format
 msgid "An email has been sent to %s. Please check your inbox!"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/preview.phtml:13
+#: application/modules/default/views/scripts/voting/preview.phtml:15
 msgid "Continue voting"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/preview.phtml:24
+#: application/modules/default/views/scripts/voting/preview.phtml:26
 #, php-format
 msgid "You have already voted on %s out of %s contributions."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/preview.phtml:27
+#: application/modules/default/views/scripts/voting/preview.phtml:30
 msgid "Overview of your votes"
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/preview.phtml:29
+#: application/modules/default/views/scripts/voting/preview.phtml:32
 msgid ""
 "Here you can see all contributions to be voted and your votes. You can still "
 "change your votes if you like."
 msgstr ""
 
-#: application/modules/default/views/scripts/voting/preview.phtml:59
-#: application/modules/default/views/scripts/voting/preview.phtml:82
-msgid "An error occurred"
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/preview.phtml:62
-#: application/modules/default/views/scripts/voting/preview.phtml:85
-msgid "Please wait…"
-msgstr ""
-
-#: application/modules/default/views/scripts/voting/results.phtml:16
+#: application/modules/default/views/scripts/voting/results.phtml:12
 msgid "Voting results"
 msgstr ""
 
-#: application/modules/default/views/scripts/question/index.phtml:19
+#: application/modules/default/views/scripts/question/index.phtml:16
 msgid "All questions"
 msgstr ""
 
-#: application/modules/default/views/scripts/question/index.phtml:42
+#: application/modules/default/views/scripts/question/index.phtml:41
 msgid "Click here to answer"
 msgstr ""
 
 #: application/modules/default/views/scripts/question/index.phtml:44
-#: application/modules/default/views/scripts/input/index.phtml:74
+#: application/modules/default/views/scripts/input/index.phtml:85
 msgid "Write a contribution"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/show.phtml:63
+#: application/modules/default/views/scripts/input/show.phtml:68
 msgid "Contribution phase has not started yet."
 msgstr ""
 
-#: application/modules/default/views/scripts/input/show.phtml:65
+#: application/modules/default/views/scripts/input/show.phtml:73
 msgid "Contribution phase is over already."
 msgstr ""
 
-#: application/modules/default/views/scripts/input/show.phtml:86
-#: application/modules/default/views/scripts/input/index.phtml:59
+#: application/modules/default/views/scripts/input/show.phtml:97
+#: application/modules/default/views/scripts/input/index.phtml:65
 #, php-format
 msgid "written on %s"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/show.phtml:112
-#: application/modules/default/views/scripts/input/show.phtml:185
-msgid "supporters"
-msgstr ""
-
-#: application/modules/default/views/scripts/input/show.phtml:168
-msgid "shut again"
-msgstr ""
-
-#: application/modules/default/views/scripts/input/show.phtml:170
-#: application/modules/default/views/scripts/input/createForm.phtml:24
-msgid "Click here to explain contribution"
-msgstr ""
-
-#: application/modules/default/views/scripts/input/edit.phtml:11
+#: application/modules/default/views/scripts/input/edit.phtml:12
 msgid "Edit contribution"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/edit.phtml:16
-#: application/modules/default/views/scripts/input/edit.phtml:25
+#: application/modules/default/views/scripts/input/edit.phtml:19
+#: application/modules/default/views/scripts/input/edit.phtml:31
 msgid "Back"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/index.phtml:36
+#: application/modules/default/views/scripts/input/index.phtml:40
 msgid "All tags"
-msgstr ""
-
-#: application/modules/default/views/scripts/input/index.phtml:76
-#, php-format
-msgid "All contributions for question %s"
 msgstr ""
 
 #: application/modules/default/views/scripts/input/discussion.phtml:8
 msgid "Contribution Discussion"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/discussion.phtml:10
-msgid "Back to contribution"
+#: application/modules/default/views/scripts/input/discussion.phtml:11
+msgid "Back to contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/discussion.phtml:43
+#: application/modules/default/views/scripts/input/discussion.phtml:63
 msgid "This post was hidden by admin."
 msgstr ""
 
-#: application/modules/default/views/scripts/input/confirm.phtml:10
+#: application/modules/default/views/scripts/input/discussion.phtml:73
+msgid "Your Comment"
+msgstr ""
+
+#: application/modules/default/views/scripts/input/confirm.phtml:12
 msgid "Finish Contributing"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/confirm.phtml:13
+#: application/modules/default/views/scripts/input/confirm.phtml:16
 msgid ""
 "Please fill in the form in order to confirm your contributions to this "
 "participation round!"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/confirm.phtml:16
+#: application/modules/default/views/scripts/input/confirm.phtml:20
 msgid ""
 "If you want to participate as a representative of a group, please fill in "
 "the registration form, no matter if the corresponding email address is "
@@ -1391,31 +1423,35 @@ msgid ""
 "the registered email address."
 msgstr ""
 
-#: application/modules/default/views/scripts/input/confirm.phtml:19
+#: application/modules/default/views/scripts/input/confirm.phtml:23
 msgid ""
 "If you participated in former participation rounds, and you wish to update "
 "information concerning you or your group in this participation round, please "
 "fill in the data on person/group. Your data will thus be up-to-date."
 msgstr ""
 
-#: application/modules/default/views/scripts/input/createForm.phtml:9
+#: application/modules/default/views/scripts/input/createForm.phtml:16
 msgid "Create new contribution"
 msgstr ""
 
-#: application/modules/default/views/scripts/input/createForm.phtml:40
+#: application/modules/default/views/scripts/input/createForm.phtml:56
 msgid "Click here for another contribution"
 msgstr ""
 
-#: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:4
+#: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:3
 msgid "Reset Password"
 msgstr ""
 
-#: application/modules/default/views/scripts/urlkey-action/confirm-input-discussion-contribution.phtml:4
+#: application/modules/default/views/scripts/urlkey-action/confirm-input-discussion-contribution.phtml:5
 msgid "Confirm contribution"
 msgstr ""
 
-#: application/modules/default/views/scripts/urlkey-action/confirm-notification.phtml:4
+#: application/modules/default/views/scripts/urlkey-action/confirm-notification.phtml:3
 msgid "Confirm subscription"
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:9
+msgid "Show more consultations"
 msgstr ""
 
 #: application/modules/default/views/scripts/index/search.phtml:4
@@ -1435,23 +1471,18 @@ msgstr ""
 msgid "Search in participation rounds"
 msgstr ""
 
-#: application/modules/default/views/scripts/index/search.phtml:39
+#: application/modules/default/views/scripts/index/search.phtml:38
 msgid "Information pages"
 msgstr ""
 
-#: application/modules/default/views/scripts/index/search.phtml:45
-#: application/modules/default/views/scripts/index/search.phtml:47
-msgid "Overview"
-msgstr ""
-
-#: application/modules/default/views/scripts/index/search.phtml:82
+#: application/modules/default/views/scripts/index/search.phtml:71
 msgid "User Contributions"
 msgstr ""
 
-#: application/modules/default/views/scripts/index/search.phtml:102
+#: application/modules/default/views/scripts/index/search.phtml:91
 msgid "Search in Follow-Ups"
 msgstr ""
 
-#: application/modules/default/views/scripts/index/search.phtml:129
+#: application/modules/default/views/scripts/index/search.phtml:118
 msgid "Reactions"
 msgstr ""

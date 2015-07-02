@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-11-13 16:51+0100\n"
-"PO-Revision-Date: 2014-11-21 22:42+0100\n"
+"POT-Creation-Date: 2015-07-02 19:44+0100\n"
+"PO-Revision-Date: 2015-07-02 19:44+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -11,19 +11,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: ../../www\n"
+"X-Poedit-Basepath: ../../assets\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: coffee\n"
+"X-Poedit-SearchPath-0: front/coffee\n"
+"X-Poedit-SearchPath-1: admin/coffee\n"
 
-#: coffee/admin.coffee:173
+#: admin/coffee/main.coffee:199
 msgid "Are you sure?"
 msgstr "Wirklich?"
 
-#: coffee/admin.coffee:174
+#: admin/coffee/main.coffee:200
 msgid "Yes"
 msgstr "Ja"
 
-#: coffee/admin.coffee:175
+#: admin/coffee/main.coffee:201
 msgid "No"
 msgstr "Nein"
 
