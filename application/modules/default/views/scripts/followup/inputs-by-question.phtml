@@ -1,91 +1,144 @@
-<?php echo $this->secondNavigation('follow-up') ?>
+<?=$this->secondNavigation('follow-up');?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->followupNavigation('inputs-by-question', $this->question['qi']) ?>
-        </aside>
+        <div class="sidebar-left">
 
-        <section class="main-content span9">
-            <?php if (isset($this->tag) && !empty($this->tag)): ?>
-                <?php if ($this->numberInputs > 0): ?>
-                    <h3>
-                        <?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>')?>
-                    </h3>
-                <?php else: ?>
-                    <h3>
-                        <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>')?>
-                    </h3>
-                <?php endif; ?>
-                <p>
-                    <a href="<?php echo $this->url(array('tag' => null)); ?>">
-                        <?=$this->translate('Show all contributions')?>
-                    </a>
-                </p>
-            <?php endif; ?>
+            <?=$this->followupNavigation('inputs-by-question', $this->question['qi']);?>
 
-            <small class="muted count"><?php echo $this->numberInputs; ?> <?=$this->translate('contributions')?></small>
+        </div>
+        <div class="content">
 
-            <article class="article">
-                <h1><?php echo $this->question['nr']; ?> <?php echo $this->question['q']; ?></h1>
-                <p><?php echo $this->question['q_xpl']; ?></p>
-            </article>
+            <div class="row">
+                <div class="col-md-10">
+
+                    <?php if (isset($this->tag) && !empty($this->tag)): ?>
+                        <p class="alert alert-info">
+                            <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                            <?php if ($this->numberInputs > 0): ?>
+                                <?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
+                            <?php else: ?>
+                                <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
+                            <?php endif; ?>
+                            <a href="<?=$this->url(['tag' => null]);?>">
+                                <?=$this->translate('Show all contributions');?>
+                            </a>
+                        </p>
+                    <?php endif; ?>
+
+                    <div class="text-muted">
+                        <small>
+                            <?=$this->numberInputs;?>
+                            <?=$this->translate('contributions');?>
+                        </small>
+                    </div>
+
+                    <h1>
+                        <?=$this->question['nr'];?>
+                        <?=$this->question['q'];?>
+                    </h1>
+
+                </div>
+            </div><!-- .row -->
+
+            <div class="offset-bottom-large">
+                <?=$this->question['q_xpl'];?>
+            </div>
 
             <hr/>
 
             <!-- Contributions -->
             <?php if (count($this->paginator)): ?>
                 <?php foreach ($this->paginator as $input): ?>
-                    <a name="input-<?php echo $input['tid']; ?>"></a>
+                    <a name="input-<?=$input['tid'];?>"></a>
+
                     <article class="media">
-                        <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
-                            <?=$this->translate('written on')?>
-                            <?=$this->formatDate($input['when'], Zend_Date::DATE_MEDIUM);?>
-                        </time>
-                        <p class="lead"><?php echo $input['thes'] ?></p>
+                        <header>
+                            <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
+                                <?=$this->translate('written on');?>
+                                <?=$this->formatDate($input['when'], Zend_Date::DATE_MEDIUM);?>
+                            </time>
+                        </header>
 
-                        <p><?php echo $input['expl'] ?></p>
-
-                        <p class="article-actions">
-                            <?php if ($this->consultation->spprt_show == 'y'): ?>
-                                <a
-                                    href="#"
-                                    id="click-support-<?php echo $input['tid']; ?>"
-                                    class="article-action click-support"
-                                    rel="<?php echo $input['tid']; ?>"
-                                >
-                                    <i class="icon-ok-sign"></i>
-                                    <span class="badge" id="badge-<?php echo $input['tid']; ?>">
-                                        (<?php echo $input['spprts']; ?>)
-                                    </span>
-                                    <span class="label"><?=$this->translate('I agree!')?></span>
-                                </a>
-                            <?php endif; ?>
-
-                            <?php if ($this->consultation->is_discussion_active): ?>
-                                <a href="<?=$this->baseUrl() . '/input/discussion/inputId/' . $this->escape($input['tid']);?>" class="article-action">
-                                    <i class="icon-comment icon-orange icon-2x"></i>
-                                    (<?=isset($input['pts']) ? $this->escape($input['pts']) : ''?>)
-                                    <span class="label"><?=$this->translate('I would like to discuss that!')?></span>
-                                </a>
-                            <?php endif; ?>
-
-                            <?php echo $this->followupLink($input['tid'], $this->question['qi'], explode(',', $input['rel_tid'])); ?>
+                        <p>
+                            <strong><?=$this->escape($input['thes']);?></strong>
                         </p>
+
+                        <?php if (!empty($input['expl'])): ?>
+                            <p>
+                                <?=$this->escape($input['expl']);?>
+                            </p>
+                        <?php endif; ?>
+
+                        <!-- Actions -->
+                        <footer>
+
+                            <!-- Support -->
+                            <?php if ($this->consultation->spprt_show == 'y'): ?>
+                                <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="offset-right">
+                                    <span class="glyphicon glyphicon-ok-sign icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                    <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
+                                        <?=$this->escape($input['spprts']);?>
+                                    </small>
+                                    <?php // Apart from contributions support, always show the "I agree" button. ?>
+                                    <?php /*if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
+                                        <small><?=$this->translate('supporters');?></small>
+                                    <?php else:*/ ?>
+                                        <a
+                                            href="#"
+                                            id="click-support-<?=$this->escape($input['tid']);?>"
+                                            class="btn btn-default btn-xs js-click-support"
+                                            data-kid="<?=$this->consultation->kid;?>"
+                                            rel="<?=$this->escape($input['tid']);?>"
+                                            >
+                                            <?=$this->translate('I agree!');?>
+                                        </a>
+                                    <?php //endif; ?>
+                                </span>
+                            <?php endif; ?>
+
+                            <!-- Discussion -->
+                            <?php if ($this->consultation->is_discussion_active): ?>
+                                <span class="offset-right">
+                                    <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                    <small class="badge<?=$this->escape($input['discussionPostCount']) > 0 ? ' badge-accent' : '';?>">
+                                        <?=$this->escape($input['discussionPostCount']);?>
+                                    </small>
+                                    <a
+                                        href="<?=$this->url(['controller' => 'input', 'action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
+                                        class="btn btn-default btn-xs"
+                                        >
+                                        <?=$this->translate('I would like to discuss that!');?>
+                                    </a>
+                                </span>
+                            <?php endif; ?>
+
+                            <!-- Followup -->
+                            <?=$this->followupLink($input['tid'], $this->question['qi'], explode(',', $input['rel_tid']));?>
+
+                        </footer>
                     </article>
+
                     <hr/>
                 <?php endforeach; ?>
+            <?php else: ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('There are no contributions on this question.');?>
+                </p>
             <?php endif; ?>
 
             <!-- Paging -->
-            <?php echo $this->paginationControl(
+            <?=$this->paginationControl(
                 $this->paginator,
                 'Jumping',
                 '_partials/pagination.phtml',
-                array('titlePrev' => $this->translate('Newer contributions'), 'titleNext' => $this->translate('Older contributions'))
-            ); ?>
-        </section>
-    </div><!-- .row -->
-</div><!-- content-holder -->
+                ['titlePrev' => $this->translate('Newer contributions'), 'titleNext' => $this->translate('Older contributions')]
+            );?>
 
-<?php echo $this->render('_partials/topLink.phtml')?>
+        </div>
+    </div><!-- .row -->
+
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-followup']);?>
+
+</div><!-- main-content -->

@@ -1,0 +1,86 @@
+// Buttons
+
+
+.btn {
+    font-family: @font-family-condensed;
+    font-size: @font-size-large;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &.text-left {
+        text-align: left;
+    }
+
+    &.has-icon-lg {
+        > .glyphicon {
+            line-height: .8;
+            vertical-align: bottom;
+        }
+    }
+
+    &.has-icon-pencil {
+        position: relative;
+        padding-left: 1.25em;
+
+        > .icon {
+            position: absolute;
+            top: -0.5em;
+            left: -0.5em;
+        }
+    }
+
+    // Variants
+    &-default {
+        &:hover,
+        &:focus {
+            color: @btn-default-hover-color;
+            border-color: @btn-default-hover-border;
+            background-color: @btn-default-hover-bg;
+        }
+
+        &-alt {
+            &:hover,
+            &:focus {
+                color: @btn-default-hover-color;
+                border-color: darken(@btn-default-border, 10%);
+                background-color: darken(@btn-default-bg, 10%);
+            }
+        }
+    }
+
+    &-inverse {
+        color: #fff;
+        background-color: @gray;
+
+        &:hover,
+        &:focus {
+            color: #fff;
+            background-color: @gray-light;
+        }
+    }
+
+    &-alt {
+        font-family: @font-family-base;
+        font-size: @font-size-small;
+        text-transform: none;
+    }
+
+    &-separated {
+        border-top: 1px solid @gray-lightest;
+    }
+
+    &-link {
+        padding: 0;
+        text-decoration: underline;
+        border: none;
+    }
+
+    // Sizes
+    &-xs {
+        .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-base; 1; @border-radius-small);
+    }
+
+    &-sm {
+        .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-large; 1; @border-radius-small);
+    }
+}

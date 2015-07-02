@@ -3,103 +3,142 @@
     $locale = new Zend_Locale();
 ?>
 
-<?php echo $this->secondNavigation('follow-up') ?>
+<?=$this->secondNavigation('follow-up');?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
-            <?php echo $this->followupNavigation('overview') ?>
-        </aside>
+        <div class="sidebar-left">
 
-        <section class="main-content span9">
+            <?=$this->followupNavigation('overview');?>
+
+        </div>
+        <div class="content">
 
             <h1>
-                <?=$this->translate("How it all proceeeded:")?>
+                <?=$this->translate('How it all proceeeded:');?>
                 <br />
-                <?=$this->translate('Reactions & Impact')?>
+                <?=$this->translate('Reactions & Impact');?>
             </h1>
-            <p>
-                <?=$this->translate('Here you can find out what followed on your contributions, in which processes and documents they were included, who reacted on them and how, and whether there are already results to be mentioned.')?>
+
+            <p class="offset-bottom-large">
+                <?=$this->translate('Here you can find out what followed on your contributions, in which processes and documents they were included, who reacted on them and how, and whether there are already results to be mentioned.');?>
             </p>
 
-            <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaction')?></span>
-                <h2 class="alt"><?=$this->translate('Overview of reactions so far:')?></h2>
-                <ul class="thumbnails thumbnails-follow-up">
+            <!-- All followups -->
+            <div class="well well-bordered text-center offset-bottom-large has-sticker">
 
-                    <?php $i = 1; ?>
-                    <?php foreach ($this->followups as $followup): ?>
-                        <li class="span2">
-                            <div class="thumbnail">
-                                <h3 class="thumbnail-title" title="<?=$followup['titl'];?>"><?=$followup['titl'];?></h3>
-                                <a
-                                    href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
-                                    class="thumbnail-image pull-left"
-                                    target="_blank"
-                                    title="<?=$this->translate('View');?>"
-                                    name="<?php echo $followup['ref_doc']?>"
-                                >
-                                    <img
-                                        alt="Vorschau <?php echo $followup['titl'] ?>"
-                                        src="<?php echo $this->mediaCnsltDir . $followup['gfx_who']; ?>"
-                                    />
-                                </a>
-                                <time class="muted">
-                                    <?php
-                                        if ($followup['show_no_day'] === "y") {
-                                            echo strftime("%m/%Y", strtotime($followup['when']));
-                                        } else
-                                            echo strftime("%d.%m.%Y", strtotime($followup['when']));
-                                        ?>
-                                </time>
-                                <p class="thumbnail-author" title="<?=$followup['who'];?>"><?=$followup['who'];?></p>
-                                <a
-                                    href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
-                                    target="_blank"
-                                >
-                                    <i class="icon-angle-right"></i> <?=$this->translate('View')?>
-                                </a>
-                                <?php if ($followup['referenceType'] === 'file'): ?>
-                                    <form
-                                        method="post"
-                                        action="<?php echo $this->url(array('action' => 'download', 'page' => null)); ?>"
+                <!-- Sticker -->
+                <div class="sticker sticker-right hidden-print">
+                    <div class="sticker-label">
+                        <?=$this->translate('Reaction');?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+
+                        <h2 class="well-title offset-bottom-large"><?=$this->translate('Overview of reactions so far:')?></h2>
+
+                    </div>
+                </div><!-- .row -->
+
+                <?php if (!empty($this->followups)): ?>
+                    <div class="row">
+
+                        <?php foreach ($this->followups as $followup): ?>
+                            <div class="col-sm-4">
+
+                                <div class="card text-left offset-bottom-large">
+                                    <h4 class="card-title">
+                                        <?=$followup['titl'];?>
+                                    </h4>
+                                    <a
+                                        href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
+                                        target="_blank"
+                                        name="<?=$followup['ref_doc'];?>"
+                                        class="card-image offset-bottom-small"
+                                        title="<?=$this->translate('View');?>"
                                     >
-                                        <input type="hidden" name="filename" value="<?php echo $followup['ref_doc']; ?>" />
-                                        <button type="submit" class="btn-link">
-                                            <i class="icon-file"></i> <?=$this->translate('Download')?>
-                                        </button>
-                                    </form>
-                                <?php endif?>
+                                        <img src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" class="img-responsive" alt="<?=$this->translate('Preview');?>" />
+                                    </a>
+                                    <time class="text-muted">
+                                        <?php
+                                            if ($followup['show_no_day'] === "y") {
+                                                echo strftime("%m/%Y", strtotime($followup['when']));
+                                            } else
+                                                echo strftime("%d.%m.%Y", strtotime($followup['when']));
+                                            ?>
+                                    </time>
+                                    <p class="card-description small">
+                                        <?=$followup['who'];?>
+                                    </p>
+                                    <span class="glyphicon glyphicon-menu-right icon-offset text-muted" aria-hidden="true"></span>
+                                    <a
+                                        href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']);?>"
+                                        target="_blank"
+                                    >
+                                        <?=$this->translate('View');?>
+                                    </a>
+                                    <?php if ($followup['referenceType'] === 'file'): ?>
+                                        <form method="post" action="<?= $this->url(['action' => 'download', 'page' => null]);?>">
+                                            <input type="hidden" name="filename" value="<?=$followup['ref_doc'];?>" />
+                                            <span class="glyphicon glyphicon-file icon-offset text-muted" aria-hidden="true"></span>
+                                            <button type="submit" class="btn-link">
+                                                <?=$this->translate('Download');?>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
 
-                            </div><!-- .thumbnail -->
-                        </li>
-                        <?php if ($i === 4): ?>
-                            </ul>
-                            <hr />
-                            <ul class="thumbnails thumbnails-follow-up">
-                        <?php endif; ?>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
+                                </div><!-- .card -->
 
-                </ul>
-            </div><!-- .well-large-alt -->
+                            </div>
+                        <?php endforeach; ?>
 
-            <div class="well-large-alt text-center">
-                <span class="label sticker label-reaktion-alt"><?=$this->translate('Reaction')?></span>
-                <h2 class="alt"><?=$this->translate('Reactions and Feedback on individual contributions')?></h2>
+                    </div><!-- .row -->
+                <?php else: ?>
+                    <p class="alert alert-info text-left">
+                        <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                        <?=$this->translate('There are no reactions yet.');?>
+                    </p>
+                <?php endif; ?>
+
+            </div><!-- .well -->
+
+            <!-- Followups by contribution -->
+            <div class="well well-bordered text-center has-sticker">
+
+                <!-- Sticker -->
+                <div class="sticker sticker-right hidden-print">
+                    <div class="sticker-label">
+                        <?=$this->translate('Reaction');?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+
+                        <h2 class="well-title offset-bottom-large"><?=$this->translate('Reactions and Feedback on individual contributions');?></h2>
+
+                    </div>
+                </div><!-- .row -->
 
                 <p>
-                    <?=$this->translate('Simply click on respective question or switch to keywords.')?>
+                    <?=$this->translate('Simply click on respective question or switch to keywords.');?>
                 </p>
-                <?php echo $this->questionNavigation(NULL, 'follow-up-box'); ?>
+
+                <?=$this->questionNavigation(null, 'follow-up-box');?>
                 <br/>
-                <a href="<?php echo $this->url(array('action' => 'tags', 'page' => null)); ?>" class="btn">
-                    <?=$this->translate('Sorted by keywords')?>
+
+                <a href="<?=$this->url(['action' => 'tags', 'page' => null]);?>" class="btn btn-default">
+                    <span class="glyphicon glyphicon-tag icon-offset icon-vertically-aligned" aria-hidden="true"></span>
+                    <?=$this->translate('Sorted by keywords');?>
                 </a>
+
             </div><!-- .well-large-alt -->
 
-        </section>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-followup']);?>
+
+</div><!-- .main-content -->

@@ -1,14 +1,15 @@
 <?php
 
-class Default_Form_UrlkeyAction_ConfirmNotification extends Zend_Form
+class Default_Form_UrlkeyAction_ConfirmNotification extends Dbjr_Form_Web
 {
     public function init()
     {
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Confirm')
                 ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn-primary')
+                ->setLabel('Confirm')
         );
 
         $this->addElement(

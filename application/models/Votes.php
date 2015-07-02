@@ -53,25 +53,28 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
             throw new Zend_Validate_Exception('Given parameter qid must be integer!');
         }
 
-        // see getQuestionArray($kid,$qid)
         $questionArray = $this->getQuestionArray($kid, $qid);
-        $currentQuestion = $questionArray["0"];
-        $questions = $questionArray["1"];
+        if (count($questionArray[1])) {
+            $currentQuestion = $questionArray["0"];
+            $questions = $questionArray["1"];
 
-        // get the votings from DB
-        $votingFinalModel = new Model_VotingFinal;
-        $votings = $votingFinalModel -> getFinalVotesByQuestion($currentQuestion['qi']);
+            // get the votings from DB
+            $votingFinalModel = new Model_VotingFinal;
+            $votings = $votingFinalModel->getFinalVotesByQuestion($currentQuestion['qi']);
 
-        // Votings finalized with fallback if no finished Vote in DB
-        if (!empty($votings)) {
-            return [
-                'currentQuestion' => $currentQuestion,
-                'questions' => $questions,
-                'votings' => $votings,
-                'highest_rank' => $votings[0]['rank']
-            ];
+            // Votings finalized with fallback if no finished Vote in DB
+            if (!empty($votings)) {
+                return [
+                    'currentQuestion' => $currentQuestion,
+                    'questions' => $questions,
+                    'votings' => $votings,
+                    'highest_rank' => $votings[0]['rank']
+                ];
+            } else {
+                return $this->getResultsValuesFromDB($kid, $currentQuestion['qi']);
+            }
         } else {
-            return $this->getResultsValuesFromDB($kid, $currentQuestion['qi']);
+            return [];
         }
     }
 

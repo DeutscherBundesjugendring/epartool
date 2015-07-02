@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-3">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+                <?=$this->consultationNavigation($this->consultation, 'contributions');?>
 
             </div>
             <div class="col-md-9">
@@ -23,7 +23,7 @@
                 </a>
                 <h2>
                     <?=$this->translate('Contributions for');?>:
-                    <?=$this->question['q'];?>
+                    <?=$this->escape($this->question['q']);?>
                 </h2>
 
                 <?php if (count($this->inputs)): ?>
@@ -100,12 +100,12 @@
                                         >
                                             <?php foreach ($this->tags as $tag): ?>
                                                 <option
-                                                    value="<?=$tag['tg_nr'];?>"
+                                                    value="<?=$this->escape($tag['tg_nr']);?>"
                                                     <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
                                                 >
-                                                    <?=$tag['tg_de'];?>
+                                                    <?=$this->escape($tag['tg_de']);?>
                                                 </option>
-                                            <?php endforeach;?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -126,9 +126,9 @@
                     <?php if ($this->tag['tg_nr'] > 0): ?>
                         <p class="alert alert-info">
                             <?=$this->translate('Only contributions with &ldquo;%s&rdquo; keywords are listed.', $this->tag['tg_de']);?>
-                            <a href="<?php echo $this->url(array('tag' => null));?>">Show all contributions</a>
+                            <a href="<?=$this->url(['tag' => null]);?>"><?=$this->translate('Show all contributions');?></a>
                         </p>
-                    <?php endif;?>
+                    <?php endif; ?>
 
                     <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
@@ -170,17 +170,19 @@
                         </div>
 
                         <!-- Listing -->
-                        <table class="table table-bordered table-responsive js-table-rows-toggle" id="contribution-table">
-                            <?php foreach ($this->inputs as $input): ?>
-                                <?=$this->partial(
-                                    'input/_inputBox.phtml',
-                                    [
-                                        'input' => $input,
-                                        'kid' => $this->consultation['kid'],
-                                        'inputsWithDiscussion' => $this->inputsWithDiscussion]
-                                );?>
-                            <?php endforeach;?>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-bordered js-table-rows-toggle" id="contribution-table">
+                                <?php foreach ($this->inputs as $input): ?>
+                                    <?=$this->partial(
+                                        'input/_inputBox.phtml',
+                                        [
+                                            'input' => $input,
+                                            'kid' => $this->consultation['kid'],
+                                            'inputsWithDiscussion' => $this->inputsWithDiscussion]
+                                    );?>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
 
                         <!-- Actions -->
                         <div class="well well-sm">
@@ -228,41 +230,41 @@
                                     <?=$this->translate('CSV Export');?>:
                                 </h4>
                                 <ul class="offset-bottom">
-                                    <li><a href="<?php echo $this->url(array(
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'all',
-                                        ));?>">All contributions</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>"><?=$this->translate('All contributions');?></a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'cnf',
-                                        ));?>">Confirmed contributions</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>"><?=$this->translate('Confirmed contributions');?></a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'unc',
-                                        ));?>">Unconfirmed contributions</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>"><?=$this->translate('Unconfirmed contributions');?></a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'vot',
-                                        ));?>">Voting theses</a></li>
-                                    <li><a href="<?php echo $this->url(array(
+                                        ]);?>"><?=$this->translate('Voting theses');?></a></li>
+                                    <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'edt',
-                                        ));?>">Voting theses – edited</a>
+                                        ]);?>"><?=$this->translate('Voting theses – edited');?></a>
                                     </li>
                                 </ul>
 
@@ -274,13 +276,13 @@
                                     <?=$this->translate('MS Excel Export');?>:
                                 </h4>
                                 <ul>
-                                    <li><a href="<?php echo $this->url(array(
+                                    <li><a href="<?=$this->url([
                                         'action' => 'export',
                                         'kid' => $this->consultation['kid'],
                                         'qid' => $this->question['qi'],
                                         'cod' => 'xls',
                                         'mod' => 'all',
-                                    ));?>">All contributions</a></li>
+                                    ]);?>"><?=$this->translate('All contributions');?></a></li>
                                 </ul>
 
                             </div>

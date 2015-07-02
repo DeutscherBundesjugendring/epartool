@@ -1,0 +1,75 @@
+// Consultation Phases Navigation in Consultation Detail (Full Mode)
+
+
+.consultation-phases-full {
+    .consultation-phases-item {
+
+        // This navigation is used on different background so we need to reflect that.
+        &:before {
+            border-top-color: @frame-bg;
+        }
+
+        // This navigation also provides active state of items.
+        &.active,
+        &.active:hover,
+        &.active:focus {
+            background-color: @consultation-phase-active-bg;
+
+            &:after {
+                border-top-color: @consultation-phase-active-bg;
+            }
+
+            &,
+            .consultation-phases-item-title {
+                color: @consultation-phase-active-color;
+            }
+        }
+    }
+
+    @media (max-width: @screen-sm-max) {
+        .consultation-phases-item-info {
+            display: none;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        .consultation-phases-item {
+            height: @consultation-phase-full-height-sm;
+            padding-left: .75em;
+
+            &:before {
+                border-top-color: transparent;
+                border-left-color: @frame-bg;
+            }
+
+            .consultation-phases-item-bubble {
+                position: absolute;
+                left: 40%;
+                bottom: 95%;
+                z-index: 0;
+            }
+
+            &.active:after,
+            &.active:hover:after,
+            &.active:focus:after {
+                border-top-color: transparent;
+                border-left-color: @consultation-phase-active-bg;
+            }
+        }
+    }
+
+    @media (min-width: @screen-md-min) {
+        .consultation-phases-item {
+            height: @consultation-phase-full-height-md;
+            padding-left: @line-height-computed;
+
+            &-title {
+                font-size: 1.666em;
+            }
+
+            &-info {
+                right: @line-height-computed / 2;
+            }
+        }
+    }
+}

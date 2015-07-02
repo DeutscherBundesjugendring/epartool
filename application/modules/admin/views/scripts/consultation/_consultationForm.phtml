@@ -4,67 +4,79 @@
     method="<?=$this->form->getMethod();?>"
     action="<?=$this->form->getAction();?>"
 >
-    <?=$this->form->getElement('titl')?>
-    <?=$this->form->getElement('titl_short')?>
-    <?=$this->form->getElement('titl_sub')?>
-    <?=$this->form->getElement('img_file')?>
-    <?=$this->form->getElement('img_text')?>
-    <?=$this->form->getElement('ord')?>
-    <?=$this->form->getElement('expl')?>
-    <?=$this->form->getElement('expl_short')?>
+    <?=$this->form->getElement('titl');?>
+    <?=$this->form->getElement('titl_short');?>
+    <?=$this->form->getElement('titl_sub');?>
+    <?=$this->form->getElement('img_file');?>
+    <?=$this->form->getElement('img_text');?>
+    <?=$this->form->getElement('ord');?>
+    <?=$this->form->getElement('expl');?>
+    <?=$this->form->getElement('expl_short');?>
 
     <fieldset>
-        <h3><?=$this->translate('Contributions');?></h3>
-        <?=$this->form->getElement('inp_show')?>
+        <h3>
+            <?=$this->translate('Contributions');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
+        <?=$this->form->getElement('inp_show');?>
         <div class="row">
             <div class="col-sm-6">
-                <?=$this->form->getElement('inp_fr')?>
+                <?=$this->form->getElement('inp_fr');?>
             </div>
             <div class="col-sm-6">
-                <?=$this->form->getElement('inp_to')?>
+                <?=$this->form->getElement('inp_to');?>
             </div>
         </div>
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('Support');?></h3>
-        <?=$this->form->getElement('spprt_show')?>
+        <h3>
+            <?=$this->translate('Support');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
+        <?=$this->form->getElement('spprt_show');?>
         <div class="row">
             <div class="col-sm-6">
-                <?=$this->form->getElement('spprt_fr')?>
+                <?=$this->form->getElement('spprt_fr');?>
             </div>
             <div class="col-sm-6">
-                <?=$this->form->getElement('spprt_to')?>
+                <?=$this->form->getElement('spprt_to');?>
             </div>
         </div>
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('Discussion');?></h3>
-        <?=$this->form->getElement('is_discussion_active')?>
+        <h3>
+            <?=$this->translate('Discussion');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
+        <?=$this->form->getElement('is_discussion_active');?>
         <div class="row">
             <div class="col-sm-6">
-                <?=$this->form->getElement('discussion_from')?>
+                <?=$this->form->getElement('discussion_from');?>
             </div>
             <div class="col-sm-6">
-                <?=$this->form->getElement('discussion_to')?>
+                <?=$this->form->getElement('discussion_to');?>
             </div>
         </div>
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('Voting');?></h3>
-        <?=$this->form->getElement('vot_show')?>
+        <h3>
+            <?=$this->translate('Voting');?>
+            <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
+        </h3>
+        <?=$this->form->getElement('vot_show');?>
         <div class="row">
             <div class="col-sm-6">
-                <?=$this->form->getElement('vot_fr')?>
+                <?=$this->form->getElement('vot_fr');?>
             </div>
             <div class="col-sm-6">
-                <?=$this->form->getElement('vot_to')?>
+                <?=$this->form->getElement('vot_to');?>
             </div>
         </div>
-        <?=$this->form->getElement('vot_res_show')?>
-        <?=$this->form->getElement('vot_expl')?>
+        <?=$this->form->getElement('vot_res_show');?>
+        <?=$this->form->getElement('vot_expl');?>
     </fieldset>
 
     <fieldset>
@@ -72,13 +84,13 @@
         <?=$this->form->getElement('follup_show');?>
     </fieldset>
 
-    <?=$this->form->getElement('adm')?>
+    <?=$this->form->getElement('adm');?>
     <div class="offset-bottom">
-        <?=$this->form->getElement('proj')?>
+        <?=$this->form->getElement('proj');?>
     </div>
 
-    <?=$this->form->getElement('public')?>
+    <?=$this->form->getElement('public');?>
 
-    <?=$this->form->getElement('csrf_token_consultation')?>
-    <?=$this->form->getElement('submit')?>
+    <?=$this->form->getElement('csrf_token_consultation');?>
+    <?=$this->form->getElement('submit');?>
 </form>

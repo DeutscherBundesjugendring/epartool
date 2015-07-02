@@ -1,0 +1,18 @@
+<div class="modal fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelpLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="<?=$this->translate('Close');?>">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalHelpLabel">
+                    <span class="glyphicon glyphicon-question-sign icon-offset text-info" aria-hidden="true"></span>
+                    <?=$this->translate('Help');?>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <?=$this->layout()->content;?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'questions');?>
+                <?=$this->consultationNavigation($this->consultation, 'questions');?>
 
             </div>
             <div class="content">
@@ -25,16 +25,16 @@
                 <form role="form" enctype="<?=$this->form->getEnctype();?>" method="<?=$this->form->getMethod();?>" action="<?=$this->form->getAction();?>" class="offset-bottom">
                     <div class="row">
                         <div class="col-sm-2">
-                            <?=$this->form->getElement('nr')?>
+                            <?=$this->form->getElement('nr');?>
                         </div>
                         <div class="col-sm-10">
-                            <?=$this->form->getElement('q')?>
+                            <?=$this->form->getElement('q');?>
                         </div>
                     </div>
-                    <?=$this->form->getElement('q_xpl')?>
-                    <?=$this->form->getElement('vot_q')?>
-                    <?=$this->form->getElement('csrf_token_question')?>
-                    <?=$this->form->getElement('submit')?>
+                    <?=$this->form->getElement('q_xpl');?>
+                    <?=$this->form->getElement('vot_q');?>
+                    <?=$this->form->getElement('csrf_token_question');?>
+                    <?=$this->form->getElement('submit');?>
                     <div class="cancel-link">
                         <?=$this->translate('or');?>
                         <a href="<?=$this->url(['action' => 'index']);?>"><?=$this->translate('Cancel');?></a>

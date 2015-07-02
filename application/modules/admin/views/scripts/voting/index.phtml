@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-permissions');?>
+                <?=$this->consultationNavigation($this->consultation, 'voting-permissions');?>
 
             </div>
             <div class="content">
@@ -32,11 +32,11 @@
                         <thead>
                             <tr>
                                 <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                <th class="sorting-asc" data-toggle="sort" tabindex="0">User</th>
-                                <th data-toggle="sort" tabindex="0">Voting Weight</th>
-                                <th data-toggle="sort" tabindex="0">Access Code</th>
-                                <th data-toggle="sort" tabindex="0">Accepted Size</th>
-                                <th data-toggle="sort" tabindex="0">Stated Size</th>
+                                <th class="sorting-asc" data-toggle="sort" tabindex="0"><?=$this->translate('User');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Voting Weight');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Access Code');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Accepted Size');?></th>
+                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Stated Size');?></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -70,7 +70,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 <?php else: ?>

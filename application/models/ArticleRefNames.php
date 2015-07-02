@@ -5,6 +5,8 @@
  */
 class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
 {
+    const ARTICLE_EXPLANATION = 'article_explanation';
+
     protected $_name = 'articles_refnm';
     protected $_primary = array('ref_nm', 'lng');
 
@@ -45,26 +47,6 @@ class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
         $select->where('type = ?', $type)->where('lng = ?', $lang)->order('ref_nm');
 
         return $this->fetchAll($select);
-    }
-
-    /**
-     * Returns multiOptions for field ref_nm in Admin_Form_Article by type
-     *
-     * @return array
-     */
-    public function getMultioptionsByType($type = null)
-    {
-        $options = array();
-        if (is_null($type)) {
-            return $options;
-        }
-        $rowSet = $this->getAllByType($type);
-
-        foreach ($rowSet as $row) {
-            $options[$row->ref_nm] = $row->desc . ' [Bereich: ' . $row->scope . ']';
-        }
-
-        return $options;
     }
 
     /**

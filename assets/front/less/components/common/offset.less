@@ -1,0 +1,28 @@
+// Offset
+
+
+.offset-top-large {
+    margin-top: 2 * @line-height-computed;
+}
+
+.offset-bottom {
+    margin-bottom: @line-height-computed;
+}
+
+.offset-bottom-small {
+    margin-bottom: floor((@line-height-computed / 2));
+}
+
+.offset-bottom-large {
+    margin-bottom: 2 * @line-height-computed;
+}
+
+.offset-right {
+    margin-right: 1em;
+}
+
+@media (max-width: @screen-xs-max) {
+    .offset-bottom-xs-max {
+        .offset-bottom();
+    }
+}

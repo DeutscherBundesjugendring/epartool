@@ -2,8 +2,8 @@
     <div class="container">
 
         <?php if (isset($this->consultation)): ?>
-            <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-            <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+            <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+            <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
             <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
         <?php else: ?>
             <h1 class="section-header-title"><?=$this->translate('General Settings');?></h1>
@@ -18,7 +18,7 @@
             <div class="sidebar">
 
                 <?php if (isset($this->consultation)): ?>
-                    <?=$this->consultationNavigation($this->consultation['kid'], 'info');?>
+                    <?=$this->consultationNavigation($this->consultation, 'info');?>
                 <?php else: ?>
                     <?=$this->settingsNavigation('pages');?>
                 <?php endif; ?>
@@ -26,7 +26,7 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'create', 'kid' => $this->consultation['kid']));?>" class="btn btn-default pull-right">
+                <a href="<?=$this->url(['action' => 'create', 'kid' => $this->consultation['kid']]);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <?php if (isset($this->consultation)): ?>
                         <?=$this->translate('New Article');?>
@@ -35,9 +35,9 @@
                     <?php endif; ?>
                 </a>
                 <?php if (isset($this->consultation)): ?>
-                    <h2>Info</h2>
+                    <h2><?=$this->translate('Info');?></h2>
                 <?php else: ?>
-                    <h2>Pages</h2>
+                    <h2><?=$this->translate('Pages');?></h2>
                 <?php endif; ?>
 
                 <?php if (!count($this->articles)): ?>
@@ -47,7 +47,7 @@
                     </p>
                 <?php else: ?>
 
-                    <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(['action' => 'delete'])?>">
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                         <table class="table">
                             <thead>
@@ -60,19 +60,28 @@
                             <tbody>
                                 <?php foreach ($this->articles as $article): ?>
                                     <tr>
-                                        <td class="table-cell-id"><?=$article['art_id'];?></td>
+                                        <td class="table-cell-id"><?=$this->escape($article['art_id']);?></td>
                                         <td>
-                                            <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" title="<?=$this->translate('Edit article');?>"><?=$article['desc'];?></a>
+                                            <a
+                                                href="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']]);?>"
+                                                title="<?=$this->translate('Edit article');?>"
+                                            >
+                                                <?=$this->escape($article['desc']);?>
+                                            </a>
                                         </td>
                                         <td class="table-cell-actions">
-                                            <a href="<?=$this->url(array('action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']));?>" class="item-action" title="<?=$this->translate('Edit article');?>">
+                                            <a
+                                                href="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $article['art_id']]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Edit article');?>"
+                                            >
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             <button
                                                 type="submit"
                                                 class="item-action item-action-danger"
                                                 name="delete"
-                                                value="<?=$article['art_id']?>"
+                                                value="<?=$this->escape($article['art_id']);?>"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete article?');?>"
                                             >
@@ -83,13 +92,13 @@
                                     <?php if (!empty($article['subpages'])): ?>
                                         <?php foreach ($article['subpages'] as $subpage): ?>
                                             <tr class="table-row-nested">
-                                                <td class="table-cell-id"><?=$subpage['art_id'];?></td>
+                                                <td class="table-cell-id"><?=$this->escape($subpage['art_id']);?></td>
                                                 <td>
                                                     <a
                                                         href="<?=$this->url(['action' => 'edit', 'kid' => $this->consultation['kid'], 'aid' => $subpage['art_id']]);?>"
                                                         title="<?=$this->translate('Edit article');?>"
                                                     >
-                                                        <?=$subpage['desc'];?>
+                                                        <?=$this->escape($subpage['desc']);?>
                                                     </a>
                                                 </td>
                                                 <td class="table-cell-actions">
@@ -104,7 +113,7 @@
                                                         type="submit"
                                                         class="item-action item-action-danger"
                                                         name="delete"
-                                                        value="<?=$subpage['art_id'];?>"
+                                                        value="<?=$this->escape($subpage['art_id']);?>"
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Delete article?');?>"
                                                     >

@@ -1,15 +1,15 @@
 <?php
 
-class Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution extends Zend_Form
+class Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution extends Dbjr_Form_Web
 {
     public function init()
     {
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Confirm')
-                ->setAttrib('class', 'btn btn-default')
                 ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn-primary')
+                ->setLabel('Confirm')
         );
 
         $this->addElement(

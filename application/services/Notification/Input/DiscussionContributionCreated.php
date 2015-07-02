@@ -50,6 +50,10 @@ class Service_Notification_Input_DiscussionContributionCreated extends Service_N
                         'to_email' => $user->email,
                         'website_url' => Zend_Registry::get('baseUrl') . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
                         'contribution_text' => $contrib->body,
+                        'video_url' => sprintf(
+                            Zend_Registry::get('systemconfig')->video->url->format->link,
+                            $contrib->video_id
+                        ),
                         'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                     )
                 )

@@ -120,7 +120,9 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
         $this->addElement($hash);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save');
         $this->addElement($submit);
     }
 
@@ -130,6 +132,12 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->getElement('email')
             ->getValidator('Db_NoRecordExists')
             ->setExclude(['field' => 'uid', 'value' => $data['uid']]);
+
+        if ($data['password']) {
+            $this->getElement('password_confirm')->setRequired(true);
+        } else {
+            $this->getElement('password_confirm')->setRequired(false);
+        }
 
         return parent::isValid($data);
     }

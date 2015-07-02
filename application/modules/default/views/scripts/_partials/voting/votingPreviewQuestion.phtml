@@ -1,0 +1,6 @@
+<h2>
+    <?=$this->escape($this->nr);?>
+    <?=$this->escape($this->q);?>
+</h2>
+
+<?=$this->partialLoop('_partials/voting/votingPreviewQuestionThesis.phtml', $this->QuestionsAndInputs);?>

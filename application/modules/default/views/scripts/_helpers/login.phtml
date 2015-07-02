@@ -1,0 +1,67 @@
+<div class="dropdown hidden-print">
+    <button type="button" id="loginDropdown" class="btn btn-default btn-sm btn-block text-left" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?=$this->translate('Login');?>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right dropdown-menu-combo" role="menu" aria-labelledby="loginDropdown">
+
+        <div class="row">
+            <div class="col-xs-9">
+                <h3 id="loginLabel" class="dropdown-title"><?=$this->translate('Login');?></h3>
+            </div>
+            <div class="col-xs-3 text-right">
+                <a href="<?=$this->url(['controller' => 'help', 'action' => 'index', 'name' => 'help-text-login']);?>" class="link-transparent has-icon js-toggle-help" title="<?=$this->translate('Help');?>">
+                    <span class="icon-md glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div><!-- .row -->
+
+        <?php if ($this->webserviceLoginCsrf): ?>
+            <input type="hidden" value="<?=$this->webserviceLoginCsrf;?>" id="webserviceLoginCsrf" />
+        <?php endif;?>
+
+        <?php if (empty($this->disableLoginMsg)): ?>
+
+            <?=$this->form;?>
+
+            <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
+                <button
+                    type="button"
+                    data-clientid="<?=Zend_Registry::get('systemconfig')->webservice->google->clientId;?>"
+                    data-callback="googleAuthenticateCallback"
+                    id="googleSignInButton"
+                    class="social-button social-button-google"
+                    title="<?=$this->translate('Sign in with Google');?>"
+                >
+                    <?=$this->translate('Sign in with Google');?>
+                </button>
+            <?php endif;?>
+
+            <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->facebook->appId)): ?>
+                <div id="fb-root"></div>
+                <div
+                    class="fb-login-button"
+                    data-max-rows="1"
+                    data-size="large"
+                    data-show-faces="false"
+                    data-auto-logout-link="false"
+                    data-onlogin="facebookAuthenticateCallback"
+                    data-scope="public_profile,email"
+                    data-app-id="<?=Zend_Registry::get('systemconfig')->webservice->facebook->appId;?>"
+                ></div>
+            <?php endif;?>
+
+            <hr class="divider" />
+
+            <a href="<?=$this->url(['controller' => 'user', 'action' => 'passwordrecover'], 'default', true);?>">
+                <?=$this->translate('Forgot password?');?>
+            </a>
+
+        <?php else: ?>
+            <div class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                <?=$this->disableLoginMsg;?>
+            </div>
+        <?php endif;?>
+
+    </div>
+</div>

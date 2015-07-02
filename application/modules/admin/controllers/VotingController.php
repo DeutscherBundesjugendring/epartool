@@ -3,7 +3,6 @@
 class Admin_VotingController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
-
     protected $_consultation = null;
 
 
@@ -87,7 +86,7 @@ class Admin_VotingController extends Zend_Controller_Action
     }
 
     /**
-     * List paricipants for invitation
+     * List paricipants and process request to send invitation email instantly
      */
     public function invitationsAction()
     {
@@ -98,86 +97,92 @@ class Admin_VotingController extends Zend_Controller_Action
             ->getParticipantsByConsultation($this->_consultation->kid)
             ->toArray();
         $emailList = '';
+        $votingRights = [];
         foreach ($participants as $key => $value) {
             if (!empty($value['email'])) {
-                $emailList.= $value['email'] . ';';
+                $emailList .= $value['email'] . ';';
             }
 
-            $votingRights = $votingRightsModel->getByUserAndConsultation(
+            $votingRights[$value['uid']] = $votingRightsModel->getByUserAndConsultation(
                 $value['uid'],
                 $this->_consultation->kid
             );
             if (!empty($votingRights)) {
-                $participants[$key]['votingRights'] = $votingRights;
+                $participants[$key]['votingRights'] = $votingRights[$value['uid']];
+            }
+        }
+
+        $listControlForm = new Admin_Form_ListControl();
+        if ($this->getRequest()->isPost() && $listControlForm->isValid($this->getRequest()->getPost())) {
+            $userId = $this->getRequest()->getPost('instantSendUserId');
+            if ($userId) {
+                $user = (new Model_Users())->getById($userId);
+                $placeholders = ['voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
+                        . $this->_consultation->kid . '/authcode/' . $votingRights[$user['uid']]['vt_code']];
+                if ($votingRights[$user['uid']] && $votingRights[$user['uid']]['vt_weight'] != 1) {
+                    $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+                    $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
+                    $placeholders['voting_weight'] = $votingRights[$user['uid']]['vt_weight'];
+                    $placeholders['group_category'] = $grpSizDef[$votingRights[$user['uid']]['grp_siz']];
+                } else {
+                    $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
+                }
+                $mailer = $this->getInvitationMailer($user, $placeholders);
+                $mailer
+                    ->setTemplate($templateName)
+                    ->addTo($user['email']);
+
+                (new Service_Email)->queueForSend($mailer)->sendQueued();
+                $this->_flashMessenger->addMessage(
+                    sprintf(
+                        $this->view->translate('Voting invitation to %s has been successfully sent.'),
+                        $user['email']
+                    ),
+                    'success'
+                );
+                $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation->kid);
             }
         }
 
         $appOpts = $this->getInvokeArg('bootstrap')->getOptions();
-        $this->view->assign(
-            array(
-                'participants' => $participants,
-                'emailList' => $emailList,
-                'mailDefaultFrom' => $appOpts['resources']['mail']['defaultFrom']['email'],
-            )
-        );
+
+        $this->view->participants = $participants;
+        $this->view->emailList = $emailList;
+        $this->view->listControlForm = $listControlForm;
+        $this->view->mailDefaultFrom = $appOpts['resources']['mail']['defaultFrom']['email'];
     }
 
     /**
-     * Send voting invitation by email via preview or directly
+     * Show voting invitation email from and send email on its submission
      */
     public function sendinvitationAction()
     {
-        $uid = $this->_request->getParam('uid', 0);
-        $mode = $this->_request->getParam('mode');
+        $uid = $this->_request->getParam('uid');
 
-        if ($uid > 0) {
+        if ($uid) {
             $form = new Admin_Form_Mail_Send();
-            $form->setAction($this->view->url());
-            $formSent = false;
-            $sentFromPreview = false;
-            $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+            $user = (new Model_Users())->getById($uid);
+            $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation(
+                $user['uid'],
+                $this->_consultation->kid
+            );
 
-            $userModel = new Model_Users();
-            $user = $userModel->getById($uid);
-
-            $votingRightsModel = new Model_Votes_Rights();
-            $votingRights = $votingRightsModel->getByUserAndConsultation($uid, $this -> _consultation -> kid);
+            $placeholders = ['voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
+                . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code']];
 
             if ($votingRights && $votingRights['vt_weight'] != 1) {
-                // group type is group
+                $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
                 $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
-                $placeholders = array(
-                    'voting_weight' => $votingRights['vt_weight'],
-                    'group_category' => $grp_siz_def[$votingRights['grp_siz']],
-                );
+                $placeholders['voting_weight'] = $votingRights['vt_weight'];
+                $placeholders['group_category'] = $grpSizDef[$votingRights['grp_siz']];
             } else {
-                // group type is single
                 $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
-                $placeholders = array();
             }
 
-            // check if form from preview is submitted
             if ($this->_request->isPost()) {
-                $formSent = true;
-                // sent from preview
-                $data = $this->_request->getPost();
-                if ($form->isValid($data)) {
-                    // mail can be sent directly
-                    $mode = 'instantsend';
-                    $sentFromPreview = true;
-                } else {
-                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
-                    $form->populate($data);
-                }
-            }
-
-            $mailer = new Dbjr_Mail();
-            $view = Zend_Controller_Front::getInstance()
-                ->getParam('bootstrap')
-                ->getResource('view');
-            if ($mode === 'instantsend') {
-                if ($sentFromPreview) {
+                if ($form->isValid($this->_request->getPost())) {
                     $values = $form->getValues();
+                    $mailer = $this->getInvitationMailer($user, $placeholders);
                     $mailer
                         ->addTo($values['mailto'])
                         ->setSubject($values['subject'])
@@ -189,52 +194,30 @@ class Admin_VotingController extends Zend_Controller_Action
                     if ($values['mailbcc']) {
                         $mailer->addCc($values['mailbcc']);
                     }
-                } else {
-                    $mailer
-                        ->setTemplate($templateName)
-                        ->addTo($user['email']);
-                }
-                $mailer->setPlaceholders(
-                    array_merge(
-                        $placeholders,
-                        array(
-                            'to_name' => empty($user['name']) ? $user['email'] : $user['name'],
-                            'to_email' => $user['email'],
-                            'consultation_title_long' => $this->_consultation['titl'],
-                            'consultation_title_short' => $this->_consultation['titl_short'],
-                            'voting_phase_start' => $view->formatDate($this->_consultation['vot_fr'], Zend_Date::DATE_MEDIUM),
-                            'voting_phase_end' => $view->formatDate($this->_consultation['vot_to'], Zend_Date::DATE_MEDIUM),
-                            'voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
-                                . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code'],
-                        )
-                    )
-                );
-                (new Service_Email)
-                    ->queueForSend($mailer)
-                    ->sendQueued();
-                $message = sprintf(
-                    $this->view->translate('Voting invitation to %s has been successfully sent.'),
-                    $user['email']
-                );
-                $this->_flashMessenger->addMessage($message, 'success');
-                $this->redirect('/admin/voting/invitations/kid/' . $this -> _consultation -> kid);
-            } else {
-                if (!$formSent) {
-                    $templateModel = new Model_Mail_Template();
-                    $template = $templateModel->fetchRow(
-                        $templateModel->select()->where('name=?', $templateName)
-                    );
-                    $form->getElement('mailto')->setValue($user['email']);
-                    $form->getElement('subject')->setValue($template->subject);
-                    $form->getElement('body_html')->setValue($template->body_html);
-                    $form->getElement('body_text')->setValue($template->body_text);
-                }
 
-                $this->view->form = $form;
+                    (new Service_Email)->queueForSend($mailer)->sendQueued();
+                    $this->_flashMessenger->addMessage(
+                        sprintf(
+                            $this->view->translate('Voting invitation to %s has been successfully sent.'),
+                            $user['email']
+                        ),
+                        'success'
+                    );
+                    $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation->kid);
+                } else {
+                    $this->_flashMessenger->addMessage(
+                        'Form is not valid, please check the values entered.',
+                        'error'
+                    );
+                }
+            } else {
+                $form->getElement('mailto')->setValue($user['email']);
+                $form->populateFromTemplateName($templateName);
             }
+            $this->view->form = $form;
         } else {
             $this->_flashMessenger->addMessage('No user provided.', 'error');
-            $this->redirect('/admin/voting/invitations/kid/' . $this -> _consultation -> kid);
+            $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation->kid);
         }
     }
 
@@ -433,5 +416,41 @@ class Admin_VotingController extends Zend_Controller_Action
         } else {
             $form -> populate($settings);
         }
+    }
+
+    /**
+     * Returns preconfigured Dbjr_Mail object
+     * @param  array  $user          The user data array
+     * @param  array  $placeholders  Array holding placeholder values to be used in the email
+     * @return Dbjr_Mail             The mailer object
+     */
+    private function getInvitationMailer($user, $placeholders)
+    {
+        $view = Zend_Controller_Front::getInstance()
+            ->getParam('bootstrap')
+            ->getResource('view');
+
+        $mailer = new Dbjr_Mail();
+        $mailer->setPlaceholders(
+            array_merge(
+                $placeholders,
+                [
+                    'to_name' => empty($user['name']) ? $user['email'] : $user['name'],
+                    'to_email' => $user['email'],
+                    'consultation_title_long' => $this->_consultation['titl'],
+                    'consultation_title_short' => $this->_consultation['titl_short'],
+                    'voting_phase_start' => $view->formatDate(
+                        $this->_consultation['vot_fr'],
+                        Zend_Date::DATE_MEDIUM
+                    ),
+                    'voting_phase_end' => $view->formatDate(
+                        $this->_consultation['vot_to'],
+                        Zend_Date::DATE_MEDIUM
+                    ),
+                ]
+            )
+        );
+
+        return $mailer;
     }
 }

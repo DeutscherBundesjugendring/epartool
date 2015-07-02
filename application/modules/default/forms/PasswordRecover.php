@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_PasswordRecover extends Zend_Form
+class Default_Form_PasswordRecover extends Dbjr_Form_Web
 {
 
     public function init()
@@ -9,7 +9,7 @@ class Default_Form_PasswordRecover extends Zend_Form
             ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/passwordrecover')
             ->setMethod('post');
 
-        $email = $this->createElement('text', 'email');
+        $email = $this->createElement('email', 'email');
         $placeholder = Zend_Registry::get('Zend_Translate')->translate('Email Address');
         $email
             ->setLabel('Email Address')
@@ -20,8 +20,8 @@ class Default_Form_PasswordRecover extends Zend_Form
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setLabel('Send')
-            ->setAttrib('class', 'btn');
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Send');
         $this->addElement($submit);
 
         // CSRF Protection

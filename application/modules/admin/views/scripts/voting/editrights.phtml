@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,13 +13,16 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-permissions');?>
+                <?=$this->consultationNavigation($this->consultation, 'voting-permissions');?>
 
             </div>
             <div class="content">
 
                 <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>" class="back"><?=$this->translate('Back to Voting Permissions');?></a>
-                <h2><?=$this->translate('Voting Permissions for');?> <?=$this->user['email'];?></h2>
+                <h2>
+                    <?=$this->translate('Voting Permissions for');?>
+                    <?=$this->escape($this->user['email']);?>
+                </h2>
                 <?=$this->form;?>
 
             </div>

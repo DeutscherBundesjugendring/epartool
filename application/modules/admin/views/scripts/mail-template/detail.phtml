@@ -5,7 +5,10 @@
                 <h1 class="section-header-title"><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+                <a href="<?=$this->url(['controller' => 'mail-send', 'action' => 'index']);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <?=$this->translate('New Email');?>
+                </a>
             </div>
         </div>
         <?=$this->emailTabs('settings');?>
@@ -21,32 +24,32 @@
             </div>
             <div class="content">
 
-                <a href="<?php echo $this->baseUrl(); ?>/admin/mail-template" class="back"><?=$this->translate('Back to Email Templates');?></a>
+                <a href="<?=$this->url(['controller' => 'mail-template']);?>" class="back"><?=$this->translate('Back to Email Templates');?></a>
 
-                <h2><?=!$this->templateId ? $this->translate('New Email Template') : $this->translate('Edit Email Template')?></h2>
-                <?php echo $this->form;?>
+                <h2><?=!$this->templateId ? $this->translate('New Email Template') : $this->translate('Edit Email Template');?></h2>
+                <?=$this->form;?>
 
                 <div class="well">
                     <h4><?=$this->translate('Placeholders');?></h4>
                     <table class="table table-striped">
                         <?php foreach ($this->placeholders as $placeholder): ?>
                             <tr>
-                                <th class="col-sm-3">{{<?php echo $placeholder->name?>}}</th>
-                                <td><?php echo $placeholder->description?></td>
+                                <th class="col-sm-3">{{<?=$this->escape($placeholder->name);?>}}</th>
+                                <td><?=$this->escape($placeholder->description);?></td>
                             </tr>
-                        <?php endforeach?>
+                        <?php endforeach; ?>
                     </table>
                 </div>
 
                 <div class="well">
-                    <h4>Components</h4>
+                    <h4><?=$this->translate('Components');?></h4>
                     <table class="table table-striped">
                         <?php foreach ($this->components as $component): ?>
                             <tr>
-                                <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE?></th>
-                                <td><?php echo $component->description?></td>
+                                <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE; ?></th>
+                                <td><?=$this->escape($component->description);?></td>
                             </tr>
-                        <?php endforeach?>
+                        <?php endforeach; ?>
                     </table>
                 </div>
 

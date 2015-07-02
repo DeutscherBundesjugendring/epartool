@@ -1,43 +1,49 @@
-<?php echo $this->secondNavigation('voting') ?>
+<?=$this->secondNavigation('voting');?>
 
-<div class="content-holder">
+<div class="main-content">
     <div class="row">
-        <aside class="span3">
+        <div class="sidebar-left">
+
             <?php if ($this->consultation->vot_res_show == 'y'): ?>
                 <p>
-                    <a href="<?=$this->url(['action' => 'results', 'authcode' => null])?>">
-                        <?=$this->translate('View voting results')?>
+                    <span class="glyphicon glyphicon-align-left icon-offset text-muted" aria-hidden="true"></span>
+                    <a href="<?=$this->url(['action' => 'results', 'authcode' => null]);?>">
+                        <?=$this->translate('View voting results');?>
                     </a>
                 </p>
             <?php endif; ?>
 
-        </aside>
+        </div>
+        <div class="content">
 
-        <section class="main-content span9">
-            <h1><?=$this->translate('Login for the voting')?></h1>
+            <h1><?=$this->translate('Login for the voting');?></h1>
             <p>
-                <?=sprintf($this->translate('Here you vote on the contributions on topic "%s" that are especially important in your opinion! The contributions consist of opinions, positions and suggestions given by young people and youth groups during the last weeks and months.'), $this->consultation['titl_short'])?>
+                <?=sprintf($this->translate('Here you vote on the contributions on topic "%s" that are especially important in your opinion! The contributions consist of opinions, positions and suggestions given by young people and youth groups during the last weeks and months.'), $this->consultation['titl_short']);?>
             </p>
 
             <!-- Access form -->
-            <div class="well well-large text-center">
-                <span class="label sticker label-mitmachen-black hidden-print">
-                    <?=$this->translate('Join now!')?>
-                </span>
-                <h2><?=$this->translate('Vote now!')?></h2>
-                <p>
-                    <?=$this->translate('The Voting is anonymous. We just need your email address to check if you are allowed to participate in the Voting.')?>
-                </p>
-                <div class="form-inline">
-                    <?php echo $this->authform; ?>
+            <div class="well well-bordered well-accent text-center has-sticker">
+
+                <!-- Sticker -->
+                <div class="sticker sticker-right hidden-print">
+                    <div class="sticker-label sticker-label-dark">
+                        <?=$this->translate('Join now!');?>
+                    </div>
                 </div>
-                <?php echo (!empty($this->votingExplanation)) ? $this->votingExplanation : ''; ?>
+
+                <h2 class="well-title offset-bottom-large"><?=$this->translate('Vote now!');?></h2>
+                <p>
+                    <?=$this->translate('The Voting is anonymous. We just need your email address to check if you are allowed to participate in the Voting.');?>
+                </p>
+
+                <?=$this->authform;?>
+
+                <?=((!empty($this->votingExplanation)) ? $this->votingExplanation : '');?>
             </div>
 
-            <?php echo $this->render('_partials/printLink.phtml') ?>
-
-        </section>
+        </div>
     </div><!-- .row -->
-</div><!-- .content-holder -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-voting']);?>
+
+</div><!-- .main-content -->

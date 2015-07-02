@@ -1,0 +1,40 @@
+// Navbar
+
+
+.navbar-default {
+    border: none;
+
+    .nav > li > a {
+        font-family: @font-family-condensed;
+        font-size: @font-size-large;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .nav > li + li > a {
+        border-top: 1px solid @navbar-default-border;
+    }
+
+    .nav > .licence > a {
+        &:hover,
+        &:focus {
+            background-color: transparent;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        .nav {
+            .nav-centered();
+            float: none;
+        }
+
+        .nav > li + li > a {
+            border-top: none;
+        }
+
+        .nav > .licence > a {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+}

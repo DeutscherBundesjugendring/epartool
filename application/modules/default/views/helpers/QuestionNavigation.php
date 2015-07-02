@@ -1,15 +1,12 @@
 <?php
+
 /**
- * Question Navigation
- *
- * @desc Navigation 3rd Level: Questions of a consultation
- * used in controllers: question, input, voting
- * @author Markus Hackel
+ * Navigation 3rd Level: Questions of a consultation
  */
-class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
 {
 
-    public function questionNavigation($activeItem = null, $for = NULL, $numbered = false)
+    public function questionNavigation($activeItem = null, $for = null, $numbered = false)
     {
         $con = $this->view->consultation;
         $questionModel = new Model_Questions();
@@ -40,13 +37,16 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
         $html = '';
 
         if ($for !== 'follow-up-box') {
+
             if ($for !== 'follow-up') {
-                $html .= '<nav role="navigation" class="tertiary-navigation">';
+                $html .= '<nav>' . "\n";
             }
-            $html .= '<ul class="nav nav-list">';
+
+            $html .= '<ul class="nav nav-stacked">' . "\n";
         }
 
         $i = 1;
+
         foreach ($items as $item) {
             $number = $numbered ? $i . '. ' : '';
             $liClasses = array();
@@ -56,7 +56,7 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
             }
 
             if ($for == 'follow-up-box') {
-                $html .= '<p class="no-offset">';
+                $html .= '<p class="offset-bottom-small">';
             } else {
                 $html .= '<li class="' . implode(' ', $liClasses) . '">';
             }
@@ -64,7 +64,7 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
             $urlParams['qid'] = $item->qi;
             $html .= '<a href="'
                 . $this->view->url($urlParams) . '"'
-                . ($for == 'follow-up-box'? ' class="btn"'
+                . ($for == 'follow-up-box'? ' class="btn btn-default text-wrap"'
                     : ' class="question-nav-item" data-qid="' . $item->qi . '"')
                 . '>'
                 // Number
@@ -74,18 +74,19 @@ class Zend_View_Helper_QuestionNavigation extends Zend_View_Helper_Abstract
                 . '</a>';
 
             if ($for == 'follow-up-box') {
-                $html .= '</p>';
+                $html .= '</p>' . "\n";
             } else {
-                $html .= '</li>';
+                $html .= '</li>' . "\n";
             }
 
             $i++;
         }
 
         if ($for !== 'follow-up-box') {
-            $html .= '</ul>';
+            $html .= '</ul>' . "\n";
+
             if ($for !== 'follow-up') {
-                $html .= '</nav>';
+                $html .= '</nav>' . "\n";
             }
         }
 

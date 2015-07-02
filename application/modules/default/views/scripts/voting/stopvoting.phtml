@@ -1,25 +1,32 @@
-<?php echo $this->secondNavigation('voting') ?>
+<?=$this->secondNavigation('voting');?>
 
-<div class="content-holder">
+<div class="main-content">
 	<div class="row">
-		<div class="main-content span6 offset3">
+		<div class="content content-offset">
 
-			<h1><?=$this->translate('Thank you for voting!')?></h1>
-			<p>
-                <?=$this->translate("If you haven't finished voting on all contributions, you can login any time and finish your votings.")?>
+			<h1><?=$this->translate('Thank you for voting!');?></h1>
+
+            <p>
+                <?=$this->translate("If you haven't finished voting on all contributions, you can login any time and finish your votings.");?>
             </p>
+
 			<?php if (!empty($this->groupmember)): ?>
 				<p>
-                    <?=sprintf($this->translate('An email has been sent to %s. Please check your inbox!'), '<b>' . $this->groupmember . '</b>')?>
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                    <?=sprintf($this->translate('An email has been sent to %s. Please check your inbox!'), '<strong>' . $this->groupmember . '</strong>');?>
                 </p>
 			<?php endif; ?>
+
 			<p>
-                <a href="<?php echo $this->url(array('controller' => 'index'), 'default', true); ?>">
-                    <?=$this->translate('Back to Home')?>
+                <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="btn btn-default">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                    <?=$this->translate('Back to Home');?>
                 </a>
             </p>
+
 		</div>
 	</div><!-- .row -->
-</div><!-- .main-content -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-voting']);?>
+
+</div><!-- .main-content -->

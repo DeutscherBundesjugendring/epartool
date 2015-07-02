@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-sm-5">
+
+        <p>
+            <strong>
+                <?=$this->escape($this->thes);?>
+            </strong>
+        </p>
+        <?php if (!empty($this->expl)): ?>
+            <p>
+                <?=$this->escape($this->expl);?>
+            </p>
+        <?php endif ?>
+
+    </div>
+    <div class="col-sm-7">
+
+        <!-- Voting buttons -->
+        <div id="thesis-<?=$this->escape($this->tid);?>" class="js-voting">
+            <?=$this->partial('_partials/voting/votingPreviewButtons.phtml', $this);?>
+        </div>
+
+    </div>
+</div><!-- .row -->
+
+<hr />

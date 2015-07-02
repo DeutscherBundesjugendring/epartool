@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_UnsubscribeNotification extends Zend_Form
+class Default_Form_UnsubscribeNotification extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -16,7 +16,7 @@ class Default_Form_UnsubscribeNotification extends Zend_Form
     private function prepareElements()
     {
         $subscribe = $this->createElement('submit', 'unsubscribe')
-            ->setAttrib('class', 'btn')
+            ->setAttrib('class', 'btn-default')
             ->setLabel('Unsubscribe');
 
         $hash = $this->createElement('hash', 'csrf_token_input_unsubscribe_question', array('salt' => 'unique'));

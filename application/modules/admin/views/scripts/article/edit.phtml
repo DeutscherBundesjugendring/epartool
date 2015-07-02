@@ -2,8 +2,8 @@
     <div class="container">
 
         <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-            <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-            <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+            <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+            <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
             <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
         <?php else: ?>
             <h1 class="section-header-title"><?=$this->translate('General Settings');?></h1>
@@ -17,7 +17,7 @@
             <div class="sidebar">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-                    <?=$this->consultationNavigation($this->consultation['kid'], 'info');?>
+                    <?=$this->consultationNavigation($this->consultation, 'info');?>
                 <?php else: ?>
                     <?=$this->settingsNavigation('pages');?>
                 <?php endif; ?>
@@ -26,14 +26,14 @@
             <div class="content">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
-                    <a href="<?=$this->url(array('action' => 'index', $this->kid));?>" class="back"><?=$this->translate('Back to Articles');?></a>
+                    <a href="<?=$this->url(['action' => 'index', $this->kid]);?>" class="back"><?=$this->translate('Back to Articles');?></a>
                     <h2><?=$this->translate('Edit Article');?></h2>
                 <?php else: ?>
-                    <a href="<?=$this->url(array('action' => 'index'));?>" class="back"><?=$this->translate('Back to Pages');?></a>
+                    <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to Pages');?></a>
                     <h2><?=$this->translate('Edit Page');?></h2>
                 <?php endif; ?>
 
-                <?php echo $this->form;?>
+                <?=$this->form;?>
 
             </div>
         </div>

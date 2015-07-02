@@ -1,0 +1,40 @@
+// Bubbles
+
+
+.bubble {
+    width: 150px;
+    height: 105px;
+    padding: 30px 30px 20px;
+    line-height: 1.2;
+    text-align: center;
+    color: #000;
+    background: transparent url(../images/bubble.png) no-repeat;
+    background-size: contain;
+
+    @media (min-resolution: 144dpi), (-webkit-min-device-pixel-ratio: 1.5) {
+        background-image: url(../images/bubble@2x.png);
+    }
+
+    &-title {
+        margin-bottom: .1em;
+        font: normal 1.75em/1 @font-family-condensed;
+        text-transform: uppercase;
+    }
+
+    &-sm {
+        width: 75px;
+        height: 55px;
+        padding: 15px 20px;
+    }
+
+    &-lg {
+        width: 170px;
+        height: 145px;
+        padding: 25px 25px 55px 30px;
+        background-image: url(../images/bubble-lg.png);
+
+        @media (min-resolution: 144dpi), (-webkit-min-device-pixel-ratio: 1.5) {
+            background-image: url(../images/bubble-lg@2x.png);
+        }
+    }
+}

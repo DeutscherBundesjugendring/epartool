@@ -1,6 +1,6 @@
 <?php
 
-class Zend_View_Helper_Perex extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_Perex extends Zend_View_Helper_Abstract
 {
     /**
      * Creates a perex from string

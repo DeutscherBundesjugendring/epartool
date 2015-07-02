@@ -63,7 +63,9 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
         $this->addElement($buttonImportantFactor);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Submit');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Submit');
         $this->addElement($submit);
     }
 }

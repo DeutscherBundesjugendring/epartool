@@ -55,7 +55,9 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
 
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Upload');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Upload');
         $this->addElement($submit);
 
     }

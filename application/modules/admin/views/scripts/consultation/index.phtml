@@ -1,8 +1,8 @@
 <section class="section-header has-tabs" xmlns="http://www.w3.org/1999/html">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation->titl;?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation->titl_sub;?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation->titl);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
 
         <?=$this->consultationTabs($this->consultation->kid, 'consultation');?>
 
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'dashboard');?>
+                <?=$this->consultationNavigation($this->consultation, 'dashboard');?>
 
             </div>
             <div class="content">
@@ -37,7 +37,7 @@
                                                 <button
                                                     class="item-action item-action-danger"
                                                     name="deleteInput"
-                                                    value="<?=$input['tid'];?>"
+                                                    value="<?=$this->escape($input['tid']);?>"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete contribution?');?>"
                                                     title="<?=$this->translate('Delete');?>"
@@ -47,7 +47,7 @@
                                             </div>
                                             <div class="media-body">
                                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $input['tid'], 'uid' => $input['uid']]);?>">
-                                                    <p><?=$input['thes'];?></p>
+                                                    <p><?=$this->escape($input['thes']);?></p>
                                                 </a>
                                             </div>
                                         </div><!-- .media -->
@@ -57,9 +57,9 @@
                                                 <span class="glyphicon glyphicon-user"></span>
                                                 <a
                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid']]);?>"
-                                                    title="<?=$this->translate('Show contributions by');?> <?=$input['name'];?>"
+                                                    title="<?=$this->translate('Show contributions by');?> <?=$this->escape($input['name']);?>"
                                                     >
-                                                    <?=$input['name'];?>
+                                                    <?=$this->escape($input['name']);?>
                                                 </a>,
                                             <?php endif; ?>
                                             <?=$this->formatDate($input['when']);?>
@@ -91,7 +91,7 @@
                                                 <button
                                                     class="item-action item-action-danger"
                                                     name="deleteDiscContrib"
-                                                    value="<?=$contrib->id;?>"
+                                                    value="<?=$this->escape($contrib->id);?>"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete discussion post?');?>"
                                                     title="<?=$this->translate('Delete');?>"
@@ -100,7 +100,7 @@
                                                 </button>
                                             </div>
                                             <div class="media-body">
-                                                <a href="<?=$this->baseUrl()?>/admin/input-discussion/index/kid/<?=$this->consultation['kid'];?>/inputId/<?=$this->escape($contrib->input_id);?>#<?=$this->escape($contrib->id);?>">
+                                                <a href="<?=$this->url(['controller' => 'input-discussion', 'action' => 'index', 'kid' => $this->consultation['kid'], 'inputId' => $contrib->input_id]);?>#<?=$this->escape($contrib->id);?>">
                                                     <?=$this->escape($contrib->body);?>
                                                 </a>
                                             </div>
@@ -109,7 +109,7 @@
                                         <footer>
                                             <?php if (!empty($contrib['name'])): ?>
                                                 <span class="glyphicon glyphicon-user"></span>
-                                                <?=$contrib['name'];?>,
+                                                <?=$this->escape($contrib['name']);?>,
                                             <?php endif; ?>
                                             <?=$this->formatDate($contrib->time_created);?>
                                         </footer>

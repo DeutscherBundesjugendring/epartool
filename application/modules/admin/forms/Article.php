@@ -89,11 +89,15 @@ class Admin_Form_Article extends Dbjr_Form_Admin
         $this->addElement($hash);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
+        $submit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save');
         $this->addElement($submit);
 
         $preview = $this->createElement('submit', 'preview');
-        $preview->setLabel('Preview');
+        $preview
+            ->setAttrib('class', 'btn-default')
+            ->setLabel('Preview');
         $this->addElement($preview);
     }
 }

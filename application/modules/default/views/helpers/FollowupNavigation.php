@@ -1,6 +1,6 @@
 <?php
 
-class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract
+class Module_Default_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract
 {
 
     public function followupNavigation($activeItem = null, $activeItemQ = null)
@@ -15,25 +15,28 @@ class Zend_View_Helper_FollowupNavigation extends Zend_View_Helper_Abstract
                 'tags' => array('title' => $this->view->translate('Contributions sorted by keywords'),'url'=>array('action' => 'tags', 'page' => null))
             );
 
-            $html = '<nav role="navigation" class="tertiary-navigation">'
-                 . '<ul class="nav nav-list">';
+            $html = '<nav class="offset-bottom-large"><ul class="nav nav-stacked">' . "\n";
 
             foreach ($navItems as $key => $val) {
                 $liClasses = array();
+
                 if ($key == $activeItem) {
                     $liClasses[] = 'active';
                 }
-                $html.= '<li class="' . implode(' ', $liClasses) . '">';
-                $html.= '<a href="'.$this->view->url($val['url']).'">';
-                $html.= $val['title'];
-                $html.= '</a>';
+
+                $html .= '<li class="' . implode(' ', $liClasses) . '">';
+                $html .= '<a href="'.$this->view->url($val['url']).'">';
+                $html .= $val['title'];
+                $html .= '</a>';
+
                 if ($key == 'inputs-by-question' && $activeItem == 'inputs-by-question') {
-                    $html.= $this->view->QuestionNavigation($activeItemQ, 'follow-up');
+                    $html .= $this->view->QuestionNavigation($activeItemQ, 'follow-up');
                 }
-                $html.= '</li>';
+
+                $html .= '</li>' . "\n";
            }
 
-           $html.= '</ul></nav>';
+           $html .= '</ul></nav>' . "\n\n";
 
            return $html;
        }

@@ -1,131 +1,276 @@
-<?php
-$config = Zend_Registry::get('config');
-$sysconfig = Zend_Registry::get('systemconfig');
-?>
+<?php $lang = Zend_Registry::get('Zend_Locale')->getLanguage(); ?>
+<?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 <!DOCTYPE html>
-<html lang="<?=Zend_Registry::get('Zend_Locale')->getLanguage();?>" itemscope itemtype="http://schema.org/Event">
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-		<!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
+<html lang="<?=$lang;?>" itemscope itemtype="http://schema.org/Event">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
 
-		<?php echo $this->headTitle(); ?>
+    <title><?=$this->parameter('site.title');?></title>
 
-		<meta name="description" content="<?php echo Zend_Registry::get('systemconfig')->meta->description?>" />
-		<meta name="author" content="Content © 2013 DBJR" />
-		<meta name="DC.title" content="Mitwirkung mit Wirkung" />
-		<meta name="DC.creator" content="" />
-		<meta property="og:title" content="Mitwirkung mit Wirkung" />
-		<meta property="og:image" content="" />
-		<meta property="og:description" content="<?php echo Zend_Registry::get('systemconfig')->meta->property->ogDescription?>" />
-		<!--link rel="author" type="text/plain" href="<?php echo $this->baseUrl(); ?>/humans.txt" /-->
+    <meta name="description" content="<?=$this->parameter('site.description');?>" />
+    <meta name="author" content="Content © <?=date('Y');?> DBJR" />
+    <meta name="DC.title" content="<?=$this->parameter('site.title');?>" />
+    <meta property="og:title" content="<?=$this->parameter('site.title');?>" />
+    <meta property="og:description" content="<?=$this->parameter('site.description');?>" />
 
-		<link
-			rel="shortcut icon"
-			href="<?php echo $this->baseUrl()?>/project/favicon.ico"
-		/>
+    <?php if (APPLICATION_ENV === 'development'): ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
+    <?php else: ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.min.css');?>" type="text/css" />
+    <?php endif;?>
 
-		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fonts ?>" type="text/css" />
-		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->bootstrap ?>" type="text/css" />
-		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->fontAwesome ?>" type="text/css" />
-		<link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->main ?>" type="text/css" />
-		<?php echo $this->headLink(); ?>
+    <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
 
-        <link
-            rel="stylesheet"
-            href="<?php echo $this->baseUrl() .'/project/css/style.css'?>" type="text/css"
-        />
+    <link rel="shortcut icon" href="<?=$this->baseUrl('project/favicon.ico');?>" />
 
-		<!--[if lte IE 7]><link rel="stylesheet" href="<?= $this->baseUrl() . $config->path->css->ie7 ?>" type="text/css" /><![endif]-->
+    <!--[if lt IE 9]><script src="<?=$this->baseUrl('vendor/html5shiv.min.js');?>"></script><![endif]-->
+</head>
+<body>
 
-		<script src="<?= $this->baseUrl() . $config->path->js->jquery ?>"></script>
 
-		<!-- HTML5 shim for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]><script src="<?= $this->baseUrl() . $config->path->js->html5shim ?>"></script><![endif]-->
 
-		<?php echo $this->headScript(); ?>
-		<script type="text/javascript">
-			var baseUrl = '<?php echo $this->baseUrl(); ?>';
-		</script>
+<!-- Flash Messages -->
+<?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
 
-	</head>
-	<body>
 
-        <!-- Flash messages -->
-        <?php if (!empty($this->layout()->messages)): ?>
-            <?php foreach ($this->layout()->messages as $level => $messages): ?>
-                <?php if (!empty($messages)): ?>
-                    <?php foreach ($messages as $message): ?>
-                        <?php echo $this->partial('_partials/flashMessage.phtml', array('message' => $message, 'level' => $level))?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php endif; ?>
 
-		<!-- Document wrap -->
-		<div class="document-wrap" id="top">
-			<div class="container">
+<!-- Frame -->
+<div id="top" class="container">
+    <div class="frame">
 
-				<!-- Header -->
-				<?php echo $this->partial('_partials/header.phtml', $this->layout()->getView()); ?>
 
-				<!-- Body copy -->
-				<div role="main" class="main">
 
-					<!-- Content start -->
+        <!-- Header -->
+        <header role="banner" class="header">
 
-					<?php echo $this->layout()->content; ?>
+            <!-- Logo -->
+            <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand" title="<?=$this->translate('Home');?>">
+                <img src="<?=$this->baseUrl('project/images/logo.png');?>" itemprop="image" alt="<?=$this->parameter('site.title');?>" />
+            </a>
 
-					<!-- Content end -->
+            <!-- Main navigation -->
+            <nav role="navigation" class="header-nav" aria-label="<?=$this->translate('Menu');?>">
+                <ul class="nav nav-pills nav-centered">
+                    <li><a href="<?=$this->url([], 'about');?>#what"><?=$this->translate('What');?></a></li>
+                    <li><a href="<?=$this->url([], 'about');?>#us"><?=$this->translate('We');?></a></li>
+                    <?php if (Zend_Registry::get('Zend_Translate')->getAdapter()->getLocale() === 'de'): ?>
+                        <li><a href="<?=$this->url([], 'about');?>#you"><?=$this->translate('With You');?></a></li>
+                        <li><a href="<?=$this->url([], 'about');?>#vision"><?=$this->translate('Do');?></a></li>
+                    <?php elseif (Zend_Registry::get('Zend_Translate')->getAdapter()->getLocale() === 'en'): ?>
+                        <li><a href="<?=$this->url([], 'about');?>#vision"><?=$this->translate('Do');?></a></li>
+                        <li><a href="<?=$this->url([], 'about');?>#you"><?=$this->translate('With You');?></a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
 
-				</div>
-				<!-- .main -->
-			</div>
-			<!-- .container -->
-		</div>
-		<!-- .document-wrap -->
-		<hr class="hide" />
+            <!-- Search and user -->
+            <div class="header-widgets">
 
-		<!-- Footer -->
-		<?php echo $this->render('_partials/footer.phtml') ?>
+                <!-- Search -->
+                <form class="form-search" method="get" action="<?=$this->url(['controller' => 'index', 'action' => 'search'], 'default', true);?>">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" name="q" placeholder="<?=$this->translate('Search…');?>" value="" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
 
-		<?php
-		// echo '<!-- Debug-Info -->';
-		// echo '<pre>';
-		// $request = Zend_Controller_Front::getInstance() -> getRequest();
-		// echo('<dt>Zend Version: </dt><dd>' . Zend_Version::VERSION . '</dd>');
-		// echo('<dt>Application environment: </dt><dd>' . APPLICATION_ENV . '</dd>');
-		// echo('<dt>Module:</dt><dd> ' . $request -> getModuleName() . '</dd>');
-		// echo('<dt>Controller: </dt><dd>' . $request -> getControllerName() . '</dd>');
-		// echo('<dt>Action:</dt><dd> ' . $request -> getActionName() . '</dd>');
-		// $params = $request -> getParams();
-		// echo '<dl>';
-		// foreach ($params as $key => $value) {
-			// switch ($key) {
-				// case 'module' :
-				// case 'controller' :
-				// case 'action' :
-					// continue;
-//
-				// default :
-					// echo "<dt>" . $key . "</dt><dd>" . $value . "</dd>";
-			// }
-		// }
-		// echo '</dl></pre>';
-		// echo '<pre>';
-		// print_r($_SESSION);
-//
-		// echo '</pre>';
-		?>
+                <!-- Login -->
+                <?=$this->login($this->layout()->disableLoginMsg);?>
 
-		<!-- Scripts -->
-		<script src="<?php echo $this->baseUrl() . $config->path->js->i18n ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->bootstrap ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->pwstrength ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->main ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->web ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->followUp ?>"></script>
-		<script src="<?php echo $this->baseUrl() . $config->path->js->socialShare ?>"></script>
+                <!-- User box (user is logged in) -->
+                <?=$this->userBox();?>
 
-	</body>
+            </div>
+
+            <?php if (isset($this->consultation)): ?>
+
+                <!-- Main title -->
+                <h1 class="header-title">
+                    <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
+                        <?=$this->translate('Participation');?>
+                    </a>
+                </h1>
+
+                <!-- Header box: Consultation -->
+                <div class="header-box has-sticker">
+
+                    <!-- Sticker -->
+                    <div class="hidden-xs">
+                        <?=$this->ribbonImage($this->consultation);?>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-push-3 col-md-offset-0">
+
+                            <!-- Title -->
+                            <h1 class="header-box-title header-box-title-small">
+                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $this->consultation->kid]);?>">
+                                    <?=$this->escape($this->consultation->titl);?>
+                                </a>
+                            </h1>
+                            <h2 class="header-box-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
+
+                            <!-- Sticker -->
+                            <div class="visible-xs">
+                                <?=$this->ribbonImage($this->consultation);?>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 col-md-pull-6">
+
+                            <!-- Image -->
+                            <img
+                                src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $this->consultation->kid . '/' . $this->consultation->img_file);?>"
+                                class="header-box-image"
+                                alt="<?=$this->consultation->img_expl;?>"
+                                />
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <!-- Home link -->
+                            <div class="header-box-home">
+                                <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="link-alt has-icon" rel="home">
+                                    <?=$this->translate('Home');?>…
+                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                </a>
+                            </div>
+
+                            <!-- Share -->
+                            <div class="header-box-share">
+                                <button type="button" class="btn btn-default btn-sm has-icon-lg dropdown-toggle js-share">
+                                    <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                    <?=$this->translate('Share');?>
+                                </button>
+                                <div id="sharebtn-holder" class="share-dropdown"></div>
+                            </div>
+
+                        </div>
+                    </div><!-- .row -->
+                </div><!-- .header-box -->
+
+            <?php else: ?>
+
+                <!-- Header box: Homepage -->
+                <div class="header-box<?=($controller === 'index' ? ' has-nav-list' : '');?>">
+
+                    <h1 class="header-box-title">
+                        <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
+                            <?=$this->translate('Participation');?>
+                        </a>
+                    </h1>
+
+                    <!-- Help -->
+                    <?php if ($controller === 'index'): ?>
+                        <a
+                            href="<?=$this->url(['controller' => 'help', 'action' => 'index', 'name' => 'help-text-home']);?>"
+                            class="header-box-help link-transparent has-icon js-toggle-help"
+                            title="<?=$this->translate('Help');?>"
+                        >
+                            <span class="icon-md glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                        </a>
+                    <?php endif; ?>
+
+                    <p class="header-box-description" itemprop="description">
+                        <?=$this->parameter('site.motto');?>
+                    </p>
+
+                    <!-- Menu -->
+                    <?php if ($controller === 'index'): ?>
+                        <?=$this->teaser();?>
+                    <?php endif; ?>
+
+                </div><!-- .header-box -->
+
+            <?php endif; ?>
+
+        </header>
+
+
+
+        <!-- Main -->
+        <main role="main" class="main">
+
+            <?=$this->layout()->content;?>
+
+        </main>
+
+
+    </div><!-- .frame -->
+</div><!-- .container -->
+
+
+
+<!-- Footer -->
+<footer class="footer">
+
+    <!-- Footer navigation -->
+    <nav role="navigation" class="navbar navbar-default navbar-static">
+        <div class="container">
+
+            <ul class="nav navbar-nav">
+
+                <?=$this->footerLinks();?>
+
+                <li class="licence">
+                    <a
+                        href="<?=Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink;?>"
+                        rel="license"
+                        target="_blank"
+                        title="<?=$this->translate('Creative Commons license 4.0: attribution, non-commercial');?>"
+                        >
+                        <img src="<?=$this->baseUrl('images/licence.svg');?>" width="98" height="34" alt="CC-BY-NC 4.0" />
+                    </a>
+                </li>
+            </ul>
+
+        </div><!-- .container -->
+    </nav>
+
+    <!-- About -->
+    <div role="contentinfo">
+        <div class="container">
+            <div class="row">
+
+                <?=$this->footer();?>
+
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div>
+
+</footer>
+
+
+
+<!-- Scripts -->
+<script>
+    var baseUrl = '<?=$this->baseUrl()?>';
+</script>
+
+<script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
+
+<?php if (APPLICATION_ENV === 'development'): ?>
+    <script src="<?=$this->baseUrl('js/dbjr.js');?>"></script>
+<?php else: ?>
+    <script src="<?=$this->baseUrl('js/dbjr.min.js');?>"></script>
+<?php endif;?>
+
+<script src="<?=$this->baseUrl('/index/i18n');?>"></script>
+
+<?php if (isset($this->hasFollowupTimeline)): ?>
+    <script>
+        $(document).ready(function() {
+            var followUp = new FollowUp(<?=$this->question['kid'];?>);
+        });
+    </script>
+<?php endif; ?>
+
+</body>
 </html>

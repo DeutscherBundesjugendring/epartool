@@ -1,0 +1,40 @@
+// Result
+
+
+.result {
+    position: relative;
+    z-index: 0;
+    margin-right: 3em;
+    padding: 1em .5em;
+
+    &-number {
+        position: absolute;
+        right: -1.5em;
+        top: 50%;
+        width: 2em;
+        margin-top: -0.5em;
+        font-weight: bold;
+        font-size: 2em;
+        line-height: 100%;
+        text-align: right;
+        color: @brand-accent;
+    }
+
+    &-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1; // send to background
+        height: 100%;
+        background-color: lighten(@brand-accent, 30%);
+    }
+
+    @media (min-width: @screen-sm-min) {
+        margin-right: 6em;
+
+        &-number {
+            right: -2em;
+            font-size: 3em;
+        }
+    }
+}

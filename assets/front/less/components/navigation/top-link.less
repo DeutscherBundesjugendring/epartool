@@ -1,0 +1,18 @@
+// Top Link
+
+
+.top-link {
+    > a > .glyphicon {
+        top: 3px;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        text-align: center;
+    }
+
+    @media (min-width: @screen-md-min) {
+        &:not(:first-child) {
+            margin-top: 2 * @line-height-computed;
+        }
+    }
+}

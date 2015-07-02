@@ -1,15 +1,14 @@
 <?php
 
-class Default_Form_Login extends Zend_Form
+class Default_Form_Login extends Dbjr_Form_Web
 {
-
     public function init()
     {
         $this
             ->setMethod('post')
-            ->setAttrib('class', 'yform');
+            ->setAttrib('class', 'offset-bottom');
 
-        $email = $this->createElement('text', 'username');
+        $email = $this->createElement('email', 'username');
         $email
             ->setLabel('Email Address')
             ->setRequired(true)
@@ -27,7 +26,7 @@ class Default_Form_Login extends Zend_Form
         $submit = $this->createElement('submit', 'submit');
         $submit
             ->setLabel('Login')
-            ->setAttrib('class', 'btn');
+            ->setAttrib('class', 'btn-default btn-sm');
         $this->addElement($submit);
 
 

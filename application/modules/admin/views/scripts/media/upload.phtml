@@ -5,11 +5,9 @@
                 <h1 class="section-header-title"><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a
-                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
-                    class="btn btn-primary cta"
-                    >
-                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                <a href="<?=$this->url(['action' => 'upload', 'filename' => null]);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-upload"></span>
+                    <?=$this->translate('Upload');?>
                 </a>
             </div>
         </div>
@@ -26,7 +24,7 @@
 
                 </div>
                 <div class="content">
-        <?php endif?>
+        <?php endif; ?>
 
         <?php if ($this->lockDir): ?>
             <a href="<?=$this->url(['action' => 'index', 'folder' => $this->folder, 'kid' => $this->kid, 'isLockDir' => '1']);?>" class="back"><?=$this->translate('Back to Media');?></a>

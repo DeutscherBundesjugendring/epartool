@@ -1,0 +1,64 @@
+// Rating Bar
+
+
+.rating-bar {
+    &-navigation {
+        @decoration-width: @grid-gutter-width;
+
+        position: relative;
+        margin: 0 -(@well-bordered-padding + @well-bordered-border-width + @decoration-width);
+        padding: floor((@line-height-computed / 2)) 5em 1em;
+        color: #fff;
+        background-color: #000;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: block;
+            border-top: 1.25em solid @gray;
+            border-left: @decoration-width solid transparent;
+        }
+
+        &:after {
+            left: auto;
+            right: 0;
+            border-left: none;
+            border-right: @decoration-width solid transparent;
+        }
+
+        // Navigation
+        &-prev,
+        &-next {
+            position: absolute;
+            top: 50%;
+            margin: -20px .5em 0 .5em;
+        }
+
+        &-prev {
+            left: 0;
+        }
+
+        &-next {
+            right: 0;
+        }
+
+        @media (min-width: @screen-sm-min) {
+            padding-left: 8em;
+            padding-right: 8em;
+        }
+    }
+
+    &-buttons {
+        position: relative;
+        z-index: 1;
+        margin: -@line-height-computed 3em @line-height-computed;
+
+        > li {
+            width: 7em;
+            vertical-align: top;
+        }
+    }
+}

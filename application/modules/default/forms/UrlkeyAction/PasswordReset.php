@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
+class Default_Form_UrlkeyAction_PasswordReset extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -39,9 +39,9 @@ class Default_Form_UrlkeyAction_PasswordReset extends Zend_Form
         $this->addElement(
             $this
                 ->createElement('button', 'submit')
-                ->setLabel('Save new password')
                 ->setAttrib('type', 'submit')
-                ->setAttrib('class', 'btn')
+                ->setAttrib('class', 'btn-primary')
+                ->setLabel('Save new password')
         );
 
         $this->addElement(

@@ -65,14 +65,14 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
 
     public function render(Zend_View_Interface $view = null)
     {
-        $cssClass = 'btn btn-primary';
-
         if ($this->_actionType === self::TYPE_DELETE) {
-            $cssClass = 'item-action item-action-danger';
+            $newCssClass = 'item-action item-action-danger';
             $this
                 ->setOptions(['escape' => false, 'type' => 'submit'])
                 ->setLabel('<span class="glyphicon glyphicon-trash"></span>')
                 ->setIsConfirm(true);
+        } else {
+            $newCssClass = 'btn';
         }
 
 
@@ -83,8 +83,8 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
             $this->setAttrib('data-confirm-message', $this->_confirmMessage);
         }
 
-        $oldClass = $this->getAttrib('class') ? ' ' . $this->getAttrib('class') : '';
-        $this->setAttrib('class', $cssClass . $oldClass);
+        $origCssClass = $this->getAttrib('class') ? ' ' . $this->getAttrib('class') : '';
+        $this->setAttrib('class', $newCssClass . $origCssClass);
 
         return parent::render($view);
     }

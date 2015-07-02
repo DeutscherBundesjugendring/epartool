@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-participants');?>
+                <?=$this->consultationNavigation($this->consultation, 'voting-participants');?>
 
             </div>
             <div class="content">
@@ -30,116 +30,118 @@
 
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'participant-update']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th data-toggle="sort" class="sorting-asc col-xs-3"><?=$this->translate('Group');?></th>
-                                    <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Participant');?></th>
-                                    <th data-toggle="sort" class="col-xs-2"><?=$this->translate('Status');?></th>
-                                    <th data-toggle="sort" class="col-xs-2 text-right"><?=$this->translate('Votes Left');?></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($this->groups as $group): ?>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <?=$group['name'];?>
-                                            <div class="text-overflow">
-                                                <a href="mailto:<?=$this->escape($group['email']);?>" title="<?=$this->escape($group['email']);?>">
-                                                    <?=$this->escape($group['email']);?>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="text-overflow">
-                                                <a href="mailto:<?=$this->escape($group['sub_user']);?>" class="text-overflow" title="<?=$this->escape($group['sub_user']);?>">
-                                                    <?=$this->escape($group['sub_user']);?>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <?php if ($group['member'] == 'y'): ?>
-                                                <span class="label label-success">
-                                                    <span class="glyphicon glyphicon-ok-sign"></span>
-                                                    <?=$this->translate('Confirmed');?>
-                                                </span>
-                                            <?php elseif ($group['member'] == 'n'): ?>
-                                                <span class="label label-danger">
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                    <?=$this->translate('Denied');?>
-                                                </span>
-                                            <?php elseif ($group['member'] == 'u'): ?>
-                                                <span class="label label-warning">
-                                                    <span class="glyphicon glyphicon-question-sign"></span>
-                                                    <?=$this->translate('Open');?>
-                                                </span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="text-right"><?=$this->escape(substr_count($group['vt_inp_list'], ','));?></td>
-                                        <td class="table-cell-actions">
-                                            <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
-                                                <button
-                                                    value="<?=$group['uid'];?>_<?=$group['sub_uid'];?>"
-                                                    class="item-action"
-                                                    name="confirm"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
-                                                    title="<?=$this->translate('Confirm participant');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-                                                </button>
-                                            <?php endif;?>
-                                            <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
-                                                <button
-                                                    value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
-                                                    class="item-action item-action-danger"
-                                                    name="deny"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
-                                                    title="<?=$this->translate('Deny participant');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                                </button>
-                                            <?php endif;?>
-                                            <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
-                                                <button
-                                                    value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
-                                                    class="item-action item-action-danger"
-                                                    name="delete"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
-                                                    title="<?=$this->translate('Delete participant');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </button>
-                                            <?php endif;?>
-                                            <a
-                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
-                                                class="item-action"
-                                                title="<?=$this->translate('Show all contributions by this user');?>"
-                                                >
-                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                            </a>
-                                            <a
-                                                href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
-                                                class="item-action"
-                                                title="<?=$this->translate('Merge participants');?>"
-                                                >
-                                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
+                                        <th data-toggle="sort" class="sorting-asc col-xs-3"><?=$this->translate('Group');?></th>
+                                        <th data-toggle="sort" class="col-xs-3"><?=$this->translate('Participant');?></th>
+                                        <th data-toggle="sort" class="col-xs-2"><?=$this->translate('Status');?></th>
+                                        <th data-toggle="sort" class="col-xs-2 text-right"><?=$this->translate('Votes Left');?></th>
+                                        <th></th>
                                     </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($this->groups as $group): ?>
+                                        <tr>
+                                            <td>
+                                                <?=$this->escape($group['name']);?>
+                                                <div class="text-overflow-small">
+                                                    <a href="mailto:<?=$this->escape($group['email']);?>" title="<?=$this->escape($group['email']);?>">
+                                                        <?=$this->escape($group['email']);?>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-overflow-small">
+                                                    <a href="mailto:<?=$this->escape($group['sub_user']);?>" class="text-overflow-small" title="<?=$this->escape($group['sub_user']);?>">
+                                                        <?=$this->escape($group['sub_user']);?>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <?php if ($group['member'] == 'y'): ?>
+                                                    <span class="label label-success">
+                                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                                        <?=$this->translate('Confirmed');?>
+                                                    </span>
+                                                <?php elseif ($group['member'] == 'n'): ?>
+                                                    <span class="label label-danger">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                        <?=$this->translate('Denied');?>
+                                                    </span>
+                                                <?php elseif ($group['member'] == 'u'): ?>
+                                                    <span class="label label-warning">
+                                                        <span class="glyphicon glyphicon-question-sign"></span>
+                                                        <?=$this->translate('Open');?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-right"><?=$this->escape(substr_count($group['vt_inp_list'], ','));?></td>
+                                            <td class="table-cell-actions">
+                                                <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
+                                                    <button
+                                                        value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
+                                                        class="item-action"
+                                                        name="confirm"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
+                                                        title="<?=$this->translate('Confirm participant');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                                                    </button>
+                                                <?php endif; ?>
+                                                <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
+                                                    <button
+                                                        value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
+                                                        class="item-action item-action-danger"
+                                                        name="deny"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
+                                                        title="<?=$this->translate('Deny participant');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                    </button>
+                                                <?php endif; ?>
+                                                <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
+                                                    <button
+                                                        value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
+                                                        class="item-action item-action-danger"
+                                                        name="delete"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
+                                                        title="<?=$this->translate('Delete participant');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button>
+                                                <?php endif; ?>
+                                                <a
+                                                    href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
+                                                    class="item-action"
+                                                    title="<?=$this->translate('Show all contributions by this user');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                                </a>
+                                                <a
+                                                    href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
+                                                    class="item-action"
+                                                    title="<?=$this->translate('Merge participants');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </form>
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign"></span>
                         <?=$this->translate('There are no participants yet.');?>
                     </p>
-                <?php endif;?>
+                <?php endif; ?>
 
             </div>
         </div>

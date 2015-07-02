@@ -26,6 +26,11 @@ class Admin_MediaController extends Zend_Controller_Action
      */
     private $_filename;
 
+    /**
+     * Identifies the target element if the media are displayed in popup context
+     * @var string
+     */
+    private $_targetElId;
 
     public function init()
     {
@@ -43,6 +48,7 @@ class Admin_MediaController extends Zend_Controller_Action
         $this->_folder = $this->getRequest()->getParam('folder', null);
         $this->view->folder = $this->_folder;
         $this->_filename = $this->getRequest()->getParam('filename', null);
+        $this->_targetElId = $this->getRequest()->getParam('targetElId', null);
 
         try {
             $invalidUrl = false;
@@ -60,7 +66,7 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         // If targetElId is set, then the action is to be used as image selector in popup context
-        $this->view->targetElId = $this->getRequest()->getParam('targetElId', null);
+        $this->view->targetElId = $this->_targetElId;
         if ($this->view->targetElId) {
             $this->_helper->layout->setLayout('popup');
             $this->view->headScript()->appendFile($this->view->baseUrl() . '/js/admin_mediaPopup.js');
@@ -98,7 +104,7 @@ class Admin_MediaController extends Zend_Controller_Action
                 $consModel
                     ->select()
                     ->from($consModel->info(Model_Consultations::NAME), ['titl'])
-                    ->where('kid', $this->_kid)
+                    ->where('kid=?', $this->_kid)
             );
             $this->view->title = $consultation->titl;
         } elseif ($this->_folder) {
@@ -314,10 +320,22 @@ class Admin_MediaController extends Zend_Controller_Action
                             sprintf($this->view->translate('The file %s has been successfully uploaded.'), $uploadRes),
                             'success'
                         );
-                        $this->redirect(
-                            $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true),
-                            ['prependBase' => false]
-                        );
+
+                        $redirectArr = ['module' => 'admin', 'controller' => 'media', 'action' => 'index'];
+                        if ($this->_targetElId) {
+                            $redirectArr['targetElId'] = $this->_targetElId;
+                        }
+                        $lockDir = $this->getRequest()->getParam('lockDir', null);
+                        if ($lockDir) {
+                            $redirectArr['lockDir'] = $lockDir;
+                        }
+                        if ($this->_kid) {
+                          $redirectArr['kid'] = $this->_kid;
+                        }
+                        if ($this->_folder) {
+                          $redirectArr['folder'] = $this->_folder;
+                        }
+                        $this->redirect($this->view->url($redirectArr, null, true), ['prependBase' => false]);
                     } else {
                         $form->getElement('file')->addErrors($uploadRes);
                         $this
@@ -390,6 +408,35 @@ class Admin_MediaController extends Zend_Controller_Action
             header('Content-type: application/octet-stream');
             header("Content-Transfer-Encoding: Binary");
             header("Content-Disposition: attachment;filename={$file['basename']}");
+            header("Content-Description: File Transfer");
+            readfile($filePath);
+            exit;
+        } else {
+            $this->_flashMessenger->addMessage('File does not exist.', 'error');
+            $this->redirect(
+                $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'index'], null, true),
+                ['prependBase' => false]
+            );
+        }
+    }
+
+    /**
+     * Sends a file to be opened by the browser
+     */
+    public function openAction()
+    {
+        $file = (new Service_Media())->getOne($this->_filename, $this->_kid, $this->_folder);
+        $filePath = realpath($file['dirname'] . '/' . $file['basename']);
+
+        if (is_file($filePath)) {
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header('Content-type:');
+            header("Content-Transfer-Encoding: Binary");
+            header("Content-Disposition: inline");
             header("Content-Description: File Transfer");
             readfile($filePath);
             exit;

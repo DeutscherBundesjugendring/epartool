@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
+                <?=$this->consultationNavigation($this->consultation, 'voting-prepare');?>
 
             </div>
             <div class="content">
@@ -25,13 +25,13 @@
                 <table class="table table-bordered">
                     <tbody>
                         <?php foreach ($this->inputs as $input): ?>
-                            <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true])?>
-                        <?php endforeach;?>
+                            <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true]);?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
 
                 <h3><?=$this->translate('New Contribution');?></h3>
-                <?php echo $this->form?>
+                <?=$this->form;?>
 
             </div>
         </div>

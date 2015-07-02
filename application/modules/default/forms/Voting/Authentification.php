@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Voting_Authentification extends Zend_Form
+class Default_Form_Voting_Authentification extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -8,15 +8,18 @@ class Default_Form_Voting_Authentification extends Zend_Form
 
         $this
             ->setMethod('post')
+            ->setAttrib('class', 'form-inline offset-bottom-large')
             ->setAttrib('autocomplete', 'off');
 
-        $email = $this->createElement('text', 'email');
+        $email = $this->createElement('email', 'email');
         $placeholder = $translator->translate('Email Address');
         $email
             ->setLabel('Email Address')
             ->setRequired(true)
             ->setAttrib('placeholder', $placeholder)
-            ->setValidators([['NotEmpty', true], 'EmailAddress']);
+            ->setAttrib('class', 'form-control')
+            ->setValidators([['NotEmpty', true], 'EmailAddress'])
+            ->setDecorators(['ViewHelper', ['HtmlTag', ['tag' => 'div', 'class' => 'form-group']], ['Label', ['class' => 'sr-only']]]);
         $this->addElement($email);
 
         $code = $this->createElement('text', 'authcode');
@@ -25,13 +28,15 @@ class Default_Form_Voting_Authentification extends Zend_Form
             ->setLabel('Your access code')
             ->setRequired(true)
             ->setAttrib('placeholder', $placeholder)
-            ->setValidators(['NotEmpty']);
+            ->setAttrib('class', 'form-control')
+            ->setValidators(['NotEmpty'])
+            ->setDecorators(['ViewHelper', ['HtmlTag', ['tag' => 'div', 'class' => 'form-group']], ['Label', ['class' => 'sr-only']]]);
         $this->addElement($code);
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setLabel('Start')
-            ->setAttrib('class', 'btn');
+            ->setAttrib('class', 'btn-default btn-default-alt')
+            ->setLabel('Start');
         $this->addElement($submit);
 
         // CSRF Protection

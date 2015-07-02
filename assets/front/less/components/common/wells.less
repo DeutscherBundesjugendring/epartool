@@ -1,0 +1,59 @@
+// Wells
+
+
+.well {
+    &-title {
+        font-size: @font-size-h1;
+        color: @brand-accent;
+
+        &-with-bubble {
+            text-indent: 5em;
+        }
+    }
+
+    &-bubble {
+        position: absolute;
+        left: 45px;
+        top: -10px;
+    }
+
+    // Variants
+    &-simple {
+        color: @text-color;
+        border: none;
+        background-color: #fff;
+        box-shadow: none;
+
+        &-alt {
+            color: #fff;
+            background-color: @gray;
+        }
+
+        &-light {
+            color: #000;
+            background-color: @gray-lightest;
+        }
+    }
+
+    &-bordered {
+        padding: @well-bordered-padding;
+        color: #000;
+        border: @well-bordered-border-width solid @gray-lighter-2;
+        border-radius: @border-radius-large;
+        background-color: #fff;
+        box-shadow: 2px 4px 8px fade(#000, 40%);
+    }
+
+    &-accent {
+        color: #fff;
+        background: @brand-accent linear-gradient(to right, darken(@brand-accent, 11%) 0%, lighten(@brand-accent, 5%) 100%);
+
+        .well-title {
+            color: inherit;
+        }
+    }
+
+    &-fixed-height {
+        height: 450px;
+    }
+}

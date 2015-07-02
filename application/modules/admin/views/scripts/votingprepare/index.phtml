@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,12 +13,12 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'voting-prepare');?>
+                <?=$this->consultationNavigation($this->consultation, 'voting-prepare');?>
 
             </div>
             <div class="content">
 
-                <h2>Voting Preparation</h2>
+                <h2><?=$this->translate('Voting Preparation');?></h2>
 
                 <?php if (!empty($this->consultation['questions'])): ?>
                     <table class="table">
@@ -33,12 +33,12 @@
                                 <tr>
                                     <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
                                     <td>
-                                        <a href="<?=$this->baseUrl();?>/admin/votingprepare/overview/kid/<?=$this->escape($question['kid']);?>/qid/<?=$this->escape($question['qi']);?>">
-                                            <?=html_entity_decode($this->escape(strip_tags($question['q'])));?>
+                                        <a href="<?=$this->url(['controller' => 'votingprepare', 'action' => 'overview', 'kid' => $question['kid'], 'qid' => $question['qi']]);?>">
+                                            <?=strip_tags(html_entity_decode($question['q']));?>
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endforeach;?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 <?php else: ?>

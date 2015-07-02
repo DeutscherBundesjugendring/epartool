@@ -366,13 +366,16 @@ class InputController extends Zend_Controller_Action
         $regFormData = new Zend_Session_Namespace('populateForm');
 
         if (!empty($sessInputs->inputs)) {
+            // This is needed when creating user with webservice registration
+            $sessInputs->kid = $kid;
+
             $inputModel = new Model_Inputs();
             $confirmKey = $inputModel->getConfirmationKey();
             try {
                 $inputModel->getAdapter()->beginTransaction();
                 foreach ($sessInputs->inputs as $input) {
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
-                    $input['confirmation_key'] = $auth->hasIdentity() ? null : $confirmKey;
+                    $input['confirmation_key'] = $confirmKey;
                     $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
                     $inputModel->add($input);
                 }
@@ -421,6 +424,15 @@ class InputController extends Zend_Controller_Action
             );
             $this->redirect('/');
         }
+
+        // Logging in on this page would cause redirect and thus there would be no way to tie them to the user
+        // as the session is already emptied
+        Zend_Layout::getMvcInstance()->assign(
+            'disableLoginMsg',
+            Zend_Registry::get('Zend_Translate')->translate(
+                'Please finish contributing before logging in.'
+            )
+        );
     }
 
     /**
@@ -638,7 +650,8 @@ class InputController extends Zend_Controller_Action
 
                         $contribId = $inputDiscussModel->insert(
                             [
-                                'body' => $formData['body'],
+                                'body' => $formData['body'] ? $formData['body'] : null,
+                                'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
                                 'user_id' => $userId,
                                 'is_user_confirmed' => $auth->hasIdentity() ? true : false,
                                 'is_visible' => true,
@@ -665,6 +678,10 @@ class InputController extends Zend_Controller_Action
                                         'to_name' => $user->name ? $user->name : $user->email,
                                         'to_email' => $user->email,
                                         'contribution_text' => $formData['body'],
+                                        'video_url' => sprintf(
+                                            Zend_Registry::get('systemconfig')->video->url->format->link,
+                                            $formData['video_id']
+                                        ),
                                         'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                                     )
                                 )
@@ -698,7 +715,7 @@ class InputController extends Zend_Controller_Action
                 ->select()
                 ->from(
                     ['i' => $inputDiscussModel->info(Model_InputDiscussion::NAME)],
-                    ['user_id', 'time_created', 'body', 'is_visible']
+                    ['user_id', 'time_created', 'body', 'is_visible', 'video_id']
                 )
                 ->where('input_id=?', $inputId)
                 ->where('is_user_confirmed=?', 1)

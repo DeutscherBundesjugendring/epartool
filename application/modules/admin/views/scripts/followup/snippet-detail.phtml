@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,12 +13,12 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'followup');?>
+                <?=$this->consultationNavigation($this->consultation, 'followup');?>
 
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(['action' => 'snippets', 'fid' => null]);?>" class="back"><?= $this->translate('Back to Snippets');?></a>
+                <a href="<?=$this->url(['action' => 'snippets', 'fid' => null]);?>" class="back"><?=$this->translate('Back to Snippets');?></a>
 
                 <h2><?=$this->pageTitle;?></h2>
                 <?=$this->form;?>

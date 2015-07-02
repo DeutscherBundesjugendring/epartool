@@ -1,11 +1,11 @@
-<div class="alert alert-<?php echo $this->level; ?> fade in">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<?php if ($this->level == 'success'): ?>
-        <span class="icon-ok-sign"></span>
-	<?php elseif ($this->level == 'error'): ?>
-        <span class="icon-warning-sign"></span>
-	<?php else: ?>
-        <span class="icon-info-sign"></span>
+<div class="alert alert-<?=$this->level;?> alert-dismissible fade in">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <?php if ($this->level == 'success'): ?>
+        <span class="glyphicon glyphicon-ok-sign icon-offset" aria-hidden="true"></span>
+    <?php elseif ($this->level == 'error'): ?>
+        <span class="glyphicon glyphicon-warning-sign icon-offset" aria-hidden="true"></span>
+    <?php else: ?>
+        <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
     <?php endif; ?>
-	<?=$this->translate($this->message)?>
+    <?=$this->translate($this->message);?>
 </div>

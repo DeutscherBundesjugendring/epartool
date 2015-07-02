@@ -1,0 +1,26 @@
+// Search Form
+
+
+.form-search {
+    margin-bottom: @line-height-computed;
+
+    .form-control {
+        .placeholder(@input-search-color);
+        color: @input-search-color;
+        border-color: @input-search-border;
+        background-color: @input-search-bg;
+    }
+
+    .input-group-btn {
+        z-index: 2;
+    }
+
+    .btn {
+        font-size: @font-size-base;
+        border-left-color: @input-search-color;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        margin-bottom: @line-height-computed / 2;
+    }
+}

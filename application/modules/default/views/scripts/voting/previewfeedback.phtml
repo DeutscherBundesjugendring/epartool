@@ -5,7 +5,10 @@
 ?>
 
 <?php if ($this->error == 1): ?>
-    <li><p class="error"><? echo $this->error_comment ;?></p></li>
+    <div class="alert alert-warning">
+        <span class="glyphicon glyphicon-warning-sign icon-offset" aria-hidden="true"></span>
+        <?=$this->error_comment;?>
+    </div>
 <?php else: ?>
-    <?=$this ->partial('_partials/voting/votingPreviewButtons.phtml', $this->feedback); ?>
+    <?=$this->partial('_partials/voting/votingPreviewButtons.phtml', $this->feedback);?>
 <?php endif; ?>

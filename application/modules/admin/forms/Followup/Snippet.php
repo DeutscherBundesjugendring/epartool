@@ -61,8 +61,16 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
         }
         $this->addElement($hash);
 
-        $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Save');
-        $this->addElement($submit);
+        $submitAndEdit = $this->createElement('submit', 'submitAndEdit');
+        $submitAndEdit
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save and continue editing');
+        $this->addElement($submitAndEdit);
+
+        $submitAndIndex = $this->createElement('submit', 'submitAndIndex');
+        $submitAndIndex
+            ->setAttrib('class', 'btn-primary')
+            ->setLabel('Save and return to index');
+        $this->addElement($submitAndIndex);
     }
 }

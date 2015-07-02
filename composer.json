@@ -1,11 +1,21 @@
 {
-    "name": "dbjr/tool",
-    "type": "zend-library",
-    "require": {
-        "zendframework/zendframework1": "~1.12.3",
-        "tracy/tracy": "~2.2.2",
-        "Html2Text/Html2Text": "~1.0.1",
-        "gregwar/image": "~2.0.17",
-        "behat/transliterator": "~1.0.1"
+  "name": "dbjr/tool",
+  "type": "zend-library",
+  "autoload": {
+    "psr-0": {
+      "Dbjr_": "library/"
     }
+  },
+  "include-path": [
+    "library/"
+  ],
+  "require": {
+    "zendframework/zendframework1": "~1.12.3",
+    "tracy/tracy": "~2.2.2",
+    "Html2Text/Html2Text": "~1.0.1",
+    "gregwar/image": "~2.0.17",
+    "behat/transliterator": "~1.0.1",
+    "google/apiclient": "~1.1.2",
+    "facebook/php-sdk-v4" : "4.0.*"
+  }
 }

@@ -1,0 +1,23 @@
+<section class="section-header">
+    <div class="container">
+        <h1 class="section-header-title"><?=$this->translate('Help Texts');?></h1>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->settingsNavigation('helpTexts');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'help-text-index']);?>" class="back"><?=$this->translate('Back to Help Texts');?></a>
+                <h2><?=$this->escape($this->helpTextTitle);?></h2>
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

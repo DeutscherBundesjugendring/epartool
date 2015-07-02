@@ -53,13 +53,15 @@ class Service_Media
     }
 
     /**
-     * Returns array of file arrays that are in the same dir
+     * Returns array of file arrays that are in the given dir ordered from newest to oldest.
      * @param  integer $kid         The consultation identifier. Mandatory if no $folder is set.
      * @param  string  $folder      The folder name. Mandatory if no $kid is set.
-     * @param  boolean $acceptAll   Indicates if the inablilty to resolve kidFolder path should return all images or thorow error
+     * @param  boolean $acceptAll   Indicates if the inablilty to resolve kidFolder path should return all images
+     *                              or thorow an error
      * @return array                An array of file info arrays. Each holds output of pathinfo() and the following keys
      *                              - size         The filesize
      *                              - kid          The containing consultation id if belonging to consultation
+     *                              - mtime        The time the file was last modified
      *                              - folder       The containing folder name if held in folder
      *                              - dirUrl       The url by which the containing dir is accesible
      *                              - icon         Indicates which icon to use as thumb if file is not an image
@@ -82,10 +84,22 @@ class Service_Media
             $files[] = [
                 'basename' => $file->getFilename(),
                 'dirname' => $filedirname,
+                'mtime' => $file->getMTime(),
                 'kid' => $dirArr[count($dirArr) - 2] === self::MEDIA_DIR_CONSULTATIONS ? end($dirArr) : null,
                 'folder' => $dirArr[count($dirArr) - 2] === self::MEDIA_DIR_FOLDERS ? end($dirArr) : null,
             ];
         }
+
+        usort(
+            $files,
+            function($a, $b) {
+                if ($a['mtime'] === $b['mtime']) {
+                    return 0;
+                }
+
+                return $a['mtime'] > $b['mtime'] ? -1 : 1;
+            }
+        );
 
         return $this->loadFileDetails($files);
     }

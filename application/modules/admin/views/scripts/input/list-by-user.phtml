@@ -1,8 +1,8 @@
 <section class="section-header has-tabs">
     <div class="container">
 
-        <h1 class="section-header-title"><?=$this->consultation['titl'];?></h1>
-        <h2 class="section-header-subtitle"><?=$this->consultation['titl_sub'];?></h2>
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
@@ -13,18 +13,18 @@
         <div class="row">
             <div class="sidebar">
 
-                <?=$this->consultationNavigation($this->consultation['kid'], 'contributions');?>
+                <?=$this->consultationNavigation($this->consultation, 'contributions');?>
 
             </div>
             <div class="content">
 
                 <a href="<?=$this->url(['action' => 'index', 'uid' => null]);?>" class="back">
-                    <?=$this->translate('Back to Overview')?>
+                    <?=$this->translate('Back to Overview');?>
                 </a>
                 <h2>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'kid' => null]);?>">
-                        <?=$this->user['name'];?>
-                        <small><?=$this->user['email'];?></small>
+                        <?=$this->escape($this->user['name']);?>
+                        <small><?=$this->escape($this->user['email']);?></small>
                     </a>
                 </h2>
 
@@ -34,31 +34,31 @@
                         <td>
                             <?php if (!empty($this->user['last_act'])): ?>
                                 <?=$this->formatDate($this->user['last_act']);?>
-                            <?php endif;?>
+                            <?php endif; ?>
                         <td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Contact person');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['name_pers']); ?>
+                            <?=$this->escape($this->user_info['name_pers']);?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Group name');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['name_group']); ?>
+                            <?=$this->escape($this->user_info['name_group']);?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Source');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['source']); ?>
+                            <?=$this->escape($this->user_info['source']);?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Description');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['src_misc']); ?>
+                            <?=$this->escape($this->user_info['src_misc']);?>
                         </td>
                     </tr>
                     <tr>
@@ -68,13 +68,13 @@
                                 <?=$this->userGroupSizes[$this->user_info['group_size']];?>
                             <?php else: ?>
                                 <?=$this->translate('Not available');?>
-                            <?php endif;?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Region');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['regio_pax']); ?>
+                            <?=$this->escape($this->user_info['regio_pax']);?>
                         </td>
                     </tr>
                     <tr>
@@ -91,25 +91,25 @@
                                 <?=$age_tm[$this->user_info['age_group']];?>
                             <?php else: ?>
                                 <?=$this->translate('Not available');?>
-                            <?php endif;?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Newsletter');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['newsl_subscr']); ?>
+                            <?=$this->escape($this->user_info['newsl_subscr']);?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Inform about consultation results');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['cnslt_results']); ?>
+                            <?=$this->escape($this->user_info['cnslt_results']);?>
                         </td>
                     </tr>
                     <tr>
                         <th><?=$this->translate('Comment');?></th>
                         <td>
-                            <?php echo $this->escape($this->user_info['cmnt_ext']); ?>
+                            <?=$this->escape($this->user_info['cmnt_ext']);?>
                         </td>
                     </tr>
                 </table>
@@ -117,7 +117,7 @@
                 <?php if (count($this->inputs)): ?>
                     <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-                        <input name="return_url" type="hidden" value="<?=$this->url(); ?>" />
+                        <input name="return_url" type="hidden" value="<?=$this->url();?>" />
 
                         <!-- Actions -->
                         <div class="well well-sm">
@@ -156,20 +156,22 @@
 
                         <!-- Listing -->
                         <?php foreach ($this->inputs as $questionNum => $inputs): ?>
-                            <h3><?=$inputs['q'];?></h3>
-                            <table class="table table-bordered table-responsive js-table-rows-toggle">
-                                <?php foreach ($inputs['inputs'] as $input): ?>
-                                    <?=$this->partial(
-                                        'input/_inputBox.phtml',
-                                        [
-                                            'input' => $input,
-                                            'kid' => $this->consultation['kid'],
-                                            'inputsWithDiscussion' => $this->inputsWithDiscussion
-                                        ]
-                                    );?>
-                                <?php endforeach;?>
-                            </table>
-                        <?php endforeach;?>
+                            <h3><?=$this->escape($inputs['q']);?></h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered js-table-rows-toggle">
+                                    <?php foreach ($inputs['inputs'] as $input): ?>
+                                        <?=$this->partial(
+                                            'input/_inputBox.phtml',
+                                            [
+                                                'input' => $input,
+                                                'kid' => $this->consultation['kid'],
+                                                'inputsWithDiscussion' => $this->inputsWithDiscussion
+                                            ]
+                                        );?>
+                                    <?php endforeach; ?>
+                                </table>
+                            </div>
+                        <?php endforeach; ?>
 
                         <!-- Actions -->
                         <div class="well well-sm">

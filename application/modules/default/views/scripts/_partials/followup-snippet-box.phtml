@@ -1,55 +1,47 @@
 <div
-    class="timeline-box openoverlay"
-    data-href="<?=$this->url(array('action' => 'json', 'ffid' => (int) $this->snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null))?>"
-    data-fid="'.$this->snippet['fid'].'"
+    class="followup-timeline-box js-openoverlay js-timeline-box"
+    data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $this->snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+    data-fid="<?=$this->snippet['fid'];?>"
 >
+    <div class="well well-bordered followup-well followup-well-link<?=$this->snippet['typ'] !== 'g' ? ' has-typ-overlay' : '';?>">
 
-    <div class="content clearfix <?=$this->snippet['typ'] !== 'g' ? 'has-typ-overlay' : ''?>">
         <?php if ($this->snippet['typ'] !== 'g'): ?>
-            <div class="followup-typ edge-left followup-typ-<?=$this->snippet['typ']?>"> </div>
-            <div class="followup-typ gfx-who-overlay followup-typ-<?=$this->snippet['typ']?>"> </div>
-        <?php endif?>
+            <div class="followup-typ edge-left followup-typ-<?=$this->snippet['typ'];?>"></div>
+            <div class="followup-typ gfx-who-overlay followup-typ-<?=$this->snippet['typ'];?>"></div>
+        <?php endif; ?>
 
-        <div class="followup-gfx-who-wrapper">
-            <img class="gfx_who_thumb" src="<?=$this->snippet['gfx_who']?>" />
+        <img src="<?=$this->snippet['gfx_who'];?>" width="80" class="followup-timeline-box-image" alt="" />
+
+        <?=$this->snippet['expl'];?>
+
+        <!-- Voting -->
+        <div class="offset-bottom-small">
+            <span class="badge js-amount js-like"><?=$this->snippet['lkyea'];?></span>
+            <a href="<?=$this->url(['action' => 'like', 'fid' => (int) $this->snippet['fid'], 'page' => null]);?>" class="link-alt link-unstyled js-voting js-like">
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+            </a>
+            <span class="badge js-amount js-dislike"><?=$this->snippet['lknay'];?></span>
+            <a href="<?=$this->url(['action' => 'unlike', 'fid' => (int) $this->snippet['fid'], 'page' => null]);?>" class="link-alt link-unstyled js-voting js-dislike">
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+            </a>
         </div>
 
-        <?=$this->snippet['expl']?>
-
-        <div class="clearleft">
-            <a class="voting like" href="<?=$this->url(array('action' => 'like', 'fid' => (int) $this->snippet['fid'], 'page' => null))?>">
-                <span class="amount">(<?=$this->snippet['lkyea']?>)</span>
-                <span class="thumb-up"></span>
-            </a>
-            <a class="voting dislike" href="<?=$this->url(array('action' => 'unlike', 'fid' => (int) $this->snippet['fid'], 'page' => null))?>">
-                <span class="amount">(<?=$this->snippet['lknay']?>)</span>
-                <span class="thumb-down"></span>
-            </a>
-        </div>
+        <!-- Follow path -->
         <?php if ($this->followPathLink): ?>
-            <a
-                class="btn"
-                href="<?=$this->url(
-                    [
-                        'action' => 'show-by-snippet',
-                        'controller' => 'followup',
-                        'kid' => $this->kid,
-                        'fid' => $this->snippet['fid']
-                    ],
-                    null,
-                    true
-                )?>
-            ">
-                <?=$this->translate('Follow this path')?>
+            <a href="<?=$this->url(['action' => 'show-by-snippet', 'controller' => 'followup', 'kid' => $this->kid, 'fid' => $this->snippet['fid']], null, true);?>" class="btn btn-default">
+                <?=$this->translate('Follow this path');?>
             </a>
-        <?php endif?>
-    </div>
+        <?php endif; ?>
+
+    </div><!-- .well -->
 
     <?php if ($this->snippet['relFowupCount'] != 0 && $this->relFollowupCount): ?>
-        <div class="timeline-countlink sprite">
-            <a class="ajaxclick" href="<?=$this->url(array('action' => 'json', 'fid' => $this->snippet['fid'], 'ffid' => null, 'tid' => null, 'page' => null))?>">
-                <?=$this->snippet['relFowupCount']?>
-            </a>
-        </div>
-    <?php endif?>
-</div>
+        <a
+            href="<?=$this->url(['action' => 'json', 'fid' => $this->snippet['fid'], 'ffid' => null, 'tid' => null, 'page' => null]);?>"
+            class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick"
+        >
+            <?=$this->snippet['relFowupCount'];?>
+        </a>
+    <?php endif; ?>
+
+</div><!-- .followup-timeline-box -->

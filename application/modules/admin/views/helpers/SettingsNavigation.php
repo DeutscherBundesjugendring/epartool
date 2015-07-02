@@ -10,11 +10,11 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
     public function settingsNavigation($activeItem = null)
     {
         $items = array(
-            /*array(
+            array(
                 'name' => 'site',
                 'label' => $this->view->translate('Site'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),*/
+            ),
             array(
                 'name' => 'pages',
                 'label' => $this->view->translate('Pages'),
@@ -27,16 +27,16 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(array('controller' => 'tag', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'tag', 'action' => 'create')),
             ),
-            /*array(
-                'name' => 'header',
-                'label' => $this->view->translate('Header'),
-                'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
+            array(
+                'name' => 'helpTexts',
+                'label' => $this->view->translate('Help Texts'),
+                'href' => $this->view->url(array('controller' => 'settings', 'action' => 'help-text-index')),
             ),
             array(
                 'name' => 'footer',
                 'label' => $this->view->translate('Footer'),
-                'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),*/
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'footer', 'id' => null]),
+            ),
         );
 
         return $this->view->secondaryNavigation($items, $activeItem);

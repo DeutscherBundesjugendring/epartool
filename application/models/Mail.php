@@ -20,8 +20,6 @@ class Model_Mail extends Dbjr_Db_Table_Abstract
      */
     public function insert(array $data)
     {
-        $db = $this->getAdapter();
-
         $to = $data['to'];
         unset($data['to']);
         $cc = $data['cc'];
@@ -79,7 +77,7 @@ class Model_Mail extends Dbjr_Db_Table_Abstract
 
     /**
      * Return the select object modified to only include templates from the current project
-     * @param  bool                 $withFromPart Whether or not to include the from part of the select based on the table
+     * @param  bool                 $withFromPart Whether to include the from part of the select based on the table
      * @return Zend_Db_Table_Select               The select object
      */
     public function select($withFromPart = Zend_Db_Table_Abstract::SELECT_WITHOUT_FROM_PART)

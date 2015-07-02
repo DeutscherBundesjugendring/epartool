@@ -1,13 +1,14 @@
 <a name="page-content"></a>
 <?php echo $this->secondNavigation('input') ?>
 
-<div class="main-content content-holder">
-    <div class="row-fluid">
-        <div class="span10 offset1">
+<div class="main-content">
+    <div class="row">
+        <div class="content content-narrow content-offset">
 
             <h1><?=$this->translate('Contribution Discussion');?></h1>
+
             <p>
-                <a href="<?=$this->url(['action' => 'show']);?>">&larr; <?=$this->translate('Back to contribution');?></a>
+                <a href="<?=$this->url(['action' => 'show']);?>">&larr; <?=$this->translate('Back to contributions');?></a>
             </p>
 
             <blockquote class="offset-bottom-large">
@@ -22,42 +23,62 @@
                 <small><?=$this->formatDate($this->input->when);?></small>
             </blockquote>
 
-            <div class="media-list">
+            <div class="media-list offset-bottom-large">
                 <?php foreach($this->discussionContribs as $contrib): ?>
                     <?php if ($contrib->is_visible): ?>
                         <div class="media">
-                            <small class="muted">
-                                <span class="icon-user"></span>
+
+                            <small class="text-muted">
+                                <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
                                 <?php if (!empty($contrib->name)): ?>
                                     <?=$this->escape($contrib->name);?>,
                                 <?php endif; ?>
                                 <?=$this->formatDate($contrib->time_created);?>
                             </small>
-                            <p><?=$this->escape($contrib->body);?></p>
+
+                            <?php if ($contrib->body): ?>
+                                <p><?=$this->escape($contrib->body);?></p>
+                            <?php endif; ?>
+
+                            <?php if ($contrib->video_id): ?>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe
+                                        width="560"
+                                        height="315"
+                                        src="<?=sprintf(
+                                            Zend_Registry::get('systemconfig')->video->url->format->embed,
+                                            $this->escape($contrib->video_id)
+                                        );?>"
+                                        allowfullscreen
+                                    ></iframe>
+                                </div>
+                            <?php endif; ?>
+
                         </div>
                     <?php else: ?>
                         <div class="media">
-                            <small class="muted">
+                            <small class="text-muted">
                                 <?=$this->formatDate($contrib->time_created);?>
                             </small>
                             <p><?=$this->translate('This post was hidden by admin.');?></p>
                         </div>
-                    <?php endif;?>
+                    <?php endif; ?>
                 <?php endforeach?>
             </div>
 
             <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
             ): ?>
-                <?=$this->form?>
-            <?php endif;?>
+                <hr class="offset-bottom-large"  />
+                <h2><?=$this->translate('Your Comment');?></h2>
+                <?=$this->form;?>
+            <?php endif; ?>
 
             <?=$this->subscriptionForm;?>
 
         </div>
-    </div>
+    </div><!-- .row -->
 
-    <?php echo $this->render('_partials/printLink.phtml') ?>
-</div>
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-input']);?>
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+</div><!-- .main-content -->

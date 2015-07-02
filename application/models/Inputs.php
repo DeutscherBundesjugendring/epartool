@@ -331,12 +331,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 array('i' => $this->_name),
                 array(new Zend_Db_Expr('COUNT(*) as count'))
             )
-            ->where('i.qi = ?', $qid)
-            ->where('i.uid <> ?', 1);
+            ->where('i.qi = ?', $qid);
         if ($excludeInvisible) {
-            // nur nicht geblockte:
-            $select->where('i.block<>?', 'y')
-                // nur bestätigte:
+            $select
+                ->where('i.block<>?', 'y')
                 ->where('i.user_conf=?', 'c');
         }
 
@@ -399,7 +397,13 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $intVal = new Zend_Validate_Int();
         $select = $this
             ->select()
-            ->from(array('i' => $this->_name));
+            ->setIntegrityCheck(false)
+            ->from(array('i' => $this->_name))
+            ->joinLeft(
+                ['id' => 'input_discussion'],
+                'id.input_id = i.tid AND id.is_user_confirmed=1',
+                ['discussionPostCount' => 'COUNT(id.input_id)']
+            );
 
         if ($intVal->isValid($tag)) {
             $select
@@ -410,9 +414,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select
             ->where('i.qi=?', $qid)
             ->where('i.block!=?', 'y')
-            ->where($this->getAdapter()->quoteInto('i.user_conf=?', 'c'));
+            ->where('i.user_conf=?', 'c')
+            ->group('i.tid');
 
-        if (!empty($order)) {
+        if ($order) {
             $select->order($order);
         }
 
@@ -426,13 +431,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     /**
      * Confirms inputs and confirms user registration if applicable
      * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
+     * @param  integer   $uid         The user identifier in cases when user is already confirmed (i.e. social login)
      * @return integer                Number of inputs confirmed
      */
-    public function confirmByCkey($confirmKey)
+    public function confirmByCkey($confirmKey, $uid = null)
     {
         $this->isConfirmOrRejectAllowed($confirmKey);
+
         $userModel = new Model_Users();
-        $uid = $userModel->confirmbyCkey($confirmKey);
+        if (!$uid) {
+            $uid = $userModel->confirmbyCkey($confirmKey);
+        }
         $userModel->ping($uid);
 
         return $this->update(

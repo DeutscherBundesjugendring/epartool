@@ -1,218 +1,241 @@
 <?php
-    $this->headLink()->appendStylesheet($this->baseUrl('css/vote.css'));
     $settings = $this->settings;
     $this->layout()->settings = $settings;
-    $this->layout()->votingBasket= $this->votingBasket;
-    $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
+    $this->layout()->votingBasket = $this->votingBasket;
+    $this->layout()->labels = (array) explode(',', $settings['btn_labels']);
 ?>
 
-<script>
-$(document).ready(function() {
+<?=$this->secondNavigation('voting');?>
 
-	var elements = <?php echo $this->votingBasket['countvotes'];?>;
+<div class="main-content">
 
-	$('a.view-basket').click(function() {
-        $('div.vote-basket').slideToggle("slow");
-    });
-    $('a.close-basket').click(function() {
-        $('div.vote-basket').slideToggle("slow");
-    });
-     $('a.close-basket-x').click(function() {
-        $('div.vote-basket').slideToggle("slow");
-    });
-
-    $('a.view-basket-btn').click(function() {
-        $('div.vote-basket').slideToggle("slow");
-    });
-
-    var superbtn = '<a href="<?=$this->url(array('controller' => 'voting', 'action' => 'thesissupervote', 'kid' => $this->consultation->kid))?>/tid/<?=$this->thesis['tid']?>/pts/y" class="voting-particularly-important" <?=$this->pimp == 'y' ? 'style="color: red!important"' : ''?>' +
-        '<img src="<?=$this->baseUrl()?>/images/voting-rate-superbtn.png" alt="<?=$this->settings['btn_important_label']?>" title="<?=$this->settings['btn_important_label']?>" /><br />'+
-        '<strong><?=$this->settings['btn_important_label']?> <span class="counter">(<?=$this->votingBasket['countvotes']?> <?=$this->translate('of')?> <?=$this->settings['btn_important_max']?>)</span></strong>'+
-        '</a>';
-
-	$(document).on("click", "a.voting-minus", function (event) {
-            event.preventDefault();
-            var elementID = $(this).attr('rel');
-
-            $.ajax({
-                url: "/voting/removethesis/kid/<?php echo $this->escape($this -> consultation -> kid); ?>/tid/"+elementID+"",
-                type: "POST",
-                data: "format=html",
-                cache: false,
-                async: "true",
-                error: function(){
-                    document.getElementById('voting-minus-'+elementID).innerHTML = "<?=$this->translate('Something went wrong');?>";
-                },
-                beforeSend: function(){
-                    document.getElementById('voting-minus-'+elementID).innerHTML = '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">';
-                },
-                success:function(response){
-                    elements -= 1;
-                    document.getElementById('voting-minus-'+elementID).innerHTML =  '<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">' ;
-                    $( "a.view-basket-btn" ).replaceWith(superbtn);
-                    $( "#thes-"+elementID).remove();
-                    $( "span.counter-supervotes" ).html( elements+" von <?php echo $this->settings['btn_important_max'] ?>" );
-
-                }
-        });
-        return false;
-    });
- });
-</script>
-
-<?php echo $this->secondNavigation('voting') ?>
-
-<div class="content-holder main-content">
-
-    <h1 class="heading-centered"><?=$this->translate('Voting for');?> &quot;<?php echo $this->consultation->titl; ?>&quot;</h1>
+    <h1 class="text-center">
+        <?=$this->translate('Voting for');?>
+        &quot;<?=$this->consultation->titl;?>&quot;
+    </h1>
 
     <div class="row">
-        <div class="span9 offset1">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
 
             <?php if ($this->noMoreThesis): ?>
-                <p>
-                    <?=$this->translate('There are no more contributions to be voted in this category. Please switch to another questions or another keyword.')?>
-                </p>
-                <a
-                    href="<?php echo $this->url(array('controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid), null, true); ?>"
-                    class="btn"
-                >
-                    <?=$this->translate('Change question or keyword')?>
-                </a>
 
-                <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="<?=$this->translate('Finish voting');?>">
-                    <?=$this->translate('Finish')?>
-                </a>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign icon-offset text-info" aria-hidden="true"></span>
+                    <?=$this->translate('There are no more contributions to be voted in this category. Please switch to another questions or another keyword.');?>
+                </p>
+
+                <p>
+                    <a href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true);?>" class="btn btn-default">
+                        <?=$this->translate('Change question or keyword');?>
+                    </a>
+                    <a href="<?=$this->url(['action' => 'stopvoting', 'tag' => null]);?>" class="btn btn-default" title="<?=$this->translate('Finish voting');?>">
+                        <span class="glyphicon glyphicon-log-out icon-offset" aria-hidden="true"></span>
+                        <?=$this->translate('Finish');?>
+                    </a>
+                </p>
 
             <?php else: ?>
-                <div id="vote" class="well well-large voting text-center">
-                    <span class="label sticker label-mitmachen-black hidden-print"><?=$this->translate('Join now!')?></span>
 
-                    <!-- Vote basket -->
-                    <?php if ($this->settings['btn_important'] == 'y'):  ?>
-                        <div class="vote-basket">
-                        	<a class="close-basket-x" title="<?=$this->translate('hide')?>">x</a>
-                            <h3>
-                                <?=$this->translate('Decide what is most important!')?>
-                                <span class="counter counter-supervotes">(<?php echo $this->votingBasket['countvotes']." von ".$this->settings['btn_important_max'];  ?>)</span>
-                            </h3>
-                            <p class="basket-info">
-                                <?=$this->translate('The superbutton allows you to give certain contributions a higher vote. The overview shows you what you already marked as "especially important". Use the „–“ to reset your markings and allow space for more important contributions.')?>
-                            </p>
-                            <ul>
-                                <?php  foreach ($this->votingBasket["votes"] as $v): ?>
-                                    <li class="clearfix" id="thes-<?php echo $v["tid"]; ?>">
-                                        <p> <?php echo $v["thes"]; ?></p>
-                                        <a href="#" class="voting-minus" id="voting-minus-<?php echo $v["tid"]; ?>" title="entfernen" rel="<?php echo $v["tid"]; ?>">
-                                            <img src="<?php echo $this->baseUrl(); ?>/images/voting-minus.png">
-                                        </a>
-                                    </li>
-                                <?php endforeach?>
-                            </ul>
-                            <a class="close-basket"><?=$this->translate('hide')?></a>
+                <div id="vote" class="well well-bordered well-accent text-center has-sticker">
+
+                    <!-- Sticker -->
+                    <div class="sticker sticker-right hidden-print">
+                        <div class="sticker-label sticker-label-dark">
+                            <?=$this->translate('Join now!');?>
                         </div>
-                    <?php endif; ?>
+                    </div>
 
-                    <!-- Voting counter -->
-                    <span class="counter counter-voting">
-                        <?php
-                            // Add leading zeros to count voted
-                            $countTotal = $this->thesesCount;
-                            $countVoted = $this->thesesCountVoted;
+                    <div class="row">
+                        <div class="col-sm-4 text-left">
 
-                            if (strlen($countTotal) > strlen($countVoted)) {
-                                $format = '%0' . strlen($countTotal) . 'd';
-                                $countVoted = sprintf($format, $countVoted);
-                            }
+                            <!-- Counter -->
+                            <div class="offset-bottom">
+                                <?php
+                                    // Add leading zeros to count voted
+                                    $countTotal = $this->thesesCount;
+                                    $countVoted = $this->thesesCountVoted;
 
-                            // Print count voted by number
-                            $countVoted = str_split($countVoted);
-                            $countVotedText = '';
-                            foreach ($countVoted as $number) {
-                                $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
-                            }
-                        ?>
-                        <br />
-                        <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $countVotedText, $countTotal)?>
-                    </span>
+                                    if (strlen($countTotal) > strlen($countVoted)) {
+                                        $format = '%0' . strlen($countTotal) . 'd';
+                                        $countVoted = sprintf($format, $countVoted);
+                                    }
 
-                    <h2><?=$this->translate('Vote now!')?></h2>
+                                    // Print count voted by number
+                                    $countVoted = str_split($countVoted);
+                                    $countVotedText = '';
+
+                                    foreach ($countVoted as $number) {
+                                        $countVotedText .= '<span class="counter-digit">' . $number . '</span>';
+                                    }
+
+                                    $counter = '<span class="counter">' . $countVotedText . '</span>';
+                                ?>
+                                <?=sprintf($this->translate('You have voted on %s <br /> out of the total of %s contributions.'), $counter, $countTotal);?>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+
+                            <h2 class="well-title offset-bottom-large"><?=$this->translate('Vote now!');?></h2>
+
+                        </div>
+                    </div><!-- .row -->
 
                     <!-- Question -->
-                    <h3><?php echo $this->question['nr'] . ' ' . $this->question['q']; ?>
-                        <?php
-                        if (!empty($this->thesis['tagname_de'])) {
-                            echo('(' . $this->translate('Keyword') . ': ' . $this->thesis['tagname_de']. ')');
-                        }
-                        ?>
+                    <h3>
+                        <?=$this->question['nr'];?>
+                        <?=$this->question['q'];?>
                     </h3>
+                    <?php if (!empty($this->thesis['tagname_de'])): ?>
+                        <h4>
+                            <?=$this->translate('Keyword');?>:
+                            <?=$this->thesis['tagname_de'];?>
+                        </h4>
+                    <?php endif; ?>
 
                     <!-- Thesis -->
-                    <div class="thesis">
-                        <p class="voting-thesis"><?php echo $this->thesis['thes']; ?></p>
-                        <?php if (!empty($this->thesis['expl'])): ?>
-                            <p class="voting-expl"><?php echo $this->escape($this->thesis['expl']); ?></p>
-                        <?php endif ?>
+                    <div class="well well-simple text-left">
+                        <?=$this->thesis['thes'];?>
                     </div>
+
+                    <?php if (!empty($this->thesis['expl'])): ?>
+                        <div class="well well-simple well-simple-alt text-left">
+                            <?=$this->escape($this->thesis['expl']);?>
+                        </div>
+                    <?php endif ?>
 
                     <!-- Rating bar -->
-                    <div class="voting-rating-bar">
+                    <div class="rating-bar">
+                        <nav class="rating-bar-navigation">
 
-                        <!-- Show back-button -->
-                        <?php if (!empty($this->LastVote)): ?>
-                            <?php if ($this->thesis['tid'] !== $this->LastVote[0]['tid']): ?>
-                                <a
-                                    href="<?php echo $this->url(array('kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi'])); ?>#vote"
-                                    class="btn btn-small btn-light voting-prev"
-                                >
-                                    <i class="icon-angle-left icon-large"></i> <?=$this->translate('Undo')?>
-                                </a>
+                            <!-- Previous -->
+                            <?php if (!empty($this->LastVote)): ?>
+                                <?php if ($this->thesis['tid'] !== $this->LastVote[0]['tid']): ?>
+                                    <a
+                                        href="<?=$this->url(['kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi']]);?>#vote"
+                                        class="btn btn-inverse rating-bar-navigation-prev"
+                                    >
+                                        <span class="glyphicon glyphicon-menu-left icon-vertically-aligned" aria-hidden="true"></span>
+                                        <span class="hidden-xs"><?=$this->translate('Undo');?></span>
+                                    </a>
+                                <?php endif; ?>
                             <?php endif; ?>
-                        <?php endif; ?>
 
-                        <p>
-                            <strong>
-                                <?=$this->translate('How important is this contribution for further political discussions in your opinion?')?>
-                            </strong>
-                        </p>
+                            <p>
+                                <strong>
+                                    <?=$this->translate('How important is this contribution for further political discussions in your opinion?');?>
+                                </strong>
+                            </p>
+
+                            <!-- Next -->
+                            <a
+                                href="<?=$this->url(['kid' => $this->consultation->kid, 'qid' => $this->question['qi'], 'token' => time()]);?>#vote"
+                                class="btn btn-inverse rating-bar-navigation-next"
+                            >
+                                <span class="hidden-xs"><?=$this->translate('Skip');?></span>
+                                <span class="glyphicon glyphicon-menu-right icon-vertically-aligned" aria-hidden="true"></span>
+                            </a>
+
+                        </nav>
+
+                        <!-- Voting buttons -->
+                        <?=$this->partial('_partials/voting/votingButtons.phtml', $this);?>
+
+                    </div><!-- .rating-bar -->
+
+                    <!-- Actions -->
+                    <div class="form-group">
                         <a
-                        	href="<?=$this->url(['kid' => $this->consultation->kid, 'qid' => $this->question['qi'], 'token' => time()])?>#vote"
-                        	class="btn btn-small btn-light voting-next"
+                            href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true);?>"
+                            id="buttonChangeKeyword"
+                            class="btn btn-default btn-default-alt"
                         >
-                            <?=$this->translate('Skip')?>
-                            <i class="icon-angle-right icon-large"></i>
+                            <?=$this->translate('Change question or keyword');?>
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <a href="<?=$this->url(['action' => 'stopvoting']);?>" class="btn btn-default btn-default-alt" title="<?=$this->translate('Finish voting');?>">
+                            <span class="glyphicon glyphicon-log-out icon-offset" aria-hidden="true"></span>
+                            <?=$this->translate('Finish');?>
+                        </a>
+                        <a href="<?=$this->url(['action' => 'preview']);?>" class="btn btn-default btn-default-alt" title="<?=$this->translate('Preview voting');?>">
+                            <span class="glyphicon glyphicon-eye-open icon-offset" aria-hidden="true"></span>
+                            <?=$this->translate('Preview voting');?>
                         </a>
                     </div>
 
-                    <!-- Voting buttons -->
-                    <?php echo $this->partial('_partials/voting/votingButtons.phtml', $this); ?>
-
-                    <!-- Actions -->
-                    <p>
-                        <a
-                            href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true)?>"
-                            id="buttonChangeKeyword"
-                            class="btn"
-                        >
-                            <?=$this->translate('Change question or keyword')?>
-                        </a>
-                    </p>
-                    <p>
-                        <a href="<?php echo $this->url(array('action' => 'stopvoting')); ?>" class="btn" title="<?=$this->translate('Finish voting')?>">
-                            <i class="icon-signout"></i> <?=$this->translate('Finish')?>
-                        </a>
-                        <a href="<?php echo $this -> url(array('action' => 'preview')); ?>" class="btn" title="<?=$this->translate('Preview voting')?>">
-                            <i class="icon-eye-open"></i> <?=$this->translate('Preview voting')?>
-                        </a>
-                    </p>
-
-                </div><!-- .well.voting -->
+                </div><!-- .well -->
 
             <?php endif; ?>
 
         </div>
     </div><!-- .row -->
 
-</div><!-- .content-holder -->
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-voting']);?>
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <!-- Supervotes modal -->
+    <?php if ($this->settings['btn_important'] == 'y'): ?>
+        <div class="modal fade" id="modalVoting" tabindex="-1" role="dialog" aria-labelledby="modalVotingLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="<?=$this->translate('Close');?>">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalVotingLabel">
+                            <span class="glyphicon glyphicon-star text-accent icon-offset" aria-hidden="true"></span>
+                            <?=$this->translate('Decide what is most important!');?>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="media">
+                            <div class="media-body">
+                                <p>
+                                    <?=$this->translate('The superbutton allows you to give certain contributions a higher vote. The overview shows you what you already marked as "especially important". Use the "–" to reset your markings and allow space for more important contributions.');?>
+                                </p>
+                            </div>
+                            <div class="media-right">
+                                <img src="<?=$this->baseUrl('images/voting-rate-superbtn.png');?>" alt="" />
+                            </div>
+                        </div>
+
+                        <h4>
+                            <?=$this->translate('Supervotes used:');?>
+                            <span class="js-supervotes-used">
+                                            <?=$this->votingBasket['countvotes'];?>
+                                        </span>
+                            <?=$this->translate('of');?>
+                            <?=$this->settings['btn_important_max'];?>
+                        </h4>
+
+                        <table class="table table-striped">
+                            <tbody>
+                            <?php foreach ($this->votingBasket["votes"] as $v): ?>
+                                <tr id="thes-<?=$v["tid"];?>">
+                                    <td>
+                                        <?=$v["thes"];?>
+                                    </td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="btn btn-default btn-xs js-voting-remove-supervote"
+                                            data-kid="<?=$this->consultation->kid;?>"
+                                            data-tid="<?=$v["tid"];?>"
+                                            title="<?=$this->translate('Remove');?>"
+                                            >
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
+    <?php endif; ?>
+
+</div><!-- .main-content -->

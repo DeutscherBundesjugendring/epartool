@@ -31,7 +31,14 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 ['escape' => $this->getOption('escapeLabel') === false ? false : true]
             )
             ->addDecorator('Errors', ['class' => 'text-danger-block'])
-            ->addDecorator('Description', ['tag' => 'p', 'class' => 'help-block'])
+            ->addDecorator(
+                'Description',
+                [
+                    'tag' => 'p',
+                    'class' => 'help-block',
+                    'escape' => $this->getOption('escapeDescription') === false ? false : true
+                ]
+            )
             ->addDecorator(
                 ['previewImage' => 'HtmlTag'],
                 [

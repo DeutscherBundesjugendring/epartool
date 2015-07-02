@@ -1,8 +1,14 @@
-<!-- Introduction -->
-<div class="introduction lead">
-    <p><?=$this->translate('Overview of all consultations')?></p>
+<div class="frame-title">
+    <?=$this->translate('Overview of all consultations');?>
 </div>
 
-<?php echo $this->render('_partials/consultationPreviews.phtml'); ?>
+<?=$this->render('_partials/consultationPreviews.phtml');?>
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+<div class="main-bottom-bar">
+    <div class="top-link">
+        <a href="#top" class="has-icon js-scroll">
+            <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+            <?=$this->translate('up');?>
+        </a>
+    </div>
+</div>

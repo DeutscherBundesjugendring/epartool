@@ -1,0 +1,41 @@
+// Forms
+
+// Picked relevant rules from Synergic UI.
+
+
+.text-danger-block {
+    .alert();
+    .alert-danger();
+    display: block;
+    list-style: none; // reset error lists
+
+    .form-group &:not(:only-child) {
+        margin-top: @line-height-computed / 2;
+    }
+}
+
+label.required:after {
+    content: ' *';
+}
+
+.form-control {
+    &,
+    &:focus {
+        box-shadow: none;
+    }
+
+    &-alt {
+        color: #fff;
+        background-color: #000;
+
+        &:focus {
+            border-color: #fff;
+        }
+    }
+}
+
+// Buttons in inline forms have the same height as inputs.
+.form-inline .btn {
+    padding-top: 3px;
+    padding-bottom: 2px;
+}

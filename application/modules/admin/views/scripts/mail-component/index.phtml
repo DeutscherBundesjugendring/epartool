@@ -5,7 +5,10 @@
                 <h1 class="section-header-title"><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(array('controller' => 'mail-send', 'action' => 'index'));?>" class="btn btn-primary cta"><span class="glyphicon glyphicon-pencil"></span> <?=$this->translate('New Email');?></a>
+                <a href="<?=$this->url(['controller' => 'mail-send', 'action' => 'index']);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <?=$this->translate('New Email');?>
+                </a>
             </div>
         </div>
         <?=$this->emailTabs('settings');?>
@@ -34,7 +37,7 @@
                     </p>
                 <?php else: ?>
 
-                    <form method="<?=$this->form->getMethod()?>" action="<?=$this->url(array('action' => 'delete'));?>">
+                    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'delete']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                         <table class="table">
                             <thead>
@@ -50,7 +53,11 @@
                                         <td class="table-cell-id"><?=$this->escape($component->id);?></td>
                                         <td><?=$this->escape($component->name);?></td>
                                         <td class="table-cell-actions">
-                                            <a href="<?=$this->url(array('action' => 'detail', 'id' => $component->id));?>" class="item-action" title="<?=$this->translate('Edit component');?>">
+                                            <a
+                                                href="<?=$this->url(['action' => 'detail', 'id' => $component->id]);?>"
+                                                class="item-action"
+                                                title="<?=$this->translate('Edit component');?>"
+                                            >
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             <button

@@ -1,6 +1,6 @@
 <?php
 
-class Default_Form_Input_Create extends Zend_Form
+class Default_Form_Input_Create extends Dbjr_Form_Web
 {
     public function init()
     {
@@ -16,21 +16,21 @@ class Default_Form_Input_Create extends Zend_Form
 
         $addInputFieldBtn = $this->createElement('button', 'add_input_field');
         $addInputFieldBtn
-            ->setAttrib('class', 'btn pull-left')
+            ->setAttrib('class', 'btn-default btn-default-alt')
             ->setAttrib('type', 'submit')
             ->setLabel('+');
         $this->addElement($addInputFieldBtn);
 
         $nextQuestionBtn = $this->createElement('button', 'next_question');
         $nextQuestionBtn
-            ->setAttrib('class', 'btn arrow-right')
+            ->setAttrib('class', 'btn-default btn-default-alt')
             ->setAttrib('type', 'submit')
             ->setLabel('Save and proceed');
         $this->addElement($nextQuestionBtn);
 
         $finishedBtn = $this->createElement('button', 'finished');
         $finishedBtn
-            ->setAttrib('class', 'btn pull-right')
+            ->setAttrib('class', 'btn-default btn-default-alt')
             ->setAttrib('type', 'submit')
             ->setLabel('Finish');
         $this->addElement($finishedBtn);
@@ -67,10 +67,10 @@ class Default_Form_Input_Create extends Zend_Form
         $view = new Zend_View();
         $thesElOpts = array(
             'cols' => 85,
-            'rows' => 2,
+            'rows' => 3,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
-                'class' => 'input-block-level input-extensible input-alt js-has-counter',
+                'class' => 'form-control form-control-alt js-has-counter',
                 'placeholder' => sprintf($view->translate('Here you can type in your contribution (up to %s characters).'), 300),
                 'maxlength' => '300',
             ),
@@ -88,7 +88,7 @@ class Default_Form_Input_Create extends Zend_Form
             'rows' => 5,
             'belongsTo' => 'inputs[' . $inputName . ']',
             'attribs' => array(
-                'class' => 'extension input-block-level input-extensible input-alt js-has-counter',
+                'class' => 'form-control form-control-alt js-has-counter',
                 'style' => 'display: none;',
                 'placeholder' => sprintf($view->translate('Here you explain your contribution more in depth, e.g. with examples (up to %s characters).'), 2000),
                 'maxlength' => '2000'

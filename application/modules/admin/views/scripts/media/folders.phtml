@@ -5,11 +5,9 @@
                 <h1 class="section-header-title"><?=$this->translate('Media');?></h1>
             </div>
             <div class="col-sm-4">
-                <a
-                    href="<?=$this->url(array('action' => 'upload', 'filename' => null));?>"
-                    class="btn btn-primary cta"
-                    >
-                    <span class="glyphicon glyphicon-upload"></span> <?=$this->translate('Upload');?>
+                <a href="<?=$this->url(['action' => 'upload', 'filename' => null]);?>" class="btn btn-primary cta">
+                    <span class="glyphicon glyphicon-upload"></span>
+                    <?=$this->translate('Upload');?>
                 </a>
             </div>
         </div>
@@ -25,13 +23,13 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(array('action' => 'create-folder'));?>" class="btn btn-default pull-right">
+                <a href="<?=$this->url(['action' => 'create-folder']);?>" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     <?=$this->translate('New Folder');?>
                 </a>
                 <h2><?=$this->translate('Folders');?></h2>
 
-                <form method="<?=$this->form->getMethod()?>">
+                <form method="<?=$this->form->getMethod();?>">
                     <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                     <table class="table">
                         <thead>
@@ -44,7 +42,7 @@
                             <?php foreach ($this->folderDirs as $folder): ?>
                                 <tr>
                                     <td>
-                                        <a href="<?=$this->url(['action' => 'index', 'folder' => $folder['name'], 'targetElId' => $this->targetElId])?>">
+                                        <a href="<?=$this->url(['action' => 'index', 'folder' => $folder['name'], 'targetElId' => $this->targetElId]);?>">
                                             <?=$this->escape($folder['name']);?>
                                         </a>
                                     </td>

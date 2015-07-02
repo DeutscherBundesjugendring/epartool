@@ -1,44 +1,65 @@
-<?php echo $this->secondNavigation('follow-up') ?>
+<?=$this->secondNavigation('follow-up');?>
 
-<div class="content-holder">
-    <section class="main-content">
+<div class="main-content">
 
-        <div class="well well-large well-alt" id="followup">
-            <div class="followuphead">
+    <h1 class="text-center"><?=$this->translate('Reactions & Impact');?></h1>
+
+    <div class="well well-bordered well-accent">
+
+        <!-- Back link -->
+        <div class="row offset-bottom-large">
+            <div class="col-sm-3">
+
                 <a
-                    href="<?php echo $this->url(array('action' => 'index', 'page' => null)) ?>"
-                    class="back-link"
-                    title="<?=$this->translate('Back to overview of Reactions & Impact')?>"
+                    href="<?=$this->url(['action' => 'index', 'page' => null]);?>"
+                    class="followup-back-link followup-link media link-unstyled link-unstyled-alt"
+                    title="<?=$this->translate('Back to overview of Reactions & Impact');?>"
                 >
-                    <div class="sprite question-mark"><p>?</p></div>
-                    <h3 class="question-h3">
-                        <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.');?>
-                    </h3>
+                    <div class="media-left">
+                        <div class="followup-back-link-question-mark followup-sprite followup-sprite-question-mark" aria-hidden="true">?</div>
+                    </div>
+                    <div class="media-body">
+                        <strong class="small">
+                            <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.');?>
+                        </strong>
+                    </div>
                 </a>
-            </div>
 
-            <h2 class="well-title text-center"><?=$this->translate('Reactions & Impact')?></h2>
-            <div class="wrapper">
-                <div data-id="0" class="col">
+            </div>
+        </div><!-- .row -->
+
+        <!-- Chart -->
+        <div id="followup" class="followup">
+            <div class="row js-row">
+                <div class="col-sm-4" data-id="0">
+
+                    <!-- Boxes -->
                     <?php if (count($this->reltothis_inputs)): ?>
-                            <?php foreach ($this->reltothis_inputs as $relInput): ?>
-                                <div class="timeline-box">
-                                    <div class="content">
-                                        <p><?php echo $relInput['thes']; ?></p>
-                                        <p class="score">Ergebnis der Abstimmung: X. Rang</p>
+                        <?php foreach ($this->reltothis_inputs as $relInput): ?>
+                            <div class="followup-timeline-box">
+
+                                <div class="well well-bordered">
+                                    <p>
+                                        <?=$relInput['thes'];?>
+                                    </p>
+                                    <div class="text-accent">
+                                        <?=$this->translate('Result of voting: X. position');?>
                                     </div>
-                                    <?php if ($relInput['relFowupCount'] != 0): ?>
-                                        <div class="timeline-countlink sprite">
-                                            <a class="ajaxclick"
-                                               href="<?=$this->url(['action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null]) ?>"
-                                            >
-                                                <?php echo $relInput['relFowupCount']; ?>
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+
+                                <?php if ($relInput['relFowupCount'] != 0): ?>
+                                    <a
+                                        href="<?=$this->url(['action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null]);?>"
+                                        class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick"
+                                    >
+                                        <?=$relInput['relFowupCount'];?>
+                                    </a>
+                                <?php endif; ?>
+
+                            </div><!-- .followup-timeline-box -->
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
                     <?php foreach ($this->reltothis_snippets as $snippet): ?>
                         <?=$this->partial(
                             '_partials/followup-snippet-box.phtml',
@@ -50,8 +71,10 @@
                             ]
                         ) ?>
                     <?php endforeach; ?>
+
                 </div>
-                <div data-id="2" class="col" id="el-1">
+                <div id="el-1" class="col-sm-4" data-id="2">
+
                     <?=$this->partial(
                         '_partials/followup-snippet-box.phtml',
                         [
@@ -59,22 +82,17 @@
                             'relFollowupCount' => true,
                             'kid' => $this->kid
                         ]
-                    ) ?>
+                    );?>
+
                 </div>
+            </div><!-- .row -->
+        </div><!-- .followup -->
 
-            </div>
-            <div id="followuploader"><?=$this->translate('Loading…')?></div>
-        </div>
+        <!-- Loader -->
+        <div id="followuploader"><?=$this->translate('Loading…');?></div>
 
-    </section>
-</div><!-- .content-holder -->
+    </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        /**
-         * instance of follow-up created
-         * @type {FollowUp}
-         */
-        var followUp = new FollowUp(<?php echo $this->kid; ?>);
-    });
-</script>
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-followup']);?>
+
+</div><!-- .main-content -->

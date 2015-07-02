@@ -111,7 +111,6 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         $bodyHtml = $this->createElement('textarea', 'body_html');
         $bodyHtml
             ->setLabel('Message (HTML)')
-            ->setRequired(true)
             ->setAttrib('class', 'js-body-html')
             ->setAttrib('cols', 100)
             ->setAttrib('rows', 5)
@@ -148,6 +147,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $addAttachment = $this->createElement('button', 'addAttachment');
         $addAttachment
+            ->setAttrib('class', 'btn-default')
             ->setLabel('Add attachment')
             ->setOrder(1000);
         self::addCssClass($addAttachment, 'js-email-add-attachment');
@@ -166,6 +166,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $submit = $this->createElement('submit', 'submit');
         $submit
+            ->setAttrib('class', 'btn-primary')
             ->setLabel('Send')
             ->setOrder(1002);
         $this->addElement($submit);
@@ -214,8 +215,28 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         if ($isFormValid && $isRecipientValid) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
+    }
+
+    /**
+     * Populates the form with data in a template
+     * @param   string                $templateName  The name of the template
+     *                                @see Model_Mail_Template::SYSTEM_TEMPLATE_*
+     * @return  Admin_Form_Mail_Send  Fluent interface
+     */
+    public function populateFromTemplateName($templateName)
+    {
+        $templateModel = new Model_Mail_Template();
+        $template = $templateModel->fetchRow(
+            $templateModel->select()->where('name=?', $templateName)
+        );
+
+        $this->getElement('subject')->setValue($template->subject);
+        $this->getElement('body_html')->setValue($template->body_html);
+        $this->getElement('body_text')->setValue($template->body_text);
+
+        return $this;
     }
 }

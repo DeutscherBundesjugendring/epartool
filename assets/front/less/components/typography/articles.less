@@ -1,0 +1,59 @@
+// Articles
+
+
+.article {
+
+    // Make all images responsive.
+    img {
+        &:extend(.img-responsive);
+    }
+
+    // Custom bullets of user content.
+    ul {
+        margin: 0 0 @line-height-computed;
+        list-style: none;
+
+        > li {
+            margin-left: 1.25em;
+
+            &:before {
+                content: '>';
+                float: left;
+                margin-left: -1.25em;
+            }
+        }
+
+        > li > ul {
+            margin: .5em 0;
+
+            > li:before {
+                content: '»';
+            }
+        }
+    }
+
+    // Limit iframe size since we cannot change the markup of embedded videos to use Bootstrap's `.embed-responsive`.
+    iframe {
+        max-width: 100%;
+
+        @media (max-width: 419px) {
+            max-height: 200px;
+        }
+
+        @media (min-width: 420px) and (max-width: @screen-xs-max) {
+            max-height: 300px;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+
+        // Justify and hyphenate article paragraphs.
+        p {
+            text-align: justify;
+            -webkit-hyphens: auto;
+               -moz-hyphens: auto;
+                -ms-hyphens: auto;
+                    hyphens: auto;
+        }
+    }
+}

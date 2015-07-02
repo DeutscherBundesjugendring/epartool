@@ -1,88 +1,106 @@
-<a name="page-content"></a>
-<?php echo $this->secondNavigation('input') ?>
+<?=$this->secondNavigation('input');?>
 
-<div class="main-content content-holder">
-    <div class="row-fluid">
-        <div class="text-center span10 offset1">
+<div class="main-content">
+    <div class="row offset-bottom">
+        <div class="col-md-10 col-md-offset-1 text-center">
 
-            <small class="count muted">
-                <?php echo $this->inputCount ?> <?=$this->translate('confirmed contributions')?>
-            </small>
-            <h1><?=$this->translate('All contributions')?></h1>
+            <div class="text-muted">
+                <small>
+                    <?=$this->inputCount;?>
+                    <?=$this->translate('confirmed contributions');?>
+                </small>
+            </div>
+            <h1><?=$this->translate('All contributions');?></h1>
             <p>
-                <?=$this->translate('You want to participate in this participation round? Just click on a question during the input period, and the input field will appear where you can insert your contributions. After the input period has finished, you are no longer allowed to draw up contributions, but by clicking on a question you can read all other contributions.')?>
+                <?=$this->translate('You want to participate in this participation round? Just click on a question during the input period, and the input field will appear where you can insert your contributions. After the input period has finished, you are no longer allowed to draw up contributions, but by clicking on a question you can read all other contributions.');?>
             </p>
 
         </div>
     </div><!-- .row -->
 
     <!-- Questions -->
-    <ul class="questions thumbnails">
+    <div class="row">
+
         <?php if (!empty($this->tags)): ?>
-            <li class="span4">
-                <div class="thumbnail">
-                    <div class="thumbnail-content">
-                        <h2><?=$this->translate('Contributions sorted by keywords:')?></h2>
-                        <ul class="tag-cloud">
+            <div class="col-sm-6 col-md-4">
+                <div class="well well-bordered well-fixed-height offset-bottom-large">
+                    <div class="clip-vertical offset-bottom">
+                        <h2><?=$this->translate('Contributions sorted by keywords:');?></h2>
+                        <ul class="list-inline tag-cloud small text-center">
                             <?php foreach ($this->tags as $tag): ?>
-                                <li class="tag-<?php echo $tag['frequency']; ?>">
-                                    <a href="<?php echo $this->url(array('action' => 'show', 'tag' => $tag['tg_nr'])); ?>">
-                                        <?php echo $tag['tg_de']; ?>
+                                <li class="tag-<?=$tag['frequency'];?>">
+                                    <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled">
+                                        <?=$tag['tg_de'];?>
                                     </a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                        <a href="<?php echo $this->url(array('action' => 'tags')); ?>" class="btn">
-                            <?=$this->translate('All tags')?>
-                        </a>
                     </div>
-                </div><!-- .thumbnail -->
-            </li>
+                    <a href="<?=$this->url(['action' => 'tags']);?>" class="btn btn-default btn-block">
+                        <?=$this->translate('All tags');?>
+                    </a>
+                </div><!-- .well -->
+            </div>
         <?php endif; ?>
-        <?php
-        foreach ($this->questions as $question):
-            $url = $this->url(array('action' => 'show', 'qid' => $question['qi']));
-            ?>
-            <li class="span4">
-                <div class="thumbnail">
-                    <span class="badge badge-tag badge-tag-small"><?php echo $question['nr'] ?></span>
-                    <div class="thumbnail-content">
-                        <h2>
-                            <a href="<?php echo $url ?>"><?php echo $question['q'] ?></a>
-                        </h2>
-                        <div class="article-list">
-                            <?php foreach ($question['inputs'] as $input): ?>
-                                <a href="<?php echo $url ?>">
-                                    <article class="media">
-                                        <time pubdate datetime="<?=$this->formatDate($input['when'], 'y-MM-dd') ?>">
-                                            <?=sprintf(
-                                                $this->translate('written on %s'),
-                                                $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
-                                            )?>
-                                        </time>
-                                        <p><?php echo mb_substr($this->escape($input['thes']), 0, 120, 'UTF-8') ?></p>
-                                    </article>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                        <a href="<?php echo $url; ?>" class="btn edit">
-                            <?php if (
-                                $this->nowDate->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
-                                && $this->nowDate->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
-                            ): ?>
-                                <i class="icon-edit-alt"></i>
-                                <?=$this->translate('Write a contribution')?> ›››
-                            <?php else: ?>
-                                <?=sprintf($this->translate('All contributions for question %s'), $question['nr'])?> ›››
-                            <?php endif; ?>
-                        </a>
+
+        <?php foreach ($this->questions as $question): ?>
+            <div class="col-sm-6 col-md-4">
+                <div class="well well-bordered well-fixed-height offset-bottom-large">
+
+                    <div class="bubble bubble-sm well-bubble">
+                        <h4 class="bubble-title"><?=$this->escape($question['nr']);?></h4>
                     </div>
-                </div><!-- .thumbnail -->
-            </li>
+
+                    <div class="clip-vertical offset-bottom">
+                        <h2 class="well-title-with-bubble">
+                            <a href="<?=$this->url(['action' => 'show', 'qid' => $question['qi']]);?>">
+                                <?=$this->escape($question['q']);?>
+                            </a>
+                        </h2>
+
+                        <?php foreach ($question['inputs'] as $input): ?>
+                            <a href="<?=$this->url(['action' => 'show', 'qid' => $question['qi']]);?>#input-<?=$input['tid'];?>" class="link-unstyled">
+                                <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
+                                    <?=sprintf(
+                                        $this->translate('written on %s'),
+                                        $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
+                                    );?>
+                                </time>
+                                <p>
+                                    <?=mb_substr($this->escape($input['thes']), 0, 120, 'UTF-8');?>
+                                </p>
+                            </a>
+                        <?php endforeach; ?>
+                    </div><!-- .clip-vertical -->
+
+                    <?php if (
+                        $this->nowDate->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
+                        && $this->nowDate->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
+                    ): ?>
+                        <a
+                            href="<?=$this->url(['action' => 'show', 'qid' => $question['qi']]);?>"
+                            class="btn btn-default btn-block has-icon-pencil"
+                        >
+                            <span class="icon icon-pencil" aria-hidden="true"></span>
+                            <?=$this->translate('Write a contribution');?>
+                            ›››
+                        </a>
+                    <?php else: ?>
+                        <a
+                            href="<?=$this->url(['action' => 'show', 'qid' => $question['qi']]);?>"
+                            class="btn btn-default btn-block"
+                        >
+                            <?=sprintf($this->translate('All contributions'));?>
+                            ›››
+                        </a>
+                    <?php endif; ?>
+
+                </div><!-- .well -->
+            </div>
         <?php endforeach; ?>
-    </ul><!-- .questions -->
 
-    <?php echo $this->render('_partials/printLink.phtml') ?>
-</div>
+    </div><!-- .row -->
 
-<?php echo $this->render('_partials/topLink.phtml') ?>
+    <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-input']);?>
+
+</div><!-- .main-content -->
