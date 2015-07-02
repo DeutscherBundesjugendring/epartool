@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-06-26 12:40+0100\n"
-"PO-Revision-Date: 2015-06-26 12:40+0100\n"
+"POT-Creation-Date: 2015-07-02 19:36+0100\n"
+"PO-Revision-Date: 2015-07-02 19:38+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -526,9 +526,8 @@ msgid "Help text was saved."
 msgstr ""
 
 #: application/modules/admin/controllers/SettingsController.php:114
-#, fuzzy
 msgid "Footer was updated."
-msgstr "Der Ordner wurde aktualisiert."
+msgstr ""
 
 #: application/modules/admin/controllers/MailSendController.php:95
 msgid "Email has been queued for sending."
@@ -557,9 +556,8 @@ msgstr ""
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:37
 #: application/modules/admin/views/scripts/settings/footer.phtml:16
-#, fuzzy
 msgid "Footer"
-msgstr "Fußnote"
+msgstr ""
 
 # TS: not sure what you label with it. Is it similar to "E-mail sending"? Then in German it's okay to simply write E-Mails.
 #: application/modules/admin/views/helpers/EmailTabs.php:17
@@ -989,23 +987,20 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: application/modules/admin/forms/Settings.php:16
-#, fuzzy
 msgid "Site Title"
-msgstr "Titel"
+msgstr ""
 
 #: application/modules/admin/forms/Settings.php:23
-#, fuzzy
 msgid "Site Description"
-msgstr "Beschreibung"
+msgstr ""
 
 #: application/modules/admin/forms/Settings.php:30
 msgid "Motto"
 msgstr ""
 
 #: application/modules/admin/forms/Settings.php:39
-#, fuzzy
 msgid "Site Information"
-msgstr "User-Bestätigung"
+msgstr ""
 
 #: application/modules/admin/forms/Settings.php:52
 msgid "Street"
@@ -1040,9 +1035,8 @@ msgid "Website URL"
 msgstr ""
 
 #: application/modules/admin/forms/Settings.php:88
-#, fuzzy
 msgid "Contact Information"
-msgstr "Ansprechpartner_in"
+msgstr ""
 
 #: application/modules/admin/forms/ConsultationPhases.php:11
 msgid "Enable custom phase names"
@@ -2473,9 +2467,8 @@ msgid "Edit help text"
 msgstr ""
 
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:16
-#, fuzzy
 msgid "Back to Help Texts"
-msgstr "Zurück zu Schnippseln"
+msgstr ""
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:27
 msgid "Sent Emails"
