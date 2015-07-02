@@ -8,7 +8,7 @@ module.exports = {
   },
   front: {
     src: [
-      '<%= paths.bower %>/jquery/jquery.min.js',
+      '<%= paths.bower %>/jquery/dist/jquery.js',
       '<%= paths.bower %>/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.5.js',
       '<%= paths.bower %>/bootstrap/js/alert.js',
       '<%= paths.bower %>/bootstrap/js/dropdown.js',
