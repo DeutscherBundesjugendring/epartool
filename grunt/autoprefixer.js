@@ -15,9 +15,6 @@ module.exports = {
     ],
     map: true
   },
-  front: {
-    src: '<%= paths.dist %>/css/<%= pkg.name %>.css'
-  },
   admin: {
     src: '<%= paths.dist %>/css/admin.css'
   }

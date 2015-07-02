@@ -17,14 +17,16 @@
     <meta property="og:description" content="<?=$this->parameter('site.description');?>" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
     <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.min.css');?>" type="text/css" />
-    <?php endif;?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.min.css');?>" type="text/css" />
+    <?php endif; ?>
 
-    <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
-
-    <link rel="shortcut icon" href="<?=$this->baseUrl('project/favicon.ico');?>" />
+    <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
+    <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.png');?>" />
+    <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('project/images/icon/touch-icon.png');?>" />
+    <meta name="msapplication-TileImage" content="<?=$this->baseUrl('project/images/icon/touch-icon-w8.png');?>" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
 
     <!--[if lt IE 9]><script src="<?=$this->baseUrl('vendor/html5shiv.min.js');?>"></script><![endif]-->
 </head>

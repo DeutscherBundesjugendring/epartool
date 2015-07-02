@@ -6,12 +6,10 @@ module.exports = {
     paths: ['<%= paths.bower %>'],
     sourceMap: true
   },
-  front: {
-    files: {
-      '<%= paths.dist %>/css/<%= pkg.name %>.css': '<%= paths.src.front %>/less/main.less'
-    }
-  },
   admin: {
+    options: {
+      rootpath: '<%= paths.projectToCore %>'
+    },
     files: {
       '<%= paths.dist %>/css/admin.css': '<%= paths.src.admin %>/less/main.less'
     }

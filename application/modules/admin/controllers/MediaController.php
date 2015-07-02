@@ -40,7 +40,7 @@ class Admin_MediaController extends Zend_Controller_Action
 
         // This controller can output either to main window or to a popup window depending on context
         if ($this->getRequest()->getParam('isPopup', null)) {
-            $this->_helper->layout->setLayout('popup');
+            $this->_helper->layout->setLayout('backend-popup');
         }
 
         $this->_kid = $this->getRequest()->getParam('kid', null);
@@ -68,7 +68,7 @@ class Admin_MediaController extends Zend_Controller_Action
         // If targetElId is set, then the action is to be used as image selector in popup context
         $this->view->targetElId = $this->_targetElId;
         if ($this->view->targetElId) {
-            $this->_helper->layout->setLayout('popup');
+            $this->_helper->layout->setLayout('backend-popup');
             $this->view->headScript()->appendFile($this->view->baseUrl() . '/js/admin_mediaPopup.js');
             $this->view->lockDir = (bool) $this->getRequest()->getParam('lockDir', null);
         }
