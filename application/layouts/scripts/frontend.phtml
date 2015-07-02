@@ -17,12 +17,10 @@
     <meta property="og:description" content="<?=$this->parameter('site.description');?>" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.css');?>" type="text/css" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
     <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/dbjr.min.css');?>" type="text/css" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.min.css');?>" type="text/css" />
     <?php endif; ?>
-
-    <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
 
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.png');?>" />

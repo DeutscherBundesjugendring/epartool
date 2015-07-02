@@ -12,7 +12,8 @@ module.exports = function (grunt) {
       },
       dist: 'www',
       bower: 'bower_components',
-      temp: '.tmp'
+      temp: '.tmp',
+      projectToCore: '../../vendor/dbjr/tool/www/'
     },
 
     devUrl: 'dbjr-ip.local'

@@ -22,7 +22,7 @@ module.exports = {
   },
   admin: {
     src: [
-      '<%= paths.bower %>/jquery/jquery.min.js',
+      '<%= paths.bower %>/jquery/dist/jquery.js',
       '<%= paths.bower %>/moment/min/moment-with-locales.min.js',
       '<%= paths.bower %>/select2/select2.min.js',
       '<%= paths.bower %>/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',

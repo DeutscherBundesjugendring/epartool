@@ -26,12 +26,6 @@ module.exports = {
   ],
 
   // CSS
-  'build-css-front': [
-    'less:front',
-    'autoprefixer:front',
-    'cssmin:front'
-  ],
-
   'build-css-admin': [
     'less:admin',
     'autoprefixer:admin',
@@ -40,7 +34,6 @@ module.exports = {
 
   'build-css': [
     'clean:css',
-    'build-css-front',
     'build-css-admin'
   ],
 
