@@ -16,7 +16,7 @@ module.exports = function (grunt) {
       projectToCore: '../../vendor/dbjr/tool/www/'
     },
 
-    devUrl: 'dbjr-ip.local'
+    devUrl: 'dbjr.local'
   };
 
   require('time-grunt')(grunt);
