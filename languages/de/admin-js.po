@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-02 19:44+0100\n"
-"PO-Revision-Date: 2015-07-02 19:44+0100\n"
+"POT-Creation-Date: 2015-07-04 11:37+0100\n"
+"PO-Revision-Date: 2015-07-04 11:37+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,15 +16,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: front/coffee\n"
 "X-Poedit-SearchPath-1: admin/coffee\n"
 
-#: admin/coffee/main.coffee:199
+#: admin/coffee/main.coffee:205
 msgid "Are you sure?"
 msgstr "Wirklich?"
 
-#: admin/coffee/main.coffee:200
+#: admin/coffee/main.coffee:206
 msgid "Yes"
 msgstr "Ja"
 
-#: admin/coffee/main.coffee:201
+#: admin/coffee/main.coffee:207
 msgid "No"
 msgstr "Nein"
 
