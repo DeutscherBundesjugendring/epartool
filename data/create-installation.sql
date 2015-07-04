@@ -1023,7 +1023,7 @@ CREATE TABLE `input_discussion` (
     INDEX `input_discussion_is_visible_idx` (`is_visible`),
     CONSTRAINT `input_discussion_input_id_fkey` FOREIGN KEY (`input_id`) REFERENCES `inpt` (`tid`),
     CONSTRAINT `input_discussion_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`)
-) ENGINE=InnoDb, COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDb;
 
 ALTER TABLE `inpt`
     ADD COLUMN `input_discussion_contrib` int unsigned NULL DEFAULT NULL,
@@ -1118,7 +1118,7 @@ CREATE TABLE `parameter` (
     `value` text NULL DEFAULT NULL,
     PRIMARY KEY (`name`, `proj`),
     CONSTRAINT `parameter_proj_ibfk` FOREIGN KEY (`proj`) REFERENCES `proj`(`proj`)
-) Engine=InnoDb, COLLATE=utf8_unicode_ci;
+) Engine=InnoDb;
 
 INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.title', `proj` FROM `proj`);
 INSERT INTO `parameter` (`name`, `proj`) (SELECT 'site.description', `proj` FROM `proj`);
@@ -1143,7 +1143,7 @@ CREATE TABLE `partner` (
     PRIMARY KEY (`id`),
     INDEX `partner_order_idx` (`order`),
     CONSTRAINT `partner_proj_ibfk` FOREIGN KEY (`proj`) REFERENCES `proj`(`proj`)
-) Engine=InnoDb, COLLATE=utf8_unicode_ci;
+) Engine=InnoDb;
 
 
 -- Migration 2015-05-25_20-15_DBJR-510.sql
@@ -1159,12 +1159,7 @@ CREATE TABLE `footer` (
     `text` text NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `footer_proj_ibfk` FOREIGN KEY (`proj`) REFERENCES `proj` (`proj`)
-) Engine=InnoDb, COLLATE=utf8_unicode_ci;
-
-INSERT INTO footer (proj) (SELECT proj FROM proj);
-INSERT INTO footer (proj) (SELECT proj FROM proj);
-INSERT INTO footer (proj) (SELECT proj FROM proj);
-INSERT INTO footer (proj) (SELECT proj FROM proj);
+) Engine=InnoDb;
 
 
 -- Migration 2015-06-26_13-45_DBJR-209.sql
