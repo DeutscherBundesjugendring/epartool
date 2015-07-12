@@ -11,25 +11,33 @@ class Admin_Form_Settings extends Dbjr_Form_Admin
             ->setAttrib('class', 'offset-bottom');
 
 
+        $desc = $translator->translate(
+            'Used in page <title> tag, in DV.title and og:title meta tags and as a logo image alt text.'
+        );
         $siteTitle = $this->createElement('text', 'site_title');
         $siteTitle
             ->setLabel('Site Title')
             ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
+            ->setAttrib('maxlength', 1000)
+            ->setDescription($desc);
         $this->addElement($siteTitle);
 
+        $desc = $translator->translate('Used in description and og:description meta tags.');
         $siteDescription = $this->createElement('text', 'site_description');
         $siteDescription
             ->setLabel('Site Description')
             ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
+            ->setAttrib('maxlength', 1000)
+            ->setDescription($desc);
         $this->addElement($siteDescription);
 
+        $desc = $translator->translate('Used as a subtitle on all pages that are not consultation specific.');
         $siteMotto = $this->createElement('text', 'site_motto');
         $siteMotto
             ->setLabel('Motto')
             ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
+            ->setAttrib('maxlength', 1000)
+            ->setDescription($desc);
         $this->addElement($siteMotto);
 
 
@@ -39,47 +47,31 @@ class Admin_Form_Settings extends Dbjr_Form_Admin
             ['legend' => $translator->translate('Site Information')]
         );
 
-
+        $desc = $translator->translate('Used as a placeholder in email templates.');
         $contactName = $this->createElement('text', 'contact_name');
         $contactName
             ->setLabel('Name')
             ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
+            ->setAttrib('maxlength', 1000)
+            ->setDescription($desc);
         $this->addElement($contactName);
 
-        $contactStreet = $this->createElement('text', 'contact_street');
-        $contactStreet
-            ->setLabel('Street')
-            ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
-        $this->addElement($contactStreet);
-
-        $contactTown = $this->createElement('text', 'contact_town');
-        $contactTown
-            ->setLabel('Town')
-            ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
-        $this->addElement($contactTown);
-
-        $contactZip = $this->createElement('text', 'contact_zip');
-        $contactZip
-            ->setLabel('Zip')
-            ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
-        $this->addElement($contactZip);
-
+        $desc = $translator->translate('Used as a placeholder in email templates.');
         $contactEmail = $this->createElement('text', 'contact_email');
         $contactEmail
             ->setLabel('Email')
             ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
+            ->setAttrib('maxlength', 1000)
+            ->setDescription($desc);
         $this->addElement($contactEmail);
 
+        $desc = $translator->translate('Used as a placeholder in email templates.');
         $contactWww = $this->createElement('text', 'contact_www');
         $contactWww
             ->setLabel('Website URL')
             ->setRequired(true)
-            ->setAttrib('maxlength', 1000);
+            ->setAttrib('maxlength', 1000)
+            ->setDescription($desc);
         $this->addElement($contactWww);
 
         $this->addDisplayGroup(
