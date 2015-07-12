@@ -22,6 +22,8 @@ class Service_UrlkeyAction_ConfirmNotification extends Service_UrlkeyAction
     {
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_ConfirmNotification();
         if ($request->isPost()) {
+            $translator = Zend_Registry::get('Zend_Translate');
+
             if ($this->_viewData['form']->isValid($request->getPost())) {
                 $urlkeyActionParamModel = new Model_UrlkeyAction_Parameter();
                 $ntfId = $urlkeyActionParamModel->fetchRow(
