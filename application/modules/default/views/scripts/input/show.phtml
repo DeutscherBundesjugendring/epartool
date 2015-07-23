@@ -138,10 +138,20 @@
 
                             <!-- Discussion -->
                             <?php if ($this->consultation->is_discussion_active): ?>
-                                <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
-                                <small class="badge<?=$this->escape($input['discussionPostCount']) > 0 ? ' badge-accent' : '';?>">
-                                    <?=$this->escape($input['discussionPostCount']);?>
-                                </small>
+                                <a
+                                    href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
+                                    class="link-unstyled"
+                                >
+                                    <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                </a>
+                                <a
+                                    href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
+                                    class="link-unstyled"
+                                >
+                                    <small class="badge<?=$this->escape($input['discussionPostCount']) > 0 ? ' badge-accent' : '';?>">
+                                        <?=$this->escape($input['discussionPostCount']);?>
+                                    </small>
+                                </a>
                                 <a
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                     class="btn btn-default btn-xs"
