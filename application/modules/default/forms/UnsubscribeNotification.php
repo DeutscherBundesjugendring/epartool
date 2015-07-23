@@ -6,7 +6,7 @@ class Default_Form_UnsubscribeNotification extends Dbjr_Form_Web
     {
         $this
             ->prepareElements()
-            ->setAttrib('class', 'form-inline offset-top-large offset-bottom-large')
+            ->setAttrib('class', 'form-inline offset-top-large offset-bottom-large hidden-print')
             ->setMethod('post');
     }
 

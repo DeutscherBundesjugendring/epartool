@@ -233,4 +233,27 @@
             }
         }
     }
+
+    @media print {
+        &-brand > img {
+            max-width: 3cm !important;
+            max-height: 2cm !important;
+        }
+
+        &-title {
+            position: absolute;
+            top: 2em;
+            right: 0;
+            font-size: 1.25em;
+        }
+
+        &-box-title {
+            margin-top: 2 * @line-height-computed;
+            font-size: 3em;
+        }
+
+        &-box-subtitle {
+            margin-bottom: 0;
+        }
+    }
 }

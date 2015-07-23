@@ -16,7 +16,7 @@
 
 <div class="main-content">
     <div class="row">
-        <div class="sidebar-left">
+        <div class="sidebar-left hidden-print">
 
             <nav class="offset-bottom-large">
                 <?=$this->questionNavigation($this->question['qi']);?>
@@ -121,12 +121,12 @@
                                         <?=$this->escape($input['spprts']);?>
                                     </small>
                                     <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                        <small><?=$this->translate('supporters');?></small>
+                                        <small class="hidden-print"><?=$this->translate('supporters');?></small>
                                     <?php else: ?>
                                         <a
                                             href="#"
                                             id="click-support-<?=$this->escape($input['tid']);?>"
-                                            class="btn btn-default btn-xs js-click-support"
+                                            class="btn btn-default btn-xs hidden-print js-click-support"
                                             data-kid="<?=$this->consultation->kid;?>"
                                             rel="<?=$this->escape($input['tid']);?>"
                                         >
@@ -140,13 +140,13 @@
                             <?php if ($this->consultation->is_discussion_active): ?>
                                 <a
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
-                                    class="link-unstyled"
+                                    class="link-unstyled link-print-nourl"
                                 >
                                     <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
                                 </a>
                                 <a
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
-                                    class="link-unstyled"
+                                    class="link-unstyled link-print-nourl"
                                 >
                                     <small class="badge<?=$this->escape($input['discussionPostCount']) > 0 ? ' badge-accent' : '';?>">
                                         <?=$this->escape($input['discussionPostCount']);?>
@@ -154,7 +154,7 @@
                                 </a>
                                 <a
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
-                                    class="btn btn-default btn-xs"
+                                    class="btn btn-default btn-xs hidden-print"
                                 >
                                     <?=$this->translate('I would like to discuss that!');?>
                                 </a>
@@ -180,7 +180,7 @@
                 ['titlePrev' => $this->translate('Older contributions'), 'titleNext' => $this->translate('Newer contributions')]
             );?>
 
-            <hr />
+            <hr class="hidden-print" />
 
             <!-- Sign up -->
             <?=$this->subscriptionForm;?>

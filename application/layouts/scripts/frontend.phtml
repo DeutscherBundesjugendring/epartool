@@ -49,12 +49,12 @@
         <header role="banner" class="header">
 
             <!-- Logo -->
-            <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand" title="<?=$this->translate('Home');?>">
+            <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand link-print-nourl" title="<?=$this->translate('Home');?>">
                 <img src="<?=$this->baseUrl('project/images/logo.png');?>" itemprop="image" alt="<?=$this->parameter('site.title');?>" />
             </a>
 
             <!-- Main navigation -->
-            <nav role="navigation" class="header-nav" aria-label="<?=$this->translate('Menu');?>">
+            <nav role="navigation" class="header-nav hidden-print" aria-label="<?=$this->translate('Menu');?>">
                 <ul class="nav nav-pills nav-centered">
                     <li><a href="<?=$this->url([], 'about');?>#what"><?=$this->translate('What');?></a></li>
                     <li><a href="<?=$this->url([], 'about');?>#us"><?=$this->translate('We');?></a></li>
@@ -69,15 +69,15 @@
             </nav>
 
             <!-- Search and user -->
-            <div class="header-widgets">
+            <div class="header-widgets hidden-print">
 
                 <!-- Search -->
                 <form class="form-search" method="get" action="<?=$this->url(['controller' => 'index', 'action' => 'search'], 'default', true);?>">
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control" name="q" placeholder="<?=$this->translate('Search…');?>" value="" />
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-search"></span>
+                            <button type="submit" class="btn btn-primary" title="<?=$this->translate('Search');?>">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>
                     </div>
@@ -95,7 +95,7 @@
 
                 <!-- Main title -->
                 <h1 class="header-title">
-                    <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
+                    <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="link-print-nourl" rel="home" itemprop="name">
                         <?=$this->translate('Participation');?>
                     </a>
                 </h1>
@@ -104,7 +104,7 @@
                 <div class="header-box has-sticker">
 
                     <!-- Sticker -->
-                    <div class="hidden-xs">
+                    <div class="hidden-xs hidden-print">
                         <?=$this->ribbonImage($this->consultation);?>
                     </div>
 
@@ -113,14 +113,14 @@
 
                             <!-- Title -->
                             <h1 class="header-box-title header-box-title-small">
-                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $this->consultation->kid]);?>">
+                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $this->consultation->kid]);?>" class="link-print-nourl">
                                     <?=$this->escape($this->consultation->titl);?>
                                 </a>
                             </h1>
                             <h2 class="header-box-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
 
                             <!-- Sticker -->
-                            <div class="visible-xs">
+                            <div class="visible-xs hidden-print">
                                 <?=$this->ribbonImage($this->consultation);?>
                             </div>
 
@@ -130,7 +130,7 @@
                             <!-- Image -->
                             <img
                                 src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $this->consultation->kid . '/' . $this->consultation->img_file);?>"
-                                class="header-box-image"
+                                class="header-box-image hidden-print"
                                 alt="<?=$this->consultation->img_expl;?>"
                                 />
 
@@ -138,7 +138,7 @@
                         <div class="col-md-3">
 
                             <!-- Home link -->
-                            <div class="header-box-home">
+                            <div class="header-box-home hidden-print">
                                 <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="link-alt has-icon" rel="home">
                                     <?=$this->translate('Home');?>…
                                     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
@@ -146,7 +146,7 @@
                             </div>
 
                             <!-- Share -->
-                            <div class="header-box-share">
+                            <div class="header-box-share hidden-print">
                                 <button type="button" class="btn btn-default btn-sm has-icon-lg dropdown-toggle js-share">
                                     <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                                     <?=$this->translate('Share');?>
@@ -164,7 +164,7 @@
                 <div class="header-box<?=($controller === 'index' ? ' has-nav-list' : '');?>">
 
                     <h1 class="header-box-title">
-                        <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" itemprop="name">
+                        <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="link-print-nourl" rel="home" itemprop="name">
                             <?=$this->translate('Participation');?>
                         </a>
                     </h1>
@@ -173,7 +173,7 @@
                     <?php if ($controller === 'index'): ?>
                         <a
                             href="<?=$this->url(['controller' => 'help', 'action' => 'index', 'name' => 'help-text-home']);?>"
-                            class="header-box-help link-transparent has-icon js-toggle-help"
+                            class="header-box-help link-transparent has-icon hidden-print js-toggle-help"
                             title="<?=$this->translate('Help');?>"
                         >
                             <span class="icon-md glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -214,7 +214,7 @@
 <footer class="footer">
 
     <!-- Footer navigation -->
-    <nav role="navigation" class="navbar navbar-default navbar-static">
+    <nav role="navigation" class="navbar navbar-default navbar-static hidden-print">
         <div class="container">
 
             <ul class="nav navbar-nav">
@@ -235,6 +235,8 @@
 
         </div><!-- .container -->
     </nav>
+
+    <hr class="visible-print" />
 
     <!-- About -->
     <div role="contentinfo">

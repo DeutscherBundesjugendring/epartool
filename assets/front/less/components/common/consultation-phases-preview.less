@@ -102,4 +102,21 @@
             }
         }
     }
+
+    @media print {
+        .list-unstyled();
+
+        > li {
+            display: inline-block;
+            width: 19%;
+            vertical-align: top;
+        }
+
+        .consultation-phases-item {
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+    }
 }

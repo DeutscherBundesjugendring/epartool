@@ -79,7 +79,7 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
         }
 
         // Render
-        $html  = '<nav>' . "\n";
+        $html  = '<nav class="hidden-print">' . "\n";
         $html .= '<ul class="consultation-phases consultation-phases-full">' . "\n";
 
         foreach ($items as $item => $val) {
