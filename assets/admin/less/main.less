@@ -28,10 +28,6 @@
     margin-top: 0;
 }
 
-.navbar-brand svg {
-    margin-top: -3px;
-}
-
 .overflow-horizontal {
     word-break: break-all;
 }
@@ -78,6 +74,7 @@
     }
 }
 
+// Since SUI 0.8
 .cancel-link {
     position: relative;
     top: 2px;
@@ -93,8 +90,12 @@
 
 
 // ===========================================================
-// Temporary hacks.
+// Custom modifications and temporary hacks.
 // ===========================================================
+
+.navbar-brand svg {
+    margin-top: -3px;
+}
 
 // Remove bullets from error messages. Better to be fixed in markup.
 .alert li {

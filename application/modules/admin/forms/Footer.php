@@ -15,12 +15,17 @@ class Admin_Form_Footer extends Dbjr_Form_Admin
 
     public function init()
     {
+        $i = 1;
+        $footerCount = count($this->footers);
+
         foreach ($this->footers as $key => $text) {
             $text = $this->createElement('textarea', $key);
             $text
+                ->setLabel(sprintf('Footer area %d of %d', $i, $footerCount))
                 ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
                 ->addValidator('stringLength', ['max' => 100000]);
             $this->addElement($text);
+            $i++;
         }
 
         // CSRF Protection
