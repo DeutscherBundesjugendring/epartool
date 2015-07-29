@@ -14,7 +14,3 @@
 
 # Never ignore files used to keep empty folders in repo
 !.keep
-
-# IDE settings
-/.idea
-dbjr.iml
