@@ -8,7 +8,7 @@ module.exports = {
   },
   admin: {
     options: {
-      rootpath: '<%= paths.projectToCore %>'
+      rootpath: '../'
     },
     files: {
       '<%= paths.dist %>/css/admin.css': '<%= paths.src.admin %>/less/main.less'
