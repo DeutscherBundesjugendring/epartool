@@ -75,7 +75,7 @@
                     <ul class="list-inline tag-cloud small offset-bottom">
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?=$tag['frequency'];?>">
-                                <a href="<?=$this->url(['action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null]);?>" class="link-unstyled link-unstyled-alt">
+                                <a href="<?=$this->url(['action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null]);?>" class="link-unstyled link-unstyled-alt link-print-nourl">
                                     <?=$tag['tg_de'];?>
                                 </a>
                             </li>

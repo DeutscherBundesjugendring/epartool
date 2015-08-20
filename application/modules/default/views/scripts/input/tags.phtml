@@ -25,7 +25,7 @@
             <ul class="list-inline tag-cloud tag-cloud-large small offset-bottom">
                 <?php foreach ($this->tags as $tag): ?>
                     <li class="tag-<?=$tag['frequency'];?>">
-                        <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled">
+                        <a href="<?=$this->url(['action' => 'show', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled link-print-nourl">
                         	<?=$tag['tg_de'];?>
                         </a>
                     </li>

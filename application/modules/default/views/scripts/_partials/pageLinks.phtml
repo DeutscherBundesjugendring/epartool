@@ -1,5 +1,5 @@
 <!-- Print -->
-<div class="main-page-tools">
+<div class="main-page-tools hidden-print">
     <?php if (!empty($this->help)): ?>
         <a
             href="<?=$this->url(['controller' => 'help', 'action' => 'index', 'name' => $this->help]);?>"
@@ -17,7 +17,7 @@
 </div>
 
 <!-- Top link -->
-<div class="top-link">
+<div class="top-link hidden-print">
     <a href="#top" class="has-icon js-scroll">
         <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
         <?=$this->translate('up');?>

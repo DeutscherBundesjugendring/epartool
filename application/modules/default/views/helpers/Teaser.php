@@ -7,7 +7,7 @@ class Module_Default_View_Helper_Teaser extends Zend_View_Helper_Abstract
 {
     public function teaser()
     {
-        $html = '<ul class="nav nav-list">';
+        $html = '<ul class="nav nav-list hidden-print">';
 
         $consultationModel = new Model_Consultations();
         $items = $consultationModel->getTeaserEntries();

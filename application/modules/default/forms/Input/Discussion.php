@@ -25,16 +25,27 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
         $this->addElement($email);
 
         $placeholder = Zend_Registry::get('Zend_Translate')->translate('e.g.');
-        $description = Zend_Registry::get('Zend_Translate')->translate('Example:');
         $videoId = $this->createElement('text', 'video_id');
         $videoId
             ->setLabel('YouTube video ID')
+            ->setAttrib('class', 'form-control')
             ->setAttrib('placeholder', $placeholder . ' V75dMMIW2B4')
-            ->setDescription(
-                $description
-                . ' <span class="text-muted">http://www.youtube.com/watch?v=</span><strong>V75dMMIW2B4</strong>'
-            );
-        $videoId->getDecorator('BootstrapStandard')->setOption('escapeDescription', false);
+            ->setDescription('https://www.youtube.com/watch?v=');
+        $videoId->setDecorators(['ViewHelper',
+            [
+                'Description',
+                ['tag' => 'span', 'class' => 'input-group-addon', 'placement' => 'prepend']
+            ],
+            [
+                ['inputGroup' => 'HtmlTag'],
+                ['tag' => 'div', 'class' => 'input-group'],
+            ],
+            ['Label'],
+            [
+                ['formGroup' => 'HtmlTag'],
+                ['tag' => 'div', 'class' => 'form-group']
+            ],
+        ]);
         $this->addElement($videoId);
 
 

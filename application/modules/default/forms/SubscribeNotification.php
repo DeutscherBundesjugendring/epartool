@@ -6,7 +6,7 @@ class Default_Form_SubscribeNotification extends Dbjr_Form_Web
     {
         $this
             ->prepareElements()
-            ->setAttrib('class', 'form-inline offset-top-large offset-bottom-large')
+            ->setAttrib('class', 'form-inline offset-top-large offset-bottom-large hidden-print')
             ->setMethod('post');
     }
 
@@ -41,7 +41,6 @@ class Default_Form_SubscribeNotification extends Dbjr_Form_Web
             ->setOrder(0)
             ->setAttrib('placeholder', 'me@example.com')
             ->setLabel('Email')
-            ->addValidator('emailAddress')
             ->setRequired(true);
         $this->addElement($emailEl);
     }

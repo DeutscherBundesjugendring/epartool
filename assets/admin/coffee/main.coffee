@@ -134,22 +134,22 @@ bindConsultationCustomPhaseNames = () ->
 
 initCKEditor = () ->
     $('.wysiwyg-standard').ckeditor({
-        filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor'
         customConfig: '/js/ckeditor.web_config.js'
+        filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor',
     })
     $('.wysiwyg-email').ckeditor({
         customConfig: '/js/ckeditor.email_config.js'
     })
 
 initDatepicker = () ->
-    $('.js-datetimepicker').datetimepicker({
-        'format': 'YYYY-MM-DD HH:mm:ss',
-        'sideBySide': true,
-        'locale': moment.locale()
-    })
     $('.js-datepicker').datetimepicker({
         'format': 'YYYY-MM-DD',
         'pickTime': false,
+        'locale': moment.locale()
+    })
+    $('.js-datetimepicker').datetimepicker({
+        'format': 'YYYY-MM-DD HH:mm:ss',
+        'sideBySide': true,
         'locale': moment.locale()
     })
 
@@ -172,7 +172,6 @@ initDatepicker = () ->
         })
         return
     );
-    return
 
 initSelect2 = () ->
     $('.js-select2').select2()

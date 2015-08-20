@@ -45,6 +45,8 @@
     }
     ?>
 
+    <hr class="visible-print" />
+
     <!-- Consultation box -->
     <div class="consultation has-sticker">
 
@@ -52,7 +54,7 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
 
-                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-heading">
+                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-heading link-print-nourl">
                     <h2 class="consultation-heading-title">
                         <?=$this->escape($consultation->titl);?>
                     </h2>
@@ -71,7 +73,7 @@
         <ul class="consultation-phases consultation-phases-preview">
 
             <!-- Title image with explanation -->
-            <li>
+            <li class="hidden-print">
                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-phases-preview-image">
                     <img
                         src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid . '/' . $consultation->img_file);?>"
@@ -114,7 +116,7 @@
                 </h3>
 
                 <?php if ($consultation->inp_show == 'y' && $inputIsOpen): ?>
-                    <div class="bubble bubble-lg consultation-phases-item-bubble">
+                    <div class="bubble bubble-lg consultation-phases-item-bubble hidden-print">
                         <h4 class="bubble-title"><?=$this->translate('Participate now!');?></h4>
                         <small>
                             <?=$this->translate('from');?>
@@ -154,7 +156,7 @@
                 </h3>
 
                 <?php if ($consultation->vot_show == 'y' && $votingIsOpen): ?>
-                    <div class="bubble bubble-lg consultation-phases-item-bubble">
+                    <div class="bubble bubble-lg consultation-phases-item-bubble hidden-print">
                         <h4 class="bubble-title"><?=$this->translate('Vote now!');?></h4>
                         <small>
                             <?=$this->translate('from');?>

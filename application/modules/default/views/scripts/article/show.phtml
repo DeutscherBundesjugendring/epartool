@@ -13,7 +13,7 @@
 
 <div class="main-content">
     <div class="row">
-        <div class="sidebar-left">
+        <div class="sidebar-left hidden-print">
 
             <!-- Tertiary navigation -->
             <?php if ($this->article['ref_nm'] != 'about'): // do not show tertiary navigation on "about" page ?>
@@ -28,7 +28,7 @@
             </article>
 
         </div>
-        <aside class="sidebar-right">
+        <aside class="sidebar-right hidden-print">
 
             <?php echo html_entity_decode($this->article['sidebar'], ENT_COMPAT, 'UTF-8'); ?>
 

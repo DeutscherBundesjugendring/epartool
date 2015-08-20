@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="row">
-        <div class="sidebar-left">
+        <div class="sidebar-left hidden-print">
 
             <?=$this->followupNavigation('tags');?>
 
@@ -29,7 +29,7 @@
                     <ul class="list-inline tag-cloud tag-cloud-large small offset-bottom">
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?=$tag['frequency'];?>">
-                                <a href="<?=$this->url(['action' => 'inputs-by-question', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled">
+                                <a href="<?=$this->url(['action' => 'inputs-by-question', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled link-print-nourl">
                                     <?=$tag['tg_de'];?>
                                 </a>
                             </li>
