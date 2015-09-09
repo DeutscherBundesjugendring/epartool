@@ -29,7 +29,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
         $videoId
             ->setLabel('YouTube video ID')
             ->setAttrib('class', 'form-control')
-            ->setAttrib('placeholder', $placeholder . ' V75dMMIW2B4')
+            ->setAttrib('placeholder', $placeholder . ' tiGLudbJits')
             ->setDescription('https://www.youtube.com/watch?v=');
         $videoId->setDecorators(['ViewHelper',
             [
