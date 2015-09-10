@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-07-02 19:36+0100\n"
-"PO-Revision-Date: 2015-07-02 19:38+0100\n"
+"POT-Creation-Date: 2015-09-10 14:25+0100\n"
+"PO-Revision-Date: 2015-09-10 14:27+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -413,8 +413,8 @@ msgid "User not found."
 msgstr "Seite nicht gefunden!"
 
 #: application/modules/admin/controllers/UserController.php:149
-msgid "Contributions transfered."
-msgstr ""
+msgid "Contributions transferred."
+msgstr "Beiträge wurden übertragen."
 
 #: application/modules/admin/controllers/UserController.php:166
 msgid "User has been deleted."
@@ -513,7 +513,7 @@ msgstr "Beitrags-ID ungültig"
 
 #: application/modules/admin/controllers/SettingsController.php:38
 msgid "Settings were saved."
-msgstr ""
+msgstr "Die Einstellungen wurden gespeichert."
 
 #: application/modules/admin/controllers/SettingsController.php:45
 #: application/modules/admin/controllers/SettingsController.php:84
@@ -523,11 +523,11 @@ msgstr "Formular ungültig"
 
 #: application/modules/admin/controllers/SettingsController.php:81
 msgid "Help text was saved."
-msgstr ""
+msgstr "Der Hilfetext wurde gespeichert."
 
 #: application/modules/admin/controllers/SettingsController.php:114
 msgid "Footer was updated."
-msgstr ""
+msgstr "Der Fußbereich wurde aktualisiert."
 
 #: application/modules/admin/controllers/MailSendController.php:95
 msgid "Email has been queued for sending."
@@ -552,14 +552,13 @@ msgstr "Schlagwörter"
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:16
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:3
 msgid "Help Texts"
-msgstr ""
+msgstr "Hilfetexte"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:37
 #: application/modules/admin/views/scripts/settings/footer.phtml:16
 msgid "Footer"
-msgstr ""
+msgstr "Fußbereich"
 
-# TS: not sure what you label with it. Is it similar to "E-mail sending"? Then in German it's okay to simply write E-Mails.
 #: application/modules/admin/views/helpers/EmailTabs.php:17
 msgid "Emailing"
 msgstr "E-Mails"
@@ -683,7 +682,7 @@ msgid "Folders"
 msgstr "Ordner"
 
 #: application/modules/admin/forms/Directory.php:12
-#: application/modules/admin/forms/Settings.php:45
+#: application/modules/admin/forms/Settings.php:53
 #: application/modules/admin/forms/Mail/Template.php:22
 #: application/modules/admin/forms/Mail/Component.php:15
 #: application/modules/admin/forms/Media/FileDetail.php:20
@@ -703,11 +702,11 @@ msgstr "Name"
 #: application/modules/admin/forms/Input.php:104
 #: application/modules/admin/forms/Consultation.php:250
 #: application/modules/admin/forms/Article.php:94
-#: application/modules/admin/forms/Settings.php:102
+#: application/modules/admin/forms/Settings.php:94
 #: application/modules/admin/forms/ConsultationPhases.php:65
 #: application/modules/admin/forms/Question.php:63
 #: application/modules/admin/forms/HelpText.php:34
-#: application/modules/admin/forms/Footer.php:37
+#: application/modules/admin/forms/Footer.php:42
 #: application/modules/admin/forms/Mail/Template.php:64
 #: application/modules/admin/forms/Mail/Component.php:55
 #: application/modules/admin/forms/Voting/Rights.php:59
@@ -986,35 +985,48 @@ msgstr "Noch nicht öffentlich"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: application/modules/admin/forms/Settings.php:16
+#: application/modules/admin/forms/Settings.php:15
+msgid ""
+"Used in page <title> tag, in DV.title and og:title meta tags and as a logo "
+"image alt text."
+msgstr ""
+"Wird im <title>-Tag, in DV.title und og:title sowie als alternativer Logo-"
+"Beschreibungstext verwendet."
+
+#: application/modules/admin/forms/Settings.php:19
 msgid "Site Title"
-msgstr ""
+msgstr "Titel der Site"
 
-#: application/modules/admin/forms/Settings.php:23
+#: application/modules/admin/forms/Settings.php:25
+msgid "Used in description and og:description meta tags."
+msgstr ""
+"Wird verwendet in der Beschreibung und den \"og:description\" Metatags."
+
+#: application/modules/admin/forms/Settings.php:28
 msgid "Site Description"
-msgstr ""
+msgstr "Beschreibung der Site"
 
-#: application/modules/admin/forms/Settings.php:30
+#: application/modules/admin/forms/Settings.php:34
+msgid "Used as a subtitle on all pages that are not consultation specific."
+msgstr ""
+"Wird verwendet als Untertitel auf allen Seiten, die nicht zu einer "
+"bestimmten Beitragsrunde gehören."
+
+#: application/modules/admin/forms/Settings.php:37
 msgid "Motto"
-msgstr ""
+msgstr "Motto"
 
-#: application/modules/admin/forms/Settings.php:39
+#: application/modules/admin/forms/Settings.php:47
 msgid "Site Information"
-msgstr ""
+msgstr "Info zur Site"
 
-#: application/modules/admin/forms/Settings.php:52
-msgid "Street"
-msgstr ""
-
+#: application/modules/admin/forms/Settings.php:50
 #: application/modules/admin/forms/Settings.php:59
-msgid "Town"
-msgstr ""
+#: application/modules/admin/forms/Settings.php:68
+msgid "Used as a placeholder in email templates."
+msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 
-#: application/modules/admin/forms/Settings.php:66
-msgid "Zip"
-msgstr ""
-
-#: application/modules/admin/forms/Settings.php:73
+#: application/modules/admin/forms/Settings.php:62
 #: application/modules/admin/forms/User/Create.php:25
 #: application/modules/admin/forms/User/Edit.php:27
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:5
@@ -1030,13 +1042,13 @@ msgstr ""
 msgid "Email"
 msgstr "E-Mail"
 
-#: application/modules/admin/forms/Settings.php:80
+#: application/modules/admin/forms/Settings.php:71
 msgid "Website URL"
-msgstr ""
+msgstr "Adresse Website"
 
-#: application/modules/admin/forms/Settings.php:88
+#: application/modules/admin/forms/Settings.php:80
 msgid "Contact Information"
-msgstr ""
+msgstr "Kontaktinformation"
 
 #: application/modules/admin/forms/ConsultationPhases.php:11
 msgid "Enable custom phase names"
@@ -1371,11 +1383,11 @@ msgstr "Überschrift 5"
 
 #: application/modules/admin/forms/Followup/Snippet.php:67
 msgid "Save and continue editing"
-msgstr ""
+msgstr "Speichern und weiter arbeiten"
 
 #: application/modules/admin/forms/Followup/Snippet.php:73
 msgid "Save and return to index"
-msgstr ""
+msgstr "Speichern und zurück zur Übersicht"
 
 #: application/modules/admin/forms/Followup/File.php:28
 msgid "Author"
@@ -1404,31 +1416,31 @@ msgstr "Vorschau Dokument"
 
 #: application/models/HelpText.php:17
 msgid "Home page help text"
-msgstr ""
+msgstr "Hilfetext Startseite"
 
 #: application/models/HelpText.php:18
 msgid "Consultation info help text"
-msgstr ""
+msgstr "Hilfetext Info-Bereich der Beteiligungsrunden"
 
 #: application/models/HelpText.php:19
 msgid "Consultation question help text"
-msgstr ""
+msgstr "Hilfetext Fragestellung"
 
 #: application/models/HelpText.php:20
 msgid "Consultation input help text"
-msgstr ""
+msgstr "Hilfetext Beitragsphase"
 
 #: application/models/HelpText.php:21
 msgid "Consultation voting help text"
-msgstr ""
+msgstr "Hilfetext Abstimmungsphase"
 
 #: application/models/HelpText.php:22
-msgid "Consultation followup help text"
-msgstr ""
+msgid "Consultation reactions & impact help text"
+msgstr "Hilfetext Reaktionen & Wirkung"
 
 #: application/models/HelpText.php:23
 msgid "Login help text"
-msgstr ""
+msgstr "Hilfetext Login"
 
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:10
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:10
@@ -1541,7 +1553,7 @@ msgstr "User bearbeiten"
 
 #: application/modules/admin/views/scripts/user/index.phtml:85
 msgid "Transfer contributions to another user"
-msgstr ""
+msgstr "Beiträge an andere_n Nutzer_in übertragen"
 
 #: application/modules/admin/views/scripts/user/index.phtml:94
 msgid "Are you sure? All contributions by this user will be made anonymous."
@@ -1549,7 +1561,7 @@ msgstr "Bist du sicher? Alle Beiträge dieses Users werden anonymisiert."
 
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:5
 msgid "Transfer User Contributions"
-msgstr ""
+msgstr "Nutzerbeiträge transferieren"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
 msgid "Contribution"
@@ -2213,7 +2225,7 @@ msgstr "neue User kürzlich hinzugefügt"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:36
 msgid "Voting Weight"
-msgstr ""
+msgstr "Stimmgewicht"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:37
 msgid "Access Code"
@@ -2221,11 +2233,11 @@ msgstr "Zugangscode"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:38
 msgid "Accepted Size"
-msgstr ""
+msgstr "Zugelassene Größe"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:39
 msgid "Stated Size"
-msgstr ""
+msgstr "Angegebene Größe"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:67
 msgid "Edit permissions"
@@ -2451,7 +2463,7 @@ msgstr "MS Excel-Export"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:285
 msgid "All contributions"
-msgstr ""
+msgstr "Alle Beiträge"
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:46
 msgid "Created from discussion post."
@@ -2464,11 +2476,11 @@ msgstr "Diskussion ermöglichen"
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:33
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:42
 msgid "Edit help text"
-msgstr ""
+msgstr "Hilfetext bearbeiten"
 
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:16
 msgid "Back to Help Texts"
-msgstr ""
+msgstr "Zurück zu Hilfetexten"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:27
 msgid "Sent Emails"
@@ -2534,7 +2546,7 @@ msgstr "Auswählen"
 
 #: application/modules/admin/views/scripts/media/index.phtml:93
 msgid "Download"
-msgstr ""
+msgstr "Herunterladen"
 
 #: application/modules/admin/views/scripts/media/index.phtml:108
 msgid "No media has been uploaded yet."
@@ -2610,7 +2622,7 @@ msgstr "Einstellungen der Beteiligungsrunde"
 
 #: application/modules/admin/views/scripts/index/index.phtml:42
 msgid "Open media manager for"
-msgstr ""
+msgstr "Medienmanager öffnen für"
 
 #: application/modules/admin/views/scripts/index/index.phtml:71
 msgid "Follow Up"
@@ -2639,6 +2651,34 @@ msgstr "Noch keine Beiträge."
 #: application/modules/admin/views/scripts/index/index.phtml:202
 msgid "There are no consultations yet."
 msgstr "Es gibt noch keine Beteiligungsrunden."
+
+#~ msgid "Consultation followup help text"
+#~ msgstr "Hilfetext Reaktionen & Wirkung"
+
+#~ msgid "Street"
+#~ msgstr "Straße"
+
+#~ msgid "Town"
+#~ msgstr "Ort"
+
+#~ msgid "Zip"
+#~ msgstr "PLZ"
+
+#, fuzzy
+#~ msgid "Confirmed contributions"
+#~ msgstr "Beiträge verschieben?"
+
+#, fuzzy
+#~ msgid "Unconfirmed contributions"
+#~ msgstr "Beiträge verschieben?"
+
+#, fuzzy
+#~ msgid "Voting theses"
+#~ msgstr "Abstimmungsergebnisse"
+
+#, fuzzy
+#~ msgid "Voting theses – edited"
+#~ msgstr "Ende Abstimmungszeitraum"
 
 #, fuzzy
 #~ msgid "Partner was deleted."

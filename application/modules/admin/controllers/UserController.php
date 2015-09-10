@@ -146,7 +146,7 @@ class Admin_UserController extends Zend_Controller_Action
                 }
             }
 
-            $this->_flashMessenger->addMessage('Contributions transfered.', 'success');
+            $this->_flashMessenger->addMessage('Contributions transferred.', 'success');
             $this->_redirect('/admin/user/transfer-contributions/uid/' . $uid);
         }
 
