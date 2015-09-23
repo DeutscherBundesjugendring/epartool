@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-09-10 14:27+0100\n"
-"PO-Revision-Date: 2015-09-10 14:27+0100\n"
+"POT-Creation-Date: 2015-09-23 10:00+0100\n"
+"PO-Revision-Date: 2015-09-23 10:03+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -17,6 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: application/modules/default\n"
 "X-Poedit-SearchPath-1: library/Plugin\n"
 "X-Poedit-SearchPath-2: application/services/UrlkeyAction\n"
+"X-Poedit-SearchPath-3: application/layouts\n"
 
 #: application/modules/default/controllers/ArticleController.php:57
 #: application/modules/default/controllers/InputController.php:551
@@ -954,6 +955,8 @@ msgstr "Diesem Pfad folgen"
 
 #: application/modules/default/views/scripts/_partials/pageLinks.phtml:8
 #: application/modules/default/views/scripts/_helpers/login.phtml:12
+#: application/layouts/scripts/frontend-help-modal.phtml:10
+#: application/layouts/scripts/frontend.phtml:177
 msgid "Help"
 msgstr "Hilfe"
 
@@ -1235,6 +1238,7 @@ msgid "Preview voting"
 msgstr "Vorschau Abstimmung"
 
 #: application/modules/default/views/scripts/voting/vote.phtml:182
+#: application/layouts/scripts/frontend-help-modal.phtml:5
 msgid "Close"
 msgstr "Schließen"
 
@@ -1595,6 +1599,77 @@ msgstr "Suche in Follow-Up"
 msgid "Reactions"
 msgstr "Reaktionen"
 
+#: application/layouts/scripts/backend.phtml:7
+#: application/layouts/scripts/backend-popup.phtml:7
+msgid "DBJR TOOL Admin"
+msgstr ""
+
+#: application/layouts/scripts/backend.phtml:45
+#: application/layouts/scripts/frontend.phtml:57
+msgid "Menu"
+msgstr "Menü"
+
+#: application/layouts/scripts/backend.phtml:53
+msgid "ePartool admin dashboard"
+msgstr ""
+
+#: application/layouts/scripts/backend.phtml:62
+msgid "Open site in a new tab"
+msgstr ""
+
+#: application/layouts/scripts/backend.phtml:64
+msgid "Homepage"
+msgstr "Startseite"
+
+#: application/layouts/scripts/backend.phtml:81
+msgid "Log off"
+msgstr "Ausloggen"
+
+#: application/layouts/scripts/frontend.phtml:52
+#: application/layouts/scripts/frontend.phtml:143
+msgid "Home"
+msgstr "Startseite"
+
+#: application/layouts/scripts/frontend.phtml:59
+msgid "What"
+msgstr "Was"
+
+#: application/layouts/scripts/frontend.phtml:60
+msgid "We"
+msgstr "Wir"
+
+#: application/layouts/scripts/frontend.phtml:62
+#: application/layouts/scripts/frontend.phtml:66
+msgid "With You"
+msgstr "Mit euch"
+
+#: application/layouts/scripts/frontend.phtml:63
+#: application/layouts/scripts/frontend.phtml:65
+msgid "Do"
+msgstr "Machen"
+
+#: application/layouts/scripts/frontend.phtml:77
+msgid "Search…"
+msgstr "Suchbegriff..."
+
+#: application/layouts/scripts/frontend.phtml:79
+msgid "Search"
+msgstr "Suchbegriff"
+
+#: application/layouts/scripts/frontend.phtml:99
+#: application/layouts/scripts/frontend.phtml:168
+msgid "Participation"
+msgstr "Mitmachen"
+
+#: application/layouts/scripts/frontend.phtml:152
+msgid "Share"
+msgstr "Share"
+
+#: application/layouts/scripts/frontend.phtml:229
+msgid "Creative Commons license 4.0: attribution, non-commercial"
+msgstr ""
+"Creative Commons 4.0: Namensnennung, nicht kommerziell, keine Bearbeitung"
+
 #~ msgid "Example:"
 #~ msgstr "Beispiel:"
 
@@ -1603,18 +1678,3 @@ msgstr "Reaktionen"
 
 #~ msgid "No contributions"
 #~ msgstr "Keine Beiträge"
-
-#~ msgid "Home"
-#~ msgstr "Startseite"
-
-#~ msgid "Menu"
-#~ msgstr "Menü"
-
-#~ msgid "What"
-#~ msgstr "Was"
-
-#~ msgid "We"
-#~ msgstr "Wir"
-
-#~ msgid "With You"
-#~ msgstr "Mit euch"
