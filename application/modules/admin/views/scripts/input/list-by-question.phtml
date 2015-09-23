@@ -41,7 +41,7 @@
                                         data-toggle="filter"
                                         data-filter-attrib="admin-confirmation"
                                         data-filter-operator="intersect"
-                                    >
+                                        >
                                         <option value=""><?=$this->translate('All');?></option>
                                         <option value="u"><?=$this->translate('Waiting for revision');?></option>
                                         <option value="n"><?=$this->translate('Confirmed');?></option>
@@ -59,7 +59,7 @@
                                         data-toggle="filter"
                                         data-filter-attrib="user-confirmation"
                                         data-filter-operator="intersect"
-                                    >
+                                        >
                                         <option value=""><?=$this->translate('All');?></option>
                                         <option value="u"><?=$this->translate('Waiting for revision');?></option>
                                         <option value="c"><?=$this->translate('Confirmed');?></option>
@@ -77,7 +77,7 @@
                                         data-toggle="filter"
                                         data-filter-attrib="voting"
                                         data-filter-operator="intersect"
-                                    >
+                                        >
                                         <option value=""><?=$this->translate('All');?></option>
                                         <option value="u"><?=$this->translate('Unknown');?></option>
                                         <option value="y"><?=$this->translate('Allowed');?></option>
@@ -88,34 +88,34 @@
                         </div><!-- .row -->
                         <div class="row">
                             <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <label for="tags"><?=$this->translate('Tags');?></label>
-                                        <select
-                                            name="tags[]"
-                                            class="form-control js-select2"
-                                            multiple
-                                            data-toggle="filter"
-                                            data-filter-attrib="tags"
-                                            data-filter-operator="subset"
+                                <div class="form-group">
+                                    <label for="tags"><?=$this->translate('Tags');?></label>
+                                    <select
+                                        name="tags[]"
+                                        class="form-control js-select2"
+                                        multiple
+                                        data-toggle="filter"
+                                        data-filter-attrib="tags"
+                                        data-filter-operator="subset"
                                         >
-                                            <?php foreach ($this->tags as $tag): ?>
-                                                <option
-                                                    value="<?=$this->escape($tag['tg_nr']);?>"
-                                                    <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
+                                        <?php foreach ($this->tags as $tag): ?>
+                                            <option
+                                                value="<?=$this->escape($tag['tg_nr']);?>"
+                                                <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
                                                 >
-                                                    <?=$this->escape($tag['tg_de']);?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
+                                                <?=$this->escape($tag['tg_de']);?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
+                            </div>
                             <div class="col-sm-4">
                                 <div class="form-actions">
                                     <button
                                         type="button"
                                         class="btn btn-default btn-block"
                                         data-toggle="filter-reset"
-                                    >
+                                        >
                                         <?=$this->translate('Reset Filter');?>
                                     </button>
                                 </div>
@@ -147,7 +147,7 @@
                                             id="markAllTop"
                                             class="js-toggle-all"
                                             title="<?=$this->translate('Mark all contributions');?>"
-                                        />
+                                            />
                                     </div>
                                 </div>
                                 <div class="col-xs-9 text-right">
@@ -197,7 +197,7 @@
                                             id="markAllBottom"
                                             class="js-toggle-all"
                                             title="<?=$this->translate('Mark all contributions');?>"
-                                        />
+                                            />
                                     </div>
                                 </div>
                                 <div class="col-xs-9 text-right">
@@ -236,35 +236,35 @@
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'all',
-                                        ]);?>">All contributions</a></li>
+                                        ]);?>"><?=$this->translate('All contributions');?></a></li>
                                     <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'cnf',
-                                        ]);?>">Confirmed contributions</a></li>
+                                        ]);?>"><?=$this->translate('Confirmed contributions');?></a></li>
                                     <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'unc',
-                                        ]);?>">Unconfirmed contributions</a></li>
+                                        ]);?>"><?=$this->translate('Unconfirmed contributions');?></a></li>
                                     <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'vot',
-                                        ]);?>">Voting theses</a></li>
+                                        ]);?>"><?=$this->translate('Voting theses');?></a></li>
                                     <li><a href="<?=$this->url([
                                             'action' => 'export',
                                             'kid' => $this->consultation['kid'],
                                             'qid' => $this->question['qi'],
                                             'cod' => 'utf8',
                                             'mod' => 'edt',
-                                        ]);?>">Voting theses – edited</a>
+                                        ]);?>"><?=$this->translate('Voting theses – edited');?></a>
                                     </li>
                                 </ul>
 
@@ -277,12 +277,12 @@
                                 </h4>
                                 <ul>
                                     <li><a href="<?=$this->url([
-                                        'action' => 'export',
-                                        'kid' => $this->consultation['kid'],
-                                        'qid' => $this->question['qi'],
-                                        'cod' => 'xls',
-                                        'mod' => 'all',
-                                    ]);?>"><?=$this->translate('All contributions');?></a></li>
+                                            'action' => 'export',
+                                            'kid' => $this->consultation['kid'],
+                                            'qid' => $this->question['qi'],
+                                            'cod' => 'xls',
+                                            'mod' => 'all',
+                                        ]);?>"><?=$this->translate('All contributions');?></a></li>
                                 </ul>
 
                             </div>
