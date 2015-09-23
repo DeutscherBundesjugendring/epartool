@@ -71,6 +71,11 @@ class InputController extends Zend_Controller_Action
         $tag = $this->_getParam('tag', null);
         $auth = Zend_Auth::getInstance();
 
+        if (empty($qid)) {
+            $questionRow = $questionModel->getByConsultation($kid)->current();
+            $qid = $questionRow->qi;
+        }
+
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
             if (isset($post['subscribe'])) {
@@ -80,11 +85,6 @@ class InputController extends Zend_Controller_Action
             } else {
                 $this->_handleInputSubmit($post, $kid, $qid);
             }
-        }
-
-        if (empty($qid)) {
-            $questionRow = $questionModel->getByConsultation($kid)->current();
-            $qid = $questionRow->qi;
         }
 
         if (!empty($tag)) {
