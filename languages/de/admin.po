@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-09-23 10:03+0100\n"
-"PO-Revision-Date: 2015-09-23 10:03+0100\n"
+"POT-Creation-Date: 2015-09-23 10:24+0100\n"
+"PO-Revision-Date: 2015-09-23 10:24+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -2465,24 +2465,20 @@ msgid "All contributions"
 msgstr "Alle Beiträge"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:246
-#, fuzzy
 msgid "Confirmed contributions"
-msgstr "Beiträge verschieben?"
+msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:253
-#, fuzzy
 msgid "Unconfirmed contributions"
-msgstr "Beiträge verschieben?"
+msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:260
-#, fuzzy
 msgid "Voting theses"
-msgstr "Abstimmungsergebnisse"
+msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:267
-#, fuzzy
 msgid "Voting theses – edited"
-msgstr "Ende Abstimmungszeitraum"
+msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:276
 msgid "MS Excel Export"
@@ -2687,22 +2683,6 @@ msgstr "Es gibt noch keine Beteiligungsrunden."
 
 #~ msgid "Zip"
 #~ msgstr "PLZ"
-
-#, fuzzy
-#~ msgid "Confirmed contributions"
-#~ msgstr "Beiträge verschieben?"
-
-#, fuzzy
-#~ msgid "Unconfirmed contributions"
-#~ msgstr "Beiträge verschieben?"
-
-#, fuzzy
-#~ msgid "Voting theses"
-#~ msgstr "Abstimmungsergebnisse"
-
-#, fuzzy
-#~ msgid "Voting theses – edited"
-#~ msgstr "Ende Abstimmungszeitraum"
 
 #, fuzzy
 #~ msgid "Partner was deleted."
