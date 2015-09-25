@@ -29,6 +29,14 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
 
     <!--[if lt IE 9]><script src="<?=$this->baseUrl('vendor/html5shiv.min.js');?>"></script><![endif]-->
+
+    <!-- JS must be loaded in page head as it might be used in user generated content. -->
+    <!-- It is not best practice and product owner is aware of that. -->
+    <?php if (APPLICATION_ENV === 'development'): ?>
+        <script src="<?=$this->baseUrl('js/dbjr.js');?>"></script>
+    <?php else: ?>
+        <script src="<?=$this->baseUrl('js/dbjr.min.js');?>"></script>
+    <?php endif;?>
 </head>
 <body>
 
@@ -257,15 +265,7 @@
 <script>
     var baseUrl = '<?=$this->baseUrl()?>';
 </script>
-
 <script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
-
-<?php if (APPLICATION_ENV === 'development'): ?>
-    <script src="<?=$this->baseUrl('js/dbjr.js');?>"></script>
-<?php else: ?>
-    <script src="<?=$this->baseUrl('js/dbjr.min.js');?>"></script>
-<?php endif;?>
-
 <script src="<?=$this->baseUrl('/index/i18n');?>"></script>
 
 <?php if (isset($this->hasFollowupTimeline)): ?>
