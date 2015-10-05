@@ -10,6 +10,7 @@ $(document).ready () ->
     bindHelpTextModal()
     bindRemoveSupervote()
     bindVotingRate()
+    bindToggleVotingContributionExplanation()
     initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
@@ -316,3 +317,8 @@ bindVotingRate = () ->
                     $(container).html response
                     return
             return
+
+bindToggleVotingContributionExplanation = () ->
+    $('.js-toggle-voting-contribution-explanation').on 'click', (e) ->
+        $('#voting-contribution-explanation').toggle()
+        $('.glyphicon', this).toggleClass('hide')

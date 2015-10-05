@@ -94,15 +94,25 @@
                     <?php endif; ?>
 
                     <!-- Thesis -->
-                    <div class="well well-simple text-left">
+                    <div class="well well-simple text-left well-has-toggle">
                         <?=$this->thesis['thes'];?>
+
+                        <!-- Explanation toggle -->
+                        <?php if (!empty($this->thesis['expl'])): ?>
+                            <button type="button" class="btn btn-inverse btn-xs well-toggle js-toggle-voting-contribution-explanation" title="<?=$this->translate('Show explanation');?>">
+                                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-menu-up hide" aria-hidden="true"></span>
+                            </button>
+                        <?php endif; ?>
+
                     </div>
 
+                    <!-- Thesis explanation -->
                     <?php if (!empty($this->thesis['expl'])): ?>
-                        <div class="well well-simple well-simple-alt text-left">
+                        <div id="voting-contribution-explanation" class="well well-simple well-simple-alt text-left" style="display: none;">
                             <?=$this->escape($this->thesis['expl']);?>
                         </div>
-                    <?php endif ?>
+                    <?php endif; ?>
 
                     <!-- Rating bar -->
                     <div class="rating-bar">
