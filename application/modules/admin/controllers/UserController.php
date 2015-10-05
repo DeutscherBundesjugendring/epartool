@@ -151,6 +151,13 @@ class Admin_UserController extends Zend_Controller_Action
 
         $this->view->form = $form;
         $this->view->user = $user;
+        $this->view->lastUserContribution = $inputModel->fetchRow(
+            $inputModel
+                ->select('when')
+                ->where('uid=?', $user['uid'])
+                ->order('when DESC')
+                ->limit(1)
+        )->when;
     }
 
     public function deleteAction()

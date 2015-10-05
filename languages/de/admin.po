@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-09-23 10:24+0100\n"
-"PO-Revision-Date: 2015-09-23 10:24+0100\n"
+"POT-Creation-Date: 2015-10-05 15:57+0100\n"
+"PO-Revision-Date: 2015-10-05 15:58+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -29,7 +29,7 @@ msgstr "Die Frage wurde erstellt."
 #: application/modules/admin/controllers/ArticleController.php:199
 #: application/modules/admin/controllers/VotingController.php:67
 #: application/modules/admin/controllers/VotingController.php:209
-#: application/modules/admin/controllers/VotingController.php:403
+#: application/modules/admin/controllers/VotingController.php:408
 #: application/modules/admin/controllers/ConsultationController.php:128
 #: application/modules/admin/controllers/ConsultationController.php:166
 #: application/modules/admin/controllers/ConsultationController.php:347
@@ -45,8 +45,8 @@ msgstr ""
 #: application/modules/admin/controllers/QuestionController.php:91
 #: application/modules/admin/controllers/TagController.php:86
 #: application/modules/admin/controllers/ArticleController.php:195
-#: application/modules/admin/controllers/VotingController.php:383
-#: application/modules/admin/controllers/VotingController.php:414
+#: application/modules/admin/controllers/VotingController.php:388
+#: application/modules/admin/controllers/VotingController.php:419
 #: application/modules/admin/controllers/ConsultationController.php:162
 #: application/modules/admin/controllers/FollowupController.php:102
 #: application/modules/admin/controllers/FollowupController.php:178
@@ -266,7 +266,7 @@ msgid "File does not exist."
 msgstr "Datei ist nicht vorhanden."
 
 #: application/modules/admin/controllers/VotingController.php:19
-#: application/modules/admin/controllers/VotingController.php:373
+#: application/modules/admin/controllers/VotingController.php:378
 #: application/modules/admin/controllers/ConsultationController.php:213
 #: application/modules/admin/controllers/InputController.php:243
 msgid "No consultation provided."
@@ -278,29 +278,29 @@ msgid "Changes for <b>%s</b> were saved."
 msgstr "Änderungen für <b>%s</b> gespeichert."
 
 #: application/modules/admin/controllers/VotingController.php:83
-#: application/modules/admin/controllers/VotingController.php:219
+#: application/modules/admin/controllers/VotingController.php:224
 msgid "No user provided."
 msgstr "Kein_e Nutzer_in angegeben."
 
-#: application/modules/admin/controllers/VotingController.php:138
+#: application/modules/admin/controllers/VotingController.php:137
 #: application/modules/admin/controllers/VotingController.php:201
 #, php-format
 msgid "Voting invitation to %s has been successfully sent."
 msgstr "Die Abstimmungseinladung wurde erfolgreich gesendet an %s."
 
-#: application/modules/admin/controllers/VotingController.php:250
+#: application/modules/admin/controllers/VotingController.php:255
 msgid "Voting participant has been confirmed."
 msgstr "Abstimmungsteilnehmer_in wurde bestätigt."
 
-#: application/modules/admin/controllers/VotingController.php:253
+#: application/modules/admin/controllers/VotingController.php:258
 msgid "Voting participant has been denied."
 msgstr "Abstimmungsteilnehmer_in wurde abgelehnt."
 
-#: application/modules/admin/controllers/VotingController.php:258
+#: application/modules/admin/controllers/VotingController.php:263
 msgid "Voting participant has been deleted."
 msgstr "Abstimmungsteilnehmer_in wurde gelöscht."
 
-#: application/modules/admin/controllers/VotingController.php:386
+#: application/modules/admin/controllers/VotingController.php:391
 msgid "Saving changes failed."
 msgstr "Speichern der Änderungen ist gescheitert."
 
@@ -412,11 +412,11 @@ msgstr "User mit dieser E-Mail-Adresse existiert bereits."
 msgid "User not found."
 msgstr "Seite nicht gefunden!"
 
-#: application/modules/admin/controllers/UserController.php:149
+#: application/modules/admin/controllers/UserController.php:148
 msgid "Contributions transferred."
 msgstr "Beiträge wurden übertragen."
 
-#: application/modules/admin/controllers/UserController.php:166
+#: application/modules/admin/controllers/UserController.php:173
 msgid "User has been deleted."
 msgstr "Nutzer_in wurde gelöscht."
 
@@ -526,7 +526,6 @@ msgid "Help text was saved."
 msgstr "Der Hilfetext wurde gespeichert."
 
 #: application/modules/admin/controllers/SettingsController.php:114
-#, fuzzy
 msgid "Footer was updated."
 msgstr "Der Fußbereich wurde aktualisiert."
 
@@ -557,7 +556,6 @@ msgstr "Hilfetexte"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:37
 #: application/modules/admin/views/scripts/settings/footer.phtml:16
-#, fuzzy
 msgid "Footer"
 msgstr "Fußbereich"
 
@@ -638,7 +636,7 @@ msgid "Templates"
 msgstr "Vorlagen"
 
 #: application/modules/admin/views/helpers/EmailSettingsNavigation.php:21
-#: application/modules/admin/views/scripts/mail-template/detail.phtml:45
+#: application/modules/admin/views/scripts/mail-template/detail.phtml:47
 #: application/modules/admin/views/scripts/mail-send/index.phtml:36
 msgid "Components"
 msgstr "Komponenten"
@@ -1470,20 +1468,20 @@ msgstr "Keine E-Mails in Warteschleife für Versand."
 msgid "Time Queued"
 msgstr "Wartezeit"
 
-#: application/modules/admin/views/scripts/mail-template/detail.phtml:27
+#: application/modules/admin/views/scripts/mail-template/detail.phtml:28
 msgid "Back to Email Templates"
 msgstr "Zurück zu E-Mail-Vorlagen"
 
-#: application/modules/admin/views/scripts/mail-template/detail.phtml:29
+#: application/modules/admin/views/scripts/mail-template/detail.phtml:31
 #: application/modules/admin/views/scripts/mail-template/index.phtml:29
 msgid "New Email Template"
 msgstr "Neue E-Mail-Vorlage"
 
-#: application/modules/admin/views/scripts/mail-template/detail.phtml:29
+#: application/modules/admin/views/scripts/mail-template/detail.phtml:31
 msgid "Edit Email Template"
 msgstr "E-Mail-Vorlagen bearbeiten"
 
-#: application/modules/admin/views/scripts/mail-template/detail.phtml:33
+#: application/modules/admin/views/scripts/mail-template/detail.phtml:35
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:33
 #: application/modules/admin/views/scripts/mail-send/index.phtml:24
 msgid "Placeholders"
@@ -1508,13 +1506,12 @@ msgstr "Vorlage löschen"
 #: application/modules/admin/views/scripts/user/create.phtml:3
 #: application/modules/admin/views/scripts/user/edit.phtml:10
 #: application/modules/admin/views/scripts/user/index.phtml:10
-#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:10
 msgid "New User"
 msgstr "Neuer User"
 
 #: application/modules/admin/views/scripts/user/create.phtml:9
 #: application/modules/admin/views/scripts/user/edit.phtml:19
-#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:19
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:11
 msgid "Back to Users"
 msgstr "Zurück zu Userübersicht"
 
@@ -1561,9 +1558,13 @@ msgstr "Beiträge an andere_n Nutzer_in übertragen"
 msgid "Are you sure? All contributions by this user will be made anonymous."
 msgstr "Bist du sicher? Alle Beiträge dieses Users werden anonymisiert."
 
-#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:5
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:4
 msgid "Transfer User Contributions"
 msgstr "Nutzerbeiträge transferieren"
+
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:19
+msgid "Last contribution on:"
+msgstr "Letzter Beitrag"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
 msgid "Contribution"
@@ -2498,7 +2499,6 @@ msgid "Edit help text"
 msgstr "Hilfetext bearbeiten"
 
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:16
-#, fuzzy
 msgid "Back to Help Texts"
 msgstr "Zurück zu Hilfetexten"
 
