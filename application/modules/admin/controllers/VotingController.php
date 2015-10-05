@@ -92,7 +92,6 @@ class Admin_VotingController extends Zend_Controller_Action
     {
         $userModel = new Model_Users();
         $votingRightsModel = new Model_Votes_Rights();
-        $userTblName = $userModel->getName();
         $participants = $userModel
             ->getParticipantsByConsultation($this->_consultation->kid)
             ->toArray();
