@@ -392,6 +392,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             ->setIntegrityCheck(false)
             ->from(['u' => $this->info(self::NAME)])
             ->where('u.block=?', 'c')
+            ->group('u.uid')
             ->order('u.email');
 
         if ($participantType === Model_User_Info::PARTICIPANT_TYPE_VOTER) {
@@ -407,7 +408,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $select
                 ->join(
                     ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
-                    'u.uid = ui.uid'
+                    'u.uid = ui.uid',
+                    []
                 )
                 ->where('ui.kid=?', $kid)
                 ->where('ui.confirmation_key IS NULL');
