@@ -157,6 +157,7 @@ class Admin_VotingController extends Zend_Controller_Action
     public function sendinvitationAction()
     {
         $uid = $this->_request->getParam('uid');
+        $kid = $this->_request->getParam('kid');
 
         if ($uid) {
             $form = new Admin_Form_Mail_Send();
@@ -211,6 +212,11 @@ class Admin_VotingController extends Zend_Controller_Action
                 }
             } else {
                 $form->getElement('mailto')->setValue($user['email']);
+                $form->getElement('mail_consultation')->setValue($kid);
+                $form->removeElement('mail_consultation_participant');
+                $form->removeElement('mail_consultation_voter');
+                $form->removeElement('mail_consultation_newsletter');
+                $form->removeElement('mail_consultation_followup');
                 $form->populateFromTemplateName($templateName);
             }
             $this->view->form = $form;
