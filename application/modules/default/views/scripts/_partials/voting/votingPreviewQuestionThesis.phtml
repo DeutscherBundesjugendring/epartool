@@ -1,16 +1,18 @@
 <div class="row">
     <div class="col-sm-5">
 
-        <p>
-            <strong>
-                <?=$this->escape($this->thes);?>
-            </strong>
-        </p>
-        <?php if (!empty($this->expl)): ?>
+        <div class="scrollable-horizontal">
             <p>
-                <?=$this->escape($this->expl);?>
+                <strong>
+                    <?=$this->escape($this->thes);?>
+                </strong>
             </p>
-        <?php endif ?>
+            <?php if (!empty($this->expl)): ?>
+                <p>
+                    <?=$this->escape($this->expl);?>
+                </p>
+            <?php endif; ?>
+        </div>
 
     </div>
     <div class="col-sm-7">
