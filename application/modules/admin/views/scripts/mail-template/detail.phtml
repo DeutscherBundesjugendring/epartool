@@ -24,7 +24,9 @@
             </div>
             <div class="content">
 
-                <a href="<?=$this->url(['controller' => 'mail-template']);?>" class="back"><?=$this->translate('Back to Email Templates');?></a>
+                <a href="<?=$this->url(['controller' => 'mail-template', 'action' => 'index', 'id' => null]);?>" class="back">
+                    <?=$this->translate('Back to Email Templates');?>
+                </a>
 
                 <h2><?=!$this->templateId ? $this->translate('New Email Template') : $this->translate('Edit Email Template');?></h2>
                 <?=$this->form;?>
