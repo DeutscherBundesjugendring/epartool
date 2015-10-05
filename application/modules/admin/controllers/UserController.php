@@ -101,7 +101,6 @@ class Admin_UserController extends Zend_Controller_Action
         }
 
         $inputModel = new Model_Inputs();
-        $countInputByUser = $inputModel->getCountByUser($uid);
         $consultationModel = new Model_Consultations();
         $form = new Admin_Form_User_TransferContributions();
 
@@ -151,6 +150,7 @@ class Admin_UserController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
+        $this->view->user = $user;
     }
 
     public function deleteAction()
