@@ -93,8 +93,14 @@
 // Custom modifications and temporary hacks.
 // ===========================================================
 
-.navbar-brand svg {
-    margin-top: -3px;
+.navbar-brand {
+    svg {
+        margin-top: -3px;
+    }
+
+    @media (max-width: @screen-sm-max) {
+        margin-right: 1em;
+    }
 }
 
 // Remove bullets from error messages. Better to be fixed in markup.

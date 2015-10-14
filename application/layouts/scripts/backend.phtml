@@ -52,7 +52,12 @@
                         class="navbar-brand"
                         title="<?=$this->translate('ePartool admin dashboard');?>"
                     >
-                        <?php include(APPLICATION_PATH . '/../www/images/admin/logo.svg'); ?>
+                        <span class="hidden-sm">
+                            <?php include(APPLICATION_PATH . '/../www/images/admin/logo.svg'); ?>
+                        </span>
+                        <span class="visible-sm">
+                            <?php include(APPLICATION_PATH . '/../www/images/admin/icon.svg'); ?>
+                        </span>
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="menu">
