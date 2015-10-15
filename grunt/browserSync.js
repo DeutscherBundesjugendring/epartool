@@ -18,6 +18,7 @@ module.exports = {
     options: {
       proxy: '<%= devUrl %>',
       watchTask: true,
+      browser: '<%= devBrowser %>',
       snippetOptions: {
         rule: {
           match: /<body[^>]*>/i,

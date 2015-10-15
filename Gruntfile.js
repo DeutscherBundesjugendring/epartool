@@ -15,7 +15,8 @@ module.exports = function (grunt) {
       temp: '.tmp'
     },
 
-    devUrl: 'dbjr.local'
+    devUrl: 'dbjr.local',
+    devBrowser: 'google chrome'
   };
 
   require('time-grunt')(grunt);
