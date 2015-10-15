@@ -8,6 +8,20 @@
         &:extend(.img-responsive);
     }
 
+    //Deal with captions longer than image width.
+    figure {
+        position: relative;
+
+        figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: .5em;
+            background-color: fade(#fff, 80%);
+        }
+    }
+
     // Custom bullets of user content.
     ul {
         margin: 0 0 @line-height-computed;
