@@ -111,7 +111,10 @@ class Admin_InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
 
         $this->view->user = (new Model_Users())->getById($uid);
-        $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation($this->_consultation['kid'], $this->_consultation['kid']);
+        $this->view->user_info = (new Model_User_Info())->getLatestByUserAndConsultation(
+            $uid,
+            $this->_consultation['kid']
+        );
         $this->view->inputs = $inputModel->getCompleteGroupedByQuestion(
             [
                 (new Model_Users())->info(Model_Users::NAME) . '.uid = ?' => $uid,
