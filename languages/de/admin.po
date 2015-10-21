@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2015-10-05 15:57+0100\n"
-"PO-Revision-Date: 2015-10-05 15:58+0100\n"
+"PO-Revision-Date: 2015-10-21 18:41+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team:  <epartool@dbjr.de>\n"
 "Language: de\n"
@@ -1346,7 +1346,7 @@ msgstr "Leer lassen, um keine Veränderungen vorzunehmen."
 
 #: application/modules/admin/forms/User/Edit.php:90
 msgid "Password confirmation"
-msgstr "Password bestätigen"
+msgstr "Passwort bestätigen"
 
 #: application/modules/admin/forms/Followup/Snippet.php:32
 #: application/modules/admin/views/scripts/followup/snippets.phtml:73
