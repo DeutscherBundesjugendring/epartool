@@ -42,16 +42,17 @@ class Admin_FollowupController extends Zend_Controller_Action
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
+                $followups = (new Model_FollowupFiles())->getFollowupsById($ffid, 'docorg ASC');
+                $snippetOrder = 1;
+                foreach ($followups as $followup) {
+                    if ($followup->docorg >= $snippetOrder) {
+                        $snippetOrder = $followup->docorg + 1;
+                    }
+                }
                 $followup = (new Model_Followups())->createRow($form->getValues());
+                $followup->docorg = $snippetOrder;
                 $followup->ffid = $ffid;
                 $newId = $followup->save();
-
-                $followups = (new Model_FollowupFiles())->getFollowupsById($ffid, 'docorg ASC');
-                $i = 1;
-                foreach ($followups as $followup) {
-                    $followup->docorg = $i++;
-                    $followup->save();
-                }
 
                 $this->_flashMessenger->addMessage('New snippet has been successfully created.', 'success');
                 $isReturnToIndex = (bool) $form->getValue('submitAndIndex');
