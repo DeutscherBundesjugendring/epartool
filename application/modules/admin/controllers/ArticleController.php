@@ -266,7 +266,11 @@ class Admin_ArticleController extends Zend_Controller_Action
 
                 $prevView = new Zend_View();
                 $prevView->addScriptPath(APPLICATION_PATH . '/modules/default/views/scripts');
-                $prevView->addHelperPath(APPLICATION_PATH . '/modules/default/views/helpers');
+                $prevView->addHelperPath(
+                    APPLICATION_PATH . '/modules/default/views/helpers',
+                    'Module_Default_View_Helper'
+                );
+                $prevView->addHelperPath(APPLICATION_PATH . '/views/helpers', 'Application_View_Helper');
                 $this->_helper->layout->setLayout('frontend');
                 $this->_helper->layout->setView($prevView);
 
