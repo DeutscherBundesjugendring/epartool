@@ -41,7 +41,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setLabel('Featured image');
         $this->addElement($image);
 
-        $imageDesc = $this->createElement('text', 'img_text');
+        $imageDesc = $this->createElement('text', 'img_expl');
         $imageDesc->setLabel('Featured image description');
         $this->addElement($imageDesc);
 
