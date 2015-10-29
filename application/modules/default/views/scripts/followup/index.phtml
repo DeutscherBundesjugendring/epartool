@@ -52,15 +52,17 @@
                                     <h4 class="card-title">
                                         <?=$followup['titl'];?>
                                     </h4>
-                                    <a
-                                        href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
-                                        target="_blank"
-                                        name="<?=$followup['ref_doc'];?>"
-                                        class="card-image offset-bottom-small"
-                                        title="<?=$this->translate('View');?>"
-                                    >
-                                        <img src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" class="img-responsive" alt="<?=$this->translate('Preview');?>" />
-                                    </a>
+                                    <div class="offset-bottom-small">
+                                        <a
+                                            href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
+                                            target="_blank"
+                                            name="<?=$followup['ref_doc'];?>"
+                                            class="card-image"
+                                            title="<?=$this->translate('View');?>"
+                                        >
+                                            <img src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" class="img-responsive" alt="<?=$this->translate('Preview');?>" />
+                                        </a>
+                                    </div>
                                     <time class="text-muted">
                                         <?php
                                             if ($followup['show_no_day'] === "y") {
