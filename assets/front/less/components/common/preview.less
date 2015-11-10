@@ -1,0 +1,39 @@
+// Preview
+
+
+.preview-warning {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+    padding: 1em;
+    text-align: center;
+    background-color: fade(#fd5, 95%);
+    box-shadow: 0 0 1.5em #000;
+
+    &-title {
+        margin-bottom: 0;
+        font-size: 1em;
+        color: #000;
+
+        > .glyphicon {
+            color: @orange;
+        }
+    }
+
+    &-form {
+        margin-top: 1em;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        padding: 2em 20em 2em 1.5em;
+        text-align: left;
+
+        &-form {
+            position: absolute;
+            right: 1.5em;
+            top: 0;
+        }
+    }
+}
