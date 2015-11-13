@@ -13,7 +13,7 @@
     "zendframework/zendframework1": "~1.12.3",
     "tracy/tracy": "~2.2.2",
     "Html2Text/Html2Text": "~1.0.1",
-    "gregwar/image": "~2.0.17",
+    "gregwar/image": "~2.0.20",
     "behat/transliterator": "~1.0.1",
     "google/apiclient": "~1.1.2",
     "facebook/php-sdk-v4" : "4.0.*"
