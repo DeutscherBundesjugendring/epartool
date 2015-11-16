@@ -62,12 +62,13 @@ supported.
 ### Requirements:
 
 #### Runtime
-* PHP 5.4 or later
+* PHP 5.6 or later
 * PHP modules:
     * GD
 * magic_quotes off
 * MySQL 5.5 or later
 * web server
+* memory_limit: 128M
 
 #### Build Tools
 * [Composer](https://getcomposer.org/)
