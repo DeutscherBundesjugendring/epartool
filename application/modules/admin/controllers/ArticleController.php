@@ -295,7 +295,7 @@ class Admin_ArticleController extends Zend_Controller_Action
      */
     protected function setProject($data)
     {
-        if (!isset($params['proj']) || empty($params['proj'])) {
+        if (!isset($data['proj']) || empty($data['proj'])) {
             // project should not be empty
             $data['proj'] = array(Zend_Registry::get('systemconfig')->project);
         }
