@@ -52,6 +52,10 @@ class ArticleController extends Zend_Controller_Action
         }
 
         if ($article) {
+            $article['artcl'] = (new Service_Article($this->view->baseUrl()))
+                ->placeholderToBasePath($article['artcl']);
+            $article['sidebar'] = (new Service_Article($this->view->baseUrl()))
+                ->placeholderToBasePath($article['sidebar']);
             $this->view->article = $article;
         } else {
             $this->_flashMessenger->addMessage('Page not found', 'error');

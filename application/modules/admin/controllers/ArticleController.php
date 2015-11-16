@@ -6,6 +6,9 @@ class Admin_ArticleController extends Zend_Controller_Action
 
     protected $_adminIndexURL = null;
 
+    private $_kid;
+    private $_consultation;
+
     /**
      * @desc Construct
      * @return void
@@ -21,6 +24,8 @@ class Admin_ArticleController extends Zend_Controller_Action
         ));
         $kid = $this->_request->getParam('kid', null);
         if ($kid) {
+            $this->_kid = $kid;
+            $this->view->kid = $kid;
             $this->_consultation = (new Model_Consultations())->getById($kid);
             $this->view->consultation = $this->_consultation;
         }
@@ -32,11 +37,10 @@ class Admin_ArticleController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $kid = $this->getRequest()->getParam('kid', 0);
         $articles = null;
-        if ($kid > 0) {
+        if ($this->_kid > 0) {
             $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
+            $consultation = $consultationModel->getById($this->_kid);
             if (!empty($consultation)) {
                 $this->view->consultation = $consultation;
                 $articles = $consultation['articles'];
@@ -58,47 +62,26 @@ class Admin_ArticleController extends Zend_Controller_Action
         if (!empty($isPreview)) {
             $this->_forward('preview');
         } else {
-            $kid = $this->getRequest()->getParam('kid', 0);
-            $consultation = null;
-            $form = null;
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
-            $form = new Admin_Form_Article($kid);
-            $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $kid);
-            $multiOptions = array(0 => $this->view->translate('Please select…'));
-            if ($kid > 0) {
-                // set multiOptions for ref_nm
-                foreach ($this->getMultioptionsByType('b') as $key => $value) {
-                    $multiOptions[$key] = $value;
-                }
-                $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
-            } else {
-                // set multiOptions for ref_nm
-                foreach ($this->getMultioptionsByType('g') as $key => $value) {
-                    $multiOptions[$key] = $value;
-                }
-                $form->getElement('ref_nm')->setMultioptions($multiOptions);
-            }
+            $form = new Admin_Form_Article($this->_kid);
+            $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $this->_kid);
+            $this->populateRefNames($form, $this->_kid);
             $articleModel = new Model_Articles();
-            $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
-            $parentOptions = array(
-                0 => $this->view->translate('None')
-            );
+            $firstLevelPages = $articleModel->getFirstLevelEntries($this->_kid);
+            $parentOptions = [0 => $this->view->translate('None')];
             foreach ($firstLevelPages as $page) {
                 $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
             }
             $form->getElement('parent_id')->setMultiOptions($parentOptions);
             $isRetFromPreview = $this->getRequest()->getPost('backFromPreview');
             if ($this->getRequest()->isPost() && empty($isRetFromPreview)) {
-                $data = $this->getRequest()->getPost();
-                $data = $this->setProject($data);
-                if ($form->isValid($data)) {
+                $article = $this->getRequest()->getPost();
+                $article = $this->setProject($article);
+                if ($form->isValid($article)) {
+                    $values = $form->getValues();
                     $articleModel = new Model_Articles();
-                    $articleRow = $articleModel->createRow($form->getValues());
-                    $articleRow->kid = $kid;
-                    $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
-                    $articleRow->proj = implode(',', $data['proj']);
+                    $articleRow = $articleModel->createRow();
+                    $this->updateArticleRow($articleRow, $values);
+                    $articleRow->kid = $this->_kid;
                     $newId = $articleRow->save();
                     if ($newId > 0) {
                         $this->_flashMessenger->addMessage('New article has been created.', 'success');
@@ -108,22 +91,22 @@ class Admin_ArticleController extends Zend_Controller_Action
 
                     $this->_redirect($this->view->url(array(
                         'action' => 'index',
-                        'kid' => $kid
+                        'kid' => $this->_kid
                     )), array('prependBase' => false));
                 } else {
                     $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                     $form->populate($form->getValues());
-                    $form->getElement('proj')->setValue($data['proj']);
+                    $form->getElement('proj')->setValue($article['proj']);
                 }
             } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
                 $article = $this->getRequest()->getPost();
-                    $articlePreviewForm = new Admin_Form_ArticlePreview();
-                    if ($articlePreviewForm->isValid($article)) {
-                        $article['proj'] = unserialize($article['proj']);
-                        $form->populate($article);
-                    } else {
-                        $this->_redirect('admin');
-                    }
+                $articlePreviewForm = new Admin_Form_ArticlePreview();
+                if ($articlePreviewForm->isValid($article)) {
+                    $article['proj'] = unserialize($article['proj']);
+                    $form->populate($article);
+                } else {
+                    $this->_redirect('admin');
+                }
             }
 
             foreach ($form->getElements() as $element) {
@@ -133,11 +116,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                 }
             }
 
-            $this->view->assign(array(
-                'kid' => $kid,
-                'consultation' => $consultation,
-                'form' => $form
-            ));
+            $this->view->form = $form;
         }
     }
 
@@ -147,35 +126,13 @@ class Admin_ArticleController extends Zend_Controller_Action
         if (!empty($isPreview)) {
             $this->_forward('preview');
         } else {
-            $kid = $this->getRequest()->getParam('kid', 0);
-            $consultation = null;
-            $form = null;
-            $consultationModel = new Model_Consultations();
-            $consultation = $consultationModel->getById($kid);
             $aid = $this->getRequest()->getParam('aid', 0);
             if ($aid > 0) {
                 $articleModel = new Model_Articles();
-                $articleRow = $articleModel->find($aid)->current();
-                $form = new Admin_Form_Article($kid);
-                $multiOptions = array(0 => $this->view->translate('Please select…'));
-                if ($kid > 0) {
-                    // set multiOptions for ref_nm
-                    foreach ($this->getMultioptionsByType('b') as $key => $value) {
-                        $multiOptions[$key] = $value;
-                    }
-                    $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                    $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
-                } else {
-                    // set multiOptions for ref_nm
-                    foreach ($this->getMultioptionsByType('g') as $key => $value) {
-                        $multiOptions[$key] = $value;
-                    }
-                    $form->getElement('ref_nm')->setMultioptions($multiOptions);
-                }
-                $firstLevelPages = $articleModel->getFirstLevelEntries($kid);
-                $parentOptions = array(
-                    0 => $this->view->translate('None')
-                );
+                $form = new Admin_Form_Article($this->_kid);
+                $this->populateRefNames($form, $this->_kid);
+                $firstLevelPages = $articleModel->getFirstLevelEntries($this->_kid);
+                $parentOptions = [0 => $this->view->translate('None')];
                 foreach ($firstLevelPages as $page) {
                     if ($page['art_id'] != $aid) {
                         $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
@@ -184,20 +141,16 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $form->getElement('parent_id')->setMultiOptions($parentOptions);
                 $isRetFromPreview = $this->getRequest()->getPost('backFromPreview');
                 if ($this->getRequest()->isPost() && empty($isRetFromPreview)) {
-                    // Formular wurde abgeschickt und muss verarbeitet werden
-                    $params = $this->getRequest()->getPost();
-                    $params = $this->setProject($params);
-                    if ($form->isValid($params)) {
-                        $articleRow->setFromArray($form->getValues());
-                        $articleRow->proj = implode(',', $params['proj']);
-                        $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
+                    $article = $this->getRequest()->getPost();
+                    $article = $this->setProject($article);
+                    if ($form->isValid($article)) {
+                        $values = $form->getValues();
+                        $articleRow = $articleModel->find($aid)->current();
+                        $this->updateArticleRow($articleRow, $values);
                         $articleRow->save();
                         $this->_flashMessenger->addMessage('Changes saved.', 'success');
-                        $article = $articleRow->toArray();
-                        $article['proj'] = explode(',', $article['proj']);
                     } else {
                         $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
-                        $article = $params;
                     }
                 } elseif ($this->getRequest()->isPost() && !empty($isRetFromPreview)) {
                     $article = $this->getRequest()->getPost();
@@ -221,11 +174,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                 }
             }
 
-            $this->view->assign(array(
-                'kid' => $kid,
-                'consultation' => $consultation,
-                'form' => $form
-            ));
+            $this->view->form = $form;
         }
     }
 
@@ -325,5 +274,41 @@ class Admin_ArticleController extends Zend_Controller_Action
         }
 
         return $options;
+    }
+
+    /**
+     * @param /Zend_Db_Table_Row_Abstract $articleRow
+     * @param array $values
+     */
+    private function updateArticleRow(Zend_Db_Table_Row_Abstract $articleRow, $values)
+    {
+        $articleRow->setFromArray($values);
+        $articleRow->artcl = (new Service_Article($this->view->baseUrl()))
+            ->basePathToPlaceholder($articleRow->artcl);
+        $articleRow->sidebar = (new Service_Article($this->view->baseUrl()))
+            ->basePathToPlaceholder($articleRow->sidebar);
+        $articleRow->proj = implode(',', $values['proj']);
+        $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
+    }
+
+    /**
+     * @param \Zend_Form $form
+     * @param int $kid
+     */
+    private function populateRefNames(Zend_Form $form, $kid)
+    {
+        $multiOptions = [0 => $this->view->translate('Please select…')];
+        if ($kid > 0) {
+            foreach ($this->getMultioptionsByType('b') as $key => $value) {
+                $multiOptions[$key] = $value;
+            }
+            $form->getElement('ref_nm')->setMultioptions($multiOptions);
+            $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
+        } else {
+            foreach ($this->getMultioptionsByType('g') as $key => $value) {
+                $multiOptions[$key] = $value;
+            }
+            $form->getElement('ref_nm')->setMultioptions($multiOptions);
+        }
     }
 }
