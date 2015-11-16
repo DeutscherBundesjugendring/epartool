@@ -162,10 +162,14 @@ class Service_Media
                 'Rename',
                 ['target' => $uploadDir . '/' . $filename]
             )
-            ->addValidator('Extension', false, Zend_Registry::get('systemconfig')->media->filetype->extensions)
-            ->receive();
+            ->addValidator('Extension', false, Zend_Registry::get('systemconfig')->media->filetype->extensions);
 
-        return $uploadRes ? $filename : $upload->getMessages();
+        $imageInfo = $upload->getFileInfo();
+        if (strpos(reset($imageInfo)['type'], 'image/') === 0) {
+            $uploadRes->addValidator('ImageSize', false, ['maxwidth' => 5000, 'maxheight' => 5000]);
+        }
+
+        return $uploadRes->receive() ? $filename : $upload->getMessages();
     }
 
     /**
