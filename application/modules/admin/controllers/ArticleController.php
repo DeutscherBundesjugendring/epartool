@@ -66,10 +66,12 @@ class Admin_ArticleController extends Zend_Controller_Action
             $form->setAction($this->view->baseUrl() . '/admin/article/create/kid/' . $this->_kid);
             $this->populateRefNames($form, $this->_kid);
             $articleModel = new Model_Articles();
-            $firstLevelPages = $articleModel->getFirstLevelEntries($this->_kid);
             $parentOptions = [0 => $this->view->translate('None')];
-            foreach ($firstLevelPages as $page) {
-                $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
+            if ($this->_kid) {
+                $firstLevelPages = $articleModel->getFirstLevelEntries($this->_kid);
+                foreach ($firstLevelPages as $page) {
+                    $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
+                }
             }
             $form->getElement('parent_id')->setMultiOptions($parentOptions);
             $isRetFromPreview = $this->getRequest()->getPost('backFromPreview');
@@ -131,11 +133,13 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $articleModel = new Model_Articles();
                 $form = new Admin_Form_Article($this->_kid);
                 $this->populateRefNames($form, $this->_kid);
-                $firstLevelPages = $articleModel->getFirstLevelEntries($this->_kid);
                 $parentOptions = [0 => $this->view->translate('None')];
-                foreach ($firstLevelPages as $page) {
-                    if ($page['art_id'] != $aid) {
-                        $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
+                if ($this->_kid) {
+                    $firstLevelPages = $articleModel->getFirstLevelEntries($this->_kid);
+                    foreach ($firstLevelPages as $page) {
+                        if ($page['art_id'] != $aid) {
+                            $parentOptions[$page['art_id']] = '[' . $page['art_id'] . '] ' . $page['desc'];
+                        }
                     }
                 }
                 $form->getElement('parent_id')->setMultiOptions($parentOptions);

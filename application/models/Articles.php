@@ -123,7 +123,7 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
      */
     public function getAllWithoutConsultation($orderBy = 'art_id')
     {
-        return $this->getByConsultation(0, null, $orderBy);
+        return $this->getByConsultation(null, null, $orderBy);
     }
 
     /**
@@ -136,18 +136,16 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
      */
     public function getByConsultation($kid = null, $scope = null, $orderBy = 'art_id')
     {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($kid)) {
-            throw new Zend_Exception('Given kid must be integer!');
-
-            return false;
-        }
-
         // first all first level pages
         $select = $this->select()
-            ->where('kid = ?', $kid)
             ->where('parent_id IS NULL OR parent_id = 0')
             ->order($orderBy);
+
+        if ($kid) {
+            $select->where('kid = ?', $kid);
+        } else {
+            $select->where('kid IS NULL');
+        }
 
         $refNameModel = new Model_ArticleRefNames();
         if (isset($scope) && $refNameModel->scopeExists($scope)) {
