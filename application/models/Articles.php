@@ -170,20 +170,24 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
      * Returns article by given RefName, e.g. 'about', 'imprint' etc.
      *
      * @param  string  $ref
-     * @param  integer $kid Consultation ID if any, Default: 0
+     * @param  int|null $kid
      * @return array
      */
-    public function getByRefName($ref, $kid = 0)
+    public function getByRefName($ref, $kid = null)
     {
-        $result = array();
-        $select = $this->select();
-        $select->where('ref_nm = ?', $ref)->where('kid = ?', $kid);
-        $row = $this->fetchAll($select)->current();
-        if (!empty($row)) {
-            $result = $row->toArray();
+        $select = $this->select()->where('ref_nm = ?', $ref);
+        if ($kid) {
+            $select->where('kid = ?', $kid);
+        } else {
+            $select->where('kid IS NULL');
         }
 
-        return $result;
+        $row = $this->fetchAll($select)->current();
+        if (!empty($row)) {
+            return $row->toArray();
+        }
+
+        return [];
     }
 
     /**
