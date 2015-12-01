@@ -6,6 +6,10 @@ class Admin_ArticleController extends Zend_Controller_Action
 
     protected $_adminIndexURL = null;
 
+    /**
+     * @var Service_Article
+     */
+    private $articleService;
     private $_kid;
     private $_consultation;
 
@@ -18,6 +22,7 @@ class Admin_ArticleController extends Zend_Controller_Action
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
+        $this->articleService = new Service_Article($this->view->baseUrl());
         $this->_adminIndexURL = $this->view->url(array(
             'controller' => 'index',
             'action' => 'index'
@@ -166,6 +171,8 @@ class Admin_ArticleController extends Zend_Controller_Action
                     }
                 } else {
                     $article = $articleModel->getById($aid);
+                    $article['artcl'] = $this->articleService->placeholderToBasePath($article['artcl']);
+                    $article['sidebar'] = $this->articleService->placeholderToBasePath($article['sidebar']);
                     $article['proj'] = explode(',', $article['proj']);
                 }
                 $form->populate($article);
@@ -287,10 +294,8 @@ class Admin_ArticleController extends Zend_Controller_Action
     private function updateArticleRow(Zend_Db_Table_Row_Abstract $articleRow, $values)
     {
         $articleRow->setFromArray($values);
-        $articleRow->artcl = (new Service_Article($this->view->baseUrl()))
-            ->basePathToPlaceholder($articleRow->artcl);
-        $articleRow->sidebar = (new Service_Article($this->view->baseUrl()))
-            ->basePathToPlaceholder($articleRow->sidebar);
+        $articleRow->artcl = $this->articleService->basePathToPlaceholder($articleRow->artcl);
+        $articleRow->sidebar = $this->articleService->basePathToPlaceholder($articleRow->sidebar);
         $articleRow->proj = implode(',', $values['proj']);
         $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
     }
