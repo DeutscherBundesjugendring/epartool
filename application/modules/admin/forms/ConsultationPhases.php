@@ -25,7 +25,7 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
         $phaseSupport = $this->createElement('text', 'phase_support');
         $phaseSupport
-            ->setLabel('Support')
+            ->setLabel('Questions')
             ->setAttrib('maxlength', 50)
             ->setAttrib('disabled', 'disabled')
             ->setDescription($desc)
