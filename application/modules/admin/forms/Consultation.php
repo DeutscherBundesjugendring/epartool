@@ -203,6 +203,13 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setUncheckedValue('n');
         $this->addElement($followupShow);
 
+        $followUpExplanation = $this->createElement('textarea', 'follow_up_explanation');
+        $followUpExplanation
+            ->setLabel('Follow-Up phase explanation')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setAttrib('rows', 5);
+        $this->addElement($followUpExplanation);
+
         $isPublic = $this->createElement('checkbox', 'public');
         $isPublic
             ->setLabel('Make public')
