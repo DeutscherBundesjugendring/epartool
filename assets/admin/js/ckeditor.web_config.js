@@ -1,5 +1,5 @@
 CKEDITOR.editorConfig = function( config ) {
-  config.extraPlugins = 'colorbutton,colordialog,div,find,flash,font,iframe,image2,selectall,smiley';
+  config.extraPlugins = 'bootstrapCollapse,colorbutton,colordialog,div,find,flash,font,iframe,image2,selectall,smiley';
   config.allowedContent = true,
   config.toolbar = [
     {name: 'document', items: ['Source']},
@@ -14,7 +14,10 @@ CKEDITOR.editorConfig = function( config ) {
       items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']
     },
     {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
-    {name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Iframe']},
+    {
+      name: 'insert',
+      items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'Iframe', 'BootstrapCollapse']
+    },
     {name: 'styles', items: ['Format', 'Font', 'FontSize']},
     {name: 'colors', items: ['TextColor', 'BGColor']},
     {name: 'tools', items: ['Maximize', 'ShowBlocks']},
@@ -22,4 +25,7 @@ CKEDITOR.editorConfig = function( config ) {
   ];
 
   config.removeDialogTabs = 'link:advanced';
+
+  //config.contentsCss = 'vendor/ckeditor/plugins/mjAccordion/mjAccordion.css';
+  config.bootstrapCollapse_managePopupContent = false;
 };

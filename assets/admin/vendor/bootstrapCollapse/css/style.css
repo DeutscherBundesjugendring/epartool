@@ -1,0 +1,20 @@
+/*
+	Plugin	: Bootstrap Collapse
+	Author	: Michael Janea (michaeljanea.byethost7.com)
+	Version	: 1.2.3
+*/
+#bootstrapCollapse {}
+	#bootstrapCollapse_Container {height:350px; overflow:auto; margin-bottom:1em;}
+	#bootstrapCollapse table {width:100%; border-collapse:collapse;}
+	#bootstrapCollapse th, #bootstrapCollapse td {padding:.5em;}
+	#bootstrapCollapse th {font-weight:bold;}
+	#bootstrapCollapse td {vertical-align:top;}
+	#bootstrapCollapse input[type=text], #bootstrapCollapse textarea {padding:.3em; border:1px solid #ddd; -webkit-border-radius:3px; border-radius:3px; -webkit-box-shadow:inset 0 2px 2px rgba(0,0,0,0.075); box-shadow:inset 0 2px 2px rgba(0,0,0,0.075); background:rgba(0, 0, 0, .01)}
+	#bootstrapCollapse input[type=text] {width:150px;}
+	#bootstrapCollapse textarea {resize:none; width:295px; height:100px; white-space:pre-wrap;}
+	#bootstrapCollapse .bootstrapCollapse_remove, #bootstrapCollapse .bootstrapCollapse_addNew, #bootstrapCollapse .bootstrapCollapse_up, #bootstrapCollapse .bootstrapCollapse_down {font-weight:bold; -webkit-border-radius:3px; border-radius:3px;}
+	#bootstrapCollapse .bootstrapCollapse_remove {background:#A94442; padding:.3em .5em; color:#fff;}
+	#bootstrapCollapse .bootstrapCollapse_remove:hover {text-decoration:none;}
+	#bootstrapCollapse .bootstrapCollapse_addNew, #bootstrapCollapse .bootstrapCollapse_up, #bootstrapCollapse .bootstrapCollapse_down {float:right; padding:.5em; background:#f3f3f3; border:1px solid #ddd;}
+	#bootstrapCollapse .bootstrapCollapse_addNew:hover {text-decoration:underline;}
+	#bootstrapCollapse .bootstrapCollapse_up, #bootstrapCollapse .bootstrapCollapse_down {float:none; padding:.13em .4em;}

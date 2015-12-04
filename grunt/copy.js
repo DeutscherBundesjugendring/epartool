@@ -33,6 +33,12 @@ module.exports = {
     files: [
       {'<%= paths.dist %>/js/ckeditor.web_config.js': '<%= paths.src.admin %>/js/ckeditor.web_config.js'},
       {'<%= paths.dist %>/js/ckeditor.email_config.js': '<%= paths.src.admin %>/js/ckeditor.email_config.js'},
+      {
+        expand: true,
+        cwd: '<%= paths.src.admin %>/vendor/bootstrapCollapse',
+        src: ['**/*'],
+        dest: '<%= paths.dist %>/vendor/ckeditor/plugins/bootstrapCollapse',
+      }
     ]
   }
 
