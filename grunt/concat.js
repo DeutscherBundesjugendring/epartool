@@ -11,6 +11,7 @@ module.exports = {
       '<%= paths.bower %>/jquery/dist/jquery.js',
       '<%= paths.bower %>/pwstrength-bootstrap/dist/pwstrength-bootstrap-1.1.5.js',
       '<%= paths.bower %>/bootstrap/js/alert.js',
+      '<%= paths.bower %>/bootstrap/js/collapse.js',
       '<%= paths.bower %>/bootstrap/js/dropdown.js',
       '<%= paths.bower %>/bootstrap/js/modal.js',
       '<%= paths.bower %>/bootstrap/js/transition.js',
