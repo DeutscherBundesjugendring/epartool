@@ -10,7 +10,7 @@ versioning](http://semver.org) is being used.
 
 The tool is written with multi-project support. It means that one database can be used by several projects running on
 different URLs and even on different physical hardware. Each project then installs its own instance of the tool as
-a dependency, but they can share some consultations among each other.
+a dependency, but they can share some consultations and articles among each other.
 
 ## The Project
 The structure of the project is as follows:
@@ -62,12 +62,12 @@ supported.
 ### Requirements:
 
 #### Runtime
-* PHP 5.6 or later
-* PHP modules:
+* PHP 5.x where x is equal to or greater then 6
+* PHP extensions:
     * GD
-* magic_quotes off
+    * mbstring
+    * pdo_mysql
 * MySQL 5.5 or later
-* web server
 * memory_limit: 128M
 
 #### Build Tools
@@ -84,13 +84,11 @@ argument specifying the branch of tool we wish to use. The available branches ar
 
 * develop
 * master
-* staging
-* production
 
-So for example to checkout the production branch we shall run:
+So for example to checkout the master branch we shall run:
 
 ```
-build.sh production
+build.sh master
 ```
 
 The programs called by the script can be located at different locations depending on the OS and installation type. It is
@@ -135,6 +133,6 @@ might have to be created at this point.
 **PLEASE MAKE SURE THAT YOUR DB AND FILES ARE ALL BACKED UP BEFORE PERFORMING AN UPDATE.**
 
 If a new version of the application is released, the update process is analogous to the installation process. Apart from
-updating the project files and all its dependencies, a database patch might have to be applied. The patches will be
+updating the project files and all its dependencies, a database patch might have to be applied. The patches are
 located in the `vendor/dbjr/tool/data/db-migrations`. Please see the release notes and upgrade notes for the version
 being installed for more details about how to proceed.
