@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-12-04 14:52+0100\n"
-"PO-Revision-Date: 2015-12-04 14:53+0100\n"
+"POT-Creation-Date: 2015-12-04 17:19+0100\n"
+"PO-Revision-Date: 2015-12-04 17:19+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -697,7 +697,7 @@ msgstr "Follow-Up aktivieren"
 
 #: application/modules/admin/forms/Consultation.php:208
 msgid "Follow-Up phase explanation"
-msgstr ""
+msgstr "Einführung zu Reaktionen & Wirkung"
 
 #: application/modules/admin/forms/Consultation.php:215
 msgid "Make public"
@@ -1852,19 +1852,20 @@ msgstr "Alle Beiträge"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:246
 msgid "Confirmed contributions"
-msgstr ""
+msgstr "Bestätigte Beiträge"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:253
 msgid "Unconfirmed contributions"
-msgstr ""
+msgstr "Unbestätigte Beiträge"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:260
 msgid "Voting theses"
-msgstr ""
+msgstr "Abstimmungsbeiträge"
 
+# Used in Input -> list by question CSV export links
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:267
 msgid "Voting theses – edited"
-msgstr ""
+msgstr "Abstimmungsbeiträge - bearbeitet"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:276
 msgid "MS Excel Export"
