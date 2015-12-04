@@ -26,6 +26,5 @@ CKEDITOR.editorConfig = function( config ) {
 
   config.removeDialogTabs = 'link:advanced';
 
-  //config.contentsCss = 'vendor/ckeditor/plugins/mjAccordion/mjAccordion.css';
   config.bootstrapCollapse_managePopupContent = false;
 };
