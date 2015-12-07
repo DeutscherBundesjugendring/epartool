@@ -649,9 +649,9 @@ class InputController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
             if (isset($post['subscribe'])) {
-                $this->handleSubscribeInputDiscussion($post, $this->consultation['kid'], $inputId, $auth, $sbsForm);
+                $this->handleSubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
-                $this->handleUnsubscribeInputDiscussion($post, $this->consultation['kid'], $inputId, $auth);
+                $this->handleUnsubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth);
             } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
             ) {
