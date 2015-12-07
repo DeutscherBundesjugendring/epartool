@@ -27,15 +27,13 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
             $mailer = new Dbjr_Mail();
             $mailer
                 ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_CREATED)
-                ->setPlaceholders(
-                    array(
-                        'to_name' => $user->name ? $user->name : $user->email,
-                        'to_email' => $user->email,
-                        'website_url' => Zend_Registry::get('baseUrl') . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
-                        'question_text' => $question->q,
-                        'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
-                    )
-                )
+                ->setPlaceholders([
+                    'to_name' => $user->name ? $user->name : $user->email,
+                    'to_email' => $user->email,
+                    'website_url' => Zend_Registry::get('baseUrl') . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
+                    'question_text' => $question->q,
+                    'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
+                ])
                 ->addTo($user->email);
             (new Service_Email)
                 ->queueForSend($mailer)
@@ -68,14 +66,12 @@ class Service_Notification_Input_Created extends Service_NotificationAbstract
         $mailer = new Dbjr_Mail();
         $mailer
             ->setTemplate($template)
-            ->setPlaceholders(
-                array(
-                    'to_name' => $user->name ? $user->name : $user->email,
-                    'to_email' => $user->email,
-                    'question_text' => (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current()->q,
-                    'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
-                )
-            )
+            ->setPlaceholders([
+                'to_name' => $user->name ? $user->name : $user->email,
+                'to_email' => $user->email,
+                'question_text' => (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current()->q,
+                'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+            ])
             ->addTo($user->email);
         (new Service_Email)
             ->queueForSend($mailer)

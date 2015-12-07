@@ -44,19 +44,17 @@ class Service_Notification_Input_DiscussionContributionCreated extends Service_N
             $mailer = new Dbjr_Mail();
             $mailer
                 ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_DISCUSSION_CONTRIB_CREATED)
-                ->setPlaceholders(
-                    array(
-                        'to_name' => $user->name ? $user->name : $user->email,
-                        'to_email' => $user->email,
-                        'website_url' => Zend_Registry::get('baseUrl') . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
-                        'contribution_text' => $contrib->body,
-                        'video_url' => sprintf(
-                            Zend_Registry::get('systemconfig')->video->url->format->link,
-                            $contrib->video_id
-                        ),
-                        'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
-                    )
-                )
+                ->setPlaceholders([
+                    'to_name' => $user->name ? $user->name : $user->email,
+                    'to_email' => $user->email,
+                    'website_url' => Zend_Registry::get('baseUrl') . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
+                    'contribution_text' => $contrib->body,
+                    'video_url' => sprintf(
+                        Zend_Registry::get('systemconfig')->video->url->format->link,
+                        $contrib->video_id
+                    ),
+                    'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
+                ])
                 ->addTo($user->email);
             (new Service_Email)
                 ->queueForSend($mailer)
@@ -90,15 +88,13 @@ class Service_Notification_Input_DiscussionContributionCreated extends Service_N
         $mailer = new Dbjr_Mail();
         $mailer
             ->setTemplate($template)
-            ->setPlaceholders(
-                array(
-                    'to_name' => $user->name ? $user->name : $user->email,
-                    'to_email' => $user->email,
-                    'input_thes' => $input->thes,
-                    'input_expl' => $input->expl,
-                    'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
-                )
-            )
+            ->setPlaceholders([
+                'to_name' => $user->name ? $user->name : $user->email,
+                'to_email' => $user->email,
+                'input_thes' => $input->thes,
+                'input_expl' => $input->expl,
+                'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+            ])
             ->addTo($user->email);
         (new Service_Email)
             ->queueForSend($mailer)

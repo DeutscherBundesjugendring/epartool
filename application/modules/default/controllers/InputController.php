@@ -320,17 +320,17 @@ class InputController extends Zend_Controller_Action
                 }
                 $sessInputs->inputs = $tmpCollection;
             } else {
-                $tmpCollection = array();
+                $tmpCollection = [];
             }
 
             foreach ($post['inputs'] as $input) {
                 if (!empty($input['thes'])) {
-                    $tmpCollection[] = array(
-                            'kid' => $kid,
-                            'qi' => $qid,
-                            'thes' => $input['thes'],
-                            'expl' => $input['expl']
-                    );
+                    $tmpCollection[] = [
+                        'kid' => $kid,
+                        'qi' => $qid,
+                        'thes' => $input['thes'],
+                        'expl' => $input['expl']
+                    ];
                     $sessInputs->inputs = $tmpCollection;
                 }
             }
@@ -487,12 +487,11 @@ class InputController extends Zend_Controller_Action
         try {
             $rejectedCount = $inputModel->rejectByCkey($ckey);
             $inputModel->getAdapter()->commit();
-        } catch (Dbjr_UrlkeyAction_Exception $e){
+        } catch (Dbjr_UrlkeyAction_Exception $e) {
             $inputModel->getAdapter()->rollback();
             $this->_flashMessenger->addMessage('It is not allowed to reject inputs once the input phase is over.', 'error');
             $this->redirect('/');
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $inputModel->getAdapter()->rollback();
             throw $e;
         }
@@ -516,7 +515,7 @@ class InputController extends Zend_Controller_Action
         }
         $supports = new Zend_Session_Namespace('supports');
         if (empty($supports->clicks)) {
-            $supports->clicks = array();
+            $supports->clicks = [];
         }
         $inputsModel = new Model_Inputs();
         if (!in_array($data['tid'], $supports->clicks)) {
@@ -568,14 +567,12 @@ class InputController extends Zend_Controller_Action
                         );
                     }
                     $this->redirect(
-                        $this->view->url(
-                            array(
-                                'controller' => 'user',
-                                'action' => 'inputlist',
-                                'kid' => $kid
-                            )
-                        ),
-                        array('prependBase' => false)
+                        $this->view->url([
+                            'controller' => 'user',
+                            'action' => 'inputlist',
+                            'kid' => $kid
+                        ]),
+                        ['prependBase' => false]
                     );
                 } else {
                     $this->_flashMessenger->addMessage('Please check your data!', 'error');
@@ -648,16 +645,14 @@ class InputController extends Zend_Controller_Action
                             list($userId, $isNew) = (new Model_Users())->register(['email' => $formData['email']]);
                         }
 
-                        $contribId = $inputDiscussModel->insert(
-                            [
-                                'body' => $formData['body'] ? $formData['body'] : null,
-                                'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
-                                'user_id' => $userId,
-                                'is_user_confirmed' => $auth->hasIdentity() ? true : false,
-                                'is_visible' => true,
-                                'input_id' => $inputId,
-                            ]
-                        );
+                        $contribId = $inputDiscussModel->insert([
+                            'body' => $formData['body'] ? $formData['body'] : null,
+                            'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
+                            'user_id' => $userId,
+                            'is_user_confirmed' => $auth->hasIdentity() ? true : false,
+                            'is_visible' => true,
+                            'input_id' => $inputId,
+                        ]);
 
                         if (!$auth->hasIdentity()) {
                             $action = (new Service_UrlkeyAction_ConfirmInputDiscussionContribution())->create(
