@@ -86,11 +86,11 @@ class InputController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
             if (isset($post['subscribe'])) {
-                $this->_handleSubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
+                $this->handleSubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
-                $this->_handleUnsubscribeQuestion($post, $kid, $qid, $auth);
+                $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth);
             } else {
-                $this->_handleInputSubmit($post, $kid, $qid);
+                $this->handleInputSubmit($post, $kid, $qid);
             }
         }
 
@@ -142,7 +142,7 @@ class InputController extends Zend_Controller_Action
      * @throws \Zend_Exception
      * @throws \Zend_Form_Exception
      */
-    private function _handleSubscribeQuestion(
+    private function handleSubscribeQuestion(
         array $post,
         $kid,
         $qid,
@@ -208,7 +208,7 @@ class InputController extends Zend_Controller_Action
      * @throws \Exception
      * @throws \Zend_Exception
      */
-    private function _handleSubscribeInputDiscussion(
+    private function handleSubscribeInputDiscussion(
         array $post,
         $kid,
         $inputId,
@@ -270,7 +270,7 @@ class InputController extends Zend_Controller_Action
      * @param int $qid The question identifier
      * @param \Zend_Auth $auth  The auth adapter
      */
-    private function _handleUnsubscribeQuestion(array $post, $kid, $qid, Zend_Auth $auth)
+    private function handleUnsubscribeQuestion(array $post, $kid, $qid, Zend_Auth $auth)
     {
         $unsbsForm = new Default_Form_UnsubscribeNotification();
         if ($unsbsForm->isValid($post)) {
@@ -291,7 +291,7 @@ class InputController extends Zend_Controller_Action
      * @param int $inputId  The input identifier
      * @param \Zend_Auth $auth     The auth adapter
      */
-    private function _handleUnsubscribeInputDiscussion(array $post, $kid, $inputId, Zend_Auth $auth)
+    private function handleUnsubscribeInputDiscussion(array $post, $kid, $inputId, Zend_Auth $auth)
     {
         $unsbsForm = new Default_Form_UnsubscribeNotification();
         if ($unsbsForm->isValid($post)) {
@@ -315,7 +315,7 @@ class InputController extends Zend_Controller_Action
      * @param int $kid The consultation identifier
      * @param int $qid The qiestion identifier
      */
-    private function _handleInputSubmit(array $post, $kid, $qid)
+    private function handleInputSubmit(array $post, $kid, $qid)
     {
         $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
 
@@ -649,9 +649,9 @@ class InputController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
             if (isset($post['subscribe'])) {
-                $this->_handleSubscribeInputDiscussion($post, $this->consultation['kid'], $inputId, $auth, $sbsForm);
+                $this->handleSubscribeInputDiscussion($post, $this->consultation['kid'], $inputId, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
-                $this->_handleUnsubscribeInputDiscussion($post, $this->consultation['kid'], $inputId, $auth);
+                $this->handleUnsubscribeInputDiscussion($post, $this->consultation['kid'], $inputId, $auth);
             } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
             ) {
