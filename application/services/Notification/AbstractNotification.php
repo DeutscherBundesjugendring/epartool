@@ -1,6 +1,6 @@
 <?php
 
-abstract class Service_NotificationAbstract
+abstract class Service_Notification_AbstractNotification
 {
     const POSTSUBSCRIBE_ACTION_CONFIRM_IMMEDIATE = 'confirm_immediate';
     const POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST = 'confirm_email_request';
