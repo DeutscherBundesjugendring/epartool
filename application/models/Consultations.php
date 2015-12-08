@@ -212,41 +212,33 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
      */
     public function getTeaserEntries()
     {
-        $entries = array();
-
+        $entries = [];
         $select = $this->select();
         $select->where('public = ?', 'y');
-        $select->order(array('ord DESC'));
+        $select->order(['ord DESC']);
         $rowSet = $this->fetchAll($select);
 
         foreach ($rowSet as $row) {
-            $timeDiff = array(
+            $timeDiff = [
                 'inp_fr' => Zend_Date::now()->sub(new Zend_Date($row->inp_fr, Zend_Date::ISO_8601))->toValue(),
                 'inp_to' => Zend_Date::now()->sub(new Zend_Date($row->inp_to, Zend_Date::ISO_8601))->toValue(),
                 'vot_fr' => Zend_Date::now()->sub(new Zend_Date($row->vot_fr, Zend_Date::ISO_8601))->toValue(),
                 'vot_to' => Zend_Date::now()->sub(new Zend_Date($row->vot_to, Zend_Date::ISO_8601))->toValue(),
-            );
+            ];
             $relevantField = 'inp_fr';
             foreach ($timeDiff as $field => $value) {
-                if ($value > 0) {
-                    if ($value < $timeDiff[$relevantField]) {
-                        $relevantField = $field;
-                    }
+                if ($value > 0 && $value < $timeDiff[$relevantField]) {
+                    $relevantField = $field;
                 }
             }
             if ($timeDiff[$relevantField] < 0) {
-                // wenn relevantes Feld in Zukunft liegt, fällt der Datensatz raus
                 continue;
             }
-            // Datensatz im entries Array ablegen, key ist der Rang
+
             $entries[$row->ord] = $row->toArray();
             $entries[$row->ord]['relevantField'] = $relevantField;
         }
-
-        // Sortiere nach Rang in absteigender Reihenfolge
         krsort($entries);
-        // Nur die ersten drei Einträge werden benötigt
-        $entries = array_slice($entries, 0, 3);
 
         return $entries;
     }
