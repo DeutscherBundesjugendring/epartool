@@ -40,16 +40,30 @@
                                 <tr>
                                     <th class="col-xs-3 sorting-desc" data-toggle="sort" tabindex="0"><?=$this->translate('Time Sent');?></th>
                                     <th data-toggle="sort" tabindex="0"><?=$this->translate('Subject');?></th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Recipient');?></th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($this->emails as $email): ?>
                                     <tr>
-                                        <td data-sort-value="<?=$this->escape($email->time_sent);?>">
-                                            <?=$this->formatDate($email->time_sent);?>
+                                        <td data-sort-value="<?=$this->escape($email['time_sent']);?>">
+                                            <?=$this->formatDate($email['time_sent']);?>
                                         </td>
-                                        <td><?=$this->escape($email->subject);?></td>
+                                        <td><?=$this->escape($email['subject']);?></td>
+                                        <td>
+                                            <?php if (isset($email['recipients']['to'])): ?>
+                                                <?=$this->translate('To')?>: <?=implode (', ', $email['recipients']['to']); ?>
+                                            <?php endif;?>
+                                            <?php if (isset($email['recipients']['cc'])): ?>
+                                                <br />
+                                                <?=$this->translate('Cc')?>: <?=implode (', ', $email['recipients']['cc']); ?>
+                                            <?php endif;?>
+                                            <?php if (isset($email['recipients']['bcc'])): ?>
+                                                <br />
+                                                <?=$this->translate('Bcc')?>: <?=implode (', ', $email['recipients']['bcc']); ?>
+                                            <?php endif;?>
+                                        </td>
                                         <td>
                                             <button
                                                 class="item-action item-action-danger"
@@ -57,7 +71,7 @@
                                                 type="submit"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Resend email?');?>"
-                                                value="<?=$this->escape($email->id);?>"
+                                                value="<?=$this->escape($email['id']);?>"
                                                 title="<?=$this->translate('Resend email');?>"
                                             >
                                                 <span class="glyphicon glyphicon-share-alt"></span>

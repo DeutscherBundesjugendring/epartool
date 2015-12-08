@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2015-12-04 17:19+0100\n"
-"PO-Revision-Date: 2015-12-04 17:19+0100\n"
+"POT-Creation-Date: 2015-12-08 16:44+0100\n"
+"PO-Revision-Date: 2015-12-08 16:44+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -951,7 +951,7 @@ msgstr "Nachricht (HTML)"
 msgid "Component description"
 msgstr "Beschreibung der Komponente"
 
-#: application/modules/admin/forms/Mail/Send.php:14
+#: application/modules/admin/forms/Mail/Send.php:14 application/modules/admin/views/scripts/mail-sent/index.phtml:56
 msgid "To"
 msgstr "An"
 
@@ -961,11 +961,11 @@ msgstr "An"
 msgid "Email address (max %d characters)"
 msgstr "E-mail-Adresse (max %d Zeichen)"
 
-#: application/modules/admin/forms/Mail/Send.php:23
+#: application/modules/admin/forms/Mail/Send.php:23 application/modules/admin/views/scripts/mail-sent/index.phtml:60
 msgid "Cc"
 msgstr "Cc"
 
-#: application/modules/admin/forms/Mail/Send.php:32
+#: application/modules/admin/forms/Mail/Send.php:32 application/modules/admin/views/scripts/mail-sent/index.phtml:64
 msgid "Bcc"
 msgstr "Bcc"
 
@@ -2019,11 +2019,15 @@ msgstr "Es wurden noch keine E-Mails gesendet."
 msgid "Time Sent"
 msgstr "Sendezeitpunkt"
 
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:59
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:43
+msgid "Recipient"
+msgstr "Adressat"
+
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:73
 msgid "Resend email?"
 msgstr "E-Mail erneut senden?"
 
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:61
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:75
 msgid "Resend email"
 msgstr "E-Mail erneut senden"
 

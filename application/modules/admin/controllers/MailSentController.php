@@ -61,9 +61,33 @@ class Admin_MailSentController extends Zend_Controller_Action
             }
         }
 
-        $emails = $mailModel->fetchAll(
-            $mailModel->select()->where('time_sent IS NOT NULL')->order('time_sent DESC')
-        );
+        $emailsRaw = $mailModel->fetchAll(
+            $mailModel
+                ->select()
+                ->setIntegrityCheck(false)
+                ->from(['e' => $mailModel->info($mailModel::NAME)])
+                ->join(
+                    ['r' => (new Model_Mail_Recipient())->info(Model_Mail_Recipient::NAME)],
+                    'email_id = e.id',
+                    ['recipient' => 'email', 'recipient_type' => 'type']
+                )
+                ->where('time_sent IS NOT NULL')
+                ->where('time_sent > DATE_SUB(NOW(), INTERVAL 3 MONTH)')
+                ->order('time_sent DESC')
+        )
+        ->toArray();
+
+        $emails = [];
+        foreach ($emailsRaw as $email) {
+            if (!array_key_exists($email['id'], $emails)) {
+                $emails[$email['id']] = $email;
+                $emails[$email['id']]['recipients'] = [];
+            }
+            if (!array_key_exists($email['recipient_type'], $emails[$email['id']]['recipients'])) {
+                $emails[$email['id']]['recipients'][$email['recipient_type']] = [];
+            }
+            $emails[$email['id']]['recipients'][$email['recipient_type']][] = $email['recipient'];
+        }
 
         $this->view->emails = $emails;
         $this->view->form = $form;
