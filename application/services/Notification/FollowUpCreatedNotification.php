@@ -30,7 +30,7 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
                 ->setPlaceholders([
                     'to_name' => $user->name ? $user->name : $user->email,
                     'to_email' => $user->email,
-                    'website_url' => Zend_Registry::get('baseUrl') . '/followup/kid/' . $consultation->kid,
+                    'website_url' => Zend_Registry::get('baseUrl') . '/followup/index/kid/' . $consultation->kid,
                     'consultation_title_long' => $consultation->titl,
                     'unsubscribe_url' => Zend_Registry::get('baseUrl')
                         . '/urlkey-action/execute/urlkey/' . $urlKeys[$user->notificationId],
