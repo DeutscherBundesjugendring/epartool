@@ -6,10 +6,10 @@ abstract class Service_Notification_AbstractNotification
     const POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST = 'confirm_email_request';
 
     /**
-     * Method to be implemented by the varios subclasses that handles the actual sending of the notification
+     * Method to be implemented by the various subclasses that handles the actual sending of the notification
      * @param  array                        $params The params to be used during the notification
      * @return Service_Notification_AbstractNotification         Fluent interface
-        */
+     */
     abstract public function notify(array $params);
 
     /**
