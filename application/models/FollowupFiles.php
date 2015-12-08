@@ -6,7 +6,6 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
 
     protected $_name = 'fowup_fls';
     protected $_primary = 'ffid';
-
     protected $_dependentTables = array('Model_Followups');
 
     /**
@@ -18,13 +17,11 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * @return array
      *
      */
-    public function getByKid($kid, $order = NULL, $limit = NULL, $excludeFfid = NULL)
+    public function getByKid($kid, $order = null, $limit = null, $excludeFfid = null)
     {
-        //$result = array();
-
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($kid)) {
-            return array();
+            return [];
         }
         $select = $this->select();
         $select->where('kid=?', $kid);
@@ -33,7 +30,6 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
             $select->order($order);
         }
         if ($limit) {
-
             $select->limit($limit);
         }
         if ($excludeFfid) {
@@ -47,71 +43,55 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     }
 
     /**
-     * getById
      * returns entry by fowup_fls.ffid
      * @param  integer $ffid
      * @return array
      */
     public function getById($ffid, $withoutsnippets = false)
     {
-        // is int?
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($ffid)) {
-            return array();
+            return [];
         }
-        $result = array();
+
+        $result = [];
         $row = $this->find($ffid)->current();
         if ($row) {
             $result = $row->toArray();
-            //$result['when'] = strtotime($result['when']);
             if (!$withoutsnippets) {
                 $depTable = new Model_Followups();
                 $depTableSelect = $depTable->select();
                 $depTableSelect->order('docorg ASC');
-
-                $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
-
-                $result['fowups'] = $rowset->toArray();
-
+                $result['fowups'] = $row->findDependentRowset($depTable, null, $depTableSelect)->toArray();
             }
         }
 
         return $result;
     }
     /**
-     * getById
      * returns entry by fowup_fls.ffid
-     * @param  integer $ffid
+     * @param  array $idArray
      * @return array
      */
-    public function getByIdArray($idarray)
+    public function getByIdArray(array $idArray)
     {
-        // is int?
-        if (!is_array($idarray) || count($idarray) == 0) {
-          return array();
-        }
-
         $select = $this->select();
-        $select->where('ffid IN(?)', $idarray);
+        $select->where('ffid IN(?)', $idArray);
 
         return $this->fetchAll($select)->toArray();
-
     }
 
     /**
-     * getFollowupsById
      * get fowups by fowups_fls.ffid
-     *
      * @param  integer              $ffid
      * @param  string               $order
      * @return Zend_DB_Table_Rowset
      */
-    public function getFollowupsById($ffid, $order = NULL)
+    public function getFollowupsById($ffid, $order = null)
     {
-        //echo $id;
         $validator = new Zend_Validate_Int();
         if (!$validator->isValid($ffid)) {
-            return array();
+            return [];
         }
 
         $depTable = new Model_Followups();
@@ -123,13 +103,10 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
 
         $row = $this->find($ffid)->current();
         if ($row) {
-
-            $rowset = $row->findDependentRowset($depTable, NULL, $depTableSelect);
-
-            return $rowset;
-        } else {
-            return array();
+            return $row->findDependentRowset($depTable, null, $depTableSelect);
         }
+
+        return [];
     }
 
     /**
@@ -173,7 +150,8 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     /**
      * Deletes existing rows.
      * @param  array|string $where SQL WHERE clause(s).
-     * @return int          The number of rows deleted.
+     * @return int The number of rows deleted.
+     * @throws \Dbjr_Exception
      */
     public function delete($where)
     {
