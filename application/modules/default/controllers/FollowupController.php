@@ -48,6 +48,21 @@ class FollowupController extends Zend_Controller_Action
         $kid = $this->_getParam('kid', 0);
         $followupModel = new Model_FollowupFiles();
         $followups = $followupModel->getByKid($kid, 'when DESC');
+        $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
+            new Service_Notification_FollowUpCreatedNotification(),
+            [Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $kid]
+        );
+
+        if ($this->getRequest()->isPost()) {
+            $post = $this->getRequest()->getPost();
+            $auth = Zend_Auth::getInstance();
+            if (isset($post['subscribe'])) {
+                $this->handleSubscribeFollowUps($post, $kid, $auth, $sbsForm);
+            } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
+                $this->handleUnsubscribeFollowUps($post, $kid, $auth, $sbsForm);
+            }
+        }
+
         foreach ($followups as &$followup) {
             if (strpos($followup['ref_doc'], 'http://') === 0
                 || strpos($followup['ref_doc'], 'https://') === 0
@@ -58,6 +73,7 @@ class FollowupController extends Zend_Controller_Action
             }
         }
         $this->view->followups = $followups;
+        $this->view->subscriptionForm = $sbsForm;
     }
 
     public function inputsByQuestionAction()
@@ -451,6 +467,93 @@ class FollowupController extends Zend_Controller_Action
                 $this->view->url(['action' => 'index', 'kid' => $this->consultation->kid]),
                 ['prependBase' => false]
             );
+        }
+    }
+
+    /**
+     * @param array $post
+     * @param $kid
+     * @param \Zend_Auth $auth
+     * @param \Default_Form_SubscribeNotification $sbsForm
+     * @throws \Exception
+     * @throws \Zend_Exception
+     * @throws \Zend_Form_Exception
+     */
+    private function handleSubscribeFollowUps(
+        array $post,
+        $kid,
+        Zend_Auth $auth,
+        Default_Form_SubscribeNotification $sbsForm
+    ) {
+        if ($auth->hasIdentity()) {
+            Zend_Registry::get('dbAdapter')->beginTransaction();
+            try {
+                $userId = $auth->getIdentity()->uid;
+                (new Service_Notification_FollowUpCreatedNotification())->subscribeUser(
+                    $userId,
+                    [Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $kid],
+                    Service_Notification_FollowUpCreatedNotification::POSTSUBSCRIBE_ACTION_CONFIRM_IMMEDIATE
+                );
+                Zend_Registry::get('dbAdapter')->commit();
+                $this->flashMessenger->addMessage('Thank you for subscribing.', 'success');
+                $this->_redirect('/followup/index/kid/' . $kid);
+            } catch (Exception $e) {
+                Zend_Registry::get('dbAdapter')->rollback();
+                throw $e;
+            }
+        } else {
+            if (isset($post['email'])) {
+                if ($sbsForm->isValid($post)) {
+                    Zend_Registry::get('dbAdapter')->beginTransaction();
+                    try {
+                        list($userId) = (new Model_Users())->register($sbsForm->getValues());
+                        (new Service_Notification_FollowUpCreatedNotification())->subscribeUser(
+                            $userId,
+                            [Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $kid],
+                            Service_Notification_FollowUpCreatedNotification::POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST
+                        );
+                        Zend_Registry::get('dbAdapter')->commit();
+                        $this->flashMessenger->addMessage(
+                            'You are now subscribed. A confirmation email has been sent.',
+                            'success'
+                        );
+                        $this->_redirect('/followup/index/kid/' . $kid);
+                    } catch (Dbjr_Notification_Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        $this->flashMessenger->addMessage('You are already subscribed.', 'success');
+                        $this->_redirect('/followup/index/kid/' . $kid);
+                    } catch (Exception $e) {
+                        Zend_Registry::get('dbAdapter')->rollback();
+                        throw $e;
+                    }
+                } else {
+                    $this->flashMessenger->addMessage('The subscription form is invalid.', 'error');
+                }
+            }
+        }
+    }
+
+    /**
+     * Handles request to unsubscribe user from recieving notifications of new inputs belonging to this question
+     * @param array $post The data received in post request
+     * @param int $kid The consultation identifier
+     * @param \Zend_Auth $auth The auth adapter
+     * @param \Default_Form_UnsubscribeNotification $unSbsForm
+     */
+    private function handleUnsubscribeFollowUps(
+        array $post,
+        $kid,
+        Zend_Auth $auth,
+        Default_Form_UnsubscribeNotification $unSbsForm
+    ) {
+        if ($unSbsForm->isValid($post)) {
+            $userId = $auth->getIdentity()->uid;
+            (new Service_Notification_FollowUpCreatedNotification())->unsubscribeUser(
+                $userId,
+                [Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $kid]
+            );
+            $this->flashMessenger->addMessage('You have been unsubscribed.', 'success');
+            $this->_redirect('/followup/index/kid/' . $kid);
         }
     }
 

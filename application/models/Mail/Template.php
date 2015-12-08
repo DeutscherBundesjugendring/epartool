@@ -11,8 +11,11 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
     const SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP = 'voting_invitation_group';
     const SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION = 'question_subscription_confirmation';
     const SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'question_subscription_confirmation_new_user';
+    const SYSTEM_TEMPLATE_NOTIFICATION_NEW_FOLLOW_UP_FILE_CREATED = 'notification_new_follow_up_file_created';
     const SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_CREATED = 'notification_new_input_created';
     const SYSTEM_TEMPLATE_NOTIFICATION_NEW_INPUT_DISCUSSION_CONTRIB_CREATED = 'notification_new_input_discussion_contrib_created';
+    const SYSTEM_TEMPLATE_FOLLOW_UP_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'follow_up_subscription_confirmation_new_user';
+    const SYSTEM_TEMPLATE_FOLLOW_UP_SUBSCRIPTION_CONFIRMATION = 'follow_up_subscription_confirmation';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION = 'input_discussion_contrib_confirmation';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION_NEW_USER = 'input_discussion_contrib_confirmation_new_user';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION = 'input_discussion_subscription_confirmation';
