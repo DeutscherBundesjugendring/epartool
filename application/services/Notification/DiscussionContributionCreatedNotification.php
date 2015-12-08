@@ -8,7 +8,7 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
     /**
      * Notifies all users who have subscribed
      * @param  array                              $params  The params belonging to the current notification
-     * @return Service_InputCreatedNotification          Fluent interface
+     * @return Service_Notification_DiscussionContributionCreatedNotification
      */
     public function notify(array $params)
     {
@@ -47,13 +47,15 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
                 ->setPlaceholders([
                     'to_name' => $user->name ? $user->name : $user->email,
                     'to_email' => $user->email,
-                    'website_url' => Zend_Registry::get('baseUrl') . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
+                    'website_url' => Zend_Registry::get('baseUrl')
+                        . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
                     'contribution_text' => $contrib->body,
                     'video_url' => sprintf(
                         Zend_Registry::get('systemconfig')->video->url->format->link,
                         $contrib->video_id
                     ),
-                    'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
+                    'unsubscribe_url' => Zend_Registry::get('baseUrl')
+                        . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                 ])
                 ->addTo($user->email);
             (new Service_Email)
@@ -69,7 +71,7 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
      * @param  integer                       $userId   The user identifier
      * @param  integer                       $ntfId    The notification identifier
      * @param  array                         $params   The params belongign to this notification
-     * @return Service_NotificationAbstract            Fluent interface
+     * @return Service_Notification_AbstractNotification            Fluent interface
      */
     protected function sendConfirmationEmailRequest($userId, $ntfId, array $params)
     {
@@ -93,7 +95,8 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
                 'to_email' => $user->email,
                 'input_thes' => $input->thes,
                 'input_expl' => $input->expl,
-                'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                'confirmation_url' =>  Zend_Registry::get('baseUrl')
+                    . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
             ])
             ->addTo($user->email);
         (new Service_Email)

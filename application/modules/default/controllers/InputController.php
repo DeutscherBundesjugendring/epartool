@@ -158,7 +158,7 @@ class InputController extends Zend_Controller_Action
                 if ($sbsForm->isValid($post)) {
                     Zend_Registry::get('dbAdapter')->beginTransaction();
                     try {
-                        list($userId, $isNew) = (new Model_Users())->register($sbsForm->getValues());
+                        list($userId) = (new Model_Users())->register($sbsForm->getValues());
                         (new Service_Notification_InputCreatedNotification())->subscribeUser(
                             $userId,
                             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid],
@@ -224,7 +224,7 @@ class InputController extends Zend_Controller_Action
                 if ($sbsForm->isValid($post)) {
                     Zend_Registry::get('dbAdapter')->beginTransaction();
                     try {
-                        list($userId, $isNew) = (new Model_Users())->register($sbsForm->getValues());
+                        list($userId) = (new Model_Users())->register($sbsForm->getValues());
                         (new Service_Notification_DiscussionContributionCreatedNotification())->subscribeUser(
                             $userId,
                             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId],
@@ -238,7 +238,7 @@ class InputController extends Zend_Controller_Action
                         $this->_redirect('/input/discussion/kid/' . $kid . '/inputId/' . $inputId);
                     } catch (Dbjr_Notification_Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
-                        $this->flashMessenger->addMessage('You are now subscribed.', 'success');
+                        $this->flashMessenger->addMessage('You are already subscribed.', 'success');
                         $this->_redirect('/input/discussion/kid/' . $kid . '/inputId/' . $inputId);
                     } catch (Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();

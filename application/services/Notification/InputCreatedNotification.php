@@ -8,7 +8,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
     /**
      * Notifies all users who have subscribed
      * @param  array                              $params  The params belonging to the current notification
-     * @return Service_InputCreatedNotification          Fluent interface
+     * @return Service_Notification_InputCreatedNotification          Fluent interface
      */
     public function notify(array $params)
     {
@@ -30,9 +30,11 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
                 ->setPlaceholders([
                     'to_name' => $user->name ? $user->name : $user->email,
                     'to_email' => $user->email,
-                    'website_url' => Zend_Registry::get('baseUrl') . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
+                    'website_url' => Zend_Registry::get('baseUrl')
+                        . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
                     'question_text' => $question->q,
-                    'unsubscribe_url' => Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
+                    'unsubscribe_url' => Zend_Registry::get('baseUrl')
+                        . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                 ])
                 ->addTo($user->email);
             (new Service_Email)
@@ -48,7 +50,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
      * @param  integer                       $userId   The user identifier
      * @param  integer                       $ntfId    The notification identifier
      * @param  array                         $params   The params belongign to this notification
-     * @return Service_NotificationAbstract            Fluent interface
+     * @return Service_Notification_AbstractNotification            Fluent interface
      */
     protected function sendConfirmationEmailRequest($userId, $ntfId, array $params)
     {
@@ -70,7 +72,8 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
                 'to_name' => $user->name ? $user->name : $user->email,
                 'to_email' => $user->email,
                 'question_text' => (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current()->q,
-                'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                'confirmation_url' =>  Zend_Registry::get('baseUrl')
+                    . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
             ])
             ->addTo($user->email);
         (new Service_Email)
