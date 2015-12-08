@@ -363,6 +363,7 @@ class FollowupController extends Zend_Controller_Action
         }
 
         //show follow-up_fls by followup_fls.ffid
+
         if ($ffid > 0) {
             $data['doc'] = $followupFilesModel->getById($ffid);
             $data['doc']['when'] = strtotime($data['doc']['when']);

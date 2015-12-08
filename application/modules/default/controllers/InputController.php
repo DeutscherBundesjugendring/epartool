@@ -48,10 +48,7 @@ class InputController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         $inputModel = new Model_Inputs();
-        $questionModel = new Model_Questions();
-        $tagModel = new Model_Tags();
-
-        $questions = $questionModel->getByConsultation($this->consultation->kid)->toArray();
+        $questions = (new Model_Questions())->getByConsultation($this->consultation->kid)->toArray();
         foreach ($questions as $key => $question) {
             $questions[$key]['inputs'] = $inputModel->getByQuestion($question['qi'], 'tid DESC', 4);
         }
@@ -59,7 +56,7 @@ class InputController extends Zend_Controller_Action
         $this->view->questions = $questions;
         $this->view->nowDate = Zend_Date::now();
         $this->view->inputCount = $inputModel->getCountByConsultation($this->consultation->kid);
-        $this->view->tags = $tagModel->getAllByConsultation($kid, '', new Zend_Db_Expr('RAND()'));
+        $this->view->tags = (new Model_Tags())->getAllByConsultation($kid, '', new Zend_Db_Expr('RAND()'));
     }
 
     /**
@@ -70,33 +67,23 @@ class InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $questionModel = new Model_Questions();
         $kid = $this->_getParam('kid', 0);
-        $qid = $this->_getParam('qid', 0);
-        $tag = $this->_getParam('tag', null);
+        $qid = $this->_getParam('qid', $questionModel->getByConsultation($kid)->current()->qi);
+        $tag = $this->_getParam('tag');
         $auth = Zend_Auth::getInstance();
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_InputCreatedNotification(),
             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid]
         );
 
-        if (empty($qid)) {
-            $questionRow = $questionModel->getByConsultation($kid)->current();
-            $qid = $questionRow->qi;
-        }
-
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
             if (isset($post['subscribe'])) {
                 $this->handleSubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
-                $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth);
+                $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } else {
                 $this->handleInputSubmit($post, $kid, $qid);
             }
-        }
-
-        if (!empty($tag)) {
-            $tagModel = new Model_Tags();
-            $this->view->tag = $tagModel->getById($tag);
         }
 
         if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
@@ -124,6 +111,7 @@ class InputController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
         $this->view->subscriptionForm = $sbsForm;
+        $this->view->tag = $tag ? (new Model_Tags())->getById($tag) : null;
         $this->view->paginator = $paginator;
         $this->view->inputForm = isset($form) ? $form : null;
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
@@ -265,15 +253,20 @@ class InputController extends Zend_Controller_Action
 
     /**
      * Handles request to unsubscribe user from recieving notifications of new inputs belonging to this question
-     * @param array $post  The data received in post request
+     * @param array $post The data received in post request
      * @param int $kid The consultation identifier
      * @param int $qid The question identifier
-     * @param \Zend_Auth $auth  The auth adapter
+     * @param \Zend_Auth $auth The auth adapter
+     * @param \Default_Form_UnsubscribeNotification $unSbsForm
      */
-    private function handleUnsubscribeQuestion(array $post, $kid, $qid, Zend_Auth $auth)
-    {
-        $unsbsForm = new Default_Form_UnsubscribeNotification();
-        if ($unsbsForm->isValid($post)) {
+    private function handleUnsubscribeQuestion(
+        array $post,
+        $kid,
+        $qid,
+        Zend_Auth $auth,
+        Default_Form_UnsubscribeNotification $unSbsForm
+    ) {
+        if ($unSbsForm->isValid($post)) {
             $userId = $auth->getIdentity()->uid;
             (new Service_Notification_InputCreatedNotification())->unsubscribeUser(
                 $userId,
@@ -286,15 +279,21 @@ class InputController extends Zend_Controller_Action
 
     /**
      * Handles request to unsubscribe user from recieving notifications of new input discussion contributions
-     * @param array $post     The data received in post request
-     * @param int $kid      The consultation identifier
-     * @param int $inputId  The input identifier
-     * @param \Zend_Auth $auth     The auth adapter
+     * @param array $post The data received in post request
+     * @param int $kid The consultation identifier
+     * @param int $inputId The input identifier
+     * @param \Zend_Auth $auth The auth adapter
+     * @param \Default_Form_UnsubscribeNotification $unSbsForm
+     * @throws \Zend_Form_Exception
      */
-    private function handleUnsubscribeInputDiscussion(array $post, $kid, $inputId, Zend_Auth $auth)
-    {
-        $unsbsForm = new Default_Form_UnsubscribeNotification();
-        if ($unsbsForm->isValid($post)) {
+    private function handleUnsubscribeInputDiscussion(
+        array $post,
+        $kid,
+        $inputId,
+        Zend_Auth $auth,
+        Default_Form_UnsubscribeNotification $unSbsForm
+    ) {
+        if ($unSbsForm->isValid($post)) {
             $userId = $auth->getIdentity()->uid;
             (new Service_Notification_DiscussionContributionCreatedNotification())->unsubscribeUser(
                 $userId,
@@ -651,7 +650,7 @@ class InputController extends Zend_Controller_Action
             if (isset($post['subscribe'])) {
                 $this->handleSubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
-                $this->handleUnsubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth);
+                $this->handleUnsubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth, $sbsForm);
             } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
             ) {
