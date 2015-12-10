@@ -2,3 +2,24 @@
 .panel-default {
     .panel-primary();
 }
+
+// Add caret to panel title.
+.panel-title > a {
+    position: relative;
+    display: block;
+    padding-right: 30px;
+
+    &:after {
+        .glyphicon();
+        content: "\e259";
+        position: absolute;
+        right: 0;
+        top: 3px;
+        transform: rotate(180deg);
+        transition: transform 250ms ease-out;
+    }
+
+    &.collapsed:after {
+        transform: rotate(0);
+    }
+}
