@@ -5,11 +5,6 @@
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-top: 0;
-
-    a:hover,
-    a:focus {
-        text-decoration: none;
-    }
 }
 
 h1,
@@ -40,7 +35,10 @@ h4,
 
 // Links
 a {
-    text-decoration: underline;
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
 
     &.has-icon {
         text-decoration: none;
@@ -57,12 +55,10 @@ a {
 }
 
 .link-unstyled {
-    text-decoration: none;
     color: inherit;
 
     &:hover,
     &:focus {
-        text-decoration: none;
         color: @link-hover-color;
     }
 
