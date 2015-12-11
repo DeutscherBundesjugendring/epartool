@@ -1,15 +1,15 @@
 <?php
 
-abstract class Service_NotificationAbstract
+abstract class Service_Notification_AbstractNotification
 {
     const POSTSUBSCRIBE_ACTION_CONFIRM_IMMEDIATE = 'confirm_immediate';
     const POSTSUBSCRIBE_ACTION_CONFIRM_EMAIL_REQUEST = 'confirm_email_request';
 
     /**
-     * Method to be implemented by the varios subclasses that handles the actual sending of the notification
+     * Method to be implemented by the various subclasses that handles the actual sending of the notification
      * @param  array                        $params The params to be used during the notification
-     * @return Service_NotificationAbstract         Fluent interface
-        */
+     * @return Service_Notification_AbstractNotification         Fluent interface
+     */
     abstract public function notify(array $params);
 
     /**
@@ -17,17 +17,18 @@ abstract class Service_NotificationAbstract
      * @param  integer                       $userId   The user identifier
      * @param  integer                       $ntfId    The notification identifier
      * @param  array                         $params   The params belongign to this notification
-     * @return Service_NotificationAbstract            Fluent interface
+     * @return Service_Notification_AbstractNotification
      */
-    protected abstract function sendConfirmationEmailRequest($userId, $ntfId, array $params);
+    abstract protected function sendConfirmationEmailRequest($userId, $ntfId, array $params);
 
     /**
      * Subscribes user to receiving notification
-     * @param  integer                       $userId      The identifier of the user
-     * @param  array                         $params      Holds the notification subscription params
-     * @param  string                        $postAction  Indicates whata ction to take after subscription. See self::POSTSUBSCRIBE_ACTION_*
-     * @throws Dbjr_Notification_Exception                Throws is attempt is made to subscribe the same user twice with same params
-     * @return Service_NotificationAbstract               Fluent interface
+     * @param  integer $userId The identifier of the user
+     * @param  array $params Holds the notification subscription params
+     * @param  string $postSubscribeAction Indicates whata ction to take after subscription.
+     *                                     See self::POSTSUBSCRIBE_ACTION_*
+     * @throws Dbjr_Notification_Exception Thrown if attempt is made to subscribe the same user twice with same params
+     * @return Service_Notification_AbstractNotification
      */
     public function subscribeUser($userId, array $params, $postSubscribeAction)
     {
@@ -49,10 +50,14 @@ abstract class Service_NotificationAbstract
 
         $ntfId= (new Model_Notification())->insert(['user_id' => $userId, 'type_id' => $this->getTypeId()]);
         foreach ($params as $key => $value) {
-            (new Model_Notification_Parameter())->insert(['name' => $key, 'notification_id' => $ntfId, 'value' => $value]);
+            (new Model_Notification_Parameter())->insert([
+                'name' => $key,
+                'notification_id' => $ntfId,
+                'value' => $value
+            ]);
         }
 
-        $action = (new Service_UrlkeyAction_UnsubscribeNotification())->create(
+        (new Service_UrlkeyAction_UnsubscribeNotification())->create(
             [Service_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
         );
 
@@ -65,7 +70,7 @@ abstract class Service_NotificationAbstract
      * Unsubscribes user from receiving notification
      * @param  integer                       $userId  The identifier of the user
      * @param  array                         $params  Holds the notification subscription params
-     * @return Service_NotificationAbstract           Fluent interface
+     * @return Service_Notification_AbstractNotification           Fluent interface
      */
     public function unsubscribeUser($userId, array $params)
     {
@@ -78,7 +83,7 @@ abstract class Service_NotificationAbstract
     /**
      * Unsubscribes user from notification by notificationId
      * @param  integer                      $ntfId The notification identifier
-     * @return Service_NotificationAbstract        Fluent interface
+     * @return Service_Notification_AbstractNotification        Fluent interface
      */
     public function unsubscribeById($ntfId)
     {
@@ -91,7 +96,7 @@ abstract class Service_NotificationAbstract
     /**
      * Confirms the notification subscription
      * @param  integer                       $ntfId   The notification identifier
-     * @return Service_NotificationAbstract           Fluent interface
+     * @return Service_Notification_AbstractNotification           Fluent interface
      */
     public function confirm($ntfId)
     {
@@ -103,7 +108,7 @@ abstract class Service_NotificationAbstract
     /**
      * Confirms the notification user
      * @param  integer                       $ntfId   The notification identifier
-     * @return Service_NotificationAbstract           Fluent interface
+     * @return Service_Notification_AbstractNotification           Fluent interface
      */
     public function confirmUser($ntfId)
     {
@@ -121,7 +126,7 @@ abstract class Service_NotificationAbstract
      */
     public function isSubscribed($userId, array $params)
     {
-        return (bool) $this->getNotification([$userId], $params);
+        return (bool) $this->getNotification($userId, $params);
     }
 
     /**

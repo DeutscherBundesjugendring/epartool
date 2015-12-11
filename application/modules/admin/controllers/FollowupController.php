@@ -145,6 +145,9 @@ class Admin_FollowupController extends Zend_Controller_Action
                 $followup->kid = $this->_kid;
                 $newId = $followup->save();
 
+                (new Service_Notification_FollowUpCreatedNotification())->notify([
+                    Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $this->_kid,
+                ]);
                 $this->_flashMessenger->addMessage('New follow-up has been successfully created.', 'success');
                 $this->_redirect($this->view->url(['action' => 'edit-followup', 'ffid' => $newId]), ['prependBase' => false]);
             } else {

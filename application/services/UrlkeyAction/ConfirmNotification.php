@@ -32,8 +32,8 @@ class Service_UrlkeyAction_ConfirmNotification extends Service_UrlkeyAction
                         ->where('urlkey_action_id=?', $urlkeyAction->id)
                         ->where('name=?', self::PARAM_NOTIFICATION_ID)
                 )->value;
-                (new Service_Notification_Input_Created())->confirm($ntfId);
-                (new Service_Notification_Input_Created())->confirmUser($ntfId);
+                (new Service_Notification_InputCreatedNotification())->confirm($ntfId);
+                (new Service_Notification_InputCreatedNotification())->confirmUser($ntfId);
                 $this->_viewName = null;
                 $this->_message = [
                     'text' => $translator->translate('Your subscription was confirmed.'),

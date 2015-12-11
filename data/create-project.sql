@@ -359,6 +359,30 @@ Please confirm your subscription and your new user account:
 {{confirmation_url}}
 Mit freundlichen Grüßen
 Eure Koordinierungsstelle'
+    ),
+   (
+        'notification_new_follow_up_file_created',
+        (SELECT `id` FROM `email_template_type` WHERE `name` = 'system'),
+        @project_code,
+        'New follow-up created',
+        'html text email version',
+        'plain text email version'
+    ),
+    (
+        'follow_up_subscription_confirmation',
+        (SELECT `id` FROM `email_template_type` WHERE `name` = 'system'),
+        @project_code,
+        'Follow up subscription confirmation',
+        'html text email version',
+        'plain text email version'
+    ),
+    (
+        'follow_up_subscription_confirmation_new_user',
+        (SELECT `id` FROM `email_template_type` WHERE `name` = 'system'),
+        @project_code,
+        'Follow up subscription confirmation for new user',
+        'html text email version',
+        'plain text email version'
     );
 
 
@@ -747,6 +771,69 @@ VALUES
     (
         (SELECT `id` FROM `email_template` WHERE `name`='input_discussion_subscription_confirmation_new_user' AND `project_code`=@project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'notification_new_follow_up_file_created'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'consultation_title_long')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'notification_new_follow_up_file_created'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'notification_new_follow_up_file_created'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'notification_new_follow_up_file_created'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'website_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'notification_new_follow_up_file_created'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'unsubscribe_url')
+    ),
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'consultation_title_long')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'website_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'unsubscribe_url')
+    ),
+
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'consultation_title_long')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'website_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user'),
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'unsubscribe_url')
     );
 
 

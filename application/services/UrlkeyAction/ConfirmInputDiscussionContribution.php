@@ -31,20 +31,19 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
 
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution();
         if ($request->isPost()) {
+            $translator = Zend_Registry::get('Zend_Translate');
             if ($this->_viewData['form']->isValid($request->getPost())) {
-
                 (new Model_InputDiscussion())->update(['is_user_confirmed' => 1], ['id=?' => $contribId]);
                 (new Model_Users())->update(['block' => 'c'], ['uid=?' => $contrib->user_id]);
 
                 $this->_viewName = null;
-                $translator = Zend_Registry::get('Zend_Translate');
                 $this->_message = [
                     'text' => $translator->translate('Your discussion post was confirmed.'),
                     'type' => 'success',
                 ];
                 $this->markVisited($urlkeyAction->id);
-                (new Service_Notification_Input_DiscussionContributionCreated())->notify(
-                    [Service_Notification_Input_DiscussionContributionCreated::PARAM_INPUT_ID => $contrib->input_id]
+                (new Service_Notification_DiscussionContributionCreatedNotification())->notify(
+                    [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $contrib->input_id]
                 );
             } else {
                 $this->_message = ['text' => $translator->translate('Form invalid.'), 'type' => 'error'];

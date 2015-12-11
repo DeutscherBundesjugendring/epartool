@@ -143,7 +143,7 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
     /**
      * Returns next question of consultation, specified by field 'nr'
      *
-     * @param  integer                   $qid
+     * @param  int $qid
      * @throws Zend_Exception
      * @return Zend_Db_Table_Rowset|null
      */
@@ -174,9 +174,11 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
     public function getMaxId()
     {
         $row = $this->fetchAll(
-                        $this->select()
-                                ->from($this, array(new Zend_Db_Expr('max(qi) as maxId')))
-                        )->current();
+            $this
+                ->select()
+                ->from($this, [new Zend_Db_Expr('max(qi) as maxId')])
+        )
+        ->current();
 
         return $row->maxId;
     }

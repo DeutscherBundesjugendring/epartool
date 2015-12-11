@@ -23,6 +23,7 @@ class Service_UrlkeyAction_UnsubscribeNotification extends Service_UrlkeyAction
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_UnsubscribeNotification();
         if ($request->isPost()) {
             if ($this->_viewData['form']->isValid($request->getPost())) {
+                $translator = Zend_Registry::get('Zend_Translate');
                 $urlkeyActionParamModel = new Model_UrlkeyAction_Parameter();
                 $ntfId = $urlkeyActionParamModel->fetchRow(
                     $urlkeyActionParamModel
@@ -30,7 +31,10 @@ class Service_UrlkeyAction_UnsubscribeNotification extends Service_UrlkeyAction
                         ->where('urlkey_action_id=?', $urlkeyAction->id)
                         ->where('name=?', self::PARAM_NOTIFICATION_ID)
                 )->value;
-                (new Service_Notification_Input_Created())->unsubscribeById($ntfId);
+
+                (new Model_Notification_Parameter())->delete(['notification_id=?' => $ntfId]);
+                (new Model_Notification())->delete(['id=?' => $ntfId]);
+
                 $this->_viewName = null;
                 $this->_message = [
                     'text' => $translator->translate('Your subscription was canceled.'),
