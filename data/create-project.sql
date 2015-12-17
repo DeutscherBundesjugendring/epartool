@@ -812,7 +812,7 @@ VALUES
     ),
     (
         (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation'),
-        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'unsubscribe_url')
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'confirmation_url')
     ),
 
     (
@@ -833,7 +833,7 @@ VALUES
     ),
     (
         (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user'),
-        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'unsubscribe_url')
+        (SELECT `id` FROM `email_placeholder` WHERE `name` = 'confirmation_url')
     );
 
 
