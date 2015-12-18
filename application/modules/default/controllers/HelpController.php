@@ -9,8 +9,9 @@ class HelpController extends Zend_Controller_Action
         $helpText = $helpTextModel->fetchRow(
             $helpTextModel
                 ->select()
-                ->where('name=?', $helpTextName)
                 ->from($helpTextModel->info(Model_HelpText::NAME), ['body', 'name'])
+                ->where('name=?', $helpTextName)
+                ->where('project_code = ?', Zend_Registry::get('systemconfig')->project)
         );
         $isAjax = false;
 

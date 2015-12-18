@@ -57,6 +57,7 @@ class Admin_SettingsController extends Zend_Controller_Action
         $helpTexts = $helpTextModel->fetchAll(
             $helpTextModel
                 ->select()
+                ->where('project_code = ?', Zend_Registry::get('systemconfig')->project)
                 ->from($helpTextModel->info(Model_HelpText::NAME), ['id', 'name'])
         );
 
@@ -67,7 +68,12 @@ class Admin_SettingsController extends Zend_Controller_Action
     {
         $helpTextModel = new Model_HelpText();
         $helpTextId = $this->getRequest()->getParam('id');
-        $helpText = $helpTextModel->find($helpTextId);
+        $helpText = $helpTextModel->fetchRow(
+            $helpTextModel
+                ->select()
+                ->where('project_code = ?', Zend_Registry::get('systemconfig')->project)
+                ->where('id = ?', $helpTextId)
+        );
 
         if (!count($helpText)) {
             $this->_helper->redirector('help-text-index');
@@ -77,18 +83,18 @@ class Admin_SettingsController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
-                $helpTextModel->update(['body' => $postData['body']], ['id=?' => $helpTextId]);
+                $helpTextModel->update(['body' => $postData['body']], ['id=?' => $helpText->id]);
                 $this->_flashMessenger->addMessage('Help text was saved.', 'success');
                 $this->_redirect('/admin/settings/help-text-edit/id/' . $helpTextId);
             } else {
                 $this->_flashMessenger->addMessage('Form invalid', 'error');
             }
         } else {
-            $form->populate($helpText->toArray()[0]);
+            $form->populate($helpText->toArray());
         }
 
         $this->view->form = $form;
-        $this->view->helpTextTitle = Model_HelpText::getTranslatedName($helpText[0]->name);
+        $this->view->helpTextTitle = Model_HelpText::getTranslatedName($helpText->name);
     }
 
     public function footerAction()
