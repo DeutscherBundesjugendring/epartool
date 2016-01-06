@@ -151,59 +151,60 @@ class Admin_VotingController extends Zend_Controller_Action
         $uid = $this->_request->getParam('uid');
         $kid = $this->_consultation->kid;
 
-        if ($uid) {
-            $form = new Admin_Form_Mail_Send();
-            $user = (new Model_Users())->getById($uid);
-            $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation($user['uid'], $kid);
-            $templateName = $votingRights && $votingRights['vt_weight'] != 1
-                ? Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP
-                : $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
-
-            if ($this->_request->isPost()) {
-                if ($form->isValid($this->_request->getPost())) {
-                    $values = $form->getValues();
-                    $mailer = $this->getInvitationMailer($user, $votingRights);
-                    $mailer
-                        ->addTo($values['mailto'])
-                        ->setSubject($values['subject'])
-                        ->setBodyHtml($values['body_html'])
-                        ->setBodyText($values['body_text']);
-                    if ($values['mailcc']) {
-                        $mailer->addCc($values['mailcc']);
-                    }
-                    if ($values['mailbcc']) {
-                        $mailer->addCc($values['mailbcc']);
-                    }
-
-                    (new Service_Email)->queueForSend($mailer)->sendQueued();
-                    $this->_flashMessenger->addMessage(
-                        sprintf(
-                            $this->view->translate('Voting invitation to %s has been successfully sent.'),
-                            $user['email']
-                        ),
-                        'success'
-                    );
-                    $this->redirect('/admin/voting/invitations/kid/' . $kid);
-                } else {
-                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
-                }
-            } else {
-                $form->getElement('mailto')->setValue($user['email']);
-                $form->removeElement('mail_consultation');
-                $form->removeElement('mail_consultation_participant');
-                $form->removeElement('mail_consultation_voter');
-                $form->removeElement('mail_consultation_newsletter');
-                $form->removeElement('mail_consultation_followup');
-                $form->populateFromTemplateName($templateName);
-            }
-
-            $this->view->form = $form;
-            $this->view->components = (new Model_Mail_Component())->fetchAll();
-            $this->view->placeholders = (new Model_Mail_Placeholder())->getByTemplateName($templateName);
-        } else {
+        if (!$uid) {
             $this->_flashMessenger->addMessage('No user provided.', 'error');
             $this->redirect('/admin/voting/invitations/kid/' . $kid);
         }
+
+        $form = new Admin_Form_Mail_Send();
+        $form->removeElement('mail_consultation');
+        $form->removeElement('mail_consultation_participant');
+        $form->removeElement('mail_consultation_voter');
+        $form->removeElement('mail_consultation_newsletter');
+        $form->removeElement('mail_consultation_followup');
+
+        $user = (new Model_Users())->getById($uid);
+        $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation($user['uid'], $kid);
+        $templateName = $votingRights && $votingRights['vt_weight'] != 1
+            ? Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP
+            : $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
+
+        if ($this->_request->isPost()) {
+            if ($form->isValid($this->_request->getPost())) {
+                $values = $form->getValues();
+                $mailer = $this->getInvitationMailer($user, $votingRights);
+                $mailer
+                    ->addTo($values['mailto'])
+                    ->setSubject($values['subject'])
+                    ->setBodyHtml($values['body_html'])
+                    ->setBodyText($values['body_text']);
+                if ($values['mailcc']) {
+                    $mailer->addCc($values['mailcc']);
+                }
+                if ($values['mailbcc']) {
+                    $mailer->addCc($values['mailbcc']);
+                }
+
+                (new Service_Email)->queueForSend($mailer)->sendQueued();
+                $this->_flashMessenger->addMessage(
+                    sprintf(
+                        $this->view->translate('Voting invitation to %s has been successfully sent.'),
+                        $user['email']
+                    ),
+                    'success'
+                );
+                $this->redirect('/admin/voting/invitations/kid/' . $kid);
+            } else {
+                $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
+            }
+        } else {
+            $form->getElement('mailto')->setValue($user['email']);
+            $form->populateFromTemplateName($templateName);
+        }
+
+        $this->view->form = $form;
+        $this->view->components = (new Model_Mail_Component())->fetchAll();
+        $this->view->placeholders = (new Model_Mail_Placeholder())->getByTemplateName($templateName);
     }
 
     /**
