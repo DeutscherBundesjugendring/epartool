@@ -181,11 +181,11 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
     {
         $isFormValid = parent::isValid($data);
 
-        if (!$data['mailto']
-            && !$data['mail_consultation_participant']
-            && !$data['mail_consultation_voter']
-            && !$data['mail_consultation_followup']
-            && !$data['mail_consultation_newsletter']
+        if (empty($data['mailto'])
+            && empty($data['mail_consultation_participant'])
+            && empty($data['mail_consultation_voter'])
+            && empty($data['mail_consultation_followup'])
+            && empty($data['mail_consultation_newsletter'])
         ) {
             $isRecipientValid = false;
             $this->getElement('mailto')->setErrors(array('Mail recipient or mail recipient group must be specified.'));
@@ -193,7 +193,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
             $isRecipientValid = true;
         }
 
-        if ($data['mail_consultation']) {
+        if (!empty($data['mail_consultation'])) {
             $consulModel = new Model_Consultations();
             $this->getElement('mail_consultation_participant')->setAttrib(
                 'disabled',
@@ -218,25 +218,5 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         }
 
         return false;
-    }
-
-    /**
-     * Populates the form with data in a template
-     * @param   string                $templateName  The name of the template
-     *                                @see Model_Mail_Template::SYSTEM_TEMPLATE_*
-     * @return  Admin_Form_Mail_Send  Fluent interface
-     */
-    public function populateFromTemplateName($templateName)
-    {
-        $templateModel = new Model_Mail_Template();
-        $template = $templateModel->fetchRow(
-            $templateModel->select()->where('name=?', $templateName)
-        );
-
-        $this->getElement('subject')->setValue($template->subject);
-        $this->getElement('body_html')->setValue($template->body_html);
-        $this->getElement('body_text')->setValue($template->body_text);
-
-        return $this;
     }
 }

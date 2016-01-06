@@ -28,13 +28,14 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
                 'ethetp.email_placeholder_id = mp.id',
                 []
             )
-            ->join(
+            ->joinLeft(
                 ['mt' => (new Model_Mail_Template())->info(Model_Mail_Template::NAME)],
                 'ethetp.email_template_id = mt.id',
                 []
             )
             ->where('mp.is_global=?', true)
             ->orWhere('mt.name=?', $templateName)
+            ->group('mp.name')
             ->order('mp.name');
 
         return $this->fetchAll($select);

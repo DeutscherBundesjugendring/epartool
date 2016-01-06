@@ -167,14 +167,15 @@ class Admin_VotingController extends Zend_Controller_Action
         $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation($user['uid'], $kid);
         $templateName = $votingRights && $votingRights['vt_weight'] != 1
             ? Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP
-            : $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
+            : Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
+        $mailer = $this->getInvitationMailer($user, $votingRights, $templateName);
 
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $values = $form->getValues();
-                $mailer = $this->getInvitationMailer($user, $votingRights);
                 $mailer
                     ->addTo($values['mailto'])
+                    ->clearSubject()
                     ->setSubject($values['subject'])
                     ->setBodyHtml($values['body_html'])
                     ->setBodyText($values['body_text']);
@@ -182,7 +183,7 @@ class Admin_VotingController extends Zend_Controller_Action
                     $mailer->addCc($values['mailcc']);
                 }
                 if ($values['mailbcc']) {
-                    $mailer->addCc($values['mailbcc']);
+                    $mailer->addBcc($values['mailbcc']);
                 }
 
                 (new Service_Email)->queueForSend($mailer)->sendQueued();
@@ -198,8 +199,12 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
+            $mailer->addTo($user['email']);
             $form->getElement('mailto')->setValue($user['email']);
-            $form->populateFromTemplateName($templateName);
+            $mailerData = $mailer->getEmailData();
+            $form->getElement('subject')->setValue($mailerData['subject']);
+            $form->getElement('body_html')->setValue($mailerData['body_html']);
+            $form->getElement('body_text')->setValue($mailerData['body_text']);
         }
 
         $this->view->form = $form;
@@ -401,10 +406,12 @@ class Admin_VotingController extends Zend_Controller_Action
     /**
      * @param array $user
      * @param \Zend_Db_Table_Row $votingRights
+     * @param string $templateName
      * @return \Dbjr_Mail
      * @throws \Zend_Exception
+     * @throws \Zend_Mail_Exception
      */
-    private function getInvitationMailer($user, Zend_Db_Table_Row $votingRights)
+    private function getInvitationMailer($user, Zend_Db_Table_Row $votingRights, $templateName)
     {
         $placeholders = [
             'voting_url' => vsprintf(
@@ -423,7 +430,15 @@ class Admin_VotingController extends Zend_Controller_Action
             ->getParam('bootstrap')
             ->getResource('view');
 
+        $templateModel = new Model_Mail_Template();
+        $template = $templateModel->fetchRow(
+            $templateModel->select()->where('name=?', $templateName)
+        );
+
         $mailer = new Dbjr_Mail();
+        $mailer->setSubject($template->subject);
+        $mailer->setBodyHtml($template->body_html);
+        $mailer->setBodyText($template->body_text);
         $mailer->setPlaceholders(
             array_merge(
                 $placeholders,
