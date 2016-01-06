@@ -24,7 +24,7 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
             ->from(['mp' => $this->_name])
             ->setIntegrityCheck(false)
             ->joinLeft(
-                array('ethetp' => 'email_template_has_email_placeholder'),
+                ['ethetp' => 'email_template_has_email_placeholder'],
                 'ethetp.email_placeholder_id = mp.id',
                 []
             )
@@ -47,13 +47,13 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
         );
 
         $mailer = new Zend_Mail();
-        return array(
+        return [
             self::GLOBAL_PLACEHOLDER_FROM_NAME => $mailer->getDefaultFrom()['name'],
             self::GLOBAL_PLACEHOLDER_FROM_ADDRESS => $mailer->getDefaultFrom()['email'],
             self::GLOBAL_PLACEHOLDER_CONTACT_NAME => $params['contact.name'],
             self::GLOBAL_PLACEHOLDER_CONTACT_WWW => $params['contact.www'],
             self::GLOBAL_PLACEHOLDER_CONTACT_EMAIL => $params['contact.email'],
             self::GLOBAL_PLACEHOLDER_SEND_DATE => Zend_Date::now()->get(Zend_Date::DATE_MEDIUM),
-        );
+        ];
     }
 }
