@@ -5,7 +5,6 @@ class Admin_VotingController extends Zend_Controller_Action
     protected $_flashMessenger = null;
     protected $_consultation = null;
 
-
     public function init()
     {
         $this->_helper->layout->setLayout('backend');
@@ -27,10 +26,8 @@ class Admin_VotingController extends Zend_Controller_Action
     public function indexAction()
     {
         $votingRightsModel = new Model_Votes_Rights();
-        $this->view->countInserted = $votingRightsModel
-            ->setInitialRightsByConsultation($this->_consultation->kid);
-        $this->view->votingRights = $votingRightsModel
-            ->getByConsultation($this->_consultation->kid);
+        $this->view->countInserted = $votingRightsModel->setInitialRightsByConsultation($this->_consultation->kid);
+        $this->view->votingRights = $votingRightsModel->getByConsultation($this->_consultation->kid);
     }
 
     /**
@@ -51,7 +48,6 @@ class Admin_VotingController extends Zend_Controller_Action
                 ->getByUserAndConsultation($uid, $this->_consultation->kid);
 
             if ($this->_request->isPost()) {
-                // form sent -> process
                 $data = $this->_request->getPost();
                 if ($form->isValid($data)) {
                     $votingRights->setFromArray($data)->save();
@@ -59,26 +55,22 @@ class Admin_VotingController extends Zend_Controller_Action
                         sprintf($this->view->translate('Changes for <b>%s</b> were saved.'), $user['email']),
                         'success'
                     );
-                    $this->redirect(
-                        $this->view->url(array('action' => 'index', 'uid' => null)),
-                        array('prependBase' => false)
-                    );
+                    $this->redirect($this->view->url(['action' => 'index', 'uid' => null]), ['prependBase' => false]);
                 } else {
                     $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 }
             } else {
-                $data = array(
+                $data = [
                     'vt_weight' => $votingRights['vt_weight'],
                     'vt_code' => $votingRights['vt_code'],
                     'grp_siz' => $votingRights['grp_siz'],
                     'group_size_user' => $userInfo['group_size'],
-                );
+                ];
             }
             $form->populate($data);
 
-            $this->view->assign(
-                array('form' => $form, 'user' => $user)
-            );
+            $this->view->form = $form;
+            $this->view->user = $user;
         } else {
             $this->_flashMessenger->addMessage('No user provided.', 'error');
             $this->redirect('/admin/voting');
@@ -284,19 +276,19 @@ class Admin_VotingController extends Zend_Controller_Action
         $groupsModel = new Model_Votes_Groups();
         $participants= $groupsModel->getUserByConsultation($this->_consultation->kid);
 
-        $mergeOptions = array(''=>'Please select…');
+        $mergeOptions = [''=>'Please select…'];
         foreach ($participants as $user) {
             if ($sub_uid!=$user['sub_uid']) {
                 $mergeOptions[$user['sub_uid']] = $user['sub_user'];
             } else {
                 $this->view->user = $user['sub_user'];
             }
-         }
-         $form->getElement('merge')->setMultioptions($mergeOptions);
-         $this->view->form = $form;
-         // End Create Form
+        }
+        $form->getElement('merge')->setMultioptions($mergeOptions);
+        $this->view->form = $form;
+        // End Create Form
 
-         // REQUEST_METHOD POST
+        // REQUEST_METHOD POST
         $post = $this->_request->getPost();
         if ($post) {
             if (!$form->isValid($post)) {
@@ -304,31 +296,28 @@ class Admin_VotingController extends Zend_Controller_Action
             } else {
                  $values = $this->view->form->getValues();
                  $subUserSelected =  $values['merge'];
-
                  $subUserOrg = $sub_uid;
-                 $messages = "";
+                 $messages = '';
 
-                // get votes from both users //
+                // get votes from both users
                 $votesIndividual = new Model_Votes_Individual();
                 $subUserSelectedVotes = $votesIndividual -> getUserVotes($subUserSelected)->toArray();
                 $subUserOrgVotes = $votesIndividual -> getUserVotes($subUserOrg)->toArray();
-
-                // Votes zusammenführen
-                $VotesMerged = array();
+                $votesMerged = [];
 
                 // Array of Votes User Selected
                 foreach ($subUserSelectedVotes as $key => $value) {
-                    $VotesMerged[$value['tid']] = $value;
+                    $votesMerged[$value['tid']] = $value;
                 }
 
-                // Array of Votes User Origin (overwrite dublicate keys (tid key))
+                // Array of Votes User Origin (overwrite duplicate keys (tid key))
                 foreach ($subUserOrgVotes as $key => $value) {
-                    $VotesMerged[$value['tid']] = $value;
+                    $votesMerged[$value['tid']] = $value;
                 }
 
                 // Delete Votes User Origin
                 if ($votesIndividual ->deleteUservotes($subUserOrg)) {
-                    $messages.= 'Votes by the original user have been removed.<br />';
+                    $messages .= 'Votes by the original user have been removed.<br />';
 
                     // Delete Votes User Selected
                     if ($votesIndividual->deleteUservotes($subUserSelected)) {
@@ -337,12 +326,12 @@ class Admin_VotingController extends Zend_Controller_Action
 
                     // Restore Votes User Origin
                     // Create vt_inp_list array()
-                    $x=0;
-                    $vt_inp_list = array();
-                    foreach ($VotesMerged as $key => $value) {
+                    $x = 0;
+                    $vt_inp_list = [];
+                    foreach ($votesMerged as $key => $value) {
                         $x++;
                         $votesIndividual->insertMergedUservotes($subUserOrg, $value);
-                        $vt_inp_list["$x"]= $value['tid'];
+                        $vt_inp_list["$x"] = $value['tid'];
                     }
                     $messages .= $x . ' Votes by the original user have been restored.<br />';
 
@@ -361,11 +350,9 @@ class Admin_VotingController extends Zend_Controller_Action
     public function resultsAction()
     {
         $qid = $this->_request->getParam('qid', 0);
-
         $votesModel = new Model_Votes();
-        $votingResultsValues = $votesModel->getResultsValues($this->_consultation->kid, $qid);
 
-        $this->view->assign($votingResultsValues);
+        $this->view->assign($votesModel->getResultsValues($this->_consultation->kid, $qid));
     }
 
     /**
@@ -393,21 +380,18 @@ class Admin_VotingController extends Zend_Controller_Action
         }
 
         $form = new Admin_Form_Voting_Settings();
-        $form -> setAction($this->view->baseUrl() . '/admin/voting/settings/kid/' . $this->_consultation->kid);
+        $form->setAction($this->view->baseUrl() . '/admin/voting/settings/kid/' . $this->_consultation->kid);
 
         $settings = array_merge($this->_settings->toArray(), $this->_consultation->toArray());
         $settings['vot_expl'] = htmlspecialchars_decode($settings['vot_expl'], ENT_COMPAT);
-
-        $this->view->form = $form;
-
         $post = $this->_request->getPost();
 
         if ($post) {
             if (!$form->isValid($post)) {
-                $this->view->form->populate($post);
+                $form->populate($post);
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             } else {
-                $values = $this->view->form->getValues();
+                $values = $form->getValues();
 
                 $this->_settings->btn_important = $values['btn_important'];
                 $this->_settings->btn_important_label = $values['btn_important_label'];
@@ -419,8 +403,10 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Changes saved.', 'success');
             }
         } else {
-            $form -> populate($settings);
+            $form->populate($settings);
         }
+
+        $this->view->form = $form;
     }
 
     /**

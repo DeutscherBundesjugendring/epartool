@@ -7,7 +7,9 @@
 <section class="section-content">
     <div class="container">
 
-        <a href="<?=$this->url(['controller' => 'mail-sent', 'action' => 'index']);?>" class="back"><?=$this->translate('Back to Sent Emails');?></a>
+        <a href="<?=$this->url(['controller' => 'mail-sent', 'action' => 'index']);?>" class="back">
+            <?=$this->translate('Back to Sent Emails');?>
+        </a>
 
         <h3><?=$this->translate('Create from template');?></h3>
         <select class="form-control js-template-selector">
@@ -25,7 +27,9 @@
             <table class="table table-striped">
                 <?php foreach ($this->placeholders as $placeholder): ?>
                     <tr>
-                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE; ?></th>
+                        <th class="col-sm-3">
+                            <?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE; ?>
+                        </th>
                         <td><?=$this->escape($placeholder->description);?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -37,7 +41,9 @@
             <table class="table table-striped">
                 <?php foreach ($this->components as $component): ?>
                     <tr>
-                        <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE; ?></th>
+                        <th class="col-sm-3">
+                            <?=Dbjr_Mail::TOKEN_OPEN . $component->name . Dbjr_Mail::TOKEN_CLOSE; ?>
+                        </th>
                         <td><?=$this->escape($component->description);?></td>
                     </tr>
                 <?php endforeach; ?>
