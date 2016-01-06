@@ -8,6 +8,7 @@
 
     </div>
 </section>
+
 <section class="section-content">
     <div class="container">
         <div class="row">
@@ -20,6 +21,10 @@
 
                 <h2><?=$this->translate('Voting Invitations');?></h2>
                 <?=$this->form;?>
+                <?=$this->partial('_partials/mail-replacable-tokens.phtml', [
+                    'placeholders' => $this->placeholders,
+                    'components' => $this->components,
+                ]);?>
 
             </div>
         </div>

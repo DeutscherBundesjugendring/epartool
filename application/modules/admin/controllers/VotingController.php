@@ -149,32 +149,20 @@ class Admin_VotingController extends Zend_Controller_Action
     public function sendinvitationAction()
     {
         $uid = $this->_request->getParam('uid');
-        $kid = $this->_request->getParam('kid');
+        $kid = $this->_consultation->kid;
 
         if ($uid) {
             $form = new Admin_Form_Mail_Send();
             $user = (new Model_Users())->getById($uid);
-            $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation(
-                $user['uid'],
-                $this->_consultation->kid
-            );
-
-            $placeholders = ['voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
-                . $this->_consultation->kid . '/authcode/' . $votingRights['vt_code']];
-
-            if ($votingRights && $votingRights['vt_weight'] != 1) {
-                $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
-                $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
-                $placeholders['voting_weight'] = $votingRights['vt_weight'];
-                $placeholders['group_category'] = $grpSizDef[$votingRights['grp_siz']];
-            } else {
-                $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
-            }
+            $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation($user['uid'], $kid);
+            $templateName = $votingRights && $votingRights['vt_weight'] != 1
+                ? Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP
+                : $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
 
             if ($this->_request->isPost()) {
                 if ($form->isValid($this->_request->getPost())) {
                     $values = $form->getValues();
-                    $mailer = $this->getInvitationMailer($user, $placeholders);
+                    $mailer = $this->getInvitationMailer($user, $votingRights);
                     $mailer
                         ->addTo($values['mailto'])
                         ->setSubject($values['subject'])
@@ -195,12 +183,9 @@ class Admin_VotingController extends Zend_Controller_Action
                         ),
                         'success'
                     );
-                    $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation->kid);
+                    $this->redirect('/admin/voting/invitations/kid/' . $kid);
                 } else {
-                    $this->_flashMessenger->addMessage(
-                        'Form is not valid, please check the values entered.',
-                        'error'
-                    );
+                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 }
             } else {
                 $form->getElement('mailto')->setValue($user['email']);
@@ -211,10 +196,13 @@ class Admin_VotingController extends Zend_Controller_Action
                 $form->removeElement('mail_consultation_followup');
                 $form->populateFromTemplateName($templateName);
             }
+
             $this->view->form = $form;
+            $this->view->components = (new Model_Mail_Component())->fetchAll();
+            $this->view->placeholders = (new Model_Mail_Placeholder())->getByTemplateName($templateName);
         } else {
             $this->_flashMessenger->addMessage('No user provided.', 'error');
-            $this->redirect('/admin/voting/invitations/kid/' . $this->_consultation->kid);
+            $this->redirect('/admin/voting/invitations/kid/' . $kid);
         }
     }
 
@@ -410,13 +398,26 @@ class Admin_VotingController extends Zend_Controller_Action
     }
 
     /**
-     * Returns preconfigured Dbjr_Mail object
-     * @param  array  $user          The user data array
-     * @param  array  $placeholders  Array holding placeholder values to be used in the email
-     * @return Dbjr_Mail             The mailer object
+     * @param array $user
+     * @param \Zend_Db_Table_Row $votingRights
+     * @return \Dbjr_Mail
+     * @throws \Zend_Exception
      */
-    private function getInvitationMailer($user, $placeholders)
+    private function getInvitationMailer($user, Zend_Db_Table_Row $votingRights)
     {
+        $placeholders = [
+            'voting_url' => vsprintf(
+                '%s/voting/index/kid/%s/authcode/%s',
+                [Zend_Registry::get('baseUrl'), $this->_consultation->kid, $votingRights['vt_code']]
+            ),
+        ];
+
+        if ($votingRights && $votingRights['vt_weight'] != 1) {
+            $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+            $placeholders['group_category'] = $grpSizDef[$votingRights['grp_siz']];
+            $placeholders['voting_weight'] = $votingRights['vt_weight'];
+        }
+
         $view = Zend_Controller_Front::getInstance()
             ->getParam('bootstrap')
             ->getResource('view');

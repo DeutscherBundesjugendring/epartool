@@ -43,19 +43,26 @@ class Admin_MailTemplateController extends Zend_Controller_Action
         $form = new Admin_Form_Mail_Template();
         $templateId = $this->getRequest()->getParam('id');
 
-        if (!empty($templateId)) {
-            $template = $this->_templateModel->find($templateId)->current();
-            $isSystem = $template->findModel_Mail_Template_Type()->current()->name === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM;
-            if ($template->name === $this->getRequest()->getPost('name')) {
-                $form->getElement('name')->removeValidator('Db_NoRecordExists');
-            }
-            if ($isSystem) {
-                $form->getElement('name')
-                    ->clearValidators()
-                    ->setRequired(false)
-                    ->setAttrib('disabled', 'disabled');
-            }
+        if (empty($templateId)) {
+            $this->_helper->redirector('index');
+            return;
         }
+
+        $template = $this->_templateModel->find($templateId)->current();
+        $templateTypeName = $template->findModel_Mail_Template_Type()->current()->name;
+        $isSystem = $templateTypeName === Model_Mail_Template_Type::TEMPLATE_TYPE_SYSTEM;
+
+        if ($template->name === $this->getRequest()->getPost('name')) {
+            $form->getElement('name')->removeValidator('Db_NoRecordExists');
+        }
+
+        if ($isSystem) {
+            $form->getElement('name')
+                ->clearValidators()
+                ->setRequired(false)
+                ->setAttrib('disabled', 'disabled');
+        }
+
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 $values = $form->getValues();
@@ -91,7 +98,7 @@ class Admin_MailTemplateController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->templateId = $templateId;
         $this->view->components = (new Model_Mail_Component())->fetchAll();
-        $this->view->placeholders = (new Model_Mail_Placeholder())->getByTemplateId($templateId);
+        $this->view->placeholders = (new Model_Mail_Placeholder())->getByTemplateName($template->name);
     }
 
     /**
