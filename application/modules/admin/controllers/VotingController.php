@@ -189,7 +189,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 }
             } else {
                 $form->getElement('mailto')->setValue($user['email']);
-                $form->getElement('mail_consultation')->setValue($kid);
+                $form->removeElement('mail_consultation');
                 $form->removeElement('mail_consultation_participant');
                 $form->removeElement('mail_consultation_voter');
                 $form->removeElement('mail_consultation_newsletter');
