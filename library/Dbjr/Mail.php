@@ -195,10 +195,10 @@ class Dbjr_Mail extends Zend_Mail
     }
 
     /**
-     * Saves the email in db so it can be later send by a cronjob.
-     * The placeholders in body and subject field are replaced.
-     * @throws Dbjr_Mail_Exception                     Throws exception if no recipients are specified
-     * @return array                                   The data to be used for sending/processing the mail.
+     * @return array
+     * @throws \Dbjr_Mail_Exception
+     * @throws \Zend_Exception
+     * @throws \Zend_View_Exception
      */
     public function getEmailData()
     {
