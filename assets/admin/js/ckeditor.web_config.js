@@ -27,4 +27,6 @@ CKEDITOR.editorConfig = function( config ) {
   config.removeDialogTabs = 'link:advanced';
 
   config.bootstrapCollapse_managePopupContent = false;
+
+  config.image2_alignClasses = ['align-left', 'align-center', 'align-right'];
 };
