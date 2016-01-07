@@ -65,14 +65,25 @@
     }
 
     // Alignment classes
-    .left {
+    .left,
+    .align-left {
         float: left;
         margin: 0 1.5em 1em 0;
     }
 
-    .right {
+    .right,
+    .align-right {
         float: right;
         margin: 0 0 1em 1.5em;
+    }
+
+    .align-center {
+        text-align: center;
+
+        > img,
+        > figure {
+            display: inline-block;
+        }
     }
 
     @media (min-width: @screen-sm-min) {
