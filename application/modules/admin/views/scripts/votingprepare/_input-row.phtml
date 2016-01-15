@@ -21,7 +21,7 @@
 
         <?php if (!empty($this->input['thes'])): ?>
             <h5><?=$this->translate('Contribution');?></h5>
-            <p><?=$this->escape($this->input['thes']);?></p>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['thes']);?></p>
         <?php endif; ?>
 
         <?php if (!empty($this->input['expl'])): ?>
