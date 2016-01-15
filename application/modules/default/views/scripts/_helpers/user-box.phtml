@@ -2,8 +2,12 @@
     <div class="col-xs-10 col-sm-9">
 
         <!-- User name -->
-        <div class="small text-right">
-            <strong><?=$this->user->name;?></strong><br />
+        <div class="smaller text-right">
+            <?php if (empty($this->user->name)): ?>
+                <strong><?=$this->user->name;?></strong><br />
+            <?php else: ?>
+                <?=$this->translate('Logged in as');?><br />
+            <?php endif; ?>
             <a href="mailto:<?=$this->user->email;?>"><?=$this->user->email;?></a>
         </div>
 
