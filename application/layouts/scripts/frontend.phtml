@@ -102,7 +102,7 @@
             <?php if (isset($this->consultation)): ?>
 
                 <!-- Main title -->
-                <h1 class="header-title">
+                <h1 class="header-title header-title-with-bubble">
                     <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="link-print-nourl" rel="home" itemprop="name">
                         <?=$this->translate('Participation');?>
                     </a>
@@ -171,7 +171,7 @@
                 <!-- Header box: Homepage -->
                 <div class="header-box<?=($controller === 'index' ? ' has-nav-list' : '');?>">
 
-                    <h1 class="header-box-title">
+                    <h1 class="header-box-title header-box-title-with-bubble">
                         <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="link-print-nourl" rel="home" itemprop="name">
                             <?=$this->translate('Participation');?>
                         </a>
