@@ -10,7 +10,7 @@ class Service_Cron_Logrotate extends Service_Cron
     {
         $logPath = RUNTIME_PATH . '/logs';
         $files = scandir($logPath);
-        $logs = [];
+
         foreach ($files as $file) {
             $pathInfo = pathinfo($logPath . '/' . $file);
             $maxSize = Zend_Registry::get('systemconfig')->log->file->maxSize;
