@@ -214,6 +214,11 @@
                 }
             }
 
+            // Add shadow in case help icon is on top of headline bubble.
+            &-help {
+                text-shadow: 2px 2px 0 #fff;
+            }
+
             &-image {
                 float: left;
                 margin-bottom: 0;
@@ -231,6 +236,37 @@
                 clear: right;
                 margin-right: -(2.5 * @line-height-computed);
             }
+        }
+
+        // Site heading with bubble, optionally added using `header-box-title-with-bubble` and
+        // `header-title-with-bubble` respectively.
+        &-box-title-with-bubble > a,
+        &-title-with-bubble > a {
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                display: block;
+                background-color: transparent;
+                background-repeat: no-repeat;
+            }
+        }
+
+        &-box-title-with-bubble > a:after {
+            left: 100%;
+            bottom: .5em;
+            width: 147px;
+            height: 128px;
+            background-image: url(../images/bubble_mitwirkung-large.png);
+        }
+
+        &-title-with-bubble > a:after {
+            left: 101%;
+            top: -0.5em;
+            width: 83px;
+            height: 74px;
+            background-image: url(../images/bubble_mitwirkung.png);
         }
     }
 
@@ -250,6 +286,11 @@
         &-box-title {
             margin-top: 2 * @line-height-computed;
             font-size: 3em;
+        }
+
+        &-box-title-with-bubble > a:after,
+        &-title-with-bubble > a:after {
+            display: none;
         }
 
         &-box-subtitle {
