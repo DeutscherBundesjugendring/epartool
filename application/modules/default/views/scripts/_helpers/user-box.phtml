@@ -3,7 +3,7 @@
 
         <!-- User name -->
         <div class="smaller text-right">
-            <?php if (empty($this->user->name)): ?>
+            <?php if (!empty($this->user->name)): ?>
                 <strong><?=$this->user->name;?></strong><br />
             <?php else: ?>
                 <?=$this->translate('Logged in as');?><br />
