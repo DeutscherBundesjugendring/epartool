@@ -13,8 +13,8 @@
         </div>
     </td>
     <td class="table-cell-top">
-        <p><?=$this->escape($this->input['thes']);?></p>
-        <p><?=$this->escape($this->input['expl']);?></p>
+        <p class="overflow-horizontal"><?=$this->escape($this->input['thes']);?></p>
+        <p class="overflow-horizontal"><?=$this->escape($this->input['expl']);?></p>
 
         <p>
             <small>
@@ -35,7 +35,7 @@
             <?php endforeach; ?>
         </p>
         <?php if (!empty($this->input['notiz'])): ?>
-            <p>
+            <p class="overflow-horizontal">
                 <?=$this->escape($this->input['notiz']);?>
             </p>
         <?php endif; ?>
