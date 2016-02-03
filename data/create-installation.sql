@@ -1164,3 +1164,33 @@ CREATE TABLE `footer` (
 
 -- Migration 2015-06-26_13-45_DBJR-209.sql
 DELETE FROM `parameter` WHERE name IN ('contact.street', 'contact.town', 'contact.zip');
+
+
+-- Migration 2015-12-01_16-25_DBJR-563.sql
+ALTER TABLE `articles` CHANGE COLUMN `kid` `kid` smallint(5) unsigned NULL DEFAULT NULL;
+UPDATE `articles` SET `kid` = NULL WHERE `kid` = 0;
+ALTER TABLE `articles` ENGINE=InnoDB;
+ALTER TABLE `cnslt` ENGINE=InnoDB;
+ALTER TABLE `articles` ADD CONSTRAINT articles_kid_fkey FOREIGN KEY (kid) REFERENCES cnslt(kid);
+
+
+-- Migration 2015-12-04_14-30_DBJR-590.sql
+ALTER TABLE `cnslt` ADD COLUMN `follow_up_explanation` text NULL DEFAULT NULL;
+UPDATE `cnslt` SET `follow_up_explanation`='Hier erfahrt ihr, wie es mit euren Beiträgen weiterging, in welche Prozesse und Dokumente sie eingeflossen sind, wer wie darauf reagiert hat und inwieweit bereits Ergebnisse erreicht wurden.';
+
+
+-- Migration 2015-12-08_13-30_DBJR-591.sql
+DROP TABLE `email_template_attachment`;
+
+
+-- Migration 2015-12-18_11-15_DBJR-590.sql
+ALTER TABLE `help_text` ADD COLUMN `project_code` char(2) NOT NULL DEFAULT '$$';
+INSERT INTO `help_text` (`name`, `body`, `project_code`)
+(
+    SELECT `name`, `body`, `proj`
+    FROM `help_text` `ht`
+    JOIN `proj` `p`
+);
+DELETE FROM `help_text` WHERE `project_code` = '$$';
+
+
