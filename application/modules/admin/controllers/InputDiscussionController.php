@@ -9,11 +9,8 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
     {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->_helper->layout->setLayout('backend');
-        $kid = $this->_request->getParam('kid', null);
-        if ($kid) {
-            $this->_consultation = (new Model_Consultations())->getById($kid);
-            $this->view->consultation = $this->_consultation;
-        }
+        $this->_consultation = $this->_helper->consultationGetter($this->_request->getParams());
+        $this->view->consultation = $this->_consultation;
     }
 
     /**

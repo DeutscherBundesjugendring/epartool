@@ -1,53 +1,30 @@
 <?php
-/**
- * Consultations
- * @desc        Class of consultation
- * @author    Jan Suchandt
- */
+
 class Model_Consultations extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'cnslt';
     protected $_primary = 'kid';
-
-    protected $_dependentTables = array(
-        'Model_Articles', 'Model_Questions', 'Model_Votes', 'Model_Votes_Rights'
-    );
+    protected $_dependentTables = ['Model_Articles', 'Model_Questions', 'Model_Votes', 'Model_Votes_Rights'];
 
     /**
-     * getById
-     * @desc returns entry by id
-     * @param  integer $id consultations-id
+     * @param  integer $id
      * @return array
      */
     public function getById($id)
     {
-        $result = array();
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return array();
+        $consultation = $this->find($id)->current();
+        if (!empty($consultation)) {
+            $result = $consultation->toArray();
+            $questionsRaw = (new Model_Questions())->getByConsultation($id)->toArray();
+            foreach ($questionsRaw as $key => $value) {
+                $result['questions'][$value["qi"]] = $value;
+            }
+            $result['articles'] = (new Model_Articles())->getByConsultation($id);
+
+            return $result;
         }
 
-        // find current consultation
-        $sub = array();
-        $row = $this->find($id)->current();
-        if (!empty($row)) {
-            // find Questions
-            $questionModel = new Model_Questions();
-            $subrow2 = $questionModel->getByConsultation($id)->toArray();
-        foreach ($subrow2 as $key => $value) {
-                $sub[$value["qi"]] = $value;
-        }
-
-            $result = $row->toArray();
-
-            $articleModel = new Model_Articles();
-            $result['articles'] = $articleModel->getByConsultation($id);
-
-            $result['questions'] = $sub;
-        }
-
-        return $result;
+        return null;
     }
 
     /**

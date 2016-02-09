@@ -33,6 +33,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Registry::set('systemconfig', $config);
     }
 
+    protected function _initActionHelpers()
+    {
+        Zend_Controller_Action_HelperBroker::addPrefix('Dbjr_Controller_Action_Helper');
+    }
+
     protected function _initDefaultModuleAutoloader()
     {
         $resourceLoader = new Zend_Application_Module_Autoloader(

@@ -3,18 +3,14 @@
 class Admin_InputController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
-
     protected $_consultation = null;
 
     public function init()
     {
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-        $kid = $this->_request->getParam('kid', null);
-        if ($kid) {
-            $this->_consultation = (new Model_Consultations())->getById($kid);
-            $this->view->consultation = $this->_consultation;
-        }
+        $this->_consultation = $this->_helper->consultationGetter($this->_request->getParams());
+        $this->view->consultation = $this->_consultation;
     }
 
     /**

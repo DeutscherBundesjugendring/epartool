@@ -4,23 +4,15 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
     protected $_consultation = null;
-
-    /**
-     * The current question id
-     * @var integer
-     */
     protected $_qid;
 
     public function init()
     {
         $this->_helper->layout->setLayout('backend');
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-        $this->_params = $this->_request->getParams();
-        $this->_consultation = $this->getKid($this->_params);
-        $this->_qid = $this->getQid($this->_params);
-        if (isset($this->_params["tid"])) {
-            $this->_tid = $this->getTId($this->_params);
-        }
+        $params = $this->_request->getParams();
+        $this->_consultation = $this->_helper->consultationGetter($params);
+        $this->_qid = isset($params['qid']) ? $params['qid'] : null;
     }
 
     /**
@@ -36,8 +28,11 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      */
     public function overviewAction()
     {
-        $form = new Admin_Form_ListControl();
+        if (!$this->_qid || !isset($this->_consultation['questions'][$this->_qid])) {
+            throw new Zend_Controller_Action_Exception('Question ID is invalid.', 404);
+        }
 
+        $form = new Admin_Form_ListControl();
         $wheres['inpt.qi = ?'] = $this->_qid;
         $fulltext = $this->getRequest()->getParam('fulltext', null);
         if ($fulltext) {
@@ -87,9 +82,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 } elseif ($this->getRequest()->getPost('merge', null)) {
                     // This is awkward, but we need to utilise the same checkboxes as for bulk editing actions
                     // Essentially this only takes values from inputIds checkboxes and constructs an url to redirect to
-                    return $this->redirect(
-                        $this->view->url(['action' => 'merge', 'inputIds' => $this->getRequest()->getPost('inputIds', null)])
-                    );
+                    $this->redirect($this->view->url([
+                        'action' => 'merge',
+                        'inputIds' => $this->getRequest()->getPost('inputIds', null)
+                    ]));
                 }
                 $this->_flashMessenger->addMessage($msg, 'success');
             } elseif ($this->getRequest()->getPost('delete', null)) {
@@ -146,7 +142,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             if ($form->isValid($postData)) {
                 $newTid = $inputModel->addInputs($postData);
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
-                $this->redirect($this->view->url(['action' => 'overview', 'inputIds' => null]), ['prependBase' => false]);
+                $this->redirect(
+                    $this->view->url(['action' => 'overview', 'inputIds' => null]),
+                    ['prependBase' => false]
+                );
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
@@ -244,7 +243,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
 
-        $this->_redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
+        $this->redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
     }
 
     /**
@@ -263,67 +262,5 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             ->createElement('hidden', 'kid')
             ->setValue($this->_consultation['kid']);
         $form->addElement($kid);
-    }
-
-    /**
-     * Checks the kid and returns the values from DB if the consultation exists
-     * @param get param kid
-     * @return variables from consultation or votingprepare error
-     */
-    protected function getKid($params)
-    {
-        if (isset($params["kid"])) {
-            $isDigit = new Zend_Validate_Digits();
-
-            if ($params["kid"] > 0 && $isDigit->isValid($params["kid"])) {
-                $consultationModel = new Model_Consultations();
-                $this->_consultation = $consultationModel->getById($params["kid"]);
-                if (count($this->_consultation) == 0) {
-                    $this->_flashMessenger->addMessage('There is no consultation with this ID.', 'error');
-                    $this->_redirect('/admin/votingprepare/error');
-                } else {
-                    return $this->_consultation;
-                }
-            } else {
-                $this->_flashMessenger->addMessage('Consultation ID is invalid.', 'error');
-                $this->_redirect('/admin/votingprepare/error');
-            }
-        }
-    }
-
-    /**
-     * Checks the qid
-     * @param qid, get param
-     * @return (int)
-     */
-    protected function getQid($params)
-    {
-        if (isset($params["qid"])) {
-            $isDigit = new Zend_Validate_Digits();
-            if ($params["qid"] > 0 && $isDigit->isValid($params["qid"])) {
-                return (int) $params["qid"];
-            } else {
-                $this->_flashMessenger->addMessage('Question ID is invalid.', 'error');
-                $this->_redirect('/admin/votingprepare/error');
-            }
-        }
-    }
-
-    /**
-     * Checks the tid
-     * @param tid, get params
-     * @return (int)
-     */
-    protected function getTId($params)
-    {
-        if (isset($params["tid"])) {
-            $isDigit = new Zend_Validate_Digits();
-            if ($params["tid"] > 0 && $isDigit->isValid($params["tid"])) {
-                return (int) $params["tid"];
-            } else {
-                $this->_flashMessenger->addMessage('Thesis ID is invalid.', 'error');
-                $this->_redirect('/admin/votingprepare/error');
-            }
-        }
     }
 }

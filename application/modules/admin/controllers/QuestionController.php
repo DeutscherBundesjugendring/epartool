@@ -4,13 +4,7 @@ class Admin_QuestionController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
     protected $_adminIndexURL = null;
-
-    /**
-     * Holds the consultation data
-     * @var array
-     */
     protected $_consultation;
-
 
     public function init()
     {
@@ -18,8 +12,7 @@ class Admin_QuestionController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
         $this->_adminIndexURL = $this->view->url(['controller' => 'index', 'action' => 'index']);
-        $kid = $this->getRequest()->getParam('kid', null);
-        $this->_consultation = (new Model_Consultations())->getById($kid);
+        $this->_consultation = $this->_helper->consultationGetter($this->_request->getParams());
     }
 
     /**
@@ -118,10 +111,13 @@ class Admin_QuestionController extends Zend_Controller_Action
                 (new Model_Questions())->deleteById($qid);
                 $this->_flashMessenger->addMessage('Question has been deleted.', 'success');
             } else {
-                $this->_flashMessenger->addMessage('Question could not be deleted as there are contributions attached to it.', 'error');
+                $this->_flashMessenger->addMessage(
+                    'Question could not be deleted as there are contributions attached to it.',
+                    'error'
+                );
             }
         }
 
-        $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
+        $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
     }
 }

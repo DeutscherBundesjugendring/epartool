@@ -12,12 +12,11 @@ class Admin_CloseController extends Zend_Controller_Action
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
         $this->initView();
 
-        $this->_params = $this->_request->getParams();
-        $this->_consultation = $this->getKid($this->_params);
-        if (isset($this->_params["qid"])) {
-            $this->_question = $this->getQid($this->_params);
+        $params = $this->_request->getParams();
+        $this->_consultation = $this->_helper->consultationGetter($params);
+        if (isset($params['qid'])) {
+            $this->_question = $this->getQid($params);
         }
-
     }
 
     public function indexAction()
@@ -291,31 +290,6 @@ class Admin_CloseController extends Zend_Controller_Action
         );
         header('Pragma: no-cache');
         echo html_entity_decode($csv, ENT_COMPAT, 'UTF-8');
-    }
-
-    /**
-     * Checks the kid and returns the values from DB if the consultation exists
-     * @param get param kid
-     * @return variables from consultation or votingprepare error
-     */
-    protected function getKid($params)
-    {
-        if (isset($params["kid"])) {
-            $isDigit = new Zend_Validate_Digits();
-
-            if ($params["kid"] > 0 && $isDigit->isValid($params["kid"])) {
-                $this->_consultation = (new Model_Consultations())->getById($params["kid"]);
-                if (count($this->_consultation) == 0) {
-                    $this->_flashMessenger->addMessage('There is no consultation round with this ID.', 'error');
-                    $this->_redirect('/admin/close/error');
-                } else {
-                    return $this->_consultation;
-                }
-            } else {
-                $this->_flashMessenger->addMessage('Id of consultation round invalid', 'error');
-                $this->_redirect('/admin/close/error');
-            }
-        }
     }
 
     /**

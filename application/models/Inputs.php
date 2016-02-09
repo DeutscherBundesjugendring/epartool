@@ -987,7 +987,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  array  $wheres   Associative array defining the inputs to return in Zend_Db_Select::where() format
      * @return array            An array of arrays with the input data
      */
-    public function fetchAllInputs($wheres = [])
+    public function fetchAllInputs(array $wheres = [])
     {
         $select = $this->select();
         foreach ($wheres as $cond => $val) {
@@ -995,7 +995,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
         $resultSet = $this->getAdapter()->query($select);
 
-        $inputs = array();
+        $inputs = [];
         foreach ($resultSet as $row) {
             $id = $row['tid'];
             $inputs[$id] = $row;
