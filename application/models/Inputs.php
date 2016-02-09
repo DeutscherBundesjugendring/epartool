@@ -45,7 +45,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $result = $row->toArray();
         $result['tags'] = $subrow1;
         if ($tag > 0) {
-            // Ergebnisdatensatz nur zurückliefern, wenn dieser den angegebenen Tag zugeordnet hat
             $deliverRecord = false;
             foreach ($result['tags'] as $value) {
                 if ($tag == $value['tg_nr']) {
@@ -1043,63 +1042,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * getAppendInputs
-     * filters the given ids and get the inputs to append to a  given input
-     * @see VotingprepareController|admin: appendinputsAction()
-     * @param $tid
-     * @param inputIDs given new inputs string
-     * @return array of updated inputs
+     * @param int $origInputId
+     * @param array $newInputIds
+     * @throws Zend_Db_Table_Exception
      */
-    public function getAppendInputs($tid, $inputIDs)
+    public function appendRelIds($origInputId, array $newInputIds)
     {
-        $row = $this->find($tid)->current();
-        $relIDs =array();
-        (!empty($row["rel_tid"])) ? $relIDsA = explode(",", $row["rel_tid"]) : $relIDsA = array();
-        $relIDsB = explode(",", $inputIDs);
-        $relIDs = array_merge($relIDsA, $relIDsB);
-        # make the old and new entries unique #
-        $relIDs = array_unique($relIDs);
-
-        # filter the new Ids from the ids wich are in the DB #
-        $oldIDs = $relIDsA;
-        $inputIDs = array_diff($relIDs, $oldIDs);
-        $inputIDs= implode(",", $inputIDs);
-
-        # update the database #
-        $relIDs= implode(",", $relIDs);
-        $this -> setAppendInputsByID($relIDs, $tid);
-
-        # get the added inputs #
-        $thesisRows = array();
-        $appendedthesis = array();
-        if (!empty($inputIDs)) {
-            $thesisRows = $this->fetchAll("tid IN (".$inputIDs.")")->toArray();
-        }
-
-        if (!empty($thesisRows)) {
-            foreach ($thesisRows as $thesisRow) {
-                $thesisRow["parent"]= $tid;
-                $appendedthesis[]=$thesisRow;
-            }
-        }
-
-        return $appendedthesis ;
-    }
-
-    /**
-     * setAppendInputsByID
-     * Sets the new related inputs for a given input
-     * @see Models|Inputs: getAppendInputs
-     * @param $tid
-     * @param $relIDs string
-     * @return bool
-     */
-    public function setAppendInputsByID($relIDs, $tid)
-    {
-        $data = array('rel_tid' => $relIDs);
-        $where = $this->getAdapter()->quoteInto('tid= ?', $tid);
-        $this->update($data, $where);
-        return true;
+        $row = $this->find($origInputId)->current();
+        $relIdsA =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
+        $relIds = array_merge($relIdsA, $newInputIds);
+        $relIds = array_unique($relIds);
+        $relIds = implode(',', $relIds);
+        $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $origInputId));
     }
 
     /**

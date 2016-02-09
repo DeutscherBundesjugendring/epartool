@@ -102,17 +102,15 @@ class Admin_VotingprepareController extends Zend_Controller_Action
      */
     public function splitAction()
     {
-        $cancelUrl = $this->view->url(['action' => 'overview']);
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input($cancelUrl);
-
-        $inputId = $this->getRequest()->getParam('inputId');
-        $this->addNewElements([$inputId], $form);
+        $form = new Admin_Form_Input($this->view->url(['action' => 'overview']));
+        $origInputId = $this->getRequest()->getParam('inputId');
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
-                $newTid = $inputModel->addInputs($postData);
+                $newInputId = $inputModel->addInputs($postData);
+                $inputModel->appendRelIds($origInputId, [$newInputId]);
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect($this->view->url(), ['prependBase' => false]);
             } else {
@@ -120,7 +118,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
 
-        $this->view->inputs = $inputModel->fetchAllInputs(['tid = ?' => $inputId]);
+        $this->view->inputs = $inputModel->fetchAllInputs(['tid = ?' => $origInputId]);
         $this->view->consultation = $this->_consultation;
         $this->view->form = $form;
     }
@@ -131,16 +129,16 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     public function mergeAction()
     {
         $inputModel = new Model_Inputs();
-        $inputIds = $this->getRequest()->getParam('inputIds');
-
-        $cancelUrl = $this->view->url(['action' => 'overview', 'inputIds' => null]);
-        $form = new Admin_Form_Input($cancelUrl);
-        $this->addNewElements($inputIds, $form);
+        $origInputIds = $this->getRequest()->getParam('inputIds');
+        $form = new Admin_Form_Input($this->view->url(['action' => 'overview', 'inputIds' => null]));
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
-                $newTid = $inputModel->addInputs($postData);
+                $newInputId = $inputModel->addInputs($postData);
+                foreach ($origInputIds as $origInputId) {
+                    $inputModel->appendRelIds($origInputId, [$newInputId]);
+                }
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect(
                     $this->view->url(['action' => 'overview', 'inputIds' => null]),
@@ -151,7 +149,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             }
         }
 
-        $this->view->inputs = $inputModel->fetchAllInputs(['tid IN (?)' => $inputIds]);
+        $this->view->inputs = $inputModel->fetchAllInputs(['tid IN (?)' => $origInputIds]);
         $this->view->consultation = $this->_consultation;
         $this->view->form = $form;
     }
@@ -162,30 +160,30 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     public function copyAction()
     {
         $inputModel = new Model_Inputs();
-        $inputId = $this->getRequest()->getParam('inputId');
-
-        $cancelUrl = $this->view->url(['action' => 'overview']);
-        $form = new Admin_Form_Input($cancelUrl);
-        $this->addNewElements([$inputId], $form);
+        $origInputId = $this->getRequest()->getParam('inputId');
+        $form = new Admin_Form_Input($this->view->url(['action' => 'overview']));
+        $form->addElement($form->createElement('hidden', 'rel_tid'));
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             if ($form->isValid($postData)) {
-                $newTid = $inputModel->addInputs($postData);
+                $newInputId = $inputModel->addInputs($postData);
+                $inputModel->appendRelIds($origInputId, [$newInputId]);
                 $this->_flashMessenger->addMessage('Contribution has been copied. This is the copy.', 'success');
-                $this->redirect(
-                    $this->view->url(
-                        ['controller' => 'input', 'action' => 'edit', 'tid' => $inputId, 'return' => 'votingprepare']
-                    )
-                );
+                $this->redirect($this->view->url([
+                    'controller' => 'input',
+                    'action' => 'edit',
+                    'tid' => $origInputId,
+                    'return' => 'votingprepare'
+                ]));
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
-            $origData = $inputModel->getById($inputId);
+            $origData = $inputModel->getById($origInputId);
             $origData['uid'] = null;
-            $origData['rel_id'] = $origData['tid'];
             unset($origData['when']);
+            unset($origData['tags']);
             unset($origData['tid']);
             $form->populate($origData);
         }
@@ -244,23 +242,5 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         }
 
         $this->redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
-    }
-
-    /**
-     * Add hidden elements to form to allow for creating relations
-     * @param array     $relTids  An array of related inputIds
-     * @param Zend_Form $form    The form object
-     */
-    protected function addNewElements($relTids, Zend_Form $form)
-    {
-        $relTID = $form
-            ->createElement('hidden', 'rel_tid')
-            ->setValue(implode(',', $relTids));
-        $form->addElement($relTID);
-
-        $kid = $form
-            ->createElement('hidden', 'kid')
-            ->setValue($this->_consultation['kid']);
-        $form->addElement($kid);
     }
 }
