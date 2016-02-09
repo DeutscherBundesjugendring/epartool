@@ -99,7 +99,7 @@ class FollowupController extends Zend_Controller_Action
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
         $this->view->question = $questionModel->getById($qid);
 
-        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.uid ASC', null, $tag));
+        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
         $this->view->paginator = $paginator;
     }
