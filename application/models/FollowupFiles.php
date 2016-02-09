@@ -75,6 +75,10 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      */
     public function getByIdArray(array $idArray)
     {
+        if (!$idArray) {
+            return [];
+        }
+
         $select = $this->select();
         $select->where('ffid IN(?)', $idArray);
 
