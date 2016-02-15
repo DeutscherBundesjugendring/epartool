@@ -74,12 +74,14 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user visible-sm-inline-block"></span>
                                 <span class="hidden-sm">
-                                    <?=Zend_Auth::getInstance()->getIdentity()->name;?>
+                                    <?=Zend_Auth::getInstance()->getIdentity()->email;?>
                                 </span>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-header visible-sm"><?=Zend_Auth::getInstance()->getIdentity()->name;?></li>
+                                <li class="dropdown-header visible-sm">
+                                    <?=Zend_Auth::getInstance()->getIdentity()->email;?>
+                                </li>
                                 <li class="divider visible-sm"></li>
                                 <li>
                                     <a href="<?=$this->baseUrl();?>/user/logout">
