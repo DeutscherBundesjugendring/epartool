@@ -2,6 +2,7 @@
 
 class Admin_MediaController extends Zend_Controller_Action
 {
+    const MEDIA_INDEX_BATCH_SIZE = 28;
     /**
      * FlashMessenger
      * @var Zend_Controller_Action_Helper_FlashMessenger
@@ -80,23 +81,8 @@ class Admin_MediaController extends Zend_Controller_Action
     public function indexAction()
     {
         $files = (new Service_Media())->getByDir($this->_kid, $this->_folder, !$this->_kid);
-        foreach ($files as $i => &$file) {
-            $deleteForm = (new Admin_Form_Media_Delete());
-            $deleteForm
-                ->setAction($this->view->url(['action' => 'delete-file']))
-                ->setAttrib('name', 'delete_' . $i)
-                ->setAttrib('id', 'delete_' . $i)
-                ->addCsrfHash('csrf_token_mediadelete_' . $i)
-                ->populate(
-                    [
-                        'file' => $file['basename'],
-                        'kid' => $file['kid'],
-                        'folder' => $file['folder'],
-                        'form_num' => $i
-                    ]
-                );
-            $file['deleteForm'] = $deleteForm;
-        }
+        $files = array_slice($files, 0, self::MEDIA_INDEX_BATCH_SIZE);
+        $files = $this->addDeleteFormToFiles($files);
 
         if ($this->_kid) {
             $consModel = new Model_Consultations();
@@ -114,9 +100,23 @@ class Admin_MediaController extends Zend_Controller_Action
         }
 
         $this->view->files = $files;
+        $this->view->kid = $this->_kid;
+        $this->view->folder = $this->_folder;
+        $this->view->lazyLoadBatchSize = self::MEDIA_INDEX_BATCH_SIZE;
         $this->view->CKEditorFuncNum = $this->getRequest()->getParam('CKEditorFuncNum', 0);
-        // If the consultation id is set then the path to the image folder is assumed and we only deal with filename relative to
-        // the consultation media folder. Otherwise we deal with path relative to the media/folders folder
+        // If consultation id is set then the path to the image folder is assumed and we only deal with filename
+        // relative to the consultation media folder. Otherwise we deal with path relative to the media/folders folder
+    }
+
+    public function lazyLoadImagesAction()
+    {
+        $offset = $this->getRequest()->getParam('offset');
+        $files = (new Service_Media())->getByDir($this->_kid, $this->_folder, !$this->_kid);
+        $files = array_slice($files, $offset, self::MEDIA_INDEX_BATCH_SIZE);
+        $files = $this->addDeleteFormToFiles($files);
+
+        $this->view->files = $files;
+        $this->_helper->layout()->disableLayout();
     }
 
     public function editFolderAction()
@@ -133,7 +133,10 @@ class Admin_MediaController extends Zend_Controller_Action
             }
             if ($form->isValid($postData)) {
                 if ((new Service_Media())->renameFolder($oldName, $newName)) {
-                    $this->_flashMessenger->addMessage(sprintf('The folder %s has been renamed to %s.', $oldName, $newName), 'success');
+                    $this->_flashMessenger->addMessage(
+                        sprintf('The folder %s has been renamed to %s.', $oldName, $newName),
+                        'success'
+                    );
                     $this->redirect(
                         $this->view->url(['module' => 'admin', 'controller' => 'media', 'action' => 'folders'], null, true),
                         ['prependBase' => false]
@@ -447,5 +450,32 @@ class Admin_MediaController extends Zend_Controller_Action
                 ['prependBase' => false]
             );
         }
+    }
+
+    /**
+     * @param array $files
+     * @return array
+     */
+    private function addDeleteFormToFiles(array $files)
+    {
+        foreach ($files as $i => &$file) {
+            $deleteForm = (new Admin_Form_Media_Delete());
+            $deleteForm
+                ->setAction($this->view->url(['action' => 'delete-file']))
+                ->setAttrib('name', 'delete_' . $i)
+                ->setAttrib('id', 'delete_' . $i)
+                ->addCsrfHash('csrf_token_mediadelete_' . $i)
+                ->populate(
+                    [
+                        'file' => $file['basename'],
+                        'kid' => $file['kid'],
+                        'folder' => $file['folder'],
+                        'form_num' => $i
+                    ]
+                );
+            $file['deleteForm'] = $deleteForm;
+        }
+
+        return $files;
     }
 }

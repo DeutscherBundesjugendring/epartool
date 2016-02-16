@@ -13,6 +13,7 @@ $(document).ready () ->
     initSortableVotingDirs()
     initSortablePartners()
     initSelect2()
+    initMediaIndexFileLazyLoad()
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -133,13 +134,14 @@ bindConsultationCustomPhaseNames = () ->
             inputs.prop('disabled', true);
 
 initCKEditor = () ->
-    $('.wysiwyg-standard').ckeditor({
-        customConfig: baseUrl + '/js/ckeditor.web_config.js'
-        filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor',
-    })
-    $('.wysiwyg-email').ckeditor({
-        customConfig: baseUrl + '/js/ckeditor.email_config.js'
-    })
+    if $.ckeditor
+        $('.wysiwyg-standard').ckeditor({
+            customConfig: baseUrl + '/js/ckeditor.web_config.js'
+            filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor',
+        })
+        $('.wysiwyg-email').ckeditor({
+            customConfig: baseUrl + '/js/ckeditor.email_config.js'
+        })
 
 initDatepicker = () ->
     $('.js-datepicker').datetimepicker({
@@ -208,6 +210,27 @@ initI18n = () ->
 
     return
 
+initMediaIndexFileLazyLoad = () ->
+    container = $('#media-thumbnail-container')
+    batchSize = container.data('batchSize');
+    offset = batchSize
+    wait = false
+    $(window).scroll () ->
+        viewBottom = $(window).scrollTop() + $(window).height();
+        containerBottom = container.scrollTop() + container.height()
+        if viewBottom + 500 > containerBottom && wait == false
+            wait = true
+            url = '/admin/media/lazy-load-images/offset/' + offset;
+            if container.data('kid')
+                url = url + '/kid/' + container.data('kid')
+            if container.data('folder')
+                url = url + '/folder/' + container.data('folder')
+            $.get(url, [], (data) ->
+                container.append(data)
+                if data
+                    wait = false
+                    offset = offset + batchSize
+            )
 
 
 class mediaSelectPopup
