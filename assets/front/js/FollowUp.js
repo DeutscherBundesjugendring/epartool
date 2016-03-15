@@ -9,13 +9,9 @@
         var _colWidth;
         var _kid = kid;
         var _host = window.location.protocol + "//" + window.location.host;
-
         var _$followup = $('#followup');
-        _init();
 
-        function _init() {
-            _initEventListener();
-        }
+        _initEventListener();
 
         function _initEventListener() {
             $(document).on('click', '.js-ajaxclick', function(el) {
@@ -87,12 +83,7 @@
         }
 
         /**
-         * add New Item to the View, called from ajaxRequest
-         * @method _addItemCallback
-         * @param data
-         * @param statuscode
-         * @param obj
-         * @private
+         * Add new item to the view, called from ajaxRequest
          */
         function _addItemCallback(data, statuscode, obj) {
             var _jsonData = data;
@@ -121,12 +112,6 @@
             }
         }
 
-        /**
-         * @method _buildNewCol
-         * @param data
-         * @returns {string}
-         * @private
-         */
         function _buildNewCol(data) {
             var _html = "";
             var _link = "";
@@ -166,11 +151,10 @@
                             _link +
                             '</div>';
                 }
-            } else if (data.inputs) {
-                //nothing to do, just show the js-timeline-box
-            } else if (data.refs) {
+            } else if (!data.inputs && data.refs) {
                 for (var i in data.refs.docs) {
                     var whendate = data.refs.docs[i].show_no_day === 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
+
                     if (data.refs.docs.length != 0) {
                         _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.docs[i].ffid;
                         _when = '<p>' + whendate + '</p>';
@@ -229,47 +213,43 @@
 
         function _addOverlay(data, params) {
             var _snippets = '';
-            var _activeSnippetClass = '';
-            var _activeDocClass = '';
+            var _activeSnippetClass;
+            var _activeDocClass;
             var _activeSnippet;
-            var _edgeRight = "";
-            var _show_in_timeline_link = "";
+            var _edgeRight;
+            var _showInTimelineLink;
 
             /**
-             *
              * Snippets
              */
             for (var i in data.doc.fowups) {
                 var _likeYes = '<span class="badge js-amount js-like">' + data.doc.fowups[i].lkyea + '</span> <a class="link-alt link-unstyled js-voting js-like" href="' + baseUrl + '/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>';
                 var _likeNo = '<span class="badge js-amount js-dislike">' + data.doc.fowups[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + baseUrl + '/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
 
-                _activeSnippet = typeof params.fid != "undefined"  && data.doc.fowups[i].fid == params.fid ? true : false;
+                _activeSnippet = typeof params.fid != "undefined" && data.doc.fowups[i].fid == params.fid ? true : false;
                 _activeSnippetClass = _activeSnippet ? 'active' : '';
-                _activeDocClass = typeof params.ffid != "undefined"  && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
+                _activeDocClass = typeof params.ffid != "undefined" && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
 
                 if (_activeSnippet) {
-                    _show_in_timeline_link = '<a class="btn btn-default" data-dismiss="modal" href="'+data.doc.fowups[i].show_in_timeline_link+'">Back to timeline</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i]._showInTimelineLink + '">Back to timeline</a>';
                 } else {
-                    _show_in_timeline_link = '<a class="btn btn-default" href="'+data.doc.fowups[i].show_in_timeline_link+'">Follow path</a>';
-
+                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i]._showInTimelineLink + '">Follow path</a>';
                 }
-                _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ+'"> </div>' : '';
+                _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ + '"> </div>' : '';
 
-                _snippets += '<div class="well well-simple well-simple-light ' + _activeSnippetClass + '" data-fid="'+data.doc.fowups[i].fid+'">' +
+                _snippets += '<div class="well well-simple well-simple-light ' + _activeSnippetClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
                         _edgeRight +
                         data.doc.fowups[i].expl +
                         '<span class="offset-right">' +
                         _likeYes + ' ' +
                         _likeNo +
                         '</span>' +
-                        _show_in_timeline_link +
+                        _showInTimelineLink +
                         '</div>';
             }
 
             /**
-             *
              * doc + Snippets
-             *
              */
             var when = data.doc.show_no_day === 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
 
@@ -308,10 +288,6 @@
 
         /**
          * AjaxRequest for Data
-         * @method _getAjaxData
-         * @param obj
-         * @param callback
-         * @private
          */
         function _getAjaxData(obj, callback) {
             var _action = obj.request;
@@ -348,7 +324,6 @@
         }
 
         /**
-         * @method dateConverter
          * @param UNIX_timestamp
          * @param format dmy, d, m, dmy|hm
          * @return {formated timestamp}
@@ -415,7 +390,6 @@
     }
 
     FollowUp.EVENTS = {};
-
     window.FollowUp = FollowUp;
 
 }(jQuery, window, document));
