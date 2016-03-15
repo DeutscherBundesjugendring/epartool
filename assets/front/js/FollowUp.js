@@ -1,19 +1,4 @@
-/**
- *
- * Provides the FollowUp class...
- *
- * @module      FollowUp
- *
- * @author        michaelpfutze
- * @copyright     Digitalroyal GmbH <www.digitalroyal.de>
- *
- * @date          21.05.13
- * @time          10:05
- *
- */
-
-;
-(function($, window, document) {
+;(function($, window, document) {
     /**
      * Followup Tool
      * @param kid Konsultationsid
@@ -21,7 +6,6 @@
      */
 
     function FollowUp(kid) {
-        var _instance = this;
         var _colWidth;
         var _kid = kid;
         var _host = window.location.protocol + "//" + window.location.host;
@@ -30,9 +14,7 @@
         _init();
 
         function _init() {
-            _setVerticalAlign();
             _initEventListener();
-          // if ($("#followup .col").length === 1) $('.js-ajaxclick').trigger('click');
         }
 
         function _initEventListener() {
@@ -67,9 +49,8 @@
                 var _target = el.target;
                 var _obj = {'request': _request, 'target': _target};
 
-                _getAjaxData(_obj, function(data, status, obj) {
+                  _getAjaxData(_obj, function(data, status, obj) {
                     var _amount = data.lkyea || data.lknay;
-                    // obj.target.innerText = '(' + _amount + ')';
                     _thisEl.children(".js-amount").text(_amount);
 
                     var cls = _thisEl.hasClass("js-voting-like") ? ".js-like" : ".js-dislike";
@@ -102,36 +83,7 @@
                 } else {
                     $(this).html('<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>');
                 }
-                _setVerticalAlign();
             });
-        }
-
-        /**
-         * vertical positioning of all Elements
-         * @private
-         */
-        function _setVerticalAlign() {
-            /*var colHeight;
-            var newHeight;
-            var _posTop;
-            var maxColHeight = 0;
-
-            $('#followup').children('.js-row > div').each(function(index, element) {
-                maxColHeight = $(this).height() > maxColHeight ? $(this).height() : maxColHeight;
-            });
-
-            newHeight = maxColHeight+100 < 500 ? 500 : maxColHeight;
-            $('#followup').animate({height:newHeight+100+"px"},200);
-
-            $("body").scrollTop($('#followup').position().top)
-            $('#followup').children('.js-row > div').each(function(index, element) {
-                $(this).attr('data-id', index);
-                colHeight = $(this).height();
-                _colWidth = $(this).width();
-                _posTop = ((newHeight / 2) - (colHeight / 2)) + 90;
-                $(this).css('top', _posTop);
-                $(this).css('left', index * _colWidth);
-            });*/
         }
 
         /**
@@ -164,8 +116,6 @@
                 if (obj.reset) {
                     $('.js-timeline-box').fadeIn();
                 }
-
-                _setVerticalAlign();
             } else {
                 alert('Ups, die Anfrage lieferte kein Ergebnis');
             }
@@ -191,7 +141,6 @@
 
             if (data.byinput) {
                 for (var i in data.byinput.snippets) {
-                    //followup/json/kid/8/fid/1
                     _likeYes = '<span class="badge js-amount js-like">' + data.byinput.snippets[i].lkyea + '</span> <a class="link-alt link-unstyled js-voting js-like" href="' + _host + '/followup/like/fid/' + data.byinput.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>';
                     _likeNo = '<span class="badge js-amount js-dislike">' + data.byinput.snippets[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + _host + '/followup/unlike/fid/' + data.byinput.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
 
@@ -219,8 +168,7 @@
                 }
             } else if (data.inputs) {
                 //nothing to do, just show the js-timeline-box
-            }
-            else if (data.refs) {
+            } else if (data.refs) {
                 for (var i in data.refs.docs) {
                     var whendate = data.refs.docs[i].show_no_day === 'y' ? _dateConverter(data.refs.docs[i].when, 'my') : _dateConverter(data.refs.docs[i].when, 'dmy');
                     if (data.refs.docs.length != 0) {
@@ -326,7 +274,6 @@
             var when = data.doc.show_no_day === 'y' ? _dateConverter(data.doc.when, 'my') : _dateConverter(data.doc.when, 'dmy');
 
             var _content =
-                //'<h2>' + data.doc.titl + '</h2>' +
                 '<div class="well well-accent ' + _activeDocClass + '">' +
                 '<p>' + data.doc.who + '</p>' +
                 '<p class="small">' + when + '</p>' +
@@ -357,16 +304,6 @@
             _$followup.append(_modal);
 
             $('#modalFollowup').modal();
-
-            /*$('.overlaywrapper').fadeIn(function() {
-                try {
-                    var top = $(".overlaycontent .snippet.active").position().top - 30 || 0;
-                    $(".overlaycontent").scrollTop(top);
-
-                } catch(e) {
-
-                }
-            });*/
         }
 
         /**
@@ -425,7 +362,6 @@
             var hour = a.getHours();
             var min = a.getMinutes() < 10 ? "0" + a.getMinutes() : a.getMinutes();
             var sec = a.getSeconds();
-            //var time = date + '.' + month + ' ' + year;
 
             switch (format) {
                 case "dmy":

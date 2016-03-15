@@ -38,7 +38,7 @@ class FollowupController extends Zend_Controller_Action
             $action = $this->_request->getActionName();
             if ($action != 'like' && $action != 'unlike') {
                 $this->flashMessenger->addMessage('No consultation provided!', 'error');
-                $this->_redirect('/');
+                $this->redirect('/');
             }
         }
     }
@@ -178,8 +178,7 @@ class FollowupController extends Zend_Controller_Action
 
                 $relatedCount = count($relSnippets) + count($relInputs);
 
-                // result via json for followoptool
-
+                // result via json for followop
                 $this->view->assign([
                     'question' => $question,
                     'input' => $input,
@@ -192,12 +191,12 @@ class FollowupController extends Zend_Controller_Action
             }
         } else {
             if ($kid) {
-                $this->_redirect(
+                $this->redirect(
                     $this->view->url(['action' => 'index', 'kid' => $kid], null, true),
                     ['prependBase' => false]
                 );
             } else {
-                $this->_redirect('/');
+                $this->redirect('/');
             }
         }
     }
@@ -291,12 +290,12 @@ class FollowupController extends Zend_Controller_Action
             }
         } else {
             if ($this->consultation) {
-                $this->_redirect(
+                $this->redirect(
                     $this->view->url(['action' => 'index', 'kid' => $this->consultation->kid], null, true),
                     ['prependBase' => false]
                 );
             } else {
-                $this->_redirect('/');
+                $this->redirect('/');
             }
         }
     }
@@ -496,7 +495,7 @@ class FollowupController extends Zend_Controller_Action
                 );
                 Zend_Registry::get('dbAdapter')->commit();
                 $this->flashMessenger->addMessage('Thank you for subscribing.', 'success');
-                $this->_redirect('/followup/index/kid/' . $kid);
+                $this->redirect('/followup/index/kid/' . $kid);
             } catch (Exception $e) {
                 Zend_Registry::get('dbAdapter')->rollback();
                 throw $e;
@@ -517,11 +516,11 @@ class FollowupController extends Zend_Controller_Action
                             'You are now subscribed. A confirmation email has been sent.',
                             'success'
                         );
-                        $this->_redirect('/followup/index/kid/' . $kid);
+                        $this->redirect('/followup/index/kid/' . $kid);
                     } catch (Dbjr_Notification_Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
                         $this->flashMessenger->addMessage('You are already subscribed.', 'success');
-                        $this->_redirect('/followup/index/kid/' . $kid);
+                        $this->redirect('/followup/index/kid/' . $kid);
                     } catch (Exception $e) {
                         Zend_Registry::get('dbAdapter')->rollback();
                         throw $e;
@@ -553,7 +552,7 @@ class FollowupController extends Zend_Controller_Action
                 [Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $kid]
             );
             $this->flashMessenger->addMessage('You have been unsubscribed.', 'success');
-            $this->_redirect('/followup/index/kid/' . $kid);
+            $this->redirect('/followup/index/kid/' . $kid);
         }
     }
 
