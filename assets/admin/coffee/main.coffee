@@ -134,7 +134,7 @@ bindConsultationCustomPhaseNames = () ->
             inputs.prop('disabled', true);
 
 initCKEditor = () ->
-    if $.ckeditor
+    if typeof $.fn.ckeditor != 'undefined'
         $('.wysiwyg-standard').ckeditor({
             customConfig: baseUrl + '/js/ckeditor.web_config.js'
             filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor',
@@ -211,26 +211,33 @@ initI18n = () ->
     return
 
 initMediaIndexFileLazyLoad = () ->
-    container = $('#media-thumbnail-container')
-    batchSize = container.data('batchSize');
-    offset = batchSize
-    wait = false
-    $(window).scroll () ->
-        viewBottom = $(window).scrollTop() + $(window).height();
-        containerBottom = container.scrollTop() + container.height()
-        if viewBottom + 500 > containerBottom && wait == false
-            wait = true
-            url = '/admin/media/lazy-load-images/offset/' + offset;
-            if container.data('kid')
-                url = url + '/kid/' + container.data('kid')
-            if container.data('folder')
-                url = url + '/folder/' + container.data('folder')
-            $.get(url, [], (data) ->
-                container.append(data)
-                if data
-                    wait = false
-                    offset = offset + batchSize
-            )
+    $container = $('#media-thumbnail-container')
+    if ($container).length > 0
+        batchSize = $container.data('batchSize');
+        offset = batchSize
+        wait = false
+        $(window).scroll () ->
+            viewBottom = $(window).scrollTop() + $(window).height();
+            containerBottom = $container.scrollTop() + $container.height()
+            if viewBottom + 500 > containerBottom && wait == false
+                wait = true
+                url = '/admin/media/lazy-load-images/offset/' + offset;
+                if $container.data('kid')
+                    url = url + '/kid/' + $container.data('kid')
+                if $container.data('folder')
+                    url = url + '/folder/' + $container.data('folder')
+                if $container.data('targetElId')
+                    url = url + '/targetElId/' + $container.data('targetElId')
+                if $container.data('lockDir')
+                    url = url + '/lockDir/' + $container.data('lockDir')
+                if $container.data('ckeditorFuncNum')
+                    url = url + '/CKEditorFuncNum/' + $container.data('ckeditorFuncNum')
+                $.get(url, [], (data) ->
+                    $container.append(data)
+                    if data
+                        wait = false
+                        offset = offset + batchSize
+                )
 
 
 class mediaSelectPopup
@@ -239,9 +246,9 @@ class mediaSelectPopup
     # @param    {string}  filename              The media filename
     # @param    {string}  targetElId            The id of the element that triggered this popup
     # @param    {string}  imgPathPrefixInput    The path to be used in media element in input field
-    # @param    {string}  imgPathImage          The path to be used in media element in image src attrib.
+    # @param    {string}  imgPathImage          The path to be used in media element in image src attribute.
                                                 It points to the cache folder.
-    # @param    {numeric} CKEditorFuncNum       The CKEditor callbeck identifier
+    # @param    {numeric} CKEditorFuncNum       The CKEditor callback identifier
     ###
     this.insertValue = (filename, targetElId, imgPathPrefixInput, imgPathImage, CKEditorFuncNum) ->
         if imgPathPrefixInput.length > 0

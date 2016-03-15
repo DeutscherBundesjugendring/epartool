@@ -51,8 +51,16 @@
                 data-kid="<?=$this->kid;?>"
                 data-folder="<?=$this->folder;?>"
                 data-batch-size="<?=$this->lazyLoadBatchSize;?>"
+                data-target-el-id="<?=$this->targetElId;?>"
+                data-lock-dir="<?=$this->lockDir;?>"
+                data-ckeditor-func-num="<?=$this->CKEditorFuncNum;?>"
             >
-                <?=$this->partial('_partials/media-thumbnails.phtml', ['files' => $this->files]);?>
+                <?=$this->partial('_partials/media-thumbnails.phtml', [
+                    'files' => $this->files,
+                    'targetElId' => $this->targetElId,
+                    'lockDir' => $this->lockDir,
+                    'CKEditorFuncNum' => $this->CKEditorFuncNum,
+                ]);?>
             </div>
         <?php else: ?>
             <p class="alert alert-info">

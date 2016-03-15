@@ -110,12 +110,15 @@ class Admin_MediaController extends Zend_Controller_Action
 
     public function lazyLoadImagesAction()
     {
-        $offset = $this->getRequest()->getParam('offset');
+        $offset = intval($this->getRequest()->getParam('offset'));
         $files = (new Service_Media())->getByDir($this->_kid, $this->_folder, !$this->_kid);
         $files = array_slice($files, $offset, self::MEDIA_INDEX_BATCH_SIZE);
         $files = $this->addDeleteFormToFiles($files);
 
         $this->view->files = $files;
+        $this->view->kid = $this->_kid;
+        $this->view->folder = $this->_folder;
+        $this->view->CKEditorFuncNum = $this->getRequest()->getParam('CKEditorFuncNum', 0);
         $this->_helper->layout()->disableLayout();
     }
 
