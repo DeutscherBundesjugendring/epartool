@@ -271,7 +271,7 @@
 <?php if (isset($this->hasFollowupTimeline)): ?>
     <script>
         $(document).ready(function() {
-            var followUp = new FollowUp(<?=$this->question['kid'];?>);
+            var followUp = new FollowUp(<?=$this->kid;?>);
         });
     </script>
 <?php endif; ?>

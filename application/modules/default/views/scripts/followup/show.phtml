@@ -30,8 +30,8 @@
 
         <!-- Chart -->
         <div id="followup" class="followup">
-            <div class="row js-row">
-                <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-4 js-col" data-id="0" id="el-0">
 
                     <!-- Box -->
                     <div class="followup-timeline-box js-timeline-box">
@@ -80,7 +80,8 @@
                     </div><!-- .followup-timeline-box -->
 
                 </div>
-                <div class="col-sm-4">
+
+                <div class="col-sm-4 js-col" data-id="1" id="el-1">
 
                     <?php if (count($this->relInput)): ?>
                         <?php foreach ($this->relInput as $relInput): ?>
@@ -125,7 +126,7 @@
                     <?php endif; ?>
 
                 </div>
-            </div><!-- .row -->
+            </div>
 
             <!-- Loader -->
             <div id="followuploader"><?=$this->translate('Loading…');?></div>
