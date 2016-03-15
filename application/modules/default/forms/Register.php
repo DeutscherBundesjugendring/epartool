@@ -111,7 +111,7 @@ class Default_Form_Register extends Dbjr_Form_Web
                 [
                     '1' => sprintf($translator->translate('up to %s years'), 17),
                     '2' => sprintf($translator->translate('up to %s years'), 26),
-                    '3' => sprintf($translator->translate('up to %s years'), 27),
+                    '3' => sprintf($translator->translate('%s years or older'), 26),
                     '4' => $translator->translate('all age groups'),
                     '5' => $translator->translate('no information'),
                 ]

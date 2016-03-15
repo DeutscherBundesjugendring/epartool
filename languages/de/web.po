@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-01-15 11:32+0100\n"
-"PO-Revision-Date: 2016-01-15 11:34+0100\n"
+"POT-Creation-Date: 2016-03-15 20:13+0100\n"
+"PO-Revision-Date: 2016-03-15 20:14+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -33,36 +33,36 @@ msgstr "Für diese Beteiligungsrunde gibt es derzeit keine Reaktionen."
 msgid "No consultation provided!"
 msgstr "Keine Beteiligungsrunde angegeben!"
 
-#: application/modules/default/controllers/FollowupController.php:465
+#: application/modules/default/controllers/FollowupController.php:464
 msgid "File does not exist."
 msgstr "Datei ist nicht vorhanden."
 
-#: application/modules/default/controllers/FollowupController.php:498
+#: application/modules/default/controllers/FollowupController.php:497
 #: application/modules/default/controllers/InputController.php:150
 #: application/modules/default/controllers/InputController.php:216
 msgid "Thank you for subscribing."
 msgstr "Danke fürs Abonnieren."
 
-#: application/modules/default/controllers/FollowupController.php:517
+#: application/modules/default/controllers/FollowupController.php:516
 #: application/modules/default/controllers/InputController.php:169
 #: application/modules/default/controllers/InputController.php:235
 msgid "You are now subscribed. A confirmation email has been sent."
 msgstr ""
 "Dein Abonnenment ist nun aktiv. Eine Bestätigung wurde per E-Mail versandt."
 
-#: application/modules/default/controllers/FollowupController.php:523
+#: application/modules/default/controllers/FollowupController.php:522
 #: application/modules/default/controllers/InputController.php:175
 #: application/modules/default/controllers/InputController.php:241
 msgid "You are already subscribed."
 msgstr "Du wirst bereits automatisch benachrichtigt."
 
-#: application/modules/default/controllers/FollowupController.php:530
+#: application/modules/default/controllers/FollowupController.php:529
 #: application/modules/default/controllers/InputController.php:182
 #: application/modules/default/controllers/InputController.php:248
 msgid "The subscription form is invalid."
 msgstr "Das Abonnementformular ist ungültig."
 
-#: application/modules/default/controllers/FollowupController.php:555
+#: application/modules/default/controllers/FollowupController.php:554
 #: application/modules/default/controllers/InputController.php:275
 #: application/modules/default/controllers/InputController.php:302
 msgid "You have been unsubscribed."
@@ -141,6 +141,8 @@ msgid ""
 "Please check your data.It is also possible that the maximum editing period "
 "of %s minutes has exceeded."
 msgstr ""
+"Bitte prüfe deine Eingaben! Es könnte auch sein, dass du die maximale "
+"Bearbeitungszeit von %s Minuten überschritten hast."
 
 #: application/modules/default/controllers/InputController.php:440
 msgid "There is no input to be confirmed."
@@ -195,6 +197,8 @@ msgid ""
 "Sorry, the contribution phase for this consultation round is already over."
 "You may only change your contributions within that period."
 msgstr ""
+"Die Beitragszeit für diese Beteiligungsrunde ist leider vorbei. Beiträge "
+"können nur innerhalb der Beitragszeit geändert werden."
 
 #: application/modules/default/controllers/UrlkeyActionController.php:40
 msgid "There is no available action with such key."
@@ -496,10 +500,14 @@ msgstr "Alter"
 
 #: application/modules/default/forms/Register.php:112
 #: application/modules/default/forms/Register.php:113
-#: application/modules/default/forms/Register.php:114
 #, php-format
 msgid "up to %s years"
 msgstr "bis %s Jahre"
+
+#: application/modules/default/forms/Register.php:114
+#, php-format
+msgid "%s years or older"
+msgstr "ab %s Jahre"
 
 #: application/modules/default/forms/Register.php:115
 msgid "all age groups"
@@ -828,7 +836,7 @@ msgstr "Öffne Site in einem neuen Tab"
 msgid "Homepage"
 msgstr "Startseite"
 
-#: application/layouts/scripts/backend.phtml:87
+#: application/layouts/scripts/backend.phtml:89
 msgid "Log off"
 msgstr "Ausloggen"
 
@@ -1658,6 +1666,9 @@ msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
 #: application/modules/default/views/scripts/voting/vote.phtml:235
 msgid "Remove"
 msgstr "Entfernen"
+
+#~ msgid "%s or older"
+#~ msgstr "ab %s"
 
 #~ msgid "You are now subscribed."
 #~ msgstr "Dein Abonnenment ist nun aktiv."
