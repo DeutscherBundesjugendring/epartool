@@ -3,7 +3,7 @@
   "dependencies": {
     "bootstrap": "~3.3.2",
     "less-modules": "~0.3.0",
-    "synergic-ui": "master",
+    "synergic-ui": "~0.8.1",
     "html5shiv": "~3.7.0",
     "jquery": "~1.11.3",
     "jquery.ui": "~1.10.3",
