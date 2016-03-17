@@ -110,7 +110,12 @@
     <td class="col-xs-1 table-cell-top text-center">
         <?php if (in_array($this->input['tid'], $this->inputsWithDiscussion)): ?>
             <a
-                href="<?=$this->url(['controller' => 'input-discussion', 'action' => 'index', 'kid' => $this->kid, 'inputId' => $this->input['tid']]);?>"
+                href="<?=$this->url([
+                    'controller' => 'input-discussion',
+                    'action' => 'index',
+                    'kid' => $this->kid,
+                    'inputId' => $this->input['tid']
+                ]);?>"
                 class="item-action"
                 title="<?=$this->translate('Show discussion');?>"
                 >

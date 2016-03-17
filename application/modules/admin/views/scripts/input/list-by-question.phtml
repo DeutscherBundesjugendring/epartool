@@ -173,13 +173,11 @@
                         <div class="table-responsive">
                             <table class="table table-bordered js-table-rows-toggle" id="contribution-table">
                                 <?php foreach ($this->inputs as $input): ?>
-                                    <?=$this->partial(
-                                        'input/_inputBox.phtml',
-                                        [
-                                            'input' => $input,
-                                            'kid' => $this->consultation['kid'],
-                                            'inputsWithDiscussion' => $this->inputsWithDiscussion]
-                                    );?>
+                                    <?=$this->partial('input/_inputBox.phtml', [
+                                        'input' => $input,
+                                        'kid' => $this->consultation['kid'],
+                                        'inputsWithDiscussion' => $this->inputsWithDiscussion
+                                    ]);?>
                                 <?php endforeach; ?>
                             </table>
                         </div>
