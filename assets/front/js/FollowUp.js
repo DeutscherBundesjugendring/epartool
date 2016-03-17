@@ -229,9 +229,9 @@
                 _activeDocClass = typeof params.ffid != "undefined" && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
 
                 if (_activeSnippet) {
-                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i]._showInTimelineLink + '">Back to timeline</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i].show_in_timeline_link + '">Back to timeline</a>';
                 } else {
-                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i]._showInTimelineLink + '">Follow path</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">Follow path</a>';
                 }
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ + '"> </div>' : '';
 
