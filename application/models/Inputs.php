@@ -996,26 +996,25 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $inputs = [];
         foreach ($resultSet as $row) {
-            $id = $row['tid'];
-            $inputs[$id] = $row;
+            $inputs[$row['tid']] = $row;
+            $inputs[$row['tid']]['related'] = [];
 
-            $inputs[$id]['related'] = [];
-            if (!empty($row['rel_tid'])) {
-                $thesisRows = $this->fetchAll("tid IN (" . $row["rel_tid"] . ")")->toArray();
-                foreach ($thesisRows as $thesisRow) {
-                    $thesisRow["parent"] = $id;
-                    $inputs[$id]["related"][] = $thesisRow;
-                }
-            }
-
-            $inputs[$id]['tags'] = [];
-            $rowone = $this->find($row["tid"])->current();
-            $tags = array();
-            $tagRows = $rowone
+            $inputs[$row['tid']]['tags'] = [];
+            $tagRows = $this->find($row["tid"])->current()
                 ->findManyToManyRowset('Model_Tags', 'Model_InputsTags')
                 ->toArray();
             foreach ($tagRows as $tagRow) {
-                $inputs[$id]['tags'][] = $tagRow;
+                $inputs[$row['tid']]['tags'][] = $tagRow;
+            }
+        }
+
+        foreach ($this->getAdapter()->query($this->select()) as $input) {
+            if (!empty($input['rel_tid'])) {
+                foreach (explode(',', $input['rel_tid']) as $relatedId) {
+                    if (isset($inputs[$relatedId])) {
+                        $inputs[$relatedId]['related'][] = $inputs[$input['tid']];
+                    }
+                }
             }
         }
 

@@ -56,9 +56,7 @@
             <h5><?=$this->translate('Related');?></h5>
             <ul>
                 <?php foreach ($this->input['related'] as $relInput): ?>
-                    <li>
-                        <?=$this->escape($relInput['thes']);?>
-                    </li>
+                    <li><?=$this->escape($relInput['thes']);?></li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>

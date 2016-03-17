@@ -185,6 +185,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             unset($origData['when']);
             unset($origData['tags']);
             unset($origData['tid']);
+            unset($origData['rel_tid']);
             $form->populate($origData);
         }
 
