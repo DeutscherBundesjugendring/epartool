@@ -8,7 +8,7 @@
 
         <!-- Back link -->
         <div class="row offset-bottom-large">
-            <div class="col-sm-3">
+            <div class="col-xs-8 col-sm-5 col-md-3">
 
                 <a
                     href="<?=$this->url(['action' => 'index', 'page' => null]);?>"
@@ -29,9 +29,9 @@
         </div><!-- .row -->
 
         <!-- Chart -->
-        <div id="followup" class="followup">
-            <div class="row js-row">
-                <div class="col-sm-4">
+        <div id="followup" class="followup js-followup-timeline">
+            <div class="followup-row js-followup-timeline-row">
+                <div class="followup-row-col js-followup-timeline-col" data-id="0" id="el-0">
 
                     <!-- Box -->
                     <div class="followup-timeline-box js-timeline-box">
@@ -80,7 +80,7 @@
                     </div><!-- .followup-timeline-box -->
 
                 </div>
-                <div class="col-sm-4">
+                <div class="followup-row-col js-followup-timeline-col" data-id="1" id="el-1">
 
                     <?php if (count($this->relInput)): ?>
                         <?php foreach ($this->relInput as $relInput): ?>
@@ -125,7 +125,7 @@
                     <?php endif; ?>
 
                 </div>
-            </div><!-- .row -->
+            </div>
 
             <!-- Loader -->
             <div id="followuploader"><?=$this->translate('Loading…');?></div>

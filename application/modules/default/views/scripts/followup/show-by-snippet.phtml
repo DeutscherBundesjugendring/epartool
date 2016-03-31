@@ -30,8 +30,8 @@
 
         <!-- Chart -->
         <div id="followup" class="followup">
-            <div class="row js-row">
-                <div class="col-sm-4" data-id="0">
+            <div class="row">
+                <div class="col-sm-4 js-col" data-id="0" id="el-0">
 
                     <!-- Boxes -->
                     <?php if (count($this->reltothis_inputs)): ?>
@@ -48,23 +48,20 @@
                                 </div>
 
                                 <?php if ($relInput['relFowupCount'] != 0): ?>
-                                    <a
-                                        href="<?=$this->url(['action' => 'json', 'fid' => null, 'ffid' => null,'tid' => $relInput['tid'], 'page' => null]);?>"
-                                        class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick"
-                                    >
+                                    <span class="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count">
                                         <?=$relInput['relFowupCount'];?>
-                                    </a>
+                                    </span>
                                 <?php endif; ?>
 
                             </div><!-- .followup-timeline-box -->
                         <?php endforeach; ?>
                     <?php endif; ?>
 
-                    <?php foreach ($this->reltothis_snippets as $snippet): ?>
+                    <?php foreach ($this->reltothis_snippets as $relSnippet): ?>
                         <?=$this->partial(
                             '_partials/followup-snippet-box.phtml',
                             [
-                                'snippet' => $snippet,
+                                'snippet' => $relSnippet,
                                 'followPathLink' => true,
                                 'relFollowupCount' => true,
                                 'kid' => $this->kid
@@ -73,11 +70,12 @@
                     <?php endforeach; ?>
 
                 </div>
-                <div id="el-1" class="col-sm-4" data-id="2">
+                <div class="col-sm-4 js-col" data-id="1" id="el-1">
 
                     <?=$this->partial(
                         '_partials/followup-snippet-box.phtml',
                         [
+                            'snippet' => $this->snippet,
                             'followPathLink' => true,
                             'relFollowupCount' => true,
                             'kid' => $this->kid
@@ -85,7 +83,7 @@
                     );?>
 
                 </div>
-            </div><!-- .row -->
+            </div>
         </div><!-- .followup -->
 
         <!-- Loader -->

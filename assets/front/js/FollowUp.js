@@ -6,10 +6,9 @@
      */
 
     function FollowUp(kid) {
-        var _colWidth;
         var _kid = kid;
         var _host = window.location.protocol + "//" + window.location.host;
-        var _$followup = $('#followup');
+        var $followup = $('#followup');
 
         _initEventListener();
 
@@ -18,7 +17,7 @@
                 el.preventDefault();
                 el.stopPropagation();
                 var _request = $(this).attr('href');
-                var _colId = parseInt($(this).parent().parent().parent().attr('data-id'));
+                var _colId = parseInt($(this).parent().parent().attr('data-id'));
                 var _reset;
 
                 if ($(this).hasClass('reset'))
@@ -27,14 +26,11 @@
                 var _obj = {'request': _request, 'colid': _colId, 'reset': _reset};
 
                 if (!$(this).hasClass('active')) {
-                    _getAjaxData(_obj, _addItemCallback);
+                    getData(_obj, addItemCallback);
                 }
 
                 $('.js-ajaxclick').removeClass('active');
                 $(this).addClass('active');
-
-                $(this).parent().parent().parent().find('.js-timeline-box').hide();
-                $(this).parent().parent('.js-timeline-box').show();
             });
 
             $(document).on('click', '.js-voting', function(el) {
@@ -45,7 +41,7 @@
                 var _target = el.target;
                 var _obj = {'request': _request, 'target': _target};
 
-                  _getAjaxData(_obj, function(data, status, obj) {
+                  getData(_obj, function(data) {
                     var _amount = data.lkyea || data.lknay;
                     _thisEl.children(".js-amount").text(_amount);
 
@@ -55,6 +51,10 @@
                 })
             });
 
+            $(document).on('click', '.js-follow-path', function(el) {
+              el.stopPropagation();
+            });
+
             $(document).on('click', '.js-openoverlay', function() {
                 var _request = $(this).data('href');
                 var params = {};
@@ -62,7 +62,7 @@
                 params.ffid = $(this).data('ffid');
                 var _obj = {'request': _request};
 
-                _getAjaxData(_obj, function(data, status, obj) {
+                getData(_obj, function(data) {
                     _addOverlay(data, params);
                 });
             });
@@ -83,36 +83,42 @@
         }
 
         /**
-         * Add new item to the view, called from ajaxRequest
+         * Adds new column to the right on the reaction time line and hides the left most column.
          */
-        function _addItemCallback(data, statuscode, obj) {
-            var _jsonData = data;
-            var _colId = obj.colid;
-            var _statusCode = statuscode;
-            if (_statusCode === 200) {
-                $('#followup').children('.js-col').each(function(index, element) {
-                    if (index == _colId) {
-                        var _newCol = '<div class="col-sm-4" data-id="' + parseInt(_colId + 1) + '" id="el-' + parseInt(_colId + 1) + '"></div>';
+        function addItemCallback(data, obj) {
+            var $newCol;
+            var colId = obj.colid;
+            var newColId = parseInt(colId + 1);
 
-                        $('#followup').append($(_newCol).html(_buildNewCol(_jsonData)).hide().fadeIn());
-                        $('#followup').animate({
-                            scrollLeft: _colWidth * _colId
-                        });
-                    } else if (index >= _colId) {
-                        $('#el-' + index).remove();
-                          $(this).append(_buildNewCol(_jsonData))
-                    }
-                });
+            $followup.find('.js-followup-timeline-col').each(function(index) {
+                if (index === colId) {
+                    $newCol = $('<div class="followup-row-col js-followup-timeline-col" data-id="' + newColId + '" id="el-' + newColId + '"></div>')
+                      .html(getColumnContent(data))
+                      .hide()
+                      .fadeIn()
+                      .css('display', 'inline-block');
 
-                if (obj.reset) {
-                    $('.js-timeline-box').fadeIn();
+                    $followup.children('.js-followup-timeline-row').append($newCol);
+
+                    // Scroll timeline to the end.
+                    var colsWidth = 0;
+                    $('.js-followup-timeline-col').each(function() {
+                      colsWidth += $(this).outerWidth();
+                    });
+                    var left = colsWidth - $('.js-followup-timeline').outerWidth();
+                    $('.js-followup-timeline').animate({ scrollLeft: left });
                 }
-            } else {
-                alert('Ups, die Anfrage lieferte kein Ergebnis');
+            });
+
+            if (obj.reset) {
+                $('.js-timeline-box').fadeIn();
             }
         }
 
-        function _buildNewCol(data) {
+      /**
+       * Returns the content of a column in the reaction time line
+       */
+      function getColumnContent(data) {
             var _html = "";
             var _link = "";
             var _overlayLink = "";
@@ -231,9 +237,9 @@
                 _activeDocClass = typeof params.ffid != "undefined" && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
 
                 if (_activeSnippet) {
-                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i]._showInTimelineLink + '">Back to timeline</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i].show_in_timeline_link + '">Back to timeline</a>';
                 } else {
-                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i]._showInTimelineLink + '">Follow path</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">Follow path</a>';
                 }
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ + '"> </div>' : '';
 
@@ -281,44 +287,22 @@
                 + '</div>'
                 + '</div>';
 
-            _$followup.append(_modal);
+            $followup.append(_modal);
 
             $('#modalFollowup').modal();
         }
 
         /**
-         * AjaxRequest for Data
+         * Get data by ajax request
          */
-        function _getAjaxData(obj, callback) {
-            var _action = obj.request;
-            var _callback = callback;
+        function getData(obj, callback) {
             $('#followuploader').show();
             $.ajax({
-                type: 'GET',
-                url: _action,
-                crossDomain: false,
+                url: obj.request,
                 dataType: 'json',
-                success: function() {
+                success: function(data) {
                     $('#followuploader').hide();
-                },
-                statusCode: {
-                    200: function(_json) {
-                        _callback(_json, 200, obj);
-                    },
-                    400: function(_json) {
-                    },
-                    403: function(_json) {
-                    },
-                    404: function(_json) {
-                        _callback(_json, 404);
-                    },
-                    410: function(_json) {
-                        _callback(_json, 410);
-                    },
-                    409: function(_json) {
-                    },
-                    500: function() {
-                    }
+                    callback(data, obj);
                 }
             });
         }

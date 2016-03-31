@@ -28,7 +28,10 @@
 
         <!-- Follow path -->
         <?php if ($this->followPathLink): ?>
-            <a href="<?=$this->url(['action' => 'show-by-snippet', 'controller' => 'followup', 'kid' => $this->kid, 'fid' => $this->snippet['fid']], null, true);?>" class="btn btn-default">
+            <a
+                href="<?=$this->url(['action' => 'show-by-snippet', 'controller' => 'followup', 'kid' => $this->kid, 'fid' => $this->snippet['fid']], null, true);?>"
+                class="btn btn-default js-follow-path"
+            >
                 <?=$this->translate('Follow this path');?>
             </a>
         <?php endif; ?>
