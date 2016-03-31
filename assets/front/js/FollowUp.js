@@ -7,7 +7,7 @@
 
     function FollowUp(kid) {
         var _kid = kid;
-        var _host = window.location.protocol + "//" + window.location.host;
+        var _host = window.location.protocol + "//" + window.location.host + baseUrl;
         var $followup = $('#followup');
 
         _initEventListener();
