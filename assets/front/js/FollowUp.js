@@ -52,6 +52,10 @@
                 })
             });
 
+            $(document).on('click', '.js-follow-path', function(el) {
+              el.stopPropagation();
+            });
+
             $(document).on('click', '.js-openoverlay', function() {
                 var _request = $(this).data('href');
                 var params = {};
