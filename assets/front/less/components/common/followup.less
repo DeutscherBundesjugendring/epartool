@@ -3,6 +3,26 @@
 
 .followup {
     position: relative;
+    overflow-x: auto;
+
+    &-row {
+        .make-row();
+        white-space: nowrap;
+
+        &-col {
+            .make-xs-column(10);
+            .make-sm-column(5);
+            .make-md-column(4);
+            display: inline-block;
+            float: none;
+            white-space: normal;
+            vertical-align: top;
+
+            @media (min-width: @screen-sm-min), (min-width: @screen-md-min) {
+                float: none;
+            }
+        }
+    }
 
     &-link {
         display: block;
@@ -50,20 +70,13 @@
 
         &-count {
             position: absolute;
-            left: 50%;
-            top: 100%;
+            left: 100%;
+            top: 50%;
             z-index: 1;
             display: block;
-            margin-left: -20px;
-            margin-top: -10px;
+            margin-left: -15px;
+            margin-top: -20px;
             padding: 10px 17px 10px 15px;
-
-            @media (min-width: @grid-float-breakpoint) {
-                left: 100%;
-                top: 50%;
-                margin-left: 0;
-                margin-top: -20px;
-            }
         }
     }
 

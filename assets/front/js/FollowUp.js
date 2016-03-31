@@ -6,7 +6,6 @@
      */
 
     function FollowUp(kid) {
-        var _colWidth;
         var _kid = kid;
         var _host = window.location.protocol + "//" + window.location.host;
         var $followup = $('#followup');
@@ -91,18 +90,23 @@
             var colId = obj.colid;
             var newColId = parseInt(colId + 1);
 
-            $followup.find('.js-col').each(function(index) {
+            $followup.find('.js-followup-timeline-col').each(function(index) {
                 if (index === colId) {
-                    $newCol = $('<div class="col-sm-4 js-col" data-id="' + newColId + '" id="el-' + newColId + '"></div>')
+                    $newCol = $('<div class="followup-row-col js-followup-timeline-col" data-id="' + newColId + '" id="el-' + newColId + '"></div>')
                       .html(getColumnContent(data))
                       .hide()
-                      .fadeIn();
+                      .fadeIn()
+                      .css('display', 'inline-block');
 
-                    $followup.children('.row')
-                      .append($newCol)
-                      .animate({ scrollLeft: _colWidth * colId });
-                } else if (index < colId) {
-                    $('#el-' + index).hide();
+                    $followup.children('.js-followup-timeline-row').append($newCol);
+
+                    // Scroll timeline to the end.
+                    var colsWidth = 0;
+                    $('.js-followup-timeline-col').each(function() {
+                      colsWidth += $(this).outerWidth();
+                    });
+                    var left = colsWidth - $('.js-followup-timeline').outerWidth();
+                    $('.js-followup-timeline').animate({ scrollLeft: left });
                 }
             });
 

@@ -29,9 +29,9 @@
         </div><!-- .row -->
 
         <!-- Chart -->
-        <div id="followup" class="followup">
-            <div class="row">
-                <div class="col-sm-4 js-col" data-id="0" id="el-0">
+        <div id="followup" class="followup js-followup-timeline">
+            <div class="followup-row js-followup-timeline-row">
+                <div class="followup-row-col js-followup-timeline-col" data-id="0" id="el-0">
 
                     <!-- Box -->
                     <div class="followup-timeline-box js-timeline-box">
@@ -80,8 +80,7 @@
                     </div><!-- .followup-timeline-box -->
 
                 </div>
-
-                <div class="col-sm-4 js-col" data-id="1" id="el-1">
+                <div class="followup-row-col js-followup-timeline-col" data-id="1" id="el-1">
 
                     <?php if (count($this->relInput)): ?>
                         <?php foreach ($this->relInput as $relInput): ?>
