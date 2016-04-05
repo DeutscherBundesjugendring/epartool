@@ -52,12 +52,12 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
         }
         $consuls = array();
         $consulElement = $this->createElement('select', 'mail_consultation');
+        $consulElement->addMultiOption('0', 'Please select…');
         foreach ($consultations as $cons) {
             $consulElement->addMultiOption($cons['kid'], $cons['titl_short']);
             $consuls[$cons['kid']] = $cons;
         }
         $consulElement
-            ->addMultiOption('0', 'Please select…')
             ->setAttrib('class', 'js-consultation-selector')
             ->setLabel('Consultation')
             ->setAttrib('data-consultations', json_encode($consuls));
