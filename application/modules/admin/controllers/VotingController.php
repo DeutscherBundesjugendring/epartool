@@ -87,20 +87,12 @@ class Admin_VotingController extends Zend_Controller_Action
         $participants = $userModel
             ->getParticipantsByConsultation($this->_consultation->kid)
             ->toArray();
-        $emailList = '';
-        $votingRights = [];
-        foreach ($participants as $key => $value) {
-            if (!empty($value['email'])) {
-                $emailList .= $value['email'] . ';';
-            }
 
-            $votingRights[$value['uid']] = $votingRightsModel->getByUserAndConsultation(
+        foreach ($participants as $key => $value) {
+            $participants[$key]['votingRights'] = $votingRightsModel->getByUserAndConsultation(
                 $value['uid'],
                 $this->_consultation->kid
             );
-            if (!empty($votingRights)) {
-                $participants[$key]['votingRights'] = $votingRights[$value['uid']];
-            }
         }
 
         $listControlForm = new Admin_Form_ListControl();
@@ -108,20 +100,14 @@ class Admin_VotingController extends Zend_Controller_Action
             $userId = $this->getRequest()->getPost('instantSendUserId');
             if ($userId) {
                 $user = (new Model_Users())->getById($userId);
-                $placeholders = ['voting_url' => Zend_Registry::get('baseUrl') . '/voting/index/kid/'
-                        . $this->_consultation->kid . '/authcode/' . $votingRights[$user['uid']]['vt_code']];
-                if ($votingRights[$user['uid']] && $votingRights[$user['uid']]['vt_weight'] != 1) {
-                    $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+                $votingRights = $votingRightsModel->getByUserAndConsultation($value['uid'], $this->_consultation->kid);
+                if ($votingRights && $votingRights['vt_weight'] != 1) {
                     $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
-                    $placeholders['voting_weight'] = $votingRights[$user['uid']]['vt_weight'];
-                    $placeholders['group_category'] = $grpSizDef[$votingRights[$user['uid']]['grp_siz']];
                 } else {
                     $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
                 }
-                $mailer = $this->getInvitationMailer($user, $placeholders);
-                $mailer
-                    ->setTemplate($templateName)
-                    ->addTo($user['email']);
+                $mailer = $this->getInvitationMailer($user, $votingRights, $templateName);
+                $mailer->addTo($user['email']);
 
                 (new Service_Email)->queueForSend($mailer)->sendQueued();
                 $this->_flashMessenger->addMessage(
@@ -138,7 +124,6 @@ class Admin_VotingController extends Zend_Controller_Action
         $appOpts = $this->getInvokeArg('bootstrap')->getOptions();
 
         $this->view->participants = $participants;
-        $this->view->emailList = $emailList;
         $this->view->listControlForm = $listControlForm;
         $this->view->mailDefaultFrom = $appOpts['resources']['mail']['defaultFrom']['email'];
     }

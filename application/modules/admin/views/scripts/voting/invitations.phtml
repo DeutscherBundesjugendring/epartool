@@ -20,16 +20,7 @@
             <div class="content">
 
                 <h2><?=$this->translate('Voting Invitations');?></h2>
-
                 <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
-
-                <?php if (!empty($this->emailList)): ?>
-                    <p>
-                        <a href="mailto:<?=$this->mailDefaultFrom;?>?bcc=<?=$this->emailList;?>">
-                            <?=$this->translate('Compose an email for all invited users');?>
-                        </a>
-                    </p>
-                <?php endif; ?>
 
                 <?php if (!empty($this->participants)): ?>
                     <form method="<?=$this->listControlForm->getMethod();?>">
