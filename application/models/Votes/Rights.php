@@ -132,26 +132,6 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns voting rights for a given user and consultation
-     * @param  integer                 $uid  The user identifier
-     * @param  integer                 $kid  The consultation identifier
-     * @throws Zend_Validate_Exception
-     * @return Zend_Db_Table_Row             The vt_rights table row object
-     */
-    public function getByUserAndConsultation($uid, $kid)
-    {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given parameter uid must be integer!');
-        }
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
-        }
-
-        return $this->find($kid, $uid)->current();
-    }
-
-    /**
      * Generates and returns a voting code,
      * logically adopted from old system
      * @param  integer $length Defaults to 8

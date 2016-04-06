@@ -39,13 +39,11 @@ class Admin_VotingController extends Zend_Controller_Action
         if ($uid > 0) {
             $userModel = new Model_Users();
             $userInfoModel = new Model_User_Info();
-            $votingRightsModel = new Model_Votes_Rights();
             $form = new Admin_Form_Voting_Rights();
 
             $user = $userModel->getById($uid);
             $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
-            $votingRights = $votingRightsModel
-                ->getByUserAndConsultation($uid, $this->_consultation->kid);
+            $votingRights = (new Model_Votes_Rights())->find($uid, $this->_consultation->kid)->current();
 
             if ($this->_request->isPost()) {
                 $data = $this->_request->getPost();
@@ -89,10 +87,9 @@ class Admin_VotingController extends Zend_Controller_Action
             ->toArray();
 
         foreach ($participants as $key => $value) {
-            $participants[$key]['votingRights'] = $votingRightsModel->getByUserAndConsultation(
-                $value['uid'],
-                $this->_consultation->kid
-            );
+            $participants[$key]['votingRights'] = $votingRightsModel
+                ->find($value['uid'], $this->_consultation->kid)
+                ->current();
         }
 
         $listControlForm = new Admin_Form_ListControl();
@@ -100,7 +97,7 @@ class Admin_VotingController extends Zend_Controller_Action
             $userId = $this->getRequest()->getPost('instantSendUserId');
             if ($userId) {
                 $user = (new Model_Users())->getById($userId);
-                $votingRights = $votingRightsModel->getByUserAndConsultation($value['uid'], $this->_consultation->kid);
+                $votingRights = $votingRightsModel->find($value['uid'], $this->_consultation->kid)->current();
                 if ($votingRights && $votingRights['vt_weight'] != 1) {
                     $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
                 } else {
@@ -149,7 +146,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $form->removeElement('mail_consultation_followup');
 
         $user = (new Model_Users())->getById($uid);
-        $votingRights = (new Model_Votes_Rights())->getByUserAndConsultation($user['uid'], $kid);
+        $votingRights = (new Model_Votes_Rights())->find($user['uid'], $kid)->current();
         $templateName = $votingRights && $votingRights['vt_weight'] != 1
             ? Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP
             : Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;
