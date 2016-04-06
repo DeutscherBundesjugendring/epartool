@@ -46,8 +46,7 @@
 
                                 </div>
                                 <div class="col-xs-11">
-
-                                    <?php if ($this->highest_rank !== 0): ?>
+                                    <?php if (intval($this->highest_rank) !== 0): ?>
                                         <?php $percent = round($thesis['rank'] * 100 / $this->highest_rank, 0);?>
                                     <?php else: ?>
                                         <?php $percent = 0; ?>
