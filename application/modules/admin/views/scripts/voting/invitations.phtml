@@ -19,19 +19,24 @@
             </div>
             <div class="content">
 
-                <h2><?=$this->translate('Voting Invitations');?></h2>
-
                 <?php if (!empty($this->participants)): ?>
                     <p>
-                        <a href="mailto:<?=$this->mailDefaultFrom;?>?bcc=<?=implode(';', array_filter(
-                            array_map(function ($participant) {
-                                return !empty($participant['email']) ? $participant['email'] : null;
-                            }, $this->participants)
-                        ));?>">
+                        <a
+                            href="mailto:<?=$this->mailDefaultFrom;?>?bcc=<?=implode(';', array_filter(
+                                array_map(function ($participant) {
+                                    return !empty($participant['email']) ? $participant['email'] : null;
+                                }, $this->participants)
+                            ));?>"
+                            class="btn btn-primary pull-right"
+                        >
                             <?=$this->translate('Compose an email for all invited users');?>
                         </a>
                     </p>
+                <?php endif;?>
 
+                <h2><?=$this->translate('Voting Invitations');?></h2>
+
+                <?php if (!empty($this->participants)): ?>
                     <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
                     <form method="<?=$this->listControlForm->getMethod();?>">
                         <?=$this->listControlForm->getElement($this->listControlForm->getCsrfTokenName());?>
