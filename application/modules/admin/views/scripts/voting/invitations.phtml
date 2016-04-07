@@ -20,9 +20,19 @@
             <div class="content">
 
                 <h2><?=$this->translate('Voting Invitations');?></h2>
-                <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
 
                 <?php if (!empty($this->participants)): ?>
+                    <p>
+                        <a href="mailto:<?=$this->mailDefaultFrom;?>?bcc=<?=implode(';', array_filter(
+                            array_map(function ($participant) {
+                                return !empty($participant['email']) ? $participant['email'] : null;
+                            }, $this->participants)
+                        ));?>">
+                            <?=$this->translate('Compose an email for all invited users');?>
+                        </a>
+                    </p>
+
+                    <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
                     <form method="<?=$this->listControlForm->getMethod();?>">
                         <?=$this->listControlForm->getElement($this->listControlForm->getCsrfTokenName());?>
                         <table class="table">
