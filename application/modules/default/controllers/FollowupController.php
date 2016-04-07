@@ -504,7 +504,7 @@ class FollowupController extends Zend_Controller_Action
             $snippet['expl'] = html_entity_decode($snippet['expl']);
             $snippet['relFowupCount'] = isset($countArr[$snippet['fid']]) ? (int)$countArr[$snippet['fid']] : 0;
             $snippet['gfx_who'] = $this->view->baseUrl()
-                . '/media/consultations/' . $this->consultation->kid
+                . '/media/consultations/' . $this->consultation['kid']
                 . '/' . $indexedDocs[(int)$snippet['ffid']]['gfx_who'];
         }
 
