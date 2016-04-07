@@ -61,32 +61,18 @@ class Model_Followups extends Zend_Db_Table_Abstract
     }
 
     /**
-    * getFollowupsbyInput
-    * get follow-up files by inpt.tid
-    * @param integer $tid
-    * @return Zend_DB_Table_Rowset
-    */
+     * @param $tid
+     * @return array
+     */
     public function getByInput($tid)
     {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($tid)) {
-          return array();
-        }
-        $result = array();
         $db = $this->getAdapter();
-        $select = $db->select();
-        $select->from(array('fr' => 'fowups_rid'));
-        $select->joinLeft(array('f' => 'fowups'), 'fr.fid_ref = f.fid');
-        $select->where('fr.tid=?', $tid);
+        $select = $db->select()
+            ->from(['fr' => 'fowups_rid'])
+            ->joinLeft(['f' => 'fowups'], 'fr.fid_ref = f.fid')
+            ->where('fr.tid=?', $tid);
 
-        $stmt = $db->query($select);
-        $rowSet = $stmt->fetchAll();
-
-        if ($rowSet) {
-          $result = $rowSet;
-        }
-
-        return $result;
+        return $db->query($select)->fetchAll();
 
     }
 

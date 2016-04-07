@@ -26,37 +26,46 @@ class Model_VotingFinal extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * returns all final Votes by a question
-     * @see CloseController|admin: writeResultsFinishAction() ;
+     * Returns all final Votes by a question
      * @param int $qid
+     * @param int $uid
      * @return array
-     **/
+     */
     public function getFinalVotesByQuestion($qid, $uid = 0)
     {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($qid)) {
-            return 0;
-        }
-
-        //Overall votings  votes.uid = 0 otherwise its a votingresult from a group
+        //Overall votings  votes.uid = 0 otherwise its a voting result from a group
         $db = $this->getAdapter();
-        $select = $db->select();
-        $select
+        $select = $db->select()
             ->from(['inputs' => 'inpt'])
-            ->joinRight(array('votes' => 'vt_final'), '(inputs.tid = votes.tid)')
+            ->joinRight(['votes' => 'vt_final'], '(inputs.tid = votes.tid)')
             ->where('inputs.qi = ?', $qid)
             ->where('votes.uid = ?', $uid)
             ->order('votes.rank DESC')
             ->order('votes.cast ASC')
             ->group('inputs.tid');
-
         $resultSet = $db->query($select);
-        $inputs = array();
+
+        $inputs = [];
         foreach ($resultSet as $row) {
-            $inputs[]=$row;
+            $inputs[] = $row;
         }
 
         return $inputs;
+    }
+
+    /**
+     * @param int $inputId
+     * @return int
+     */
+    public function getFinalVoteRankByInputId($inputId)
+    {
+        $db = $this->getAdapter();
+        $select = $db->select()
+            ->from(['votes' => 'vt_final'])
+            ->where('votes.tid = ?', $inputId);
+        $result = $db->query($select)->fetch();
+        var_dump($result);
+        return $result ? $result['rank'] : null;
     }
 
     /**
@@ -76,7 +85,7 @@ class Model_VotingFinal extends Dbjr_Db_Table_Abstract
     /**
      * Checks if the Group results written
      * @see  CloseController |admin:indexAction();
-     * @param int consultationID
+     * @param int $kid
      * @return array
      */
     public function isGroupResultWritten($kid)

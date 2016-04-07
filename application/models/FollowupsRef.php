@@ -59,29 +59,27 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
     /**
     * getFollowupCountByFids
     * get the reference count of the fids in a given array
-    * @param array $fidarray
+    * @param array $fidArray
     * @param string $where
     * @return array
     */
-    public function getFollowupCountByFids($fidarray, $where = NULL)
+    public function getFollowupCountByFids($fidArray, $where = null)
     {
-        if (count($fidarray) == 0) {
-                return array();
-
+        if (count($fidArray) == 0) {
+            return [];
         }
 
         $select = $this->select();
-        $select->from($this, array("fid_ref", "count" => new Zend_Db_Expr("count(*)")));
-        $select->where('fid_ref IN(?)', $fidarray);
+        $select->from($this, ['fid_ref', 'count' => new Zend_Db_Expr('count(*)')]);
+        $select->where('fid_ref IN(?)', $fidArray);
         if ($where) {
-                $select->where($where);
+            $select->where($where);
         }
-        $select->group(array ("fid_ref"));
-        //return (string) $select;
+        $select->group(['fid_ref']);
         $counts = $this->fetchAll($select)->toArray();
-        $result = array();
+        $result = [];
         foreach ($counts as $count) {
-                $result[$count['fid_ref']]    = $count['count'];
+            $result[$count['fid_ref']] = $count['count'];
         }
 
         return $result;
@@ -90,29 +88,27 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
     /**
     * getFollowupCountByTids
     * get the reference count of the tids in a given array
-    * @param array $tidarray
+    * @param array $tidArray
     * @param string $where
     * @return array
     */
-    public function getFollowupCountByTids($tidarray, $where = NULL)
+    public function getFollowupCountByTids($tidArray, $where = null)
     {
-        if (count($tidarray) == 0) {
-                return array();
-
+        if (count($tidArray) == 0) {
+            return [];
         }
 
         $select = $this->select();
-        $select->from($this, array("tid", "count" => new Zend_Db_Expr("count(*)")));
-        $select->where('tid IN(?)', $tidarray);
+        $select->from($this, ['tid', 'count' => new Zend_Db_Expr("count(*)")]);
+        $select->where('tid IN(?)', $tidArray);
         if ($where) {
-                $select->where($where);
+            $select->where($where);
         }
-        $select->group(array ("tid"));
-        //return (string) $select;
+        $select->group(['tid']);
         $counts = $this->fetchAll($select)->toArray();
-        $result = array();
+        $result = [];
         foreach ($counts as $count) {
-                $result[$count['tid']]    = $count['count'];
+            $result[$count['tid']]    = $count['count'];
         }
 
         return $result;
