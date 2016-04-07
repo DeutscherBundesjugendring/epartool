@@ -129,6 +129,7 @@ class FollowupController extends Zend_Controller_Action
 
                 $input = $inputsModel->getById($tid);
                 $input['relFowupCount'] = count($followupsModel->getByInput($tid));
+                $input['votingRank'] = $this->getVotingRank($kid, $qid, $input['tid']);
 
                 $relInputs = $inputsModel->fetchAll(
                     $inputsModel
@@ -143,6 +144,7 @@ class FollowupController extends Zend_Controller_Action
 
                 $countarr = $followupRefsModel->getFollowupCountByTids($inputids);
                 foreach ($relInputs as $key => $relInput) {
+                    $relInputs[$key]['votingRank'] = $this->getVotingRank($kid, $qid, $relInput['tid']);
                     $relInputs[$key]['relFowupCount'] = isset($countarr[$relInput['tid']])
                         ? $countarr[$relInput['tid']]
                         : 0;
@@ -275,6 +277,7 @@ class FollowupController extends Zend_Controller_Action
                 $countarrInputs = $followupRefsModel->getFollowupCountByTids($relTids);
 
                 foreach ($reltothisInputs as &$relInput) {
+                    $relInput['votingRank'] = $this->getVotingRank($this->consultation['kid'], $relInput['qi'], $relInput['tid']);
                     $relInput['relFowupCount'] = isset($countarrInputs[$relInput['tid']])
                         ? $countarrInputs[$relInput['tid']]
                         : 0;
@@ -553,6 +556,22 @@ class FollowupController extends Zend_Controller_Action
             );
             $this->flashMessenger->addMessage('You have been unsubscribed.', 'success');
             $this->redirect('/followup/index/kid/' . $kid);
+        }
+    }
+
+    /**
+     * @param int $kid
+     * @param int $qid
+     * @param int $inputId
+     * @return int
+     */
+    private function getVotingRank($kid, $qid, $inputId)
+    {
+        $results = (new Model_Votes())->getResultsValues($kid, $qid);
+        foreach ($results['votings'] as $i => $result) {
+            if ($result['tid'] === $inputId) {
+                return $i + 1;
+            }
         }
     }
 

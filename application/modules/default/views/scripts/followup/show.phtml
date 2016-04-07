@@ -63,7 +63,10 @@
 
                             <?php if ($this->input['vot'] == 'y'): ?>
                                 <div class="text-accent">
-                                    <?=$this->translate('Result of voting: X. position');?>
+                                    <?=sprintf(
+                                        $this->translate('Result of voting: %d. position'),
+                                        $this->input['votingRank']
+                                    );?>
                                 </div>
                             <?php endif; ?>
                         </div><!-- .well -->
@@ -92,7 +95,10 @@
 
                                     <?php if ($relInput['vot'] == 'y'): ?>
                                         <div class="text-accent">
-                                            <?=$this->translate('Result of voting: X. position');?>
+                                            <?=sprintf(
+                                                $this->translate('Result of voting: %d. position'),
+                                                $relInput['votingRank']
+                                            );?>
                                         </div>
                                     <?php endif; ?>
                                 </div><!-- .well -->

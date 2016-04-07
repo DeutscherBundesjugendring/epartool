@@ -43,7 +43,10 @@
                                         <?=$relInput['thes'];?>
                                     </p>
                                     <div class="text-accent">
-                                        <?=$this->translate('Result of voting: X. position');?>
+                                        <?=sprintf(
+                                            $this->translate('Result of voting: %d. position'),
+                                            $relInput['votingRank']
+                                        );?>
                                     </div>
                                 </div>
 
