@@ -22,8 +22,6 @@
     if (window.sessionStorage.getItem(storageName) === 'true') {
       if (this.length > 0) {
         addOverlay();
-      } else {
-        removeOverlay($overlay);
       }
     }
 
