@@ -16,6 +16,7 @@ module.exports = {
       '<%= paths.bower %>/bootstrap/js/modal.js',
       '<%= paths.bower %>/bootstrap/js/transition.js',
       '<%= paths.src.front %>/js/FollowUp.js',
+      '<%= paths.src.front %>/js/PageLeaveConfirmation.js',
       '<%= paths.src.front %>/js/SocialShare.js',
       '<%= paths.temp %>/front.js'
     ],

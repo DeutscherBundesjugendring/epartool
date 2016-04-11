@@ -18,6 +18,8 @@ $(document).ready () ->
         'verdicts': [i18n['Weak'], i18n['Normal'], i18n['Medium'], i18n['Strong'], i18n['Very Strong']]
     }})
 
+    $('.js-contribution-create-form').pageLeaveConfirmation();
+
 
 bindCharacterCounters = () ->
     updateCounter = (el) ->
