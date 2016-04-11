@@ -1,11 +1,31 @@
 ;(function ($) {
+
   $.fn.pageLeaveConfirmation = function () {
+    var confirmationEnabled = false;
     var $inputs = $(this).find('textarea');
+    var formSaved = false;
     var enableConfirmation = function () {
-      $(window).bind('beforeunload', function() {
-        return i18n['Your contributions have not been saved'];
-      });
+      if (!confirmationEnabled) {
+        $(window).bind('beforeunload', function () {
+          confirmationEnabled = true;
+          if (formSaved === false) {
+            return i18n['Your contributions have not been saved'];
+          }
+        });
+      }
     };
+
+    $inputs.each(function () {
+       if ($(this).val()) {
+         enableConfirmation();
+       }
+    });
+
+    this.each(function () {
+       $(this).find('button[type=submit]').on('click', function () {
+         formSaved = true;
+       })
+    });
 
     $inputs.on('change.pageLeaveConfirmation', function () {
       $inputs.off('change.pageLeaveConfirmation');
@@ -17,4 +37,5 @@
       enableConfirmation();
     });
   }
+
 }(jQuery));
