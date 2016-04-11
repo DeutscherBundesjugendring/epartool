@@ -1,8 +1,12 @@
 ;(function ($, document, window) {
 
-  $.fn.lightsOut = function () {
+  /**
+   * Displays "lighs out" overlay.
+   * If the user visits another page then the overlay is displayed only if the trigger button is present.
+   * @param storageName The key to be used in the session storage
+   */
+  $.fn.lightsOut = function (storageName) {
     var $overlay;
-    var storageName = 'dbjr-voting-lights-out';
     var removeOverlay = function ($overlay) {
       $overlay.remove();
       window.sessionStorage.removeItem(storageName);
@@ -13,13 +17,17 @@
       $overlay.on('click', function () {
         removeOverlay($overlay);
       })
-    }
+    };
 
     if (window.sessionStorage.getItem(storageName) === 'true') {
-      addOverlay();
+      if (this.length > 0) {
+        addOverlay();
+      } else {
+        removeOverlay($overlay);
+      }
     }
 
-    $(this).each(function () {
+    this.each(function () {
        $(this).on('click', function () {
          window.sessionStorage.setItem(storageName, 'true');
          addOverlay();

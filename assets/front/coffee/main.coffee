@@ -17,7 +17,7 @@ $(document).ready () ->
         'bootstrap2': true,
         'verdicts': [i18n['Weak'], i18n['Normal'], i18n['Medium'], i18n['Strong'], i18n['Very Strong']]
     }})
-    $('.js-lights-out').lightsOut();
+    $('.js-lights-out').lightsOut('dbjr-voting-lights-out', );
 
 
 bindCharacterCounters = () ->
