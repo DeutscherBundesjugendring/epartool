@@ -8,7 +8,9 @@
   $.fn.lightsOut = function (storageName) {
     var $overlay;
     var removeOverlay = function ($overlay) {
-      $overlay.remove();
+      if ($overlay) {
+        $overlay.remove();
+      }
       window.sessionStorage.removeItem(storageName);
     };
     var addOverlay = function () {
