@@ -85,6 +85,9 @@ class IndexController extends Zend_Controller_Action
             'Loading…' => $this->view->translate('Loading…'),
             'All age groups' => $this->view->translate('All age groups'),
             'Using the superbutton is not allowed.' => $this->view->translate('Using of superbutton is not allowed.'),
+            'Your contributions have not been saved' => $this->view->translate(
+                'Your contributions have not been saved.'
+            ),
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');

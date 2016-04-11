@@ -3,7 +3,7 @@
     var $inputs = $(this).find('textarea');
     var enableConfirmation = function () {
       $(window).bind('beforeunload', function() {
-        return '';
+        return i18n['Your contributions have not been saved'];
       });
     };
 
