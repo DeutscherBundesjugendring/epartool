@@ -43,7 +43,7 @@ class Admin_VotingController extends Zend_Controller_Action
 
             $user = $userModel->getById($uid);
             $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
-            $votingRights = (new Model_Votes_Rights())->find($uid, $this->_consultation->kid)->current();
+            $votingRights = (new Model_Votes_Rights())->find($this->_consultation->kid, $uid)->current();
 
             if ($this->_request->isPost()) {
                 $data = $this->_request->getPost();
@@ -88,7 +88,7 @@ class Admin_VotingController extends Zend_Controller_Action
 
         foreach ($participants as $key => $value) {
             $participants[$key]['votingRights'] = $votingRightsModel
-                ->find($value['uid'], $this->_consultation->kid)
+                ->find($this->_consultation->kid, $value['uid'])
                 ->current();
         }
 
@@ -97,7 +97,7 @@ class Admin_VotingController extends Zend_Controller_Action
             $userId = $this->getRequest()->getPost('instantSendUserId');
             if ($userId) {
                 $user = (new Model_Users())->getById($userId);
-                $votingRights = $votingRightsModel->find($value['uid'], $this->_consultation->kid)->current();
+                $votingRights = $votingRightsModel->find($this->_consultation->kid, $value['uid'])->current();
                 if ($votingRights && $votingRights['vt_weight'] != 1) {
                     $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
                 } else {
@@ -146,7 +146,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $form->removeElement('mail_consultation_followup');
 
         $user = (new Model_Users())->getById($uid);
-        $votingRights = (new Model_Votes_Rights())->find($user['uid'], $kid)->current();
+        $votingRights = (new Model_Votes_Rights())->find($kid, $user['uid'])->current();
         $templateName = $votingRights && $votingRights['vt_weight'] != 1
             ? Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP
             : Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_SINGLE;

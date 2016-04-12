@@ -159,7 +159,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                         ->where('pts < ?', 4)
                         ->where('uid = ?', $indiv_vote['uid'])
                 );
-                $votesRights = (new Model_Votes_Rights())->find($indiv_vote['uid'], $kid)->current();
+                $votesRights = (new Model_Votes_Rights())->find($kid, $indiv_vote['uid'])->current();
                 $indiv_points = ($votesRights['vt_weight']/$countIndivByUid['count']) * $indiv_vote['pts'];
 
                 $points += $indiv_points;
