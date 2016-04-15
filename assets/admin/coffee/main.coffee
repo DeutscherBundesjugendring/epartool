@@ -6,13 +6,10 @@ $(document).ready () ->
     bindToggleAll()
     bindConsultationCustomPhaseNames()
 
-    initCKEditor()
     initI18n()
-    initDatepicker()
     initSortableFollowupSnippets()
     initSortableVotingDirs()
     initSortablePartners()
-    initSelect2()
     initMediaIndexFileLazyLoad()
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -132,51 +129,6 @@ bindConsultationCustomPhaseNames = () ->
             inputs.prop('disabled', false);
         else
             inputs.prop('disabled', true);
-
-initCKEditor = () ->
-    if typeof $.fn.ckeditor != 'undefined'
-        $('.wysiwyg-standard').ckeditor({
-            customConfig: baseUrl + '/js/ckeditor.web_config.js'
-            filebrowserBrowseUrl: baseUrl + '/admin/media/index/targetElId/CKEditor',
-        })
-        $('.wysiwyg-email').ckeditor({
-            customConfig: baseUrl + '/js/ckeditor.email_config.js'
-        })
-
-initDatepicker = () ->
-    $('.js-datepicker').datetimepicker({
-        'format': 'YYYY-MM-DD',
-        'pickTime': false,
-        'locale': moment.locale()
-    })
-    $('.js-datetimepicker').datetimepicker({
-        'format': 'YYYY-MM-DD HH:mm:ss',
-        'sideBySide': true,
-        'locale': moment.locale()
-    })
-
-    # An ugly hack added so that datetimepicker can be triggered if the field was enabled by js after page load
-    $(document).on('change', '[data-toggle=disable]', () ->
-        $this = $(this)
-        $el = $($this.data('disable-target') + '.js-datetimepicker');
-        $el.data('DateTimePicker', null);
-        $el.datetimepicker({
-            'format': 'YYYY-MM-DD HH:mm:ss',
-            'sideBySide': true,
-            'locale': moment.locale()
-        })
-        $el = $($this.data('disable-target') + '.js-datepicker')
-        $el.data('DateTimePicker', null);
-        $el.datetimepicker({
-            'format': 'YYYY-MM-DD',
-            'pickTime': false,
-            'locale': moment.locale()
-        })
-        return
-    );
-
-initSelect2 = () ->
-    $('.js-select2').select2()
 
 initSortableFollowupSnippets = () ->
     return initSortableGeneral('.js-sortable-followup-snippets')

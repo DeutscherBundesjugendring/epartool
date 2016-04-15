@@ -11,7 +11,7 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
      * @see  self::WYSIWYG_TYPE_*
      * @var string
      */
-    private $_wysiwygType;
+    private $wysiwygType;
 
     /**
      * Load default decorators
@@ -30,6 +30,11 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
         return $this;
     }
 
+    /**
+     * @param string $wysiwygType
+     * @return $this
+     * @throws Dbjr_Exception
+     */
     public function setWysiwygType($wysiwygType)
     {
         if ($wysiwygType !== self::WYSIWYG_TYPE_STANDARD
@@ -38,12 +43,15 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
             throw new Dbjr_Exception('Invalid wysiwyg type.');
         }
 
-        $this->_wysiwygType = $wysiwygType;
+        $this->wysiwygType = $wysiwygType;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getWysiwygType()
     {
-        return $this->_wysiwygType;
+        return $this->wysiwygType;
     }
 }

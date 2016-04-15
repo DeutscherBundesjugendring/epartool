@@ -2,6 +2,10 @@
 
 class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
 {
+    /**
+     * @param string $content
+     * @return string
+     */
     public function render($content)
     {
         $element = $this->getElement();
@@ -9,9 +13,6 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
             ->setAttrib(
                 'class',
                 'form-control'
-                . $this->getWysiwygCssClass($element)
-                . $this->getDatepickerCssClass($element)
-                . $this->getSelect2CssClass($element)
                 . ($element->getAttrib('class') ? ' ' . $element->getAttrib('class') : '')
             )
             ->clearDecorators()
@@ -38,57 +39,62 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
                 ]
             );
 
+        $this->setDatePickerLoader($element);
+        $this->setSelect2Loader($element);
+        $this->setWysiwygLoader($element);
+
         return $element->render();
     }
 
     /**
-     * Returns the datepicker css class of the element
-     * @param  Zend_Form_Element $element The form element object
-     * @return string                     The css class prefixed with empty space.
-     *                                    Empty string if not applicable
+     * @param  Zend_Form_Element $element
      */
-    private function getDatepickerCssClass($element)
+    private function setDatePickerLoader($element)
     {
-        if ($element instanceof Dbjr_Form_Element_Text && $element->getDatepicker()) {
-            return ' js-' . $element->getDatepicker();
-        } else {
-            return '';
+        if ($element instanceof Dbjr_Form_Element_Text) {
+            if ($element->getDatepicker() === 'datetimepicker') {
+                $element->setAttrib('data-onload-datetimepicker', '{
+                    "format": "YYYY-MM-DD HH:mm:ss",
+                    "sideBySide": true,
+                    "locale": "' . (new Zend_Locale())->getLanguage()  . '"
+                }');
+            } elseif ($element->getDatepicker() === 'datepicker') {
+                $element->setAttrib('data-onload-datetimepicker', '{
+                    "format": "YYYY-MM-DD",
+                    "sideBySide": true,
+                    "locale": "' . (new Zend_Locale())->getLanguage()  . '"
+                }');
+            }
         }
     }
 
     /**
-     * Returns the wysiwyg css class of the element
-     * @param  Zend_Form_Element $element The form element object
-     * @return string                     The css class prefixed with empty space.
-     *                                    Empty string if not applicable
+     * @param  Zend_Form_Element $element
      */
-    private function getWysiwygCssClass($element)
+    private function setWysiwygLoader($element)
     {
-        if ($element instanceof Dbjr_Form_Element_Textarea
-            && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD
-        ) {
-            return ' wysiwyg-standard';
-        } elseif ($element instanceof Dbjr_Form_Element_Textarea
-            && $element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL
-        ) {
-            return ' wysiwyg-email';
-        } else {
-            return '';
+        if ($element instanceof Dbjr_Form_Element_Textarea) {
+            $baseUrl = Zend_Layout::getMvcInstance()->getView()->baseUrl();
+            if ($element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD) {
+                $element->setAttrib('data-onload-ckeditor', json_encode([
+                    'customConfig' => $baseUrl . '/js/ckeditor.web_config.js',
+                    'filebrowserBrowseUrl' => $baseUrl . '/admin/media/index/targetElId/CKEditor'
+                ]));
+            } elseif ($element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL) {
+                $element->setAttrib('data-onload-ckeditor', json_encode([
+                    'customConfig' => $baseUrl . '/js/ckeditor.email_config.js',
+                ]));
+            }
         }
     }
 
     /**
-     * Returns the select2 css class of the element
-     * @param  Zend_Form_Element $element The form element object
-     * @return string                     The css class prefixed with empty space.
-     *                                    Empty string if not applicable
+     * @param  Zend_Form_Element $element
      */
-    private function getSelect2CssClass($element)
+    private function setSelect2Loader($element)
     {
         if ($element instanceof Dbjr_Form_Element_Multiselect && $element->getIsSelect2()) {
-            return ' js-select2';
-        } else {
-            return '';
+            $element->setAttrib('data-onload-select2', '{}');
         }
     }
 }
