@@ -96,10 +96,10 @@ class Admin_ArticleController extends Zend_Controller_Action
                         $this->_flashMessenger->addMessage('Creating new article failed.', 'error');
                     }
 
-                    $this->_redirect($this->view->url(array(
-                        'action' => 'index',
-                        'kid' => $this->_kid
-                    )), array('prependBase' => false));
+                    $this->redirect(
+                        $this->view->url(['action' => 'index', 'kid' => $this->_kid]),
+                        ['prependBase' => false]
+                    );
                 } else {
                     $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                     $form->populate($form->getValues());
@@ -296,7 +296,9 @@ class Admin_ArticleController extends Zend_Controller_Action
         $articleRow->setFromArray($values);
         $articleRow->artcl = $this->articleService->basePathToPlaceholder($articleRow->artcl);
         $articleRow->sidebar = $this->articleService->basePathToPlaceholder($articleRow->sidebar);
+        $articleRow->ref_nm = $articleRow->ref_nm ? $articleRow->ref_nm : null;
         $articleRow->proj = implode(',', $values['proj']);
+        $articleRow->parent_id = $articleRow->parent_id ? $articleRow->parent_id : null;
         $articleRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
     }
 

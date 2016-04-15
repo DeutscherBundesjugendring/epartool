@@ -3,9 +3,7 @@
 class Model_FollowupsRef extends Zend_Db_Table_Abstract
 {
     protected $_name = 'fowups_rid';
-    protected $_primary = array(
-        'fid_ref', 'tid', 'ffid','fid'
-    );
+    protected $_primary = ['id'];
 
     protected $_referenceMap = array(
         'Followups_Ref' => array(
@@ -35,7 +33,7 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
      * - snippet
      * - follow-up
      * - input
-     * @param  array   $array  An array of linekd entity ids
+     * @param  array   $ids    An array of linked entity ids
      * @param  integer $fid    The id of the snipped being linked
      * @param  string  $type   Identifies the target entity type. Takes values
      *                         - tid (input)
@@ -43,11 +41,11 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
      *                         - ffid (followup)
      * @return integer        The number of rows inserted.
      */
-    public function insertBulk($array, $fid, $type)
+    public function insertBulk($ids, $fid, $type)
     {
         $inserted = 0;
-        $this->delete(['fid_ref = ?' => $fid, $this->getAdapter()->quoteIdentifier($type) . '!= 0']);
-        foreach ($array as $id) {
+        $this->delete(['fid_ref = ?' => $fid, $this->getAdapter()->quoteIdentifier($type) . 'IS NOT NULL']);
+        foreach ($ids as $id) {
             $data = ['fid_ref' => $fid, $type => $id];
             $inserted++;
             $this->insert($data);
@@ -121,7 +119,7 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
                     throw new Zend_Exception('Given fid must be integer!');
         }
         $select = $this->select();
-        $select->from($this, array("fid_ref"));
+        $select->from($this, ['fid_ref']);
         $select->where('fid=?', $fid);
 
         $result = $this->fetchAll($select)->toArray();
@@ -135,7 +133,7 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
                     throw new Zend_Exception('Given fid must be integer!');
         }
         $select = $this->select();
-        $select->from($this, array("tid"));
+        $select->from($this, ['tid']);
         $select->where('fid_ref=?', $fid);
         $select->where('tid<>?', 0);
 

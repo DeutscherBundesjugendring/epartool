@@ -74,10 +74,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     $count = $inputModel->deleteBulk($inputIds);
                     $msg = sprintf($this->view->translate('%d contributions have been deleted.'), $count);
                 } elseif ($this->getRequest()->getPost('sendToDictionaryBulk', null)) {
-                    $count = $inputModel->update(
-                        ['dir' => $this->getRequest()->getPost('sendToDictionaryId')],
-                        ['tid IN (?)' => $inputIds]
-                    );
+                    $dirId = $this->getRequest()->getPost('sendToDictionaryId');
+                    $dirId = $dirId ? $dirId : null;
+                    $count = $inputModel->update(['dir' => $dirId], ['tid IN (?)' => $inputIds]);
                     $msg = sprintf($this->view->translate('%d contributions have been moved.'), $count);
                 } elseif ($this->getRequest()->getPost('merge', null)) {
                     // This is awkward, but we need to utilise the same checkboxes as for bulk editing actions

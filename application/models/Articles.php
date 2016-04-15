@@ -116,7 +116,6 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
 
     /**
      * Get all Articles that are not assigned to any Consultation, i.e. general Articles
-     * Liefert alle Artikel, die zu keiner Konsultation gehören, d.h. allg. Artikel
      * @param string $orderBy [optional] Fieldname
      *
      * @return Zend_Db_Table_Rowset
@@ -138,7 +137,7 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
     {
         // first all first level pages
         $select = $this->select()
-            ->where('parent_id IS NULL OR parent_id = 0')
+            ->where('parent_id IS NULL')
             ->order($orderBy);
 
         if ($kid) {
@@ -192,21 +191,19 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
 
     /**
      * Search in articles by consultations
-     * @param string  $needle
+     * @param string $needle
      * @param integer $consultationId
      * @param integer $limit
+     * @return array
      */
-    public function search($needle, $consultationId=0, $limit=30)
+    public function search($needle, $consultationId = 0, $limit = 30)
     {
-        $result = array();
+        $result = [];
         if ($needle !== '' && is_int($consultationId) && is_int($limit)) {
             $select = $this->select();
-            $select->from(
-                array('ar'=>'articles'),
-                array('art_id', 'desc', 'ref_nm')
-            );
+            $select->from(['ar'=>'articles'], ['art_id', 'desc', 'ref_nm']);
             $select->where('LOWER(ar.artcl) LIKE ?', '%'.htmlentities($needle).'%');
-            // if no consultation is set, search in generell articles
+            // if no consultation is set, search in general articles
             $select->where('ar.kid = ?', $consultationId);
             $select->limit($limit);
 
@@ -217,19 +214,24 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
         return $result;
     }
 
+    /**
+     * @param int $kid
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
     public function getFirstLevelEntries($kid)
     {
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($kid)) {
-            throw new Zend_Exception('Given parameter kid must be integer!');
-        }
         $select = $this->select();
-        $select->where('kid = ?', $kid)
-            ->where('parent_id IS NULL OR parent_id = 0');
+        $select
+            ->where('kid = ?', $kid)
+            ->where('parent_id IS NULL');
 
         return $this->fetchAll($select);
     }
 
+    /**
+     * @param int $id
+     * @return Zend_Db_Table_Rowset_Abstract
+     */
     public function getChildren($id)
     {
         $select = $this->select();
@@ -238,8 +240,11 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    /**
+     * @return array
+     */
     public function getStaticPages()
     {
-        return $this->getByConsultation(0, 'static');
+        return $this->getByConsultation(null, 'static');
     }
 }

@@ -55,14 +55,14 @@ class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
      * @param  string $scope
      * @return array
      */
-    public function getRefNamesByScope($scope = null)
+    public function getRefNamesByScope($scope)
     {
         if (is_null($scope)) {
-            return array();
+            return [];
         }
 
         $select = $this->select()
-            ->from($this->_name, array('ref_nm'))
+            ->from($this->_name, ['ref_nm'])
             ->where('scope = ?', $scope);
 
         return $this->fetchAll($select)->toArray();

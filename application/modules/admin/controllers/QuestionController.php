@@ -40,28 +40,19 @@ class Admin_QuestionController extends Zend_Controller_Action
         $form->setAction($this->view->baseUrl() . '/admin/question/create/kid/' . $this->_consultation['kid']);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
-                $questionModel = new Model_Questions();
-                $maxId = $questionModel->getMaxId();
-                $newQi = intval($maxId) + rand(1, 300);
-                $questionRow = $questionModel->createRow($form->getValues());
-                $questionRow->qi = $newQi;
+                $questionRow = (new Model_Questions())->createRow($form->getValues());
                 $questionRow->kid = $this->_consultation['kid'];
                 $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                 $questionRow->ln = 'de';
-                $newId = $questionRow->save();
-                if ($newId > 0) {
-                    $this->_flashMessenger->addMessage('New question has been created.', 'success');
-                } else {
-                    $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
-                }
+                $questionRow->save();
+                $this->_flashMessenger->addMessage('New question has been created.', 'success');
 
-                $this->_redirect($this->view->url(array(
-                    'action' => 'index',
-                    'kid' => $this->_consultation['kid']
-                )), array('prependBase' => false));
-            } else {
-                $form->populate($form->getValues());
+                $this->redirect(
+                    $this->view->url(['action' => 'index', 'kid' => $this->_consultation['kid']]),
+                    ['prependBase' => false]
+                );
             }
+            $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
         }
 
         $this->view->consultation = $this->_consultation;
