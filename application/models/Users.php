@@ -135,7 +135,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'cmnt_ext' => $data['cmnt_ext'],
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
-            'is_contrib_under_cc' => $data['is_contrib_under_cc'],
         ];
 
         // if group then also save group specifications
@@ -332,7 +331,6 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             $user->name = $userConsultData->name;
             $user->name_group = $userConsultData->name_group;
             $user->name_pers = $userConsultData->name_pers;
-            $user->is_contrib_under_cc = $userConsultData->is_contrib_under_cc;
             $user->age_group = $userConsultData->age_group;
             $user->regio_pax = $userConsultData->regio_pax;
             $user->cnslt_results = $userConsultData->cnslt_results;

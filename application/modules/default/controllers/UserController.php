@@ -99,10 +99,15 @@ class UserController extends Zend_Controller_Action
                         }
                         unset($data['cmnt_ext']);
                         unset($data['kid']);
+                        unset($data['is_contrib_under_cc']);
                         unset($data['csrf_token_register']);
                         if (isset($data['group_specs'])) {
                             $data = array_merge($data, $data['group_specs']);
                             unset($data['group_specs']);
+                            foreach ($data['source'] as $source) {
+                                $data['source'] = $source;
+                                break;
+                            }
                         }
                         $data['email'] = $this->_auth->getIdentity()->email;
                         $userModel->update($data, ['uid=?' => $uid]);
