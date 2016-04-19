@@ -120,6 +120,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             if($inputData) {
                 $data = ['qi' => $inputData['qi']];
                 $form->populate($data);
+                $form->getElement('qi')->setAttrib('disabled', 'disabled');
             }
         }
 
