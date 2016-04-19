@@ -162,6 +162,7 @@ class Admin_InputController extends Zend_Controller_Action
                 $updated = $inputModel->updateById($tid, $formValues);
                 if ($updated == $tid) {
                     $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                    $this->redirect($url);
                 } else {
                     $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
                 }
