@@ -19,7 +19,7 @@
                 <article class="article">
 
                     <?php if (!empty($question['nr'])): ?>
-                        <h2 class="page-header">
+                        <h2 class="page-header" id="question-<?=$question['qi'];?>">
                             <?=$this->escape($question['nr']);?>
                             <?=$this->escape($question['q']);?>
                         </h2>

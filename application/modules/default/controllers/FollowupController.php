@@ -74,13 +74,10 @@ class FollowupController extends Zend_Controller_Action
 
     public function inputsByQuestionAction()
     {
-        $kid = $this->_getParam('kid', 0);
-        $tag = $this->_getParam('tag', null);
-        $qid = $this->getRequest()->getParam('qid', 0);
+        $tag = $this->_getParam('tag');
+        $qid = $this->getRequest()->getParam('qid');
         $questionModel = new Model_Questions();
         $inputModel = new Model_Inputs();
-
-        $qid = empty($qid) ? $qid : $questionModel->getByConsultation($kid)->current()->qi;
 
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
