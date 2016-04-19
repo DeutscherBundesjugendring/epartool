@@ -519,6 +519,10 @@ class VotingController extends Zend_Controller_Action
         if (!empty($lastTid)) {
             $this->view->LastVote = $lastTid;
         }
+
+        $projectModel = new Model_Projects();
+        $project = $projectModel->find(Zend_Registry::get('systemconfig')->project)->current();
+        $this->view->defaultVoteQuestion = $project->vot_q;
     }
 
     /**
