@@ -413,9 +413,6 @@ CREATE TABLE `proj` (
   PRIMARY KEY (`proj`)
 ) ENGINE=InnoDB COMMENT='All projects active in this installation';
 
-INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`) VALUES
-('xx',  'ePartool (default)',   'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?');
-
 DROP TABLE IF EXISTS `quests`;
 CREATE TABLE `quests` (
   `qi` int(10) unsigned NOT NULL COMMENT 'QuestionID (new)',
@@ -1194,17 +1191,14 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`)
 DELETE FROM `help_text` WHERE `project_code` = '$$';
 
 -- Migration 2016-04-12_16-00_DBJR_627.sql
--- Drop unused tables
 DROP TABLE quests_choic;
 DROP TABLE edt_cnslt;
 DROP TABLE sessns;
 DROP TABLE supports;
 
--- Drop unused columns
 ALTER TABLE users DROP COLUMN is_contrib_under_cc;
 ALTER TABLE user_info DROP COLUMN is_contrib_under_cc;
 
--- Make all tables use InnoDb Engine
 ALTER TABLE articles_refnm ENGINE=INNODB;
 ALTER TABLE cnslt ENGINE=INNODB;
 ALTER TABLE dirs ENGINE=INNODB;
@@ -1219,7 +1213,6 @@ ALTER TABLE vt_grps ENGINE=INNODB;
 ALTER TABLE vt_indiv ENGINE=INNODB;
 ALTER TABLE vt_rights ENGINE=INNODB;
 
--- Set correct data types on id columns
 ALTER TABLE articles MODIFY COLUMN art_id int UNSIGNED AUTO_INCREMENT NOT NULL;
 ALTER TABLE articles DROP FOREIGN KEY articles_kid_fkey;
 ALTER TABLE articles MODIFY COLUMN kid int UNSIGNED NULL DEFAULT NULL;
@@ -1232,7 +1225,6 @@ ALTER TABLE inpt_tgs MODIFY COLUMN tg_nr int UNSIGNED AUTO_INCREMENT NOT NULL;
 ALTER TABLE quests MODIFY COLUMN qi int UNSIGNED NOT NULL;
 ALTER TABLE user_info MODIFY COLUMN user_info_id int UNSIGNED AUTO_INCREMENT NOT NULL;
 
--- Add foreign keys
 ALTER TABLE articles MODIFY COLUMN ref_nm varchar(30) NULL DEFAULT NULL COMMENT 'Article reference name';
 UPDATE articles SET ref_nm = NULL WHERE ref_nm = '0';
 ALTER TABLE articles ADD CONSTRAINT articles_ref_nm_fkey FOREIGN KEY (ref_nm) REFERENCES articles_refnm(ref_nm);
