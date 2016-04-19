@@ -57,7 +57,15 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         ) {
             $inputModel = new Model_Inputs();
             $inputIds = $this->getRequest()->getPost('inputIds');
-            if ($inputIds) {
+            if ($this->getRequest()->getPost('unlink', null)) {
+                $ids = $this->getRequest()->getPost('unlink', null);
+                $ids = explode('-', $ids);
+                $inputModel->unlinkById($ids[0], $ids[1]);
+                $this->_flashMessenger->addMessage('Contribution has been removed from related.', 'success');
+            } elseif ($this->getRequest()->getPost('delete', null)) {
+                $inputModel->deleteById($this->getRequest()->getPost('delete', null));
+                $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
+            } elseif ($inputIds) {
                 if ($this->getRequest()->getPost('releaseBulk', null)) {
                     $count = $inputModel->editBulk($inputIds, ['block' => 'n']);
                     $msg = sprintf($this->view->translate('%d contributions have been released.'), $count);
@@ -86,10 +94,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                         'inputIds' => $this->getRequest()->getPost('inputIds', null)
                     ]));
                 }
-                $this->_flashMessenger->addMessage($msg, 'success');
-            } elseif ($this->getRequest()->getPost('delete', null)) {
-                $inputModel->deleteById($this->getRequest()->getPost('delete', null));
-                $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
+                if(isset($msg)) {
+                    $this->_flashMessenger->addMessage($msg, 'success');
+                }
             }
         }
 

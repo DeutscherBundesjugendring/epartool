@@ -104,6 +104,40 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * unlinkById
+     * @param  integer $id
+     * @param  integer $relId
+     * @return integer
+     */
+    public function unlinkById($id, $relId)
+    {
+        // is int?
+        $validator = new Zend_Validate_Int();
+        if (!$validator->isValid($id)) {
+            return 0;
+        }
+        if (!$validator->isValid($relId)) {
+            return 0;
+        }
+        // exists?
+        if ($this->find($id)->count() < 1) {
+            return 0;
+        }
+
+        $row = $this->find($id)->current();
+        $related = explode(',', $row['rel_tid']);
+        foreach($related as $key => $rid) {
+            if($rid === $relId) {
+                unset($related[$key]);
+                break;
+            }
+        }
+        $row->setFromArray(['rel_tid' => implode(',', $related)]);
+
+        return $row->save();
+    }
+
+    /**
      * deleteById
      * @desc delete entry by id
      * @name deleteById
