@@ -10,20 +10,20 @@
         <div class="row offset-bottom-large">
             <div class="col-xs-8 col-sm-5 col-md-3">
 
-                <a
-                    href="<?=$this->url(['action' => 'index', 'page' => null]);?>"
-                    class="followup-back-link followup-link media link-unstyled link-unstyled-alt"
-                    title="<?=$this->translate('Back to overview of Reactions & Impact');?>"
-                >
-                    <div class="media-left">
+                <div class="media-left">
+                    <a
+                        href="<?=$this->url(['controller' => 'question', 'action' => 'index', 'kid' => $this->consultation['kid']]);?>#question-<?=$this->question['qi'];?>"
+                        class="followup-back-link followup-link media link-unstyled link-unstyled-alt"
+                        title=""
+                    >
                         <div class="followup-back-link-question-mark followup-sprite followup-sprite-question-mark" aria-hidden="true">?</div>
-                    </div>
-                    <div class="media-body">
-                        <strong class="small">
-                            <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.');?>
-                        </strong>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                <div class="media-body">
+                    <strong class="small">
+                        <?=$this->translate('Follow the Reactions to your contribution here. Click on the arrows for the next steps.');?>
+                    </strong>
+                </div>
 
             </div>
         </div><!-- .row -->
