@@ -18,7 +18,6 @@ module.exports = {
       '<%= paths.src.front %>/js/FollowUp.js',
       '<%= paths.src.front %>/js/PageLeaveConfirmation.js',
       '<%= paths.src.front %>/js/SocialShare.js',
-      '<%= paths.src.front %>/js/LightsOut.js',
       '<%= paths.temp %>/front.js'
     ],
     dest: '<%= paths.dist %>/js/<%= pkg.name %>.js'
