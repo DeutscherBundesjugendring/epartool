@@ -58,7 +58,7 @@
                 <?php foreach ($this->input['related'] as $relInput): ?>
                     <li>
                         <a
-                            href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $relInput['tid']]);?>"
+                            href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $relInput['tid'], 'return' => 'votingprepare']);?>"
                         >
                             <?=$this->escape($relInput['thes']);?>
                         </a>

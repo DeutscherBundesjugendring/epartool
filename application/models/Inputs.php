@@ -111,15 +111,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function unlinkById($id, $relId)
     {
-        // is int?
-        $validator = new Zend_Validate_Int();
-        if (!$validator->isValid($id)) {
-            return 0;
-        }
-        if (!$validator->isValid($relId)) {
-            return 0;
-        }
-        // exists?
         if ($this->find($id)->count() < 1) {
             return 0;
         }
