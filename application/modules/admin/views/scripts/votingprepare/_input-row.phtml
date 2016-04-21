@@ -56,7 +56,24 @@
             <h5><?=$this->translate('Related');?></h5>
             <ul>
                 <?php foreach ($this->input['related'] as $relInput): ?>
-                    <li><?=$this->escape($relInput['thes']);?></li>
+                    <li>
+                        <a
+                            href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $relInput['tid'], 'return' => 'votingprepare']);?>"
+                        >
+                            <?=$this->escape($relInput['thes']);?>
+                        </a>
+
+                        <button
+                            name="unlink"
+                            value="<?=$relInput['tid'] . '-' . $this->input['tid'];?>"
+                            class="item-action item-action-danger"
+                            data-toggle="confirm"
+                            title="<?=$this->translate('Unlink contribution');?>"
+                            data-confirm-message="<?=$this->translate('Delete contribution');?>?"
+                        >
+                            <span class="glyphicon glyphicon-remove-sign"></span>
+                        </button>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
