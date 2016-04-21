@@ -131,6 +131,12 @@ class Admin_InputController extends Zend_Controller_Action
         $uid = $this->_request->getParam('uid', 0);
         $qi = $this->_request->getParam('qi', 0);
 
+        $session = new Zend_Session_Namespace('inputEdit');
+
+        if (!$this->getRequest()->isPost()) {
+            $session->urlQi = $this->getRequest()->getParam('qi', 0);
+        }
+
         if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
             $url = $this->view->url(
                 [
@@ -141,7 +147,7 @@ class Admin_InputController extends Zend_Controller_Action
                 ]
             );
             $cancelUrl = $this->view->returnUrl = $url;
-        } elseif ($this->getRequest()->getParam('qi', null)) {
+        } elseif ($session->urlQi > 0) {
             $url = $this->view->url(['action' => 'list-by-question', 'qi' => $qi, 'tid' => null]);
             $cancelUrl = $this->view->returnUrl = $url;
         } else {
@@ -162,6 +168,7 @@ class Admin_InputController extends Zend_Controller_Action
                 $updated = $inputModel->updateById($tid, $formValues);
                 if ($updated == $tid) {
                     $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                    unset($session->urlQi);
                     $this->redirect($url);
                 } else {
                     $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
