@@ -169,7 +169,7 @@ class Admin_InputController extends Zend_Controller_Action
                 if ($updated == $tid) {
                     $this->_flashMessenger->addMessage('Changes saved.', 'success');
                     unset($session->urlQi);
-                    $this->redirect($url);
+                    $this->redirect($url, ['prependBase' => false]);
                 } else {
                     $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
                 }
