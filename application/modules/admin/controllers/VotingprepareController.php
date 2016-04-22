@@ -109,11 +109,17 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     public function splitAction()
     {
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input($this->view->url(['action' => 'overview']));
+        $form = new Admin_Form_Input(
+            $this->view->url(['action' => 'overview']),
+            Admin_Form_Input::AFTER_SUBMIT_SPLIT_NEXT
+        );
+        $form->getElement('qi')->setAttrib('disabled', 'disabled');
         $origInputId = $this->getRequest()->getParam('inputId');
+        $origInputData = $inputModel->find($origInputId)->current();
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
+            $postData['qi'] = $origInputData['qi'];
             if ($form->isValid($postData)) {
                 $newInputId = $inputModel->addInputs($postData);
                 $inputModel->appendRelIds($origInputId, [$newInputId]);
@@ -123,12 +129,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
-            $inputData = $inputModel->find($origInputId)->current();
-            if($inputData) {
-                $data = ['qi' => $inputData['qi']];
-                $form->populate($data);
-                $form->getElement('qi')->setAttrib('disabled', 'disabled');
-            }
+            $form->populate(['qi' => $origInputData['qi']]);
         }
 
         $this->view->inputs = $inputModel->fetchAllInputs(['tid = ?' => $origInputId]);

@@ -2,11 +2,28 @@
 
 class Admin_Form_Input extends Dbjr_Form_Admin
 {
-    protected $_cancelUrl;
+    const AFTER_SUBMIT_RETURN_TO_INDEX = 'after_submit_return_to_index';
+    const AFTER_SUBMIT_SPLIT_NEXT = 'after_submit_split_next';
 
-    public function __construct($cancelUrl = null)
+    /**
+     * @var string
+     */
+    protected $cancelUrl;
+
+    /**
+     * @var string
+     */
+    private $afterSubmitAction;
+
+    /**
+     * Admin_Form_Input constructor.
+     * @param null $cancelUrl
+     * @param string $afterSubmitAction
+     */
+    public function __construct($cancelUrl = null, $afterSubmitAction = self::AFTER_SUBMIT_RETURN_TO_INDEX)
     {
-        $this->_cancelUrl = $cancelUrl;
+        $this->cancelUrl = $cancelUrl;
+        $this->afterSubmitAction = $afterSubmitAction;
         parent::__construct();
     }
 
@@ -17,7 +34,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 
         $this->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
-            ->setCancelLink(['url' => $this->_cancelUrl]);
+            ->setCancelLink(['url' => $this->cancelUrl]);
 
         $selectOptions = (new Model_Questions())->getAdminInputFormSelectOptions($kid);
         $questionId = $this->createElement('select', 'qi');
@@ -99,18 +116,27 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $this->addElement($hash);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit
-            ->setAttrib('class', 'btn-primary')
-            ->setLabel('Save and return to index');
+        $submit->setAttrib('class', 'btn-primary');
+        if ($this->afterSubmitAction === self::AFTER_SUBMIT_RETURN_TO_INDEX) {
+            $submit->setLabel('Save and return to index');
+        } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_SPLIT_NEXT) {
+            $submit->setLabel('Save and split next');
+        }
         $this->addElement($submit);
     }
 
-	 public function getHash() {
-	 	$hash = $this->createElement('hash', 'csrf_token_inputadmin', array('salt' => 'unique'));
+    /**
+     * @return \Zend_Form_Element
+     * @throws \Zend_Exception
+     * @throws \Zend_Form_Exception
+     */
+    public function getHash()
+    {
+        $hash = $this->createElement('hash', 'csrf_token_inputadmin', ['salt' => 'unique']);
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
-		return $hash;
-	 }
+        return $hash;
+    }
 }
