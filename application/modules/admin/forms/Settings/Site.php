@@ -1,6 +1,6 @@
 <?php
 
-class Admin_Form_Settings extends Dbjr_Form_Admin
+class Admin_Form_Settings_Site extends Dbjr_Form_Admin
 {
     public function init()
     {

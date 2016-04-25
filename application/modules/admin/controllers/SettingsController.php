@@ -18,25 +18,24 @@ class Admin_SettingsController extends Zend_Controller_Action
     public function indexAction()
     {
         $paramModel = new Model_Parameter();
-        $params = $paramModel->getAsArray();
-        $form = new Admin_Form_Settings();
+        $form = new Admin_Form_Settings_Site();
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
             if ($form->isValid($data)) {
-                $proj = Zend_Registry::get('systemconfig')->project;
+                $projectCode = Zend_Registry::get('systemconfig')->project;
                 $db = $paramModel->getAdapter();
                 $db->beginTransaction();
                 try {
                     foreach ($data as $field => $value) {
                         $paramModel->update(
                             ['value' => $value],
-                            ['name=?' => str_replace('_', '.', $field), 'proj=?' => $proj]
+                            ['name=?' => str_replace('_', '.', $field), 'proj=?' => $projectCode]
                         );
                     }
                     $db->commit();
                     $this->_flashMessenger->addMessage('Settings were saved.', 'success');
-                    $this->_redirect('/admin/settings');
+                    $this->redirect('/admin/settings');
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;
@@ -45,7 +44,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form invalid', 'error');
             }
         } else {
-            $form->populate($params);
+            $form->populate($paramModel->getAsArray());
         }
 
         $this->view->form = $form;
@@ -128,6 +127,36 @@ class Admin_SettingsController extends Zend_Controller_Action
             }
         } else {
             $form->populate($footersArr);
+        }
+
+        $this->view->form = $form;
+    }
+
+    public function votingAction()
+    {
+        $projectModel = new Model_Projects();
+        $projectCode = Zend_Registry::get('systemconfig')->project;
+        $form = new Admin_Form_Settings_Voting();
+
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            if ($form->isValid($data)) {
+                $db = $projectModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $projectModel->update(['vot_q' => $data['voting_question']], ['proj=?' => $projectCode]);
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Settings were saved.', 'success');
+                    $this->redirect('/admin/settings/voting');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Form invalid', 'error');
+            }
+        } else {
+            $form->populate(['voting_question' => $projectModel->find($projectCode)->current()->vot_q]);
         }
 
         $this->view->form = $form;

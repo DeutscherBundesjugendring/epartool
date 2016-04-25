@@ -27,6 +27,11 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(array('controller' => 'tag', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'tag', 'action' => 'create')),
             ),
+            [
+                'name' => 'voting',
+                'label' => $this->view->translate('Voting'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'voting']),
+            ],
             array(
                 'name' => 'helpTexts',
                 'label' => $this->view->translate('Help Texts'),
