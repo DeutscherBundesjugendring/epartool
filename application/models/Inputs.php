@@ -1034,8 +1034,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         foreach ($this->getAdapter()->query($this->select()) as $contribution) {
-            if (!empty($input['rel_tid'])) {
-                foreach (explode(',', $input['rel_tid']) as $relatedId) {
+            if (!empty($contribution['rel_tid'])) {
+                foreach (explode(',', $contribution['rel_tid']) as $relatedId) {
                     if (isset($inputs[$relatedId])) {
                         $inputs[$relatedId]['related'][] = $contribution;
                     }
