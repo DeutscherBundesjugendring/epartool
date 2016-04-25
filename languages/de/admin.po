@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-04-22 17:21+0200\n"
-"PO-Revision-Date: 2016-04-22 17:22+0200\n"
+"POT-Creation-Date: 2016-04-25 15:56+0200\n"
+"PO-Revision-Date: 2016-04-25 15:56+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -406,21 +406,23 @@ msgid ""
 "Question could not be deleted as there are contributions attached to it."
 msgstr "Die Frage konnte nicht gelöscht werden, da Beiträge zu ihr existieren."
 
-#: application/modules/admin/controllers/SettingsController.php:38
+#: application/modules/admin/controllers/SettingsController.php:37
+#: application/modules/admin/controllers/SettingsController.php:149
 msgid "Settings were saved."
 msgstr "Die Einstellungen wurden gespeichert."
 
-#: application/modules/admin/controllers/SettingsController.php:45
-#: application/modules/admin/controllers/SettingsController.php:90
-#: application/modules/admin/controllers/SettingsController.php:127
+#: application/modules/admin/controllers/SettingsController.php:44
+#: application/modules/admin/controllers/SettingsController.php:89
+#: application/modules/admin/controllers/SettingsController.php:126
+#: application/modules/admin/controllers/SettingsController.php:156
 msgid "Form invalid"
 msgstr "Formular ungültig"
 
-#: application/modules/admin/controllers/SettingsController.php:87
+#: application/modules/admin/controllers/SettingsController.php:86
 msgid "Help text was saved."
 msgstr "Der Hilfetext wurde gespeichert."
 
-#: application/modules/admin/controllers/SettingsController.php:120
+#: application/modules/admin/controllers/SettingsController.php:119
 msgid "Footer was updated."
 msgstr "Der Fußbereich wurde aktualisiert."
 
@@ -590,7 +592,8 @@ msgstr "Aktuelles Projekt muss ausgewählt sein."
 #: application/modules/admin/forms/Mail/Component.php:55
 #: application/modules/admin/forms/Mail/Template.php:64
 #: application/modules/admin/forms/Question.php:63
-#: application/modules/admin/forms/Settings.php:94
+#: application/modules/admin/forms/Settings/Site.php:94
+#: application/modules/admin/forms/Settings/Voting.php:16
 #: application/modules/admin/forms/Tag.php:32
 #: application/modules/admin/forms/User/Create.php:91
 #: application/modules/admin/forms/User/Edit.php:125
@@ -769,11 +772,13 @@ msgstr "Beiträge"
 #: application/modules/admin/forms/ConsultationPhases.php:46
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:56
+#: application/modules/admin/views/helpers/SettingsNavigation.php:32
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:66
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:71
 #: application/modules/admin/views/scripts/index/index.phtml:64
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:91
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:73
+#: application/modules/admin/views/scripts/settings/voting.phtml:16
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:111
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:97
 msgid "Voting"
@@ -791,7 +796,7 @@ msgstr "Reaktionen & Wirkung"
 #: application/modules/admin/forms/Mail/Template.php:22
 #: application/modules/admin/forms/Media/FileDetail.php:20
 #: application/modules/admin/forms/Media/FolderDetail.php:13
-#: application/modules/admin/forms/Settings.php:53
+#: application/modules/admin/forms/Settings/Site.php:53
 #: application/modules/admin/forms/User/Create.php:17
 #: application/modules/admin/forms/User/Edit.php:20
 #: application/modules/admin/views/scripts/input/index.phtml:74
@@ -1137,7 +1142,7 @@ msgstr "Hochladen"
 msgid "Voting question"
 msgstr "Abstimmungsfrage"
 
-#: application/modules/admin/forms/Settings.php:15
+#: application/modules/admin/forms/Settings/Site.php:15
 msgid ""
 "Used in page <title> tag, in DV.title and og:title meta tags and as a logo "
 "image alt text."
@@ -1145,40 +1150,40 @@ msgstr ""
 "Wird im <title>-Tag, in DV.title und og:title sowie als alternativer Logo-"
 "Beschreibungstext verwendet."
 
-#: application/modules/admin/forms/Settings.php:19
+#: application/modules/admin/forms/Settings/Site.php:19
 msgid "Site Title"
 msgstr "Titel der Site"
 
-#: application/modules/admin/forms/Settings.php:25
+#: application/modules/admin/forms/Settings/Site.php:25
 msgid "Used in description and og:description meta tags."
 msgstr ""
 "Wird verwendet in der Beschreibung und den \"og:description\" Metatags."
 
-#: application/modules/admin/forms/Settings.php:28
+#: application/modules/admin/forms/Settings/Site.php:28
 msgid "Site Description"
 msgstr "Beschreibung der Site"
 
-#: application/modules/admin/forms/Settings.php:34
+#: application/modules/admin/forms/Settings/Site.php:34
 msgid "Used as a subtitle on all pages that are not consultation specific."
 msgstr ""
 "Wird verwendet als Untertitel auf allen Seiten, die nicht zu einer "
 "bestimmten Beitragsrunde gehören."
 
-#: application/modules/admin/forms/Settings.php:37
+#: application/modules/admin/forms/Settings/Site.php:37
 msgid "Motto"
 msgstr "Motto"
 
-#: application/modules/admin/forms/Settings.php:47
+#: application/modules/admin/forms/Settings/Site.php:47
 msgid "Site Information"
 msgstr "Info zur Site"
 
-#: application/modules/admin/forms/Settings.php:50
-#: application/modules/admin/forms/Settings.php:59
-#: application/modules/admin/forms/Settings.php:68
+#: application/modules/admin/forms/Settings/Site.php:50
+#: application/modules/admin/forms/Settings/Site.php:59
+#: application/modules/admin/forms/Settings/Site.php:68
 msgid "Used as a placeholder in email templates."
 msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 
-#: application/modules/admin/forms/Settings.php:62
+#: application/modules/admin/forms/Settings/Site.php:62
 #: application/modules/admin/forms/User/Create.php:25
 #: application/modules/admin/forms/User/Edit.php:27
 #: application/modules/admin/views/scripts/input/index.phtml:75
@@ -1194,13 +1199,17 @@ msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 msgid "Email"
 msgstr "E-Mail"
 
-#: application/modules/admin/forms/Settings.php:71
+#: application/modules/admin/forms/Settings/Site.php:71
 msgid "Website URL"
 msgstr "Adresse Website"
 
-#: application/modules/admin/forms/Settings.php:80
+#: application/modules/admin/forms/Settings/Site.php:80
 msgid "Contact Information"
 msgstr "Kontaktinformation"
+
+#: application/modules/admin/forms/Settings/Voting.php:9
+msgid "Voting Question"
+msgstr ""
 
 #: application/modules/admin/forms/Tag.php:17
 msgid "New keyword"
@@ -1417,13 +1426,13 @@ msgstr "Seiten"
 msgid "Keywords"
 msgstr "Schlagwörter"
 
-#: application/modules/admin/views/helpers/SettingsNavigation.php:32
+#: application/modules/admin/views/helpers/SettingsNavigation.php:37
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:3
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:16
 msgid "Help Texts"
 msgstr "Hilfetexte"
 
-#: application/modules/admin/views/helpers/SettingsNavigation.php:37
+#: application/modules/admin/views/helpers/SettingsNavigation.php:42
 #: application/modules/admin/views/scripts/settings/footer.phtml:16
 msgid "Footer"
 msgstr "Fußbereich"
@@ -1451,6 +1460,7 @@ msgstr "Herunterladen"
 #: application/modules/admin/views/scripts/settings/footer.phtml:3
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:3
 #: application/modules/admin/views/scripts/settings/index.phtml:3
+#: application/modules/admin/views/scripts/settings/voting.phtml:3
 #: application/modules/admin/views/scripts/tag/create.phtml:3
 #: application/modules/admin/views/scripts/tag/index.phtml:3
 msgid "General Settings"
@@ -1835,7 +1845,6 @@ msgid "Edit contribution"
 msgstr "Beitrag bearbeiten"
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:138
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:72
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:160
 msgid "Delete contribution"
 msgstr "Beitrag löschen"
@@ -2536,6 +2545,7 @@ msgid "Related"
 msgstr "Bezug"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:71
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:72
 msgid "Unlink contribution"
 msgstr ""
 
