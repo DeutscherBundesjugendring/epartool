@@ -395,7 +395,7 @@ Das Team des ePartool'
 <a href="{{confirmation_url}}">{{confirmation_url}}</a></p>
 <p>Viele Gr&uuml;&szlig;e<br />
 Das Team des ePartool</p>',
-        '<p>Hallo {{to_name}},</p>
+        'Hallo {{to_name}},
          bitte bestätige, dass du künftig über neue Reaktionen und Wirkungen zu „{{consultation_title_long}}“ automatisch benachrichtigt werden willst. Klicke hierfür auf folgenden Bestätigungslink:
          {{confirmation_url}}
          Viele Grüße
