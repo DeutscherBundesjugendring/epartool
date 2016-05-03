@@ -234,16 +234,41 @@ class Admin_InputController extends Zend_Controller_Action
                 if (!$formValues['tags']) {
                     $formValues['tags'] = [];
                 }
-                $added = $inputModel->add($formValues);
-                if ($added > 0) {
-                    $this->_flashMessenger->addMessage('Contribution was created.', 'success');
-                    unset($session->urlQi);
-                    $this->redirect($this->view->url([
-                        'action' => 'index',
-                        'kid' => $kid,
-                        'qi' => $added,
-                    ]), ['prependBase' => false]);
-                } else {
+                $inputModel->getAdapter()->beginTransaction();
+                try {
+                    $added = $inputModel->add($formValues);
+                    if ($added > 0) {
+                        $newContribution = $inputModel->find($added)->current();
+                        $questionModel = new Model_Questions();
+                        $question = $questionModel->find($newContribution->qi)->current();
+                        $userInfoModel = new Model_User_Info();
+                        $userInfo = $userInfoModel->fetchRow([
+                                'uid = ' . $newContribution->uid ,
+                                'kid =' . $question->kid,
+                        ]);
+                        if ($userInfo === null) {
+                            $userModel = new Model_Users();
+                            $userData = $userModel->find($newContribution->uid)->current()
+                                ->toArray();
+                            $userData['cmnt_ext'] = "";
+                            $userData['kid'] = $question->kid;
+                            $userInfoId = $userModel->addConsultationData($userData);
+                            if (!$userInfoId) {
+                                throw new \Exception('Adding user info failed');
+                            }
+                        }
+                        $this->_flashMessenger->addMessage('Contribution was created.', 'success');
+                        unset($session->urlQi);
+                        $inputModel->getAdapter()->commit();
+                        $this->redirect($this->view->url([
+                            'action' => 'index',
+                            'kid' => $kid,
+                            'qi' => $added,
+                        ]), ['prependBase' => false]);
+                    }
+                    throw new \Exception('Adding contribution failed');
+                } catch (\Exception $e) {
+                    $inputModel->getAdapter()->rollBack();
                     $this->_flashMessenger->addMessage('Contribution add failed.', 'error');
                 }
             } else {
