@@ -397,7 +397,8 @@ CREATE TABLE `notification_type` (
 
 INSERT INTO `notification_type` (`name`) VALUES
 ('input_created'),
-('input_discussion_contribution_created');
+('input_discussion_contribution_created'),
+('follow_up_created');
 
 CREATE TABLE `parameter` (
   `name` varchar(255) NOT NULL,
