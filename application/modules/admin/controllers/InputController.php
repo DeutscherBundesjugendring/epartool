@@ -196,6 +196,66 @@ class Admin_InputController extends Zend_Controller_Action
         $this->view->tid = $tid;
     }
 
+    public function createAction()
+    {
+        $qi = $this->_request->getParam('qi', 0);
+        $kid = $this->_request->getParam('kid', 0);
+
+        $session = new Zend_Session_Namespace('inputCreate');
+
+        if (!$this->getRequest()->isPost()) {
+            $session->urlQi = $this->getRequest()->getParam('qi', 0);
+        }
+
+        if ($session->urlQi > 0) {
+            $cancelUrl = $this->view->returnUrl = $this->view->url([
+                'action' => 'index',
+                'kid' => $kid,
+                'qi' => $qi,
+            ]);
+        } else {
+            $cancelUrl = $this->view->returnUrl = $this->view->url([
+                'action' => 'index',
+                'kid' => $kid,
+            ]);
+        }
+
+        $inputModel = new Model_Inputs();
+        $form = new Admin_Form_CreateInput($cancelUrl);
+
+        if($qi > 0) {
+            $form->populate(['qi' => $qi]);
+        }
+
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if ($form->isValid($data)) {
+                $formValues = $form->getValues();
+                if (!$formValues['tags']) {
+                    $formValues['tags'] = [];
+                }
+                $added = $inputModel->add($formValues);
+                if ($added > 0) {
+                    $this->_flashMessenger->addMessage('Contribution was created.', 'success');
+                    unset($session->urlQi);
+                    $this->redirect($this->view->url([
+                        'action' => 'index',
+                        'kid' => $kid,
+                        'qi' => $added,
+                    ]), ['prependBase' => false]);
+                } else {
+                    $this->_flashMessenger->addMessage('Contribution add failed.', 'error');
+                }
+            } else {
+                $this->_flashMessenger->addMessage('New contribution cannot be created.'
+                . 'Please check the errors marked in the form below and try again.', 'error');
+                $form->populate($data);
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
     /**
      * Makes changes to Inputs from the input list context in bulk and individually
      */
