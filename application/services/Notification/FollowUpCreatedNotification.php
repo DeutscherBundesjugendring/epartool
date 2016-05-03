@@ -6,6 +6,46 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
     const PARAM_CONSULTATION_ID = 'ffid';
 
     /**
+     * @param $userId
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getNotifications($userId)
+    {
+        $ntfModel = new Model_Notification();
+        $select = $ntfModel
+            ->select()
+            ->from(['n' => $ntfModel->info(Model_Notification::NAME)])
+            ->join(
+                ['nt' => (new Model_Notification_Type())->info(Model_Notification_Type::NAME)],
+                'n.type_id = nt.id',
+                []
+            )
+            ->join(
+                ['ntp' => (new Model_Notification_Parameter())->info(Model_Notification_Parameter::NAME)],
+                'n.id = ntp.notification_id',
+                []
+            )
+            ->join(
+                ['fowup_fls' => (new Model_FollowupFiles())->info(Model_FollowupFiles::NAME)],
+                'ntp.value = fowup_fls.ffid',
+                ['ffid_titl' => 'fowup_fls.titl']
+            )
+            ->join(
+                ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'fowup_fls.kid = cnslt.kid',
+                ['cnslt_titl' => 'cnslt.titl']
+            )
+            ->where('ntp.name=?', 'ffid')
+            ->where('user_id=?', $userId)
+            ->where('nt.name=?', static::TYPE_NAME)
+            ->setIntegrityCheck(false)
+            ->group('n.id');
+
+        return $ntfModel->fetchAll($select);
+    }
+
+    /**
      * Notifies all users who have subscribed
      * @param  array                              $params  The params belonging to the current notification
      * @return Service_Notification_FollowUpCreatedNotification          Fluent interface

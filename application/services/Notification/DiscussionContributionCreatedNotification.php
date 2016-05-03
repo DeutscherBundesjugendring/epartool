@@ -6,6 +6,51 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
     const PARAM_INPUT_ID = 'input_id';
 
     /**
+     * @param $userId
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getNotifications($userId)
+    {
+        $ntfModel = new Model_Notification();
+        $select = $ntfModel
+            ->select()
+            ->from(['n' => $ntfModel->info(Model_Notification::NAME)])
+            ->join(
+                ['nt' => (new Model_Notification_Type())->info(Model_Notification_Type::NAME)],
+                'n.type_id = nt.id',
+                []
+            )
+            ->join(
+                ['ntp' => (new Model_Notification_Parameter())->info(Model_Notification_Parameter::NAME)],
+                'n.id = ntp.notification_id',
+                []
+            )
+            ->join(
+                ['inpt' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                'ntp.value = inpt.tid',
+                []
+            )
+            ->join(
+                ['quests' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'inpt.qi = quests.qi',
+                ['q']
+            )
+            ->join(
+                ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'quests.kid = cnslt.kid',
+                ['titl']
+            )
+            ->where('ntp.name=?', 'input_id')
+            ->where('user_id=?', $userId)
+            ->where('nt.name=?', static::TYPE_NAME)
+            ->setIntegrityCheck(false)
+            ->group('n.id');
+
+        return $ntfModel->fetchAll($select);
+    }
+
+    /**
      * Notifies all users who have subscribed
      * @param  array                              $params  The params belonging to the current notification
      * @return Service_Notification_DiscussionContributionCreatedNotification

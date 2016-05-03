@@ -130,6 +130,13 @@ abstract class Service_Notification_AbstractNotification
     }
 
     /**
+     * @param $userId
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    abstract public function getNotifications($userId);
+    
+    /**
      * Returns the id of the notificationType of the concrete notification class
      * @return integer The identifier of the type
      */

@@ -1,0 +1,109 @@
+<div class="main-content">
+    <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'notifications']);?>">
+        <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+    <div class="row">
+        <div class="content content-narrow content-offset">
+
+            <h1><?=$this->translate('Contribution Discussion');?></h1>
+            <p>
+                <?=$this->translate('Send me an update when someone adds new discussion post');?>
+            </p>
+
+            <?php
+                if(count($this->contributionDiscussion) > 0) {
+                    foreach($this->contributionDiscussion as $cd) { ?>
+                        <div>
+                            Contribution: <?=$cd->titl;?> In <?=$cd->q;?>
+                            <button
+                                value="<?=$cd->id;?>"
+                                class="btn btn-danger btn-sm"
+                                name="unsubscribe-cd"
+                                data-toggle="confirm"
+                                data-confirm-message="<?=$this->translate('Unsubscribe from Contribution Discussion?');?>"
+                            >
+                                <?=$this->translate('Unsubscribe');?>
+                            </button>
+                        </div>
+                    <?php
+                    }
+                } else { ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info offset-right" aria-hidden="true"></span>
+                    You are subscribed to no notifications
+                </p>
+            <?php
+                }  ?>
+
+        </div>
+    </div><!-- .row -->
+    <div class="row">
+        <div class="content content-narrow content-offset">
+
+            <h1><?=$this->translate('Questions');?></h1>
+            <p>
+                <?=$this->translate('Sends notification when new contribution to particular questions is made');?>
+            </p>
+
+            <?php
+            if(count($this->questions) > 0) {
+                foreach($this->questions as $q) { ?>
+                    <div>
+                        Contribution: <?=$q->q;?> In <?=$q->titl;?>
+                        <button
+                            value="<?=$q->id;?>"
+                            class="btn btn-danger btn-sm"
+                            name="unsubscribe-q"
+                            data-toggle="confirm"
+                            data-confirm-message="<?=$this->translate('Unsubscribe from Question?');?>"
+                        >
+                            <?=$this->translate('Unsubscribe');?>
+                        </button>
+                    </div>
+            <?php
+                }
+            } else { ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info offset-right" aria-hidden="true"></span>
+                    You are subscribed to no notifications
+                </p>
+            <?php
+            } ?>
+
+
+        </div>
+    </div><!-- .row -->
+    <div class="row">
+        <div class="content content-narrow content-offset">
+
+            <h1><?=$this->translate('Reactions & Impact');?></h1>
+            <p>
+                <?=$this->translate('When new document is added');?>
+            </p>
+
+            <?php
+            if(count($this->followups) > 0) {
+                foreach ($this->followups as $fu) { ?>
+                    <div>
+                        Contribution: <?=$fu->ffid_titl;?> In <?=$fu->cnslt_titl;?>
+                        <button
+                            value="<?= $fu->id; ?>"
+                            class="btn btn-danger btn-sm"
+                            name="unsubscribe-fu"
+                            data-toggle="confirm"
+                            data-confirm-message="<?= $this->translate('Unsubscribe from Followup?'); ?>"
+                        >
+                            <?= $this->translate('Unsubscribe'); ?>
+                        </button>
+                    </div>
+                    <?php
+                }
+            } else { ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info offset-right" aria-hidden="true"></span>
+                    You are subscribed to no notifications
+                </p>
+            <?php
+            } ?>
+        </div>
+    </div><!-- .row -->
+</div><!-- .main-content -->
