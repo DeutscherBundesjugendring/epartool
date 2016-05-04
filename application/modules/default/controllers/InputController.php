@@ -731,7 +731,7 @@ class InputController extends Zend_Controller_Action
                 ->setIntegrityCheck(false)
                 ->from(
                     ['i' => $inputDiscussModel->info(Model_InputDiscussion::NAME)],
-                    ['user_id', 'time_created', 'body', 'is_visible', 'video_id']
+                    ['user_id', 'time_created', 'body', 'is_visible', 'video_id', 'id']
                 )
                 ->where('input_id=?', $inputId)
                 ->where('is_user_confirmed=?', 1)

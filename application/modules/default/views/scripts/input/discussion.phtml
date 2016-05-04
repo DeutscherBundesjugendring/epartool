@@ -26,7 +26,7 @@
             <div class="media-list offset-bottom-large">
                 <?php foreach($this->discussionContribs as $contrib): ?>
                     <?php if ($contrib->is_visible): ?>
-                        <div class="media">
+                        <div class="media" id="post-<?=$contrib->id?>">
 
                             <small class="text-muted">
                                 <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
@@ -56,7 +56,7 @@
 
                         </div>
                     <?php else: ?>
-                        <div class="media">
+                        <div class="media" id="post-<?=$contrib->id?>">
                             <small class="text-muted">
                                 <?=$this->formatDate($contrib->time_created);?>
                             </small>

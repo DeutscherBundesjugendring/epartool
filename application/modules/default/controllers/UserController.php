@@ -266,4 +266,36 @@ class UserController extends Zend_Controller_Action
 
         $this->_redirect($this->view->url(['action' => 'userlist']), ['prependBase' => false]);
     }
+
+    public function activityAction()
+    {
+        $init = 2;
+        $step = 2;
+        $contributionsLimit = $this->getParam('cl', $init);
+        $postsLimit = $this->getParam('pl', $init);
+
+        if (!$this->_auth->hasIdentity()) {
+            $this->_flashMessenger->addMessage('Please log in.', 'error');
+            $this->redirect('/');
+        }
+
+        $contributionModel = new Model_Inputs();
+        $postsModel = new Model_InputDiscussion();
+
+        $this->view->contributionsList = $contributionModel->getByUserWithDependencies(
+            $this->_auth->getIdentity()->uid,
+            $contributionsLimit
+        );
+
+        $this->view->postsList = $postsModel->getByUserWithDependencies(
+            $this->_auth->getIdentity()->uid,
+            $postsLimit
+        );
+
+        $this->view->contributionsLimit = $contributionsLimit;
+        $this->view->contributionsSum = $contributionModel->getCountByUser($this->_auth->getIdentity()->uid);
+        $this->view->postsLimit = $postsLimit;
+        $this->view->postsSum = $postsModel->getCountByUser($this->_auth->getIdentity()->uid);
+        $this->view->step = $step;
+    }
 }

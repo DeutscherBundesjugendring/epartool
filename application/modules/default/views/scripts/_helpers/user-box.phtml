@@ -21,6 +21,12 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="userDropdown">
                 <li>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'activity'], 'default', true);?>">
+                        <span class="glyphicon glyphicon-list-alt icon-offset" aria-hidden="true"></span>
+                        <?=$this->translate('');?>
+                    </a>
+                </li>
+                <li>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'], 'default', true);?>">
                         <span class="glyphicon glyphicon-list-alt icon-offset" aria-hidden="true"></span>
                         <?=$this->translate('View all my contributions');?>

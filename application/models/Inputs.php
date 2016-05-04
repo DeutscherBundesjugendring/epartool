@@ -179,6 +179,36 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param $uid
+     * @param $limit
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getByUserWithDependencies($uid, $limit)
+    {
+        // fetch
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->_name])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )->join(
+                ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'cnslt.kid = q.kid',
+                ['kid', 'titl']
+            )
+            ->where('uid=?', $uid)
+            ->order('i.when DESC')
+            ->limit($limit);
+        $result = $this->fetchAll($select);
+
+        return $result->toArray();
+    }
+
+    /**
      * Returns inputs by user and consultation
      * @param integer      $uid   User ID
      * @param integer      $kid   Consultation ID
