@@ -1,7 +1,6 @@
 <div class="main-content">
+    <?=$this->partial('_partials/userMenu.phtml', ['page' => 'activity']);?>
     <div class="row">
-
-
             <div class="col-sm-6">
                 <h1><?=$this->translate('My Contributions');?></h1>
                 <?php $contributionsListCount = count($this->contributionsList); $i = 1; ?>

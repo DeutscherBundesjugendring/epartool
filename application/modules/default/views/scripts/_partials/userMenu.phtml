@@ -1,0 +1,14 @@
+<ul role="tablist" class="nav nav-tabs">
+    <li<?php if ($this->page == 'profile'): echo ' class="active"'; endif ?>>
+        <a href="<?=$this->url(['action' => 'profile']);?>"><?=$this->translate('My Profile');?></a>
+    </li>
+    <li<?php if ($this->page == 'activity'): echo ' class="active"'; endif ?>>
+        <a href="<?=$this->url(['action' => 'activity']);?>"><?=$this->translate('My Activity');?></a>
+    </li>
+    <li<?php if ($this->page == 'userlist'): echo ' class="active"'; endif ?>>
+        <a href="<?=$this->url(['action' => 'userlist']);?>"><?=$this->translate('My Group');?></a>
+    </li>
+    <li<?php if ($this->page == 'notifications'): echo ' class="active"'; endif ?>>
+        <a href="<?=$this->url(['action' => 'notifications']);?>"><?=$this->translate('My Subscriptions');?></a>
+    </li>
+</ul>

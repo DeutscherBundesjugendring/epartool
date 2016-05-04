@@ -298,4 +298,9 @@ class UserController extends Zend_Controller_Action
         $this->view->postsSum = $postsModel->getCountByUser($this->_auth->getIdentity()->uid);
         $this->view->step = $step;
     }
+
+    public function profileAction()
+    {
+        
+    }
 }

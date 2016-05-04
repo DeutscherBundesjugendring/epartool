@@ -21,28 +21,34 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="userDropdown">
                 <li>
-                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'activity'], 'default', true);?>">
-                        <span class="glyphicon glyphicon-list-alt icon-offset" aria-hidden="true"></span>
-                        <?=$this->translate('');?>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'profile'], 'default', true);?>">
+                        <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
+                        <?=$this->translate('My Profile');?>
                     </a>
                 </li>
                 <li>
-                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'inputlist'], 'default', true);?>">
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'activity'], 'default', true);?>">
                         <span class="glyphicon glyphicon-list-alt icon-offset" aria-hidden="true"></span>
-                        <?=$this->translate('View all my contributions');?>
+                        <?=$this->translate('My Activity');?>
                     </a>
                 </li>
                 <li>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'userlist'], 'default', true);?>">
                         <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
-                        <?=$this->translate('View group members');?>
+                        <?=$this->translate('My Group');?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'notifications'], 'default', true);?>">
+                        <span class="glyphicon glyphicon-list-alt icon-offset" aria-hidden="true"></span>
+                        <?=$this->translate('My Subscriptions');?>
                     </a>
                 </li>
                 <?php if ($this->user->lvl == 'adm' || $this->user->lvl == 'edt'): ?>
                     <li>
                         <a href="<?=$this->url(['module' => 'admin', 'controller' => 'index'], 'default', true);?>" target="_blank">
                             <span class="glyphicon glyphicon-cog icon-offset" aria-hidden="true"></span>
-                            <?=$this->translate('To admin pages');?>
+                            <?=$this->translate('Admin');?>
                         </a>
                     </li>
                 <?php endif; ?>
