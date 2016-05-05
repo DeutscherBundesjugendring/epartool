@@ -6,7 +6,7 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
     const PARAM_CONSULTATION_ID = 'ffid';
 
     /**
-     * @param $userId
+     * @param int $userId
      * @return \Zend_Db_Table_Rowset_Abstract
      * @throws \Zend_Db_Table_Exception
      */
@@ -34,7 +34,7 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
             ->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
                 'fowup_fls.kid = cnslt.kid',
-                ['cnslt_titl' => 'cnslt.titl']
+                ['kid']
             )
             ->where('ntp.name=?', 'ffid')
             ->where('user_id=?', $userId)

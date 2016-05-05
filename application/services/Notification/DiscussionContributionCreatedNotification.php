@@ -6,7 +6,7 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
     const PARAM_INPUT_ID = 'input_id';
 
     /**
-     * @param $userId
+     * @param int $userId
      * @return \Zend_Db_Table_Rowset_Abstract
      * @throws \Zend_Db_Table_Exception
      */
@@ -29,17 +29,17 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
             ->join(
                 ['inpt' => (new Model_Inputs())->info(Model_Inputs::NAME)],
                 'ntp.value = inpt.tid',
-                []
+                ['tid']
             )
             ->join(
                 ['quests' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'inpt.qi = quests.qi',
-                ['q']
+                ['q', 'qi']
             )
             ->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
                 'quests.kid = cnslt.kid',
-                ['titl']
+                ['titl', 'kid']
             )
             ->where('ntp.name=?', 'input_id')
             ->where('user_id=?', $userId)

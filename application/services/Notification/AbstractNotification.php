@@ -130,7 +130,7 @@ abstract class Service_Notification_AbstractNotification
     }
 
     /**
-     * @param $userId
+     * @param int $userId
      * @return \Zend_Db_Table_Rowset_Abstract
      * @throws \Zend_Db_Table_Exception
      */

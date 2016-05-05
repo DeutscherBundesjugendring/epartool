@@ -6,7 +6,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
     const PARAM_QUESTION_ID = 'question_id';
 
     /**
-     * @param $userId
+     * @param int $userId
      * @return \Zend_Db_Table_Rowset_Abstract
      * @throws \Zend_Db_Table_Exception
      */
@@ -29,12 +29,12 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
             ->join(
                 ['quests' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'ntp.value = quests.qi',
-                ['q' => 'quests.q']
+                ['q' => 'quests.q', 'qi']
             )
             ->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
                 'quests.kid = cnslt.kid',
-                ['titl' => 'cnslt.titl']
+                ['titl' => 'cnslt.titl', 'kid']
             )
             ->where('ntp.name=?', 'question_id')
             ->where('user_id=?', $userId)
