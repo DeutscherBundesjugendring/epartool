@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-04-25 15:56+0200\n"
-"PO-Revision-Date: 2016-04-25 15:56+0200\n"
+"POT-Creation-Date: 2016-05-05 11:41+0200\n"
+"PO-Revision-Date: 2016-05-05 11:41+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -494,7 +494,7 @@ msgstr "Speichern der Änderungen ist gescheitert."
 
 #: application/modules/admin/controllers/VotingprepareController.php:64
 msgid "Contribution has been removed from related."
-msgstr ""
+msgstr "Der Beitrag wurde entkoppelt."
 
 #: application/modules/admin/controllers/VotingprepareController.php:71
 #, php-format
@@ -981,8 +981,8 @@ msgid "Internal note"
 msgstr "Interne Notiz"
 
 #: application/modules/admin/forms/Input.php:123
-msgid "Save and split next"
-msgstr ""
+msgid "Save and continue"
+msgstr "Speichern und fortsetzen"
 
 #: application/modules/admin/forms/Mail/Component.php:25
 #: application/modules/admin/forms/Mail/Send.php:124
@@ -1209,7 +1209,7 @@ msgstr "Kontaktinformation"
 
 #: application/modules/admin/forms/Settings/Voting.php:9
 msgid "Voting Question"
-msgstr ""
+msgstr "Abstimmungsfrage"
 
 #: application/modules/admin/forms/Tag.php:17
 msgid "New keyword"
@@ -2547,7 +2547,7 @@ msgstr "Bezug"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:71
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:72
 msgid "Unlink contribution"
-msgstr ""
+msgstr "Beitragsverknüpfung entfernen"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:85
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:82
