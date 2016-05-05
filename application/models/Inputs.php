@@ -1175,7 +1175,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCompleteGroupedByQuestion($wheres)
     {
-        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres, 'tid'));
 
         $inputs = [];
         foreach ($res as $input) {
