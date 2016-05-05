@@ -77,6 +77,12 @@ class FollowupController extends Zend_Controller_Action
         $tag = $this->_getParam('tag');
         $qid = $this->getRequest()->getParam('qid');
         $questionModel = new Model_Questions();
+        if (!$qid) {
+            $question = $questionModel->getByConsultation($this->consultation['kid'])->current();
+            $qid = $question['qi'];
+        } else {
+            $question = $questionModel->getById($qid);
+        }
         $inputModel = new Model_Inputs();
 
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag));
@@ -84,7 +90,7 @@ class FollowupController extends Zend_Controller_Action
 
         $this->view->tag = !empty($tag) ? (new Model_Tags())->getById($tag) : null;
         $this->view->numberInputs = $inputModel->getCountByQuestion($qid, $tag);
-        $this->view->question = $questionModel->getById($qid);
+        $this->view->question = $question;
         $this->view->paginator = $paginator;
     }
 
