@@ -200,6 +200,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 'cnslt.kid = q.kid',
                 ['kid', 'titl']
             )
+            ->where('cnslt.proj = ?', $this->_projectCode)
             ->where('uid=?', $uid)
             ->order('i.when DESC')
             ->limit($limit);
@@ -299,7 +300,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     public function getCountByUser($uid)
     {
         $select = $this->select()
-            ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->_name], array(new Zend_Db_Expr('COUNT(*) as count')))
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )->join(
+                ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'cnslt.kid = q.kid',
+                ['kid', 'titl']
+            )
+            ->where('cnslt.proj = ?', $this->_projectCode)
             ->where('uid = ?', $uid);
 
         $row = $this->fetchAll($select)->current();

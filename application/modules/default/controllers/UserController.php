@@ -269,8 +269,8 @@ class UserController extends Zend_Controller_Action
 
     public function activityAction()
     {
-        $init = 2;
-        $step = 2;
+        $init = 10;
+        $step = 10;
         $contributionsLimit = $this->getParam('cl', $init);
         $postsLimit = $this->getParam('pl', $init);
 
