@@ -267,6 +267,38 @@ class UserController extends Zend_Controller_Action
         $this->_redirect($this->view->url(['action' => 'userlist']), ['prependBase' => false]);
     }
 
+    public function activityAction()
+    {
+        $init = 10;
+        $step = 10;
+        $contributionsLimit = $this->getParam('cl', $init);
+        $postsLimit = $this->getParam('pl', $init);
+
+        if (!$this->_auth->hasIdentity()) {
+            $this->_flashMessenger->addMessage('Please log in.', 'error');
+            $this->redirect('/');
+        }
+
+        $contributionModel = new Model_Inputs();
+        $postsModel = new Model_InputDiscussion();
+
+        $this->view->contributionsList = $contributionModel->getByUserWithDependencies(
+            $this->_auth->getIdentity()->uid,
+            $contributionsLimit
+        );
+
+        $this->view->postsList = $postsModel->getByUserWithDependencies(
+            $this->_auth->getIdentity()->uid,
+            $postsLimit
+        );
+
+        $this->view->contributionsLimit = $contributionsLimit;
+        $this->view->contributionsSum = $contributionModel->getCountByUser($this->_auth->getIdentity()->uid);
+        $this->view->postsLimit = $postsLimit;
+        $this->view->postsSum = $postsModel->getCountByUser($this->_auth->getIdentity()->uid);
+        $this->view->step = $step;
+    }
+
     public function notificationsAction()
     {
         $form = new Admin_Form_ListControl();
@@ -278,7 +310,7 @@ class UserController extends Zend_Controller_Action
 
         $auth = Zend_Auth::getInstance();
 
-        if(!$auth->hasIdentity()) {
+        if (!$auth->hasIdentity()) {
             $this->_flashMessenger->addMessage('Please log in.', 'error');
             $this->redirect('/');
         }
@@ -298,16 +330,21 @@ class UserController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('You were successfully unsubscribed.', 'success');
             }
         }
-        
+
         $this->view->form = $form;
         $this->view->contributionDiscussion = $contributionDiscussionService->getNotifications(
             $auth->getIdentity()->uid
-        );;
+        );
         $this->view->questions = $questionService->getNotifications(
             $auth->getIdentity()->uid
         );
         $this->view->followups = $followupService->getNotifications(
             $auth->getIdentity()->uid
         );
+    }
+
+    public function profileAction()
+    {
+
     }
 }
