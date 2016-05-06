@@ -1,7 +1,7 @@
 <div class="main-content">
     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'notifications']);?>">
         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-        <div class="row">
+        <div class="row offset-top offset-bottom">
             <div class="content content-narrow content-offset">
 
                 <h1><?=$this->translate('Contribution Discussion');?></h1>
