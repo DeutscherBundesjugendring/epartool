@@ -74,7 +74,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $contributionId = (int) $row->save();
 
         $modelInputsTags = new Model_InputsTags();
-        if (isset($data['tags']) && !empty($data['tags'])) {
+        if (!empty($data['tags'])) {
             $modelInputsTags->insertByInputsId($contributionId, $data['tags']);
         }
 
