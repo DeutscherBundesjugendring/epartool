@@ -28,12 +28,12 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
             )
             ->join(
                 ['fowup_fls' => (new Model_FollowupFiles())->info(Model_FollowupFiles::NAME)],
-                'ntp.value = fowup_fls.ffid',
+                'ntp.value = fowup_fls.kid',
                 ['ffid_titl' => 'fowup_fls.titl']
             )
             ->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
-                'fowup_fls.kid = cnslt.kid',
+                'ntp.value = cnslt.kid',
                 ['kid']
             )
             ->where('ntp.name=?', 'ffid')
