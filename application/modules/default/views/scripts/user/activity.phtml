@@ -7,11 +7,7 @@
                 <?php if (!empty($this->contributionsList)): ?>
                     <?php foreach ($this->contributionsList as $contribution): ?>
                             <p>
-                                <a
-                                    href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'input', 'action' => 'show', 'kid' => $contribution['kid'], 'qid' => $contribution['qi'], 'inputId' => $contribution['tid']]);?>#contribution-<?=$contribution['tid'];?>"
-                                >
-                                    <?=$contribution['thes'];?>
-                                </a>
+                                <?=$contribution['thes'];?>
                                 <br />
                                 <?=$this->formatDate($contribution['when'], 'd. M. Y H:m:s');?> in
                                 <a
