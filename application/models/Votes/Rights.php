@@ -97,7 +97,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
             ->where('vr.kid = ?', $kid)
             ->where('vr.uid > ?', 1)
             ->where('u.email != ?', '')
-            ->where('ui.user_info_id = (?)', $subselect)
+            ->where('(ui.user_info_id = (?) OR ui.user_info_id IS NULL)', $subselect)
             ->order('u.email ASC');
         $stmt = $db->query($select);
 
@@ -137,7 +137,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
      * @param  integer $length Defaults to 8
      * @return string
      */
-    protected function generateVotingCode($length = 8)
+    public function generateVotingCode($length = 8)
     {
         $password="";
         // define possible characters - any character in this string can be
