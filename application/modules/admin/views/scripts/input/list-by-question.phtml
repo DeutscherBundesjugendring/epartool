@@ -130,6 +130,21 @@
                         </p>
                     <?php endif; ?>
 
+                    <form action="<?=$this->url();?>" method="<?=$this->sortForm->getMethod();?>">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <?=$this->sortForm->getElement('sortColumn');?>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-actions">
+                                    <?=$this->sortForm->getElement('submitSort');?>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                     <form action="<?=$this->url(['action' => 'edit-list']);?>" method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                         <input name="return_url" type="hidden" value="<?=$this->url();?>" />

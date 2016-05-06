@@ -299,8 +299,52 @@ class UserController extends Zend_Controller_Action
         $this->view->step = $step;
     }
 
+    public function notificationsAction()
+    {
+        $form = new Admin_Form_ListControl();
+
+        $contributionDiscussionService =
+            new Service_Notification_DiscussionContributionCreatedNotification();
+        $questionService = new Service_Notification_InputCreatedNotification();
+        $followupService = new Service_Notification_FollowUpCreatedNotification();
+
+        $auth = Zend_Auth::getInstance();
+
+        if (!$auth->hasIdentity()) {
+            $this->_flashMessenger->addMessage('Please log in.', 'error');
+            $this->redirect('/');
+        }
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            if ($this->getRequest()->getPost('unsubscribe-cd')) {
+                $notificationId = $this->getRequest()->getPost('unsubscribe-cd');
+                $followupService->unsubscribeById($notificationId);
+                $this->_flashMessenger->addMessage('You were successfully unsubscribed.', 'success');
+            } elseif ($this->getRequest()->getPost('unsubscribe-q')) {
+                $notificationId = $this->getRequest()->getPost('unsubscribe-q');
+                $followupService->unsubscribeById($notificationId);
+                $this->_flashMessenger->addMessage('You were successfully unsubscribed.', 'success');
+            } elseif ($this->getRequest()->getPost('unsubscribe-fu')) {
+                $notificationId = $this->getRequest()->getPost('unsubscribe-fu');
+                $followupService->unsubscribeById($notificationId);
+                $this->_flashMessenger->addMessage('You were successfully unsubscribed.', 'success');
+            }
+        }
+
+        $this->view->form = $form;
+        $this->view->contributionDiscussion = $contributionDiscussionService->getNotifications(
+            $auth->getIdentity()->uid
+        );
+        $this->view->questions = $questionService->getNotifications(
+            $auth->getIdentity()->uid
+        );
+        $this->view->followups = $followupService->getNotifications(
+            $auth->getIdentity()->uid
+        );
+    }
+
     public function profileAction()
     {
-        
+
     }
 }

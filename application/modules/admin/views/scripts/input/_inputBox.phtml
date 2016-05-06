@@ -27,6 +27,13 @@
                     </a>
                 <?php endif; ?>
                 <?=$this->formatDate($this->input['when']);?>
+                <span
+                    class="glyphicon glyphicon-thumbs-up"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="<?=$this->translate('Supported by %d users.', $this->input['spprts']);?>"
+                ></span>
+                <?=$this->input['spprts'];?>
             </small>
         </p>
         <p>

@@ -452,4 +452,31 @@ class Model_Users extends Dbjr_Db_Table_Abstract
 
         return $this->fetchAll($select)->toArray();
     }
+
+    /**
+     * @param int $consultationId
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getWithoutVotingRights($consultationId)
+    {
+        $userInfoTable = (new Model_User_Info())->info(Model_User_Info::NAME);
+        $votingRightsTable = (new Model_Votes_Rights())->info(Model_Votes_Rights::NAME);
+
+        $select = $this->select()->from(['u' => $this->info(self::NAME)])
+            ->joinLeft(
+                ($userInfoTable),
+                'u.uid = ' . $userInfoTable . '.uid AND ' . $userInfoTable . '.kid = ' . $consultationId,
+                []
+            )
+            ->joinLeft(
+                ($votingRightsTable),
+                'u.uid = ' . $votingRightsTable . '.uid AND ' . $votingRightsTable . '.kid = ' . $consultationId,
+                []
+            )
+            ->where($userInfoTable . '.uid IS NULL')
+            ->where($votingRightsTable . '.uid IS NULL');
+
+        return $this->fetchAll($select);
+    }
 }

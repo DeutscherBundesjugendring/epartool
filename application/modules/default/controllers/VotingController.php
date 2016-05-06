@@ -99,7 +99,7 @@ class VotingController extends Zend_Controller_Action
         $this->checkVotingDate();
         // if session is allready created, forword to overview
         if ($votingRightsSession->access == $this->_consultation->kid) {
-            $this->redirect('/voting/overview/kid/' . $this->_consultation->kid);
+            $this->redirect('/voting/overview/kid/' . $this->_consultation->kid . '#voting');
         } elseif ($this->_request->isPost()) {  // request sended
             $data = $this->_request->getPost();
             // if form is valid
@@ -150,7 +150,7 @@ class VotingController extends Zend_Controller_Action
                         $votingRightsSession->uid = $votingRights['uid'];
                         $votingRightsSession->weight = $votingRights['vt_weight'];
                         // all is correct, redirect to overview
-                        $this->redirect('/voting/overview/kid/' . $this->_consultation->kid);
+                        $this->redirect('/voting/overview/kid/' . $this->_consultation->kid . '#voting');
                     } else {
                         $this->_flashMessenger->addMessage('Your data are not correct. Please check again.', 'error');
                         $form->populate($data);

@@ -120,7 +120,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         if ($this->afterSubmitAction === self::AFTER_SUBMIT_RETURN_TO_INDEX) {
             $submit->setLabel('Save and return to index');
         } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_SPLIT_NEXT) {
-            $submit->setLabel('Save and split next');
+            $submit->setLabel('Save and continue');
         }
         $this->addElement($submit);
     }

@@ -12,7 +12,7 @@
 
                 <div class="media-left">
                     <a
-                        href="<?=$this->url(['controller' => 'question', 'action' => 'index', 'kid' => $this->consultation['kid']]);?>#question-<?=$this->question['qi'];?>"
+                        href="<?=$this->url(['action' => 'inputs-by-question', 'qid' => $this->question['qi'], 'page' => null]);?>"
                         class="followup-back-link followup-link media link-unstyled link-unstyled-alt"
                         title=""
                     >

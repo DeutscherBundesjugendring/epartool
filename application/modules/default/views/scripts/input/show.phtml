@@ -90,7 +90,7 @@
                 <?php foreach ($inputs as $input): ?>
                     <a name="input-<?=$this->escape($input['tid']);?>"></a>
 
-                    <article class="media">
+                    <article class="media" id="contribution-<?=$input['tid']?>">
                         <header>
                             <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
                                 <?=sprintf(
