@@ -10,7 +10,7 @@ class Admin_Form_CreateInput extends Admin_Form_Input
         $users = (new Model_Users())->getAllConfirmed();
         $selectOptions = [];
         foreach ($users as $user) {
-            $selectOptions[$user['uid']] = $user['name'];
+            $selectOptions[$user['uid']] = $user['name'] !== "" ? $user['name'] : $user['email'];
         }
         $adminUserId = $this->createElement('select', 'uid');
         $adminUserId

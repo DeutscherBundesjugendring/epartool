@@ -68,9 +68,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function add($data)
     {
+
         $row = $this->createRow($data);
 
-        return (int) $row->save();
+        $contributionId = (int) $row->save();
+
+        $modelInputsTags = new Model_InputsTags();
+        if (isset($data['tags']) && !empty($data['tags'])) {
+            $modelInputsTags->insertByInputsId($contributionId, $data['tags']);
+        }
+
+        return $contributionId;
     }
 
     /**
