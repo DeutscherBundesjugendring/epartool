@@ -1,12 +1,12 @@
 <div class="main-content">
     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'notifications']);?>">
         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
-        <div class="row">
+        <div class="row offset-bottom">
             <div class="content content-narrow content-offset">
 
-                <h1><?=$this->translate('Contribution Discussion');?></h1>
+                <h2 class="h1"><?=$this->translate('Contribution Discussion');?></h2>
                 <p>
-                    <?=$this->translate('Send me an update when someone adds new discussion post');?>
+                    <?=$this->translate('Send me an update when someone adds new discussion post');?>.
                 </p>
                 <hr />
 
@@ -37,22 +37,22 @@
                 ?>
                 <p>
                     <span class="glyphicon glyphicon-info-sign text-info offset-right" aria-hidden="true"></span>
-                    You are subscribed to no notifications
+                    <?=$this->translate('You are not subscribed to any notifications.');?>
                 </p>
             <?php
                 endif; ?>
 
             </div>
         </div><!-- .row -->
-        <div class="row">
+        <div class="row offset-bottom">
             <div class="content content-narrow content-offset">
 
-                <h1><?=$this->translate('Questions');?></h1>
+                <h2 class="h1"><?=$this->translate('Questions');?></h2>
                 <p>
-                    <?=$this->translate('Sends notification when new contribution to particular questions is made');?>
+                    <?=$this->translate('Sends notification when new contribution to particular questions is made');?>.
                 </p>
                 <hr />
-                
+
                 <?php
                 if (count($this->questions) > 0) :
                     foreach ($this->questions as $q) : ?>
@@ -79,7 +79,7 @@
                 else : ?>
                     <p>
                         <span class="glyphicon glyphicon-info-sign text-info offset-right" aria-hidden="true"></span>
-                        You are subscribed to no notifications
+                        <?=$this->translate('You are not subscribed to any notifications.');?>
                     </p>
                 <?php
                 endif; ?>
@@ -87,12 +87,12 @@
 
             </div>
         </div><!-- .row -->
-        <div class="row">
+        <div class="row offset-bottom">
             <div class="content content-narrow content-offset">
 
-                <h1><?=$this->translate('Reactions & Impact');?></h1>
+                <h2 class="h1"><?=$this->translate('Reactions & Impact');?></h2>
                 <p>
-                    <?=$this->translate('When new document is added');?>
+                    <?=$this->translate('When new document is added');?>.
                 </p>
                 <hr />
 
@@ -122,7 +122,7 @@
                 ?>
                     <p>
                         <span class="glyphicon glyphicon-info-sign text-info offset-right" aria-hidden="true"></span>
-                        You are subscribed to no notifications
+                        <?=$this->translate('You are not subscribed to any notifications.');?>
                     </p>
                 <?php
                 endif; ?>
