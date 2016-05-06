@@ -1,0 +1,30 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation, 'voting-permissions');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to Voting Permissions');?></a>
+                <h2>
+                    <?=$this->translate('New Permission');?>
+                </h2>
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

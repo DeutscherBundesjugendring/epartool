@@ -75,6 +75,38 @@ class Admin_VotingController extends Zend_Controller_Action
         }
     }
 
+    public function createrightsAction()
+    {
+        $userModel = new Model_Users();
+        $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
+        
+        $form = new Admin_Form_Voting_RightsAdd($users);
+
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            $data['kid'] = $this->_consultation->kid;
+            if ($form->isValid($data)) {
+                $votingRights = new Model_Votes_Rights();
+                $votingRights->createRow($data)->save();
+                $this->_flashMessenger->addMessage(
+                    $this->view->translate('The voting permission was created.'),
+                    'success'
+                );
+                $this->redirect(
+                    $this->view->url(['action' => 'index']),
+                    ['prependBase' => false]
+                );
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
     /**
      * List paricipants and process request to send invitation email instantly
      */
