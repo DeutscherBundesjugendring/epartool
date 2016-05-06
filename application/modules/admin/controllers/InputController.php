@@ -91,7 +91,20 @@ class Admin_InputController extends Zend_Controller_Action
 
         $inputModel = new Model_Inputs();
 
-        $this->view->inputs = $inputModel->getComplete($wheres);
+        $form = new Admin_Form_InputSort();
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if ($form->isValid($data)) {
+                $sortColumn = $form->getValue('sortColumn');
+                $this->view->inputs = $inputModel->getComplete($wheres, $sortColumn);
+            } else {
+                $this->view->inputs = $inputModel->getComplete($wheres);
+            }
+        } else {
+            $this->view->inputs = $inputModel->getComplete($wheres);
+        }
+        
+        $this->view->sortForm = $form;
         $this->view->question = $question;
         $this->view->form = new Admin_Form_ListControl();
         $this->view->tags = (new Model_Tags())->getAll()->toArray();

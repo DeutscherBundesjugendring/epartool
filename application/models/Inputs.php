@@ -1175,7 +1175,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCompleteGroupedByQuestion($wheres)
     {
-        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres, 'tid'));
 
         $inputs = [];
         foreach ($res as $input) {
@@ -1197,11 +1197,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     /**
      * Returns the data needed to populate the input boxes in per question view
      * @param  array   $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @param string $order
      * @return array             An array of arrays
      */
-    public function getComplete($wheres)
+    public function getComplete($wheres, $order = 'tid')
     {
-        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres));
+        $res = $this->fetchAll($this->getInputBoxListDataSelect($wheres, $order));
 
         $inputs = [];
         foreach ($res as $input) {
@@ -1216,15 +1217,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * Returns the select to be used as a base for getting the complete input data
-     * @param  integer          $kid     The consultation identifier
      * @param  array            $wheres  An array of [condition => value] arrays to be used in Zend_Db_Select::where()
+     * @param  string $order
      * @return Zend_Db_Select            The select object
      */
-    private function getInputBoxListDataSelect($wheres)
+    private function getInputBoxListDataSelect($wheres, $order)
     {
         $select = $this
             ->select()
-            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf', 'input_discussion_contrib'])
+            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf', 'input_discussion_contrib', 'spprts'])
             ->setIntegrityCheck(false)
             ->join(
                 (new Model_Questions())->info(Model_Questions::NAME),
@@ -1236,7 +1237,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 (new Model_Users())->info(Model_Users::NAME) . '.uid = ' . $this->info(self::NAME) . '.uid',
                 ['uid', 'name']
             )
-            ->order('tid');
+            ->order($order);
 
         foreach ($wheres as $cond => $value) {
             $select->where($cond, $value);
