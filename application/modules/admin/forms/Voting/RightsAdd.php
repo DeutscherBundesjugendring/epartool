@@ -11,7 +11,7 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
     {
         $this->userOprions = [];
         foreach ($users as $user) {
-            $this->userOprions[$user['uid']] = $user['name'];
+            $this->userOprions[$user['uid']] = $user['name'] !== "" ? $user['name'] : $user['email'];
         }
         parent::__construct();
     }
@@ -51,7 +51,6 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
             ->setLabel('Group size')
             ->setMultiOptions(
                 [
-                    '0' => '?',
                     '1' => '1-2',
                     '10' => $translator->translate('bis') . ' 10',
                     '30' => $translator->translate('bis') . ' 30',
