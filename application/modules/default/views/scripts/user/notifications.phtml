@@ -8,23 +8,29 @@
                 <p>
                     <?=$this->translate('Send me an update when someone adds new discussion post');?>
                 </p>
+                <hr />
 
                 <?php
                 if (count($this->contributionDiscussion) > 0) :
                     foreach ($this->contributionDiscussion as $cd) : ?>
-                        <div>
-                            Contribution: <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>"><?=$cd['titl'];?></a> In
-                            <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>"><?=$cd->q;?></a>
-                            <button
-                                value="<?=$cd->id;?>"
-                                class="btn btn-danger btn-sm"
-                                name="unsubscribe-cd"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Unsubscribe from Contribution Discussion?');?>"
-                            >
-                                <?=$this->translate('Unsubscribe');?>
-                            </button>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                Contribution: <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>"><?=$cd['titl'];?></a> In
+                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>"><?=$cd->q;?></a>
+                            </div>
+                            <div class="col-sm-3 text-right">
+                                <button
+                                    value="<?=$cd->id;?>"
+                                    class="btn btn-danger btn-sm"
+                                    name="unsubscribe-cd"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?=$this->translate('Unsubscribe from Contribution Discussion?');?>"
+                                >
+                                    <?=$this->translate('Unsubscribe');?>
+                                </button>
+                            </div>
                         </div>
+                        <hr />
                     <?php
                     endforeach;
                 else :
@@ -45,23 +51,29 @@
                 <p>
                     <?=$this->translate('Sends notification when new contribution to particular questions is made');?>
                 </p>
-
+                <hr />
+                
                 <?php
                 if (count($this->questions) > 0) :
                     foreach ($this->questions as $q) : ?>
-                        <div>
-                            Contribution: <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>"><?=$q->q;?></a> In
-                            <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>"><?=$q->titl;?></a>
-                            <button
-                                value="<?=$q->id;?>"
-                                class="btn btn-danger btn-sm"
-                                name="unsubscribe-q"
-                                data-toggle="confirm"
-                                data-confirm-message="<?=$this->translate('Unsubscribe from Question?');?>"
-                            >
-                                <?=$this->translate('Unsubscribe');?>
-                            </button>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                Contribution: <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>"><?=$q->q;?></a> In
+                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>"><?=$q->titl;?></a>
+                            </div>
+                            <div class="col-sm-3 text-right">
+                                <button
+                                    value="<?=$q->id;?>"
+                                    class="btn btn-danger btn-sm"
+                                    name="unsubscribe-q"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?=$this->translate('Unsubscribe from Question?');?>"
+                                >
+                                    <?=$this->translate('Unsubscribe');?>
+                                </button>
+                            </div>
                         </div>
+                        <hr />
                 <?php
                     endforeach;
                 else : ?>
@@ -82,22 +94,28 @@
                 <p>
                     <?=$this->translate('When new document is added');?>
                 </p>
+                <hr />
 
                 <?php
                 if (count($this->followups) > 0) :
                     foreach ($this->followups as $fu) : ?>
-                        <div>
-                            Contribution: <a href="<?=$this->url(['controller' => 'followup', 'action' => 'index', 'kid' => $fu['kid']]);?>"><?=$fu->ffid_titl;?></a>
-                            <button
-                                value="<?= $fu->id; ?>"
-                                class="btn btn-danger btn-sm"
-                                name="unsubscribe-fu"
-                                data-toggle="confirm"
-                                data-confirm-message="<?= $this->translate('Unsubscribe from Followup?'); ?>"
-                            >
-                                <?= $this->translate('Unsubscribe'); ?>
-                            </button>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                Contribution: <a href="<?=$this->url(['controller' => 'followup', 'action' => 'index', 'kid' => $fu['kid']]);?>"><?=$fu->ffid_titl;?></a>
+                            </div>
+                            <div class="col-sm-3 text-right">
+                                <button
+                                    value="<?= $fu->id; ?>"
+                                    class="btn btn-danger btn-sm"
+                                    name="unsubscribe-fu"
+                                    data-toggle="confirm"
+                                    data-confirm-message="<?= $this->translate('Unsubscribe from Followup?'); ?>"
+                                >
+                                    <?= $this->translate('Unsubscribe'); ?>
+                                </button>
+                            </div>
                         </div>
+                        <hr />
                         <?php
                     endforeach;
                 else :
