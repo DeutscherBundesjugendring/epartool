@@ -43,7 +43,13 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
             ->setLabel('Access code')
             ->setRequired(true)
             ->addValidator('Alnum')
-            ->addValidator('StringLength', false, ['min' => 8]);
+            ->addValidator('StringLength', false, ['min' => 8])
+            ->addValidator(new Zend_Validate_Db_NoRecordExists(
+                [
+                    'table' => 'vt_rights',
+                    'field' => 'vt_code',
+                ]
+            ));
         $this->addElement($accessCode);
 
         $groupSize = $this->createElement('select', 'grp_siz');

@@ -137,7 +137,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
      * @param  integer $length Defaults to 8
      * @return string
      */
-    protected function generateVotingCode($length = 8)
+    public function generateVotingCode($length = 8)
     {
         $password="";
         // define possible characters - any character in this string can be

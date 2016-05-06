@@ -75,18 +75,17 @@ class Admin_VotingController extends Zend_Controller_Action
         }
     }
 
-    public function createrightsAction()
+    public function createRightsAction()
     {
-        $userModel = new Model_Users();
-        $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
+        $users = (new Model_Users())->getWithoutVotingRights($this->_consultation->kid);
         
         $form = new Admin_Form_Voting_RightsAdd($users);
-
+        $votingRights = new Model_Votes_Rights();
+        
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             $data['kid'] = $this->_consultation->kid;
             if ($form->isValid($data)) {
-                $votingRights = new Model_Votes_Rights();
                 $votingRights->createRow($data)->save();
                 $this->_flashMessenger->addMessage(
                     $this->view->translate('The voting permission was created.'),
@@ -102,6 +101,8 @@ class Admin_VotingController extends Zend_Controller_Action
                     'error'
                 );
             }
+        } else {
+            $form->populate(['vt_code' => $votingRights->generateVotingCode()]);
         }
 
         $this->view->form = $form;
