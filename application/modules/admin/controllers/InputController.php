@@ -209,6 +209,66 @@ class Admin_InputController extends Zend_Controller_Action
         $this->view->tid = $tid;
     }
 
+    public function createAction()
+    {
+        $questionId = $this->_request->getParam('qid', 0);
+        $consultationId = $this->_request->getParam('kid', 0);
+
+        $session = new Zend_Session_Namespace('inputCreate');
+
+        if (!$this->getRequest()->isPost()) {
+            $session->urlQid = $this->getRequest()->getParam('qid', 0);
+        }
+
+        if ($session->urlQid > 0) {
+            $cancelUrl = $this->view->returnUrl = $this->view->url([
+                'action' => 'index',
+                'kid' => $consultationId,
+                'qi' => $questionId,
+            ]);
+        } else {
+            $cancelUrl = $this->view->returnUrl = $this->view->url(['action' => 'index','kid' => $consultationId]);
+        }
+
+        $inputModel = new Model_Inputs();
+        $form = new Admin_Form_CreateInput($cancelUrl);
+
+        if ($questionId > 0) {
+            $form->populate(['qi' => $questionId]);
+        }
+
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if ($form->isValid($data)) {
+                $formValues = $form->getValues();
+                $formValues['tags'] = $formValues['tags'] ? $formValues['tags'] : [];
+                $inputModel->getAdapter()->beginTransaction();
+                try {
+                    $inputModel->createContribution($formValues);
+                    $this->_flashMessenger->addMessage('Contribution was created.', 'success');
+                    unset($session->urlQid);
+                    $inputModel->getAdapter()->commit();
+                    $this->redirect($this->view->url([
+                        'action' => 'index',
+                        'kid' => $consultationId,
+                        'qid' => $questionId,
+                    ]), ['prependBase' => false]);
+                } catch (\Exception $e) {
+                    $inputModel->getAdapter()->rollBack();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'New contribution cannot be created. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+                $form->populate($data);
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
     /**
      * Makes changes to Inputs from the input list context in bulk and individually
      */

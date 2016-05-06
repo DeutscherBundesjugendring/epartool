@@ -1,0 +1,29 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation, 'contributions');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->returnUrl;?>" class="back"><?=$this->translate('Back to Contributions');?></a>
+
+                <h2><?=$this->translate('New Contribution');?></h2>
+                <?=$this->form;?>
+
+            </div>
+        </div>
+    </div>
+</section>

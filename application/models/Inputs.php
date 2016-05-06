@@ -68,9 +68,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function add($data)
     {
+
         $row = $this->createRow($data);
 
-        return (int) $row->save();
+        $contributionId = (int) $row->save();
+
+        $modelInputsTags = new Model_InputsTags();
+        if (!empty($data['tags'])) {
+            $modelInputsTags->insertByInputsId($contributionId, $data['tags']);
+        }
+
+        return $contributionId;
     }
 
     /**
@@ -1280,5 +1288,36 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         return $inputIds;
+    }
+
+    /**
+     * @param array $formValues
+     * @throws \Exception
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function createContribution(array $formValues)
+    {
+        $added = $this->add($formValues);
+        if ($added > 0) {
+            $newContribution = $this->find($added)->current();
+            $question = (new Model_Questions())->find($newContribution->qi)->current();
+            $userInfoModel = new Model_User_Info();
+            $userInfo = $userInfoModel->fetchRow([
+                'uid = ' . $newContribution->uid ,
+                'kid =' . $question->kid,
+            ]);
+            if ($userInfo === null) {
+                $userModel = new Model_Users();
+                $userData = $userModel->find($newContribution->uid)->current()->toArray();
+                $userData['cmnt_ext'] = "";
+                $userData['kid'] = $question->kid;
+                $userInfoId = $userModel->addConsultationData($userData);
+                if (!$userInfoId) {
+                    throw new \Exception('Adding user info failed');
+                }
+            }
+            return;
+        }
+        throw new \Exception('Adding contribution failed');
     }
 }
