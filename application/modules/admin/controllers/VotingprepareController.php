@@ -129,7 +129,12 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
-            $form->populate(['qi' => $origInputData['qi']]);
+            $form->populate([
+                'qi' => $origInputData['qi'],
+                'user_conf' => $origInputData['user_conf'],
+                'block' => $origInputData['block'],
+                'vot' => $origInputData['vot'],
+            ]);
         }
 
         $this->view->inputs = $inputModel->fetchAllInputs(['tid = ?' => $origInputId]);
