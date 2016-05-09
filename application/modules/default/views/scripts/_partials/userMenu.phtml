@@ -1,14 +1,26 @@
-<ul role="tablist" class="nav nav-tabs">
+<ul role="tablist" class="nav nav-tabs offset-top offset-bottom">
     <li<?php if ($this->page == 'profile'): echo ' class="active"'; endif ?>>
-        <a href="<?=$this->url(['action' => 'profile']);?>"><?=$this->translate('My Profile');?></a>
+        <a href="<?=$this->url(['action' => 'profile']);?>">
+            <span class="visible-xs glyphicon glyphicon-user"></span>
+            <span class="hidden-xs"><?=$this->translate('My Profile');?></span>
+        </a>
     </li>
     <li<?php if ($this->page == 'activity'): echo ' class="active"'; endif ?>>
-        <a href="<?=$this->url(['action' => 'activity']);?>"><?=$this->translate('My Activity');?></a>
+        <a href="<?=$this->url(['action' => 'activity']);?>">
+            <span class="visible-xs glyphicon glyphicon-list-alt"></span>
+            <span class="hidden-xs"><?=$this->translate('My Activity');?></span>
+        </a>
     </li>
     <li<?php if ($this->page == 'userlist'): echo ' class="active"'; endif ?>>
-        <a href="<?=$this->url(['action' => 'userlist']);?>"><?=$this->translate('My Group');?></a>
+        <a href="<?=$this->url(['action' => 'userlist']);?>">
+            <span class="visible-xs glyphicon glyphicon-th"></span>
+            <span class="hidden-xs"><?=$this->translate('My Group');?></span>
+        </a>
     </li>
     <li<?php if ($this->page == 'notifications'): echo ' class="active"'; endif ?>>
-        <a href="<?=$this->url(['action' => 'notifications']);?>"><?=$this->translate('My Subscriptions');?></a>
+        <a href="<?=$this->url(['action' => 'notifications']);?>">
+            <span class="visible-xs glyphicon glyphicon-envelope"></span>
+            <span class="hidden-xs"><?=$this->translate('My Subscriptions');?></span>
+        </a>
     </li>
 </ul>
