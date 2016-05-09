@@ -8,10 +8,10 @@
 
 <div class="main-content">
     <?=$this->partial('_partials/userMenu.phtml', ['page' => 'userlist']);?>
-    <div class="row">
+    <div class="row offset-top offset-bottom">
         <div class="col-sm-12">
 
-            <h1><?=$this->translate('Participating group members');?></h1>
+            <h2 class="h1"><?=$this->translate('Participating group members');?></h2>
 
             <?php if (empty($this->consultationList) && !isset($this->consultation)): ?>
                 <p class="alert alert-info offset-bottom">
