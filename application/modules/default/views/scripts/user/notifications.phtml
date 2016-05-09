@@ -1,10 +1,11 @@
 <div class="main-content">
+    <?=$this->partial('_partials/userMenu.phtml', ['page' => 'notifications']);?>
     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'notifications']);?>">
         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
         <div class="row offset-top offset-bottom">
             <div class="content content-narrow content-offset">
 
-                <h1><?=$this->translate('Contribution Discussion');?></h1>
+                <h2 class="h1"><?=$this->translate('Contribution Discussion');?></h2>
                 <p>
                     <?=$this->translate('Send me an update when someone adds new discussion post');?>
                 </p>
@@ -41,7 +42,7 @@
         <div class="row">
             <div class="content content-narrow content-offset">
 
-                <h1><?=$this->translate('Questions');?></h1>
+                <h2 class="h1"><?=$this->translate('Questions');?></h2>
                 <p>
                     <?=$this->translate('Sends notification when new contribution to particular questions is made');?>
                 </p>
@@ -78,7 +79,7 @@
         <div class="row">
             <div class="content content-narrow content-offset">
 
-                <h1><?=$this->translate('Reactions & Impact');?></h1>
+                <h2 class="h1"><?=$this->translate('Reactions & Impact');?></h2>
                 <p>
                     <?=$this->translate('When new document is added');?>
                 </p>
@@ -111,4 +112,5 @@
             </div>
         </div><!-- .row -->
     </form>
+    <?=$this->partial('_partials/pageLinks.phtml');?>
 </div><!-- .main-content -->
