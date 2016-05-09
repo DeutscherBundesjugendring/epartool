@@ -3,23 +3,24 @@
     <div class="row">
             <div class="col-sm-6">
                 <h1><?=$this->translate('My Contributions');?></h1>
-                <?php $contributionsListCount = count($this->contributionsList); $i = 1; ?>
                 <?php if (!empty($this->contributionsList)): ?>
-                    <?php foreach ($this->contributionsList as $contribution): ?>
-                            <p>
-                                <?=$contribution['thes'];?>
-                                <br />
-                                <?=$this->formatDate($contribution['when'], 'd. M. Y H:m:s');?> in
-                                <a
-                                    href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'article', 'action' => 'show', 'kid' => $contribution['kid']]);?>"
-                                >
-                                    <?=$contribution['titl'];?>
-                                </a>
-                            </p>
-                        <?php if ($contributionsListCount == $i++ && $this->contributionsSum > $this->contributionsLimit): ?>
-                            <a href="<?=$this->url(['cl' => $this->contributionsLimit + $this->step]);?>" class='btn btn-lg btn-default'>Load More</a>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <?php foreach ($this->contributionsList as $i => $contribution): ?>
+                        <p id="contribution-link-<?=$i;?>">
+                            <?=$contribution['thes'];?><br />
+                            <?=$this->formatDate($contribution['when'], 'd. M. Y H:m:s');?> in
+                            <a href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'article', 'action' => 'show', 'kid' => $contribution['kid']]);?>">
+                                <?=$contribution['titl'];?>
+                            </a>
+                        </p>
+                    <?php endforeach;?>
+                    <?php if ($this->contributionsSum > $this->contributionsLimit): ?>
+                        <a
+                            href="<?=$this->url(['cl' => $this->contributionsLimit + $this->step]);?>#contribution-link-<?=$this->contributionsLimit;?>"
+                            class='btn btn-lg btn-default'
+                        >
+                            <?=$this->translate('Load More');?>
+                        </a>
+                    <?php endif; ?>
                 <?php else: ?>
                 <p class="alert alert-info">
                     <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
@@ -27,37 +28,34 @@
                 </p>
                 <?php endif; ?>
             </div>
-            
+
             <div class="col-sm-6">
                 <h1><?=$this->translate('My Discussion Posts');?></h1>
-                <?php $postsListCount = count($this->postsList); $i = 1; ?>
                 <?php if (!empty($this->postsList)): ?>
-                    <?php foreach ($this->postsList as $post): ?>
-                        <p>
-                                <a
-                                    href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'input', 'action' => 'discussion', 'kid' => $post['kid'], 'qid' => $post['qi'], 'inputId' => $post['tid']]);?>#post-<?=$post['id'];?>"
-                                >
-                                    <?=$post['body'];?>
-                                </a>
-                                <br />
-                                <?=$this->formatDate($post['time_created'], 'd. M. Y H:m');?> in
-                                <a
-                                    href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'article', 'action' => 'show', 'kid' => $post['kid']]);?>"
-                                >
-                                    <?=$post['titl'];?>
-                                </a>
-                                -
-                                <a
-                                    href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'input', 'action' => 'show', 'kid' => $post['kid'], 'qid' => $post['qi']]);?>"
-                                >
-                                    <?=$post['q'];?>
-                                </a>
+                    <?php foreach ($this->postsList as $i => $post): ?>
+                        <p id="discussion-link-<?=$i;?>">
+                            <a href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'input', 'action' => 'discussion', 'kid' => $post['kid'], 'qid' => $post['qi'], 'inputId' => $post['tid']]);?>#post-<?=$post['id'];?>">
+                                <?=$post['body'];?>
+                            </a>
+                            <br />
+                            <?=$this->formatDate($post['time_created'], 'd. M. Y H:m');?> in
+                            <a href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'article', 'action' => 'show', 'kid' => $post['kid']]);?>">
+                                <?=$post['titl'];?>
+                            </a>
+                            -
+                            <a href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'input', 'action' => 'show', 'kid' => $post['kid'], 'qid' => $post['qi']]);?>">
+                                <?=$post['q'];?>
+                            </a>
                         </p>
-                        
-                        <?php if ($postsListCount == $i++ && $this->postsSum > $this->postsLimit): ?>
-                            <a href="<?=$this->url(['pl' => $this->postsLimit + $this->step]);?>" class='btn btn-lg btn-default'>Load More</a>
-                        <?php endif; ?>
                     <?php endforeach; ?>
+                    <?php if ($this->postsSum > $this->postsLimit): ?>
+                        <a
+                            href="<?=$this->url(['pl' => $this->postsLimit + $this->step]);?>#discussion-link-<?=$this->postsLimit;?>"
+                            class='btn btn-lg btn-default'
+                        >
+                            <?=$this->translate('Load More');?>
+                        </a>
+                    <?php endif; ?>
                 <?php else: ?>
                 <p class="alert alert-info">
                     <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
