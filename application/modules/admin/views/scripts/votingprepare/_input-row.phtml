@@ -52,8 +52,16 @@
             </p>
         <?php endif; ?>
 
+        <h5>
+            <?=$this->translate('Related');?> <a
+                href="<?=$this->url(['action' => 'add-related', 'inputId' => $this->escape($this->input['tid'])]);?>"
+                class="item-action"
+                title="<?=$this->translate('Add related contributions');?>"
+            >
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
+        </h5>
         <?php if (!empty($this->input['related'])): ?>
-            <h5><?=$this->translate('Related');?></h5>
             <ul>
                 <?php foreach ($this->input['related'] as $relInput): ?>
                     <li>

@@ -263,4 +263,33 @@ class Admin_VotingprepareController extends Zend_Controller_Action
 
         $this->redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
     }
+
+    public function addRelatedAction()
+    {
+        $inputId = $this->getRequest()->getParam('inputId');
+        $inputModel = new Model_Inputs();
+        $originalInput = $inputModel->find($inputId)->current();
+        if(!$originalInput) {
+            throw new Zend_Controller_Action_Exception(sprintf('Contribution ID %d not found.', $inputId), 404);
+        }
+
+        $form = new Admin_Form_ListControl();
+
+        if ($this->getRequest()->isPost() && $form->isValid($this->getRequest()->getPost())) {
+
+            $postData = $this->getRequest()->getPost();
+            if (isset($postData['inputIds'])) {
+                $inputModel->appendRelIds($inputId, $postData['inputIds']);
+                $this->_flashMessenger->addMessage('Selected contributions were added to related.', 'success');
+                $this->redirect($this->view->url(['action' => 'overview']), ['prependBase' => false]);
+            } else {
+                $this->_flashMessenger->addMessage('No contributions were selected.', 'error');
+            }
+        }
+
+        $this->view->input = $originalInput;
+        $this->view->form = $form;
+        $this->view->inputs = $inputModel->fetchAllInputs(['inpt.qi = ?' => $originalInput->qi]);
+        $this->view->consultation = $this->_consultation;
+    }
 }
