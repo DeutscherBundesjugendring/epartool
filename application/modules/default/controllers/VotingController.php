@@ -487,6 +487,7 @@ class VotingController extends Zend_Controller_Action
         $thesesUnVotedCount = count($thesesUnVoted);
 
         $questionModel = new Model_Questions();
+        $question = null;
         if ($thesesUnVotedCount == 0) {
                 $this->view->noMoreThesis = true;
         } else {
@@ -522,7 +523,11 @@ class VotingController extends Zend_Controller_Action
 
         $projectModel = new Model_Projects();
         $project = $projectModel->find(Zend_Registry::get('systemconfig')->project)->current();
-        $this->view->defaultVoteQuestion = $project->vot_q;
+        if ($question !== null && $question['vot_q'] !== '') {
+            $this->view->defaultVoteQuestion = $question['vot_q'];
+        } else {
+            $this->view->defaultVoteQuestion = $project->vot_q;
+        }
     }
 
     /**
