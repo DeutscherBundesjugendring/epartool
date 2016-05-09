@@ -15,7 +15,7 @@
                 if (count($this->contributionDiscussion) > 0) :
                     foreach ($this->contributionDiscussion as $cd) : ?>
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-sm-9 offset-bottom-xs-max">
                                 Contribution: <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>"><?=$cd['titl'];?></a> In
                                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>"><?=$cd->q;?></a>
                             </div>
@@ -58,7 +58,7 @@
                 if (count($this->questions) > 0) :
                     foreach ($this->questions as $q) : ?>
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-sm-9 offset-bottom-xs-max">
                                 Contribution: <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>"><?=$q->q;?></a> In
                                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>"><?=$q->titl;?></a>
                             </div>
@@ -101,7 +101,7 @@
                 if (count($this->followups) > 0) :
                     foreach ($this->followups as $fu) : ?>
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-sm-9 offset-bottom-xs-max">
                                 Contribution: <a href="<?=$this->url(['controller' => 'followup', 'action' => 'index', 'kid' => $fu['kid']]);?>"><?=$fu->ffid_titl;?></a>
                             </div>
                             <div class="col-sm-3 text-right">
