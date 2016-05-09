@@ -21,7 +21,7 @@ VALUES
         'Unsere erste Beteiligungsrunde',
         'Hier kommt der Kurztitel hin!',
         'Denkt euch einen Titel aus!',
-        'jugendliche_im_gras.jpg',
+        'sample_consultation_image.jpg',
         'Foto: Fotolia © Godfer',
         '&lt;p&gt;&lt;em&gt;In diese Box schreibt ihr eine kurze Beschreibung eurer Beteiligungsrunde. Z.B. die Hauptfrage oder einige Worte zum Thema. Achtet darauf euch auf einige wenige S&auml;tze zu beschr&auml;nken, damit nichts abgeschnitten wird :-) &lt;em&gt;',
         'de',
