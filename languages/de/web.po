@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2016-05-11 14:18+0200\n"
-"PO-Revision-Date: 2016-05-11 14:24+0200\n"
+"PO-Revision-Date: 2016-05-11 16:28+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -256,13 +256,13 @@ msgstr "Die Bewertungen wurden gelöscht."
 #: application/modules/default/controllers/UserController.php:278
 #: application/modules/default/controllers/UserController.php:314
 msgid "Please log in."
-msgstr ""
+msgstr "Bitte einloggen."
 
 #: application/modules/default/controllers/UserController.php:322
 #: application/modules/default/controllers/UserController.php:326
 #: application/modules/default/controllers/UserController.php:330
 msgid "You were successfully unsubscribed."
-msgstr ""
+msgstr "Du wurdest erfolgreich ausgetragen."
 
 #: application/modules/default/controllers/VotingController.php:34
 msgid "This participation round is currently not open for voting."
@@ -933,26 +933,26 @@ msgstr "Eingeloggt als"
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:26
 #: application/modules/default/views/scripts/_partials/userMenu.phtml:5
 msgid "My Profile"
-msgstr ""
+msgstr "Mein Profil"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:32
 #: application/modules/default/views/scripts/_partials/userMenu.phtml:11
 msgid "My Activity"
-msgstr ""
+msgstr "Meine Aktivitäten"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:38
 #: application/modules/default/views/scripts/_partials/userMenu.phtml:17
 msgid "My Group"
-msgstr ""
+msgstr "Meine Gruppe"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:44
 #: application/modules/default/views/scripts/_partials/userMenu.phtml:23
 msgid "My Subscriptions"
-msgstr ""
+msgstr "Meine Abonnements"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:51
 msgid "Admin"
-msgstr ""
+msgstr "Admin-Bereich"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:59
 msgid "Logout"
