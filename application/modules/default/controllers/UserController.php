@@ -345,6 +345,36 @@ class UserController extends Zend_Controller_Action
 
     public function profileAction()
     {
+        $form = new Default_Form_Profile();
 
+        $auth = Zend_Auth::getInstance();
+
+        if (!$auth->hasIdentity()) {
+            $this->_flashMessenger->addMessage('Please log in.', 'error');
+            $this->redirect('/');
+        }
+
+        $userModel = new Model_Users();
+        $user = $userModel->find($auth->getIdentity()->uid)->current();
+        if (!$user) {
+            $this->redirect('/');
+        }
+
+        if ($form->isValid($this->getRequest()->getPost())) {
+            $data = $form->getValues();
+            if ($userModel->updateProfile($user, $data)) {
+                $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
+                $this->redirect($this->view->url());
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Your profile cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $form->populate($user->toArray());
+        }
+
+        $this->view->form = $form;
     }
 }

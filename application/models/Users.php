@@ -479,4 +479,18 @@ class Model_Users extends Dbjr_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
+
+    public function updateProfile(Zend_Db_Table_Row $user, array $data)
+    {
+        unset($data['password_confirm']);
+        unset($data['email']);
+
+        if ($data['password'] != '') {
+            $data['password'] = $this->hashPassword($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        $user->setFromArray($data);
+        return $user->save();
+    }
 }
