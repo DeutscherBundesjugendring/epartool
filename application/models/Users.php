@@ -448,7 +448,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function getAllConfirmed()
     {
         $select = $this->select();
-        $select->where("block ='c'")->order('email');
+        $select->where("block ='c'")->order(['name', 'email']);
 
         return $this->fetchAll($select)->toArray();
     }
@@ -475,7 +475,8 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 []
             )
             ->where($userInfoTable . '.uid IS NULL')
-            ->where($votingRightsTable . '.uid IS NULL');
+            ->where($votingRightsTable . '.uid IS NULL')
+            ->order(['u.name', 'u.email']);
 
         return $this->fetchAll($select);
     }
