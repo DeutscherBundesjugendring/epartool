@@ -10,12 +10,13 @@ class Admin_Form_CreateInput extends Admin_Form_Input
         $users = (new Model_Users())->getAllConfirmed();
         $selectOptions = [];
         foreach ($users as $user) {
-            $selectOptions[$user['uid']] = $user['name'] !== "" ? $user['name'] : $user['email'];
+            $selectOptions[$user['uid']] = $user['name'] !== null ? $user['name'] : $user['email'];
         }
         $adminUserId = $this->createElement('select', 'uid');
         $adminUserId
             ->setLabel('Contribution Author')
             ->setRequired(true)
+            ->setAttrib('data-onload-select2', '{}')
             ->setMultiOptions($selectOptions)
             ->addValidator('Int');
         $this->addElement($adminUserId);
