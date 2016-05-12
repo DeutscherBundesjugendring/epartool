@@ -3,7 +3,7 @@
 class Service_Notification_FollowUpCreatedNotification extends Service_Notification_AbstractNotification
 {
     const TYPE_NAME = 'follow_up_created';
-    const PARAM_CONSULTATION_ID = 'ffid';
+    const PARAM_CONSULTATION_ID = 'kid';
 
     /**
      * @param int $userId
@@ -15,6 +15,7 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
         $ntfModel = new Model_Notification();
         $select = $ntfModel
             ->select()
+            ->setIntegrityCheck(false)
             ->from(['n' => $ntfModel->info(Model_Notification::NAME)])
             ->join(
                 ['nt' => (new Model_Notification_Type())->info(Model_Notification_Type::NAME)],
@@ -36,10 +37,9 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
                 'ntp.value = cnslt.kid',
                 ['kid']
             )
-            ->where('ntp.name=?', 'ffid')
+            ->where('ntp.name=?', 'kid')
             ->where('user_id=?', $userId)
             ->where('nt.name=?', static::TYPE_NAME)
-            ->setIntegrityCheck(false)
             ->group('n.id');
 
         return $ntfModel->fetchAll($select);
