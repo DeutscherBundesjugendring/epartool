@@ -165,7 +165,6 @@ class IndexController extends Zend_Controller_Action
                 );
             }
         } catch (Exception $e) {
-            var_dump($e);
             $this->getResponse()->setHttpResponseCode(401);
         }
     }
