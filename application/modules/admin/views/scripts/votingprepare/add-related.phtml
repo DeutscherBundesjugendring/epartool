@@ -1,0 +1,110 @@
+<section class="section-header has-tabs">
+    <div class="container">
+
+        <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
+
+        <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar">
+
+                <?=$this->consultationNavigation($this->consultation, 'voting-prepare');?>
+
+            </div>
+            <div class="content">
+
+                <a href="<?=$this->url(['action' => 'overview']);?>" class="back"><?=$this->translate('Back to Overview');?></a>
+                <h2><?=$this->translate('Link contributions');?></h2>
+
+                <div class="panel-group">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <?php if (!empty($this->input)): ?>
+                                        <h5><?=$this->translate('Original contribution');?></h5>
+                                        <p><?=$this->escape($this->input->thes);?></p>
+                                    <?php endif; ?>
+                                    <p>
+                                        <small>
+                                            <?=$this->formatDate($this->input->when);?>
+                                        </small>
+                                    </p>
+
+                                    <?php if (!empty($this->inputtags)): ?>
+                                        <p>
+                                            <?php foreach($this->inputtags as $tag): ?>
+                                                <span class="label label-primary"><?=$this->escape($tag['tg_de']);?></span>
+                                            <?php endforeach; ?>
+                                        </p>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="panel-group">
+
+                    <!-- Common filter -->
+                                <form data-filter-target="#contribution-table tr" class="form-filter">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input
+                                                    class="form-control"
+                                                    placeholder="<?=$this->translate('Search text');?>"
+                                                    data-toggle="filter"
+                                                    data-filter-attrib="thes"
+                                                    data-filter-operator="intersect"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div><!-- .row -->
+                                </form>
+
+                </div><!-- .panel-group -->
+
+                <!-- Contributions -->
+                <form method="<?=$this->form->getMethod();?>" action="<?=$this->url();?>">
+
+                    <!-- Actions -->
+                    <?=$this->form->getElement($this->form->getCsrfTokenName());?>
+                    <!-- .well -->
+
+                    <!-- Contribution listing -->
+                    <div class="table-responsive">
+                        <table id="contribution-table" class="table table-bordered js-table-rows-toggle">
+                            <tbody>
+                            <?php foreach ($this->inputs as $input): ?>
+                                <?=$this->partial('votingprepare/_related-row.phtml', ['input' => $input]);?>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 text-right">
+                            <div class="btn-group">
+                                <button class="btn btn-default" value="saveRelated" name="bulkAction" type="submit">
+                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    <span class="hidden-xs"><?=$this->translate('Link selection to original contribution');?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- .row -->
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,19 @@
+<tr data-thes="<?=$this->input['thes'];?>">
+    <td class="table-cell-id table-cell-top">
+        <div class="checkbox">
+            <label>
+                <input type ="checkbox" name="inputIds[]" value="<?=$this->escape($this->input['tid']);?>" />
+            </label>
+        </div>
+    </td>
+    <td class="table-cell-top">
+        <?php if (!empty($this->input['thes'])): ?>
+            <p class="overflow-horizontal"><?=$this->escape($this->input['thes']);?></p>
+        <?php endif; ?>
+        <p>
+            <small>
+                <?=$this->formatDate($this->input['when']);?>
+            </small>
+        </p>
+    </td>
+</tr>
