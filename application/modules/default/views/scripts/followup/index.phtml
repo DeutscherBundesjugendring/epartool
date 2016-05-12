@@ -45,7 +45,7 @@
                 </div><!-- .row -->
 
                 <?php if (!empty($this->followups)): ?>
-                    <div class="row">
+                    <div id="followup" class="row">
 
                         <?php foreach ($this->followups as $followup): ?>
                             <div class="col-sm-4">
@@ -55,15 +55,12 @@
                                         <?=$followup['titl'];?>
                                     </h4>
                                     <div class="offset-bottom-small">
-                                        <a
-                                            href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']); ?>"
-                                            target="_blank"
-                                            name="<?=$followup['ref_doc'];?>"
-                                            class="card-image"
-                                            title="<?=$this->translate('View');?>"
-                                        >
-                                            <img src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" class="img-responsive" alt="<?=$this->translate('Preview');?>" />
-                                        </a>
+                                        <img
+                                            class="followup-well-link img-responsive followup-timeline-box js-openoverlay js-timeline-box"
+                                            data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+                                            data-ffid="<?=(int) $followup['ffid'];?>"
+                                            src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
+                                        />
                                     </div>
                                     <time class="text-muted">
                                         <?php
@@ -77,12 +74,13 @@
                                         <?=$followup['who'];?>
                                     </p>
                                     <span class="glyphicon glyphicon-menu-right icon-offset text-muted" aria-hidden="true"></span>
-                                    <a
-                                        href="<?=$followup['referenceType'] === 'http' ? $followup['ref_doc'] : ($this->mediaCnsltDir . $followup['ref_doc']);?>"
-                                        target="_blank"
+                                    <button
+                                        class="btn-link followup-timeline-box js-openoverlay js-timeline-box"
+                                        data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+                                        data-ffid="<?=(int) $followup['ffid'];?>"
                                     >
                                         <?=$this->translate('View');?>
-                                    </a>
+                                    </button>
                                     <?php if ($followup['referenceType'] === 'file'): ?>
                                         <form method="post" action="<?= $this->url(['action' => 'download', 'page' => null]);?>">
                                             <input type="hidden" name="filename" value="<?=$followup['ref_doc'];?>" />
@@ -99,6 +97,9 @@
                         <?php endforeach; ?>
 
                     </div><!-- .row -->
+                    
+                    <!-- Loader -->
+                    <div id="followuploader"><?=$this->translate('Loading…');?></div>
                 <?php else: ?>
                     <p class="alert alert-info text-left">
                         <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>

@@ -287,6 +287,10 @@
                 + '</div>'
                 + '</div>';
 
+            var modalElement = $('#modalFollowup');
+            if (modalElement.length) {
+              modalElement.remove();
+            }
             $followup.append(_modal);
 
             $('#modalFollowup').modal();
