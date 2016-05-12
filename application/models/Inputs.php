@@ -1345,7 +1345,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $question = (new Model_Questions())->find($newContribution->qi)->current();
             $userInfoModel = new Model_User_Info();
             $userInfo = $userInfoModel->fetchRow([
-                'uid = ' . $newContribution->uid ,
+                'uid = ' . $newContribution->uid,
                 'kid =' . $question->kid,
             ]);
             if ($userInfo === null) {

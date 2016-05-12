@@ -220,4 +220,30 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
+
+    /**
+     * @param array $data
+     * @throws \Exception
+     */
+    public function addPermission(array $data)
+    {
+        if ($this->createRow($data)->save() > 0) {
+            $userInfo = (new Model_User_Info())->fetchRow([
+                'uid = ' . $data['uid'],
+                'kid =' . $data['uid'],
+            ]);
+            if ($userInfo === null) {
+                $userModel = new Model_Users();
+                $userData = $userModel->find($data['uid'])->current()->toArray();
+                $userData['cmnt_ext'] = '';
+                $userData['kid'] = $data['kid'];
+                $userInfoId = $userModel->addConsultationData($userData);
+                if (!$userInfoId) {
+                    throw new \Exception('Adding user info failed');
+                }
+            }
+            return;
+        }
+        throw new \Exception('Adding permission failed.');
+    }
 }

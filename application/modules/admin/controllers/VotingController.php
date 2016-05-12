@@ -77,7 +77,8 @@ class Admin_VotingController extends Zend_Controller_Action
 
     public function createRightsAction()
     {
-        $users = (new Model_Users())->getWithoutVotingRights($this->_consultation->kid);
+        $userModel = new Model_Users();
+        $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
         
         $form = new Admin_Form_Voting_RightsAdd($users);
         $votingRights = new Model_Votes_Rights();
@@ -86,18 +87,25 @@ class Admin_VotingController extends Zend_Controller_Action
             $data = $this->_request->getPost();
             $data['kid'] = $this->_consultation->kid;
             if ($form->isValid($data)) {
-                $votingRights->createRow($data)->save();
-                $this->_flashMessenger->addMessage(
-                    $this->view->translate('The voting permission was created.'),
-                    'success'
-                );
-                $this->redirect(
-                    $this->view->url(['action' => 'index']),
-                    ['prependBase' => false]
-                );
+                try {
+                    $votingRights->addPermission($data);
+                    $this->_flashMessenger->addMessage(
+                        $this->view->translate('The voting permission was created.'),
+                        'success'
+                    );
+                    $this->redirect(
+                        $this->view->url(['action' => 'index']),
+                        ['prependBase' => false]
+                    );
+                } catch (\Exception $e) {
+                    $this->_flashMessenger->addMessage(
+                        'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
+                        'error'
+                    );
+                }
             } else {
                 $this->_flashMessenger->addMessage(
-                    'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
+                    'The form cannot be saved, please give it one more try.',
                     'error'
                 );
             }
