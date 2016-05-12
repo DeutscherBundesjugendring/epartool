@@ -362,12 +362,18 @@ class UserController extends Zend_Controller_Action
 
         if ($form->isValid($this->getRequest()->getPost())) {
             $data = $form->getValues();
-            if ($userModel->updateProfile($user, $data)) {
-                $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
-                $this->redirect($this->view->url());
-            } else {
+            try {
+                if ($userModel->updateProfile($user, $data)) {
+                    $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
+                    $this->redirect($this->view->url());
+                }
                 $this->_flashMessenger->addMessage(
                     'Your profile cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            } catch (Zend_Auth_Exception $e) {
+                $this->_flashMessenger->addMessage(
+                    'Your current password does not match. Please try it again',
                     'error'
                 );
             }

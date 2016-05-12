@@ -39,6 +39,15 @@ class Default_Form_Profile extends Dbjr_Form_Web
             ->setFilters(['StripTags']);
         $this->addElement($nick);
 
+        $description = $translator->translate('If you don\'t want to change your password, leave these fields blank.');
+        $this->addElement(
+            $this
+                ->createElement('password', 'current_password')
+                ->setLabel('Current password')
+                ->setRequired(false)
+            ->setDescription($description)
+        );
+        
         $this->addElement(
             $this
                 ->createElement('password', 'password')

@@ -480,13 +480,26 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    /**
+     * @param \Zend_Db_Table_Row $user
+     * @param array $data
+     * @return mixed
+     * @throws \Zend_Auth_Exception
+     */
     public function updateProfile(Zend_Db_Table_Row $user, array $data)
     {
         unset($data['password_confirm']);
         unset($data['email']);
 
-        if ($data['password'] != '') {
-            $data['password'] = $this->hashPassword($data['password']);
+        $data['name'] = empty($data['name']) ? null : $data['name'];
+        $data['nick'] = empty($data['nick']) ? null : $data['nick'];
+
+        if (!empty($data['password'])) {
+            if (crypt($data['current_password'], $user['password']) == $user['password']) {
+                $data['password'] = $this->hashPassword($data['password']);
+            } else {
+                throw new Zend_Auth_Exception();
+            }
         } else {
             unset($data['password']);
         }
