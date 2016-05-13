@@ -32,10 +32,8 @@
                                 <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
                                 <?php if (!empty($contrib->nick)) : ?>
                                     <?=$this->escape($contrib->nick);?>,
-                                <?php else : ?>
-                                    <?php if (!empty($contrib->name)) : ?>
-                                        <?=$this->escape($contrib->name);?>,
-                                    <?php endif; ?>
+                                <?php elseif (!empty($contrib->name)) : ?>
+                                    <?=$this->escape($contrib->name);?>,
                                 <?php endif; ?>
                                 <?=$this->formatDate($contrib->time_created);?>
                             </small>
