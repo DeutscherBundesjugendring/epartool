@@ -20,21 +20,25 @@ class Default_Form_Profile extends Dbjr_Form_Web
 
         $name = $this->createElement('text', 'name');
         $placeholder = $translator->translate('First name and surname');
+
         $name
             ->setLabel('Name')
             ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
             ->setValidators(['NotEmpty'])
+            ->addValidator(new Zend_Validate_StringLength(['max'=>80]))
             ->setFilters(['StripTags']);
         $this->addElement($name);
 
         $nick = $this->createElement('text', 'nick');
         $placeholder = $translator->translate('Nick');
+
         $nick
             ->setLabel('Nick')
             ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
-            ->setFilters(['StripTags']);
+            ->setFilters(['StripTags'])
+            ->addValidator(new Zend_Validate_StringLength(['max'=>255]));
         $this->addElement($nick);
 
         $description = $translator->translate('If you don\'t want to change your password, leave these fields blank.');
@@ -82,5 +86,22 @@ class Default_Form_Profile extends Dbjr_Form_Web
         $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         $this->addElement($hash);
+    }
+
+    /**
+     * Validate the form
+     *
+     * @param  array $data
+     * @return bool
+     */
+    public function isValid($data)
+    {
+        if (!empty($data['password']) || !empty($data['password_confirm']) || !empty($data['current_password'])) {
+            $this->getElement('password')->setRequired(true);
+            $this->getElement('password_confirm')->setRequired(true);
+            $this->getElement('current_password')->setRequired(true);
+        }
+        $valid = parent::isValid($data);
+        return $valid;
     }
 }

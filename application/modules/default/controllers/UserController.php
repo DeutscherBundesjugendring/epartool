@@ -360,6 +360,7 @@ class UserController extends Zend_Controller_Action
             $this->redirect('/');
         }
 
+        $form->populate(['email' => $user['email']]);
         if ($form->isValid($this->getRequest()->getPost())) {
             $data = $form->getValues();
             try {
