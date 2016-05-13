@@ -41,12 +41,12 @@ class RoboFile extends Tasks
             return sprintf('Cannot load %s.', self::COMPOSER_FILE);
         }
         $composerInfo->version = $tag;
-        $json_indented_by_4 = json_encode($composerInfo, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        if (false === $json_indented_by_4) {
+        $jsonIndexedBy4 = json_encode($composerInfo, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        if (false === $jsonIndexedBy4) {
             return 'Cannot encode json configuration';
         }
-        $json_indented_by_2 = preg_replace('/^(  +?)\\1(?=[^ ])/m', '$1', $json_indented_by_4);
-        if (false === file_put_contents(__DIR__ . '/' . self::COMPOSER_FILE, $json_indented_by_2 . PHP_EOL)) {
+        $jsonIndexedBy2 = preg_replace('/^(  +?)\\1(?=[^ ])/m', '$1', $jsonIndexedBy4);
+        if (false === file_put_contents(__DIR__ . '/' . self::COMPOSER_FILE, $jsonIndexedBy2 . PHP_EOL)) {
             return sprintf('Cannot write json configuration to %s.', self::COMPOSER_FILE);
         }
         return null;

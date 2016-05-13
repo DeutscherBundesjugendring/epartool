@@ -109,7 +109,7 @@
     <footer role="contentinfo" class="footer footer-sticky">
         <div class="container">
             © DBJR <?=date('Y');?>
-            <?php if ($this->toolVersion() !== '') : ?>
+            <?php if ($this->toolVersion() !== 0) : ?>
                 <a href="http://go.dbjr.de/epartool"><?=$this->toolVersion();?></a>
             <?php endif;?>
             <a href="http://www.visionapps.cz" target="_blank" class="footer-author" title="Created by VisionApps">

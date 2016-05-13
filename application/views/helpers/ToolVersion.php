@@ -13,6 +13,6 @@ class Application_View_Helper_ToolVersion extends Zend_View_Helper_Abstract
     public function toolVersion()
     {
         $composerInfo = json_decode(file_get_contents(APPLICATION_PATH . '/../' . self::COMPOSER_FILE));
-        return isset($composerInfo->version) ? $composerInfo->version : '';
+        return isset($composerInfo->version) ? $composerInfo->version : 0;
     }
 }
