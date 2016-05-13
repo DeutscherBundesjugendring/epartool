@@ -738,7 +738,7 @@ class InputController extends Zend_Controller_Action
                 ->join(
                     (new Model_Users())->info(Model_Users::NAME),
                     (new Model_Users())->info(Model_Users::NAME) . '.uid = i.user_id',
-                    ['uid', 'name']
+                    ['uid', 'name', 'nick']
                 )
                 ->order('time_created ASC')
         );
