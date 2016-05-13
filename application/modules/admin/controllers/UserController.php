@@ -122,10 +122,16 @@ class Admin_UserController extends Zend_Controller_Action
             $transferOptions = array(0 => 'Please select');
             $users = $userModel->getAllConfirmed();
             foreach ($users as $tmpuser) {
+                $transferOptions[$tmpuser['uid']] = '';
                 if ($tmpuser['name'] !== null) {
-                    $transferOptions[$tmpuser['uid']] = $tmpuser['name'];
-                } elseif (!empty($tmpuser['email'])) {
-                    $transferOptions[$tmpuser['uid']] = $tmpuser['email'];
+                    $transferOptions[$tmpuser['uid']] .= $tmpuser['name'];
+                }
+                if (!empty($tmpuser['email'])) {
+                    if (!empty($transferOptions[$tmpuser['uid']])) {
+                        $transferOptions[$tmpuser['uid']] .= ' <' . $tmpuser['email'] . '>';
+                    } else {
+                        $transferOptions[$tmpuser['uid']] .= $tmpuser['email'];
+                    }
                 }
             }
             $form->getElement('transfer_' . $consultation["kid"])->setMultioptions($transferOptions);
