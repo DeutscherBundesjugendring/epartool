@@ -15,8 +15,6 @@ class Default_Form_Profile extends Dbjr_Form_Web
         $email = $this->createElement('email', 'email');
         $email
             ->setLabel('Email Address')
-            ->setAttrib('placeholder', '@')
-            ->setValidators(['EmailAddress'])
             ->setAttrib('disabled', 'disabled');
         $this->addElement($email);
 
