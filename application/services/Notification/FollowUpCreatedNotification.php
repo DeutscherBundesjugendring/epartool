@@ -37,7 +37,7 @@ class Service_Notification_FollowUpCreatedNotification extends Service_Notificat
                 'ntp.value = cnslt.kid',
                 ['kid']
             )
-            ->where('ntp.name=?', 'kid')
+            ->where('ntp.name=?', self::PARAM_CONSULTATION_ID)
             ->where('user_id=?', $userId)
             ->where('nt.name=?', static::TYPE_NAME)
             ->group('n.id');
