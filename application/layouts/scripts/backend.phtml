@@ -9,10 +9,10 @@
 
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" />
 
-    <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>" />
-    <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>" />
+    <?php if (APPLICATION_ENV === 'development') : ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>?v=<?=$this->toolVersion();?>" />
+    <?php else : ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>?v=<?=$this->toolVersion();?>" />
     <?php endif;?>
 
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
@@ -21,14 +21,14 @@
     <meta name="msapplication-TileImage" content="<?=$this->baseUrl('project/images/icon/touch-icon-w8.png');?>" />
     <meta name="msapplication-TileColor" content="#ffffff" />
 
-    <?php if (APPLICATION_ENV === 'development'): ?>
-        <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
-    <?php else: ?>
-        <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
+    <?php if (APPLICATION_ENV === 'development') : ?>
+        <script src="<?=$this->baseUrl('js/admin.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <?php else : ?>
+        <script src="<?=$this->baseUrl('js/admin.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
-    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
-    <script src="<?=$this->baseUrl('vendor/ckeditor/ckeditor.js');?>"></script>
-    <script src="<?=$this->baseUrl('vendor/ckeditor/adapters/jquery.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <script src="<?=$this->baseUrl('vendor/ckeditor/ckeditor.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <script src="<?=$this->baseUrl('vendor/ckeditor/adapters/jquery.js');?>?v=<?=$this->toolVersion();?>"></script>
     <script type="text/javascript">
         CKEDITOR.config.language = 'de';
         var baseUrl = '<?=$this->baseUrl()?>';
@@ -109,6 +109,9 @@
     <footer role="contentinfo" class="footer footer-sticky">
         <div class="container">
             © DBJR <?=date('Y');?>
+            <?php if ($this->toolVersion() !== 0) : ?>
+                <a href="http://go.dbjr.de/epartool"><?=$this->toolVersion();?></a>
+            <?php endif;?>
             <a href="http://www.visionapps.cz" target="_blank" class="footer-author" title="Created by VisionApps">
                 <img src="<?=$this->baseUrl('images/admin/visionapps.svg');?>" width="100" height="18" alt="VisionApps" />
             </a>

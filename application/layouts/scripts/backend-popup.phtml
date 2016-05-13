@@ -10,9 +10,9 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>?v=<?=$this->toolVersion();?>" />
     <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>?v=<?=$this->toolVersion();?>" />
     <?php endif;?>
 
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
@@ -22,11 +22,11 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
+        <script src="<?=$this->baseUrl('js/admin.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php else: ?>
-        <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
+        <script src="<?=$this->baseUrl('js/admin.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
-    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
     <script>
         var baseUrl = '<?=$this->baseUrl()?>';
     </script>
