@@ -366,7 +366,7 @@ class UserController extends Zend_Controller_Action
             try {
                 if ($userModel->updateProfile($user, $data)) {
                     $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
-                    $this->redirect($this->view->url());
+                    $this->redirect($this->view->url(), ['prependBase' => false]);
                 }
                 $this->_flashMessenger->addMessage(
                     'Your profile cannot be updated. Please check the errors marked in the form below and try again.',
