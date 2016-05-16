@@ -11,7 +11,17 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
     {
         $this->userOprions = [];
         foreach ($users as $user) {
-            $this->userOprions[$user['uid']] = $user['name'] !== "" ? $user['name'] : $user['email'];
+            $this->userOprions[$user['uid']] = '';
+            if ($user['name'] !== null) {
+                $this->userOprions[$user['uid']] .= $user['name'];
+            }
+            if (!empty($user['email'])) {
+                if (!empty($this->userOprions[$user['uid']])) {
+                    $this->userOprions[$user['uid']] .= ' <' . $user['email'] . '>';
+                } else {
+                    $this->userOprions[$user['uid']] .= $user['email'];
+                }
+            }
         }
         parent::__construct();
     }
