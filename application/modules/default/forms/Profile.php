@@ -101,7 +101,6 @@ class Default_Form_Profile extends Dbjr_Form_Web
             $this->getElement('password_confirm')->setRequired(true);
             $this->getElement('current_password')->setRequired(true);
         }
-        $valid = parent::isValid($data);
-        return $valid;
+        return parent::isValid($data);
     }
 }
