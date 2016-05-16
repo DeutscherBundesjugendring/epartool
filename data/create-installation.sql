@@ -913,4 +913,7 @@ CREATE TABLE `vt_settings` (
 );
 
 SET foreign_key_checks = 1;
--- Migration 2016-04-15_15-00_DBJR-633.sql
+-- Up until Migration 2016-04-15_15-00_DBJR-633.sql
+
+-- Migration 2016-05-11_16-03_DBJR-614.sql
+ALTER TABLE `users` ADD `nick` varchar(255) NULL DEFAULT NULL;
