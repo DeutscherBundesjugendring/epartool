@@ -93,19 +93,16 @@ class Admin_VotingController extends Zend_Controller_Action
                         $this->view->translate('The voting permission was created.'),
                         'success'
                     );
-                    $this->redirect(
-                        $this->view->url(['action' => 'index']),
-                        ['prependBase' => false]
-                    );
+                    $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                 } catch (\Exception $e) {
                     $this->_flashMessenger->addMessage(
-                        'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
+                        'The form cannot be saved, please give it one more try.',
                         'error'
                     );
                 }
             } else {
                 $this->_flashMessenger->addMessage(
-                    'The form cannot be saved, please give it one more try.',
+                    'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
                     'error'
                 );
             }
