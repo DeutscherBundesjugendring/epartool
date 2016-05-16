@@ -357,7 +357,7 @@ class UserController extends Zend_Controller_Action
         $userModel = new Model_Users();
         $user = $userModel->find($auth->getIdentity()->uid)->current();
         if (!$user) {
-            $this->redirect('/');
+            $this->redirect('/', ['prependBase' => false]);
         }
 
         $form->populate(['email' => $user['email']]);
