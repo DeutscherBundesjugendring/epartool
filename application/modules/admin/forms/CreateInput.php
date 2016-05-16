@@ -26,6 +26,7 @@ class Admin_Form_CreateInput extends Admin_Form_Input
         $adminUserId
             ->setLabel('Contribution Author')
             ->setRequired(true)
+            ->setAttrib('data-onload-select2', '{}')
             ->setMultiOptions($selectOptions)
             ->addValidator('Int');
         $this->addElement($adminUserId);

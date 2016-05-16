@@ -115,6 +115,7 @@ class Admin_UserController extends Zend_Controller_Action
                     'label' => 'Transfer contributions from: <a href="'
                         . $url . '" target="_blank">' . $label . '</a>',
                     'required' => false,
+                    'data-onload-select2' => '{}',
                     'options' => array(0 => '…'),
                     'order' => $i,
                 ]

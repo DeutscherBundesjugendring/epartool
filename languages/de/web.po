@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-04-25 15:55+0200\n"
-"PO-Revision-Date: 2016-04-25 15:56+0200\n"
+"POT-Creation-Date: 2016-05-11 14:18+0200\n"
+"PO-Revision-Date: 2016-05-11 16:28+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -33,36 +33,36 @@ msgstr "Für diese Beteiligungsrunde gibt es derzeit keine Reaktionen."
 msgid "No consultation provided!"
 msgstr "Keine Beteiligungsrunde angegeben!"
 
-#: application/modules/default/controllers/FollowupController.php:381
+#: application/modules/default/controllers/FollowupController.php:387
 msgid "File does not exist."
 msgstr "Datei ist nicht vorhanden."
 
-#: application/modules/default/controllers/FollowupController.php:414
+#: application/modules/default/controllers/FollowupController.php:420
 #: application/modules/default/controllers/InputController.php:150
 #: application/modules/default/controllers/InputController.php:216
 msgid "Thank you for subscribing."
 msgstr "Danke fürs Abonnieren."
 
-#: application/modules/default/controllers/FollowupController.php:433
+#: application/modules/default/controllers/FollowupController.php:439
 #: application/modules/default/controllers/InputController.php:169
 #: application/modules/default/controllers/InputController.php:235
 msgid "You are now subscribed. A confirmation email has been sent."
 msgstr ""
 "Dein Abonnenment ist nun aktiv. Eine Bestätigung wurde per E-Mail versandt."
 
-#: application/modules/default/controllers/FollowupController.php:439
+#: application/modules/default/controllers/FollowupController.php:445
 #: application/modules/default/controllers/InputController.php:175
 #: application/modules/default/controllers/InputController.php:241
 msgid "You are already subscribed."
 msgstr "Du wirst bereits automatisch benachrichtigt."
 
-#: application/modules/default/controllers/FollowupController.php:446
+#: application/modules/default/controllers/FollowupController.php:452
 #: application/modules/default/controllers/InputController.php:182
 #: application/modules/default/controllers/InputController.php:248
 msgid "The subscription form is invalid."
 msgstr "Das Abonnementformular ist ungültig."
 
-#: application/modules/default/controllers/FollowupController.php:471
+#: application/modules/default/controllers/FollowupController.php:477
 #: application/modules/default/controllers/InputController.php:275
 #: application/modules/default/controllers/InputController.php:302
 msgid "You have been unsubscribed."
@@ -253,6 +253,17 @@ msgstr "Teilnehmer_in für Abstimmung wurde abgelehnt."
 msgid "The voting participant was deleted."
 msgstr "Die Bewertungen wurden gelöscht."
 
+#: application/modules/default/controllers/UserController.php:278
+#: application/modules/default/controllers/UserController.php:314
+msgid "Please log in."
+msgstr "Bitte einloggen."
+
+#: application/modules/default/controllers/UserController.php:322
+#: application/modules/default/controllers/UserController.php:326
+#: application/modules/default/controllers/UserController.php:330
+msgid "You were successfully unsubscribed."
+msgstr "Du wurdest erfolgreich ausgetragen."
+
 #: application/modules/default/controllers/VotingController.php:34
 msgid "This participation round is currently not open for voting."
 msgstr "In dieser Beteiligungsrunde kann derzeit nicht abgestimmt werden."
@@ -287,42 +298,42 @@ msgstr "Es ist ein Fehler aufgetreten"
 
 #: application/modules/default/controllers/VotingController.php:403
 #: application/modules/default/controllers/VotingController.php:459
-#: application/modules/default/controllers/VotingController.php:549
-#: application/modules/default/controllers/VotingController.php:608
+#: application/modules/default/controllers/VotingController.php:554
+#: application/modules/default/controllers/VotingController.php:613
 msgid "Such contribution does not exist!"
 msgstr "Dieser Beitrag ist nicht vorhanden!"
 
-#: application/modules/default/controllers/VotingController.php:555
+#: application/modules/default/controllers/VotingController.php:560
 msgid "Something went wrong."
 msgstr "Etwas ist schief gelaufen."
 
-#: application/modules/default/controllers/VotingController.php:561
-#: application/modules/default/controllers/VotingController.php:601
+#: application/modules/default/controllers/VotingController.php:566
+#: application/modules/default/controllers/VotingController.php:606
 msgid "The points are not correct."
 msgstr "Die vergebenen Punkte sind nicht korrekt."
 
-#: application/modules/default/controllers/VotingController.php:567
+#: application/modules/default/controllers/VotingController.php:572
 msgid "Your vote has been counted!"
 msgstr "Deine Abstimmung wurde gezählt."
 
-#: application/modules/default/controllers/VotingController.php:570
-#: application/modules/default/controllers/VotingController.php:628
+#: application/modules/default/controllers/VotingController.php:575
+#: application/modules/default/controllers/VotingController.php:633
 msgid "Your vote could not be registered. (1)"
 msgstr "Deine Abstimmung konnte nicht eingetragen werden. (1)"
 
-#: application/modules/default/controllers/VotingController.php:594
+#: application/modules/default/controllers/VotingController.php:599
 msgid "Clicking the superbutton is not allowed."
 msgstr "Die Auswahl des Superbuttons ist nicht erlaubt."
 
-#: application/modules/default/controllers/VotingController.php:614
+#: application/modules/default/controllers/VotingController.php:619
 msgid "Please choose a question or keyword."
 msgstr "Bitte wähle ein Frage oder ein Schlagwort aus."
 
-#: application/modules/default/controllers/VotingController.php:632
+#: application/modules/default/controllers/VotingController.php:637
 msgid "Your vote has been counted."
 msgstr "Deine Abstimmung wurde gezählt."
 
-#: application/modules/default/controllers/VotingController.php:637
+#: application/modules/default/controllers/VotingController.php:642
 msgid ""
 "The Super Button allows you to value a limited number of contributions "
 "higher. Change previous votings and make room for more important "
@@ -332,23 +343,23 @@ msgstr ""
 "stärkeres Gewicht zu verleihen. Ändere andere Votings und schaffe Platz für "
 "wichtigere Beiträge!"
 
-#: application/modules/default/controllers/VotingController.php:663
+#: application/modules/default/controllers/VotingController.php:668
 msgid "User could not be found."
 msgstr "User konnte nicht gefunden werden."
 
-#: application/modules/default/controllers/VotingController.php:710
-#: application/modules/default/controllers/VotingController.php:720
-#: application/modules/default/controllers/VotingController.php:785
-#: application/modules/default/controllers/VotingController.php:793
-#: application/modules/default/controllers/VotingController.php:818
+#: application/modules/default/controllers/VotingController.php:715
+#: application/modules/default/controllers/VotingController.php:725
+#: application/modules/default/controllers/VotingController.php:790
+#: application/modules/default/controllers/VotingController.php:798
+#: application/modules/default/controllers/VotingController.php:823
 msgid "The link is not correct."
 msgstr "Der angew&auml;hlte Link aus ist nicht korrekt."
 
-#: application/modules/default/controllers/VotingController.php:735
+#: application/modules/default/controllers/VotingController.php:740
 msgid "Your contributions are now confirmed."
 msgstr "Deine Bewertungen sind jetzt bestätigt."
 
-#: application/modules/default/controllers/VotingController.php:829
+#: application/modules/default/controllers/VotingController.php:834
 msgid "Voting results are not available yet."
 msgstr "Abstimmungsergebnisse können noch nicht gezeigt werden!"
 
@@ -569,7 +580,7 @@ msgstr "Keine Neuigkeiten hierzu mehr erhalten"
 
 #: application/modules/default/forms/UrlkeyAction/ConfirmInputDiscussionContribution.php:12
 #: application/modules/default/forms/UrlkeyAction/ConfirmNotification.php:12
-#: application/modules/default/views/scripts/user/userlist.phtml:100
+#: application/modules/default/views/scripts/user/userlist.phtml:101
 msgid "Confirm"
 msgstr "Bestätigen"
 
@@ -596,6 +607,9 @@ msgstr "Neues Passwort speichern"
 
 #: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:12
 #: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:3
+#: application/modules/default/views/scripts/user/notifications.phtml:30
+#: application/modules/default/views/scripts/user/notifications.phtml:73
+#: application/modules/default/views/scripts/user/notifications.phtml:115
 msgid "Unsubscribe"
 msgstr "Abbestellen"
 
@@ -669,6 +683,7 @@ msgstr "Infos"
 #: application/modules/default/views/helpers/SecondNavigation.php:30
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:101
 #: application/modules/default/views/scripts/index/search.phtml:53
+#: application/modules/default/views/scripts/user/notifications.phtml:51
 msgid "Questions"
 msgstr "Fragen"
 
@@ -690,6 +705,7 @@ msgstr "Abstimmung"
 #: application/modules/default/views/scripts/followup/index.phtml:20
 #: application/modules/default/views/scripts/followup/show-by-snippet.phtml:5
 #: application/modules/default/views/scripts/followup/show.phtml:5
+#: application/modules/default/views/scripts/user/notifications.phtml:94
 msgid "Reactions & Impact"
 msgstr "Reaktionen & Wirkung"
 
@@ -829,9 +845,6 @@ msgstr "Menü"
 msgid "ePartool admin dashboard"
 msgstr "ePartool Admin Dashboard"
 
-# Open an URL or what is it?
-# site = Site
-# page = Seite
 #: application/layouts/scripts/backend.phtml:68
 msgid "Open site in a new tab"
 msgstr "Öffne Site in einem neuen Tab"
@@ -918,18 +931,30 @@ msgid "Logged in as"
 msgstr "Eingeloggt als"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:26
-msgid "View all my contributions"
-msgstr "Alle meine Beiträge ansehen"
+#: application/modules/default/views/scripts/_partials/userMenu.phtml:5
+msgid "My Profile"
+msgstr "Mein Profil"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:32
-msgid "View group members"
-msgstr "Gruppenmitglieder ansehen"
+#: application/modules/default/views/scripts/_partials/userMenu.phtml:11
+msgid "My Activity"
+msgstr "Meine Aktivitäten"
 
-#: application/modules/default/views/scripts/_helpers/user-box.phtml:39
-msgid "To admin pages"
-msgstr "Zum Adminbereich"
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:38
+#: application/modules/default/views/scripts/_partials/userMenu.phtml:17
+msgid "My Group"
+msgstr "Meine Gruppe"
 
-#: application/modules/default/views/scripts/_helpers/user-box.phtml:47
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:44
+#: application/modules/default/views/scripts/_partials/userMenu.phtml:23
+msgid "My Subscriptions"
+msgstr "Meine Abonnements"
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:51
+msgid "Admin"
+msgstr "Admin-Bereich"
+
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:59
 msgid "Logout"
 msgstr "Ausloggen"
 
@@ -1215,6 +1240,7 @@ msgid "Click here for another contribution"
 msgstr "Klicke hier für einen weiteren Beitrag"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:8
+#: application/modules/default/views/scripts/user/notifications.phtml:8
 msgid "Contribution Discussion"
 msgstr "Diskussionsbeitrag"
 
@@ -1280,45 +1306,94 @@ msgstr "Abonnement bestätigen"
 
 #: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:3
 msgid "Reset Password"
-msgstr "Passwort Zurücksetzen"
+msgstr "Passwort zurücksetzen"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:5
+#: application/modules/default/views/scripts/user/activity.phtml:6
+msgid "My Contributions"
+msgstr "Meine Beiträge"
+
+#: application/modules/default/views/scripts/user/activity.phtml:30
+msgid "You have no confirmed contributions."
+msgstr "Du hast unbestätigte Beiträge."
+
+#: application/modules/default/views/scripts/user/activity.phtml:37
+msgid "My Discussion Posts"
+msgstr "Meine Diskussionsbeiträge"
+
+#: application/modules/default/views/scripts/user/activity.phtml:72
+msgid "You have no confirmed discussion posts."
+msgstr "Du hast keine bestätigten Diskussionsbeiträge."
+
+#: application/modules/default/views/scripts/user/inputlist.phtml:7
 msgid "All my contributions"
 msgstr "Alle meine Beiträge"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:9
+#: application/modules/default/views/scripts/user/inputlist.phtml:11
 msgid "There are contributions in the following participation rounds:"
 msgstr "Zu folgenden Beteiligungsrunden wurden Beiträge abgegeben:"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:18
-#: application/modules/default/views/scripts/user/userlist.phtml:33
+#: application/modules/default/views/scripts/user/inputlist.phtml:20
+#: application/modules/default/views/scripts/user/userlist.phtml:34
 msgid "Show my contributions to this participation round"
 msgstr "Zeige meine Beiträge zu dieser Beteiligungsrunde"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:29
+#: application/modules/default/views/scripts/user/inputlist.phtml:31
 msgid "You haven't contributed yet."
 msgstr "Du hast noch nicht teilgenommen."
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:36
-#: application/modules/default/views/scripts/user/userlist.phtml:45
+#: application/modules/default/views/scripts/user/inputlist.phtml:38
+#: application/modules/default/views/scripts/user/userlist.phtml:46
 msgid "Consultation round:"
 msgstr "Beteiligungsrunde:"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:44
+#: application/modules/default/views/scripts/user/inputlist.phtml:46
 msgid "Question:"
 msgstr "Frage:"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:51
+#: application/modules/default/views/scripts/user/inputlist.phtml:53
 msgid "Contributions:"
 msgstr "Beiträge:"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:57
+#: application/modules/default/views/scripts/user/inputlist.phtml:59
 msgid "Click to edit"
 msgstr "Klicken zum Bearbeiten"
 
-#: application/modules/default/views/scripts/user/inputlist.phtml:71
+#: application/modules/default/views/scripts/user/inputlist.phtml:73
 msgid "No contributions for this question."
 msgstr "Keine Beiträge zu dieser Frage vorhanden."
+
+#: application/modules/default/views/scripts/user/notifications.phtml:10
+msgid "Send me an update when someone adds new discussion post"
+msgstr "Nachricht erhalten, wenn ein neuer Diskussionsbeitrag vorhanden ist"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:28
+msgid "Unsubscribe from Contribution Discussion?"
+msgstr "Diskussion zum Beitrag abbestellen?"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:41
+#: application/modules/default/views/scripts/user/notifications.phtml:83
+#: application/modules/default/views/scripts/user/notifications.phtml:126
+msgid "You are not subscribed to any notifications."
+msgstr "Du hast keine Benachrichtigungen abonniert."
+
+#: application/modules/default/views/scripts/user/notifications.phtml:53
+msgid ""
+"Sends notification when new contribution to particular questions is made"
+msgstr ""
+"Versendet Nachricht, wenn ein neuer Beitrag zu bestimmten Fragen gemacht "
+"wurde"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:71
+msgid "Unsubscribe from Question?"
+msgstr "Frage abbestellen?"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:96
+msgid "When new document is added"
+msgstr "Wenn ein neues Dokument hinzugefügt wird"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:113
+msgid "Unsubscribe from follow-up?"
+msgstr "Reaktionen abbestellen?"
 
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
 msgid ""
@@ -1329,6 +1404,10 @@ msgstr ""
 "Du kannst dein Passwort zurücksetzen, wenn du hier deine hinterlegte E-Mail-"
 "Adresse einträgst. Du bekommst dann umgehend eine E-Mail, mit Hilfe derer du "
 "dir ein neues Passwort aussuchen kannst."
+
+#: application/modules/default/views/scripts/user/profile.phtml:6
+msgid "Profile"
+msgstr "Profil"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:3
 msgid "confirmed"
@@ -1342,59 +1421,59 @@ msgstr "abgelehnt"
 msgid "unknown"
 msgstr "unbekannt"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:13
+#: application/modules/default/views/scripts/user/userlist.phtml:14
 msgid "Participating group members"
 msgstr "Teilnehmende Gruppenmitglieder"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:18
+#: application/modules/default/views/scripts/user/userlist.phtml:19
 msgid "No group members were found in any of the consultation rounds."
 msgstr "Es wurden in keiner Beteiligungsrunde Gruppenmitglieder gefunden."
 
-#: application/modules/default/views/scripts/user/userlist.phtml:24
+#: application/modules/default/views/scripts/user/userlist.phtml:25
 msgid "There are group members in the following consultation rounds:"
 msgstr "Zu folgenden Beteiligungsrunden wurden Gruppenmitglieder gefunden:"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:52
+#: application/modules/default/views/scripts/user/userlist.phtml:53
 msgid "Group:"
 msgstr "Gruppe:"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:58
+#: application/modules/default/views/scripts/user/userlist.phtml:59
 msgid "Contributions to vote:"
 msgstr "Abzustimmende Beiträge:"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:67
+#: application/modules/default/views/scripts/user/userlist.phtml:68
 msgid "Voters"
 msgstr "Abstimmende"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:68
+#: application/modules/default/views/scripts/user/userlist.phtml:69
 msgid "Group member"
 msgstr "Gruppenmitglied"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:69
+#: application/modules/default/views/scripts/user/userlist.phtml:70
 msgid "Still to vote"
 msgstr "Noch abzustimmen"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:70
+#: application/modules/default/views/scripts/user/userlist.phtml:71
 msgid "Action"
 msgstr "Aktion"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:86
+#: application/modules/default/views/scripts/user/userlist.phtml:87
 msgid "Deny voting participant?"
 msgstr "Abstimmungsteilnehmer_in ablehnen?"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:88
+#: application/modules/default/views/scripts/user/userlist.phtml:89
 msgid "Deny"
 msgstr "Ablehnen"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:98
+#: application/modules/default/views/scripts/user/userlist.phtml:99
 msgid "Confirm voting participant?"
 msgstr "Abstimmungsteilnehmer_in zulassen?"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:110
+#: application/modules/default/views/scripts/user/userlist.phtml:111
 msgid "Delete voting participant?"
 msgstr "Bewertungen löschen?"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:112
+#: application/modules/default/views/scripts/user/userlist.phtml:113
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1625,8 +1704,6 @@ msgstr "Frage / Schlagwort wechseln"
 msgid "Keyword"
 msgstr "Schlagwort"
 
-# What kind of explanation is it referring to? -> "explanation" in the sense of 'definition' would be "Erklärung"
-# -> "explanation" in the sense of 'more detailed text' would be "Erläuterung" (like in the explanation field for contributions)
 #: application/modules/default/views/scripts/voting/vote.phtml:102
 msgid "Show explanation"
 msgstr "Zeige Erläuterung"
@@ -1662,6 +1739,29 @@ msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
 #: application/modules/default/views/scripts/voting/vote.phtml:234
 msgid "Remove"
 msgstr "Entfernen"
+
+# This is a sentence, so I guess it should end with a .
+# also in English.
+#~ msgid "You have no confirmed discussion posts"
+#~ msgstr "Du hast keine bestätigten Diskussionsbeiträge."
+
+# This is a sentence, so I guess it should end with a .
+# also in English.
+#~ msgid "You have no confirmed contributions"
+#~ msgstr "Du hast unbestätigte Beiträge."
+
+# Please change to "Unsubscribe from follow-up?"
+#~ msgid "Unsubscribe from Followup?"
+#~ msgstr "Reaktionen abbestellen?"
+
+#~ msgid "View all my contributions"
+#~ msgstr "Alle meine Beiträge ansehen"
+
+#~ msgid "View group members"
+#~ msgstr "Gruppenmitglieder ansehen"
+
+#~ msgid "To admin pages"
+#~ msgstr "Zum Adminbereich"
 
 #~ msgid ""
 #~ "How important is this contribution for further political discussions in "

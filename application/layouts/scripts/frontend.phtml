@@ -11,15 +11,15 @@
     <title><?=$this->parameter('site.title');?></title>
 
     <meta name="description" content="<?=$this->parameter('site.description');?>" />
-    <meta name="author" content="Content © <?=date('Y');?> DBJR" />
+    <meta name="author" content="ePartool © DBJR" />
     <meta name="DC.title" content="<?=$this->parameter('site.title');?>" />
     <meta property="og:title" content="<?=$this->parameter('site.title');?>" />
     <meta property="og:description" content="<?=$this->parameter('site.description');?>" />
 
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>" type="text/css" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.css');?>?v=<?=$this->toolVersion();?>" type="text/css" />
     <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.min.css');?>" type="text/css" />
+        <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.min.css');?>?v=<?=$this->toolVersion();?>" type="text/css" />
     <?php endif; ?>
 
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
@@ -28,14 +28,14 @@
     <meta name="msapplication-TileImage" content="<?=$this->baseUrl('project/images/icon/touch-icon-w8.png');?>" />
     <meta name="msapplication-TileColor" content="#ffffff" />
 
-    <!--[if lt IE 9]><script src="<?=$this->baseUrl('vendor/html5shiv.min.js');?>"></script><![endif]-->
+    <!--[if lt IE 9]><script src="<?=$this->baseUrl('vendor/html5shiv.min.js');?>?v=<?=$this->toolVersion();?>"></script><![endif]-->
 
     <!-- JS must be loaded in page head as it might be used in user generated content. -->
     <!-- It is not best practice and product owner is aware of that. -->
     <?php if (APPLICATION_ENV === 'development'): ?>
-        <script src="<?=$this->baseUrl('js/dbjr.js');?>"></script>
+        <script src="<?=$this->baseUrl('js/dbjr.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php else: ?>
-        <script src="<?=$this->baseUrl('js/dbjr.min.js');?>"></script>
+        <script src="<?=$this->baseUrl('js/dbjr.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
 </head>
 <body>
@@ -266,7 +266,7 @@
     var baseUrl = '<?=$this->baseUrl()?>';
 </script>
 <script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
-<script src="<?=$this->baseUrl('/index/i18n');?>"></script>
+<script src="<?=$this->baseUrl('/index/i18n');?>?v=<?=$this->toolVersion();?>"></script>
 
 <?php if (isset($this->hasFollowupTimeline)): ?>
     <script>
