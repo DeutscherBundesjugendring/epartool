@@ -416,9 +416,56 @@ bitte bestätige deine Registrierung als neue_r Empfänger_in für automatische 
 {{confirmation_url}}
 Viele Grüße
 Das Team des ePartool'
+    ),
+    (
+    'voting_participants_reminder_voter',
+     (SELECT `id` FROM `email_template_type` WHERE `name` = 'system'),
+     @project_code,
+     'Erinnerung: Bitte bestätige {{consultation_title_short}}',
+     '<p>Hello,</p>
+      <p>Some time ago, you took part in the voting about {{consultation_title_long}}. Unfortunately you have not confirmed your identity yet. Only after you have clicked on the confirmation link, we will be able to count your votes in the overall results. Please confirm by clicking here: {{confirmation_url}}</p>
+      <p>Until voting end date the voting is still open and you have the opportunity to confirm your identity or vote on any remaining contributions.</p>
+
+      <p>Viele Grüße<br/>
+      Das Team des ePartool</p>',
+     'Hello,
+
+    Some time ago, you took part in the voting about {{consultation_title_long}}. Unfortunately you have not confirmed your identity yet. Only after you have clicked on the confirmation link, we will be able to count your votes in the overall results. Please confirm by clicking here: {{confirmation_url}}
+
+    Until voting end date the voting is still open and you have the opportunity to confirm your identity or vote on any remaining contributions.
+
+    Viele Grüße
+    Das Team des ePartool'
+    ),
+    (
+    'voting_participants_reminder_group_admin',
+     (SELECT `id` FROM `email_template_type` WHERE `name` = 'system'),
+     @project_code,
+     'Erinnerung: Bitte bestätige die Abstimmungsteilnahme von Gruppenmitgliedern',
+     '<p>Hallo,</p>
+      <p>Dies ist eine kleine Erinnerung, dass noch nicht alle Gruppenmitglieder bestätigt wurden, die für eure Gruppe zum Thema {{consultation_title_long}} abgestimmt haben.</p>
+      <p>Bitte bestätige, ob {{voter_email}} für euch abstimmungsberechtigt ist.</p>
+      <p>Ja, diese Person gehört zu unserer Gruppe:
+      {{confirmation_url}}</p>
+      <p>Nein, diese Person gehört nicht zu unserer Gruppe:
+      {{rejection_url}}</p>
+      <p>Viele Grüße<br/>
+      Das Team des ePartool</p>',
+     'Hallo,
+
+      Dies ist eine kleine Erinnerung, dass noch nicht alle Gruppenmitglieder bestätigt wurden, die für eure Gruppe zum Thema {{consultation_title_long}} abgestimmt haben.
+
+      Bitte bestätige, ob {{voter_email}} für euch abstimmungsberechtigt ist.
+
+      Ja, diese Person gehört zu unserer Gruppe:
+      {{confirmation_url}}
+
+      Nein, diese Person gehört nicht zu unserer Gruppe:
+      {{rejection_url}}
+
+      Viele Grüße
+      Das Team des ePartool'
     );
-
-
 
 
 INSERT INTO `email_template_has_email_placeholder` (`email_template_id`, `email_placeholder_id`)
@@ -867,7 +914,56 @@ VALUES
     (
         (SELECT `id` FROM `email_template` WHERE `name` = 'follow_up_subscription_confirmation_new_user' AND `project_code` = @project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name` = 'confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_voter' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_voter' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_voter' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='rejection_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_voter' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_short')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_voter' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_long')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='voter_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_email')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='to_name')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='confirmation_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='rejection_url')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_short')
+    ),
+    (
+        (SELECT `id` FROM `email_template` WHERE `name`='voting_participants_reminder_group_admin' AND `project_code` = @project_code),
+        (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_long')
     );
+
 
 
 INSERT INTO `footer` (`proj`) VALUES (@project_code);

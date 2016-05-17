@@ -262,6 +262,10 @@ class Admin_VotingController extends Zend_Controller_Action
                 list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
                 $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
                 $this->_flashMessenger->addMessage('Voting participant has been deleted.', 'success');
+            } elseif ($this->getRequest()->getPost('reminder')) {
+                list($uid, $subUid) = explode('_', $this->getRequest()->getPost('reminder'));
+                (new Service_Reminder)->send($this->_consultation->kid, $uid, $subUid);
+                $this->_flashMessenger->addMessage('Reminder has been send.', 'success');
             }
         }
 

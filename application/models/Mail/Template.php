@@ -20,6 +20,8 @@ class Model_Mail_Template extends Dbjr_Db_Table_Abstract
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION_NEW_USER = 'input_discussion_contrib_confirmation_new_user';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION = 'input_discussion_subscription_confirmation';
     const SYSTEM_TEMPLATE_INPUT_DISCUSSION_SUBSCRIPTION_CONFIRMATION_NEW_USER = 'input_discussion_subscription_confirmation_new_user';
+    const SYSTEM_TEMPLATE_VOTING_PARTICIPANTS_REMINDER_VOTER = 'voting_participants_reminder_voter';
+    const SYSTEM_TEMPLATE_VOTING_PARTICIPANTS_REMINDER_GROUP_ADMIN = 'voting_participants_reminder_group_admin';
 
     protected $_name = 'email_template';
     protected $_dependentTables = array('Model_Mail_Template_Type');
