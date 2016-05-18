@@ -11,6 +11,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     protected $cancelUrl;
 
     /**
+     * @var array
+     */
+    protected $contribution;
+
+    /**
      * @var string
      */
     private $afterSubmitAction;
@@ -29,6 +34,8 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 
     public function init()
     {
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputForm.phtml'))));
+        
         $kid = Zend_Controller_Front::getInstance()->getRequest()->getParam('kid', 0);
         $translator = Zend_Registry::get('Zend_Translate');
 
@@ -111,6 +118,21 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($note);
 
+        $videoServiceEl = $this->createElement('select', 'video_service');
+        $videoServiceOptions = ['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'];
+        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions([
+            'data-url' => json_encode([
+                'youtube' => sprintf(Zend_Registry::get('systemconfig')->video->url->youtube->format->link, ''),
+                'vimeo' => sprintf(Zend_Registry::get('systemconfig')->video->url->vimeo->format->link, ''),
+                'facebook' => sprintf(Zend_Registry::get('systemconfig')->video->url->facebook->format->link, ''),
+            ])
+        ]);
+        $this->addElement($videoServiceEl);
+
+        $videoIdEl = $this->createElement('text', 'video_id');
+        $videoIdEl->addValidator(new Dbjr_Validate_VideoValidator());
+        $this->addElement($videoIdEl);
+
         // CSRF Protection
         $hash = $this->getHash();
         $this->addElement($hash);
@@ -138,5 +160,29 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         return $hash;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getCancelUrl()
+    {
+        return $this->cancelUrl;
+    }
+
+    /**
+     * @param array $contribution
+     */
+    public function setContribution(array $contribution)
+    {
+        $this->contribution = $contribution;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContribution()
+    {
+        return $this->contribution;
     }
 }

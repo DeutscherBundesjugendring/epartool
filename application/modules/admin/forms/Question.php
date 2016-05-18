@@ -48,6 +48,11 @@ class Admin_Form_Question extends Dbjr_Form_Admin
             ->setDescription($desc);
         $this->addElement($votingQuestion);
 
+        $enableVideo = $this->createElement('checkbox', 'video_enabled');
+        $enableVideo
+            ->setLabel('Allow video in contributions')
+            ->setRequired(false);
+        $this->addElement($enableVideo);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_question', array('salt' => 'unique'));

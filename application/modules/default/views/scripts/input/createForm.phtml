@@ -44,6 +44,12 @@
                 </span>
             </div>
 
+            <div class="input-group js-video-service">
+                <?=$input->getElements()['video_service']->setDecorators(['ViewHelper']);?>
+                <span class="input-group-addon"></span>
+                <?=$input->getElements()['video_id']->setDecorators(['ViewHelper']);?>
+            </div>
+
         </div>
     <?php endforeach; ?>
 

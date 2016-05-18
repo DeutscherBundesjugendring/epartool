@@ -44,11 +44,17 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     public function generateInputFields($theses)
     {
         if (!$theses) {
-            $theses = [['thes' => '', 'expl' => '']];
+            $theses = [['thes' => '', 'expl' => '', 'video_service' => '', 'video_id' => '']];
         }
 
         foreach ($theses as $inputNum => $input) {
-            $this->addInputField($inputNum, $input['thes'], $input['expl']);
+            $this->addInputField(
+                $inputNum,
+                $input['thes'],
+                $input['expl'],
+                $input['video_service'],
+                $input['video_id']
+            );
         }
 
         $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
@@ -59,10 +65,14 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     /**
      * Adds a subForm with elements related to single input to the inputs subForm
      * If the inputs subForm doesnt exist it is created
-     * @param  string                      $inputName The name of the input subgroup to be created
+     * @param  string $inputName The name of the input subgroup to be created
+     * @param  string $videoService
+     * @param  string $videoId
+     * @param  string $thes
+     * @param  string $expl
      * @return Default_Form_Input_Create              Fluent interface
      */
-    protected function addInputField($inputName, $thes = null, $expl = null)
+    protected function addInputField($inputName, $thes = null, $expl = null, $videoService = null, $videoId = null)
     {
         $view = new Zend_View();
         $thesElOpts = array(
@@ -102,12 +112,29 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setOptions($explElOpts)
             ->setValue($expl);
 
+        $videoServiceEl = $this->createElement('select', 'video_service');
+        $videoServiceOptions = ['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'];
+        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions([
+            'belongsTo' => 'inputs[' . $inputName . ']',
+            'data-url' => json_encode([
+            'youtube' => sprintf(Zend_Registry::get('systemconfig')->video->url->youtube->format->link, ''),
+            'vimeo' => sprintf(Zend_Registry::get('systemconfig')->video->url->vimeo->format->link, ''),
+            'facebook' => sprintf(Zend_Registry::get('systemconfig')->video->url->facebook->format->link, ''),
+            ])
+        ])->setValue($videoService);
+
+        $videoIdEl = $this->createElement('text', 'video_id');
+        $videoIdEl->addValidator(new Dbjr_Validate_VideoValidator());
+        $videoIdEl->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($videoId);
+
         if (!$this->getSubForm('inputs')) {
             $this->addSubForm(new Zend_Form(), 'inputs');
         }
         $inputForm = new Zend_Form();
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
+        $inputForm->addElement($videoServiceEl);
+        $inputForm->addElement($videoIdEl);
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
         return $this;

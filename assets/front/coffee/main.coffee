@@ -11,6 +11,7 @@ $(document).ready () ->
     bindRemoveSupervote()
     bindVotingRate()
     bindToggleVotingContributionExplanation()
+    bindContributionVideoSelect()
     initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
@@ -324,3 +325,10 @@ bindToggleVotingContributionExplanation = () ->
     $('.js-toggle-voting-contribution-explanation').on 'click', (e) ->
         $('#voting-contribution-explanation').toggle()
         $('.glyphicon', this).toggleClass('hide')
+
+bindContributionVideoSelect = () ->
+    select = $('.js-video-service select');
+    select.change () ->
+        addon = $(this).parent().find('.input-group-addon');
+        addon.html($(this).data('url')[$(this).children(':selected').attr('value')]);
+    select.trigger('change');

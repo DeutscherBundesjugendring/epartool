@@ -171,6 +171,9 @@ class Admin_InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input($cancelUrl);
 
+        $inputRow = $inputModel->getById($tid);
+        $form->setContribution($inputRow);
+        
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
@@ -191,7 +194,6 @@ class Admin_InputController extends Zend_Controller_Action
                 $form->populate($data);
             }
         } else {
-            $inputRow = $inputModel->getById($tid);
             $form->populate($inputRow);
             if (!empty($inputRow['tags'])) {
                 $tagsSet = array();
@@ -204,7 +206,7 @@ class Admin_InputController extends Zend_Controller_Action
                 }
             }
         }
-
+        
         $this->view->form = $form;
         $this->view->tid = $tid;
     }

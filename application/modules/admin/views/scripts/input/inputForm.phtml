@@ -1,0 +1,40 @@
+<form
+    enctype="<?=$this->element->getEnctype();?>"
+    method="<?=$this->element->getMethod();?>"
+    class="offset-bottom"
+>
+    <?=$this->element->csrf_token_inputadmin;?>
+
+    <?=$this->element->qi;?>
+    <?=$this->element->thes;?>
+    <?php if (isset($this->element->uid)) : ?>
+        <?=$this->element->uid;?>
+    <?php endif; ?>
+    <?=$this->element->expl;?>
+    <?=$this->element->tags;?>
+    <?=$this->element->user_conf;?>
+    <?=$this->element->block;?>
+    <?=$this->element->vot;?>
+    <?=$this->element->notiz;?>
+
+    <div class="form-group input-group js-video-service">
+        <?=$this->element->video_service;?>
+        <span class="input-group-addon"></span>
+        <?=$this->element->video_id;?>
+    </div>
+
+    <div class="form-group">
+        <?php $contribution = $this->element->getContribution(); ?>
+        <?php if ($contribution !== null && $contribution['video_service'] !== null && $contribution['video_id'] !== null
+            && in_array($contribution['video_service'], ['youtube', 'vimeo', 'facebook'])) : ?>
+                <?=$this->partial('_partials/video-box-' . $contribution['video_service'] . '.phtml', [
+                    'video_id' => $contribution['video_id'],
+                ]);?>
+        <?php endif; ?>
+    </div>
+    
+    <?=$this->element->submit;?>
+    or
+    <a href="<?=$this->element->getCancelUrl();?>">Cancel</a>
+
+</form>

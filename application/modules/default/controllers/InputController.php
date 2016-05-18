@@ -97,7 +97,9 @@ class InputController extends Zend_Controller_Action
                     if ($input['qi'] == $qid) {
                         $theses[] = [
                             'thes' => $input['thes'],
-                            'expl' => $input['expl']
+                            'expl' => $input['expl'],
+                            'video_service' => $input['video_service'],
+                            'video_id' => $input['video_id'],
                         ];
                     }
                 }
@@ -343,7 +345,9 @@ class InputController extends Zend_Controller_Action
                         'kid' => $kid,
                         'qi' => $qid,
                         'thes' => $input['thes'],
-                        'expl' => $input['expl']
+                        'expl' => $input['expl'],
+                        'video_service' => $input['video_service'],
+                        'video_id' => $input['video_id'],
                     ];
                     $sessInputs->inputs = $tmpCollection;
                 }
