@@ -1,5 +1,7 @@
 <?php
 
+require('../../autoload.php');
+
 use Robo\Tasks;
 
 /**
@@ -7,7 +9,7 @@ use Robo\Tasks;
  */
 class RoboFile extends Tasks
 {
-    const COMPOSER_FILE = 'composer.json';
+    const CONFIG_FILE = '../../../project/configs/config.ini';
 
     /**
      * @param string $tag
@@ -15,11 +17,7 @@ class RoboFile extends Tasks
     public function release($tag)
     {
         $this->stopOnFail(true);
-        $result = $this->addVersionToComposerFile($tag);
-        if ($result !== null) {
-            $this->say($result);
-            return;
-        }
+        $this->addVersionToConfig($tag);
         $this->taskExecStack()
             ->stopOnFail()
             ->exec(sprintf('git tag %s', $tag))
@@ -34,21 +32,11 @@ class RoboFile extends Tasks
      * @param string $tag
      * @return null|string error
      */
-    private function addVersionToComposerFile($tag)
+    private function addVersionToConfig($tag)
     {
-        $composerInfo = json_decode(file_get_contents(__DIR__ . '/' . self::COMPOSER_FILE));
-        if ($composerInfo === null) {
-            return sprintf('Cannot load %s.', self::COMPOSER_FILE);
-        }
-        $composerInfo->version = $tag;
-        $jsonIndexedBy4 = json_encode($composerInfo, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        if (false === $jsonIndexedBy4) {
-            return 'Cannot encode json configuration';
-        }
-        $jsonIndexedBy2 = preg_replace('/^(  +?)\\1(?=[^ ])/m', '$1', $jsonIndexedBy4);
-        if (false === file_put_contents(__DIR__ . '/' . self::COMPOSER_FILE, $jsonIndexedBy2 . PHP_EOL)) {
-            return sprintf('Cannot write json configuration to %s.', self::COMPOSER_FILE);
-        }
-        return null;
+        $config = new Zend_Config_Ini(self::CONFIG_FILE, null, array('skipExtends' => true, 'allowModifications' => true));
+        $config->production->version = $tag;
+        $writer = new Zend_Config_Writer_Ini(array('config' => $config, 'filename' => self::CONFIG_FILE));
+        $writer->write();
     }
 }
