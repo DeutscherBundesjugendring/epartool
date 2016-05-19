@@ -211,13 +211,13 @@ class Admin_InputController extends Zend_Controller_Action
 
     public function createAction()
     {
-        $questionId = $this->_request->getParam('qid', 0);
+        $questionId = $this->_request->getParam('qi', 0);
         $consultationId = $this->_request->getParam('kid', 0);
 
         $session = new Zend_Session_Namespace('inputCreate');
 
         if (!$this->getRequest()->isPost()) {
-            $session->urlQid = $this->getRequest()->getParam('qid', 0);
+            $session->urlQid = $this->getRequest()->getParam('qi', 0);
         }
 
         if ($session->urlQid > 0) {
