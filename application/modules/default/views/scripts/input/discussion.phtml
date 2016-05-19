@@ -42,18 +42,12 @@
                                 <p><?=$this->escape($contrib->body);?></p>
                             <?php endif; ?>
 
-                            <?php if ($contrib->video_id): ?>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe
-                                        width="560"
-                                        height="315"
-                                        src="<?=sprintf(
-                                            Zend_Registry::get('systemconfig')->video->url->format->embed,
-                                            $this->escape($contrib->video_id)
-                                        );?>"
-                                        allowfullscreen
-                                    ></iframe>
-                                </div>
+                            <?php if ($contrib['video_service'] !== null && $contrib['video_id'] !== null
+                                && $this->videoServicesStatus['video_' . $contrib['video_service'] . '_enabled']): ?>
+                                <?=$this->partial(
+                                        '_partials/video-box-' . $contrib['video_service'] . '.phtml',
+                                        ['video_id' => $contrib['video_id']]
+                                    );?>
                             <?php endif; ?>
 
                         </div>

@@ -6,6 +6,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
     public function init()
     {
         $this->setMethod('post');
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/addDiscussionForm.phtml'))));
 
         $body = $this->createElement('textarea', 'body');
         $placeholder = Zend_Registry::get('Zend_Translate')->translate('Your discussion post');
@@ -24,26 +25,28 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             ->setValidators([['NotEmpty', true], 'EmailAddress']);
         $this->addElement($email);
 
+        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        $videoServiceEl = $this->createElement('select', 'video_service');
+        $videoServiceOptions = [];
+        $urls = [];
+        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
+            if ($project['video_' . $service . '_enabled']) {
+                $videoServiceOptions[$service] = $name;
+                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
+            }
+        }
+        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
+        $this->addElement($videoServiceEl);
+        
         $placeholder = Zend_Registry::get('Zend_Translate')->translate('e.g.');
         $videoId = $this->createElement('text', 'video_id');
         $videoId
-            ->setLabel('YouTube video ID')
             ->setAttrib('class', 'form-control')
-            ->setAttrib('placeholder', $placeholder . ' tiGLudbJits')
-            ->setDescription('https://www.youtube.com/watch?v=');
+            ->addValidator(new Dbjr_Validate_VideoValidator());
         $videoId->setDecorators(['ViewHelper',
-            [
-                'Description',
-                ['tag' => 'span', 'class' => 'input-group-addon', 'placement' => 'prepend']
-            ],
             [
                 ['inputGroup' => 'HtmlTag'],
                 ['tag' => 'div', 'class' => 'input-group'],
-            ],
-            ['Label'],
-            [
-                ['formGroup' => 'HtmlTag'],
-                ['tag' => 'div', 'class' => 'form-group']
             ],
         ]);
         $this->addElement($videoId);

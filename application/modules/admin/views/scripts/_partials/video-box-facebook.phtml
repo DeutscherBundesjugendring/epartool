@@ -7,5 +7,12 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
-  <!-- Your embedded video player code -->
-  <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/<?=$this->video_id;?>/" data-width="640" data-show-text="false"></div>
+<!-- Your embedded video player code -->
+<div class="embed-responsive embed-responsive-16by9">
+    <div
+        class="fb-video"
+        data-href="https://www.facebook.com/facebook/videos/<?=$this->video_id;?>/"
+        data-width="640"
+        data-show-text="false"
+    ></div>
+</div>

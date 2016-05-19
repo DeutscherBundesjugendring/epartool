@@ -1,0 +1,23 @@
+<form
+    role="element"
+    enctype="<?=$this->element->getEnctype();?>"
+    method="<?=$this->element->getMethod();?>"
+    action="<?=$this->element->getAction();?>"
+>
+    <?=$this->element->getElement('body');?>
+    <?=$this->element->getElement('email');?>
+
+    <?php if ($this->element->getElement('video_service') !== null && $this->element->getElement('video_id') !== null) :
+        ?>
+    <div class="js-video-service">
+        <div class="input-group">
+            <?=$this->element->getElement('video_service');?>
+            <span class="input-group-addon"></span>
+            <?=$this->element->getElement('video_id');?>
+        </div>
+    </div>
+    <?php endif; ?>
+    
+    <?=$this->element->getElement('csrf_token_register');?>
+    <?=$this->element->getElement('submit');?>
+</form>
