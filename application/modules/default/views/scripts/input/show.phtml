@@ -109,6 +109,18 @@
                                 <?=$this->escape($input['expl']);?>
                             </p>
                         <?php endif; ?>
+                            
+                        <?php if ($this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']
+                            && $this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null): ?>
+                            <p>
+                                <?php if ($input['video_service'] !== null && $input['video_id'] !== null
+                                    && in_array($input['video_service'], ['youtube', 'vimeo', 'facebook'])) : ?>
+                                        <?=$this->partial('_partials/video-box-' . $input['video_service'] . '.phtml', [
+                                            'video_id' => $input['video_id'],
+                                        ]);?>
+                                <?php endif; ?>
+                            </p>
+                        <?php endif; ?>
 
                         <!-- Actions -->
                         <footer>

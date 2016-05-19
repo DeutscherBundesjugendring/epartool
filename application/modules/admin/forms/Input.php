@@ -11,9 +11,9 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     protected $cancelUrl;
 
     /**
-     * @var array
+     * @var bool
      */
-    protected $contribution;
+    protected $videoEnabled;
 
     /**
      * @var string
@@ -118,15 +118,18 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($note);
 
+        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $videoServiceEl = $this->createElement('select', 'video_service');
-        $videoServiceOptions = ['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'];
-        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions([
-            'data-url' => json_encode([
-                'youtube' => sprintf(Zend_Registry::get('systemconfig')->video->url->youtube->format->link, ''),
-                'vimeo' => sprintf(Zend_Registry::get('systemconfig')->video->url->vimeo->format->link, ''),
-                'facebook' => sprintf(Zend_Registry::get('systemconfig')->video->url->facebook->format->link, ''),
-            ])
-        ]);
+        $videoServiceOptions = [];
+        $urls = [];
+        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
+            if ($project['video_' . $service . '_enabled']) {
+                $videoServiceOptions[$service] = $name;
+                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
+            }
+        }
+        
+        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
         $this->addElement($videoServiceEl);
 
         $videoIdEl = $this->createElement('text', 'video_id');
@@ -170,19 +173,22 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         return $this->cancelUrl;
     }
 
+    
     /**
-     * @param array $contribution
+     * @return bool
      */
-    public function setContribution(array $contribution)
+    public function getVideoEnabled()
     {
-        $this->contribution = $contribution;
+        return $this->videoEnabled;
     }
 
     /**
-     * @return array
+     * @param bool $videoEnabled
+     * @return \Admin_Form_Input
      */
-    public function getContribution()
+    public function setVideoEnabled($videoEnabled)
     {
-        return $this->contribution;
+        $this->videoEnabled = $videoEnabled;
+        return $this;
     }
 }

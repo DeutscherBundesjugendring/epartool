@@ -74,6 +74,11 @@ class InputController extends Zend_Controller_Action
             new Service_Notification_InputCreatedNotification(),
             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid]
         );
+        
+        $form = $this->getInputForm();
+        $question = (new Model_Questions())->find($qid)->current();
+        $form->setVideoEnabled($question['video_enabled']);
+        $this->view->videoEnabled = $question['video_enabled'];
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
@@ -112,6 +117,8 @@ class InputController extends Zend_Controller_Action
         $maxPage = ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
+        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        $this->view->videoServicesStatus = $project;
         $this->view->subscriptionForm = $sbsForm;
         $this->view->tag = $tag ? (new Model_Tags())->getById($tag) : null;
         $this->view->paginator = $paginator;
@@ -364,7 +371,7 @@ class InputController extends Zend_Controller_Action
             $this->redirect($redirectURL);
         } else {
             $msg = Zend_Registry::get('Zend_Translate')->translate(
-                'Please check your data.'
+                'Please check your data and inserted videos if they are public accessed.'
                 . 'It is also possible that the maximum editing period of %s minutes has exceeded.'
             );
             $this->flashMessenger->addMessage(
@@ -578,9 +585,13 @@ class InputController extends Zend_Controller_Action
             $this->flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
+        
         if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
             $form = new Default_Form_Input_Edit();
+            $question = (new Model_Questions())->find($input['qi'])->current();
+            $form->setVideoEnabled($question['video_enabled']);
+            
             if ($this->_request->isPost()) {
                 // form submitted
                 $data = $this->_request->getPost();
@@ -607,9 +618,20 @@ class InputController extends Zend_Controller_Action
                     $form->populate($data);
                 }
             } else {
-                // form not submitted, show original data
-                $form->getElement('thes')->setValue($input['thes']);
-                $form->getElement('expl')->setValue($input['expl']);
+                $data = ['thes' => $input['thes'], 'expl' => $input['expl']];
+                if ($input['video_service'] !== null) {
+                    $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
+                    if ($project['video_' . $input['video_service'] . '_enabled']) {
+                        $data['video_service'] = $input['video_service'];
+                        $data['video_id'] = $input['video_id'];
+                    } else {
+                        $this->flashMessenger->addMessage(
+                            'Video service used for embedding video in this contribution was disabled. Video will be deleted after save contribution.',
+                            'error'
+                        );
+                    }
+                }
+                $form->populate($data);
             }
             $this->view->form = $form;
         } else {

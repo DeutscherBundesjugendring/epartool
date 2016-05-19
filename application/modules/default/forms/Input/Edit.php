@@ -2,8 +2,16 @@
 
 class Default_Form_Input_Edit extends Dbjr_Form_Web
 {
+    /**
+     *
+     * @var bool
+     */
+    protected $videoEnabled;
+    
     public function init()
     {
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputEditForm.phtml'))));
+        
         $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
@@ -33,15 +41,17 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($expl);
         
+        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $videoServiceEl = $this->createElement('select', 'video_service');
-        $videoServiceOptions = ['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'];
-        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions([
-            'data-url' => json_encode([
-            'youtube' => sprintf(Zend_Registry::get('systemconfig')->video->url->youtube->format->link, ''),
-            'vimeo' => sprintf(Zend_Registry::get('systemconfig')->video->url->vimeo->format->link, ''),
-            'facebook' => sprintf(Zend_Registry::get('systemconfig')->video->url->facebook->format->link, ''),
-            ])
-        ]);
+        $videoServiceOptions = [];
+        $urls = [];
+        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
+            if ($project['video_' . $service . '_enabled']) {
+                $videoServiceOptions[$service] = $name;
+                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
+            }
+        }
+        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
         $this->addElement($videoServiceEl);
 
         $videoIdEl = $this->createElement('text', 'video_id');
@@ -61,5 +71,23 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             $hash->setTimeout(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl);
         }
         $this->addElement($hash);
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getVideoEnabled()
+    {
+        return $this->videoEnabled;
+    }
+
+    /**
+     * @param bool $videoEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setVideoEnabled($videoEnabled)
+    {
+        $this->videoEnabled = $videoEnabled;
+        return $this;
     }
 }
