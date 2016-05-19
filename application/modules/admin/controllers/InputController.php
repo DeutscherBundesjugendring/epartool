@@ -233,10 +233,6 @@ class Admin_InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_CreateInput($cancelUrl);
 
-        if ($questionId > 0) {
-            $form->populate(['qi' => $questionId]);
-        }
-
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
@@ -264,6 +260,12 @@ class Admin_InputController extends Zend_Controller_Action
                 );
                 $form->populate($data);
             }
+        } else {
+            $initData = ['user_conf' => 'u', 'block' => 'n', 'vot' => 'u'];
+            if ($questionId > 0) {
+                $initData['qi'] = $questionId;
+            }
+            $form->populate($initData);
         }
 
         $this->view->form = $form;
