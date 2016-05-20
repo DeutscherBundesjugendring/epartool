@@ -9,7 +9,7 @@ use Robo\Tasks;
  */
 class RoboFile extends Tasks
 {
-    const CONFIG_FILE = '../../../project/configs/config.ini';
+    const CONFIG_FILE = 'application/configs/config.ini';
 
     /**
      * @param string $tag
@@ -17,7 +17,16 @@ class RoboFile extends Tasks
     public function release($tag)
     {
         $this->stopOnFail(true);
-        $this->addVersionToConfig($tag);
+        $result = $this->addVersionToConfig($tag);
+        if ($result !== null) {
+            $this->say($result);
+            return;
+        }
+        $this->taskGitStack()
+            ->stopOnFail()
+            ->add('-A')
+            ->commit('insert version info into config.ini')
+            ->run();
         $this->taskExecStack()
             ->stopOnFail()
             ->exec(sprintf('git tag %s', $tag))
@@ -29,14 +38,29 @@ class RoboFile extends Tasks
     }
 
     /**
+     * Zend_Config_* was not used because of ignoring comments in the ini file which were not writed back after editing
+     * process.
      * @param string $tag
      * @return null|string error
      */
     private function addVersionToConfig($tag)
     {
-        $config = new Zend_Config_Ini(self::CONFIG_FILE, null, array('skipExtends' => true, 'allowModifications' => true));
-        $config->production->version = $tag;
-        $writer = new Zend_Config_Writer_Ini(array('config' => $config, 'filename' => self::CONFIG_FILE));
-        $writer->write();
+        $configFileContent = file_get_contents(__DIR__ . '/' . self::CONFIG_FILE);
+        if ($configFileContent === null) {
+            return sprintf('Cannot load %s.', self::CONFIG_FILE);
+        }
+        $newConfigFileContent = preg_replace(
+            "#\[production\]([\s]+version[\s]\=[\s]\"[a-z0-9\-\.]*\"|)#",
+            "[production]\n\nversion = \"" . $tag . "\"",
+            $configFileContent
+        );
+        if (null === $newConfigFileContent) {
+            return sprintf('Cannot add version into file %s.', self::CONFIG_FILE);
+        }
+        if (false === file_put_contents(__DIR__ . '/' . self::CONFIG_FILE, $newConfigFileContent)) {
+            return sprintf('Cannot write into file %s.', self::CONFIG_FILE);
+        }
+        
+        return null;
     }
 }
