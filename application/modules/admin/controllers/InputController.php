@@ -211,20 +211,14 @@ class Admin_InputController extends Zend_Controller_Action
 
     public function createAction()
     {
-        $questionId = $this->_request->getParam('qi', 0);
         $consultationId = $this->_request->getParam('kid', 0);
 
         $session = new Zend_Session_Namespace('inputCreate');
-
-        if (!$this->getRequest()->isPost()) {
-            $session->urlQid = $this->getRequest()->getParam('qi', 0);
-        }
 
         if ($session->urlQid > 0) {
             $cancelUrl = $this->view->returnUrl = $this->view->url([
                 'action' => 'index',
                 'kid' => $consultationId,
-                'qi' => $questionId,
             ]);
         } else {
             $cancelUrl = $this->view->returnUrl = $this->view->url(['action' => 'index','kid' => $consultationId]);
@@ -242,12 +236,10 @@ class Admin_InputController extends Zend_Controller_Action
                 try {
                     $inputModel->createContribution($formValues);
                     $this->_flashMessenger->addMessage('Contribution was created.', 'success');
-                    unset($session->urlQid);
                     $inputModel->getAdapter()->commit();
                     $this->redirect($this->view->url([
                         'action' => 'index',
                         'kid' => $consultationId,
-                        'qid' => $questionId,
                     ]), ['prependBase' => false]);
                 } catch (\Exception $e) {
                     $inputModel->getAdapter()->rollBack();
@@ -261,11 +253,7 @@ class Admin_InputController extends Zend_Controller_Action
                 $form->populate($data);
             }
         } else {
-            $initData = ['user_conf' => 'u', 'block' => 'n', 'vot' => 'u'];
-            if ($questionId > 0) {
-                $initData['qi'] = $questionId;
-            }
-            $form->populate($initData);
+            $form->populate(['user_conf' => 'u', 'block' => 'n', 'vot' => 'u']);
         }
 
         $this->view->form = $form;
