@@ -110,8 +110,8 @@
                             </p>
                         <?php endif; ?>
                             
-                        <?php if ($this->videoEnabled && $input['video_service'] !== null
-                            && $input['video_id'] !== null
+
+                        <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
                             <p>
                                 <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>

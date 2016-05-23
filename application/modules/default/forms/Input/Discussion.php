@@ -3,6 +3,17 @@
 class Default_Form_Input_Discussion extends Dbjr_Form_Web
 {
 
+    /**
+     * @var bool
+     */
+    protected $videoEnabled;
+    
+    public function __construct($options = null, $videoEnabled = false)
+    {
+        $this->videoEnabled = $videoEnabled;
+        parent::__construct($options);
+    }
+    
     public function init()
     {
         $this->setMethod('post');
@@ -25,32 +36,33 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             ->setValidators([['NotEmpty', true], 'EmailAddress']);
         $this->addElement($email);
 
-        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
-        $videoServiceEl = $this->createElement('select', 'video_service');
-        $videoServiceOptions = [];
-        $urls = [];
-        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
-            if ($project['video_' . $service . '_enabled']) {
-                $videoServiceOptions[$service] = $name;
-                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
+        if ($this->videoEnabled) {
+            $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+            $videoServiceEl = $this->createElement('select', 'video_service');
+            $videoServiceOptions = [];
+            $urls = [];
+            foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
+                if ($project['video_' . $service . '_enabled']) {
+                    $videoServiceOptions[$service] = $name;
+                    $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
+                }
             }
-        }
-        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
-        $this->addElement($videoServiceEl);
-        
-        $placeholder = Zend_Registry::get('Zend_Translate')->translate('e.g.');
-        $videoId = $this->createElement('text', 'video_id');
-        $videoId
-            ->setAttrib('class', 'form-control')
-            ->addValidator(new Dbjr_Validate_VideoValidator());
-        $videoId->setDecorators(['ViewHelper',
-            [
-                ['inputGroup' => 'HtmlTag'],
-                ['tag' => 'div', 'class' => 'input-group'],
-            ],
-        ]);
-        $this->addElement($videoId);
+            $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
+            $this->addElement($videoServiceEl);
 
+            $placeholder = Zend_Registry::get('Zend_Translate')->translate('e.g.');
+            $videoId = $this->createElement('text', 'video_id');
+            $videoId
+                ->setAttrib('class', 'form-control')
+                ->addValidator(new Dbjr_Validate_VideoValidator());
+            $videoId->setDecorators(['ViewHelper',
+                [
+                    ['inputGroup' => 'HtmlTag'],
+                    ['tag' => 'div', 'class' => 'input-group'],
+                ],
+            ]);
+            $this->addElement($videoId);
+        }
 
         $submit = $this->createElement('submit', 'submit');
         $submit
@@ -68,11 +80,15 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
         $bodyEl = $this->getElement('body');
         $videoIdEl = $this->getElement('video_id');
         $bodyEl->clearErrorMessages();
-        $videoIdEl->clearErrorMessages();
+        if ($videoIdEl !== null) {
+            $videoIdEl->clearErrorMessages();
+        }
         if (!$data['body'] && !$data['video_id']) {
             $msg = Zend_Registry::get('Zend_Translate')->translate('Either text or video have to be submitted.');
             $bodyEl->addError($msg);
-            $videoIdEl->addError($msg);
+            if ($videoIdEl !== null) {
+                $videoIdEl->addError($msg);
+            }
             $this->markAsError();
         }
 

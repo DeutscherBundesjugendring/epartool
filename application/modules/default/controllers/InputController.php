@@ -663,7 +663,7 @@ class InputController extends Zend_Controller_Action
         }
         $inputDiscussModel = new Model_InputDiscussion();
         $inputsModel = new Model_Inputs();
-        $form = new Default_Form_Input_Discussion();
+        $form = new Default_Form_Input_Discussion(null, $this->consultation['discussion_video_enabled']);
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_DiscussionContributionCreatedNotification(),
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]
@@ -694,8 +694,10 @@ class InputController extends Zend_Controller_Action
 
                         $contribId = $inputDiscussModel->insert([
                             'body' => $formData['body'] ? $formData['body'] : null,
-                            'video_service' => $formData['video_service'] ? $formData['video_service'] : null,
-                            'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
+                            'video_service' => isset($formData['video_service']) && $formData['video_service'] ?
+                                $formData['video_service'] : null,
+                            'video_id' => isset($formData['video_id']) && $formData['video_id'] ?
+                                $formData['video_id'] : null,
                             'user_id' => $userId,
                             'is_user_confirmed' => $auth->hasIdentity() ? true : false,
                             'is_visible' => true,
@@ -782,6 +784,7 @@ class InputController extends Zend_Controller_Action
         }
 
         $this->view->input = $input;
+        $this->view->consultation = $this->consultation;
     }
 
     /**
