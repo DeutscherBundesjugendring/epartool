@@ -58,8 +58,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 $inputNum,
                 $input['thes'],
                 $input['expl'],
-                $input['video_service'],
-                $input['video_id']
+                isset($input['video_service']) ? $input['video_service'] : null,
+                isset($input['video_id']) ? $input['video_id'] : null
             );
         }
 

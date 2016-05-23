@@ -353,8 +353,8 @@ class InputController extends Zend_Controller_Action
                         'qi' => $qid,
                         'thes' => $input['thes'],
                         'expl' => $input['expl'],
-                        'video_service' => $input['video_service'],
-                        'video_id' => $input['video_id'],
+                        'video_service' => isset($input['video_service']) ? $input['video_service'] : null,
+                        'video_id' => isset($input['video_id']) ? $input['video_id'] : null,
                     ];
                     $sessInputs->inputs = $tmpCollection;
                 }
