@@ -2,8 +2,16 @@
 
 class Default_Form_Input_Edit extends Dbjr_Form_Web
 {
+    /**
+     *
+     * @var bool
+     */
+    protected $videoEnabled;
+    
     public function init()
     {
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputEditForm.phtml'))));
+        
         $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
@@ -32,6 +40,9 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($expl);
+        
+        $this->addElement('videoService', 'video_service');
+        $this->addElement('videoId', 'video_id');
 
         $submit = $this->createElement('submit', 'submit');
         $submit
@@ -46,5 +57,23 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             $hash->setTimeout(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl);
         }
         $this->addElement($hash);
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getVideoEnabled()
+    {
+        return $this->videoEnabled;
+    }
+
+    /**
+     * @param bool $videoEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setVideoEnabled($videoEnabled)
+    {
+        $this->videoEnabled = $videoEnabled;
+        return $this;
     }
 }

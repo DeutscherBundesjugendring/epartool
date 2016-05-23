@@ -42,6 +42,11 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'label' => $this->view->translate('Footer'),
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'footer', 'id' => null]),
             ),
+            array(
+                'name' => 'services',
+                'label' => $this->view->translate('Services'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'services']),
+            ),
         );
 
         return $this->view->secondaryNavigation($items, $activeItem);

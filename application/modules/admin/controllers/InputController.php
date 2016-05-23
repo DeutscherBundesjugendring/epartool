@@ -171,6 +171,13 @@ class Admin_InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input($cancelUrl);
 
+        $inputRow = $inputModel->getById($tid);
+        if (!$qi) {
+            $qi = $inputRow['qi'];
+        }
+        $question = (new Model_Questions())->find($qi);
+        $form->setVideoEnabled($question['video_enabled']);
+        
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
@@ -191,8 +198,19 @@ class Admin_InputController extends Zend_Controller_Action
                 $form->populate($data);
             }
         } else {
-            $inputRow = $inputModel->getById($tid);
-            $form->populate($inputRow);
+            $data = $inputRow;
+            if ($data['video_service'] !== null) {
+                $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
+                if (!$project['video_' . $data['video_service'] . '_enabled']) {
+                    $data['video_service'] = null;
+                    $data['video_id'] = null;
+                    $this->_flashMessenger->addMessage(
+                        'Video service used for embedding video in this contribution was disabled. Video will be deleted after save contribution.',
+                        'error'
+                    );
+                }
+            }
+            $form->populate($data);
             if (!empty($inputRow['tags'])) {
                 $tagsSet = array();
                 foreach ($inputRow['tags'] as $tag) {
@@ -204,7 +222,7 @@ class Admin_InputController extends Zend_Controller_Action
                 }
             }
         }
-
+        
         $this->view->form = $form;
         $this->view->tid = $tid;
     }
@@ -226,6 +244,8 @@ class Admin_InputController extends Zend_Controller_Action
 
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_CreateInput($cancelUrl);
+        $question = (new Model_Questions())->find($questionId);
+        $form->setVideoEnabled($question['video_enabled']);
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();

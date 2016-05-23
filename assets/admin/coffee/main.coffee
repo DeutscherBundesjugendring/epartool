@@ -5,6 +5,7 @@ $(document).ready () ->
     bindTableRowsToggle()
     bindToggleAll()
     bindConsultationCustomPhaseNames()
+    bindContributionVideoSelect()
 
     initI18n()
     initSortableFollowupSnippets()
@@ -191,6 +192,12 @@ initMediaIndexFileLazyLoad = () ->
                         offset = offset + batchSize
                 )
 
+bindContributionVideoSelect = () ->
+    select = $('.js-video-service select');
+    select.change () ->
+        addon = $(this).parent().parent().find('.input-group-addon');
+        addon.html($(this).data('url')[$(this).children(':selected').attr('value')]);
+    select.trigger('change');
 
 class mediaSelectPopup
     ###*

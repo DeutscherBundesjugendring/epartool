@@ -74,6 +74,11 @@ class InputController extends Zend_Controller_Action
             new Service_Notification_InputCreatedNotification(),
             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid]
         );
+        
+        $form = $this->getInputForm();
+        $question = (new Model_Questions())->find($qid)->current();
+        $form->setVideoEnabled($question['video_enabled']);
+        $this->view->videoEnabled = $question['video_enabled'];
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
@@ -97,7 +102,9 @@ class InputController extends Zend_Controller_Action
                     if ($input['qi'] == $qid) {
                         $theses[] = [
                             'thes' => $input['thes'],
-                            'expl' => $input['expl']
+                            'expl' => $input['expl'],
+                            'video_service' => $input['video_service'],
+                            'video_id' => $input['video_id'],
                         ];
                     }
                 }
@@ -110,6 +117,8 @@ class InputController extends Zend_Controller_Action
         $maxPage = ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
+        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        $this->view->videoServicesStatus = $project;
         $this->view->subscriptionForm = $sbsForm;
         $this->view->tag = $tag ? (new Model_Tags())->getById($tag) : null;
         $this->view->paginator = $paginator;
@@ -338,12 +347,14 @@ class InputController extends Zend_Controller_Action
             }
 
             foreach ($post['inputs'] as $input) {
-                if (!empty($input['thes'])) {
+                if (!empty($input['thes']) || !empty($input['video_id'])) {
                     $tmpCollection[] = [
                         'kid' => $kid,
                         'qi' => $qid,
                         'thes' => $input['thes'],
-                        'expl' => $input['expl']
+                        'expl' => $input['expl'],
+                        'video_service' => $input['video_service'],
+                        'video_id' => $input['video_id'],
                     ];
                     $sessInputs->inputs = $tmpCollection;
                 }
@@ -360,8 +371,7 @@ class InputController extends Zend_Controller_Action
             $this->redirect($redirectURL);
         } else {
             $msg = Zend_Registry::get('Zend_Translate')->translate(
-                'Please check your data.'
-                . 'It is also possible that the maximum editing period of %s minutes has exceeded.'
+                'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
             );
             $this->flashMessenger->addMessage(
                 sprintf(
@@ -574,9 +584,13 @@ class InputController extends Zend_Controller_Action
             $this->flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
+        
         if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
             $form = new Default_Form_Input_Edit();
+            $question = (new Model_Questions())->find($input['qi'])->current();
+            $form->setVideoEnabled($question['video_enabled']);
+            
             if ($this->_request->isPost()) {
                 // form submitted
                 $data = $this->_request->getPost();
@@ -603,9 +617,20 @@ class InputController extends Zend_Controller_Action
                     $form->populate($data);
                 }
             } else {
-                // form not submitted, show original data
-                $form->getElement('thes')->setValue($input['thes']);
-                $form->getElement('expl')->setValue($input['expl']);
+                $data = ['thes' => $input['thes'], 'expl' => $input['expl']];
+                if ($input['video_service'] !== null) {
+                    $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
+                    if ($project['video_' . $input['video_service'] . '_enabled']) {
+                        $data['video_service'] = $input['video_service'];
+                        $data['video_id'] = $input['video_id'];
+                    } else {
+                        $this->flashMessenger->addMessage(
+                            'Video service used for embedding video in this contribution was disabled. Video will be deleted after save contribution.',
+                            'error'
+                        );
+                    }
+                }
+                $form->populate($data);
             }
             $this->view->form = $form;
         } else {
@@ -638,7 +663,7 @@ class InputController extends Zend_Controller_Action
         }
         $inputDiscussModel = new Model_InputDiscussion();
         $inputsModel = new Model_Inputs();
-        $form = new Default_Form_Input_Discussion();
+        $form = new Default_Form_Input_Discussion(null, $this->consultation['discussion_video_enabled']);
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_DiscussionContributionCreatedNotification(),
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]
@@ -669,7 +694,10 @@ class InputController extends Zend_Controller_Action
 
                         $contribId = $inputDiscussModel->insert([
                             'body' => $formData['body'] ? $formData['body'] : null,
-                            'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
+                            'video_service' => isset($formData['video_service']) && $formData['video_service'] ?
+                                $formData['video_service'] : null,
+                            'video_id' => isset($formData['video_id']) && $formData['video_id'] ?
+                                $formData['video_id'] : null,
                             'user_id' => $userId,
                             'is_user_confirmed' => $auth->hasIdentity() ? true : false,
                             'is_visible' => true,
@@ -725,13 +753,16 @@ class InputController extends Zend_Controller_Action
 
         $this->view->form = $form;
         $this->view->subscriptionForm = $sbsForm;
+        $this->view->videoServicesStatus = (new Model_Projects())->find(
+            (new Zend_Registry())->get('systemconfig')->project
+        )->current();
         $this->view->discussionContribs = $inputDiscussModel->fetchAll(
             $inputDiscussModel
                 ->select()
                 ->setIntegrityCheck(false)
                 ->from(
                     ['i' => $inputDiscussModel->info(Model_InputDiscussion::NAME)],
-                    ['user_id', 'time_created', 'body', 'is_visible', 'video_id', 'id']
+                    ['user_id', 'time_created', 'body', 'is_visible', 'video_service', 'video_id', 'id']
                 )
                 ->where('input_id=?', $inputId)
                 ->where('is_user_confirmed=?', 1)
@@ -753,6 +784,7 @@ class InputController extends Zend_Controller_Action
         }
 
         $this->view->input = $input;
+        $this->view->consultation = $this->consultation;
     }
 
     /**

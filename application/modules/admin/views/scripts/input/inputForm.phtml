@@ -1,0 +1,41 @@
+<form
+    enctype="<?=$this->element->getEnctype();?>"
+    method="<?=$this->element->getMethod();?>"
+    class="offset-bottom"
+>
+    <?=$this->element->csrf_token_inputadmin;?>
+
+    <?=$this->element->qi;?>
+    <?=$this->element->thes;?>
+    <?php if (isset($this->element->uid)) : ?>
+        <?=$this->element->uid;?>
+    <?php endif; ?>
+    <?=$this->element->expl;?>
+    <?=$this->element->tags;?>
+    <?=$this->element->user_conf;?>
+    <?=$this->element->block;?>
+    <?=$this->element->vot;?>
+    <?=$this->element->notiz;?>
+
+    <?php if ($this->element->getVideoEnabled()) : ?>
+        <div class="form-group input-group js-video-service">
+            <?=$this->element->video_service;?>
+            <span class="input-group-addon"></span>
+            <?=$this->element->video_id;?>
+        </div>
+
+        <div class="form-group">
+            <?php if ($this->element->video_id->getValue()) : ?>
+                    <?=$this->embeddedVideo(
+                        $this->element->video_service->getValue(),
+                        $this->element->video_id->getValue()
+                    );?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    
+    <?=$this->element->submit;?>
+    or
+    <a href="<?=$this->element->getCancelUrl();?>">Cancel</a>
+
+</form>

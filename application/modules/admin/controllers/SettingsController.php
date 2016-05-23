@@ -161,4 +161,41 @@ class Admin_SettingsController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
+
+    public function servicesAction()
+    {
+        $projectModel = new Model_Projects();
+        $projectCode = Zend_Registry::get('systemconfig')->project;
+        $form = new Admin_Form_Settings_Services();
+
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            if ($form->isValid($data)) {
+                $db = $projectModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $projectModel->update([
+                        'video_facebook_enabled' => $data['video_facebook_enabled'],
+                        'video_youtube_enabled' => $data['video_youtube_enabled'],
+                        'video_vimeo_enabled' => $data['video_vimeo_enabled'],
+                    ], ['proj=?' => $projectCode]);
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Your services settings were updated.', 'success');
+                    $this->redirect('/admin/settings/services');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Services settings could not be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $form->populate($projectModel->find($projectCode)->current()->toArray());
+        }
+
+        $this->view->form = $form;
+    }
 }

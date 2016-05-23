@@ -44,6 +44,16 @@
                 </span>
             </div>
 
+            <?php if ($this->element->getVideoEnabled()) : ?>
+            <div class="js-video-service">
+                <div class="input-group">
+                    <?=$input->getElements()['video_service']->setDecorators(['ViewHelper']);?>
+                    <span class="input-group-addon"></span>
+                    <?=$input->getElements()['video_id']->setDecorators(['ViewHelper']);?>
+                </div>
+            </div>
+            <?php endif; ?>
+
         </div>
     <?php endforeach; ?>
 

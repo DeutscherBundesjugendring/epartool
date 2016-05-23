@@ -2,6 +2,12 @@
 
 class Default_Form_Input_Create extends Dbjr_Form_Web
 {
+    /**
+     *
+     * @var bool
+     */
+    protected $videoEnabled;
+    
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/createForm.phtml'))));
@@ -44,11 +50,17 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     public function generateInputFields($theses)
     {
         if (!$theses) {
-            $theses = [['thes' => '', 'expl' => '']];
+            $theses = [['thes' => '', 'expl' => '', 'video_service' => '', 'video_id' => '']];
         }
 
         foreach ($theses as $inputNum => $input) {
-            $this->addInputField($inputNum, $input['thes'], $input['expl']);
+            $this->addInputField(
+                $inputNum,
+                $input['thes'],
+                $input['expl'],
+                $input['video_service'],
+                $input['video_id']
+            );
         }
 
         $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
@@ -59,10 +71,14 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     /**
      * Adds a subForm with elements related to single input to the inputs subForm
      * If the inputs subForm doesnt exist it is created
-     * @param  string                      $inputName The name of the input subgroup to be created
+     * @param  string $inputName The name of the input subgroup to be created
+     * @param  string $videoService
+     * @param  string $videoId
+     * @param  string $thes
+     * @param  string $expl
      * @return Default_Form_Input_Create              Fluent interface
      */
-    protected function addInputField($inputName, $thes = null, $expl = null)
+    protected function addInputField($inputName, $thes = null, $expl = null, $videoService = null, $videoId = null)
     {
         $view = new Zend_View();
         $thesElOpts = array(
@@ -106,10 +122,36 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             $this->addSubForm(new Zend_Form(), 'inputs');
         }
         $inputForm = new Zend_Form();
+        $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+        $inputForm->addElement('videoService', 'video_service');
+        $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setValue($videoService);
+        
+        $inputForm->addElement('videoId', 'video_id');
+        $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($videoId);
+        
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
+        return $this;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getVideoEnabled()
+    {
+        return $this->videoEnabled;
+    }
+
+    /**
+     * @param bool $videoEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setVideoEnabled($videoEnabled)
+    {
+        $this->videoEnabled = $videoEnabled;
         return $this;
     }
 }
