@@ -112,6 +112,9 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
 
         $this->view->qid = $qid;
         $this->view->discussionContribs = $discussionContribs;
+        $this->view->videoServicesStatus = (new Model_Projects())->find(
+            (new Zend_Registry())->get('systemconfig')->project
+        )->current();
         $this->view->form = $form;
     }
 }

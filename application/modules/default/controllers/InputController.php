@@ -694,6 +694,8 @@ class InputController extends Zend_Controller_Action
 
                         $contribId = $inputDiscussModel->insert([
                             'body' => $formData['body'] ? $formData['body'] : null,
+                            'video_service' => isset($formData['video_service']) && $formData['video_service'] ?
+                                $formData['video_service'] : null,
                             'video_id' => isset($formData['video_id']) && $formData['video_id'] ?
                                 $formData['video_id'] : null,
                             'user_id' => $userId,
@@ -751,6 +753,9 @@ class InputController extends Zend_Controller_Action
 
         $this->view->form = $form;
         $this->view->subscriptionForm = $sbsForm;
+        $this->view->videoServicesStatus = (new Model_Projects())->find(
+            (new Zend_Registry())->get('systemconfig')->project
+        )->current();
         $this->view->discussionContribs = $inputDiscussModel->fetchAll(
             $inputDiscussModel
                 ->select()
