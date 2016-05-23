@@ -62,42 +62,29 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
     public function updateVote($tid, $subUid, $uid, $pts, $particular = null)
     {
-        if (empty($tid) || empty($subUid) || ((int) $pts < 0 || (int) $pts > 5) || empty($uid)) {
+        if ($pts < 0 || $pts > 5) {
             return false;
         }
 
-    if (!is_null($particular)) { //set points and flag for superbutton
-        $pts = $particular;
-        $pimp ="y";
-    } else {
         $pimp = 'n';
-    }
-        // check if user has allready votet by this thesis
+        if ($particular) { //set points and flag for super button
+            $pts = $particular;
+            $pimp ='y';
+        }
+
+        // check if user has allready voted on this thesis
         if ($this->allreadyVoted($tid, $subUid)) {
-
-            // Update vote
-            $date = new Zend_Date();
-
-            $select = $this->select();
-            $select->where('tid = ?', $tid);
-            $select->where('sub_uid = ?', $subUid);
+            $select = $this
+                ->select()
+                ->where('tid = ?', $tid)
+                ->where('sub_uid = ?', $subUid);
 
             $row = $this->fetchRow($select);
             $row->pts = $pts;
-            $row-> pimp=    $pimp;
+            $row->pimp = $pimp;
             $row->upd = new Zend_Db_Expr('NOW()');
-            if ($row->save()) {
-                return array (
-            'points' => $row->pts,
-            'pimp' => $row->pimp
-        );
-
-            } else {
-                return false;
-            }
         } else {
-            // Add vote
-            $data = array(
+            $row = $this->createRow([
                 'uid' => $uid,
                 'tid' => $tid,
                 'sub_uid' => $subUid,
@@ -105,19 +92,17 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'pimp' => $pimp,
                 'status'=>'v',
                 'upd' =>new Zend_Db_Expr('NOW()')
-            );
-            $row = $this->createRow($data);
-            $row->save();
-            if ($row) {
-                return array (
-            'points' => $row->pts,
-            'pimp' => $row->pimp
-        );
-            } else {
-                return false;
-            }
+            ]);
         }
 
+        if ($row->save()) {
+            return [
+                'points' => $row->pts,
+                'pimp' => $row->pimp,
+            ];
+        }
+
+        return false;
     }
 
     /**
@@ -260,34 +245,22 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      * @param string  $status       (v = voted, s = skipped, c = confirmed)
      * @param string  $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
      */
-    public function setStatusForSubuser($uid, $subuid, $status, $statusBefore = '')
+    public function setStatusForSubuser($uid, $subuid, $status, $statusBefore = null)
     {
-        if (empty($uid) || empty($subuid) || empty($status)) {
-            return false;
-        }
-        if ($status != 'v' && $status != 's' && $status != 'c') {
-            return false;
-        }
-        $db = $this->getAdapter();
-
-        $data = array(
+        $data = [
             'status' => $status,
-            'upd'        => new Zend_Db_Expr('NOW()')
-        );
-        $where = array(
-            'uid = ?'    => $uid,
+            'upd' => new Zend_Db_Expr('NOW()')
+        ];
+
+        $where = [
+            'uid = ?' => $uid,
             'sub_uid = ?' => $subuid
-        );
-        if (!empty($statusBefore) && ($statusBefore=='v' || $statusBefore=='s' || $statusBefore=='c')) {
+        ];
+        if ($statusBefore) {
             $where['status = ?'] = $statusBefore;
         }
 
-        $result = $db->update($this->_name, $data, $where);
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        return $this->update($data, $where);
     }
 
     /**
@@ -298,25 +271,11 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      */
     public function deleteByStatusForSubuser($uid, $subuid, $status)
     {
-        if (empty($uid) || empty($subuid) || empty($status)) {
-            return false;
-        }
-        if ($status != 'v' && $status != 's' && $status != 'c') {
-            return false;
-        }
-
-        $db = $this->getAdapter();
-        $where = array(
-            'uid = ?'    => $uid,
+        return $this->delete([
+            'uid = ?' => $uid,
             'sub_uid = ?' => $subuid,
             'status = ?' => $status,
-        );
-        $result = $db->delete($this->_name, $where);
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        ]);
     }
 
      /* gets the superbutton thesis  */
@@ -324,8 +283,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
     {
         $db = $this->getAdapter();
         $select = $db->select();
-        $select->from(array('vi' => 'vt_indiv'));
-        $select->joinLeft(array('i' => 'inpt'), 'vi.tid = i.tid');
+        $select->from(['vi' => 'vt_indiv']);
+        $select->joinLeft(['i' => 'inpt'], 'vi.tid = i.tid');
         $select->where('sub_uid = ?', $subUid);
         $select->where('pimp = ?', 'y');
         $select->order('upd DESC');

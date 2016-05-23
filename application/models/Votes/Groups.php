@@ -90,33 +90,19 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
      *
      * @param  integer                 $kid
      * @param  integer                 $uid
-     * @param  string                  $sub_uid
+     * @param  string                  $subUid
      * @throws Zend_Validate_Exception
      * @return boolean
      */
-    public function confirmVoter($kid, $uid, $sub_uid)
+    public function confirmVoter($kid, $uid, $subUid)
     {
-        $intVal = new Zend_Validate_Int();
-        $alnumVal = new Zend_Validate_Alnum();
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
-        }
-        if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given parameter uid must be integer!');
-        }
-        if (!$alnumVal->isValid($sub_uid)) {
-            throw new Zend_Validate_Exception('Given parameter sub_uid must be alphanumerical!');
-        }
-
-        $row = $this->find($uid, $sub_uid, $kid)->current();
+        $row = $this->find($uid, $subUid, $kid)->current();
         if ($row) {
             $row->member = 'y';
-            $row->save();
-
-            return true;
-        } else {
-            return false;
+            return $row->save();
         }
+
+        return false;
     }
 
     /**
