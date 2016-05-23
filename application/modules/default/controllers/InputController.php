@@ -347,7 +347,7 @@ class InputController extends Zend_Controller_Action
             }
 
             foreach ($post['inputs'] as $input) {
-                if (!empty($input['thes'])) {
+                if (!empty($input['thes']) || !empty($input['video_id'])) {
                     $tmpCollection[] = [
                         'kid' => $kid,
                         'qi' => $qid,
