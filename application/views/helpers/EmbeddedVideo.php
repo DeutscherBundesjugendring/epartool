@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Class Admin_View_Helper_EmbedVideo
+ * Class Admin_View_Helper_EmbeddedVideo
  */
-class Application_View_Helper_EmbedVideo extends Zend_View_Helper_Abstract
+class Application_View_Helper_EmbeddedVideo extends Zend_View_Helper_Abstract
 {
 
     /**
      * @return string
      */
-    public function embedVideo($service, $id)
+    public function embeddedVideo($service, $id)
     {
         if (method_exists($this, $service)) {
             return $this->$service($id);

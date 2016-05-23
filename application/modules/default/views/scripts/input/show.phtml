@@ -114,7 +114,7 @@
                             && $input['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
                             <p>
-                                <?=$this->embedVideo($input['video_service'], $input['video_id']);?>
+                                <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>
                             </p>
                         <?php endif; ?>
 
