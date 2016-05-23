@@ -176,4 +176,12 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $this->videoEnabled = $videoEnabled;
         return $this;
     }
+
+    public function isValid($data)
+    {
+        if ($data['video_id']) {
+            $this->getElement('thes')->setRequired(false);
+        }
+        return parent::isValid($data);
+    }
 }

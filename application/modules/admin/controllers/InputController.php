@@ -172,6 +172,9 @@ class Admin_InputController extends Zend_Controller_Action
         $form = new Admin_Form_Input($cancelUrl);
 
         $inputRow = $inputModel->getById($tid);
+        if (!$qi) {
+            $qi = $inputRow['qi'];
+        }
         $question = (new Model_Questions())->find($qi);
         $form->setVideoEnabled($question['video_enabled']);
         
