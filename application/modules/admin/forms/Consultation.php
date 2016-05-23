@@ -195,7 +195,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         self::addCssClass($discussionTo, 'js-discussion-dates');
         $this->addElement($discussionTo);
         
-        $enableVideo = $this->createElement('checkbox', 'video_enabled');
+        $enableVideo = $this->createElement('checkbox', 'discussion_video_enabled');
         $enableVideo
             ->setLabel('Allow videos in Discussion')
             ->setRequired(false);
