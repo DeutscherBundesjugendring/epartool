@@ -8,7 +8,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
      */
     protected $videoEnabled;
     
-    public function __construct($videoEnabled = false, $options = null)
+    public function __construct($options = null, $videoEnabled = false)
     {
         $this->videoEnabled = $videoEnabled;
         parent::__construct($options);

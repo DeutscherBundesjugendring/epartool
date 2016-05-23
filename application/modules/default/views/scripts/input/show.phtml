@@ -110,8 +110,8 @@
                             </p>
                         <?php endif; ?>
                             
-                        <?php if ($this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']
-                            && $this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null): ?>
+                        <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
+                            && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
                             <p>
                                 <?php if ($input['video_service'] !== null && $input['video_id'] !== null
                                     && in_array($input['video_service'], ['youtube', 'vimeo', 'facebook'])) : ?>

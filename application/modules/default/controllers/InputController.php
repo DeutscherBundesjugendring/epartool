@@ -664,7 +664,7 @@ class InputController extends Zend_Controller_Action
         }
         $inputDiscussModel = new Model_InputDiscussion();
         $inputsModel = new Model_Inputs();
-        $form = new Default_Form_Input_Discussion($this->consultation['video_enabled']);
+        $form = new Default_Form_Input_Discussion(null, $this->consultation['discussion_video_enabled']);
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_DiscussionContributionCreatedNotification(),
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]

@@ -1,2 +1,2 @@
 ALTER TABLE `cnslt`
-ADD `video_enabled` tinyint(1) NOT NULL DEFAULT '1';
+ADD `discussion_video_enabled` tinyint(1) NOT NULL DEFAULT '1';
