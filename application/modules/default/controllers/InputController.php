@@ -694,6 +694,7 @@ class InputController extends Zend_Controller_Action
 
                         $contribId = $inputDiscussModel->insert([
                             'body' => $formData['body'] ? $formData['body'] : null,
+                            'video_service' => $formData['video_service'] ? $formData['video_service'] : null,
                             'video_id' => $formData['video_id'] ? $formData['video_id'] : null,
                             'user_id' => $userId,
                             'is_user_confirmed' => $auth->hasIdentity() ? true : false,
