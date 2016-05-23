@@ -64,7 +64,6 @@ class Model_VotingFinal extends Dbjr_Db_Table_Abstract
             ->from(['votes' => 'vt_final'])
             ->where('votes.tid = ?', $inputId);
         $result = $db->query($select)->fetch();
-        var_dump($result);
         return $result ? $result['rank'] : null;
     }
 
