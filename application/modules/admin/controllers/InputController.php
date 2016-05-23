@@ -244,8 +244,7 @@ class Admin_InputController extends Zend_Controller_Action
 
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_CreateInput($cancelUrl);
-        $question = (new Model_Questions())->find($questionId);
-        $form->setVideoEnabled($question['video_enabled']);
+        $form->setVideoEnabled(false);
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
@@ -273,6 +272,10 @@ class Admin_InputController extends Zend_Controller_Action
                 $form->populate($data);
             }
         } else {
+            $this->_flashMessenger->addMessage(
+                    'Video contribution settings are inherited from Question, therefore it is possible to add a video only after saving this Contribution thus linking it to a Question.',
+                    'info'
+                );
             $form->populate(['user_conf' => 'u', 'block' => 'n', 'vot' => 'u']);
         }
 

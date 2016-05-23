@@ -179,7 +179,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 
     public function isValid($data)
     {
-        if ($data['video_id']) {
+        if (isset($data['video_id']) && $data['video_id']) {
             $this->getElement('thes')->setRequired(false);
         }
         return parent::isValid($data);

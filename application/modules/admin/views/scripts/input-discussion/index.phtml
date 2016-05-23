@@ -45,10 +45,7 @@
                                                 <?php endif;?>
                                                 <?php if ($contrib['video_service'] !== null && $contrib['video_id'] !== null
                                                     && $this->videoServicesStatus['video_' . $contrib['video_service'] . '_enabled']): ?>
-                                                    <?=$this->partial(
-                                                            '_partials/video-box-' . $contrib['video_service'] . '.phtml',
-                                                            ['video_id' => $contrib['video_id']]
-                                                        );?>
+                                                    <?=$this->embeddedVideo($contrib['video_service'], $contrib['video_id']);?>
                                                 <?php endif; ?>
                                                 <p>
                                                     <small>
