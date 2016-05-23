@@ -45,6 +45,7 @@ module.exports = {
       '<%= paths.bower %>/synergic-ui/src/js/filterable.js',
       '<%= paths.bower %>/synergic-ui/src/js/select2-loader.js',
       '<%= paths.bower %>/synergic-ui/src/js/sortable-table.js',
+      '<%= paths.src.admin %>/js/facebook.embed_video.js',
       '<%= paths.temp %>/admin.js'
     ],
     dest: '<%= paths.dist %>/js/admin.js'

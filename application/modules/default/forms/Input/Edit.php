@@ -41,22 +41,8 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($expl);
         
-        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
-        $videoServiceEl = $this->createElement('select', 'video_service');
-        $videoServiceOptions = [];
-        $urls = [];
-        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
-            if ($project['video_' . $service . '_enabled']) {
-                $videoServiceOptions[$service] = $name;
-                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
-            }
-        }
-        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
-        $this->addElement($videoServiceEl);
-
-        $videoIdEl = $this->createElement('text', 'video_id');
-        $videoIdEl->addValidator(new Dbjr_Validate_VideoValidator());
-        $this->addElement($videoIdEl);
+        $this->addElement('videoService', 'video_service');
+        $this->addElement('videoId', 'video_id');
 
         $submit = $this->createElement('submit', 'submit');
         $submit
