@@ -42,7 +42,7 @@
                                 <p><?=$this->escape($contrib->body);?></p>
                             <?php endif; ?>
 
-                            <?php if ($contrib->video_id): ?>
+                            <?php if ($this->consultation['discussion_video_enabled'] && $contrib->video_id): ?>
                                 <div class="embed-responsive embed-responsive-16by9">
                                     <iframe
                                         width="560"
@@ -54,6 +54,8 @@
                                         allowfullscreen
                                     ></iframe>
                                 </div>
+                            <?php elseif (!$this->consultation['discussion_video_enabled']) : ?>
+                                <p><?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($contrib['video_service']));?>.</p>
                             <?php endif; ?>
 
                         </div>
