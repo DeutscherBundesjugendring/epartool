@@ -5,8 +5,6 @@
  */
 class Application_View_Helper_ToolVersion extends Zend_View_Helper_Abstract
 {
-    const COMPOSER_FILE = 'composer.json';
-
     /**
      * @return string
      */
