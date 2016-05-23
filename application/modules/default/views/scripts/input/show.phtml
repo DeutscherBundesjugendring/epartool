@@ -117,7 +117,7 @@
                                 <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>
                             </p>
                         <?php elseif ($input['video_id'] !== null) : ?>
-                            <?=$input['video_service'];?> <?=$this->translate('videos were disabled by admin for this question');?>.
+                            <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($input['video_service']));?>.
                         <?php endif; ?>
 
                         <!-- Actions -->
