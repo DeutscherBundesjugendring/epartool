@@ -15,6 +15,11 @@
 
                 <h2><?=$this->translate('Services');?></h2>
                 <?=$this->form;?>
+                <?php if (!$this->form->getVideosServiceAccess()) : ?>
+                <p>In case one or more of the services is greyed-out and cannot be activated, please contact you
+                    administrator or support. It is probably due to misconfiguration of service access applications in
+                    ePartool configuration files.</p>
+                <?php endif; ?>
 
             </div>
         </div>

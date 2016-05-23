@@ -118,33 +118,20 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setOptions($explElOpts)
             ->setValue($expl);
 
-        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
-        $videoServiceEl = $this->createElement('select', 'video_service');
-        $videoServiceOptions = [];
-        $urls = [];
-        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
-            if ($project['video_' . $service . '_enabled']) {
-                $videoServiceOptions[$service] = $name;
-                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
-            }
-        }
-        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions([
-            'belongsTo' => 'inputs[' . $inputName . ']',
-            'data-url' => json_encode($urls)
-        ])->setValue($videoService);
-
-        $videoIdEl = $this->createElement('text', 'video_id');
-        $videoIdEl->addValidator(new Dbjr_Validate_VideoValidator());
-        $videoIdEl->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($videoId);
-
         if (!$this->getSubForm('inputs')) {
             $this->addSubForm(new Zend_Form(), 'inputs');
         }
         $inputForm = new Zend_Form();
+        $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+        $inputForm->addElement('videoService', 'video_service');
+        $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setValue($videoService);
+        
+        $inputForm->addElement('videoId', 'video_id');
+        $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($videoId);
+        
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
-        $inputForm->addElement($videoServiceEl);
-        $inputForm->addElement($videoIdEl);
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
         return $this;

@@ -110,16 +110,14 @@
                             </p>
                         <?php endif; ?>
                             
-                        <?php if ($this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']
-                            && $this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null): ?>
+                        <?php if ($this->videoEnabled && $input['video_service'] !== null
+                            && $input['video_id'] !== null
+                            && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
                             <p>
-                                <?php if ($input['video_service'] !== null && $input['video_id'] !== null
-                                    && in_array($input['video_service'], ['youtube', 'vimeo', 'facebook'])) : ?>
-                                        <?=$this->partial('_partials/video-box-' . $input['video_service'] . '.phtml', [
-                                            'video_id' => $input['video_id'],
-                                        ]);?>
-                                <?php endif; ?>
+                                <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>
                             </p>
+                        <?php elseif ($input['video_id'] !== null) : ?>
+                            <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($input['video_service']));?>.
                         <?php endif; ?>
 
                         <!-- Actions -->

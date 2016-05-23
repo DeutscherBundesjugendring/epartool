@@ -118,23 +118,8 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($note);
 
-        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
-        $videoServiceEl = $this->createElement('select', 'video_service');
-        $videoServiceOptions = [];
-        $urls = [];
-        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
-            if ($project['video_' . $service . '_enabled']) {
-                $videoServiceOptions[$service] = $name;
-                $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
-            }
-        }
-        
-        $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
-        $this->addElement($videoServiceEl);
-
-        $videoIdEl = $this->createElement('text', 'video_id');
-        $videoIdEl->addValidator(new Dbjr_Validate_VideoValidator());
-        $this->addElement($videoIdEl);
+        $this->addElement('videoService', 'video_service');
+        $this->addElement('videoId', 'video_id');
 
         // CSRF Protection
         $hash = $this->getHash();
@@ -190,5 +175,13 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     {
         $this->videoEnabled = $videoEnabled;
         return $this;
+    }
+
+    public function isValid($data)
+    {
+        if ($data['video_id']) {
+            $this->getElement('thes')->setRequired(false);
+        }
+        return parent::isValid($data);
     }
 }

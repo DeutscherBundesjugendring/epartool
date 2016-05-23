@@ -25,14 +25,11 @@
         </div>
 
         <div class="form-group">
-            <?php
-                $video_service = $this->element->video_service->getValue();
-                $video_id = $this->element->video_id->getValue();
-            ?>
-            <?php if ($video_id && in_array($video_service, ['youtube', 'vimeo', 'facebook'])) : ?>
-                    <?=$this->partial('_partials/video-box-' . $video_service . '.phtml', [
-                        'video_id' => $video_id,
-                    ]);?>
+            <?php if ($this->element->video_id->getValue()) : ?>
+                    <?=$this->embeddedVideo(
+                        $this->element->video_service->getValue(),
+                        $this->element->video_id->getValue()
+                    );?>
             <?php endif; ?>
         </div>
     <?php endif; ?>

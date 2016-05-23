@@ -3,8 +3,11 @@
 class Admin_Form_Settings_Services extends Dbjr_Form_Admin
 {
 
+    protected $videoServiceAccess;
+    
     public function init()
     {
+        $this->videoServiceAccess = true;
         $this
             ->setMethod('post')
             ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/settings/services')
@@ -16,16 +19,29 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
             ->setRequired(false);
         $this->addElement($youtube);
 
+        $systemConfig = (new Zend_Registry ())->get('systemconfig');
+        
         $vimeo = $this->createElement('checkbox', 'video_vimeo_enabled');
         $vimeo
             ->setLabel('Vimeo')
             ->setRequired(false);
+        if (!isset($systemConfig->webservice) || !isset($systemConfig->webservice->vimeo)
+            || !isset($systemConfig->webservice->vimeo->accessToken)) {
+            $vimeo->setAttrib('disabled', 'disabled');
+            $this->videoServiceAccess = false;
+        }
         $this->addElement($vimeo);
 
         $facebook = $this->createElement('checkbox', 'video_facebook_enabled');
         $facebook
             ->setLabel('Facebook')
             ->setRequired(false);
+        if (!isset($systemConfig->webservice) || !isset($systemConfig->webservice->facebook)
+            || !isset($systemConfig->webservice->facebook->appId)
+            || !isset($systemConfig->webservice->facebook->appSecret)) {
+            $facebook->setAttrib('disabled', 'disabled');
+            $this->videoServiceAccess = false;
+        }
         $this->addElement($facebook);
 
         // CSRF Protection
@@ -41,5 +57,10 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
             ->setAttrib('class', 'btn-primary')
             ->setLabel('Save');
         $this->addElement($submit);
+    }
+    
+    public function getVideosServiceAccess()
+    {
+        return $this->videoServiceAccess;
     }
 }

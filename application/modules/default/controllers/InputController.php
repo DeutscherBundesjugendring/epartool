@@ -347,7 +347,7 @@ class InputController extends Zend_Controller_Action
             }
 
             foreach ($post['inputs'] as $input) {
-                if (!empty($input['thes'])) {
+                if (!empty($input['thes']) || !empty($input['video_id'])) {
                     $tmpCollection[] = [
                         'kid' => $kid,
                         'qi' => $qid,
@@ -371,8 +371,7 @@ class InputController extends Zend_Controller_Action
             $this->redirect($redirectURL);
         } else {
             $msg = Zend_Registry::get('Zend_Translate')->translate(
-                'Please check your data and inserted videos if they are public accessed.'
-                . 'It is also possible that the maximum editing period of %s minutes has exceeded.'
+                'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
             );
             $this->flashMessenger->addMessage(
                 sprintf(
