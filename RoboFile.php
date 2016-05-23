@@ -1,5 +1,7 @@
 <?php
 
+require('../../autoload.php');
+
 use Robo\Tasks;
 
 /**
@@ -7,7 +9,7 @@ use Robo\Tasks;
  */
 class RoboFile extends Tasks
 {
-    const COMPOSER_FILE = 'composer.json';
+    const CONFIG_FILE = 'application/configs/config.ini';
 
     /**
      * @param string $tag
@@ -15,11 +17,16 @@ class RoboFile extends Tasks
     public function release($tag)
     {
         $this->stopOnFail(true);
-        $result = $this->addVersionToComposerFile($tag);
+        $result = $this->addVersionToConfig($tag);
         if ($result !== null) {
             $this->say($result);
             return;
         }
+        $this->taskGitStack()
+            ->stopOnFail()
+            ->add('-A')
+            ->commit('insert version info into config.ini')
+            ->run();
         $this->taskExecStack()
             ->stopOnFail()
             ->exec(sprintf('git tag %s', $tag))
@@ -31,24 +38,29 @@ class RoboFile extends Tasks
     }
 
     /**
+     * Zend_Config_* was not used because of ignoring comments in the ini file which were not writed back after editing
+     * process.
      * @param string $tag
      * @return null|string error
      */
-    private function addVersionToComposerFile($tag)
+    private function addVersionToConfig($tag)
     {
-        $composerInfo = json_decode(file_get_contents(__DIR__ . '/' . self::COMPOSER_FILE));
-        if ($composerInfo === null) {
-            return sprintf('Cannot load %s.', self::COMPOSER_FILE);
+        $configFileContent = file_get_contents(__DIR__ . '/' . self::CONFIG_FILE);
+        if ($configFileContent === null) {
+            return sprintf('Cannot load %s.', self::CONFIG_FILE);
         }
-        $composerInfo->version = $tag;
-        $jsonIndexedBy4 = json_encode($composerInfo, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        if (false === $jsonIndexedBy4) {
-            return 'Cannot encode json configuration';
+        $newConfigFileContent = preg_replace(
+            "#\[production\]([\s]+version[\s]\=[\s]\"[a-z0-9\-\.]*\"|)#",
+            "[production]\n\nversion = \"" . $tag . "\"",
+            $configFileContent
+        );
+        if (null === $newConfigFileContent) {
+            return sprintf('Cannot add version into file %s.', self::CONFIG_FILE);
         }
-        $jsonIndexedBy2 = preg_replace('/^(  +?)\\1(?=[^ ])/m', '$1', $jsonIndexedBy4);
-        if (false === file_put_contents(__DIR__ . '/' . self::COMPOSER_FILE, $jsonIndexedBy2 . PHP_EOL)) {
-            return sprintf('Cannot write json configuration to %s.', self::COMPOSER_FILE);
+        if (false === file_put_contents(__DIR__ . '/' . self::CONFIG_FILE, $newConfigFileContent)) {
+            return sprintf('Cannot write into file %s.', self::CONFIG_FILE);
         }
+        
         return null;
     }
 }
