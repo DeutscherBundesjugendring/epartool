@@ -47,6 +47,9 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(
                     ['controller' => 'input', 'action' => 'index', 'kid' => $consultation['kid']]
                 ),
+                'new_item' => $this->view->url(
+                    ['controller' => 'input', 'action' => 'create', 'kid' => $consultation['kid']]
+                ),
             ];
         }
 
