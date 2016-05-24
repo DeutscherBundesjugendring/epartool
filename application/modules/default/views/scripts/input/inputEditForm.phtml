@@ -9,10 +9,18 @@
     <?=$this->element->expl;?>
 
     <?php if ($this->element->getVideoEnabled()) : ?>
-        <div class="form-group input-group js-video-service">
-            <?=$this->element->video_service;?>
-            <span class="input-group-addon"></span>
-            <?=$this->element->video_id;?>
+        <div class="form-group offset-top offset-bottom js-video-service">
+            <div class="row">
+                <div class="col-sm-4">
+                    <?=$input->getElements()['video_service'];?>
+                </div>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon js-video-service-url"></span>
+                        <?=$input->getElements()['video_id'];?>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
@@ -24,7 +32,7 @@
             <?php endif; ?>
         </div>
     <?php endif; ?>
-    
+
     <?=$this->element->submit;?>
 
 </form>

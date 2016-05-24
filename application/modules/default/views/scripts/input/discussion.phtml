@@ -43,11 +43,14 @@
                             <?php endif; ?>
 
                             <?php if ($this->consultation['discussion_video_enabled'] && $contrib->video_id): ?>
-                                <div class="embed-responsive embed-responsive-16by9">
+                                <div class="embed-responsive embed-responsive-16by9 offset-top offset-bottom">
                                     <?=$this->embeddedVideo($contrib['video_service'], $contrib['video_id']);?>
                                 </div>
                             <?php elseif ($contrib['video_id']) : ?>
-                                <p><?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($contrib['video_service']));?>.</p>
+                                <p>
+                                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                                    <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($contrib['video_service']));?>.
+                                </p>
                             <?php endif; ?>
 
                         </div>
