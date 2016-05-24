@@ -57,10 +57,21 @@ class Admin_SettingsController extends Zend_Controller_Action
             $helpTextModel
                 ->select()
                 ->where('project_code = ?', Zend_Registry::get('systemconfig')->project)
+                ->where('module = ?', 'default')
                 ->from($helpTextModel->info(Model_HelpText::NAME), ['id', 'name'])
         );
 
         $this->view->helpTexts = $helpTexts;
+        
+        $helpTextAdminModel = new Model_HelpText();
+        $helpTextsAdmin = $helpTextAdminModel->fetchAll(
+            $helpTextModel
+                ->select()
+                ->where('project_code = ?', Zend_Registry::get('systemconfig')->project)
+                ->where('module = ?', 'admin')
+                ->from($helpTextModel->info(Model_HelpText::NAME), ['id', 'name'])
+        );
+        $this->view->helpTextsAdmin = $helpTextsAdmin;
     }
 
     public function helpTextEditAction()
