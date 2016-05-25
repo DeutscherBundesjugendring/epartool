@@ -661,17 +661,28 @@ class InputController extends Zend_Controller_Action
         if (!$inputId) {
             $this->_redirect('/');
         }
+        
+        $auth = Zend_Auth::getInstance();
+        
         $inputDiscussModel = new Model_InputDiscussion();
         $inputsModel = new Model_Inputs();
+        
         $form = new Default_Form_Input_Discussion(null, $this->consultation['discussion_video_enabled']);
+        if($auth->hasIdentity()){
+            $form->populate(['email' => $auth->getIdentity()->email]);
+            $form->getElement('email')->setAttrib('disabled', 'disabled');
+        }
+        
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_DiscussionContributionCreatedNotification(),
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]
         );
-        $auth = Zend_Auth::getInstance();
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
+            if($auth->hasIdentity()){
+                $post['email'] = $auth->getIdentity()->email;
+            }
             if (isset($post['subscribe'])) {
                 $this->handleSubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
