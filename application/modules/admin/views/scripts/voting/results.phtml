@@ -72,6 +72,20 @@
                                 </div>
                             </div><!-- .row -->
                         <?php endforeach; ?>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a
+                                    href="<?=$this->url([
+                                        'action' => 'download-excel',
+                                        'kid' => $this->currentQuestion['kid'],
+                                        'questionId' => $this->currentQuestion['qi']
+                                    ]);?>"
+                                    class="btn btn-default pull-right"
+                                >
+                                    <?=$this->translate('Download excel document');?>
+                                </a>
+                            </div>
+                        </div>
                     <?php else: ?>
                         <p class="alert alert-info">
                             <span class="glyphicon glyphicon-info-sign"></span>

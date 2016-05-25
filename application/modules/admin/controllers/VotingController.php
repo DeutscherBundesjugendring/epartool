@@ -368,6 +368,56 @@ class Admin_VotingController extends Zend_Controller_Action
 
         $this->view->assign($votesModel->getResultsValues($this->_consultation->kid, $qid));
     }
+    
+    public function downloadExcelAction()
+    {
+        $questionId = $this->_request->getParam('questionId', 0);
+        if ($questionId === 0) {
+            $this->_flashMessenger->addMessage('No question was selected.', 'error');
+            $this->redirect('/admin/voting/results/kid/' . $this->_consultation['kid']);
+        }
+        
+        $resultsForExport = (new Model_Votes())->getResultsValues($this->_consultation['kid'], $questionId);
+        
+        $fileName = $this->_consultation->titl_short . ' ' . $questionId;
+        
+        $objPHPExcel = new PHPExcel();
+        $auth = Zend_Auth::getInstance();
+        $objPHPExcel->getProperties()->setCreator($auth->getIdentity()->email)
+            ->setTitle($fileName);
+
+        $sheet = $objPHPExcel->setActiveSheetIndex(0);
+        $sheet->setCellValue('A1', $this->_consultation->titl)
+            ->setCellValue('B1', $resultsForExport['currentQuestion']['q']);
+        
+        $sheet->setCellValue('A3', $this->view->translate('Contribution'))
+            ->setCellValue('B3', $this->view->translate('Contribution explanation'))
+            ->setCellValue('C3', $this->view->translate('Rank'));
+        
+        $row = 4;
+        foreach ($resultsForExport['votings'] as $result) {
+            $sheet->setCellValue('A' . $row, $result['thes'])->setCellValue('B' . $row, $result['expl'])
+                ->setCellValue('C' . $row, $result['rank']);
+            $row++;
+        }
+
+        $sheet->setTitle($resultsForExport['currentQuestion']['q']);
+
+        // Redirect output to a client’s web browser (OpenDocument)
+        header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+        header('Content-Disposition: attachment;filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header ('Pragma: public'); // HTTP/1.0
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'OpenDocument');
+        $objWriter->save('php://output');
+        exit;
+    }
 
     /**
      * Voting settings
