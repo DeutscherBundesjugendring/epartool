@@ -379,12 +379,12 @@ class Admin_VotingController extends Zend_Controller_Action
         
         $resultsForExport = (new Model_Votes())->getResultsValues($this->_consultation['kid'], $questionId);
         
-        $fileName = $this->_consultation->titl_short . ' ' . $questionId;
+        $fileName = $this->_consultation->titl_short . ' ' . $questionId . '.ods';
         
         $objPHPExcel = new PHPExcel();
         $auth = Zend_Auth::getInstance();
         $objPHPExcel->getProperties()->setCreator($auth->getIdentity()->email)
-            ->setTitle($fileName);
+            ->setTitle($this->_consultation->titl_short . ' ' . $questionId);
 
         $sheet = $objPHPExcel->setActiveSheetIndex(0);
         $sheet->setCellValue('A1', $this->_consultation->titl)
