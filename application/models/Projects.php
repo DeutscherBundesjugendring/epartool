@@ -10,6 +10,11 @@ class Model_Projects extends Dbjr_Db_Table_Abstract
     protected $_primary = 'proj';
 
     /**
+     * @var bool
+     */
+    protected $videoServiceStatus;
+    
+    /**
      * Returns all entries from the proj table
      *
      * @param  string                        $order [optional]
@@ -23,5 +28,19 @@ class Model_Projects extends Dbjr_Db_Table_Abstract
         }
 
         return $this->fetchAll($select);
+    }
+    
+    /**
+     * @return bool
+     */
+    public function videoServiceStatus()
+    {
+        if ($this->videoServiceStatus === null) {
+            $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+            $this->videoServiceStatus = $project['video_facebook_enabled'] || $project['video_youtube_enabled']
+            || $project['video_vimeo_enabled'];
+        }
+        
+        return $this->videoServiceStatus;
     }
 }
