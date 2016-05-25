@@ -329,6 +329,6 @@ bindToggleVotingContributionExplanation = () ->
 bindContributionVideoSelect = () ->
     select = $('.js-video-service select');
     select.change () ->
-        addon = $(this).parent().parent().find('.input-group-addon');
+        addon = $(this).closest('.js-video-service').find('.js-video-service-url');
         addon.html($(this).data('url')[$(this).children(':selected').attr('value')]);
     select.trigger('change');

@@ -47,7 +47,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @param array                        $theses Array of inputs that are already in the session
      * @return Default_Form_Input_Create           Fluent interface
      */
-    public function generateInputFields($theses)
+    public function generateInputFields($theses, $addExtraField = true)
     {
         if (!$theses) {
             $theses = [['thes' => '', 'expl' => '', 'video_service' => '', 'video_id' => '']];
@@ -63,7 +63,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             );
         }
 
-        $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
+        if ($addExtraField) {
+            $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
+        }
 
         return $this;
     }

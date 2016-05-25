@@ -89,28 +89,28 @@ class InputController extends Zend_Controller_Action
             } else {
                 $this->handleInputSubmit($post, $kid, $qid);
             }
-        }
-
-        if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
+        } else {
+            if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
-        ) {
-            $form = $this->getInputForm();
-            $sessInputs = new Zend_Session_Namespace('inputs');
-            $theses = [];
-            if (!empty($sessInputs->inputs)) {
-                foreach ($sessInputs->inputs as $input) {
-                    if ($input['qi'] == $qid) {
-                        $theses[] = [
-                            'thes' => $input['thes'],
-                            'expl' => $input['expl'],
-                            'video_service' => $input['video_service'],
-                            'video_id' => $input['video_id'],
-                        ];
+            ) {
+                $form = $this->getInputForm();
+                $sessInputs = new Zend_Session_Namespace('inputs');
+                $theses = [];
+                if (!empty($sessInputs->inputs)) {
+                    foreach ($sessInputs->inputs as $input) {
+                        if ($input['qi'] == $qid) {
+                            $theses[] = [
+                                'thes' => $input['thes'],
+                                'expl' => $input['expl'],
+                                'video_service' => $input['video_service'],
+                                'video_id' => $input['video_id'],
+                            ];
+                        }
                     }
                 }
+                $form->generateInputFields($theses);
+                $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
             }
-            $form->generateInputFields($theses);
-            $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
         }
 
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
@@ -326,10 +326,10 @@ class InputController extends Zend_Controller_Action
     private function handleInputSubmit(array $post, $kid, $qid)
     {
         $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
-
+        
         $form = $this
             ->getInputForm()
-            ->generateInputFields($post['inputs']);
+            ->generateInputFields($post['inputs'], false);
 
         if ($form->isValid($this->_request->getPost())) {
             $sessInputs = (new Zend_Session_Namespace('inputs'));

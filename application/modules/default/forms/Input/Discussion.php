@@ -7,13 +7,13 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
      * @var bool
      */
     protected $videoEnabled;
-    
+
     public function __construct($options = null, $videoEnabled = false)
     {
         $this->videoEnabled = $videoEnabled;
         parent::__construct($options);
     }
-    
+
     public function init()
     {
         $this->setMethod('post');
@@ -58,7 +58,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             $videoId->setDecorators(['ViewHelper',
                 [
                     ['inputGroup' => 'HtmlTag'],
-                    ['tag' => 'div', 'class' => 'input-group'],
+                    ['tag' => 'div'],
                 ],
             ]);
             $this->addElement($videoId);
