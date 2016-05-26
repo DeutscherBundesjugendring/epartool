@@ -6,12 +6,9 @@ class Admin_View_Helper_HelpText extends Zend_View_Helper_Abstract
     {
         $helpText = (new Model_HelpText())->fetchRow(['name = ?' => $name]);
         
-        return $this->view->partial(
-                '_helpers/helpText.phtml',
-                [
-                    'helpTextName' => $helpText['name'],
-                    'helpTextBody' => $helpText['body'],
-                ]
-            );
+        return $this->view->partial('_helpers/helpText.phtml',[
+            'helpTextName' => $helpText['name'],
+            'helpTextBody' => $helpText['body'],
+        ]);
     }
 }
