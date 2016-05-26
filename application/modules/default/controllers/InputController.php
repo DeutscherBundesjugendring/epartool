@@ -669,6 +669,9 @@ class InputController extends Zend_Controller_Action
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]
         );
         $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $this->view->userIdentity = $auth->getIdentity();
+        }
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
