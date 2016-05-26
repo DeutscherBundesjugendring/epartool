@@ -28,15 +28,17 @@
                     <?php if ($contrib->is_visible): ?>
                         <div class="media" id="post-<?=$contrib->id?>">
 
-                            <small class="text-muted">
-                                <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
-                                <?php if (!empty($contrib->nick)) : ?>
-                                    <?=$this->escape($contrib->nick);?>,
-                                <?php elseif (!empty($contrib->name)) : ?>
-                                    <?=$this->escape($contrib->name);?>,
-                                <?php endif; ?>
-                                <?=$this->formatDate($contrib->time_created);?>
-                            </small>
+                            <div class="offset-bottom-small">
+                                <small class="text-muted">
+                                    <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
+                                    <?php if (!empty($contrib->nick)) : ?>
+                                        <?=$this->escape($contrib->nick);?>,
+                                    <?php elseif (!empty($contrib->name)) : ?>
+                                        <?=$this->escape($contrib->name);?>,
+                                    <?php endif; ?>
+                                    <?=$this->formatDate($contrib->time_created);?>
+                                </small>
+                            </div>
 
                             <?php if ($contrib->body): ?>
                                 <p><?=$this->escape($contrib->body);?></p>
@@ -45,7 +47,7 @@
                             <?php if ($this->consultation['discussion_video_enabled']
                                 && isset($contrib['video_service']) && $contrib['video_id']
                                 && $this->videoServicesStatus['video_' . $contrib['video_service'] . '_enabled']): ?>
-                                <div class="embed-responsive embed-responsive-16by9 offset-top offset-bottom">
+                                <div class="embed-responsive embed-responsive-16by9 offset-bottom">
                                     <?=$this->embeddedVideo($contrib['video_service'], $contrib['video_id']);?>
                                 </div>
                             <?php elseif ($contrib['video_id']) : ?>
