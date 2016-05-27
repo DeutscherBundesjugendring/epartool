@@ -33,7 +33,7 @@ class Model_Projects extends Dbjr_Db_Table_Abstract
     /**
      * @return bool
      */
-    public function videoServiceStatus()
+    public function getVideoServiceStatus()
     {
         if ($this->videoServiceStatus === null) {
             $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
