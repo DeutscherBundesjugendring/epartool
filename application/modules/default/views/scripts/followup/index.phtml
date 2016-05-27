@@ -45,59 +45,63 @@
                 </div><!-- .row -->
 
                 <?php if (!empty($this->followups)): ?>
-                    <div id="followup" class="row">
+                    <div id="followup" class="row-horizontal-sm">
 
-                        <?php foreach ($this->followups as $followup): ?>
-                            <div class="col-sm-4">
+                        <div class="row">
 
-                                <div class="card text-left offset-bottom-large">
-                                    <h4 class="card-title">
-                                        <?=$followup['titl'];?>
-                                    </h4>
-                                    <div class="offset-bottom-small">
-                                        <img
-                                            class="followup-well-link img-responsive followup-timeline-box js-openoverlay js-timeline-box"
-                                            data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
-                                            data-ffid="<?=(int) $followup['ffid'];?>"
-                                            src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
-                                        />
-                                    </div>
-                                    <time class="text-muted">
-                                        <?php
+                            <?php foreach ($this->followups as $followup): ?>
+                                <div class="col-sm-4">
+
+                                    <div class="card text-left offset-bottom-large">
+                                        <h4 class="card-title">
+                                            <?=$followup['titl'];?>
+                                        </h4>
+                                        <div class="offset-bottom-small">
+                                            <img
+                                                class="followup-well-link img-responsive followup-timeline-box js-openoverlay js-timeline-box"
+                                                data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+                                                data-ffid="<?=(int) $followup['ffid'];?>"
+                                                src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
+                                            />
+                                        </div>
+                                        <time class="text-muted">
+                                            <?php
                                             if ($followup['show_no_day'] === "y") {
                                                 echo strftime("%m/%Y", strtotime($followup['when']));
                                             } else
                                                 echo strftime("%d.%m.%Y", strtotime($followup['when']));
                                             ?>
-                                    </time>
-                                    <p class="card-description small">
-                                        <?=$followup['who'];?>
-                                    </p>
-                                    <span class="glyphicon glyphicon-menu-right icon-offset text-muted" aria-hidden="true"></span>
-                                    <button
-                                        class="btn-link followup-timeline-box js-openoverlay js-timeline-box"
-                                        data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
-                                        data-ffid="<?=(int) $followup['ffid'];?>"
-                                    >
-                                        <?=$this->translate('View');?>
-                                    </button>
-                                    <?php if ($followup['referenceType'] === 'file'): ?>
-                                        <form method="post" action="<?= $this->url(['action' => 'download', 'page' => null]);?>">
-                                            <input type="hidden" name="filename" value="<?=$followup['ref_doc'];?>" />
-                                            <span class="glyphicon glyphicon-file icon-offset text-muted" aria-hidden="true"></span>
-                                            <button type="submit" class="btn-link">
-                                                <?=$this->translate('Download');?>
-                                            </button>
-                                        </form>
-                                    <?php endif; ?>
+                                        </time>
+                                        <p class="card-description small offset-bottom-small">
+                                            <?=$followup['who'];?>
+                                        </p>
+                                        <span class="glyphicon glyphicon-menu-right icon-offset text-muted" aria-hidden="true"></span>
+                                        <button
+                                            class="btn-link followup-timeline-box js-openoverlay js-timeline-box"
+                                            data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+                                            data-ffid="<?=(int) $followup['ffid'];?>"
+                                        >
+                                            <?=$this->translate('View');?>
+                                        </button>
+                                        <?php if ($followup['referenceType'] === 'file'): ?>
+                                            <form method="post" action="<?= $this->url(['action' => 'download', 'page' => null]);?>">
+                                                <input type="hidden" name="filename" value="<?=$followup['ref_doc'];?>" />
+                                                <span class="glyphicon glyphicon-file icon-offset text-muted" aria-hidden="true"></span>
+                                                <button type="submit" class="btn-link">
+                                                    <?=$this->translate('Download');?>
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
 
-                                </div><!-- .card -->
+                                    </div><!-- .card -->
 
-                            </div>
-                        <?php endforeach; ?>
+                                </div>
+                            <?php endforeach; ?>
+
+                        </div>
 
                     </div><!-- .row -->
-                    
+
                     <!-- Loader -->
                     <div id="followuploader"><?=$this->translate('Loading…');?></div>
                 <?php else: ?>
