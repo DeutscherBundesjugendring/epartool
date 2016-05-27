@@ -198,4 +198,46 @@ class Admin_SettingsController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
+    
+    public function lookAndFeelAction()
+    {
+        $projectModel = new Model_Projects();
+        $projectCode = Zend_Registry::get('systemconfig')->project;
+
+        $form = new Admin_Form_Settings_LookAndFeel();
+
+        if ($this->getRequest()->isPost()) {
+            $data = $this->getRequest()->getPost();
+            if ($form->isValid($data)) {
+                $db = $projectModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $projectModel->update([
+                        'theme_id' => !empty($data['theme_id']) ? $data['theme_id'] : null,
+                        'color_headings' => $data['color_headings'],
+                        'color_frame_background' => $data['color_frame_background'],
+                        'color_active_link' => $data['color_active_link'],
+                        'logo' => $data['logo'],
+                        'favicon' => $data['favicon'],
+                    ], ['proj=?' => $projectCode]);
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Theme was updated.', 'success');
+                    $this->redirect('/admin/settings/look-and-feel');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Theme settings cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $data = $projectModel->find($projectCode)->current()->toArray();
+            $form->populate($data);
+        }
+
+        $this->view->form = $form;
+    }
 }

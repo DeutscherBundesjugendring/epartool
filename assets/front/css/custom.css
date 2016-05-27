@@ -1,0 +1,11 @@
+.example-class-colors-headings {
+	color: '#%color_headings%';
+}
+
+.example-class-colors-frame-background {
+	color: '#%color_frame_background%';
+}
+
+.example-class-colors-active-link {
+	color: '#%color_active_link%';
+}

@@ -94,6 +94,18 @@ class IndexController extends Zend_Controller_Action
         echo 'var i18n = ' . json_encode($i18n, JSON_UNESCAPED_UNICODE);
         die();
     }
+    
+    public function customCssAction()
+    {
+        $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        header('Content-Type: text/css; charset=utf-8');
+        echo str_replace(
+            ['%color_headings%', '%color_frame_background%', '%color_active_link%'],
+            [$project['color_headings'], $project['color_frame_background'], $project['color_active_link']],
+            file_get_contents(APPLICATION_PATH . '/../assets/front/css/custom.css')
+        );
+        die();
+    }
 
     public function ajaxConsultationAction()
     {

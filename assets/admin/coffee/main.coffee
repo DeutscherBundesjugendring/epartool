@@ -6,6 +6,7 @@ $(document).ready () ->
     bindToggleAll()
     bindConsultationCustomPhaseNames()
     bindContributionVideoSelect()
+    themeSettings()
 
     initI18n()
     initSortableFollowupSnippets()
@@ -198,6 +199,67 @@ bindContributionVideoSelect = () ->
         addon = $(this).closest('.js-video-service').find('.js-video-service-url');
         addon.html($(this).data('url')[$(this).children(':selected').attr('value')]);
     select.trigger('change');
+
+themeSettings = () ->
+    $('#themes').data('presetTheme', $("input[name='theme_id']:checked").val())
+    colorHeadings = $('#color_headings')
+    colorFrameBackground = $('#color_frame_background')
+    colorActiveLink = $('#color_active_link')
+    
+    colorHeadings.data('oldValue', colorHeadings.val())
+    colorFrameBackground.data('oldValue', colorFrameBackground.val())
+    colorActiveLink.data('oldValue', colorActiveLink.val())
+
+    $('.js-theme-preset').click () ->
+        if !$('#themes').data('presetTheme')
+            if !confirm(i18n.translate('Custom colors are set. Do you want to replace them with predefined theme?'))
+                return false;
+        colors = $(this).data('colors');
+        colorHeadings = $('#color_headings')
+        colorFrameBackground = $('#color_frame_background')
+        colorActiveLink = $('#color_active_link')
+
+        colorHeadings.val(colors['color_headings'])
+        colorFrameBackground.val(colors['color_frame_background'])
+        colorActiveLink.val(colors['color_active_link'])
+        $('#themes').data('presetTheme', true)
+        colorHeadings.data('oldValue', colorHeadings.val())
+        colorFrameBackground.data('oldValue', colorFrameBackground.val())
+        colorActiveLink.data('oldValue', colorActiveLink.val())
+        return true
+
+    $('#color_headings, #color_frame_background, #color_active_link').change () ->
+        if $('#themes').data('presetTheme')
+            if !confirm(i18n.translate('Do you want to override predefined theme with custom colors set?'))
+                $(this).val($(this).data('oldValue'))
+                return false;
+            $(this).data('oldValue', $(this).val())
+            $('#themes').data('presetTheme', false)
+            $("input[name='theme_id']:checked").attr('checked', false)
+            return true;
+    $('#color_headings_picker').ColorPicker({
+        color: $('#color_headings').val(),
+        onChange: (hsb, hex, rgb) ->
+            $('#color_headings_picker div').css('backgroundColor', '#' + hex);
+            $('#color_headings').val(hex);
+    });
+    $('#color_headings_picker div').css('backgroundColor', '#' + $('#color_headings').val());
+
+    $('#color_frame_background_picker').ColorPicker({
+        color: $('#color_frame_background').val(),
+        onChange: (hsb, hex, rgb) ->
+            $('#color_frame_background_picker div').css('backgroundColor', '#' + hex);
+            $('#color_frame_background').val(hex);
+    });
+    $('#color_frame_background_picker div').css('backgroundColor', '#' + $('#color_frame_background').val());
+
+    $('#color_active_link_picker').ColorPicker({
+        color: $('#color_active_link').val(),
+        onChange: (hsb, hex, rgb) ->
+            $('#color_active_link_picker div').css('backgroundColor', '#' + hex);
+            $('#color_active_link').val(hex);
+    });
+    $('#color_active_link_picker div').css('backgroundColor', '#' + $('#color_active_link').val());
 
 class mediaSelectPopup
     ###*

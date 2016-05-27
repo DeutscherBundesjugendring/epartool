@@ -1,0 +1,61 @@
+<form
+    enctype="<?=$this->element->getEnctype();?>"
+    method="<?=$this->element->getMethod();?>"
+    class="offset-bottom"
+    enctype="<?=$this->element->getEnctype();?>"
+>
+    <?=$this->element->csrf_token_lookandfeeladmin;?>
+
+    <?=$this->element->logo;?>
+
+    <?=$this->element->favicon;?>
+
+    <div id="themes">
+    <?php foreach ($this->element->theme_id->options as $themeId => $themeName) : ?>
+        <label>
+            <img src="<?=$this->baseUrl('images/themes/theme_' . $themeId . '.jpg');?>" /><br />
+            <input
+                id="theme-<?=$themeId;?>"
+                class="js-theme-preset"
+                type="radio" name="theme_id"
+                value="<?=$themeId;?>"
+                data-colors="<?=$this->escape($this->element->theme_id->color_config[$themeId]);?>"
+                <?php if ($this->element->theme_id->getValue() == $themeId) : ?>
+                    checked="checked"
+                <?php endif; ?>
+                />
+            <?=$themeName;?>
+        </label>
+    <?php endforeach; ?>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-11">
+            <?=$this->element->color_headings;?>
+        </div>
+        <div class="col-sm-1">
+            <div class="js-color-picker color-selector" id="color_headings_picker"><div></div></div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-11">
+            <?=$this->element->color_frame_background;?>
+        </div>
+        <div class="col-sm-1">
+            <div class="js-color-picker color-selector" id="color_frame_background_picker"><div></div></div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-11">
+            <?=$this->element->color_active_link;?>
+        </div>
+        <div class="col-sm-1">
+            <div class="js-color-picker color-selector" id="color_active_link_picker"><div></div></div>
+        </div>
+    </div>
+    
+    <?=$this->element->submit;?>
+    
+</form>
