@@ -939,6 +939,22 @@ ADD `discussion_video_enabled` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `input_discussion`
 ADD `video_service` varchar(255) NULL AFTER `body`;
 
+-- Migration 2016-05-23_17-52_DBJR-618.sql
+ALTER TABLE `help_text`
+ADD `module` varchar(255) NOT NULL DEFAULT 'default';
+
+ALTER TABLE `help_text`
+ADD UNIQUE `help_text_project_code_name_key` (`project_code`, `name`);
+
+CREATE TABLE `help_text_module` (`name` varchar(255) NOT NULL ); 
+ALTER TABLE `help_text_module` ADD PRIMARY KEY `name` (`name`);
+
+INSERT INTO `help_text_module` (`name`) VALUES ('admin');
+INSERT INTO `help_text_module` (`name`) VALUES ('default');
+
+ALTER TABLE `help_text`
+ADD FOREIGN KEY (`module`) REFERENCES `help_text_module` (`name`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 -- Migration 2016-05-25_18-04_DBJR-626.sql
 CREATE TABLE `theme` (
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
