@@ -36,7 +36,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             ->setValidators([['NotEmpty', true], 'EmailAddress']);
         $this->addElement($email);
 
-        if ($this->videoEnabled) {
+        if ($this->videoEnabled && (new Model_Projects())->getVideoServiceStatus()) {
             $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
             $videoServiceEl = $this->createElement('select', 'video_service');
             $videoServiceOptions = [];
@@ -83,7 +83,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
         if ($videoIdEl !== null) {
             $videoIdEl->clearErrorMessages();
         }
-        if (!$data['body'] && !$data['video_id']) {
+        if (empty($data['body']) && empty($data['video_id'])) {
             $msg = Zend_Registry::get('Zend_Translate')->translate('Either text or video have to be submitted.');
             $bodyEl->addError($msg);
             if ($videoIdEl !== null) {

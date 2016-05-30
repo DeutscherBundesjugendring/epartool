@@ -74,7 +74,7 @@ class InputController extends Zend_Controller_Action
             new Service_Notification_InputCreatedNotification(),
             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid]
         );
-        
+
         $form = $this->getInputForm();
         $question = (new Model_Questions())->find($qid)->current();
         $form->setVideoEnabled($question['video_enabled']);
@@ -326,7 +326,7 @@ class InputController extends Zend_Controller_Action
     private function handleInputSubmit(array $post, $kid, $qid)
     {
         $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
-        
+
         $form = $this
             ->getInputForm()
             ->generateInputFields($post['inputs'], false);
@@ -584,13 +584,13 @@ class InputController extends Zend_Controller_Action
             $this->flashMessenger->addMessage('Page not found', 'error');
             $this->redirect('/');
         }
-        
+
         if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
             $form = new Default_Form_Input_Edit();
             $question = (new Model_Questions())->find($input['qi'])->current();
             $form->setVideoEnabled($question['video_enabled']);
-            
+
             if ($this->_request->isPost()) {
                 // form submitted
                 $data = $this->_request->getPost();
@@ -661,13 +661,23 @@ class InputController extends Zend_Controller_Action
         if (!$inputId) {
             $this->_redirect('/');
         }
+
+        $auth = Zend_Auth::getInstance();
+
         $inputDiscussModel = new Model_InputDiscussion();
         $inputsModel = new Model_Inputs();
+
         $form = new Default_Form_Input_Discussion(null, $this->consultation['discussion_video_enabled']);
+        if($auth->hasIdentity()){
+            $form->populate(['email' => $auth->getIdentity()->email]);
+            $form->getElement('email')->setAttrib('disabled', 'disabled');
+        }
+
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_DiscussionContributionCreatedNotification(),
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]
         );
+
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $this->view->userIdentity = $auth->getIdentity();
@@ -675,6 +685,9 @@ class InputController extends Zend_Controller_Action
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
+            if($auth->hasIdentity()){
+                $post['email'] = $auth->getIdentity()->email;
+            }
             if (isset($post['subscribe'])) {
                 $this->handleSubscribeInputDiscussion($post, $this->consultation->kid, $inputId, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {

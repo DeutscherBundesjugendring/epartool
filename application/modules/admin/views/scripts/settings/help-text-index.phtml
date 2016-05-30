@@ -48,6 +48,42 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                
+                <h2><?=$this->translate('Admin Help Texts');?></h2>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="table-cell-id">#</th>
+                            <th><?=$this->translate('Title');?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->helpTextsAdmin as $helpText): ?>
+                            <tr>
+                                <td class="table-cell-id"><?=$this->escape($helpText->id);?></td>
+                                <td>
+                                    <a
+                                        href="<?=$this->url(['action' => 'help-text-edit', 'id' => $helpText->id]);?>"
+                                        title="<?=$this->translate('Edit help text');?>"
+                                    >
+                                        <?=Model_HelpText::getTranslatedName($helpText->name);?>
+                                    </a>
+                                </td>
+                                <td class="table-cell-actions">
+                                    <a
+                                        class="item-action"
+                                        href="<?=$this->url(['action' => 'help-text-edit', 'id' => $helpText->id]);?>"
+                                        title="<?=$this->translate('Edit help text');?>"
+                                    >
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
