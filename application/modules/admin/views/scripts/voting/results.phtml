@@ -19,7 +19,17 @@
 
             </div>
             <div class="content">
-
+                <a
+                    href="<?=$this->url([
+                        'action' => 'download-excel',
+                        'kid' => $this->currentQuestion['kid'],
+                        'questionId' => $this->currentQuestion['qi']
+                    ]);?>"
+                    class="btn btn-default pull-right"
+                >
+                    <span class="glyphicon glyphicon-download-alt"></span>
+                    <?=$this->translate('Download excel document');?>
+                </a>
                 <h2><?=$this->translate('Voting Results');?></h2>
 
                 <?php if (!empty($this->questions)): ?>

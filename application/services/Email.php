@@ -37,7 +37,7 @@ class Service_Email
                 ->setBodyText($email->body_text);
             foreach ($email->findModel_Mail_Attachment() as $attachment) {
                 $atFilepathArr = explode('/', $attachment->filepath);
-                $at = $mailer->createAttachment(file_get_contents(MEDIA_PATH .'/../' . $attachment->filepath));
+                $at = $mailer->createAttachment(file_get_contents(MEDIA_PATH . $attachment->filepath));
                 $at->type = mime_content_type(MEDIA_PATH . '/' . $attachment->filepath);
                 $at->disposition = Zend_Mime::DISPOSITION_ATTACHMENT;
                 $at->filename = end($atFilepathArr);
