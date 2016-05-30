@@ -237,29 +237,18 @@ themeSettings = () ->
             $('#themes').data('presetTheme', false)
             $("input[name='theme_id']:checked").attr('checked', false)
             return true;
-    $('#color_headings_picker').ColorPicker({
-        color: $('#color_headings').val(),
-        onChange: (hsb, hex, rgb) ->
-            $('#color_headings_picker div').css('backgroundColor', '#' + hex);
-            $('#color_headings').val(hex);
-    });
-    $('#color_headings_picker div').css('backgroundColor', '#' + $('#color_headings').val());
+    colorPicker = (inputId) ->
+        $('#' + inputId + '_picker').ColorPicker({
+            color: $('#' + inputId).val(),
+            onChange: (hsb, hex, rgb) ->
+                $('#' + inputId + '_picker' + ' div').css('backgroundColor', '#' + hex);
+                $('#' + inputId).val(hex);
+        });
+        $('#' + inputId + '_picker' + ' div').css('backgroundColor', '#' + $('#' + inputId).val());
 
-    $('#color_frame_background_picker').ColorPicker({
-        color: $('#color_frame_background').val(),
-        onChange: (hsb, hex, rgb) ->
-            $('#color_frame_background_picker div').css('backgroundColor', '#' + hex);
-            $('#color_frame_background').val(hex);
-    });
-    $('#color_frame_background_picker div').css('backgroundColor', '#' + $('#color_frame_background').val());
-
-    $('#color_active_link_picker').ColorPicker({
-        color: $('#color_active_link').val(),
-        onChange: (hsb, hex, rgb) ->
-            $('#color_active_link_picker div').css('backgroundColor', '#' + hex);
-            $('#color_active_link').val(hex);
-    });
-    $('#color_active_link_picker div').css('backgroundColor', '#' + $('#color_active_link').val());
+    colorPicker('color_headings')
+    colorPicker('color_frame_background')
+    colorPicker('color_active_link')
 
 class mediaSelectPopup
     ###*

@@ -47,6 +47,12 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
             ->setRequired(true)
             ->addValidator('stringLength', false, [3,6]);
         $this->addElement($colorLinkActive);
+        
+        $mitmachenBubble = $this->createElement('checkbox', 'mitmachen_bubble');
+        $mitmachenBubble
+            ->setLabel('Add MitMachen bubble')
+            ->setRequired(false);
+        $this->addElement($mitmachenBubble);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_lookandfeeladmin', array('salt' => 'unique'));

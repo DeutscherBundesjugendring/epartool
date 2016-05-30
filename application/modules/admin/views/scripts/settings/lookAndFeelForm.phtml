@@ -20,7 +20,7 @@
                 type="radio" name="theme_id"
                 value="<?=$themeId;?>"
                 data-colors="<?=$this->escape($this->element->theme_id->color_config[$themeId]);?>"
-                <?php if ($this->element->theme_id->getValue() == $themeId) : ?>
+                <?php if ($this->element->theme_id->getValue() === (string) $themeId) : ?>
                     checked="checked"
                 <?php endif; ?>
                 />
@@ -55,6 +55,8 @@
             <div class="js-color-picker color-selector" id="color_active_link_picker"><div></div></div>
         </div>
     </div>
+    
+    <?=$this->element->mitmachen_bubble;?>
     
     <?=$this->element->submit;?>
     

@@ -218,19 +218,37 @@ class Admin_SettingsController extends Zend_Controller_Action
         $form = new Admin_Form_Settings_LookAndFeel();
 
         if ($this->getRequest()->isPost()) {
-            $data = $this->getRequest()->getPost();
-            if ($form->isValid($data)) {
+            $formData = $this->getRequest()->getPost();
+            if ($form->isValid($formData)) {
                 $db = $projectModel->getAdapter();
                 $db->beginTransaction();
+                $data = [];
+                if (!empty($formData['theme_id'])) {
+                    $data['theme_id'] = $formData['theme_id'];
+                    $data['color_headings'] = $data['color_frame_background'] = $data['color_active_link'] = null;
+                } else {
+                    $data['theme_id'] = null;
+                    $data['color_headings'] = $formData['color_headings'];
+                    $data['color_frame_background'] = $formData['color_frame_background'];
+                    $data['color_active_link'] = $formData['color_active_link'];
+                }
+                
+                if(!empty($formData['logo'])) {
+                    $data['logo'] = $formData['logo'];
+                }
+                
+                if(!empty($formData['favicon'])) {
+                    $data['favicon'] = $formData['favicon'];
+                }
+                
+                if(!empty($formData['mitmachen_bubble'])) {
+                    $data['mitmachen_bubble'] = true;
+                } else {
+                    $data['mitmachen_bubble'] = false;
+                }
+                
                 try {
-                    $projectModel->update([
-                        'theme_id' => !empty($data['theme_id']) ? $data['theme_id'] : null,
-                        'color_headings' => $data['color_headings'],
-                        'color_frame_background' => $data['color_frame_background'],
-                        'color_active_link' => $data['color_active_link'],
-                        'logo' => $data['logo'],
-                        'favicon' => $data['favicon'],
-                    ], ['proj=?' => $projectCode]);
+                    $projectModel->update($data, ['proj=?' => $projectCode]);
                     $db->commit();
                     $this->_flashMessenger->addMessage('Theme was updated.', 'success');
                     $this->redirect('/admin/settings/look-and-feel');
@@ -246,6 +264,12 @@ class Admin_SettingsController extends Zend_Controller_Action
             }
         } else {
             $data = $projectModel->find($projectCode)->current()->toArray();
+            if (!empty($data['theme_id'])) {
+                $theme = (new Model_Theme())->find($data['theme_id'])->current();
+                $data['color_headings'] = $theme['color_headings'];
+                $data['color_frame_background'] = $theme['color_frame_background'];
+                $data['color_active_link'] = $theme['color_active_link'];
+            }
             $form->populate($data);
         }
 

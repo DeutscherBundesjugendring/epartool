@@ -98,10 +98,15 @@ class IndexController extends Zend_Controller_Action
     public function customCssAction()
     {
         $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        if (!empty($project['theme_id'])) {
+            $theme = (new Model_Theme())->find($project['theme_id'])->current();
+        } else {
+            $theme = $project;
+        }
         header('Content-Type: text/css; charset=utf-8');
         echo str_replace(
             ['%color_headings%', '%color_frame_background%', '%color_active_link%'],
-            [$project['color_headings'], $project['color_frame_background'], $project['color_active_link']],
+            [$theme['color_headings'], $theme['color_frame_background'], $theme['color_active_link']],
             file_get_contents(APPLICATION_PATH . '/../assets/front/css/custom.css')
         );
         die();
