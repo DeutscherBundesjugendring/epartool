@@ -3,7 +3,6 @@
 class Default_Form_Input_Create extends Dbjr_Form_Web
 {
     /**
-     *
      * @var bool
      */
     protected $videoEnabled;
@@ -130,7 +129,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setValue($videoService);
         
         $inputForm->addElement('videoId', 'video_id');
-        $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($videoId);
+        $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setValue($videoId);
         
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
@@ -144,7 +144,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      */
     public function getVideoEnabled()
     {
-        return $this->videoEnabled;
+        return $this->videoEnabled && (new Model_Projects())->getVideoServiceStatus();
     }
 
     /**

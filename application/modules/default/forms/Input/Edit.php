@@ -64,7 +64,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
      */
     public function getVideoEnabled()
     {
-        return $this->videoEnabled;
+        return $this->videoEnabled && (new Model_Projects())->getVideoServiceStatus();
     }
 
     /**
