@@ -954,3 +954,7 @@ INSERT INTO `help_text_module` (`name`) VALUES ('default');
 
 ALTER TABLE `help_text`
 ADD FOREIGN KEY (`module`) REFERENCES `help_text_module` (`name`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Migration 2016-05-31_14-14_DBJR-647.sql
+ALTER TABLE `inpt`
+ADD `reminders_sent` int NOT NULL DEFAULT '0';
