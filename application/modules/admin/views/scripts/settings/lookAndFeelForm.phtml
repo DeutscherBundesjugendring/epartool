@@ -6,10 +6,16 @@
 >
     <?=$this->element->csrf_token_lookandfeeladmin;?>
 
+    <h2><?=$this->translate('Logo');?></h2>
     <?=$this->element->logo;?>
 
+    <h2><?=$this->translate('Icon');?></h2>
     <?=$this->element->favicon;?>
 
+    <h2><?=$this->translate('Header');?></h2>
+    <?=$this->element->mitmachen_bubble;?>
+
+    <h2><?=$this->translate('Predefined themens');?></h2>
     <div id="themes">
     <?php foreach ($this->element->theme_id->options as $themeId => $themeName) : ?>
         <label>
@@ -28,36 +34,96 @@
         </label>
     <?php endforeach; ?>
     </div>
-    
-    <div class="row">
-        <div class="col-sm-11">
-            <?=$this->element->color_headings;?>
-        </div>
-        <div class="col-sm-1">
-            <div class="js-color-picker color-selector" id="color_headings_picker"><div></div></div>
+
+    <h2><?=$this->translate('Custom Colours');?></h2>
+    <div class="row offset-bottom">
+        <label
+            <?php if ($this->element->color_headings->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_headings->getName();?>"
+        >
+            <?=$this->element->color_headings->getLabel()?>
+        </label>
+
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_headings->getName();?>"
+                type="text"
+                name="color_frame_background"
+                value="#<?=$this->element->color_headings->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_headings->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_headings->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
     </div>
-    
-    <div class="row">
-        <div class="col-sm-11">
-            <?=$this->element->color_frame_background;?>
-        </div>
-        <div class="col-sm-1">
-            <div class="js-color-picker color-selector" id="color_frame_background_picker"><div></div></div>
+
+    <div class="row offset-bottom">
+        <label
+            <?php if ($this->element->color_frame_background->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_frame_background->getName();?>"
+        >
+            <?=$this->element->color_frame_background->getLabel()?>
+        </label>
+
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_frame_background->getName();?>"
+                type="text"
+                name="color_frame_background"
+                value="#<?=$this->element->color_frame_background->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_frame_background->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_frame_background->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
     </div>
-    
-    <div class="row">
-        <div class="col-sm-11">
-            <?=$this->element->color_active_link;?>
-        </div>
-        <div class="col-sm-1">
-            <div class="js-color-picker color-selector" id="color_active_link_picker"><div></div></div>
+
+    <div class="row offset-bottom">
+        <label
+            <?php if ($this->element->color_active_link->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_active_link->getName();?>"
+        >
+            <?=$this->element->color_active_link->getLabel()?>
+        </label>
+
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_active_link->getName();?>"
+                type="text"
+                name="color_frame_background"
+                value="#<?=$this->element->color_active_link->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_active_link->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_active_link->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
     </div>
-    
-    <?=$this->element->mitmachen_bubble;?>
-    
+
+
     <?=$this->element->submit;?>
     
 </form>

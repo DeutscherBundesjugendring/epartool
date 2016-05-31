@@ -34,6 +34,7 @@ module.exports = {
       '<%= paths.bower %>/bootstrap/js/modal.js',
       '<%= paths.bower %>/bootstrap/js/tooltip.js',
       '<%= paths.bower %>/bootstrap/js/transition.js',
+      '<%= paths.bower %>/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js',
       '<%= paths.bower %>/jquery.ui/ui/jquery.ui.core.js',
       '<%= paths.bower %>/jquery.ui/ui/jquery.ui.widget.js',
       '<%= paths.bower %>/jquery.ui/ui/jquery.ui.mouse.js',

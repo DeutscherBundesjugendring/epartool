@@ -13,20 +13,16 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
             ->setAttrib('enctype', 'multipart/form-data');
 
         $logo = $this->createElement('media', 'logo');
-        $logo
-            ->setLabel('Logo');
         $this->addElement($logo);
         
         $favIcon = $this->createElement('media', 'favicon');
-        $favIcon
-            ->setLabel('Favicon');
         $this->addElement($favIcon);
         
         $theme = $this->createElement('radioTheme', 'theme_id');
         $theme
             ->setRequired(false);
         $this->addElement($theme);
-        
+
         $colorHeadings = $this->createElement('text', 'color_headings');
         $colorHeadings
             ->setLabel('Headings')

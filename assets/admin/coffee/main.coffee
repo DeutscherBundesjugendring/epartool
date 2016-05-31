@@ -219,36 +219,26 @@ themeSettings = () ->
         colorFrameBackground = $('#color_frame_background')
         colorActiveLink = $('#color_active_link')
 
-        colorHeadings.val(colors['color_headings'])
-        colorFrameBackground.val(colors['color_frame_background'])
-        colorActiveLink.val(colors['color_active_link'])
+        colorHeadings.closest('.colorpicker-component').colorpicker('setValue', colors['color_headings']);
+        colorFrameBackground.closest('.colorpicker-component').colorpicker('setValue', colors['color_frame_background']);
+        colorActiveLink.closest('.colorpicker-component').colorpicker('setValue', colors['color_active_link']);
         $('#themes').data('presetTheme', true)
         colorHeadings.data('oldValue', colorHeadings.val())
         colorFrameBackground.data('oldValue', colorFrameBackground.val())
         colorActiveLink.data('oldValue', colorActiveLink.val())
         return true
 
-    $('#color_headings, #color_frame_background, #color_active_link').change () ->
+    $('.colorpicker-component').colorpicker({format: "hex"}).on('change showPicker', () ->
         if $('#themes').data('presetTheme')
             if !confirm(i18n.translate('Do you want to override predefined theme with custom colors set?'))
-                $(this).val($(this).data('oldValue'))
+                $(this).colorpicker('setValue', $(this).find('input').data('oldValue'))
+                $(this).colorpicker('hide')
                 return false;
-            $(this).data('oldValue', $(this).val())
-            $('#themes').data('presetTheme', false)
-            $("input[name='theme_id']:checked").attr('checked', false)
-            return true;
-    colorPicker = (inputId) ->
-        $('#' + inputId + '_picker').ColorPicker({
-            color: $('#' + inputId).val(),
-            onChange: (hsb, hex, rgb) ->
-                $('#' + inputId + '_picker' + ' div').css('backgroundColor', '#' + hex);
-                $('#' + inputId).val(hex);
-        });
-        $('#' + inputId + '_picker' + ' div').css('backgroundColor', '#' + $('#' + inputId).val());
-
-    colorPicker('color_headings')
-    colorPicker('color_frame_background')
-    colorPicker('color_active_link')
+        $(this).find('input').data('oldValue', $(this).colorpicker('getValue'))
+        $('#themes').data('presetTheme', false)
+        $("input[name='theme_id']:checked").attr('checked', false)
+        return true;
+    );
 
 class mediaSelectPopup
     ###*

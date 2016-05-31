@@ -228,20 +228,20 @@ class Admin_SettingsController extends Zend_Controller_Action
                     $data['color_headings'] = $data['color_frame_background'] = $data['color_active_link'] = null;
                 } else {
                     $data['theme_id'] = null;
-                    $data['color_headings'] = $formData['color_headings'];
-                    $data['color_frame_background'] = $formData['color_frame_background'];
-                    $data['color_active_link'] = $formData['color_active_link'];
+                    $data['color_headings'] = mb_substr($formData['color_headings'], 1);
+                    $data['color_frame_background'] = mb_substr($formData['color_frame_background'], 1);
+                    $data['color_active_link'] = mb_substr($formData['color_active_link'], 1);
                 }
                 
-                if(!empty($formData['logo'])) {
+                if (!empty($formData['logo'])) {
                     $data['logo'] = $formData['logo'];
                 }
                 
-                if(!empty($formData['favicon'])) {
+                if (!empty($formData['favicon'])) {
                     $data['favicon'] = $formData['favicon'];
                 }
                 
-                if(!empty($formData['mitmachen_bubble'])) {
+                if (!empty($formData['mitmachen_bubble'])) {
                     $data['mitmachen_bubble'] = true;
                 } else {
                     $data['mitmachen_bubble'] = false;

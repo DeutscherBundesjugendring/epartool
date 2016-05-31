@@ -26,6 +26,12 @@ module.exports = {
         cwd: '<%= paths.bower %>/ckeditor',
         src: ['**/*'],
         dest: '<%= paths.dist %>/vendor/ckeditor'
+      },
+      {
+        expand: true,
+        cwd: '<%= paths.bower %>/mjolnic-bootstrap-colorpicker',
+        src: ['**/*'],
+        dest: '<%= paths.dist %>/vendor/mjolnic-bootstrap-colorpicker'
       }
     ]
   },
