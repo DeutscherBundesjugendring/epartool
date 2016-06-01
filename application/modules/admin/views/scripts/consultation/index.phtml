@@ -1,4 +1,4 @@
-<section class="section-header has-tabs" xmlns="http://www.w3.org/1999/html">
+<section class="section-header">
     <div class="container">
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation->titl);?></h1>
@@ -11,7 +11,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'dashboard');?>
 
@@ -42,7 +42,7 @@
                                                     data-confirm-message="<?=$this->translate('Delete contribution?');?>"
                                                     title="<?=$this->translate('Delete');?>"
                                                     >
-                                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                                                 </button>
                                             </div>
                                             <div class="media-body">
@@ -54,7 +54,7 @@
 
                                         <footer>
                                             <?php if (!empty($input['name'])): ?>
-                                                <span class="glyphicon glyphicon-user"></span>
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                                 <a
                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid']]);?>"
                                                     title="<?=$this->translate('Show contributions by');?> <?=$this->escape($input['name']);?>"
@@ -69,7 +69,7 @@
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <p class="alert alert-info">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     <?=$this->translate('There are no unprocessed contributions.');?>
                                 </p>
                             <?php endif; ?>
@@ -96,7 +96,7 @@
                                                     data-confirm-message="<?=$this->translate('Delete discussion post?');?>"
                                                     title="<?=$this->translate('Delete');?>"
                                                     >
-                                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                                                 </button>
                                             </div>
                                             <div class="media-body">
@@ -108,7 +108,7 @@
 
                                         <footer>
                                             <?php if (!empty($contrib['name'])): ?>
-                                                <span class="glyphicon glyphicon-user"></span>
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                                 <?=$this->escape($contrib['name']);?>,
                                             <?php endif; ?>
                                             <?=$this->formatDate($contrib->time_created);?>
@@ -118,7 +118,7 @@
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <p class="alert alert-info">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     <?=$this->translate('There are no discussion posts yet.');?>
                                 </p>
                             <?php endif; ?>

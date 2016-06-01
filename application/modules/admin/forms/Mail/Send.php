@@ -166,7 +166,7 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('Send')
             ->setOrder(1002);
         $this->addElement($submit);

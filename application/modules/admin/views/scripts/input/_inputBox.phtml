@@ -20,7 +20,7 @@
             <small>
                 <?php if (!empty($this->input['uid'])): ?>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>">
-                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <?php if ($this->input['name']): ?>
                             <?=$this->escape($this->input['name']);?>,
                         <?php endif;?>
@@ -49,7 +49,7 @@
         <?php if ($this->input['input_discussion_contrib']): ?>
             <p>
                 <span class="label label-warning">
-                    <span class="glyphicon glyphicon-comment"></span>
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                     <?=$this->translate('Created from discussion post.');?>
                 </span>
             </p>
@@ -60,17 +60,17 @@
             <?=$this->translate('Admin Confirmation');?><br />
             <?php if ($this->input['block'] === 'u'): ?>
                 <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
             <?php elseif ($this->input['block'] === 'y'): ?>
                 <span class="label label-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('Blocked'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
                 </span>
             <?php elseif ($this->input['block'] === 'n'): ?>
                 <span class="label label-success">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Confirmed'); // Yes no is switched as in db the actual column is 'blocked', thus negative?>
                 </span>
             <?php endif; ?>
@@ -79,17 +79,17 @@
             <?=$this->translate('User Confirmation');?><br />
             <?php if ($this->input['user_conf'] === 'u'): ?>
                 <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
             <?php elseif ($this->input['user_conf'] === 'r'): ?>
                 <span class="label label-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('Rejected');?>
                 </span>
             <?php elseif ($this->input['user_conf'] === 'c'): ?>
                 <span class="label label-success">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Confirmed');?>
                 </span>
             <?php endif; ?>
@@ -98,17 +98,17 @@
             <?=$this->translate('Voting');?><br />
             <?php if ($this->input['vot'] === 'u'): ?>
                 <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
             <?php elseif ($this->input['vot'] === 'y'): ?>
                 <span class="label label-success">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Yes');?>
                 </span>
             <?php elseif ($this->input['vot'] === 'n'): ?>
                 <span class="label label-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('No');?>
                 </span>
             <?php endif; ?>
@@ -126,7 +126,7 @@
                 class="item-action"
                 title="<?=$this->translate('Show discussion');?>"
                 >
-                <span class="glyphicon glyphicon-comment"></span>
+                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
             </a>
         <?php endif; ?>
         <a
@@ -134,7 +134,7 @@
             class="item-action"
             title="<?=$this->translate('Edit contribution');?>"
             >
-            <span class="glyphicon glyphicon-pencil"></span>
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
         <button
             class="item-action item-action-danger"
@@ -144,7 +144,7 @@
             data-confirm-message="<?=$this->translate('Delete contribution?');?>"
             title="<?=$this->translate('Delete contribution');?>"
         >
-            <span class="glyphicon glyphicon-trash"></span>
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </button>
     </td>
 </tr>

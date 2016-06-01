@@ -50,7 +50,7 @@ class Admin_Form_ArticlePreview extends Dbjr_Form_Admin
 
         $submit = $this->createElement('submit', 'backFromPreview');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('< Back to edit mode');
         $this->addElement($submit);
 

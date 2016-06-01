@@ -37,7 +37,7 @@
         <p>
             <small>
                 <?php if (!empty($this->input['name'])): ?>
-                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->escape($this->input['name']);?></a>,
                 <?php endif; ?>
                 <?=$this->formatDate($this->input['when']);?>
@@ -59,7 +59,7 @@
                 class="item-action"
                 title="<?=$this->translate('Add related contributions');?>"
             >
-                <span class="glyphicon glyphicon-plus-sign"></span>
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
             </a>
         </h5>
         <?php if (!empty($this->input['related'])): ?>
@@ -80,7 +80,7 @@
                             title="<?=$this->translate('Unlink contribution');?>"
                             data-confirm-message="<?=$this->translate('Unlink contribution');?>?"
                         >
-                            <span class="glyphicon glyphicon-remove-sign"></span>
+                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                         </button>
                     </li>
                 <?php endforeach; ?>
@@ -93,7 +93,7 @@
         <p>
             <?=$this->translate('Origin');?><br />
             <span class="label label-info">
-                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <?=$this->input['rel_tid'] ? $this->translate('Admin') : $this->translate('User');?>
             </span>
         </p>
@@ -101,17 +101,17 @@
             <?=$this->translate('Admin Confirmation');?><br />
             <?php if ($this->input['block'] === 'y'): ?>
                 <span class="label label-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('Blocked');?>
                 </span>
             <?php elseif ($this->input['block'] === 'n'): ?>
                 <span class="label label-success">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Confirmed');?>
                 </span>
             <?php else: ?>
                 <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
             <?php endif; ?>
@@ -120,17 +120,17 @@
             <?=$this->translate('Voting');?><br />
             <?php if ($this->input['vot'] === 'y'): ?>
                 <span class="label label-success">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Yes');?>
                 </span>
             <?php elseif ($this->input['vot'] === 'n'): ?>
                 <span class="label label-danger">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('No');?>
                 </span>
             <?php else: ?>
                 <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
             <?php endif; ?>
@@ -144,21 +144,21 @@
                 href="<?=$this->url(['controller' => 'input', 'action' => 'edit', 'tid' => $this->input['tid'], 'return' => 'votingprepare']);?>"
                 title="<?=$this->translate('Edit contribution');?>"
             >
-                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             </a>
             <a
                 class="item-action"
                 href="<?=$this->url(['action' => 'copy', 'inputId' => $this->input['tid']]);?>"
                 title="<?=$this->translate('Copy contribution');?>"
             >
-                <span class="glyphicon glyphicon-th-large"></span>
+                <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
             </a>
             <a
                 class="item-action"
                 href="<?=$this->url(['action' => 'split', 'inputId' => $this->input['tid']]);?>"
                 title="<?=$this->translate('Split contribution');?>"
             >
-                <span class="glyphicon glyphicon-resize-full"></span>
+                <span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>
             </a>
             <button
                 class="item-action item-action-danger"
@@ -168,7 +168,7 @@
                 data-confirm-message="<?=$this->translate('Delete contribution?');?>"
                 title="<?=$this->translate('Delete contribution');?>"
             >
-                <span class="glyphicon glyphicon-trash"></span>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
         </td>
     <?php endif; ?>

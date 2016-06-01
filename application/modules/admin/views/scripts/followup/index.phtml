@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <?=$this->helpText('help-text-admin-consultation-follow-up');?>
@@ -13,7 +13,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'followup');?>
 
@@ -21,14 +21,14 @@
             <div class="content">
 
                 <a href="<?=$this->url(['action' => 'create-followup']);?>" class="btn btn-default pull-right">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <span class="glyphicon glyphicon-plus-sign offset-right" aria-hidden="true"></span>
                     <?=$this->translate('New Follow-up');?>
                 </a>
                 <h2><?=$this->translate('Follow-up');?></h2>
 
                 <?php if (!count($this->followupFiles)): ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no follow-ups yet.');?>
                     </p>
                 <?php else: ?>
@@ -60,14 +60,14 @@
                                                 class="item-action"
                                                 title="<?=$this->translate('Edit follow-up');?>"
                                             >
-                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </a>
                                             <a
                                                 href="<?=$this->url(['action' => 'snippets', 'ffid' => $followupFile['ffid']]);?>"
                                                 class="item-action"
                                                 title="<?=$this->translate('Edit snippets');?>"
                                             >
-                                                <span class="glyphicon glyphicon-th-list"></span>
+                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                                             </a>
                                             <button
                                                 value="<?=$this->escape($followupFile['ffid']);?>"
@@ -77,7 +77,7 @@
                                                 data-confirm-message="<?=$this->translate('Delete follow-up?');?>"
                                                 title="<?=$this->translate('Delete follow-up');?>"
                                             >
-                                                <span class="glyphicon glyphicon-trash"></span>
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                         </td>
                                     </tr>

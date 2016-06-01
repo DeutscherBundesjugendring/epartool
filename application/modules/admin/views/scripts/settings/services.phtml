@@ -6,7 +6,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->settingsNavigation('services');?>
 
@@ -16,7 +16,7 @@
                 <h2><?=$this->translate('Services');?></h2>
                 <?php if (!$this->form->getVideosServiceAccess()) : ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-info-sign offset-right" aria-hidden="true"></span>
                         In case one or more of the services is greyed-out and cannot be activated, please contact you
                         administrator or support. It is probably due to misconfiguration of service access applications in
                         ePartool configuration files.

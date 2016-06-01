@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation->titl);?></h1>
@@ -11,7 +11,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationEditNavigation($this->consultation->kid, 'general');?>
 
@@ -28,7 +28,7 @@
                                     data-toggle="confirm"
                                     data-confirm-message="<?=$this->translate('Close consultation?');?>"
                                 >
-                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                                     <?=$this->translate('Close');?>
                                 </a>
                                 <a
@@ -37,7 +37,7 @@
                                     data-toggle="confirm"
                                     data-confirm-message="<?=$this->translate('Delete consultation?');?>"
                                 >
-                                    <span class="glyphicon glyphicon-trash"></span>
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     <?=$this->translate('Delete');?>
                                 </a>
                             </div>

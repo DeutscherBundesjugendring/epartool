@@ -5,8 +5,8 @@
                 <h1 class="section-header-title"><?=$this->translate('Users');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(['action' => 'create']);?>" class="btn btn-primary cta">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
+                <a href="<?=$this->url(['action' => 'create']);?>" class="btn btn-primary btn-raised cta">
+                    <span class="glyphicon glyphicon-plus-sign offset-right" aria-hidden="true"></span>
                     <?=$this->translate('New User');?>
                 </a>
             </div>
@@ -18,7 +18,7 @@
 
         <?php if (!count($this->userlist)): ?>
             <p class="alert alert-info">
-                <span class="glyphicon glyphicon-info-sign"></span>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 <?=$this->translate('There are no users yet.');?>
             </p>
         <?php else: ?>
@@ -77,14 +77,14 @@
                                             </td>
                                             <td class="table-cell-actions">
                                                 <a class="item-action" href="<?=$this->url(['action' => 'edit', 'uid' => $user->uid]);?>" title="<?=$this->translate('Edit user');?>">
-                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                                 </a>
                                                 <a
                                                     class="item-action"
                                                     href="<?=$this->url(['action' => 'transfer-contributions', 'uid' => $user->uid]);?>"
                                                     title="<?=$this->translate('Transfer contributions to another user');?>"
                                                 >
-                                                    <span class="glyphicon glyphicon-transfer"></span>
+                                                    <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                                                 </a>
                                                 <button
                                                     value="<?=$this->escape($user->uid);?>"
@@ -93,7 +93,7 @@
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Are you sure? All contributions by this user will be made anonymous.');?>"
                                                 >
-                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>
                                             </td>
                                         </tr>
