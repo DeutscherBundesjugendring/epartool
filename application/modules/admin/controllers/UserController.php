@@ -108,19 +108,20 @@ class Admin_UserController extends Zend_Controller_Action
         foreach ($consultations as $i => $consultation) {
             $url = '/admin/input/list-by-user/kid/' . $consultation["kid"] . '/uid/' . $uid;
             $label = $consultation['titl'] . ' (' . $consultation['count'] . ')';
+            $translator = Zend_Registry::get('Zend_Translate');
             $form->addElement(
                 'select',
                 'transfer_' . $consultation["kid"],
                 [
-                    'label' => 'Transfer contributions from: <a href="'
-                        . $url . '" target="_blank">' . $label . '</a>',
+                    'label' => $translator->translate('Transfer contributions from')
+                        . ': <a href="' . $url . '" target="_blank">' . $label . '</a>',
                     'required' => false,
                     'data-onload-select2' => '{}',
                     'options' => array(0 => '…'),
                     'order' => $i,
                 ]
             );
-            $transferOptions = array(0 => 'Please select');
+            $transferOptions = array(0 => $translator->translate('Please select'));
             $users = $userModel->getAllConfirmed();
             foreach ($users as $tmpuser) {
                 $transferOptions[$tmpuser['uid']] = '';
