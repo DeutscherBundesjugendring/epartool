@@ -111,7 +111,13 @@
             © DBJR <?=date('Y');?>
             <?php if ($this->toolVersion() !== 0) : ?>
                 <span class="footer-divider">|</span>
-                <a href="http://go.dbjr.de/epartool" target="_blank"><?=$this->toolVersion();?></a>
+                <a
+                    href="http://go.dbjr.de/epartool"
+                    target="_blank"
+                    title="<?=$this->translate('Go to ePartool\'s developer site');?>"
+                >
+                    <?=$this->toolVersion();?>
+                </a>
             <?php endif;?>
             <a href="http://www.visionapps.cz" target="_blank" class="footer-author" title="Created by VisionApps">
                 <img src="<?=$this->baseUrl('images/admin/visionapps.svg');?>" width="100" height="18" alt="VisionApps" />
