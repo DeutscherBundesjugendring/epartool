@@ -75,6 +75,10 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
         $this->addElement($hash);
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     public function isValid($data)
     {
         $bodyEl = $this->getElement('body');

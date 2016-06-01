@@ -25,7 +25,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setLabel('Contribution')
             ->setAttrib('cols', 85)
             ->setAttrib('rows', 3)
-            ->setRequired(true)
+            ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags', 'HtmlEntities'])
             ->addValidators(['NotEmpty']);
@@ -75,5 +75,29 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
     {
         $this->videoEnabled = $videoEnabled;
         return $this;
+    }
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function isValid($data)
+    {
+        $thesEl = $this->getElement('thes');
+        $videoIdEl = $this->getElement('video_id');
+        $thesEl->clearErrorMessages();
+        if ($videoIdEl !== null) {
+            $videoIdEl->clearErrorMessages();
+        }
+        if (empty($data['thes']) && empty($data['video_id'])) {
+            $msg = Zend_Registry::get('Zend_Translate')->translate('Either text or video have to be submitted.');
+            $thesEl->addError($msg);
+            if ($videoIdEl !== null) {
+                $videoIdEl->addError($msg);
+            }
+            $this->markAsError();
+        }
+
+        return parent::isValid($data);
     }
 }
