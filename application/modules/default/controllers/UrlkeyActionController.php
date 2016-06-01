@@ -33,6 +33,8 @@ class UrlkeyActionController extends Zend_Controller_Action
                 $db->commit();
                 if ($handler->getViewName()) {
                     $this->render($handler->getViewName());
+                } elseif ($handler->getRedirectUrl()) {
+                    $this->redirect($handler->getRedirectUrl());
                 } else {
                     $this->redirect('/');
                 }
