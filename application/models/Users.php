@@ -505,6 +505,21 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             unset($data['password']);
         }
         $user->setFromArray($data);
-        return $user->save();
+        $result = $user->save();
+        $this->updateAuthIdentity($data);
+        return $result;
+    }
+
+    /**
+     * @param array $newUserInfo
+     */
+    private function updateAuthIdentity($newUserInfo)
+    {
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+
+        foreach (['name', 'nick'] as $key) {
+            $identity->{$key} = empty($newUserInfo[$key]) ? null : $newUserInfo[$key];
+        }
     }
 }
