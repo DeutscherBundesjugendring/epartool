@@ -16,8 +16,12 @@
             <a href="mailto:<?=$this->user['email'];?>"><?=$this->user['email'];?></a>
             <br />
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <?=$this->translate('Last contribution on:');?>
-            <?=$this->formatDate($this->lastUserContribution, Zend_Date::DATETIME_SHORT);?>
+            <?php if ($this->lastUserContribution) : ?>
+                <?=$this->translate('Last contribution on:');?>
+                <?=$this->formatDate($this->lastUserContribution, Zend_Date::DATETIME_SHORT);?>
+            <?php else : ?>
+                <?=$this->translate('No contributions yet');?>
+            <?php endif; ?>
         </div>
 
         <?=$this->form;?>
