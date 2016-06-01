@@ -35,6 +35,8 @@
                                         <?=$this->escape($contrib->nick);?>,
                                     <?php elseif (!empty($contrib->name)) : ?>
                                         <?=$this->escape($contrib->name);?>,
+                                    <?php else : ?>
+                                        <?=$this->translate('Anonymous');?>
                                     <?php endif; ?>
                                     <?=$this->formatDate($contrib->time_created);?>
                                 </small>
