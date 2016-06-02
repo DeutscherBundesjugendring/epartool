@@ -353,8 +353,9 @@ class InputController extends Zend_Controller_Action
                         'qi' => $qid,
                         'thes' => $input['thes'],
                         'expl' => $input['expl'],
-                        'video_service' => isset($input['video_service']) ? $input['video_service'] : null,
-                        'video_id' => isset($input['video_id']) ? $input['video_id'] : null,
+                        'video_service' => !empty($input['video_id']) && isset($input['video_service']) ?
+                            $input['video_service'] : null,
+                        'video_id' => !empty($input['video_id']) ? $input['video_id'] : null,
                     ];
                     $sessInputs->inputs = $tmpCollection;
                 }
@@ -606,7 +607,8 @@ class InputController extends Zend_Controller_Action
             } else {
                 $data = ['thes' => $contribution['thes'], 'expl' => $contribution['expl']];
                 if ($contribution['video_service'] !== null) {
-                    $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
+                    $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)
+                        ->current();
                     if ($project['video_' . $contribution['video_service'] . '_enabled']) {
                         $data['video_service'] = $contribution['video_service'];
                         $data['video_id'] = $contribution['video_id'];

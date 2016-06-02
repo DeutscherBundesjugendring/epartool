@@ -11,7 +11,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputEditForm.phtml'))));
-        
+        $this->getView()->setEscape('html_entity_decode');
         $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
