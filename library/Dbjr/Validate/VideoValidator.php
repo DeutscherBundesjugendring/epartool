@@ -47,12 +47,14 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
 
         if ($accessToken['httpCode'] !== 200) {
             $this->_error(self::API_UNAVAILABLE);
+
             return false;
         }
         
         $jsonResponse = json_decode($accessToken['output'], true);
         if ($jsonResponse && isset($jsonResponse['error'])) {
             $this->_error(self::API_UNAVAILABLE);
+
             return false;
         }
 
@@ -64,8 +66,8 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
                 return true;
             }
         }
-        
         $this->_error(self::NOT_PUBLIC);
+
         return false;
     }
     
@@ -83,13 +85,15 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
             if ($jsonResponse && isset($jsonResponse['privacy']) && isset($jsonResponse['privacy']['embed'])
                 && strpos('public', $jsonResponse['privacy']['embed']) !== false
                 && strpos('anybody', $jsonResponse['privacy']['view']) !== false) {
+
                 return true;
             }
             $this->_error(self::NOT_PUBLIC);
+
             return false;
         }
-
         $this->_error(self::API_UNAVAILABLE);
+
         return false;
     }
     
@@ -108,10 +112,11 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
             return true;
         } elseif ($response['httpCode'] === 401) {
             $this->_error(self::NOT_PUBLIC);
+
             return false;
         }
-
         $this->_error(self::API_UNAVAILABLE);
+
         return false;
     }
 
@@ -140,6 +145,7 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
+
         return ['httpCode' => $httpCode, 'output' => $output];
     }
 }
