@@ -360,26 +360,34 @@ class UserController extends Zend_Controller_Action
             $this->redirect('/', ['prependBase' => false]);
         }
 
-        $form->populate(['email' => $user['email']]);
-        if ($form->isValid($this->getRequest()->getPost())) {
-            $data = $form->getValues();
-            try {
-                if ($userModel->updateProfile($user, $data)) {
-                    $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
-                    $this->redirect($this->view->url(), ['prependBase' => false]);
+        if ($this->_request->isPost()) {
+            if ($form->isValid($this->getRequest()->getPost())) {
+                $data = $form->getValues();
+                try {
+                    if ($userModel->updateProfile($user, $data)) {
+                        $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
+                        $this->redirect($this->view->url(), ['prependBase' => false]);
+                    }
+                    $this->_flashMessenger->addMessage(
+                        'Your profile cannot be updated. Please try it again.',
+                        'error'
+                    );
+                } catch (Zend_Auth_Exception $e) {
+                    $this->_flashMessenger->addMessage(
+                        'Your current password does not match. Please try it again',
+                        'error'
+                    );
                 }
+            } else {
+                $form->populate(['email' => $user['email']]);
                 $this->_flashMessenger->addMessage(
                     'Your profile cannot be updated. Please check the errors marked in the form below and try again.',
-                    'error'
-                );
-            } catch (Zend_Auth_Exception $e) {
-                $this->_flashMessenger->addMessage(
-                    'Your current password does not match. Please try it again',
                     'error'
                 );
             }
         } else {
             $form->populate($user->toArray());
+            $form->populate(['email' => $user['email']]);
         }
 
         $this->view->form = $form;
