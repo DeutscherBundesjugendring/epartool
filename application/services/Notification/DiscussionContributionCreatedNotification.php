@@ -95,10 +95,12 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
                     'website_url' => Zend_Registry::get('baseUrl')
                         . '/input/discussion/kid/' . $contrib->kid . '/inputId/' . $contrib->input_id,
                     'contribution_text' => $contrib->body,
-                    'video_url' => sprintf(
-                        Zend_Registry::get('systemconfig')->video->url->format->link,
-                        $contrib->video_id
-                    ),
+                    'video_url' => !empty($contrib['video_service']) && !empty($contrib['video_id']) ?
+                        sprintf(
+                            Zend_Registry::get('systemconfig')->video->url->{$contrib['video_service']}
+                                ->format->link,
+                            $contrib['video_id']
+                        ) : '',
                     'unsubscribe_url' => Zend_Registry::get('baseUrl')
                         . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                 ])
