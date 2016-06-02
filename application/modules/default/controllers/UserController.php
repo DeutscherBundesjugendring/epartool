@@ -135,24 +135,6 @@ class UserController extends Zend_Controller_Action
         }
     }
 
-    public function inputlistAction()
-    {
-        $kid = isset($this->_consultation->kid) ? $this->_consultation->kid : 0;
-        $consultationModel = new Model_Consultations();
-        if ($this->_auth->hasIdentity()) {
-            $identity = $this->_auth->getIdentity();
-            if ($kid == 0) {
-                $this->view->consultationList = $consultationModel->getByUser($identity->uid);
-            } elseif ($kid > 0) {
-                $this->view->consultation = $consultationModel->find($kid)->current();
-                $inputModel = new Model_Inputs();
-                $this->view->inputs = $inputModel->getUserEntriesOverview($identity->uid, $kid);
-            }
-        } else {
-            $this->_flashMessenger->addMessage('Please log in first', 'error');
-        }
-    }
-
     public function passwordrecoverAction()
     {
         $form = new Default_Form_PasswordRecover();
