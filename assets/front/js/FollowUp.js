@@ -262,7 +262,7 @@
             var _content =
                 '<div class="well well-accent ' + _activeDocClass + '">' +
                 '<div class="row">' +
-                  '<div class="col-sm-3"><img src="' + data.mediafolder + data.doc.ref_doc + '" class="img-responsive pull-left" /></div>' +
+                  '<div class="col-sm-3"><img src="' + data.mediafolder + data.doc.gfx_who + '" class="img-responsive pull-left" /></div>' +
                     '<div class="cols-sm-9">' +
                       '<p>' + data.doc.who + '</p>' +
                       '<p class="small">' + when + '</p>' +
