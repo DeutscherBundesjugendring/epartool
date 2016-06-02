@@ -727,11 +727,14 @@ class InputController extends Zend_Controller_Action
                                     'to_name' => $user->name ? $user->name : $user->email,
                                     'to_email' => $user->email,
                                     'contribution_text' => $formData['body'],
-                                    'video_url' => sprintf(
-                                        Zend_Registry::get('systemconfig')->video->url->format->link,
-                                        $formData['video_id']
-                                    ),
-                                    'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                                    'video_url' => !empty($formData['video_service']) && !empty($formData['video_id']) ?
+                                        sprintf(
+                                            Zend_Registry::get('systemconfig')->video->url->{$formData['video_service']}
+                                                ->format->link,
+                                            $formData['video_id']
+                                        ) : '',
+                                    'confirmation_url' => Zend_Registry::get('baseUrl')
+                                        . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                                 ])
                                 ->addTo($user->email);
                             (new Service_Email)
