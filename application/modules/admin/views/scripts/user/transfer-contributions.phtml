@@ -1,8 +1,6 @@
 <section class="section-header">
     <div class="container">
-        <div class="row">
-            <h1 class="section-header-title"><?=$this->translate('Transfer User Contributions');?></h1>
-        </div>
+        <h1 class="section-header-title"><?=$this->translate('Transfer User Contributions');?></h1>
     </div>
 </section>
 <section class="section-content">
@@ -10,21 +8,26 @@
 
         <a href="<?=$this->url(['action' => 'index']);?>" class="back"><?=$this->translate('Back to Users');?></a>
 
-        <div class="offset-bottom">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <strong><?=$this->user['name'];?></strong>
-            <a href="mailto:<?=$this->user['email'];?>"><?=$this->user['email'];?></a>
-            <br />
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <?php if ($this->lastUserContribution) : ?>
-                <?=$this->translate('Last contribution on:');?>
-                <?=$this->formatDate($this->lastUserContribution, Zend_Date::DATETIME_SHORT);?>
-            <?php else : ?>
-                <?=$this->translate('No contributions yet');?>
-            <?php endif; ?>
-        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
 
-        <?=$this->form;?>
+                <div class="offset-bottom">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <strong><?=$this->user['name'];?></strong>
+                    <a href="mailto:<?=$this->user['email'];?>"><?=$this->user['email'];?></a>
+                    <br />
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    <?php if ($this->lastUserContribution) : ?>
+                        <?=$this->translate('Last contribution on:');?>
+                        <?=$this->formatDate($this->lastUserContribution, Zend_Date::DATETIME_SHORT);?>
+                    <?php else : ?>
+                        <?=$this->translate('No contributions yet');?>
+                    <?php endif; ?>
+                </div>
+                <?=$this->form;?>
+
+            </div>
+        </div>
 
     </div>
 </section>

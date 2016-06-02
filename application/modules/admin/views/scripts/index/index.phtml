@@ -5,8 +5,8 @@
                 <h1 class="section-header-title"><?=$this->translate('Consultations');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'new']);?>" class="cta btn btn-primary">
-                    <span class="glyphicon glyphicon-plus-sign"></span> <?=$this->translate('New Consultation');?>
+                <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'new']);?>" class="cta btn btn-primary btn-raised">
+                    <span class="glyphicon glyphicon-plus-sign offset-right" aria-hidden="true"></span> <?=$this->translate('New Consultation');?>
                 </a>
             </div>
         </div>
@@ -26,7 +26,7 @@
                             class="panel-action"
                             title="<?=$this->translate('Consultation settings');?>"
                         >
-                            <span class="glyphicon glyphicon-cog"></span>
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
                         <a href="<?=$this->url(['controller' => 'consultation', 'action' => 'index', 'kid' => $kid]);?>">
                             <h2 class="panel-title panel-title-big"><?=$this->escape($consultation['titl']);?></h2>
@@ -95,7 +95,7 @@
                                                                     data-confirm-message="<?=$this->translate('Delete contribution?');?>"
                                                                     title="<?=$this->translate('Delete');?>"
                                                                     >
-                                                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                                                                 </button>
                                                             </div>
                                                             <div class="media-body">
@@ -109,7 +109,7 @@
 
                                                         <footer>
                                                             <?php if (!empty($input['name'])): ?>
-                                                                <span class="glyphicon glyphicon-user"></span>
+                                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                                                 <a
                                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $input['uid'], 'kid' => $kid]);?>"
                                                                     title="<?=$this->translate('Show contributions by');?> <?=$this->escape($input['name']);?>"
@@ -131,7 +131,7 @@
                                         </p>
                                     <?php else: ?>
                                         <p>
-                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                             <?=$this->translate('No contributions yet.');?>
                                         </p>
                                     <?php endif; ?>
@@ -156,7 +156,7 @@
                                                                     data-confirm-message="<?=$this->translate('Delete discussion post?');?>"
                                                                     title="<?=$this->translate('Delete');?>"
                                                                     >
-                                                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                                                                 </button>
                                                             </div>
                                                             <div class="media-body">
@@ -168,7 +168,7 @@
 
                                                         <footer>
                                                             <?php if (!empty($contrib['name'])): ?>
-                                                                <span class="glyphicon glyphicon-user"></span>
+                                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                                                 <?=$this->escape($contrib['name']);?>,
                                                             <?php endif; ?>
                                                             <?=$this->formatDate($contrib->time_created);?>
@@ -183,7 +183,7 @@
                                         </a>
                                     <?php else: ?>
                                         <p>
-                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                             <?=$this->translate('No posts yet.');?>
                                         </p>
                                     <?php endif; ?>

@@ -90,7 +90,7 @@ class Admin_Form_Article extends Dbjr_Form_Admin
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('Save');
         $this->addElement($submit);
 

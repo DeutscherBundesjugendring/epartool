@@ -16,7 +16,7 @@ class Admin_View_Helper_TabsNavigation extends Zend_View_Helper_Abstract
      */
     public function tabsNavigation($items, $activeItem = null)
     {
-        $html = '<ul class="nav nav-tabs nav-tabs-header">';
+        $html = '<ul role="tablist" class="nav nav-tabs nav-tabs-header">';
 
         foreach ($items as $item) {
 

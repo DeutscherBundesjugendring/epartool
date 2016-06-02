@@ -126,7 +126,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $this->addElement($hash);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setAttrib('class', 'btn-primary');
+        $submit->setAttrib('class', 'btn-primary btn-raised');
         if ($this->afterSubmitAction === self::AFTER_SUBMIT_RETURN_TO_INDEX) {
             $submit->setLabel('Save and return to index');
         } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_SPLIT_NEXT) {

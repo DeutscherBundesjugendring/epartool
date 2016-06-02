@@ -126,7 +126,7 @@
                             <!-- Support -->
                             <?php if ($this->consultation->spprt_show === 'y'): ?>
                                 <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="offset-right">
-                                    <span class="glyphicon glyphicon-ok-sign icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
                                     <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
                                         <?=$this->escape($input['spprts']);?>
                                     </small>
@@ -152,7 +152,7 @@
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                     class="link-unstyled link-print-nourl"
                                 >
-                                    <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-comment icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
                                 </a>
                                 <a
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"

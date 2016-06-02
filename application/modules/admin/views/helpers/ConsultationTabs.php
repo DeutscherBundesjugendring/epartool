@@ -14,13 +14,13 @@ class Admin_View_Helper_ConsultationTabs extends Zend_View_Helper_Abstract
             [
                 'name' => 'consultation',
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'index')),
-                'icon' => '<span class="glyphicon glyphicon-folder-close"></span>',
+                'icon' => '<span class="glyphicon glyphicon-folder-close offset-right" aria-hidden="true"></span>',
                 'label' => $this->view->translate('Consultation'),
             ],
             [
                 'name' => 'settings',
                 'href' => $this->view->url(array('controller' => 'consultation', 'action' => 'edit')),
-                'icon' => '<span class="glyphicon glyphicon-cog"></span>',
+                'icon' => '<span class="glyphicon glyphicon-cog offset-right" aria-hidden="true"></span>',
                 'label' => $this->view->translate('Settings'),
             ]
 

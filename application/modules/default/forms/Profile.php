@@ -83,7 +83,7 @@ class Default_Form_Profile extends Dbjr_Form_Web
             ->setLabel('Send');
         $this->addElement($submit);
 
-        $hash = $this->createElement('hash', 'csrf_token_register', ['salt' => 'unique']);
+        $hash = $this->createElement('hash', 'csrf_token_profile', ['salt' => 'unique']);
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         $this->addElement($hash);
     }

@@ -1,20 +1,13 @@
 {
   "name": "dbjr",
   "dependencies": {
-    "bootstrap": "~3.3.2",
+    "bootstrap": "~3.3.6",
     "less-modules": "~0.3.0",
-    "synergic-ui": "~0.8.1",
+    "synergic-ui": "^1.0.0",
     "html5shiv": "~3.7.0",
     "jquery": "~1.11.3",
     "jquery.ui": "~1.10.3",
     "pwstrength-bootstrap": "~1.1.4",
-    "ink": "~1.0.5",
-    "ckeditor": "~4.4.7",
-    "moment": "~2.10.3",
-    "eonasdan-bootstrap-datetimepicker": "~4.14.30"
-  },
-  "resolutions": {
-    "eonasdan-bootstrap-datetimepicker": "~4.14.30",
-    "ckeditor": "~4.4.7"
+    "ink": "~1.0.5"
   }
 }
