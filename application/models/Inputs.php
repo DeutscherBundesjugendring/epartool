@@ -1122,12 +1122,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function appendRelIds($origInputId, array $newInputIds)
     {
-        $row = $this->find($origInputId)->current();
-        $relIdsA =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
-        $relIds = array_merge($relIdsA, $newInputIds);
-        $relIds = array_unique($relIds);
-        $relIds = implode(',', $relIds);
-        $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $origInputId));
+        foreach ($newInputIds as $inputId) {
+            $row = $this->find($inputId)->current();
+            $relIds =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
+            $relIds[] = $origInputId;
+            $relIds = array_unique($relIds);
+            $relIds = implode(',', $relIds);
+            $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $inputId));
+        }
     }
 
     /**
