@@ -27,14 +27,17 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
                 ->where('urlkey_action_id=?', $urlkeyAction->id)
                 ->where('name=?', self::PARAM_DISCUSSION_CONTRIBUTION_ID)
         )->value;
-        $contrib = (new Model_InputDiscussion())->find($contribId)->current();
-
+        $discussionContribution = (new Model_InputDiscussion())->find($contribId)->current();
+        $contribution = (new Model_Inputs())->find($discussionContribution['input_id'])->current();
+        $question = (new Model_Questions())->find($contribution['qi'])->current();
+        $this->_viewData['contribution'] = $contribution;
+        $this->_viewData['question'] = $question;
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution();
         if ($request->isPost()) {
             $translator = Zend_Registry::get('Zend_Translate');
             if ($this->_viewData['form']->isValid($request->getPost())) {
                 (new Model_InputDiscussion())->update(['is_user_confirmed' => 1], ['id=?' => $contribId]);
-                (new Model_Users())->update(['block' => 'c'], ['uid=?' => $contrib->user_id]);
+                (new Model_Users())->update(['block' => 'c'], ['uid=?' => $discussionContribution->user_id]);
 
                 $this->_viewName = null;
                 $this->_message = [
@@ -42,15 +45,16 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
                     'type' => 'success',
                 ];
                 $this->markVisited($urlkeyAction->id);
+                $this->_redirectUrl = '/input/discussion/kid/' . $question['kid'] . '/inputId/' . $contribution['tid'];
                 (new Service_Notification_DiscussionContributionCreatedNotification())->notify(
-                    [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $contrib->input_id]
+                    [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $discussionContribution->input_id]
                 );
             } else {
                 $this->_message = ['text' => $translator->translate('Form invalid.'), 'type' => 'error'];
             }
         }
 
-        $this->_viewData['discussionContrib'] = $contrib;
+        $this->_viewData['discussionContribution'] = $discussionContribution;
 
         return $this;
     }

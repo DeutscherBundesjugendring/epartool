@@ -4,8 +4,18 @@
 
             <h1><?=$this->translate('Confirm contribution')?></h1>
             <blockquote>
-                <p><?=$this->discussionContrib->body;?></p>
-                <small><?=$this->formatDate($this->discussionContrib->time_created);?></small>
+                <p><?=$this->contribution['thes'];?></p>
+                <p>
+                    <a href="<?=$this->url([
+                        'controller' => 'input',
+                        'action' => 'discussion',
+                        'kid' => $this->question['kid'],
+                        'inputId' => $this->discussionContribution['input_id']], null, true);?>#post-<?=$this->discussionContribution['id'];?>"
+                    >
+                        <?=$this->discussionContribution->body;?>
+                    </a>
+                </p>
+                <small><?=$this->formatDate($this->discussionContribution['time_created']);?></small>
             </blockquote>
             <?=$this->form;?>
 
