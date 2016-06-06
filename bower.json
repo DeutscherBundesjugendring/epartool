@@ -16,7 +16,7 @@
   },
   "resolutions": {
     "eonasdan-bootstrap-datetimepicker": "~4.14.30",
-    "ckeditor": "~4.4.7"
+    "ckeditor": "~4.4.7",
     "ink": "~1.0.5"
   }
 }
