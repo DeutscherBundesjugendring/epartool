@@ -222,6 +222,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * Sends an email asking user to confirm his/her unconfirmed inputs from the given consultation if there are any
      * @param  integer|object $identity  Either the user object or a user id
      * @param  integer        $kid       The consultation identifier.
+     * @param  string         $confirmKey
      * @param  boolean        $isNew     Indicates if the recipient has been just created
      * @throws Dbjr_Exception            If the user can not be found in the system
      */
