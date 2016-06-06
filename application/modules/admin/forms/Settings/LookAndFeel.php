@@ -27,21 +27,21 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
         $colorHeadings
             ->setLabel('Headings')
             ->setRequired(true)
-            ->addValidator('stringLength', false, [3,6]);
+            ->addValidator('stringLength', false, 7);
         $this->addElement($colorHeadings);
         
         $colorFrameBackground = $this->createElement('text', 'color_frame_background');
         $colorFrameBackground
             ->setLabel('Frame Background')
             ->setRequired(true)
-            ->addValidator('stringLength', false, [3,6]);
+            ->addValidator('stringLength', false, 7);
         $this->addElement($colorFrameBackground);
         
         $colorLinkActive = $this->createElement('text', 'color_active_link');
         $colorLinkActive
             ->setLabel('Link Active')
             ->setRequired(true)
-            ->addValidator('stringLength', false, [3,6]);
+            ->addValidator('stringLength', false, 7);
         $this->addElement($colorLinkActive);
         
         $mitmachenBubble = $this->createElement('checkbox', 'mitmachen_bubble');
