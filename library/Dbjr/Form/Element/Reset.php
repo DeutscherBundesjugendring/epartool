@@ -15,7 +15,7 @@ class Dbjr_Form_Element_Reset extends Zend_Form_Element_Reset
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('ViewHelper');
-            $this->setAttrib('class', 'btn btn-primary');
+            $this->setAttrib('class', 'btn btn-primary btn-raised');
         }
 
         return $this;

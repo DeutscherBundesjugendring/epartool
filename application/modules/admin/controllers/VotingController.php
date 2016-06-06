@@ -368,6 +368,33 @@ class Admin_VotingController extends Zend_Controller_Action
 
         $this->view->assign($votesModel->getResultsValues($this->_consultation->kid, $qid));
     }
+    
+    public function downloadExcelAction()
+    {
+        $questionId = $this->_request->getParam('questionId', 0);
+        if ($questionId === 0) {
+            $this->_flashMessenger->addMessage('No question was selected.', 'error');
+            $this->redirect('/admin/voting/results/kid/' . $this->_consultation['kid']);
+        }
+        
+        $objPHPExcel = (new Service_VotingResultsExport())->exportResults($this->_consultation, $questionId);
+        $fileName = $this->_consultation['titl_short'] . ' ' . $questionId . '.ods';
+
+        // Redirect output to a client’s web browser (OpenDocument)
+        header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+        header('Content-Disposition: attachment;filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public'); // HTTP/1.0
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'OpenDocument');
+        $objWriter->save('php://output');
+        exit;
+    }
 
     /**
      * Voting settings

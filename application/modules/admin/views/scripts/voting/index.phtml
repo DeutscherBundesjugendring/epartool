@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <?=$this->helpText('help-text-admin-consultation-voting-permissions');?>
@@ -13,7 +13,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'voting-permissions');?>
 
@@ -21,7 +21,7 @@
             <div class="content">
 
                 <a class="btn btn-default pull-right" href="<?=$this->url(['action' => 'create-rights'])?>">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    <span class="glyphicon glyphicon-plus-sign offset-right" aria-hidden="true"></span>
                     <?=$this->translate('New Permission');?>
                 </a>
 
@@ -29,7 +29,7 @@
 
                 <?php if ($this->countInserted): ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <span class="badge"><?=$this->countInserted;?></span> <?=$this->translate('new users added recently.');?>
                     </p>
                 <?php endif; ?>
@@ -82,7 +82,7 @@
                     </table>
                 <?php else: ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no permissions to be set.');?>
                     </p>
                 <?php endif; ?>

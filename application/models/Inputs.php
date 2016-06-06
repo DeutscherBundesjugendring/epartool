@@ -1122,12 +1122,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function appendRelIds($origInputId, array $newInputIds)
     {
-        $row = $this->find($origInputId)->current();
-        $relIdsA =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
-        $relIds = array_merge($relIdsA, $newInputIds);
-        $relIds = array_unique($relIds);
-        $relIds = implode(',', $relIds);
-        $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $origInputId));
+        foreach ($newInputIds as $inputId) {
+            $row = $this->find($inputId)->current();
+            $relIds =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
+            $relIds[] = $origInputId;
+            $relIds = array_unique($relIds);
+            $relIds = implode(',', $relIds);
+            $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $inputId));
+        }
     }
 
     /**
@@ -1361,5 +1363,48 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return;
         }
         throw new \Exception('Adding contribution failed');
+    }
+
+    /**
+     * @param array $where
+     * @param int $reminders
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getUnconfirmedContributions(array $where, $reminders = null)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => $this->info(self::NAME)]
+            )
+            ->join(
+                ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                'ui.confirmation_key = i.confirmation_key',
+                ['uid', 'confirmation_key']
+            )->join(
+                ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                'u.uid = ui.uid',
+                ['email']
+            )->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'c.kid = q.kid',
+                ['kid', 'inp_to']
+            )->where('i.user_conf = ?', 'u')->where('i.confirmation_key IS NOT NULL');
+
+        if ($reminders !== null) {
+            $select->where('reminders_sent = ?', $reminders);
+        }
+
+        foreach ($where as $cond => $parameter) {
+            $select->where($cond, $parameter);
+        }
+
+        return $this->fetchAll($select);
     }
 }

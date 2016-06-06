@@ -13,6 +13,7 @@
 @import "select2-bootstrap-css/lib/select2-bootstrap";
 @import "eonasdan-bootstrap-datetimepicker/src/less/_bootstrap-datetimepicker";
 @import "mjolnic-bootstrap-colorpicker/src/less/colorpicker";
+// Synergic UI
 @import "synergic-ui/src/less/synergic-ui";
 
 // Configuration (must be last to override)
@@ -72,32 +73,18 @@
     }
 }
 
-// Since SUI 0.8
-.cancel-link {
-    position: relative;
-    top: 2px;
-    display: inline-block;
-    margin-left: 1em;
-    margin-bottom: @line-height-computed;
-}
-
-.text-danger-block {
-    list-style: none;
-}
-
-
 
 // ===========================================================
 // Custom modifications and temporary hacks.
 // ===========================================================
 
+.text-danger-block {
+    list-style: none;
+}
+
 .navbar-brand {
     svg {
         margin-top: -3px;
-    }
-
-    @media (max-width: @screen-sm-max) {
-        margin-right: 1em;
     }
 }
 

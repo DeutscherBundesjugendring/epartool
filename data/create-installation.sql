@@ -980,3 +980,7 @@ ADD INDEX `proj_theme_id_fk` (`theme_id`);
 
 ALTER TABLE `proj`
 ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+
+-- Migration 2016-05-31_14-14_DBJR-647.sql
+ALTER TABLE `inpt`
+ADD `reminders_sent` int NOT NULL DEFAULT '0';

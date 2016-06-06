@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
         <h1 class="section-header-title"><?=$this->translate('New Email');?></h1>
         <?=$this->emailTabs('emailing');?>
@@ -7,24 +7,32 @@
 <section class="section-content">
     <div class="container">
 
-        <a href="<?=$this->url(['controller' => 'mail-sent', 'action' => 'index']);?>" class="back">
-            <?=$this->translate('Back to Sent Emails');?>
-        </a>
+        <div class="offset-bottom-sm-max">
+            <a href="<?=$this->url(['controller' => 'mail-sent', 'action' => 'index']);?>" class="back offset-bottom-none">
+                <?=$this->translate('Back to Sent Emails');?>
+            </a>
+        </div>
 
-        <h3><?=$this->translate('Create from template');?></h3>
-        <select class="form-control js-template-selector">
-            <option value="0"><?=$this->translate('Please select…');?></option>
-            <?php foreach ($this->templates as $template): ?>
-                <option value="<?=$this->escape($template->id);?>"><?=$this->escape($template->name);?></option>
-            <?php endforeach; ?>
-        </select>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
 
-        <h3><?=$this->translate('Email');?></h3>
-        <?=$this->form;?>
-        <?=$this->partial('_partials/mail-replacable-tokens.phtml', [
-            'placeholders' => $this->placeholders,
-            'components' => $this->components,
-        ]);?>
+                <h3><?=$this->translate('Create from template');?></h3>
+                <select class="form-control js-template-selector">
+                    <option value="0"><?=$this->translate('Please select…');?></option>
+                    <?php foreach ($this->templates as $template): ?>
+                        <option value="<?=$this->escape($template->id);?>"><?=$this->escape($template->name);?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <h3><?=$this->translate('Email');?></h3>
+                <?=$this->form;?>
+                <?=$this->partial('_partials/mail-replacable-tokens.phtml', [
+                    'placeholders' => $this->placeholders,
+                    'components' => $this->components,
+                ]);?>
+
+            </div>
+        </div>
 
     </div>
 </section>

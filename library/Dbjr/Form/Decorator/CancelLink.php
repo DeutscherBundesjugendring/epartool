@@ -8,7 +8,7 @@ class Dbjr_Form_Decorator_CancelLink extends Zend_Form_Decorator_Abstract
 
         $label = $this->getOption('label') ? $this->getOption('label') : $translator->translate('Cancel');
         $prefix = $this->getOption('prefix') ? $this->getOption('prefix') : $translator->translate('or');
-        $blockClass = $this->getOption('blockClass') ? $this->getOption('blockClass') : 'cancel-link';
+        $blockClass = $this->getOption('blockClass') ? $this->getOption('blockClass') : 'form-action-static';
 
         return $content . '<div class="' . $blockClass . '">' . $prefix . ' <a href="' . $this->getOption('url') . '">' . $label . '</a></div>';
     }

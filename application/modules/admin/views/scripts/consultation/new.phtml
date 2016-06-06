@@ -10,7 +10,11 @@
 
         <a href="<?=$this->url(['controller' => 'index', 'action' => 'index']);?>" class="back"><?=$this->translate('Back to Consultations');?></a>
 
-        <?=$this->partial('consultation/_consultationForm.phtml', ['form' => $this->form]);?>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <?=$this->partial('consultation/_consultationForm.phtml', ['form' => $this->form]);?>
+            </div>
+        </div>
 
     </div>
 </section>

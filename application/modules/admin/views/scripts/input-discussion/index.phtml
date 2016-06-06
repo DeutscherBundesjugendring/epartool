@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
@@ -11,7 +11,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'inputs');?>
 
@@ -58,12 +58,12 @@
                                                     <?=$this->translate('User Confirmation');?><br />
                                                     <?php if ($contrib->is_user_confirmed): ?>
                                                         <span class="label label-success">
-                                                            <span class="glyphicon glyphicon-ok"></span>
+                                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                                             <?=$this->translate('User confirmed');?>
                                                         </span>
                                                     <?php else: ?>
                                                         <span class="label label-danger">
-                                                            <span class="glyphicon glyphicon-remove"></span>
+                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                             <?=$this->translate('Not user confirmed');?>
                                                         </span>
                                                     <?php endif; ?>
@@ -72,12 +72,12 @@
                                                     <?=$this->translate('Visibility');?><br />
                                                     <?php if ($contrib->is_visible): ?>
                                                         <span class="label label-success">
-                                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                             <?=$this->translate('Visible');?>
                                                         </span>
                                                     <?php else: ?>
                                                         <span class="label label-danger">
-                                                            <span class="glyphicon glyphicon-eye-close"></span>
+                                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                                                             <?=$this->translate('Hidden');?>
                                                         </span>
                                                     <?php endif; ?>
@@ -93,7 +93,7 @@
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Mark as user confirmed?');?>"
                                                         >
-                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                                     </button>
                                                 <?php else: ?>
                                                     <button
@@ -104,7 +104,7 @@
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Remove user confirmation?');?>"
                                                         >
-                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                     </button>
                                                 <?php endif; ?>
 
@@ -117,7 +117,7 @@
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Mark as hidden?');?>"
                                                     >
-                                                        <span class="glyphicon glyphicon-eye-close"></span>
+                                                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                                                     </button>
                                                 <?php else: ?>
                                                     <button
@@ -128,7 +128,7 @@
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Mark as visible?');?>"
                                                     >
-                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     </button>
                                                 <?php endif; ?>
 
@@ -144,7 +144,7 @@
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Create an input from this discussion contribution?');?>"
                                                     >
-                                                        <span class="glyphicon glyphicon-asterisk"></span>
+                                                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
                                                     </button>
                                                 <?php endif; ?>
                                             </td>
@@ -156,7 +156,7 @@
                     </form>
                 <?php else: ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no discussion posts yet.');?>
                     </p>
                 <?php endif; ?>

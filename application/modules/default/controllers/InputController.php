@@ -74,7 +74,7 @@ class InputController extends Zend_Controller_Action
             new Service_Notification_InputCreatedNotification(),
             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid]
         );
-        
+
         $form = $this->getInputForm();
         $question = (new Model_Questions())->find($qid)->current();
         $form->setVideoEnabled($question['video_enabled']);
@@ -326,7 +326,7 @@ class InputController extends Zend_Controller_Action
     private function handleInputSubmit(array $post, $kid, $qid)
     {
         $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
-        
+
         $form = $this
             ->getInputForm()
             ->generateInputFields($post['inputs'], false);
@@ -353,8 +353,9 @@ class InputController extends Zend_Controller_Action
                         'qi' => $qid,
                         'thes' => $input['thes'],
                         'expl' => $input['expl'],
-                        'video_service' => isset($input['video_service']) ? $input['video_service'] : null,
-                        'video_id' => isset($input['video_id']) ? $input['video_id'] : null,
+                        'video_service' => !empty($input['video_id']) && isset($input['video_service']) ?
+                            $input['video_service'] : null,
+                        'video_id' => !empty($input['video_id']) ? $input['video_id'] : null,
                     ];
                     $sessInputs->inputs = $tmpCollection;
                 }
@@ -565,37 +566,25 @@ class InputController extends Zend_Controller_Action
     {
         $kid = $this->_request->getParam('kid', 0);
         $tid = $this->_request->getParam('tid', 0);
-        $validator = new Zend_Validate_Int();
 
-        // parameter validation
-        $error = false;
-        if (!$validator->isValid($kid)) {
-            $error = true;
-        }
-        if (!$validator->isValid($tid)) {
-            $error = true;
-        }
-        $inputsModel = new Model_Inputs();
-        $input = $inputsModel->getById($tid);
-        if (empty($input)) {
-            $error = true;
-        }
-        if ($error) {
-            $this->flashMessenger->addMessage('Page not found', 'error');
+        $contributionModel = new Model_Inputs();
+        $contribution = $contributionModel->getById($tid);
+        if (empty($contribution)) {
+            $this->flashMessenger->addMessage('Contribution does not exist', 'error');
             $this->redirect('/');
         }
-        
+
         if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
             $form = new Default_Form_Input_Edit();
-            $question = (new Model_Questions())->find($input['qi'])->current();
-            $form->setVideoEnabled($question['video_enabled']);
-            
+            $question = (new Model_Questions())->find($contribution['qi'])->current();
+            $form->setVideoEnabled($question['video_enabled'] && (new Model_Projects())->getVideoServiceStatus());
+
             if ($this->_request->isPost()) {
                 // form submitted
                 $data = $this->_request->getPost();
                 if ($form->isValid($data)) {
-                    $key = $inputsModel->updateById($tid, $data);
+                    $key = $contributionModel->updateById($tid, $data);
                     if ($key > 0) {
                         $this->flashMessenger->addMessage('Contribution updated.', 'success');
                     } else {
@@ -607,8 +596,7 @@ class InputController extends Zend_Controller_Action
                     $this->redirect(
                         $this->view->url([
                             'controller' => 'user',
-                            'action' => 'inputlist',
-                            'kid' => $kid
+                            'action' => 'activity',
                         ]),
                         ['prependBase' => false]
                     );
@@ -617,12 +605,13 @@ class InputController extends Zend_Controller_Action
                     $form->populate($data);
                 }
             } else {
-                $data = ['thes' => $input['thes'], 'expl' => $input['expl']];
-                if ($input['video_service'] !== null) {
-                    $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
-                    if ($project['video_' . $input['video_service'] . '_enabled']) {
-                        $data['video_service'] = $input['video_service'];
-                        $data['video_id'] = $input['video_id'];
+                $data = ['thes' => $contribution['thes'], 'expl' => $contribution['expl']];
+                if ($contribution['video_service'] !== null) {
+                    $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)
+                        ->current();
+                    if ($project['video_' . $contribution['video_service'] . '_enabled']) {
+                        $data['video_service'] = $contribution['video_service'];
+                        $data['video_id'] = $contribution['video_id'];
                     } else {
                         $this->flashMessenger->addMessage(
                             'Video service used for embedding video in this contribution was disabled. Video will be deleted after save contribution.',
@@ -661,22 +650,27 @@ class InputController extends Zend_Controller_Action
         if (!$inputId) {
             $this->_redirect('/');
         }
-        
+
         $auth = Zend_Auth::getInstance();
-        
+
         $inputDiscussModel = new Model_InputDiscussion();
         $inputsModel = new Model_Inputs();
-        
+
         $form = new Default_Form_Input_Discussion(null, $this->consultation['discussion_video_enabled']);
         if($auth->hasIdentity()){
             $form->populate(['email' => $auth->getIdentity()->email]);
             $form->getElement('email')->setAttrib('disabled', 'disabled');
         }
-        
+
         $sbsForm = (new Service_Notification_SubscriptionFormFactory())->getForm(
             new Service_Notification_DiscussionContributionCreatedNotification(),
             [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $inputId]
         );
+
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity()) {
+            $this->view->userIdentity = $auth->getIdentity();
+        }
 
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
@@ -733,11 +727,14 @@ class InputController extends Zend_Controller_Action
                                     'to_name' => $user->name ? $user->name : $user->email,
                                     'to_email' => $user->email,
                                     'contribution_text' => $formData['body'],
-                                    'video_url' => sprintf(
-                                        Zend_Registry::get('systemconfig')->video->url->format->link,
-                                        $formData['video_id']
-                                    ),
-                                    'confirmation_url' =>  Zend_Registry::get('baseUrl') . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
+                                    'video_url' => !empty($formData['video_service']) && !empty($formData['video_id']) ?
+                                        sprintf(
+                                            Zend_Registry::get('systemconfig')->video->url->{$formData['video_service']}
+                                                ->format->link,
+                                            $formData['video_id']
+                                        ) : '',
+                                    'confirmation_url' => Zend_Registry::get('baseUrl')
+                                        . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
                                 ])
                                 ->addTo($user->email);
                             (new Service_Email)

@@ -8,7 +8,18 @@
             <?php if (!empty($this->contributionsList)): ?>
                 <?php foreach ($this->contributionsList as $contribution): ?>
                     <p>
-                        <?=$contribution['thes'];?>
+                        <a
+                            href="<?=$this->url([
+                                'controller' => 'input',
+                                'action' => 'edit',
+                                'kid' => $contribution['kid'],
+                                'tid' => $contribution['tid'],
+                            ], null, true);?>"
+                            title="<?=$this->translate('Edit');?>"
+                        >
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <?=$this->escape($contribution['thes']);?>
+                        </a>
                     </p>
                     <p class="text-right">
                         <?=$this->formatDate($contribution['when'], 'd. M. Y H:m:s');?>

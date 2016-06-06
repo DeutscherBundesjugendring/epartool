@@ -251,9 +251,6 @@ class mediaSelectPopup
     # @param    {numeric} CKEditorFuncNum       The CKEditor callback identifier
     ###
     this.insertValue = (filename, targetElId, imgPathPrefixInput, imgPathImage, CKEditorFuncNum) ->
-        if imgPathPrefixInput.length > 0
-            imgPathPrefixInput = imgPathPrefixInput + '/'
-
         if targetElId == 'CKEditor'
             window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum,  imgPathPrefixInput + filename);
         else

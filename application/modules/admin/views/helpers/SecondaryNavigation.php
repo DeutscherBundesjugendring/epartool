@@ -62,7 +62,7 @@ class Admin_View_Helper_SecondaryNavigation extends Zend_View_Helper_Abstract
 
         if (isset($item['new_item'])) {
             $html .= '<a href="' . $item['new_item'] . '" class="list-group-add" title="' . $this->view->translate('Create new item') . '">';
-            $html .= '<span class="glyphicon glyphicon-plus-sign"></span>';
+            $html .= '<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>';
             $html .= '</a>';
         }
 

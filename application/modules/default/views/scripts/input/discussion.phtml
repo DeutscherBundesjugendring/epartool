@@ -35,6 +35,8 @@
                                         <?=$this->escape($contrib->nick);?>,
                                     <?php elseif (!empty($contrib->name)) : ?>
                                         <?=$this->escape($contrib->name);?>,
+                                    <?php else : ?>
+                                        <?=$this->translate('Anonymous');?>
                                     <?php endif; ?>
                                     <?=$this->formatDate($contrib->time_created);?>
                                 </small>
@@ -75,6 +77,14 @@
                 <div class="hidden-print">
                     <hr class="offset-bottom-large"  />
                     <h2><?=$this->translate('Your Comment');?></h2>
+                    <?php if (!empty($this->userIdentity) && empty($this->userIdentity['nick'])): ?>
+                        <p class="alert alert-info">
+                            <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                            <?=sprintf(
+                                $this->translate('You can set your nick name in <a href="%s">My Profile</a> to be displayed along with your comment.'),
+                                $this->url(['controller' => 'user', 'action' => 'profile'], 'default', true));?>
+                        </p>
+                    <?php endif; ?>
                     <?=$this->form;?>
                 </div>
             <?php endif; ?>

@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
@@ -14,7 +14,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?php if (isset($this->consultation) && !empty($this->consultation)): ?>
                     <?=$this->consultationNavigation($this->consultation, 'info');?>
