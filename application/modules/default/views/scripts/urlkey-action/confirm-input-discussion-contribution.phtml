@@ -6,12 +6,16 @@
             <blockquote>
                 <p><?=$this->contribution['thes'];?></p>
                 <p>
-                    <a href="<?=$this->url([
-                        'controller' => 'input',
-                        'action' => 'discussion',
-                        'kid' => $this->question['kid'],
-                        'inputId' => $this->discussionContribution['input_id']], null, true);?>#post-<?=$this->discussionContribution['id'];?>"
+                    <a
+                        href="<?=$this->url([
+                            'controller' => 'input',
+                            'action' => 'discussion',
+                            'kid' => $this->question['kid'],
+                            'inputId' => $this->discussionContribution['input_id']], null, true);?>#post-<?=$this->discussionContribution['id'];
+                        ?>"
+                        target="_blank"
                     >
+                        <?=$this->discussionContribution->body;?>
                         <?=$this->discussionContribution->body;?>
                     </a>
                 </p>
