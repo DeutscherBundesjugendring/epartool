@@ -24,7 +24,10 @@ class Service_Cron_Reminder extends Service_Cron
                 $contribution['confirmation_key'],
                 false
             );
-            $contributionModel->update(['reminders_sent' => 1], ['tid' => $contribution['tid']]);
+            $contributionModel->update(
+                ['reminders_sent' => (int) $contribution['reminders_sent'] + 1],
+                ['tid' => $contribution['tid']]
+            );
         }
 
         // the last day of contribution phase
@@ -45,7 +48,10 @@ class Service_Cron_Reminder extends Service_Cron
                 $contribution['confirmation_key'],
                 false
             );
-            $contributionModel->update(['reminders_sent' => 2], ['tid' => $contribution['tid']]);
+            $contributionModel->update(
+                ['reminders_sent' => (int) $contribution['reminders_sent'] + 1],
+                ['tid' => $contribution['tid']]
+            );
         }
     }
 }
