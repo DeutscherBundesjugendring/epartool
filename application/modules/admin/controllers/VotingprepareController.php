@@ -269,14 +269,13 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $inputId = $this->getRequest()->getParam('inputId');
         $inputModel = new Model_Inputs();
         $originalInput = $inputModel->find($inputId)->current();
-        if(!$originalInput) {
+        if (!$originalInput) {
             throw new Zend_Controller_Action_Exception(sprintf('Contribution ID %d not found.', $inputId), 404);
         }
 
         $form = new Admin_Form_ListControl();
 
         if ($this->getRequest()->isPost() && $form->isValid($this->getRequest()->getPost())) {
-
             $postData = $this->getRequest()->getPost();
             if (isset($postData['inputIds'])) {
                 $inputModel->appendRelIds($inputId, $postData['inputIds']);
