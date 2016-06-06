@@ -38,6 +38,7 @@ class Default_Form_Profile extends Dbjr_Form_Web
             ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags'])
+            ->setDescription('Will be shown instead of your name, e.g in discussions')
             ->addValidator(new Zend_Validate_StringLength(['max'=>255]));
         $this->addElement($nick);
 
