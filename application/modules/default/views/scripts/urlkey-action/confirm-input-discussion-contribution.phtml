@@ -16,9 +16,29 @@
                         target="_blank"
                     >
                         <?=$this->discussionContribution->body;?>
-                        <?=$this->discussionContribution->body;?>
                     </a>
                 </p>
+
+                <?php if ($this->consultation['discussion_video_enabled']
+                    && isset($this->discussionContribution['video_service'])
+                    && $this->discussionContribution['video_id']
+                    && $this->videoServicesStatus['video_' . $this->contribution['video_service'] . '_enabled']) : ?>
+                    <div class="embed-responsive embed-responsive-16by9 offset-bottom">
+                        <?=$this->embeddedVideo(
+                            $this->discussionContribution['video_service'],
+                            $this->discussionContribution['video_id']
+                        );?>
+                    </div>
+                <?php elseif ($this->discussionContribution['video_id']) : ?>
+                    <p>
+                        <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                        <?=sprintf(
+                            $this->translate('%s videos were disabled by admin for this question'),
+                            ucfirst($this->discussionContribution['video_service'])
+                        );?>.
+                    </p>
+                <?php endif; ?>
+                
                 <small><?=$this->formatDate($this->discussionContribution['time_created']);?></small>
             </blockquote>
             <?=$this->form;?>

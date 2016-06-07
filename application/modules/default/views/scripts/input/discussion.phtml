@@ -42,13 +42,13 @@
                                 </small>
                             </div>
 
-                            <?php if ($contrib->body): ?>
+                            <?php if ($contrib->body) : ?>
                                 <p><?=$this->escape($contrib->body);?></p>
                             <?php endif; ?>
 
                             <?php if ($this->consultation['discussion_video_enabled']
                                 && isset($contrib['video_service']) && $contrib['video_id']
-                                && $this->videoServicesStatus['video_' . $contrib['video_service'] . '_enabled']): ?>
+                                && $this->videoServicesStatus['video_' . $contrib['video_service'] . '_enabled']) : ?>
                                 <div class="embed-responsive embed-responsive-16by9 offset-bottom">
                                     <?=$this->embeddedVideo($contrib['video_service'], $contrib['video_id']);?>
                                 </div>

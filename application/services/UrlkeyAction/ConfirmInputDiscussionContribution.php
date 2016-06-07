@@ -30,8 +30,13 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
         $discussionContribution = (new Model_InputDiscussion())->find($contribId)->current();
         $contribution = (new Model_Inputs())->find($discussionContribution['input_id'])->current();
         $question = (new Model_Questions())->find($contribution['qi'])->current();
+        $consultation = (new Model_Consultations())->find($question['kid'])->current();
         $this->_viewData['contribution'] = $contribution;
         $this->_viewData['question'] = $question;
+        $this->_viewData['consultation'] = $consultation;
+        $this->_viewData['videoServicesStatus'] = (new Model_Projects())->find(
+            Zend_Registry::get('systemconfig')->project
+        )->current();
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution();
         if ($request->isPost()) {
             $translator = Zend_Registry::get('Zend_Translate');
