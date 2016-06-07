@@ -11,7 +11,7 @@ class Dbjr_Form_Element_RadioTheme extends Dbjr_Form_Element_Radio
             $themesOptions[$theme['id']] = $theme['name'];
             $colorConfig[$theme['id']] = json_encode([
                 'color_headings' => '#' . $theme['color_headings'],
-                'color_frame_background' => '#'. $theme['color_headings'],
+                'color_frame_background' => '#'. $theme['color_frame_background'],
                 'color_active_link' => '#'. $theme['color_active_link'],
             ]);
         }
