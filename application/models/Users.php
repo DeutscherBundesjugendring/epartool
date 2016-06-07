@@ -129,13 +129,15 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'age_group' => $data['age_group'],
             'newsl_subscr' => $data['newsl_subscr'],
             'regio_pax' => $data['regio_pax'],
-            'cnslt_results' => $data['cnslt_results'],
             'kid' => $data['kid'],
             'date_added' => new Zend_Db_Expr('NOW()'),
             'cmnt_ext' => $data['cmnt_ext'],
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
         ];
+        if (isset($data['cnslt_results'])) {
+            $userConsultData['cnslt_results'] = $data['cnslt_results'];
+        }
 
         // if group then also save group specifications
         if (isset($data['group_specs'])) {
