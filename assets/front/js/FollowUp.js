@@ -275,7 +275,7 @@
                     '<div class="col-sm-9">' +
                       '<p>' + data.doc.who + '</p>' +
                       '<p class="small">' + when + '</p>' +
-                      '<a target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '" class="btn btn-inverse">' +
+                      '<a target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '" class="btn btn-default btn-default-alt">' +
                 '<span class="glyphicon glyphicon-file icon-offset"></span>Download</a>' +
                     '</div>' +
                   '</div>' +
