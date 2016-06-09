@@ -59,7 +59,11 @@
                         <div id="filterCommon" class="panel-collapse collapse">
                             <div class="panel-body">
 
-                                <form data-filter-target="#contribution-table tr" class="form-filter">
+                                <form
+                                    data-filter-target="#contribution-table tr"
+                                    class="form-filter"
+                                    data-filter-storage-id="filterable-contributions"
+                                >
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
@@ -122,7 +126,7 @@
                                                 >
                                                     <option value=""><?=$this->translate('All folders');?></option>
                                                     <option value="0"><?=$this->translate('Folder root');?></option>
-                                                    <?php foreach($this->directories as $directory): ?>
+                                                    <?php foreach ($this->directories as $directory) : ?>
                                                         <option value="<?=$this->escape($directory['id']);?>">
                                                             <?=$this->escape($directory['dir_name']);?> (<?=$directory['count'];?>)
                                                         </option>
@@ -141,7 +145,7 @@
                                                     data-filter-attrib="tags"
                                                     data-filter-operator="subset"
                                                 >
-                                                    <?php foreach ($this->tags as $tag): ?>
+                                                    <?php foreach ($this->tags as $tag) : ?>
                                                         <option
                                                             value="<?=$this->escape($tag['tg_nr']);?>"
                                                             <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
