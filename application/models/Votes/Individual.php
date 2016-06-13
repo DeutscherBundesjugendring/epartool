@@ -475,4 +475,18 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $row = $this->createRow($data);
             $row->save();
     }
+
+    /**
+     * @param int $kid
+     * @return \Zend_Db_Select
+     */
+    public function selectVotesGroupsByConsultation($kid)
+    {
+        return $this->select()
+            ->from(['vti' => $this->_name], ['uid'])
+            ->join(['i' => (new Model_Inputs())->getName()], 'vti.tid = i.tid', [])
+            ->join(['q' => (new Model_Questions())->getName()], 'i.qi = q.qi', [])
+            ->where('q.kid = ?', $kid)
+            ->group('vti.uid');
+    }
 }

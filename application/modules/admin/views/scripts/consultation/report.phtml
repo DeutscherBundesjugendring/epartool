@@ -20,66 +20,94 @@
 
                 <h2><?=$this->translate('Statistics');?></h2>
                 <p>
-                    <b><a href="<?php echo $this->url(array(
+                    <b>
+                        <a href="<?php echo $this->url(array(
                             'controller' => 'input',
                             'action' => 'userlist'
-                        )); ?>" title="Alle Beitragende ansehen">Anzahl Beitragende im Konsultationszeitraum: <?php echo $this->nrParticipants; ?></a></b>
-                    <br/>(absolute Anzahl der Einzelpersonen und Organisationen/Träger, auch wenn sie evtl. mehrere Projekte eingetragen haben)
+                            )); ?>"
+                          title="<?=$this->translate('All Contributors');?>">
+                            <?=$this->translate('Number of contributors in current consultation');?>:
+                            <?php echo $this->nrParticipants; ?>
+                        </a>
+                    </b>
+                    <br/><?=$this->translate('Accumulated number of individuals and groups, even if they contributed in several sessions in this particular consultation');?>
                 </p>
                 <p>
-                    <b>Alle Beiträge im Konsultationszeitraum: <?php echo $this->nrInputs; ?></b>
-                    <br/>&raquo; davon von den Beitragendenden bestätigte: <?php echo $this->nrInputsConfirmed; ?>
-                    <br/>&raquo; davon unbestätigte oder anonyme: <?php echo $this->nrInputsUnconfirmed; ?>
-                    <br/>&raquo; von der Redaktion geblockte: <?php echo $this->nrInputsBlocked; ?>
+                    <b><?=$this->translate('All contributions in the contribution period');?>: <?php echo $this->nrInputs; ?></b>
+                    <br/>&raquo; <?=$this->translate('of which the contributions that were confirmed');?>: <?php echo $this->nrInputsConfirmed; ?>
+                    <br/>&raquo; <?=$this->translate('of which remained unconfirmed or anonymous');?>: <?php echo $this->nrInputsUnconfirmed; ?>
+                    <br/>&raquo; <?=$this->translate('of which were blocked by organisers');?>: <?php echo $this->nrInputsBlocked; ?>
                 </p>
                 <p>
-                    <b>Zur Abstimmung gestellte Beiträge: <?php echo $this->nrInputsVoting; ?></b>
-                    <br />(tw. durch die Redaktion zusammengefasst aus inhaltlich überschneidenden Beiträgen)
+                    <b><?=$this->translate('Contributions that were available to vote');?>: <?php echo $this->nrInputsVoting; ?></b>
+                    <br />(<?=$this->translate('partly copy->edited, merged or splitted by organisers due to overlapping contents');?>)
                 </p>
 
                 <hr />
 
                 <?php foreach ($this->questions as $question): ?>
                     <p>
-                        <b><a href="<?php echo $this->url(array(
+                        <b>
+                            <a href="<?php echo $this->url(array(
                                 'controller' => 'input',
                                 'action' => 'index',
                                 'qid' => $question['qi']
-                            )); ?>" title="Beiträge sichten"><?php echo $question['nr']; ?> <?php echo $question['q']; ?></a></b>
-                        <br />Anzahl Beiträge: <?php echo $question['nrInputsConfirmed']; ?> (nur bestätigte)
-                        <br />Zur Abstimmung gestellt: <?php echo $question['nrInputsVoting']; ?> (tw. durch die Redaktion bearbeitet)
+                                )); ?>"
+                              title="<?=$this->translate('See Contribution');?>"
+                            >
+                                <?php echo $question['nr']; ?> <?php echo $question['q']; ?>
+                            </a>
+                        </b>
+                        <br /><?=$this->translate('Number of contributions');?>: <?php echo $question['nrInputsConfirmed']; ?>
+                        (<?=$this->translate('only confirmed ones');?>)
+                        <br /><?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?>
+                        (<?=$this->translate('partly copy->edited, merged or splitted by organisers due to overlapping contents');?>)
                     </p>
                 <?php endforeach; ?>
 
                 <hr />
 
-                <p><a href="<?php echo $this->url(array(
+                <p>
+                    <a href="<?php echo $this->url(array(
                         'controller' => 'voting',
                         'action' => 'participants'
-                    )); ?>" title="Übersicht über Abstimmungsteilnehmende"><b>Anzahl abgegebener Stimmen: <?php echo $this->votingCountIndiv; ?></b></a>
-                    <br/>(ohne Berücksichtigung unterschiedlicher Stimmengewichte)
+                        )); ?>"
+                       title="<?=$this->translate('Absolute number of votes');?>"
+                    >
+                        <b><?=$this->translate('Absolute number of votes');?>: <?php echo $this->votingCountIndiv; ?></b>
+                    </a>
+                    <br/>(<?=$this->translate('without taking into account different voting weights');?>)
                 </p>
 
-                <p><a href="<?php echo $this->url(array(
+                <p>
+                    <a href="<?php echo $this->url(array(
                         'controller' => 'voting',
                         'action' => 'index'
-                    )); ?>" title="Übersicht über abstimmungsberechtigte Einzelpersonen und Gruppen">
-                        <b>Übersicht über abstimmungsberechtigte Gruppen</b></a></p>
+                        )); ?>"
+                      title="<?=$this->translate('Groups that have voting rights and number of actually participating ones');?>"
+                    >
+                        <b><?=$this->translate('Groups that have voting rights and number of actually participating ones');?></b>
+                    </a>
+                </p>
                 <table>
                     <?php foreach ($this->weightCounts as $weight): ?>
                         <tr>
-                            <th scope="row"><?php switch ($weight['vt_weight']) {
+                            <th scope="row">
+                                <?php switch ($weight['vt_weight']) {
                                     case 0:
-                                        echo 'Testzugänge:';
+                                        echo $this->translate('Test accounts');
                                         break;
                                     case 1:
-                                        echo 'Einzelpersonen:';
+                                        echo $this->translate('Individuals');
                                         break;
                                     default:
-                                        echo 'Gruppenstimmgewicht '.$weight["vt_weight"].':';
+                                        echo $this->translate('Group weight') . ' ' . $weight["vt_weight"];
                                         break;
-                                }?></th>
-                            <td><?php echo $weight['weight_count']; ?></td>
+                                } ?>:
+                            </th>
+                            <td>
+                                <?php echo $weight['participating_count']; ?> / <?php echo $weight['weight_count']; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

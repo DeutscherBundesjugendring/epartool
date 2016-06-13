@@ -831,10 +831,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     ->from(['i' => $this->info(self::NAME)], ['uid'])
                     ->join(
                         ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                        'q.qi = i.qi'
+                        'q.qi = i.qi',
+                        []
                     )
                     ->where('kid = ?', $kid)
-                    ->where('uid > ?', 1)
+                    ->where('uid IS NOT NULL')
             )
             ->count();
     }
@@ -1406,5 +1407,90 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         return $this->fetchAll($select);
+    }
+
+    /**
+     * @param $kid
+     * @return string
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getCountContributionsByConsultation($kid)
+    {
+        $select = $this->selectCountContributionsByConsultation($kid)->where('i.uid IS NOT NULL');
+
+        return $this->fetchAll($select)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsConfirmed(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('uid IS NOT NULL')->where('user_conf = ?', 'c');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsUnconfirmed(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('uid IS NOT NULL')->where('user_conf != ?', 'c');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsBlocked(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('block = ?', 'y');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsVotable(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('vot = ?', 'y')->orWhere('vot = ?', 'u');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param int $qid
+     * @return \Zend_Db_Select
+     */
+    public function selectCountContributionsByQuestion($qid)
+    {
+        return $this->select()
+            ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+            ->where('qi = ?', $qid);
+    }
+    
+    /**
+     * @param int $kid
+     * @return \Zend_Db_Select
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function selectCountContributionsByConsultation($kid)
+    {
+        return $this->select()
+            ->from(['i' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->setIntegrityCheck(false)
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('kid = ?', $kid);
     }
 }
