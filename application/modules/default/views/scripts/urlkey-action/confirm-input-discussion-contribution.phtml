@@ -1,6 +1,6 @@
-<div class="main-content content-holder">
+<div class="main-content">
     <div class="row">
-        <div class="span9">
+        <div class="content content-narrow content-offset">
 
             <h1><?=$this->translate('Confirm contribution')?></h1>
             <blockquote>
@@ -38,11 +38,11 @@
                         );?>.
                     </p>
                 <?php endif; ?>
-                
+
                 <small><?=$this->formatDate($this->discussionContribution['time_created']);?></small>
             </blockquote>
             <?=$this->form;?>
 
         </div>
-    </div>
+    </div><!-- .row -->
 </div><!-- .main-content -->
