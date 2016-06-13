@@ -222,21 +222,9 @@ class Admin_ConsultationController extends Zend_Controller_Action
             $question = $question->toArray();
             $questions[$question['qi']] = $question;
             $questions[$question['qi']]['nrInputsConfirmed'] = $inputsModel
-                ->getCountByQuestionFiltered($question['qi'], array(
-                    array(
-                        'field' => 'user_conf',
-                        'operator' => '=',
-                        'value' => 'c'
-                    )
-                ));
+                ->getCountContributionsConfirmed($inputsModel->selectCountContributionsByQuestion($question['qi']));
             $questions[$question['qi']]['nrInputsVoting'] = $inputsModel
-                ->getCountByQuestionFiltered($question['qi'], array(
-                    array(
-                        'field' => 'vot',
-                        'operator' => '=',
-                        'value' => 'y'
-                    )
-                ));
+                ->getCountContributionsVotable($inputsModel->selectCountContributionsByQuestion($question['qi']));
         }
 
         $votesIndivModel = new Model_Votes_Individual();
@@ -244,15 +232,19 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         $this->view->assign(array(
             'nrParticipants' => $inputsModel->getCountParticipantsByConsultation($kid),
-            'nrInputs' => $inputsModel->getCountByConsultation($kid, false),
-            'nrInputsConfirmed' => $inputsModel->getCountByConsultationFiltered($kid,
-                array(array('field' => 'user_conf', 'operator' => '=', 'value' => 'c'))),
-            'nrInputsUnconfirmed' => $inputsModel->getCountByConsultationFiltered($kid,
-                array(array('field' => 'user_conf', 'operator' => '=', 'value' => 'u'))),
-            'nrInputsBlocked' => $inputsModel->getCountByConsultationFiltered($kid,
-                array(array('field' => 'block', 'operator' => '=', 'value' => 'y'))),
-            'nrInputsVoting' => $inputsModel->getCountByConsultationFiltered($kid,
-                array(array('field' => 'vot', 'operator' => '=', 'value' => 'y'))),
+            'nrInputs' => $inputsModel->getCountContributionsByConsultation($kid),
+            'nrInputsConfirmed' => $inputsModel->getCountContributionsConfirmed(
+                $inputsModel->selectCountContributionsByConsultation($kid)
+            ),
+            'nrInputsUnconfirmed' => $inputsModel->getCountContributionsUnconfirmed(
+                $inputsModel->selectCountContributionsByConsultation($kid)
+            ),
+            'nrInputsBlocked' => $inputsModel->getCountContributionsBlocked(
+                $inputsModel->selectCountContributionsByConsultation($kid)
+            ),
+            'nrInputsVoting' => $inputsModel->getCountContributionsVotable(
+                $inputsModel->selectCountContributionsByConsultation($kid)
+            ),
             'questions' => $questions,
             'votingCountIndiv' => $votesIndivModel->getCountByConsultation($kid),
             'weightCounts' => $votesRightsModel->getWeightCountsByConsultation($kid)
