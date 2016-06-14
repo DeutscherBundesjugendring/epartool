@@ -79,27 +79,20 @@ class Admin_VotingController extends Zend_Controller_Action
     {
         $userModel = new Model_Users();
         $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
-        
+
         $form = new Admin_Form_Voting_RightsAdd($users);
         $votingRights = new Model_Votes_Rights();
-        
+
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             $data['kid'] = $this->_consultation->kid;
             if ($form->isValid($data)) {
-                try {
-                    $votingRights->addPermission($data);
-                    $this->_flashMessenger->addMessage(
-                        $this->view->translate('The voting permission was created.'),
-                        'success'
-                    );
-                    $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
-                } catch (\Exception $e) {
-                    $this->_flashMessenger->addMessage(
-                        'The form cannot be saved, please give it one more try.',
-                        'error'
-                    );
-                }
+                $votingRights->addPermission($data);
+                $this->_flashMessenger->addMessage(
+                    $this->view->translate('The voting permission was created.'),
+                    'success'
+                );
+                $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
             } else {
                 $this->_flashMessenger->addMessage(
                     'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
@@ -368,7 +361,7 @@ class Admin_VotingController extends Zend_Controller_Action
 
         $this->view->assign($votesModel->getResultsValues($this->_consultation->kid, $qid));
     }
-    
+
     public function downloadExcelAction()
     {
         $questionId = $this->_request->getParam('questionId', 0);
@@ -376,7 +369,7 @@ class Admin_VotingController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('No question was selected.', 'error');
             $this->redirect('/admin/voting/results/kid/' . $this->_consultation['kid']);
         }
-        
+
         $objPHPExcel = (new Service_VotingResultsExport())->exportResults($this->_consultation, $questionId);
         $fileName = $this->_consultation['titl_short'] . ' ' . $questionId . '.ods';
 

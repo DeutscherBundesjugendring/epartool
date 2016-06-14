@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-06-06 18:15+0200\n"
-"PO-Revision-Date: 2016-06-06 18:15+0200\n"
+"POT-Creation-Date: 2016-06-14 19:48+0200\n"
+"PO-Revision-Date: 2016-06-14 19:48+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -144,6 +144,8 @@ msgid ""
 "Please make sure the data you entered are correct and that all linked videos "
 "are public. Then please try resubmitting the form."
 msgstr ""
+"Bitter sicherstellen, dass die eingegebenen Daten korrekt und alle "
+"verlinkten Videos öffentlich sind. Dann erneut übermitteln."
 
 #: application/modules/default/controllers/InputController.php:451
 msgid "There is no input to be confirmed."
@@ -180,7 +182,7 @@ msgstr ""
 
 #: application/modules/default/controllers/InputController.php:573
 msgid "Contribution does not exist"
-msgstr ""
+msgstr "Beitrag existiert nicht"
 
 #: application/modules/default/controllers/InputController.php:589
 msgid "Contribution updated."
@@ -202,6 +204,8 @@ msgid ""
 "Video service used for embedding video in this contribution was disabled. "
 "Video will be deleted after save contribution."
 msgstr ""
+"Der verwendete Videodienst zur Einbindung in diesem Beitrag wurde "
+"deaktiviert. Das Video wird nach dem Speichern gelöscht."
 
 #: application/modules/default/controllers/InputController.php:628
 msgid ""
@@ -273,21 +277,19 @@ msgstr "Du wurdest erfolgreich ausgetragen."
 
 #: application/modules/default/controllers/UserController.php:350
 msgid "Your user profile was updated"
-msgstr ""
+msgstr "Das Nutzerprofil wurde aktualisiert."
 
-#: application/modules/default/controllers/UserController.php:354
-msgid "Your profile cannot be updated. Please try it again."
-msgstr ""
+#: application/modules/default/controllers/UserController.php:355
+msgid "Your current password does not match. Please try it again."
+msgstr "Das alte Passwort stimmt nicht überein. Bitte nochmal versuchen."
 
-#: application/modules/default/controllers/UserController.php:359
-msgid "Your current password does not match. Please try it again"
-msgstr ""
-
-#: application/modules/default/controllers/UserController.php:366
+#: application/modules/default/controllers/UserController.php:362
 msgid ""
 "Your profile cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
+"Das Profil kann nicht aktualisiert werden. Bitte die Fehler im Formular "
+"korrigieren und dann nochmal versuchen."
 
 #: application/modules/default/controllers/VotingController.php:34
 msgid "This participation round is currently not open for voting."
@@ -486,19 +488,20 @@ msgstr "Name"
 #: application/modules/default/forms/Profile.php:34
 #: application/modules/default/forms/Profile.php:37
 msgid "Nick"
-msgstr ""
+msgstr "Angezeigter Name"
 
 #: application/modules/default/forms/Profile.php:41
 msgid "Will be shown instead of your name, e.g in discussions"
-msgstr ""
+msgstr "Wird anstelle des echten Namens gezeigt (z.B. in Diskussionen)"
 
 #: application/modules/default/forms/Profile.php:45
 msgid "If you don't want to change your password, leave these fields blank."
 msgstr ""
+"Wenn das Passwort nicht geändert werden soll, dann die Felder leer lassen."
 
 #: application/modules/default/forms/Profile.php:49
 msgid "Current password"
-msgstr ""
+msgstr "Bisheriges Passwort"
 
 #: application/modules/default/forms/Profile.php:57
 #: application/modules/default/forms/UrlkeyAction/PasswordReset.php:13
@@ -507,11 +510,12 @@ msgstr "Neues Passwort"
 
 #: application/modules/default/forms/Profile.php:69
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Die Passwörter stimmen nicht überein."
 
 #: application/modules/default/forms/Profile.php:76
-msgid "Confirm a new password"
-msgstr ""
+#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:34
+msgid "Confirm new password"
+msgstr "Neues Passwort bestätigen"
 
 #: application/modules/default/forms/Register.php:26
 msgid ""
@@ -645,16 +649,12 @@ msgstr "min. %s Zeichen"
 msgid "The passwords do not match."
 msgstr "Die angegebenen Passwörter stimmen nicht überein."
 
-#: application/modules/default/forms/UrlkeyAction/PasswordReset.php:34
-msgid "Confirm new password"
-msgstr "Neues Passwort bestätigen"
-
 #: application/modules/default/forms/UrlkeyAction/PasswordReset.php:44
 msgid "Save new password"
 msgstr "Neues Passwort speichern"
 
 #: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:12
-#: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:3
+#: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:5
 #: application/modules/default/views/scripts/user/notifications.phtml:30
 #: application/modules/default/views/scripts/user/notifications.phtml:73
 #: application/modules/default/views/scripts/user/notifications.phtml:115
@@ -825,11 +825,11 @@ msgstr ""
 "Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Übersicht "
 "ansehen"
 
-#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:44
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:49
 msgid "Your discussion post was confirmed."
 msgstr "Dein Diskussionsbeitrag ist bestätigt."
 
-#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:53
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:58
 #: application/services/UrlkeyAction/ConfirmNotification.php:44
 #: application/services/UrlkeyAction/ResetPassword.php:45
 msgid "Form invalid."
@@ -907,7 +907,7 @@ msgstr "Ausloggen"
 
 #: application/layouts/scripts/backend.phtml:117
 msgid "Go to ePartool's developer site"
-msgstr ""
+msgstr "Zur ePartool-Entwickler-Website"
 
 #: application/layouts/scripts/frontend-help-modal.phtml:5
 #: application/modules/default/views/scripts/voting/vote.phtml:191
@@ -1045,18 +1045,6 @@ msgstr "Keine Meinung"
 #: application/modules/default/views/scripts/consultation/index.phtml:2
 msgid "Overview of all consultations"
 msgstr "Alle Beteiligungsrunden im Überblick"
-
-#: application/modules/default/views/scripts/error/error.phtml:7
-msgid "Exception:"
-msgstr "Ausnahme:"
-
-#: application/modules/default/views/scripts/error/error.phtml:8
-msgid "Message:"
-msgstr "Nachricht:"
-
-#: application/modules/default/views/scripts/error/error.phtml:9
-msgid "Stack trace:"
-msgstr "Stack trace:"
 
 #: application/modules/default/views/scripts/followup/index.phtml:18
 msgid "How it all proceeeded:"
@@ -1249,7 +1237,7 @@ msgstr "Reaktionen"
 
 #: application/modules/default/views/scripts/input/addDiscussionForm.phtml:14
 msgid "Video (optional)"
-msgstr ""
+msgstr "Video (optional)"
 
 #: application/modules/default/views/scripts/input/confirm.phtml:12
 msgid "Finish Contributing"
@@ -1305,13 +1293,14 @@ msgstr "Zurück zu den Beiträgen"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:39
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonym"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:58
 #: application/modules/default/views/scripts/input/show.phtml:120
+#: application/modules/default/views/scripts/urlkey-action/confirm-input-discussion-contribution.phtml:37
 #, php-format
 msgid "%s videos were disabled by admin for this question"
-msgstr ""
+msgstr "%s-Videos wurden für diese Frage deaktiviert"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:68
 msgid "This post was hidden by admin."
@@ -1327,6 +1316,8 @@ msgid ""
 "You can set your nick name in <a href=\"%s\">My Profile</a> to be displayed "
 "along with your comment."
 msgstr ""
+"Der angezeigte Name kann auf <a href=\"%s\">Mein Profil</a> eingestellt "
+"werden."
 
 #: application/modules/default/views/scripts/input/edit.phtml:12
 msgid "Edit contribution"
@@ -1372,11 +1363,11 @@ msgstr "Zum Beantworten hier klicken"
 msgid "Confirm contribution"
 msgstr "Beitrag bestätigen"
 
-#: application/modules/default/views/scripts/urlkey-action/confirm-notification.phtml:3
+#: application/modules/default/views/scripts/urlkey-action/confirm-notification.phtml:5
 msgid "Confirm subscription"
 msgstr "Abonnement bestätigen"
 
-#: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:3
+#: application/modules/default/views/scripts/urlkey-action/password-reset.phtml:5
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
@@ -1386,7 +1377,7 @@ msgstr "Meine Beiträge"
 
 #: application/modules/default/views/scripts/user/activity.phtml:18
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: application/modules/default/views/scripts/user/activity.phtml:41
 msgid "You have no confirmed contributions."
@@ -1785,6 +1776,29 @@ msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
 #: application/modules/default/views/scripts/voting/vote.phtml:234
 msgid "Remove"
 msgstr "Entfernen"
+
+# Missing . at end of sentence.
+#~ msgid "Your current password does not match. Please try it again"
+#~ msgstr "Das alte Passwort stimmt nicht überein. Bitte nochmal versuchen."
+
+# This message is a bit weird - it says saving doesn't work, but the user should still try again?
+#~ msgid "Your profile cannot be updated. Please try it again."
+#~ msgstr ""
+#~ "Das Nutzerprofil kann nicht aktualisiert werden. Bitte erneut versuchen."
+
+#~ msgid "Exception:"
+#~ msgstr "Ausnahme:"
+
+#~ msgid "Message:"
+#~ msgstr "Nachricht:"
+
+# What is stack trace?
+#~ msgid "Stack trace:"
+#~ msgstr "Stack trace:"
+
+# This sounds strange. Where does it appear?
+#~ msgid "Confirm a new password"
+#~ msgstr "Ein neues Passwort bestätigen"
 
 #~ msgid ""
 #~ "Please check your data.It is also possible that the maximum editing "
