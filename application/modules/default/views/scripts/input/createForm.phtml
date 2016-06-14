@@ -19,6 +19,25 @@
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
         <div class="form-group">
 
+            <?php if ($this->element->getVideoEnabled()) : ?>
+                <div class="offset-top-large js-video-service">
+                    <div class="row">
+                        <div class="col-sm-3 col-sm-offset-1 text-left">
+                            <?=$input->getElements()['video_service'];?>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <label class="invisible">Video ID</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon js-video-service-url"></span>
+                                    <?=$input->getElements()['video_id'];?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <!-- Counter -->
             <div class="text-right js-character-counter">
                 <span id="inputs-<?=$input->getName();?>-thes_counter" class="counter">
@@ -43,22 +62,6 @@
                     <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
             </div>
-
-            <?php if ($this->element->getVideoEnabled()) : ?>
-                <div class="form-group offset-top offset-bottom js-video-service">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <?=$input->getElements()['video_service'];?>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <span class="input-group-addon js-video-service-url"></span>
-                                <?=$input->getElements()['video_id'];?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
 
         </div>
     <?php endforeach; ?>
