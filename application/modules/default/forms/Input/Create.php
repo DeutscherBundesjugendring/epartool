@@ -6,7 +6,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @var bool
      */
     protected $videoEnabled;
-    
+
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/createForm.phtml'))));
@@ -126,8 +126,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
         $inputForm->addElement('videoService', 'video_service');
         $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
-            ->setValue($videoService);
-        
+            ->setValue($videoService)
+            ->setLabel('Your video');
+
         $inputForm->addElement('videoId', 'video_id');
         $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
             ->setValue($videoId);
