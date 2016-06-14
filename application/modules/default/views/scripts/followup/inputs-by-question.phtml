@@ -118,7 +118,13 @@
                                         href="<?=$this->url(['controller' => 'input', 'action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                         class="btn btn-default btn-xs hidden-print"
                                     >
-                                        <?=$this->translate('I would like to discuss that!');?>
+                                        <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
+                                            && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
+                                        ): ?>
+                                            <?=$this->translate('I would like to discuss that!');?>
+                                        <?php else : ?>
+                                            <?=$this->translate('Show discussion');?>
+                                        <?php endif; ?>
                                     </a>
                                 </span>
                             <?php endif; ?>

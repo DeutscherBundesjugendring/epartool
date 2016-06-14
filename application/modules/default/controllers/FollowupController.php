@@ -80,6 +80,14 @@ class FollowupController extends Zend_Controller_Action
         $questionModel = new Model_Questions();
         if (!$qid) {
             $question = $questionModel->getByConsultation($this->consultation['kid'])->current();
+            if ($question === null) {
+                $this->flashMessenger->addMessage('There are no questions in this consultation.', 'info');
+                $this->redirect($this->view->url([
+                    'controller' => 'followup',
+                    'action' => 'index',
+                    'kid' => $this->consultation['kid']
+                ], null, true));
+            }
             $qid = $question['qi'];
         } else {
             $question = $questionModel->getById($qid);
