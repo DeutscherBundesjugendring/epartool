@@ -45,28 +45,33 @@
                     </li>
                 </ul>
                 <p>
-                    <strong><?=$this->translate('Contributions that were available to vote');?>: <?php echo $this->nrInputsVoting; ?></strong><br />
-                    <span class="text-muted small"><?=$this->translate('partly copy->edited, merged or splitted by organisers due to overlapping contents');?></span>
+                    <strong><?=$this->translate('Contributions that were available to vote on');?>: <?php echo $this->nrInputsVoting; ?></strong><br />
+                    <span class="text-muted small"><?=$this->translate('Final number, after voting preparation');?></span>
                 </p>
 
                 <h3 class="offset-top-large"><?=$this->translate('Questions');?></h3>
 
                 <?php foreach ($this->questions as $question): ?>
-                    <p>
-                        <a href="<?php echo $this->url(array(
-                            'controller' => 'input',
-                            'action' => 'index',
-                            'qid' => $question['qi']
+                    <div class="offset-bottom">
+                        <p>
+                            <a href="<?php echo $this->url(array(
+                                'controller' => 'input',
+                                'action' => 'index',
+                                'qid' => $question['qi']
                             )); ?>"
-                          title="<?=$this->translate('See Contribution');?>"
-                        >
-                            <strong><?php echo $question['nr']; ?> <?php echo $question['q']; ?></strong>
-                        </a><br />
-                        <?=$this->translate('Number of contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
-                        <span class="text-muted small"><?=$this->translate('only confirmed ones');?></span><br />
-                        <?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?><br />
-                        <span class="text-muted small"><?=$this->translate('partly copy->edited, merged or splitted by organisers due to overlapping contents');?></span>
-                    </p>
+                               title="<?=$this->translate('See Contribution');?>"
+                            >
+                                <strong><?php echo $question['nr']; ?> <?php echo $question['q']; ?></strong>
+                            </a>
+                        </p>
+                        <p>
+                            <?=$this->translate('Number of confirmed contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
+                        </p>
+                        <p>
+                            <?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?><br />
+                            <span class="text-muted small"><?=$this->translate('Final number, after voting preparation');?></span>
+                        </p>
+                    </div>
                 <?php endforeach; ?>
 
                 <h3 class="offset-top-large"><?=$this->translate('Votes');?></h3>
@@ -80,7 +85,7 @@
                     >
                         <strong><?=$this->translate('Absolute number of votes');?>: <?php echo $this->votingCountIndiv; ?></strong>
                     </a><br />
-                    <span class="text-muted small"><?=$this->translate('without taking into account different voting weights');?></span>
+                    <span class="text-muted small"><?=$this->translate('Raw amount, voting weight not taken into account');?></span>
                 </p>
 
                 <p>
