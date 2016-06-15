@@ -19,15 +19,24 @@
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
         <div class="form-group">
 
+            <!-- Counter -->
+            <div class="text-right js-character-counter">
+                <span id="inputs-<?=$input->getName();?>-thes_counter" class="counter">
+                    <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
+                </span>
+            </div>
+
+            <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
+
             <?php if ($this->element->getVideoEnabled()) : ?>
-                <div class="offset-top-large js-video-service">
+                <div class="offset-top offset-bottom-none js-video-service">
                     <div class="row">
-                        <div class="col-sm-3 col-sm-offset-1 text-left">
+                        <div class="col-sm-3 text-left">
                             <?=$input->getElements()['video_service'];?>
                         </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-9">
                             <div class="form-group">
-                                <label class="invisible">Video ID</label>
+                                <label class="invisible hidden-xs">Video ID</label>
                                 <div class="input-group">
                                     <span class="input-group-addon js-video-service-url"></span>
                                     <?=$input->getElements()['video_id'];?>
@@ -37,15 +46,6 @@
                     </div>
                 </div>
             <?php endif; ?>
-
-            <!-- Counter -->
-            <div class="text-right js-character-counter">
-                <span id="inputs-<?=$input->getName();?>-thes_counter" class="counter">
-                    <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
-                </span>
-            </div>
-
-            <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
 
             <!-- Expand -->
             <a href="#" class="btn btn-inverse btn-alt btn-separated btn-block btn-xs js-toggle-extended-input">

@@ -114,6 +114,13 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 'striptags' => 'StripTags',
             ),
         );
+
+        $videoElOpts = array(
+            'attribs' => array(
+                'class' => 'form-control form-control-alt',
+            ),
+        );
+
         $explEl = $this->createElement('textarea', 'expl');
         $explEl
             ->setOptions($explElOpts)
@@ -126,20 +133,22 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
         $inputForm->addElement('videoService', 'video_service');
         $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setOptions($videoElOpts)
             ->setValue($videoService)
             ->setLabel('Your video');
 
         $inputForm->addElement('videoId', 'video_id');
         $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setOptions($videoElOpts)
             ->setValue($videoId);
-        
+
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
         return $this;
     }
-    
+
     /**
      * @return bool
      */
