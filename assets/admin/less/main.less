@@ -74,12 +74,38 @@
 // ===========================================================
 
 .text-danger-block {
-    list-style: none;
+    .alert();
+    .alert-danger();
+    display: block;
+    list-style: none; // reset error lists
+
+    .form-group &:not(:only-child) {
+        margin-top: @line-height-computed / 2;
+    }
 }
 
 .navbar-brand {
     svg {
         margin-top: -3px;
+    }
+}
+
+// Ensure optimum legibility
+.panel-default {
+    .panel-heading {
+        a,
+        .panel-title {
+            color: @text-color;
+        }
+    }
+}
+
+.panel-primary {
+    .panel-heading {
+        a,
+        .panel-title {
+            color: #fff;
+        }
     }
 }
 
