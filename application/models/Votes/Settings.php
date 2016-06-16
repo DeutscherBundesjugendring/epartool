@@ -16,17 +16,23 @@ class Model_Votes_Settings extends Dbjr_Db_Table_Abstract
 
         return (int) $this -> insert($data);
     }
+
+    /**
+     * @param int $id
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
     public function getById($id)
     {
-            $result = array();
+        $result = array();
+        $row = $this -> find($id) -> current();
+        if ($row) {
+            $result = $row -> toArray();
+        } else {
+            $this ->add($id);
             $row = $this -> find($id) -> current();
-            if ($row) {
-                $result = $row -> toArray();
-            } else {
-                $this ->add($id);
-                $row = $this -> find($id) -> current();
-                $result = $row -> toArray();
-            }
+            $result = $row -> toArray();
+        }
 
         return $result;
     }

@@ -63,4 +63,35 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                     return $inputs;
     }
 
+    /**
+     * @param string $confirmationHash
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function fetchInputsToConfirm($confirmationHash)
+    {
+        $db = $this->getAdapter();
+        $select = $db->select();
+        $select->from(['inputs' => (new Model_Inputs())->info(Model_Inputs::NAME)])
+            ->join(
+                ['votes' => 'vt_indiv'],
+                $db->quoteInto('(inputs.tid = votes.tid  AND votes.confirmation_hash = ?)', $confirmationHash),
+                ['points' => 'votes.pts', 'status' => 'votes.status', 'pimp' => 'votes.pimp']
+            )->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = inputs.qi',
+                []
+            )
+            ->group('inputs.tid');
+
+        $resultSet = $db->query($select);
+
+        $inputs = array();
+        foreach ($resultSet as $row) {
+            $inputs[]=$row;
+        }
+
+        return $inputs;
+    }
+
 }

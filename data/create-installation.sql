@@ -985,6 +985,10 @@ ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPD
 ALTER TABLE `inpt`
 ADD `reminders_sent` int NOT NULL DEFAULT '0';
 
+-- Migration 2016-06-15_13-23_DBJR-770.sql
+ALTER TABLE `vt_indiv`
+ADD `confirmation_hash` char(32) NULL;
+
 -- Migration 2016-06-17_16-03_DBJR-626.sql
 INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
 VALUES ('Green', 'fc9026', '5fa4a0', '02afdb');
