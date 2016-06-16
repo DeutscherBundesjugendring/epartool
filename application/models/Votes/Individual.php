@@ -6,6 +6,8 @@
 class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_indiv';
+    
+    private $allowedStatus = ['v', 's', 'c'];
 
     /**
      * get the last vote of an subuser
@@ -255,30 +257,24 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
     /**
      * Update status of vote of a subuser
-     * @param integer $uid
-     * @param string  $subuid       (md5-hash)
+     * @param string $hash
      * @param string  $status       (v = voted, s = skipped, c = confirmed)
      * @param string  $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
+     * @return bool
      */
-    public function setStatusForSubuser($uid, $subuid, $status, $statusBefore = '')
+    public function setStatusForSubuser($hash, $status, $statusBefore = '')
     {
-        if (empty($uid) || empty($subuid) || empty($status)) {
+        if (empty($hash) || empty($status)) {
             return false;
         }
-        if ($status != 'v' && $status != 's' && $status != 'c') {
+        if (!in_array($status, $this->allowedStatus)) {
             return false;
         }
         $db = $this->getAdapter();
 
-        $data = array(
-            'status' => $status,
-            'upd'        => new Zend_Db_Expr('NOW()')
-        );
-        $where = array(
-            'uid = ?'    => $uid,
-            'sub_uid = ?' => $subuid
-        );
-        if (!empty($statusBefore) && ($statusBefore=='v' || $statusBefore=='s' || $statusBefore=='c')) {
+        $data = ['status' => $status, 'upd' => new Zend_Db_Expr('NOW()')];
+        $where = ['hash = ?'    => $hash];
+        if (in_array($statusBefore, $this->allowedStatus)) {
             $where['status = ?'] = $statusBefore;
         }
 
@@ -290,36 +286,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         return false;
     }
 
-    /**
-     * Delete votes for user by status
-     * @param string $subuid       (md5-hash)
-     * @param string $status       (v = voted, s = skipped, c = confirmed)
-     * @param string $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
-     */
-    public function deleteByStatusForSubuser($uid, $subuid, $status)
-    {
-        if (empty($uid) || empty($subuid) || empty($status)) {
-            return false;
-        }
-        if ($status != 'v' && $status != 's' && $status != 'c') {
-            return false;
-        }
-
-        $db = $this->getAdapter();
-        $where = array(
-            'uid = ?'    => $uid,
-            'sub_uid = ?' => $subuid,
-            'status = ?' => $status,
-        );
-        $result = $db->delete($this->_name, $where);
-        if ($result) {
-            return true;
-        }
-
-        return false;
-    }
-
-     /* gets the superbutton thesis  */
+    /* gets the superbutton thesis  */
     public function getParticularImportantVote($subUid)
     {
         $db = $this->getAdapter();
@@ -488,5 +455,33 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             ->join(['q' => (new Model_Questions())->getName()], 'i.qi = q.qi', [])
             ->where('q.kid = ?', $kid)
             ->group('vti.uid');
+    }
+
+    /**
+     * @param string $confirmationHash
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getOneVoteWithDependencies($confirmationHash)
+    {
+        $q = $this->select()
+            ->from(['v' => $this->info(self::NAME)])
+            ->setIntegrityCheck(false)
+            ->join(
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                'i.tid = v.tid',
+                []
+            )->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'c.kid = q.kid',
+                ['kid', 'titl', 'titl_short']
+            )
+            ->where('confirmation_hash = ?', $confirmationHash);
+
+        return $this->fetchAll($q, null, 1)->current()->toArray();
     }
 }

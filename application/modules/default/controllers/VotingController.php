@@ -556,7 +556,7 @@ class VotingController extends Zend_Controller_Action
         }
 
         // check if a tid is given
-        if (empty($tid ) || (empty($param['qid']) && empty($param['tag']))) {
+        if (empty($tid) || (empty($param['qid']) && empty($param['tag']))) {
             $this->_flashMessenger->addMessage('Something went wrong.', 'info');
             $this->redirect('/voting/overview/kid/'.$this->_consultation->kid);
         }
@@ -567,11 +567,22 @@ class VotingController extends Zend_Controller_Action
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
         }
 
-        $votingSuccess = (new Model_Votes_Individual())->updateVote($tid, $subUid, $uid, $pts);
-        if ($votingSuccess) {
+        $votingService = new Service_Voting();
+        if (empty($votingRightsSession->confirmationHash)) {
+            $votingRightsSession->confirmationHash = $confirmationHash = $votingService->generateConfirmationHash();
+        } else {
+            $confirmationHash = $votingRightsSession->confirmationHash;
+        }
+
+        try {
+            $votingService->saveVote(
+                ['tid' => $tid, 'uid' => $uid, 'sub_uid' => $subUid, 'pts' => $pts],
+                $confirmationHash
+            );
+
             $this->_flashMessenger->addMessage('Your vote has been counted!', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . $backParam);
-        } else {
+        } catch (Dbjr_Voting_Exception $ex) {
             $this->_flashMessenger->addMessage('Your vote could not be registered. (1)', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . '/tid/' . $param['tid'] . $backParam);
         }
@@ -663,14 +674,14 @@ class VotingController extends Zend_Controller_Action
             $subuser = $votingGroup->getByUser($uid, $subUid);
 
             // user deleted by admin or groupadmin after login for voting //
-            if (empty( $subuser)) {
+            if (empty($subuser)) {
                 $votingRightsSession->unsetAll();
                 $this->_flashMessenger->addMessage('User could not be found.', 'error');
                 $this->redirect('/voting/preview/kid/' . $this->_consultation->kid);
             }
 
             $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $this->_consultation->kid .
-                '/authcode/' . $votingRightsSession->vtc . '/user/' . $subUid;
+                '/hash/' . $votingRightsSession->confirmationHash;
 
             $mailer = new Dbjr_Mail();
             $mailer
@@ -692,8 +703,9 @@ class VotingController extends Zend_Controller_Action
             $this->view->groupmember = $subuser['sub_user'];
         } else { // if singleuser (no group) just update status of his votes
             $voteIndiviModel = new Model_Votes_Individual();
-            $result = $voteIndiviModel->setStatusForSubuser($uid, $subUid, 'c');
+            $result = $voteIndiviModel->setStatusForSubuser($votingRightsSession->confirmationHash, 'c');
         }
+        unset($votingRightsSession->confirmationHash);
         $votingRightsSession->unsetAll();
     }
 
@@ -706,75 +718,72 @@ class VotingController extends Zend_Controller_Action
      */
     public function confirmvotingAction()
     {
-        $act = $this->getRequest()->getParam('act');
-        $subuid = $this->getRequest()->getParam('user');
-        $authcode = $this->getRequest()->getParam('authcode');
+        $confirmationHash = $this->getRequest()->getParam('hash');
 
-        // action or subuid is not given
-        if (($act != 'acc' && $act != 'rej') || empty($subuid) || empty($authcode)) {
+        if (empty($confirmationHash)) {
             $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
+        
+        $votingService = new Service_Voting();
+        $dbAdapter = (new Model_Votes_Individual())->getDefaultAdapter();
 
-        // get rights by authcode
-        $votingRightModel = new Model_Votes_Rights();
-        $votingRights = $votingRightModel->findByCode($authcode);
-
-        // No access
-        if (!$votingRights) {
-            $this->_flashMessenger->addMessage('The link is not correct.', 'error');
-            $this->redirect('/');
-        }
-
-        // get group
-        $votingGroupModel = new Model_Votes_Groups();
-        $votingGroup = $votingGroupModel->getByUser($votingRights['uid'], $subuid);
-
-        // confirm
-        $votingIndivModel = new Model_Votes_Individual();
-        if ($act == 'acc') {
-            // If user is singleuser (not group)
-            if ($votingRights['vt_weight'] > 1 || $votingRights['vt_weight'] == 1) {
-                $result = $votingIndivModel->setStatusForSubuser($votingRights['uid'], $subuid, 'v', 'c');
+        $this->view->form = new Default_Form_VotesConfirmation();
+        
+        if ($this->_request->isPost()) {
+            $data = $this->_request->getPost();
+            if (!empty($data['confirm'])) {
+                $dbAdapter->beginTransaction();
+                try {
+                    $votingService->confirmVotes($confirmationHash);
+                    $dbAdapter->commit();
+                    $this->_flashMessenger->addMessage('Votes were confirmed.', 'success');
+                } catch (Dbjr_Voting_Exception $ex) {
+                    $dbAdapter->rollBack();
+                    $this->_flashMessenger->addMessage('Votes confirmation error.', 'error');
+                }
+            } elseif (!empty($data['reject'])) {
+                $dbAdapter->beginTransaction();
+                try {
+                    $votingService->rejectVotes($confirmationHash);
+                    $dbAdapter->commit();
+                    $this->_flashMessenger->addMessage('Votes were deleted.', 'success');
+                } catch (Dbjr_Voting_Exception $ex) {
+                    $dbAdapter->rollBack();
+                    $this->_flashMessenger->addMessage('Votes deleting error.', 'error');
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Invalid action invoked.', 'error');
             }
-            $this->view->heading = $this->view->translate('Your contributions are now confirmed.');
-        } elseif ($act == 'rej') { // reject votes
-            // If user is singleuser (not group)
-            if ($votingRights['vt_weight'] > 1 || $votingRights['vt_weight'] == 1) {
-                $result = $votingIndivModel->deleteByStatusForSubuser($votingRights['uid'], $subuid, 'v');
+        } else {
+            $this->view->settings = $this->getVotingSettings();
+
+            $questionModel = new Model_Questions();
+            $questions = $questionModel->getByConsultation($this->_consultation['kid'])->toArray();
+            $questionResult = array();
+
+            $i = 0;
+            $empty = true;
+            foreach ($questions as $question) {
+                $questionResult["$i"] = $question;
+                $questionResult["$i"]['QuestionsAndInputs'] = (new Model_Votes_Uservotes())
+                    ->fetchInputsToConfirm($confirmationHash);
+                if ($empty && !empty($questionResult["$i"]['QuestionsAndInputs'])) {
+                    $empty = false;
+                }
+                $i++;
+            }
+
+            $this->view->questions = $questionResult;
+
+            if ($empty) {
+                $this->_flashMessenger->addMessage('No unconfirmed votes to process.', 'info');
+            } else {
+                return;
             }
         }
 
-        // send mail to singleuser/groupleader if user in unconfirmed
-        if ($votingGroup['member'] == 'u') {
-            // get groupleader
-            $userModel = new Model_Users();
-            $leader = $userModel->getById($votingGroup['uid']);
-            $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmmember/kid/' .  $this->_consultation->kid
-                . '/authcode/' . $authcode . '/user/' . $subuid;
-
-            $mailer = new Dbjr_Mail();
-            $mailer
-                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_GROUP)
-                ->setPlaceholders(
-                    array(
-                        'to_name' => $leader['name'] ? $leader['name'] : $leader['email'],
-                        'to_email' => $leader['email'],
-                        'voter_email' => $votingGroup['sub_user'],
-                        'confirmation_url' => $actionUrl . '/act/' . md5($votingGroup['sub_user'] . $subuid . 'y'),
-                        'rejection_url' => $actionUrl . '/act/' . md5($votingGroup['sub_user'] . $subuid . 'n'),
-                        'consultation_title_short' => $this->_consultation->titl_short,
-                        'consultation_title_long' => $this->_consultation->titl,
-                    )
-                )
-                ->addTo($leader['email']);
-            (new Service_Email)
-                ->queueForSend($mailer)
-                ->sendQueued();
-        }
-
-        $this->view->act = $act;
-        $this->view->memberstatus = $votingGroup['member'];
+        $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
     }
 
     /**

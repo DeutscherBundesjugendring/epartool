@@ -1,0 +1,26 @@
+<?php
+    $settings = $this->layout()->settings;
+    $labels = $this->layout()->labels;
+?>
+
+<ul class="nav nav-justified nav-voting text-center small">
+
+    <?php if ($settings['btn_important'] == 'y') : ?>
+        <li class="nav-voting-superbutton<?=$this->pimp == 'y' ? ' active' : '';?>">
+            <span class="glyphicon glyphicon-star nav-voting-superbutton-icon icon-lg" aria-hidden="true"></span>
+            <br />
+            <?=$this->escape($settings['btn_important_label']);?>
+        </li>
+    <?php endif; ?>
+
+    <?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--) : ?>
+        <li<?=($this->points !== null && $this->points == $i) ? ' class="active"' : '';?>>
+            <?=$this->escape($labels[$i]);?>
+        </li>
+    <?php endfor; ?>
+
+    <li<?=$this->points == '5' ? ' class="active"' : '';?>>
+        <?=$this->translate('No opinion');?>
+    </li>
+
+</ul>

@@ -1,32 +1,17 @@
+<?php
+    $settings = $this->settings;
+    $this->layout()->settings = $settings;
+    $this->layout()->labels = $array = explode(',', $settings['btn_labels']);
+?>
+
 <div class="main-content">
 
-    <?php if ($this->act == 'acc'): ?>
-        <h1><?=$this->translate('Your votings have been confirmed.');?></h1>
-        <p>
-            <?=$this->translate("Thank you for confirming your vote. If you haven't voted on all contributions yet, you can use the access code to get back and proceed with your votings any time.");?>
-        </p>
-    <?php endif; ?>
+    <h1><?=$this->translate('Confirmation of your votes.');?></h1>
+    <p><?=$this->translate('Here you can check your previous inserted votes. Please confirm or delete them with buttons below.');?></p>
+    
+    <!-- Questions -->
+    <?=$this->partialLoop('_partials/voting/votingConfirmationQuestion.phtml', $this->questions);?>
 
-    <?php if ($this->memberstatus == 'u' && $this->act == 'acc'): ?>
-        <p>
-            <?=$this->translate('The person responsible for your group needs to confirm that you are allowed for voting. He/she will only see your email address, not how you voted. After confirmation, your votings will be included in the voting results.');?>
-        </p>
-    <?php elseif ($this->memberstatus == 'y' && $this->act == 'acc'): ?>
-        <p>
-            <?=$this->translate('The person responsible for your group has confirmed your email address. Your votings will now be included anonymously in the overall voting results.');?>
-        </p>
-    <?php elseif ($this->act == 'rej'): ?>
-        <h1><?=$this->translate('The votings have been deleted.');?></h1>
-        <p>
-            <?=$this->translate('The votings connected to your email address will not be included in the end results. This does not apply to votings you may have made before.');?>
-        </p>
-    <?php endif; ?>
-
-    <p>
-        <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="btn btn-default">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            <?=$this->translate('Back to Home');?>
-        </a>
-    </p>
+    <?=$this->form;?>
 
 </div><!-- .main-content -->
