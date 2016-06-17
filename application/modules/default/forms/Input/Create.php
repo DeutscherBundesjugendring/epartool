@@ -140,7 +140,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $inputForm->addElement('videoId', 'video_id');
         $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
             ->setOptions($videoElOpts)
-            ->setValue($videoId);
+            ->setValue($videoId)
+            ->setLabel('Video ID')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
 
         $inputForm->addElement($explEl);
         $inputForm->addElement($thesEl);
