@@ -45,25 +45,53 @@
     <h2><?=$this->translate('Custom Colours');?></h2>
     <div class="form-group">
         <label
-            <?php if ($this->element->color_headings->isRequired()) : ?>
+            <?php if ($this->element->color_primary->isRequired()) : ?>
                 class="required"
             <?php endif;?>
-            for="<?=$this->element->color_headings->getName();?>"
+            for="<?=$this->element->color_primary->getName();?>"
         >
-            <?=$this->element->color_headings->getLabel()?>
+            <?=$this->element->color_primary->getLabel()?>
         </label>
         <div class="input-group colorpicker-component">
             <input
-                id="<?=$this->element->color_headings->getName();?>"
+                id="<?=$this->element->color_primary->getName();?>"
                 type="text"
-                name="color_headings"
-                value="#<?=$this->element->color_headings->getValue();?>"
+                name="color_primary"
+                value="#<?=$this->element->color_primary->getValue();?>"
                 class="form-control"
             />
             <span class="input-group-addon"><i></i></span>
-            <?php if (count($this->element->color_headings->getErrors()) > 0) : ?>
+            <?php if (count($this->element->color_primary->getErrors()) > 0) : ?>
                 <ul class="text-danger-block">
-                    <?php foreach ($this->element->color_headings->getErrors() as $error) : ?>
+                    <?php foreach ($this->element->color_primary->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label
+            <?php if ($this->element->color_accent_1->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_accent_1->getName();?>"
+        >
+            <?=$this->element->color_accent_1->getLabel()?>
+        </label>
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_accent_1->getName();?>"
+                type="text"
+                name="color_accent_1"
+                value="#<?=$this->element->color_accent_1->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_accent_1->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_accent_1->getErrors() as $error) : ?>
                         <li><?=$error?></li>
                     <?php endforeach; ?>
                 </ul>
@@ -73,53 +101,25 @@
 
     <div class="form-group">
         <label
-            <?php if ($this->element->color_frame_background->isRequired()) : ?>
+            <?php if ($this->element->color_accent_2->isRequired()) : ?>
                 class="required"
             <?php endif;?>
-            for="<?=$this->element->color_frame_background->getName();?>"
+            for="<?=$this->element->color_accent_2->getName();?>"
         >
-            <?=$this->element->color_frame_background->getLabel()?>
+            <?=$this->element->color_accent_2->getLabel()?>
         </label>
         <div class="input-group colorpicker-component">
             <input
-                id="<?=$this->element->color_frame_background->getName();?>"
+                id="<?=$this->element->color_accent_2->getName();?>"
                 type="text"
-                name="color_frame_background"
-                value="#<?=$this->element->color_frame_background->getValue();?>"
+                name="color_accent_2"
+                value="#<?=$this->element->color_accent_2->getValue();?>"
                 class="form-control"
             />
             <span class="input-group-addon"><i></i></span>
-            <?php if (count($this->element->color_frame_background->getErrors()) > 0) : ?>
+            <?php if (count($this->element->color_accent_2->getErrors()) > 0) : ?>
                 <ul class="text-danger-block">
-                    <?php foreach ($this->element->color_frame_background->getErrors() as $error) : ?>
-                        <li><?=$error?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label
-            <?php if ($this->element->color_active_link->isRequired()) : ?>
-                class="required"
-            <?php endif;?>
-            for="<?=$this->element->color_active_link->getName();?>"
-        >
-            <?=$this->element->color_active_link->getLabel()?>
-        </label>
-        <div class="input-group colorpicker-component">
-            <input
-                id="<?=$this->element->color_active_link->getName();?>"
-                type="text"
-                name="color_active_link"
-                value="#<?=$this->element->color_active_link->getValue();?>"
-                class="form-control"
-            />
-            <span class="input-group-addon"><i></i></span>
-            <?php if (count($this->element->color_active_link->getErrors()) > 0) : ?>
-                <ul class="text-danger-block">
-                    <?php foreach ($this->element->color_active_link->getErrors() as $error) : ?>
+                    <?php foreach ($this->element->color_accent_2->getErrors() as $error) : ?>
                         <li><?=$error?></li>
                     <?php endforeach; ?>
                 </ul>

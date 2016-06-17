@@ -202,30 +202,30 @@ bindContributionVideoSelect = () ->
 
 themeSettings = () ->
     $('#themes').data('presetTheme', $("input[name='theme_id']:checked").val())
-    colorHeadings = $('#color_headings')
-    colorFrameBackground = $('#color_frame_background')
-    colorActiveLink = $('#color_active_link')
+    colorAccent1 = $('#color_accent_1')
+    colorPrimary = $('#color_primary')
+    colorAccent2 = $('#color_accent_2')
     
-    colorHeadings.data('oldValue', colorHeadings.val())
-    colorFrameBackground.data('oldValue', colorFrameBackground.val())
-    colorActiveLink.data('oldValue', colorActiveLink.val())
+    colorAccent1.data('oldValue', colorAccent1.val())
+    colorPrimary.data('oldValue', colorPrimary.val())
+    colorAccent2.data('oldValue', colorAccent2.val())
 
     $('.js-theme-preset').click () ->
         if !$('#themes').data('presetTheme')
             if !confirm(i18n.translate('Custom colors are set. Do you want to replace them with predefined theme?'))
                 return false;
         colors = $(this).data('colors');
-        colorHeadings = $('#color_headings')
-        colorFrameBackground = $('#color_frame_background')
-        colorActiveLink = $('#color_active_link')
+        colorAccent1 = $('#color_accent_1')
+        colorPrimary = $('#color_primary')
+        colorAccent2 = $('#color_accent_2')
 
-        colorHeadings.closest('.colorpicker-component').colorpicker('setValue', colors['color_headings']);
-        colorFrameBackground.closest('.colorpicker-component').colorpicker('setValue', colors['color_frame_background']);
-        colorActiveLink.closest('.colorpicker-component').colorpicker('setValue', colors['color_active_link']);
+        colorAccent1.closest('.colorpicker-component').colorpicker('setValue', colors['color_accent_1']);
+        colorPrimary.closest('.colorpicker-component').colorpicker('setValue', colors['color_primary']);
+        colorAccent2.closest('.colorpicker-component').colorpicker('setValue', colors['color_accent_2']);
         $('#themes').data('presetTheme', true)
-        colorHeadings.data('oldValue', colorHeadings.val())
-        colorFrameBackground.data('oldValue', colorFrameBackground.val())
-        colorActiveLink.data('oldValue', colorActiveLink.val())
+        colorAccent1.data('oldValue', colorAccent1.val())
+        colorPrimary.data('oldValue', colorPrimary.val())
+        colorAccent2.data('oldValue', colorAccent2.val())
         return true
 
     $('.colorpicker-component').colorpicker({format: "hex"}).on('change showPicker', () ->

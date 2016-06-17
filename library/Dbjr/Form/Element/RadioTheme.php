@@ -10,9 +10,9 @@ class Dbjr_Form_Element_RadioTheme extends Dbjr_Form_Element_Radio
         foreach ($themes as $theme) {
             $themesOptions[$theme['id']] = $theme['name'];
             $colorConfig[$theme['id']] = json_encode([
-                'color_headings' => '#' . $theme['color_headings'],
-                'color_frame_background' => '#'. $theme['color_frame_background'],
-                'color_active_link' => '#'. $theme['color_active_link'],
+                'color_accent_1' => '#' . $theme['color_accent_1'],
+                'color_primary' => '#'. $theme['color_primary'],
+                'color_accent_2' => '#'. $theme['color_accent_2'],
             ]);
         }
         $this->setMultioptions($themesOptions)->setOptions(['color_config' => $colorConfig]);

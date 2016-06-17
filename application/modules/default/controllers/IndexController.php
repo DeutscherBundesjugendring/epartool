@@ -106,7 +106,7 @@ class IndexController extends Zend_Controller_Action
         header('Content-Type: text/css; charset=utf-8');
         echo str_replace(
             ['color_primary', 'color_accent_1', 'color_accent_2'],
-            [$theme['color_frame_background'], $theme['color_headings'], $theme['color_active_link']],
+            [$theme['color_primary'], $theme['color_accent_1'], $theme['color_accent_2']],
             file_get_contents(APPLICATION_PATH . '/../assets/front/css/theme.css')
         );
         die();

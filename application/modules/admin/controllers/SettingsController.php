@@ -225,12 +225,12 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $data = [];
                 if (!empty($formData['theme_id'])) {
                     $data['theme_id'] = $formData['theme_id'];
-                    $data['color_headings'] = $data['color_frame_background'] = $data['color_active_link'] = null;
+                    $data['color_accent_1'] = $data['color_primary'] = $data['color_accent_2'] = null;
                 } else {
                     $data['theme_id'] = null;
-                    $data['color_headings'] = mb_substr($formData['color_headings'], 1);
-                    $data['color_frame_background'] = mb_substr($formData['color_frame_background'], 1);
-                    $data['color_active_link'] = mb_substr($formData['color_active_link'], 1);
+                    $data['color_accent_1'] = mb_substr($formData['color_accent_1'], 1);
+                    $data['color_primary'] = mb_substr($formData['color_primary'], 1);
+                    $data['color_accent_2'] = mb_substr($formData['color_accent_2'], 1);
                 }
                 
                 if (!empty($formData['logo'])) {
@@ -266,9 +266,9 @@ class Admin_SettingsController extends Zend_Controller_Action
             $data = $projectModel->find($projectCode)->current()->toArray();
             if (!empty($data['theme_id'])) {
                 $theme = (new Model_Theme())->find($data['theme_id'])->current();
-                $data['color_headings'] = $theme['color_headings'];
-                $data['color_frame_background'] = $theme['color_frame_background'];
-                $data['color_active_link'] = $theme['color_active_link'];
+                $data['color_accent_1'] = $theme['color_accent_1'];
+                $data['color_primary'] = $theme['color_primary'];
+                $data['color_accent_2'] = $theme['color_accent_2'];
             }
             $form->populate($data);
         }

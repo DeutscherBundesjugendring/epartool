@@ -23,23 +23,23 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
             ->setRequired(false);
         $this->addElement($theme);
 
-        $colorHeadings = $this->createElement('text', 'color_headings');
+        $colorFrameBackground = $this->createElement('text', 'color_primary');
+        $colorFrameBackground
+            ->setLabel('Primary color')
+            ->setRequired(true)
+            ->addValidator('stringLength', false, 7);
+        $this->addElement($colorFrameBackground);
+
+        $colorHeadings = $this->createElement('text', 'color_accent_1');
         $colorHeadings
-            ->setLabel('Headings')
+            ->setLabel('Accent color 1')
             ->setRequired(true)
             ->addValidator('stringLength', false, 7);
         $this->addElement($colorHeadings);
         
-        $colorFrameBackground = $this->createElement('text', 'color_frame_background');
-        $colorFrameBackground
-            ->setLabel('Frame Background')
-            ->setRequired(true)
-            ->addValidator('stringLength', false, 7);
-        $this->addElement($colorFrameBackground);
-        
-        $colorLinkActive = $this->createElement('text', 'color_active_link');
+        $colorLinkActive = $this->createElement('text', 'color_accent_2');
         $colorLinkActive
-            ->setLabel('Link Active')
+            ->setLabel('Accent color 2')
             ->setRequired(true)
             ->addValidator('stringLength', false, 7);
         $this->addElement($colorLinkActive);
