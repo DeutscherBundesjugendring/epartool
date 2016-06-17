@@ -41,7 +41,7 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             $videoServiceEl = $this->createElement('select', 'video_service');
             $videoServiceOptions = [];
             $urls = [];
-            foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
+            foreach (['youtube' => 'YouTube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
                 if ($project['video_' . $service . '_enabled']) {
                     $videoServiceOptions[$service] = $name;
                     $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
