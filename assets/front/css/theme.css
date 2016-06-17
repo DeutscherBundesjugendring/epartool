@@ -1,0 +1,265 @@
+/**
+ * Primary
+ */
+.frame {
+    background-color: #color_primary;
+}
+
+.consultation-phases-full .consultation-phases-item:before {
+    border-top-color: #color_primary;
+}
+
+@media (min-width: 768px) {
+    .consultation-phases-full .consultation-phases-item:before {
+        border-top-color: transparent;
+        border-left-color: #color_primary;
+    }
+}
+
+/**
+ * Accent
+ */
+h1,
+h2,
+h3,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h5,
+.h6 {
+    color: #color_accent_1;
+}
+
+a {
+    color: #color_accent_2;
+}
+
+a:hover,
+a:focus,
+.link-alt:hover,
+.link-alt:focus {
+    color: #color_accent_1;
+}
+
+.text-accent {
+    color: #color_accent_1;
+}
+
+/* Buttons */
+.btn-default,
+.btn-default.disabled,
+.btn-default[disabled] {
+    border-color: #color_accent_2;
+    background-color: #color_accent_2;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default:active:focus,
+.btn-default-alt:hover,
+.btn-default-alt:focus,
+.btn-default-alt:active:focus,
+.btn-default-alt:active {
+    border-color: #color_accent_2;
+    background-color: #color_accent_2;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25));
+}
+
+.btn-primary {
+    border-color: #color_accent_1;
+    background-color: #color_accent_1;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:active:hover,
+.btn-primary:active:focus,
+.btn-primary.active:hover,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary,
+.open > .dropdown-toggle.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary.focus {
+    border-color: #color_accent_1;
+    background-color: #color_accent_1;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25));
+}
+
+/* Header */
+.header-box-title > a:hover,
+.header-box-title > a:focus,
+.header-box-title-small > a,
+.header-box-title-small > a:hover,
+.header-box-title-small > a:focus,
+.header-box-subtitle {
+    color: #color_accent_1;
+}
+
+/* Navigation */
+.nav-pills > li > a,
+.nav-stacked > li > a {
+    background-color: #color_accent_2;
+}
+
+.nav-stacked > li > .nav > .active > a,
+.nav-stacked > li > .nav > .active > a:hover,
+.nav-stacked > li > .nav > .active > a:focus {
+    color: #color_accent_1;
+}
+
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,
+.nav-pills > .active > a:focus,
+.nav-stacked > li > a:hover,
+.nav-stacked > li > a:focus,
+.nav-stacked > .active > a,
+.nav-stacked > .active > a:hover,
+.nav-stacked > .active > a:focus {
+    background-color: #color_accent_1;
+}
+
+.nav-stacked > li > .nav > li:first-child > a:after {
+    border-top-color: #color_accent_1;
+}
+
+.nav-list > li > a {
+    background-color: #color_accent_1;
+}
+
+.nav-list > li > a:hover,
+.nav-list > li > a:focus,
+.nav-list > .active > a,
+.nav-list > .active > a:hover,
+.nav-list > .active > a:focus {
+    background-color: #color_accent_2;
+}
+
+.nav-voting > .active > a:before {
+    background-color: #color_accent_1;
+}
+
+/* Navbar */
+.navbar-default {
+    background-color: #color_accent_2;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    background-color: #color_accent_1;
+}
+
+/* Pagination */
+.pagination > li > a,
+.pagination > li > span {
+    background-color: #color_accent_2;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    background-color: #color_accent_1;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #color_accent_1;
+}
+
+/* Badges */
+.badge-accent {
+    background-color: #color_accent_1;
+}
+
+/* Stickers */
+.sticker-label-accent {
+    background-color: #color_accent_1;
+}
+
+/* Wells */
+.well-title {
+    color: #color_accent_1;
+}
+
+.well-accent {
+    background: #color_accent_1;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: #color_accent_1;
+}
+
+.form-search .form-control {
+    border-color: #color_accent_1;
+    background-color: #color_accent_1;
+}
+
+/* Consultation */
+.consultation-heading-title,
+.consultation-heading-subtitle {
+    color: #color_accent_2;
+}
+
+.consultation-heading:hover .consultation-heading-title,
+.consultation-heading:focus .consultation-heading-title,
+.consultation-heading:hover .consultation-heading-subtitle,
+.consultation-heading:focus .consultation-heading-subtitle {
+    color: #color_accent_1;
+}
+
+a.consultation-phases-item:hover,
+a.consultation-phases-item:focus {
+    background-color: #color_accent_1;
+}
+
+a.consultation-phases-item:hover:after,
+a.consultation-phases-item:focus:after {
+    border-color: #color_accent_1 transparent transparent;
+}
+
+@media (min-width: 768px) {
+    a.consultation-phases-item:hover:after,
+    a.consultation-phases-item:focus:after {
+        border-color: transparent transparent transparent #color_accent_1;
+    }
+}
+
+@media (min-width: 992px) {
+    .consultation-phases-preview-image-description {
+        background-color: #color_accent_1;
+    }
+}
+
+/* Counter */
+.counter-digit {
+    color: #color_accent_1;
+}
+
+/* Results */
+.result-number {
+    color: #color_accent_1;
+}
+
+.result-bar {
+    background-color: #color_accent_1;
+}
+
+/* Follow up */
+.followup-well-link:hover {
+    color: #color_accent_1;
+}

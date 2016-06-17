@@ -15,28 +15,35 @@
     <h2><?=$this->translate('Header');?></h2>
     <?=$this->element->mitmachen_bubble;?>
 
-    <h2><?=$this->translate('Predefined themens');?></h2>
-    <div id="themes">
-    <?php foreach ($this->element->theme_id->options as $themeId => $themeName) : ?>
-        <label>
-            <img src="<?=$this->baseUrl('images/themes/theme_' . $themeId . '.jpg');?>" /><br />
-            <input
-                id="theme-<?=$themeId;?>"
-                class="js-theme-preset"
-                type="radio" name="theme_id"
-                value="<?=$themeId;?>"
-                data-colors="<?=$this->escape($this->element->theme_id->color_config[$themeId]);?>"
-                <?php if ($this->element->theme_id->getValue() === (string) $themeId) : ?>
-                    checked="checked"
-                <?php endif; ?>
-                />
-            <?=$themeName;?>
-        </label>
+    <h2><?=$this->translate('Predefined themes');?></h2>
+    <div id="themes" class="row">
+        <?php foreach ($this->element->theme_id->options as $themeId => $themeName) : ?>
+            <div class="col-sm-4">
+                <label>
+                    <img
+                        src="<?=$this->baseUrl('images/themes/theme_' . $themeId . '.png');?>"
+                        width="280"
+                        class="img-responsive offset-bottom"
+                        alt="<?=$themeName;?>"
+                    />
+                    <input
+                        id="theme-<?=$themeId;?>"
+                        class="js-theme-preset"
+                        type="radio" name="theme_id"
+                        value="<?=$themeId;?>"
+                        data-colors="<?=$this->escape($this->element->theme_id->color_config[$themeId]);?>"
+                        <?php if ($this->element->theme_id->getValue() === (string) $themeId) : ?>
+                            checked="checked"
+                        <?php endif; ?>
+                        />
+                    <span class="offset-left"><?=$themeName;?></span>
+                </label>
+            </div>
     <?php endforeach; ?>
     </div>
 
     <h2><?=$this->translate('Custom Colours');?></h2>
-    <div class="row offset-bottom">
+    <div class="form-group">
         <label
             <?php if ($this->element->color_headings->isRequired()) : ?>
                 class="required"
@@ -45,7 +52,6 @@
         >
             <?=$this->element->color_headings->getLabel()?>
         </label>
-
         <div class="input-group colorpicker-component">
             <input
                 id="<?=$this->element->color_headings->getName();?>"
@@ -65,7 +71,7 @@
         </div>
     </div>
 
-    <div class="row offset-bottom">
+    <div class="form-group">
         <label
             <?php if ($this->element->color_frame_background->isRequired()) : ?>
                 class="required"
@@ -74,7 +80,6 @@
         >
             <?=$this->element->color_frame_background->getLabel()?>
         </label>
-
         <div class="input-group colorpicker-component">
             <input
                 id="<?=$this->element->color_frame_background->getName();?>"
@@ -94,7 +99,7 @@
         </div>
     </div>
 
-    <div class="row offset-bottom">
+    <div class="form-group">
         <label
             <?php if ($this->element->color_active_link->isRequired()) : ?>
                 class="required"
@@ -103,7 +108,6 @@
         >
             <?=$this->element->color_active_link->getLabel()?>
         </label>
-
         <div class="input-group colorpicker-component">
             <input
                 id="<?=$this->element->color_active_link->getName();?>"
@@ -123,7 +127,6 @@
         </div>
     </div>
 
-
     <?=$this->element->submit;?>
-    
+
 </form>

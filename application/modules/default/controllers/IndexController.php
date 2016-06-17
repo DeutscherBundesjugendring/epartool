@@ -94,7 +94,7 @@ class IndexController extends Zend_Controller_Action
         echo 'var i18n = ' . json_encode($i18n, JSON_UNESCAPED_UNICODE);
         die();
     }
-    
+
     public function customCssAction()
     {
         $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
@@ -105,9 +105,9 @@ class IndexController extends Zend_Controller_Action
         }
         header('Content-Type: text/css; charset=utf-8');
         echo str_replace(
-            ['%color_headings%', '%color_frame_background%', '%color_active_link%'],
-            [$theme['color_headings'], $theme['color_frame_background'], $theme['color_active_link']],
-            file_get_contents(APPLICATION_PATH . '/../assets/front/css/custom.css')
+            ['color_primary', 'color_accent_1', 'color_accent_2'],
+            [$theme['color_frame_background'], $theme['color_headings'], $theme['color_active_link']],
+            file_get_contents(APPLICATION_PATH . '/../assets/front/css/theme.css')
         );
         die();
     }
