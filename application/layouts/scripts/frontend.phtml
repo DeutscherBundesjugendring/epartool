@@ -21,7 +21,7 @@
     <?php else: ?>
         <link rel="stylesheet" href="<?=$this->baseUrl('project/css/style.min.css');?>?v=<?=$this->toolVersion();?>" type="text/css" />
     <?php endif; ?>
-    <link rel="stylesheet" href="<?=$this->url(['controller' => 'index', 'action' => 'custom-css']);?>?v=<?=$this->toolVersion();?>" type="text/css" />
+    <link rel="stylesheet" href="<?=$this->url(['controller' => 'index', 'action' => 'custom-css'], 'default');?>?v=<?=$this->toolVersion();?>" type="text/css" />
 
     <?php if (!empty($this->themeAssets()['favicon'])) : ?>
         <link rel="shortcut icon" href="<?=$this->baseUrl('media' . $this->themeAssets()['favicon']);?>" />
