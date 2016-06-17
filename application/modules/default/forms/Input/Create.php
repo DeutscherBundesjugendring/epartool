@@ -95,10 +95,6 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 'striptags' => 'StripTags',
             ),
         );
-        $thesEl = $this->createElement('textarea', 'thes');
-        $thesEl
-            ->setOptions($thesElOpts)
-            ->setValue($thes);
 
         $explElOpts = array(
             'cols' => 85,
@@ -121,16 +117,12 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ),
         );
 
-        $explEl = $this->createElement('textarea', 'expl');
-        $explEl
-            ->setOptions($explElOpts)
-            ->setValue($expl);
-
         if (!$this->getSubForm('inputs')) {
             $this->addSubForm(new Zend_Form(), 'inputs');
         }
         $inputForm = new Zend_Form();
         $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+
         $inputForm->addElement('videoService', 'video_service');
         $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
             ->setOptions($videoElOpts)
@@ -144,8 +136,20 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setLabel('Video ID')
             ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
 
-        $inputForm->addElement($explEl);
-        $inputForm->addElement($thesEl);
+        $inputForm->addElement('textarea', 'expl');
+        $inputForm->getElement('expl')
+            ->setOptions($explElOpts)
+            ->setValue($expl)
+            ->setLabel('Explain your contribution')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
+        $inputForm->addElement('textarea', 'thes');
+        $inputForm->getElement('thes')
+            ->setOptions($thesElOpts)
+            ->setValue($thes)
+            ->setLabel('Your contribution')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
         return $this;
