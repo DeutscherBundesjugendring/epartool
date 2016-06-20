@@ -2,57 +2,70 @@
 
 class Service_Reminder
 {
+
+    const STATUS_VOTED = 'v';
+
     /**
-     * @param int $consultationId
+     * @param string $confirmationHash
+     * @throws \Dbjr_Mail_Exception
+     * @throws \Zend_Db_Table_Exception
+     * @throws \Zend_Exception
+     */
+    public function sendToVoter($confirmationHash)
+    {
+        $votesBatch = (new Model_Votes_Individual())->getByConfirmationHash($confirmationHash);
+
+        if ($votesBatch !== null) {
+            $mailService = new Service_Email();
+            $mail = new Dbjr_Mail();
+            $mail
+                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_PARTICIPANTS_REMINDER_VOTER)
+                ->setPlaceholders([
+                    'to_email' => $votesBatch['sub_user'],
+                    'consultation_title_long' => $votesBatch['titl'],
+                    'consultation_title_short' => $votesBatch['titl_short'],
+                    'confirmation_url' => Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/'
+                        . $votesBatch['kid'] .'/hash/' . $votesBatch['confirmation_hash'],
+                ])
+                ->addTo($votesBatch['sub_user']);
+            $mailService->queueForSend($mail);
+        }
+
+        $mailService->sendQueued();
+    }
+
+    /**
      * @param int $uid
      * @param string $subUid
+     * @param int $consultationId
+     * @throws \Dbjr_Mail_Exception
+     * @throws \Zend_Exception
      */
-    public function send($consultationId, $uid, $subUid)
+    public function sendToGroupLeader($uid, $subUid, $consultationId)
     {
-        $user = (new Model_Users())->find($uid)->current();
-        $consultation = (new Model_Consultations())->find($consultationId)->current();
-        $votingRights = (new Model_Votes_Rights())->find($consultation['kid'], $user['uid'])->current();
-        $voteGroup = (new Model_Votes_Groups())->find($user['uid'], $subUid, $consultation['kid'])->current();
+        $group = (new Model_Votes_Groups())->getWithDependencies($uid, $subUid, $consultationId);
 
-        $mailService = new Service_Email();
-
-        $confirmationUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/'
-            . $consultation['kid'] .'/authcode/' . $votingRights['vt_code'] . '/user/' . $subUid;
-        $mail = new Dbjr_Mail();
-        $mail
-            ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_PARTICIPANTS_REMINDER_VOTER)
-            ->setPlaceholders([
-                'to_email' => $voteGroup['sub_user'],
-                'consultation_title_long' => $consultation['titl'],
-                'consultation_title_short' => $consultation['titl_short'],
-                'confirmation_url' => $confirmationUrl . '/act/acc/',
-                'rejection_url' => $confirmationUrl . '/act/rej/',
-            ])
-            ->addTo($voteGroup['sub_user']);
-        $mailService->queueForSend($mail);
-
-        if ($voteGroup['sub_user'] !== $user['email']) {
+        if ($group !== null && $group['sub_user'] !== $group['email']) {
+            $mailService = new Service_Email();
             $groupAdminConfirmationUrl = Zend_Registry::get('baseUrl') . '/voting/confirmmember/kid/'
-                .  $consultation['kid'] . '/authcode/' . $votingRights['vt_code'] . '/user/' . $subUid;
+                .  $group['kid'] . '/authcode/' . $group['vt_code'] . '/user/' . $group['sub_uid'];
 
             $mail = new Dbjr_Mail();
             $mail
                 ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_PARTICIPANTS_REMINDER_GROUP_ADMIN)
                 ->setPlaceholders([
-                    'to_name' => $user['name'] ? $user['name'] : $user['email'],
-                    'to_email' => $user['email'],
-                    'voter_email' => $voteGroup['sub_user'],
-                    'consultation_title_long' => $consultation['titl'],
-                    'consultation_title_short' => $consultation['titl_short'],
+                    'to_name' => $group['name'] ? $group['name'] : $group['email'],
+                    'to_email' => $group['email'],
+                    'voter_email' => $group['sub_user'],
+                    'consultation_title_long' => $group['titl'],
+                    'consultation_title_short' => $group['titl_short'],
                     'confirmation_url' => $groupAdminConfirmationUrl . '/act/'
-                        . md5($voteGroup['sub_user'] . $subUid . 'y'),
+                        . md5($group['sub_user'] . $group['sub_uid'] . 'y'),
                     'rejection_url' => $groupAdminConfirmationUrl . '/act/'
-                        . md5($voteGroup['sub_user'] . $subUid . 'n'),
+                        . md5($group['sub_user'] . $group['sub_uid'] . 'n'),
                 ])
-                ->addTo($user['email']);
+                ->addTo($group['email']);
             $mailService->queueForSend($mail);
         }
-
-        $mailService->sendQueued();
     }
 }

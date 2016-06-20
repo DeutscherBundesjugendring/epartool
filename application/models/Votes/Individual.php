@@ -434,4 +434,40 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $row = $this->createRow($data);
             $row->save();
     }
+
+    /**
+     * @param $confirmationHash
+     * @return mixed
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getByConfirmationHash($confirmationHash)
+    {
+        $db = $this->getAdapter();
+        $select = $db
+            ->select()
+            ->from(['vi' => $this->_name])
+            ->join(
+                ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
+                'vi.sub_uid = vg.sub_uid',
+                ['sub_uid', 'sub_user', 'member']
+            )
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'vg.kid = c.kid',
+                ['titl', 'titl_short', 'kid']
+            )
+            ->join(
+                ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                'vi.uid = u.uid',
+                ['uid', 'email']
+            )->join(
+                ['vr' => (new Model_Votes_Rights())->info(Model_Votes_Rights::NAME)],
+                'vi.uid = vr.uid AND vg.kid = vr.kid',
+                ['vt_code']
+            )
+            ->where('vi.confirmation_hash = ?', $confirmationHash)
+            ->group(['vg.sub_uid', 'vi.confirmation_hash']);
+
+        return $db->query($select)->fetch();
+    }
 }

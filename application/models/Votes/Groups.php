@@ -14,41 +14,30 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
     /**
      * Returns all groups by consultation
      *
-     * @param  integer                 $kid
+     * @param int $kid
      * @throws Zend_Validate_Exception
      * @return array
      */
-    public function getByConsultation($kid, $uid=0)
+    public function getByConsultation($kid, $uid = 0)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
-        }
-         if (!$intVal->isValid($uid)) {
-            throw new Zend_Validate_Exception('Given parameter uid must be integer!');
-        }
-
         $select = $this
             ->getDefaultAdapter()
             ->select()
-            ->from(array('vg' => $this->_name), array('*'))
-            ->joinLeft(array('u' => 'users'), 'u.uid = vg.uid', array('*'))
+            ->from(['vg' => $this->_name], ['*'])
+            ->joinLeft(['u' => 'users'], 'u.uid = vg.uid', ['*'])
             ->joinLeft(
                 ['vt_indiv' => 'vt_indiv'],
                 'vg.sub_uid =vt_indiv.sub_uid ',
-                [new Zend_Db_Expr('COUNT(vt_indiv.sub_uid) as count')]
+                [new Zend_Db_Expr('COUNT(vt_indiv.sub_uid) as count'), 'status', 'confirmation_hash']
             )
             ->where('vg.kid = ?', $kid)
             ->group('vg.sub_uid')
             ->order('u.email');
-        if ($uid != 0) {
+        if ($uid !== 0) {
             $select->where('vg.uid = ?', $uid);
         }
-        $res = $select
-            ->query()
-            ->fetchAll();
 
-        return $res;
+        return $select->query()->fetchAll();
     }
 
     /**
@@ -385,5 +374,39 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param int $uid
+     * @param string $subUid
+     * @param int $consultationId
+     * @return mixed
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getWithDependencies($uid, $subUid, $consultationId)
+    {
+        $db = $this->getAdapter();
+        $select = $db
+            ->select()
+            ->from(['vg' => $this->_name])
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'vg.kid = c.kid',
+                ['titl', 'titl_short', 'kid']
+            )
+            ->join(
+                ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                'vg.uid = u.uid',
+                ['uid', 'email', 'name']
+            )->join(
+                ['vr' => (new Model_Votes_Rights())->info(Model_Votes_Rights::NAME)],
+                'vg.uid = vr.uid AND vg.kid = vr.kid',
+                ['vt_code']
+            )
+            ->where('vg.uid = ?', $uid)
+            ->where('vg.sub_uid = ?', $subUid)
+            ->where('vg.kid = ?', $consultationId);
+
+        return $db->query($select)->fetch();
     }
 }
