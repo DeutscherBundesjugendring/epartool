@@ -5,11 +5,15 @@
     action="<?=$this->element->getAction();?>"
 >
     <?=$this->element->getElement('body');?>
-    <?=$this->element->getElement('email');?>
 
     <?php if ($this->element->getElement('video_service') !== null && $this->element->getElement('video_id') !== null) :
         ?>
         <div class="form-group offset-top offset-bottom js-video-service">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="video_id"><?=$this->translate('Video (optional)');?></label>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-4">
                     <?=$this->element->getElement('video_service');?>
@@ -19,10 +23,18 @@
                         <span class="input-group-addon js-video-service-url"></span>
                         <?=$this->element->getElement('video_id');?>
                     </div>
+                    <?php if (count($this->element->getElement('video_id')->getErrors()) > 0) : ?>
+                        <ul class="text-danger-block"
+                        <?php foreach ($this->element->getElement('video_id')->getErrors() as $error) : ?>
+                            <li><?=$error;?></li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     <?php endif; ?>
+
+    <?=$this->element->getElement('email');?>
 
     <?=$this->element->getElement('csrf_token_register');?>
     <?=$this->element->getElement('submit');?>

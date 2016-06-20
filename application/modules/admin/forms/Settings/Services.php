@@ -15,7 +15,7 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
 
         $youtube = $this->createElement('checkbox', 'video_youtube_enabled');
         $youtube
-            ->setLabel('Youtube')
+            ->setLabel('YouTube')
             ->setRequired(false);
         $this->addElement($youtube);
 

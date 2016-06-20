@@ -1,14 +1,50 @@
-<div class="main-content content-holder">
+<div class="main-content">
     <div class="row">
-        <div class="span9">
-
+        <div class="content content-narrow content-offset">
+            <div class="span9">
             <h1><?=$this->translate('Confirm contribution')?></h1>
             <blockquote>
-                <p><?=$this->discussionContrib->body;?></p>
-                <small><?=$this->formatDate($this->discussionContrib->time_created);?></small>
+                <p>
+                    <a
+                        href="<?=$this->url([
+                            'controller' => 'input',
+                            'action' => 'discussion',
+                            'kid' => $this->question['kid'],
+                            'inputId' => $this->discussionContribution['input_id']], null, true);?>"
+                        target="_blank"
+                    >
+                        <?=$this->contribution['thes'];?>
+                    </a>
+                </p>
+                <p>
+                    <?=$this->discussionContribution->body;?>
+                </p>
+
+                <?php if ($this->consultation['discussion_video_enabled']
+                    && isset($this->discussionContribution['video_service'])
+                    && $this->discussionContribution['video_id']
+                    && $this->videoServicesStatus['video_' . $this->contribution['video_service'] . '_enabled']) : ?>
+                    <div class="embed-responsive embed-responsive-16by9 offset-bottom">
+                        <?=$this->embeddedVideo(
+                            $this->discussionContribution['video_service'],
+                            $this->discussionContribution['video_id']
+                        );?>
+                    </div>
+                <?php elseif ($this->discussionContribution['video_id']) : ?>
+                    <p>
+                        <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                        <?=sprintf(
+                            $this->translate('%s videos were disabled by admin for this question'),
+                            ucfirst($this->discussionContribution['video_service'])
+                        );?>.
+                    </p>
+                <?php endif; ?>
+
+                <small><?=$this->formatDate($this->discussionContribution['time_created']);?></small>
             </blockquote>
             <?=$this->form;?>
 
+            </div>
         </div>
-    </div>
+    </div><!-- .row -->
 </div><!-- .main-content -->

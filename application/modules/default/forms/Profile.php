@@ -38,6 +38,7 @@ class Default_Form_Profile extends Dbjr_Form_Web
             ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags'])
+            ->setDescription('Will be shown instead of your name, e.g in discussions')
             ->addValidator(new Zend_Validate_StringLength(['max'=>255]));
         $this->addElement($nick);
 
@@ -49,7 +50,7 @@ class Default_Form_Profile extends Dbjr_Form_Web
                 ->setRequired(false)
             ->setDescription($description)
         );
-        
+
         $this->addElement(
             $this
                 ->createElement('password', 'password')
@@ -72,7 +73,7 @@ class Default_Form_Profile extends Dbjr_Form_Web
         $this->addElement(
             $this
                 ->createElement('password', 'password_confirm')
-                ->setLabel('Confirm a new password')
+                ->setLabel('Confirm new password')
                 ->setRequired(false)
                 ->addValidator($identicalValidator)
         );

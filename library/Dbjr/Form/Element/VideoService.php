@@ -7,7 +7,7 @@ class Dbjr_Form_Element_VideoService extends Dbjr_Form_Element_Select
         $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $videoServiceOptions = [];
         $urls = [];
-        foreach (['youtube' => 'Youtube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
+        foreach (['youtube' => 'YouTube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
             if ($project['video_' . $service . '_enabled']) {
                 $videoServiceOptions[$service] = $name;
                 $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
