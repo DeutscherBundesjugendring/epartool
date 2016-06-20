@@ -264,26 +264,19 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      */
     public function setStatusForSubuser($hash, $status, $statusBefore = '')
     {
-        if (empty($hash) || empty($status)) {
+        if (empty($hash) || empty($status) || !in_array($status, $this->allowedStatus)) {
             return false;
         }
-        if (!in_array($status, $this->allowedStatus)) {
-            return false;
-        }
+
         $db = $this->getAdapter();
 
         $data = ['status' => $status, 'upd' => new Zend_Db_Expr('NOW()')];
-        $where = ['hash = ?'    => $hash];
+        $where = ['hash = ?' => $hash];
         if (in_array($statusBefore, $this->allowedStatus)) {
             $where['status = ?'] = $statusBefore;
         }
 
-        $result = $db->update($this->_name, $data, $where);
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        return (bool) $db->update($this->_name, $data, $where);
     }
 
     /* gets the superbutton thesis  */

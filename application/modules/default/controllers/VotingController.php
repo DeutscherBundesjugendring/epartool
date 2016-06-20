@@ -569,15 +569,13 @@ class VotingController extends Zend_Controller_Action
 
         $votingService = new Service_Voting();
         if (empty($votingRightsSession->confirmationHash)) {
-            $votingRightsSession->confirmationHash = $confirmationHash = $votingService->generateConfirmationHash();
-        } else {
-            $confirmationHash = $votingRightsSession->confirmationHash;
+            $votingRightsSession->confirmationHash = $votingService->generateConfirmationHash();
         }
 
         try {
             $votingService->saveVote(
                 ['tid' => $tid, 'uid' => $uid, 'sub_uid' => $subUid, 'pts' => $pts],
-                $confirmationHash
+                $votingRightsSession->confirmationHash
             );
 
             $this->_flashMessenger->addMessage('Your vote has been counted!', 'info');

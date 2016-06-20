@@ -7,20 +7,15 @@ class Service_Voting
     const STATUS_VOTED = 'v';
     const STATUS_SKIPPED = 's';
 
+    const POINTS_MIN = 0;
+    const POINTS_MAX = 5;
+
     /**
      * @return string
      */
     public function generateConfirmationHash()
     {
         return md5(uniqid('confirm_vote', true));
-    }
-
-    /**
-     * @param int $kid
-     */
-    public function getVotingResults($kid)
-    {
-        $votesModel = new Model_Votes_Individual();
     }
 
     /**
@@ -102,7 +97,7 @@ class Service_Voting
     private function isVoteValid(array $vote)
     {
         if (empty($vote['tid']) || empty($vote['sub_uid']) || empty($vote['uid'])
-            || $vote['pts'] < 0 || $vote['pts'] > 5
+            || $vote['pts'] < self::POINTS_MIN || $vote['pts'] > self::POINTS_MAX
         ) {
             return false;
         }
