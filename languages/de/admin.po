@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-06-14 19:34+0200\n"
-"PO-Revision-Date: 2016-06-14 19:43+0200\n"
+"POT-Creation-Date: 2016-06-20 11:17+0200\n"
+"PO-Revision-Date: 2016-06-20 11:18+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -66,12 +66,20 @@ msgid "Voting results help text"
 msgstr "Hilfetext Abstimmungsergebnisse"
 
 #: application/models/HelpText.php:30
-msgid "Reactions & Impact"
+msgid "Reactions & Impact help text"
 msgstr "Hilfetext Reaktionen & Wirkung"
 
 #: application/models/HelpText.php:31
 msgid "Follow up snippets help text"
 msgstr "Hilfetext Textschnippsel für Reaktionen"
+
+#: application/models/HelpText.php:32
+msgid "Question help text"
+msgstr ""
+
+#: application/models/HelpText.php:33
+msgid "Contribution help text"
+msgstr ""
 
 #: application/modules/admin/controllers/ArticleController.php:74
 #: application/modules/admin/controllers/ArticleController.php:141
@@ -862,8 +870,9 @@ msgstr "Infos"
 
 #: application/modules/admin/forms/ConsultationPhases.php:28
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:33
+#: application/modules/admin/views/scripts/consultation/report.phtml:52
 #: application/modules/admin/views/scripts/index/index.phtml:53
-#: application/modules/admin/views/scripts/question/index.phtml:25
+#: application/modules/admin/views/scripts/question/index.phtml:27
 #: application/modules/admin/views/scripts/voting/results.phtml:38
 msgid "Questions"
 msgstr "Fragen"
@@ -873,8 +882,8 @@ msgstr "Fragen"
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:18
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:31
 #: application/modules/admin/views/scripts/index/index.phtml:57
-#: application/modules/admin/views/scripts/input/index.phtml:26
-#: application/modules/admin/views/scripts/input/index.phtml:81
+#: application/modules/admin/views/scripts/input/index.phtml:28
+#: application/modules/admin/views/scripts/input/index.phtml:83
 msgid "Contributions"
 msgstr "Beiträge"
 
@@ -912,7 +921,7 @@ msgstr "Beitragsverfasser_in"
 #: application/modules/admin/forms/Settings/Site.php:53
 #: application/modules/admin/forms/User/Create.php:17
 #: application/modules/admin/forms/User/Edit.php:20
-#: application/modules/admin/views/scripts/input/index.phtml:79
+#: application/modules/admin/views/scripts/input/index.phtml:81
 #: application/modules/admin/views/scripts/mail-component/index.phtml:46
 #: application/modules/admin/views/scripts/mail-template/index.phtml:39
 #: application/modules/admin/views/scripts/media/folders.phtml:37
@@ -997,8 +1006,8 @@ msgstr "Speichern und zurück zur Übersicht"
 
 #: application/modules/admin/forms/Input.php:49
 #: application/modules/admin/forms/Question.php:30
-#: application/modules/admin/views/scripts/input/index.phtml:41
-#: application/modules/admin/views/scripts/question/index.phtml:34
+#: application/modules/admin/views/scripts/input/index.phtml:43
+#: application/modules/admin/views/scripts/question/index.phtml:36
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:30
 msgid "Question"
 msgstr "Frage"
@@ -1201,8 +1210,8 @@ msgstr "Absenden"
 #: application/modules/admin/forms/Media/Delete.php:21
 #: application/modules/admin/views/scripts/consultation/index.phtml:43
 #: application/modules/admin/views/scripts/consultation/index.phtml:97
-#: application/modules/admin/views/scripts/index/index.phtml:96
-#: application/modules/admin/views/scripts/index/index.phtml:157
+#: application/modules/admin/views/scripts/index/index.phtml:101
+#: application/modules/admin/views/scripts/index/index.phtml:162
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:184
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:232
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:150
@@ -1272,8 +1281,8 @@ msgid "Allow video in contributions"
 msgstr "Videos in Beiträgen zulassen"
 
 #: application/modules/admin/forms/Settings/Services.php:18
-msgid "Youtube"
-msgstr "Youtube"
+msgid "YouTube"
+msgstr ""
 
 #: application/modules/admin/forms/Settings/Services.php:26
 msgid "Vimeo"
@@ -1327,7 +1336,7 @@ msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 #: application/modules/admin/forms/Settings/Site.php:62
 #: application/modules/admin/forms/User/Create.php:25
 #: application/modules/admin/forms/User/Edit.php:27
-#: application/modules/admin/views/scripts/input/index.phtml:80
+#: application/modules/admin/views/scripts/input/index.phtml:82
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:5
 #: application/modules/admin/views/scripts/mail-component/index.phtml:5
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:5
@@ -1528,6 +1537,7 @@ msgstr "Ergebnisse"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:111
 #: application/modules/admin/views/scripts/consultation/report.phtml:21
+#: application/modules/admin/views/scripts/index/index.phtml:77
 msgid "Statistics"
 msgstr "Statistik"
 
@@ -1706,14 +1716,14 @@ msgid "New Contributions"
 msgstr "Neue Beiträge"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:42
-#: application/modules/admin/views/scripts/index/index.phtml:95
+#: application/modules/admin/views/scripts/index/index.phtml:100
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:144
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:168
 msgid "Delete contribution?"
 msgstr "Beitrag löschen?"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:60
-#: application/modules/admin/views/scripts/index/index.phtml:115
+#: application/modules/admin/views/scripts/index/index.phtml:120
 msgid "Show contributions by"
 msgstr "Beiträge anzeigen nach"
 
@@ -1726,7 +1736,7 @@ msgid "Discussion Posts"
 msgstr "Diskussionsbeiträge"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:96
-#: application/modules/admin/views/scripts/index/index.phtml:156
+#: application/modules/admin/views/scripts/index/index.phtml:161
 msgid "Delete discussion post?"
 msgstr "Diskussionsbeitrag löschen?"
 
@@ -1745,87 +1755,89 @@ msgstr "Neue Beteiligungsrunde"
 msgid "Back to Consultations"
 msgstr "Zurück zu Beteiligungsrunden"
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:28
+#: application/modules/admin/views/scripts/consultation/report.phtml:27
 msgid "All Contributors"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:29
+#: application/modules/admin/views/scripts/consultation/report.phtml:28
 msgid "Number of contributors in current consultation"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:33
+#: application/modules/admin/views/scripts/consultation/report.phtml:31
 msgid ""
 "Accumulated number of individuals and groups, even if they contributed in "
 "several sessions in this particular consultation"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:36
+#: application/modules/admin/views/scripts/consultation/report.phtml:34
 msgid "All contributions in the contribution period"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:37
+#: application/modules/admin/views/scripts/consultation/report.phtml:38
 msgid "of which the contributions that were confirmed"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:38
+#: application/modules/admin/views/scripts/consultation/report.phtml:41
 msgid "of which remained unconfirmed or anonymous"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:39
+#: application/modules/admin/views/scripts/consultation/report.phtml:44
 msgid "of which were blocked by organisers"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:42
-msgid "Contributions that were available to vote"
+#: application/modules/admin/views/scripts/consultation/report.phtml:48
+msgid "Contributions that were available to vote on"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:43
-#: application/modules/admin/views/scripts/consultation/report.phtml:64
-msgid ""
-"partly copy->edited, merged or splitted by organisers due to overlapping "
-"contents"
-msgstr ""
-
-#: application/modules/admin/views/scripts/consultation/report.phtml:56
-msgid "See Contribution"
-msgstr ""
-
-#: application/modules/admin/views/scripts/consultation/report.phtml:61
-msgid "Number of contributions"
+#: application/modules/admin/views/scripts/consultation/report.phtml:49
+#: application/modules/admin/views/scripts/consultation/report.phtml:72
+msgid "Final number, after voting preparation"
 msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:62
-msgid "only confirmed ones"
+msgid "See Contribution"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:63
+#: application/modules/admin/views/scripts/consultation/report.phtml:68
+msgid "Number of confirmed contributions"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:71
 msgid "Number of contributions for voting"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:75
 #: application/modules/admin/views/scripts/consultation/report.phtml:77
+msgid "Votes"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:84
+#: application/modules/admin/views/scripts/consultation/report.phtml:86
 msgid "Absolute number of votes"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:79
-msgid "without taking into account different voting weights"
+#: application/modules/admin/views/scripts/consultation/report.phtml:88
+msgid "Raw amount, voting weight not taken into account"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:87
-#: application/modules/admin/views/scripts/consultation/report.phtml:89
+#: application/modules/admin/views/scripts/consultation/report.phtml:96
+#: application/modules/admin/views/scripts/consultation/report.phtml:98
 msgid ""
 "Groups that have voting rights and number of actually participating ones"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:98
+#: application/modules/admin/views/scripts/consultation/report.phtml:102
+msgid "Voting weights"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:109
 msgid "Test accounts"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:101
+#: application/modules/admin/views/scripts/consultation/report.phtml:112
 msgid "Individuals"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/report.phtml:104
+#: application/modules/admin/views/scripts/consultation/report.phtml:115
 msgid "Group weight"
 msgstr ""
 
@@ -1970,32 +1982,32 @@ msgstr "Medienmanager öffnen für"
 msgid "Follow Up"
 msgstr "Follow-Up"
 
-#: application/modules/admin/views/scripts/index/index.phtml:81
+#: application/modules/admin/views/scripts/index/index.phtml:86
 msgid "Latest Contributions"
 msgstr "Neueste Beiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:129
+#: application/modules/admin/views/scripts/index/index.phtml:134
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:133
 msgid "Show all contributions"
 msgstr "Alle Beiträge anzeigen"
 
-#: application/modules/admin/views/scripts/index/index.phtml:135
+#: application/modules/admin/views/scripts/index/index.phtml:140
 msgid "No contributions yet."
 msgstr "Noch keine Beiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:142
+#: application/modules/admin/views/scripts/index/index.phtml:147
 msgid "Latest Discussion Posts"
 msgstr "Neueste Diskussionsbeiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:182
+#: application/modules/admin/views/scripts/index/index.phtml:187
 msgid "Show all discussion posts"
 msgstr "Zeige alle Diskussionsbeiträge"
 
-#: application/modules/admin/views/scripts/index/index.phtml:187
+#: application/modules/admin/views/scripts/index/index.phtml:192
 msgid "No posts yet."
 msgstr "Noch keine Beiträge."
 
-#: application/modules/admin/views/scripts/index/index.phtml:202
+#: application/modules/admin/views/scripts/index/index.phtml:207
 msgid "There are no consultations yet."
 msgstr "Es gibt noch keine Beteiligungsrunden."
 
@@ -2109,7 +2121,7 @@ msgid "Delete contribution"
 msgstr "Beitrag löschen"
 
 #: application/modules/admin/views/scripts/input/create.phtml:23
-#: application/modules/admin/views/scripts/input/index.phtml:23
+#: application/modules/admin/views/scripts/input/index.phtml:25
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:33
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:33
 msgid "New Contribution"
@@ -2119,33 +2131,33 @@ msgstr "Neuer Beitrag"
 msgid "Edit Contribution"
 msgstr "Beitrag bearbeiten"
 
-#: application/modules/admin/views/scripts/input/index.phtml:31
+#: application/modules/admin/views/scripts/input/index.phtml:33
 msgid "There are no contributions yet."
 msgstr "Es gibt noch keine Beiträge."
 
-#: application/modules/admin/views/scripts/input/index.phtml:36
+#: application/modules/admin/views/scripts/input/index.phtml:38
 msgid "By Question"
 msgstr "Nach Frage"
 
-#: application/modules/admin/views/scripts/input/index.phtml:42
+#: application/modules/admin/views/scripts/input/index.phtml:44
 msgid "Unread"
 msgstr "Ungelesen"
 
-#: application/modules/admin/views/scripts/input/index.phtml:43
+#: application/modules/admin/views/scripts/input/index.phtml:45
 msgid "Total"
 msgstr "Gesamt"
 
-#: application/modules/admin/views/scripts/input/index.phtml:53
-#: application/modules/admin/views/scripts/input/index.phtml:61
-#: application/modules/admin/views/scripts/input/index.phtml:100
+#: application/modules/admin/views/scripts/input/index.phtml:55
+#: application/modules/admin/views/scripts/input/index.phtml:63
+#: application/modules/admin/views/scripts/input/index.phtml:102
 msgid "Show"
 msgstr "Zeige"
 
-#: application/modules/admin/views/scripts/input/index.phtml:74
+#: application/modules/admin/views/scripts/input/index.phtml:76
 msgid "By User"
 msgstr "Nach User"
 
-#: application/modules/admin/views/scripts/input/index.phtml:82
+#: application/modules/admin/views/scripts/input/index.phtml:84
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:110
 msgid "Comment"
 msgstr "Hier ist noch Platz für Kommentare"
@@ -2499,7 +2511,7 @@ msgid "Back to Questions"
 msgstr "Zurück zur Fragenübersicht"
 
 #: application/modules/admin/views/scripts/question/create.phtml:23
-#: application/modules/admin/views/scripts/question/index.phtml:23
+#: application/modules/admin/views/scripts/question/index.phtml:25
 msgid "New Question"
 msgstr "Neue Frage"
 
@@ -2517,15 +2529,15 @@ msgstr "Abbrechen"
 msgid "Edit Question"
 msgstr "Frage bearbeiten"
 
-#: application/modules/admin/views/scripts/question/index.phtml:47
+#: application/modules/admin/views/scripts/question/index.phtml:49
 msgid "Edit question"
 msgstr "Frage bearbeiten"
 
-#: application/modules/admin/views/scripts/question/index.phtml:56
+#: application/modules/admin/views/scripts/question/index.phtml:58
 msgid "Delete question?"
 msgstr "Frage löschen?"
 
-#: application/modules/admin/views/scripts/question/index.phtml:69
+#: application/modules/admin/views/scripts/question/index.phtml:71
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:49
 msgid "There are no questions yet."
 msgstr "Es gibt noch keine Fragen."
@@ -2994,6 +3006,12 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Reactions & Impact"
+#~ msgstr "Hilfetext Reaktionen & Wirkung"
+
+#~ msgid "Youtube"
+#~ msgstr "Youtube"
 
 # = Doesn't work, but just try it again?
 # Sounds a bit weird to me; does the message have a clear context?
