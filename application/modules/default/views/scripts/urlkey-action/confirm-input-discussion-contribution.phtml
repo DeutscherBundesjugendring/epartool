@@ -23,7 +23,7 @@
                 <?php if ($this->consultation['discussion_video_enabled']
                     && isset($this->discussionContribution['video_service'])
                     && $this->discussionContribution['video_id']
-                    && $this->videoServicesStatus['video_' . $this->contribution['video_service'] . '_enabled']) : ?>
+                    && $this->videoServicesStatus['video_' . $this->discussionContribution['video_service'] . '_enabled']) : ?>
                     <div class="embed-responsive embed-responsive-16by9 offset-bottom">
                         <?=$this->embeddedVideo(
                             $this->discussionContribution['video_service'],
