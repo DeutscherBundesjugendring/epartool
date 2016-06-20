@@ -349,10 +349,9 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
         $row = $this->fetchRow($select);
 
         if (!$row) {
-            return array();
-        } else {
-            return $row->toArray();
+            return [];
         }
+        return $row->toArray();
     }
 
 

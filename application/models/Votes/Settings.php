@@ -14,7 +14,7 @@ class Model_Votes_Settings extends Dbjr_Db_Table_Abstract
     {
         $data = array('kid' => $consultationID);
 
-        return (int) $this -> insert($data);
+        return (int) $this->insert($data);
     }
 
     /**
@@ -24,17 +24,14 @@ class Model_Votes_Settings extends Dbjr_Db_Table_Abstract
      */
     public function getById($id)
     {
-        $result = array();
-        $row = $this -> find($id) -> current();
+        $row = $this->find($id)->current();
         if ($row) {
-            $result = $row -> toArray();
+            return $row->toArray();
         } else {
-            $this ->add($id);
-            $row = $this -> find($id) -> current();
-            $result = $row -> toArray();
+            $this->add($id);
+            $row = $this->find($id)->current();
+            return $row->toArray();
         }
-
-        return $result;
     }
 
 }
