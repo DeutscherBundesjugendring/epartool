@@ -669,7 +669,7 @@ class VotingController extends Zend_Controller_Action
         // user is member of group, send mail for his confirmation
         if ($votingRightsSession->weight > 1 || $votingRightsSession->weight == 0) {
             $votingGroup = new Model_Votes_Groups();
-            $subuser = $votingGroup->getByUser($uid, $subUid);
+            $subuser = $votingGroup->getByUser($uid, $subUid, $this->_consultation->kid);
 
             // user deleted by admin or groupadmin after login for voting //
             if (empty($subuser)) {
@@ -808,7 +808,7 @@ class VotingController extends Zend_Controller_Action
 
         // get group
         $votingGroupModel = new Model_Votes_Groups();
-        $votingGroup = $votingGroupModel->getByUser($votingRights['uid'], $subuid);
+        $votingGroup = $votingGroupModel->getByUser($votingRights['uid'], $subuid, $this->_consultation->kid);
 
         $confirmCode = md5($votingGroup['sub_user'] . $subuid . 'y');
         $rejectCode = md5($votingGroup['sub_user'] . $subuid . 'n');
