@@ -1,31 +1,31 @@
 <?=$this->secondNavigation('voting');?>
 
 <div class="main-content">
-	<div class="row">
-		<div class="content content-offset">
+    <div class="row">
+        <div class="content content-offset">
 
-			<h1><?=$this->translate('Thank you for voting!');?></h1>
+            <h1><?=$this->translate('Thank you for voting!');?></h1>
 
             <p>
                 <?=$this->translate("If you haven't finished voting on all contributions, you can login any time and finish your votings.");?>
             </p>
 
-			<?php if (!empty($this->groupmember)): ?>
-				<p>
-                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+            <?php if (!empty($this->groupmember)): ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
                     <?=sprintf($this->translate('An email has been sent to %s. Please check your inbox!'), '<strong>' . $this->groupmember . '</strong>');?>
                 </p>
-			<?php endif; ?>
+            <?php endif; ?>
 
-			<p>
+            <p>
                 <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" class="btn btn-default">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                     <?=$this->translate('Back to Home');?>
                 </a>
             </p>
 
-		</div>
-	</div><!-- .row -->
+        </div>
+    </div><!-- .row -->
 
     <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-voting']);?>
 
