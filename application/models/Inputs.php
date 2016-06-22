@@ -1416,7 +1416,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsByConsultation($kid)
     {
-        $select = $this->selectCountContributionsByConsultation($kid)->where('i.uid IS NOT NULL');
+        $select = $this->selectCountContributionsByConsultation($kid);
 
         return $this->fetchAll($select)->current()->count;
     }
@@ -1427,7 +1427,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsConfirmed(\Zend_Db_Select $contributions)
     {
-        $contributions->where('uid IS NOT NULL')->where('user_conf = ?', 'c');
+        $contributions->where('user_conf LIKE ?', 'c');
 
         return $this->fetchAll($contributions)->current()->count;
     }
@@ -1438,7 +1438,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsUnconfirmed(\Zend_Db_Select $contributions)
     {
-        $contributions->where('uid IS NOT NULL')->where('user_conf != ?', 'c');
+        $contributions->where('user_conf NOT LIKE ?', 'c');
 
         return $this->fetchAll($contributions)->current()->count;
     }
@@ -1460,7 +1460,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsVotable(\Zend_Db_Select $contributions)
     {
-        $contributions->where('vot = ?', 'y')->orWhere('vot = ?', 'u');
+        $db = $this->getDefaultAdapter();
+        $contributions->where(
+            $db->quoteInto('vot = ?', 'y') . ' OR ' . $db->quoteInto('vot = ?', 'u'));
 
         return $this->fetchAll($contributions)->current()->count;
     }

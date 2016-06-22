@@ -21,10 +21,10 @@
                 <h2><?=$this->translate('Statistics');?></h2>
                 <p>
                     <b>
-                        <a href="<?php echo $this->url(array(
+                        <a href="<?php echo $this->url([
                             'controller' => 'input',
-                            'action' => 'userlist'
-                            )); ?>"
+                            'action' => 'index'
+                            ]); ?>"
                           title="<?=$this->translate('All Contributors');?>">
                             <?=$this->translate('Number of contributors in current consultation');?>:
                             <?php echo $this->nrParticipants; ?>
