@@ -10,7 +10,7 @@
     <p><?=$this->translate('Here you can check your previous inserted votes. Please confirm or delete them with buttons below.');?></p>
     
     <!-- Questions -->
-    <?=$this->partialLoop('_partials/voting/votingConfirmationQuestion.phtml', $this->questions);?>
+    <?=$this->partialLoop('_partials/voting/votingConfirmationQuestionThesis.phtml', $this->votesData);?>
 
     <?=$this->form;?>
 

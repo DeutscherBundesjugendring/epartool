@@ -7,20 +7,22 @@
 
     <?php if ($settings['btn_important'] == 'y') : ?>
         <li class="nav-voting-superbutton<?=$this->pimp == 'y' ? ' active' : '';?>">
-            <span class="glyphicon glyphicon-star nav-voting-superbutton-icon icon-lg" aria-hidden="true"></span>
-            <br />
-            <?=$this->escape($settings['btn_important_label']);?>
+            <a>
+                <span class="glyphicon glyphicon-star nav-voting-superbutton-icon icon-lg" aria-hidden="true"></span>
+                <br />
+                <?=$this->escape($settings['btn_important_label']);?>
+            </a>
         </li>
     <?php endif; ?>
 
     <?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--) : ?>
         <li<?=($this->points !== null && $this->points == $i) ? ' class="active"' : '';?>>
-            <?=$this->escape($labels[$i]);?>
+            <a><?=$this->escape($labels[$i]);?></a>
         </li>
     <?php endfor; ?>
 
     <li<?=$this->points == '5' ? ' class="active"' : '';?>>
-        <?=$this->translate('No opinion');?>
+        <a><?=$this->translate('No opinion');?></a>
     </li>
 
 </ul>

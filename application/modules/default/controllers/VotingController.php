@@ -755,26 +755,10 @@ class VotingController extends Zend_Controller_Action
             }
         } else {
             $this->view->settings = $this->getVotingSettings();
+            $votesData = (new Model_Votes_Uservotes())->fetchVotesToConfirm($confirmationHash);
+            $this->view->votesData = $votesData;
 
-            $questionModel = new Model_Questions();
-            $questions = $questionModel->getByConsultation($this->_consultation['kid'])->toArray();
-            $questionResult = array();
-
-            $i = 0;
-            $empty = true;
-            foreach ($questions as $question) {
-                $questionResult["$i"] = $question;
-                $questionResult["$i"]['QuestionsAndInputs'] = (new Model_Votes_Uservotes())
-                    ->fetchInputsToConfirm($confirmationHash);
-                if ($empty && !empty($questionResult["$i"]['QuestionsAndInputs'])) {
-                    $empty = false;
-                }
-                $i++;
-            }
-
-            $this->view->questions = $questionResult;
-
-            if ($empty) {
+            if (empty($votesData)) {
                 $this->_flashMessenger->addMessage('No unconfirmed votes to process.', 'info');
             } else {
                 return;

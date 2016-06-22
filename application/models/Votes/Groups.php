@@ -50,7 +50,7 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 
         return $res;
     }
-
+    
     /**
      * Sets field 'member' to 'n' by given key
      *
