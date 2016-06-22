@@ -475,6 +475,12 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             )
             ->where('confirmation_hash = ?', $confirmationHash);
 
-        return $this->fetchAll($q, null, 1)->current()->toArray();
+        $result = $this->fetchAll($q, null, 1)->current();
+
+        if ($result) {
+            return $result->toArray();
+        }
+
+        return [];
     }
 }
