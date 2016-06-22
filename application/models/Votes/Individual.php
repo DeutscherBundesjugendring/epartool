@@ -146,11 +146,34 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $points = 0;
         $rank = 0;
 
-        $indiv_votes = $this->fetchAll(
-            $this->select()
-                ->where('tid = ?', $tid)
-                ->where('pts < ?', 4)
-        );
+        $db = $this->getAdapter();
+        $indiv_votes = $db->query(
+            $db->select()->from(['vi' => $this->_name])
+                ->join(
+                    ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                    'i.tid = vi.tid',
+                    []
+                )
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    []
+                )
+                ->join(
+                    ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                    'c.kid = q.kid',
+                    ['kid']
+                )
+                ->join(
+                    ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
+                    'vi.sub_uid = vg.sub_uid AND vi.uid = vg.uid AND c.kid = vg.kid',
+                    ['member']
+                )
+                ->where('vi.tid = ?', $tid)
+                ->where('vi.status = ?', 'c')
+                ->where('vg.member = ?', 'y')
+                ->where('vi.pts < ?', 4)
+        )->fetchAll();
         $cast = count($indiv_votes);
 
         if ($cast > 0) {
@@ -159,6 +182,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                     $this->select()->from($this->_name, new Zend_Db_Expr('COUNT(*) AS count'))
                         ->where('tid = ?', $tid)
                         ->where('pts < ?', 4)
+                        ->where('status = ?', 'c')
                         ->where('uid = ?', $indiv_vote['uid'])
                 );
                 $votesRights = (new Model_Votes_Rights())->find($kid, $indiv_vote['uid'])->current();
@@ -271,6 +295,9 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $db = $this->getAdapter();
 
         $data = ['status' => $status, 'upd' => new Zend_Db_Expr('NOW()')];
+        if ($status === 'c') {
+            $data['confirmation_hash'] = null;
+        }
         $where = ['confirmation_hash = ?' => $hash];
         if (in_array($statusBefore, $this->allowedStatus)) {
             $where['status = ?'] = $statusBefore;
