@@ -68,30 +68,22 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
      * @return array
      * @throws \Zend_Db_Table_Exception
      */
-    public function fetchInputsToConfirm($confirmationHash)
+    public function fetchVotesToConfirm($confirmationHash)
     {
         $db = $this->getAdapter();
         $select = $db->select();
-        $select->from(['inputs' => (new Model_Inputs())->info(Model_Inputs::NAME)])
+        $select->from(
+            ['vi' => (new Model_Votes_Individual())->info(Model_Votes_Individual::NAME)],
+            ['points' => 'vi.pts', 'status' => 'vi.status', 'pimp' => 'vi.pimp']
+        )
+            ->join(['c' => 'inpt'], 'c.tid = vi.tid ', ['thes' => 'c.thes', 'expl' => 'c.expl'])
             ->join(
-                ['votes' => 'vt_indiv'],
-                $db->quoteInto('(inputs.tid = votes.tid  AND votes.confirmation_hash = ?)', $confirmationHash),
-                ['points' => 'votes.pts', 'status' => 'votes.status', 'pimp' => 'votes.pimp']
-            )->join(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                'q.qi = inputs.qi',
-                []
-            )
-            ->group('inputs.tid');
+                'q.qi = c.qi',
+                ['kid' => 'q.kid']
+            )->where('vi.confirmation_hash = ?', $confirmationHash)
+            ->order('q.qi ASC');
 
-        $resultSet = $db->query($select);
-
-        $inputs = array();
-        foreach ($resultSet as $row) {
-            $inputs[]=$row;
-        }
-
-        return $inputs;
+        return $db->query($select)->fetchAll();
     }
-
 }

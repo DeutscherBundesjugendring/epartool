@@ -62,10 +62,24 @@ class Service_Voting
      */
     public function rejectVotes($hash)
     {
-        return (new Model_Votes_Individual())->delete([
+        $modelVotesIndividual = new Model_Votes_Individual();
+
+        $voteWithDependencies = $modelVotesIndividual->getOneVoteWithDependencies($hash);
+
+        $result = $modelVotesIndividual->delete([
             'confirmation_hash = ?' => $hash,
             'status = ?' => self::STATUS_VOTED,
         ]);
+
+        if (empty($modelVotesIndividual->fetchAll(['sub_uid = ?' => $voteWithDependencies['sub_uid']])->current())) {
+            (new Model_Votes_Groups())->delete([
+                'kid = ?' => $voteWithDependencies['kid'],
+                'uid = ?' => $voteWithDependencies['uid'],
+                'sub_uid = ?' => $voteWithDependencies['sub_uid'],
+            ]);
+        }
+
+        return $result;
     }
 
     /**

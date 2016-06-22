@@ -271,7 +271,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $db = $this->getAdapter();
 
         $data = ['status' => $status, 'upd' => new Zend_Db_Expr('NOW()')];
-        $where = ['hash = ?' => $hash];
+        $where = ['confirmation_hash = ?' => $hash];
         if (in_array($statusBefore, $this->allowedStatus)) {
             $where['status = ?'] = $statusBefore;
         }
