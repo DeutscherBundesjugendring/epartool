@@ -568,6 +568,7 @@ class VotingController extends Zend_Controller_Action
         }
 
         $votingService = new Service_Voting();
+
         if (empty($votingRightsSession->confirmationHash)) {
             $votingRightsSession->confirmationHash = $votingService->generateConfirmationHash();
         }
@@ -666,40 +667,39 @@ class VotingController extends Zend_Controller_Action
         $uid = $votingRightsSession->uid;
         $subUid = $votingRightsSession->subUid;
 
-        // user is member of group, send mail for his confirmation
-
         $votingGroup = new Model_Votes_Groups();
-        $subuser = $votingGroup->getByUser($uid, $subUid, $this->_consultation->kid);
+        $subUser = $votingGroup->getByUser($uid, $subUid, $this->_consultation['kid']);
 
-        // user deleted by admin or groupadmin after login for voting //
-        if (empty($subuser)) {
+        if (empty($subUser)) {
             $votingRightsSession->unsetAll();
             $this->_flashMessenger->addMessage('User could not be found.', 'error');
-            $this->redirect('/voting/preview/kid/' . $this->_consultation->kid);
+            $this->redirect('/voting/preview/kid/' . $this->_consultation['kid']);
         }
 
-        $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $this->_consultation->kid .
-            '/hash/' . $votingRightsSession->confirmationHash;
+        if (empty($votingRightsSession->confirmationHash)) {
+            $this->_flashMessenger->addMessage('No votes to process.', 'error');
+            $this->redirect('/voting/preview/kid/' . $this->_consultation['kid']);
+        }
 
-        $mailer = new Dbjr_Mail();
-        $mailer
-            ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE)
-            ->setPlaceholders(
-                array(
-                    'to_email' => $subuser['sub_user'],
-                    'confirmation_url' => $actionUrl . '/act/acc/',
-                    'rejection_url' => $actionUrl . '/act/rej/',
-                    'consultation_title_short' => $this->_consultation->titl_short,
-                    'consultation_title_long' => $this->_consultation->titl,
-                )
-            )
-            ->addTo($subuser['sub_user']);
-        (new Service_Email)
-            ->queueForSend($mailer)
-            ->sendQueued();
+        $votingService = new Service_Voting();
+        try {
+            $votingService->stopVoting(Zend_Auth::getInstance(), $votingRightsSession->confirmationHash);
+        } catch (Dbjr_Voting_NoVotesException $e) {
+            $this->_flashMessenger->addMessage('No votes to handle.', 'error');
+            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+        } catch (Dbjr_Voting_MissingGroupLeaderException $e) {
+            $this->_flashMessenger->addMessage('Cannot find group leader.', 'error');
+            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+        } catch (Dbjr_Voting_MissingVotingGroupException $e) {
+            $this->_flashMessenger->addMessage('Cannot find voting group.', 'error');
+            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+        } catch (Dbjr_Voting_MissingVotingRightsException $e) {
+            $this->_flashMessenger->addMessage('No voting rights found.', 'error');
+            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+        }
 
-        $this->view->groupmember = $subuser['sub_user'];
-        
+        $this->view->groupmember = $subUser['sub_user'];
+
         unset($votingRightsSession->confirmationHash);
         $votingRightsSession->unsetAll();
     }
