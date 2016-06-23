@@ -27,8 +27,8 @@ class Service_Voting
     {
         $votingIndividualModel = new Model_Votes_Individual();
         $oneVoteToHandle = $votingIndividualModel->getOneVoteWithDependencies($confirmationHash);
-        if ($oneVoteToHandle === null) {
-            throw new Dbjr_Voting_Exception('No votes to handle');
+        if (empty($oneVoteToHandle)) {
+            throw new Dbjr_Voting_NoVotesException();
         }
 
         $result = $votingIndividualModel->update(
@@ -59,12 +59,17 @@ class Service_Voting
     /**
      * @param string $hash
      * @return int
+     * @throws Dbjr_Voting_Exception
      */
     public function rejectVotes($hash)
     {
         $modelVotesIndividual = new Model_Votes_Individual();
 
         $voteWithDependencies = $modelVotesIndividual->getOneVoteWithDependencies($hash);
+
+        if (empty($voteWithDependencies)) {
+            throw new Dbjr_Voting_NoVotesException();
+        }
 
         $result = $modelVotesIndividual->delete([
             'confirmation_hash = ?' => $hash,
@@ -105,6 +110,62 @@ class Service_Voting
     }
 
     /**
+     * @param \Zend_Auth $auth
+     * @param $confirmationHash
+     * @throws \Dbjr_Voting_MissingGroupLeaderException
+     * @throws \Dbjr_Voting_MissingVotingGroupException
+     * @throws \Dbjr_Voting_MissingVotingRightsException
+     * @throws \Dbjr_Voting_NoVotesException
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function stopVoting(Zend_Auth $auth, $confirmationHash)
+    {
+        $modelVotesIndividual = new Model_Votes_Individual();
+        $modelVotesGroups = new Model_Votes_Groups();
+
+        $voteWithDependencies = $modelVotesIndividual->getOneVoteWithDependencies($confirmationHash);
+
+        if (empty($voteWithDependencies)) {
+            throw new Dbjr_Voting_NoVotesException();
+        }
+
+        $groupLeader = (new Model_Users())->find($voteWithDependencies['uid'])->current();
+        if (!$groupLeader) {
+            throw new Dbjr_Voting_MissingGroupLeaderException();
+        }
+        $group = $modelVotesGroups->find(
+            $voteWithDependencies['uid'],
+            $voteWithDependencies['sub_uid'],
+            $voteWithDependencies['kid']
+        )->current();
+        if (!$group) {
+            throw new Dbjr_Voting_MissingVotingGroupException();
+        }
+
+        if ($group['sub_user'] === $groupLeader['email']) {
+            if ($auth->hasIdentity() && $auth->getIdentity()->email === $group['sub_user']) {
+                $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
+                $modelVotesGroups->update(['member' => 'y'], [
+                    'uid' => $voteWithDependencies['uid'],
+                    'sub_uid' => $voteWithDependencies['sub_uid'],
+                    'kid' => $voteWithDependencies['kid'],
+                ]);
+            } else {
+                $this->sendVoterConfirmationEmail($voteWithDependencies, $group->toArray());
+            }
+        } else {
+            if ($auth->getIdentity() && $group['sub_user'] === $auth->getIdentity()->email) {
+                $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
+                if ($group['member'] === 'u') {
+                    $this->sendUserConfirmationEmail($voteWithDependencies, $group->toArray());
+                }
+            } else {
+                $this->sendVoterConfirmationEmail($voteWithDependencies, $group->toArray());
+            }
+        }
+    }
+
+    /**
      * @param array $vote
      * @return bool
      */
@@ -126,11 +187,11 @@ class Service_Voting
      * @throws \Dbjr_Voting_Exception
      * @throws \Zend_Exception
      */
-    private function sendUserConfirmationEmail($vote, $votingGroup)
+    private function sendUserConfirmationEmail(array $vote, array $votingGroup)
     {
-        $votingRight = (new Model_Votes_Rights())->fetchRow(['kid' => $vote['kid'], 'uid' => $vote['uid']]);
+        $votingRight = (new Model_Votes_Rights())->find($vote['kid'], $vote['uid'])->current();
         if ($votingRight === null) {
-            throw new Dbjr_Voting_Exception('No voting rights found.');
+            throw new Dbjr_Voting_MissingVotingRightsException();
         }
 
         // get groupleader
@@ -156,6 +217,35 @@ class Service_Voting
                 )
             )
             ->addTo($leader['email']);
+        (new Service_Email)
+            ->queueForSend($mailer)
+            ->sendQueued();
+    }
+
+    /**
+     * @param array $vote
+     * @param array $votingGroup
+     * @throws \Dbjr_Mail_Exception
+     * @throws \Zend_Exception
+     */
+    private function sendVoterConfirmationEmail(array $vote, array $votingGroup)
+    {
+
+        $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $vote['kid'] .
+            '/hash/' . $vote['confirmation_hash'];
+
+        $mailer = new Dbjr_Mail();
+        $mailer
+            ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE)
+            ->setPlaceholders(
+                array(
+                    'to_email' => $votingGroup['sub_user'],
+                    'confirmation_url' => $actionUrl,
+                    'consultation_title_short' => $vote['titl_short'],
+                    'consultation_title_long' => $vote['titl'],
+                )
+            )
+            ->addTo($votingGroup['sub_user']);
         (new Service_Email)
             ->queueForSend($mailer)
             ->sendQueued();
