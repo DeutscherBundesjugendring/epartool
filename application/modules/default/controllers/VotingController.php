@@ -667,42 +667,39 @@ class VotingController extends Zend_Controller_Action
         $subUid = $votingRightsSession->subUid;
 
         // user is member of group, send mail for his confirmation
-        if ($votingRightsSession->weight > 1 || $votingRightsSession->weight == 0) {
-            $votingGroup = new Model_Votes_Groups();
-            $subuser = $votingGroup->getByUser($uid, $subUid, $this->_consultation->kid);
 
-            // user deleted by admin or groupadmin after login for voting //
-            if (empty($subuser)) {
-                $votingRightsSession->unsetAll();
-                $this->_flashMessenger->addMessage('User could not be found.', 'error');
-                $this->redirect('/voting/preview/kid/' . $this->_consultation->kid);
-            }
+        $votingGroup = new Model_Votes_Groups();
+        $subuser = $votingGroup->getByUser($uid, $subUid, $this->_consultation->kid);
 
-            $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $this->_consultation->kid .
-                '/hash/' . $votingRightsSession->confirmationHash;
-
-            $mailer = new Dbjr_Mail();
-            $mailer
-                ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE)
-                ->setPlaceholders(
-                    array(
-                        'to_email' => $subuser['sub_user'],
-                        'confirmation_url' => $actionUrl . '/act/acc/',
-                        'rejection_url' => $actionUrl . '/act/rej/',
-                        'consultation_title_short' => $this->_consultation->titl_short,
-                        'consultation_title_long' => $this->_consultation->titl,
-                    )
-                )
-                ->addTo($subuser['sub_user']);
-            (new Service_Email)
-                ->queueForSend($mailer)
-                ->sendQueued();
-
-            $this->view->groupmember = $subuser['sub_user'];
-        } else { // if singleuser (no group) just update status of his votes
-            $voteIndiviModel = new Model_Votes_Individual();
-            $result = $voteIndiviModel->setStatusForSubuser($votingRightsSession->confirmationHash, 'c');
+        // user deleted by admin or groupadmin after login for voting //
+        if (empty($subuser)) {
+            $votingRightsSession->unsetAll();
+            $this->_flashMessenger->addMessage('User could not be found.', 'error');
+            $this->redirect('/voting/preview/kid/' . $this->_consultation->kid);
         }
+
+        $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $this->_consultation->kid .
+            '/hash/' . $votingRightsSession->confirmationHash;
+
+        $mailer = new Dbjr_Mail();
+        $mailer
+            ->setTemplate(Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_CONFIRMATION_SINGLE)
+            ->setPlaceholders(
+                array(
+                    'to_email' => $subuser['sub_user'],
+                    'confirmation_url' => $actionUrl . '/act/acc/',
+                    'rejection_url' => $actionUrl . '/act/rej/',
+                    'consultation_title_short' => $this->_consultation->titl_short,
+                    'consultation_title_long' => $this->_consultation->titl,
+                )
+            )
+            ->addTo($subuser['sub_user']);
+        (new Service_Email)
+            ->queueForSend($mailer)
+            ->sendQueued();
+
+        $this->view->groupmember = $subuser['sub_user'];
+        
         unset($votingRightsSession->confirmationHash);
         $votingRightsSession->unsetAll();
     }
