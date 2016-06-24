@@ -134,7 +134,7 @@ class VotingController extends Zend_Controller_Action
                             }
                         } else {
                             if ($votingSubuser['member'] === 'n') {
-                                $this->_flashMessenger->addMessage('Access to this account with inserted voting code has been restricted by group leader.', 'error');
+                                $this->_flashMessenger->addMessage('Access to this account has been denied by Group Leader.', 'error');
                                 $this->redirect('/input/index/kid/' . $this->_consultation->kid);
                             }
                             $subUid = $votingSubuser['sub_uid'];
