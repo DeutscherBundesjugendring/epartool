@@ -187,6 +187,21 @@ a:focus,
     background-color: #color_accent_2;
 }
 
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+    color: #fff;
+    border-color: #color_accent_2 #color_accent_2 transparent;
+    background-color: #color_accent_2;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #fff;
+    border-color: #color_accent_1;
+    background-color: #color_accent_1;
+}
+
 .nav-voting > .active > a:before {
     background-color: #color_accent_1;
 }
