@@ -946,7 +946,7 @@ ADD `module` varchar(255) NOT NULL DEFAULT 'default';
 ALTER TABLE `help_text`
 ADD UNIQUE `help_text_project_code_name_key` (`project_code`, `name`);
 
-CREATE TABLE `help_text_module` (`name` varchar(255) NOT NULL ); 
+CREATE TABLE `help_text_module` (`name` varchar(255) NOT NULL );
 ALTER TABLE `help_text_module` ADD PRIMARY KEY `name` (`name`);
 
 INSERT INTO `help_text_module` (`name`) VALUES ('admin');
@@ -984,6 +984,16 @@ ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPD
 -- Migration 2016-05-31_14-14_DBJR-647.sql
 ALTER TABLE `inpt`
 ADD `reminders_sent` int NOT NULL DEFAULT '0';
+
+-- Migration 2016-06-17_16-03_DBJR-626.sql
+INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
+VALUES ('Green', 'fc9026', '5fa4a0', '02afdb');
+
+INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
+VALUES ('Pink', 'fc9026', '990066', '02afdb');
+
+INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
+VALUES ('Blue', 'fc9026', '04a5eb', '0074b5');
 
 -- Migration 2016-06-17_16-03_DBJR-626.sql
 ALTER TABLE `theme`
