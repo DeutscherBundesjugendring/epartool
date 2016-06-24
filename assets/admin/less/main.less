@@ -6,22 +6,29 @@
  */
 
 
-// Synergic UI and its dependencies
-@import "bootstrap/less/bootstrap";
-@import "less-modules/less/less-modules";
-@import (inline) "select2/select2.css";
-@import "select2-bootstrap-css/lib/select2-bootstrap";
-@import "eonasdan-bootstrap-datetimepicker/src/less/_bootstrap-datetimepicker";
-@import "mjolnic-bootstrap-colorpicker/src/less/colorpicker";
 // Synergic UI
-@import "synergic-ui/src/less/synergic-ui";
+@import 'synergic-ui/src/less/synergic-ui';
 
-// Configuration (must be last to override)
-@import "variables";
+// Colorpicker
+@import 'mjolnic-bootstrap-colorpicker/src/less/colorpicker';
 
-// ===========================================================
-// To be moved to Synergic UI
-// ===========================================================
+// Configuration
+@external-components-path: '../bower_components/';
+@icon-font-path: 'font/glyphicons/';
+@imgPath: 'vendor/mjolnic-bootstrap-colorpicker/dist/img/bootstrap-colorpicker/';
+
+@blue: #428bca;
+@turqoise: #5fa4a0;
+
+@brand-primary: darken(@turqoise, 6%);
+@link-color: @blue;
+
+@blockquote-font-size: 1em;
+@back-link-decoration: '← ';
+
+
+// Custom Modifications
+// ====================
 
 .table .checkbox {
     margin-top: 0;
@@ -73,11 +80,6 @@
     }
 }
 
-
-// ===========================================================
-// Custom modifications and temporary hacks.
-// ===========================================================
-
 .text-danger-block {
     .alert();
     .alert-danger();
@@ -95,7 +97,7 @@
     }
 }
 
-// Ensure optimum legibility
+// Ensure optimum legibility.
 .panel-default {
     .panel-heading {
         a,
@@ -114,7 +116,7 @@
     }
 }
 
-// Remove bullets from error messages. Better to be fixed in markup.
+// Remove bullets from error messages.
 .alert li {
     display: block;
 }
