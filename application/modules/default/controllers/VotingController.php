@@ -711,7 +711,14 @@ class VotingController extends Zend_Controller_Action
 
         $votingService = new Service_Voting();
         try {
-            $votingService->stopVoting(Zend_Auth::getInstance(), $votingRightsSession->confirmationHash);
+            if ($votingService->stopVoting(Zend_Auth::getInstance(), $votingRightsSession->confirmationHash)) {
+                $subUser = (new Model_Votes_Groups())->find($uid, $subUid, $this->_consultation['kid'])->current();
+                if (!$subUser) {
+                    $this->_flashMessenger->addMessage('Voter not found.', 'error');
+                    $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+                }
+                $this->view->groupmember = $subUser['sub_user'];
+            }
         } catch (Dbjr_Voting_NoVotesException $e) {
             $this->_flashMessenger->addMessage('No votes to handle.', 'error');
             $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
@@ -725,8 +732,6 @@ class VotingController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('No voting rights found.', 'error');
             $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
         }
-
-        $this->view->groupmember = $subUser['sub_user'];
 
         unset($votingRightsSession->confirmationHash);
         $votingRightsSession->unsetAll();

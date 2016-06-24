@@ -117,6 +117,7 @@ class Service_Voting
      * @throws \Dbjr_Voting_MissingVotingRightsException
      * @throws \Dbjr_Voting_NoVotesException
      * @throws \Zend_Db_Table_Exception
+     * @return bool
      */
     public function stopVoting(Zend_Auth $auth, $confirmationHash)
     {
@@ -142,16 +143,18 @@ class Service_Voting
             throw new Dbjr_Voting_MissingVotingGroupException();
         }
 
+        $userConfirmationEmailSent = false;
         if ($group['sub_user'] === $groupLeader['email']) {
             if ($auth->hasIdentity() && $auth->getIdentity()->email === $group['sub_user']) {
                 $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
                 $modelVotesGroups->update(['member' => 'y'], [
-                    'uid' => $voteWithDependencies['uid'],
-                    'sub_uid' => $voteWithDependencies['sub_uid'],
-                    'kid' => $voteWithDependencies['kid'],
+                    'uid = ?' => $voteWithDependencies['uid'],
+                    'sub_uid = ?' => $voteWithDependencies['sub_uid'],
+                    'kid = ?' => $voteWithDependencies['kid'],
                 ]);
             } else {
                 $this->sendVoterConfirmationEmail($voteWithDependencies, $group->toArray());
+                $userConfirmationEmailSent = true;
             }
         } else {
             if ($auth->getIdentity() && $group['sub_user'] === $auth->getIdentity()->email) {
@@ -161,8 +164,11 @@ class Service_Voting
                 }
             } else {
                 $this->sendVoterConfirmationEmail($voteWithDependencies, $group->toArray());
+                $userConfirmationEmailSent = true;
             }
         }
+        
+        return $userConfirmationEmailSent;
     }
 
     /**
