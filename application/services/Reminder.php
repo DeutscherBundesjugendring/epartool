@@ -3,8 +3,6 @@
 class Service_Reminder
 {
 
-    const STATUS_VOTED = 'v';
-
     /**
      * @param string $confirmationHash
      * @throws \Dbjr_Mail_Exception

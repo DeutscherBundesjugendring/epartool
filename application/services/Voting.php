@@ -193,7 +193,7 @@ class Service_Voting
      * @throws \Dbjr_Voting_Exception
      * @throws \Zend_Exception
      */
-    private function sendUserConfirmationEmail(array $vote, array $votingGroup)
+    public function sendUserConfirmationEmail(array $vote, array $votingGroup)
     {
         $votingRight = (new Model_Votes_Rights())->find($vote['kid'], $vote['uid'])->current();
         if ($votingRight === null) {
@@ -234,7 +234,7 @@ class Service_Voting
      * @throws \Dbjr_Mail_Exception
      * @throws \Zend_Exception
      */
-    private function sendVoterConfirmationEmail(array $vote, array $votingGroup)
+    public function sendVoterConfirmationEmail(array $vote, array $votingGroup)
     {
 
         $actionUrl = Zend_Registry::get('baseUrl') . '/voting/confirmvoting/kid/' . $vote['kid'] .
