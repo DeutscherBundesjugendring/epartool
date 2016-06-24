@@ -14,21 +14,24 @@ class Model_Votes_Settings extends Dbjr_Db_Table_Abstract
     {
         $data = array('kid' => $consultationID);
 
-        return (int) $this -> insert($data);
+        return (int) $this->insert($data);
     }
+
+    /**
+     * @param int $id
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
     public function getById($id)
     {
-            $result = array();
-            $row = $this -> find($id) -> current();
-            if ($row) {
-                $result = $row -> toArray();
-            } else {
-                $this ->add($id);
-                $row = $this -> find($id) -> current();
-                $result = $row -> toArray();
-            }
-
-        return $result;
+        $row = $this->find($id)->current();
+        if ($row) {
+            return $row->toArray();
+        } else {
+            $this->add($id);
+            $row = $this->find($id)->current();
+            return $row->toArray();
+        }
     }
 
 }

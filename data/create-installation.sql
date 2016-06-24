@@ -958,3 +958,7 @@ ADD FOREIGN KEY (`module`) REFERENCES `help_text_module` (`name`) ON DELETE REST
 -- Migration 2016-05-31_14-14_DBJR-647.sql
 ALTER TABLE `inpt`
 ADD `reminders_sent` int NOT NULL DEFAULT '0';
+
+-- Migration 2016-06-15_13-23_DBJR-770.sql
+ALTER TABLE `vt_indiv`
+ADD `confirmation_hash` char(32) NULL;

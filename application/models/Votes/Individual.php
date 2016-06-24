@@ -6,6 +6,8 @@
 class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_indiv';
+    
+    private $allowedStatus = ['v', 's', 'c'];
 
     /**
      * get the last vote of an subuser
@@ -60,26 +62,35 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         }
     }
 
-    public function updateVote($tid, $subUid, $uid, $pts, $particular = null)
+    /**
+     * @param $tid
+     * @param $subUid
+     * @param $uid
+     * @param $pts
+     * @param $confirmationHash
+     * @param null $particular
+     * @return array|bool
+     */
+    public function updateVote($tid, $subUid, $uid, $pts, $confirmationHash, $particular = null)
     {
         if (empty($tid) || empty($subUid) || ((int) $pts < 0 || (int) $pts > 5) || empty($uid)) {
             return false;
         }
 
-    if (!is_null($particular)) { //set points and flag for superbutton
-        $pts = $particular;
-        $pimp ="y";
-    } else {
-        $pimp = 'n';
-    }
+        if (!is_null($particular)) { //set points and flag for superbutton
+            $pts = $particular;
+            $pimp ="y";
+        } else {
+            $pimp = 'n';
+        }
         // check if user has allready votet by this thesis
         if ($this->allreadyVoted($tid, $subUid)) {
-
             // Update vote
             $date = new Zend_Date();
 
             $select = $this->select();
             $select->where('tid = ?', $tid);
+            $select->where('confirmation_hash = ?', $confirmationHash);
             $select->where('sub_uid = ?', $subUid);
 
             $row = $this->fetchRow($select);
@@ -87,10 +98,10 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $row-> pimp=    $pimp;
             $row->upd = new Zend_Db_Expr('NOW()');
             if ($row->save()) {
-                return array (
-            'points' => $row->pts,
-            'pimp' => $row->pimp
-        );
+                return [
+                    'points' => $row->pts,
+                    'pimp' => $row->pimp
+                ];
 
             } else {
                 return false;
@@ -104,15 +115,16 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'pts' => $pts,
                 'pimp' => $pimp,
                 'status'=>'v',
+                'confirmation_hash' => $confirmationHash,
                 'upd' =>new Zend_Db_Expr('NOW()')
             );
             $row = $this->createRow($data);
             $row->save();
             if ($row) {
-                return array (
-            'points' => $row->pts,
-            'pimp' => $row->pimp
-        );
+                return [
+                    'points' => $row->pts,
+                    'pimp' => $row->pimp
+                ];
             } else {
                 return false;
             }
@@ -144,11 +156,34 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $points = 0;
         $rank = 0;
 
-        $indiv_votes = $this->fetchAll(
-            $this->select()
-                ->where('tid = ?', $tid)
-                ->where('pts < ?', 4)
-        );
+        $db = $this->getAdapter();
+        $indiv_votes = $db->query(
+            $db->select()->from(['vi' => $this->_name])
+                ->join(
+                    ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                    'i.tid = vi.tid',
+                    []
+                )
+                ->join(
+                    ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                    'q.qi = i.qi',
+                    []
+                )
+                ->join(
+                    ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                    'c.kid = q.kid',
+                    ['kid']
+                )
+                ->join(
+                    ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
+                    'vi.sub_uid = vg.sub_uid AND vi.uid = vg.uid AND c.kid = vg.kid',
+                    ['member']
+                )
+                ->where('vi.tid = ?', $tid)
+                ->where('vi.status = ?', 'c')
+                ->where('vg.member = ?', 'y')
+                ->where('vi.pts < ?', 4)
+        )->fetchAll();
         $cast = count($indiv_votes);
 
         if ($cast > 0) {
@@ -157,6 +192,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                     $this->select()->from($this->_name, new Zend_Db_Expr('COUNT(*) AS count'))
                         ->where('tid = ?', $tid)
                         ->where('pts < ?', 4)
+                        ->where('status = ?', 'c')
                         ->where('uid = ?', $indiv_vote['uid'])
                 );
                 $votesRights = (new Model_Votes_Rights())->find($kid, $indiv_vote['uid'])->current();
@@ -255,71 +291,35 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
     /**
      * Update status of vote of a subuser
-     * @param integer $uid
-     * @param string  $subuid       (md5-hash)
+     * @param string $hash
      * @param string  $status       (v = voted, s = skipped, c = confirmed)
      * @param string  $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
+     * @return bool
      */
-    public function setStatusForSubuser($uid, $subuid, $status, $statusBefore = '')
+    public function setStatusForSubuser($hash, $status, $statusBefore = '')
     {
-        if (empty($uid) || empty($subuid) || empty($status)) {
+        if (empty($hash) || empty($status) || !in_array($status, $this->allowedStatus)) {
             return false;
         }
-        if ($status != 'v' && $status != 's' && $status != 'c') {
-            return false;
-        }
+
         $db = $this->getAdapter();
 
-        $data = array(
-            'status' => $status,
-            'upd'        => new Zend_Db_Expr('NOW()')
-        );
-        $where = array(
-            'uid = ?'    => $uid,
-            'sub_uid = ?' => $subuid
-        );
-        if (!empty($statusBefore) && ($statusBefore=='v' || $statusBefore=='s' || $statusBefore=='c')) {
+        $data = ['status' => $status, 'upd' => new Zend_Db_Expr('NOW()')];
+        if ($status === 'c') {
+            $data['confirmation_hash'] = null;
+        }
+        $where = ['confirmation_hash = ?' => $hash];
+        if (in_array($statusBefore, $this->allowedStatus)) {
             $where['status = ?'] = $statusBefore;
         }
 
-        $result = $db->update($this->_name, $data, $where);
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        return (bool) $db->update($this->_name, $data, $where);
     }
 
     /**
-     * Delete votes for user by status
-     * @param string $subuid       (md5-hash)
-     * @param string $status       (v = voted, s = skipped, c = confirmed)
-     * @param string $statusBefore only by votes with special status (v = voted, s = skipped, c = confirmed)
+     * @param $subUid
+     * @return array
      */
-    public function deleteByStatusForSubuser($uid, $subuid, $status)
-    {
-        if (empty($uid) || empty($subuid) || empty($status)) {
-            return false;
-        }
-        if ($status != 'v' && $status != 's' && $status != 'c') {
-            return false;
-        }
-
-        $db = $this->getAdapter();
-        $where = array(
-            'uid = ?'    => $uid,
-            'sub_uid = ?' => $subuid,
-            'status = ?' => $status,
-        );
-        $result = $db->delete($this->_name, $where);
-        if ($result) {
-            return true;
-        }
-
-        return false;
-    }
-
-     /* gets the superbutton thesis  */
     public function getParticularImportantVote($subUid)
     {
         $db = $this->getAdapter();
@@ -335,7 +335,10 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         return $row;
     }
 
-    /* counts how much user clicks on superbutton */
+    /**
+     * @param $subUid
+     * @return int
+     */
     public function countParticularImportantVote($subUid)
     {
         $rowset = $this->fetchAll(
@@ -370,13 +373,21 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         return false;
     }
 
-    /* initalize update for click on superbutton */
-    public function updateParticularImportantVote($tid, $subUid, $uid, $maxpoints, $factor, $max)
+    /**
+     * @param $tid
+     * @param $subUid
+     * @param $uid
+     * @param $maxpoints
+     * @param $factor
+     * @param $max
+     * @param $confirmationHash
+     * @return array|bool
+     */
+    public function updateParticularImportantVote($tid, $subUid, $uid, $maxpoints, $factor, $max, $confirmationHash)
     {
-        if ($this->countParticularImportantVote ($subUid) < $max) {
-
+        if ($this->countParticularImportantVote($subUid) < $max) {
             $particular = $maxpoints * $factor;
-            $updateVoteSuccess = $this->updateVote($tid, $subUid, $uid, 0, $particular);
+            $updateVoteSuccess = $this->updateVote($tid, $subUid, $uid, 0, $confirmationHash, $particular);
 
             if ($updateVoteSuccess) {
                 return array(
@@ -389,9 +400,14 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
         } else {
             return    array('max' =>$max);
-            }
+        }
     }
 
+    /**
+     * @param $tid
+     * @param $subuid
+     * @return bool|null|\Zend_Db_Table_Row_Abstract
+     */
     public function getCurrentVote($tid, $subuid)
     {
         if (empty($subuid) || empty($tid)) {
@@ -400,7 +416,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
         $select = $this->select();
         $select->where('sub_uid = ?', $subuid);
-        $select->where('tid = ?',$tid);
+        $select->where('tid = ?', $tid);
         $row = $this->fetchRow($select);
 
         return $row;
@@ -411,8 +427,11 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      * Get All votes from one user
      * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
+     * @return Zend_Db_Table_Rowset_Abstract
+     * @throws Zend_Validate_Exception
      */
-    public function getUservotes($subuid) {
+    public function getUservotes($subuid)
+    {
 
         $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
@@ -422,7 +441,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $select = $this->select();
         $select->where('sub_uid = ?', $subuid);
         $select->where('sub_uid = ?', $subuid);
-        $select->order('tid','ASC');
+        $select->order('tid ASC');
         $result = $this->fetchAll($select);
         return $result;
     }
@@ -431,8 +450,11 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      * Delet all votes from one user
      * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
+     * @return bool
+     * @throws Zend_Validate_Exception
      */
-    public function deleteUservotes($subuid) {
+    public function deleteUservotes($subuid)
+    {
 
         $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
@@ -455,8 +477,10 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      * Restore votes for origin user
      * @see VotingController |admin:participanteditAction()
      * @param string $subuid       (md5-hash)
+     * @throws Zend_Validate_Exception
      */
-    public function insertMergedUservotes($subuid, $values) {
+    public function insertMergedUservotes($subuid, $values)
+    {
 
         $alnumVal = new Zend_Validate_Alnum();
         if (!$alnumVal->isValid($subuid)) {
@@ -488,5 +512,39 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             ->join(['q' => (new Model_Questions())->getName()], 'i.qi = q.qi', [])
             ->where('q.kid = ?', $kid)
             ->group('vti.uid');
+    }
+
+    /**
+     * @param string $confirmationHash
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getOneVoteWithDependencies($confirmationHash)
+    {
+        $q = $this->select()
+            ->from(['v' => $this->info(self::NAME)])
+            ->setIntegrityCheck(false)
+            ->join(
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                'i.tid = v.tid',
+                []
+            )->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'c.kid = q.kid',
+                ['kid', 'titl', 'titl_short']
+            )
+            ->where('confirmation_hash = ?', $confirmationHash);
+
+        $result = $this->fetchAll($q, null, 1)->current();
+
+        if ($result) {
+            return $result->toArray();
+        }
+
+        return [];
     }
 }

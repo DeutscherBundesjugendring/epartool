@@ -8,7 +8,8 @@
         }
     }
 
-    > li > a {
+    > li > a,
+    > li > span {
         max-width: 5em;
         display: inline-block;
         margin-bottom: 1em;
@@ -35,12 +36,14 @@
         }
     }
 
-    > .active > a:before {
+    > .active > a:before,
+    > .active > span:before {
         background-color: @brand-accent;
     }
 
     // Superbutton has a star instead of circle
-    > .nav-voting-superbutton > a:before {
+    > .nav-voting-superbutton > a:before,
+    > .nav-voting-superbutton > span:before {
         display: none;
     }
 
