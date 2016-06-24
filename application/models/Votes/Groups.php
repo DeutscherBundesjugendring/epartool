@@ -39,7 +39,7 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 
         return $select->query()->fetchAll();
     }
-
+    
     /**
      * Sets field 'member' to 'n' by given key
      *
@@ -306,11 +306,12 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 
     /**
      * returns group by user and subuser
-     * @param integer $uid
-     * @param string  $subUid
-     * return array
+     * @param int $uid
+     * @param string $subUid
+     * @param int $kid
+     * @return array
      */
-    public function getByUser($uid, $subUid)
+    public function getByUser($uid, $subUid, $kid)
     {
         if (empty($uid) || empty($subUid)) {
             return array();
@@ -319,13 +320,13 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
         $select = $this->select();
         $select->where('uid = ?', $uid);
         $select->where('sub_uid LIKE ?', $subUid);
+        $select->where('kid = ?', $kid);
         $row = $this->fetchRow($select);
 
         if (!$row) {
-            return array();
-        } else {
-            return $row->toArray();
+            return [];
         }
+        return $row->toArray();
     }
 
 

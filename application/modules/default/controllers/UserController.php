@@ -135,24 +135,6 @@ class UserController extends Zend_Controller_Action
         }
     }
 
-    public function inputlistAction()
-    {
-        $kid = isset($this->_consultation->kid) ? $this->_consultation->kid : 0;
-        $consultationModel = new Model_Consultations();
-        if ($this->_auth->hasIdentity()) {
-            $identity = $this->_auth->getIdentity();
-            if ($kid == 0) {
-                $this->view->consultationList = $consultationModel->getByUser($identity->uid);
-            } elseif ($kid > 0) {
-                $this->view->consultation = $consultationModel->find($kid)->current();
-                $inputModel = new Model_Inputs();
-                $this->view->inputs = $inputModel->getUserEntriesOverview($identity->uid, $kid);
-            }
-        } else {
-            $this->_flashMessenger->addMessage('Please log in first', 'error');
-        }
-    }
-
     public function passwordrecoverAction()
     {
         $form = new Default_Form_PasswordRecover();
@@ -345,6 +327,47 @@ class UserController extends Zend_Controller_Action
 
     public function profileAction()
     {
+        $form = new Default_Form_Profile();
 
+        $auth = Zend_Auth::getInstance();
+
+        if (!$auth->hasIdentity()) {
+            $this->_flashMessenger->addMessage('Please log in.', 'error');
+            $this->redirect('/');
+        }
+
+        $userModel = new Model_Users();
+        $user = $userModel->find($auth->getIdentity()->uid)->current();
+        if (!$user) {
+            $this->redirect('/', ['prependBase' => false]);
+        }
+
+        if ($this->_request->isPost()) {
+            if ($form->isValid($this->getRequest()->getPost())) {
+                $data = $form->getValues();
+                try {
+                    if ($userModel->updateProfile($user, $data)) {
+                        $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
+                        $this->redirect($this->view->url(), ['prependBase' => false]);
+                    }
+                } catch (Zend_Auth_Exception $e) {
+                    $this->_flashMessenger->addMessage(
+                        'Your current password does not match. Please try it again.',
+                        'error'
+                    );
+                }
+            } else {
+                $form->populate(['email' => $user['email']]);
+                $this->_flashMessenger->addMessage(
+                    'Your profile cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $form->populate($user->toArray());
+            $form->populate(['email' => $user['email']]);
+        }
+
+        $this->view->form = $form;
     }
 }

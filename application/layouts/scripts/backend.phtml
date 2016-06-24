@@ -7,12 +7,12 @@
     <title><?=$this->translate('DBJR TOOL Admin');?></title>
     <meta name="robots" content="noindex, nofollow" />
 
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,700&amp;subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,700&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" />
 
-    <?php if (APPLICATION_ENV === 'development'): ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>" />
-    <?php else: ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>" />
+    <?php if (APPLICATION_ENV === 'development') : ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>?v=<?=$this->toolVersion();?>" />
+    <?php else : ?>
+        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>?v=<?=$this->toolVersion();?>" />
     <?php endif;?>
 
     <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
@@ -21,25 +21,25 @@
     <meta name="msapplication-TileImage" content="<?=$this->baseUrl('project/images/icon/touch-icon-w8.png');?>" />
     <meta name="msapplication-TileColor" content="#ffffff" />
 
-    <?php if (APPLICATION_ENV === 'development'): ?>
-        <script src="<?=$this->baseUrl('js/admin.js');?>"></script>
-    <?php else: ?>
-        <script src="<?=$this->baseUrl('js/admin.min.js');?>"></script>
+    <?php if (APPLICATION_ENV === 'development') : ?>
+        <script src="<?=$this->baseUrl('js/admin.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <?php else : ?>
+        <script src="<?=$this->baseUrl('js/admin.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
-    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>"></script>
-    <script src="<?=$this->baseUrl('vendor/ckeditor/ckeditor.js');?>"></script>
-    <script src="<?=$this->baseUrl('vendor/ckeditor/adapters/jquery.js');?>"></script>
+    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <script src="<?=$this->baseUrl('vendor/ckeditor/ckeditor.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <script src="<?=$this->baseUrl('vendor/ckeditor/adapters/jquery.js');?>?v=<?=$this->toolVersion();?>"></script>
     <script type="text/javascript">
         CKEDITOR.config.language = 'de';
         var baseUrl = '<?=$this->baseUrl()?>';
     </script>
 </head>
-<body class="has-footer-sticky">
+<body class="site has-navbar-fixed-top">
 
-    <header role="banner">
+    <header role="banner" class="site-header">
 
         <!-- Main navigation -->
-        <nav class="navbar navbar-static-top navbar-default">
+        <nav class="navbar navbar-fixed-top navbar-primary">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
@@ -50,7 +50,7 @@
                     </button>
                     <a
                         href="<?=$this->url(['module' => 'admin', 'controller' => 'index', 'action' => 'index'], null, true);?>"
-                        class="navbar-brand"
+                        class="navbar-brand offset-right"
                         title="<?=$this->translate('ePartool admin dashboard');?>"
                     >
                         <span class="hidden-sm">
@@ -66,17 +66,17 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="navbar-icon">
                             <a href="<?=$this->url([], null, true);?>" target="_blank" title="<?=$this->translate('Open site in a new tab');?>">
-                                <span class="glyphicon glyphicon-home"></span>
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                                 <span class="visible-xs-inline"><?=$this->translate('Homepage');?></span>
                             </a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user visible-sm-inline-block"></span>
-                                <span class="hidden-sm">
+                                <span class="glyphicon glyphicon-user visible-sm-inline-block offset-right" aria-hidden="true"></span>
+                                <span class="hidden-sm offset-right">
                                     <?=Zend_Auth::getInstance()->getIdentity()->email;?>
                                 </span>
-                                <b class="caret"></b>
+                                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-header visible-sm">
@@ -85,7 +85,7 @@
                                 <li class="divider visible-sm"></li>
                                 <li>
                                     <a href="<?=$this->baseUrl();?>/user/logout">
-                                        <span class="glyphicon glyphicon-off"></span>
+                                        <span class="glyphicon glyphicon-off icon-shift-down offset-right" aria-hidden="true"></span>
                                         <?=$this->translate('Log off');?>
                                     </a>
                                 </li>
@@ -97,7 +97,7 @@
         </nav>
 
     </header>
-    <main role="main">
+    <main role="main" class="site-content">
 
         <!-- Flash Messages -->
         <?=$this->partial('_partials/flashMessages.phtml', $this->layout()->getView());?>
@@ -106,9 +106,19 @@
         <?=$this->layout()->content;?>
 
     </main>
-    <footer role="contentinfo" class="footer footer-sticky">
+    <footer role="contentinfo" class="footer site-footer">
         <div class="container">
             © DBJR <?=date('Y');?>
+            <?php if ($this->toolVersion() !== 0) : ?>
+                <span class="footer-divider">|</span>
+                <a
+                    href="http://go.dbjr.de/epartool"
+                    target="_blank"
+                    title="<?=$this->translate("Go to ePartool's developer site");?>"
+                >
+                    <?=$this->toolVersion();?>
+                </a>
+            <?php endif;?>
             <a href="http://www.visionapps.cz" target="_blank" class="footer-author" title="Created by VisionApps">
                 <img src="<?=$this->baseUrl('images/admin/visionapps.svg');?>" width="100" height="18" alt="VisionApps" />
             </a>

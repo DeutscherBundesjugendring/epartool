@@ -28,30 +28,35 @@
                     <?php if ($contrib->is_visible): ?>
                         <div class="media" id="post-<?=$contrib->id?>">
 
-                            <small class="text-muted">
-                                <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
-                                <?php if (!empty($contrib->name)): ?>
-                                    <?=$this->escape($contrib->name);?>,
-                                <?php endif; ?>
-                                <?=$this->formatDate($contrib->time_created);?>
-                            </small>
+                            <div class="offset-bottom-small">
+                                <small class="text-muted">
+                                    <span class="glyphicon glyphicon-user icon-offset" aria-hidden="true"></span>
+                                    <?php if (!empty($contrib->nick)) : ?>
+                                        <?=$this->escape($contrib->nick);?>,
+                                    <?php elseif (!empty($contrib->name)) : ?>
+                                        <?=$this->escape($contrib->name);?>,
+                                    <?php else : ?>
+                                        <?=$this->translate('Anonymous');?>
+                                    <?php endif; ?>
+                                    <?=$this->formatDate($contrib->time_created);?>
+                                </small>
+                            </div>
 
-                            <?php if ($contrib->body): ?>
+                            <?php if ($contrib->body) : ?>
                                 <p><?=$this->escape($contrib->body);?></p>
                             <?php endif; ?>
 
-                            <?php if ($contrib->video_id): ?>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe
-                                        width="560"
-                                        height="315"
-                                        src="<?=sprintf(
-                                            Zend_Registry::get('systemconfig')->video->url->format->embed,
-                                            $this->escape($contrib->video_id)
-                                        );?>"
-                                        allowfullscreen
-                                    ></iframe>
+                            <?php if ($this->consultation['discussion_video_enabled']
+                                && isset($contrib['video_service']) && $contrib['video_id']
+                                && $this->videoServicesStatus['video_' . $contrib['video_service'] . '_enabled']) : ?>
+                                <div class="embed-responsive embed-responsive-16by9 offset-bottom">
+                                    <?=$this->embeddedVideo($contrib['video_service'], $contrib['video_id']);?>
                                 </div>
+                            <?php elseif ($contrib['video_id']) : ?>
+                                <p>
+                                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                                    <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($contrib['video_service']));?>.
+                                </p>
                             <?php endif; ?>
 
                         </div>
@@ -72,10 +77,19 @@
                 <div class="hidden-print">
                     <hr class="offset-bottom-large"  />
                     <h2><?=$this->translate('Your Comment');?></h2>
+                    <?php if (!empty($this->userIdentity) && empty($this->userIdentity['nick'])): ?>
+                        <p class="alert alert-info">
+                            <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                            <?=sprintf(
+                                $this->translate('You can set your nick name in <a href="%s" class="alert-link">My Profile</a> to be displayed along with your comment.'),
+                                $this->url(['controller' => 'user', 'action' => 'profile'], 'default', true));?>
+                        </p>
+                    <?php endif; ?>
                     <?=$this->form;?>
                 </div>
             <?php endif; ?>
 
+            <hr class="offset-top-large offset-bottom-large" />
             <?=$this->subscriptionForm;?>
 
         </div>

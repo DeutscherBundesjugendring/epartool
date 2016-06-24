@@ -228,6 +228,7 @@
             /**
              * Snippets
              */
+
             for (var i in data.doc.fowups) {
                 var _likeYes = '<span class="badge js-amount js-like">' + data.doc.fowups[i].lkyea + '</span> <a class="link-alt link-unstyled js-voting js-like" href="' + baseUrl + '/followup/like/fid/' + data.doc.fowups[i].fid + '"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>';
                 var _likeNo = '<span class="badge js-amount js-dislike">' + data.doc.fowups[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + baseUrl + '/followup/unlike/fid/' + data.doc.fowups[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
@@ -241,17 +242,25 @@
                 } else {
                   _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">Follow path</a>';
                 }
+
+                var _highlightClass = '';
+                if (data.doc.fowups[i].hlvl > 1) {
+                  _highlightClass = 'well-heading';
+                } else if (data.doc.fowups[i].hlvl == 1) {
+                  _highlightClass = 'well-standard';
+                }
+
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ + '"> </div>' : '';
 
-                _snippets += '<div class="well well-simple well-simple-light ' + _activeSnippetClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
+                _snippets += '<div class="well well-simple well-simple-light ' + _activeSnippetClass + ' ' + _highlightClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
                         _edgeRight +
                         data.doc.fowups[i].expl +
-                        '<span class="offset-right">' +
+                        '<div class="text-right offset-top-small offset-bottom-small"><span class="offset-right">' +
                         _likeYes + ' ' +
                         _likeNo +
                         '</span>' +
                         _showInTimelineLink +
-                        '</div>';
+                        '</div></div>';
             }
 
             /**
@@ -261,10 +270,15 @@
 
             var _content =
                 '<div class="well well-accent ' + _activeDocClass + '">' +
-                '<p>' + data.doc.who + '</p>' +
-                '<p class="small">' + when + '</p>' +
-                  '<span class="glyphicon glyphicon-file icon-white icon-offset text-muted"></span>' +
-                '<a target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '" class="link-unstyled link-unstyled-alt">' + data.doc.ref_doc + '</a>' +
+                '<div class="row">' +
+                  '<div class="col-sm-3"><img src="' + data.mediafolder + data.doc.gfx_who + '" class="img-responsive pull-left" /></div>' +
+                    '<div class="col-sm-9">' +
+                      '<p>' + data.doc.who + '</p>' +
+                      '<p class="small">' + when + '</p>' +
+                      '<a target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '" class="btn btn-default btn-default-alt">' +
+                '<span class="glyphicon glyphicon-file icon-offset"></span>Download</a>' +
+                    '</div>' +
+                  '</div>' +
                 '</div>' +
                   '<hr />' +
                 _snippets;

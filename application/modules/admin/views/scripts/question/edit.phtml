@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
@@ -11,7 +11,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'questions');?>
 
@@ -33,9 +33,20 @@
                     </div>
                     <?=$this->form->getElement('q_xpl');?>
                     <?=$this->form->getElement('vot_q');?>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <?=$this->form->getElement('video_enabled');?>
+                        </div>
+                        <div class="col-sm-8 checkbox">
+                            <a href="<?=$this->url(['controller' => 'settings', 'action' => 'services']);?>">
+                                <span class="glyphicon glyphicon-cog offset-right" aria-hidden="true"></span>
+                                <?=$this->translate('Video Services Settings');?>
+                            </a>
+                        </div>
+                    </div>
                     <?=$this->form->getElement('csrf_token_question');?>
                     <?=$this->form->getElement('submit');?>
-                    <div class="cancel-link">
+                    <div class="form-action-static">
                         <?=$this->translate('or');?>
                         <a href="<?=$this->url(['action' => 'index']);?>"><?=$this->translate('Cancel');?></a>
                     </div>

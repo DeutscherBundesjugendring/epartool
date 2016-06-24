@@ -831,10 +831,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     ->from(['i' => $this->info(self::NAME)], ['uid'])
                     ->join(
                         ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
-                        'q.qi = i.qi'
+                        'q.qi = i.qi',
+                        []
                     )
                     ->where('kid = ?', $kid)
-                    ->where('uid > ?', 1)
+                    ->where('uid IS NOT NULL')
             )
             ->count();
     }
@@ -1122,12 +1123,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function appendRelIds($origInputId, array $newInputIds)
     {
-        $row = $this->find($origInputId)->current();
-        $relIdsA =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
-        $relIds = array_merge($relIdsA, $newInputIds);
-        $relIds = array_unique($relIds);
-        $relIds = implode(',', $relIds);
-        $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $origInputId));
+        foreach ($newInputIds as $inputId) {
+            $row = $this->find($inputId)->current();
+            $relIds =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
+            $relIds[] = $origInputId;
+            $relIds = array_unique($relIds);
+            $relIds = implode(',', $relIds);
+            $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $inputId));
+        }
     }
 
     /**
@@ -1345,7 +1348,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $question = (new Model_Questions())->find($newContribution->qi)->current();
             $userInfoModel = new Model_User_Info();
             $userInfo = $userInfoModel->fetchRow([
-                'uid = ' . $newContribution->uid ,
+                'uid = ' . $newContribution->uid,
                 'kid =' . $question->kid,
             ]);
             if ($userInfo === null) {
@@ -1361,5 +1364,133 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             return;
         }
         throw new \Exception('Adding contribution failed');
+    }
+
+    /**
+     * @param array $where
+     * @param int $reminders
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getUnconfirmedContributions(array $where, $reminders = null)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => $this->info(self::NAME)]
+            )
+            ->join(
+                ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                'ui.confirmation_key = i.confirmation_key',
+                ['uid', 'confirmation_key']
+            )->join(
+                ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                'u.uid = ui.uid',
+                ['email']
+            )->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'c.kid = q.kid',
+                ['kid', 'inp_to']
+            )->where('i.user_conf = ?', 'u')->where('i.confirmation_key IS NOT NULL');
+
+        if ($reminders !== null) {
+            $select->where('reminders_sent = ?', $reminders);
+        }
+
+        foreach ($where as $cond => $parameter) {
+            $select->where($cond, $parameter);
+        }
+
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * @param $kid
+     * @return string
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getCountContributionsByConsultation($kid)
+    {
+        $select = $this->selectCountContributionsByConsultation($kid)->where('i.uid IS NOT NULL');
+
+        return $this->fetchAll($select)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsConfirmed(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('uid IS NOT NULL')->where('user_conf = ?', 'c');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsUnconfirmed(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('uid IS NOT NULL')->where('user_conf != ?', 'c');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsBlocked(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('block = ?', 'y');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param \Zend_Db_Select $contributions
+     * @return int
+     */
+    public function getCountContributionsVotable(\Zend_Db_Select $contributions)
+    {
+        $contributions->where('vot = ?', 'y')->orWhere('vot = ?', 'u');
+
+        return $this->fetchAll($contributions)->current()->count;
+    }
+
+    /**
+     * @param int $qid
+     * @return \Zend_Db_Select
+     */
+    public function selectCountContributionsByQuestion($qid)
+    {
+        return $this->select()
+            ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
+            ->where('qi = ?', $qid);
+    }
+    
+    /**
+     * @param int $kid
+     * @return \Zend_Db_Select
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function selectCountContributionsByConsultation($kid)
+    {
+        return $this->select()
+            ->from(['i' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->setIntegrityCheck(false)
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->where('kid = ?', $kid);
     }
 }

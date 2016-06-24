@@ -1,0 +1,23 @@
+.row-horizontal-sm {
+    @media (min-width: @screen-sm-min) {
+        margin-left: -@grid-gutter-width / 2;
+        margin-right: -@grid-gutter-width / 2;
+        overflow-x: auto;
+        white-space: nowrap;
+
+        > .row {
+            margin-left: @grid-gutter-width / 2;
+            margin-right: @grid-gutter-width / 2;
+
+            > *[class*="col"] {
+                display: inline-block;
+                float: none;
+                white-space: normal;
+            }
+        }
+
+        > .modal {
+            white-space: normal;
+        }
+    }
+}

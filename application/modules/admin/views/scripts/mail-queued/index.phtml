@@ -1,12 +1,12 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
                 <h1 class="section-header-title"><?=$this->translate('Email');?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="<?=$this->url(['controller' => 'mail-send', 'action' => 'index']);?>" class="btn btn-primary cta">
-                    <span class="glyphicon glyphicon-pencil"></span>
+                <a href="<?=$this->url(['controller' => 'mail-send', 'action' => 'index']);?>" class="btn btn-primary btn-raised cta">
+                    <span class="glyphicon glyphicon-pencil offset-right" aria-hidden="true"></span>
                     <?=$this->translate('New Email');?>
                 </a>
             </div>
@@ -17,7 +17,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->emailNavigation('queued');?>
 
@@ -27,14 +27,14 @@
                     href="<?=$this->url(['action' => 'send-all']);?>"
                     class="btn btn-default pull-right<?=!count($this->emails) ? ' disabled' : '';?>"
                 >
-                    <span class="glyphicon glyphicon-send"></span>
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                     <?=$this->translate('Send all emails');?>
                 </a>
                 <h2><?=$this->translate('Queued Emails');?></h2>
 
                 <?php if (!count($this->emails)): ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no emails in the queue to be sent.');?>
                     </p>
                 <?php else: ?>

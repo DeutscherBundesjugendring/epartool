@@ -2,8 +2,16 @@
 
 class Default_Form_Input_Edit extends Dbjr_Form_Web
 {
+    /**
+     *
+     * @var bool
+     */
+    protected $videoEnabled;
+    
     public function init()
     {
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputEditForm.phtml'))));
+        $this->getView()->setEscape('html_entity_decode');
         $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
@@ -17,7 +25,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setLabel('Contribution')
             ->setAttrib('cols', 85)
             ->setAttrib('rows', 3)
-            ->setRequired(true)
+            ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags', 'HtmlEntities'])
             ->addValidators(['NotEmpty']);
@@ -32,6 +40,9 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags', 'HtmlEntities']);
         $this->addElement($expl);
+        
+        $this->addElement('videoService', 'video_service');
+        $this->addElement('videoId', 'video_id');
 
         $submit = $this->createElement('submit', 'submit');
         $submit
@@ -46,5 +57,47 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             $hash->setTimeout(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl);
         }
         $this->addElement($hash);
+    }
+    
+    /**
+     * @return bool
+     */
+    public function getVideoEnabled()
+    {
+        return $this->videoEnabled && (new Model_Projects())->getVideoServiceStatus();
+    }
+
+    /**
+     * @param bool $videoEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setVideoEnabled($videoEnabled)
+    {
+        $this->videoEnabled = $videoEnabled;
+        return $this;
+    }
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function isValid($data)
+    {
+        $thesEl = $this->getElement('thes');
+        $videoIdEl = $this->getElement('video_id');
+        $thesEl->clearErrorMessages();
+        if ($videoIdEl !== null) {
+            $videoIdEl->clearErrorMessages();
+        }
+        if (empty($data['thes']) && empty($data['video_id'])) {
+            $msg = Zend_Registry::get('Zend_Translate')->translate('Either text or video have to be submitted.');
+            $thesEl->addError($msg);
+            if ($videoIdEl !== null) {
+                $videoIdEl->addError($msg);
+            }
+            $this->markAsError();
+        }
+
+        return parent::isValid($data);
     }
 }

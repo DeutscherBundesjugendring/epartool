@@ -76,7 +76,7 @@
                             <!-- Support -->
                             <?php if ($this->consultation->spprt_show == 'y'): ?>
                                 <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="offset-right">
-                                    <span class="glyphicon glyphicon-ok-sign icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
                                     <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
                                         <?=$this->escape($input['spprts']);?>
                                     </small>
@@ -104,7 +104,7 @@
                                         href="<?=$this->url(['controller' => 'input', 'action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                         class="link-unstyled link-print-nourl"
                                     >
-                                        <span class="glyphicon glyphicon-comment icon-offset icon-vertically-aligned text-accent" aria-hidden="true"></span>
+                                        <span class="glyphicon glyphicon-comment icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
                                     </a>
                                     <a
                                         href="<?=$this->url(['controller' => 'input', 'action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
@@ -118,7 +118,13 @@
                                         href="<?=$this->url(['controller' => 'input', 'action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                         class="btn btn-default btn-xs hidden-print"
                                     >
-                                        <?=$this->translate('I would like to discuss that!');?>
+                                        <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
+                                            && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
+                                        ): ?>
+                                            <?=$this->translate('I would like to discuss that!');?>
+                                        <?php else : ?>
+                                            <?=$this->translate('View discussion');?>
+                                        <?php endif; ?>
                                     </a>
                                 </span>
                             <?php endif; ?>

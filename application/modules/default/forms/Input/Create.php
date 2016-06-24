@@ -2,6 +2,11 @@
 
 class Default_Form_Input_Create extends Dbjr_Form_Web
 {
+    /**
+     * @var bool
+     */
+    protected $videoEnabled;
+
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/createForm.phtml'))));
@@ -41,17 +46,25 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @param array                        $theses Array of inputs that are already in the session
      * @return Default_Form_Input_Create           Fluent interface
      */
-    public function generateInputFields($theses)
+    public function generateInputFields($theses, $addExtraField = true)
     {
         if (!$theses) {
-            $theses = [['thes' => '', 'expl' => '']];
+            $theses = [['thes' => '', 'expl' => '', 'video_service' => '', 'video_id' => '']];
         }
 
         foreach ($theses as $inputNum => $input) {
-            $this->addInputField($inputNum, $input['thes'], $input['expl']);
+            $this->addInputField(
+                $inputNum,
+                $input['thes'],
+                $input['expl'],
+                isset($input['video_service']) ? $input['video_service'] : null,
+                isset($input['video_id']) ? $input['video_id'] : null
+            );
         }
 
-        $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
+        if ($addExtraField) {
+            $this->addInputField(isset($inputNum) ? $inputNum + 1 : 0);
+        }
 
         return $this;
     }
@@ -59,10 +72,14 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     /**
      * Adds a subForm with elements related to single input to the inputs subForm
      * If the inputs subForm doesnt exist it is created
-     * @param  string                      $inputName The name of the input subgroup to be created
+     * @param  string $inputName The name of the input subgroup to be created
+     * @param  string $videoService
+     * @param  string $videoId
+     * @param  string $thes
+     * @param  string $expl
      * @return Default_Form_Input_Create              Fluent interface
      */
-    protected function addInputField($inputName, $thes = null, $expl = null)
+    protected function addInputField($inputName, $thes = null, $expl = null, $videoService = null, $videoId = null)
     {
         $view = new Zend_View();
         $thesElOpts = array(
@@ -78,10 +95,6 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 'striptags' => 'StripTags',
             ),
         );
-        $thesEl = $this->createElement('textarea', 'thes');
-        $thesEl
-            ->setOptions($thesElOpts)
-            ->setValue($thes);
 
         $explElOpts = array(
             'cols' => 85,
@@ -97,19 +110,66 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 'striptags' => 'StripTags',
             ),
         );
-        $explEl = $this->createElement('textarea', 'expl');
-        $explEl
-            ->setOptions($explElOpts)
-            ->setValue($expl);
+
+        $videoElOpts = array(
+            'attribs' => array(
+                'class' => 'form-control form-control-alt',
+            ),
+        );
 
         if (!$this->getSubForm('inputs')) {
             $this->addSubForm(new Zend_Form(), 'inputs');
         }
         $inputForm = new Zend_Form();
-        $inputForm->addElement($explEl);
-        $inputForm->addElement($thesEl);
+        $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+
+        $inputForm->addElement('videoService', 'video_service');
+        $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setOptions($videoElOpts)
+            ->setValue($videoService)
+            ->setLabel('Your video');
+
+        $inputForm->addElement('videoId', 'video_id');
+        $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setOptions($videoElOpts)
+            ->setValue($videoId)
+            ->setLabel('Video ID')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
+        $inputForm->addElement('textarea', 'expl');
+        $inputForm->getElement('expl')
+            ->setOptions($explElOpts)
+            ->setValue($expl)
+            ->setLabel('Explain your contribution')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
+        $inputForm->addElement('textarea', 'thes');
+        $inputForm->getElement('thes')
+            ->setOptions($thesElOpts)
+            ->setValue($thes)
+            ->setLabel('Your contribution')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getVideoEnabled()
+    {
+        return $this->videoEnabled && (new Model_Projects())->getVideoServiceStatus();
+    }
+
+    /**
+     * @param bool $videoEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setVideoEnabled($videoEnabled)
+    {
+        $this->videoEnabled = $videoEnabled;
         return $this;
     }
 }

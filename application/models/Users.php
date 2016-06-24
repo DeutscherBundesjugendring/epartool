@@ -129,13 +129,15 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'age_group' => $data['age_group'],
             'newsl_subscr' => $data['newsl_subscr'],
             'regio_pax' => $data['regio_pax'],
-            'cnslt_results' => $data['cnslt_results'],
             'kid' => $data['kid'],
             'date_added' => new Zend_Db_Expr('NOW()'),
             'cmnt_ext' => $data['cmnt_ext'],
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
         ];
+        if (isset($data['cnslt_results'])) {
+            $userConsultData['cnslt_results'] = $data['cnslt_results'];
+        }
 
         // if group then also save group specifications
         if (isset($data['group_specs'])) {
@@ -222,6 +224,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      * Sends an email asking user to confirm his/her unconfirmed inputs from the given consultation if there are any
      * @param  integer|object $identity  Either the user object or a user id
      * @param  integer        $kid       The consultation identifier.
+     * @param  string         $confirmKey
      * @param  boolean        $isNew     Indicates if the recipient has been just created
      * @throws Dbjr_Exception            If the user can not be found in the system
      */
@@ -448,7 +451,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function getAllConfirmed()
     {
         $select = $this->select();
-        $select->where("block ='c'")->order('email');
+        $select->where("block ='c'")->order(['name', 'email']);
 
         return $this->fetchAll($select)->toArray();
     }
@@ -475,8 +478,51 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 []
             )
             ->where($userInfoTable . '.uid IS NULL')
-            ->where($votingRightsTable . '.uid IS NULL');
+            ->where($votingRightsTable . '.uid IS NULL')
+            ->order(['u.name', 'u.email']);
 
         return $this->fetchAll($select);
+    }
+
+    /**
+     * @param \Zend_Db_Table_Row $user
+     * @param array $data
+     * @return mixed
+     * @throws \Zend_Auth_Exception
+     */
+    public function updateProfile(Zend_Db_Table_Row $user, array $data)
+    {
+        unset($data['password_confirm']);
+        unset($data['email']);
+
+        $data['name'] = empty($data['name']) ? null : $data['name'];
+        $data['nick'] = empty($data['nick']) ? null : $data['nick'];
+
+        if (!empty($data['password'])) {
+            if (crypt($data['current_password'], $user['password']) == $user['password']) {
+                $data['password'] = $this->hashPassword($data['password']);
+            } else {
+                throw new Zend_Auth_Exception();
+            }
+        } else {
+            unset($data['password']);
+        }
+        $user->setFromArray($data);
+        $result = $user->save();
+        $this->updateAuthIdentity($data);
+        return $result;
+    }
+
+    /**
+     * @param array $newUserInfo
+     */
+    private function updateAuthIdentity($newUserInfo)
+    {
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+
+        foreach (['name', 'nick'] as $key) {
+            $identity->{$key} = empty($newUserInfo[$key]) ? null : $newUserInfo[$key];
+        }
     }
 }

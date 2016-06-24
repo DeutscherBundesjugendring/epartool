@@ -40,7 +40,7 @@ class Module_Default_View_Helper_RibbonImage extends Zend_View_Helper_Abstract
             $text = $this->view->translate('Reaction');
         }
 
-        $html = '<div class="sticker hidden-print"><div class="sticker-label">' . $text . '</div></div>';
+        $html = '<div class="sticker hidden-print"><div class="sticker-label sticker-label-accent">' . $text . '</div></div>';
 
         return $html;
     }

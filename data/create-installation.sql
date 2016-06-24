@@ -913,4 +913,99 @@ CREATE TABLE `vt_settings` (
 );
 
 SET foreign_key_checks = 1;
--- Migration 2016-04-15_15-00_DBJR-633.sql
+-- Up until Migration 2016-04-15_15-00_DBJR-633.sql
+
+-- Migration 2016-05-11_16-03_DBJR-614.sql
+ALTER TABLE `users` ADD `nick` varchar(255) NULL DEFAULT NULL;
+
+-- Migration 2016-05-17_14-28_DBJR-608.sql
+ALTER TABLE `proj`
+ADD `video_facebook_enabled` tinyint(1) NOT NULL DEFAULT '0',
+ADD `video_youtube_enabled` tinyint(1) NOT NULL DEFAULT '0' AFTER `video_facebook_enabled`,
+ADD `video_vimeo_enabled` tinyint(1) NOT NULL DEFAULT '0' AFTER `video_youtube_enabled`;
+
+ALTER TABLE `quests`
+ADD `video_enabled` tinyint(1) NOT NULL DEFAULT '0';
+
+ALTER TABLE `inpt`
+ADD `video_service` varchar(255) NULL,
+ADD `video_id` varchar(255) NULL AFTER `video_service`;
+
+-- Migration 2016-05-19-12-27_DBJR-609.sql
+ALTER TABLE `cnslt`
+ADD `discussion_video_enabled` tinyint(1) NOT NULL DEFAULT '1';
+
+-- Migration 2016-05-19_14-18_DBJR-610.sql
+ALTER TABLE `input_discussion`
+ADD `video_service` varchar(255) NULL AFTER `body`;
+
+-- Migration 2016-05-23_17-52_DBJR-618.sql
+ALTER TABLE `help_text`
+ADD `module` varchar(255) NOT NULL DEFAULT 'default';
+
+ALTER TABLE `help_text`
+ADD UNIQUE `help_text_project_code_name_key` (`project_code`, `name`);
+
+CREATE TABLE `help_text_module` (`name` varchar(255) NOT NULL );
+ALTER TABLE `help_text_module` ADD PRIMARY KEY `name` (`name`);
+
+INSERT INTO `help_text_module` (`name`) VALUES ('admin');
+INSERT INTO `help_text_module` (`name`) VALUES ('default');
+
+ALTER TABLE `help_text`
+ADD FOREIGN KEY (`module`) REFERENCES `help_text_module` (`name`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Migration 2016-05-25_18-04_DBJR-626.sql
+CREATE TABLE `theme` (
+    `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` varchar(255) NOT NULL,
+    `color_headings` varchar(255) NOT NULL,
+    `color_frame_background` varchar(255) NOT NULL,
+    `color_active_link` varchar(255) NOT NULL
+);
+
+ALTER TABLE `theme`
+ADD UNIQUE `name` (`name`);
+
+ALTER TABLE `proj`
+ADD `theme_id` int NULL,
+ADD `color_headings` varchar(255) NULL AFTER `theme_id`,
+ADD `color_frame_background` varchar(255) NULL AFTER `color_headings`,
+ADD `color_active_link` varchar(255) NULL AFTER `color_frame_background`,
+ADD `logo` varchar(255) NULL AFTER `color_active_link`,
+ADD `favicon` varchar(255) NULL AFTER `logo`;
+
+ALTER TABLE `proj`
+ADD INDEX `proj_theme_id_fk` (`theme_id`);
+
+ALTER TABLE `proj`
+ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+
+-- Migration 2016-05-31_14-14_DBJR-647.sql
+ALTER TABLE `inpt`
+ADD `reminders_sent` int NOT NULL DEFAULT '0';
+
+-- Migration 2016-06-15_13-23_DBJR-770.sql
+ALTER TABLE `vt_indiv`
+ADD `confirmation_hash` char(32) NULL;
+
+-- Migration 2016-06-17_16-03_DBJR-626.sql
+INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
+VALUES ('Green', 'fc9026', '5fa4a0', '02afdb');
+
+INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
+VALUES ('Pink', 'fc9026', '990066', '02afdb');
+
+INSERT INTO `theme` (`name`, `color_headings`, `color_frame_background`, `color_active_link`)
+VALUES ('Blue', 'fc9026', '04a5eb', '0074b5');
+
+-- Migration 2016-06-17_16-03_DBJR-626.sql
+ALTER TABLE `theme`
+CHANGE `color_headings` `color_accent_1` varchar(255) NOT NULL AFTER `name`,
+CHANGE `color_frame_background` `color_primary` varchar(255) NOT NULL AFTER `color_accent_1`,
+CHANGE `color_active_link` `color_accent_2` varchar(255) NOT NULL AFTER `color_primary`;
+
+ALTER TABLE `proj`
+CHANGE `color_headings` `color_accent_1` varchar(255) COLLATE 'utf8_general_ci' NULL AFTER `theme_id`,
+CHANGE `color_frame_background` `color_primary` varchar(255) COLLATE 'utf8_general_ci' NULL AFTER `color_accent_1`,
+CHANGE `color_active_link` `color_accent_2` varchar(255) COLLATE 'utf8_general_ci' NULL AFTER `color_primary`;

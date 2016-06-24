@@ -63,4 +63,27 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                     return $inputs;
     }
 
+    /**
+     * @param string $confirmationHash
+     * @return array
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function fetchVotesToConfirm($confirmationHash)
+    {
+        $db = $this->getAdapter();
+        $select = $db->select();
+        $select->from(
+            ['vi' => (new Model_Votes_Individual())->info(Model_Votes_Individual::NAME)],
+            ['points' => 'vi.pts', 'status' => 'vi.status', 'pimp' => 'vi.pimp']
+        )
+            ->join(['c' => 'inpt'], 'c.tid = vi.tid ', ['thes' => 'c.thes', 'expl' => 'c.expl'])
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = c.qi',
+                ['kid' => 'q.kid']
+            )->where('vi.confirmation_hash = ?', $confirmationHash)
+            ->order('q.qi ASC');
+
+        return $db->query($select)->fetchAll();
+    }
 }

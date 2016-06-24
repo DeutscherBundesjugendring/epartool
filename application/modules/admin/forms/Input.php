@@ -11,6 +11,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     protected $cancelUrl;
 
     /**
+     * @var bool
+     */
+    protected $videoEnabled;
+
+    /**
      * @var string
      */
     private $afterSubmitAction;
@@ -29,6 +34,8 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 
     public function init()
     {
+        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputForm.phtml'))));
+        
         $kid = Zend_Controller_Front::getInstance()->getRequest()->getParam('kid', 0);
         $translator = Zend_Registry::get('Zend_Translate');
 
@@ -111,12 +118,15 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($note);
 
+        $this->addElement('videoService', 'video_service');
+        $this->addElement('videoId', 'video_id');
+
         // CSRF Protection
         $hash = $this->getHash();
         $this->addElement($hash);
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setAttrib('class', 'btn-primary');
+        $submit->setAttrib('class', 'btn-primary btn-raised');
         if ($this->afterSubmitAction === self::AFTER_SUBMIT_RETURN_TO_INDEX) {
             $submit->setLabel('Save and return to index');
         } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_SPLIT_NEXT) {
@@ -138,5 +148,40 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
         }
         return $hash;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getCancelUrl()
+    {
+        return $this->cancelUrl;
+    }
+
+    
+    /**
+     * @return bool
+     */
+    public function getVideoEnabled()
+    {
+        return $this->videoEnabled;
+    }
+
+    /**
+     * @param bool $videoEnabled
+     * @return \Admin_Form_Input
+     */
+    public function setVideoEnabled($videoEnabled)
+    {
+        $this->videoEnabled = $videoEnabled;
+        return $this;
+    }
+
+    public function isValid($data)
+    {
+        if (isset($data['video_id']) && $data['video_id']) {
+            $this->getElement('thes')->setRequired(false);
+        }
+        return parent::isValid($data);
     }
 }

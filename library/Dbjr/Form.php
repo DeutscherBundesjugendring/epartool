@@ -14,7 +14,7 @@ class Dbjr_Form extends Zend_Form
      *      url => relative url including baseUrl to where cancel link is to point
      *      label => the translated label to be uused as link text, optional, defaults to translation of "Cancel"
      *      prefix => translated link prefix, optional, defaults to translation of "or"
-     *      blockClass => class to be applied to the div wrapper, optional, defaults to "cancel-link"
+     *      blockClass => class to be applied to the div wrapper, optional, defaults to "form-action-static"
      *  ]
      * If null no cancel link will be output
      * @var array

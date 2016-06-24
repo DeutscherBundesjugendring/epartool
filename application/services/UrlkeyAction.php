@@ -32,6 +32,12 @@ abstract class Service_UrlkeyAction
      */
     protected $_message;
 
+    /**
+     * Url to redirect after action
+     * @var string
+     */
+    protected $_redirectUrl;
+
 
     /**
      * Executes the urlkeyAction
@@ -120,6 +126,14 @@ abstract class Service_UrlkeyAction
     public function getUrlkey()
     {
         return $this->_urlkey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->_redirectUrl;
     }
 
     /**

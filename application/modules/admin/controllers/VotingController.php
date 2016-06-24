@@ -77,24 +77,22 @@ class Admin_VotingController extends Zend_Controller_Action
 
     public function createRightsAction()
     {
-        $users = (new Model_Users())->getWithoutVotingRights($this->_consultation->kid);
-        
+        $userModel = new Model_Users();
+        $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
+
         $form = new Admin_Form_Voting_RightsAdd($users);
         $votingRights = new Model_Votes_Rights();
-        
+
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             $data['kid'] = $this->_consultation->kid;
             if ($form->isValid($data)) {
-                $votingRights->createRow($data)->save();
+                $votingRights->addPermission($data);
                 $this->_flashMessenger->addMessage(
                     $this->view->translate('The voting permission was created.'),
                     'success'
                 );
-                $this->redirect(
-                    $this->view->url(['action' => 'index']),
-                    ['prependBase' => false]
-                );
+                $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
             } else {
                 $this->_flashMessenger->addMessage(
                     'New voting permission cannot be created. Please check the errors marked in the form below and try again.',
@@ -369,6 +367,33 @@ class Admin_VotingController extends Zend_Controller_Action
         $votesModel = new Model_Votes();
 
         $this->view->assign($votesModel->getResultsValues($this->_consultation->kid, $qid));
+    }
+
+    public function downloadExcelAction()
+    {
+        $questionId = $this->_request->getParam('questionId', 0);
+        if ($questionId === 0) {
+            $this->_flashMessenger->addMessage('No question was selected.', 'error');
+            $this->redirect('/admin/voting/results/kid/' . $this->_consultation['kid']);
+        }
+
+        $objPHPExcel = (new Service_VotingResultsExport())->exportResults($this->_consultation, $questionId);
+        $fileName = $this->_consultation['titl_short'] . ' ' . $questionId . '.ods';
+
+        // Redirect output to a client’s web browser (OpenDocument)
+        header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+        header('Content-Disposition: attachment;filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public'); // HTTP/1.0
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'OpenDocument');
+        $objWriter->save('php://output');
+        exit;
     }
 
     /**

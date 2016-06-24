@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
@@ -11,7 +11,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'voting-prepare');?>
 
@@ -33,8 +33,8 @@
                                 placeholder="<?=$this->translate('Search contributions');?>"
                             />
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-search"></span>
+                                <button type="submit" class="btn btn-primary btn-raised">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                     <?=$this->translate('Search');?>
                                 </button>
                             </span>
@@ -50,8 +50,8 @@
                         <div class="panel-heading">
                             <a data-toggle="collapse" href="#filterCommon">
                                 <h3 class="panel-title">
-                                    <span class="glyphicon glyphicon-chevron-down pull-right"></span>
-                                    <span class="glyphicon glyphicon-filter"></span>
+                                    <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
                                     <?=$this->translate('Filter');?>
                                 </h3>
                             </a>
@@ -59,7 +59,11 @@
                         <div id="filterCommon" class="panel-collapse collapse">
                             <div class="panel-body">
 
-                                <form data-filter-target="#contribution-table tr" class="form-filter">
+                                <form
+                                    data-filter-target="#contribution-table tr"
+                                    class="form-filter"
+                                    data-filter-storage-id="filterable-contributions"
+                                >
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
@@ -122,7 +126,7 @@
                                                 >
                                                     <option value=""><?=$this->translate('All folders');?></option>
                                                     <option value="0"><?=$this->translate('Folder root');?></option>
-                                                    <?php foreach($this->directories as $directory): ?>
+                                                    <?php foreach ($this->directories as $directory) : ?>
                                                         <option value="<?=$this->escape($directory['id']);?>">
                                                             <?=$this->escape($directory['dir_name']);?> (<?=$directory['count'];?>)
                                                         </option>
@@ -141,7 +145,7 @@
                                                     data-filter-attrib="tags"
                                                     data-filter-operator="subset"
                                                 >
-                                                    <?php foreach ($this->tags as $tag): ?>
+                                                    <?php foreach ($this->tags as $tag) : ?>
                                                         <option
                                                             value="<?=$this->escape($tag['tg_nr']);?>"
                                                             <?=!empty($tag['selected']) ? 'selected="selected"' : '';?>
@@ -175,8 +179,8 @@
                         <div class="panel-heading">
                             <a data-toggle="collapse" href="#filterFolders">
                                 <h3 class="panel-title">
-                                    <span class="glyphicon glyphicon-chevron-down pull-right"></span>
-                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                    <span class="glyphicon glyphicon-chevron-down pull-right" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>
                                     <?=$this->translate('Folders');?>
                                 </h3>
                             </a>
@@ -186,7 +190,7 @@
 
                                 <p>
                                     <a href="<?=$this->url(['action' => 'create-directory']);?>">
-                                        <span class="glyphicon glyphicon-plus-sign"></span>
+                                        <span class="glyphicon glyphicon-plus-sign offset-right" aria-hidden="true"></span>
                                         <?=$this->translate('Add folder');?>
                                     </a>
                                 </p>
@@ -199,7 +203,7 @@
                                     <div class="list-group sortable js-sortable-voting-directory">
                                         <?php foreach($this->directories as $directory): ?>
                                             <div class="list-group-item">
-                                                <span class="glyphicon glyphicon-move"></span>
+                                                <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
                                                 <?=$this->escape($directory['dir_name']);?>
                                                 <button
                                                     class="item-action item-action-danger"
@@ -208,7 +212,7 @@
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete folder?');?>"
                                                     >
-                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>
                                                 <span class="badge"><?=$directory['count'];?></span>
                                                 <input type="hidden" name="order[<?=$this->escape($directory['id']);?>]" value="<?=$this->escape($directory['order']);?>" />
@@ -256,7 +260,7 @@
 
                                         <div class="btn-group">
                                             <button class="btn btn-default" name="merge" value="1" type="submit">
-                                                <span class="glyphicon glyphicon-resize-small"></span>
+                                                <span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span>
                                                 <span class="hidden-xs hidden-md"><?=$this->translate('Merge');?></span>
                                             </button>
                                         </div>
@@ -270,7 +274,7 @@
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Release contributions?');?>"
                                                 >
-                                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                                                 <span class="hidden-xs"><?=$this->translate('Release');?></span>
                                             </button>
                                             <button
@@ -281,7 +285,7 @@
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Block contributions?');?>"
                                                 >
-                                                <span class="glyphicon glyphicon-ban-circle"></span>
+                                                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                                 <span class="hidden-xs"><?=$this->translate('Block');?></span>
                                             </button>
                                         </div>
@@ -295,7 +299,7 @@
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Set contributions for voting?');?>"
                                                 >
-                                                <span class="glyphicon glyphicon-star"></span>
+                                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                                 <span class="hidden-xs"><?=$this->translate('Allow for voting');?></span>
                                             </button>
                                             <button
@@ -306,7 +310,7 @@
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Ban contributions from voting?');?>"
                                                 >
-                                                <span class="glyphicon glyphicon-star-empty"></span>
+                                                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                                                 <span class="hidden-xs"><?=$this->translate('Ban from voting');?></span>
                                             </button>
                                         </div>
@@ -320,7 +324,7 @@
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete contributions?');?>"
                                                 >
-                                                <span class="glyphicon glyphicon-trash"></span>
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 <span class="visible-lg-inline"><?=$this->translate('Delete');?></span>
                                             </button>
                                         </div>

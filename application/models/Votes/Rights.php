@@ -206,18 +206,48 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
      */
     public function getWeightCountsByConsultation($kid)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
-        }
-        $select = $this->select();
-        $select->from($this->_name, array(
-            'vt_weight',
-            new Zend_Db_Expr('COUNT(vt_weight) AS weight_count')
-        ))
-            ->where('kid = ?', $kid)
-            ->group('vt_weight');
+        $db = $this->getDefaultAdapter();
+        $select = $db
+            ->select()
+            ->from(['vtr' => $this->_name], [
+                'vtr.vt_weight',
+                new Zend_Db_Expr('COUNT(vtr.vt_weight) AS weight_count'),
+                new Zend_Db_Expr('COUNT(p.uid) AS participating_count')
+            ])
+            ->joinLeft(
+                ['p' => (new Model_Votes_Individual())->selectVotesGroupsByConsultation($kid)],
+                'p.uid = vtr.uid',
+                []
+            )
+            ->where('vtr.kid = ?', $kid)
+            ->group('vtr.vt_weight');
 
-        return $this->fetchAll($select);
+        return $db->query($select)->fetchAll();
+    }
+
+    /**
+     * @param array $data
+     * @throws \Exception
+     */
+    public function addPermission(array $data)
+    {
+        if ($this->createRow($data)->save() > 0) {
+            $userInfo = (new Model_User_Info())->fetchRow([
+                'uid = ' . $data['uid'],
+                'kid =' . $data['uid'],
+            ]);
+            if ($userInfo === null) {
+                $userModel = new Model_Users();
+                $userData = $userModel->find($data['uid'])->current()->toArray();
+                $userData['cmnt_ext'] = '';
+                $userData['kid'] = $data['kid'];
+                $userInfoId = $userModel->addConsultationData($userData);
+                if (!$userInfoId) {
+                    throw new \Exception('Adding user info failed');
+                }
+            }
+            return;
+        }
+        throw new \Exception('Adding permission failed.');
     }
 }

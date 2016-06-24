@@ -171,6 +171,13 @@ class Admin_InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input($cancelUrl);
 
+        $inputRow = $inputModel->getById($tid);
+        if (!$qi) {
+            $qi = $inputRow['qi'];
+        }
+        $question = (new Model_Questions())->find($qi);
+        $form->setVideoEnabled($question['video_enabled']);
+        
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
@@ -191,8 +198,19 @@ class Admin_InputController extends Zend_Controller_Action
                 $form->populate($data);
             }
         } else {
-            $inputRow = $inputModel->getById($tid);
-            $form->populate($inputRow);
+            $data = $inputRow;
+            if ($data['video_service'] !== null) {
+                $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
+                if (!$project['video_' . $data['video_service'] . '_enabled']) {
+                    $data['video_service'] = null;
+                    $data['video_id'] = null;
+                    $this->_flashMessenger->addMessage(
+                        'Video service used for embedding video in this contribution was disabled. Video will be deleted after save contribution.',
+                        'error'
+                    );
+                }
+            }
+            $form->populate($data);
             if (!empty($inputRow['tags'])) {
                 $tagsSet = array();
                 foreach ($inputRow['tags'] as $tag) {
@@ -204,27 +222,21 @@ class Admin_InputController extends Zend_Controller_Action
                 }
             }
         }
-
+        
         $this->view->form = $form;
         $this->view->tid = $tid;
     }
 
     public function createAction()
     {
-        $questionId = $this->_request->getParam('qid', 0);
         $consultationId = $this->_request->getParam('kid', 0);
 
         $session = new Zend_Session_Namespace('inputCreate');
-
-        if (!$this->getRequest()->isPost()) {
-            $session->urlQid = $this->getRequest()->getParam('qid', 0);
-        }
 
         if ($session->urlQid > 0) {
             $cancelUrl = $this->view->returnUrl = $this->view->url([
                 'action' => 'index',
                 'kid' => $consultationId,
-                'qi' => $questionId,
             ]);
         } else {
             $cancelUrl = $this->view->returnUrl = $this->view->url(['action' => 'index','kid' => $consultationId]);
@@ -232,10 +244,7 @@ class Admin_InputController extends Zend_Controller_Action
 
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_CreateInput($cancelUrl);
-
-        if ($questionId > 0) {
-            $form->populate(['qi' => $questionId]);
-        }
+        $form->setVideoEnabled(false);
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
@@ -246,12 +255,10 @@ class Admin_InputController extends Zend_Controller_Action
                 try {
                     $inputModel->createContribution($formValues);
                     $this->_flashMessenger->addMessage('Contribution was created.', 'success');
-                    unset($session->urlQid);
                     $inputModel->getAdapter()->commit();
                     $this->redirect($this->view->url([
                         'action' => 'index',
                         'kid' => $consultationId,
-                        'qid' => $questionId,
                     ]), ['prependBase' => false]);
                 } catch (\Exception $e) {
                     $inputModel->getAdapter()->rollBack();
@@ -264,6 +271,12 @@ class Admin_InputController extends Zend_Controller_Action
                 );
                 $form->populate($data);
             }
+        } else {
+            $this->_flashMessenger->addMessage(
+                    'Video contribution settings are inherited from Question, therefore it is possible to add a video only after saving this Contribution thus linking it to a Question.',
+                    'info'
+                );
+            $form->populate(['user_conf' => 'u', 'block' => 'n', 'vot' => 'u']);
         }
 
         $this->view->form = $form;

@@ -194,6 +194,12 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         self::addCssClass($discussionTo, 'js-discussion-dates');
         $this->addElement($discussionTo);
+        
+        $enableVideo = $this->createElement('checkbox', 'discussion_video_enabled');
+        $enableVideo
+            ->setLabel('Allow videos in Discussion')
+            ->setRequired(false);
+        $this->addElement($enableVideo);
 
         $followupShow = $this->createElement('checkbox', 'follup_show');
         $followupShow
@@ -253,7 +259,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $submit = $this->createElement('submit', 'submit');
         $submit
-            ->setAttrib('class', 'btn-primary')
+            ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('Save');
         $this->addElement($submit);
     }

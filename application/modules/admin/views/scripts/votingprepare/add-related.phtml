@@ -1,4 +1,4 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
@@ -11,7 +11,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'voting-prepare');?>
 
@@ -95,7 +95,7 @@
                         <div class="col-xs-4 text-right">
                             <div class="btn-group">
                                 <button class="btn btn-default" value="saveRelated" name="bulkAction" type="submit">
-                                    <span class="glyphicon glyphicon-ok-sign"></span>
+                                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                                     <span class="hidden-xs"><?=$this->translate('Link selection to original contribution');?></span>
                                 </button>
                             </div>

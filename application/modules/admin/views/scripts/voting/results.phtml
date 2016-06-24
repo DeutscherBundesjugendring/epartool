@@ -1,5 +1,7 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
+
+        <?=$this->helpText('help-text-admin-consultation-voting-results');?>
 
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
         <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
@@ -11,13 +13,23 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'voting-results');?>
 
             </div>
             <div class="content">
-
+                <a
+                    href="<?=$this->url([
+                        'action' => 'download-excel',
+                        'kid' => $this->currentQuestion['kid'],
+                        'questionId' => $this->currentQuestion['qi']
+                    ]);?>"
+                    class="btn btn-default pull-right"
+                >
+                    <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                    <?=$this->translate('Download table as file');?>
+                </a>
                 <h2><?=$this->translate('Voting Results');?></h2>
 
                 <?php if (!empty($this->questions)): ?>
@@ -74,14 +86,14 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p class="alert alert-info">
-                            <span class="glyphicon glyphicon-info-sign"></span>
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                             <?=$this->translate('There are no voting results to be shown at the moment.');?>
                         </p>
                     <?php endif; ?>
 
                 <?php else: ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no voting results to be shown at the moment.');?>
                     </p>
                 <?php endif; ?>

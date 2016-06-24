@@ -1,6 +1,8 @@
-<section class="section-header has-tabs">
+<section class="section-header">
     <div class="container">
 
+        <?=$this->helpText('help-text-admin-consultation-voting-participants');?>
+        
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
         <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
@@ -11,7 +13,7 @@
 <section class="section-content">
     <div class="container">
         <div class="row">
-            <div class="sidebar">
+            <div class="sidebar offset-bottom-large-sm-max">
 
                 <?=$this->consultationNavigation($this->consultation, 'voting-participants');?>
 
@@ -62,17 +64,17 @@
                                             <td>
                                                 <?php if ($group['member'] == 'y'): ?>
                                                     <span class="label label-success">
-                                                        <span class="glyphicon glyphicon-ok-sign"></span>
+                                                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                                                         <?=$this->translate('Confirmed');?>
                                                     </span>
                                                 <?php elseif ($group['member'] == 'n'): ?>
                                                     <span class="label label-danger">
-                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                         <?=$this->translate('Denied');?>
                                                     </span>
                                                 <?php elseif ($group['member'] == 'u'): ?>
                                                     <span class="label label-warning">
-                                                        <span class="glyphicon glyphicon-question-sign"></span>
+                                                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                                                         <?=$this->translate('Unconfirmed');?>
                                                     </span>
                                                 <?php endif; ?>
@@ -112,7 +114,7 @@
                                                         data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
                                                         title="<?=$this->translate('Delete participant');?>"
                                                     >
-                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                     </button>
                                                 <?php endif; ?>
                                                 <a
@@ -157,7 +159,7 @@
                     </form>
                 <?php else: ?>
                     <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <?=$this->translate('There are no participants yet.');?>
                     </p>
                 <?php endif; ?>

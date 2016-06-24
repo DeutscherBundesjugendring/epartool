@@ -5,6 +5,8 @@ $(document).ready () ->
     bindTableRowsToggle()
     bindToggleAll()
     bindConsultationCustomPhaseNames()
+    bindContributionVideoSelect()
+    themeSettings()
 
     initI18n()
     initSortableFollowupSnippets()
@@ -191,6 +193,52 @@ initMediaIndexFileLazyLoad = () ->
                         offset = offset + batchSize
                 )
 
+bindContributionVideoSelect = () ->
+    select = $('.js-video-service select');
+    select.change () ->
+        addon = $(this).closest('.js-video-service').find('.js-video-service-url');
+        addon.html($(this).data('url')[$(this).children(':selected').attr('value')]);
+    select.trigger('change');
+
+themeSettings = () ->
+    $('#themes').data('presetTheme', $("input[name='theme_id']:checked").val())
+    colorAccent1 = $('#color_accent_1')
+    colorPrimary = $('#color_primary')
+    colorAccent2 = $('#color_accent_2')
+    
+    colorAccent1.data('oldValue', colorAccent1.val())
+    colorPrimary.data('oldValue', colorPrimary.val())
+    colorAccent2.data('oldValue', colorAccent2.val())
+
+    $('.js-theme-preset').click () ->
+        if !$('#themes').data('presetTheme')
+            if !confirm(i18n.translate('Custom colors are set. Do you want to replace them with predefined theme?'))
+                return false;
+        colors = $(this).data('colors');
+        colorAccent1 = $('#color_accent_1')
+        colorPrimary = $('#color_primary')
+        colorAccent2 = $('#color_accent_2')
+
+        colorAccent1.closest('.colorpicker-component').colorpicker('setValue', colors['color_accent_1']);
+        colorPrimary.closest('.colorpicker-component').colorpicker('setValue', colors['color_primary']);
+        colorAccent2.closest('.colorpicker-component').colorpicker('setValue', colors['color_accent_2']);
+        $('#themes').data('presetTheme', true)
+        colorAccent1.data('oldValue', colorAccent1.val())
+        colorPrimary.data('oldValue', colorPrimary.val())
+        colorAccent2.data('oldValue', colorAccent2.val())
+        return true
+
+    $('.colorpicker-component').colorpicker({format: "hex"}).on('change showPicker', () ->
+        if $('#themes').data('presetTheme')
+            if !confirm(i18n.translate('Do you want to override predefined theme with custom colors set?'))
+                $(this).colorpicker('setValue', $(this).find('input').data('oldValue'))
+                $(this).colorpicker('hide')
+                return false;
+        $(this).find('input').data('oldValue', $(this).colorpicker('getValue'))
+        $('#themes').data('presetTheme', false)
+        $("input[name='theme_id']:checked").attr('checked', false)
+        return true;
+    );
 
 class mediaSelectPopup
     ###*
@@ -203,9 +251,6 @@ class mediaSelectPopup
     # @param    {numeric} CKEditorFuncNum       The CKEditor callback identifier
     ###
     this.insertValue = (filename, targetElId, imgPathPrefixInput, imgPathImage, CKEditorFuncNum) ->
-        if imgPathPrefixInput.length > 0
-            imgPathPrefixInput = imgPathPrefixInput + '/'
-
         if targetElId == 'CKEditor'
             window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum,  imgPathPrefixInput + filename);
         else
