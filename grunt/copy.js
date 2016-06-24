@@ -29,9 +29,9 @@ module.exports = {
       },
       {
         expand: true,
-        cwd: '<%= paths.bower %>/mjolnic-bootstrap-colorpicker',
+        cwd: '<%= paths.bower %>/bootstrap-colorpicker',
         src: ['**/*'],
-        dest: '<%= paths.dist %>/vendor/mjolnic-bootstrap-colorpicker'
+        dest: '<%= paths.dist %>/vendor/bootstrap-colorpicker'
       }
     ]
   },
