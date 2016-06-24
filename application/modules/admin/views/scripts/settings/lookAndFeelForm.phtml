@@ -1,0 +1,132 @@
+<form
+    enctype="<?=$this->element->getEnctype();?>"
+    method="<?=$this->element->getMethod();?>"
+    class="offset-bottom"
+    enctype="<?=$this->element->getEnctype();?>"
+>
+    <?=$this->element->csrf_token_lookandfeeladmin;?>
+
+    <h2><?=$this->translate('Logo');?></h2>
+    <?=$this->element->logo;?>
+
+    <h2><?=$this->translate('Icon');?></h2>
+    <?=$this->element->favicon;?>
+
+    <h2><?=$this->translate('Header');?></h2>
+    <?=$this->element->mitmachen_bubble;?>
+
+    <h2><?=$this->translate('Predefined themes');?></h2>
+    <div id="themes" class="row">
+        <?php foreach ($this->element->theme_id->options as $themeId => $themeName) : ?>
+            <div class="col-sm-4">
+                <label>
+                    <img
+                        src="<?=$this->baseUrl('images/themes/theme_' . $themeId . '.png');?>"
+                        width="280"
+                        class="img-responsive offset-bottom"
+                        alt="<?=$themeName;?>"
+                    />
+                    <input
+                        id="theme-<?=$themeId;?>"
+                        class="js-theme-preset"
+                        type="radio" name="theme_id"
+                        value="<?=$themeId;?>"
+                        data-colors="<?=$this->escape($this->element->theme_id->color_config[$themeId]);?>"
+                        <?php if ($this->element->theme_id->getValue() === (string) $themeId) : ?>
+                            checked="checked"
+                        <?php endif; ?>
+                        />
+                    <span class="offset-left"><?=$themeName;?></span>
+                </label>
+            </div>
+    <?php endforeach; ?>
+    </div>
+
+    <h2><?=$this->translate('Custom Colours');?></h2>
+    <div class="form-group">
+        <label
+            <?php if ($this->element->color_primary->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_primary->getName();?>"
+        >
+            <?=$this->element->color_primary->getLabel()?>
+        </label>
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_primary->getName();?>"
+                type="text"
+                name="color_primary"
+                value="#<?=$this->element->color_primary->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_primary->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_primary->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label
+            <?php if ($this->element->color_accent_1->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_accent_1->getName();?>"
+        >
+            <?=$this->element->color_accent_1->getLabel()?>
+        </label>
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_accent_1->getName();?>"
+                type="text"
+                name="color_accent_1"
+                value="#<?=$this->element->color_accent_1->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_accent_1->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_accent_1->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label
+            <?php if ($this->element->color_accent_2->isRequired()) : ?>
+                class="required"
+            <?php endif;?>
+            for="<?=$this->element->color_accent_2->getName();?>"
+        >
+            <?=$this->element->color_accent_2->getLabel()?>
+        </label>
+        <div class="input-group colorpicker-component">
+            <input
+                id="<?=$this->element->color_accent_2->getName();?>"
+                type="text"
+                name="color_accent_2"
+                value="#<?=$this->element->color_accent_2->getValue();?>"
+                class="form-control"
+            />
+            <span class="input-group-addon"><i></i></span>
+            <?php if (count($this->element->color_accent_2->getErrors()) > 0) : ?>
+                <ul class="text-danger-block">
+                    <?php foreach ($this->element->color_accent_2->getErrors() as $error) : ?>
+                        <li><?=$error?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <?=$this->element->submit;?>
+
+</form>
