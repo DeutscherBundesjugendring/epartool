@@ -50,40 +50,83 @@ a:focus,
 /* Buttons */
 .btn-default,
 .btn-default.disabled,
-.btn-default[disabled] {
+.btn-default.disabled:hover,
+.btn-default.disabled:focus,
+.btn-default.disabled.focus,
+.btn-default[disabled],
+.btn-default[disabled]:hover,
+.btn-default[disabled]:focus,
+.btn-default[disabled].focus {
     border-color: #color_accent_2;
     background-color: #color_accent_2;
 }
 
 .btn-default:hover,
 .btn-default:focus,
+.btn-default.focus,
 .btn-default:active,
+.btn-default.active,
+.btn-default:active:hover,
 .btn-default:active:focus,
+.btn-default:active.focus,
+.btn-default.active:hover,
+.btn-default.active:focus,
+.btn-default.active.focus,
 .btn-default-alt:hover,
 .btn-default-alt:focus,
+.btn-default-alt.focus,
+.btn-default-alt:active,
+.btn-default-alt.active,
+.btn-default-alt:active:hover,
 .btn-default-alt:active:focus,
-.btn-default-alt:active {
+.btn-default-alt:active.focus,
+.btn-default-alt.active:hover,
+.btn-default-alt.active:focus,
+.btn-default-alt.active.focus,
+.open > .dropdown-toggle.btn-default,
+.open > .dropdown-toggle.btn-default:hover,
+.open > .dropdown-toggle.btn-default:focus,
+.open > .dropdown-toggle.btn-default.focus {
     border-color: #color_accent_2;
     background-color: #color_accent_2;
     background-image: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25));
 }
 
-.btn-primary {
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary.disabled:hover,
+.btn-primary.disabled:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled].focus {
     border-color: #color_accent_1;
     background-color: #color_accent_1;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
+.btn-primary.focus,
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary:active:hover,
 .btn-primary:active:focus,
+.btn-primary:active.focus,
 .btn-primary.active:hover,
 .btn-primary.active:focus,
-.btn-primary:active:focus,
-.btn-primary:active.focus,
 .btn-primary.active.focus,
+.btn-primary-alt:hover,
+.btn-primary-alt:focus,
+.btn-primary-alt.focus,
+.btn-primary-alt:active,
+.btn-primary-alt.active,
+.btn-primary-alt:active:hover,
+.btn-primary-alt:active:focus,
+.btn-primary-alt:active.focus,
+.btn-primary-alt.active:hover,
+.btn-primary-alt.active:focus,
+.btn-primary-alt.active.focus,
 .open > .dropdown-toggle.btn-primary,
 .open > .dropdown-toggle.btn-primary:hover,
 .open > .dropdown-toggle.btn-primary:focus,
