@@ -57,7 +57,7 @@
                 </div>
             </div><!-- .row -->
 
-            <div class="offset-bottom-large">
+            <div class="article offset-bottom-large">
                 <?=$this->question['q_xpl'];?>
             </div>
 
@@ -109,7 +109,7 @@
                                 <?=$this->escape($input['expl']);?>
                             </p>
                         <?php endif; ?>
-                            
+
 
                         <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
@@ -171,7 +171,7 @@
                                     ): ?>
                                         <?=$this->translate('I would like to discuss that!');?>
                                     <?php else : ?>
-                                        <?=$this->translate('Show discussion');?>
+                                        <?=$this->translate('View discussion');?>
                                     <?php endif; ?>
                                 </a>
                             <?php endif?>
