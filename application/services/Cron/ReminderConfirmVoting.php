@@ -15,7 +15,6 @@ class Service_Cron_ReminderConfirmVoting
         ]);
 
         foreach ($unconfirmedVotes as $vote) {
-            echo $vote['sub_user'];
             $votingService->sendVoterConfirmationEmail($vote->toArray(), $vote->toArray());
             $votesGroups->update(
                 ['reminders_sent' => (int) $vote['reminders_sent'] + 1],

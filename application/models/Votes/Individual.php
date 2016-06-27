@@ -628,7 +628,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $q->where($cond, $val);
         }
 
-        $q->group('v.sub_uid');
+        $q->group('v.sub_uid')
+            ->order('v.upd DESC');
 
         return $this->fetchAll($q);
     }
