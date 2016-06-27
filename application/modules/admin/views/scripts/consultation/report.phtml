@@ -20,14 +20,16 @@
 
                 <h2><?=$this->translate('Statistics');?></h2>
                 <p>
-                    <a href="<?php echo $this->url(array(
-                        'controller' => 'input',
-                        'action' => 'userlist'
-                        )); ?>"
-                      title="<?=$this->translate('All Contributors');?>">
-                        <strong><?=$this->translate('Number of contributors in current consultation');?>:
-                        <?php echo $this->nrParticipants; ?></strong>
-                    </a>
+                    <b>
+                        <a href="<?php echo $this->url([
+                            'controller' => 'input',
+                            'action' => 'index'
+                            ]); ?>"
+                          title="<?=$this->translate('All Contributors');?>">
+                            <?=$this->translate('Number of contributors in current consultation');?>:
+                            <?php echo $this->nrParticipants; ?>
+                        </a>
+                    </b>
                     <br/><?=$this->translate('Accumulated number of individuals and groups, even if they contributed in several sessions in this particular consultation');?>
                 </p>
                 <p>
