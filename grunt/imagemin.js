@@ -14,7 +14,7 @@ module.exports = {
     files: [{
       expand: true,
       cwd: '<%= paths.src.admin %>/images/',
-      src: ['**/*.{png,ico}'],
+      src: ['**/*.{png,gif,ico}'],
       dest: '<%= paths.dist %>/images/admin/'
     }]
   }

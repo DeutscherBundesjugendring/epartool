@@ -57,7 +57,7 @@
                 </div>
             </div><!-- .row -->
 
-            <div class="offset-bottom-large">
+            <div class="article offset-bottom-large">
                 <?=$this->question['q_xpl'];?>
             </div>
 
@@ -109,7 +109,7 @@
                                 <?=$this->escape($input['expl']);?>
                             </p>
                         <?php endif; ?>
-                            
+
 
                         <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
@@ -166,7 +166,13 @@
                                     href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                     class="btn btn-default btn-xs hidden-print"
                                 >
-                                    <?=$this->translate('I would like to discuss that!');?>
+                                    <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
+                                        && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
+                                    ): ?>
+                                        <?=$this->translate('I would like to discuss that!');?>
+                                    <?php else : ?>
+                                        <?=$this->translate('View discussion');?>
+                                    <?php endif; ?>
                                 </a>
                             <?php endif?>
 

@@ -6,7 +6,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @var bool
      */
     protected $videoEnabled;
-    
+
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/createForm.phtml'))));
@@ -95,10 +95,6 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 'striptags' => 'StripTags',
             ),
         );
-        $thesEl = $this->createElement('textarea', 'thes');
-        $thesEl
-            ->setOptions($thesElOpts)
-            ->setValue($thes);
 
         $explElOpts = array(
             'cols' => 85,
@@ -114,31 +110,51 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 'striptags' => 'StripTags',
             ),
         );
-        $explEl = $this->createElement('textarea', 'expl');
-        $explEl
-            ->setOptions($explElOpts)
-            ->setValue($expl);
+
+        $videoElOpts = array(
+            'attribs' => array(
+                'class' => 'form-control form-control-alt',
+            ),
+        );
 
         if (!$this->getSubForm('inputs')) {
             $this->addSubForm(new Zend_Form(), 'inputs');
         }
         $inputForm = new Zend_Form();
         $inputForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+
         $inputForm->addElement('videoService', 'video_service');
         $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
-            ->setValue($videoService);
-        
+            ->setOptions($videoElOpts)
+            ->setValue($videoService)
+            ->setLabel('Your video');
+
         $inputForm->addElement('videoId', 'video_id');
         $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
-            ->setValue($videoId);
-        
-        $inputForm->addElement($explEl);
-        $inputForm->addElement($thesEl);
+            ->setOptions($videoElOpts)
+            ->setValue($videoId)
+            ->setLabel('Video ID')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
+        $inputForm->addElement('textarea', 'expl');
+        $inputForm->getElement('expl')
+            ->setOptions($explElOpts)
+            ->setValue($expl)
+            ->setLabel('Explain your contribution')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
+        $inputForm->addElement('textarea', 'thes');
+        $inputForm->getElement('thes')
+            ->setOptions($thesElOpts)
+            ->setValue($thes)
+            ->setLabel('Your contribution')
+            ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 
         return $this;
     }
-    
+
     /**
      * @return bool
      */

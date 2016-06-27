@@ -17,7 +17,7 @@ class Default_Form_VotesConfirmation extends Dbjr_Form_Web
         $reject = $this->createElement('submit', 'reject');
         $reject
             ->setAttrib('class', 'btn-danger')
-            ->setLabel('Delete');
+            ->setLabel('Cancel votes');
         $this->addElement($reject);
 
         $hash = $this->createElement('hash', 'csrf_token_votesConfirmation', ['salt' => 'unique']);

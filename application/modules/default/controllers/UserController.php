@@ -350,13 +350,9 @@ class UserController extends Zend_Controller_Action
                         $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
                         $this->redirect($this->view->url(), ['prependBase' => false]);
                     }
-                    $this->_flashMessenger->addMessage(
-                        'Your profile cannot be updated. Please try it again.',
-                        'error'
-                    );
                 } catch (Zend_Auth_Exception $e) {
                     $this->_flashMessenger->addMessage(
-                        'Your current password does not match. Please try it again',
+                        'Your current password does not match. Please try it again.',
                         'error'
                     );
                 }

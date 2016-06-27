@@ -33,39 +33,50 @@
                     <br/><?=$this->translate('Accumulated number of individuals and groups, even if they contributed in several sessions in this particular consultation');?>
                 </p>
                 <p>
-                    <b><?=$this->translate('All contributions in the contribution period');?>: <?php echo $this->nrInputs; ?></b>
-                    <br/>&raquo; <?=$this->translate('of which the contributions that were confirmed');?>: <?php echo $this->nrInputsConfirmed; ?>
-                    <br/>&raquo; <?=$this->translate('of which remained unconfirmed or anonymous');?>: <?php echo $this->nrInputsUnconfirmed; ?>
-                    <br/>&raquo; <?=$this->translate('of which were blocked by organisers');?>: <?php echo $this->nrInputsBlocked; ?>
+                    <strong><?=$this->translate('All contributions in the contribution period');?>: <?php echo $this->nrInputs; ?></strong>
                 </p>
+                <ul>
+                    <li>
+                        <?=$this->translate('of which the contributions that were confirmed');?>: <?php echo $this->nrInputsConfirmed; ?>
+                    </li>
+                    <li>
+                        <?=$this->translate('of which remained unconfirmed or anonymous');?>: <?php echo $this->nrInputsUnconfirmed; ?>
+                    </li>
+                    <li>
+                        <?=$this->translate('of which were blocked by organisers');?>: <?php echo $this->nrInputsBlocked; ?>
+                    </li>
+                </ul>
                 <p>
-                    <b><?=$this->translate('Contributions that were available to vote');?>: <?php echo $this->nrInputsVoting; ?></b>
-                    <br />(<?=$this->translate('partly copy->edited, merged or splitted by organisers due to overlapping contents');?>)
+                    <strong><?=$this->translate('Contributions that were available to vote on');?>: <?php echo $this->nrInputsVoting; ?></strong><br />
+                    <span class="text-muted small"><?=$this->translate('Final number, after voting preparation');?></span>
                 </p>
 
-                <hr />
+                <h3 class="offset-top-large"><?=$this->translate('Questions');?></h3>
 
                 <?php foreach ($this->questions as $question): ?>
-                    <p>
-                        <b>
+                    <div class="offset-bottom">
+                        <p>
                             <a href="<?php echo $this->url(array(
                                 'controller' => 'input',
                                 'action' => 'index',
                                 'qid' => $question['qi']
-                                )); ?>"
-                              title="<?=$this->translate('See Contribution');?>"
+                            )); ?>"
+                               title="<?=$this->translate('See Contribution');?>"
                             >
-                                <?php echo $question['nr']; ?> <?php echo $question['q']; ?>
+                                <strong><?php echo $question['nr']; ?> <?php echo $question['q']; ?></strong>
                             </a>
-                        </b>
-                        <br /><?=$this->translate('Number of contributions');?>: <?php echo $question['nrInputsConfirmed']; ?>
-                        (<?=$this->translate('only confirmed ones');?>)
-                        <br /><?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?>
-                        (<?=$this->translate('partly copy->edited, merged or splitted by organisers due to overlapping contents');?>)
-                    </p>
+                        </p>
+                        <p>
+                            <?=$this->translate('Number of confirmed contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
+                        </p>
+                        <p>
+                            <?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?><br />
+                            <span class="text-muted small"><?=$this->translate('Final number, after voting preparation');?></span>
+                        </p>
+                    </div>
                 <?php endforeach; ?>
 
-                <hr />
+                <h3 class="offset-top-large"><?=$this->translate('Votes');?></h3>
 
                 <p>
                     <a href="<?php echo $this->url(array(
@@ -74,9 +85,9 @@
                         )); ?>"
                        title="<?=$this->translate('Absolute number of votes');?>"
                     >
-                        <b><?=$this->translate('Absolute number of votes');?>: <?php echo $this->votingCountIndiv; ?></b>
-                    </a>
-                    <br/>(<?=$this->translate('without taking into account different voting weights');?>)
+                        <strong><?=$this->translate('Absolute number of votes');?>: <?php echo $this->votingCountIndiv; ?></strong>
+                    </a><br />
+                    <span class="text-muted small"><?=$this->translate('Raw amount, voting weight not taken into account');?></span>
                 </p>
 
                 <p>
@@ -86,9 +97,11 @@
                         )); ?>"
                       title="<?=$this->translate('Groups that have voting rights and number of actually participating ones');?>"
                     >
-                        <b><?=$this->translate('Groups that have voting rights and number of actually participating ones');?></b>
+                        <strong><?=$this->translate('Groups that have voting rights and number of actually participating ones');?></strong>
                     </a>
                 </p>
+
+                <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
                 <table>
                     <?php foreach ($this->weightCounts as $weight): ?>
                         <tr>
@@ -106,7 +119,7 @@
                                 } ?>:
                             </th>
                             <td>
-                                <?php echo $weight['participating_count']; ?> / <?php echo $weight['weight_count']; ?>
+                                <span class="offset-left-large"><?php echo $weight['participating_count']; ?> / <?php echo $weight['weight_count']; ?></span>
                             </td>
                         </tr>
                     <?php endforeach; ?>

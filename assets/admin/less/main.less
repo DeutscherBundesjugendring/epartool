@@ -7,16 +7,28 @@
 
 
 // Synergic UI
-@import "synergic-ui/src/less/synergic-ui";
+@import 'synergic-ui/src/less/synergic-ui';
 
-// Configuration (must be last to override)
-@import "variables";
+// Colorpicker
+@import 'bootstrap-colorpicker/src/less/colorpicker';
+
+// Configuration
+@external-components-path: '../bower_components/';
+@icon-font-path: 'font/glyphicons/';
+@imgPath: 'vendor/bootstrap-colorpicker/dist/img/bootstrap-colorpicker/';
+
+@blue: #428bca;
+@turqoise: #5fa4a0;
+
+@brand-primary: darken(@turqoise, 6%);
+@link-color: @blue;
+
+@blockquote-font-size: 1em;
+@back-link-decoration: '← ';
 
 
-
-// ===========================================================
-// To be moved to Synergic UI
-// ===========================================================
+// Custom Modifications
+// ====================
 
 .table .checkbox {
     margin-top: 0;
@@ -68,13 +80,15 @@
     }
 }
 
-
-// ===========================================================
-// Custom modifications and temporary hacks.
-// ===========================================================
-
 .text-danger-block {
-    list-style: none;
+    .alert();
+    .alert-danger();
+    display: block;
+    list-style: none; // reset error lists
+
+    .form-group &:not(:only-child) {
+        margin-top: @line-height-computed / 2;
+    }
 }
 
 .navbar-brand {
@@ -83,7 +97,26 @@
     }
 }
 
-// Remove bullets from error messages. Better to be fixed in markup.
+// Ensure optimum legibility.
+.panel-default {
+    .panel-heading {
+        a,
+        .panel-title {
+            color: @text-color;
+        }
+    }
+}
+
+.panel-primary {
+    .panel-heading {
+        a,
+        .panel-title {
+            color: #fff;
+        }
+    }
+}
+
+// Remove bullets from error messages.
 .alert li {
     display: block;
 }

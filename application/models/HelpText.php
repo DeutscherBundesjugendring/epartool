@@ -21,14 +21,16 @@ class Model_HelpText extends Dbjr_Db_Table_Abstract
             'help-text-consultation-voting' => $trans->translate('Consultation voting help text'),
             'help-text-consultation-followup' => $trans->translate('Consultation reactions & impact help text'),
             'help-text-login' => $trans->translate('Login help text'),
-            
+
             'help-text-admin-consultation-voting-preparation' => $trans->translate('Voting preparation help text'),
             'help-text-admin-consultation-voting-permissions' => $trans->translate('Voting permissions help text'),
             'help-text-admin-consultation-voting-invitations' => $trans->translate('Voting invitations help text'),
             'help-text-admin-consultation-voting-participants' => $trans->translate('Voting participants help text'),
             'help-text-admin-consultation-voting-results' => $trans->translate('Voting results help text'),
-            'help-text-admin-consultation-follow-up' => $trans->translate('Follow up help text'),
+            'help-text-admin-consultation-follow-up' => $trans->translate('Reactions & Impact help text'),
             'help-text-admin-consultation-follow-up-snippets' => $trans->translate('Follow up snippets help text'),
+            'help-text-admin-question' => $trans->translate('Question help text'),
+            'help-text-admin-contribution' => $trans->translate('Contribution help text'),
         ];
 
         return $names[$name];
