@@ -6,7 +6,7 @@
 class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_indiv';
-    
+
     private $allowedStatus = ['v', 's', 'c'];
 
     /**
@@ -124,7 +124,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                     'pimp' => $row->pimp
                 ];
             }
-            
+
             return false;
         }
 
@@ -609,26 +609,30 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
                 'i.tid = v.tid',
                 []
-            )->join(
+            )
+            ->join(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'q.qi = i.qi',
                 []
-            )->join(
+            )
+            ->join(
                 ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
                 'c.kid = q.kid',
                 ['kid', 'titl', 'titl_short', 'vot_to']
-            )->join(
+            )
+            ->join(
                 ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
                 'v.sub_uid = vg.sub_uid AND v.uid = vg.uid AND c.kid = vg.kid',
                 ['sub_user', 'member', 'reminders_sent']
-            );
-        $q->where('status = ?', 'v');
+            )
+            ->where('status = ?', 'v');
 
         foreach ($where as $cond => $val) {
             $q->where($cond, $val);
         }
 
-        $q->group('v.sub_uid')
+        $q
+            ->group('v.sub_uid')
             ->order('v.upd DESC');
 
         return $this->fetchAll($q);
