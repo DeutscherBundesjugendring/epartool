@@ -23,8 +23,6 @@ class Service_Cron_ReminderConfirmVoting
             );
         }
 
-        //@TODO weekly reminders
-
         // a day before voting closes
         $unconfirmedVotes = $votesIndividual->getUnconfirmedVotesWithDependencies([
             'c.vot_to < ?' => (new \DateTime())->modify('+1 day')->format('Y-m-d H:i:s'),

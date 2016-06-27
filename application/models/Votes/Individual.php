@@ -123,9 +123,9 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                     'points' => $row->pts,
                     'pimp' => $row->pimp
                 ];
-            } else {
-                return false;
             }
+            
+            return false;
         }
 
         return false;
