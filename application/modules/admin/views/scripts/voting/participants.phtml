@@ -131,6 +131,25 @@
                                                     >
                                                     <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
                                                 </a>
+                                                <?php if ($group['status'] === 'v') : ?>
+                                                    <button
+                                                        value="<?=$this->escape($group['confirmation_hash']);?>"
+                                                        class="item-action"
+                                                        name="reminderVoter"
+                                                        title="<?=$this->translate('Send reminder');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-send"></span>
+                                                    </button>
+                                                <?php elseif ($group['member'] === 'u') : ?>
+                                                    <button
+                                                        value="<?=$this->escape($group['uid'] . '_' . $group['sub_uid'] . '_' . $group['kid']);?>"
+                                                        class="item-action"
+                                                        name="reminderGroupLeader"
+                                                        title="<?=$this->translate('Send reminder');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-send"></span>
+                                                    </button>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
