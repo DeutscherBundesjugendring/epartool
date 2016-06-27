@@ -152,7 +152,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initLocale()
     {
-        Zend_Registry::set('Zend_Locale', $this->getPluginResource('locale')->getLocale());
+        Zend_Registry::set(
+            'Zend_Locale',
+            new Zend_Locale(
+                (new Model_Parameter)->find('locale', Zend_Registry::get('systemconfig')->project)->current()['value']
+            )
+        );
     }
 
 

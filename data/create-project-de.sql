@@ -972,6 +972,7 @@ INSERT INTO `footer` (`proj`) VALUES (@project_code);
 INSERT INTO `footer` (`proj`) VALUES (@project_code);
 
 
+INSERT INTO `parameter` (`name`, `proj`) VALUES ('locale', @project_code, 'en_US');
 INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.title', @project_code);
 INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.description', @project_code);
 INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.motto', @project_code);
