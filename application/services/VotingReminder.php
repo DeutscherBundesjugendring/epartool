@@ -1,6 +1,6 @@
 <?php
 
-class Service_Reminder
+class Service_VotingReminder
 {
 
     /**
@@ -27,9 +27,8 @@ class Service_Reminder
                 ])
                 ->addTo($votesBatch['sub_user']);
             $mailService->queueForSend($mail);
+            $mailService->sendQueued();
         }
-
-        $mailService->sendQueued();
     }
 
     /**
@@ -64,6 +63,7 @@ class Service_Reminder
                 ])
                 ->addTo($group['email']);
             $mailService->queueForSend($mail);
+            $mailService->sendQueued();
         }
     }
 }
