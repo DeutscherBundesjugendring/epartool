@@ -294,7 +294,7 @@ class Admin_InputController extends Zend_Controller_Action
             $data = $this->getRequest()->getPost();
             $returnUrl = $data['return_url'];
 
-            if (!empty($data['bulkAction'])) {
+            if (!empty($data['bulkAction']) && !empty($data['inp_list'])) {
                 switch ($data['bulkAction']) {
                     case 'delete':
                         $nr = $inputModel->deleteBulk($data['inp_list']);
