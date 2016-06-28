@@ -1,6 +1,6 @@
 <?php
 
-class Service_Cron_Reminder extends Service_Cron
+class Service_Cron_ContributionsConfirmationReminder extends Service_Cron
 {
 
     public function execute()
