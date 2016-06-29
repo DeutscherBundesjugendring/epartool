@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-06-20 11:17+0200\n"
-"PO-Revision-Date: 2016-06-20 11:18+0200\n"
+"POT-Creation-Date: 2016-06-29 15:37+0200\n"
+"PO-Revision-Date: 2016-06-29 15:39+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -75,11 +75,11 @@ msgstr "Hilfetext Textschnippsel für Reaktionen"
 
 #: application/models/HelpText.php:32
 msgid "Question help text"
-msgstr ""
+msgstr "Hilfetext Fragen"
 
 #: application/models/HelpText.php:33
 msgid "Contribution help text"
-msgstr ""
+msgstr "Hilfetext Beiträge"
 
 #: application/modules/admin/controllers/ArticleController.php:74
 #: application/modules/admin/controllers/ArticleController.php:141
@@ -1282,7 +1282,7 @@ msgstr "Videos in Beiträgen zulassen"
 
 #: application/modules/admin/forms/Settings/Services.php:18
 msgid "YouTube"
-msgstr ""
+msgstr "Youtube"
 
 #: application/modules/admin/forms/Settings/Services.php:26
 msgid "Vimeo"
@@ -1757,89 +1757,103 @@ msgstr "Zurück zu Beteiligungsrunden"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:27
 msgid "All Contributors"
-msgstr ""
+msgstr "Alle Beitragenden"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:28
 msgid "Number of contributors in current consultation"
-msgstr ""
+msgstr "Anzahl der Beitragenden in dieser Beteiligungsrunde"
 
+# "even if ..." means that they are counted as 2 individuals/groups in case they came back?
+# Maybe it should be written like:
+# Accumulated number of individuals and groups (returning users are counted several times).
+# In German the following bracket would then be added
+# (Wiederkehrende werden jeweils separat gezählt)
 #: application/modules/admin/views/scripts/consultation/report.phtml:31
 msgid ""
 "Accumulated number of individuals and groups, even if they contributed in "
 "several sessions in this particular consultation"
-msgstr ""
+msgstr "Gesamtanzahl der beitragenden Einzelpersonen und Gruppen"
 
+# Does this include contributions by editors/admins, or only "regular" participants? Because that should be stated here:
+# (without admin contributions)
+# (ohne administrative Beiträge)
+# (including admin contributions)
+# (einschließlich administrativer Beiträge)
 #: application/modules/admin/views/scripts/consultation/report.phtml:34
 msgid "All contributions in the contribution period"
-msgstr ""
+msgstr "Alle Beiträge im Beitragszeitraum"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:38
 msgid "of which the contributions that were confirmed"
-msgstr ""
+msgstr "davon bestätigte Beiträge"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:41
 msgid "of which remained unconfirmed or anonymous"
-msgstr ""
+msgstr "davon unbestätigt oder anonym"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:44
 msgid "of which were blocked by organisers"
-msgstr ""
+msgstr "davon administrativ unsichtbar geschaltet/blockiert"
 
+# Is that the number of contributions that could theoretically be voted on (including the ones that are not allowed) - or the number of contributions that were set as voting=yes?
+# In the staging deploy I don't understand it...
 #: application/modules/admin/views/scripts/consultation/report.phtml:48
 msgid "Contributions that were available to vote on"
-msgstr ""
+msgstr "Beiträge, die zur Abstimmung zur Verfügung standen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:49
 #: application/modules/admin/views/scripts/consultation/report.phtml:72
 msgid "Final number, after voting preparation"
-msgstr ""
+msgstr "Endgültige Anzahl (nach Abstimmungsvorbereitung)"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:62
 msgid "See Contribution"
-msgstr ""
+msgstr "Beitrag ansehen"
 
+# I guess it means confirmed *user* contributions? Would you please add this "user" to the English version as well?
 #: application/modules/admin/views/scripts/consultation/report.phtml:68
 msgid "Number of confirmed contributions"
-msgstr ""
+msgstr "Anzahl bestätigter Beiträge von Nutzer_innen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:71
 msgid "Number of contributions for voting"
-msgstr ""
+msgstr "Anzahl der Beiträge zur Abstimmung"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:77
 msgid "Votes"
-msgstr ""
+msgstr "Stimmen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:84
 #: application/modules/admin/views/scripts/consultation/report.phtml:86
 msgid "Absolute number of votes"
-msgstr ""
+msgstr "Anzahl abgegebener Stimmen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:88
 msgid "Raw amount, voting weight not taken into account"
-msgstr ""
+msgstr "Anzahl ohne Berücksichtigung des Stimmgewichts"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:96
 #: application/modules/admin/views/scripts/consultation/report.phtml:98
 msgid ""
 "Groups that have voting rights and number of actually participating ones"
 msgstr ""
+"Gruppen mit Stimmrecht und Anzahl derer, die tatsächlich teilgenommen haben"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:102
 msgid "Voting weights"
-msgstr ""
+msgstr "Stimmgewichte"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:109
 msgid "Test accounts"
-msgstr ""
+msgstr "Testzugänge"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:112
 msgid "Individuals"
-msgstr ""
+msgstr "Einzelpersonen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:115
 msgid "Group weight"
-msgstr ""
+msgstr "Gruppengewicht"
 
 #: application/modules/admin/views/scripts/followup/followup-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippets.phtml:24
@@ -1949,7 +1963,6 @@ msgstr "Links Auszüge"
 msgid "in"
 msgstr "in"
 
-# It is meant in the sense of direction of a relationship. Namely that a follow-up snippet has 'in' and 'out' links
 #: application/modules/admin/views/scripts/followup/snippets.phtml:67
 msgid "out"
 msgstr "ausgehend"
@@ -2251,7 +2264,6 @@ msgstr "Unbestätigte Beiträge"
 msgid "Voting theses"
 msgstr "Abstimmungsbeiträge"
 
-# Used in Input -> list by question CSV export links
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:284
 msgid "Voting theses – edited"
 msgstr "Abstimmungsbeiträge - bearbeitet"
@@ -2561,13 +2573,16 @@ msgstr "Administrative Hilfetexte"
 msgid "Services Settings"
 msgstr "Diensteeinstellungen"
 
-#: application/modules/admin/views/scripts/settings/services.phtml:21
+#: application/modules/admin/views/scripts/settings/services.phtml:20
 msgid ""
-"In case one or more of the services is greyed-out and cannot be activated, "
-"please contact you administrator or support. It is probably due to "
-"misconfiguration of service access applications in ePartool configuration "
-"files."
+"In case one or more of the services is greyed out and cannot be activated, "
+"it is probably due to misconfiguration of service access applications in the "
+"ePartool configuration files."
 msgstr ""
+"Falls ein oder mehrere Dienste ausgegraut erscheinen und nicht aktiviert "
+"werden können, ist dies vermutlich auf eine fehlende oder falsche "
+"Einstellung der Dienste und Zugänge in den Konfigurationsdateien "
+"zurückzuführen."
 
 #: application/modules/admin/views/scripts/tag/create.phtml:16
 msgid "Back to Keywords"
@@ -3006,6 +3021,19 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+# Please make it shorter in English (it's clear that admin needs to be contacted).
+# In case one or more of the services is greyed out and cannot be activated, it is probably due to misconfiguration of service access applications in the ePartool configuration files.
+#~ msgid ""
+#~ "In case one or more of the services is greyed-out and cannot be "
+#~ "activated, please contact you administrator or support. It is probably "
+#~ "due to misconfiguration of service access applications in ePartool "
+#~ "configuration files."
+#~ msgstr ""
+#~ "Falls ein oder mehrere Dienste ausgegraut erscheinen und nicht aktiviert "
+#~ "werden können, ist dies vermutlich auf eine fehlende oder falsche "
+#~ "Einstellung der Dienste und Zugänge in den Konfigurationsdateien "
+#~ "zurückzuführen."
 
 #~ msgid "Reactions & Impact"
 #~ msgstr "Hilfetext Reaktionen & Wirkung"
