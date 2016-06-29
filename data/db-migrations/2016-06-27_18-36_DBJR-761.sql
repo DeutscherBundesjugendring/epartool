@@ -1,9 +1,2 @@
-INSERT INTO `parameter` (`name`, `proj`, `value`)
-(
-    SELECT
-        'locale',
-        `proj`.`proj`,
-        'en_US'
-    FROM
-        proj
-);
+ALTER TABLE `proj`
+ADD `locale` varchar(255) NOT NULL DEFAULT 'en_US';

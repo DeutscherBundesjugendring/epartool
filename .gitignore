@@ -1,3 +1,6 @@
+#Ignore local configuration
+/application/configs/*.local.ini
+
 # Ignore all components installed by npm
 /node_modules
 

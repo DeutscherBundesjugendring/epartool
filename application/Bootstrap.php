@@ -16,20 +16,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             array('allowModifications' => true)
         );
 
-        $configProject = new Zend_Config_Ini(
-            PROJECT_PATH . '/configs/config.ini',
-            APPLICATION_ENV
-        );
-        $config->merge($configProject);
-        if (is_file(PROJECT_PATH . '/configs/config.local.ini')) {
+        if (is_file(APPLICATION_PATH . '/configs/config.local.ini')) {
             $configLocal = new Zend_Config_Ini(
-                PROJECT_PATH . '/configs/config.local.ini'
+                APPLICATION_PATH . '/configs/config.local.ini'
             );
             $env = APPLICATION_ENV;
             if (isset($configLocal->$env)) {
                 $config->merge($configLocal->$env);
             }
         }
+
         Zend_Registry::set('systemconfig', $config);
     }
 
@@ -155,7 +151,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Registry::set(
             'Zend_Locale',
             new Zend_Locale(
-                (new Model_Parameter)->find('locale', Zend_Registry::get('systemconfig')->project)->current()['value']
+                (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()['locale']
             )
         );
     }

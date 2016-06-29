@@ -17,7 +17,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
 
         $locale = $this->createElement('select', 'locale');
         $locale
-            ->setLabel('Locale')
+            ->setLabel('Application Language')
             ->setRequired(true)
             ->setMultiOptions(['en_US' => 'English', 'de_DE' => 'Deutsch']);
         $this->addElement($locale);
