@@ -65,7 +65,7 @@
             <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand link-print-nourl" title="<?=$this->translate('Home');?>">
                 <img 
                 <?php if (!empty($this->themeAssets()['logo'])) : ?>
-                    src="<?=$this->baseUrl('media' . $this->themeAssets()['logo']);?>"
+                    src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
                 <?php else : ?>
                     src="<?=$this->baseUrl('images/logo.png');?>"
                 <?php endif; ?>
