@@ -86,31 +86,32 @@ class InputController extends Zend_Controller_Action
                 $this->handleSubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
                 $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
-            } else {
+            } elseif (isset($post['add_input_field']) || isset($post['finished'])
+                || isset($post['next_question'])) {
                 $this->handleInputSubmit($post, $kid, $qid);
             }
-        } else {
-            if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
+        }
+
+        if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
-            ) {
-                $form = $this->getInputForm();
-                $sessInputs = new Zend_Session_Namespace('inputs');
-                $theses = [];
-                if (!empty($sessInputs->inputs)) {
-                    foreach ($sessInputs->inputs as $input) {
-                        if ($input['qi'] == $qid) {
-                            $theses[] = [
-                                'thes' => $input['thes'],
-                                'expl' => $input['expl'],
-                                'video_service' => $input['video_service'],
-                                'video_id' => $input['video_id'],
-                            ];
-                        }
+        ) {
+            $form = $this->getInputForm();
+            $sessInputs = new Zend_Session_Namespace('inputs');
+            $theses = [];
+            if (!empty($sessInputs->inputs)) {
+                foreach ($sessInputs->inputs as $input) {
+                    if ($input['qi'] == $qid) {
+                        $theses[] = [
+                            'thes' => $input['thes'],
+                            'expl' => $input['expl'],
+                            'video_service' => $input['video_service'],
+                            'video_id' => $input['video_id'],
+                        ];
                     }
                 }
-                $form->generateInputFields($theses);
-                $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
             }
+            $form->generateInputFields($theses);
+            $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
         }
 
         $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
