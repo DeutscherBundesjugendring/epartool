@@ -2,8 +2,8 @@
   "name": "dbjr",
   "dependencies": {
     "bootstrap": "~3.3.6",
+    "bootstrap.ui": "^2.0.0",
     "less-modules": "~0.3.0",
-    "synergic-ui": "^1.0.0",
     "html5shiv": "~3.7.0",
     "jquery": "~1.11.3",
     "jquery.ui": "~1.10.3",

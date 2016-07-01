@@ -63,13 +63,14 @@
 
             <!-- Logo -->
             <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand link-print-nourl" title="<?=$this->translate('Home');?>">
-                <img 
+                <img
                 <?php if (!empty($this->themeAssets()['logo'])) : ?>
                     src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
                 <?php else : ?>
                     src="<?=$this->baseUrl('images/logo.png');?>"
                 <?php endif; ?>
-                    itemprop="image" alt="<?=$this->parameter('site.title');?>"
+                    itemprop="image"
+                    alt="<?=$this->parameter('site.title');?>"
                 />
             </a>
 
