@@ -24,14 +24,16 @@
     <link rel="stylesheet" href="<?=$this->url(['controller' => 'index', 'action' => 'custom-css'], 'default');?>?v=<?=$this->toolVersion();?>" type="text/css" />
 
     <?php if (!empty($this->themeAssets()['favicon'])) : ?>
-        <link rel="shortcut icon" href="<?=$this->baseUrl('media' . $this->themeAssets()['favicon']);?>" />
+        <link rel="icon" href="<?=$this->mediaPresenter('media' . $this->themeAssets()['favicon'], 'favicon');?>" sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon-precomposed" href="<?=$this->mediaPresenter('media' . $this->themeAssets()['favicon'], 'apple_touch_icon');?>" />
+        <meta name="msapplication-TileImage" content="<?=$this->mediaPresenter('media' . $this->themeAssets()['favicon'], 'ms_touch_icon');?>" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
     <?php else : ?>
-        <link rel="shortcut icon" href="<?=$this->baseUrl('images/favicon.ico');?>" />
-        <link rel="shortcut icon" href="<?=$this->baseUrl('images/favicon.png');?>" />
+        <link rel="icon" href="<?=$this->baseUrl('images/favicon.png');?>" sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('images/touch-icon.png');?>" />
+        <meta name="msapplication-TileImage" content="<?=$this->baseUrl('images/touch-icon-w8.png');?>" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
     <?php endif; ?>
-    <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('project/images/icon/touch-icon.png');?>" />
-    <meta name="msapplication-TileImage" content="<?=$this->baseUrl('project/images/icon/touch-icon-w8.png');?>" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
 
     <!--[if lt IE 9]><script src="<?=$this->baseUrl('vendor/html5shiv.min.js');?>?v=<?=$this->toolVersion();?>"></script><![endif]-->
 
@@ -63,7 +65,7 @@
 
             <!-- Logo -->
             <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand link-print-nourl" title="<?=$this->translate('Home');?>">
-                <img 
+                <img
                 <?php if (!empty($this->themeAssets()['logo'])) : ?>
                     src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
                 <?php else : ?>
