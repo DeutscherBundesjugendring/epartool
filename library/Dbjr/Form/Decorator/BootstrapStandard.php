@@ -55,14 +55,12 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
             if ($element->getDatepicker() === 'datetimepicker') {
                 $element->setAttrib('data-onload-datetimepicker', '{
                     "format": "YYYY-MM-DD HH:mm:ss",
-                    "sideBySide": true,
-                    "locale": "' . (new Zend_Locale())->getLanguage()  . '"
+                    "sideBySide": true
                 }');
             } elseif ($element->getDatepicker() === 'datepicker') {
                 $element->setAttrib('data-onload-datetimepicker', '{
                     "format": "YYYY-MM-DD",
-                    "sideBySide": true,
-                    "locale": "' . (new Zend_Locale())->getLanguage()  . '"
+                    "sideBySide": true
                 }');
             }
         }

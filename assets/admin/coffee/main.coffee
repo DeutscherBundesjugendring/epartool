@@ -8,7 +8,6 @@ $(document).ready () ->
     bindContributionVideoSelect()
     themeSettings()
 
-    initI18n()
     initSortableFollowupSnippets()
     initSortableVotingDirs()
     initSortablePartners()
@@ -154,16 +153,6 @@ initSortableGeneral = (sortableClass) ->
             return
     });
 
-initI18n = () ->
-    moment.locale($('html').attr('lang'))
-    $.fn.confirmation.Constructor.prototype.options = {
-        'confirm-message': i18n.translate('Are you sure?'),
-        'confirm-yes': i18n.translate('Yes'),
-        'confirm-no': i18n.translate('No')
-    }
-
-    return
-
 initMediaIndexFileLazyLoad = () ->
     $container = $('#media-thumbnail-container')
     if ($container).length > 0
@@ -205,7 +194,7 @@ themeSettings = () ->
     colorAccent1 = $('#color_accent_1')
     colorPrimary = $('#color_primary')
     colorAccent2 = $('#color_accent_2')
-    
+
     colorAccent1.data('oldValue', colorAccent1.val())
     colorPrimary.data('oldValue', colorPrimary.val())
     colorAccent2.data('oldValue', colorAccent2.val())
