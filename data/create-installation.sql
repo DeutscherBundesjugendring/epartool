@@ -1013,3 +1013,7 @@ CHANGE `color_active_link` `color_accent_2` varchar(255) COLLATE 'utf8_general_c
 -- Migration 2016-06-27_18-36_DBJR-761.sql
 ALTER TABLE `proj`
 ADD `locale` varchar(255) NOT NULL DEFAULT 'en_US';
+
+-- Migration 2016-06-27_14-58_DBJR-807.sql
+UPDATE `proj` SET `theme_id` = (SELECT `id` FROM `theme` ORDER BY `id` LIMIT 1)
+WHERE `theme_id` IS NULL AND color_accent_1 IS NULL AND color_accent_2 IS NULL AND color_primary IS NULL

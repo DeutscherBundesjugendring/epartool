@@ -2,7 +2,7 @@
     <div class="container">
 
         <?=$this->helpText('help-text-admin-consultation-follow-up-snippets');?>
-        
+
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
         <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
 
@@ -58,7 +58,7 @@
                                             <td class="table-cell-top">
                                                 <p><?=strip_tags($this->cropText(html_entity_decode($snippet['expl']), 400));?></p>
                                             </td>
-                                            <td class="col-xs-2 table-cell-top">
+                                            <td class="col-xs-2 table-cell-top text-nowrap">
                                                 <?=$this->translate('Snippet links');?><br />
                                                 <span class="badge"><?=$snippet['reltothisFowupCount'];?></span>
                                                 <?=$this->translate('in');?>

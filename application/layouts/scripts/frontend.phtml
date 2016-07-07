@@ -26,8 +26,8 @@
     <?php if (!empty($this->themeAssets()['favicon'])) : ?>
         <link rel="shortcut icon" href="<?=$this->baseUrl('media' . $this->themeAssets()['favicon']);?>" />
     <?php else : ?>
-        <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
-        <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.png');?>" />
+        <link rel="shortcut icon" href="<?=$this->baseUrl('images/favicon.ico');?>" />
+        <link rel="shortcut icon" href="<?=$this->baseUrl('images/favicon.png');?>" />
     <?php endif; ?>
     <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('project/images/icon/touch-icon.png');?>" />
     <meta name="msapplication-TileImage" content="<?=$this->baseUrl('project/images/icon/touch-icon-w8.png');?>" />
@@ -63,13 +63,14 @@
 
             <!-- Logo -->
             <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand link-print-nourl" title="<?=$this->translate('Home');?>">
-                <img 
+                <img
                 <?php if (!empty($this->themeAssets()['logo'])) : ?>
-                    src="<?=$this->baseUrl('media' . $this->themeAssets()['logo']);?>"
+                    src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
                 <?php else : ?>
-                    src="<?=$this->baseUrl('project/images/logo.png');?>"
+                    src="<?=$this->baseUrl('images/logo.png');?>"
                 <?php endif; ?>
-                    itemprop="image" alt="<?=$this->parameter('site.title');?>"
+                    itemprop="image"
+                    alt="<?=$this->parameter('site.title');?>"
                 />
             </a>
 
