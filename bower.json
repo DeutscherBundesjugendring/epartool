@@ -2,7 +2,7 @@
   "name": "dbjr",
   "dependencies": {
     "bootstrap": "~3.3.6",
-    "bootstrap.ui": "^2.0.0",
+    "bootstrap.ui": "^2.1.1",
     "less-modules": "~0.3.0",
     "html5shiv": "~3.7.0",
     "jquery": "~1.11.3",
