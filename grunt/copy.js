@@ -29,6 +29,12 @@ module.exports = {
       },
       {
         expand: true,
+        cwd: '<%= paths.bower %>/select2',
+        src: ['**/*'],
+        dest: '<%= paths.dist %>/vendor/select2'
+      },
+      {
+        expand: true,
         cwd: '<%= paths.bower %>/bootstrap-colorpicker',
         src: ['**/*'],
         dest: '<%= paths.dist %>/vendor/bootstrap-colorpicker'
