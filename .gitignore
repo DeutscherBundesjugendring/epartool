@@ -18,8 +18,15 @@
 /www/js/*
 /www/vendor/*
 
+# Runtime generated files
 /runtime/*
+
+# Composer dependencies
 /vendor
+
+# Deployment related
+/deployment.*.log
+/.htdeployment
 
 # Never ignore files used to keep empty folders in repo
 !.keep
