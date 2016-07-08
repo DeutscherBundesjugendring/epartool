@@ -25,16 +25,12 @@ module.exports = {
     'replace:mail'
   ],
 
-  // CSS
-  'build-css-admin': [
-    'less:admin',
-    'autoprefixer:admin',
-    'cssmin:admin'
-  ],
-
   'build-css': [
     'clean:css',
-    'build-css-admin'
+    'less',
+    'copy:front',
+    'autoprefixer',
+    'cssmin'
   ],
 
   // JS

@@ -7,8 +7,12 @@ module.exports = {
   },
   admin: {
     files: {
-      '<%= paths.dist %>/css/admin.min.css': '<%= paths.dist %>/css/admin.css'
+      '<%= paths.dist %>/css/admin.min.css': '<%= paths.dist %>/css/admin.css',
+    }
+  },
+  front: {
+    files: {
+      '<%= paths.dist %>/css/front.min.css': '<%= paths.dist %>/css/front.css',
     }
   }
-
 };

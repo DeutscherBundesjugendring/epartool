@@ -52,6 +52,12 @@ module.exports = {
         dest: '<%= paths.dist %>/vendor/ckeditor/plugins/bootstrapCollapse',
       }
     ]
+  },
+  front: {
+    files: [
+      {'<%= paths.dist %>/css/front.css': '<%= paths.temp %>/front.css'},
+      {'<%= paths.dist %>/css/front.css.map': '<%= paths.temp %>/front.css.map'},
+    ]
   }
 
 };

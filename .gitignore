@@ -11,9 +11,16 @@
 /.tmp
 /www/css/*
 /www/font/*
+/www/image_cache/*
 /www/images/*
+/www/media/consultations/*
+/www/media/folders/*
 /www/js/*
 /www/vendor/*
 
+/runtime/*
+/vendor
+
 # Never ignore files used to keep empty folders in repo
 !.keep
+!.gitkeep

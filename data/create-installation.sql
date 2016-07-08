@@ -979,7 +979,11 @@ ALTER TABLE `proj`
 ADD INDEX `proj_theme_id_fk` (`theme_id`);
 
 ALTER TABLE `proj`
-ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Migration 2016-05-30_15-41_DBJR-666.sql
+ALTER TABLE `proj`
+ADD `mitmachen_bubble` tinyint NOT NULL DEFAULT '1';
 
 -- Migration 2016-05-31_14-14_DBJR-647.sql
 ALTER TABLE `inpt`

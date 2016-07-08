@@ -162,13 +162,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initTranslation()
     {
-        $translator = new Zend_Translate(
-            array(
-                'adapter' => 'array',
-                'content' => APPLICATION_PATH . '/../../../zendframework/zendframework1/resources/languages',
-                'scan' => Zend_Translate::LOCALE_DIRECTORY
-            )
-        );
+        $translator = new Zend_Translate([
+            'adapter' => 'array',
+            'content' => VENDOR_PATH . '/zendframework/zendframework1/resources/languages',
+            'scan' => Zend_Translate::LOCALE_DIRECTORY
+        ]);
         Zend_Validate_Abstract::setDefaultTranslator($translator);
     }
 }
