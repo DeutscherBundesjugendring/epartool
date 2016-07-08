@@ -1,0 +1,20 @@
+# If the application is run in a subfolder, set it here. Make sure the folder anme begins and ends with a slash.
+# For example: /my-folder/
+RewriteBase /
+Options -MultiViews
+DirectoryIndex index.php
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+#RewriteRule ^css/(.*)$             css/$1 [L]
+#RewriteRule ^images/(.*)$          images/$1 [L]
+#RewriteRule ^js/(.*)$              js/$1 [L]
+#RewriteRule ^font/(.*)$            font/$1 [L]
+#RewriteRule ^media/(.*)$           media/$1 [L]
+#RewriteRule ^robots.txt$           robots.txt [L]
+
+RewriteRule !(^media)   index.php  [NC,L]

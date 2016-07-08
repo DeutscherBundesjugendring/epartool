@@ -16,20 +16,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             array('allowModifications' => true)
         );
 
-        $configProject = new Zend_Config_Ini(
-            PROJECT_PATH . '/configs/config.ini',
-            APPLICATION_ENV
-        );
-        $config->merge($configProject);
-        if (is_file(PROJECT_PATH . '/configs/config.local.ini')) {
+        if (is_file(APPLICATION_PATH . '/configs/config.local.ini')) {
             $configLocal = new Zend_Config_Ini(
-                PROJECT_PATH . '/configs/config.local.ini'
+                APPLICATION_PATH . '/configs/config.local.ini'
             );
             $env = APPLICATION_ENV;
             if (isset($configLocal->$env)) {
                 $config->merge($configLocal->$env);
             }
         }
+
         Zend_Registry::set('systemconfig', $config);
     }
 
@@ -152,7 +148,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initLocale()
     {
-        Zend_Registry::set('Zend_Locale', $this->getPluginResource('locale')->getLocale());
+        Zend_Registry::set(
+            'Zend_Locale',
+            new Zend_Locale(
+                (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()['locale']
+            )
+        );
     }
 
 
@@ -161,13 +162,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initTranslation()
     {
-        $translator = new Zend_Translate(
-            array(
-                'adapter' => 'array',
-                'content' => APPLICATION_PATH . '/../../../zendframework/zendframework1/resources/languages',
-                'scan' => Zend_Translate::LOCALE_DIRECTORY
-            )
-        );
+        $translator = new Zend_Translate([
+            'adapter' => 'array',
+            'content' => VENDOR_PATH . '/zendframework/zendframework1/resources/languages',
+            'scan' => Zend_Translate::LOCALE_DIRECTORY
+        ]);
         Zend_Validate_Abstract::setDefaultTranslator($translator);
     }
 }

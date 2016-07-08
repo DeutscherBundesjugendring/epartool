@@ -14,6 +14,14 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
         $desc = $translator->translate(
             'Used in page <title> tag, in DV.title and og:title meta tags and as a logo image alt text.'
         );
+
+        $locale = $this->createElement('select', 'locale');
+        $locale
+            ->setLabel('Application Language')
+            ->setRequired(true)
+            ->setMultiOptions(['en_US' => 'English', 'de_DE' => 'Deutsch']);
+        $this->addElement($locale);
+
         $siteTitle = $this->createElement('text', 'site_title');
         $siteTitle
             ->setLabel('Site Title')
@@ -42,7 +50,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
 
 
         $this->addDisplayGroup(
-            ['site_title', 'site_motto', 'site_description'],
+            ['locale', 'site_title', 'site_motto', 'site_description'],
             'site',
             ['legend' => $translator->translate('Site Information')]
         );

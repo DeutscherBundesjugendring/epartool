@@ -979,7 +979,11 @@ ALTER TABLE `proj`
 ADD INDEX `proj_theme_id_fk` (`theme_id`);
 
 ALTER TABLE `proj`
-ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Migration 2016-05-30_15-41_DBJR-666.sql
+ALTER TABLE `proj`
+ADD `mitmachen_bubble` tinyint NOT NULL DEFAULT '1';
 
 -- Migration 2016-05-31_14-14_DBJR-647.sql
 ALTER TABLE `inpt`
@@ -1009,6 +1013,10 @@ ALTER TABLE `proj`
 CHANGE `color_headings` `color_accent_1` varchar(255) COLLATE 'utf8_general_ci' NULL AFTER `theme_id`,
 CHANGE `color_frame_background` `color_primary` varchar(255) COLLATE 'utf8_general_ci' NULL AFTER `color_accent_1`,
 CHANGE `color_active_link` `color_accent_2` varchar(255) COLLATE 'utf8_general_ci' NULL AFTER `color_primary`;
+
+-- Migration 2016-06-27_18-36_DBJR-761.sql
+ALTER TABLE `proj`
+ADD `locale` varchar(255) NOT NULL DEFAULT 'en_US';
 
 -- Migration 2016-06-27_14-58_DBJR-807.sql
 UPDATE `proj` SET `theme_id` = (SELECT `id` FROM `theme` ORDER BY `id` LIMIT 1)

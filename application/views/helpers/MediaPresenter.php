@@ -8,13 +8,13 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
     /**
      * Holds the dirpath of the media cache dir relative to the base url
      */
-    const CACHE_DIR = 'runtime/cache/media/images';
+    const CACHE_DIR = 'image_cache';
 
     /**
-     * Holds the dirpath of the media cache dir relative to the RUNTIME_PATH
+     * Holds the dirpath of the media cache dir relative to the APPLICATION_PATH
      * PHP cant concatenate a constant to  a string in constant assignment
      */
-    const CACHE_ACTUAL_DIR_IN_RUNTIME = '/cache/media/images';
+    const CACHE_ACTUAL_DIR = '/../www/image_cache';
 
     /**
      * The pathof the fallback image to be used if the real image is not available
@@ -66,7 +66,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
 
             $imagePath = $image
                 ->setCacheDir(self::CACHE_DIR)
-                ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
+                ->setActualCacheDir(APPLICATION_PATH . self::CACHE_ACTUAL_DIR)
                 ->guess();
         } else {
             $icon = Image::open(APPLICATION_PATH . '/../www/images/admin/file-type-icons/' . $file['icon'] . '.png');
