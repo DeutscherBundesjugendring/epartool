@@ -17,4 +17,4 @@ RewriteRule ^.*$ - [NC,L]
 #RewriteRule ^media/(.*)$           media/$1 [L]
 #RewriteRule ^robots.txt$           robots.txt [L]
 
-RewriteRule !(^media)   index.php  [NC,L]
+RewriteRule !(^media)|(\.(js|ico|gif|jpg|png|css|pdf))$   index.php  [NC,L]
