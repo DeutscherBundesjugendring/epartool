@@ -62,6 +62,12 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 } catch (UnexpectedValueException $e) {
                     // The file probably doesnt exist, we continue and let the fallback image be used
                 }
+            } elseif ($contextConf->method === 'scaleResize') {
+                $image = Image::open(is_file($path) ? $path :  APPLICATION_PATH . self::FALLBACK_IMAGE_PATH);
+                $image->scale($contextConf->width, $contextConf->height);
+            } elseif ($contextConf->method === 'cropResize') {
+                $image = Image::open(is_file($path) ? $path :  APPLICATION_PATH . self::FALLBACK_IMAGE_PATH);
+                $image->cropResize($contextConf->width, $contextConf->height);
             }
 
             $imagePath = $image
