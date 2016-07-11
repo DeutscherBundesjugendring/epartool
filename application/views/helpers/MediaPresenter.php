@@ -64,7 +64,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 }
             } elseif ($contextConf->method === 'scaleResize') {
                 $image = Image::open(is_file($path) ? $path :  APPLICATION_PATH . self::FALLBACK_IMAGE_PATH);
-                $image->scale($contextConf->width, $contextConf->height);
+                $image->scaleResize($contextConf->width, $contextConf->height);
             } elseif ($contextConf->method === 'cropResize') {
                 $image = Image::open(is_file($path) ? $path :  APPLICATION_PATH . self::FALLBACK_IMAGE_PATH);
                 $image->cropResize($contextConf->width, $contextConf->height);
