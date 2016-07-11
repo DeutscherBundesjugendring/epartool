@@ -98,17 +98,19 @@ class IndexController extends Zend_Controller_Action
     public function customCssAction()
     {
         $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        $theme = $project;
         if (!empty($project['theme_id'])) {
             $theme = (new Model_Theme())->find($project['theme_id'])->current();
-        } else {
-            $theme = $project;
         }
+
+        $css = $this->view->partial('index/custom-css.phtml', [
+            'colorPrimary' => $theme['color_primary'],
+            'colorAccent1' => $theme['color_accent_1'],
+            'colorAccent2' => $theme['color_accent_2'],
+        ]);
+
         header('Content-Type: text/css; charset=utf-8');
-        echo str_replace(
-            ['color_primary', 'color_accent_1', 'color_accent_2'],
-            [$theme['color_primary'], $theme['color_accent_1'], $theme['color_accent_2']],
-            file_get_contents(APPLICATION_PATH . '/../assets/front/css/theme.css')
-        );
+        echo $css;
         die();
     }
 
