@@ -51,7 +51,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 $image->zoomCrop($contextConf->width, $contextConf->height);
             } elseif ($contextConf->method === 'zoomCropFill') {
                 try {
-                    $newImage = IMAGE::create($contextConf->width, $contextConf->height)
+                    $newImage = Image::create($contextConf->width, $contextConf->height)
                         ->fill('#eeeeee')
                         ->merge(
                             $image,
@@ -70,7 +70,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                 ->guess();
         } else {
             $icon = Image::open(APPLICATION_PATH . '/../www/images/admin/file-type-icons/' . $file['icon'] . '.png');
-            $imagePath = IMAGE::create($contextConf->width, $contextConf->height)
+            $imagePath = Image::create($contextConf->width, $contextConf->height)
                 ->fill('#ffffff')
                 ->merge(
                     $icon,
@@ -78,7 +78,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
                     ($contextConf->height - $icon->height()) / 2
                 )
                 ->setCacheDir(self::CACHE_DIR)
-                ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR_IN_RUNTIME)
+                ->setActualCacheDir(RUNTIME_PATH . self::CACHE_ACTUAL_DIR)
                 ->guess();
         }
 
