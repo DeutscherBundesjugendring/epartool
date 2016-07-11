@@ -18,6 +18,13 @@ module.exports = {
     files: {
       '<%= paths.temp %>/mail.css': '<%= paths.src.front %>/less/mail.less'
     }
-  }
-
+  },
+  front: {
+    options: {
+      rootpath: '../'
+    },
+    files: {
+      '<%= paths.temp %>/front.css': '<%= paths.src.front %>/less/main.less'
+    }
+  },
 };

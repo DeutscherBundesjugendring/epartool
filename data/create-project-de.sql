@@ -1,7 +1,7 @@
 SET @project_code = 'xx';
 
-INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`) VALUES
-(@project_code,  'ePartool (default)',   'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?');
+INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`) VALUES
+(@project_code,  'ePartool (default)',   'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?', 'de_DE');
 
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
 VALUES
@@ -970,7 +970,6 @@ INSERT INTO `footer` (`proj`) VALUES (@project_code);
 INSERT INTO `footer` (`proj`) VALUES (@project_code);
 INSERT INTO `footer` (`proj`) VALUES (@project_code);
 INSERT INTO `footer` (`proj`) VALUES (@project_code);
-
 
 INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.title', @project_code);
 INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.description', @project_code);

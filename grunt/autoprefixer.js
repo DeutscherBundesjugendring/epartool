@@ -17,6 +17,9 @@ module.exports = {
   },
   admin: {
     src: '<%= paths.dist %>/css/admin.css'
-  }
+  },
+  front: {
+    src: '<%= paths.dist %>/css/front.css'
+  },
 
 };

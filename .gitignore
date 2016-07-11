@@ -1,3 +1,6 @@
+#Ignore local configuration
+/application/configs/*.local.ini
+
 # Ignore all components installed by npm
 /node_modules
 
@@ -8,9 +11,23 @@
 /.tmp
 /www/css/*
 /www/font/*
+/www/image_cache/*
 /www/images/*
+/www/media/consultations/*
+/www/media/folders/*
 /www/js/*
 /www/vendor/*
 
+# Runtime generated files
+/runtime/*
+
+# Composer dependencies
+/vendor
+
+# Deployment related
+/deployment.*.log
+/.htdeployment
+
 # Never ignore files used to keep empty folders in repo
 !.keep
+!.gitkeep

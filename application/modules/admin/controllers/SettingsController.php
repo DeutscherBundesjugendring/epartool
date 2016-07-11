@@ -19,15 +19,20 @@ class Admin_SettingsController extends Zend_Controller_Action
     {
         $paramModel = new Model_Parameter();
         $form = new Admin_Form_Settings_Site();
+        $projectCode = Zend_Registry::get('systemconfig')->project;
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
             if ($form->isValid($data)) {
-                $projectCode = Zend_Registry::get('systemconfig')->project;
                 $db = $paramModel->getAdapter();
                 $db->beginTransaction();
                 try {
                     foreach ($data as $field => $value) {
+                        if ($field === 'locale') {
+                            (new Model_Projects())->update(['locale' => $value], ['proj = ?' => $projectCode]);
+                            continue;
+                        }
+
                         $paramModel->update(
                             ['value' => $value],
                             ['name=?' => str_replace('_', '.', $field), 'proj=?' => $projectCode]
@@ -44,7 +49,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form invalid', 'error');
             }
         } else {
-            $form->populate($paramModel->getAsArray());
+            $form->populate(array_merge($paramModel->getAsArray(), ['locale' => (new Model_Projects())->find($projectCode)->current()['locale']]));
         }
 
         $this->view->form = $form;
