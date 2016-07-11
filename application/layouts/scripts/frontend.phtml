@@ -64,13 +64,24 @@
         <header role="banner" class="header">
 
             <!-- Logo -->
-            <a href="<?=$this->url(['controller' => 'index'], 'default', true);?>" rel="home" class="header-brand link-print-nourl" title="<?=$this->translate('Home');?>">
+            <a
+                href="<?=$this->url(['controller' => 'index'], 'default', true);?>"
+                rel="home"
+                class="header-brand link-print-nourl"
+                title="<?=$this->translate('Home');?>"
+            >
                 <img
                 <?php if (!empty($this->themeAssets()['logo'])) : ?>
                     src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
+                    srcset="
+                        <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>,
+                        <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo_retina');?> 2x
+                    "
                 <?php else : ?>
                     src="<?=$this->baseUrl('images/logo.png');?>"
+                    srcset="<?=$this->baseUrl('images/logo.png');?>, <?=$this->baseUrl('images/logo@2x.png');?> 2x"
                 <?php endif; ?>
+                    class="img-responsive"
                     itemprop="image" alt="<?=$this->parameter('site.title');?>"
                 />
             </a>
