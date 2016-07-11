@@ -97,20 +97,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->bootstrap('view')->getResource('view');
     }
 
-    protected function _initSetupBaseUrl()
-    {
-        $this->bootstrap('frontcontroller');
-        $controller = Zend_Controller_Front::getInstance();
-        $sysconfig = Zend_Registry::get('systemconfig');
-        $subdir = $sysconfig->installation->subdir;
-        if (!empty($subdir)) {
-            if (substr($subdir, 0, 1) != '/') {
-                $subdir.= '/' . $subdir;
-            }
-            $controller->setBaseUrl($subdir);
-        }
-    }
-
     /**
      * Registers the complete URL including protocol and host in the registry,
      * used for links in emails
