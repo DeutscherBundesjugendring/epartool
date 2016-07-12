@@ -4,8 +4,9 @@ $rootPath = dirname(dirname(__FILE__));
 
 //define('APPLICATION_ENV', 'development');
 define('APPLICATION_ENV', 'production');
+define('MEDIA_URL', '/media');
 define('APPLICATION_PATH', realpath($rootPath . '/application'));
-define('MEDIA_PATH', realpath($rootPath . '/www/media'));
+define('MEDIA_PATH', realpath($rootPath . '/www' . MEDIA_URL));
 define('VENDOR_PATH', realpath($rootPath . '/vendor'));
 define('RUNTIME_PATH', realpath($rootPath . '/runtime'));
 
