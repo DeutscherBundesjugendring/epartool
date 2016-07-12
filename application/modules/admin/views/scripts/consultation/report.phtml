@@ -48,7 +48,7 @@
                 </ul>
                 <p>
                     <strong><?=$this->translate('Contributions that were available to vote on');?>: <?php echo $this->nrInputsVoting; ?></strong><br />
-                    <span class="text-muted small"><?=$this->translate('Final number, after voting preparation');?></span>
+                    <span class="text-muted small"><?=$this->translate('All contributions except ones with voting disabled');?></span>
                 </p>
 
                 <h3 class="offset-top-large"><?=$this->translate('Questions');?></h3>
@@ -71,7 +71,7 @@
                         </p>
                         <p>
                             <?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?><br />
-                            <span class="text-muted small"><?=$this->translate('Final number, after voting preparation');?></span>
+                            <span class="text-muted small"><?=$this->translate('All contributions except ones with voting disabled');?></span>
                         </p>
                     </div>
                 <?php endforeach; ?>
