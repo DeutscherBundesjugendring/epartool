@@ -1,3 +1,2 @@
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^.*$
-RewriteRule ^(.*)?$ /www/$1 [L]
+RewriteRule ^(.*)$ www/$1 [L]

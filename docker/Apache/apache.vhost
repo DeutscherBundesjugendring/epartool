@@ -1,9 +1,9 @@
 <VirtualHost *:80>
-    DocumentRoot /www/www
+    DocumentRoot /www
     ErrorLog /dev/stdout
-    ProxyPassMatch ^/(.*\.php(.*)?)$ fcgi://php:9000/www/www/$1
+    ProxyPassMatch ^/(.*\.php(.*)?)$ fcgi://php:9000/www/$1
 
-    <Directory /www/www>
+    <Directory /www>
         AllowOverride All
         Require all granted
     </Directory>
