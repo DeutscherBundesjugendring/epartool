@@ -4,21 +4,21 @@ if (php_sapi_name() !== 'cli') {
     die('This script may only be run form CLI.');
 }
 
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
+$rootPath = dirname(dirname(__FILE__));
+define('APPLICATION_ENV', 'production');
+define('APPLICATION_PATH', realpath($rootPath . '/application'));
+define('VENDOR_PATH', realpath($rootPath . '/vendor'));
+define('RUNTIME_PATH', realpath($rootPath . '/runtime'));
 
 require_once(APPLICATION_PATH . '/init.php');
 
 $help = <<<EOD
+A cli interface to manage the dbjr tool application from command line.
 
-    A cli interface to manage the dbjr tool application from command line.
+Usage: cli.php <command>
 
-    Usage: cli.php <command>
-
-    Commands:
-    cron      - Runs the cronjob task by utlising the cron service
-
+Commands:
+cron      - Runs the cronjob task by utlising the cron service
 
 EOD;
 

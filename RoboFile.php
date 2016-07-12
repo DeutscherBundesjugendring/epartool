@@ -1,6 +1,6 @@
 <?php
 
-require('../../autoload.php');
+require('vendor/autoload.php');
 
 use Robo\Tasks;
 
@@ -10,6 +10,17 @@ use Robo\Tasks;
 class RoboFile extends Tasks
 {
     const CONFIG_FILE = 'application/configs/config.ini';
+
+    public function build()
+    {
+        $this->taskExecStack()
+            ->stopOnFail()
+            ->exec('composer install')
+            ->exec('bower update')
+            ->exec('npm update')
+            ->exec('grunt')
+            ->run();
+    }
 
     /**
      * @param string $tag
@@ -60,7 +71,7 @@ class RoboFile extends Tasks
         if (false === file_put_contents(__DIR__ . '/' . self::CONFIG_FILE, $newConfigFileContent)) {
             return sprintf('Cannot write into file %s.', self::CONFIG_FILE);
         }
-        
+
         return null;
     }
 }
