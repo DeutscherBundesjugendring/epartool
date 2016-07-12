@@ -29,7 +29,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
             ->join(
                 ['quests' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'ntp.value = quests.qi',
-                ['q' => 'quests.q', 'qi']
+                ['q' => 'quests.q', 'qi', 'nr']
             )
             ->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],

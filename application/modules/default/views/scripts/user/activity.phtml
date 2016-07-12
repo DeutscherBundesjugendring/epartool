@@ -4,7 +4,8 @@
         <div class="col-md-6 offset-bottom-xs-max">
 
             <h2 class="h1"><?=$this->translate('My Contributions');?></h2>
-            <?php $contributionsListCount = count($this->contributionsList); $i = 1; ?>
+            <?php $contributionsListCount = count($this->contributionsList);?>
+            <?php $i = 1;?>
             <?php if (!empty($this->contributionsList)): ?>
                 <?php foreach ($this->contributionsList as $contribution): ?>
                     <p>
@@ -46,7 +47,8 @@
         <div class="col-md-6">
 
             <h2 class="h1"><?=$this->translate('My Discussion Posts');?></h2>
-            <?php $postsListCount = count($this->postsList); $i = 1; ?>
+            <?php $postsListCount = count($this->postsList);?>
+            <?php $i = 1;?>
             <?php if (!empty($this->postsList)): ?>
                 <?php foreach ($this->postsList as $post): ?>
                     <p>
