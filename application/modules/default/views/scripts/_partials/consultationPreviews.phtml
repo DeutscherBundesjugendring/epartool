@@ -76,7 +76,7 @@
             <li class="hidden-print">
                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-phases-preview-image">
                     <img
-                        src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid . '/' . $consultation->img_file);?>"
+                        src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid . $consultation->img_file);?>"
                         alt="<?=$this->escape($consultation->img_expl);?>"
                     />
                     <div class="consultation-phases-preview-image-description">
