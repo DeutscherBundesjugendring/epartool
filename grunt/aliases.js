@@ -26,16 +26,12 @@ module.exports = {
   // CSS
   'build-css-front': [
     'less:front',
-    'copy:front',
-    'autoprefixer:front',
-    'cssmin:front'
+    'postcss:front'
   ],
 
   'build-css-admin': [
     'less:admin',
-    'copy:admin',
-    'autoprefixer:admin',
-    'cssmin:admin'
+    'postcss:admin'
   ],
 
   'build-css': [

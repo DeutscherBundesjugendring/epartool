@@ -11,7 +11,7 @@ module.exports = {
       rootpath: '../'
     },
     files: {
-      '<%= paths.dist %>/css/admin.css': '<%= paths.src.admin %>/less/main.less'
+      '<%= paths.temp %>/admin.css': '<%= paths.src.admin %>/less/main.less'
     }
   },
   front: {
