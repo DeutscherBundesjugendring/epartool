@@ -6,10 +6,18 @@ class Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution extends Dbjr_
     {
         $this->addElement(
             $this
-                ->createElement('button', 'submit')
+                ->createElement('button', 'confirm')
                 ->setAttrib('type', 'submit')
                 ->setAttrib('class', 'btn-primary')
                 ->setLabel('Confirm')
+        );
+
+        $this->addElement(
+            $this
+                ->createElement('button', 'delete')
+                ->setAttrib('type', 'submit')
+                ->setAttrib('class', 'btn-danger')
+                ->setLabel('Delete')
         );
 
         $this->addElement(
