@@ -6,9 +6,7 @@ module.exports = {
   // =====
 
   'test-php': 'phplint',
-
   'test': 'test-php',
-
 
   // Build
   // =====
@@ -25,12 +23,25 @@ module.exports = {
     'replace:mail'
   ],
 
+  // CSS
+  'build-css-front': [
+    'less:front',
+    'copy:front',
+    'autoprefixer:front',
+    'cssmin:front'
+  ],
+
+  'build-css-admin': [
+    'less:admin',
+    'copy:admin',
+    'autoprefixer:admin',
+    'cssmin:admin'
+  ],
+
   'build-css': [
     'clean:css',
-    'less',
-    'copy:front',
-    'autoprefixer',
-    'cssmin'
+    'build-css-front',
+    'build-css-admin',
   ],
 
   // JS
@@ -71,7 +82,7 @@ module.exports = {
     'build-images-admin'
   ],
 
-  // All together
+  // All together now!
   'build': [
     'clean:temp',
     'clean:fonts',
@@ -82,7 +93,6 @@ module.exports = {
     'copy:bower'
   ],
 
-
   // Development
   // ===========
 
@@ -92,7 +102,6 @@ module.exports = {
     'browserSync',
     'watch'
   ],
-
 
   // Aliases
   // =======

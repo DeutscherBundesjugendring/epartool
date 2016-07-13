@@ -2,6 +2,10 @@
 
 module.exports = {
 
+  'less-front': {
+    files: ['<%= paths.src.front %>/less/**/*.less'],
+    tasks: ['build-css-front']
+  },
   'less-admin': {
     files: ['<%= paths.src.admin %>/less/**/*.less'],
     tasks: ['build-css-admin']
