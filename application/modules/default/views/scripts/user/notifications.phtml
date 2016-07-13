@@ -17,13 +17,13 @@
                         <div class="row">
                             <div class="col-sm-9 offset-bottom-xs-max">
                                 <strong><?=$this->translate('Contribution in');?>:</strong>
-                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>">
+                                <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>">
                                     <?=$cd['nr'];?>
                                     <?=$cd['q'];?>
                                 </a>
                                 <br />
                                 <strong><?=$this->translate('Consultation');?>:</strong>
-                                <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>">
+                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => null, 'tid' => null]);?>">
                                     <?=$cd['titl'];?>
                                 </a>
                             </div>
@@ -74,7 +74,7 @@
                                 </a>
                                 <br />
                                 <strong><?=$this->translate('Consultation');?>:</strong>
-                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>">
+                                <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $q['kid'], 'qid' => null, 'tid' => null]);?>">
                                     <?=$q->titl;?>
                                 </a>
                             </div>
