@@ -295,7 +295,23 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $db->beginTransaction();
                 try {
                     $projectModel->update(
-                        ['state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null],
+                        [
+                            'state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null,
+                            'field_switch_name' => (int) $formData['field_switch_name'],
+                            'field_switch_age' => (int) $formData['field_switch_age'],
+                            'field_switch_state' => (int) $formData['field_switch_state'],
+                            'field_switch_comments' => (int) $formData['field_switch_comments'],
+
+                            'allow_groups' => (int) $formData['allow_groups'],
+
+                            'field_switch_contribution_origin' => (int) $formData['field_switch_contribution_origin'],
+                            'field_switch_individuals_num' => (int) $formData['field_switch_individuals_num'],
+                            'field_switch_group_name' => (int) $formData['field_switch_group_name'],
+                            'field_switch_contact_person' => (int) $formData['field_switch_contact_person'],
+
+                            'field_switch_notification' => (int) $formData['field_switch_notification'],
+                            'field_switch_newsletter' => (int) $formData['field_switch_newsletter'],
+                        ],
                         ['proj=?' => $projectCode]
                     );
                     $db->commit();
