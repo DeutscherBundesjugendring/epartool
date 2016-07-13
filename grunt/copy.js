@@ -8,13 +8,13 @@ module.exports = {
         expand: true,
         cwd: '<%= paths.src.front %>/fonts',
         src: ['**/*.{eot,svg,ttf,woff}'],
-        dest: '<%= paths.dist %>/font'
+        dest: '<%= paths.dist %>/fonts'
       },
       {
         expand: true,
         cwd: '<%= paths.bower %>/bootstrap/dist/fonts',
         src: ['*'],
-        dest: '<%= paths.dist %>/font/glyphicons'
+        dest: '<%= paths.dist %>/fonts/glyphicons'
       }
     ]
   },
