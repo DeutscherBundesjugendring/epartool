@@ -17,7 +17,7 @@
     </h2>
 
     <?php foreach($this->element->inputs->getSubForms() as $input): ?>
-        <div class="form-group">
+        <fieldset class="offset-bottom-large">
 
             <!-- Counter -->
             <div class="text-right js-character-counter">
@@ -62,7 +62,7 @@
                 </span>
             </div>
 
-        </div>
+        </fieldset>
     <?php endforeach; ?>
 
     <!-- Actions -->
