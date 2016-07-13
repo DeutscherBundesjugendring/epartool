@@ -45,6 +45,7 @@
                     </a>
                 </li>
                 <?php if ($this->user->lvl == 'adm' || $this->user->lvl == 'edt'): ?>
+                    <li class="divider"></li>
                     <li>
                         <a href="<?=$this->url(['module' => 'admin', 'controller' => 'index'], 'default', true);?>" target="_blank">
                             <span class="glyphicon glyphicon-cog icon-offset" aria-hidden="true"></span>
