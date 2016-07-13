@@ -18,8 +18,8 @@
                             <div class="col-sm-9 offset-bottom-xs-max">
                                 <?=$this->translate('Contribution in');?>:
                                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>">
-                                    <?=$cd->nr;?>
-                                    <?=$cd->q;?>
+                                    <?=$cd['nr'];?>
+                                    <?=$cd['q'];?>
                                 </a>
                                 <br />
                                 <?=$this->translate('Consultation');?>:
@@ -69,8 +69,8 @@
                             <div class="col-sm-9 offset-bottom-xs-max">
                                 <?=$this->translate('Contribution in');?>:
                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>">
-                                    <?=$q->nr;?>
-                                    <?=$q->q;?>
+                                    <?=$q['nr'];?>
+                                    <?=$q['q'];?>
                                 </a>
                                 <br />
                                 <?=$this->translate('Consultation');?>:
