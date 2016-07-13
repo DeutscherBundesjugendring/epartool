@@ -40,20 +40,33 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
         $this->_viewData['form'] = new Default_Form_UrlkeyAction_ConfirmInputDiscussionContribution();
         if ($request->isPost()) {
             $translator = Zend_Registry::get('Zend_Translate');
-            if ($this->_viewData['form']->isValid($request->getPost())) {
-                (new Model_InputDiscussion())->update(['is_user_confirmed' => 1], ['id=?' => $contribId]);
-                (new Model_Users())->update(['block' => 'c'], ['uid=?' => $discussionContribution->user_id]);
+            $data = $request->getPost();
+            if ($this->_viewData['form']->isValid($data)) {
+                if (isset($data['confirm'])) {
+                    (new Model_InputDiscussion())->update(['is_user_confirmed' => 1], ['id=?' => $contribId]);
+                    (new Model_Users())->update(['block' => 'c'], ['uid=?' => $discussionContribution->user_id]);
 
-                $this->_viewName = null;
-                $this->_message = [
-                    'text' => $translator->translate('Your discussion post was confirmed.'),
-                    'type' => 'success',
-                ];
-                $this->markVisited($urlkeyAction->id);
-                $this->_redirectUrl = '/input/discussion/kid/' . $question['kid'] . '/inputId/' . $contribution['tid'];
-                (new Service_Notification_DiscussionContributionCreatedNotification())->notify(
-                    [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $discussionContribution->input_id]
-                );
+                    $this->_viewName = null;
+                    $this->_message = [
+                        'text' => $translator->translate('Your discussion post was confirmed.'),
+                        'type' => 'success',
+                    ];
+                    $this->markVisited($urlkeyAction->id);
+                    $this->_redirectUrl = '/input/discussion/kid/' . $question['kid'] . '/inputId/' . $contribution['tid'];
+                    (new Service_Notification_DiscussionContributionCreatedNotification())->notify(
+                        [Service_Notification_DiscussionContributionCreatedNotification::PARAM_INPUT_ID => $discussionContribution->input_id]
+                    );
+                } elseif (isset($data['delete'])) {
+                    (new Model_InputDiscussion())->delete(['id=?' => $contribId]);
+
+                    $this->_viewName = null;
+                    $this->_message = [
+                        'text' => $translator->translate('Your discussion post was deleted.'),
+                        'type' => 'success',
+                    ];
+                    $this->markVisited($urlkeyAction->id);
+                    $this->_redirectUrl = '/input/discussion/kid/' . $question['kid'] . '/inputId/' . $contribution['tid'];
+                }
             } else {
                 $this->_message = ['text' => $translator->translate('Form invalid.'), 'type' => 'error'];
             }
