@@ -16,13 +16,13 @@
                     foreach ($this->contributionDiscussion as $cd) : ?>
                         <div class="row">
                             <div class="col-sm-9 offset-bottom-xs-max">
-                                <?=$this->translate('Contribution in');?>:
+                                <strong><?=$this->translate('Contribution in');?>:</strong>
                                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>">
                                     <?=$cd['nr'];?>
                                     <?=$cd['q'];?>
                                 </a>
                                 <br />
-                                <?=$this->translate('Consultation');?>:
+                                <strong><?=$this->translate('Consultation');?>:</strong>
                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>">
                                     <?=$cd['titl'];?>
                                 </a>
@@ -67,13 +67,13 @@
                     foreach ($this->questions as $q) : ?>
                         <div class="row">
                             <div class="col-sm-9 offset-bottom-xs-max">
-                                <?=$this->translate('Contribution in');?>:
+                                <strong><?=$this->translate('Contribution in');?>:</strong>
                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>">
                                     <?=$q['nr'];?>
                                     <?=$q['q'];?>
                                 </a>
                                 <br />
-                                <?=$this->translate('Consultation');?>:
+                                <strong><?=$this->translate('Consultation');?>:</strong>
                                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>">
                                     <?=$q->titl;?>
                                 </a>
