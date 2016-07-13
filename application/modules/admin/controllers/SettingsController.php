@@ -280,4 +280,41 @@ class Admin_SettingsController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
+
+    public function finishContributionAction()
+    {
+        $projectModel = new Model_Projects();
+        $projectCode = Zend_Registry::get('systemconfig')->project;
+
+        $form = new Admin_Form_Settings_FinishContribution();
+
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            if ($form->isValid($formData)) {
+                $db = $projectModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $projectModel->update(
+                        ['state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null],
+                        ['proj=?' => $projectCode]
+                    );
+                    $db->commit();
+                    $this->_flashMessenger->addMessage('Form settings was updated.', 'success');
+                    $this->redirect('/admin/settings/finish-contribution');
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $form->populate($projectModel->find($projectCode)->current()->toArray());
+        }
+
+        $this->view->form = $form;
+    }
 }

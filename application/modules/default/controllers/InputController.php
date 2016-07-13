@@ -441,6 +441,7 @@ class InputController extends Zend_Controller_Action
                 $registerForm->populate($user);
                 $registerForm->lockEmailField();
             }
+            $registerForm->customizeByProjectSettings();
             $this->view->registerForm = $registerForm;
         } elseif ($regFormData->register) {
             // If submited registration form was invalid, the redirect from UserController::register()

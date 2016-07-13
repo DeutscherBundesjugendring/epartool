@@ -52,6 +52,11 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'label' => $this->view->translate('Look and Feel'),
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'look-and-feel']),
             ),
+            array(
+                'name' => 'finishContribution',
+                'label' => $this->view->translate('Finish contribution'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'finish-contribution']),
+            ),
         );
 
         return $this->view->secondaryNavigation($items, $activeItem);

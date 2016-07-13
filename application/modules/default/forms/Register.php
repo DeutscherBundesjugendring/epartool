@@ -200,4 +200,12 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->addElement($emailDisabledEl)
             ->addElement($emailHiddenEl);
     }
+    
+    public function customizeByProjectSettings()
+    {
+        $data = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
+        if(!empty($data['state_label'])) {
+            $this->getElement('regio_pax')->setLabel($data['state_label']);
+        }
+    }
 }
