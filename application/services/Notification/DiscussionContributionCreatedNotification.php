@@ -34,7 +34,7 @@ class Service_Notification_DiscussionContributionCreatedNotification extends Ser
             ->join(
                 ['quests' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'inpt.qi = quests.qi',
-                ['q', 'qi']
+                ['q', 'qi', 'nr']
             )
             ->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
