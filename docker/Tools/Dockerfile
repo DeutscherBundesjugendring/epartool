@@ -38,13 +38,6 @@ COPY            ./php.ini /usr/local/etc/php/php.ini
 COPY            ./init-container.sh /root/init-container.sh
 
 
-######################
-# Install synergicCA #
-######################
-COPY            ./synergicCA.crt /usr/local/share/ca-certificates/
-RUN             update-ca-certificates
-
-
 #######
 # Run #
 #######
