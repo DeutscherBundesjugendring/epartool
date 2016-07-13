@@ -29,8 +29,9 @@
                                     return !empty($participant['email']) ? $participant['email'] : null;
                                 }, $this->participants)
                             ));?>"
-                            class="btn btn-primary btn-raised pull-right"
+                            class="btn btn-default pull-right"
                         >
+                            <span class="glyphicon glyphicon-pencil offset-right" aria-hidden="true"></span>
                             <?=$this->translate('Compose an email for all invited users');?>
                         </a>
                     </p>
@@ -42,79 +43,81 @@
                     <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
                     <form method="<?=$this->listControlForm->getMethod();?>">
                         <?=$this->listControlForm->getElement($this->listControlForm->getCsrfTokenName());?>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('User Name');?></th>
-                                    <th class="sorting-asc" data-toggle="sort" tabindex="0"><?=$this->translate('Email');?></th>
-                                    <th><?=$this->translate('Permissions');?></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($this->participants as $user): ?>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td class="table-cell-id table-cell-top"><?=$this->escape($user['uid']);?></td>
-                                        <td class="table-cell-top">
-                                            <?php if (!empty($user['name'])): ?>
-                                                <?=$this->escape($user['name']);?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="table-cell-top">
-                                            <?php if (!empty($user['email'])): ?>
-                                                <a href="mailto:<?=$this->escape($user['email']);?>">
-                                                    <?=$this->escape($user['email']);?>
-                                                </a>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="table-cell-top">
-                                            <?php if (isset($user['votingRights'])): ?>
-                                                <p>
-                                                    <?=$this->translate('Voting weight');?>: <?=$user['votingRights']['vt_weight']; ?><br />
-                                                    <?=$this->translate('Group size');?>: <?=$grp_siz_def[$user['votingRights']['grp_siz']]; ?>
-                                                </p>
-                                                <?php if ($user['votingRights']['grp_siz'] != 1): ?>
-                                                    <p>
-                                                        <?=$this->translate('Partner');?>: <?=$this->escape($user['name_pers']);?><br/>
-                                                        <?=$this->translate('Group name');?>: <?=$this->escape($user['name_group']);?><br/>
-                                                        <?=$this->translate('Group size');?>: <?=$this->escape($user['group_size']);?>
-                                                    </p>
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="table-cell-actions table-cell-top">
-                                            <?php if (!empty($user['email'])): ?>
-                                                <a
-                                                    href="<?=$this->url(['action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'preview']);?>"
-                                                    class="item-action"
-                                                    title="<?=$this->translate('Preview and send invitation');?>"
-                                                    >
-                                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                                </a>
-                                                <button
-                                                    value="<?=$this->escape($user['uid']);?>"
-                                                    name="instantSendUserId"
-                                                    class="item-action"
-                                                    data-toggle="confirm"
-                                                    data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user?');?>"
-                                                    title="<?=$this->translate('Send invitation');?>"
-                                                >
-                                                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                                                </button>
-                                            <?php endif; ?>
-                                            <a
-                                                href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $user['uid']]);?>"
-                                                class="item-action"
-                                                title="<?=$this->translate('Show all contributions by this user');?>"
-                                                >
-                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
+                                        <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
+                                        <th data-toggle="sort" tabindex="0"><?=$this->translate('User Name');?></th>
+                                        <th class="sorting-asc" data-toggle="sort" tabindex="0"><?=$this->translate('Email');?></th>
+                                        <th><?=$this->translate('Permissions');?></th>
+                                        <th></th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($this->participants as $user): ?>
+                                        <tr>
+                                            <td class="table-cell-id table-cell-top"><?=$this->escape($user['uid']);?></td>
+                                            <td class="table-cell-top">
+                                                <?php if (!empty($user['name'])): ?>
+                                                    <?=$this->escape($user['name']);?>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="table-cell-top">
+                                                <?php if (!empty($user['email'])): ?>
+                                                    <a href="mailto:<?=$this->escape($user['email']);?>">
+                                                        <?=$this->escape($user['email']);?>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="table-cell-top">
+                                                <?php if (isset($user['votingRights'])): ?>
+                                                    <p>
+                                                        <?=$this->translate('Voting weight');?>: <?=$user['votingRights']['vt_weight']; ?><br />
+                                                        <?=$this->translate('Group size');?>: <?=$grp_siz_def[$user['votingRights']['grp_siz']]; ?>
+                                                    </p>
+                                                    <?php if ($user['votingRights']['grp_siz'] != 1): ?>
+                                                        <p>
+                                                            <?=$this->translate('Partner');?>: <?=$this->escape($user['name_pers']);?><br/>
+                                                            <?=$this->translate('Group name');?>: <?=$this->escape($user['name_group']);?><br/>
+                                                            <?=$this->translate('Group size');?>: <?=$this->escape($user['group_size']);?>
+                                                        </p>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="table-cell-actions table-cell-top">
+                                                <?php if (!empty($user['email'])): ?>
+                                                    <a
+                                                        href="<?=$this->url(['action' => 'sendinvitation', 'uid' => $user['uid'], 'mode' => 'preview']);?>"
+                                                        class="item-action"
+                                                        title="<?=$this->translate('Preview and send invitation');?>"
+                                                        >
+                                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                                    </a>
+                                                    <button
+                                                        value="<?=$this->escape($user['uid']);?>"
+                                                        name="instantSendUserId"
+                                                        class="item-action"
+                                                        data-toggle="confirm"
+                                                        data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user?');?>"
+                                                        title="<?=$this->translate('Send invitation');?>"
+                                                    >
+                                                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                                    </button>
+                                                <?php endif; ?>
+                                                <a
+                                                    href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $user['uid']]);?>"
+                                                    class="item-action"
+                                                    title="<?=$this->translate('Show all contributions by this user');?>"
+                                                    >
+                                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </form>
                 <?php else: ?>
                     <p class="alert alert-info">

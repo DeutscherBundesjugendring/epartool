@@ -2,10 +2,10 @@
     <div class="container">
 
         <?=$this->helpText('help-text-admin-consultation-voting-preparation');?>
-        
+
         <h1 class="section-header-title"><?=$this->escape($this->consultation['titl']);?></h1>
         <h2 class="section-header-subtitle"><?=$this->escape($this->consultation['titl_sub']);?></h2>
-        
+
         <?=$this->consultationTabs($this->consultation['kid'], 'consultation');?>
 
     </div>
@@ -23,26 +23,28 @@
                 <h2><?=$this->translate('Voting Preparation');?></h2>
 
                 <?php if (!empty($this->consultation['questions'])): ?>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="table-cell-id sorting-asc" data-toggle="sort" tabindex="0">#</th>
-                                <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($this->consultation['questions'] as $question): ?>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
-                                    <td>
-                                        <a href="<?=$this->url(['controller' => 'votingprepare', 'action' => 'overview', 'kid' => $question['kid'], 'qid' => $question['qi']]);?>">
-                                            <?=strip_tags(html_entity_decode($question['q']));?>
-                                        </a>
-                                    </td>
+                                    <th class="table-cell-id sorting-asc" data-toggle="sort" tabindex="0">#</th>
+                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Question');?></th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach($this->consultation['questions'] as $question): ?>
+                                    <tr>
+                                        <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
+                                        <td>
+                                            <a href="<?=$this->url(['controller' => 'votingprepare', 'action' => 'overview', 'kid' => $question['kid'], 'qid' => $question['qi']]);?>">
+                                                <?=strip_tags(html_entity_decode($question['q']));?>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

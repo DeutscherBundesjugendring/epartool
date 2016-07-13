@@ -22,13 +22,15 @@
                 <h2><?=$this->translate('Split Contribution');?></h2>
 
                 <h3><?=$this->translate('Original Contribution');?></h3>
-                <table class="table table-bordered">
-                    <tbody>
-                        <?php foreach ($this->inputs as $input): ?>
-                            <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true]);?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <?php foreach ($this->inputs as $input): ?>
+                                <?=$this->partial('votingprepare/_input-row.phtml', ['input' => $input, 'readonly' => true]);?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3><?=$this->translate('New Contribution');?></h3>
                 <?=$this->form;?>
