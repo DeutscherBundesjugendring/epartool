@@ -8,12 +8,7 @@
     <meta name="robots" content="noindex, nofollow" />
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,700&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" />
-
-    <?php if (APPLICATION_ENV === 'development') : ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.css');?>?v=<?=$this->toolVersion();?>" />
-    <?php else : ?>
-        <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>?v=<?=$this->toolVersion();?>" />
-    <?php endif;?>
+    <link rel="stylesheet" href="<?=$this->baseUrl('css/admin.min.css');?>?v=<?=$this->toolVersion();?>" />
 
     <link rel="icon" href="<?=$this->baseUrl('images/favicon.png');?>" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon-precomposed" href="<?=$this->baseUrl('images/touch-icon.png');?>" />
