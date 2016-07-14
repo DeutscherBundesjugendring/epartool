@@ -3,6 +3,7 @@
 
 # Ignore all components installed by npm
 /node_modules
+/npm-debug.log
 
 # Ignore all components installed by Bower
 /bower_components
