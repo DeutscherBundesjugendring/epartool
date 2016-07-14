@@ -155,6 +155,15 @@ class Admin_ArticleController extends Zend_Controller_Action
                     if ($form->isValid($article)) {
                         $values = $form->getValues();
                         $articleRow = $articleModel->find($aid)->current();
+
+                        if ($articleRow['ref_nm'] === 'article_explanation') {
+                            if ($articleModel->getCountByConsultationAndType($articleRow['kid'], 'article_explanation') === 1
+                                && $articleRow['hid'] === 'n' && $values['hid'] === 'y') {
+                                $this->_flashMessenger->addMessage('This article could not be hidden.', 'error');
+                                $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
+                            }
+                        }
+
                         $this->updateArticleRow($articleRow, $values);
                         $articleRow->save();
                         $this->_flashMessenger->addMessage('Changes saved.', 'success');
@@ -198,9 +207,17 @@ class Admin_ArticleController extends Zend_Controller_Action
 
         if ($form->isValid($this->getRequest()->getPost())) {
             $articleModel = new Model_Articles();
-            $nrDeleted = $articleModel->deleteById(
-                $this->getRequest()->getPost('delete')
-            );
+            $id = $this->getRequest()->getPost('delete');
+            $article = $articleModel->find($id)->current()->toArray();
+            if ($article['ref_nm'] === 'article_explanation') {
+                if ($articleModel->getCountByConsultationAndType($article['kid'], 'article_explanation') === 1
+                    && $article['hid'] === 'n') {
+                    $this->_flashMessenger->addMessage('This article could not be deleted.', 'error');
+                    $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
+                }
+            }
+
+            $nrDeleted = $articleModel->deleteById($id);
             if ($nrDeleted) {
                 $this->_flashMessenger->addMessage('Article has been deleted.', 'success');
             } else {
