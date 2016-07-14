@@ -127,13 +127,15 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $inputForm->getElement('video_service')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
             ->setOptions($videoElOpts)
             ->setValue($videoService)
-            ->setLabel('Your video');
+            ->setLabel('Video:')
+            ->setDecorators(array(array("Label",array("class"=>"control-label offset-right")),"ViewHelper"));
 
         $inputForm->addElement('videoId', 'video_id');
         $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
             ->setOptions($videoElOpts)
             ->setValue($videoId)
             ->setLabel('Video ID')
+            ->setAttrib('placeholder', $view->translate('Video ID'))
             ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
 
         $inputForm->addElement('textarea', 'expl');

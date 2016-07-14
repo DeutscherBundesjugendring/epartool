@@ -34,6 +34,34 @@ label.required:after {
     }
 }
 
+// Enable full-width inline forms with expanding item.
+.input-group-full-xs {
+    @media (max-width: @screen-xs-max) {
+        width: 100%;
+    }
+}
+
+.form-inline-flex {
+    @media (min-width: @screen-sm-min) {
+        display: flex;
+        flex-flow: row nowrap;
+
+        .input-group {
+            display: table;
+            margin-left: @grid-gutter-width / 2;
+
+            .input-group-addon,
+            .input-group-btn {
+                width: 1%;
+            }
+        }
+
+        .form-group-flex {
+            flex: 1;
+        }
+    }
+}
+
 // Buttons in inline forms have the same height as inputs.
 .form-inline .btn {
     padding-top: 3px;
