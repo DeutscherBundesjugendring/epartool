@@ -295,7 +295,10 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $db->beginTransaction();
                 try {
                     $projectModel->update(
-                        ['state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null],
+                        [
+                            'state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null,
+                            'license' => $formData['license'],
+                        ],
                         ['proj=?' => $projectCode]
                     );
                     $db->commit();

@@ -6,16 +6,21 @@ class Admin_Form_Settings_FinishContribution extends Dbjr_Form_Admin
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'settings/finishContributionForm.phtml'))));
 
-        $this
-            ->setMethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/settings/finish-contribution')
-            ->setAttrib('class', 'offset-bottom')
-            ->setAttrib('enctype', 'multipart/form-data');
-
         $stateLabel = $this->createElement('text', 'state_label');
-        $stateLabel
-            ->setLabel('State label');
+        $stateLabel->setLabel('State label');
         $this->addElement($stateLabel);
+
+        $licenseOptions = [];
+        $licenses = (new Model_License())->fetchAll();
+        foreach ($licenses as $license) {
+            $licenseOptions[$license['id']] = $license['title'];
+        }
+        $license = $this->createElement('select', 'license');
+        $license
+            ->setLabel('License')
+            ->setRequired(true)
+            ->setMultiOptions($licenseOptions);
+        $this->addElement($license);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_finishcontributionadmin', array('salt' => 'unique'));
