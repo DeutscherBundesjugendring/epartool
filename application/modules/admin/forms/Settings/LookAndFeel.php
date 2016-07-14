@@ -5,19 +5,17 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'settings/lookAndFeelForm.phtml'))));
-        
+
         $this
-            ->setMethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/settings/look-and-feel')
             ->setAttrib('class', 'offset-bottom')
-            ->setAttrib('enctype', 'multipart/form-data');
+            ->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
 
         $logo = $this->createElement('media', 'logo');
         $this->addElement($logo);
-        
+
         $favIcon = $this->createElement('media', 'favicon');
         $this->addElement($favIcon);
-        
+
         $theme = $this->createElement('radioTheme', 'theme_id');
         $theme
             ->setRequired(false);
@@ -36,14 +34,14 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
             ->setRequired(true)
             ->addValidator('stringLength', false, 7);
         $this->addElement($colorHeadings);
-        
+
         $colorLinkActive = $this->createElement('text', 'color_accent_2');
         $colorLinkActive
             ->setLabel('Accent color 2')
             ->setRequired(true)
             ->addValidator('stringLength', false, 7);
         $this->addElement($colorLinkActive);
-        
+
         $mitmachenBubble = $this->createElement('checkbox', 'mitmachen_bubble');
         $mitmachenBubble
             ->setLabel('Add MitMachen bubble')

@@ -30,8 +30,6 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post');
-
         $consultation = $this->createElement('hidden', 'kid');
         $this->addElement($consultation);
 

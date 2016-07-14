@@ -35,11 +35,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputForm.phtml'))));
-        
+
         $kid = Zend_Controller_Front::getInstance()->getRequest()->getParam('kid', 0);
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post')
+        $this
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => $this->cancelUrl]);
 
@@ -149,7 +149,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         }
         return $hash;
     }
-    
+
     /**
      * @return string
      */
@@ -158,7 +158,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         return $this->cancelUrl;
     }
 
-    
+
     /**
      * @return bool
      */

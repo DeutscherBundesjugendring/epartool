@@ -5,7 +5,8 @@ class Admin_Form_Mail_Send extends Dbjr_Form_Admin
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
-        $this->setAttrib('class', 'offset-bottom js-send-mail')
+        $this
+            ->setAttrib('class', 'offset-bottom js-send-mail')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/mail-sent']);
 
 

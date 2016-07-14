@@ -6,8 +6,6 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post');
-
         $weight = $this->createElement('text', 'vt_weight');
         $weight
             ->setLabel('Weight')

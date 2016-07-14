@@ -6,8 +6,6 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post');
-
         $buttonNum = $this->createElement('number', 'btn_numbers');
         $buttonNum
             ->setLabel('Number of voting buttons')

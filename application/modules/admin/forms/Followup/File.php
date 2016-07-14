@@ -12,7 +12,7 @@ class Admin_Form_Followup_File extends Dbjr_Form_Admin
 
     public function init()
     {
-        $this->setMethod('post')
+        $this
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/followup/index/kid/' . $this->_kid]);
 
