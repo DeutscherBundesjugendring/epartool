@@ -17,85 +17,49 @@ class Admin_Form_Settings_FinishContribution extends Dbjr_Form_Admin
             ->setLabel('State label');
         $this->addElement($stateLabel);
 
-        $fieldSwitchName = $this->createElement('select', 'field_switch_name');
-        $fieldSwitchName
-            ->setLabel('Display field name')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchName);
+        $element = $this->createElement('checkbox', 'field_switch_name');
+        $element->setLabel('Display field name');
+        $this->addElement($element);
 
-        $fieldSwitchAge = $this->createElement('select', 'field_switch_age');
-        $fieldSwitchAge
-            ->setLabel('Display field age')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchAge);
+        $element = $this->createElement('checkbox', 'field_switch_age');
+        $element->setLabel('Display field age');
+        $this->addElement($element);
 
-        $fieldSwitchState = $this->createElement('select', 'field_switch_state');
-        $fieldSwitchState
-            ->setLabel('Display field state')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchState);
+        $element = $this->createElement('checkbox', 'field_switch_state');
+        $element->setLabel('Display field state');
+        $this->addElement($element);
 
-        $fieldSwitchComments = $this->createElement('select', 'field_switch_comments');
-        $fieldSwitchComments
-            ->setLabel('Display field comments')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchComments);
+        $element = $this->createElement('checkbox', 'field_switch_comments');
+        $element->setLabel('Display field comment groups');
+        $this->addElement($element);
 
-        $allowGroups = $this->createElement('select', 'allow_groups');
-        $allowGroups
-            ->setLabel('Allow groups')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($allowGroups);
+        $element = $this->createElement('checkbox', 'allow_groups');
+        $element->setLabel('Allow groups');
+        $this->addElement($element);
 
-        $fieldSwitchContributionOrigin = $this->createElement('select', 'field_switch_contribution_origin');
-        $fieldSwitchContributionOrigin
-            ->setLabel('Display field contribution origin')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchContributionOrigin);
+        $element = $this->createElement('checkbox', 'field_switch_contribution_origin');
+        $element->setLabel('Display field contribution origin');
+        $this->addElement($element);
 
-        $fieldSwitchIndividualsNum = $this->createElement('select', 'field_switch_individuals_num');
-        $fieldSwitchIndividualsNum
-            ->setLabel('Display field individuals num')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchIndividualsNum);
+        $element = $this->createElement('checkbox', 'field_switch_individuals_sum');
+        $element->setLabel('Display field individuals sum');
+        $this->addElement($element);
 
-        $fieldSwitchGroupName = $this->createElement('select', 'field_switch_group_name');
-        $fieldSwitchGroupName
-            ->setLabel('Display field group name')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchGroupName);
+        $element = $this->createElement('checkbox', 'field_switch_group_name');
+        $element->setLabel('Display field group name');
+        $this->addElement($element);
 
-        $fieldSwitchContactPerson = $this->createElement('select', 'field_switch_contact_person');
-        $fieldSwitchContactPerson
-            ->setLabel('Display field contact person')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchContactPerson);
+        $element = $this->createElement('checkbox', 'field_switch_contact_person');
+        $element->setLabel('Display field contact person');
+        $this->addElement($element);
 
+        $element = $this->createElement('checkbox', 'field_switch_newsletter');
+        $element->setLabel('Display field newsletter');
+        $this->addElement($element);
 
-        $fieldSwitchNewsletter = $this->createElement('select', 'field_switch_newsletter');
-        $fieldSwitchNewsletter
-            ->setLabel('Display field newsletter')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchNewsletter);
-
-        $fieldSwitchNotification = $this->createElement('select', 'field_switch_notification');
-        $fieldSwitchNotification
-            ->setLabel('Display field notification')
-            ->setRequired(true)
-            ->setMultioptions([1 => 'Yes', 0 => 'No']);
-        $this->addElement($fieldSwitchNotification);
-
-
+        $element = $this->createElement('checkbox', 'field_switch_notification');
+        $element->setLabel('Display field notification');
+        $this->addElement($element);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_finishcontributionadmin', array('salt' => 'unique'));
