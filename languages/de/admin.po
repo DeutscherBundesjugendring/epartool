@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-07-11 18:46+0200\n"
-"PO-Revision-Date: 2016-07-11 18:46+0200\n"
+"POT-Creation-Date: 2016-07-14 13:27+0200\n"
+"PO-Revision-Date: 2016-07-14 13:29+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -415,7 +415,7 @@ msgstr "Alle Medien"
 
 #: application/modules/admin/controllers/MediaController.php:128
 #: application/modules/admin/controllers/MediaController.php:171
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:48
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:51
 msgid "Rename"
 msgstr "Neu benennen"
 
@@ -506,13 +506,15 @@ msgstr ""
 
 #: application/modules/admin/controllers/SettingsController.php:258
 msgid "Theme was updated."
-msgstr ""
+msgstr "Das Designthema wurde aktualisiert."
 
 #: application/modules/admin/controllers/SettingsController.php:266
 msgid ""
 "Theme settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
+"Die Einstellungen des Designthemas konnten nicht aktualisiert werden. Bitte "
+"die markierten Probleme überprüfen und dann erneut versuchen."
 
 #: application/modules/admin/controllers/TagController.php:48
 msgid "New keyword has been added."
@@ -596,13 +598,14 @@ msgstr "Abstimmungsteilnehmer_in wurde abgelehnt."
 msgid "Voting participant has been deleted."
 msgstr "Abstimmungsteilnehmer_in wurde gelöscht."
 
+# This has no full stop at the end, but the very similar "Reminder to Group leader has been sent." does end with it. Is that on purpose or shouldn't it be both the same way?
 #: application/modules/admin/controllers/VotingController.php:265
 msgid "Reminder to Voter has been sent"
-msgstr ""
+msgstr "Erinnerung an Abstimmende_n wurde versandt"
 
 #: application/modules/admin/controllers/VotingController.php:269
 msgid "Reminder to Group leader has been sent."
-msgstr ""
+msgstr "Erinnerung an Gruppenverantwortliche_n wurde versandt."
 
 #: application/modules/admin/controllers/VotingController.php:376
 msgid "No question was selected."
@@ -1027,7 +1030,7 @@ msgstr "Speichern und zurück zur Übersicht"
 #: application/modules/admin/forms/Question.php:30
 #: application/modules/admin/views/scripts/input/index.phtml:43
 #: application/modules/admin/views/scripts/question/index.phtml:36
-#: application/modules/admin/views/scripts/votingprepare/index.phtml:30
+#: application/modules/admin/views/scripts/votingprepare/index.phtml:31
 msgid "Question"
 msgstr "Frage"
 
@@ -1325,19 +1328,19 @@ msgstr "Videos in Beiträgen zulassen"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:28
 msgid "Primary color"
-msgstr ""
+msgstr "Primärfarbe"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:35
 msgid "Accent color 1"
-msgstr ""
+msgstr "Akzentfarbe 1"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:42
 msgid "Accent color 2"
-msgstr ""
+msgstr "Akzentfarbe 2"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:49
 msgid "Add MitMachen bubble"
-msgstr ""
+msgstr "\"Mitmachen\"-Blase hinzufügen"
 
 #: application/modules/admin/forms/Settings/Services.php:18
 msgid "YouTube"
@@ -1361,7 +1364,7 @@ msgstr ""
 
 #: application/modules/admin/forms/Settings/Site.php:20
 msgid "Application Language"
-msgstr ""
+msgstr "Anwendungssprache"
 
 #: application/modules/admin/forms/Settings/Site.php:27
 msgid "Site Title"
@@ -1408,7 +1411,7 @@ msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:5
 #: application/modules/admin/views/scripts/mail-template/index.phtml:5
 #: application/modules/admin/views/scripts/user/index.phtml:38
-#: application/modules/admin/views/scripts/voting/invitations.phtml:50
+#: application/modules/admin/views/scripts/voting/invitations.phtml:52
 msgid "Email"
 msgstr "E-Mail"
 
@@ -1438,7 +1441,7 @@ msgstr "Rolle"
 #: application/modules/admin/forms/User/Edit.php:48
 #: application/modules/admin/forms/Voting/RightsAdd.php:40
 #: application/modules/admin/views/scripts/user/index.phtml:64
-#: application/modules/admin/views/scripts/voting/index.phtml:42
+#: application/modules/admin/views/scripts/voting/index.phtml:43
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:97
 msgid "User"
 msgstr "User"
@@ -1502,8 +1505,8 @@ msgstr "Zugangscode"
 #: application/modules/admin/forms/Voting/Rights.php:28
 #: application/modules/admin/forms/Voting/RightsAdd.php:68
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:65
-#: application/modules/admin/views/scripts/voting/invitations.phtml:75
-#: application/modules/admin/views/scripts/voting/invitations.phtml:81
+#: application/modules/admin/views/scripts/voting/invitations.phtml:77
+#: application/modules/admin/views/scripts/voting/invitations.phtml:83
 msgid "Group size"
 msgstr "Gruppengröße"
 
@@ -1538,7 +1541,7 @@ msgstr "Durch Komma getrennt, kleinere zuerst, max. %d Zeichen"
 
 #: application/modules/admin/forms/Voting/Settings.php:24
 msgid "Button labels"
-msgstr "Labels der Buttons"
+msgstr "Buttonbeschriftungen"
 
 #: application/modules/admin/forms/Voting/Settings.php:32
 msgid "Superbutton"
@@ -1582,7 +1585,7 @@ msgid "Dashboard"
 msgstr "Übersicht"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:66
-#: application/modules/admin/views/scripts/voting/invitations.phtml:51
+#: application/modules/admin/views/scripts/voting/invitations.phtml:53
 msgid "Permissions"
 msgstr "Berechtigungen"
 
@@ -1669,7 +1672,7 @@ msgstr "Dienste"
 #: application/modules/admin/views/scripts/settings/look-and-feel.phtml:3
 #: application/modules/admin/views/scripts/settings/look-and-feel.phtml:16
 msgid "Look and Feel"
-msgstr ""
+msgstr "Erscheinungsbild"
 
 #: application/modules/admin/views/scripts/_helpers/helpText.phtml:17
 msgid "Close"
@@ -1680,15 +1683,15 @@ msgstr "Schließen"
 msgid "Placeholders"
 msgstr "Platzhalter"
 
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:16
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:19
 msgid "Select"
 msgstr "Auswählen"
 
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:26
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:29
 msgid "Open"
 msgstr "Öffnen"
 
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:61
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:64
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -1872,8 +1875,8 @@ msgstr "Beiträge, die zur Abstimmung zur Verfügung standen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:51
 #: application/modules/admin/views/scripts/consultation/report.phtml:74
-msgid "Final number, after voting preparation"
-msgstr "Endgültige Anzahl (nach Abstimmungsvorbereitung)"
+msgid "All contributions except ones with voting disabled"
+msgstr " Alle Beiträge, außer zur Abstimmung nicht zugelassene"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:64
 msgid "See Contribution"
@@ -2204,8 +2207,8 @@ msgstr "Beitrag löschen"
 
 #: application/modules/admin/views/scripts/input/create.phtml:23
 #: application/modules/admin/views/scripts/input/index.phtml:25
-#: application/modules/admin/views/scripts/votingprepare/merge.phtml:33
-#: application/modules/admin/views/scripts/votingprepare/split.phtml:33
+#: application/modules/admin/views/scripts/votingprepare/merge.phtml:35
+#: application/modules/admin/views/scripts/votingprepare/split.phtml:35
 msgid "New Contribution"
 msgstr "Neuer Beitrag"
 
@@ -2310,7 +2313,7 @@ msgstr "Alle Beiträge auswählen"
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:239
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:252
 msgid "Are you sure?"
-msgstr ""
+msgstr "Sicher?"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:185
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:260
@@ -2365,7 +2368,7 @@ msgid "Contact person"
 msgstr "Ansprechpartner_in"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:47
-#: application/modules/admin/views/scripts/voting/invitations.phtml:80
+#: application/modules/admin/views/scripts/voting/invitations.phtml:82
 msgid "Group name"
 msgstr "Gruppenbezeichnung"
 
@@ -2634,7 +2637,7 @@ msgid "Delete question?"
 msgstr "Frage löschen?"
 
 #: application/modules/admin/views/scripts/question/index.phtml:71
-#: application/modules/admin/views/scripts/votingprepare/index.phtml:49
+#: application/modules/admin/views/scripts/votingprepare/index.phtml:51
 msgid "There are no questions yet."
 msgstr "Es gibt noch keine Fragen."
 
@@ -2655,23 +2658,23 @@ msgstr "Administrative Hilfetexte"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:9
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:12
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:15
 msgid "Header"
-msgstr ""
+msgstr "Kopfbereich"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:18
 msgid "Predefined themes"
-msgstr ""
+msgstr "Vordefinierte Designthemen"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:45
 msgid "Custom Colours"
-msgstr ""
+msgstr "Angepasste Farben"
 
 #: application/modules/admin/views/scripts/settings/services.phtml:3
 msgid "Services Settings"
@@ -2800,70 +2803,70 @@ msgstr "Abstimmungsrechte"
 msgid "new users added recently."
 msgstr "neue Berechtigte kürzlich hinzugefügt"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:43
+#: application/modules/admin/views/scripts/voting/index.phtml:44
 msgid "Voting Weight"
 msgstr "Stimmgewicht"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:44
+#: application/modules/admin/views/scripts/voting/index.phtml:45
 msgid "Access Code"
 msgstr "Zugangscode"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:45
+#: application/modules/admin/views/scripts/voting/index.phtml:46
 msgid "Accepted Size"
 msgstr "Zugelassene Größe"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:46
+#: application/modules/admin/views/scripts/voting/index.phtml:47
 msgid "Stated Size"
 msgstr "Angegebene Größe"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:67
-#: application/modules/admin/views/scripts/voting/invitations.phtml:109
+#: application/modules/admin/views/scripts/voting/index.phtml:68
+#: application/modules/admin/views/scripts/voting/invitations.phtml:111
 #: application/modules/admin/views/scripts/voting/participants.phtml:123
 msgid "Show all contributions by this user"
 msgstr "Alle Beiträge von Nutzer_in anzeigen"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:74
+#: application/modules/admin/views/scripts/voting/index.phtml:75
 msgid "Edit permissions"
 msgstr "Genehmigungen bearbeiten"
 
-#: application/modules/admin/views/scripts/voting/index.phtml:86
+#: application/modules/admin/views/scripts/voting/index.phtml:88
 msgid "There are no permissions to be set."
 msgstr "Keine neuen Berechtigungen vorhanden."
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:34
+#: application/modules/admin/views/scripts/voting/invitations.phtml:35
 msgid "Compose an email for all invited users"
 msgstr "Externe E-Mail an alle Berechtigten senden"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:39
+#: application/modules/admin/views/scripts/voting/invitations.phtml:40
 #: application/modules/admin/views/scripts/voting/sendinvitation.phtml:22
 msgid "Voting Invitations"
 msgstr "Voting-Einladungen"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:49
+#: application/modules/admin/views/scripts/voting/invitations.phtml:51
 msgid "User Name"
 msgstr "Name von Nutzer_in"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:74
+#: application/modules/admin/views/scripts/voting/invitations.phtml:76
 msgid "Voting weight"
 msgstr "Abstimmungsgewicht"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:79
+#: application/modules/admin/views/scripts/voting/invitations.phtml:81
 msgid "Partner"
 msgstr "Partner"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:91
+#: application/modules/admin/views/scripts/voting/invitations.phtml:93
 msgid "Preview and send invitation"
 msgstr "Einladungen ansehen und verschicken"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:100
+#: application/modules/admin/views/scripts/voting/invitations.phtml:102
 msgid "Do you really want to send invitation to this user?"
 msgstr "Willst du wirklich Einladung an diesen User schicken?"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:101
+#: application/modules/admin/views/scripts/voting/invitations.phtml:103
 msgid "Send invitation"
 msgstr "Einladung schicken"
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:122
+#: application/modules/admin/views/scripts/voting/invitations.phtml:125
 msgid "There are no participants to be invited."
 msgstr "Es stehen keine Teilnehmer_innen zur Auswahl für eine Einladung."
 
@@ -2940,7 +2943,7 @@ msgstr "Abstimmungsteilnehmer_innen zusammenführen"
 #: application/modules/admin/views/scripts/voting/participants.phtml:139
 #: application/modules/admin/views/scripts/voting/participants.phtml:148
 msgid "Send reminder"
-msgstr ""
+msgstr "Erinnerung senden"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:163
 msgid "There are no participants yet."
@@ -3130,6 +3133,9 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Final number, after voting preparation"
+#~ msgstr "Endgültige Anzahl (nach Abstimmungsvorbereitung)"
 
 # Please make it shorter in English (it's clear that admin needs to be contacted).
 # In case one or more of the services is greyed out and cannot be activated, it is probably due to misconfiguration of service access applications in the ePartool configuration files.

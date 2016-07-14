@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-07-11 18:46+0200\n"
-"PO-Revision-Date: 2016-07-11 18:46+0200\n"
+"POT-Creation-Date: 2016-07-14 13:27+0200\n"
+"PO-Revision-Date: 2016-07-14 13:40+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -34,7 +34,7 @@ msgstr "Keine Beteiligungsrunde angegeben!"
 
 #: application/modules/default/controllers/FollowupController.php:84
 msgid "There are no questions in this consultation."
-msgstr ""
+msgstr "Es gibt keine Fragestellungen in dieser Beteiligungsrunde."
 
 #: application/modules/default/controllers/FollowupController.php:396
 msgid "File does not exist."
@@ -310,7 +310,7 @@ msgstr ""
 
 #: application/modules/default/controllers/VotingController.php:137
 msgid "Access to this account has been denied by Group Leader."
-msgstr ""
+msgstr "Dieser Zugang wurde von den Gruppenverantwortlichen verweigert."
 
 #: application/modules/default/controllers/VotingController.php:153
 #: application/modules/default/controllers/VotingController.php:157
@@ -384,27 +384,27 @@ msgstr "User konnte nicht gefunden werden."
 
 #: application/modules/default/controllers/VotingController.php:693
 msgid "No votes to process."
-msgstr ""
+msgstr "Keine Stimmen zur Verarbeitung."
 
 #: application/modules/default/controllers/VotingController.php:702
 msgid "Voter not found."
-msgstr ""
+msgstr "Abstimmende_n nicht gefunden."
 
 #: application/modules/default/controllers/VotingController.php:708
 msgid "No votes to handle."
-msgstr ""
+msgstr "Keine Stimmen zu verarbeiten."
 
 #: application/modules/default/controllers/VotingController.php:711
 msgid "Cannot find group leader."
-msgstr ""
+msgstr "Gruppenverantwortliche_r nicht gefunden."
 
 #: application/modules/default/controllers/VotingController.php:714
 msgid "Cannot find voting group."
-msgstr ""
+msgstr "Abstimmungsgruppe nicht gefunden."
 
 #: application/modules/default/controllers/VotingController.php:717
 msgid "No voting rights found."
-msgstr ""
+msgstr "Keine Abstimmungsberechtigungen gefunden."
 
 #: application/modules/default/controllers/VotingController.php:737
 #: application/modules/default/controllers/VotingController.php:796
@@ -415,27 +415,27 @@ msgstr "Der angew&auml;hlte Link aus ist nicht korrekt."
 
 #: application/modules/default/controllers/VotingController.php:753
 msgid "Votes were confirmed."
-msgstr ""
+msgstr "Stimmabgabe wurde bestätigt."
 
 #: application/modules/default/controllers/VotingController.php:756
 msgid "Votes confirmation error."
-msgstr ""
+msgstr "Fehler bei der Bestätigung der Stimmabgabe."
 
 #: application/modules/default/controllers/VotingController.php:763
 msgid "Votes were deleted."
-msgstr ""
+msgstr "Die Stimmen wurden gelöscht."
 
 #: application/modules/default/controllers/VotingController.php:766
 msgid "Votes deleting error."
-msgstr ""
+msgstr "Fehler beim Löschen der Stimmen."
 
 #: application/modules/default/controllers/VotingController.php:769
 msgid "Invalid action invoked."
-msgstr ""
+msgstr "Ungültige Aktion aufgerufen."
 
 #: application/modules/default/controllers/VotingController.php:777
 msgid "No unconfirmed votes to process."
-msgstr ""
+msgstr "Keine unbestätigten Stimmen zu verarbeiten."
 
 #: application/modules/default/controllers/VotingController.php:836
 msgid "Voting results are not available yet."
@@ -472,19 +472,19 @@ msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben erläutern"
 
 #: application/modules/default/forms/Input/Create.php:130
 msgid "Your video"
-msgstr ""
+msgstr "Dein Video"
 
 #: application/modules/default/forms/Input/Create.php:136
 msgid "Video ID"
-msgstr ""
+msgstr "Video-ID"
 
 #: application/modules/default/forms/Input/Create.php:143
 msgid "Explain your contribution"
-msgstr ""
+msgstr "Erläutere deinen Beitrag"
 
 #: application/modules/default/forms/Input/Create.php:150
 msgid "Your contribution"
-msgstr ""
+msgstr "Dein Beitrag"
 
 #: application/modules/default/forms/Input/Discussion.php:23
 msgid "Your discussion post"
@@ -708,6 +708,11 @@ msgstr "Keine Neuigkeiten hierzu mehr erhalten"
 msgid "Confirm"
 msgstr "Bestätigen"
 
+#: application/modules/default/forms/UrlkeyAction/ConfirmInputDiscussionContribution.php:20
+#: application/modules/default/views/scripts/user/userlist.phtml:113
+msgid "Delete"
+msgstr "Löschen"
+
 #: application/modules/default/forms/UrlkeyAction/PasswordReset.php:9
 #, php-format
 msgid "min. %s characters"
@@ -723,15 +728,15 @@ msgstr "Neues Passwort speichern"
 
 #: application/modules/default/forms/UrlkeyAction/UnsubscribeNotification.php:12
 #: application/modules/default/views/scripts/urlkey-action/unsubscribe-notification.phtml:5
-#: application/modules/default/views/scripts/user/notifications.phtml:30
-#: application/modules/default/views/scripts/user/notifications.phtml:73
-#: application/modules/default/views/scripts/user/notifications.phtml:115
+#: application/modules/default/views/scripts/user/notifications.phtml:38
+#: application/modules/default/views/scripts/user/notifications.phtml:89
+#: application/modules/default/views/scripts/user/notifications.phtml:133
 msgid "Unsubscribe"
 msgstr "Abbestellen"
 
 #: application/modules/default/forms/VotesConfirmation.php:20
 msgid "Cancel votes"
-msgstr ""
+msgstr "Stimmabgabe verwerfen"
 
 #: application/modules/default/forms/Voting/Authentification.php:26
 msgid "Access code"
@@ -803,7 +808,7 @@ msgstr "Infos"
 #: application/modules/default/views/helpers/SecondNavigation.php:30
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:101
 #: application/modules/default/views/scripts/index/search.phtml:53
-#: application/modules/default/views/scripts/user/notifications.phtml:51
+#: application/modules/default/views/scripts/user/notifications.phtml:59
 msgid "Questions"
 msgstr "Fragen"
 
@@ -825,7 +830,7 @@ msgstr "Abstimmung"
 #: application/modules/default/views/scripts/followup/index.phtml:20
 #: application/modules/default/views/scripts/followup/show-by-snippet.phtml:5
 #: application/modules/default/views/scripts/followup/show.phtml:5
-#: application/modules/default/views/scripts/user/notifications.phtml:94
+#: application/modules/default/views/scripts/user/notifications.phtml:110
 msgid "Reactions & Impact"
 msgstr "Reaktionen & Wirkung"
 
@@ -897,11 +902,15 @@ msgstr ""
 "Auf der Suche nach einer anderen Beteiligungsrunde? Alle in der Übersicht "
 "ansehen"
 
-#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:49
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:51
 msgid "Your discussion post was confirmed."
 msgstr "Dein Diskussionsbeitrag ist bestätigt."
 
-#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:58
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:64
+msgid "Your discussion post was deleted."
+msgstr ""
+
+#: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:71
 #: application/services/UrlkeyAction/ConfirmNotification.php:44
 #: application/services/UrlkeyAction/ResetPassword.php:45
 msgid "Form invalid."
@@ -956,28 +965,28 @@ msgstr "Anmeldedaten sind inkorrekt."
 msgid "DBJR TOOL Admin"
 msgstr "ePartool Administration"
 
-#: application/layouts/scripts/backend.phtml:45
-#: application/layouts/scripts/frontend.phtml:91
+#: application/layouts/scripts/backend.phtml:40
+#: application/layouts/scripts/frontend.phtml:87
 msgid "Menu"
 msgstr "Menü"
 
-#: application/layouts/scripts/backend.phtml:53
+#: application/layouts/scripts/backend.phtml:48
 msgid "ePartool admin dashboard"
 msgstr "ePartool Admin Dashboard"
 
-#: application/layouts/scripts/backend.phtml:67
+#: application/layouts/scripts/backend.phtml:62
 msgid "Open site in a new tab"
 msgstr "Öffne Site in einem neuen Tab"
 
-#: application/layouts/scripts/backend.phtml:69
+#: application/layouts/scripts/backend.phtml:64
 msgid "Homepage"
 msgstr "Startseite"
 
-#: application/layouts/scripts/backend.phtml:88
+#: application/layouts/scripts/backend.phtml:83
 msgid "Log off"
 msgstr "Ausloggen"
 
-#: application/layouts/scripts/backend.phtml:116
+#: application/layouts/scripts/backend.phtml:111
 msgid "Go to ePartool's developer site"
 msgstr "Zur ePartool-Entwickler-Website"
 
@@ -987,53 +996,53 @@ msgid "Close"
 msgstr "Schließen"
 
 #: application/layouts/scripts/frontend-help-modal.phtml:10
-#: application/layouts/scripts/frontend.phtml:211
+#: application/layouts/scripts/frontend.phtml:207
 #: application/modules/default/views/scripts/_helpers/login.phtml:12
 #: application/modules/default/views/scripts/_partials/pageLinks.phtml:8
 msgid "Help"
 msgstr "Hilfe"
 
-#: application/layouts/scripts/frontend.phtml:71
-#: application/layouts/scripts/frontend.phtml:177
+#: application/layouts/scripts/frontend.phtml:67
+#: application/layouts/scripts/frontend.phtml:173
 msgid "Home"
 msgstr "Startseite"
 
-#: application/layouts/scripts/frontend.phtml:93
+#: application/layouts/scripts/frontend.phtml:89
 msgid "What"
 msgstr "Was"
 
-#: application/layouts/scripts/frontend.phtml:94
+#: application/layouts/scripts/frontend.phtml:90
 msgid "We"
 msgstr "Wir"
 
+#: application/layouts/scripts/frontend.phtml:92
 #: application/layouts/scripts/frontend.phtml:96
-#: application/layouts/scripts/frontend.phtml:100
 msgid "With You"
 msgstr "Mit euch"
 
-#: application/layouts/scripts/frontend.phtml:97
-#: application/layouts/scripts/frontend.phtml:99
+#: application/layouts/scripts/frontend.phtml:93
+#: application/layouts/scripts/frontend.phtml:95
 msgid "Do"
 msgstr "Machen"
 
-#: application/layouts/scripts/frontend.phtml:111
+#: application/layouts/scripts/frontend.phtml:107
 msgid "Search…"
 msgstr "Suchbegriff..."
 
-#: application/layouts/scripts/frontend.phtml:113
+#: application/layouts/scripts/frontend.phtml:109
 msgid "Search"
 msgstr "Suchbegriff"
 
-#: application/layouts/scripts/frontend.phtml:133
-#: application/layouts/scripts/frontend.phtml:202
+#: application/layouts/scripts/frontend.phtml:129
+#: application/layouts/scripts/frontend.phtml:198
 msgid "Participation"
 msgstr "Mitmachen"
 
-#: application/layouts/scripts/frontend.phtml:186
+#: application/layouts/scripts/frontend.phtml:182
 msgid "Share"
 msgstr "Share"
 
-#: application/layouts/scripts/frontend.phtml:263
+#: application/layouts/scripts/frontend.phtml:259
 msgid "Creative Commons license 4.0: attribution, non-commercial"
 msgstr ""
 "Creative Commons 4.0: Namensnennung, nicht kommerziell, keine Bearbeitung"
@@ -1074,11 +1083,11 @@ msgstr "Meine Gruppe"
 msgid "My Subscriptions"
 msgstr "Meine Abonnements"
 
-#: application/modules/default/views/scripts/_helpers/user-box.phtml:51
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:52
 msgid "Admin"
 msgstr "Admin-Bereich"
 
-#: application/modules/default/views/scripts/_helpers/user-box.phtml:59
+#: application/modules/default/views/scripts/_helpers/user-box.phtml:60
 msgid "Logout"
 msgstr "Ausloggen"
 
@@ -1195,7 +1204,7 @@ msgstr "Das möchte ich gerne diskutieren!"
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:126
 #: application/modules/default/views/scripts/input/show.phtml:174
 msgid "View discussion"
-msgstr ""
+msgstr "Diskussion anzeigen"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:143
 #: application/modules/default/views/scripts/input/show.phtml:187
@@ -1394,6 +1403,8 @@ msgid ""
 "You can set your nick name in <a href=\"%s\" class=\"alert-link\">My "
 "Profile</a> to be displayed along with your comment."
 msgstr ""
+"Der anzuzeigende Name kann in <a href=\"%s\" class=\"alert-link\">Mein "
+"Profil</a> eingestellt werden."
 
 #: application/modules/default/views/scripts/input/edit.phtml:12
 msgid "Edit contribution"
@@ -1451,19 +1462,19 @@ msgstr "Passwort zurücksetzen"
 msgid "My Contributions"
 msgstr "Meine Beiträge"
 
-#: application/modules/default/views/scripts/user/activity.phtml:18
+#: application/modules/default/views/scripts/user/activity.phtml:19
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: application/modules/default/views/scripts/user/activity.phtml:41
+#: application/modules/default/views/scripts/user/activity.phtml:42
 msgid "You have no confirmed contributions."
 msgstr "Du hast unbestätigte Beiträge."
 
-#: application/modules/default/views/scripts/user/activity.phtml:48
+#: application/modules/default/views/scripts/user/activity.phtml:49
 msgid "My Discussion Posts"
 msgstr "Meine Diskussionsbeiträge"
 
-#: application/modules/default/views/scripts/user/activity.phtml:83
+#: application/modules/default/views/scripts/user/activity.phtml:85
 msgid "You have no confirmed discussion posts."
 msgstr "Du hast keine bestätigten Diskussionsbeiträge."
 
@@ -1471,32 +1482,42 @@ msgstr "Du hast keine bestätigten Diskussionsbeiträge."
 msgid "Send me an update when someone adds new discussion post"
 msgstr "Nachricht erhalten, wenn ein neuer Diskussionsbeitrag vorhanden ist"
 
-#: application/modules/default/views/scripts/user/notifications.phtml:28
+#: application/modules/default/views/scripts/user/notifications.phtml:19
+#: application/modules/default/views/scripts/user/notifications.phtml:70
+msgid "Contribution in"
+msgstr "Beitrag in"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:25
+#: application/modules/default/views/scripts/user/notifications.phtml:76
+msgid "Consultation"
+msgstr "Beteiligungsrunde"
+
+#: application/modules/default/views/scripts/user/notifications.phtml:36
 msgid "Unsubscribe from Contribution Discussion?"
 msgstr "Diskussion zum Beitrag abbestellen?"
 
-#: application/modules/default/views/scripts/user/notifications.phtml:41
-#: application/modules/default/views/scripts/user/notifications.phtml:83
-#: application/modules/default/views/scripts/user/notifications.phtml:126
+#: application/modules/default/views/scripts/user/notifications.phtml:49
+#: application/modules/default/views/scripts/user/notifications.phtml:99
+#: application/modules/default/views/scripts/user/notifications.phtml:144
 msgid "You are not subscribed to any notifications."
 msgstr "Du hast keine Benachrichtigungen abonniert."
 
-#: application/modules/default/views/scripts/user/notifications.phtml:53
+#: application/modules/default/views/scripts/user/notifications.phtml:61
 msgid ""
 "Sends notification when new contribution to particular questions is made"
 msgstr ""
 "Versendet Nachricht, wenn ein neuer Beitrag zu bestimmten Fragen gemacht "
 "wurde"
 
-#: application/modules/default/views/scripts/user/notifications.phtml:71
+#: application/modules/default/views/scripts/user/notifications.phtml:87
 msgid "Unsubscribe from Question?"
 msgstr "Frage abbestellen?"
 
-#: application/modules/default/views/scripts/user/notifications.phtml:96
+#: application/modules/default/views/scripts/user/notifications.phtml:112
 msgid "When new document is added"
 msgstr "Wenn ein neues Dokument hinzugefügt wird"
 
-#: application/modules/default/views/scripts/user/notifications.phtml:113
+#: application/modules/default/views/scripts/user/notifications.phtml:131
 msgid "Unsubscribe from follow-up?"
 msgstr "Reaktionen abbestellen?"
 
@@ -1586,13 +1607,9 @@ msgstr "Abstimmungsteilnehmer_in zulassen?"
 msgid "Delete voting participant?"
 msgstr "Bewertungen löschen?"
 
-#: application/modules/default/views/scripts/user/userlist.phtml:113
-msgid "Delete"
-msgstr "Löschen"
-
 #: application/modules/default/views/scripts/voting/confirmmember.phtml:4
 msgid "This group member has been confirmed."
-msgstr ""
+msgstr "Dieses Gruppenmitglied wurde bestätigt."
 
 #: application/modules/default/views/scripts/voting/confirmmember.phtml:6
 #, php-format
@@ -1625,13 +1642,16 @@ msgstr "Zurück zur Startseite"
 
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:9
 msgid "Confirmation of your votes."
-msgstr ""
+msgstr "Bestätigung deiner Stimmen."
 
+# The English label needs improvement. Our proposal is: "Here you can check your previous votes. Please confirm or delete them with the buttons below."
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:10
 msgid ""
 "Here you can check your previous inserted votes. Please confirm or delete "
 "them with buttons below."
 msgstr ""
+"Hier kannst du deine vorherige Stimmabgabe überprüfen. Bitte bestätige oder "
+"lösche sie mit Hilfe der entsprechenden Buttons."
 
 #: application/modules/default/views/scripts/voting/index.phtml:11
 msgid "View voting results"
