@@ -5,21 +5,21 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
     /**
      * @var array
      */
-    private $userOprions;
+    private $userOptions;
 
     public function __construct($users)
     {
-        $this->userOprions = [];
+        $this->userOptions = [];
         foreach ($users as $user) {
-            $this->userOprions[$user['uid']] = '';
+            $this->userOptions[$user['uid']] = '';
             if ($user['name'] !== null) {
-                $this->userOprions[$user['uid']] .= $user['name'];
+                $this->userOptions[$user['uid']] .= $user['name'];
             }
             if (!empty($user['email'])) {
-                if (!empty($this->userOprions[$user['uid']])) {
-                    $this->userOprions[$user['uid']] .= ' <' . $user['email'] . '>';
+                if (!empty($this->userOptions[$user['uid']])) {
+                    $this->userOptions[$user['uid']] .= ' <' . $user['email'] . '>';
                 } else {
-                    $this->userOprions[$user['uid']] .= $user['email'];
+                    $this->userOptions[$user['uid']] .= $user['email'];
                 }
             }
         }
@@ -30,6 +30,8 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
+        $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
+
         $this->setMethod('post');
 
         $consultation = $this->createElement('hidden', 'kid');
@@ -39,15 +41,21 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
         $user
             ->setLabel('User')
             ->setAttrib('data-onload-select2', '{}')
-            ->setMultiOptions($this->userOprions);
+            ->setMultiOptions($this->userOptions);
         $this->addElement($user);
 
-        $weight = $this->createElement('text', 'vt_weight');
-        $weight
-            ->setLabel('Weight')
-            ->setRequired(true)
-            ->addValidator('Int');
-        $this->addElement($weight);
+        if ($formSettings['allow_groups']) {
+            $weight = $this->createElement('text', 'vt_weight');
+            $weight
+                ->setLabel('Weight')
+                ->setRequired(true)
+                ->addValidator('Int');
+            $this->addElement($weight);
+        } else {
+            $weight = $this->createElement('hidden', 'vt_weight');
+            $weight->setValue(1);
+            $this->addElement($weight);
+        }
 
         $accessCode = $this->createElement('text', 'vt_code');
         $accessCode
@@ -63,20 +71,22 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
             ));
         $this->addElement($accessCode);
 
-        $groupSize = $this->createElement('select', 'grp_siz');
-        $groupSize
-            ->setLabel('Group size')
-            ->setMultiOptions(
-                [
-                    '1' => '1-2',
-                    '10' => $translator->translate('bis') . ' 10',
-                    '30' => $translator->translate('bis') . ' 30',
-                    '80' => $translator->translate('bis') . ' 80',
-                    '150' => $translator->translate('bis') . ' 150',
-                    '200' => $translator->translate('über') . ' 150',
-                ]
-            );
-        $this->addElement($groupSize);
+        if ($formSettings['allow_groups']) {
+            $groupSize = $this->createElement('select', 'grp_siz');
+            $groupSize
+                ->setLabel('Group size')
+                ->setMultiOptions(
+                    [
+                        '1' => '1-2',
+                        '10' => $translator->translate('bis') . ' 10',
+                        '30' => $translator->translate('bis') . ' 30',
+                        '80' => $translator->translate('bis') . ' 80',
+                        '150' => $translator->translate('bis') . ' 150',
+                        '200' => $translator->translate('über') . ' 150',
+                    ]
+                );
+            $this->addElement($groupSize);
+        }
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));

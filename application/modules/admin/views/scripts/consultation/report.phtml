@@ -100,7 +100,8 @@
                         <strong><?=$this->translate('Groups that have voting rights and number of actually participating ones');?></strong>
                     </a>
                 </p>
-
+                
+                <?php if ($this->projectSettings['allow_groups']) : ?>
                 <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
                 <table>
                     <?php foreach ($this->weightCounts as $weight): ?>
@@ -124,6 +125,7 @@
                         </tr>
                     <?php endforeach; ?>
                 </table>
+                <?php endif; ?>
 
             </div>
         </div>
