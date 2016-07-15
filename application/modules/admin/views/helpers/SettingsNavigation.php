@@ -53,9 +53,9 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'look-and-feel']),
             ),
             array(
-                'name' => 'finishContribution',
-                'label' => $this->view->translate('Finish contribution'),
-                'href' => $this->view->url(['controller' => 'settings', 'action' => 'finish-contribution']),
+                'name' => 'contributionSubmissionForm',
+                'label' => $this->view->translate('Contribution Submission Form'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'contribution-submission-form']),
             ),
         );
 
