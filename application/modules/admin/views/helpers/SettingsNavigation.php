@@ -9,55 +9,55 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
      */
     public function settingsNavigation($activeItem = null)
     {
-        $items = array(
-            array(
+        $items = [
+            [
                 'name' => 'site',
                 'label' => $this->view->translate('Site'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'index')),
-            ),
-            array(
+            ],
+            [
                 'name' => 'pages',
                 'label' => $this->view->translate('Pages'),
                 'href' => $this->view->url(array('controller' => 'article', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'article', 'action' => 'create')),
-            ),
-            array(
+            ],
+            [
                 'name' => 'keywords',
                 'label' => $this->view->translate('Keywords'),
                 'href' => $this->view->url(array('controller' => 'tag', 'action' => 'index')),
                 'new_item' => $this->view->url(array('controller' => 'tag', 'action' => 'create')),
-            ),
+            ],
+            [
+                'name' => 'contribution',
+                'label' => $this->view->translate('Contribution'),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'contribution-submission-form']),
+            ],
             [
                 'name' => 'voting',
                 'label' => $this->view->translate('Voting'),
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'voting']),
             ],
-            array(
+            [
                 'name' => 'helpTexts',
                 'label' => $this->view->translate('Help Texts'),
                 'href' => $this->view->url(array('controller' => 'settings', 'action' => 'help-text-index')),
-            ),
-            array(
+            ],
+            [
                 'name' => 'footer',
                 'label' => $this->view->translate('Footer'),
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'footer', 'id' => null]),
-            ),
-            array(
+            ],
+            [
                 'name' => 'services',
                 'label' => $this->view->translate('Services'),
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'services']),
-            ),
-            array(
+            ],
+            [
                 'name' => 'lookAndFeel',
                 'label' => $this->view->translate('Look and Feel'),
                 'href' => $this->view->url(['controller' => 'settings', 'action' => 'look-and-feel']),
-            ),
-            array(
-                'name' => 'contributionSubmissionForm',
-                'label' => $this->view->translate('Contribution Submission Form'),
-                'href' => $this->view->url(['controller' => 'settings', 'action' => 'contribution-submission-form']),
-            ),
-        );
+            ],
+        ];
 
         return $this->view->secondaryNavigation($items, $activeItem);
     }

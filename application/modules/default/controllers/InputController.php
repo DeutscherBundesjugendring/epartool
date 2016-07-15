@@ -401,8 +401,9 @@ class InputController extends Zend_Controller_Action
 
             $inputModel = new Model_Inputs();
             $confirmKey = $inputModel->getConfirmationKey();
+
+            $inputModel->getAdapter()->beginTransaction();
             try {
-                $inputModel->getAdapter()->beginTransaction();
                 foreach ($sessInputs->inputs as $input) {
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
                     $input['confirmation_key'] = $confirmKey;
@@ -410,23 +411,23 @@ class InputController extends Zend_Controller_Action
                     $inputModel->add($input);
                 }
                 $inputModel->getAdapter()->commit();
-
-                if ($auth->hasIdentity()) {
-                    $qiSent = [];
-                    foreach ($sessInputs->inputs as $input) {
-                        if (!in_array($input['qi'], $qiSent)) {
-                            $qiSent[] = $input['qi'];
-                            (new Service_Notification_InputCreatedNotification())->notify(
-                                [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
-                            );
-                        }
-                    }
-                }
-                unset($sessInputs->inputs);
             } catch (Exception $e) {
                 $inputModel->getAdapter()->rollback();
                 throw $e;
             }
+
+            if ($auth->hasIdentity()) {
+                $qiSent = [];
+                foreach ($sessInputs->inputs as $input) {
+                    if (!in_array($input['qi'], $qiSent)) {
+                        $qiSent[] = $input['qi'];
+                        (new Service_Notification_InputCreatedNotification())->notify(
+                            [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
+                        );
+                    }
+                }
+            }
+            unset($sessInputs->inputs);
 
             $sessInputs->confirmKey = $confirmKey;
             $registerForm = new Default_Form_Register();
@@ -441,7 +442,6 @@ class InputController extends Zend_Controller_Action
                 $registerForm->populate($user);
                 $registerForm->lockEmailField();
             }
-            $registerForm->customizeByProjectSettings();
             $this->view->registerForm = $registerForm;
         } elseif ($regFormData->register) {
             // If submited registration form was invalid, the redirect from UserController::register()

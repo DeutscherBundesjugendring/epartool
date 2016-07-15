@@ -1025,6 +1025,36 @@ WHERE `theme_id` IS NULL AND color_accent_1 IS NULL AND color_accent_2 IS NULL A
 -- Migration 2016-07-13_13-47_DBJR-824.sql
 ALTER TABLE `proj` ADD `state_label` varchar(255) DEFAULT NULL;
 
+<<<<<<< HEAD
+-- Migration 2016-07-13_15-00_DBJR-825.sql
+ALTER TABLE `proj`
+ADD `field_switch_name` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_age` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_state` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_comments` tinyint(1) NOT NULL DEFAULT '1';
+
+ALTER TABLE `proj`
+ADD `allow_groups` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_contribution_origin` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_individuals_num` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_group_name` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_contact_person` tinyint(1) NOT NULL DEFAULT '1';
+
+ALTER TABLE `proj`
+ADD `field_switch_notification` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `proj`
+ADD `field_switch_newsletter` tinyint(1) NOT NULL DEFAULT '1';
+
+
+ALTER TABLE `proj` CHANGE `state_label` `state_field_label` varchar(255) NULL AFTER `locale`;
+
 -- Migration 2016-07-14_15-07_DBJR-827.sql
 CREATE TABLE `license` (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
