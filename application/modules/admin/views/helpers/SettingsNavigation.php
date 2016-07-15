@@ -30,7 +30,7 @@ class Admin_View_Helper_SettingsNavigation extends Zend_View_Helper_Abstract
             [
                 'name' => 'contribution',
                 'label' => $this->view->translate('Contribution'),
-                'href' => $this->view->url(['controller' => 'settings', 'action' => 'Contribution']),
+                'href' => $this->view->url(['controller' => 'settings', 'action' => 'contribution-submission-form']),
             ],
             [
                 'name' => 'voting',
