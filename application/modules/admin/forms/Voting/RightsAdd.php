@@ -32,8 +32,6 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
 
         $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
 
-        $this->setMethod('post');
-
         $consultation = $this->createElement('hidden', 'kid');
         $this->addElement($consultation);
 

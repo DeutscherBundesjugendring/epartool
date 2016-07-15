@@ -4,8 +4,6 @@ class Admin_Form_Media_Delete extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $this->setMethod('post');
-
         $file = $this->createElement('hidden', 'file');
         $this->addElement($file);
 

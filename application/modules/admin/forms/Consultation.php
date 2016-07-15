@@ -4,9 +4,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $this
-            ->setMethod('post')
-            ->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
+        $this->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
 
         $title = $this->createElement('text', 'titl');
         $title
@@ -194,7 +192,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         self::addCssClass($discussionTo, 'js-discussion-dates');
         $this->addElement($discussionTo);
-        
+
         $enableVideo = $this->createElement('checkbox', 'discussion_video_enabled');
         $enableVideo
             ->setLabel('Allow videos in Discussion')

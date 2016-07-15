@@ -5,8 +5,6 @@ class Admin_Form_ConsultationPhases extends Dbjr_Form_Admin
 
     public function init()
     {
-        $this->setMethod('post');
-
         $enableNames = $this->createElement('checkbox', 'enableCustomNames');
         $enableNames->setLabel('Enable custom phase names');
         self::addCssClass($enableNames, 'js-enable-custom-consultation-phase-names');

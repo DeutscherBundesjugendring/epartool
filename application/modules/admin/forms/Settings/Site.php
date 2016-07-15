@@ -6,9 +6,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this
-            ->setMethod('post')
-            ->setAttrib('class', 'offset-bottom');
+        $this->setAttrib('class', 'offset-bottom');
 
 
         $desc = $translator->translate(

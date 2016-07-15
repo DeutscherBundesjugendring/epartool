@@ -7,8 +7,6 @@ class Admin_Form_Tag extends Dbjr_Form_Admin
     {
 
         $this
-            ->setMethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/tag/create')
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/tag']);
 

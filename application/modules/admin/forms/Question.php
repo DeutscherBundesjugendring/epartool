@@ -13,7 +13,7 @@ class Admin_Form_Question extends Dbjr_Form_Admin
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
-        $this->setMethod('post')
+        $this
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/question/index/kid/' . $this->_kid]);
 

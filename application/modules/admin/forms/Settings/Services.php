@@ -4,14 +4,11 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
 {
 
     protected $videoServiceAccess;
-    
+
     public function init()
     {
         $this->videoServiceAccess = true;
-        $this
-            ->setMethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/settings/services')
-            ->setAttrib('class', 'offset-bottom');
+        $this->setAttrib('class', 'offset-bottom');
 
         $youtube = $this->createElement('checkbox', 'video_youtube_enabled');
         $youtube
@@ -20,7 +17,7 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
         $this->addElement($youtube);
 
         $systemConfig = (new Zend_Registry ())->get('systemconfig');
-        
+
         $vimeo = $this->createElement('checkbox', 'video_vimeo_enabled');
         $vimeo
             ->setLabel('Vimeo')
@@ -58,7 +55,7 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
             ->setLabel('Save');
         $this->addElement($submit);
     }
-    
+
     public function getVideosServiceAccess()
     {
         return $this->videoServiceAccess;

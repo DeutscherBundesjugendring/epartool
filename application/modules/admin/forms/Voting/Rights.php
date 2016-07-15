@@ -6,8 +6,6 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post');
-
         $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
 
         if ($formSettings['allow_groups']) {

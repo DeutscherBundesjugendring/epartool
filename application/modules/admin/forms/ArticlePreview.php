@@ -4,8 +4,6 @@ class Admin_Form_ArticlePreview extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $this->setMethod('post');
-
         $id = $this->createElement('hidden', 'art_id');
         $this->addElement($id);
 
