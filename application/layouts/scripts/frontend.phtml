@@ -1,8 +1,12 @@
 <?php $lang = Zend_Registry::get('Zend_Locale')->getLanguage(); ?>
-<?php $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)
+<?php $region = Zend_Registry::get('Zend_Locale')->getRegion(); ?>
+<?php $projectSettings = (new Model_Projects())
+    ->find(Zend_Registry::get('systemconfig')->project)
     ->current()
     ->toArray(); ?>
-<?php $license = (new Model_License())->find($projectSettings['license'])->current()->toArray(); ?>
+<?php
+$license = (new Model_License())->find($projectSettings['license'], $lang . '_' . $region)->current()->toArray();
+?>
 <?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 <!DOCTYPE html>
 <html lang="<?=$lang;?>" itemscope itemtype="https://schema.org/Event">

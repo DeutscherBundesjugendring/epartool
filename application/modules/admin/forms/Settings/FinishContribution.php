@@ -11,9 +11,10 @@ class Admin_Form_Settings_FinishContribution extends Dbjr_Form_Admin
         $this->addElement($stateLabel);
 
         $licenseOptions = [];
-        $licenses = (new Model_License())->fetchAll();
+        $locale = Zend_Registry::get('Zend_Locale');
+        $licenses = (new Model_License())->getLicences($locale->getLanguage() . '_' . $locale->getRegion());
         foreach ($licenses as $license) {
-            $licenseOptions[$license['id']] = $license['title'];
+            $licenseOptions[$license['number']] = $license['title'];
         }
         $license = $this->createElement('select', 'license');
         $license

@@ -154,7 +154,8 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->getLocale()
             ->getLanguage();
 
-        $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)
+        $projectSettings = (new Model_Projects())
+            ->find(Zend_Registry::get('systemconfig')->project)
             ->current()
             ->toArray();
         $license = (new Model_License())->find($projectSettings['license'])->current()->toArray();
