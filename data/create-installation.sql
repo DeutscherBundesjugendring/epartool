@@ -1055,7 +1055,7 @@ INSERT INTO `language` (`code`) VALUES ('es_ES'), ('de_DE'), ('en_US');
 ALTER TABLE `proj` ADD INDEX `language_code_fkey` (`locale`);
 ALTER TABLE `proj` CHANGE `locale` `locale` varchar(255) NOT NULL;
 ALTER TABLE `proj` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE `license` ADD `locale` varchar(255) COLLATE 'utf8_general_ci' NOT NULL;
+ALTER TABLE `license` ADD `locale` varchar(255) NOT NULL;
 ALTER TABLE `license` ADD INDEX `language_code_fkey` (`locale`);
 UPDATE `license` SET `locale` = 'en_US';
 ALTER TABLE `license` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
