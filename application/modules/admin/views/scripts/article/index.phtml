@@ -84,11 +84,11 @@
                                                 value="<?=$this->escape($article['art_id']);?>"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete article?');?>"
-                                                <?php if ($article['ref_nm'] === 'article_explanation') : ?>
-                                                    <?php if ((int) $this->mainArticlesSum === 1
-                                                        && $article['hid'] === 'n') : ?>
-                                                        disabled
-                                                    <?php endif; ?>
+                                                <?php if ($article['ref_nm'] === 'article_explanation'
+                                                    && (int) $this->mainArticlesSum === 1
+                                                    && $article['hid'] === 'n') :
+                                                ?>
+                                                    disabled
                                                 <?php endif; ?>
                                             >
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -122,11 +122,11 @@
                                                         value="<?=$this->escape($subpage['art_id']);?>"
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Delete article?');?>"
-                                                        <?php if ($article['ref_nm'] === 'article_explanation') : ?>
-                                                            <?php if ($this->mainArticlesSum === 1
-                                                                && $article['hid'] === 'n') : ?>
-                                                                disabled
-                                                            <?php endif; ?>
+                                                        <?php if ($article['ref_nm'] === 'article_explanation'
+                                                            && $this->mainArticlesSum === 1
+                                                            && $article['hid'] === 'n') :
+                                                        ?>
+                                                            disabled
                                                         <?php endif; ?>
                                                     >
                                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
