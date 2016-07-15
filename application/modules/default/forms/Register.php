@@ -139,7 +139,7 @@ class Default_Form_Register extends Dbjr_Form_Web
         if ((bool) $formSettings['field_switch_state']) {
             $regioPax = $this->createElement('text', 'regio_pax');
             $regioPax
-                ->setLabel(!empty($formSettings['state_label']) ? $formSettings['state_label'] : 'State')
+                ->setLabel(!empty($formSettings['state_field_label']) ? $formSettings['state_field_label'] : 'State')
                 ->setFilters(['StripTags', 'HtmlEntities']);
             $this->addElement($regioPax);
         }
@@ -173,7 +173,6 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($comment);
         }
 
-        $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
         $lang = Zend_Controller_Front::getInstance()
             ->getParam('bootstrap')
             ->getPluginResource('locale')
@@ -185,7 +184,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->current()
             ->toArray();
         $license = (new Model_License())->find($projectSettings['license'])->current()->toArray();
-
+        $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
         $ccLicense
             ->setLabel($license['text'])
             ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])

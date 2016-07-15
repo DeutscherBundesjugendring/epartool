@@ -281,7 +281,6 @@ class Admin_SettingsController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
-
     public function contributionSubmissionFormAction()
     {
         $projectModel = new Model_Projects();
@@ -299,6 +298,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                         'state_field_label' => !empty($formData['state_field_label'])
                             ? $formData['state_field_label']
                             : null,
+                        'license' => $formData['license'],
                     ];
                     foreach (['field_switch_name',
                              'field_switch_age',
@@ -314,14 +314,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                              ] as $property) {
                         $data[$property] = !empty($formData[$property]) ? $formData[$property] : 0;
                     }
-                    $projectModel->update(
-                        $data,
-                        [
-                            'state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null,
-                            'license' => $formData['license'],
-                        ],
-                        ['proj=?' => $projectCode]
-                    );
+                    $projectModel->update($data, ['proj=?' => $projectCode]);
                     $db->commit();
                 } catch (Exception $e) {
                     $db->rollback();
