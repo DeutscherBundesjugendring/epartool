@@ -154,14 +154,14 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->getLocale()
             ->getLanguage();
 
-        $label = sprintf(
-            $translator->translate(
-                'The contributions are published under a <a href="%s" target="_blank" title="More about creative commons license">creative commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.'
-            ),
-            Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink
-        );
+        $projectSettings = (new Model_Projects())
+            ->find(Zend_Registry::get('systemconfig')->project)
+            ->current()
+            ->toArray();
+        $license = (new Model_License())->find($projectSettings['license'])->current()->toArray();
+
         $ccLicense
-            ->setLabel($label)
+            ->setLabel($license['text'])
             ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
             ->setCheckedValue('1')
             ->setUnCheckedValue(null)

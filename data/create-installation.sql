@@ -1020,7 +1020,49 @@ ADD `locale` varchar(255) NOT NULL DEFAULT 'en_US';
 
 -- Migration 2016-06-27_14-58_DBJR-807.sql
 UPDATE `proj` SET `theme_id` = (SELECT `id` FROM `theme` ORDER BY `id` LIMIT 1)
-WHERE `theme_id` IS NULL AND color_accent_1 IS NULL AND color_accent_2 IS NULL AND color_primary IS NULL
+WHERE `theme_id` IS NULL AND color_accent_1 IS NULL AND color_accent_2 IS NULL AND color_primary IS NULL;
 
 -- Migration 2016-07-13_13-47_DBJR-824.sql
 ALTER TABLE `proj` ADD `state_label` varchar(255) DEFAULT NULL;
+
+-- Migration 2016-07-14_15-07_DBJR-827.sql
+CREATE TABLE `license` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `text` text NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `icon` varchar(255) NOT NULL,
+  `alt` varchar(255) NOT NULL
+) ENGINE='InnoDB';
+
+ALTER TABLE `proj` ADD `license` int NULL;
+ALTER TABLE `proj` ADD INDEX `proj_license_fkey` (`license`);
+ALTER TABLE `proj` ADD FOREIGN KEY (`license`) REFERENCES `license` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+INSERT INTO `license` (`title`,`description`,`text`,`link`,`icon`,`alt`) VALUES
+('Creative commons license', 'Creative Commons license 4.0: attribution, non-commercial', 'The contributions are published under a creative commons license. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.', 'http://creativecommons.org/licenses/by-nc/4.0/deed.en', 'license_cc.svg','CC-BY-NC 4.0');
+
+UPDATE `proj` SET `license` = (SELECT id FROM `license` WHERE title = 'Creative commons license');
+ALTER TABLE `proj` CHANGE `license` `license` int(11) NOT NULL;
+
+-- Migration 2016-07-15_11-03_DBJR-827.sql
+CREATE TABLE `language` (
+  `code` varchar(255) NOT NULL
+);
+ALTER TABLE `language` ADD PRIMARY KEY `pkey` (`code`);
+INSERT INTO `language` (`code`) VALUES ('es_ES'), ('de_DE'), ('en_US');
+ALTER TABLE `proj` ADD INDEX `language_code_fkey` (`locale`);
+ALTER TABLE `proj` CHANGE `locale` `locale` varchar(255) NOT NULL;
+ALTER TABLE `proj` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `license` ADD `locale` varchar(255) NOT NULL;
+ALTER TABLE `license` ADD INDEX `language_code_fkey` (`locale`);
+UPDATE `license` SET `locale` = 'en_US';
+ALTER TABLE `license` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `license` CHANGE `id` `id` int(11) NOT NULL;
+ALTER TABLE `proj` DROP FOREIGN KEY `proj_ibfk_2`;
+ALTER TABLE `license` DROP INDEX `PRIMARY`;
+ALTER TABLE `license` CHANGE `id` `number` int(11) NOT NULL;
+ALTER TABLE `license` ADD PRIMARY KEY `pkey` (`number`, `locale`);
+ALTER TABLE `proj` ADD FOREIGN KEY (`license`) REFERENCES `license` (`number`) ON DELETE RESTRICT ON UPDATE RESTRICT;
