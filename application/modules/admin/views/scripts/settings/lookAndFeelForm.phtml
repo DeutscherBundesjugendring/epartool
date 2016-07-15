@@ -12,10 +12,10 @@
     <h3><?=$this->translate('Icon');?></h3>
     <?=$this->element->favicon;?>
 
-    <h2><?=$this->translate('Header');?></h2>
+    <h3><?=$this->translate('Header');?></h3>
     <?=$this->element->mitmachen_bubble;?>
 
-    <h2><?=$this->translate('Predefined themes');?></h2>
+    <h3><?=$this->translate('Predefined themes');?></h3>
     <div id="themes" class="row">
         <?php foreach ($this->element->theme_id->options as $themeId => $themeName) : ?>
             <div class="col-sm-4">
@@ -42,7 +42,7 @@
     <?php endforeach; ?>
     </div>
 
-    <h2><?=$this->translate('Custom Colours');?></h2>
+    <h3><?=$this->translate('Custom Colours');?></h3>
     <div class="form-group">
         <label
             <?php if ($this->element->color_primary->isRequired()) : ?>

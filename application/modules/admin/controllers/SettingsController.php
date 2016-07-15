@@ -281,7 +281,7 @@ class Admin_SettingsController extends Zend_Controller_Action
         $this->view->form = $form;
     }
 
-    public function finishContributionAction()
+    public function contributionAction()
     {
         $projectModel = new Model_Projects();
         $projectCode = Zend_Registry::get('systemconfig')->project;
@@ -318,12 +318,13 @@ class Admin_SettingsController extends Zend_Controller_Action
                         ['proj=?' => $projectCode]
                     );
                     $db->commit();
-                    $this->_flashMessenger->addMessage('Form settings was updated.', 'success');
-                    $this->redirect('/admin/settings/finish-contribution');
                 } catch (Exception $e) {
                     $db->rollback();
                     throw $e;
                 }
+
+                $this->_flashMessenger->addMessage('Form settings was updated.', 'success');
+                $this->redirect($this->view->url(['action' => 'contribution']));
             } else {
                 $this->_flashMessenger->addMessage(
                     'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
