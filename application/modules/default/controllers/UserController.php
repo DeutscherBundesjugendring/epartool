@@ -79,19 +79,21 @@ class UserController extends Zend_Controller_Action
                         $userConsultModel = new Model_User_Info();
                         $userConsultRow = $userConsultModel->fetchRow(['uid=?' => $uid, 'kid=?' => $data['kid']]);
                         if ($userConsultRow) {
-                            $userConsultRow->name = $data['name'];
-                            $userConsultRow->age_group = $data['age_group'];
-                            $userConsultRow->regio_pax = $data['regio_pax'];
-                            $userConsultRow->cnslt_results = $data['cnslt_results'];
-                            $userConsultRow->cmnt_ext = $data['cmnt_ext'];
+                            foreach (['age_group', 'regio_pax', 'cmnt_ext', 'cnslt_results', 'name'] as $property) {
+                                if (isset($data[$property])) {
+                                    $userConsultRow->{$property} = $data[$property];
+                                }
+                            }
                             if (isset($data['group_specs'])) {
                                 $userConsultRow->source = is_array($data['group_specs']['source'])
                                     ? implode(',', $data['group_specs']['source'])
                                     : null;
-                                $userConsultRow->src_misc = $data['group_specs']['src_misc'];
-                                $userConsultRow->group_size = $data['group_specs']['group_size'];
-                                $userConsultRow->name_group = $data['group_specs']['name_group'];
-                                $userConsultRow->name_pers = $data['group_specs']['name_pers'];
+
+                                foreach (['src_misc', 'group_size', 'name_group', 'name_pers'] as $property) {
+                                    if (isset($data['group_specs'][$property])) {
+                                        $userConsultRow->{$property} = $data['group_specs'][$property];
+                                    }
+                                }
                             }
                             $userConsultRow->save();
                         } else {

@@ -125,32 +125,30 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     {
         $userConsultData = [
             'uid' => $data['uid'],
-            'name' => $data['name'],
-            'age_group' => $data['age_group'],
-            'newsl_subscr' => $data['newsl_subscr'],
-            'regio_pax' => $data['regio_pax'],
             'kid' => $data['kid'],
             'date_added' => new Zend_Db_Expr('NOW()'),
-            'cmnt_ext' => $data['cmnt_ext'],
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
         ];
-        if (isset($data['cnslt_results'])) {
-            $userConsultData['cnslt_results'] = $data['cnslt_results'];
+
+        foreach (['age_group', 'newsl_subscr', 'regio_pax', 'cmnt_ext', 'cnslt_results', 'name'] as $property) {
+            if (isset($data[$property])) {
+                $userConsultData[$property] = $data[$property];
+            }
         }
 
         // if group then also save group specifications
         if (isset($data['group_specs'])) {
-            $userConsultData = array_merge(
-                $userConsultData,
-                [
-                    'source' => is_array($data['group_specs']['source']) ? implode(',', $data['group_specs']['source']) : null,
-                    'src_misc' => $data['group_specs']['src_misc'],
-                    'group_size' => $data['group_specs']['group_size'],
-                    'name_group' => $data['group_specs']['name_group'],
-                    'name_pers' => $data['group_specs']['name_pers'],
-                ]
-            );
+
+            $userConsultData['source'] = is_array($data['group_specs']['source'])
+                ? implode(',', $data['group_specs']['source'])
+                : null;
+
+            foreach (['src_misc', 'group_size', 'name_group', 'name_pers'] as $property) {
+                if (isset($data['group_specs'][$property])) {
+                    $userConsultData[$property] = $data['group_specs'][$property];
+                }
+            }
         } else {
             $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
         }

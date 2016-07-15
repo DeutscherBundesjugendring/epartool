@@ -230,6 +230,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $votesIndivModel = new Model_Votes_Individual();
         $votesRightsModel = new Model_Votes_Rights();
 
+        $this->view->projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)
+            ->current()
+            ->toArray();
+
         $this->view->assign(array(
             'nrParticipants' => $inputsModel->getCountParticipantsByConsultation($kid),
             'nrInputs' => $inputsModel->getCountContributionsByConsultation($kid),
