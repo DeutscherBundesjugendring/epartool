@@ -43,9 +43,12 @@ class Admin_ArticleController extends Zend_Controller_Action
     public function indexAction()
     {
         $articles = null;
+        $articleModel = new Model_Articles();
         if ($this->_kid > 0) {
             $consultationModel = new Model_Consultations();
             $consultation = $consultationModel->getById($this->_kid);
+            $this->view->mainArticlesSum = $articleModel
+                ->getCountByConsultationAndType($this->_kid, 'article_explanation');
             if (!empty($consultation)) {
                 $this->view->consultation = $consultation;
                 $articles = $consultation['articles'];
@@ -53,7 +56,6 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $this->_redirect($this->_adminIndexURL, array('prependBase' => false));
             }
         } else {
-            $articleModel = new Model_Articles();
             $articles = $articleModel->getAllWithoutConsultation();
         }
 
@@ -149,6 +151,19 @@ class Admin_ArticleController extends Zend_Controller_Action
                 }
                 $form->getElement('parent_id')->setMultiOptions($parentOptions);
                 $isRetFromPreview = $this->getRequest()->getPost('backFromPreview');
+                $article = $articleModel->getById($aid);
+
+                if (!$article) {
+                    $this->_flashMessenger->addMessage('This article does not exists.', 'error');
+                    $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
+                }
+
+                $mainArticleSum = $articleModel->getCountByConsultationAndType($this->_kid, 'article_explanation');
+                if ($article['ref_nm'] === 'article_explanation') {
+                    if ($mainArticleSum === 1 && $article['hid'] === 'n') {
+                        $form->getElement('hid')->setAttrib('disabled', 'disabled');
+                    }
+                }
                 if ($this->getRequest()->isPost() && empty($isRetFromPreview)) {
                     $article = $this->getRequest()->getPost();
                     $article = $this->setProject($article);
@@ -157,10 +172,9 @@ class Admin_ArticleController extends Zend_Controller_Action
                         $articleRow = $articleModel->find($aid)->current();
 
                         if ($articleRow['ref_nm'] === 'article_explanation') {
-                            if ($articleModel->getCountByConsultationAndType($articleRow['kid'], 'article_explanation') === 1
-                                && $articleRow['hid'] === 'n' && $values['hid'] === 'y') {
+                            if ($mainArticleSum === 1 && $articleRow['hid'] === 'n' && $values['hid'] === 'y') {
                                 $this->_flashMessenger->addMessage('This article could not be hidden.', 'error');
-                                $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
+                                $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                             }
                         }
 
@@ -176,10 +190,9 @@ class Admin_ArticleController extends Zend_Controller_Action
                     if ($articlePreviewForm->isValid($article)) {
                         $article['proj'] = unserialize($article['proj']);
                     } else {
-                        $this->_redirect('admin');
+                        $this->redirect('admin');
                     }
                 } else {
-                    $article = $articleModel->getById($aid);
                     $article['artcl'] = $this->articleService->placeholderToBasePath($article['artcl']);
                     $article['sidebar'] = $this->articleService->placeholderToBasePath($article['sidebar']);
                     $article['proj'] = explode(',', $article['proj']);
