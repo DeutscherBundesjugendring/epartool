@@ -51,6 +51,21 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
                 ->setRequired(true)
                 ->addValidator('Int');
             $this->addElement($weight);
+
+            $groupSize = $this->createElement('select', 'grp_siz');
+            $groupSize
+                ->setLabel('Group size')
+                ->setMultiOptions(
+                    [
+                        '1' => '1-2',
+                        '10' => $translator->translate('bis') . ' 10',
+                        '30' => $translator->translate('bis') . ' 30',
+                        '80' => $translator->translate('bis') . ' 80',
+                        '150' => $translator->translate('bis') . ' 150',
+                        '200' => $translator->translate('über') . ' 150',
+                    ]
+                );
+            $this->addElement($groupSize);
         } else {
             $weight = $this->createElement('hidden', 'vt_weight');
             $weight->setValue(1);
@@ -70,23 +85,6 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
                 ]
             ));
         $this->addElement($accessCode);
-
-        if ($formSettings['allow_groups']) {
-            $groupSize = $this->createElement('select', 'grp_siz');
-            $groupSize
-                ->setLabel('Group size')
-                ->setMultiOptions(
-                    [
-                        '1' => '1-2',
-                        '10' => $translator->translate('bis') . ' 10',
-                        '30' => $translator->translate('bis') . ' 30',
-                        '80' => $translator->translate('bis') . ' 80',
-                        '150' => $translator->translate('bis') . ' 150',
-                        '200' => $translator->translate('über') . ' 150',
-                    ]
-                );
-            $this->addElement($groupSize);
-        }
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_votingrights', array('salt' => 'unique'));

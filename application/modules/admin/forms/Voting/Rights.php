@@ -17,17 +17,7 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
                 ->setRequired(true)
                 ->addValidator('Int');
             $this->addElement($weight);
-        }
 
-        $accessCode = $this->createElement('text', 'vt_code');
-        $accessCode
-            ->setLabel('Access code')
-            ->setRequired(true)
-            ->addValidator('Alnum')
-            ->addValidator('StringLength', false, ['min' => 8]);
-        $this->addElement($accessCode);
-
-        if ($formSettings['allow_groups']) {
             $groupSize = $this->createElement('select', 'grp_siz');
             $groupSize
                 ->setLabel('Group size')
@@ -44,6 +34,14 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
                 );
             $this->addElement($groupSize);
         }
+
+        $accessCode = $this->createElement('text', 'vt_code');
+        $accessCode
+            ->setLabel('Access code')
+            ->setRequired(true)
+            ->addValidator('Alnum')
+            ->addValidator('StringLength', false, ['min' => 8]);
+        $this->addElement($accessCode);
 
         $groupSizeUser = $this->createElement('text', 'group_size_user');
         $groupSizeUser

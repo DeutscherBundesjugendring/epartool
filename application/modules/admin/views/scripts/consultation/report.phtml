@@ -102,29 +102,29 @@
                 </p>
                 
                 <?php if ($this->projectSettings['allow_groups']) : ?>
-                <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
-                <table>
-                    <?php foreach ($this->weightCounts as $weight): ?>
-                        <tr>
-                            <th scope="row">
-                                <?php switch ($weight['vt_weight']) {
-                                    case 0:
-                                        echo $this->translate('Test accounts');
-                                        break;
-                                    case 1:
-                                        echo $this->translate('Individuals');
-                                        break;
-                                    default:
-                                        echo $this->translate('Group weight') . ' ' . $weight["vt_weight"];
-                                        break;
-                                } ?>:
-                            </th>
-                            <td>
-                                <span class="offset-left-large"><?php echo $weight['participating_count']; ?> / <?php echo $weight['weight_count']; ?></span>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>
+                    <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
+                    <table>
+                        <?php foreach ($this->weightCounts as $weight): ?>
+                            <tr>
+                                <th scope="row">
+                                    <?php switch ($weight['vt_weight']) {
+                                        case 0:
+                                            echo $this->translate('Test accounts');
+                                            break;
+                                        case 1:
+                                            echo $this->translate('Individuals');
+                                            break;
+                                        default:
+                                            echo $this->translate('Group weight') . ' ' . $weight["vt_weight"];
+                                            break;
+                                    } ?>:
+                                </th>
+                                <td>
+                                    <span class="offset-left-large"><?php echo $weight['participating_count']; ?> / <?php echo $weight['weight_count']; ?></span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
                 <?php endif; ?>
 
             </div>
