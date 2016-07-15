@@ -4,7 +4,7 @@ class Admin_Form_Settings_ContributionSubmission extends Dbjr_Form_Admin
 {
     public function init()
     {
-        $this->setDecorators(array(array('ViewScript', array('viewScript' => 'settings/contributionSubmissionForm.phtml'))));
+        $this->setDecorators([['ViewScript', ['viewScript' => 'settings/contributionSubmissionForm.phtml']]]);
 
         $stateLabel = $this->createElement('text', 'state_field_label');
         $stateLabel->setLabel('State field label');
@@ -54,6 +54,19 @@ class Admin_Form_Settings_ContributionSubmission extends Dbjr_Form_Admin
         $element = $this->createElement('checkbox', 'field_switch_notification');
         $element->setLabel('Display field notification');
         $this->addElement($element);
+
+        $licenseOptions = [];
+        $locale = Zend_Registry::get('Zend_Locale');
+        $licenses = (new Model_License())->getLicences($locale->getLanguage() . '_' . $locale->getRegion());
+        foreach ($licenses as $license) {
+            $licenseOptions[$license['number']] = $license['title'];
+        }
+        $license = $this->createElement('select', 'license');
+        $license
+            ->setLabel('License')
+            ->setRequired(true)
+            ->setMultiOptions($licenseOptions);
+        $this->addElement($license);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_contributionsubmissionformadmin', array('salt' => 'unique'));

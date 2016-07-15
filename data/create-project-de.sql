@@ -1,7 +1,16 @@
 SET @project_code = 'xx';
 
-INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`) VALUES
-(@project_code,  'ePartool (default)',   'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?', 'de_DE');
+INSERT INTO `license` (`title`,`description`,`text`,`link`,`icon`,`alt`) VALUES
+('Creative commons license', 'Creative Commons license 4.0: attribution, non-commercial', 'The contributions are published under a creative commons license. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.', 'http://creativecommons.org/licenses/by-nc/4.0/deed.en', 'license_cc.svg','CC-BY-NC 4.0');
+
+INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`, `license`) VALUES
+    (
+        @project_code,
+        'ePartool (default)',
+        'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?',
+        'de_DE',
+        (SELECT id FROM `license` WHERE title = 'Creative commons license')
+    );
 
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
 VALUES

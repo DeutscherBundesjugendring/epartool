@@ -67,7 +67,7 @@ class Admin_SettingsController extends Zend_Controller_Action
         );
 
         $this->view->helpTexts = $helpTexts;
-        
+
         $helpTextAdminModel = new Model_HelpText();
         $helpTextsAdmin = $helpTextAdminModel->fetchAll(
             $helpTextModel
@@ -214,7 +214,7 @@ class Admin_SettingsController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
-    
+
     public function lookAndFeelAction()
     {
         $projectModel = new Model_Projects();
@@ -237,21 +237,21 @@ class Admin_SettingsController extends Zend_Controller_Action
                     $data['color_primary'] = mb_substr($formData['color_primary'], 1);
                     $data['color_accent_2'] = mb_substr($formData['color_accent_2'], 1);
                 }
-                
+
                 if (!empty($formData['logo'])) {
                     $data['logo'] = $formData['logo'];
                 }
-                
+
                 if (!empty($formData['favicon'])) {
                     $data['favicon'] = $formData['favicon'];
                 }
-                
+
                 if (!empty($formData['mitmachen_bubble'])) {
                     $data['mitmachen_bubble'] = true;
                 } else {
                     $data['mitmachen_bubble'] = false;
                 }
-                
+
                 try {
                     $projectModel->update($data, ['proj=?' => $projectCode]);
                     $db->commit();
@@ -316,6 +316,10 @@ class Admin_SettingsController extends Zend_Controller_Action
                     }
                     $projectModel->update(
                         $data,
+                        [
+                            'state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null,
+                            'license' => $formData['license'],
+                        ],
                         ['proj=?' => $projectCode]
                     );
                     $db->commit();

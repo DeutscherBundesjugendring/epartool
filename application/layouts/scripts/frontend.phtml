@@ -1,4 +1,12 @@
 <?php $lang = Zend_Registry::get('Zend_Locale')->getLanguage(); ?>
+<?php $region = Zend_Registry::get('Zend_Locale')->getRegion(); ?>
+<?php $projectSettings = (new Model_Projects())
+    ->find(Zend_Registry::get('systemconfig')->project)
+    ->current()
+    ->toArray(); ?>
+<?php
+$license = (new Model_License())->find($projectSettings['license'], $lang . '_' . $region)->current()->toArray();
+?>
 <?php $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName(); ?>
 <!DOCTYPE html>
 <html lang="<?=$lang;?>" itemscope itemtype="https://schema.org/Event">
@@ -257,12 +265,12 @@
 
                 <li class="licence">
                     <a
-                        href="<?=Zend_Registry::get('systemconfig')->content->$lang->creativeCommonsLicenseLink;?>"
+                        href="<?=$license['link'];?>"
                         rel="license"
                         target="_blank"
-                        title="<?=$this->translate('Creative Commons license 4.0: attribution, non-commercial');?>"
+                        title="<?=$license['description'];?>"
                         >
-                        <img src="<?=$this->baseUrl('images/licence.svg');?>" width="98" height="34" alt="CC-BY-NC 4.0" />
+                        <img src="<?=$this->baseUrl('images/' . $license['icon']);?>" width="98" height="34" alt="<?=$license['alt'];?>" />
                     </a>
                 </li>
             </ul>
