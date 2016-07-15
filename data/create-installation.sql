@@ -1050,3 +1050,6 @@ ALTER TABLE `proj`
 ADD `field_switch_notification` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `proj`
 ADD `field_switch_newsletter` tinyint(1) NOT NULL DEFAULT '1';
+
+-- Migration 2016-07-15_10-35_DBJR-825.sql
+ALTER TABLE `proj` CHANGE `state_label` `state_field_label` varchar(255) NULL AFTER `locale`;

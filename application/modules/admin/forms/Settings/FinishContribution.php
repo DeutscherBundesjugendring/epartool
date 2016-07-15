@@ -12,9 +12,8 @@ class Admin_Form_Settings_FinishContribution extends Dbjr_Form_Admin
             ->setAttrib('class', 'offset-bottom')
             ->setAttrib('enctype', 'multipart/form-data');
 
-        $stateLabel = $this->createElement('text', 'state_label');
-        $stateLabel
-            ->setLabel('State label');
+        $stateLabel = $this->createElement('text', 'state_field_label');
+        $stateLabel->setLabel('State field label');
         $this->addElement($stateLabel);
 
         $element = $this->createElement('checkbox', 'field_switch_name');

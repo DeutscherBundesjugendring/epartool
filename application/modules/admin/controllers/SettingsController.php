@@ -294,9 +294,12 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $db = $projectModel->getAdapter();
                 $db->beginTransaction();
                 try {
-                    $data = ['state_label' => !empty($formData['state_label']) ? $formData['state_label'] : null];
-                    foreach (['state_label',
-                             'field_switch_name',
+                    $data = [
+                        'state_field_label' => !empty($formData['state_field_label'])
+                            ? $formData['state_field_label']
+                            : null,
+                    ];
+                    foreach (['field_switch_name',
                              'field_switch_age',
                              'field_switch_state',
                              'field_switch_comments',
