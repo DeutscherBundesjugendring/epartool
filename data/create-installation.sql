@@ -1025,7 +1025,6 @@ WHERE `theme_id` IS NULL AND color_accent_1 IS NULL AND color_accent_2 IS NULL A
 -- Migration 2016-07-13_13-47_DBJR-824.sql
 ALTER TABLE `proj` ADD `state_label` varchar(255) DEFAULT NULL;
 
-<<<<<<< HEAD
 -- Migration 2016-07-13_15-00_DBJR-825.sql
 ALTER TABLE `proj`
 ADD `field_switch_name` tinyint(1) NOT NULL DEFAULT '1';
@@ -1055,7 +1054,7 @@ ADD `field_switch_newsletter` tinyint(1) NOT NULL DEFAULT '1';
 
 ALTER TABLE `proj` CHANGE `state_label` `state_field_label` varchar(255) NULL AFTER `locale`;
 
--- Migration 2016-07-14_15-07_DBJR-827.sql
+-- Migration 2016-07-14_15-07_DBJR-827.sql + Migration 2016-07-15_11-03_DBJR-827.sql + 2016-07-15_16-40_DBJR-827.sql
 CREATE TABLE `license` (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `title` varchar(255) NOT NULL,
@@ -1070,16 +1069,13 @@ ALTER TABLE `proj` ADD `license` int NULL;
 ALTER TABLE `proj` ADD INDEX `proj_license_fkey` (`license`);
 ALTER TABLE `proj` ADD FOREIGN KEY (`license`) REFERENCES `license` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-INSERT INTO `license` (`title`,`description`,`text`,`link`,`icon`,`alt`) VALUES
-('Creative commons license', 'Creative Commons license 4.0: attribution, non-commercial', 'The contributions are published under a creative commons license. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.', 'http://creativecommons.org/licenses/by-nc/4.0/deed.en', 'license_cc.svg','CC-BY-NC 4.0');
-
 UPDATE `proj` SET `license` = (SELECT id FROM `license` WHERE title = 'Creative commons license');
 ALTER TABLE `proj` CHANGE `license` `license` int(11) NOT NULL;
 
--- Migration 2016-07-15_11-03_DBJR-827.sql
 CREATE TABLE `language` (
   `code` varchar(255) NOT NULL
 );
+
 ALTER TABLE `language` ADD PRIMARY KEY `pkey` (`code`);
 INSERT INTO `language` (`code`) VALUES ('es_ES'), ('de_DE'), ('en_US');
 ALTER TABLE `proj` ADD INDEX `language_code_fkey` (`locale`);
@@ -1087,7 +1083,6 @@ ALTER TABLE `proj` CHANGE `locale` `locale` varchar(255) NOT NULL;
 ALTER TABLE `proj` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE `license` ADD `locale` varchar(255) NOT NULL;
 ALTER TABLE `license` ADD INDEX `language_code_fkey` (`locale`);
-UPDATE `license` SET `locale` = 'en_US';
 ALTER TABLE `license` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `license` CHANGE `id` `id` int(11) NOT NULL;
@@ -1096,3 +1091,25 @@ ALTER TABLE `license` DROP INDEX `PRIMARY`;
 ALTER TABLE `license` CHANGE `id` `number` int(11) NOT NULL;
 ALTER TABLE `license` ADD PRIMARY KEY `pkey` (`number`, `locale`);
 ALTER TABLE `proj` ADD FOREIGN KEY (`license`) REFERENCES `license` (`number`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+INSERT INTO `license` (`number`,`title`,`description`,`text`,`link`,`icon`,`alt`,`locale`)
+VALUES
+    (
+        1,
+        'Creative Commons license',
+        'Creative Commons license 4.0: attribution, non-commercial',
+        'The contributions are published under a <a href=\"http://creativecommons.org/licenses/by-nc/4.0/deed.en\" target=\"_blank\" title=\"More about Creative Commons license\">Creative Commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.',
+        'http://creativecommons.org/licenses/by-nc/4.0/deed.en',
+        'license_cc.svg',
+        'CC-BY-NC 4.0',
+        'es_ES'
+    ), (
+        1,
+        'Creative-Commons-Lizenz',
+        'Creative Commons 4.0: Namensnennung, nicht kommerziell, keine Bearbeitung',
+        'Die Beiträge werden unter einer <a href=\"http://creativecommons.org/licenses/by-nc/4.0/deed.de\" target=\"_blank\" title=\"Mehr über die Creative-Commons-Lizenz erfahren\">Creative-Commons-Lizenz</a> veröffentlicht. Das bedeutet, dass eure Beiträge in Zusammenfassungen und Publikationen zu nicht-kommerziellen Zwecken weiterverwendet werden dürfen.          "Da alle Beiträge hier anonym veröffentlicht werden, wird auch bei Weiterverwendung als Quelle nur diese Website genannt werden.',
+        'http://creativecommons.org/licenses/by-nc/4.0/deed.de',
+        'license_cc.svg',
+        'CC-BY-NC 4.0',
+        'de_DE'
+    );
