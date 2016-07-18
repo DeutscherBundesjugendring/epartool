@@ -173,17 +173,18 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($comment);
         }
 
-        $lang = Zend_Controller_Front::getInstance()
+        $locale = Zend_Controller_Front::getInstance()
             ->getParam('bootstrap')
             ->getPluginResource('locale')
-            ->getLocale()
-            ->getLanguage();
-
+            ->getLocale();
         $projectSettings = (new Model_Projects())
             ->find(Zend_Registry::get('systemconfig')->project)
             ->current()
             ->toArray();
-        $license = (new Model_License())->find($projectSettings['license'])->current()->toArray();
+        $license = (new Model_License())
+            ->find($projectSettings['license'], $locale->getLanguage() . '_' . $locale->getRegion())
+            ->current()
+            ->toArray();
         $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
         $ccLicense
             ->setLabel($license['text'])
