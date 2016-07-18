@@ -1,0 +1,171 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dbjr install\n"
+"POT-Creation-Date: 2016-05-12 17:47+0200\n"
+"PO-Revision-Date: 2016-05-13 11:30+0200\n"
+"Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-KeywordsList: translate;setLabel\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: src/Form/InstallForm.php:19
+msgid "Hostname"
+msgstr "Server"
+
+#: src/Form/InstallForm.php:25
+msgid "Database Name"
+msgstr "Datenbankname"
+
+#: src/Form/InstallForm.php:31 src/Form/InstallForm.php:135
+msgid "Username"
+msgstr "User-Name"
+
+#: src/Form/InstallForm.php:37 src/Form/InstallForm.php:140
+msgid "Password"
+msgstr "Passwort"
+
+#: src/Form/InstallForm.php:44
+msgid "Database"
+msgstr "Datenbank"
+
+#: src/Form/InstallForm.php:51
+msgid "Language"
+msgstr "Sprache"
+
+#: src/Form/InstallForm.php:52
+msgid "English"
+msgstr "Englisch"
+
+#: src/Form/InstallForm.php:52
+msgid "German"
+msgstr "Deutsch"
+
+#: src/Form/InstallForm.php:57
+msgid "Cron key"
+msgstr "Cron Key"
+
+#: src/Form/InstallForm.php:65
+msgid "Application"
+msgstr "Anwendung"
+
+#: src/Form/InstallForm.php:72
+msgid "Email From Address"
+msgstr "E-Mail \"Von\"-Adresse"
+
+#: src/Form/InstallForm.php:78
+msgid "Email From Name"
+msgstr "E-Mail \"Von\"-Name"
+
+#: src/Form/InstallForm.php:84
+msgid "Email Reply To Address"
+msgstr "E-Mail \"Antwort an\"-Adresse"
+
+#: src/Form/InstallForm.php:90
+msgid "Email Reply To Name"
+msgstr "E-Mail \"Antwort an\"-Name"
+
+#: src/Form/InstallForm.php:97
+msgid "System Email"
+msgstr "System E-Mail"
+
+#: src/Form/InstallForm.php:104
+msgid "Auth Type"
+msgstr "Authentifizierungstyp"
+
+#: src/Form/InstallForm.php:106
+msgid "Please select..."
+msgstr "Bitte auswählen…"
+
+#: src/Form/InstallForm.php:115
+msgid "Port"
+msgstr "Port"
+
+#: src/Form/InstallForm.php:120
+msgid "SSL"
+msgstr "SSL-Verschlüsselung"
+
+#: src/Form/InstallForm.php:122
+msgid "None"
+msgstr "Nichts"
+
+#: src/Form/InstallForm.php:130
+msgid "Host"
+msgstr "Server"
+
+#: src/Form/InstallForm.php:146
+msgid "Smtp Settings (If unsure, leave blank)"
+msgstr "SMTP-Einstellungen (ggf. leer lassen)"
+
+#: src/Form/InstallForm.php:153
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#: src/Form/InstallForm.php:165
+msgid "Facebook App Secret"
+msgstr "Facebook App Secret"
+
+#: src/Form/InstallForm.php:176
+msgid "Google Client ID"
+msgstr "Google Client ID"
+
+#: src/Form/InstallForm.php:187
+msgid "Google Client Secret"
+msgstr "Google Client Secret"
+
+#: src/Form/InstallForm.php:199
+msgid "Social network login"
+msgstr "Login mit sozialen Netzwerken"
+
+#: src/Form/InstallForm.php:206
+msgid "Name"
+msgstr "Name"
+
+#: src/Form/InstallForm.php:212
+msgid "Email"
+msgstr "E-Mail"
+
+#: src/Form/InstallForm.php:219
+msgid "Administrator"
+msgstr "Administrator_in"
+
+#: src/Form/InstallForm.php:232
+msgid "Install"
+msgstr "Installieren"
+
+#: views/layouts/base.phtml:8 views/layouts/base.phtml:21
+msgid "TOOL Installation Wizard"
+msgstr "ePartool Installation"
+
+#: views/scripts/already-installed.phtml:3
+msgid "The application seems to be already installed."
+msgstr "Die Anwendung scheint bereits installiert zu sein."
+
+#: views/scripts/file-permissions.phtml:1
+msgid ""
+"Please make sure all of the folders below exist and are writable by the php "
+"process."
+msgstr ""
+"Bitte sicherstellen, dass alle Verzeichnisse existieren und für PHP  "
+"Schreibrechte vorhanden sind."
+
+#: views/scripts/file-permissions.phtml:25
+msgid "Continue"
+msgstr "Fortsetzen"
+
+#: views/scripts/step-3.phtml:4
+msgid ""
+"The installation is finished. Please make sure to delete the install folder "
+"from your website root folder."
+msgstr ""
+"Die Installation ist abgeschlossen. Bitte das Verzeichnis \"install\" vom "
+"Webserver löschen."
+
+#: views/scripts/step-3.phtml:6
+msgid "Go to my site"
+msgstr "Zur neuen Startseite"

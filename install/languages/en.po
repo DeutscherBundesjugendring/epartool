@@ -1,0 +1,113 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dbjr install\n"
+"POT-Creation-Date: 2015-06-29 18:10+0100\n"
+"PO-Revision-Date: 2015-06-29 18:10+0100\n"
+"Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: translate;setLabel\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Install_Form.php:14
+msgid "Hostname"
+msgstr ""
+
+#: Install_Form.php:20
+msgid "Database Name"
+msgstr ""
+
+#: Install_Form.php:26
+msgid "Username"
+msgstr ""
+
+#: Install_Form.php:32
+msgid "Password"
+msgstr ""
+
+#: Install_Form.php:39
+msgid "Database settings"
+msgstr ""
+
+#: Install_Form.php:46
+msgid "Language"
+msgstr ""
+
+#: Install_Form.php:47
+msgid "English"
+msgstr ""
+
+#: Install_Form.php:47
+msgid "German"
+msgstr ""
+
+#: Install_Form.php:52
+msgid "Cron key"
+msgstr ""
+
+#: Install_Form.php:59
+msgid "Tool settings"
+msgstr ""
+
+#: Install_Form.php:66
+msgid "Email From Address"
+msgstr ""
+
+#: Install_Form.php:72
+msgid "Email From Name"
+msgstr ""
+
+#: Install_Form.php:78
+msgid "Email Reply To Address"
+msgstr ""
+
+#: Install_Form.php:84
+msgid "Email Reply To Name"
+msgstr ""
+
+#: Install_Form.php:91
+msgid "Email settings"
+msgstr ""
+
+#: Install_Form.php:98
+msgid "Facebook App Id"
+msgstr ""
+
+#: Install_Form.php:103
+msgid "Facebook App Secret"
+msgstr ""
+
+#: Install_Form.php:108
+msgid "Google Client Id"
+msgstr ""
+
+#: Install_Form.php:113
+msgid "Google Client Secret"
+msgstr ""
+
+#: Install_Form.php:119
+msgid "Webservice settings"
+msgstr ""
+
+#: Install_Form.php:131
+msgid "Install"
+msgstr ""
+
+#: views/scripts/step-3.phtml:2
+msgid ""
+"The installation is finished. Please make sure to delete the install folder "
+"from your website root folder."
+msgstr ""
+
+#: views/scripts/already-installed.phtml:1
+msgid "The application seems to be already installed."
+msgstr ""
+
+#: views/layouts/base.phtml:4 views/layouts/base.phtml:13
+msgid "TOOL Installation wizard"
+msgstr ""

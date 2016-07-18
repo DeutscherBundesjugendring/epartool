@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title><?=$this->translate('TOOL Installation Wizard');?></title>
+
+    <link href="www/css/style.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.ico');?>" />
+    <link rel="shortcut icon" href="<?=$this->baseUrl('project/images/icon/favicon.png');?>" />
+</head>
+
+<body class="has-footer-sticky">
+    <main role="main">
+
+        <section class="section-header">
+            <div class="container">
+                <h1 class="section-header-title"><?=$this->translate('TOOL Installation Wizard');?></h1>
+            </div>
+        </section>
+        <section class="section-content">
+            <div class="container">
+                <?=$this->layout()->content;?>
+            </div>
+        </section>
+
+    </main>
+
+    <footer role="contentinfo" class="footer footer-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    © DBJR <?=date('Y');?>
+
+                </div>
+                <div class="col-sm-6">
+
+                    <a href="http://www.visionapps.cz" target="_blank" class="footer-author" title="Created by VisionApps">
+                        <img src="www/images/visionapps.svg" width="100" height="18" alt="VisionApps" />
+                    </a>
+
+                </div>
+            </div><!-- .row -->
+        </div>
+    </footer>
+</body>
+
+</html>

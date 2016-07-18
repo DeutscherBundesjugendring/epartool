@@ -1,2 +1,22 @@
+# If the application is run in a subfolder, set it here. Make sure the folder name begins and ends with a slash.
+# For example: /my-folder/
+# RewriteBase /
+Options -MultiViews
+
 RewriteEngine On
-RewriteRule ^(.*)$ www/$1 [L]
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^js/(.*)$           www/js/$1 [L]
+RewriteRule ^images/(.*)$       www/images/$1 [L]
+RewriteRule ^image_cache/(.*)$  www/image_cache/$1 [L]
+RewriteRule ^vendor/(.*)$       www/vendor/$1 [L]
+RewriteRule ^components/(.*)$   www/components/$1 [L]
+# RewriteRule ^components/(.*)$   vendor/dbjr/tool/www/components/$1 [L]
+RewriteRule ^css/(.*)$          www/css/$1 [L]
+RewriteRule ^font/(.*)$         www/font/$1 [L]
+RewriteRule ^robots.txt$        www/robots.txt [L]
+RewriteRule ^media.php?(.*)$    www/media.php [L]
+
+RewriteRule !(^media)|(\.(js|ico|gif|jpg|png|css|pdf))$   index.php  [NC,L]

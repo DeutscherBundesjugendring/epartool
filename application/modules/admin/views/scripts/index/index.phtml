@@ -42,7 +42,7 @@
                                     title="<?=$this->translate('Open media manager for');?> <?=$this->escape($consultation['titl']);?>"
                                 >
                                     <img
-                                        src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . '/' . $consultation['img_file'];?>"
+                                        src="<?=$this->baseUrl();?>/www/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . $consultation['img_file'];?>"
                                         class="img-responsive img-thumbnail offset-bottom"
                                         alt="<?=$this->escape($consultation['img_expl']);?>"
                                         />

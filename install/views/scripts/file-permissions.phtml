@@ -1,0 +1,36 @@
+<h3 class="offset-bottom"><?=$this->translate('Please make sure all of the folders below exist and are writable by the php process.');?></h3>
+
+<ul class="list-unstyled offset-bottom-large">
+	<li>
+        <span class="glyphicon glyphicon-<?=$this->configPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code>project/configs</code>
+    </li>
+	<li>
+        <span class="glyphicon glyphicon-<?=$this->logPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code>runtime/logs</code>
+    </li>
+	<li>
+        <span class="glyphicon glyphicon-<?=$this->cachePathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code>runtime/cache</code>
+    </li>
+	<li>
+        <span class="glyphicon glyphicon-<?=$this->sessionPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code>runtime/sessions</code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->consultationsPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code>media/consultations</code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->foldersPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code>media/folders</code>
+    </li>
+</ul>
+
+<form method="get">
+	<input type="hidden" value="<?=$_GET['locale'];?>" name="locale" />
+	<button type="submit" class="btn btn-primary">
+        <?=$this->translate('Continue');?>
+        <span class="glyphicon glyphicon-menu-right icon-vertically-aligned"></span>
+    </button>
+</form>
