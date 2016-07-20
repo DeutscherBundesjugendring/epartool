@@ -299,6 +299,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                             ? $formData['state_field_label']
                             : null,
                         'license' => $formData['license'],
+                        'contribution_confirmation_info' => $formData['contribution_confirmation_info'],
                     ];
                     foreach (['field_switch_name',
                              'field_switch_age',

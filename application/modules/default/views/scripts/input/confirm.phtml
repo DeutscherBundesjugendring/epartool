@@ -16,12 +16,8 @@
                 <?=$this->translate('Please fill in the form in order to confirm your contributions to this participation round!');?>
             </p>
 
-            <p>
-                <?=$this->translate('If you want to participate as a representative of a group, please fill in the registration form, no matter if the corresponding email address is already registered! The email to confirm the contributions will be sent to the registered email address.');?>
-            </p>
-            <p>
-                <?=$this->translate('If you participated in former participation rounds, and you wish to update information concerning you or your group in this participation round, please fill in the data on person/group. Your data will thus be up-to-date.');?>
-            </p>
+            <?=$this->infoText;?>
+            
             <hr />
 
             <?php if (!Zend_Auth::getInstance()->hasIdentity()): ?>

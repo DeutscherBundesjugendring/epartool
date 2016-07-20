@@ -31,6 +31,13 @@ class Admin_Form_Settings_ContributionSubmission extends Dbjr_Form_Admin
         $element->setLabel('Allow groups');
         $this->addElement($element);
 
+        $element = $this->createElement('textarea', 'contribution_confirmation_info');
+        $element
+            ->setLabel('Contribution confirmation info')
+            ->setAttrib('rows', 5)
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $this->addElement($element);
+
         $element = $this->createElement('checkbox', 'field_switch_contribution_origin');
         $element->setLabel('Display field contribution origin');
         $this->addElement($element);
