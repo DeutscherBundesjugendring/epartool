@@ -179,8 +179,10 @@ class Admin_InputController extends Zend_Controller_Action
         $question = (new Model_Questions())->find($qi)->current();
         $form->setVideoEnabled(
             $question['video_enabled']
-            && ($projectSettings['video_facebook_enabled'] || $projectSettings['video_youtube_enabled']
-                || $projectSettings['video_vimeo_enabled'])
+            && ($projectSettings['video_facebook_enabled']
+                || $projectSettings['video_youtube_enabled']
+                || $projectSettings['video_vimeo_enabled']
+            )
         );
         
         if ($this->_request->isPost()) {
