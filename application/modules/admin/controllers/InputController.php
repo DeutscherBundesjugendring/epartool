@@ -175,8 +175,15 @@ class Admin_InputController extends Zend_Controller_Action
         if (!$qi) {
             $qi = $inputRow['qi'];
         }
-        $question = (new Model_Questions())->find($qi);
-        $form->setVideoEnabled($question['video_enabled']);
+        $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+        $question = (new Model_Questions())->find($qi)->current();
+        $form->setVideoEnabled(
+            $question['video_enabled']
+            && ($projectSettings['video_facebook_enabled']
+                || $projectSettings['video_youtube_enabled']
+                || $projectSettings['video_vimeo_enabled']
+            )
+        );
         
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
