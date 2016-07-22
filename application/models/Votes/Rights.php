@@ -216,7 +216,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
             ->where('vtr.vt_code = ?', $code);
 
         $result = $db->query($select)->fetch();
-        if(!is_array($result)) {
+        if (!is_array($result)) {
             return [];
         }
         
