@@ -6,12 +6,12 @@
                 <?php if ($this->targetElId): ?>
                     <?php // We are in select mode. ?>
                     onclick="mediaSelectPopup.insertValue(
-                        '/<?=$file['dirRefFilename'];?>',
+                        '<?=$file['dirRefFilename'];?>',
                         '<?=$this->targetElId;?>',
                         '<?=$this->lockDir
                             ? ''
-                            : $this->baseUrl() . ($this->targetElId === 'CKEditor' ? MEDIA_URL : '') .
-                                ($file['dirRefDirUrl'] ? '/' . $file['dirRefDirUrl'] : '');?>',
+                            : $this->baseUrl() . ($this->targetElId === 'CKEditor' ? MEDIA_URL . '/' : '') .
+                                ($file['dirRefDirUrl'] ? $file['dirRefDirUrl'] . '/' : '');?>',
                         '<?=$this->mediaPresenter($file, 'admin_media_form_element');?>',
                         '<?=$this->CKEditorFuncNum;?>'
                         )"
