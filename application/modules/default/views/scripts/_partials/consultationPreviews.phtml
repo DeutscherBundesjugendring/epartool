@@ -75,13 +75,14 @@
             <!-- Title image with explanation -->
             <li class="hidden-print">
                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-phases-preview-image">
-                    <?php $image = 'media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid .  '/' .($consultation->img_file);?>
+                    <?php $image = 'media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid .  '/' .($consultation->img_file); ?>
                     <img
-                        src="<?=$this->mediaPresenter($image, 'front_consultation_lowDPI');?>"
+                        src="<?=$this->mediaPresenter($image, 'front_consultation');?>"
                         srcset="
-                            <?=$this->mediaPresenter($image, 'front_consultation_lowDPI');?>,
-                            <?=$this->mediaPresenter($image, 'front_consultation_highDPI');?> 2x
+                            <?=$this->mediaPresenter($image, 'front_consultation');?>,
+                            <?=$this->mediaPresenter($image, 'front_consultation_2x');?> 2x
                         "
+                        class="img-responsive center-block"
                         alt="<?=$this->escape($consultation->img_expl);?>"
                     />
                     <div class="consultation-phases-preview-image-description">

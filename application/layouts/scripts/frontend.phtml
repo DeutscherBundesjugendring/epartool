@@ -79,7 +79,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                         src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
                         srcset="
                             <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>,
-                            <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo_retina');?> 2x
+                            <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo_2x');?> 2x
                         "
                     <?php else : ?>
                         src="<?=$this->baseUrl('images/logo.png');?>"
@@ -166,11 +166,16 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                         <div class="col-sm-12 col-md-3 col-md-pull-6">
 
                             <!-- Image -->
+                            <?php $image = 'media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $this->consultation->kid .  '/' .($this->consultation->img_file); ?>
                             <img
-                                src="<?=$this->baseUrl('media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $this->consultation->kid . '/' . $this->consultation->img_file);?>"
+                                src="<?=$this->mediaPresenter($image, 'front_consultation');?>"
+                                srcset="
+                                    <?=$this->mediaPresenter($image, 'front_consultation');?>,
+                                    <?=$this->mediaPresenter($image, 'front_consultation_2x');?> 2x
+                                "
                                 class="header-box-image hidden-print"
-                                alt="<?=$this->consultation->img_expl;?>"
-                                />
+                                alt="<?=$this->escape($this->consultation->img_expl);?>"
+                            />
 
                         </div>
                         <div class="col-md-3">
