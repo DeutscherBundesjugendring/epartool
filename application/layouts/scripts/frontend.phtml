@@ -28,9 +28,9 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
     <link rel="stylesheet" href="<?=$this->url(['controller' => 'index', 'action' => 'custom-css'], 'default');?>?v=<?=$this->toolVersion();?>" type="text/css" />
 
     <?php if (!empty($this->themeAssets()['favicon'])) : ?>
-        <link rel="icon" href="<?=$this->mediaPresenter('media' . $this->themeAssets()['favicon'], 'favicon');?>" sizes="32x32" type="image/png" />
-        <link rel="apple-touch-icon-precomposed" href="<?=$this->mediaPresenter('media' . $this->themeAssets()['favicon'], 'apple_touch_icon');?>" />
-        <meta name="msapplication-TileImage" content="<?=$this->mediaPresenter('media' . $this->themeAssets()['favicon'], 'ms_touch_icon');?>" />
+        <link rel="icon" href="<?=$this->mediaPresenter('media/' . $this->themeAssets()['favicon'], 'favicon');?>" sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon-precomposed" href="<?=$this->mediaPresenter('media/' . $this->themeAssets()['favicon'], 'apple_touch_icon');?>" />
+        <meta name="msapplication-TileImage" content="<?=$this->mediaPresenter('media/' . $this->themeAssets()['favicon'], 'ms_touch_icon');?>" />
         <meta name="msapplication-TileColor" content="#ffffff" />
     <?php else : ?>
         <link rel="icon" href="<?=$this->baseUrl('images/favicon.png');?>" sizes="32x32" type="image/png" />
@@ -76,10 +76,10 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
             >
                 <img
                     <?php if (!empty($this->themeAssets()['logo'])) : ?>
-                        src="<?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>"
+                        src="<?=$this->mediaPresenter('media/' . $this->themeAssets()['logo'], 'front_logo');?>"
                         srcset="
-                            <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo');?>,
-                            <?=$this->mediaPresenter('media' . $this->themeAssets()['logo'], 'front_logo_retina');?> 2x
+                            <?=$this->mediaPresenter('media/' . $this->themeAssets()['logo'], 'front_logo');?>,
+                            <?=$this->mediaPresenter('media/' . $this->themeAssets()['logo'], 'front_logo_retina');?> 2x
                         "
                     <?php else : ?>
                         src="<?=$this->baseUrl('images/logo.png');?>"
