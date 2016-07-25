@@ -316,9 +316,9 @@ class Service_Media
     private function getdirname($kid, $folder)
     {
         if ($kid && file_exists(MEDIA_PATH . '/' . self::MEDIA_DIR_CONSULTATIONS . '/' . $kid)) {
-            return MEDIA_PATH . '/' . self::MEDIA_DIR_CONSULTATIONS . '/' . $kid;
+            return MEDIA_PATH . '/' . self::MEDIA_DIR_CONSULTATIONS . '/' . $kid . '/';
         } elseif ($folder && file_exists(MEDIA_PATH . '/' . self::MEDIA_DIR_FOLDERS . '/' . $folder)) {
-            return MEDIA_PATH . '/' . self::MEDIA_DIR_FOLDERS . '/' . $folder;
+            return MEDIA_PATH . '/' . self::MEDIA_DIR_FOLDERS . '/' . $folder . '/';
         } else {
             throw new Dbjr_File_Exception('The path can not be obtained.');
         }
