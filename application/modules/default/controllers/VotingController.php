@@ -107,9 +107,12 @@ class VotingController extends Zend_Controller_Action
                 $emailAddress = $this->getRequest()->getParam('email');
                 $authcode = $this->getRequest()->getParam('authcode');
                 $votingRightModel = new Model_Votes_Rights();
-                $votingRights = $votingRightModel->findByCode($authcode);
+                $votingRights = $votingRightModel->findByCodeWithUserData($authcode);
                 // check if votingcode is correct
-                if (!empty($votingRights)) {
+                $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+                if (!empty($votingRights)
+                    && ($projectSettings['allow_groups'] || $votingRights['email'] === $emailAddress)
+                ) {
                     if ($votingRights['kid'] == $this->_consultation->kid) {
                         $votingGroupModel = new Model_Votes_Groups();
                         $votingSubuser = $votingGroupModel->getByEmail(
