@@ -12,7 +12,7 @@
                             ? ''
                             : $this->baseUrl() . ($this->targetElId === 'CKEditor' ? MEDIA_URL . '/' : '') .
                                 ($file['dirRefDirUrl'] ? $file['dirRefDirUrl'] . '/' : '');?>',
-                        '<?=$this->mediaPresenter($file, 'admin_media_form_element_lowDPI');?>',
+                        '<?=$this->mediaPresenter($file, 'admin_media_form_element');?>',
                         '<?=$this->CKEditorFuncNum;?>'
                         )"
                     href="#"
@@ -29,7 +29,7 @@
                     title="<?=$this->translate('Open');?> <?=$this->escape($file['basename']);?>"
                 <?php endif; ?>
             >
-                <div class="thumbnail-image" style="background-image: url(<?=$this->mediaPresenter($file, 'admin_thumbnail_lowDPI');?>);"></div>
+                <div class="thumbnail-image" style="background-image: url(<?=$this->mediaPresenter($file, 'admin_thumbnail');?>);"></div>
                 <div class="caption">
                     <h4 class="thumbnail-title"><?=$this->escape($file['basename']);?></h4>
                     <small class="text-muted">

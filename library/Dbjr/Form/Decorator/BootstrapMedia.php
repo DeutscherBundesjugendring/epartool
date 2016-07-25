@@ -43,7 +43,7 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 ['previewImage' => 'HtmlTag'],
                 [
                     'tag' => 'img',
-                    'src' => (new Application_View_Helper_MediaPresenter())->mediaPresenter($imgPath, 'admin_media_form_element_lowDPI'),
+                    'src' => (new Application_View_Helper_MediaPresenter())->mediaPresenter($imgPath, 'admin_media_form_element'),
                     'placement' => 'append',
                 ]
             )

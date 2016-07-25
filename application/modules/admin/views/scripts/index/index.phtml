@@ -41,11 +41,18 @@
                                     href="<?=$this->url(['controller' => 'media', 'action' => 'index', 'kid' => $kid]);?>"
                                     title="<?=$this->translate('Open media manager for');?> <?=$this->escape($consultation['titl']);?>"
                                 >
+                                    <?php $image = 'media/' . Service_Media::MEDIA_DIR_CONSULTATIONS. '/' .$kid . '/' . $consultation['img_file']; ?>
                                     <img
-                                        src="<?=$this->baseUrl();?>/media/<?=Service_Media::MEDIA_DIR_CONSULTATIONS?>/<?=$kid . '/' . $consultation['img_file'];?>"
+                                        src="<?=$this->mediaPresenter($image, 'admin_consultation');?>"
+                                        srcset="
+                                            <?=$this->mediaPresenter($image, 'admin_consultation');?>,
+                                            <?=$this->mediaPresenter($image, 'admin_consultation_2x');?> 2x
+                                        "
                                         class="img-responsive img-thumbnail offset-bottom"
+                                        width="144"
+                                        height="217"
                                         alt="<?=$this->escape($consultation['img_expl']);?>"
-                                        />
+                                    />
                                 </a>
 
                                 <ul class="nav nav-pills nav-stacked">
