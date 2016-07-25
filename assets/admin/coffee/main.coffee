@@ -241,7 +241,7 @@ class mediaSelectPopup
     ###
     this.insertValue = (filename, targetElId, imgPathPrefixInput, imgPathImage, CKEditorFuncNum) ->
         if targetElId == 'CKEditor'
-            window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum,  imgPathPrefixInput + filename);
+            window.opener.CKEDITOR.tools.callFunction(CKEditorFuncNum,  imgPathPrefixInput + '/' + filename);
         else
             inputEl = $(window.opener.document.getElementById(targetElId))
             inputEl.val(imgPathPrefixInput + filename)
