@@ -15,7 +15,6 @@
 /www/image_cache/*
 /www/images/*
 /www/media/consultations/*
-!/www/media/consultations/1
 /www/media/folders/*
 /www/js/*
 /www/vendor/*
