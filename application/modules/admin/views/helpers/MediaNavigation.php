@@ -21,6 +21,7 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
                         'kid' => null,
                         'folder' => null,
                         'filename' => null,
+                        'CKEditorFuncNum' => $this->view->CKEditorFuncNum,
                     ]
                 ),
             ),
@@ -34,6 +35,7 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
                         'targetElId' => $this->view->targetElId,
                         'folder' => null,
                         'filename' => null,
+                        'CKEditorFuncNum' => $this->view->CKEditorFuncNum,
                     ]
                 ),
             ),
@@ -47,6 +49,7 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
                         'targetElId' => $this->view->targetElId,
                         'kid' => null,
                         'filename' => null,
+                        'CKEditorFuncNum' => $this->view->CKEditorFuncNum,
                     ]
                 ),
                 'new_item' => $this->view->url(
@@ -57,6 +60,7 @@ class Admin_View_Helper_MediaNavigation extends Zend_View_Helper_Abstract
                         'kid' => null,
                         'folder' => null,
                         'filename' => null,
+                        'CKEditorFuncNum' => $this->view->CKEditorFuncNum,
                     ]
                 ),
             ),
