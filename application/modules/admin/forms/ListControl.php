@@ -9,8 +9,6 @@ class Admin_Form_ListControl extends Dbjr_Form_Admin
 
     public function init()
     {
-        $this->setMethod('post');
-
         $hash = $this->createElement('hash', self::CSRF_TOKEN_NAME, array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {

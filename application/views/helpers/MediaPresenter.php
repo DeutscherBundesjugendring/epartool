@@ -45,9 +45,7 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
         if (empty($file['icon'])) {
             $path = $file['dirname'] . '/' . $file['basename'];
             $image = Image::open(is_file($path) ? $path :  APPLICATION_PATH . self::FALLBACK_IMAGE_PATH);
-            if ($contextConf->method === 'zoomCropScale'
-                || ($contextConf->width < $image->width() && $contextConf->height < $image->height())
-            ) {
+            if ($contextConf->method === 'zoomCropScale') {
                 $image->zoomCrop($contextConf->width, $contextConf->height);
             } elseif ($contextConf->method === 'zoomCropFill') {
                 try {

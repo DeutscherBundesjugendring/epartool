@@ -67,7 +67,7 @@ class Admin_SettingsController extends Zend_Controller_Action
         );
 
         $this->view->helpTexts = $helpTexts;
-        
+
         $helpTextAdminModel = new Model_HelpText();
         $helpTextsAdmin = $helpTextAdminModel->fetchAll(
             $helpTextModel
@@ -214,7 +214,7 @@ class Admin_SettingsController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
-    
+
     public function lookAndFeelAction()
     {
         $projectModel = new Model_Projects();
@@ -237,21 +237,21 @@ class Admin_SettingsController extends Zend_Controller_Action
                     $data['color_primary'] = mb_substr($formData['color_primary'], 1);
                     $data['color_accent_2'] = mb_substr($formData['color_accent_2'], 1);
                 }
-                
+
                 if (!empty($formData['logo'])) {
                     $data['logo'] = $formData['logo'];
                 }
-                
+
                 if (!empty($formData['favicon'])) {
                     $data['favicon'] = $formData['favicon'];
                 }
-                
+
                 if (!empty($formData['mitmachen_bubble'])) {
                     $data['mitmachen_bubble'] = true;
                 } else {
                     $data['mitmachen_bubble'] = false;
                 }
-                
+
                 try {
                     $projectModel->update($data, ['proj=?' => $projectCode]);
                     $db->commit();
@@ -276,6 +276,62 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $data['color_accent_2'] = $theme['color_accent_2'];
             }
             $form->populate($data);
+        }
+
+        $this->view->form = $form;
+    }
+
+    public function contributionSubmissionFormAction()
+    {
+        $projectModel = new Model_Projects();
+        $projectCode = Zend_Registry::get('systemconfig')->project;
+
+        $form = new Admin_Form_Settings_ContributionSubmission();
+
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            if ($form->isValid($formData)) {
+                $db = $projectModel->getAdapter();
+                $db->beginTransaction();
+                try {
+                    $data = [
+                        'state_field_label' => !empty($formData['state_field_label'])
+                            ? $formData['state_field_label']
+                            : null,
+                        'license' => $formData['license'],
+                        'contribution_confirmation_info' => $formData['contribution_confirmation_info'],
+                    ];
+                    foreach (['field_switch_name',
+                             'field_switch_age',
+                             'field_switch_state',
+                             'field_switch_comments',
+                             'allow_groups',
+                             'field_switch_contribution_origin',
+                             'field_switch_individuals_num',
+                             'field_switch_group_name',
+                             'field_switch_contact_person',
+                             'field_switch_notification',
+                             'field_switch_newsletter',
+                             ] as $property) {
+                        $data[$property] = !empty($formData[$property]) ? $formData[$property] : 0;
+                    }
+                    $projectModel->update($data, ['proj=?' => $projectCode]);
+                    $db->commit();
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+
+                $this->_flashMessenger->addMessage('Form settings were updated.', 'success');
+                $this->redirect($this->view->url(['action' => 'contribution-submission-form']));
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $form->populate($projectModel->find($projectCode)->current()->toArray());
         }
 
         $this->view->form = $form;

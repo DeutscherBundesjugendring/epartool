@@ -247,4 +247,22 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
     {
         return $this->getByConsultation(null, 'static');
     }
+
+    /**
+     * @param int $consultationId
+     * @param string $ref_nm
+     * @return int
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getCountByConsultationAndType($consultationId, $ref_nm)
+    {
+        $select = $this->select()
+            ->setIntegrityCheck(false)
+            ->from(['a' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('a.kid = ?', $consultationId)
+            ->where('a.ref_nm = ?', $ref_nm)
+            ->where('a.hid = ?', 'n');
+
+        return (int) $this->fetchAll($select)->current()->count;
+    }
 }

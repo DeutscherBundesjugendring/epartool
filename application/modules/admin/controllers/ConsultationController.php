@@ -101,29 +101,52 @@ class Admin_ConsultationController extends Zend_Controller_Action
             $mediaService = new Service_Media();
 
             if ($form->isValid($postData)) {
-                $consultationRow = $consultationModel->createRow($postData);
-                $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
-                $filename = $form->getElement('img_file')->getFileName();
-                if ($filename) {
-                    $consultationRow->img_file = $mediaService->sanitizeFilename($filename);
-                }
-
-                $newKid = $consultationRow->save();
-
-                if ($newKid) {
-                    $mediaService->createDir($newKid);
+                $consultationModel->getAdapter()->beginTransaction();
+                try {
+                    $consultationRow = $consultationModel->createRow($postData);
+                    $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
+                    $filename = $form->getElement('img_file')->getFileName();
                     if ($filename) {
-                        $mediaService->upload(
-                            Dbjr_File::pathinfoUtf8($filename, PATHINFO_BASENAME),
-                            $newKid
-                        );
+                        $consultationRow->img_file = $mediaService->sanitizeFilename($filename);
                     }
 
-                    $this->_flashMessenger->addMessage('New consultation has been created.', 'success');
-                    $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
-                } else {
+                    $newKid = $consultationRow->save();
+
+                    if ($newKid) {
+                        $mediaService->createDir($newKid);
+                        if ($filename) {
+                            $mediaService->upload(
+                                Dbjr_File::pathinfoUtf8($filename, PATHINFO_BASENAME),
+                                $newKid
+                            );
+                        }
+                    } else {
+                        throw new \Exception('Create consultation failed');
+                    }
+
+                    if(!(new Model_Articles())->createRow([
+                        'kid' => $newKid,
+                        'proj' => $consultationRow->proj,
+                        'desc' => 'Info',
+                        'hid' => 'n',
+                        'ref_nm' => 'article_explanation',
+                        'artcl' => '',
+                        'sidebar' => '',
+                        'parent' => null,
+                        'time_modified' => 'NOW()',
+                    ])->save()) {
+                        throw new \Exception('Create default article page for new consultation failed');
+                    }
+
+                    $consultationModel->getAdapter()->commit();
+                } catch (\Exception $e) {
+                    $consultationModel->getAdapter()->rollBack();
                     $this->_flashMessenger->addMessage('Creating new consultation failed.', 'error');
+                    throw $e;
                 }
+
+                $this->_flashMessenger->addMessage('New consultation has been created.', 'success');
+                $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
                 $form->populate($this->getRequest()->getPost());
@@ -229,6 +252,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         $votesIndivModel = new Model_Votes_Individual();
         $votesRightsModel = new Model_Votes_Rights();
+
+        $this->view->projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)
+            ->current()
+            ->toArray();
 
         $this->view->assign(array(
             'nrParticipants' => $inputsModel->getCountParticipantsByConsultation($kid),

@@ -6,7 +6,8 @@ class Admin_Form_InputSort extends Dbjr_Form_Admin
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
-        $this->setMethod('post')->setAttrib('class', 'offset-bottom');
+        $this->setAttrib('class', 'offset-bottom');
+
         $selectOptions = [
             'tid ASC' => $translator->translate('Sort by date'),
             'spprts DESC' => $translator->translate('Sort by number of supporters'),

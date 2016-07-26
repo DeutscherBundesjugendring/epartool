@@ -395,14 +395,19 @@ class InputController extends Zend_Controller_Action
         $sessInputs = new Zend_Session_Namespace('inputs');
         $regFormData = new Zend_Session_Namespace('populateForm');
 
+        $projectInfo = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+
+        $this->view->infoText = $projectInfo['contribution_confirmation_info'];
+
         if (!empty($sessInputs->inputs)) {
             // This is needed when creating user with webservice registration
             $sessInputs->kid = $kid;
 
             $inputModel = new Model_Inputs();
             $confirmKey = $inputModel->getConfirmationKey();
+
+            $inputModel->getAdapter()->beginTransaction();
             try {
-                $inputModel->getAdapter()->beginTransaction();
                 foreach ($sessInputs->inputs as $input) {
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
                     $input['confirmation_key'] = $confirmKey;
@@ -410,23 +415,23 @@ class InputController extends Zend_Controller_Action
                     $inputModel->add($input);
                 }
                 $inputModel->getAdapter()->commit();
-
-                if ($auth->hasIdentity()) {
-                    $qiSent = [];
-                    foreach ($sessInputs->inputs as $input) {
-                        if (!in_array($input['qi'], $qiSent)) {
-                            $qiSent[] = $input['qi'];
-                            (new Service_Notification_InputCreatedNotification())->notify(
-                                [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
-                            );
-                        }
-                    }
-                }
-                unset($sessInputs->inputs);
             } catch (Exception $e) {
                 $inputModel->getAdapter()->rollback();
                 throw $e;
             }
+
+            if ($auth->hasIdentity()) {
+                $qiSent = [];
+                foreach ($sessInputs->inputs as $input) {
+                    if (!in_array($input['qi'], $qiSent)) {
+                        $qiSent[] = $input['qi'];
+                        (new Service_Notification_InputCreatedNotification())->notify(
+                            [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
+                        );
+                    }
+                }
+            }
+            unset($sessInputs->inputs);
 
             $sessInputs->confirmKey = $confirmKey;
             $registerForm = new Default_Form_Register();

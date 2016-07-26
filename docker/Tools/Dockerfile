@@ -19,12 +19,20 @@ RUN             docker-php-ext-install gd
 RUN             docker-php-ext-install zip
 
 
-###############################
-# Composer, Npm, Grunt, bower #
-###############################
+##################
+# Composer, Robo #
+##################
 RUN             curl -sS https://getcomposer.org/installer | php
 RUN             mv composer.phar /usr/local/bin/composer
-RUN             curl -sL https://deb.nodesource.com/setup | bash -
+RUN             curl -sSo /tmp/robo.phar http://robo.li/robo.phar
+RUN             chmod +x /tmp/robo.phar
+RUN             mv /tmp/robo.phar /usr/bin/robo
+
+
+######################
+# Npm, Grunt, Bower  #
+######################
+RUN             curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN             apt-get install -y nodejs
 RUN             npm install npm -g.
 RUN             npm install -g grunt-cli

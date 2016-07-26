@@ -1,7 +1,15 @@
 SET @project_code = 'xx';
+SET @locale = 'de_DE';
 
-INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`) VALUES
-(@project_code,  'ePartool (default)',   'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?', 'de_DE');
+
+INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`, `license`) VALUES
+    (
+        @project_code,
+        'ePartool (default)',
+        'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?',
+        'de_DE',
+        (SELECT `number` FROM `license` WHERE `number` = 1 AND `locale` = @locale)
+    );
 
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
 VALUES

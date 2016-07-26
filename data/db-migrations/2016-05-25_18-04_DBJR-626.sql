@@ -21,4 +21,4 @@ ALTER TABLE `proj`
 ADD INDEX `proj_theme_id_fk` (`theme_id`);
 
 ALTER TABLE `proj`
-ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+ADD FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;

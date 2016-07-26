@@ -9,7 +9,7 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post')
+        $this
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/media']);
 

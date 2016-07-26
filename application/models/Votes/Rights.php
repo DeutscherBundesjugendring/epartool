@@ -189,13 +189,38 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         $select = $this->select();
         $select->where('vt_code = ?', $code);
 
-        $result = array();
         $result = $this->fetchRow($select);
         if ($result) {
             return $result->toArray();
         } else {
             return array();
         }
+    }
+
+    /**
+     * Return rights of a voting user by authcode with user data
+     * @param  string $code authentification-code
+     * @return array
+     */
+    public function findByCodewithUserData($code)
+    {
+        $db = $this->getDefaultAdapter();
+        $select = $db
+            ->select()
+            ->from(['vtr' => $this->_name])
+            ->join(
+                ['u' => (new Model_Users())->info(Model_Users::NAME)],
+                'u.uid = vtr.uid',
+                ['email']
+            )
+            ->where('vtr.vt_code = ?', $code);
+
+        $result = $db->query($select)->fetch();
+        if (!is_array($result)) {
+            return [];
+        }
+        
+        return $result;
     }
 
     /**

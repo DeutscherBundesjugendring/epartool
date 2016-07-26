@@ -6,7 +6,6 @@ class Admin_Form_Mail_Component extends Dbjr_Form_Admin
     public function init()
     {
         $this
-            ->setMethod('post')
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/mail-component']);
 

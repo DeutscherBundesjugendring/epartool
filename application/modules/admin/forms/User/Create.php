@@ -7,8 +7,6 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
         $translator = Zend_Registry::get('Zend_Translate');
 
         $this
-            ->setmethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user/create')
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => Zend_Controller_Front::getInstance()->getBaseUrl() . '/admin/user']);
 

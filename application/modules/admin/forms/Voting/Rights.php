@@ -6,14 +6,32 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $this->setMethod('post');
+        $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
 
-        $weight = $this->createElement('text', 'vt_weight');
-        $weight
-            ->setLabel('Weight')
-            ->setRequired(true)
-            ->addValidator('Int');
-        $this->addElement($weight);
+        if ($formSettings['allow_groups']) {
+            $weight = $this->createElement('text', 'vt_weight');
+            $weight
+                ->setLabel('Weight')
+                ->setRequired(true)
+                ->addValidator('Int');
+            $this->addElement($weight);
+
+            $groupSize = $this->createElement('select', 'grp_siz');
+            $groupSize
+                ->setLabel('Group size')
+                ->setMultiOptions(
+                    [
+                        '0' => '?',
+                        '1' => '1-2',
+                        '10' => $translator->translate('bis') . ' 10',
+                        '30' => $translator->translate('bis') . ' 30',
+                        '80' => $translator->translate('bis') . ' 80',
+                        '150' => $translator->translate('bis') . ' 150',
+                        '200' => $translator->translate('über') . ' 150',
+                    ]
+                );
+            $this->addElement($groupSize);
+        }
 
         $accessCode = $this->createElement('text', 'vt_code');
         $accessCode
@@ -22,22 +40,6 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
             ->addValidator('Alnum')
             ->addValidator('StringLength', false, ['min' => 8]);
         $this->addElement($accessCode);
-
-        $groupSize = $this->createElement('select', 'grp_siz');
-        $groupSize
-            ->setLabel('Group size')
-            ->setMultiOptions(
-                [
-                    '0' => '?',
-                    '1' => '1-2',
-                    '10' => $translator->translate('bis') . ' 10',
-                    '30' => $translator->translate('bis') . ' 30',
-                    '80' => $translator->translate('bis') . ' 80',
-                    '150' => $translator->translate('bis') . ' 150',
-                    '200' => $translator->translate('über') . ' 150',
-                ]
-            );
-        $this->addElement($groupSize);
 
         $groupSizeUser = $this->createElement('text', 'group_size_user');
         $groupSizeUser
