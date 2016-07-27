@@ -16,7 +16,7 @@ the installation wizard starts automatically.
     * GD
     * mbstring
     * pdo_mysql
-* MySQL 5.5 or later
+* MySQL 5.5 database with utf8 encoding
 * memory_limit: 256M
 
 #### Build Tools
