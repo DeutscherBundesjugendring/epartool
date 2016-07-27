@@ -1098,6 +1098,15 @@ VALUES
         1,
         'Creative Commons license',
         'Creative Commons license 4.0: attribution, non-commercial',
+            'The contributions are published under a <a href=\"http://creativecommons.org/licenses/by-nc/4.0/deed.en\" target=\"_blank\" title=\"More about Creative Commons license\">Creative Commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.',
+        'http://creativecommons.org/licenses/by-nc/4.0/deed.en',
+        'license_cc.svg',
+        'CC-BY-NC 4.0',
+        'en_US'
+    ), (
+        1,
+        'Creative Commons license',
+        'Creative Commons license 4.0: attribution, non-commercial',
         'The contributions are published under a <a href=\"http://creativecommons.org/licenses/by-nc/4.0/deed.en\" target=\"_blank\" title=\"More about Creative Commons license\">Creative Commons license</a>. This means that your contribution may be re-used in summaries and publications for non-commercial use. As all contributions are published anonymously on this page, this website will be referred to as the source when re-using contributions.',
         'http://creativecommons.org/licenses/by-nc/4.0/deed.en',
         'license_cc.svg',
