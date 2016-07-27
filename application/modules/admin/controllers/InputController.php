@@ -202,8 +202,8 @@ class Admin_InputController extends Zend_Controller_Action
                     try {
                         $deleteStatus = $inputModel->deleteById($tid);
                     } catch (Zend_Db_Statement_Exception $e) {
-                        if ($e->getCode() === 23000) {
-                            $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'info');
+                        if ($e->getCode() === 23000) { // Integrity constraint violation
+                            $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'error');
                             $this->redirect($this->view->url(), ['prependBase' => false]);
                         }
                         throw $e;
@@ -334,8 +334,8 @@ class Admin_InputController extends Zend_Controller_Action
                         try {
                             $nr = $inputModel->deleteBulk($data['inp_list']);
                         } catch (Zend_Db_Statement_Exception $e) {
-                            if ($e->getCode() === 23000) {
-                                $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'info');
+                            if ($e->getCode() === 23000) { // Integrity constraint violation
+                                $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'error');
                                 $this->redirect($returnUrl);
                             }
                             throw $e;
@@ -358,8 +358,8 @@ class Admin_InputController extends Zend_Controller_Action
                 try {
                     $inputModel->deleteById($data['delete']);
                 } catch (Zend_Db_Statement_Exception $e) {
-                    if ($e->getCode() === 23000) {
-                        $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'info');
+                    if ($e->getCode() === 23000) { // Integrity constraint violation
+                        $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'error');
                         $this->redirect($returnUrl);
                     }
                     throw $e;
