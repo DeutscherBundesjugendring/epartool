@@ -133,6 +133,15 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             $submit->setLabel('Save and continue');
         }
         $this->addElement($submit);
+
+        $submit = $this->createElement('submit', 'delete');
+        $submit->setAttrib('class', 'btn-danger btn-raised');
+        $submit->setAttrib('data-toggle', 'confirm');
+        $submit->setAttrib('data-confirm-message', $this->getTranslator()->translate('Are you sure?'));
+        $submit->setAttrib('data-confirm-yes', $this->getTranslator()->translate('Yes'));
+        $submit->setAttrib('data-confirm-no', $this->getTranslator()->translate('No'));
+        $submit->setLabel('Delete');
+        $this->addElement($submit);
     }
 
     /**

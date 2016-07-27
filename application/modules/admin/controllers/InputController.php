@@ -172,6 +172,14 @@ class Admin_InputController extends Zend_Controller_Action
         $form = new Admin_Form_Input($cancelUrl);
 
         $inputRow = $inputModel->getById($tid);
+
+        if (!$inputRow) {
+            $this->_flashMessenger->addMessage('Contribution not found.', 'error');
+            $this->redirect($cancelUrl);
+        }
+
+        $this->view->authorId = $inputRow['uid'];
+
         if (!$qi) {
             $qi = $inputRow['qi'];
         }
@@ -189,16 +197,35 @@ class Admin_InputController extends Zend_Controller_Action
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
                 $formValues = $form->getValues();
-                if (!$formValues['tags']) {
-                    $formValues['tags'] = [];
-                }
-                $updated = $inputModel->updateById($tid, $formValues);
-                if ($updated == $tid) {
-                    $this->_flashMessenger->addMessage('Changes saved.', 'success');
-                    unset($session->urlQi);
-                    $this->redirect($url, ['prependBase' => false]);
-                } else {
-                    $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
+                if (isset($data['delete'])) {
+
+                    try {
+                        $deleteStatus = $inputModel->deleteById($tid);
+                    } catch (Zend_Db_Statement_Exception $e) {
+                        if ($e->getCode() === 23000) {
+                            $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'info');
+                            $this->redirect($this->view->url(), ['prependBase' => false]);
+                        }
+                        throw $e;
+                    }
+
+                    if ($deleteStatus > 0) {
+                        $this->_flashMessenger->addMessage('Contribution was deleted.', 'success');
+                        $this->redirect($url, ['prependBase' => false]);
+                    }
+                    $this->_flashMessenger->addMessage('Delete contribution failed.', 'error');
+                } elseif(isset($data['submit'])) {
+                    if (!$formValues['tags']) {
+                        $formValues['tags'] = [];
+                    }
+                    $updated = $inputModel->updateById($tid, $formValues);
+                    if ($updated == $tid) {
+                        $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                        unset($session->urlQi);
+                        $this->redirect($url, ['prependBase' => false]);
+                    } else {
+                        $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
+                    }
                 }
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
@@ -304,7 +331,15 @@ class Admin_InputController extends Zend_Controller_Action
             if (!empty($data['bulkAction']) && !empty($data['inp_list'])) {
                 switch ($data['bulkAction']) {
                     case 'delete':
-                        $nr = $inputModel->deleteBulk($data['inp_list']);
+                        try {
+                            $nr = $inputModel->deleteBulk($data['inp_list']);
+                        } catch (Zend_Db_Statement_Exception $e) {
+                            if ($e->getCode() === 23000) {
+                                $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'info');
+                                $this->redirect($returnUrl);
+                            }
+                            throw $e;
+                        }
                         $msg = sprintf($this->view->translate('%d contributions have been deleted.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
@@ -320,7 +355,15 @@ class Admin_InputController extends Zend_Controller_Action
                         break;
                 }
             } elseif (!empty($data['delete'])) {
-                $inputModel->deleteById($data['delete']);
+                try {
+                    $inputModel->deleteById($data['delete']);
+                } catch (Zend_Db_Statement_Exception $e) {
+                    if ($e->getCode() === 23000) {
+                        $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'info');
+                        $this->redirect($returnUrl);
+                    }
+                    throw $e;
+                }
                 $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
             }
         }
