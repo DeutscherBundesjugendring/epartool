@@ -178,8 +178,6 @@ class Admin_InputController extends Zend_Controller_Action
             $this->redirect($cancelUrl);
         }
 
-        $this->view->authorId = $inputRow['uid'];
-
         if (!$qi) {
             $qi = $inputRow['qi'];
         }
@@ -259,6 +257,7 @@ class Admin_InputController extends Zend_Controller_Action
         
         $this->view->form = $form;
         $this->view->tid = $tid;
+        $this->view->authorId = $inputRow['uid'];
     }
 
     public function createAction()
