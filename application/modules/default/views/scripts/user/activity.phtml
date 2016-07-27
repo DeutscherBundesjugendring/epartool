@@ -76,7 +76,9 @@
                     <hr />
 
                     <?php if ($postsListCount == $i++ && $this->postsSum > $this->postsLimit): ?>
-                        <a href="<?=$this->url(['pl' => $this->postsLimit + $this->step]);?>" class='btn btn-lg btn-default offset-bottom'>Load More</a>
+                        <a href="<?=$this->url(['pl' => $this->postsLimit + $this->step]);?>" class='btn btn-lg btn-default offset-bottom'>
+                            <?=$this->translate('Load More');?>
+                        </a>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php else: ?>
