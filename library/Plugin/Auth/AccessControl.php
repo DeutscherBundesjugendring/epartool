@@ -80,10 +80,9 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                 $this->_flashMessenger->addMessage('No admission rights for this page!', 'error');
             } else {
                 //nicht angemeldet -> Login
-                $request->setModuleName('default');
-                $request->setControllerName('index');
-                $request->setActionName('index');
                 $this->_flashMessenger->addMessage('Please log in first!', 'info');
+                $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
+                $redirector->gotoUrl('/');
             }
         }
     }
