@@ -381,18 +381,18 @@ class InputController extends Zend_Controller_Action
                 $redirectURL = '/input/confirm/kid/' . $kid;
             }
             $this->redirect($redirectURL);
-        } else {
-            $msg = Zend_Registry::get('Zend_Translate')->translate(
-                'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
-            );
-            $this->flashMessenger->addMessage(
-                sprintf(
-                    $msg,
-                    number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
-                ),
-                'error'
-            );
         }
+
+        $msg = Zend_Registry::get('Zend_Translate')->translate(
+            'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
+        );
+        $this->flashMessenger->addMessage(
+            sprintf(
+                $msg,
+                number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
+            ),
+            'error'
+        );
     }
 
     /**
@@ -418,11 +418,7 @@ class InputController extends Zend_Controller_Action
 
             $inputModel->getAdapter()->beginTransaction();
             try {
-                $errorShown = false;
                 foreach ($sessInputs->inputs as $input) {
-                    if (!empty($input['video_id']) && empty($input['thes'])) {
-                        continue;
-                    }
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
                     $input['confirmation_key'] = $confirmKey;
                     $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
