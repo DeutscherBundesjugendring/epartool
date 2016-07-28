@@ -347,7 +347,17 @@ class InputController extends Zend_Controller_Action
                 $tmpCollection = [];
             }
 
+            $errorShown = false;
             foreach ($post['inputs'] as $input) {
+                if (!empty($input['video_id']) && empty($input['thes'])) {
+                    if (!$errorShown) {
+                        $this->flashMessenger->addMessage(
+                            'Contribution text cannot be empty.',
+                            'error'
+                        );
+                        $errorShown = true;
+                    }
+                }
                 if (!empty($input['thes']) || !empty($input['video_id'])) {
                     $tmpCollection[] = [
                         'kid' => $kid,
@@ -364,10 +374,10 @@ class InputController extends Zend_Controller_Action
 
             if (isset($post['add_input_field'])) {
                 $redirectURL.= '/#input';
-            } elseif (isset($post['next_question'])) {
+            } elseif (!$errorShown && isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
-            } elseif (isset($post['finished'])) {
+            } elseif (!$errorShown && isset($post['finished'])) {
                 $redirectURL = '/input/confirm/kid/' . $kid;
             }
             $this->redirect($redirectURL);
@@ -408,7 +418,11 @@ class InputController extends Zend_Controller_Action
 
             $inputModel->getAdapter()->beginTransaction();
             try {
+                $errorShown = false;
                 foreach ($sessInputs->inputs as $input) {
+                    if (!empty($input['video_id']) && empty($input['thes'])) {
+                        continue;
+                    }
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
                     $input['confirmation_key'] = $confirmKey;
                     $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
