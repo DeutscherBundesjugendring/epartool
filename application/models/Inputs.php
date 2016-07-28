@@ -69,10 +69,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     public function add($data)
     {
 
+        if (isset($data['video_id']) && empty($data['video_id'])) {
+            $data['video_service'] = null;
+            $data['video_id'] = null;
+        }
+        
         $row = $this->createRow($data);
 
         $contributionId = (int) $row->save();
-
+        
         $modelInputsTags = new Model_InputsTags();
         if (!empty($data['tags'])) {
             $modelInputsTags->insertByInputsId($contributionId, $data['tags']);
@@ -103,6 +108,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $modelInputsTags->deleteByInputsId($id);
         if (isset($data['tags']) && !empty($data['tags'])) {
             $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
+        }
+
+        if (isset($data['video_id']) && empty($data['video_id'])) {
+            $data['video_service'] = null;
+            $data['video_id'] = null;
         }
 
         $row = $this->find($id)->current();
@@ -604,6 +614,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function editBulk($ids, $data)
     {
+        if (isset($data['video_id']) && empty($data['video_id'])) {
+            $data['video_service'] = null;
+            $data['video_id'] = null;
+        }
+        
         if (is_array($ids) && !empty($ids)) {
             foreach ($ids as $id) {
                 $this->updateById($id, $data);
@@ -1104,6 +1119,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function addInputs($data)
     {
+        if (isset($data['video_id']) && empty($data['video_id'])) {
+            $data['video_service'] = null;
+            $data['video_id'] = null;
+        }
+        
         $row = $this->createRow($data);
         $tid = (int) $row->save();
 
