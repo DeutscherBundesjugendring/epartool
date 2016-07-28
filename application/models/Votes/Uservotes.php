@@ -24,7 +24,7 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                         ->join(
                             ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
                             'q.qi = inputs.qi',
-                            null
+                            ['video_enabled']
                         )
                         ->where('kid=?', $kid)
                         ->where('inputs.vot = ?', "y")

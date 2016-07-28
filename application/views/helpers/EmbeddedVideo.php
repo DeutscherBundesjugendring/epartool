@@ -8,6 +8,7 @@ class Application_View_Helper_EmbeddedVideo extends Zend_View_Helper_Abstract
 
     /**
      * @return string
+     * @throws Exception
      */
     public function embeddedVideo($service, $id)
     {

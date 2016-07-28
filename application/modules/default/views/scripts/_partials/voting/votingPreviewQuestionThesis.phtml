@@ -12,6 +12,18 @@
                     <?=$this->escape($this->expl);?>
                 </p>
             <?php endif; ?>
+
+            <?php if ($this->video_enabled && $this->video_service !== null && $this->video_id !== null
+                && $this->partialLoop()->view->videoServicesStatus['video_' . $this->video_service . '_enabled']): ?>
+                <p>
+                    <?=$this->embeddedVideo($this->video_service, $this->video_id);?>
+                </p>
+            <?php elseif ($this->video_id !== null) : ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                    <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($this->video_service));?>.
+                </p>
+            <?php endif; ?>
         </div>
 
     </div>
