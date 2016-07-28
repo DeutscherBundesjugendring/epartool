@@ -1,2 +1,4 @@
 RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/install
 RewriteRule ^(.*)$ www/$1 [L]
