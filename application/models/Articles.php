@@ -258,8 +258,14 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
-            ->from(['a' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
-            ->where('a.kid = ?', $consultationId)
+            ->from(['a' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')]);
+        if ($consultationId === null) {
+            $select->where('a.kid IS NULL');
+        } else {
+            $select->where('a.kid = ?', $consultationId);
+        }
+
+        $select
             ->where('a.ref_nm = ?', $ref_nm)
             ->where('a.hid = ?', 'n');
 
