@@ -22,6 +22,7 @@ $configPath = realpath(dirname(__FILE__) . '/../application') . '/configs';
 $logPath = realpath(dirname(__FILE__) . '/../runtime') . '/logs';
 $sessionPath = realpath(dirname(__FILE__) . '/../runtime') . '/sessions';
 $cachePath = realpath(dirname(__FILE__) . '/../runtime') . '/cache';
+$imgCachePath = realpath(dirname(__FILE__) . '/../www') . '/image_cache';
 $consultationsPath = realpath(dirname(__FILE__) . '/../www/media') . '/consultations';
 $foldersPath = realpath(dirname(__FILE__) . '/../www/media') . '/folders';
 
@@ -29,7 +30,15 @@ $locale = !empty($_GET['locale']) ? $_GET['locale'] : null;
 
 
 $view = new View($layoutPath, $scriptPath, $helperPath, $zendLangPath, $langPath, $locale);
-$fileSystem = new FileSystem($configPath, $logPath, $sessionPath, $cachePath, $consultationsPath, $foldersPath);
+$fileSystem = new FileSystem(
+    $configPath,
+    $logPath,
+    $sessionPath,
+    $cachePath,
+    $imgCachePath,
+    $consultationsPath,
+    $foldersPath
+);
 
 if (!isset($locale)) {
     $view->render('step-1.phtml');
@@ -42,12 +51,14 @@ if (!isset($locale)) {
             'sessionPathOK' => is_writable($sessionPath),
             'logPathOK' => is_writable($logPath),
             'cachePathOK' => is_writable($cachePath),
+            'imgCachePathOK' => is_writable($imgCachePath),
             'consultationsPathOK' => is_writable($consultationsPath),
             'foldersPathOK' => is_writable($foldersPath),
             'configPath' => $configPath,
             'sessionPath' => $sessionPath,
             'logPath' => $logPath,
             'cachePath' => $cachePath,
+            'imgCachePath' => $imgCachePath,
             'consultationsPath' => $consultationsPath,
             'foldersPath' => $foldersPath,
         ]);

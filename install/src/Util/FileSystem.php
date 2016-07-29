@@ -8,6 +8,7 @@ class FileSystem
     private $logPath;
     private $sessionPath;
     private $cachePath;
+    private $imgCachePath;
     private $consultationsPath;
     private $foldersPath;
 
@@ -17,15 +18,24 @@ class FileSystem
      * @param string $logPath
      * @param string $sessionPath
      * @param string $cachePath
+     * @param string $imgCachePath
      * @param string $consultationsPath
      * @param string $foldersPath
      */
-    public function __construct($configPath, $logPath, $sessionPath, $cachePath, $consultationsPath, $foldersPath)
-    {
+    public function __construct(
+        $configPath,
+        $logPath,
+        $sessionPath,
+        $cachePath,
+        $imgCachePath,
+        $consultationsPath,
+        $foldersPath
+    ) {
         $this->configPath = $configPath;
         $this->logPath = $logPath;
         $this->sessionPath = $sessionPath;
         $this->cachePath = $cachePath;
+        $this->imgCachePath = $imgCachePath;
         $this->consultationsPath = $consultationsPath;
         $this->foldersPath = $foldersPath;
     }
@@ -39,6 +49,7 @@ class FileSystem
         && is_writable($this->logPath)
         && is_writable($this->sessionPath)
         && is_writable($this->cachePath)
+        && is_writable($this->imgCachePath)
         && is_writable($this->consultationsPath)
         && is_writable($this->foldersPath);
     }
@@ -53,6 +64,7 @@ class FileSystem
             $this->logPath,
             $this->sessionPath,
             $this->cachePath,
+            $this->imgCachePath,
             $this->consultationsPath,
             $this->foldersPath,
         ];
