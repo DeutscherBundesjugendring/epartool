@@ -44,6 +44,12 @@ if (!isset($locale)) {
             'cachePathOK' => is_writable($cachePath),
             'consultationsPathOK' => is_writable($consultationsPath),
             'foldersPathOK' => is_writable($foldersPath),
+            'configPath' => $configPath,
+            'sessionPath' => $sessionPath,
+            'logPath' => $logPath,
+            'cachePath' => $cachePath,
+            'consultationsPath' => $consultationsPath,
+            'foldersPath' => $foldersPath,
         ]);
         $view->render('file-permissions.phtml');
     }
