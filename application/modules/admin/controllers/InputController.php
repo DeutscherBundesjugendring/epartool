@@ -201,7 +201,10 @@ class Admin_InputController extends Zend_Controller_Action
                         $deleteStatus = $inputModel->deleteById($tid);
                     } catch (Zend_Db_Statement_Exception $e) {
                         if ($e->getCode() === 23000) { // Integrity constraint violation
-                            $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'error');
+                            $this->_flashMessenger->addMessage(
+                                "This contribution can't be deleted, because it has already been voted upon.",
+                                'error'
+                            );
                             $this->redirect($this->view->url(), ['prependBase' => false]);
                         }
                         throw $e;
@@ -334,7 +337,10 @@ class Admin_InputController extends Zend_Controller_Action
                             $nr = $inputModel->deleteBulk($data['inp_list']);
                         } catch (Zend_Db_Statement_Exception $e) {
                             if ($e->getCode() === 23000) { // Integrity constraint violation
-                                $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'error');
+                                $this->_flashMessenger->addMessage(
+                                    "This contribution can't be deleted, because it has already been voted upon.",
+                                    'error'
+                                );
                                 $this->redirect($returnUrl);
                             }
                             throw $e;
@@ -358,7 +364,10 @@ class Admin_InputController extends Zend_Controller_Action
                     $inputModel->deleteById($data['delete']);
                 } catch (Zend_Db_Statement_Exception $e) {
                     if ($e->getCode() === 23000) { // Integrity constraint violation
-                        $this->_flashMessenger->addMessage('This contribution cannot be deleted due to already existing votes.', 'error');
+                        $this->_flashMessenger->addMessage(
+                            "This contribution can't be deleted, because it has already been voted upon.",
+                            'error'
+                        );
                         $this->redirect($returnUrl);
                     }
                     throw $e;
