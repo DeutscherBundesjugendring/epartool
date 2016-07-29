@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,300,700&amp;subset=latin,latin-ext" />
 
 
-    <link href="www/css/bootstrap-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="../www/css/admin.min.css" rel="stylesheet" type="text/css" />
 
     <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAolJREFUeNpiYBhgwIgu8FpKMQFI+QOxAxALIEl9AOILUDaIfgiiRZ/dP0A1BwAtnw+kEsgwB+QgkEM2kuogRjSfz6dCqIJCagEQLwQ65gIpDniPFuTUAKDQmAh0yAa8DqCi7/FFUSG26GGC0v6kmMYsK8PA5uHKwFWcD6YZ+fgIaTEA4v1Aj/bjCoH/RCUYoEV882YysFqao4j///SJ4Wt9M8OPVWuJihZgSDjCzQRaDspu+4nRKbBrCwOLthac/+/xEwYmYGjAwHsLO4a/QDEiwASgIwphUWBAjA6OsGC45T+BPn0jrcTwDmjhBzcfhJqURGJjsQDqcbADiEr5XEX58OD+AgxuGPhz9RoYgwB61BAA8TAH2BOT6GBB/WvHbrAjUNPAZzCNHD1EAAfkXIAXIPvs9/ETGPKwECARKBDtAOSE9vfxUwx5En2OtRwgmP3wy/PCcwWpgIUoRUg+5G6sQYpzTRTH/X3ylDYOICa4QQkTW/qgugM+Jacz/P/4GVEYPXlCbOGDrdYEO+AgLEvgAuC4heYEkOXk+BRHBUVcIvz75AkDDcBGmAMItmCQ8zmo9qMS2ABzwANCKn8fO4m1TkBPnCQ4DlQjPkCujgm2hnj7uxnYgZYjSkSEo5hlpMGFFUjsY0gkMQ5whDVOWJCaTgH4dIAqIGZgvof5HlvFQ2SRfAC5ZURSkwxU6HCmJgItt4A7AORrUC4BNUaIyB2grGcIC370Rul+QtmRCiAQvYGKnA0DkToetAL+OCsjoMtAwQNqqzXCSikagARo5wd31wwpShyQokSfhD6DABHNvAVADyfidQClAOgBA2ijwx7qIAdsjmBkoCOAOsoBGqIGxJTCNAcAAQYAfH/oKEf4j3IAAAAASUVORK5CYII="/>
 </head>
@@ -18,9 +18,10 @@
 <body class="site">
     <main role="main" class="site-content">
 
-        <section class="section-header">
+        <section class="section-header section-primary section-header-condensed">
             <div class="container">
-                <h1 class="section-header-title"><?=$this->translate('ePartool');?></h1>
+                <h1 class="section-header-title"><img src="../www/images/admin/logo.svg" alt="<?=$this->translate('ePartool');?>" /></h1>
+                <h2 class="section-header-subtitle">Installation Wizard</h2>
             </div>
         </section>
         <section class="section-content">
@@ -42,7 +43,7 @@
                 <div class="col-sm-6">
 
                     <a href="http://www.visionapps.cz" target="_blank" class="footer-author" title="Created by VisionApps">
-                        <img src="www/images/visionapps.svg" width="100" height="18" alt="VisionApps" />
+                        <img src="../www/images/admin/visionapps.svg" width="100" height="18" alt="VisionApps" />
                     </a>
 
                 </div>
