@@ -347,7 +347,17 @@ class InputController extends Zend_Controller_Action
                 $tmpCollection = [];
             }
 
+            $errorShown = false;
             foreach ($post['inputs'] as $input) {
+                if (!empty($input['video_id']) && empty($input['thes'])) {
+                    if (!$errorShown) {
+                        $this->flashMessenger->addMessage(
+                            'Contribution text cannot be empty.',
+                            'error'
+                        );
+                        $errorShown = true;
+                    }
+                }
                 if (!empty($input['thes']) || !empty($input['video_id'])) {
                     $tmpCollection[] = [
                         'kid' => $kid,
@@ -364,25 +374,25 @@ class InputController extends Zend_Controller_Action
 
             if (isset($post['add_input_field'])) {
                 $redirectURL.= '/#input';
-            } elseif (isset($post['next_question'])) {
+            } elseif (!$errorShown && isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
-            } elseif (isset($post['finished'])) {
+            } elseif (!$errorShown && isset($post['finished'])) {
                 $redirectURL = '/input/confirm/kid/' . $kid;
             }
             $this->redirect($redirectURL);
-        } else {
-            $msg = Zend_Registry::get('Zend_Translate')->translate(
-                'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
-            );
-            $this->flashMessenger->addMessage(
-                sprintf(
-                    $msg,
-                    number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
-                ),
-                'error'
-            );
         }
+
+        $msg = Zend_Registry::get('Zend_Translate')->translate(
+            'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
+        );
+        $this->flashMessenger->addMessage(
+            sprintf(
+                $msg,
+                number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
+            ),
+            'error'
+        );
     }
 
     /**

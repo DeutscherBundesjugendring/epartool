@@ -106,7 +106,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 return false;
             }
         } else {
-            $data = $this->createRow([
+            $row = $this->createRow([
                 'uid' => $uid,
                 'tid' => $tid,
                 'sub_uid' => $subUid,
@@ -116,7 +116,6 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'confirmation_hash' => $confirmationHash,
                 'upd' =>new Zend_Db_Expr('NOW()'),
             ]);
-            $row = $this->createRow($data);
             $row->save();
             if ($row) {
                 return [
