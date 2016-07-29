@@ -106,7 +106,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $groupSubForm->addElement($srcMisc);
         }
 
-        if ((bool) $formConsultationSettings['field_switch_individuals_num']) {
+        if ((bool) $formConsultationSettings['field_switch_individuals_sum']) {
             $groupSize = $this->createElement('select', 'group_size');
             $grpSizeDef = Zend_Registry::get('systemconfig')
                 ->group_size_def

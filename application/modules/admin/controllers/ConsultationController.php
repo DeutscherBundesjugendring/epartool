@@ -403,7 +403,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                                  'field_switch_comments',
                                  'allow_groups',
                                  'field_switch_contribution_origin',
-                                 'field_switch_individuals_num',
+                                 'field_switch_individuals_sum',
                                  'field_switch_group_name',
                                  'field_switch_contact_person',
                                  'field_switch_notification',

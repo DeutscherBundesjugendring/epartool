@@ -1162,7 +1162,7 @@ ADD `allow_groups` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `cnslt`
 ADD `field_switch_contribution_origin` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `cnslt`
-ADD `field_switch_individuals_num` tinyint(1) NOT NULL DEFAULT '1';
+ADD `field_switch_individuals_sum` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `cnslt`
 ADD `field_switch_group_name` tinyint(1) NOT NULL DEFAULT '1';
 ALTER TABLE `cnslt`

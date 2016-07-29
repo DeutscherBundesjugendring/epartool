@@ -2,13 +2,14 @@ SET @project_code = 'xx';
 SET @locale = 'de_DE';
 
 
-INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`, `license`) VALUES
+INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`, `license`, `contribution_confirmation_info`) VALUES
     (
         @project_code,
         'ePartool (default)',
         'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?',
         'de_DE',
-        (SELECT `number` FROM `license` WHERE `number` = 1 AND `locale` = @locale)
+        (SELECT `number` FROM `license` WHERE `number` = 1 AND `locale` = @locale),
+        '<p>Wenn du als Vertreter_in einer Gruppe beitragen willst und die entsprechende E-Mail-Adresse ist bereits registriert, trage deine Daten bitte trotzdem in das Registrierungsformular ein! Die Mail zur Bestätigung der Beiträge wird dann an die hinterlegte Adresse gesendet.</p><p>Wenn du schon an früheren Beteiligungsrunden teilgenommen hast und für die aktuelle Beteiligungsrunde abweichende Angaben zu dir oder deiner Gruppe übermitteln willst, fülle bitte die Angaben zu Person/Gruppe neu aus: Damit sind dann auch alle Daten auf aktuellem Stand.</p>'
     );
 
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
