@@ -1,0 +1,28 @@
+<section class="section-header">
+    <div class="container">
+
+        <h1 class="section-header-title"><?=$this->escape($this->consultation->titl);?></h1>
+        <h2 class="section-header-subtitle"><?=$this->escape($this->consultation->titl_sub);?></h2>
+
+        <?=$this->consultationTabs($this->consultation->kid, 'settings');?>
+
+    </div>
+</section>
+<section class="section-content">
+    <div class="container">
+        <div class="row">
+            <div class="sidebar offset-bottom-large-sm-max">
+
+                <?=$this->consultationEditNavigation($this->consultation->kid, 'contribution');?>
+
+            </div>
+            <div class="content">
+
+                <h2><?=$this->translate('Contribution');?></h2>
+
+                <?=$this->form;?>
+
+            </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section>
