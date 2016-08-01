@@ -23,6 +23,10 @@ module.exports = {
     'replace:mail'
   ],
 
+  'build-install': [
+    'copy:install'
+  ],
+
   // CSS
   'build-css-front': [
     'less:front',
@@ -37,7 +41,7 @@ module.exports = {
   'build-css': [
     'clean:css',
     'build-css-front',
-    'build-css-admin',
+    'build-css-admin'
   ],
 
   // JS

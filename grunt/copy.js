@@ -53,5 +53,27 @@ module.exports = {
       }
     ]
   },
+  install: {
+    files: [
+      {
+        expand: true,
+        cwd: '<%= paths.bower %>/bootstrap.ui/dist/css',
+        src: ['*'],
+        dest: 'install/www/css'
+      },
+      {
+        expand: true,
+        cwd: '<%= paths.bower %>/bootstrap.ui/dist/fonts',
+        src: ['*'],
+        dest: 'install/www/fonts'
+      },
+      {
+        expand: true,
+        cwd: '<%= paths.bower %>/bootstrap.ui/src/images',
+        src: ['*'],
+        dest: 'install/www/images'
+      },
+    ]
+  },
 
 };

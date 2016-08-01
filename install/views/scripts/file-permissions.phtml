@@ -1,0 +1,40 @@
+<h3 class="offset-bottom"><?=$this->translate('Please make sure all of the folders below exist and are writable by the php process.');?></h3>
+
+<ul class="list-unstyled offset-bottom-large">
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->configPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->configPath;?></code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->logPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->logPath;?></code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->cachePathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->cachePath;?></code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->imgCachePathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->imgCachePath;?></code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->sessionPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->sessionPath;?></code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->consultationsPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->consultationsPath;?></code>
+    </li>
+    <li>
+        <span class="glyphicon glyphicon-<?=$this->foldersPathOK ? 'ok text-success' : 'remove text-danger';?> icon-offset icon-vertically-aligned"></span>
+        <code><?=$this->foldersPath;?></code>
+    </li>
+</ul>
+
+<form method="get">
+    <input type="hidden" value="<?=$_GET['locale'];?>" name="locale" />
+    <button type="submit" class="btn btn-primary">
+        <?=$this->translate('Continue');?>
+        <span class="glyphicon glyphicon-menu-right icon-vertically-aligned"></span>
+    </button>
+</form>
