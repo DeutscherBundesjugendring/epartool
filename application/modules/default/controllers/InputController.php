@@ -444,7 +444,7 @@ class InputController extends Zend_Controller_Action
             unset($sessInputs->inputs);
 
             $sessInputs->confirmKey = $confirmKey;
-            $registerForm = new Default_Form_Register();
+            $registerForm = new Default_Form_Register($kid);
             $registerForm->getElement('kid')->setValue($kid);
             if ($auth->hasIdentity()) {
                 $user = (new Model_Users())->fetchRow(
