@@ -109,9 +109,8 @@ class VotingController extends Zend_Controller_Action
                 $votingRightModel = new Model_Votes_Rights();
                 $votingRights = $votingRightModel->findByCodeWithUserData($authcode);
                 // check if votingcode is correct
-                $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
                 if (!empty($votingRights)
-                    && ($projectSettings['allow_groups'] || $votingRights['email'] === $emailAddress)
+                    && ($this->_consultation['allow_groups'] || $votingRights['email'] === $emailAddress)
                 ) {
                     if ($votingRights['kid'] == $this->_consultation->kid) {
                         $votingGroupModel = new Model_Votes_Groups();
@@ -744,12 +743,12 @@ class VotingController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('The link is not correct.', 'error');
             $this->redirect('/');
         }
-        
+
         $votingService = new Service_Voting();
         $dbAdapter = (new Model_Votes_Individual())->getDefaultAdapter();
 
         $this->view->form = new Default_Form_VotesConfirmation();
-        
+
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if (!empty($data['confirm'])) {
