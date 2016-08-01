@@ -95,7 +95,20 @@
 
                     <!-- Thesis -->
                     <div class="well well-simple text-left well-has-toggle">
-                        <?=$this->thesis['thes'];?>
+                        <p>
+                            <?=$this->thesis['thes'];?>
+                        </p>
+                        <?php if ($this->question['video_enabled'] && $this->thesis['video_service'] !== null && $this->thesis['video_id'] !== null
+                            && $this->videoServicesStatus['video_' . $this->thesis['video_service'] . '_enabled']): ?>
+                            <p>
+                                <?=$this->embeddedVideo($this->thesis['video_service'], $this->thesis['video_id']);?>
+                            </p>
+                        <?php elseif ($this->thesis['video_id'] !== null) : ?>
+                            <p class="alert alert-info">
+                                <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                                <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($this->thesis['video_service']));?>.
+                            </p>
+                        <?php endif; ?>
 
                         <!-- Explanation toggle -->
                         <?php if (!empty($this->thesis['expl'])): ?>

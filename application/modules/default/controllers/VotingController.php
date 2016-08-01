@@ -250,6 +250,8 @@ class VotingController extends Zend_Controller_Action
         // count of voted inputs
         $votingIndivModel = new Model_Votes_Individual();
         $this->view->votedInputs = $votingIndivModel->countVotesBySubuser($votingRightsSession->subUid);
+        $this->view->videoServicesStatus = (new Model_Projects())
+            ->find((new Zend_Registry())->get('systemconfig')->project)->current();
 
     }
 
@@ -522,6 +524,8 @@ class VotingController extends Zend_Controller_Action
             $this->view->question = $question;
         }
 
+        $this->view->videoServicesStatus = (new Model_Projects())
+            ->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $this->view->thesesCount = count($questionResult);
         $this->view->thesesCountVoted = count($thesesVoted);
         $this->view->settings = $this ->getVotingSettings();

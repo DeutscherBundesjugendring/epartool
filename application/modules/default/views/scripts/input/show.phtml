@@ -117,7 +117,10 @@
                                 <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>
                             </p>
                         <?php elseif ($input['video_id'] !== null) : ?>
-                            <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($input['video_service']));?>.
+                            <p>
+                                <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                                <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($input['video_service']));?>.
+                            </p>
                         <?php endif; ?>
 
                         <!-- Actions -->
