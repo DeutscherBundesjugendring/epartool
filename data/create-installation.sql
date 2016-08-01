@@ -1118,3 +1118,52 @@ ALTER TABLE `proj` CHANGE `locale` `locale` varchar(255) NOT NULL;
 ALTER TABLE `proj` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
+-- Migration 2016-07-19_10-41_DBJR-850.sql
+ALTER TABLE `proj` ADD `contribution_confirmation_info` text NOT NULL;
+
+UPDATE `proj` SET
+`contribution_confirmation_info` = '<p>If you want to participate as a representative of a group, please fill in the registration form, no matter if the corresponding email address is already registered! The email to confirm the contributions will be sent to the registered email address.</p><p>If you participated in former participation rounds, and you wish to update information concerning you or your group in this participation round, please fill in the data on person/group. Your data will thus be up-to-date.</p>'
+WHERE `locale` = 'en_US';
+
+UPDATE `proj` SET
+`contribution_confirmation_info` = '<p>Wenn du als Vertreter_in einer Gruppe beitragen willst und die entsprechende E-Mail-Adresse ist bereits registriert, trage deine Daten bitte trotzdem in das Registrierungsformular ein! Die Mail zur Bestätigung der Beiträge wird dann an die hinterlegte Adresse gesendet.</p><p>Wenn du schon an früheren Beteiligungsrunden teilgenommen hast und für die aktuelle Beteiligungsrunde abweichende Angaben zu dir oder deiner Gruppe übermitteln willst, fülle bitte die Angaben zu Person/Gruppe neu aus: Damit sind dann auch alle Daten auf aktuellem Stand.</p>'
+WHERE `locale` = 'de_DE';
+
+-- Migration 2016-07-29_13-02_DBJR-873.sql
+ALTER TABLE `proj`
+DROP `field_switch_name`,
+DROP `field_switch_age`,
+DROP `field_switch_state`,
+DROP `field_switch_comments`,
+DROP `field_switch_contribution_origin`,
+DROP `field_switch_individuals_num`,
+DROP `field_switch_group_name`,
+DROP `field_switch_contact_person`,
+DROP `field_switch_notification`,
+DROP `field_switch_newsletter`,
+DROP `allow_groups`;
+
+ALTER TABLE `cnslt`
+ADD `field_switch_name` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_age` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_state` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_comments` tinyint(1) NOT NULL DEFAULT '1';
+
+ALTER TABLE `cnslt`
+ADD `allow_groups` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_contribution_origin` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_individuals_sum` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_group_name` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_contact_person` tinyint(1) NOT NULL DEFAULT '1';
+
+ALTER TABLE `cnslt`
+ADD `field_switch_notification` tinyint(1) NOT NULL DEFAULT '1';
+ALTER TABLE `cnslt`
+ADD `field_switch_newsletter` tinyint(1) NOT NULL DEFAULT '1';

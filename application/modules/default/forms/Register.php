@@ -2,12 +2,28 @@
 
 class Default_Form_Register extends Dbjr_Form_Web
 {
-
+    /**
+     * @var int
+     */
+    private $consultationId;
+    
+    /**
+     * Default_Form_Register constructor.
+     * @param int $consultationId
+     * @param array|Zend_Config $options
+     */
+    public function __construct($consultationId, $options = null)
+    {
+        $this->consultationId = $consultationId;
+        parent::__construct($options);
+    }
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
+        $formProjectSettings = (new Model_Projects())
+            ->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
+        $formConsultationSettings = (new Model_Consultations())->find($this->consultationId)->current()->toArray();
 
         $this
             ->setMethod('post')
@@ -31,7 +47,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->setDescription($description)
             ->setDecorators([['Description', ['escape' => false]]]);
 
-        if ((bool) $formSettings['allow_groups']) {
+        if ((bool) $formConsultationSettings['allow_groups']) {
             $groupType = $this->createElement('radio', 'group_type');
             $singleOpt = $translator->translate('I am responding as an individual person');
             $groupOpt = $translator->translate('I am responding in the name of a group');
@@ -51,7 +67,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($groupType);
         }
 
-        if ((bool) $formSettings['field_switch_name']) {
+        if ((bool) $formConsultationSettings['field_switch_name']) {
             $name = $this->createElement('text', 'name');
             $placeholder = $translator->translate('First name and surname');
             $name
@@ -68,7 +84,7 @@ class Default_Form_Register extends Dbjr_Form_Web
         $groupSubForm = new Zend_Form_SubForm();
         $this->addSubForm($groupSubForm, 'group_specs', 6);
 
-        if ((bool) $formSettings['field_switch_contribution_origin']) {
+        if ((bool) $formConsultationSettings['field_switch_contribution_origin']) {
             $source = $this->createElement('multiCheckbox', 'source');
             $source
                 ->setLabel('Please describe origin of your contributions:')
@@ -90,7 +106,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $groupSubForm->addElement($srcMisc);
         }
 
-        if ((bool) $formSettings['field_switch_individuals_num']) {
+        if ((bool) $formConsultationSettings['field_switch_individuals_sum']) {
             $groupSize = $this->createElement('select', 'group_size');
             $grpSizeDef = Zend_Registry::get('systemconfig')
                 ->group_size_def
@@ -103,7 +119,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $groupSubForm->addElement($groupSize);
         }
 
-        if ((bool) $formSettings['field_switch_group_name']) {
+        if ((bool) $formConsultationSettings['field_switch_group_name']) {
             $nameGroup = $this->createElement('text', 'name_group');
             $nameGroup
                 ->setLabel('Group name')
@@ -111,7 +127,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $groupSubForm->addElement($nameGroup);
         }
 
-        if ((bool) $formSettings['field_switch_contact_person']) {
+        if ((bool) $formConsultationSettings['field_switch_contact_person']) {
             $namePers = $this->createElement('text', 'name_pers');
             $namePers
                 ->setLabel('Contact person')
@@ -120,7 +136,7 @@ class Default_Form_Register extends Dbjr_Form_Web
         }
 
 
-        if ((bool) $formSettings['field_switch_age']) {
+        if ((bool) $formConsultationSettings['field_switch_age']) {
             $age = $this->createElement('select', 'age_group');
             $age
                 ->setLabel('Age')
@@ -136,15 +152,15 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($age);
         }
 
-        if ((bool) $formSettings['field_switch_state']) {
+        if ((bool) $formConsultationSettings['field_switch_state']) {
             $regioPax = $this->createElement('text', 'regio_pax');
             $regioPax
-                ->setLabel(!empty($formSettings['state_field_label']) ? $formSettings['state_field_label'] : 'State')
+                ->setLabel(!empty($formProjectSettings['state_field_label']) ? $formProjectSettings['state_field_label'] : 'State')
                 ->setFilters(['StripTags', 'HtmlEntities']);
             $this->addElement($regioPax);
         }
 
-        if ((bool) $formSettings['field_switch_notification']) {
+        if ((bool) $formConsultationSettings['field_switch_notification']) {
             $sendResults = $this->createElement('checkbox', 'cnslt_results');
             $sendResults
                 ->setLabel('I want to get informed about outcomes of the consultation round.')
@@ -153,7 +169,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($sendResults);
         }
 
-        if ((bool) $formSettings['field_switch_newsletter']) {
+        if ((bool) $formConsultationSettings['field_switch_newsletter']) {
             $newsletter = $this->createElement('checkbox', 'newsl_subscr');
             $newsletter
                 ->setLabel('I would like to subscribe to the newsletter.')
@@ -162,7 +178,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($newsletter);
         }
 
-        if ((bool) $formSettings['field_switch_comments']) {
+        if ((bool) $formConsultationSettings['field_switch_comments']) {
             $comment = $this->createElement('textarea', 'cmnt_ext');
             $comment
                 ->setLabel('Any comments?')

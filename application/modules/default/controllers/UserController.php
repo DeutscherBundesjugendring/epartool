@@ -42,7 +42,7 @@ class UserController extends Zend_Controller_Action
         if (!$this->_request->isPost()) {
             $this->redirect('/');
         } else {
-            $form = new Default_Form_Register();
+            $form = new Default_Form_Register($this->_consultation['kid']);
             $rawData = $this->_request->getPost();
             $userModel = new Model_Users();
             $populateForm = new Zend_Session_Namespace('populateForm');
