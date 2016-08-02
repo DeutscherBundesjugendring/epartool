@@ -4,7 +4,7 @@ RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^.*$ - [NC,L]
 
-RewriteCond %{HTTP_HOST} ^devel.local
+RewriteCond %{HTTP_HOST} ^devel
 RewriteRule ^.*$ index_dev.php [NC,L]
 
 RewriteRule !(^media)|(\.(js|ico|gif|jpg|png|css|pdf))$ index.php [NC,L]
