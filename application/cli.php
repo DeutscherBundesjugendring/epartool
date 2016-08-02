@@ -7,8 +7,6 @@ if (php_sapi_name() !== 'cli') {
 $rootPath = dirname(dirname(__FILE__));
 define('APPLICATION_ENV', 'production');
 define('APPLICATION_PATH', realpath($rootPath . '/application'));
-define('VENDOR_PATH', realpath($rootPath . '/vendor'));
-define('RUNTIME_PATH', realpath($rootPath . '/runtime'));
 
 require_once(APPLICATION_PATH . '/init.php');
 
