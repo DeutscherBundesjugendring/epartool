@@ -1,10 +1,12 @@
 <?php
-    $linkHeadlineToInputs = false;
-    if ((new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))->isEarlier(Zend_Date::now())
-        && (new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))->isLater(Zend_Date::now())
-        && $this->consultation->inp_show == 'y') {
-              $linkHeadlineToInputs = true;
-        }
+    $linkToInputs = null;
+    if ($this->consultation->inp_show === 'y'
+        && (new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))->isEarlier(Zend_Date::now())
+    ) {
+        $linkToInputs = (new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))->isLater(Zend_Date::now())
+            ? 'write'
+            : 'read';
+    }
 ?>
 
 <?=$this->secondNavigation('question');?>
@@ -29,7 +31,7 @@
                         </h2>
                     <?php endif; ?>
 
-                    <?php if ($linkHeadlineToInputs): ?>
+                    <?php if ($linkToInputs): ?>
                         <a
                             href="<?=$this->url([
                                     'controller' => 'input',
@@ -37,11 +39,15 @@
                                     'kid' => $this->consultation->kid,
                                     'qid' => $question['qi'],
                            ]);?>"
-                           class="btn btn-default has-icon-pencil pull-right hidden-print"
+                           class="btn btn-default<?=$linkToInputs === 'write' ? ' has-icon-pencil' : '';?> pull-right hidden-print"
                            title="<?=$this->translate('Click here to answer');?>"
                         >
-                            <span class="icon icon-pencil" aria-hidden="true"></span>
-                            <?=$this->translate('Write a contribution');?>
+                            <?php if ($linkToInputs === 'write'): ?>
+                                <span class="icon icon-pencil" aria-hidden="true"></span>
+                                <?=$this->translate('Write a contribution');?>
+                            <?php else: ?>
+                                <?=$this->translate('View contributions');?>
+                            <?php endif?>
                         </a>
                     <?php endif; ?>
 
