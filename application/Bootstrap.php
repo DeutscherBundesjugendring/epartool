@@ -116,20 +116,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
-     * Initializes the mail transport system
-     */
-    protected function _initMail()
-    {
-        $this
-            ->getPluginResource('mail')
-            ->getMail();
-        if (APPLICATION_ENV === 'development') {
-            $transport = new Zend_Mail_Transport_File(array('path' => RUNTIME_PATH . '/logs/mail'));
-            Zend_Mail::setDefaultTransport($transport);
-        }
-    }
-
-    /**
      * Initialize locale
      */
     protected function _initLocale()

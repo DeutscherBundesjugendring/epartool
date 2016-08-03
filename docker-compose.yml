@@ -17,6 +17,7 @@ php:
     working_dir: /www
     links:
         - db
+        - mail
 tools:
     build: docker/Tools
     volumes:
@@ -32,3 +33,7 @@ web:
         - php
     ports:
         - 80:80
+mail:
+    image: mailhog/mailhog
+    ports:
+        - 127.0.0.1:82:8025
