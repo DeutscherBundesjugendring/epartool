@@ -5,7 +5,19 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
     public function init()
     {
         $this->setDecorators([['ViewScript', ['viewScript' => 'consultation/contributionSubmissionForm.phtml']]]);
-        
+
+        $stateLabel = $this->createElement('text', 'state_field_label');
+        $stateLabel->setLabel('State field label');
+        $this->addElement($stateLabel);
+
+        $element = $this->createElement('textarea', 'contribution_confirmation_info');
+        $element
+            ->setLabel('Contribution confirmation info')
+            ->setRequired(true)
+            ->setAttrib('rows', 5)
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+        $this->addElement($element);
+
         $element = $this->createElement('checkbox', 'field_switch_name');
         $element->setLabel('Display field name');
         $this->addElement($element);
@@ -49,7 +61,7 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
         $element = $this->createElement('checkbox', 'field_switch_notification');
         $element->setLabel('Display field notification');
         $this->addElement($element);
-        
+
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_contributionsubmissionformadmin', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));

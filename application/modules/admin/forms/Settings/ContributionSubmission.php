@@ -6,17 +6,6 @@ class Admin_Form_Settings_ContributionSubmission extends Dbjr_Form_Admin
     {
         $this->setDecorators([['ViewScript', ['viewScript' => 'settings/contributionSubmissionForm.phtml']]]);
 
-        $stateLabel = $this->createElement('text', 'state_field_label');
-        $stateLabel->setLabel('State field label');
-        $this->addElement($stateLabel);
-
-        $element = $this->createElement('textarea', 'contribution_confirmation_info');
-        $element
-            ->setLabel('Contribution confirmation info')
-            ->setAttrib('rows', 5)
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
-        $this->addElement($element);
-
         $licenseOptions = [];
         $locale = Zend_Registry::get('Zend_Locale');
         $licenses = (new Model_License())->getLicences($locale->getLanguage() . '_' . $locale->getRegion());

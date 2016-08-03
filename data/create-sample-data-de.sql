@@ -1,6 +1,6 @@
 SET @project_code = 'xx';
 
-INSERT INTO `cnslt` (`proj`, `inp_fr`, `inp_to`, `inp_show`, `spprt_show`, `spprt_fr`, `spprt_to`, `spprt_ct`, `vot_fr`, `vot_to`, `vot_show`, `vot_expl`, `vot_res_show`, `follup_show`, `ord`, `titl`, `titl_short`, `titl_sub`, `img_file`, `img_expl`, `expl_short`, `ln`, `public`, `is_discussion_active`, `discussion_from`, `discussion_to`, `vt_finalized`, `vt_anonymized`)
+INSERT INTO `cnslt` (`proj`, `inp_fr`, `inp_to`, `inp_show`, `spprt_show`, `spprt_fr`, `spprt_to`, `spprt_ct`, `vot_fr`, `vot_to`, `vot_show`, `vot_expl`, `vot_res_show`, `follup_show`, `ord`, `titl`, `titl_short`, `titl_sub`, `img_file`, `img_expl`, `expl_short`, `ln`, `public`, `is_discussion_active`, `discussion_from`, `discussion_to`, `vt_finalized`, `vt_anonymized`, `contribution_confirmation_info`)
 VALUES
     (
         @project_code,
@@ -30,7 +30,7 @@ VALUES
         NULL,
         NULL,
         'n',
-        'n'
+        'n','<p>Wenn du als Vertreter_in einer Gruppe beitragen willst und die entsprechende E-Mail-Adresse ist bereits registriert, trage deine Daten bitte trotzdem in das Registrierungsformular ein! Die Mail zur Bestätigung der Beiträge wird dann an die hinterlegte Adresse gesendet.</p><p>Wenn du schon an früheren Beteiligungsrunden teilgenommen hast und für die aktuelle Beteiligungsrunde abweichende Angaben zu dir oder deiner Gruppe übermitteln willst, fülle bitte die Angaben zu Person/Gruppe neu aus: Damit sind dann auch alle Daten auf aktuellem Stand.</p>'
     );
 
 SET @consulation_id = LAST_INSERT_ID();

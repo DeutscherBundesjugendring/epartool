@@ -407,9 +407,7 @@ class InputController extends Zend_Controller_Action
         $sessInputs = new Zend_Session_Namespace('inputs');
         $regFormData = new Zend_Session_Namespace('populateForm');
 
-        $projectInfo = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
-
-        $this->view->infoText = $projectInfo['contribution_confirmation_info'];
+        $this->view->infoText = $this->consultation['contribution_confirmation_info'];
 
         if (!empty($sessInputs->inputs)) {
             // This is needed when creating user with webservice registration
@@ -460,7 +458,7 @@ class InputController extends Zend_Controller_Action
             }
             $this->view->registerForm = $registerForm;
         } elseif ($regFormData->register) {
-            // If submited registration form was invalid, the redirect from UserController::register()
+            // If submitted registration form was invalid, the redirect from UserController::register()
             $registerForm = unserialize($regFormData->register);
             unset($regFormData->register);
             $this->view->registerForm = $registerForm;

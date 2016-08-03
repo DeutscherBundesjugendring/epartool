@@ -6,7 +6,7 @@ class Default_Form_Register extends Dbjr_Form_Web
      * @var int
      */
     private $consultationId;
-    
+
     /**
      * Default_Form_Register constructor.
      * @param int $consultationId
@@ -155,7 +155,10 @@ class Default_Form_Register extends Dbjr_Form_Web
         if ((bool) $formConsultationSettings['field_switch_state']) {
             $regioPax = $this->createElement('text', 'regio_pax');
             $regioPax
-                ->setLabel(!empty($formProjectSettings['state_field_label']) ? $formProjectSettings['state_field_label'] : 'State')
+                ->setLabel(!empty($formConsultationSettings['state_field_label'])
+                    ? $formConsultationSettings['state_field_label']
+                    : 'State'
+                )
                 ->setFilters(['StripTags', 'HtmlEntities']);
             $this->addElement($regioPax);
         }

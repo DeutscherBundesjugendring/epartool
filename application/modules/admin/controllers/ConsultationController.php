@@ -411,6 +411,10 @@ class Admin_ConsultationController extends Zend_Controller_Action
                              ] as $property) {
                         $data[$property] = !empty($formData[$property]) ? $formData[$property] : 0;
                     }
+                    $data['state_field_label'] = !empty($formData['state_field_label'])
+                        ? $formData['state_field_label']
+                        : null;
+                    $data['contribution_confirmation_info'] = $formData['contribution_confirmation_info'];
                     $consultationModel->update($data, ['kid=?' => $consultationId]);
                     $db->commit();
                 } catch (Exception $e) {

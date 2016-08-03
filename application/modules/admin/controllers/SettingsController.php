@@ -294,13 +294,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $db = $projectModel->getAdapter();
                 $db->beginTransaction();
                 try {
-                    $projectModel->update([
-                        'state_field_label' => !empty($formData['state_field_label'])
-                            ? $formData['state_field_label']
-                            : null,
-                        'license' => $formData['license'],
-                        'contribution_confirmation_info' => $formData['contribution_confirmation_info'],
-                    ], ['proj=?' => $projectCode]);
+                    $projectModel->update(['license' => $formData['license']], ['proj=?' => $projectCode]);
                     $db->commit();
                 } catch (Exception $e) {
                     $db->rollback();
