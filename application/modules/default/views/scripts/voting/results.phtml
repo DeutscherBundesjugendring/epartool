@@ -34,19 +34,32 @@
             <hr class="hr-alt" />
 
             <?php foreach ($this->votings as $key => $value) : ?>
-                <a href="<?=$this->url([
-                    'controller' => 'input',
-                    'action' => 'show',
-                    'kid' => $this->currentQuestion['kid'],
-                    'qid' => $this->currentQuestion['qi'],
-                ]);?>">
+                <?php if ($value['uid']) : ?>
+                    <a href="<?=$this->url([
+                        'controller' => 'input',
+                        'action' => 'show',
+                        'kid' => $this->currentQuestion['kid'],
+                        'qid' => $this->currentQuestion['qi'],
+                    ]);?>">
+                        <div class="result">
+                            <span class="result-number"><?=$key + 1;?>.</span>
+                            <p><strong><?=$value['thes'];?></strong></p>
+                            <div
+                                class="result-bar"
+                                style="width:<?=$this->highest_rank
+                                    ? round(($value['rank'] * 100) / $this->highest_rank, 0)
+                                    : 0;
+                                ?>%;"
+                            ></div>
+                            <span class="btn btn-default btn-sm">
+                                <?=$this->translate('See contribution in context');?>
+                            </span>
+                        </div>
+                    </a>
+                <?php else : ?>
                     <div class="result">
                         <span class="result-number"><?=$key + 1;?>.</span>
-                        <p>
-                            <strong>
-                                <?=$value['thes'];?>
-                            </strong>
-                        </p>
+                        <p><strong><?=$value['thes'];?></strong></p>
                         <div
                             class="result-bar"
                             style="width:<?=$this->highest_rank
@@ -54,11 +67,8 @@
                                 : 0;
                             ?>%;"
                         ></div>
-                        <span class="btn btn-default btn-sm">
-                            <?=$this->translate('See contribution in context');?>
-                        </span>
                     </div>
-                </a>
+                <?php endif;?>
                 <hr />
             <?php endforeach; ?>
 

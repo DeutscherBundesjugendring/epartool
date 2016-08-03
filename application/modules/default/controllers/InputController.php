@@ -114,7 +114,9 @@ class InputController extends Zend_Controller_Action
             $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
         }
 
-        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag));
+        $paginator = Zend_Paginator::factory(
+            $inputModel->getSelectByQuestion($qid, 'i.tid ASC', null, $tag)->where('uid IS NOT NULL')
+        );
         $maxPage = ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
         $paginator->setCurrentPageNumber($this->_getParam('page', $maxPage));
 
