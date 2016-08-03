@@ -126,12 +126,7 @@ class FollowupController extends Zend_Controller_Action
         $input['relFowupCount'] = count($followupsModel->getByInput($tid));
         $input['votingRank'] = $this->getVotingRank($this->consultation['kid'], $input['qi'], $input['tid']);
 
-        $relInputs = $inputsModel->fetchAll(
-            $inputsModel
-                ->select()
-                ->where('tid IN (?)', explode(',', $input['rel_tid']))
-        )->toArray();
-
+        $relInputs = $inputsModel->getRelatedWithVotesById($tid);
         $inputIds = [];
         foreach ($relInputs as $relInput) {
             $inputIds[] = $relInput['tid'];
