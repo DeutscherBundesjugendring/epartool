@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-04-22 17:26+0200\n"
-"PO-Revision-Date: 2016-04-22 17:27+0200\n"
+"POT-Creation-Date: 2016-08-05 16:19+0200\n"
+"PO-Revision-Date: 2016-08-05 16:19+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -45,73 +45,121 @@ msgstr ""
 msgid "Login help text"
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:74
-#: application/modules/admin/controllers/ArticleController.php:141
+#: application/models/HelpText.php:25
+msgid "Voting preparation help text"
+msgstr ""
+
+#: application/models/HelpText.php:26
+msgid "Voting permissions help text"
+msgstr ""
+
+#: application/models/HelpText.php:27
+msgid "Voting invitations help text"
+msgstr ""
+
+#: application/models/HelpText.php:28
+msgid "Voting participants help text"
+msgstr ""
+
+#: application/models/HelpText.php:29
+msgid "Voting results help text"
+msgstr ""
+
+#: application/models/HelpText.php:30
+msgid "Reactions & Impact help text"
+msgstr ""
+
+#: application/models/HelpText.php:31
+msgid "Follow up snippets help text"
+msgstr ""
+
+#: application/models/HelpText.php:32
+msgid "Question help text"
+msgstr ""
+
+#: application/models/HelpText.php:33
+msgid "Contribution help text"
+msgstr ""
+
+#: application/modules/admin/controllers/ArticleController.php:76
+#: application/modules/admin/controllers/ArticleController.php:143
 msgid "None"
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:94
+#: application/modules/admin/controllers/ArticleController.php:96
 msgid "New article has been created."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:96
+#: application/modules/admin/controllers/ArticleController.php:98
 msgid "Creating new article failed."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:104
-#: application/modules/admin/controllers/ArticleController.php:162
-#: application/modules/admin/controllers/ConsultationController.php:128
-#: application/modules/admin/controllers/ConsultationController.php:166
-#: application/modules/admin/controllers/ConsultationController.php:347
-#: application/modules/admin/controllers/InputController.php:177
+#: application/modules/admin/controllers/ArticleController.php:106
+#: application/modules/admin/controllers/ArticleController.php:185
+#: application/modules/admin/controllers/ConsultationController.php:151
+#: application/modules/admin/controllers/ConsultationController.php:189
+#: application/modules/admin/controllers/ConsultationController.php:366
+#: application/modules/admin/controllers/InputController.php:232
 #: application/modules/admin/controllers/MailComponentController.php:73
 #: application/modules/admin/controllers/MailTemplateController.php:85
 #: application/modules/admin/controllers/QuestionController.php:55
 #: application/modules/admin/controllers/QuestionController.php:78
 #: application/modules/admin/controllers/UserController.php:79
 #: application/modules/admin/controllers/VotingController.php:58
-#: application/modules/admin/controllers/VotingController.php:181
-#: application/modules/admin/controllers/VotingController.php:368
+#: application/modules/admin/controllers/VotingController.php:212
+#: application/modules/admin/controllers/VotingController.php:433
 #: application/modules/admin/controllers/VotingprepareController.php:129
-#: application/modules/admin/controllers/VotingprepareController.php:162
-#: application/modules/admin/controllers/VotingprepareController.php:194
+#: application/modules/admin/controllers/VotingprepareController.php:167
+#: application/modules/admin/controllers/VotingprepareController.php:199
 msgid "Form is not valid, please check the values entered."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:160
-#: application/modules/admin/controllers/ConsultationController.php:162
+#: application/modules/admin/controllers/ArticleController.php:157
+msgid "This article does not exists."
+msgstr ""
+
+#: application/modules/admin/controllers/ArticleController.php:176
+msgid "This article could not be hidden."
+msgstr ""
+
+#: application/modules/admin/controllers/ArticleController.php:183
+#: application/modules/admin/controllers/ConsultationController.php:185
 #: application/modules/admin/controllers/FollowupController.php:103
 #: application/modules/admin/controllers/FollowupController.php:182
-#: application/modules/admin/controllers/InputController.php:170
+#: application/modules/admin/controllers/InputController.php:224
 #: application/modules/admin/controllers/QuestionController.php:75
 #: application/modules/admin/controllers/TagController.php:86
 #: application/modules/admin/controllers/UserController.php:75
-#: application/modules/admin/controllers/VotingController.php:351
-#: application/modules/admin/controllers/VotingController.php:379
+#: application/modules/admin/controllers/VotingController.php:416
+#: application/modules/admin/controllers/VotingController.php:444
 msgid "Changes saved."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:205
+#: application/modules/admin/controllers/ArticleController.php:228
+msgid "This article could not be deleted."
+msgstr ""
+
+#: application/modules/admin/controllers/ArticleController.php:235
 msgid "Article has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:207
+#: application/modules/admin/controllers/ArticleController.php:237
 msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:284
+#: application/modules/admin/controllers/ArticleController.php:314
 msgid "Area:"
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:311
+#: application/modules/admin/controllers/ArticleController.php:341
 #: application/modules/admin/forms/Article.php:37
-#: application/modules/admin/views/scripts/mail-send/index.phtml:16
+#: application/modules/admin/views/scripts/mail-send/index.phtml:21
 msgid "Please select…"
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:317
+#: application/modules/admin/controllers/ArticleController.php:347
 msgid "On subpages, reference name of parent page is used."
 msgstr ""
 
@@ -157,23 +205,36 @@ msgstr ""
 msgid "Discussion contribution was deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/ConsultationController.php:122
-msgid "New consultation has been created."
-msgstr ""
-
-#: application/modules/admin/controllers/ConsultationController.php:125
+#: application/modules/admin/controllers/ConsultationController.php:144
 msgid "Creating new consultation failed."
 msgstr ""
 
-#: application/modules/admin/controllers/ConsultationController.php:213
-#: application/modules/admin/controllers/InputController.php:250
+#: application/modules/admin/controllers/ConsultationController.php:148
+msgid "New consultation has been created."
+msgstr ""
+
+#: application/modules/admin/controllers/ConsultationController.php:236
+#: application/modules/admin/controllers/ConsultationController.php:385
+#: application/modules/admin/controllers/InputController.php:394
 #: application/modules/admin/controllers/VotingController.php:18
-#: application/modules/admin/controllers/VotingController.php:341
+#: application/modules/admin/controllers/VotingController.php:406
 msgid "No consultation provided."
 msgstr ""
 
-#: application/modules/admin/controllers/ConsultationController.php:343
+#: application/modules/admin/controllers/ConsultationController.php:362
 msgid "Custom phase names have been saved."
+msgstr ""
+
+#: application/modules/admin/controllers/ConsultationController.php:425
+#: application/modules/admin/controllers/SettingsController.php:304
+msgid "Form settings were updated."
+msgstr ""
+
+#: application/modules/admin/controllers/ConsultationController.php:429
+#: application/modules/admin/controllers/SettingsController.php:308
+msgid ""
+"Form settings cannot be updated. Please check the errors marked in the form "
+"below and try again."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:57
@@ -248,33 +309,75 @@ msgstr ""
 msgid "%d snippets linked."
 msgstr ""
 
-#: application/modules/admin/controllers/InputController.php:174
+#: application/modules/admin/controllers/InputController.php:177
+msgid "Contribution not found."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:205
+#: application/modules/admin/controllers/InputController.php:341
+#: application/modules/admin/controllers/InputController.php:368
+msgid ""
+"This contribution can't be deleted, because it has already been voted upon."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:214
+msgid "Contribution was deleted."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:217
+msgid "Delete contribution failed."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:228
 msgid "Contribution update failed."
 msgstr ""
 
-#: application/modules/admin/controllers/InputController.php:215
+#: application/modules/admin/controllers/InputController.php:243
+msgid ""
+"Video service used for embedding video in this contribution was disabled. "
+"Video will be deleted after save contribution."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:293
+msgid "Contribution was created."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:305
+msgid ""
+"New contribution cannot be created. Please check the errors marked in the "
+"form below and try again."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:312
+msgid ""
+"Video contribution settings are inherited from Question, therefore it is "
+"possible to add a video only after saving this Contribution thus linking it "
+"to a Question."
+msgstr ""
+
+#: application/modules/admin/controllers/InputController.php:348
 #: application/modules/admin/controllers/VotingprepareController.php:83
 #, php-format
 msgid "%d contributions have been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/InputController.php:220
+#: application/modules/admin/controllers/InputController.php:353
 #: application/modules/admin/controllers/VotingprepareController.php:74
 #, php-format
 msgid "%d contributions have been blocked."
 msgstr ""
 
-#: application/modules/admin/controllers/InputController.php:225
+#: application/modules/admin/controllers/InputController.php:358
 #, php-format
 msgid "%d contributions have been unblocked."
 msgstr ""
 
-#: application/modules/admin/controllers/InputController.php:231
+#: application/modules/admin/controllers/InputController.php:375
 #: application/modules/admin/controllers/VotingprepareController.php:67
 msgid "Contribution has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/InputController.php:254
+#: application/modules/admin/controllers/InputController.php:398
 msgid "No question provided."
 msgstr ""
 
@@ -330,7 +433,7 @@ msgstr ""
 
 #: application/modules/admin/controllers/MediaController.php:97
 #: application/modules/admin/forms/Media/FileDetail.php:42
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:116
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:120
 msgid "Folder"
 msgstr ""
 
@@ -341,7 +444,7 @@ msgstr ""
 
 #: application/modules/admin/controllers/MediaController.php:128
 #: application/modules/admin/controllers/MediaController.php:171
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:48
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:51
 msgid "Rename"
 msgstr ""
 
@@ -398,22 +501,44 @@ msgid ""
 "Question could not be deleted as there are contributions attached to it."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:38
+#: application/modules/admin/controllers/SettingsController.php:42
+#: application/modules/admin/controllers/SettingsController.php:165
 msgid "Settings were saved."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:45
-#: application/modules/admin/controllers/SettingsController.php:90
-#: application/modules/admin/controllers/SettingsController.php:127
+#: application/modules/admin/controllers/SettingsController.php:49
+#: application/modules/admin/controllers/SettingsController.php:105
+#: application/modules/admin/controllers/SettingsController.php:142
+#: application/modules/admin/controllers/SettingsController.php:172
 msgid "Form invalid"
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:87
+#: application/modules/admin/controllers/SettingsController.php:102
 msgid "Help text was saved."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:120
+#: application/modules/admin/controllers/SettingsController.php:135
 msgid "Footer was updated."
+msgstr ""
+
+#: application/modules/admin/controllers/SettingsController.php:199
+msgid "Your services settings were updated."
+msgstr ""
+
+#: application/modules/admin/controllers/SettingsController.php:207
+msgid ""
+"Services settings could not be updated. Please check the errors marked in "
+"the form below and try again."
+msgstr ""
+
+#: application/modules/admin/controllers/SettingsController.php:258
+msgid "Theme was updated."
+msgstr ""
+
+#: application/modules/admin/controllers/SettingsController.php:266
+msgid ""
+"Theme settings cannot be updated. Please check the errors marked in the form "
+"below and try again."
 msgstr ""
 
 #: application/modules/admin/controllers/TagController.php:48
@@ -442,11 +567,19 @@ msgstr ""
 msgid "User not found."
 msgstr ""
 
-#: application/modules/admin/controllers/UserController.php:148
+#: application/modules/admin/controllers/UserController.php:116
+msgid "Transfer contributions from"
+msgstr ""
+
+#: application/modules/admin/controllers/UserController.php:124
+msgid "Please select"
+msgstr ""
+
+#: application/modules/admin/controllers/UserController.php:158
 msgid "Contributions transferred."
 msgstr ""
 
-#: application/modules/admin/controllers/UserController.php:173
+#: application/modules/admin/controllers/UserController.php:184
 msgid "User has been deleted."
 msgstr ""
 
@@ -456,29 +589,51 @@ msgid "Changes for <b>%s</b> were saved."
 msgstr ""
 
 #: application/modules/admin/controllers/VotingController.php:73
-#: application/modules/admin/controllers/VotingController.php:137
+#: application/modules/admin/controllers/VotingController.php:168
 msgid "No user provided."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingController.php:112
-#: application/modules/admin/controllers/VotingController.php:174
+#: application/modules/admin/controllers/VotingController.php:92
+msgid "The voting permission was created."
+msgstr ""
+
+#: application/modules/admin/controllers/VotingController.php:98
+msgid ""
+"New voting permission cannot be created. Please check the errors marked in "
+"the form below and try again."
+msgstr ""
+
+#: application/modules/admin/controllers/VotingController.php:143
+#: application/modules/admin/controllers/VotingController.php:205
 #, php-format
 msgid "Voting invitation to %s has been successfully sent."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingController.php:223
+#: application/modules/admin/controllers/VotingController.php:254
 msgid "Voting participant has been confirmed."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingController.php:226
+#: application/modules/admin/controllers/VotingController.php:257
 msgid "Voting participant has been denied."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingController.php:231
+#: application/modules/admin/controllers/VotingController.php:262
 msgid "Voting participant has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingController.php:354
+#: application/modules/admin/controllers/VotingController.php:265
+msgid "Reminder to Voter has been sent"
+msgstr ""
+
+#: application/modules/admin/controllers/VotingController.php:269
+msgid "Reminder to Group leader has been sent."
+msgstr ""
+
+#: application/modules/admin/controllers/VotingController.php:376
+msgid "No question was selected."
+msgstr ""
+
+#: application/modules/admin/controllers/VotingController.php:419
 msgid "Saving changes failed."
 msgstr ""
 
@@ -507,36 +662,45 @@ msgid "%d contributions have been moved."
 msgstr ""
 
 #: application/modules/admin/controllers/VotingprepareController.php:126
-#: application/modules/admin/controllers/VotingprepareController.php:156
+#: application/modules/admin/controllers/VotingprepareController.php:161
 msgid "New contribution has been created."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingprepareController.php:186
+#: application/modules/admin/controllers/VotingprepareController.php:191
 msgid "Contribution has been copied. This is the copy."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingprepareController.php:226
+#: application/modules/admin/controllers/VotingprepareController.php:231
 msgid "New folder has been created."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingprepareController.php:229
+#: application/modules/admin/controllers/VotingprepareController.php:234
 msgid "Folder could not be created."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingprepareController.php:250
+#: application/modules/admin/controllers/VotingprepareController.php:255
 msgid "Folder deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/VotingprepareController.php:255
+#: application/modules/admin/controllers/VotingprepareController.php:260
 msgid "Folder order has been updated."
 msgstr ""
 
+#: application/modules/admin/controllers/VotingprepareController.php:282
+msgid "Selected contributions were added to related."
+msgstr ""
+
+#: application/modules/admin/controllers/VotingprepareController.php:285
+msgid "No contributions were selected."
+msgstr ""
+
 #: application/modules/admin/forms/Article.php:29
-#: application/modules/admin/forms/Consultation.php:13
+#: application/modules/admin/forms/Consultation.php:11
 #: application/modules/admin/forms/Followup/File.php:21
 #: application/modules/admin/views/scripts/article/index.phtml:56
-#: application/modules/admin/views/scripts/followup/index.phtml:42
+#: application/modules/admin/views/scripts/followup/index.phtml:44
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:22
+#: application/modules/admin/views/scripts/settings/help-text-index.phtml:58
 msgid "Title"
 msgstr ""
 
@@ -563,32 +727,38 @@ msgid "Unpublished"
 msgstr ""
 
 #: application/modules/admin/forms/Article.php:76
-#: application/modules/admin/forms/Consultation.php:239
+#: application/modules/admin/forms/Consultation.php:243
 msgid "Project"
 msgstr ""
 
 #: application/modules/admin/forms/Article.php:77
-#: application/modules/admin/forms/Consultation.php:240
+#: application/modules/admin/forms/Consultation.php:244
 msgid "Current project must be always selected."
 msgstr ""
 
 #: application/modules/admin/forms/Article.php:94
-#: application/modules/admin/forms/Consultation.php:257
-#: application/modules/admin/forms/ConsultationPhases.php:65
-#: application/modules/admin/forms/Directory.php:20
+#: application/modules/admin/forms/Consultation.php:261
+#: application/modules/admin/forms/ConsultationPhases.php:63
+#: application/modules/admin/forms/ContributionSubmission.php:76
+#: application/modules/admin/forms/Directory.php:18
 #: application/modules/admin/forms/Followup/File.php:79
 #: application/modules/admin/forms/Footer.php:42
 #: application/modules/admin/forms/HelpText.php:34
-#: application/modules/admin/forms/Mail/Component.php:55
+#: application/modules/admin/forms/Mail/Component.php:54
 #: application/modules/admin/forms/Mail/Template.php:64
-#: application/modules/admin/forms/Question.php:63
-#: application/modules/admin/forms/Settings.php:94
-#: application/modules/admin/forms/Tag.php:32
-#: application/modules/admin/forms/User/Create.php:91
+#: application/modules/admin/forms/Question.php:68
+#: application/modules/admin/forms/Settings/ContributionSubmission.php:33
+#: application/modules/admin/forms/Settings/LookAndFeel.php:62
+#: application/modules/admin/forms/Settings/Services.php:55
+#: application/modules/admin/forms/Settings/Site.php:100
+#: application/modules/admin/forms/Settings/Voting.php:16
+#: application/modules/admin/forms/Tag.php:30
+#: application/modules/admin/forms/User/Create.php:89
 #: application/modules/admin/forms/User/Edit.php:125
 #: application/modules/admin/forms/User/TransferContributions.php:18
 #: application/modules/admin/forms/Voting/Participantedit.php:37
-#: application/modules/admin/forms/Voting/Rights.php:59
+#: application/modules/admin/forms/Voting/Rights.php:61
+#: application/modules/admin/forms/Voting/RightsAdd.php:98
 msgid "Save"
 msgstr ""
 
@@ -596,193 +766,256 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: application/modules/admin/forms/ArticlePreview.php:54
+#: application/modules/admin/forms/ArticlePreview.php:52
 msgid "< Back to edit mode"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:20
+#: application/modules/admin/forms/Consultation.php:18
 #, php-format
 msgid ""
 "The title to be used where space is limited, i.e. email subjects. Max %d "
 "characters."
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:26
+#: application/modules/admin/forms/Consultation.php:24
 msgid "Short title"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:35
+#: application/modules/admin/forms/Consultation.php:33
 msgid "Subtitle"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:41
-#: application/modules/admin/forms/Consultation.php:274
+#: application/modules/admin/forms/Consultation.php:39
+#: application/modules/admin/forms/Consultation.php:278
 msgid "Featured image"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:45
+#: application/modules/admin/forms/Consultation.php:43
 msgid "Featured image description"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:49
+#: application/modules/admin/forms/Consultation.php:47
 #, php-format
 msgid ""
 "The higher number, the higher position in consultation list. The highest "
 "position is currently %d."
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:54
+#: application/modules/admin/forms/Consultation.php:52
 #: application/modules/admin/forms/Question.php:22
 msgid "Order"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:62
+#: application/modules/admin/forms/Consultation.php:60
 msgid "Explanation short"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:68
+#: application/modules/admin/forms/Consultation.php:66
 msgid "Enable contribution phase"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:79
+#: application/modules/admin/forms/Consultation.php:77
 msgid "Contribution phase start"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:88
+#: application/modules/admin/forms/Consultation.php:86
 msgid "Contribution phase end"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:97
+#: application/modules/admin/forms/Consultation.php:95
 msgid "Enable support phase"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:108
+#: application/modules/admin/forms/Consultation.php:106
 msgid "Support phase start"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:117
+#: application/modules/admin/forms/Consultation.php:115
 msgid "Support phase end"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:126
+#: application/modules/admin/forms/Consultation.php:124
 msgid "Enable voting phase"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:137
+#: application/modules/admin/forms/Consultation.php:135
 msgid "Voting phase start"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:146
+#: application/modules/admin/forms/Consultation.php:144
 msgid "Voting phase end"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:155
+#: application/modules/admin/forms/Consultation.php:153
 msgid "Make voting results public"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:163
+#: application/modules/admin/forms/Consultation.php:161
 msgid "Voting phase explanation"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:171
+#: application/modules/admin/forms/Consultation.php:169
 msgid "Enable discussion"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:182
+#: application/modules/admin/forms/Consultation.php:180
 msgid "Discussion phase start"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:191
+#: application/modules/admin/forms/Consultation.php:189
 msgid "Discussion phase end"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:200
+#: application/modules/admin/forms/Consultation.php:198
+msgid "Allow videos in Discussion"
+msgstr ""
+
+#: application/modules/admin/forms/Consultation.php:204
 msgid "Enable follow-ups"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:208
+#: application/modules/admin/forms/Consultation.php:212
 msgid "Follow-Up phase explanation"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:215
+#: application/modules/admin/forms/Consultation.php:219
 msgid "Make public"
 msgstr ""
 
-#: application/modules/admin/forms/Consultation.php:228
+#: application/modules/admin/forms/Consultation.php:232
 msgid "Responsible administrator"
 msgstr ""
 
-#: application/modules/admin/forms/ConsultationPhases.php:11
+#: application/modules/admin/forms/ConsultationPhases.php:9
 msgid "Enable custom phase names"
 msgstr ""
 
-#: application/modules/admin/forms/ConsultationPhases.php:15
-#: application/modules/admin/forms/Mail/Component.php:18
+#: application/modules/admin/forms/ConsultationPhases.php:13
+#: application/modules/admin/forms/Mail/Component.php:17
 #: application/modules/admin/forms/Mail/Template.php:25
 #: application/modules/admin/forms/Mail/Template.php:35
 #: application/modules/admin/forms/Question.php:27
 #: application/modules/admin/forms/Question.php:43
-#: application/modules/admin/forms/User/Create.php:20
-#: application/modules/admin/forms/User/Create.php:28
+#: application/modules/admin/forms/User/Create.php:18
+#: application/modules/admin/forms/User/Create.php:26
 #: application/modules/admin/forms/User/Edit.php:22
 #: application/modules/admin/forms/User/Edit.php:30
 #, php-format
 msgid "Max %d characters"
 msgstr ""
 
-#: application/modules/admin/forms/ConsultationPhases.php:19
+#: application/modules/admin/forms/ConsultationPhases.php:17
 #: application/modules/admin/views/scripts/article/index.phtml:38
-#: application/modules/admin/views/scripts/index/index.phtml:52
+#: application/modules/admin/views/scripts/index/index.phtml:59
 msgid "Info"
 msgstr "Info"
 
-#: application/modules/admin/forms/ConsultationPhases.php:28
+#: application/modules/admin/forms/ConsultationPhases.php:26
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:33
-#: application/modules/admin/views/scripts/index/index.phtml:53
-#: application/modules/admin/views/scripts/question/index.phtml:25
-#: application/modules/admin/views/scripts/voting/results.phtml:26
+#: application/modules/admin/views/scripts/consultation/report.phtml:54
+#: application/modules/admin/views/scripts/index/index.phtml:60
+#: application/modules/admin/views/scripts/question/index.phtml:27
+#: application/modules/admin/views/scripts/voting/results.phtml:38
 msgid "Questions"
 msgstr ""
 
-#: application/modules/admin/forms/ConsultationPhases.php:37
+#: application/modules/admin/forms/ConsultationPhases.php:35
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:46
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:18
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:31
-#: application/modules/admin/views/scripts/index/index.phtml:57
-#: application/modules/admin/views/scripts/input/index.phtml:21
-#: application/modules/admin/views/scripts/input/index.phtml:76
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:32
+#: application/modules/admin/views/scripts/index/index.phtml:64
+#: application/modules/admin/views/scripts/input/index.phtml:28
+#: application/modules/admin/views/scripts/input/index.phtml:83
 msgid "Contributions"
 msgstr ""
 
-#: application/modules/admin/forms/ConsultationPhases.php:46
-#: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:56
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:66
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:71
-#: application/modules/admin/views/scripts/index/index.phtml:64
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:91
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:73
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:111
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:97
+#: application/modules/admin/forms/ConsultationPhases.php:44
+#: application/modules/admin/views/helpers/ConsultationEditNavigation.php:28
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:59
+#: application/modules/admin/views/helpers/SettingsNavigation.php:37
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:77
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:65
+#: application/modules/admin/views/scripts/index/index.phtml:71
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:98
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:76
+#: application/modules/admin/views/scripts/settings/voting.phtml:16
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:120
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:101
 msgid "Voting"
 msgstr ""
 
-#: application/modules/admin/forms/ConsultationPhases.php:55
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:96
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:83
-#: application/modules/admin/views/scripts/followup/index.phtml:25
+#: application/modules/admin/forms/ConsultationPhases.php:53
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:99
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:94
+#: application/modules/admin/views/scripts/followup/index.phtml:27
 msgid "Follow-up"
 msgstr ""
 
-#: application/modules/admin/forms/Directory.php:12
-#: application/modules/admin/forms/Mail/Component.php:15
+#: application/modules/admin/forms/ContributionSubmission.php:10
+msgid "State field label"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:15
+msgid "Contribution confirmation info"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:22
+msgid "Display field name"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:26
+msgid "Display field age"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:30
+msgid "Display field state"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:34
+msgid "Display field comment groups"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:38
+msgid "Allow groups"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:42
+msgid "Display field contribution origin"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:46
+msgid "Display field individuals sum"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:50
+msgid "Display field group name"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:54
+msgid "Display field contact person"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:58
+msgid "Display field newsletter"
+msgstr ""
+
+#: application/modules/admin/forms/ContributionSubmission.php:62
+msgid "Display field notification"
+msgstr ""
+
+#: application/modules/admin/forms/CreateInput.php:27
+msgid "Contribution Author"
+msgstr ""
+
+#: application/modules/admin/forms/Directory.php:10
+#: application/modules/admin/forms/Mail/Component.php:14
 #: application/modules/admin/forms/Mail/Template.php:22
 #: application/modules/admin/forms/Media/FileDetail.php:20
 #: application/modules/admin/forms/Media/FolderDetail.php:13
-#: application/modules/admin/forms/Settings.php:53
-#: application/modules/admin/forms/User/Create.php:17
+#: application/modules/admin/forms/Settings/Site.php:59
+#: application/modules/admin/forms/User/Create.php:15
 #: application/modules/admin/forms/User/Edit.php:20
-#: application/modules/admin/views/scripts/input/index.phtml:74
+#: application/modules/admin/views/scripts/input/index.phtml:81
 #: application/modules/admin/views/scripts/mail-component/index.phtml:46
 #: application/modules/admin/views/scripts/mail-template/index.phtml:39
 #: application/modules/admin/views/scripts/media/folders.phtml:37
@@ -796,7 +1029,7 @@ msgstr ""
 
 #: application/modules/admin/forms/Followup/File.php:34
 #: application/modules/admin/forms/Followup/Snippet.php:23
-#: application/modules/admin/forms/Input.php:57
+#: application/modules/admin/forms/Input.php:64
 #: application/modules/admin/forms/Question.php:38
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:28
 msgid "Explanation"
@@ -824,7 +1057,7 @@ msgid "Document preview"
 msgstr ""
 
 #: application/modules/admin/forms/Followup/Snippet.php:32
-#: application/modules/admin/views/scripts/followup/snippets.phtml:73
+#: application/modules/admin/views/scripts/followup/snippets.phtml:75
 msgid "Type"
 msgstr ""
 
@@ -861,173 +1094,242 @@ msgid "Save and continue editing"
 msgstr ""
 
 #: application/modules/admin/forms/Followup/Snippet.php:73
-#: application/modules/admin/forms/Input.php:121
+#: application/modules/admin/forms/Input.php:131
 msgid "Save and return to index"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:42
+#: application/modules/admin/forms/Input.php:49
 #: application/modules/admin/forms/Question.php:30
-#: application/modules/admin/views/scripts/input/index.phtml:36
-#: application/modules/admin/views/scripts/question/index.phtml:34
-#: application/modules/admin/views/scripts/votingprepare/index.phtml:28
+#: application/modules/admin/views/scripts/input/index.phtml:43
+#: application/modules/admin/views/scripts/question/index.phtml:36
+#: application/modules/admin/views/scripts/votingprepare/index.phtml:31
 msgid "Question"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:50
+#: application/modules/admin/forms/Input.php:57
 msgid "Theses"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:63
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:92
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:135
+#: application/modules/admin/forms/Input.php:70
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:95
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:139
 msgid "Tags"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:71
+#: application/modules/admin/forms/Input.php:78
 msgid "User confirmation"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:75
-#: application/modules/admin/forms/Input.php:88
-#: application/modules/admin/forms/Input.php:101
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:85
-#: application/modules/admin/views/scripts/followup/snippets.phtml:77
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:57
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:76
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:95
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:82
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:106
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:125
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:105
+#: application/modules/admin/forms/Input.php:82
+#: application/modules/admin/forms/Input.php:95
+#: application/modules/admin/forms/Input.php:108
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:79
+#: application/modules/admin/views/scripts/followup/snippets.phtml:79
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:64
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:83
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:102
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:85
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:115
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:134
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:109
 msgid "Unknown"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:76
-#: application/modules/admin/forms/Input.php:89
-#: application/modules/admin/forms/User/Create.php:55
+#: application/modules/admin/forms/Input.php:83
+#: application/modules/admin/forms/Input.php:96
+#: application/modules/admin/forms/User/Create.php:53
 #: application/modules/admin/forms/User/Edit.php:64
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:67
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:86
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:47
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:65
-#: application/modules/admin/views/scripts/voting/participants.phtml:66
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:101
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:75
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:74
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:93
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:48
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:67
+#: application/modules/admin/views/scripts/voting/participants.phtml:68
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:110
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:79
 msgid "Confirmed"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:77
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:81
+#: application/modules/admin/forms/Input.php:84
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:88
 msgid "Rejected"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:84
+#: application/modules/admin/forms/Input.php:91
 msgid "Admin confirmation"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:90
-#: application/modules/admin/forms/User/Create.php:53
+#: application/modules/admin/forms/Input.php:97
+#: application/modules/admin/forms/User/Create.php:51
 #: application/modules/admin/forms/User/Edit.php:62
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:62
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:48
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:66
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:84
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:96
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:76
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:107
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:69
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:49
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:68
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:87
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:105
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:80
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:111
 msgid "Blocked"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:97
+#: application/modules/admin/forms/Input.php:104
 msgid "Enable voting"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:102
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:80
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:105
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:120
+#: application/modules/admin/forms/Input.php:109
+#: application/modules/admin/forms/Input.php:142
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:74
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:112
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:182
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:195
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:208
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:257
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:270
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:283
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:148
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:161
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:174
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:228
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:241
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:254
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:129
 msgid "No"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:103
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:75
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:100
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:115
+#: application/modules/admin/forms/Input.php:110
+#: application/modules/admin/forms/Input.php:141
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:69
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:107
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:181
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:194
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:207
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:256
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:269
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:282
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:147
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:160
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:173
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:227
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:240
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:253
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:124
 msgid "Yes"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:110
-#: application/modules/admin/forms/User/Create.php:63
+#: application/modules/admin/forms/Input.php:117
+#: application/modules/admin/forms/User/Create.php:61
 #: application/modules/admin/forms/User/Edit.php:97
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:33
 msgid "Internal note"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:123
-msgid "Save and split next"
+#: application/modules/admin/forms/Input.php:133
+msgid "Save and continue"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Component.php:25
-#: application/modules/admin/forms/Mail/Send.php:124
+#: application/modules/admin/forms/Input.php:140
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:180
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:193
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:206
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:255
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:268
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:281
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:146
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:159
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:172
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:226
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:239
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:252
+msgid "Are you sure?"
+msgstr ""
+
+#: application/modules/admin/forms/Input.php:143
+#: application/modules/admin/forms/Media/Delete.php:19
+#: application/modules/admin/views/scripts/consultation/index.phtml:43
+#: application/modules/admin/views/scripts/consultation/index.phtml:97
+#: application/modules/admin/views/scripts/index/index.phtml:108
+#: application/modules/admin/views/scripts/index/index.phtml:169
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:211
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:286
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:177
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:257
+#: application/modules/admin/views/scripts/media/folders.phtml:59
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:328
+msgid "Delete"
+msgstr ""
+
+#: application/modules/admin/forms/InputSort.php:12
+msgid "Sort by date"
+msgstr ""
+
+#: application/modules/admin/forms/InputSort.php:13
+msgid "Sort by number of supporters"
+msgstr ""
+
+#: application/modules/admin/forms/InputSort.php:23
+msgid "Sort"
+msgstr ""
+
+#: application/modules/admin/forms/Mail/Component.php:24
+#: application/modules/admin/forms/Mail/Send.php:125
 #: application/modules/admin/forms/Mail/Template.php:40
 msgid "Message (plain text)"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Component.php:32
-#: application/modules/admin/forms/Mail/Send.php:113
+#: application/modules/admin/forms/Mail/Component.php:31
+#: application/modules/admin/forms/Mail/Send.php:114
 #: application/modules/admin/forms/Mail/Template.php:47
 msgid "Message (HTML)"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Component.php:40
+#: application/modules/admin/forms/Mail/Component.php:39
 msgid "Component description"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:14
+#: application/modules/admin/forms/Mail/Send.php:15
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:56
 msgid "To"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:16
-#: application/modules/admin/forms/Mail/Send.php:25
-#: application/modules/admin/forms/Mail/Send.php:34
+#: application/modules/admin/forms/Mail/Send.php:17
+#: application/modules/admin/forms/Mail/Send.php:26
+#: application/modules/admin/forms/Mail/Send.php:35
 #, php-format
 msgid "Email address (max %d characters)"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:23
+#: application/modules/admin/forms/Mail/Send.php:24
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:60
 msgid "Cc"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:32
+#: application/modules/admin/forms/Mail/Send.php:33
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:64
 msgid "Bcc"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:62
+#: application/modules/admin/forms/Mail/Send.php:63
 #: application/modules/admin/views/helpers/ConsultationTabs.php:18
 #: application/modules/admin/views/scripts/media/consultations.phtml:32
 msgid "Consultation"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:69
+#: application/modules/admin/forms/Mail/Send.php:70
 msgid "All participants"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:77
+#: application/modules/admin/forms/Mail/Send.php:78
 msgid "Participants who voted"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:85
+#: application/modules/admin/forms/Mail/Send.php:86
 msgid "Participants who signed up to receive follow-ups"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:93
+#: application/modules/admin/forms/Mail/Send.php:94
 msgid "Participants who signed up to receive newsletter"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:101
+#: application/modules/admin/forms/Mail/Send.php:102
 #: application/modules/admin/forms/Mail/Template.php:32
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:46
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:42
@@ -1035,42 +1337,28 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:106
+#: application/modules/admin/forms/Mail/Send.php:107
 #, php-format
 msgid "Subject (max %d characters)"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:117
+#: application/modules/admin/forms/Mail/Send.php:118
 msgid "Message as HTML"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:128
+#: application/modules/admin/forms/Mail/Send.php:129
 msgid "Message as plain text"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:151
+#: application/modules/admin/forms/Mail/Send.php:152
 msgid "Add attachment"
 msgstr ""
 
-#: application/modules/admin/forms/Mail/Send.php:170
+#: application/modules/admin/forms/Mail/Send.php:171
 msgid "Send"
 msgstr ""
 
-#: application/modules/admin/forms/Media/Delete.php:21
-#: application/modules/admin/views/scripts/consultation/index.phtml:43
-#: application/modules/admin/views/scripts/consultation/index.phtml:97
-#: application/modules/admin/views/scripts/index/index.phtml:96
-#: application/modules/admin/views/scripts/index/index.phtml:157
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:165
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:213
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:150
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:203
-#: application/modules/admin/views/scripts/media/folders.phtml:59
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:324
-msgid "Delete"
-msgstr ""
-
-#: application/modules/admin/forms/Media/Delete.php:26
+#: application/modules/admin/forms/Media/Delete.php:24
 msgid "Delete media?"
 msgstr ""
 
@@ -1082,7 +1370,7 @@ msgstr ""
 
 #: application/modules/admin/forms/Media/FileDetail.php:64
 #: application/modules/admin/forms/Media/FolderDetail.php:50
-#: application/modules/admin/forms/Voting/Settings.php:68
+#: application/modules/admin/forms/Voting/Settings.php:66
 msgid "Submit"
 msgstr ""
 
@@ -1092,16 +1380,16 @@ msgid "Folder name can contain only characters a-z, 0-9 and -."
 msgstr ""
 
 #: application/modules/admin/forms/Media/Upload.php:40
-#: application/modules/admin/views/helpers/MediaNavigation.php:29
+#: application/modules/admin/views/helpers/MediaNavigation.php:30
 #: application/modules/admin/views/scripts/index/index.phtml:5
 #: application/modules/admin/views/scripts/media/consultations.phtml:26
 msgid "Consultations"
 msgstr ""
 
 #: application/modules/admin/forms/Media/Upload.php:41
-#: application/modules/admin/views/helpers/MediaNavigation.php:42
+#: application/modules/admin/views/helpers/MediaNavigation.php:44
 #: application/modules/admin/views/scripts/media/folders.phtml:30
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:180
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:184
 msgid "Folders"
 msgstr ""
 
@@ -1123,109 +1411,154 @@ msgstr ""
 msgid "Voting question"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:15
+#: application/modules/admin/forms/Question.php:53
+msgid "Allow video in contributions"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/ContributionSubmission.php:17
+msgid "License"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/LookAndFeel.php:26
+msgid "Primary color"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/LookAndFeel.php:33
+msgid "Accent color 1"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/LookAndFeel.php:40
+msgid "Accent color 2"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/LookAndFeel.php:47
+msgid "Add MitMachen bubble"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/Services.php:15
+msgid "YouTube"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/Services.php:23
+msgid "Vimeo"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/Services.php:34
+msgid "Facebook"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/Site.php:13
 msgid ""
 "Used in page <title> tag, in DV.title and og:title meta tags and as a logo "
 "image alt text."
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:19
+#: application/modules/admin/forms/Settings/Site.php:18
+msgid "Application Language"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/Site.php:25
 msgid "Site Title"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:25
+#: application/modules/admin/forms/Settings/Site.php:31
 msgid "Used in description and og:description meta tags."
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:28
+#: application/modules/admin/forms/Settings/Site.php:34
 msgid "Site Description"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:34
+#: application/modules/admin/forms/Settings/Site.php:40
 msgid "Used as a subtitle on all pages that are not consultation specific."
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:37
+#: application/modules/admin/forms/Settings/Site.php:43
 msgid "Motto"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:47
+#: application/modules/admin/forms/Settings/Site.php:53
 msgid "Site Information"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:50
-#: application/modules/admin/forms/Settings.php:59
-#: application/modules/admin/forms/Settings.php:68
+#: application/modules/admin/forms/Settings/Site.php:56
+#: application/modules/admin/forms/Settings/Site.php:65
+#: application/modules/admin/forms/Settings/Site.php:74
 msgid "Used as a placeholder in email templates."
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:62
-#: application/modules/admin/forms/User/Create.php:25
+#: application/modules/admin/forms/Settings/Site.php:68
+#: application/modules/admin/forms/User/Create.php:23
 #: application/modules/admin/forms/User/Edit.php:27
-#: application/modules/admin/views/scripts/input/index.phtml:75
+#: application/modules/admin/views/scripts/input/index.phtml:82
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:5
 #: application/modules/admin/views/scripts/mail-component/index.phtml:5
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:5
-#: application/modules/admin/views/scripts/mail-send/index.phtml:22
+#: application/modules/admin/views/scripts/mail-send/index.phtml:27
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:5
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:5
 #: application/modules/admin/views/scripts/mail-template/index.phtml:5
 #: application/modules/admin/views/scripts/user/index.phtml:38
-#: application/modules/admin/views/scripts/voting/invitations.phtml:48
+#: application/modules/admin/views/scripts/voting/invitations.phtml:52
 msgid "Email"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:71
+#: application/modules/admin/forms/Settings/Site.php:77
 msgid "Website URL"
 msgstr ""
 
-#: application/modules/admin/forms/Settings.php:80
+#: application/modules/admin/forms/Settings/Site.php:86
 msgid "Contact Information"
 msgstr ""
 
-#: application/modules/admin/forms/Tag.php:17
+#: application/modules/admin/forms/Settings/Voting.php:9
+msgid "Voting Question"
+msgstr ""
+
+#: application/modules/admin/forms/Tag.php:15
 msgid "New keyword"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:35
+#: application/modules/admin/forms/User/Create.php:33
 #: application/modules/admin/forms/User/Edit.php:44
 #: application/modules/admin/views/scripts/user/index.phtml:39
 msgid "Role"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:39
+#: application/modules/admin/forms/User/Create.php:37
 #: application/modules/admin/forms/User/Edit.php:48
+#: application/modules/admin/forms/Voting/RightsAdd.php:40
 #: application/modules/admin/views/scripts/user/index.phtml:64
-#: application/modules/admin/views/scripts/voting/index.phtml:35
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:88
+#: application/modules/admin/views/scripts/voting/index.phtml:43
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:97
 msgid "User"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:40
+#: application/modules/admin/forms/User/Create.php:38
 #: application/modules/admin/forms/User/Edit.php:49
 #: application/modules/admin/views/scripts/user/index.phtml:67
 msgid "Editor"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:41
+#: application/modules/admin/forms/User/Create.php:39
 #: application/modules/admin/forms/User/Edit.php:50
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:88
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:97
 msgid "Admin"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:49
+#: application/modules/admin/forms/User/Create.php:47
 #: application/modules/admin/forms/User/Edit.php:58
-#: application/modules/admin/views/scripts/voting/participants.phtml:39
+#: application/modules/admin/views/scripts/voting/participants.phtml:41
 msgid "Status"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:54
+#: application/modules/admin/forms/User/Create.php:52
 #: application/modules/admin/forms/User/Edit.php:63
-#: application/modules/admin/views/scripts/voting/participants.phtml:76
+#: application/modules/admin/views/scripts/voting/participants.phtml:78
 msgid "Unconfirmed"
 msgstr ""
 
-#: application/modules/admin/forms/User/Create.php:69
+#: application/modules/admin/forms/User/Create.php:67
 #: application/modules/admin/forms/User/Edit.php:103
 msgid "Receive newsletter"
 msgstr ""
@@ -1247,74 +1580,82 @@ msgstr ""
 msgid "Select a participant"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Rights.php:13
+#: application/modules/admin/forms/Voting/Rights.php:14
+#: application/modules/admin/forms/Voting/RightsAdd.php:48
 msgid "Weight"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Rights.php:20
-msgid "Access code"
-msgstr ""
-
-#: application/modules/admin/forms/Voting/Rights.php:28
+#: application/modules/admin/forms/Voting/Rights.php:21
+#: application/modules/admin/forms/Voting/RightsAdd.php:55
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:65
-#: application/modules/admin/views/scripts/voting/invitations.phtml:73
-#: application/modules/admin/views/scripts/voting/invitations.phtml:79
+#: application/modules/admin/views/scripts/voting/invitations.phtml:77
+#: application/modules/admin/views/scripts/voting/invitations.phtml:83
 msgid "Group size"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Rights.php:33
-#: application/modules/admin/forms/Voting/Rights.php:34
-#: application/modules/admin/forms/Voting/Rights.php:35
-#: application/modules/admin/forms/Voting/Rights.php:36
+#: application/modules/admin/forms/Voting/Rights.php:26
+#: application/modules/admin/forms/Voting/Rights.php:27
+#: application/modules/admin/forms/Voting/Rights.php:28
+#: application/modules/admin/forms/Voting/Rights.php:29
+#: application/modules/admin/forms/Voting/RightsAdd.php:59
+#: application/modules/admin/forms/Voting/RightsAdd.php:60
+#: application/modules/admin/forms/Voting/RightsAdd.php:61
+#: application/modules/admin/forms/Voting/RightsAdd.php:62
 msgid "bis"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Rights.php:37
+#: application/modules/admin/forms/Voting/Rights.php:30
+#: application/modules/admin/forms/Voting/RightsAdd.php:63
 msgid "über"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Rights.php:44
+#: application/modules/admin/forms/Voting/Rights.php:38
+#: application/modules/admin/forms/Voting/RightsAdd.php:75
+msgid "Access code"
+msgstr ""
+
+#: application/modules/admin/forms/Voting/Rights.php:46
 msgid "Size according to user"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:13
+#: application/modules/admin/forms/Voting/Settings.php:11
 msgid "Number of voting buttons"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:21
+#: application/modules/admin/forms/Voting/Settings.php:19
 #, php-format
 msgid "Comma separated, lower first, max. %d characters"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:24
+#: application/modules/admin/forms/Voting/Settings.php:22
 msgid "Button labels"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:32
+#: application/modules/admin/forms/Voting/Settings.php:30
 msgid "Superbutton"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:36
+#: application/modules/admin/forms/Voting/Settings.php:34
 msgid "Enable"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:37
+#: application/modules/admin/forms/Voting/Settings.php:35
 msgid "Disable"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:43
+#: application/modules/admin/forms/Voting/Settings.php:41
 msgid "Superbutton label"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:48
+#: application/modules/admin/forms/Voting/Settings.php:46
 msgid "Number of clicks allowed"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:56
+#: application/modules/admin/forms/Voting/Settings.php:54
 msgid "Rating factor"
 msgstr ""
 
-#: application/modules/admin/forms/Voting/Settings.php:57
+#: application/modules/admin/forms/Voting/Settings.php:55
 msgid "Max. rating × factor = total points"
 msgstr ""
 
@@ -1322,7 +1663,15 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: application/modules/admin/views/helpers/ConsultationEditNavigation.php:26
+#: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
+#: application/modules/admin/views/helpers/SettingsNavigation.php:32
+#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:21
+#: application/modules/admin/views/scripts/settings/contribution-submission-form.phtml:16
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
+msgid "Contribution"
+msgstr ""
+
+#: application/modules/admin/views/helpers/ConsultationEditNavigation.php:33
 #: application/modules/admin/views/scripts/consultation/phases.phtml:21
 msgid "Phases"
 msgstr ""
@@ -1331,25 +1680,26 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:63
-#: application/modules/admin/views/scripts/voting/invitations.phtml:49
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:66
+#: application/modules/admin/views/scripts/voting/invitations.phtml:53
 msgid "Permissions"
 msgstr ""
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:70
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:73
 msgid "Invitations"
 msgstr ""
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:77
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:80
 msgid "Participants"
 msgstr ""
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:84
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:87
 msgid "Results"
 msgstr ""
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:108
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:111
 #: application/modules/admin/views/scripts/consultation/report.phtml:21
+#: application/modules/admin/views/scripts/index/index.phtml:84
 msgid "Statistics"
 msgstr ""
 
@@ -1398,15 +1748,29 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: application/modules/admin/views/helpers/SettingsNavigation.php:32
+#: application/modules/admin/views/helpers/SettingsNavigation.php:42
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:3
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:16
 msgid "Help Texts"
 msgstr ""
 
-#: application/modules/admin/views/helpers/SettingsNavigation.php:37
+#: application/modules/admin/views/helpers/SettingsNavigation.php:47
 #: application/modules/admin/views/scripts/settings/footer.phtml:16
 msgid "Footer"
+msgstr ""
+
+#: application/modules/admin/views/helpers/SettingsNavigation.php:52
+#: application/modules/admin/views/scripts/settings/services.phtml:16
+msgid "Services"
+msgstr ""
+
+#: application/modules/admin/views/helpers/SettingsNavigation.php:57
+#: application/modules/admin/views/scripts/settings/look-and-feel.phtml:16
+msgid "Look and Feel"
+msgstr ""
+
+#: application/modules/admin/views/scripts/_helpers/helpText.phtml:17
+msgid "Close"
 msgstr ""
 
 #: application/modules/admin/views/scripts/_partials/mail-replacable-tokens.phtml:2
@@ -1414,24 +1778,32 @@ msgstr ""
 msgid "Placeholders"
 msgstr ""
 
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:16
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:19
 msgid "Select"
 msgstr ""
 
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:26
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:29
 msgid "Open"
 msgstr ""
 
-#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:61
+#: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:64
 msgid "Download"
+msgstr ""
+
+#: application/modules/admin/views/scripts/_partials/pageLinks.phtml:8
+msgid "Help"
 msgstr ""
 
 #: application/modules/admin/views/scripts/article/create.phtml:9
 #: application/modules/admin/views/scripts/article/edit.phtml:9
 #: application/modules/admin/views/scripts/article/index.phtml:9
+#: application/modules/admin/views/scripts/settings/contribution-submission-form.phtml:3
 #: application/modules/admin/views/scripts/settings/footer.phtml:3
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:3
 #: application/modules/admin/views/scripts/settings/index.phtml:3
+#: application/modules/admin/views/scripts/settings/look-and-feel.phtml:3
+#: application/modules/admin/views/scripts/settings/services.phtml:3
+#: application/modules/admin/views/scripts/settings/voting.phtml:3
 #: application/modules/admin/views/scripts/tag/create.phtml:3
 #: application/modules/admin/views/scripts/tag/index.phtml:3
 msgid "General Settings"
@@ -1471,13 +1843,13 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/article/index.phtml:67
 #: application/modules/admin/views/scripts/article/index.phtml:76
-#: application/modules/admin/views/scripts/article/index.phtml:99
-#: application/modules/admin/views/scripts/article/index.phtml:108
+#: application/modules/admin/views/scripts/article/index.phtml:105
+#: application/modules/admin/views/scripts/article/index.phtml:114
 msgid "Edit article"
 msgstr ""
 
 #: application/modules/admin/views/scripts/article/index.phtml:86
-#: application/modules/admin/views/scripts/article/index.phtml:118
+#: application/modules/admin/views/scripts/article/index.phtml:124
 msgid "Delete article?"
 msgstr ""
 
@@ -1493,6 +1865,12 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:69
+#: application/modules/admin/views/scripts/question/create.phtml:43
+#: application/modules/admin/views/scripts/question/edit.phtml:43
+msgid "Video Services Settings"
+msgstr ""
+
 #: application/modules/admin/views/scripts/consultation/_serverTimeTooltip.phtml:5
 msgid "Server time (when opening this page):"
 msgstr ""
@@ -1506,14 +1884,14 @@ msgid "New Contributions"
 msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:42
-#: application/modules/admin/views/scripts/index/index.phtml:95
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:137
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:159
+#: application/modules/admin/views/scripts/index/index.phtml:107
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:144
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:168
 msgid "Delete contribution?"
 msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:60
-#: application/modules/admin/views/scripts/index/index.phtml:115
+#: application/modules/admin/views/scripts/index/index.phtml:127
 msgid "Show contributions by"
 msgstr ""
 
@@ -1526,12 +1904,12 @@ msgid "Discussion Posts"
 msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:96
-#: application/modules/admin/views/scripts/index/index.phtml:156
+#: application/modules/admin/views/scripts/index/index.phtml:168
 msgid "Delete discussion post?"
 msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:122
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:169
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:160
 msgid "There are no discussion posts yet."
 msgstr ""
 
@@ -1545,40 +1923,126 @@ msgstr ""
 msgid "Back to Consultations"
 msgstr ""
 
+#: application/modules/admin/views/scripts/consultation/report.phtml:28
+msgid "All Contributors"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:29
+msgid "Number of contributors in current consultation"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:33
+msgid ""
+"Accumulated number of individuals and groups, even if they contributed in "
+"several sessions in this particular consultation"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:36
+msgid "All contributions in the contribution period"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:40
+msgid "of which the contributions that were confirmed"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:43
+msgid "of which remained unconfirmed or anonymous"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:46
+msgid "of which were blocked by organisers"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:50
+msgid "Contributions that were available to vote on"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:51
+#: application/modules/admin/views/scripts/consultation/report.phtml:74
+msgid "All contributions except ones with voting disabled"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:64
+msgid "See Contribution"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:70
+msgid "Number of confirmed contributions"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:73
+msgid "Number of contributions for voting"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:79
+msgid "Votes"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:86
+#: application/modules/admin/views/scripts/consultation/report.phtml:88
+msgid "Absolute number of votes"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:90
+msgid "Raw amount, voting weight not taken into account"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:98
+#: application/modules/admin/views/scripts/consultation/report.phtml:100
+msgid ""
+"Groups that have voting rights and number of actually participating ones"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:105
+msgid "Voting weights"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:112
+msgid "Test accounts"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:115
+msgid "Individuals"
+msgstr ""
+
+#: application/modules/admin/views/scripts/consultation/report.phtml:118
+msgid "Group weight"
+msgstr ""
+
 #: application/modules/admin/views/scripts/followup/followup-detail.phtml:21
-#: application/modules/admin/views/scripts/followup/snippets.phtml:22
+#: application/modules/admin/views/scripts/followup/snippets.phtml:24
 msgid "Back to Follow-ups"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:23
+#: application/modules/admin/views/scripts/followup/index.phtml:25
 msgid "New Follow-up"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:30
+#: application/modules/admin/views/scripts/followup/index.phtml:32
 msgid "There are no follow-ups yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:40
+#: application/modules/admin/views/scripts/followup/index.phtml:42
 msgid "Time Added"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:41
+#: application/modules/admin/views/scripts/followup/index.phtml:43
 msgid "Stakeholder"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:59
+#: application/modules/admin/views/scripts/followup/index.phtml:61
 msgid "Edit follow-up"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:66
+#: application/modules/admin/views/scripts/followup/index.phtml:68
 msgid "Edit snippets"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:75
+#: application/modules/admin/views/scripts/followup/index.phtml:77
 msgid "Delete follow-up?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:76
+#: application/modules/admin/views/scripts/followup/index.phtml:78
 msgid "Delete follow-up"
 msgstr ""
 
@@ -1591,85 +2055,85 @@ msgstr ""
 msgid "Snippet Links"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:37
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:107
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:29
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:101
 msgid "Save contribution links"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:96
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:293
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:90
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:366
 msgid "There are no contributions for this question yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:113
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:107
 msgid "There are no questions for this consultation yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:123
-#: application/modules/admin/views/scripts/followup/snippets.phtml:25
-msgid "Follow-Up Snippets"
-msgstr ""
-
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:129
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:185
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:115
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:172
 msgid "Save snippet links"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:173
-#: application/modules/admin/views/scripts/followup/snippets.phtml:134
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:118
+#: application/modules/admin/views/scripts/followup/snippets.phtml:27
+msgid "Follow-Up Snippets"
+msgstr ""
+
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:160
+#: application/modules/admin/views/scripts/followup/snippets.phtml:136
 msgid "There are no snippets for this follow-up yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:191
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:232
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:178
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:219
 msgid "There are no follow-ups for this consultation yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:196
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:183
 msgid "Follow-Ups"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:202
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:226
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:189
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:213
 msgid "Save follow-up links"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:33
+#: application/modules/admin/views/scripts/followup/snippets.phtml:35
 msgid "New Snippet"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:43
-#: application/modules/admin/views/scripts/followup/snippets.phtml:126
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:219
+#: application/modules/admin/views/scripts/followup/snippets.phtml:45
+#: application/modules/admin/views/scripts/followup/snippets.phtml:128
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:223
 msgid "Save changes"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:60
-#: application/modules/admin/views/scripts/followup/snippets.phtml:90
+#: application/modules/admin/views/scripts/followup/snippets.phtml:62
+#: application/modules/admin/views/scripts/followup/snippets.phtml:92
 msgid "Snippet links"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:62
+#: application/modules/admin/views/scripts/followup/snippets.phtml:64
 msgid "in"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:65
+#: application/modules/admin/views/scripts/followup/snippets.phtml:67
 msgid "out"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:69
+#: application/modules/admin/views/scripts/followup/snippets.phtml:71
 msgid "Level"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:102
+#: application/modules/admin/views/scripts/followup/snippets.phtml:104
 msgid "Edit snippet"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:112
+#: application/modules/admin/views/scripts/followup/snippets.phtml:114
 msgid "Delete snippet?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/snippets.phtml:113
+#: application/modules/admin/views/scripts/followup/snippets.phtml:115
 msgid "Delete snippet"
 msgstr ""
 
@@ -1681,40 +2145,41 @@ msgstr ""
 msgid "Open media manager for"
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:71
+#: application/modules/admin/views/scripts/index/index.phtml:78
 msgid "Follow Up"
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:81
+#: application/modules/admin/views/scripts/index/index.phtml:93
 msgid "Latest Contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:129
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:129
+#: application/modules/admin/views/scripts/index/index.phtml:141
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:133
 msgid "Show all contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:135
+#: application/modules/admin/views/scripts/index/index.phtml:147
 msgid "No contributions yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:142
+#: application/modules/admin/views/scripts/index/index.phtml:154
 msgid "Latest Discussion Posts"
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:182
+#: application/modules/admin/views/scripts/index/index.phtml:194
 msgid "Show all discussion posts"
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:187
+#: application/modules/admin/views/scripts/index/index.phtml:199
 msgid "No posts yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/index/index.phtml:202
+#: application/modules/admin/views/scripts/index/index.phtml:214
 msgid "There are no consultations yet."
 msgstr ""
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:26
+#: application/modules/admin/views/scripts/input/create.phtml:21
 #: application/modules/admin/views/scripts/input/edit.phtml:21
 msgid "Back to Contributions"
 msgstr ""
@@ -1723,135 +2188,155 @@ msgstr ""
 msgid "Contribution Discussion"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:67
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:72
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:55
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:58
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:79
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:57
 msgid "User Confirmation"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:71
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:62
 msgid "User confirmed"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:76
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:67
 msgid "Not user confirmed"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:81
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:72
 msgid "Visibility"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:85
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:76
 msgid "Visible"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:90
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:81
 msgid "Hidden"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:99
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:90
 msgid "Confirm"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:103
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:94
 msgid "Mark as user confirmed?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:110
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:101
 msgid "Deny"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:114
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:105
 msgid "Remove user confirmation?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:123
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:114
 msgid "Mark as hidden"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:127
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:118
 msgid "Mark as hidden?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:135
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:126
 msgid "Mark as visible"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:138
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:129
 msgid "Mark as visible?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:151
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:142
 msgid "Create an input from this discussion contribution."
 msgstr ""
 
-#: application/modules/admin/views/scripts/input-discussion/index.phtml:154
+#: application/modules/admin/views/scripts/input-discussion/index.phtml:145
 msgid "Create an input from this discussion contribution?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:46
-msgid "Created from discussion post."
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:34
+#, php-format
+msgid "Supported by %d users."
 msgstr ""
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:53
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:37
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:92
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:66
+msgid "Created from discussion post."
+msgstr ""
+
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:60
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:38
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:101
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:70
 msgid "Admin Confirmation"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:120
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:127
 msgid "Show discussion"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:128
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:136
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:135
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:145
 msgid "Edit contribution"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/_inputBox.phtml:138
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:72
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:160
+#: application/modules/admin/views/scripts/input/_inputBox.phtml:145
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:169
 msgid "Delete contribution"
+msgstr ""
+
+#: application/modules/admin/views/scripts/input/create.phtml:23
+#: application/modules/admin/views/scripts/input/index.phtml:25
+#: application/modules/admin/views/scripts/votingprepare/merge.phtml:35
+#: application/modules/admin/views/scripts/votingprepare/split.phtml:35
+msgid "New Contribution"
 msgstr ""
 
 #: application/modules/admin/views/scripts/input/edit.phtml:23
 msgid "Edit Contribution"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:26
+#: application/modules/admin/views/scripts/input/edit.phtml:31
+msgid "List of contributions from this author"
+msgstr ""
+
+#: application/modules/admin/views/scripts/input/index.phtml:33
 msgid "There are no contributions yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:31
+#: application/modules/admin/views/scripts/input/index.phtml:38
 msgid "By Question"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:37
+#: application/modules/admin/views/scripts/input/index.phtml:44
 msgid "Unread"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:38
+#: application/modules/admin/views/scripts/input/index.phtml:45
 msgid "Total"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:48
-#: application/modules/admin/views/scripts/input/index.phtml:56
-#: application/modules/admin/views/scripts/input/index.phtml:95
+#: application/modules/admin/views/scripts/input/index.phtml:55
+#: application/modules/admin/views/scripts/input/index.phtml:63
+#: application/modules/admin/views/scripts/input/index.phtml:102
 msgid "Show"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:69
+#: application/modules/admin/views/scripts/input/index.phtml:76
 msgid "By User"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/index.phtml:77
+#: application/modules/admin/views/scripts/input/index.phtml:84
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:110
 msgid "Comment"
 msgstr ""
 
+#: application/modules/admin/views/scripts/input/inputForm.phtml:24
+msgid "Video"
+msgstr ""
+
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:22
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:22
+#: application/modules/admin/views/scripts/votingprepare/add-related.phtml:21
 msgid "Back to Overview"
 msgstr ""
 
@@ -1859,90 +2344,90 @@ msgstr ""
 msgid "Contributions for"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:45
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:63
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:81
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:73
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:89
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:104
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:46
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:65
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:84
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:77
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:93
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:108
 msgid "All"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:46
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:64
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:74
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:47
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:66
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:78
 msgid "Waiting for revision"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:83
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:106
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:86
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:110
 msgid "Allowed"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:119
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:162
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:123
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:166
 msgid "Reset Filter"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:128
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:132
 #, php-format
 msgid "Only contributions with &ldquo;%s&rdquo; keywords are listed."
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:143
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:149
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:191
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:197
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:162
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:168
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:237
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:243
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:128
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:134
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:182
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:187
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:241
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:247
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:209
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:214
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:245
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:251
 msgid "Mark all contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:157
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:205
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:142
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:195
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:185
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:260
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:151
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:231
 msgid "Publish"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:161
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:209
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:146
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:199
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:285
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:198
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:273
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:164
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:244
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:289
 msgid "Block"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:228
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:301
 msgid "CSV Export"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:237
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:283
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:310
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:356
 msgid "All contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:244
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:317
 msgid "Confirmed contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:251
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:324
 msgid "Unconfirmed contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:258
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:331
 msgid "Voting theses"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:265
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:338
 msgid "Voting theses – edited"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-question.phtml:274
+#: application/modules/admin/views/scripts/input/list-by-question.phtml:347
 msgid "MS Excel Export"
 msgstr ""
 
@@ -1955,7 +2440,7 @@ msgid "Contact person"
 msgstr ""
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:47
-#: application/modules/admin/views/scripts/voting/invitations.phtml:78
+#: application/modules/admin/views/scripts/voting/invitations.phtml:82
 msgid "Group name"
 msgstr ""
 
@@ -2006,7 +2491,7 @@ msgstr ""
 msgid "Inform about consultation results"
 msgstr ""
 
-#: application/modules/admin/views/scripts/input/list-by-user.phtml:214
+#: application/modules/admin/views/scripts/input/list-by-user.phtml:268
 msgid "This user has not contributed yet."
 msgstr ""
 
@@ -2068,11 +2553,11 @@ msgstr ""
 msgid "Time Queued"
 msgstr ""
 
-#: application/modules/admin/views/scripts/mail-send/index.phtml:11
+#: application/modules/admin/views/scripts/mail-send/index.phtml:12
 msgid "Back to Sent Emails"
 msgstr ""
 
-#: application/modules/admin/views/scripts/mail-send/index.phtml:14
+#: application/modules/admin/views/scripts/mail-send/index.phtml:19
 msgid "Create from template"
 msgstr ""
 
@@ -2160,7 +2645,7 @@ msgid "Edit"
 msgstr ""
 
 #: application/modules/admin/views/scripts/media/folders.phtml:56
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:209
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:213
 msgid "Delete folder?"
 msgstr ""
 
@@ -2195,17 +2680,17 @@ msgid "Back to Questions"
 msgstr ""
 
 #: application/modules/admin/views/scripts/question/create.phtml:23
-#: application/modules/admin/views/scripts/question/index.phtml:23
+#: application/modules/admin/views/scripts/question/index.phtml:25
 msgid "New Question"
 msgstr ""
 
-#: application/modules/admin/views/scripts/question/create.phtml:39
-#: application/modules/admin/views/scripts/question/edit.phtml:39
+#: application/modules/admin/views/scripts/question/create.phtml:50
+#: application/modules/admin/views/scripts/question/edit.phtml:50
 msgid "or"
 msgstr ""
 
-#: application/modules/admin/views/scripts/question/create.phtml:40
-#: application/modules/admin/views/scripts/question/edit.phtml:40
+#: application/modules/admin/views/scripts/question/create.phtml:51
+#: application/modules/admin/views/scripts/question/edit.phtml:51
 msgid "Cancel"
 msgstr ""
 
@@ -2213,16 +2698,16 @@ msgstr ""
 msgid "Edit Question"
 msgstr ""
 
-#: application/modules/admin/views/scripts/question/index.phtml:47
+#: application/modules/admin/views/scripts/question/index.phtml:49
 msgid "Edit question"
 msgstr ""
 
-#: application/modules/admin/views/scripts/question/index.phtml:56
+#: application/modules/admin/views/scripts/question/index.phtml:58
 msgid "Delete question?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/question/index.phtml:69
-#: application/modules/admin/views/scripts/votingprepare/index.phtml:47
+#: application/modules/admin/views/scripts/question/index.phtml:71
+#: application/modules/admin/views/scripts/votingprepare/index.phtml:51
 msgid "There are no questions yet."
 msgstr ""
 
@@ -2232,7 +2717,40 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:33
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:42
+#: application/modules/admin/views/scripts/settings/help-text-index.phtml:69
+#: application/modules/admin/views/scripts/settings/help-text-index.phtml:78
 msgid "Edit help text"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/help-text-index.phtml:52
+msgid "Admin Help Texts"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:9
+msgid "Logo"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:12
+msgid "Icon"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:15
+msgid "Header"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:18
+msgid "Predefined themes"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:45
+msgid "Custom Colours"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/services.phtml:20
+msgid ""
+"In case one or more of the services is greyed out and cannot be activated, "
+"it is probably due to misconfiguration of service access applications in the "
+"ePartool configuration files."
 msgstr ""
 
 #: application/modules/admin/views/scripts/tag/create.phtml:16
@@ -2273,7 +2791,7 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/user/create.phtml:9
 #: application/modules/admin/views/scripts/user/edit.phtml:19
-#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:11
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:9
 msgid "Back to Users"
 msgstr ""
 
@@ -2313,94 +2831,104 @@ msgstr ""
 msgid "Are you sure? All contributions by this user will be made anonymous."
 msgstr ""
 
-#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:4
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:3
 msgid "Transfer User Contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:19
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:21
 msgid "Last contribution on:"
 msgstr ""
 
+#: application/modules/admin/views/scripts/user/transfer-contributions.phtml:24
+msgid "No contributions yet"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/create-rights.phtml:21
 #: application/modules/admin/views/scripts/voting/editrights.phtml:21
 msgid "Back to Voting Permissions"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/create-rights.phtml:23
+#: application/modules/admin/views/scripts/voting/index.phtml:25
+msgid "New Permission"
 msgstr ""
 
 #: application/modules/admin/views/scripts/voting/editrights.phtml:23
 msgid "Voting Permissions for"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:21
+#: application/modules/admin/views/scripts/voting/index.phtml:28
 msgid "Voting Permissions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:26
+#: application/modules/admin/views/scripts/voting/index.phtml:33
 msgid "new users added recently."
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:36
+#: application/modules/admin/views/scripts/voting/index.phtml:44
 msgid "Voting Weight"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:37
+#: application/modules/admin/views/scripts/voting/index.phtml:45
 msgid "Access Code"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:38
+#: application/modules/admin/views/scripts/voting/index.phtml:46
 msgid "Accepted Size"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:39
+#: application/modules/admin/views/scripts/voting/index.phtml:47
 msgid "Stated Size"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:60
-#: application/modules/admin/views/scripts/voting/invitations.phtml:107
-#: application/modules/admin/views/scripts/voting/participants.phtml:121
+#: application/modules/admin/views/scripts/voting/index.phtml:68
+#: application/modules/admin/views/scripts/voting/invitations.phtml:111
+#: application/modules/admin/views/scripts/voting/participants.phtml:87
 msgid "Show all contributions by this user"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:67
+#: application/modules/admin/views/scripts/voting/index.phtml:75
 msgid "Edit permissions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/index.phtml:79
+#: application/modules/admin/views/scripts/voting/index.phtml:88
 msgid "There are no permissions to be set."
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:32
+#: application/modules/admin/views/scripts/voting/invitations.phtml:35
 msgid "Compose an email for all invited users"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:37
+#: application/modules/admin/views/scripts/voting/invitations.phtml:40
 #: application/modules/admin/views/scripts/voting/sendinvitation.phtml:22
 msgid "Voting Invitations"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:47
+#: application/modules/admin/views/scripts/voting/invitations.phtml:51
 msgid "User Name"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:72
+#: application/modules/admin/views/scripts/voting/invitations.phtml:76
 msgid "Voting weight"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:77
+#: application/modules/admin/views/scripts/voting/invitations.phtml:81
 msgid "Partner"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:89
+#: application/modules/admin/views/scripts/voting/invitations.phtml:93
 msgid "Preview and send invitation"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:98
+#: application/modules/admin/views/scripts/voting/invitations.phtml:102
 msgid "Do you really want to send invitation to this user?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:99
+#: application/modules/admin/views/scripts/voting/invitations.phtml:103
 msgid "Send invitation"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/invitations.phtml:120
+#: application/modules/admin/views/scripts/voting/invitations.phtml:125
 msgid "There are no participants to be invited."
 msgstr ""
 
@@ -2419,76 +2947,90 @@ msgid ""
 "the selected participant will be removed."
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:21
+#: application/modules/admin/views/scripts/voting/participants.phtml:23
 msgid "Voting Participants"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:27
+#: application/modules/admin/views/scripts/voting/participants.phtml:29
 msgid "Total participants"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:37
+#: application/modules/admin/views/scripts/voting/participants.phtml:39
 msgid "Group"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:38
+#: application/modules/admin/views/scripts/voting/participants.phtml:40
 msgid "Participant"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:40
+#: application/modules/admin/views/scripts/voting/participants.phtml:42
 msgid "Votes Left"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:71
+#: application/modules/admin/views/scripts/voting/participants.phtml:73
 msgid "Denied"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:88
-msgid "Confirm voting participant?"
-msgstr ""
-
-#: application/modules/admin/views/scripts/voting/participants.phtml:89
-msgid "Confirm participant"
-msgstr ""
-
-#: application/modules/admin/views/scripts/voting/participants.phtml:100
-msgid "Deny voting participant?"
-msgstr ""
-
-#: application/modules/admin/views/scripts/voting/participants.phtml:101
-msgid "Deny participant"
-msgstr ""
-
-#: application/modules/admin/views/scripts/voting/participants.phtml:112
-msgid "Delete voting participant?"
-msgstr ""
-
-#: application/modules/admin/views/scripts/voting/participants.phtml:113
-msgid "Delete participant"
-msgstr ""
-
-#: application/modules/admin/views/scripts/voting/participants.phtml:128
+#: application/modules/admin/views/scripts/voting/participants.phtml:94
 msgid "Merge participants"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:142
+#: application/modules/admin/views/scripts/voting/participants.phtml:110
+msgid "Confirm voting participant?"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:111
+#: application/modules/admin/views/scripts/voting/participants.phtml:114
+msgid "Confirm participant"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:125
+msgid "Deny voting participant?"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:126
+#: application/modules/admin/views/scripts/voting/participants.phtml:129
+msgid "Deny participant"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:140
+msgid "Delete voting participant?"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:141
+#: application/modules/admin/views/scripts/voting/participants.phtml:144
+msgid "Delete participant"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:154
+#: application/modules/admin/views/scripts/voting/participants.phtml:157
+#: application/modules/admin/views/scripts/voting/participants.phtml:166
+#: application/modules/admin/views/scripts/voting/participants.phtml:169
+msgid "Send reminder"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/participants.phtml:185
 msgid "There are no participants yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/results.phtml:21
+#: application/modules/admin/views/scripts/voting/results.phtml:31
+msgid "Download table as file"
+msgstr ""
+
+#: application/modules/admin/views/scripts/voting/results.phtml:33
 msgid "Voting Results"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/results.phtml:58
+#: application/modules/admin/views/scripts/voting/results.phtml:70
 msgid "Weighted points"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/results.phtml:58
+#: application/modules/admin/views/scripts/voting/results.phtml:70
 msgid "votes"
 msgstr ""
 
-#: application/modules/admin/views/scripts/voting/results.phtml:78
-#: application/modules/admin/views/scripts/voting/results.phtml:85
+#: application/modules/admin/views/scripts/voting/results.phtml:90
+#: application/modules/admin/views/scripts/voting/results.phtml:97
 msgid "There are no voting results to be shown at the moment."
 msgstr ""
 
@@ -2496,29 +3038,46 @@ msgstr ""
 msgid "Voting Settings"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
-msgid "Contribution"
-msgstr ""
-
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:56
 msgid "Related"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:71
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:60
+msgid "Add related contributions"
+msgstr ""
+
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:80
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:81
 msgid "Unlink contribution"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:85
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:82
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:94
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:86
 msgid "Origin"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:143
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:152
 msgid "Copy contribution"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:150
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:159
 msgid "Split contribution"
+msgstr ""
+
+#: application/modules/admin/views/scripts/votingprepare/add-related.phtml:22
+msgid "Link contributions"
+msgstr ""
+
+#: application/modules/admin/views/scripts/votingprepare/add-related.phtml:31
+msgid "Original contribution"
+msgstr ""
+
+#: application/modules/admin/views/scripts/votingprepare/add-related.phtml:64
+msgid "Search text"
+msgstr ""
+
+#: application/modules/admin/views/scripts/votingprepare/add-related.phtml:99
+msgid "Link selection to original contribution"
 msgstr ""
 
 #: application/modules/admin/views/scripts/votingprepare/copy.phtml:21
@@ -2536,7 +3095,7 @@ msgstr ""
 msgid "Create Folder"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/index.phtml:21
+#: application/modules/admin/views/scripts/votingprepare/index.phtml:23
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:22
 msgid "Voting Preparation"
 msgstr ""
@@ -2547,11 +3106,6 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:24
 msgid "Original Contributions"
-msgstr ""
-
-#: application/modules/admin/views/scripts/votingprepare/merge.phtml:33
-#: application/modules/admin/views/scripts/votingprepare/split.phtml:33
-msgid "New Contribution"
 msgstr ""
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:33
@@ -2566,68 +3120,68 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:90
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:94
 msgid "User created"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:91
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:95
 msgid "Admin created"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:123
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:127
 msgid "All folders"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:124
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:333
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:128
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:337
 msgid "Folder root"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:190
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:194
 msgid "Add folder"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:260
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:264
 msgid "Merge"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:271
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:275
 msgid "Release contributions?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:274
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:278
 msgid "Release"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:282
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:286
 msgid "Block contributions?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:296
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:300
 msgid "Set contributions for voting?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:299
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:303
 msgid "Allow for voting"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:307
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:311
 msgid "Ban contributions from voting?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:310
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:314
 msgid "Ban from voting"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:321
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:325
 msgid "Delete contributions?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:347
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:351
 msgid "Move contributions?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/votingprepare/overview.phtml:349
+#: application/modules/admin/views/scripts/votingprepare/overview.phtml:353
 msgid "Move to folder"
 msgstr ""
 
