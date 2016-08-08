@@ -271,6 +271,33 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * getByQuestion2
+     * @desc returns entry by question-id
+     * @name getByQuestion2
+     * @param  integer      $qid   id of question (qi in mysql-table)
+     * @param  string|array $order [optional] MySQL Order Expression, e.g. 'votes DESC'
+     * @param  integer      $limit [optional] Number of records to return
+     * @param  integer      $tag   [optional] id of tag (tg_nr)
+     * @return array
+     */
+    public function getByQuestion2($qid, $order = 'i.tid ASC', $limit = null, $tag = null)
+    {
+        // is int?
+        $intVal = new Zend_Validate_Int();
+        if (!$intVal->isValid($qid)) {
+            return array();
+        }
+
+        // get select obj
+        $select = $this->getSelectByQuestion($qid, $order, $limit, $tag)->where('uid IS NOT NULL');
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+        $result = $stmt->fetchAll();
+
+        return $result;
+    }
+
+    /**
      * Returns number of inputs for a consultation
      * @param  integer $kid               The consultattion identifier
      * @param  boolean $excludeInvisible  Default: true
@@ -1475,7 +1502,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
             ->where('qi = ?', $qid);
     }
-    
+
     /**
      * @param int $kid
      * @return \Zend_Db_Select
