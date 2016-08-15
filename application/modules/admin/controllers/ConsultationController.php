@@ -423,7 +423,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 }
 
                 $this->_flashMessenger->addMessage('Form settings were updated.', 'success');
-                $this->redirect($this->view->url(['action' => 'contribution-submission-form']));
+                $this->redirect($this->view->url(['action' => 'contribution-submission-form']), ['prependBase' => false]);
             } else {
                 $this->_flashMessenger->addMessage(
                     'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
