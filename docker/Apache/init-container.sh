@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# This script is to be executed when the docker contianer is started
+# This script is to be executed when the docker container is started
 
 
 # Set UID of user www-data on guest to match the UID of the user on the host machine
