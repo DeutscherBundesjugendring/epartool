@@ -1167,3 +1167,7 @@ ALTER TABLE `proj` DROP COLUMN `state_field_label`;
 
 ALTER TABLE `cnslt` ADD COLUMN `state_field_label` varchar(255) DEFAULT NULL;
 ALTER TABLE `cnslt` ADD COLUMN `contribution_confirmation_info` text NOT NULL;
+
+-- Migration 2016-08-24_18-35_DBJR-902.sql
+ALTER TABLE `vt_indiv`
+CHANGE `pts` `pts` tinyint(4) NULL COMMENT 'the vote itself (points)' AFTER `tid`;

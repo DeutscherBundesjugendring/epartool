@@ -21,7 +21,7 @@
         </li>
     <?php endfor; ?>
 
-    <li<?=$this->points == '5' ? ' class="active"' : '';?>>
+    <li<?=$this->points === null ? ' class="active"' : '';?>>
         <span><?=$this->translate('No opinion');?></span>
     </li>
 

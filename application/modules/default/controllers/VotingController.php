@@ -271,9 +271,9 @@ class VotingController extends Zend_Controller_Action
         $this->view->settings = $this->getVotingSettings();
 
         $param = $this->getRequest()->getParams();
-        $pts = (int) $param['points'];
+        $pts = (isset($param['points']) ? (int) $param['points'] : null);
 
-        if ($pts < 0 || $pts > 5) {
+        if ($pts < Service_Voting::POINTS_MIN || $pts > Service_Voting::POINTS_MAX) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('Your rating is out of accepted range.');
 
@@ -559,7 +559,7 @@ class VotingController extends Zend_Controller_Action
 
         $param = $this->getRequest()->getParams();
         $backParam = (!empty($param['qid'])) ? '/qid/' . $param['qid'] : '/tag/' . $param['tag'];
-        $pts = (int) $param['pts'];
+        $pts = (isset($param['pts']) ? (int) $param['pts'] : null);
         $subUid = $votingRightsSession->subUid;
         $uid = $votingRightsSession->uid;
         $tid = (int)$param['tid'];
@@ -577,7 +577,7 @@ class VotingController extends Zend_Controller_Action
         }
 
         // check if the points are correct
-        if ($pts > 5 && $pts < 0) {
+        if ($pts > Service_Voting::POINTS_MAX || $pts < Service_Voting::POINTS_MIN) {
             $this->_flashMessenger->addMessage('The points are not correct.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
         }
