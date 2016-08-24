@@ -133,7 +133,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 'qi' => $origInputData['qi'],
                 'user_conf' => $origInputData['user_conf'],
                 'block' => $origInputData['block'],
-                'vot' => $origInputData['vot'],
+                'vot' => 'y',
             ]);
         }
 

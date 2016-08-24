@@ -684,7 +684,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
         $csv = '';
         $db = $this->getAdapter();
-            $select = $db->select()
+        $select = $db->select()
             ->from(['i' => 'inpt'])
             ->join(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
@@ -696,19 +696,25 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         switch ($mod) {
             case 'cnf':
-                $select->where('i.user_conf = ?', 'c');
+                $select
+                    ->where('i.user_conf = ?', 'c')
+                    ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'unc':
-                $select->where('i.user_conf = ?', 'u');
+                $select
+                    ->where('i.user_conf != ?', 'c')
+                    ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'all':
-                $select->where('i.uid > ?', 1);
+                $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'vot':
                 $select->where('i.vot = ?', 'y');
                 break;
             case 'edt':
-                $select->where('i.uid = ?', 1);
+                $select
+                    ->where('i.vot = ?', 'y')
+                    ->where('i.uid IS NULL AND i.confirmation_key IS NULL');
                 break;
         }
         $select->joinLeft(
