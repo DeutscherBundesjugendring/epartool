@@ -172,7 +172,7 @@ INSERT INTO `email_placeholder` (`name`, `description`, `is_global`) VALUES
 ('contact_email', 'The email address from the contact info.', 1),
 ('send_date', 'The date the email was send', 1),
 ('website_url', 'Link to the relevant page on the website.', 0),
-('question_text', 'The text of the relevant question.', 0),
+('question_text', 'The number and the text of the relevant question.', 0),
 ('unsubscribe_url', 'Link to remove user from the relevant subscription or mailing list.', 0),
 ('contribution_text', 'The text of the contribution.', 0),
 ('input_thes', 'The theses part of the input.', 0),
