@@ -79,7 +79,7 @@
                                                     </span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td class="text-right"><?=$this->escape(substr_count($group['vt_inp_list'], ','));?></td>
+                                            <td class="text-right"><?=$this->inputs - $group['count'];?></td>
                                             <td class="table-cell-actions">
                                                 <a
                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
