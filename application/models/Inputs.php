@@ -1495,7 +1495,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $db = $this->getDefaultAdapter();
         $contributions->where(
-            $db->quoteInto('vot = ?', 'y') . ' OR ' . $db->quoteInto('vot = ?', 'u'));
+            $db->quoteInto('vot = ?', 'y') . ' OR ' . $db->quoteInto('vot = ?', 'u')
+        );
 
         return $this->fetchAll($contributions)->current()->count;
     }
