@@ -67,7 +67,7 @@
                             </a>
                         </p>
                         <p>
-                            <?=$this->translate('Number of confirmed contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
+                            <?=$this->translate('Number of confirmed user contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
                         </p>
                         <p>
                             <?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?><br />
@@ -100,7 +100,7 @@
                         <strong><?=$this->translate('Groups that have voting rights and number of actually participating ones');?></strong>
                     </a>
                 </p>
-                
+
                 <?php if ($this->projectSettings['allow_groups']) : ?>
                     <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
                     <table>

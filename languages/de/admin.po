@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-08-01 17:45+0200\n"
-"PO-Revision-Date: 2016-08-24 16:50+0100\n"
+"POT-Creation-Date: 2016-08-19 13:15+0200\n"
+"PO-Revision-Date: 2016-08-29 15:08+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.8\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -116,12 +116,12 @@ msgstr ""
 "Das Formular ist nicht richtig ausgefüllt. Bitte überprüfe die Eingaben."
 
 #: application/modules/admin/controllers/ArticleController.php:157
-msgid "This article does not exists."
-msgstr ""
+msgid "This article does not exist."
+msgstr "Dieser Artikel existiert nicht."
 
 #: application/modules/admin/controllers/ArticleController.php:176
 msgid "This article could not be hidden."
-msgstr ""
+msgstr "Dieser Artikel konnte nicht versteckt werden."
 
 #: application/modules/admin/controllers/ArticleController.php:183
 #: application/modules/admin/controllers/ConsultationController.php:185
@@ -138,7 +138,7 @@ msgstr "Änderungen wurden gespeichert."
 
 #: application/modules/admin/controllers/ArticleController.php:228
 msgid "This article could not be deleted."
-msgstr ""
+msgstr "Dieser Artikel konnte nicht gelöscht werden."
 
 #: application/modules/admin/controllers/ArticleController.php:235
 msgid "Article has been deleted."
@@ -230,17 +230,19 @@ msgstr "Keine Beteiligungsrunde angegeben!"
 msgid "Custom phase names have been saved."
 msgstr "Die angepassten "
 
-#: application/modules/admin/controllers/ConsultationController.php:421
-#: application/modules/admin/controllers/SettingsController.php:310
-msgid "Form settings were updated."
-msgstr ""
-
 #: application/modules/admin/controllers/ConsultationController.php:425
-#: application/modules/admin/controllers/SettingsController.php:314
+#: application/modules/admin/controllers/SettingsController.php:304
+msgid "Form settings were updated."
+msgstr "Die Formulareinstellungen wurden aktualisiert."
+
+#: application/modules/admin/controllers/ConsultationController.php:429
+#: application/modules/admin/controllers/SettingsController.php:308
 msgid ""
 "Form settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
+"Die Formulareinstellungen konnten nicht aktualisiert werden. Bitte die "
+"Fehlermeldung überprüfen und erneut versuchen."
 
 #: application/modules/admin/controllers/FollowupController.php:57
 msgid "New snippet has been successfully created."
@@ -317,7 +319,7 @@ msgstr "%d Auszüge wurden verlinkt"
 
 #: application/modules/admin/controllers/InputController.php:177
 msgid "Contribution not found."
-msgstr ""
+msgstr "Beitrag nicht gefunden."
 
 #: application/modules/admin/controllers/InputController.php:205
 #: application/modules/admin/controllers/InputController.php:341
@@ -325,14 +327,16 @@ msgstr ""
 msgid ""
 "This contribution can't be deleted, because it has already been voted upon."
 msgstr ""
+"Dieser Beitrag konnte nicht gelöscht werden, weil er bereits in der "
+"Abstimmung war."
 
 #: application/modules/admin/controllers/InputController.php:214
 msgid "Contribution was deleted."
-msgstr ""
+msgstr "Beitrag wurde gelöscht."
 
 #: application/modules/admin/controllers/InputController.php:217
 msgid "Delete contribution failed."
-msgstr ""
+msgstr "Löschen des Beitrags ist gescheitert."
 
 #: application/modules/admin/controllers/InputController.php:228
 msgid "Contribution update failed."
@@ -642,10 +646,9 @@ msgstr "Abstimmungsteilnehmer_in wurde abgelehnt."
 msgid "Voting participant has been deleted."
 msgstr "Abstimmungsteilnehmer_in wurde gelöscht."
 
-# This has no full stop at the end, but the very similar "Reminder to Group leader has been sent." does end with it. Is that on purpose or shouldn't it be both the same way?
 #: application/modules/admin/controllers/VotingController.php:265
-msgid "Reminder to Voter has been sent"
-msgstr "Erinnerung an Abstimmende_n wurde versandt"
+msgid "Reminder to Voter has been sent."
+msgstr "Erinnerung an Abstimmende_n wurde versandt."
 
 #: application/modules/admin/controllers/VotingController.php:269
 msgid "Reminder to Group leader has been sent."
@@ -761,7 +764,7 @@ msgstr "Aktuelles Projekt muss ausgewählt sein."
 #: application/modules/admin/forms/Article.php:94
 #: application/modules/admin/forms/Consultation.php:261
 #: application/modules/admin/forms/ConsultationPhases.php:63
-#: application/modules/admin/forms/ContributionSubmission.php:64
+#: application/modules/admin/forms/ContributionSubmission.php:76
 #: application/modules/admin/forms/Directory.php:18
 #: application/modules/admin/forms/Followup/File.php:79
 #: application/modules/admin/forms/Footer.php:42
@@ -769,7 +772,7 @@ msgstr "Aktuelles Projekt muss ausgewählt sein."
 #: application/modules/admin/forms/Mail/Component.php:54
 #: application/modules/admin/forms/Mail/Template.php:64
 #: application/modules/admin/forms/Question.php:68
-#: application/modules/admin/forms/Settings/ContributionSubmission.php:44
+#: application/modules/admin/forms/Settings/ContributionSubmission.php:33
 #: application/modules/admin/forms/Settings/LookAndFeel.php:62
 #: application/modules/admin/forms/Settings/Services.php:55
 #: application/modules/admin/forms/Settings/Site.php:100
@@ -978,48 +981,56 @@ msgid "Follow-up"
 msgstr "Reaktionen & Wirkung"
 
 #: application/modules/admin/forms/ContributionSubmission.php:10
-msgid "Display field name"
-msgstr ""
+msgid "Label for self-defined field"
+msgstr "Beschriftung frei definiertes Feld"
 
-#: application/modules/admin/forms/ContributionSubmission.php:14
-msgid "Display field age"
-msgstr ""
-
-#: application/modules/admin/forms/ContributionSubmission.php:18
-msgid "Display field state"
-msgstr ""
+#: application/modules/admin/forms/ContributionSubmission.php:15
+msgid "Contribution confirmation info"
+msgstr "Information zur Beitragsbestätigung"
 
 #: application/modules/admin/forms/ContributionSubmission.php:22
-msgid "Display field comment groups"
-msgstr ""
+msgid "Display field name"
+msgstr "Zeige „Name“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:26
-msgid "Allow groups"
-msgstr ""
+msgid "Display field age"
+msgstr "Zeige „Alter“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:30
-msgid "Display field contribution origin"
-msgstr ""
+msgid "Display self-defined field (e.g. « state »)"
+msgstr "Zeige frei definierbares Feld (z.B. „Bundesland“)"
 
 #: application/modules/admin/forms/ContributionSubmission.php:34
-msgid "Display field individuals sum"
-msgstr ""
+msgid "Display field comment groups"
+msgstr "Zeige „Kommentar“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:38
-msgid "Display field group name"
-msgstr ""
+msgid "Allow groups"
+msgstr "Gruppen zulassen"
 
 #: application/modules/admin/forms/ContributionSubmission.php:42
-msgid "Display field contact person"
-msgstr ""
+msgid "Display field contribution origin"
+msgstr "Zeige „Quelle der Beiträge“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:46
-msgid "Display field newsletter"
-msgstr ""
+msgid "Display field group size"
+msgstr "Zeige „Gruppengröße“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:50
+msgid "Display field group name"
+msgstr "Zeige „Gruppenbezeichnung“"
+
+#: application/modules/admin/forms/ContributionSubmission.php:54
+msgid "Display field contact person"
+msgstr "Zeige „Kontaktperson“"
+
+#: application/modules/admin/forms/ContributionSubmission.php:58
+msgid "Display field newsletter"
+msgstr "Zeige „Newsletter“"
+
+#: application/modules/admin/forms/ContributionSubmission.php:62
 msgid "Display field notification"
-msgstr ""
+msgstr "Zeige „Benachrichtigung“"
 
 #: application/modules/admin/forms/CreateInput.php:27
 msgid "Contribution Author"
@@ -1435,17 +1446,11 @@ msgstr "Abstimmungsfrage"
 msgid "Allow video in contributions"
 msgstr "Videos in Beiträgen zulassen"
 
-#: application/modules/admin/forms/Settings/ContributionSubmission.php:10
-msgid "State field label"
-msgstr ""
-
-#: application/modules/admin/forms/Settings/ContributionSubmission.php:15
-msgid "Contribution confirmation info"
-msgstr ""
-
-#: application/modules/admin/forms/Settings/ContributionSubmission.php:28
+# I believe that this label is the one that indicates the (new) textarea in the backend, which allows to change license text or data privacy information. Right? If yes, please change also the English label to: "Licence / Information"
+# - we have mostly used British English so far, so don't be surprised about "licence"
+#: application/modules/admin/forms/Settings/ContributionSubmission.php:17
 msgid "License"
-msgstr ""
+msgstr "Lizenz/Info"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:26
 msgid "Primary color"
@@ -1460,8 +1465,8 @@ msgid "Accent color 2"
 msgstr "Akzentfarbe 2"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:47
-msgid "Add MitMachen bubble"
-msgstr "\"Mitmachen\"-Blase hinzufügen"
+msgid "Add «Join In» bubble"
+msgstr "„Mitmachen“-Blase hinzufügen"
 
 #: application/modules/admin/forms/Settings/Services.php:15
 msgid "YouTube"
@@ -2013,9 +2018,8 @@ msgstr " Alle Beiträge, außer zur Abstimmung nicht zugelassene"
 msgid "See Contribution"
 msgstr "Beitrag ansehen"
 
-# I guess it means confirmed *user* contributions? Would you please add this "user" to the English version as well?
 #: application/modules/admin/views/scripts/consultation/report.phtml:70
-msgid "Number of confirmed contributions"
+msgid "Number of confirmed user contributions"
 msgstr "Anzahl bestätigter Beiträge von Nutzer_innen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:73
@@ -3137,7 +3141,6 @@ msgstr "Ursprünglicher Beitrag"
 msgid "Search text"
 msgstr "Textsuche"
 
-# We might need to come back to this translation, because it's not clear what "direction" the link means.
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:99
 msgid "Link selection to original contribution"
 msgstr "Verlinke Beitrag mit ursprünglichem Beitrag"
@@ -3254,6 +3257,37 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+# The 's' at the end is too much - it's "The article does not exist." in English. Please correct.
+#~ msgid "This article does not exists."
+#~ msgstr "Dieser Artikel existiert nicht."
+
+# In English "Label for self-defined field"
+#~ msgid "State field label"
+#~ msgstr "Beschriftung frei definiertes Feld"
+
+# This has no full stop at the end, but the very similar "Reminder to Group leader has been sent." does end with it. Is that on purpose or shouldn't it be both the same way?
+#~ msgid "Reminder to Voter has been sent"
+#~ msgstr "Erinnerung an Abstimmende_n wurde versandt"
+
+# I guess it means confirmed *user* contributions? Would you please add this "user" to the English version as well?
+#~ msgid "Number of confirmed contributions"
+#~ msgstr "Anzahl bestätigter Beiträge von Nutzer_innen"
+
+# Not 100% sure what is meant here. Probably "Display group size"?
+# "sum" is most probably wrong, it should be "amount" at least.
+#~ msgid "Display field individuals sum"
+#~ msgstr "Zeige „Gruppengröße“"
+
+# This field will be flexible, so it's no longer the "state". Our proposal therefore is to rename it in English to
+# "Display self-defined field (e.g. « state »)"
+#~ msgid "Display field state"
+#~ msgstr "Zeige frei definierbares Feld (z.B. „Bundesland“)"
+
+# Can we translate the English name here as well?
+# "Add «Join In» bubble"
+#~ msgid "Add MitMachen bubble"
+#~ msgstr "„Mitmachen“-Blase hinzufügen"
 
 #~ msgid "Services Settings"
 #~ msgstr "Diensteeinstellungen"

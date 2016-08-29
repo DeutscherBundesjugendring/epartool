@@ -154,7 +154,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $article = $articleModel->getById($aid);
 
                 if (!$article) {
-                    $this->_flashMessenger->addMessage('This article does not exists.', 'error');
+                    $this->_flashMessenger->addMessage('This article does not exist.', 'error');
                     $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                 }
 

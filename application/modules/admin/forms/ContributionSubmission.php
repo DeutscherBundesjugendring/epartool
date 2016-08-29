@@ -7,7 +7,7 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
         $this->setDecorators([['ViewScript', ['viewScript' => 'consultation/contributionSubmissionForm.phtml']]]);
 
         $stateLabel = $this->createElement('text', 'state_field_label');
-        $stateLabel->setLabel('State field label');
+        $stateLabel->setLabel('Label for self-defined field');
         $this->addElement($stateLabel);
 
         $element = $this->createElement('textarea', 'contribution_confirmation_info');
@@ -27,7 +27,7 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_state');
-        $element->setLabel('Display field state');
+        $element->setLabel('Display self-defined field (e.g. « state »)');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_comments');
@@ -43,7 +43,7 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_individuals_sum');
-        $element->setLabel('Display field individuals sum');
+        $element->setLabel('Display field group size');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_group_name');
