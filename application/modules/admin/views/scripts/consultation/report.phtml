@@ -33,7 +33,7 @@
                     <br/><?=$this->translate('Accumulated number of individuals and groups, even if they contributed in several sessions in this particular consultation');?>
                 </p>
                 <p>
-                    <strong><?=$this->translate('All contributions in the contribution period');?>: <?php echo $this->nrInputs; ?></strong>
+                    <strong><?=$this->translate('All contributions in the contribution period including admin contributions');?>: <?php echo $this->nrInputs; ?></strong>
                 </p>
                 <ul>
                     <li>
@@ -101,7 +101,7 @@
                     </a>
                 </p>
 
-                <?php if ($this->projectSettings['allow_groups']) : ?>
+                <?php if ($this->consultation['allow_groups']) : ?>
                     <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
                     <table>
                         <?php foreach ($this->weightCounts as $weight): ?>
