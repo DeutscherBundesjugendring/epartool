@@ -50,7 +50,7 @@ class InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $questions = (new Model_Questions())->getByConsultation($this->consultation->kid)->toArray();
         foreach ($questions as $key => $question) {
-            $questions[$key]['inputs'] = $inputModel->getByQuestion($question['qi'], 'tid DESC', 4);
+            $questions[$key]['inputs'] = $inputModel->getByQuestion($question['qi'], 'tid DESC', 4, null, true);
         }
 
         $this->view->questions = $questions;

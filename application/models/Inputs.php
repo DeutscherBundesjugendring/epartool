@@ -261,9 +261,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  string|array $order [optional] MySQL Order Expression, e.g. 'votes DESC'
      * @param  integer      $limit [optional] Number of records to return
      * @param  integer      $tag   [optional] id of tag (tg_nr)
+     * @param  bool         $withoutAdmin [optional]
      * @return array
      */
-    public function getByQuestion($qid, $order = 'i.tid ASC', $limit = null, $tag = null)
+    public function getByQuestion($qid, $order = 'i.tid ASC', $limit = null, $tag = null, $withoutAdmin = false)
     {
         // is int?
         $intVal = new Zend_Validate_Int();
@@ -272,7 +273,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         // get select obj
-        $select = $this->getSelectByQuestion($qid, $order, $limit, $tag);
+        $select = $this->getSelectByQuestion($qid, $order, $limit, $tag, $withoutAdmin);
 
         $stmt = $this->getDefaultAdapter()->query($select);
         $result = $stmt->fetchAll();
@@ -304,7 +305,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         if ($excludeInvisible) {
             $select
                 ->where('block<>?', 'y')
-                ->where('user_conf=?', 'c');
+                ->where('user_conf=?', 'c')
+                ->where('uid IS NOT NULL OR confirmation_key IS NOT NULL');
         }
 
         return $this->fetchAll($select)->current()->count;
@@ -474,9 +476,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  string|array   $order
      * @param  integer        $limit
      * @param  integer        $tag   [optional] id of tag (tg_nr)
+     * @param  bool           $withoutAdmin [optional]
      * @return Zend_Db_Select
      */
-    public function getSelectByQuestion($qid, $order = 'i.tid DESC', $limit = null, $tag = null)
+    public function getSelectByQuestion($qid, $order = 'i.tid DESC', $limit = null, $tag = null, $withoutAdmin = false)
     {
         $intVal = new Zend_Validate_Int();
         $select = $this
@@ -493,6 +496,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $select
                 ->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array())
                 ->where('it.tg_nr = ?', $tag);
+        }
+
+        if ($withoutAdmin) {
+            $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
         }
 
         $select

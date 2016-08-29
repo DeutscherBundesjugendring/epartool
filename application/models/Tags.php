@@ -152,7 +152,7 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
      * @param  string   $vot  'y' for inputs that are confirmed for voting
      * @return array          An array in form [tagId => [count => $occurenceCount, frequency => $frequency]]
      */
-    public function getAllByConsultation($kid, $vot='', $order='tg_de')
+    public function getAllByConsultation($kid, $vot = '', $order = 'tg_de')
     {
         $inputCount = (new Model_Inputs())->getCountByConsultation($kid);
 
