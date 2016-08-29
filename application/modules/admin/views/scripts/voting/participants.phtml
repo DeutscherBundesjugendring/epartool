@@ -82,13 +82,6 @@
                                             <td class="text-right"><?=$this->inputs - $group['count'];?></td>
                                             <td class="table-cell-actions">
                                                 <a
-                                                    href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
-                                                    class="item-action"
-                                                    title="<?=$this->translate('Show all contributions by this user');?>"
-                                                    >
-                                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                                </a>
-                                                <a
                                                     href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
                                                     class="item-action"
                                                     title="<?=$this->translate('Merge participants');?>"
