@@ -73,7 +73,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      */
     public function updateVote($tid, $subUid, $uid, $pts, $confirmationHash, $particular = null)
     {
-        if ($pts < 0 || $pts > 5) {
+        if ($pts < Service_Voting::POINTS_MIN || $pts > Service_Voting::POINTS_MAX) {
             return false;
         }
 
@@ -180,7 +180,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 ->where('vi.tid = ?', $tid)
                 ->where('vi.status = ?', 'c')
                 ->where('vg.member = ?', 'y')
-                ->where('vi.pts < ?', 4)
+                ->where('vi.pts < ?', Service_Voting::POINTS_MAX)
         )->fetchAll();
         $cast = count($indiv_votes);
 
@@ -189,7 +189,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 $countIndivByUid = $this->fetchRow(
                     $this->select()->from($this->_name, new Zend_Db_Expr('COUNT(*) AS count'))
                         ->where('tid = ?', $tid)
-                        ->where('pts < ?', 4)
+                        ->where('pts < ?', Service_Voting::POINTS_MAX)
                         ->where('status = ?', 'c')
                         ->where('uid = ?', $indiv_vote['uid'])
                 );
@@ -232,7 +232,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 []
             )
             ->where('q.kid = ?', $kid)
-            ->where('vi.pts < ?', 4);
+            ->where('vi.pts < ?', Service_Voting::POINTS_MAX);
         $stmt = $db->query($select);
 
         return $stmt->fetchColumn();

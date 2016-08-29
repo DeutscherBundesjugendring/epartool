@@ -33,11 +33,11 @@
         </li>
     <?php endfor; ?>
 
-    <li<?=$this->points == '5' ? ' class="active"' : '';?>>
+    <li<?=$this->points === null ? ' class="active"' : '';?>>
         <a href="#"
            data-tid="<?=$this->escape($this->tid);?>"
            data-kid="<?=$settings['kid'];?>"
-           data-rating="5"
+           data-rating=""
            class="js-voting-rate"
         >
             <?=$this->translate('No opinion');?>

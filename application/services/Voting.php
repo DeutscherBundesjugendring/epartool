@@ -8,7 +8,7 @@ class Service_Voting
     const STATUS_SKIPPED = 's';
 
     const POINTS_MIN = 0;
-    const POINTS_MAX = 5;
+    const POINTS_MAX = 4;
 
     /**
      * @return string
