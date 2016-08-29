@@ -262,48 +262,7 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 
         return (int) $row->save();
     }
-
-    /**
-     * Exclude a tid from the votingchain of a group
-     * @param  integer $kid
-     * @param  string  $subUid
-     * @param  integer $tid
-     * @return boolean
-     */
-    public function excludeThesisFromVotingchain($kid, $subUid, $tid)
-    {
-        if (empty($kid) || empty($subUid) || empty($tid)) {
-            return array();
-        }
-
-        // Get current votingchain ([tid] = qid)
-        $votingList = $this->getVotingList($subUid, $kid);
-        $votingListNewTid = array();
-        $votingListNewQid = array();
-        foreach ($votingList AS $ttid => $qid) {
-            if ($tid != $ttid) {
-                $votingListNewTid[] = $ttid;
-                $votingListNewQid[] = $qid;
-            }
-        }
-
-        $select = $this->select();
-        $select->where('kid = ?', $kid);
-        $select->where('sub_uid = ?', $subUid);
-
-        $result = $this->fetchRow($select);
-        if ($result) {
-            $result->vt_inp_list = implode(',', $votingListNewTid);
-            $result->vt_rel_qid = implode(',', $votingListNewQid);
-            $result->save();
-
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
+    
     /**
      * returns group by user and subuser
      * @param int $uid
