@@ -187,13 +187,17 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
         $freqs = [];
         foreach ($tags as $tag) {
             $freqs[$tag->tg_nr] = $tag->toArray();
-            $weight = 100 * $tag['count'] / $inputCount;
-            if ($weight < 33) {
-                $freqs[$tag->tg_nr]['frequency'] = 'rare';
-            } elseif ($weight >= 33 && $weight < 66) {
-                $freqs[$tag->tg_nr]['frequency'] = 'medium';
-            } elseif ($weight >= 66) {
-                $freqs[$tag->tg_nr]['frequency'] = 'frequent';
+            if ($inputCount > 0) {
+                $weight = 100 * $tag['count'] / $inputCount;
+                if ($weight < 33) {
+                    $freqs[$tag->tg_nr]['frequency'] = 'rare';
+                } elseif ($weight >= 33 && $weight < 66) {
+                    $freqs[$tag->tg_nr]['frequency'] = 'medium';
+                } elseif ($weight >= 66) {
+                    $freqs[$tag->tg_nr]['frequency'] = 'frequent';
+                }
+            } else {
+                $freqs[$tag->tg_nr]['frequency'] = 'N/A';
             }
         }
 
