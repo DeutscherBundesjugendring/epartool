@@ -36,7 +36,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $wheres['inpt.qi = ?'] = $this->_qid;
         $fulltext = $this->getRequest()->getParam('fulltext', null);
         if ($fulltext) {
-            $wheres['thes LIKE ?'] = '%' . $fulltext . '%';
+            $wheres['thes LIKE ? OR expl LIKE ?'] = '%' . $fulltext . '%';
         }
 
         $this->view->inputs = (new Model_Inputs())->fetchAllInputs($wheres);
