@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-08-19 13:15+0200\n"
-"PO-Revision-Date: 2016-08-29 15:08+0200\n"
+"POT-Creation-Date: 2016-08-29 17:07+0200\n"
+"PO-Revision-Date: 2016-08-29 17:08+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -1982,14 +1982,11 @@ msgid ""
 "several sessions in this particular consultation"
 msgstr "Gesamtanzahl der beitragenden Einzelpersonen und Gruppen"
 
-# Does this include contributions by editors/admins, or only "regular" participants? Because that should be stated here:
-# (without admin contributions)
-# (ohne administrative Beiträge)
-# (including admin contributions)
-# (einschließlich administrativer Beiträge)
 #: application/modules/admin/views/scripts/consultation/report.phtml:36
-msgid "All contributions in the contribution period"
-msgstr "Alle Beiträge im Beitragszeitraum"
+msgid ""
+"All contributions in the contribution period including admin contributions"
+msgstr ""
+"Alle Beiträge im Beitragszeitraum einschließlich administrativer Beiträge"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:40
 msgid "of which the contributions that were confirmed"
@@ -2945,7 +2942,6 @@ msgstr "Angegebene Größe"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:68
 #: application/modules/admin/views/scripts/voting/invitations.phtml:111
-#: application/modules/admin/views/scripts/voting/participants.phtml:87
 msgid "Show all contributions by this user"
 msgstr "Alle Beiträge von Nutzer_in anzeigen"
 
@@ -3036,45 +3032,45 @@ msgstr "Fehlende Stimmen"
 msgid "Denied"
 msgstr "Abgelehnt"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:94
+#: application/modules/admin/views/scripts/voting/participants.phtml:87
 msgid "Merge participants"
 msgstr "Abstimmungsteilnehmer_innen zusammenführen"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:110
+#: application/modules/admin/views/scripts/voting/participants.phtml:103
 msgid "Confirm voting participant?"
 msgstr "Abstimmungsteilnehmer_in zulassen?"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:111
-#: application/modules/admin/views/scripts/voting/participants.phtml:114
+#: application/modules/admin/views/scripts/voting/participants.phtml:104
+#: application/modules/admin/views/scripts/voting/participants.phtml:107
 msgid "Confirm participant"
 msgstr "Teilnehmer_in bestätigen"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:125
+#: application/modules/admin/views/scripts/voting/participants.phtml:118
 msgid "Deny voting participant?"
 msgstr "Abstimmungsteilnehmer_in ablehnen?"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:126
-#: application/modules/admin/views/scripts/voting/participants.phtml:129
+#: application/modules/admin/views/scripts/voting/participants.phtml:119
+#: application/modules/admin/views/scripts/voting/participants.phtml:122
 msgid "Deny participant"
 msgstr "Teilnehmer_in ablehnen"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:140
+#: application/modules/admin/views/scripts/voting/participants.phtml:133
 msgid "Delete voting participant?"
 msgstr "Bewertungen löschen?"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:141
-#: application/modules/admin/views/scripts/voting/participants.phtml:144
+#: application/modules/admin/views/scripts/voting/participants.phtml:134
+#: application/modules/admin/views/scripts/voting/participants.phtml:137
 msgid "Delete participant"
 msgstr "Teilnehmer_in löschen"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:154
-#: application/modules/admin/views/scripts/voting/participants.phtml:157
-#: application/modules/admin/views/scripts/voting/participants.phtml:166
-#: application/modules/admin/views/scripts/voting/participants.phtml:169
+#: application/modules/admin/views/scripts/voting/participants.phtml:147
+#: application/modules/admin/views/scripts/voting/participants.phtml:150
+#: application/modules/admin/views/scripts/voting/participants.phtml:159
+#: application/modules/admin/views/scripts/voting/participants.phtml:162
 msgid "Send reminder"
 msgstr "Erinnerung senden"
 
-#: application/modules/admin/views/scripts/voting/participants.phtml:185
+#: application/modules/admin/views/scripts/voting/participants.phtml:178
 msgid "There are no participants yet."
 msgstr "Es gibt noch keine Teilnehmer_innen"
 
@@ -3257,6 +3253,14 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+# Does this include contributions by editors/admins, or only "regular" participants? Because that should be stated here:
+# (without admin contributions)
+# (ohne administrative Beiträge)
+# (including admin contributions)
+# (einschließlich administrativer Beiträge)
+#~ msgid "All contributions in the contribution period"
+#~ msgstr "Alle Beiträge im Beitragszeitraum"
 
 # The 's' at the end is too much - it's "The article does not exist." in English. Please correct.
 #~ msgid "This article does not exists."
