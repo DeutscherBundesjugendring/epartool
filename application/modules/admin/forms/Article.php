@@ -4,9 +4,9 @@ class Admin_Form_Article extends Dbjr_Form_Admin
 {
     protected $_kid;
 
-    public function __construct($kid = null)
+    public function __construct($consultationId = null)
     {
-        $this->_kid = $kid;
+        $this->_kid = $consultationId;
         parent::__construct();
     }
 

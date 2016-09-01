@@ -64,14 +64,21 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
                 'uid' => 'vr.uid',
                 'vt_weight' => 'vr.vt_weight',
                 'vt_code' => 'vr.vt_code',
-                'grp_siz' => 'vr.grp_siz',
             ))
+            ->joinLeft(
+                ['gs' => (new Model_GroupSize())->info(Model_GroupSize::NAME)],
+                'gs.id = vr.grp_siz',
+                ['grp_siz' => 'IFNULL(CONCAT(gs.`from`, " - ", gs.`to`), "")']
+            )
             ->joinUsing(array('u' => 'users'), 'uid', array(
                 'email' => 'u.email'
             ))
-            ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', array(
-                'group_size_user' => 'ui.group_size'
-            ))
+            ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', ['group_size'])
+            ->joinLeft(
+                ['gs2' => (new Model_GroupSize())->info(Model_GroupSize::NAME)],
+                'gs2.id = ui.group_size',
+                ['group_size_user' => 'IFNULL(CONCAT(gs2.`from`, " - ", gs2.`to`), "")']
+            )
             ->where('vr.kid = ?', $kid)
             ->where('vr.uid > ?', 1)
             ->where('u.email != ?', '')

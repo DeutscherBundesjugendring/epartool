@@ -138,6 +138,9 @@ class Admin_ConsultationController extends Zend_Controller_Action
                         throw new \Exception('Create default article page for new consultation failed');
                     }
 
+                    (new Model_ContributorAge())->insert(['consultation_id' => $newKid, 'from' => 1]);
+                    (new Model_GroupSize())->insert(['consultation_id' => $newKid, 'from' => 1, 'to' => 2]);
+
                     $consultationModel->getAdapter()->commit();
                 } catch (\Exception $e) {
                     $consultationModel->getAdapter()->rollBack();
@@ -434,5 +437,113 @@ class Admin_ConsultationController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
+    }
+    
+    public function groupsAction()
+    {
+        $consultationId = $this->_request->getParam('kid', 0);
+        if (empty($consultationId)) {
+            $this->_flashMessenger->addMessage('No consultation provided.', 'error');
+            $this->redirect('/admin');
+        }
+
+        $formGroups = new Admin_Form_ConsultationGroups($this->_consultation);
+        $groupContributorAge = new Model_ContributorAge();
+
+        if ($this->getRequest()->isPost()) {
+            $formData = $this->getRequest()->getPost();
+            if ($formGroups->isValid($formData)) {
+                $groupService = new Service_Groups();
+
+                $db = $groupContributorAge->getAdapter();
+                $db->beginTransaction();
+                $error = false;
+                try {
+                    $groupService->updateGroupAges(
+                        isset($formData['contributorAges']) ? $formData['contributorAges'] : [],
+                        $formData['activateToInfinityAge'] && isset($formData['toInfinityAgeFrom'])
+                            ? $formData['toInfinityAgeFrom']
+                            : null,
+                        $this->_consultation
+                    );
+                    $groupService->updateGroupSizes(
+                        isset($formData['groupSizes']) ? $formData['groupSizes'] : [],
+                        $formData['activateToInfinitySize'] && isset($formData['toInfinitySizeFrom'])
+                            ? $formData['toInfinitySizeFrom']
+                            : null,
+                        $this->_consultation
+                    );
+                    (new Model_Consultations())->update(
+                        ['groups_no_information' => (int) $formData['activateNoInformationValue']],
+                        ['kid = ?' => $this->_consultation['kid']]
+                    );
+                    $db->commit();
+                } catch (Service_Exception_GroupsDeletingException $e) {
+                    $db->rollback();
+                    $this->_flashMessenger->addMessage('Cannot delete already used groups.', 'error');
+                    $restoredInterval = $e->getInterval();
+                    $formData[$e->getIntervalGroup()][$restoredInterval['id']] = $restoredInterval;
+                    $error = true;
+                } catch (Service_Exception_GroupsEditingException $e) {
+                    $db->rollback();
+                    $this->_flashMessenger->addMessage(
+                        'Cannot edit groups after consultation has been started.',
+                        'error'
+                    );
+                    foreach ($e->getInterval() as $id => $interval) {
+                        $formData[$e->getIntervalGroup()][$id] = [
+                            'from' => $interval['from'],
+                            'to' => $interval['to'],
+                        ];
+                    }
+                    $error = true;
+                } catch (Exception $e) {
+                    $db->rollback();
+                    throw $e;
+                }
+
+                if ($error) {
+                    $formData['singleFrom'] = 1;
+                    $formData['singleTo'] = 2;
+                    $formGroups->populate($formData);
+                } else {
+                    $this->_flashMessenger->addMessage('Group cluster settings were updated.', 'success');
+                    $this->redirect($this->view->url(['action' => 'groups']), ['prependBase' => false]);
+                }
+            } else {
+                $this->_flashMessenger->addMessage(
+                    'Age groups settings cannot be updated. Please check the errors marked in the form below and try again.',
+                    'error'
+                );
+            }
+        } else {
+            $data = ['activateNoInformationValue' => $this->_consultation['groups_no_information']];
+
+            $sizes = (new Model_GroupSize())->getByConsultation($this->_consultation['kid']);
+            $ages = (new Model_ContributorAge())->getByConsultation($this->_consultation['kid']);
+
+            foreach ($sizes as $size) {
+                if ($size['from'] > 0 && $size['to'] === null) {
+                    $data['activateToInfinitySize'] = true;
+                    $data['toInfinitySizeFrom'] = $size['from'];
+                    continue;
+                }
+                $data['groupSizes'][$size['id']]['from'] = $size['from'];
+                $data['groupSizes'][$size['id']]['to'] = $size['to'];
+            }
+
+            foreach ($ages as $age) {
+                if ($age['from'] > 0 && $age['to'] === null) {
+                    $data['activateToInfinityAge'] = true;
+                    $data['toInfinityAgeFrom'] = $age['from'];
+                    continue;
+                }
+                $data['contributorAges'][$age['id']]['from'] = $age['from'];
+                $data['contributorAges'][$age['id']]['to'] = $age['to'];
+            }
+            $formGroups->populate($data);
+        }
+
+        $this->view->formGroups = $formGroups;
     }
 }

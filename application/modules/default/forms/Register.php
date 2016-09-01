@@ -106,11 +106,7 @@ class Default_Form_Register extends Dbjr_Form_Web
 
         if ((bool) $formConsultationSettings['field_switch_individuals_sum']) {
             $groupSize = $this->createElement('select', 'group_size');
-            $grpSizeDef = Zend_Registry::get('systemconfig')
-                ->group_size_def
-                ->toArray();
-            unset($grpSizeDef['0']);
-            unset($grpSizeDef['1']);
+            $grpSizeDef = (new Model_GroupSize())->getOptionsByConsultation($this->consultationId);
             $groupSize
                 ->setLabel('How many individuals were involved?')
                 ->setMultioptions($grpSizeDef);
@@ -136,17 +132,13 @@ class Default_Form_Register extends Dbjr_Form_Web
 
         if ((bool) $formConsultationSettings['field_switch_age']) {
             $age = $this->createElement('select', 'age_group');
+            $ageOptions = (new Model_ContributorAge())->getOptionsByConsultation($this->consultationId);
+            if ($formConsultationSettings['groups_no_information']) {
+                $ageOptions[''] = $translator->translate('no information');
+            }
             $age
                 ->setLabel('Age')
-                ->setMultiOptions(
-                    [
-                        '1' => sprintf($translator->translate('up to %s years'), 17),
-                        '2' => sprintf($translator->translate('up to %s years'), 26),
-                        '3' => sprintf($translator->translate('%s years or older'), 26),
-                        '4' => $translator->translate('all age groups'),
-                        '5' => $translator->translate('no information'),
-                    ]
-                );
+                ->setMultiOptions($ageOptions);
             $this->addElement($age);
         }
 

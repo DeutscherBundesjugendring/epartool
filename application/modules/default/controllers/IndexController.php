@@ -218,7 +218,11 @@ class IndexController extends Zend_Controller_Action
             if ($email) {
                 $user = (new Model_Users())->getByEmail($webservice->getEmail());
                 if (!$user) {
-                    $userArr = ['email' => $email, 'group_size' => 1];
+                    $consultationId = (new Zend_Session_Namespace('inputs'))->kid;
+                    $userArr = [
+                        'email' => $email,
+                        'group_size' => (new Model_GroupSize())->getInitGroupSize($consultationId)['id'],
+                    ];
                     $user = $userModel->createRow($userArr);
                     $user->save();
                     (new Model_User_Info())
@@ -228,7 +232,7 @@ class IndexController extends Zend_Controller_Action
                                 [
                                     'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
                                     'date_added' => new Zend_Db_Expr('NOW()'),
-                                    'kid' => (new Zend_Session_Namespace('inputs'))->kid,
+                                    'kid' => $consultationId,
                                     'uid' => $user->uid,
                                 ]
                             )

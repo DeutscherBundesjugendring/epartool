@@ -7,7 +7,9 @@ $(document).ready () ->
     bindConsultationCustomPhaseNames()
     bindContributionVideoSelect()
     themeSettings()
-
+    contributorAgesSettings()
+    groupsSizesSettings()
+    
     initSortableFollowupSnippets()
     initSortableVotingDirs()
     initSortablePartners()
@@ -228,6 +230,36 @@ themeSettings = () ->
         $("input[name='theme_id']:checked").attr('checked', false)
         return true;
     );
+
+contributorAgesSettings = () ->
+    $('.js-contributor-ages-delete-row').click () ->
+        if !confirm(i18n.translate('Dou you want to delete this interval?'))
+            return false
+        $(this).closest('div.row').remove()
+        return false
+
+    $('#js-contributor-ages-add-row').click () ->
+        timestamp = new Date().getUTCMilliseconds();
+        el = $('#js-contributor-ages-new-row').clone().removeClass('hidden').attr('id','')
+        el.find('#js-contributor-ages-new-row-from').attr('name', 'contributorAges[_' + timestamp + '][from]').attr('id', '')
+        el.find('#js-contributor-ages-new-row-to').attr('name', 'contributorAges[_' + timestamp + '][to]').attr('id', '')
+        $('#js-contributor-ages-intervals').append(el)
+        return false
+
+groupsSizesSettings = () ->
+    $('.js-groups-sizes-delete-row').click () ->
+        if !confirm(i18n.translate('Dou you want to delete this interval?'))
+            return false
+        $(this).closest('div.row').remove()
+        return false
+
+    $('#js-groups-sizes-add-row').click () ->
+        timestamp = new Date().getUTCMilliseconds();
+        el = $('#js-groups-sizes-new-row').clone().removeClass('hidden').attr('id','')
+        el.find('#js-groups-sizes-new-row-from').attr('name', 'groupSizes[_' + timestamp + '][from]').attr('id', '')
+        el.find('#js-groups-sizes-new-row-to').attr('name', 'groupSizes[_' + timestamp + '][to]').attr('id', '')
+        $('#js-groups-sizes-intervals').append(el)
+        return false
 
 class mediaSelectPopup
     ###*

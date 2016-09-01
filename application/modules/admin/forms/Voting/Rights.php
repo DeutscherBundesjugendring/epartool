@@ -21,8 +21,6 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
 
     public function init()
     {
-        $translator = Zend_Registry::get('Zend_Translate');
-
         if ($this->consultation['allow_groups']) {
             $weight = $this->createElement('text', 'vt_weight');
             $weight
@@ -34,17 +32,7 @@ class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
             $groupSize = $this->createElement('select', 'grp_siz');
             $groupSize
                 ->setLabel('Group size')
-                ->setMultiOptions(
-                    [
-                        '0' => '?',
-                        '1' => '1-2',
-                        '10' => $translator->translate('bis') . ' 10',
-                        '30' => $translator->translate('bis') . ' 30',
-                        '80' => $translator->translate('bis') . ' 80',
-                        '150' => $translator->translate('bis') . ' 150',
-                        '200' => $translator->translate('über') . ' 150',
-                    ]
-                );
+                ->setMultiOptions((new Model_GroupSize())->getOptionsByConsultation($this->consultation['kid']));
             $this->addElement($groupSize);
         }
 
