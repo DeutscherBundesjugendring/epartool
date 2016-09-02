@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-08-19 11:51+0200\n"
-"PO-Revision-Date: 2016-08-19 13:25+0200\n"
+"POT-Creation-Date: 2016-08-30 17:34+0200\n"
+"PO-Revision-Date: 2016-08-30 17:34+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -822,12 +822,8 @@ msgstr "Abstimmung"
 msgid "Reactions & Impact"
 msgstr "Reaktionen & Wirkung"
 
-#: application/modules/default/views/helpers/SecondNavigation.php:46
-msgid "after Voting has ended"
-msgstr "nach Ende der Abstimmung"
-
-#: application/modules/default/views/helpers/SecondNavigation.php:53
-#: application/modules/default/views/helpers/SecondNavigation.php:60
+#: application/modules/default/views/helpers/SecondNavigation.php:52
+#: application/modules/default/views/helpers/SecondNavigation.php:59
 #: application/modules/default/views/helpers/Teaser.php:38
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:130
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:139
@@ -836,8 +832,8 @@ msgstr "nach Ende der Abstimmung"
 msgid "from"
 msgstr "vom"
 
-#: application/modules/default/views/helpers/SecondNavigation.php:56
-#: application/modules/default/views/helpers/SecondNavigation.php:63
+#: application/modules/default/views/helpers/SecondNavigation.php:55
+#: application/modules/default/views/helpers/SecondNavigation.php:62
 #: application/modules/default/views/helpers/Teaser.php:28
 #: application/modules/default/views/helpers/Teaser.php:40
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:132
@@ -847,12 +843,12 @@ msgstr "vom"
 msgid "until"
 msgstr "bis"
 
-#: application/modules/default/views/helpers/SecondNavigation.php:111
+#: application/modules/default/views/helpers/SecondNavigation.php:110
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:128
 msgid "Participate now!"
 msgstr "Jetzt mitmachen!"
 
-#: application/modules/default/views/helpers/SecondNavigation.php:113
+#: application/modules/default/views/helpers/SecondNavigation.php:112
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:168
 #: application/modules/default/views/scripts/voting/index.phtml:34
 #: application/modules/default/views/scripts/voting/overview.phtml:50
@@ -1807,6 +1803,9 @@ msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
 #: application/modules/default/views/scripts/voting/vote.phtml:247
 msgid "Remove"
 msgstr "Entfernen"
+
+#~ msgid "after Voting has ended"
+#~ msgstr "nach Ende der Abstimmung"
 
 #~ msgid ""
 #~ "If you want to participate as a representative of a group, please fill in "

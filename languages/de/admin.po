@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-08-29 17:07+0200\n"
-"PO-Revision-Date: 2016-08-29 17:08+0200\n"
+"POT-Creation-Date: 2016-09-02 11:05+0200\n"
+"PO-Revision-Date: 2016-09-02 11:05+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -2350,7 +2350,7 @@ msgstr "Beitrag bearbeiten"
 
 #: application/modules/admin/views/scripts/input/edit.phtml:31
 msgid "List of contributions from this author"
-msgstr ""
+msgstr "Alle Beiträge dieser_s Teilnehmenden"
 
 #: application/modules/admin/views/scripts/input/index.phtml:33
 msgid "There are no contributions yet."
@@ -2385,7 +2385,7 @@ msgstr "Hier ist noch Platz für Kommentare"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:24
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:22
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:22
