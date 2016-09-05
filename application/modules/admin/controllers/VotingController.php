@@ -39,7 +39,7 @@ class Admin_VotingController extends Zend_Controller_Action
         if ($uid > 0) {
             $userModel = new Model_Users();
             $userInfoModel = new Model_User_Info();
-            $form = new Admin_Form_Voting_Rights();
+            $form = new Admin_Form_Voting_Rights($this->_consultation['kid']);
 
             $user = $userModel->getById($uid);
             $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);

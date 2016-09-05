@@ -2,11 +2,28 @@
 
 class Admin_Form_Voting_Rights extends Dbjr_Form_Admin
 {
+    /**
+     * @var int
+     */
+    private $consultationId;
+
+    /**
+     * Admin_Form_Voting_Rights constructor.
+     * (Change parent constructor signature is not a best practise, but it is a good solution for zend form customization)
+     * @param int $consultationId
+     * @param array|Zend_Config $options
+     */
+    public function __construct($consultationId, $options = null)
+    {
+        $this->consultationId = $consultationId;
+        parent::__construct($options);
+    }
+
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
+        $formSettings = (new Model_Consultations())->find($this->consultationId)->current()->toArray();
 
         if ($formSettings['allow_groups']) {
             $weight = $this->createElement('text', 'vt_weight');
