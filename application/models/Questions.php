@@ -141,6 +141,19 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param int $consultationId
+     * @return int
+     */
+    public function getCountByConsultation($consultationId)
+    {
+        $select = $this->select();
+        $select->from(['q' => $this->_name], ['count'=>'COUNT(qi)'])->where('kid=?', $consultationId);
+
+        return (int) $this->fetchRow($select)->count;
+    }
+
+
+    /**
      * Returns next question of consultation, specified by field 'nr'
      *
      * @param  int $qid

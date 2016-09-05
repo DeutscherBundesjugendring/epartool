@@ -41,16 +41,20 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
         );
 
         if ($consultation['inp_show'] === 'y') {
-            $items[] = [
+            $item = [
                 'name' => 'contributions',
                 'label' => $this->view->translate('Contributions'),
                 'href' => $this->view->url(
                     ['controller' => 'input', 'action' => 'index', 'kid' => $consultation['kid']]
                 ),
-                'new_item' => $this->view->url(
-                    ['controller' => 'input', 'action' => 'create', 'kid' => $consultation['kid']]
-                ),
             ];
+            
+            if ((new Model_Questions())->getCountByConsultation($consultation['kid']) > 0) {
+                $item['new_item'] = $this->view->url(
+                    ['controller' => 'input', 'action' => 'create', 'kid' => $consultation['kid']]
+                );
+            }
+            $items[] = $item;
         }
 
         if ($consultation['vot_show'] === 'y') {
