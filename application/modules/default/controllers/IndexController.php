@@ -91,7 +91,9 @@ class IndexController extends Zend_Controller_Action
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');
+        // @codingStandardsIgnoreLine
         echo 'var i18n = ' . json_encode($i18n, JSON_UNESCAPED_UNICODE);
+        // @codingStandardsIgnoreLine
         die();
     }
 
@@ -110,7 +112,9 @@ class IndexController extends Zend_Controller_Action
         ]);
 
         header('Content-Type: text/css; charset=utf-8');
+        // @codingStandardsIgnoreLine
         echo $css;
+        // @codingStandardsIgnoreLine
         die();
     }
 
@@ -172,8 +176,10 @@ class IndexController extends Zend_Controller_Action
                 $storage = Zend_Auth::getInstance()->getStorage();
                 $storage->write($user);
                 $this->_flashMessenger->addMessage('Login successful!', 'success');
+                // @codingStandardsIgnoreLine
                 echo 'true';
             } else {
+                // @codingStandardsIgnoreLine
                 echo $this->view->partial(
                     '_partials/flashMessage.phtml',
                     [
@@ -231,8 +237,10 @@ class IndexController extends Zend_Controller_Action
 
                 $storage = Zend_Auth::getInstance()->getStorage();
                 $storage->write($user);
+                // @codingStandardsIgnoreLine
                 echo $user->email;
             } else {
+                // @codingStandardsIgnoreLine
                 echo 'false';
             }
         } catch (Exception $e) {

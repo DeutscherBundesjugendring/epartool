@@ -425,6 +425,7 @@ class Admin_InputController extends Zend_Controller_Action
             . gmdate('Y-m-d_H\hi\m') . '_' . $cod . '.csv');
         header('Pragma: no-cache');
 
+        // @codingStandardsIgnoreLine
         echo $csv;
         exit;
     }

@@ -10,6 +10,14 @@ use Robo\Tasks;
 class RoboFile extends Tasks
 {
     const CONFIG_FILE = 'application/configs/config.ini';
+    const APP_DIR = 'application';
+    const LIB_DIR = 'library';
+
+    public function test()
+    {
+        $this->stopOnFail(true);
+        $this->phpcs();
+    }
 
     public function build()
     {
@@ -46,6 +54,16 @@ class RoboFile extends Tasks
             ->run();
 
         $this->say(sprintf('Version %s released.', $tag));
+    }
+
+    public function phpcs()
+    {
+        $this
+            ->taskExec('vendor/bin/phpcs')
+            ->args('--standard=.php_cs_ruleset.xml')
+            ->args('--encoding=utf-8')
+            ->args(implode(' ', [self::APP_DIR, self::LIB_DIR,]))
+            ->run();
     }
 
     /**

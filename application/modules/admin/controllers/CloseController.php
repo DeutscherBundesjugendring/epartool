@@ -289,6 +289,7 @@ class Admin_CloseController extends Zend_Controller_Action
             . '_groupresults_' .  gmdate('Y-m-d_H') . '_utf-8.csv'
         );
         header('Pragma: no-cache');
+        // @codingStandardsIgnoreLine
         echo html_entity_decode($csv, ENT_COMPAT, 'UTF-8');
     }
 

@@ -975,6 +975,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             if (!empty($input['tg_nrs'])) {
                 $tags = explode(',', $input['tg_nrs']);
                 $inputTagsModel->insertByInputsId($input['tid'], $tags);
+                // @codingStandardsIgnoreLine
                 echo($input['tid'] . ':' .$input['tg_nrs'] . '<br />');
             }
 
