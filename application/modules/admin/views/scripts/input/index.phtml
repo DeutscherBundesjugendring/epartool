@@ -20,10 +20,12 @@
             </div>
             <div class="content">
 
+                <?php if (count($this->questions) > 0): ?>
                 <a class="btn btn-default pull-right" href="<?=$this->url(['action' => 'create']);?>">
                     <span class="glyphicon glyphicon-plus-sign icon-shift-down offset-right" aria-hidden="true"></span>
                     <?=$this->translate('New Contribution');?>
                 </a>
+                <?php endif; ?>
 
                 <h2><?=$this->translate('Contributions');?></h2>
 
