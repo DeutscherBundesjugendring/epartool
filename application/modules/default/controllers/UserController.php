@@ -173,9 +173,8 @@ class UserController extends Zend_Controller_Action
             if ($kid == 0) {
                 $consultationModel = new Model_Consultations();
                 $groupsModel = new Model_Votes_Groups();
-                $consultationList = $consultationModel->getByUser($identity->uid)->toArray();
+                $consultationList = $consultationModel->getByUserVotingRights($identity->uid)->toArray();
                 foreach ($consultationList as $key => $value) {
-                    $group = array();
                     $group = $groupsModel->getByConsultation($value['kid'], $identity->uid);
                     // if no group member in consultation delete consultation from array
                     if (empty($group)) {
@@ -207,7 +206,6 @@ class UserController extends Zend_Controller_Action
                     // its possible the user reload's the page
                     $consultationList = $consultationModel->getByUser($identity->uid)->toArray();
                     foreach ($consultationList as $key => $value) {
-                        $group = array();
                         $group = $groupsModel->getByConsultation($value['kid'], $identity->uid);
                         // if no group member delete consultation from array
                         if (empty($group)) {
