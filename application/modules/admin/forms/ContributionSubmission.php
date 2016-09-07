@@ -19,19 +19,19 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_name');
-        $element->setLabel('Display field "name"');
+        $element->setLabel('Display field "Name"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_age');
-        $element->setLabel('Display field "age"');
+        $element->setLabel('Display field "Age"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_state');
-        $element->setLabel('Display self-defined field (e.g. "state")');
+        $element->setLabel('Display self-defined field (e.g. "State")');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_comments');
-        $element->setLabel('Display field "comment groups"');
+        $element->setLabel('Display field "Comment Groups"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'allow_groups');
@@ -39,27 +39,27 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_contribution_origin');
-        $element->setLabel('Display field "contribution origin"');
+        $element->setLabel('Display field "Contribution Origin"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_individuals_sum');
-        $element->setLabel('Display field "group size"');
+        $element->setLabel('Display field "Group Size"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_group_name');
-        $element->setLabel('Display field "group name"');
+        $element->setLabel('Display field "Group Name"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_contact_person');
-        $element->setLabel('Display field "contact person"');
+        $element->setLabel('Display field "Contact Person"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_newsletter');
-        $element->setLabel('Display field "subscribe to newsletter"');
+        $element->setLabel('Display field "Subscribe to Newsletter"');
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_notification');
-        $element->setLabel('Display field "notification about results"');
+        $element->setLabel('Display field "Notification about Results"');
         $this->addElement($element);
 
         // CSRF Protection

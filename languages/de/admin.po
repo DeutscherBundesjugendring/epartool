@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-09-02 11:05+0200\n"
-"PO-Revision-Date: 2016-09-02 11:05+0200\n"
+"POT-Creation-Date: 2016-09-07 10:59+0200\n"
+"PO-Revision-Date: 2016-09-07 11:06+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -196,7 +196,7 @@ msgstr "Es wurden Datensätze erstellt/aktualisiert."
 msgid "No consultation named."
 msgstr "Keine Beteiligungsrunde angegeben!"
 
-#: application/modules/admin/controllers/CloseController.php:307
+#: application/modules/admin/controllers/CloseController.php:308
 msgid "Invalid question id."
 msgstr "Frage-ID ungültig"
 
@@ -782,7 +782,7 @@ msgstr "Aktuelles Projekt muss ausgewählt sein."
 #: application/modules/admin/forms/User/Edit.php:125
 #: application/modules/admin/forms/User/TransferContributions.php:18
 #: application/modules/admin/forms/Voting/Participantedit.php:37
-#: application/modules/admin/forms/Voting/Rights.php:61
+#: application/modules/admin/forms/Voting/Rights.php:78
 #: application/modules/admin/forms/Voting/RightsAdd.php:98
 msgid "Save"
 msgstr "Speichern"
@@ -953,16 +953,16 @@ msgstr "Fragen"
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:18
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:32
 #: application/modules/admin/views/scripts/index/index.phtml:64
-#: application/modules/admin/views/scripts/input/index.phtml:28
-#: application/modules/admin/views/scripts/input/index.phtml:83
+#: application/modules/admin/views/scripts/input/index.phtml:30
+#: application/modules/admin/views/scripts/input/index.phtml:85
 msgid "Contributions"
 msgstr "Beiträge"
 
 #: application/modules/admin/forms/ConsultationPhases.php:44
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:28
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:59
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:63
 #: application/modules/admin/views/helpers/SettingsNavigation.php:37
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:77
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:80
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:65
 #: application/modules/admin/views/scripts/index/index.phtml:71
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:98
@@ -974,8 +974,8 @@ msgid "Voting"
 msgstr "Abstimmung"
 
 #: application/modules/admin/forms/ConsultationPhases.php:53
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:99
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:94
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:103
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
 #: application/modules/admin/views/scripts/followup/index.phtml:27
 msgid "Follow-up"
 msgstr "Reaktionen & Wirkung"
@@ -989,19 +989,19 @@ msgid "Contribution confirmation info"
 msgstr "Information zur Beitragsbestätigung"
 
 #: application/modules/admin/forms/ContributionSubmission.php:22
-msgid "Display field name"
+msgid "Display field \"Name\""
 msgstr "Zeige „Name“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:26
-msgid "Display field age"
+msgid "Display field \"Age\""
 msgstr "Zeige „Alter“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:30
-msgid "Display self-defined field (e.g. « state »)"
-msgstr "Zeige frei definierbares Feld (z.B. „Bundesland“)"
+msgid "Display self-defined field (e.g. \"State\")"
+msgstr "Zeige frei  definierbares Feld (z.B. Bundesland)"
 
 #: application/modules/admin/forms/ContributionSubmission.php:34
-msgid "Display field comment groups"
+msgid "Display field \"Comment Groups\""
 msgstr "Zeige „Kommentar“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:38
@@ -1009,28 +1009,28 @@ msgid "Allow groups"
 msgstr "Gruppen zulassen"
 
 #: application/modules/admin/forms/ContributionSubmission.php:42
-msgid "Display field contribution origin"
+msgid "Display field \"Contribution Origin\""
 msgstr "Zeige „Quelle der Beiträge“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:46
-msgid "Display field group size"
+msgid "Display field \"Group Size\""
 msgstr "Zeige „Gruppengröße“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:50
-msgid "Display field group name"
+msgid "Display field \"Group Name\""
 msgstr "Zeige „Gruppenbezeichnung“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:54
-msgid "Display field contact person"
+msgid "Display field \"Contact Person\""
 msgstr "Zeige „Kontaktperson“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:58
-msgid "Display field newsletter"
-msgstr "Zeige „Newsletter“"
+msgid "Display field \"Subscribe to Newsletter\""
+msgstr "Zeige „Newsletter abonnieren“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:62
-msgid "Display field notification"
-msgstr "Zeige „Benachrichtigung“"
+msgid "Display field \"Notification about Results\""
+msgstr "Zeige „Benachrichtigung über Ergebnisse“"
 
 #: application/modules/admin/forms/CreateInput.php:27
 msgid "Contribution Author"
@@ -1044,7 +1044,7 @@ msgstr "Beitragsverfasser_in"
 #: application/modules/admin/forms/Settings/Site.php:59
 #: application/modules/admin/forms/User/Create.php:15
 #: application/modules/admin/forms/User/Edit.php:20
-#: application/modules/admin/views/scripts/input/index.phtml:81
+#: application/modules/admin/views/scripts/input/index.phtml:83
 #: application/modules/admin/views/scripts/mail-component/index.phtml:46
 #: application/modules/admin/views/scripts/mail-template/index.phtml:39
 #: application/modules/admin/views/scripts/media/folders.phtml:37
@@ -1129,7 +1129,7 @@ msgstr "Speichern und zurück zur Übersicht"
 
 #: application/modules/admin/forms/Input.php:49
 #: application/modules/admin/forms/Question.php:30
-#: application/modules/admin/views/scripts/input/index.phtml:43
+#: application/modules/admin/views/scripts/input/index.phtml:45
 #: application/modules/admin/views/scripts/question/index.phtml:36
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:31
 msgid "Question"
@@ -1528,7 +1528,7 @@ msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 #: application/modules/admin/forms/Settings/Site.php:68
 #: application/modules/admin/forms/User/Create.php:23
 #: application/modules/admin/forms/User/Edit.php:27
-#: application/modules/admin/views/scripts/input/index.phtml:82
+#: application/modules/admin/views/scripts/input/index.phtml:84
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:5
 #: application/modules/admin/views/scripts/mail-component/index.phtml:5
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:5
@@ -1618,12 +1618,12 @@ msgstr "Passwort bestätigen"
 msgid "Select a participant"
 msgstr "Teilnehmenden auswählen"
 
-#: application/modules/admin/forms/Voting/Rights.php:14
+#: application/modules/admin/forms/Voting/Rights.php:31
 #: application/modules/admin/forms/Voting/RightsAdd.php:48
 msgid "Weight"
 msgstr "Gewicht"
 
-#: application/modules/admin/forms/Voting/Rights.php:21
+#: application/modules/admin/forms/Voting/Rights.php:38
 #: application/modules/admin/forms/Voting/RightsAdd.php:55
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:65
 #: application/modules/admin/views/scripts/voting/invitations.phtml:77
@@ -1631,10 +1631,10 @@ msgstr "Gewicht"
 msgid "Group size"
 msgstr "Gruppengröße"
 
-#: application/modules/admin/forms/Voting/Rights.php:26
-#: application/modules/admin/forms/Voting/Rights.php:27
-#: application/modules/admin/forms/Voting/Rights.php:28
-#: application/modules/admin/forms/Voting/Rights.php:29
+#: application/modules/admin/forms/Voting/Rights.php:43
+#: application/modules/admin/forms/Voting/Rights.php:44
+#: application/modules/admin/forms/Voting/Rights.php:45
+#: application/modules/admin/forms/Voting/Rights.php:46
 #: application/modules/admin/forms/Voting/RightsAdd.php:59
 #: application/modules/admin/forms/Voting/RightsAdd.php:60
 #: application/modules/admin/forms/Voting/RightsAdd.php:61
@@ -1642,17 +1642,17 @@ msgstr "Gruppengröße"
 msgid "bis"
 msgstr "bis"
 
-#: application/modules/admin/forms/Voting/Rights.php:30
+#: application/modules/admin/forms/Voting/Rights.php:47
 #: application/modules/admin/forms/Voting/RightsAdd.php:63
 msgid "über"
 msgstr "über"
 
-#: application/modules/admin/forms/Voting/Rights.php:38
+#: application/modules/admin/forms/Voting/Rights.php:55
 #: application/modules/admin/forms/Voting/RightsAdd.php:75
 msgid "Access code"
 msgstr "Zugangscode"
 
-#: application/modules/admin/forms/Voting/Rights.php:46
+#: application/modules/admin/forms/Voting/Rights.php:63
 msgid "Size according to user"
 msgstr "Größe laut eigener Angabe"
 
@@ -1702,12 +1702,9 @@ msgid "General"
 msgstr "Allgemein"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
-#: application/modules/admin/views/helpers/SettingsNavigation.php:32
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:21
-#: application/modules/admin/views/scripts/settings/contribution-submission-form.phtml:16
-#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
-msgid "Contribution"
-msgstr "Beitrag"
+msgid "Participants data"
+msgstr "Angaben der Teilnehmenden"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:33
 #: application/modules/admin/views/scripts/consultation/phases.phtml:21
@@ -1718,24 +1715,24 @@ msgstr "Phasen"
 msgid "Dashboard"
 msgstr "Übersicht"
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:66
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:70
 #: application/modules/admin/views/scripts/voting/invitations.phtml:53
 msgid "Permissions"
 msgstr "Berechtigungen"
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:73
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:77
 msgid "Invitations"
 msgstr "Einladungen"
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:80
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:84
 msgid "Participants"
 msgstr "Teilnehmende"
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:87
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:91
 msgid "Results"
 msgstr "Ergebnisse"
 
-#: application/modules/admin/views/helpers/ConsultationNavigation.php:111
+#: application/modules/admin/views/helpers/ConsultationNavigation.php:115
 #: application/modules/admin/views/scripts/consultation/report.phtml:21
 #: application/modules/admin/views/scripts/index/index.phtml:84
 msgid "Statistics"
@@ -1785,6 +1782,12 @@ msgstr "Seiten"
 #: application/modules/admin/views/scripts/tag/index.phtml:20
 msgid "Keywords"
 msgstr "Schlagwörter"
+
+#: application/modules/admin/views/helpers/SettingsNavigation.php:32
+#: application/modules/admin/views/scripts/settings/contribution-submission-form.phtml:16
+#: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
+msgid "Contribution"
+msgstr "Beitrag"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:42
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:3
@@ -1905,9 +1908,9 @@ msgstr "Unterstützen"
 msgid "Discussion"
 msgstr "Diskussion"
 
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:69
-#: application/modules/admin/views/scripts/question/create.phtml:43
-#: application/modules/admin/views/scripts/question/edit.phtml:43
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:72
+#: application/modules/admin/views/scripts/question/create.phtml:46
+#: application/modules/admin/views/scripts/question/edit.phtml:46
 msgid "Video Services Settings"
 msgstr "Einstellungen Videodienste"
 
@@ -2338,7 +2341,7 @@ msgid "Delete contribution"
 msgstr "Beitrag löschen"
 
 #: application/modules/admin/views/scripts/input/create.phtml:23
-#: application/modules/admin/views/scripts/input/index.phtml:25
+#: application/modules/admin/views/scripts/input/index.phtml:26
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:35
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:35
 msgid "New Contribution"
@@ -2348,37 +2351,37 @@ msgstr "Neuer Beitrag"
 msgid "Edit Contribution"
 msgstr "Beitrag bearbeiten"
 
-#: application/modules/admin/views/scripts/input/edit.phtml:31
+#: application/modules/admin/views/scripts/input/edit.phtml:32
 msgid "List of contributions from this author"
 msgstr "Alle Beiträge dieser_s Teilnehmenden"
 
-#: application/modules/admin/views/scripts/input/index.phtml:33
+#: application/modules/admin/views/scripts/input/index.phtml:35
 msgid "There are no contributions yet."
 msgstr "Es gibt noch keine Beiträge."
 
-#: application/modules/admin/views/scripts/input/index.phtml:38
+#: application/modules/admin/views/scripts/input/index.phtml:40
 msgid "By Question"
 msgstr "Nach Frage"
 
-#: application/modules/admin/views/scripts/input/index.phtml:44
+#: application/modules/admin/views/scripts/input/index.phtml:46
 msgid "Unread"
 msgstr "Ungelesen"
 
-#: application/modules/admin/views/scripts/input/index.phtml:45
+#: application/modules/admin/views/scripts/input/index.phtml:47
 msgid "Total"
 msgstr "Gesamt"
 
-#: application/modules/admin/views/scripts/input/index.phtml:55
-#: application/modules/admin/views/scripts/input/index.phtml:63
-#: application/modules/admin/views/scripts/input/index.phtml:102
+#: application/modules/admin/views/scripts/input/index.phtml:57
+#: application/modules/admin/views/scripts/input/index.phtml:65
+#: application/modules/admin/views/scripts/input/index.phtml:104
 msgid "Show"
 msgstr "Zeige"
 
-#: application/modules/admin/views/scripts/input/index.phtml:76
+#: application/modules/admin/views/scripts/input/index.phtml:78
 msgid "By User"
 msgstr "Nach User"
 
-#: application/modules/admin/views/scripts/input/index.phtml:84
+#: application/modules/admin/views/scripts/input/index.phtml:86
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:110
 msgid "Comment"
 msgstr "Hier ist noch Platz für Kommentare"
@@ -2739,13 +2742,13 @@ msgstr "Zurück zur Fragenübersicht"
 msgid "New Question"
 msgstr "Neue Frage"
 
-#: application/modules/admin/views/scripts/question/create.phtml:50
-#: application/modules/admin/views/scripts/question/edit.phtml:50
+#: application/modules/admin/views/scripts/question/create.phtml:53
+#: application/modules/admin/views/scripts/question/edit.phtml:53
 msgid "or"
 msgstr "oder"
 
-#: application/modules/admin/views/scripts/question/create.phtml:51
-#: application/modules/admin/views/scripts/question/edit.phtml:51
+#: application/modules/admin/views/scripts/question/create.phtml:54
+#: application/modules/admin/views/scripts/question/edit.phtml:54
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -3253,6 +3256,45 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Display field \"age\""
+#~ msgstr "Zeige „Alter“"
+
+#~ msgid "Display field \"comment groups\""
+#~ msgstr "Zeige „Kommentar“"
+
+#~ msgid "Display field \"contact person\""
+#~ msgstr "Zeige „Kontaktperson“"
+
+#~ msgid "Display field name"
+#~ msgstr "Zeige „Name“"
+
+#~ msgid "Display field age"
+#~ msgstr "Zeige „Alter“"
+
+#~ msgid "Display self-defined field (e.g. « state »)"
+#~ msgstr "Zeige frei definierbares Feld (z.B. „Bundesland“)"
+
+#~ msgid "Display field comment groups"
+#~ msgstr "Zeige „Kommentar“"
+
+#~ msgid "Display field contribution origin"
+#~ msgstr "Zeige „Quelle der Beiträge“"
+
+#~ msgid "Display field group size"
+#~ msgstr "Zeige „Gruppengröße“"
+
+#~ msgid "Display field group name"
+#~ msgstr "Zeige „Gruppenbezeichnung“"
+
+#~ msgid "Display field contact person"
+#~ msgstr "Zeige „Kontaktperson“"
+
+#~ msgid "Display field newsletter"
+#~ msgstr "Zeige „Newsletter“"
+
+#~ msgid "Display field notification"
+#~ msgstr "Zeige „Benachrichtigung“"
 
 # Does this include contributions by editors/admins, or only "regular" participants? Because that should be stated here:
 # (without admin contributions)
