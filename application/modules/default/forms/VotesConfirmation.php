@@ -5,18 +5,17 @@ class Default_Form_VotesConfirmation extends Dbjr_Form_Web
 
     public function init()
     {
-        $this
-            ->setMethod('post');
-
         $confirm = $this->createElement('submit', 'confirm');
         $confirm
             ->setAttrib('class', 'btn-success')
+            ->setAttrib('id', '')
             ->setLabel('Confirm');
         $this->addElement($confirm);
 
         $reject = $this->createElement('submit', 'reject');
         $reject
             ->setAttrib('class', 'btn-danger')
+            ->setAttrib('id', '')
             ->setLabel('Cancel votes');
         $this->addElement($reject);
 
