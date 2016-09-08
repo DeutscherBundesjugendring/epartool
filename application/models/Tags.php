@@ -194,10 +194,10 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
                 } elseif ($weight >= 33 && $weight < 66) {
                     $freqs[$tag->tg_nr]['frequency'] = 'medium';
                 } elseif ($weight >= 66) {
-                    $freqs[$tag->tg_nr]['frequency'] = 'frequent';
+                    $freqs[$tag->tg_nr]['frequency'] = 'frequented';
                 }
             } else {
-                $freqs[$tag->tg_nr]['frequency'] = 'N/A';
+                $freqs[$tag->tg_nr]['frequency'] = 'rare';
             }
         }
 
