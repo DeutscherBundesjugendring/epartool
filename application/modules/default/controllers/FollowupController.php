@@ -135,7 +135,13 @@ class FollowupController extends Zend_Controller_Action
         foreach ($relInputs as $key => &$relInput) {
             $relInput['relFowupCount'] = isset($countArr[$relInput['tid']]) ? $countArr[$relInput['tid']] : 0;
             $relInput['votingRank'] = $this->getVotingRank(
-                $this->consultation['kid'],
+                /*
+                 $this->consultation['kid'],
+                 9.9.2016 hotfix/DBJR-933 jiri@visionapps.cz
+                 Related inputs connected to other consultation are not valid, however they can exists and we do not
+                 know with certainty, how they were created. This implementation with $relInput['kid'] is only temporary
+                 */
+                $relInput['kid'],
                 $relInput['qi'],
                 $relInput['tid']
             );

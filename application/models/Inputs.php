@@ -1042,9 +1042,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 return array();
         }
 
-        $select = $this->select();
-        $select ->where('rel_tid LIKE ?', '%' . $id . '%');
-        $select ->where("`vot` LIKE 'y'");
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->info(self::NAME)])
+            ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi = q.qi', [])
+            ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid = c.kid', ['kid'])
+            ->where('rel_tid LIKE ?', '%' . $id . '%')
+            ->where("`vot` LIKE 'y'");
+        
         $result = $this->fetchAll($select)->toArray();
 
         return $result;
