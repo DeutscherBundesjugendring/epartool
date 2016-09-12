@@ -79,6 +79,8 @@
                             data-toggle="confirm"
                             title="<?=$this->translate('Unlink contribution');?>"
                             data-confirm-message="<?=$this->translate('Unlink contribution');?>?"
+                            data-confirm-yes="<?=$this->translate('Yes');?>"
+                            data-confirm-no="<?=$this->translate('No');?>"
                         >
                             <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                         </button>
@@ -166,6 +168,8 @@
                 value="<?=$this->escape($this->input['tid']);?>"
                 data-toggle="confirm"
                 data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+                data-confirm-yes="<?=$this->translate('Yes');?>"
+                data-confirm-no="<?=$this->translate('No');?>"
                 title="<?=$this->translate('Delete contribution');?>"
             >
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

@@ -84,6 +84,8 @@
                                                 value="<?=$this->escape($article['art_id']);?>"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete article?');?>"
+                                                data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                data-confirm-no="<?=$this->translate('No');?>"
                                                 <?php if ($article['ref_nm'] === 'article_explanation'
                                                     && (int) $this->mainArticlesSum === 1
                                                     && $article['hid'] === 'n') :
@@ -122,6 +124,8 @@
                                                         value="<?=$this->escape($subpage['art_id']);?>"
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Delete article?');?>"
+                                                        data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                        data-confirm-no="<?=$this->translate('No');?>"
                                                         <?php if ($article['ref_nm'] === 'article_explanation'
                                                             && $this->mainArticlesSum === 1
                                                             && $article['hid'] === 'n') :
