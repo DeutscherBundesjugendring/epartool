@@ -94,7 +94,7 @@ class FollowupController extends Zend_Controller_Action
         }
         $inputModel = new Model_Inputs();
 
-        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag));
+        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag, true));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
 
         $this->view->tag = !empty($tag) ? (new Model_Tags())->getById($tag) : null;
@@ -361,7 +361,7 @@ class FollowupController extends Zend_Controller_Action
     public function tagsAction()
     {
         $this->view->inputCount = (new Model_Inputs())->getCountByConsultation($this->consultation->kid);
-        $this->view->tags = (new Model_Tags())->getAllByConsultation($this->consultation->kid);
+        $this->view->tags = (new Model_Tags())->getAllByConsultation($this->consultation->kid, true);
     }
 
     public function downloadAction()
