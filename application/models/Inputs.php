@@ -575,7 +575,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Throws excpetion if rejection/confimation are not allowed
+     * Throws excpetion if rejection/confirmation are not allowed
      * @throws Dbjr_UrlkeyAction_Exception  If the consultation has moved past the input phase
      */
     private function isConfirmOrRejectAllowed($confirmKey)
