@@ -79,8 +79,8 @@ class RoboFile extends Tasks
             return sprintf('Cannot load %s.', self::CONFIG_FILE);
         }
         $newConfigFileContent = preg_replace(
-            "#\[production\]([\s]+version[\s]\=[\s]\"[a-z0-9\-\.]*\"|)#",
-            "[production]\n\nversion = \"" . $tag . "\"",
+            "#\[production\]\n(\n;[^\n]*\n|)([\s]*version[\s]\=[\s]\"[a-z0-9\-\.]*\"|)#",
+            "[production]\n$1version = \"" . $tag . "\"",
             $configFileContent
         );
         if (null === $newConfigFileContent) {
