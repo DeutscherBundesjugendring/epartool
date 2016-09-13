@@ -21,43 +21,21 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         ),
     );
 
-    /**
-     * Sets initial voting rights for all participants of given consultation
-     * (if not already done)
-     * @param  integer                 $kid
-     * @throws Zend_Validate_Exception
-     * @return integer                 Number of newly inserted rows
-     */
-    public function setInitialRightsByConsultation($kid)
+    
+    public function setInitialRightsForConfirmedUser($userId, $consultationId)
     {
-        $intVal = new Zend_Validate_Int();
-        if (!$intVal->isValid($kid)) {
-            throw new Zend_Validate_Exception('Given parameter kid must be integer!');
+        $row = $this->find($consultationId, $userId)->current();
+        
+        if (empty($row)) {
+            return $this->createRow([
+                'kid' => $consultationId,
+                'uid' => $userId,
+                'vt_weight' => 1,
+                'vt_code' => $this->generateVotingCode(),
+            ])->save();
         }
-        $count = 0;
-
-        $userModel = new Model_Users();
-        $participants = $userModel->getParticipantsByConsultation($kid);
-
-        foreach ($participants as $user) {
-            if ($user->uid != 1) {
-                $row = $this->find($kid, $user->uid)->current();
-                if (empty($row)) {
-                    $code = $this->generateVotingCode();
-                    $data = array(
-                        'kid' => $kid,
-                        'uid' => $user->uid,
-                        'vt_weight' => 1,
-                        'vt_code' => $code,
-                    );
-                    $newRow = $this->createRow($data);
-                    $newRow->save();
-                    $count++;
-                }
-            }
-        }
-
-        return $count;
+        
+        return 0;
     }
 
     /**

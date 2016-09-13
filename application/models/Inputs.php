@@ -531,7 +531,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $userModel = new Model_Users();
         if (!$uid) {
-            $uid = $userModel->confirmbyCkey($confirmKey);
+            $uid = $userModel->confirmByCkey($confirmKey);
         }
         $userModel->ping($uid);
 

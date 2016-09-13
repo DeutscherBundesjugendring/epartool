@@ -100,6 +100,7 @@ class UserController extends Zend_Controller_Action
                             $userModel->addConsultationData($data);
                         }
                         unset($data['cmnt_ext']);
+                        $consultationId = $data['kid'];
                         unset($data['kid']);
                         unset($data['is_contrib_under_cc']);
                         unset($data['csrf_token_register']);
@@ -116,6 +117,8 @@ class UserController extends Zend_Controller_Action
 
                         $inputModel = new Model_Inputs();
                         $inputModel->confirmByCkey($confirmKey, $uid);
+
+                        (new Model_Votes_Rights())->setInitialRightsForConfirmedUser($uid, $consultationId);
 
                         $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
                     }
