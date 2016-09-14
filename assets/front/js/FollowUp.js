@@ -252,7 +252,7 @@
 
                 _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ + '"> </div>' : '';
 
-                _snippets += '<div class="well well-simple well-simple-light ' + _activeSnippetClass + ' ' + _highlightClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
+                _snippets += '<div class="well well-simple well-simple-light text-left ' + _activeSnippetClass + ' ' + _highlightClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
                         _edgeRight +
                         data.doc.fowups[i].expl +
                         '<div class="text-right offset-top-small offset-bottom-small"><span class="offset-right">' +
