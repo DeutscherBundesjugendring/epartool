@@ -288,6 +288,30 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param $uid
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getByUserVotingRights($uid)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['vr' => (new Model_Votes_Rights())->info(Model_Votes_Rights::NAME)],
+                ['kid', 'uid']
+            )
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'vr.kid = c.kid',
+                ['titl' => 'c.titl', 'kid']
+            )
+            ->where('vr.uid = ?', $uid);
+
+        return $this->fetchAll($select);
+    }
+
+    /**
      * Finds out if there are any participants in this consultation
      * @param  integer  $kid The consultation identificator
      * @return boolean       Indicates if there are any participants

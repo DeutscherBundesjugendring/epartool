@@ -9,6 +9,10 @@
     <h1><?=$this->translate('Confirmation of your votes.');?></h1>
     <p><?=$this->translate('Here you can check your previous votes. Please confirm or delete them with the buttons below.');?></p>
 
+    <div class="offset-bottom">
+        <?=$this->form;?>
+    </div>
+
     <!-- Questions -->
     <?=$this->partialLoop('_partials/voting/votingConfirmationQuestionThesis.phtml', $this->votesData);?>
 

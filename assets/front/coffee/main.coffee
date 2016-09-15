@@ -54,7 +54,12 @@ bindToggleGroupRegister = () ->
     elementName = $("#name-element")
     groupTypeChecked = $('input[name="group_type"]:checked').val()
 
-    if groupTypeChecked != "group"
+    if groupTypeChecked == "group"
+        labelName.hide()
+        elementName.hide()
+        container.slideDown()
+        $('select#age_group').append($('<option></option>').val('4').html(i18n['All age groups']))
+    else
         labelName.show()
         elementName.show()
         container.hide()

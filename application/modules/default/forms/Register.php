@@ -21,8 +21,6 @@ class Default_Form_Register extends Dbjr_Form_Web
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $formProjectSettings = (new Model_Projects())
-            ->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
         $formConsultationSettings = (new Model_Consultations())->find($this->consultationId)->current()->toArray();
 
         $this
@@ -157,8 +155,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $regioPax
                 ->setLabel(!empty($formConsultationSettings['state_field_label'])
                     ? $formConsultationSettings['state_field_label']
-                    : 'State'
-                )
+                    : 'State')
                 ->setFilters(['StripTags', 'HtmlEntities']);
             $this->addElement($regioPax);
         }

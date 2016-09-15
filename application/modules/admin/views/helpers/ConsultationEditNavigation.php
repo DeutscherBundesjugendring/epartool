@@ -18,7 +18,7 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
             ],
             [
                 'name' => 'contribution',
-                'label' => $this->view->translate('Contribution'),
+                'label' => $this->view->translate("Participants' data"),
                 'href' => $this->view->url(
                     ['controller' => 'consultation', 'action' => 'contribution-submission-form', 'kid' => $kid]
                 ),
