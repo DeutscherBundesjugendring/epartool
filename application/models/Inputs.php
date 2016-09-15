@@ -285,9 +285,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * Returns number of inputs for a consultation
      * @param  integer $kid               The consultattion identifier
      * @param  boolean $excludeInvisible  Default: true
+     * @param  boolean $withoutAdmin
      * @return integer                    The number of inputs
      */
-    public function getCountByConsultation($kid, $excludeInvisible = true)
+    public function getCountByConsultation($kid, $excludeInvisible = true, $withoutAdmin = true)
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
@@ -305,8 +306,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         if ($excludeInvisible) {
             $select
                 ->where('block<>?', 'y')
-                ->where('user_conf=?', 'c')
-                ->where('uid IS NOT NULL OR confirmation_key IS NOT NULL');
+                ->where('user_conf=?', 'c');
+        }
+        
+        if ($withoutAdmin) {
+            $select->where('(uid IS NOT NULL OR confirmation_key IS NOT NULL)');
         }
 
         return $this->fetchAll($select)->current()->count;
@@ -401,9 +405,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  integer $qid
      * @param  integer $tag              [optional]
      * @param  boolean $excludeInvisible [optional], Default: true
+     * @param  boolean $withoutAdmin
      * @return integer
      */
-    public function getCountByQuestion($qid, $tag = null, $excludeInvisible = true)
+    public function getCountByQuestion($qid, $tag = null, $excludeInvisible = true, $withoutAdmin = true)
     {
         $intVal = new Zend_Validate_Int();
         if (!$intVal->isValid($qid)) {
@@ -422,6 +427,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $select
                 ->where('i.block<>?', 'y')
                 ->where('i.user_conf=?', 'c');
+        }
+
+        if ($withoutAdmin) {
+            $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
         }
 
         if ($intVal->isValid($tag)) {

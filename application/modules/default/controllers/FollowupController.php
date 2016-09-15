@@ -361,7 +361,7 @@ class FollowupController extends Zend_Controller_Action
     public function tagsAction()
     {
         $this->view->inputCount = (new Model_Inputs())->getCountByConsultation($this->consultation->kid);
-        $this->view->tags = (new Model_Tags())->getAllByConsultation($this->consultation->kid, '', true);
+        $this->view->tags = (new Model_Tags())->getAllByConsultation($this->consultation->kid, '', true, true);
     }
 
     public function downloadAction()
