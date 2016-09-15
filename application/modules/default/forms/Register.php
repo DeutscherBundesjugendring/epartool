@@ -206,7 +206,11 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->toArray();
         $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
         $ccLicense
-            ->setLabel($license['text'])
+            ->setLabel(
+                $formConsultationSettings['license_agreement'] === null
+                    ? $license['text']
+                    : $this->replaceLicensePlaceholders($license, $formConsultationSettings['license_agreement'])
+            )
             ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
             ->setCheckedValue('1')
             ->setUnCheckedValue(null)
@@ -244,5 +248,10 @@ class Default_Form_Register extends Dbjr_Form_Web
         $this
             ->addElement($emailDisabledEl)
             ->addElement($emailHiddenEl);
+    }
+
+    private function replaceLicensePlaceholders(array $license, $text)
+    {
+        return str_replace(['{{license_link}}', '{{license_title}}'], [$license['link'], $license['title']], $text);
     }
 }
