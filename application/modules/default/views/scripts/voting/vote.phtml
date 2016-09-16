@@ -103,11 +103,6 @@
                             <p>
                                 <?=$this->embeddedVideo($this->thesis['video_service'], $this->thesis['video_id']);?>
                             </p>
-                        <?php elseif ($this->thesis['video_id'] !== null) : ?>
-                            <p class="alert alert-info">
-                                <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
-                                <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($this->thesis['video_service']));?>.
-                            </p>
                         <?php endif; ?>
 
                         <!-- Explanation toggle -->

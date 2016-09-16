@@ -30,14 +30,6 @@
                             $this->discussionContribution['video_id']
                         );?>
                     </div>
-                <?php elseif ($this->discussionContribution['video_id']) : ?>
-                    <p>
-                        <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
-                        <?=sprintf(
-                            $this->translate('%s videos were disabled by admin for this question'),
-                            ucfirst($this->discussionContribution['video_service'])
-                        );?>.
-                    </p>
                 <?php endif; ?>
 
                 <small><?=$this->formatDate($this->discussionContribution['time_created']);?></small>
