@@ -56,7 +56,7 @@ class InputController extends Zend_Controller_Action
         $this->view->questions = $questions;
         $this->view->nowDate = Zend_Date::now();
         $this->view->inputCount = $inputModel->getCountByConsultation($this->consultation->kid);
-        $this->view->tags = (new Model_Tags())->getAllByConsultation($kid, '', new Zend_Db_Expr('RAND()'));
+        $this->view->tags = (new Model_Tags())->getAllByConsultation($kid, '');
     }
 
     /**

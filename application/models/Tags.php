@@ -150,12 +150,13 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
      * Returns usage count of all tags tied to inputs belonging to this consultation
      * @param  integer  $kid  The consultationt identifier
      * @param  string   $vot  'y' for inputs that are confirmed for voting
+     * @param  bool     $excludeInvisible
+     * @param  bool     $withoutAdmin
      * @return array          An array in form [tagId => [count => $occurenceCount, frequency => $frequency]]
      */
-    public function getAllByConsultation($kid, $vot = '', $order = 'tg_de')
+    public function getAllByConsultation($kid, $vot = '', $excludeInvisible = false, $withoutAdmin = false)
     {
         $inputCount = (new Model_Inputs())->getCountByConsultation($kid);
-
         $select = $this
             ->select()
             ->from(
@@ -179,6 +180,15 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
             )
             ->where('q.kid = ?', $kid)
             ->group('it.tg_nr');
+
+        if ($excludeInvisible) {
+            $select
+                ->where('block<>?', 'y')
+                ->where('user_conf=?', 'c');
+        }
+        if ($withoutAdmin) {
+            $select->where('(uid IS NOT NULL OR confirmation_key IS NOT NULL)');
+        }
         if (!empty($vot)) {
             $select->where('i.vot = ?', $vot);
         }
