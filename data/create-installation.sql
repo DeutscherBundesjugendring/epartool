@@ -1172,5 +1172,8 @@ ALTER TABLE `cnslt` ADD COLUMN `contribution_confirmation_info` text NOT NULL;
 ALTER TABLE `vt_indiv`
 CHANGE `pts` `pts` tinyint(4) NULL COMMENT 'the vote itself (points)' AFTER `tid`;
 
+-- 2016-09-15_13-31_DBJR-918.sql
+ALTER TABLE `cnslt` ADD `license_agreement` text NULL DEFAULT NULL;
+
 -- Migration 2016-09-05_14-44_DBJR-911.sql
 ALTER TABLE `inpt` DROP FOREIGN KEY `inpt_uid_ibfk`;

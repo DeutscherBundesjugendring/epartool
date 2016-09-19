@@ -214,6 +214,13 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($followUpExplanation);
 
+        $licenseAgreement = $this->createElement('textarea', 'license_agreement');
+        $licenseAgreement
+            ->setLabel('License agreement text')
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setAttrib('rows', 5);
+        $this->addElement($licenseAgreement);
+
         $isPublic = $this->createElement('checkbox', 'public');
         $isPublic
             ->setLabel('Make public')

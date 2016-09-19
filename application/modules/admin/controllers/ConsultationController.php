@@ -175,7 +175,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $form->getElement('img_file')->setIsLockDir(true);
 
         if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
-            $posts = $this->getRequest()->getPost();
             if ($form->isValid($this->getRequest()->getPost())) {
                 $this->_consultation->setFromArray($form->getValues());
                 $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
