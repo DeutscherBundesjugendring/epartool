@@ -100,20 +100,10 @@ class Service_Voting
         if (!$this->isVoteValid($vote)) {
             throw new Dbjr_Voting_Exception('Vote is invalid');
         }
-        
-        $vote['confirmation_hash'] = $confirmationHash;
-        $vote['upd'] = new Zend_Db_Expr('NOW()');
-        $vote['status'] = 'v';
 
-        try {
-            if (empty($votesModel->createRow($vote)->save())) {
-                throw new Dbjr_Voting_Exception('Cannot save vote');
-            }
-        } catch (Zend_Db_Statement_Exception $ex) {
-            if ($ex->getCode() !== 23000) { // if it is not a duplicate entry
-                throw $ex;
-            }
-        }
+        if(!$votesModel->updateVote($vote['tid'], $vote['sub_uid'], $vote['uid'], $vote['pts'], $confirmationHash)) {
+            throw new Dbjr_Voting_Exception('Cannot save vote');
+        };
     }
 
     /**
