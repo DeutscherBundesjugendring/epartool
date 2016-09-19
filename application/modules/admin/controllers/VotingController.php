@@ -25,9 +25,7 @@ class Admin_VotingController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $votingRightsModel = new Model_Votes_Rights();
-        $this->view->countInserted = $votingRightsModel->setInitialRightsByConsultation($this->_consultation->kid);
-        $this->view->votingRights = $votingRightsModel->getByConsultation($this->_consultation->kid);
+        $this->view->votingRights = (new Model_Votes_Rights())->getByConsultation($this->_consultation->kid);
     }
 
     /**

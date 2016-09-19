@@ -490,11 +490,24 @@ class InputController extends Zend_Controller_Action
             $inputs = $inputModel->fetchAll(
                 $inputModel
                     ->select()
-                    ->from($inputModel->info(Model_Inputs::NAME), ['qi'])
+                    ->setIntegrityCheck(false)
+                    ->from(['i' => $inputModel->info(Model_Inputs::NAME)], ['qi'])
+                    ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi = q.qi', ['kid'])
                     ->where('confirmation_key=?', $ckey)
                     ->group('qi')
             );
+            $userInfo = (new Model_User_Info())->fetchRow(['confirmation_key = ?' => $ckey]);
+            if (!$userInfo) {
+                $this->flashMessenger->addMessage('This confirmation link is invalid!', 'error');
+                $this->redirect('/');
+            }
+
             $confirmedCount = $inputModel->confirmByCkey($ckey);
+
+            if ($inputs->count() > 0) {
+                (new Model_Votes_Rights())
+                    ->setInitialRightsForConfirmedUser($userInfo['uid'], $inputs->current()['kid']);
+            }
             $inputModel->getAdapter()->commit();
 
             if ($confirmedCount) {
