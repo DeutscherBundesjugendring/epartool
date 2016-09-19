@@ -66,6 +66,47 @@ class RoboFile extends Tasks
             ->run();
     }
 
+    public function createZip()
+    {
+        $this->stopOnFail(true);
+        $this->build();
+        $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
+        $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
+        $this->taskExec('zip')
+            ->arg('--recurse-paths')
+            ->arg('--quiet')
+            ->arg('dbjr-tool.zip')
+            ->arg('.')
+            ->arg('--include .htaccess')
+            ->arg('--include application/\*')
+            ->arg('--include data/\*')
+            ->arg('--include install/\*')
+            ->arg('--include languages/\*')
+            ->arg('--include library/\*')
+            ->arg('--include runtime/\*')
+            ->arg('--include vendor/\*')
+            ->arg('--include www/css/\*')
+            ->arg('--include www/fonts/\*')
+            ->arg('--include www/images/\*')
+            ->arg('--include www/js/\*')
+            ->arg('--include www/vendor/\*')
+            ->arg('--include www/index.php')
+            ->arg('--include www/robots.txt')
+            ->arg('--include www/.htaccess')
+            ->arg('--include www/media/consultations/1/consultation_thumb_micro_scholl.jpg')
+            ->arg('--include www/media/folders/misc/logo.png')
+            ->arg('--exclude application/configs/config.local.ini')
+            ->arg('--exclude runtime/cache/\*')
+            ->arg('--exclude runtime/sessions/\*')
+            ->arg('--exclude runtime/logs/\*')
+            ->arg('--exclude \*.git*')
+            ->arg('--exclude \*.keep')
+            ->run();
+        $this->taskExec('rm www/media/consultations/1/consultation_thumb_micro_scholl.jpg')->run();
+        $this->taskExec('rm www/media/folders/misc/logo.png')->run();
+
+    }
+
     /**
      * Zend_Config_* was not used because of ignoring comments in the ini file which were not writed back after editing
      * process.
