@@ -91,6 +91,7 @@ class Service_Voting
      * @param array $vote
      * @param string $confirmationHash
      * @throws \Dbjr_Voting_Exception
+     * @throws \Zend_Db_Statement_Exception
      */
     public function saveVote($vote, $confirmationHash)
     {
@@ -103,9 +104,15 @@ class Service_Voting
         $vote['confirmation_hash'] = $confirmationHash;
         $vote['upd'] = new Zend_Db_Expr('NOW()');
         $vote['status'] = 'v';
-        
-        if (empty($votesModel->createRow($vote)->save())) {
-            throw new Dbjr_Voting_Exception('Cannot save vote');
+
+        try {
+            if (empty($votesModel->createRow($vote)->save())) {
+                throw new Dbjr_Voting_Exception('Cannot save vote');
+            }
+        } catch (Zend_Db_Statement_Exception $ex) {
+            if ($ex->getCode() !== 23000) { // if it is not a duplicate entry
+                throw $ex;
+            }
         }
     }
 
