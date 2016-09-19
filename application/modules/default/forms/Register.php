@@ -249,6 +249,10 @@ class Default_Form_Register extends Dbjr_Form_Web
 
     private function replaceLicensePlaceholders(array $license, $text)
     {
-        return str_replace(['{{license_link}}', '{{license_title}}'], [$license['link'], $license['title']], $text);
+        return preg_replace(
+            '#http[s]?\:\/\/(http[s]?)#',
+            '$1',
+            str_replace(['{{license_link}}', '{{license_title}}'], [$license['link'], $license['title']], $text)
+        );
     }
 }

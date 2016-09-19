@@ -1,1 +1,1 @@
-ALTER TABLE `cnslt` ADD `license_agreement` text NULL;
+ALTER TABLE `cnslt` ADD `license_agreement` text NULL DEFAULT NULL;
