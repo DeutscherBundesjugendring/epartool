@@ -36,7 +36,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $image = $this->createElement('file', 'img_file');
         $image
-            ->setLabel('Featured image');
+            ->setLabel('Featured image')
+            ->setDescription('Recommended size: 300 x 500 pixels');
         $this->addElement($image);
 
         $imageDesc = $this->createElement('text', 'img_expl');
@@ -283,6 +284,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $imgFile = $this->createElement('media', 'img_file');
         $imgFile
             ->setLabel('Featured image')
+            ->setDescription('Recommended size: 300 x 500 pixels')
             ->setOrder(2)
             ->setKid($kid);
         $this->addElement($imgFile);
