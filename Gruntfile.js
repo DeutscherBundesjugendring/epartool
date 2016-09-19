@@ -15,7 +15,7 @@ module.exports = function (grunt) {
       temp: '.tmp'
     },
 
-    devUrl: 'dbjr.local',
+    devUrl: 'devel.local',
     devBrowser: 'google chrome'
   };
 
