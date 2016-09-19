@@ -518,9 +518,29 @@ class VotingController extends Zend_Controller_Action
             }
             //use for quick fix the back button end !!
 
+            // Check last voted thesis and append to view
+            $lastTid = $votingIndividualModel->getLastBySubuser($subUid);
+            if (!empty($lastTid) && $thesis['tid'] !== $lastTid[0]['tid']) {
+                $undoLinkParameters = ['kid' => $kid, 'tid' => $lastTid[0]['tid']];
+                if (!empty($tagId)) {
+                    $undoLinkParameters['tag'] = $tagId;
+                } else {
+                    $undoLinkParameters['qid'] = $lastTid[0]['qi'];
+                }
+                $this->view->undoLinkParameters = $undoLinkParameters;
+            }
+
             $question = (new Model_Questions())->getById($thesis['qi']);
             $this->view->thesis = $thesis;
             $this->view->question = $question;
+
+            $skipLinkParameters = ['kid' => $kid, 'token' => time()];
+            if (!empty($tagId)) {
+                $skipLinkParameters['tag'] = $tagId;
+            } else {
+                $skipLinkParameters['qid'] = $qid;
+            }
+            $this->view->skipLinkParameters = $skipLinkParameters;
         }
 
         $this->view->videoServicesStatus = (new Model_Projects())
@@ -529,12 +549,6 @@ class VotingController extends Zend_Controller_Action
         $this->view->thesesCountVoted = count($thesesVoted);
         $this->view->settings = $this ->getVotingSettings();
         $this->view->votingBasket= $this ->getVotingBasket($subUid);
-
-        // Check last voted thesis and append to view
-        $lastTid = $votingIndividualModel->getLastBySubuser($subUid);
-        if (!empty($lastTid)) {
-            $this->view->LastVote = $lastTid;
-        }
 
         if ($question && $question['vot_q']) {
             $votingQuestion = $question['vot_q'];
