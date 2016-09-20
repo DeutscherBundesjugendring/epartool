@@ -97,6 +97,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view = $this->bootstrap('view')->getResource('view');
     }
 
+    protected function _initHeaders()
+    {
+        $this->bootstrap('frontController');
+        $this->getResource('frontController')->registerPlugin(new Plugin_Headers());
+    }
+
     /**
      * Registers the complete URL including protocol and host in the registry,
      * used for links in emails
