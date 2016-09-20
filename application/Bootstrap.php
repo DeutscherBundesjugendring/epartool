@@ -61,6 +61,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initSessions()
     {
         $this->bootstrap('session');
+        Zend_Session::setOptions(['cookie_httponly' => true]);
     }
 
     protected function _initCache()
