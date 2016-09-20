@@ -1,5 +1,8 @@
 <?php
 
+use VideoIdExtractor\Exception\VideoIdExtractException;
+use VideoIdExtractor\Extractor\YoutubeVideoIdExtractor;
+
 class Default_Form_Input_Create extends Dbjr_Form_Web
 {
     /**

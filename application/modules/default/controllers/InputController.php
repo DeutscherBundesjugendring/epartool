@@ -1,5 +1,8 @@
 <?php
 
+use VideoIdExtractor\Exception\VideoIdExtractException;
+use VideoIdExtractor\Extractor\YoutubeVideoIdExtractor;
+
 class InputController extends Zend_Controller_Action
 {
 
@@ -88,6 +91,7 @@ class InputController extends Zend_Controller_Action
                 $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['add_input_field']) || isset($post['finished'])
                 || isset($post['next_question'])) {
+                $this->extractVideoIds($post['inputs']);
                 $this->handleInputSubmit($post, $kid, $qid);
             }
         }
@@ -334,7 +338,7 @@ class InputController extends Zend_Controller_Action
             ->getInputForm()
             ->generateInputFields($post['inputs'], false);
 
-        if ($form->isValid($this->_request->getPost())) {
+        if ($form->isValid($post)) {
             $sessInputs = (new Zend_Session_Namespace('inputs'));
             if (isset($sessInputs->inputs)) {
                 $tmpCollection = $sessInputs->inputs;
@@ -834,5 +838,21 @@ class InputController extends Zend_Controller_Action
         }
 
         return $this->inputForm;
+    }
+
+    /**
+     * @param array $inputs
+     */
+    private function extractVideoIds(array &$inputs)
+    {
+        foreach ($inputs as $key => $input) {
+            try {
+                if ($input['video_service'] === 'youtube') {
+                    $inputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
+                }
+            } catch (VideoIdExtractException $e) {
+
+            }
+        }
     }
 }
