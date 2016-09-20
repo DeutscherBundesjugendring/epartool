@@ -94,9 +94,7 @@ class InputController extends Zend_Controller_Action
                 $this->extractVideoIds($post['inputs']);
                 $this->handleInputSubmit($post, $kid, $qid);
             }
-        }
-
-        if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
+        } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
         ) {
             $form = $this->getInputForm();
@@ -388,6 +386,8 @@ class InputController extends Zend_Controller_Action
             }
             $this->redirect($redirectURL);
         }
+
+        $form->populate($post);
 
         $msg = Zend_Registry::get('Zend_Translate')->translate(
             'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
