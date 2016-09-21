@@ -5,6 +5,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
     public function init()
     {
         $this->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
+        $translator = Zend_Registry::get('Zend_Translate');
 
         $title = $this->createElement('text', 'titl');
         $title
@@ -14,7 +15,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->addElement($title);
 
         $desc = sprintf(
-            Zend_Registry::get('Zend_Translate')->translate(
+            $translator->translate(
                 'The title to be used where space is limited, i.e. email subjects. Max %d characters.'
             ),
             40
@@ -37,7 +38,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $image = $this->createElement('file', 'img_file');
         $image
             ->setLabel('Featured image')
-            ->setDescription('Recommended size: 300 x 500 pixels');
+            ->setDescription(sprintf($translator->translate('Recommended size: %s x %s pixels'), 300, 500));
         $this->addElement($image);
 
         $imageDesc = $this->createElement('text', 'img_expl');
@@ -45,7 +46,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $this->addElement($imageDesc);
 
         $desc = sprintf(
-            Zend_Registry::get('Zend_Translate')->translate('The higher number, the higher position in consultation list. The highest position is currently %d.'),
+            $translator->translate(
+                'The higher number, the higher position in consultation list. The highest position is currently %d.'
+            ),
             (new Model_Consultations())->getMaxOrder()
         );
         $order = $this->createElement('number', 'ord');
@@ -284,7 +287,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $imgFile = $this->createElement('media', 'img_file');
         $imgFile
             ->setLabel('Featured image')
-            ->setDescription('Recommended size: 300 x 500 pixels')
+            ->setDescription(
+                sprintf(Zend_Registry::get('Zend_Translate')->translate('Recommended size: %s x %s pixels'), 300, 500)
+            )
             ->setOrder(2)
             ->setKid($kid);
         $this->addElement($imgFile);
