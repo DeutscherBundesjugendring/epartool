@@ -76,8 +76,9 @@ class IndexController extends Zend_Controller_Action
             'Medium' => $this->view->translate('Medium'),
             'Strong' => $this->view->translate('Strong'),
             'Very Strong' => $this->view->translate('Very Strong'),
-            'You are being logged in. Please wait…' =>
-                $this->view->translate('You are being logged in. Please wait…'),
+            'You are being logged in. Please wait…' => $this->view->translate(
+                'You are being logged in. Please wait…'
+            ),
             'Shut back' => $this->view->translate('Shut back'),
             'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
             'supporters' => $this->view->translate('supporters'),
@@ -88,6 +89,7 @@ class IndexController extends Zend_Controller_Action
             'Your contributions have not been saved' => $this->view->translate(
                 'Your contributions have not been saved.'
             ),
+            'Follow path' => $this->view->translate('Follow path'),
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');
