@@ -117,7 +117,7 @@ class InstallForm extends Dbjr_Form_Web
 
         $emailSmtpSsl = $this->createElement('select', 'emailSmtpSsl');
         $emailSmtpSsl
-            ->setLabel('SSL')
+            ->setLabel('Encryption')
             ->setMultiOptions([
                 '' => $trans->translate('None'),
                 'ssl' => 'SSL',
@@ -135,7 +135,7 @@ class InstallForm extends Dbjr_Form_Web
             ->setLabel('Username');
         $this->addElement($emailSmtpUserName);
 
-        $emailSmtpPass = $this->createElement('text', 'emailSmtpPass');
+        $emailSmtpPass = $this->createElement('password', 'emailSmtpPass');
         $emailSmtpPass
             ->setLabel('Password');
         $this->addElement($emailSmtpPass);
@@ -259,9 +259,8 @@ class InstallForm extends Dbjr_Form_Web
             || !empty($data['emailSmtpPass'])
             || !empty($data['emailSmtpUserName'])
         ) {
-            foreach ($this->getDisplayGroup('smtpSettings')->getElements() as $element) {
-                $element->setRequired(true);
-            }
+            $this->getElement('emailSmtpHost')->setRequired(true);
+            $this->getElement('emailSmtpPort')->setRequired(true);
         }
 
         return parent::isValid($data);
