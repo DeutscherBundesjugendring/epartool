@@ -6,6 +6,10 @@
  */
 class Model_Tags extends Dbjr_Db_Table_Abstract
 {
+
+    const FREQUENCY_RARE = 33;
+    const FREQUENCY_MEDIUM = 66;
+
     protected $_name = 'tgs';
     protected $_primary = 'tg_nr';
 
@@ -251,11 +255,11 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
         foreach ($tags as $tag) {
             if ($interval > 0) {
                 $weight = ((int) $tag['count'] - $min) * 100 / $interval;
-                if ($weight < 33) {
+                if ($weight < self::FREQUENCY_RARE) {
                     $frequencies[$tag['tg_nr']]['frequency'] = 'rare';
-                } elseif ($weight >= 33 && $weight < 66) {
+                } elseif ($weight >= self::FREQUENCY_RARE && $weight < self::FREQUENCY_MEDIUM) {
                     $frequencies[$tag['tg_nr']]['frequency'] = 'medium';
-                } elseif ($weight >= 66) {
+                } elseif ($weight >= self::FREQUENCY_MEDIUM) {
                     $frequencies[$tag['tg_nr']]['frequency'] = 'frequented';
                 }
             } else {
