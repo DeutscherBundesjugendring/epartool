@@ -34,7 +34,7 @@
                             <tbody>
                                 <?php foreach($this->consultation['questions'] as $question): ?>
                                     <tr>
-                                        <td class="table-cell-id"><?=$this->escape($question['nr']);?></td>
+                                        <td class="table-cell-id"><?=isset($question['nr']) ? $this->escape($question['nr']) : '';?></td>
                                         <td>
                                             <a href="<?=$this->url(['controller' => 'votingprepare', 'action' => 'overview', 'kid' => $question['kid'], 'qid' => $question['qi']]);?>">
                                                 <?=strip_tags(html_entity_decode($question['q']));?>

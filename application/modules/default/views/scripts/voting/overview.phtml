@@ -57,7 +57,7 @@
                     <?php foreach ($this->questions as $question): ?>
                         <div class="form-group">
                             <a href="<?=$this->url(['action' => 'vote', 'qid' => $question['qi']]);?>#vote" class="btn btn-default btn-default-alt text-wrap">
-                                <?=$question['nr'];?>
+                                <?=isset($question['nr']) ? $question['nr'] : '';?>
                                 <?=$question['q'];?>
                             </a>
                         </div>

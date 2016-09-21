@@ -260,8 +260,10 @@ class Admin_CloseController extends Zend_Controller_Action
                 $replace,
                 $votingResultsValues['currentQuestion']['q']
             );
-            $csv.= ' - Frage: ' .$votingResultsValues['currentQuestion']['nr']
-                . ' - ' . $votingResultsValues['currentQuestion']['q'] ."\r\n\r\n";
+            $csv.= ' - Frage: ' . isset($votingResultsValues['currentQuestion']['nr'])
+                ? $votingResultsValues['currentQuestion']['nr'] . ' - '
+                : ''
+                . $votingResultsValues['currentQuestion']['q'] ."\r\n\r\n";
         } else {
             $csv .= 'Frage nicht gefunden!\r\n\r\n';
         }

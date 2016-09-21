@@ -1,5 +1,5 @@
 <h2>
-    <?=$this->escape($this->nr);?>
+    <?=($this->nr !== null) ? $this->escape($this->nr) : '';?>
     <?=$this->escape($this->q);?>
 </h2>
 

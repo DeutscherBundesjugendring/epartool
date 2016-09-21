@@ -421,7 +421,7 @@ class Admin_InputController extends Zend_Controller_Action
         header("Content-type: text/csv");
         header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         header('Content-Disposition: attachment; filename=inputs_'
-            . $question['nr'] . '_qid' . $qid . '_' . $mod . '_'
+            . (isset($question['nr']) ? $question['nr'] . '_' : '') . 'qid' . $qid . '_' . $mod . '_'
             . gmdate('Y-m-d_H\hi\m') . '_' . $cod . '.csv');
         header('Pragma: no-cache');
 

@@ -26,7 +26,7 @@ class Admin_QuestionController extends Zend_Controller_Action
                 ->select()
                 ->from($questionModel->info(Model_Questions::NAME), ['qi', 'nr', 'q'])
                 ->where('kid = ?', $this->_consultation['kid'])
-                ->order('nr ASC')
+                ->order(['nr ASC', 'q ASC'])
         );
 
         $this->view->questions = $questions;
@@ -44,6 +44,9 @@ class Admin_QuestionController extends Zend_Controller_Action
                 $questionRow->kid = $this->_consultation['kid'];
                 $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
                 $questionRow->ln = 'de';
+                if ($questionRow['nr'] === '') {
+                    $questionRow['nr'] = null;
+                }
                 $questionRow->save();
                 $this->_flashMessenger->addMessage('New question has been created.', 'success');
 
@@ -71,6 +74,9 @@ class Admin_QuestionController extends Zend_Controller_Action
                     $questionRow = $questionModel->find($qid)->current();
                     $questionRow->setFromArray($form->getValues());
                     $questionRow->time_modified = Zend_Date::now()->get('YYYY-MM-dd HH:mm:ss');
+                    if ($questionRow['nr'] === '') {
+                        $questionRow['nr'] = null;
+                    }
                     $questionRow->save();
                     $this->_flashMessenger->addMessage('Changes saved.', 'success');
                     $question = $questionRow->toArray();

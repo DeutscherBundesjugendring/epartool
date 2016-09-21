@@ -50,7 +50,7 @@
                         <tbody>
                             <?php foreach ($this->questions as $question): ?>
                                 <tr>
-                                    <td class="table-cell-id"><?=$this->escape($question->nr);?></td>
+                                    <td class="table-cell-id"><?=isset($question['nr']) ? $this->escape($question['nr']) : '';?></td>
                                     <td><?=html_entity_decode($this->escape(strip_tags($question->q)));?></td>
                                     <td data-sort-value="<?=$this->escape($question->inputCountUnread);?>">
                                         <?php if (!empty($question->inputCountUnread)): ?>

@@ -72,7 +72,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
                     'to_email' => $user->email,
                     'website_url' => Zend_Registry::get('baseUrl')
                         . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
-                    'question_text' => $question['nr'] . ' ' . $question['q'],
+                    'question_text' => (isset($question['nr']) ? $question['nr'] . ' ' : '') . $question['q'],
                     'unsubscribe_url' => Zend_Registry::get('baseUrl')
                         . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                 ])
@@ -112,7 +112,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
             ->setPlaceholders([
                 'to_name' => $user->name ? $user->name : $user->email,
                 'to_email' => $user->email,
-                'question_text' => $question['nr'] . ' ' . $question['q'],
+                'question_text' => (isset($question['nr']) ? $question['nr'] . ' ' : '') . $question['q'],
                 'confirmation_url' =>  Zend_Registry::get('baseUrl')
                     . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
             ])

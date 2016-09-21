@@ -20,7 +20,6 @@ class Admin_Form_Question extends Dbjr_Form_Admin
         $order = $this->createElement('text', 'nr');
         $order
             ->setLabel('Order')
-            ->setRequired(true)
             ->setAttrib('maxlength', 4);
         $this->addElement($order);
 
