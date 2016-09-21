@@ -16,11 +16,13 @@ class RoboFile extends Tasks
     public function test()
     {
         $this->stopOnFail(true);
+        $this->lintPhp();
         $this->phpcs();
     }
 
     public function build()
     {
+        $this->stopOnFail(true);
         $this->taskExecStack()
             ->stopOnFail()
             ->exec('composer install')
@@ -28,6 +30,7 @@ class RoboFile extends Tasks
             ->exec('npm update')
             ->exec('grunt')
             ->run();
+        $this->test();
     }
 
     /**
@@ -62,7 +65,16 @@ class RoboFile extends Tasks
             ->taskExec('vendor/bin/phpcs')
             ->args('--standard=.php_cs_ruleset.xml')
             ->args('--encoding=utf-8')
-            ->args(implode(' ', [self::APP_DIR, self::LIB_DIR,]))
+            ->args(implode(' ', [self::APP_DIR, self::LIB_DIR]))
+            ->run();
+    }
+
+    public function lintPhp()
+    {
+        $this
+            ->taskExec(vsprintf('find %s -name "*.php" -print0 | xargs -0 -n1 -P8 php -l', [
+                implode(' ', [self::APP_DIR, self::LIB_DIR]),
+            ]))
             ->run();
     }
 
