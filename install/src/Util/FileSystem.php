@@ -71,13 +71,11 @@ class FileSystem
 
         foreach ($folders as $path) {
             if (file_exists($path)) {
-                if (!chmod($path, 0777)) {
+                if (!is_writable($path) && !chmod($path, 0777)) {
                     return false;
                 }
-            } else {
-                if (!mkdir($path)) {
-                    return false;
-                }
+            } elseif (!mkdir($path)) {
+                return false;
             }
         }
 
