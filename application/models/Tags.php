@@ -6,6 +6,10 @@
  */
 class Model_Tags extends Dbjr_Db_Table_Abstract
 {
+
+    const FREQUENCY_RARE = 33;
+    const FREQUENCY_MEDIUM = 66;
+
     protected $_name = 'tgs';
     protected $_primary = 'tg_nr';
 
@@ -156,7 +160,6 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
      */
     public function getAllByConsultation($kid, $vot = '', $excludeInvisible = false, $withoutAdmin = false)
     {
-        $inputCount = (new Model_Inputs())->getCountByConsultation($kid);
         $select = $this
             ->select()
             ->from(
@@ -194,24 +197,7 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
         }
         $tags = $this->fetchAll($select);
 
-        $freqs = [];
-        foreach ($tags as $tag) {
-            $freqs[$tag->tg_nr] = $tag->toArray();
-            if ($inputCount > 0) {
-                $weight = 100 * $tag['count'] / $inputCount;
-                if ($weight < 33) {
-                    $freqs[$tag->tg_nr]['frequency'] = 'rare';
-                } elseif ($weight >= 33 && $weight < 66) {
-                    $freqs[$tag->tg_nr]['frequency'] = 'medium';
-                } elseif ($weight >= 66) {
-                    $freqs[$tag->tg_nr]['frequency'] = 'frequented';
-                }
-            } else {
-                $freqs[$tag->tg_nr]['frequency'] = 'rare';
-            }
-        }
-
-        return $freqs;
+        return $this->calculateFrequency($tags);
     }
 
     /**
@@ -243,5 +229,43 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
             return '';
         }
 
+    }
+
+    /**
+     * @param Zend_Db_Table_Rowset_Abstract $tags
+     * @return array
+     */
+    private function calculateFrequency($tags)
+    {
+        $frequencies = [];
+        $max = 0;
+        $min = PHP_INT_MAX;
+        foreach ($tags as $tag) {
+            $frequencies[$tag['tg_nr']] = $tag->toArray();
+            if ((int) $tag['count'] < $min) {
+                $min = $tag['count'];
+            }
+            if ((int) $tag['count'] > $max) {
+                $max = $tag['count'];
+            }
+        }
+
+        $interval = $max - $min;
+
+        foreach ($tags as $tag) {
+            if ($interval > 0) {
+                $weight = ((int) $tag['count'] - $min) * 100 / $interval;
+                if ($weight < self::FREQUENCY_RARE) {
+                    $frequencies[$tag['tg_nr']]['frequency'] = 'rare';
+                } elseif ($weight >= self::FREQUENCY_RARE && $weight < self::FREQUENCY_MEDIUM) {
+                    $frequencies[$tag['tg_nr']]['frequency'] = 'medium';
+                } elseif ($weight >= self::FREQUENCY_MEDIUM) {
+                    $frequencies[$tag['tg_nr']]['frequency'] = 'frequented';
+                }
+            } else {
+                $frequencies[$tag['tg_nr']]['frequency'] = 'medium';
+            }
+        }
+        return $frequencies;
     }
 }
