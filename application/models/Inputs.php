@@ -760,7 +760,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $questionModel = new Model_Questions();
         $question = $questionModel->find($qid)->current()->toArray();
         if (!empty($question)) {
-            $csv.= '"' .$question['nr'] . '";"' . $question['q'] . '"' . "\r\n\r\n";
+            $csv.= '"' .(isset($question['nr']) ? $question['nr'] : '') . '";"' . $question['q'] . '"' . "\r\n\r\n";
         } else {
             return 'Frage nicht gefunden!';
         }
@@ -1281,16 +1281,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $inputs = [];
         foreach ($res as $input) {
-            if (!isset($inputs[$input->nr])) {
-                $inputs[$input->nr] = [
-                    'q' => $input->q,
+            if (!isset($inputs[$input['qi']])) {
+                $inputs[$input['qi']] = [
+                    'q' => $input['q'],
                     'inputs' => [],
+                    'nr' => $input['nr'],
                 ];
             }
             $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
             $input = $input->toArray();
             $input['tags'] = $tags ? $tags : [];
-            $inputs[$input['nr']]['inputs'][] = $input;
+            $inputs[$input['qi']]['inputs'][] = $input;
         }
 
         return $inputs;

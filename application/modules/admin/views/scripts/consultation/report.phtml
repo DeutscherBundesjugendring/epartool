@@ -63,7 +63,7 @@
                             )); ?>"
                                title="<?=$this->translate('See Contribution');?>"
                             >
-                                <strong><?php echo $question['nr']; ?> <?php echo $question['q']; ?></strong>
+                                <strong><?=isset($question['nr']) ? $question['nr'] : '';?> <?php echo $question['q']; ?></strong>
                             </a>
                         </p>
                         <p>

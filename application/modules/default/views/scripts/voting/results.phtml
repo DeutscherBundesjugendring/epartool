@@ -26,7 +26,7 @@
                     'kid' => $this->currentQuestion['kid'],
                     'qid' => $this->currentQuestion['qi'],
                 ]);?>">
-                    <?=$this->currentQuestion['nr'];?>
+                    <?=isset($this->currentQuestion['nr']) ? $this->currentQuestion['nr'] : '';?>
                     <?=$this->currentQuestion['q'];?>
                 </a>
             </h2>

@@ -83,7 +83,7 @@
 
                     <!-- Question -->
                     <h3>
-                        <?=$this->question['nr'];?>
+                        <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
                         <?=$this->question['q'];?>
                     </h3>
                     <?php if (!empty($this->thesis['tagname_de'])): ?>
