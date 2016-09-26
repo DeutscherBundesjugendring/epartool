@@ -40,11 +40,17 @@
                     </div>
                     <div class="form-group form-group-flex">
                         <div class="input-group input-group-full-xs">
-                            <span class="input-group-addon hidden-xs js-video-service-url"></span>
                             <?=$input->getElements()['video_id'];?>
                         </div>
                     </div>
                 </div>
+                <?php if (count($input->getElement('video_id')->getErrors()) > 0) : ?>
+                    <ul class="text-danger-block">
+                        <?php foreach ($input->getElement('video_id')->getErrors() as $error) : ?>
+                            <li><?=$error;?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             <?php endif; ?>
 
             <!-- Expand -->
