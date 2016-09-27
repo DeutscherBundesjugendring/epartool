@@ -1,6 +1,8 @@
 <?php
 
 use VideoIdExtractor\Exception\VideoIdExtractException;
+use VideoIdExtractor\Extractor\FacebookVideoIdExtractor;
+use VideoIdExtractor\Extractor\VimeoVideoIdExtractor;
 use VideoIdExtractor\Extractor\YoutubeVideoIdExtractor;
 
 class InputController extends Zend_Controller_Action
@@ -849,6 +851,10 @@ class InputController extends Zend_Controller_Action
             try {
                 if ($input['video_service'] === 'youtube') {
                     $inputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
+                } elseif ($input['video_service'] === 'vimeo') {
+                    $inputs[$key]['video_id'] = (new VimeoVideoIdExtractor())->extract($input['video_id']);
+                } elseif ($input['video_service'] === 'facebook') {
+                    $inputs[$key]['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
                 }
             } catch (VideoIdExtractException $e) {
 
