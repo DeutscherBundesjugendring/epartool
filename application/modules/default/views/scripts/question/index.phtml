@@ -22,7 +22,7 @@
 
                     <?php if (!empty($question['nr'])): ?>
                         <h2 class="page-header" id="question-<?=$question['qi'];?>">
-                            <?=$this->escape($question['nr']);?>
+                            <?=isset($question['nr']) ? $this->escape($question['nr']) : '';?>
                             <?=$this->escape($question['q']);?>
                         </h2>
                     <?php else: ?>

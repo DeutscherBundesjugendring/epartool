@@ -182,8 +182,8 @@
                         </div>
 
                         <!-- Listing -->
-                        <?php foreach ($this->inputs as $questionNum => $inputs): ?>
-                            <h3><?=$questionNum;?> <?=$this->escape($inputs['q']);?></h3>
+                        <?php foreach ($this->inputs as $inputs): ?>
+                            <h3><?=isset($inputs['nr']) ? $inputs['nr'] : '';?> <?=$this->escape($inputs['q']);?></h3>
                             <div class="table-responsive">
                                 <table class="table table-bordered js-table-rows-toggle">
                                     <?php foreach ($inputs['inputs'] as $input): ?>

@@ -240,7 +240,7 @@
                 if (_activeSnippet) {
                   _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i].show_in_timeline_link + '">Back to timeline</a>';
                 } else {
-                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">Follow path</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">' + i18n['Follow path'] + '</a>';
                 }
 
                 var _highlightClass = '';

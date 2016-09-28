@@ -40,9 +40,12 @@
                             <?php foreach ($this->questions as $question): ?>
                                 <li>
                                     <?php if ($question['qi'] == $this->currentQuestion['qi']): ?>
-                                        <strong><?=$this->escape($question['nr']);?> <?=$this->escape($question['q']);?></strong>
+                                        <strong><?=isset($question['nr']) ? $this->escape($question['nr']) : '';?> <?=$this->escape($question['q']);?></strong>
                                     <?php else: ?>
-                                        <a href="<?=$this->url(['qid' => $question['qi']]);?>"><?=$this->escape($question['nr']);?> <?=$this->escape($question['q']);?></a>
+                                        <a href="<?=$this->url(['qid' => $question['qi']]);?>">
+                                            <?=isset($question['nr']) ? $this->escape($question['nr']) : '';?>
+                                            <?=$this->escape($question['q']);?>
+                                        </a>
                                     <?php endif; ?>
                                 </li>
                             <?php endforeach; ?>

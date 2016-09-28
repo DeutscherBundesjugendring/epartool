@@ -135,7 +135,7 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
         // fetch
         $select = $this->select();
         $select->where('kid=?', $kid);
-        $select->order(array('nr ASC', 'q ASC'));
+        $select->order(['nr ASC', 'q ASC']);
 
         return $this->fetchAll($select);
     }
@@ -172,11 +172,33 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
 
         // fetch
         $select = $this->select();
-        $select->where('kid=?', $current->kid)->where('nr>?', $current->nr);
-        $select->order('nr');
+        $select
+            ->where('kid = ?', $current['kid'])
+            ->where('q > ?', $current['q']);
+        if ($current['nr'] === null) {
+            $select->where('nr IS NULL');
+        } else {
+            $select->where('nr = ?', $current['nr']);
+        }
+        $select->order('q ASC');
         $select->limit(1);
+        $row = $this->fetchRow($select);
 
-        return $this->fetchRow($select);
+        if ($row === null) {
+            $select = $this->select();
+            $select->where('kid = ?', $current['kid']);
+            if ($current['nr'] === null) {
+                $select->where('nr IS NOT NULL');
+            } else {
+                $select->where('nr > ?', $current['nr']);
+            }
+            $select->order(['nr ASC', 'q ASC']);
+            $select->limit(1);
+
+            return $this->fetchRow($select);
+        }
+
+        return $row;
     }
 
     /**
@@ -212,7 +234,7 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
         }
         $rowset = $this->fetchAll($select);
         foreach ($rowset as $row) {
-            $options[$row->qi] = $row->nr . ' ' . $row->q;
+            $options[$row['qi']] = (isset($row['nr']) ? $row['nr'] : '') . ' ' . $row['q'];
         }
 
         return $options;
@@ -271,14 +293,14 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
 
         $inputs = [];
         foreach ($res as $input) {
-            if (!isset($inputs[$input->nr])) {
-                $inputs[$input->nr] = [
+            if (!isset($inputs[$input['qi']])) {
+                $inputs[$input['qi']] = [
                     'q' => $input->q,
                     'inputs' => [],
                 ];
             }
             if ($input->tid) {
-                $inputs[$input['nr']]['inputs'][] = $input;
+                $inputs[$input['qi']]['inputs'][] = $input;
             }
         }
 

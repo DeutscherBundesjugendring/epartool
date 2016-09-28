@@ -16,11 +16,13 @@ class RoboFile extends Tasks
     public function test()
     {
         $this->stopOnFail(true);
+        $this->lintPhp();
         $this->phpcs();
     }
 
     public function build()
     {
+        $this->stopOnFail(true);
         $this->taskExecStack()
             ->stopOnFail()
             ->exec('composer install')
@@ -28,6 +30,7 @@ class RoboFile extends Tasks
             ->exec('npm update')
             ->exec('grunt')
             ->run();
+        $this->test();
     }
 
     /**
@@ -62,8 +65,58 @@ class RoboFile extends Tasks
             ->taskExec('vendor/bin/phpcs')
             ->args('--standard=.php_cs_ruleset.xml')
             ->args('--encoding=utf-8')
-            ->args(implode(' ', [self::APP_DIR, self::LIB_DIR,]))
+            ->args(implode(' ', [self::APP_DIR, self::LIB_DIR]))
             ->run();
+    }
+
+    public function lintPhp()
+    {
+        $this
+            ->taskExec(vsprintf('find %s -name "*.php" -print0 | xargs -0 -n1 -P8 php -l', [
+                implode(' ', [self::APP_DIR, self::LIB_DIR]),
+            ]))
+            ->run();
+    }
+
+    public function createZip()
+    {
+        $this->stopOnFail(true);
+        $this->build();
+        $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
+        $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
+        $this->taskExec('zip')
+            ->arg('--recurse-paths')
+            ->arg('--quiet')
+            ->arg('dbjr-tool.zip')
+            ->arg('.')
+            ->arg('--include .htaccess')
+            ->arg('--include application/\*')
+            ->arg('--include data/\*')
+            ->arg('--include install/\*')
+            ->arg('--include languages/\*')
+            ->arg('--include library/\*')
+            ->arg('--include runtime/\*')
+            ->arg('--include vendor/\*')
+            ->arg('--include www/css/\*')
+            ->arg('--include www/fonts/\*')
+            ->arg('--include www/images/\*')
+            ->arg('--include www/js/\*')
+            ->arg('--include www/vendor/\*')
+            ->arg('--include www/index.php')
+            ->arg('--include www/robots.txt')
+            ->arg('--include www/.htaccess')
+            ->arg('--include www/media/consultations/1/consultation_thumb_micro_scholl.jpg')
+            ->arg('--include www/media/folders/misc/logo.png')
+            ->arg('--exclude application/configs/config.local.ini')
+            ->arg('--exclude runtime/cache/\*')
+            ->arg('--exclude runtime/sessions/\*')
+            ->arg('--exclude runtime/logs/\*')
+            ->arg('--exclude \*.git*')
+            ->arg('--exclude \*.keep')
+            ->run();
+        $this->taskExec('rm www/media/consultations/1/consultation_thumb_micro_scholl.jpg')->run();
+        $this->taskExec('rm www/media/folders/misc/logo.png')->run();
+
     }
 
     /**

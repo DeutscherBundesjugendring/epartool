@@ -61,6 +61,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initSessions()
     {
         $this->bootstrap('session');
+        Zend_Session::setOptions(['cookie_httponly' => true]);
     }
 
     protected function _initCache()
@@ -95,6 +96,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initHead()
     {
         $view = $this->bootstrap('view')->getResource('view');
+    }
+
+    protected function _initHeaders()
+    {
+        $this->bootstrap('frontController');
+        $this->getResource('frontController')->registerPlugin(new Plugin_Headers());
     }
 
     /**

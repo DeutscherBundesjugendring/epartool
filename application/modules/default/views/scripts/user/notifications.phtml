@@ -18,7 +18,7 @@
                             <div class="col-sm-9 offset-bottom-xs-max">
                                 <strong><?=$this->translate('Contribution in');?>:</strong>
                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $cd['kid'], 'qid' => $cd['qi']]);?>#contribution-<?=$cd['tid']?>">
-                                    <?=$cd['nr'];?>
+                                    <?=isset($cd['nr']) ? $cd['nr'] : '';?>
                                     <?=$cd['q'];?>
                                 </a>
                                 <br />
@@ -69,7 +69,7 @@
                             <div class="col-sm-9 offset-bottom-xs-max">
                                 <strong><?=$this->translate('Contribution in');?>:</strong>
                                 <a href="<?=$this->url(['controller' => 'input', 'action' => 'show', 'kid' => $q['kid'], 'qid' => $q['qi']]);?>">
-                                    <?=$q['nr'];?>
+                                    <?=isset($q['nr']) ? $q['nr'] : '';?>
                                     <?=$q['q'];?>
                                 </a>
                                 <br />
