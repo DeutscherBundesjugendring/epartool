@@ -1,7 +1,5 @@
 <?php
 
-require('vendor/autoload.php');
-
 use Robo\Tasks;
 
 /**
@@ -18,6 +16,12 @@ class RoboFile extends Tasks
         $this->stopOnFail(true);
         $this->lintPhp();
         $this->phpcs();
+    }
+
+    public function codecept()
+    {
+        $this->prepareTestDb();
+        $this->taskCodecept('vendor/bin/codecept')->suite('acceptance')->run();
     }
 
     public function build()
@@ -144,5 +148,16 @@ class RoboFile extends Tasks
         }
 
         return null;
+    }
+
+    private function prepareTestDb()
+    {
+        $this->stopOnFail(true);
+        $this
+            ->taskExec(
+                'cat data/create-installation.sql data/create-project-de.sql data/create-admin.sql > '
+                . '.tmp/dump.sql'
+            )
+            ->run();
     }
 }

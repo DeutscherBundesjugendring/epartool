@@ -6,6 +6,11 @@
       "Dbjr_": "library/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "include-path": [
     "library/"
   ],

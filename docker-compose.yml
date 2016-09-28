@@ -25,7 +25,7 @@ tools:
     working_dir: /www
     links:
         - db
-        - web:devel.localhost
+        - web:test.localhost
         - phantomjs
 web:
     build: docker/Apache
@@ -46,4 +46,4 @@ phantomjs:
     entrypoint: phantomjs
     command: "--webdriver=8910"
     links:
-        - web:devel.localhost
+        - web:test.localhost

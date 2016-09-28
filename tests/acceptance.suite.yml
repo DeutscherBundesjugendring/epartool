@@ -7,10 +7,8 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-#        - PhpBrowser:
-#            url: http://devel.localhost
         - WebDriver:
-            url: http://devel.localhost
+            url: http://test.localhost
             host: phantomjs
             port: 8910
             browser: phantomjs
