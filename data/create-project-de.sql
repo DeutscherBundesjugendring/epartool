@@ -1043,3 +1043,8 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
 ('help-text-admin-consultation-follow-up-snippets', 'Sample follow-up-snippets text.', @project_code, 'admin'),
 ('help-text-admin-question', 'Sample question text.', @project_code, 'admin'),
 ('help-text-admin-contribution', 'Sample contribution text.', @project_code, 'admin');
+
+-- Migration 2016-09-26_14-50_DBJR-963.sql
+DELETE FROM email_template_has_email_placeholder
+WHERE email_template_id = (SELECT id FROM email_template WHERE name = 'voting_confirmation_single')
+AND email_placeholder_id = (SELECT id FROM email_placeholder WHERE name = 'rejection_url');
