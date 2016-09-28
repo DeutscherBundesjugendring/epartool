@@ -11,7 +11,7 @@ db:
     environment:
         MYSQL_ROOT_PASSWORD: pass
 php:
-    build: docker/PHP
+    build: docker/PHP56
     volumes:
         - .:/www
     working_dir: /www
