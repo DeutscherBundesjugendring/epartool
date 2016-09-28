@@ -1,5 +1,12 @@
 <?php
 
+use Component\LoginComponent;
+use Page\Admin\Consultation\NewConsultationPage;
+use Page\Admin\Question\CreateQuestionPage;
+use Page\Admin\Question\ListQuestionPage;
+use Page\Front\Contribution\ConfirmContributionPage;
+use Page\Front\Contribution\CreateContributionPage;
+use Page\Front\Index\IndexPage;
 
 /**
  * Inherited Methods
@@ -19,8 +26,4 @@
 class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
-
-   /**
-    * Define custom actions here
-    */
 }

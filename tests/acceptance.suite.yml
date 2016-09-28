@@ -13,3 +13,4 @@ modules:
             port: 8910
             browser: phantomjs
         - \Helper\Acceptance
+        - Db
