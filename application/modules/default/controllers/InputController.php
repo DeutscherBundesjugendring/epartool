@@ -93,7 +93,7 @@ class InputController extends Zend_Controller_Action
                 $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['add_input_field']) || isset($post['finished'])
                 || isset($post['next_question'])) {
-                $this->extractVideoIds($post['inputs']);
+                $post['inputs'] = $this->extractVideoIds($post['inputs']);
                 $this->handleInputSubmit($post, $kid, $qid);
             }
         } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
@@ -843,21 +843,24 @@ class InputController extends Zend_Controller_Action
     }
 
     /**
-     * @param array $inputs
+     * @param $inputs
+     * @return array
      */
-    private function extractVideoIds(array &$inputs)
+    private function extractVideoIds($inputs)
     {
+        $preparedInputs = $inputs;
         foreach ($inputs as $key => $input) {
             try {
                 if ($input['video_service'] === 'youtube') {
-                    $inputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
+                    $preparedInputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
                 } elseif ($input['video_service'] === 'vimeo') {
-                    $inputs[$key]['video_id'] = (new VimeoVideoIdExtractor())->extract($input['video_id']);
+                    $preparedInputs[$key]['video_id'] = (new VimeoVideoIdExtractor())->extract($input['video_id']);
                 } elseif ($input['video_service'] === 'facebook') {
-                    $inputs[$key]['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
+                    $preparedInputs[$key]['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
                 }
+                return $preparedInputs;
             } catch (VideoIdExtractException $e) {
-
+                return $inputs;
             }
         }
     }
