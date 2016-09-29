@@ -7,8 +7,20 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
      */
     private $userOptions;
 
-    public function __construct($users)
+    /**
+     * @var array
+     */
+    private $consultation;
+
+    /**
+     * Admin_Form_Voting_RightsAdd constructor.
+     * @param array $consultation
+     * @param array $users
+     * @param null $options
+     */
+    public function __construct($consultation, $users, $options = null)
     {
+        $this->consultation = $consultation;
         $this->userOptions = [];
         foreach ($users as $user) {
             $this->userOptions[$user['uid']] = '';
@@ -23,14 +35,12 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
                 }
             }
         }
-        parent::__construct();
+        parent::__construct($options);
     }
 
     public function init()
     {
         $translator = Zend_Registry::get('Zend_Translate');
-
-        $formSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
 
         $consultation = $this->createElement('hidden', 'kid');
         $this->addElement($consultation);
@@ -42,7 +52,7 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
             ->setMultiOptions($this->userOptions);
         $this->addElement($user);
 
-        if ($formSettings['allow_groups']) {
+        if ($this->consultation['allow_groups']) {
             $weight = $this->createElement('text', 'vt_weight');
             $weight
                 ->setLabel('Weight')
