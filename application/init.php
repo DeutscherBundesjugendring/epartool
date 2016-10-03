@@ -19,7 +19,11 @@ set_include_path(
 
 
 // Enable Tracy for error visualization
-Tracy\Debugger::enable(APPLICATION_ENV === 'development' ? Tracy\Debugger::DEVELOPMENT : Tracy\Debugger::PRODUCTION);
+Tracy\Debugger::enable(
+    APPLICATION_ENV === 'development' || APPLICATION_ENV === 'test'
+        ? Tracy\Debugger::DEVELOPMENT
+        : Tracy\Debugger::PRODUCTION
+);
 // Also report E_NOTICE and E_WARNING
 Tracy\Debugger::$strictMode = true;
 

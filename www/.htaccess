@@ -7,4 +7,7 @@ RewriteRule ^.*$ - [NC,L]
 RewriteCond %{HTTP_HOST} ^devel
 RewriteRule ^.*$ index_dev.php [NC,L]
 
+RewriteCond %{HTTP_HOST} ^test
+RewriteRule ^.*$ index_test.php [NC,L]
+
 RewriteRule !(^media)|(\.(js|ico|gif|jpg|png|css|pdf))$ index.php [NC,L]
