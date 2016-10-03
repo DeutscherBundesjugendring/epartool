@@ -47,4 +47,5 @@ You can use the file `application/configs/config.local-example.ini` as a templat
 Upgrading the tool version consists of the following steps:
 1. Updating the project files
 2. Run `robo build`
-3. Apply database patch if needed. All patches are located in `data/db-migrations`.
+3. Apply database patch if needed. All patches are located in `data/db-migrations` and in `data/phinx-migrations`.
+

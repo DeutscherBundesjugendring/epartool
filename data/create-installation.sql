@@ -1177,3 +1177,6 @@ ALTER TABLE `cnslt` ADD `license_agreement` text NULL DEFAULT NULL;
 
 -- Migration 2016-09-05_14-44_DBJR-911.sql
 ALTER TABLE `inpt` DROP FOREIGN KEY `inpt_uid_ibfk`;
+
+-- Migration 2016-09-21_12-41_DBJR-955.sql
+ALTER TABLE `quests` CHANGE `nr` `nr` varchar(4) NULL DEFAULT NULL COMMENT 'Number shown in ordered list' AFTER `kid`;

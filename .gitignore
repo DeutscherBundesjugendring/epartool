@@ -1,5 +1,6 @@
 #Ignore local configuration
 /application/configs/*.local.ini
+/application/configs/phinx.local.yml
 
 # Ignore all components installed by npm
 /node_modules

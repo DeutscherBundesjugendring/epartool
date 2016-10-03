@@ -8,6 +8,7 @@ use Robo\Tasks;
 class RoboFile extends Tasks
 {
     const CONFIG_FILE = 'application/configs/config.ini';
+    const PHINX_CONFIG_FILE = 'application/configs/phinx.local.yml';
     const APP_DIR = 'application';
     const LIB_DIR = 'library';
 
@@ -24,17 +25,18 @@ class RoboFile extends Tasks
         $this->taskCodecept('vendor/bin/codecept')->suite('acceptance')->run();
     }
 
-    public function build()
+    public function update()
     {
         $this->stopOnFail(true);
-        $this->taskExecStack()
-            ->stopOnFail()
-            ->exec('composer install')
-            ->exec('bower update')
-            ->exec('npm update')
-            ->exec('grunt')
-            ->run();
+        $this->clearCache();
+        $this->build();
+        $this->dbMigrateProd();
         $this->test();
+    }
+
+    public function install()
+    {
+        $this->say('Install method is not supported.');
     }
 
     /**
@@ -159,5 +161,29 @@ class RoboFile extends Tasks
                 . '.tmp/dump.sql'
             )
             ->run();
+    }
+
+    private function build()
+    {
+        $this->stopOnFail(true);
+        $this->taskExec('bower install')->run();
+        $this->taskComposerInstall()->run();
+        $this->taskNpmInstall()->run();
+        $this->taskExec('grunt')->run();
+    }
+
+    private function dbMigrateProd()
+    {
+        $this
+            ->taskExec('vendor/bin/phinx migrate')
+            ->args(sprintf('-c %s', self::PHINX_CONFIG_FILE))
+            ->args('-e default')
+            ->run();
+    }
+
+    private function clearCache()
+    {
+        $this->stopOnFail(true);
+        $this->taskExec('rm -rf runtime/cache/*')->run();
     }
 }

@@ -78,7 +78,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $userModel = new Model_Users();
         $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
 
-        $form = new Admin_Form_Voting_RightsAdd($users);
+        $form = new Admin_Form_Voting_RightsAdd($this->_consultation, $users);
         $votingRights = new Model_Votes_Rights();
 
         if ($this->_request->isPost()) {
