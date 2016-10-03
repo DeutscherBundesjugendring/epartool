@@ -1,5 +1,10 @@
 <?php
 
+use VideoIdExtractor\Exception\VideoIdExtractException;
+use VideoIdExtractor\Extractor\FacebookVideoIdExtractor;
+use VideoIdExtractor\Extractor\VimeoVideoIdExtractor;
+use VideoIdExtractor\Extractor\YoutubeVideoIdExtractor;
+
 class InputController extends Zend_Controller_Action
 {
 
@@ -88,11 +93,10 @@ class InputController extends Zend_Controller_Action
                 $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['add_input_field']) || isset($post['finished'])
                 || isset($post['next_question'])) {
+                $post['inputs'] = $this->extractVideoIds($post['inputs']);
                 $this->handleInputSubmit($post, $kid, $qid);
             }
-        }
-
-        if (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
+        } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
         ) {
             $form = $this->getInputForm();
@@ -334,7 +338,7 @@ class InputController extends Zend_Controller_Action
             ->getInputForm()
             ->generateInputFields($post['inputs'], false);
 
-        if ($form->isValid($this->_request->getPost())) {
+        if ($form->isValid($post)) {
             $sessInputs = (new Zend_Session_Namespace('inputs'));
             if (isset($sessInputs->inputs)) {
                 $tmpCollection = $sessInputs->inputs;
@@ -384,6 +388,8 @@ class InputController extends Zend_Controller_Action
             }
             $this->redirect($redirectURL);
         }
+
+        $form->populate($post);
 
         $msg = Zend_Registry::get('Zend_Translate')->translate(
             'Please make sure the data you entered are correct and that all linked videos are public. Then please try resubmitting the form.'
@@ -834,5 +840,28 @@ class InputController extends Zend_Controller_Action
         }
 
         return $this->inputForm;
+    }
+
+    /**
+     * @param $inputs
+     * @return array
+     */
+    private function extractVideoIds($inputs)
+    {
+        $preparedInputs = $inputs;
+        foreach ($inputs as $key => $input) {
+            try {
+                if ($input['video_service'] === 'youtube') {
+                    $preparedInputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
+                } elseif ($input['video_service'] === 'vimeo') {
+                    $preparedInputs[$key]['video_id'] = (new VimeoVideoIdExtractor())->extract($input['video_id']);
+                } elseif ($input['video_service'] === 'facebook') {
+                    $preparedInputs[$key]['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
+                }
+                return $preparedInputs;
+            } catch (VideoIdExtractException $e) {
+                return $inputs;
+            }
+        }
     }
 }

@@ -9,6 +9,12 @@
   "include-path": [
     "library/"
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://bitbucket.visionapps.cz/scm/va/video-id-extractor.git"
+    }
+  ],
   "require": {
     "php": ">=5.6 <7.0",
     "zendframework/zendframework1": "~1.12.18",
@@ -19,6 +25,7 @@
     "google/apiclient": "~1.1.7",
     "facebook/php-sdk-v4" : "4.0.*",
     "phpoffice/phpexcel": "^1.8",
-    "squizlabs/php_codesniffer": "^2.7"
+    "squizlabs/php_codesniffer": "^2.7",
+    "visionappscz/video-id-extractor": "dev-master"
   }
 }
