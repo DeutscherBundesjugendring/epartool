@@ -1180,3 +1180,10 @@ ALTER TABLE `inpt` DROP FOREIGN KEY `inpt_uid_ibfk`;
 
 -- Migration 2016-09-21_12-41_DBJR-955.sql
 ALTER TABLE `quests` CHANGE `nr` `nr` varchar(4) NULL DEFAULT NULL COMMENT 'Number shown in ordered list' AFTER `kid`;
+
+-- Migration 2016-06-23_15-34_DBJR-770.sql
+ALTER TABLE `vt_grps`
+ADD INDEX `vt_grps_sub_uid_fkey` (`sub_uid`);
+
+ALTER TABLE `vt_indiv`
+ADD FOREIGN KEY (`sub_uid`) REFERENCES `vt_grps` (`sub_uid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
