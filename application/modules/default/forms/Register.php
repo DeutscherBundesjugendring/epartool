@@ -208,7 +208,9 @@ class Default_Form_Register extends Dbjr_Form_Web
                     ? $license['text']
                     : $this->replaceLicensePlaceholders($license, $formConsultationSettings['license_agreement'])
             )
-            ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
+            ->addValidator('NotEmpty', false, [
+                'messages' => [Zend_Validate_NotEmpty::IS_EMPTY => $translator->translate('You must agree.')]
+            ])
             ->setCheckedValue('1')
             ->setUnCheckedValue(null)
             ->setRequired(true);
