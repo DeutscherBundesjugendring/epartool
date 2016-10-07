@@ -851,6 +851,10 @@ class InputController extends Zend_Controller_Action
         $preparedInputs = $inputs;
         foreach ($inputs as $key => $input) {
             try {
+                if (!isset($input['video_service'])) {
+                    $preparedInputs[$key] = $inputs[$key];
+                    continue;
+                }
                 if ($input['video_service'] === 'youtube') {
                     $preparedInputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
                 } elseif ($input['video_service'] === 'vimeo') {
@@ -858,10 +862,11 @@ class InputController extends Zend_Controller_Action
                 } elseif ($input['video_service'] === 'facebook') {
                     $preparedInputs[$key]['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
                 }
-                return $preparedInputs;
             } catch (VideoIdExtractException $e) {
-                return $inputs;
+                $preparedInputs[$key] = $inputs[$key];
             }
         }
+
+        return $preparedInputs;
     }
 }
