@@ -23,13 +23,6 @@ module.exports = {
       '<%= paths.src.admin %>/js/*.js'
     ],
     tasks: ['build-js-admin']
-  },
-  php: {
-    files: [
-      'application/**/*.php',
-      'application/**/*.phtml'
-    ],
-    tasks: ['test-php']
   }
 
 };
