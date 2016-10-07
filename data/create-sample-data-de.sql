@@ -57,6 +57,5 @@ VALUES
     (@consulation_id,  @project_code,   'Infos zu Frage 2', 'n', 'cnslt_backgr', '&lt;h1&gt;&lt;strong&gt;Infos zu Frage 2&lt;/strong&gt;&lt;/h1&gt;\r\n\r\n&lt;p&gt;Hier könnt ihr alle wichtigen Hintergrundeinformationen zu dieser Frage einstellen: Texte, Artikel, Bilder, Videos und weiterführende Links, dürfen natürlich auch nicht fehlen.&lt;/p&gt;\r\n', '', @info_article_id),
     (@consulation_id,  @project_code,   'Infos zu Frage 3', 'n', 'cnslt_backgr', '&lt;h1&gt;&lt;strong&gt;Infos zu Frage 3&lt;/strong&gt;&lt;/h1&gt;\r\n\r\n&lt;p&gt;Hier könnt ihr alle wichtigen Hintergrundeinformationen zu dieser Frage einstellen: Texte, Artikel, Bilder, Videos und weiterführende Links, dürfen natürlich auch nicht fehlen.&lt;/p&gt;\r\n', '', @info_article_id);
 
-
-
-
+INSERT INTO `contributor_age` (`consultation_id`, `from`, `to`) VALUES (@consulation_id, '1', NULL);
+INSERT INTO `group_size` (`consultation_id`, `from`, `to`) VALUES (@consulation_id, '1', '2');

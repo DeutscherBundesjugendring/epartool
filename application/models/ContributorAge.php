@@ -31,15 +31,16 @@ class Model_ContributorAge extends Dbjr_Db_Table_Abstract
         $options = [];
         if (count($data) > 0) {
             $translator = Zend_Registry::get('Zend_Translate');
+            $lastOption = [];
             foreach ($data as $d) {
-                if ($d['consultation_id'] === null && (int) $d['from'] === 1 && $d['to'] === null) {
-                    $options[$d['id']] = $translator->translate('all age groups');
+                if ((int) $d['from'] === 1 && $d['to'] === null) {
+                    $lastOption[$d['id']] = $translator->translate('all age groups');
                 } else {
                     $options[$d['id']] = $d['from'] . ($d['to'] === null ? ' +' : ' - ' . $d['to']);
                 }
             }
         }
 
-        return $options;
+        return array_merge($options, $lastOption);
     }
 }
