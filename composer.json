@@ -17,7 +17,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://bitbucket.visionapps.cz/scm/va/video-id-extractor.git"
+      "url": "ssh://git@bitbucket.visionapps.cz:7999/va/video-id-extractor.git"
     }
   ],
   "require": {
