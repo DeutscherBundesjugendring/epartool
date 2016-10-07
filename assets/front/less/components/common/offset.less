@@ -4,6 +4,10 @@
     margin-top: @line-height-computed;
 }
 
+.offset-top-small {
+    margin-top: floor((@line-height-computed / 2));
+}
+
 .offset-top-large {
     margin-top: 2 * @line-height-computed;
 }
@@ -31,5 +35,9 @@
 @media (max-width: @screen-xs-max) {
     .offset-bottom-xs-max {
         .offset-bottom();
+    }
+
+    .offset-bottom-xs-small {
+        .offset-bottom-small();
     }
 }
