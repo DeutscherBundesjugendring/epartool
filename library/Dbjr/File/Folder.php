@@ -43,7 +43,7 @@ class Dbjr_File_Folder extends Dbjr_File
         $dirs = [];
         $fileNames = scandir($this->_dirPath);
         foreach ($fileNames as $file) {
-            if (is_dir($this->_dirPath . '/' . $file) && substr($file, 0, 1) !== '.') {
+            if (is_dir($this->_dirPath . '/' . $file) && mb_substr($file, 0, 1) !== '.') {
                 $dirs[] = $file;
             }
         }

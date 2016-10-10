@@ -76,8 +76,8 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
                         $contrib = $discModel->find($contribId)->current();
                         $newInput = [
                             'qi' => $questionId,
-                            'thes' => substr($contrib->body, 0, 330), //330 = max length of input->thes as defined in db
-                            'expl' => substr($contrib->body, 331, 2000), //2000 = max length of input->thes as defined in db
+                            'thes' => mb_substr($contrib->body, 0, 330), //330 = max length of input->thes as defined in db
+                            'expl' => mb_substr($contrib->body, 331, 2000), //2000 = max length of input->thes as defined in db
                             'uid' => null,
                             'typ' => 'p',
                             'input_discussion_contrib' => $contribId,

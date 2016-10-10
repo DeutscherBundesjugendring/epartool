@@ -21,10 +21,10 @@ class Module_Default_View_Helper_Perex extends Zend_View_Helper_Abstract
             $string = stripslashes($string);
         }
 
-        if (strlen($string) <= $length) {
+        if (mb_strlen($string) <= $length) {
             return $string;
         } else {
-            return substr($string, 0, strpos($string, ' ', $length)) . '...';
+            return mb_substr($string, 0, mb_strpos($string, ' ', $length)) . '...';
         }
     }
 }

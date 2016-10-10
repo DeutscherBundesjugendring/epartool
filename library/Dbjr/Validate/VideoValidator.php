@@ -83,8 +83,8 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
         if ($response['httpCode'] === 200) {
             $jsonResponse = json_decode($response['output'], true);
             if ($jsonResponse && isset($jsonResponse['privacy']) && isset($jsonResponse['privacy']['embed'])
-                && strpos('public', $jsonResponse['privacy']['embed']) !== false
-                && strpos('anybody', $jsonResponse['privacy']['view']) !== false) {
+                && mb_strpos('public', $jsonResponse['privacy']['embed']) !== false
+                && mb_strpos('anybody', $jsonResponse['privacy']['view']) !== false) {
 
                 return true;
             }

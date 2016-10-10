@@ -62,7 +62,7 @@ class FollowupController extends Zend_Controller_Action
         }
 
         foreach ($followups as &$followup) {
-            if (strpos($followup['ref_doc'], 'http://') === 0 || strpos($followup['ref_doc'], 'https://') === 0) {
+            if (mb_strpos($followup['ref_doc'], 'http://') === 0 || mb_strpos($followup['ref_doc'], 'https://') === 0) {
                 $followup['referenceType'] = 'http';
             } else {
                 $followup['referenceType'] = 'file';
