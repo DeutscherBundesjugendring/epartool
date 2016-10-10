@@ -181,10 +181,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($comment);
         }
 
-        $locale = Zend_Controller_Front::getInstance()
-            ->getParam('bootstrap')
-            ->getPluginResource('locale')
-            ->getLocale();
+        $locale = Zend_Registry::get('Zend_Locale');
         $projectSettings = (new Model_Projects())
             ->find(Zend_Registry::get('systemconfig')->project)
             ->current()

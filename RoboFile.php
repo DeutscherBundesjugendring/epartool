@@ -8,15 +8,24 @@ use Robo\Tasks;
 class RoboFile extends Tasks
 {
     const CONFIG_FILE = 'application/configs/config.ini';
+    const CONFIG_LOCAL_FILE = 'application/configs/config.local.ini';
     const PHINX_CONFIG_FILE = 'application/configs/phinx.local.yml';
     const APP_DIR = 'application';
     const LIB_DIR = 'library';
+    const TEST_SQL_FILES_TO_IMPORT = [
+        'data/create-installation.sql',
+        'data/create-project-de.sql',
+        'tests/_data/create-test-admin.sql',
+        'tests/_data/set_locale.sql',
+    ];
+    const TEST_TMP_SQL_FILE = '.tmp/dump.sql';
 
     public function test()
     {
         $this->stopOnFail(true);
         $this->lintPhp();
         $this->phpcs();
+        $this->codecept();
     }
 
     public function codecept()
@@ -146,7 +155,7 @@ class RoboFile extends Tasks
             return sprintf('Cannot add version into file %s.', self::CONFIG_FILE);
         }
         if (false === file_put_contents(__DIR__ . '/' . self::CONFIG_FILE, $newConfigFileContent)) {
-            return sprintf('Cannot write into file %s.', self::CONFIG_FILE);
+            return sprintf('Can write into file %s.', self::CONFIG_FILE);
         }
 
         return null;
@@ -155,11 +164,9 @@ class RoboFile extends Tasks
     private function prepareTestDb()
     {
         $this->stopOnFail(true);
+        $this->createTestDb();
         $this
-            ->taskExec(
-                'cat data/create-installation.sql data/create-project-de.sql data/create-admin.sql > '
-                . '.tmp/dump.sql'
-            )
+            ->taskExec(sprintf('cat %s > %s', implode(' ', self::TEST_SQL_FILES_TO_IMPORT), self::TEST_TMP_SQL_FILE))
             ->run();
     }
 
@@ -185,5 +192,24 @@ class RoboFile extends Tasks
     {
         $this->stopOnFail(true);
         $this->taskExec('rm -rf runtime/cache/*')->run();
+    }
+
+    private function createTestDb()
+    {
+        $configLocal = parse_ini_file(self::CONFIG_LOCAL_FILE, true);
+        $testConfig = $configLocal['test : production'];
+        $connection = new PDO(
+            sprintf(
+                'mysql:host=%s;',
+                $testConfig['resources.db.params.host']
+            ),
+            $testConfig['resources.db.params.username'],
+            $testConfig['resources.db.params.password']
+        );
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection->exec(sprintf(
+            "CREATE DATABASE IF NOT EXISTS `%s` COLLATE 'utf8_general_ci';",
+            $testConfig['resources.db.params.dbname']
+        ));
     }
 }
