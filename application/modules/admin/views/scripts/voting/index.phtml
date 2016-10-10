@@ -60,7 +60,7 @@
                                         <td><?=$this->escape($item['vt_weight']);?></td>
                                         <td><?=$this->escape($item['vt_code']);?></td>
                                         <td><?=$this->escape($item['grp_siz']);?></td>
-                                        <td><?=$this->escape(is_numeric($item['group_size_user']) ? $item['group_size_user'] : '-');?></td>
+                                        <td><?=$this->escape($item['group_size_user'] ? $item['group_size_user'] : '-');?></td>
                                         <td class="table-cell-actions">
                                             <a
                                                 href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $item['uid']]);?>"

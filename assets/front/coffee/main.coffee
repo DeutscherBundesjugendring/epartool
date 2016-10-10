@@ -57,12 +57,12 @@ bindToggleGroupRegister = () ->
         labelName.hide()
         elementName.hide()
         container.slideDown()
-        $('select#age_group').append($('<option></option>').val('4').html(i18n['All age groups']))
+        $('select#age_group > option:last-child').show()
     else
         labelName.show()
         elementName.show()
         container.hide()
-        $('select#age_group option').filter("[value='4']").remove()
+        $('select#age_group > option:last-child').hide();
 
     $('input[name="group_type"]').change(() ->
         groupTypeChecked = $('input[name="group_type"]:checked').val()
@@ -70,12 +70,12 @@ bindToggleGroupRegister = () ->
             labelName.hide()
             elementName.hide()
             container.slideDown()
-            $('select#age_group').append($('<option></option>').val('4').html(i18n['All age groups']))
+            $('select#age_group > option:last-child').show();
         else
             labelName.show()
             elementName.show()
             container.slideUp()
-            $('select#age_group option').filter("[value='4']").remove()
+            $('select#age_group > option:last-child').hide();
     )
 
 bindLoadMoreConsultations = () ->

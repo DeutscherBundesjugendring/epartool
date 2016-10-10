@@ -33,6 +33,15 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
                 'label' => $this->view->translate('Phases'),
                 'href' => $this->view->url(['controller' => 'consultation', 'action' => 'phases', 'kid' => $kid]),
             ],
+            [
+                'name' => 'groups',
+                'label' => $this->view->translate('Group Clusters'),
+                'href' => $this->view->url([
+                    'controller' => 'consultation',
+                    'action' => 'groups',
+                    'kid' => $kid,
+                ]),
+            ],
         ];
 
         return $this->view->secondaryNavigation($items, $activeItem);

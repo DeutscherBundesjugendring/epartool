@@ -37,7 +37,7 @@ class Admin_VotingController extends Zend_Controller_Action
         if ($uid > 0) {
             $userModel = new Model_Users();
             $userInfoModel = new Model_User_Info();
-            $form = new Admin_Form_Voting_Rights($this->_consultation['kid']);
+            $form = new Admin_Form_Voting_Rights($this->_consultation);
 
             $user = $userModel->getById($uid);
             $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
@@ -60,7 +60,7 @@ class Admin_VotingController extends Zend_Controller_Action
                     'vt_weight' => $votingRights['vt_weight'],
                     'vt_code' => $votingRights['vt_code'],
                     'grp_siz' => $votingRights['grp_siz'],
-                    'group_size_user' => $userInfo['group_size'],
+                    'group_size_user' => $userInfo['group_size_user'],
                 ];
             }
             $form->populate($data);
@@ -149,6 +149,7 @@ class Admin_VotingController extends Zend_Controller_Action
 
         $appOpts = $this->getInvokeArg('bootstrap')->getOptions();
 
+        $this->view->groupSizes = (new Model_GroupSize())->getOptionsByConsultation($this->_consultation['kid']);
         $this->view->participants = $participants;
         $this->view->listControlForm = $listControlForm;
         $this->view->mailDefaultFrom = $appOpts['resources']['mail']['defaultFrom']['email'];
@@ -466,7 +467,7 @@ class Admin_VotingController extends Zend_Controller_Action
         ];
 
         if ($votingRights && $votingRights['vt_weight'] != 1) {
-            $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+            $grpSizDef = (new Model_GroupSize())->getOptionsByConsultation($this->_consultation['kid']);
             $placeholders['group_category'] = $grpSizDef[$votingRights['grp_siz']];
             $placeholders['voting_weight'] = $votingRights['vt_weight'];
         }

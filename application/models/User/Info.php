@@ -32,6 +32,13 @@ class Model_User_Info extends Dbjr_Db_Table_Abstract
     {
         $select = $this
             ->select()
+            ->setIntegrityCheck(false)
+            ->from(['ui' => $this->_name])
+            ->join(
+                ['gs' => (new Model_GroupSize())->info(Model_GroupSize::NAME)],
+                'gs.id = ui.group_size',
+                ['group_size_user' => 'CONCAT(gs.`from`, " - ", gs.`to`)']
+            )
             ->where('uid=?', $uid)
             ->where('kid=?', $kid)
             ->where('time_user_confirmed IS NOT NULL')

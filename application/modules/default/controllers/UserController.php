@@ -107,9 +107,12 @@ class UserController extends Zend_Controller_Action
                         if (isset($data['group_specs'])) {
                             $data = array_merge($data, $data['group_specs']);
                             unset($data['group_specs']);
-                            foreach ($data['source'] as $source) {
-                                $data['source'] = $source;
-                                break;
+
+                            if (isset($data['source'])) {
+                                foreach ($data['source'] as $source) {
+                                    $data['source'] = $source;
+                                    break;
+                                }
                             }
                         }
                         $data['email'] = $this->_auth->getIdentity()->email;
