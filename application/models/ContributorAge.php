@@ -29,9 +29,9 @@ class Model_ContributorAge extends Dbjr_Db_Table_Abstract
 
         $data = $this->fetchAll($select);
         $options = [];
+        $lastOption = [];
         if (count($data) > 0) {
             $translator = Zend_Registry::get('Zend_Translate');
-            $lastOption = [];
             foreach ($data as $d) {
                 if ((int) $d['from'] === 1 && $d['to'] === null) {
                     $lastOption[$d['id']] = $translator->translate('all age groups');
