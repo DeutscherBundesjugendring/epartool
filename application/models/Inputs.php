@@ -1333,7 +1333,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->join(
                 (new Model_Questions())->info(Model_Questions::NAME),
                 $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
-                ['nr', 'q']
+                ['nr', 'q', 'qi']
             )
             ->joinLeft(
                 (new Model_Users())->info(Model_Users::NAME),
