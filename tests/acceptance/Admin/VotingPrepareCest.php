@@ -33,8 +33,9 @@ class VotingPrepareCest
         $I->click(self::QUESTION_TITLE);
     }
 
-    public function _after(\AcceptanceTester $I, FileSystem $fileSystem)
+    public function _after(Admin $I, FileSystem $fileSystem)
     {
+        $I->logout();
         $fileSystem->restoreMedia();
     }
 
