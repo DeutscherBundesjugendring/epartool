@@ -22,15 +22,45 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
     public function init()
     {
         $this->setIsArray(true);
-        
+
         $activateInfinity = $this->createElement('checkbox', 'activateToInfinityAge');
-        $activateInfinity->setLabel('Activate');
+        $activateInfinity
+            ->setLabel('Activate')
+            ->setDecorators(
+                [
+                    'ViewHelper',
+                    'Description',
+                    'labelText',
+                    [
+                        'label' => 'HtmlTag',
+                        ['tag' => 'label']
+                    ],
+                    [
+                        ['wrapper' => 'HtmlTag'],
+                        ['tag' => 'div', 'class' => 'checkbox offset-bottom-none']
+                    ]
+                ]
+            );
         $this->addElement($activateInfinity);
 
         $toInfinityAgeFrom = $this->createElement('text', 'toInfinityAgeFrom');
         $toInfinityAgeFrom
             ->setLabel('From')
-            ->addValidator('Int');
+            ->addValidator('Int')
+            ->setAttrib('class', 'form-control')
+            ->setDecorators(
+                [
+                    'ViewHelper',
+                    [
+                        'HtmlTag',
+                        ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                    ],
+                    [
+                        'Label',
+                        ['class' => 'sr-only']
+                    ]
+                ]
+            );
         $this->addElement($toInfinityAgeFrom);
 
         $activateNoInformationValue = $this->createElement('checkbox', 'activateNoInformationValue');
@@ -55,7 +85,21 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
             ]);
             $from
                 ->setLabel('From')
-                ->addValidator('Int');
+                ->addValidator('Int')
+                ->setAttrib('class', 'form-control')
+                ->setDecorators(
+                    [
+                        'ViewHelper',
+                        [
+                            'HtmlTag',
+                            ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                        ],
+                        [
+                            'Label',
+                            ['class' => 'sr-only']
+                        ]
+                    ]
+                );
             $subForm->addElement($from, 'from');
 
             $to = $subForm->createElement('text', 'to', [
@@ -63,7 +107,21 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
             ]);
             $to
                 ->setLabel('To')
-                ->addValidator('Int');
+                ->addValidator('Int')
+                ->setAttrib('class', 'form-control')
+                ->setDecorators(
+                    [
+                        'ViewHelper',
+                        [
+                            'HtmlTag',
+                            ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                        ],
+                        [
+                            'Label',
+                            ['class' => 'sr-only']
+                        ]
+                    ]
+                );
             $subForm->addElement($to, 'to');
 
             $contributorAgesForm->addSubForm($subForm, $contributorAge['id']);
@@ -74,24 +132,80 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
         $singleFrom = $this->createElement('text', 'singleFrom');
         $singleFrom
             ->setLabel('From')
-            ->setAttrib('disabled', 'disabled')
-            ->setValue(1);
+            ->setAttribs(['disabled' => 'disabled', 'class' => 'form-control'])
+            ->setValue(1)
+            ->setDecorators(
+                [
+                    'ViewHelper',
+                    [
+                        'HtmlTag',
+                        ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                    ],
+                    [
+                        'Label',
+                        ['class' => 'sr-only']
+                    ]
+                ]
+            );
         $this->addElement($singleFrom);
         $singleTo = $this->createElement('text', 'singleTo');
         $singleTo
             ->setLabel('To')
-            ->setAttrib('disabled', 'disabled')
-            ->setValue(2);
+            ->setAttribs(['disabled' => 'disabled', 'class' => 'form-control'])
+            ->setValue(2)
+            ->setDecorators(
+                [
+                    'ViewHelper',
+                    [
+                        'HtmlTag',
+                        ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                    ],
+                    [
+                        'Label',
+                        ['class' => 'sr-only']
+                    ]
+                ]
+            );
         $this->addElement($singleTo);
 
         $activateInfinity = $this->createElement('checkbox', 'activateToInfinitySize');
-        $activateInfinity->setLabel('Activate');
+        $activateInfinity
+            ->setLabel('Activate')
+            ->setDecorators(
+                [
+                    'ViewHelper',
+                    'Description',
+                    'labelText',
+                    [
+                        'label' => 'HtmlTag',
+                        ['tag' => 'label']
+                    ],
+                    [
+                        ['wrapper' => 'HtmlTag'],
+                        ['tag' => 'div', 'class' => 'checkbox offset-bottom-none']
+                    ]
+                ]
+            );
         $this->addElement($activateInfinity);
 
         $toInfinitySizeFrom = $this->createElement('text', 'toInfinitySizeFrom');
         $toInfinitySizeFrom
             ->setLabel('From')
-            ->addValidator('Int');
+            ->addValidator('Int')
+            ->setAttrib('class', 'form-control')
+            ->setDecorators(
+                [
+                    'ViewHelper',
+                    [
+                        'HtmlTag',
+                        ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                    ],
+                    [
+                        'Label',
+                        ['class' => 'sr-only']
+                    ]
+                ]
+            );
         $this->addElement($toInfinitySizeFrom);
 
         $groupSizes = (new Model_GroupSize())->fetchAll(['consultation_id = ?' => $this->consultation['kid']]);
@@ -110,7 +224,21 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
             ]);
             $from
                 ->setLabel('From')
-                ->addValidator('Int');
+                ->addValidator('Int')
+                ->setAttrib('class', 'form-control')
+                ->setDecorators(
+                    [
+                        'ViewHelper',
+                        [
+                            'HtmlTag',
+                            ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                        ],
+                        [
+                            'Label',
+                            ['class' => 'sr-only']
+                        ]
+                    ]
+                );
             $subForm->addElement($from, 'from');
 
             $to = $subForm->createElement('text', 'to', [
@@ -118,7 +246,21 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
             ]);
             $to
                 ->setLabel('To')
-                ->addValidator('Int');
+                ->addValidator('Int')
+                ->setAttrib('class', 'form-control')
+                ->setDecorators(
+                    [
+                        'ViewHelper',
+                        [
+                            'HtmlTag',
+                            ['tag' => 'div', 'class' => 'form-group offset-bottom-none']
+                        ],
+                        [
+                            'Label',
+                            ['class' => 'sr-only']
+                        ]
+                    ]
+                );
             $subForm->addElement($to, 'to');
 
             $groupSizesForm->addSubForm($subForm, $groupsSize['id']);
