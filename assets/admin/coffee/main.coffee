@@ -9,7 +9,7 @@ $(document).ready () ->
     themeSettings()
     contributorAgesSettings()
     groupsSizesSettings()
-    
+
     initSortableFollowupSnippets()
     initSortableVotingDirs()
     initSortablePartners()
@@ -235,7 +235,7 @@ contributorAgesSettings = () ->
     $('.js-contributor-ages-delete-row').click () ->
         if !confirm(i18n.translate('Dou you want to delete this interval?'))
             return false
-        $(this).closest('div.row').remove()
+        $(this).closest('tr').remove()
         return false
 
     $('#js-contributor-ages-add-row').click () ->
@@ -250,7 +250,7 @@ groupsSizesSettings = () ->
     $('.js-groups-sizes-delete-row').click () ->
         if !confirm(i18n.translate('Dou you want to delete this interval?'))
             return false
-        $(this).closest('div.row').remove()
+        $(this).closest('tr').remove()
         return false
 
     $('#js-groups-sizes-add-row').click () ->
