@@ -65,7 +65,7 @@ class Admin_Form_ConsultationGroups extends Dbjr_Form_Admin
 
         $activateNoInformationValue = $this->createElement('checkbox', 'activateNoInformationValue');
         $activateNoInformationValue
-            ->setLabel('Activate "No Information" value');
+            ->setLabel('Activate “No Information” value');
         $this->addElement($activateNoInformationValue);
 
         $contributorAges = (new Model_ContributorAge())->fetchAll([

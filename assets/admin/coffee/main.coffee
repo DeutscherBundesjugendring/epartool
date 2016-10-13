@@ -235,7 +235,7 @@ contributorAgesSettings = () ->
     $('.js-contributor-ages-delete-row').click () ->
         if !confirm(i18n.translate('Dou you want to delete this interval?'))
             return false
-        $(this).closest('tr').remove()
+        $(this).closest('.js-row').remove()
         return false
 
     $('#js-contributor-ages-add-row').click () ->
@@ -250,7 +250,7 @@ groupsSizesSettings = () ->
     $('.js-groups-sizes-delete-row').click () ->
         if !confirm(i18n.translate('Dou you want to delete this interval?'))
             return false
-        $(this).closest('tr').remove()
+        $(this).closest('.js-row').remove()
         return false
 
     $('#js-groups-sizes-add-row').click () ->
