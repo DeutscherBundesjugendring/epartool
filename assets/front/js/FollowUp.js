@@ -238,7 +238,7 @@
                 _activeDocClass = typeof params.ffid != "undefined" && data.doc.fowups[i].ffid == params.ffid ? 'active' : '';
 
                 if (_activeSnippet) {
-                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i].show_in_timeline_link + '">Back to timeline</a>';
+                  _showInTimelineLink = '<a class="btn btn-default" data-dismiss="modal" href="' + data.doc.fowups[i].show_in_timeline_link + '">' + i18n['Back to timeline'] + '</a>';
                 } else {
                   _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">' + i18n['Follow path'] + '</a>';
                 }
@@ -276,7 +276,7 @@
                       '<p>' + data.doc.who + '</p>' +
                       '<p class="small">' + when + '</p>' +
                       '<a target="_blank" href="' + _host + data.mediafolder + data.doc.ref_doc + '" class="btn btn-default btn-default-alt">' +
-                '<span class="glyphicon glyphicon-file icon-offset"></span>Download</a>' +
+                '<span class="glyphicon glyphicon-file icon-offset"></span>' + i18n['Download'] + '</a>' +
                     '</div>' +
                   '</div>' +
                 '</div>' +
