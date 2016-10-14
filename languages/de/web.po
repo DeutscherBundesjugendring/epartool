@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-08-30 17:34+0200\n"
-"PO-Revision-Date: 2016-08-30 17:34+0200\n"
+"POT-Creation-Date: 2016-10-14 14:15+0200\n"
+"PO-Revision-Date: 2016-10-14 14:15+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -36,36 +36,36 @@ msgstr "Keine Beteiligungsrunde angegeben!"
 msgid "There are no questions in this consultation."
 msgstr "Es gibt keine Fragestellungen in dieser Beteiligungsrunde."
 
-#: application/modules/default/controllers/FollowupController.php:391
+#: application/modules/default/controllers/FollowupController.php:397
 msgid "File does not exist."
 msgstr "Datei ist nicht vorhanden."
 
-#: application/modules/default/controllers/FollowupController.php:424
+#: application/modules/default/controllers/FollowupController.php:430
 #: application/modules/default/controllers/InputController.php:162
 #: application/modules/default/controllers/InputController.php:228
 msgid "Thank you for subscribing."
 msgstr "Danke fürs Abonnieren."
 
-#: application/modules/default/controllers/FollowupController.php:443
+#: application/modules/default/controllers/FollowupController.php:449
 #: application/modules/default/controllers/InputController.php:181
 #: application/modules/default/controllers/InputController.php:247
 msgid "You are now subscribed. A confirmation email has been sent."
 msgstr ""
 "Dein Abonnenment ist nun aktiv. Eine Bestätigung wurde per E-Mail versandt."
 
-#: application/modules/default/controllers/FollowupController.php:449
+#: application/modules/default/controllers/FollowupController.php:455
 #: application/modules/default/controllers/InputController.php:187
 #: application/modules/default/controllers/InputController.php:253
 msgid "You are already subscribed."
 msgstr "Du wirst bereits automatisch benachrichtigt."
 
-#: application/modules/default/controllers/FollowupController.php:456
+#: application/modules/default/controllers/FollowupController.php:462
 #: application/modules/default/controllers/InputController.php:194
 #: application/modules/default/controllers/InputController.php:260
 msgid "The subscription form is invalid."
 msgstr "Das Abonnementformular ist ungültig."
 
-#: application/modules/default/controllers/FollowupController.php:481
+#: application/modules/default/controllers/FollowupController.php:487
 #: application/modules/default/controllers/InputController.php:287
 #: application/modules/default/controllers/InputController.php:314
 msgid "You have been unsubscribed."
@@ -95,50 +95,54 @@ msgstr "Sehr stark"
 msgid "You are being logged in. Please wait…"
 msgstr "Du wirst eingeloggt. Bitte warten..."
 
-#: application/modules/default/controllers/IndexController.php:81
+#: application/modules/default/controllers/IndexController.php:82
 msgid "Shut back"
 msgstr "Wieder einklappen"
 
-#: application/modules/default/controllers/IndexController.php:82
+#: application/modules/default/controllers/IndexController.php:83
 #: application/modules/default/views/scripts/input/createForm.phtml:53
 msgid "Click here to explain contribution"
 msgstr "Klicken, um Eintrag zu erläutern"
 
-#: application/modules/default/controllers/IndexController.php:83
-#: application/modules/default/views/scripts/input/show.phtml:137
+#: application/modules/default/controllers/IndexController.php:84
+#: application/modules/default/views/scripts/input/show.phtml:132
 msgid "supporters"
 msgstr "Unterstützende"
 
-#: application/modules/default/controllers/IndexController.php:84
+#: application/modules/default/controllers/IndexController.php:85
 msgid "Something went wrong"
 msgstr "Etwas ist schiefgelaufen."
 
-#: application/modules/default/controllers/IndexController.php:85
+#: application/modules/default/controllers/IndexController.php:86
 #: application/modules/default/views/scripts/followup/index.phtml:106
 #: application/modules/default/views/scripts/followup/show-by-snippet.phtml:93
 #: application/modules/default/views/scripts/followup/show.phtml:134
 msgid "Loading…"
 msgstr "Lade…"
 
-#: application/modules/default/controllers/IndexController.php:86
+#: application/modules/default/controllers/IndexController.php:87
 msgid "All age groups"
 msgstr "Alle Altersgruppen"
 
-#: application/modules/default/controllers/IndexController.php:87
+#: application/modules/default/controllers/IndexController.php:88
 #: application/modules/default/controllers/VotingController.php:339
 msgid "Using of superbutton is not allowed."
 msgstr "Die Auswahl des Superbuttons ist nicht erlaubt."
 
-#: application/modules/default/controllers/IndexController.php:89
+#: application/modules/default/controllers/IndexController.php:90
 msgid "Your contributions have not been saved."
 msgstr "Deine Beiträge wurden nicht gespeichert."
 
-#: application/modules/default/controllers/IndexController.php:174
+#: application/modules/default/controllers/IndexController.php:92
+msgid "Follow path"
+msgstr "Folge Verlauf"
+
+#: application/modules/default/controllers/IndexController.php:180
 #: library/Plugin/Auth/AccessControl.php:47
 msgid "Login successful!"
 msgstr "Login erfolgreich!"
 
-#: application/modules/default/controllers/IndexController.php:181
+#: application/modules/default/controllers/IndexController.php:189
 msgid "Only users who submitted a contribution can log in."
 msgstr ""
 "Nur Nutzer_innen, die einen Beitrag übermittelt haben, können sich einloggen."
@@ -164,50 +168,51 @@ msgid "Please finish contributing before logging in."
 msgstr "Bitte das Beitragen abschließen, bevor du dich einloggst."
 
 #: application/modules/default/controllers/InputController.php:501
-msgid "Thank you! Your inputs have been confirmed!"
-msgstr "Vielen Dank! Deine Beiträge wurden bestätigt!"
-
-#: application/modules/default/controllers/InputController.php:510
-#: application/modules/default/controllers/InputController.php:542
+#: application/modules/default/controllers/InputController.php:523
+#: application/modules/default/controllers/InputController.php:555
 msgid "This confirmation link is invalid!"
 msgstr "Der eingegebene Bestätigungslink ist ungültig!"
 
-#: application/modules/default/controllers/InputController.php:517
+#: application/modules/default/controllers/InputController.php:514
+msgid "Thank you! Your inputs have been confirmed!"
+msgstr "Vielen Dank! Deine Beiträge wurden bestätigt!"
+
+#: application/modules/default/controllers/InputController.php:530
 msgid "It is not allowed to confirm inputs once the input phase is over."
 msgstr ""
 "Beiträge können nicht mehr bestätigt werden, wenn der Beitragszeitraum "
 "abgelaufen ist."
 
-#: application/modules/default/controllers/InputController.php:540
+#: application/modules/default/controllers/InputController.php:553
 msgid "The contributions have already been marked as refused!"
 msgstr "Die Beiträge wurden als abgelehnt markiert!"
 
-#: application/modules/default/controllers/InputController.php:548
+#: application/modules/default/controllers/InputController.php:561
 msgid "It is not allowed to reject inputs once the input phase is over."
 msgstr ""
 "Beiträge können nicht mehr abgelehnt werden, wenn der Beitragszeitraum "
 "abgelaufen ist."
 
-#: application/modules/default/controllers/InputController.php:589
+#: application/modules/default/controllers/InputController.php:602
 msgid "Contribution does not exist"
 msgstr "Beitrag existiert nicht"
 
-#: application/modules/default/controllers/InputController.php:605
+#: application/modules/default/controllers/InputController.php:618
 msgid "Contribution updated."
 msgstr "Beitrag aktualisiert."
 
-#: application/modules/default/controllers/InputController.php:608
+#: application/modules/default/controllers/InputController.php:621
 msgid "Something went wrong: contribution could not be updated."
 msgstr "Etwas lief schief: Beitrag konnte nicht aktualisiert werden."
 
-#: application/modules/default/controllers/InputController.php:620
-#: application/modules/default/controllers/InputController.php:773
-#: application/modules/default/controllers/UserController.php:134
-#: application/modules/default/controllers/UserController.php:154
+#: application/modules/default/controllers/InputController.php:633
+#: application/modules/default/controllers/InputController.php:786
+#: application/modules/default/controllers/UserController.php:137
+#: application/modules/default/controllers/UserController.php:157
 msgid "Please check your data!"
 msgstr "Bitte prüfe Deine Eingaben!"
 
-#: application/modules/default/controllers/InputController.php:633
+#: application/modules/default/controllers/InputController.php:646
 msgid ""
 "Video service used for embedding video in this contribution was disabled. "
 "Video will be deleted after save contribution."
@@ -215,7 +220,7 @@ msgstr ""
 "Der verwendete Videodienst zur Einbindung in diesem Beitrag wurde "
 "deaktiviert. Das Video wird nach dem Speichern gelöscht."
 
-#: application/modules/default/controllers/InputController.php:644
+#: application/modules/default/controllers/InputController.php:657
 msgid ""
 "Sorry, the contribution phase for this consultation round is already over."
 "You may only change your contributions within that period."
@@ -239,11 +244,11 @@ msgstr ""
 "Eine Mail zur Bestätigung der Beiträge wurde an die angegebene E-Mail-"
 "Adresse gesendet."
 
-#: application/modules/default/controllers/UserController.php:120
+#: application/modules/default/controllers/UserController.php:123
 msgid "Your inputs have been saved."
 msgstr "Deine Eingaben wurden gespeichert."
 
-#: application/modules/default/controllers/UserController.php:148
+#: application/modules/default/controllers/UserController.php:151
 msgid ""
 "An e-mail that allows you to reset your password was sent to the provided "
 "address."
@@ -251,47 +256,47 @@ msgstr ""
 "Eine E-Mail zum Zurücksetzen des Passworts wurde an die angegebene E-Mail-"
 "Adresse verschickt!"
 
-#: application/modules/default/controllers/UserController.php:150
+#: application/modules/default/controllers/UserController.php:153
 msgid "Password reset failed!"
 msgstr "Passwortwiederherstellung fehlgeschlagen!"
 
-#: application/modules/default/controllers/UserController.php:169
+#: application/modules/default/controllers/UserController.php:172
 msgid "Please log in first"
 msgstr "Bitte erst anmelden!"
 
-#: application/modules/default/controllers/UserController.php:239
+#: application/modules/default/controllers/UserController.php:240
 msgid "The voting participant was confirmed."
 msgstr "Teilnehmer_in zur Abstimmung wurde bestätigt."
 
-#: application/modules/default/controllers/UserController.php:242
+#: application/modules/default/controllers/UserController.php:243
 msgid "The voting participant was denied."
 msgstr "Teilnehmer_in für Abstimmung wurde abgelehnt."
 
-#: application/modules/default/controllers/UserController.php:247
+#: application/modules/default/controllers/UserController.php:248
 msgid "The voting participant was deleted."
 msgstr "Die Bewertungen wurden gelöscht."
 
-#: application/modules/default/controllers/UserController.php:262
-#: application/modules/default/controllers/UserController.php:298
-#: application/modules/default/controllers/UserController.php:337
+#: application/modules/default/controllers/UserController.php:263
+#: application/modules/default/controllers/UserController.php:299
+#: application/modules/default/controllers/UserController.php:338
 msgid "Please log in."
 msgstr "Bitte einloggen."
 
-#: application/modules/default/controllers/UserController.php:306
-#: application/modules/default/controllers/UserController.php:310
-#: application/modules/default/controllers/UserController.php:314
+#: application/modules/default/controllers/UserController.php:307
+#: application/modules/default/controllers/UserController.php:311
+#: application/modules/default/controllers/UserController.php:315
 msgid "You were successfully unsubscribed."
 msgstr "Du wurdest erfolgreich ausgetragen."
 
-#: application/modules/default/controllers/UserController.php:352
+#: application/modules/default/controllers/UserController.php:353
 msgid "Your user profile was updated"
 msgstr "Das Nutzerprofil wurde aktualisiert."
 
-#: application/modules/default/controllers/UserController.php:357
+#: application/modules/default/controllers/UserController.php:358
 msgid "Your current password does not match. Please try it again."
 msgstr "Das alte Passwort stimmt nicht überein. Bitte nochmal versuchen."
 
-#: application/modules/default/controllers/UserController.php:364
+#: application/modules/default/controllers/UserController.php:365
 msgid ""
 "Your profile cannot be updated. Please check the errors marked in the form "
 "below and try again."
@@ -456,7 +461,7 @@ msgstr "Speichern und nächste Frage"
 #: application/modules/default/forms/Input/Create.php:40
 #: application/modules/default/views/scripts/voting/overview.phtml:89
 #: application/modules/default/views/scripts/voting/vote.phtml:33
-#: application/modules/default/views/scripts/voting/vote.phtml:182
+#: application/modules/default/views/scripts/voting/vote.phtml:177
 msgid "Finish"
 msgstr "Beenden"
 
@@ -506,7 +511,7 @@ msgstr "z.B. "
 #: application/modules/default/forms/Input/Discussion.php:70
 #: application/modules/default/forms/PasswordRecover.php:24
 #: application/modules/default/forms/Profile.php:84
-#: application/modules/default/forms/Register.php:220
+#: application/modules/default/forms/Register.php:221
 msgid "Send"
 msgstr "Absenden"
 
@@ -531,7 +536,7 @@ msgstr "Speichern"
 #: application/modules/default/forms/PasswordRecover.php:13
 #: application/modules/default/forms/PasswordRecover.php:15
 #: application/modules/default/forms/Profile.php:17
-#: application/modules/default/forms/Register.php:37
+#: application/modules/default/forms/Register.php:35
 #: application/modules/default/forms/Voting/Authentification.php:15
 #: application/modules/default/forms/Voting/Authentification.php:17
 msgid "Email Address"
@@ -548,12 +553,12 @@ msgid "Login"
 msgstr "Einloggen"
 
 #: application/modules/default/forms/Profile.php:22
-#: application/modules/default/forms/Register.php:72
+#: application/modules/default/forms/Register.php:70
 msgid "First name and surname"
 msgstr "Vorname Nachname"
 
 #: application/modules/default/forms/Profile.php:25
-#: application/modules/default/forms/Register.php:74
+#: application/modules/default/forms/Register.php:72
 msgid "Name"
 msgstr "Name"
 
@@ -589,7 +594,7 @@ msgstr "Die Passwörter stimmen nicht überein."
 msgid "Confirm new password"
 msgstr "Neues Passwort bestätigen"
 
-#: application/modules/default/forms/Register.php:44
+#: application/modules/default/forms/Register.php:42
 msgid ""
 "The following fields are not obligatory, but the data can help us find out "
 "which target groups we are reaching."
@@ -597,83 +602,83 @@ msgstr ""
 "Die folgenden Angaben sind freiwillig und dienen dazu, uns einen Überblick "
 "zu geben, welche Zielgruppen erreicht werden."
 
-#: application/modules/default/forms/Register.php:52
+#: application/modules/default/forms/Register.php:50
 msgid "I am responding as an individual person"
 msgstr "Ich antworte als Einzelperson"
 
-#: application/modules/default/forms/Register.php:53
+#: application/modules/default/forms/Register.php:51
 msgid "I am responding in the name of a group"
 msgstr "Ich antworte für eine Gruppe"
 
-#: application/modules/default/forms/Register.php:90
+#: application/modules/default/forms/Register.php:88
 msgid "Please describe origin of your contributions:"
 msgstr "Bitte beschreibt, woher eure Beiträge stammen:"
 
-#: application/modules/default/forms/Register.php:93
+#: application/modules/default/forms/Register.php:91
 msgid "Results from a meeting or project related to the topic"
 msgstr "Ergebnisse aus einer Veranstaltung/einem Projekt zum Thema"
 
-#: application/modules/default/forms/Register.php:94
+#: application/modules/default/forms/Register.php:92
 msgid "Compiled by our group (e.g. in a workshop or a group session)"
 msgstr "In der Gruppe erarbeitet (z.B. in einem Workshop, einer Gruppenstunde)"
 
-#: application/modules/default/forms/Register.php:95
+#: application/modules/default/forms/Register.php:93
 msgid "Position paper or agreement in our group/organisation"
 msgstr "Positionspapier/Beschluss unserer Gruppe/Organisation"
 
-#: application/modules/default/forms/Register.php:96
+#: application/modules/default/forms/Register.php:94
 msgid "Other:"
 msgstr "Sonstiges, und zwar:"
 
-#: application/modules/default/forms/Register.php:117
+#: application/modules/default/forms/Register.php:115
 msgid "How many individuals were involved?"
 msgstr "Wie viele Personen waren beteiligt?"
 
-#: application/modules/default/forms/Register.php:125
+#: application/modules/default/forms/Register.php:123
 msgid "Group name"
 msgstr "Gruppenbezeichnung"
 
-#: application/modules/default/forms/Register.php:133
+#: application/modules/default/forms/Register.php:131
 msgid "Contact person"
 msgstr "Ansprechpartner_in"
 
-#: application/modules/default/forms/Register.php:142
+#: application/modules/default/forms/Register.php:140
 msgid "Age"
 msgstr "Alter"
 
-#: application/modules/default/forms/Register.php:145
-#: application/modules/default/forms/Register.php:146
+#: application/modules/default/forms/Register.php:143
+#: application/modules/default/forms/Register.php:144
 #, php-format
 msgid "up to %s years"
 msgstr "bis %s Jahre"
 
-#: application/modules/default/forms/Register.php:147
+#: application/modules/default/forms/Register.php:145
 #, php-format
 msgid "%s years or older"
 msgstr "ab %s Jahre"
 
-#: application/modules/default/forms/Register.php:148
+#: application/modules/default/forms/Register.php:146
 msgid "all age groups"
 msgstr "Alle Altersgruppen"
 
-#: application/modules/default/forms/Register.php:149
+#: application/modules/default/forms/Register.php:147
 msgid "no information"
 msgstr "keine Angabe"
 
-#: application/modules/default/forms/Register.php:160
+#: application/modules/default/forms/Register.php:158
 msgid "State"
 msgstr "Bundesland"
 
-#: application/modules/default/forms/Register.php:169
+#: application/modules/default/forms/Register.php:166
 msgid "I want to get informed about outcomes of the consultation round."
 msgstr ""
 "Ich möchte über die Ergebnisse der Beteiligungsrunde informiert werden."
 
-#: application/modules/default/forms/Register.php:178
+#: application/modules/default/forms/Register.php:175
 msgid "I would like to subscribe to the newsletter."
 msgstr "Ich möchte den Newsletter erhalten."
 
-#: application/modules/default/forms/Register.php:187
+#: application/modules/default/forms/Register.php:184
 msgid "Any comments?"
 msgstr "Hier ist noch Platz für Kommentare:"
 
@@ -691,7 +696,7 @@ msgstr "Keine Neuigkeiten hierzu mehr erhalten"
 
 #: application/modules/default/forms/UrlkeyAction/ConfirmInputDiscussionContribution.php:12
 #: application/modules/default/forms/UrlkeyAction/ConfirmNotification.php:12
-#: application/modules/default/forms/VotesConfirmation.php:14
+#: application/modules/default/forms/VotesConfirmation.php:12
 #: application/modules/default/views/scripts/user/userlist.phtml:101
 msgid "Confirm"
 msgstr "Bestätigen"
@@ -722,7 +727,7 @@ msgstr "Neues Passwort speichern"
 msgid "Unsubscribe"
 msgstr "Abbestellen"
 
-#: application/modules/default/forms/VotesConfirmation.php:20
+#: application/modules/default/forms/VotesConfirmation.php:19
 msgid "Cancel votes"
 msgstr "Stimmabgabe verwerfen"
 
@@ -975,7 +980,7 @@ msgid "Go to ePartool's developer site"
 msgstr "Zur ePartool-Entwickler-Website"
 
 #: application/layouts/scripts/frontend-help-modal.phtml:5
-#: application/modules/default/views/scripts/voting/vote.phtml:204
+#: application/modules/default/views/scripts/voting/vote.phtml:199
 msgid "Close"
 msgstr "Schließen"
 
@@ -1089,7 +1094,7 @@ msgid "current"
 msgstr "aktuell"
 
 #: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:40
-#: application/modules/default/views/scripts/voting/vote.phtml:230
+#: application/modules/default/views/scripts/voting/vote.phtml:225
 msgid "of"
 msgstr "von"
 
@@ -1102,15 +1107,6 @@ msgstr "\"Besonders wichtig\"-Liste öffnen"
 #: application/modules/default/views/scripts/_partials/voting/votingPreviewButtons.phtml:43
 msgid "No opinion"
 msgstr "Keine Meinung"
-
-#: application/modules/default/views/scripts/_partials/voting/votingPreviewQuestionThesis.phtml:24
-#: application/modules/default/views/scripts/input/discussion.phtml:58
-#: application/modules/default/views/scripts/input/show.phtml:122
-#: application/modules/default/views/scripts/urlkey-action/confirm-input-discussion-contribution.phtml:37
-#: application/modules/default/views/scripts/voting/vote.phtml:109
-#, php-format
-msgid "%s videos were disabled by admin for this question"
-msgstr "%s-Videos wurden für diese Frage deaktiviert"
 
 #: application/modules/default/views/scripts/consultation/index.phtml:2
 msgid "Overview of all consultations"
@@ -1180,32 +1176,32 @@ msgid "written on"
 msgstr "verfasst am"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:94
-#: application/modules/default/views/scripts/input/show.phtml:146
+#: application/modules/default/views/scripts/input/show.phtml:141
 msgid "I agree!"
 msgstr "Dieser Meinung bin ich auch!"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:124
-#: application/modules/default/views/scripts/input/show.phtml:175
+#: application/modules/default/views/scripts/input/show.phtml:170
 msgid "I would like to discuss that!"
 msgstr "Das möchte ich gerne diskutieren!"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:126
-#: application/modules/default/views/scripts/input/show.phtml:177
+#: application/modules/default/views/scripts/input/show.phtml:172
 msgid "View discussion"
 msgstr "Diskussion anzeigen"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:143
-#: application/modules/default/views/scripts/input/show.phtml:190
+#: application/modules/default/views/scripts/input/show.phtml:185
 msgid "There are no contributions on this question."
 msgstr "Zu dieser Frage gibt es keine Beiträge."
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:152
-#: application/modules/default/views/scripts/input/show.phtml:199
+#: application/modules/default/views/scripts/input/show.phtml:194
 msgid "Newer contributions"
 msgstr "Neuere Beiträge"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:152
-#: application/modules/default/views/scripts/input/show.phtml:199
+#: application/modules/default/views/scripts/input/show.phtml:194
 msgid "Older contributions"
 msgstr "Ältere Beiträge"
 
@@ -1330,7 +1326,7 @@ msgstr ""
 msgid "Create new contribution"
 msgstr "Neuen Beitrag verfassen"
 
-#: application/modules/default/views/scripts/input/createForm.phtml:77
+#: application/modules/default/views/scripts/input/createForm.phtml:79
 msgid "Click here for another contribution"
 msgstr "Klicke hier für einen weiteren Beitrag"
 
@@ -1347,15 +1343,15 @@ msgstr "Zurück zu den Beiträgen"
 msgid "Anonymous"
 msgstr "Anonym"
 
-#: application/modules/default/views/scripts/input/discussion.phtml:68
+#: application/modules/default/views/scripts/input/discussion.phtml:62
 msgid "This post was hidden by admin."
 msgstr "Dieser Beitrag wurde von der Redaktion verborgen."
 
-#: application/modules/default/views/scripts/input/discussion.phtml:79
+#: application/modules/default/views/scripts/input/discussion.phtml:73
 msgid "Your Comment"
 msgstr "Dein Kommentar"
 
-#: application/modules/default/views/scripts/input/discussion.phtml:84
+#: application/modules/default/views/scripts/input/discussion.phtml:78
 #, php-format
 msgid ""
 "You can set your nick name in <a href=\"%s\" class=\"alert-link\">My "
@@ -1680,8 +1676,8 @@ msgid "Contributions by topic"
 msgstr "Beiträge nach Thema"
 
 #: application/modules/default/views/scripts/voting/overview.phtml:93
-#: application/modules/default/views/scripts/voting/vote.phtml:184
-#: application/modules/default/views/scripts/voting/vote.phtml:186
+#: application/modules/default/views/scripts/voting/vote.phtml:179
+#: application/modules/default/views/scripts/voting/vote.phtml:181
 msgid "Preview voting"
 msgstr "Vorschau Abstimmung"
 
@@ -1691,7 +1687,7 @@ msgstr "Weiter abstimmen"
 
 #: application/modules/default/views/scripts/voting/preview.phtml:18
 #: application/modules/default/views/scripts/voting/vote.phtml:31
-#: application/modules/default/views/scripts/voting/vote.phtml:180
+#: application/modules/default/views/scripts/voting/vote.phtml:175
 msgid "Finish voting"
 msgstr "Abstimmung beenden"
 
@@ -1760,7 +1756,7 @@ msgstr ""
 "zu einer anderen Frage oder einem anderen Schlagwort."
 
 #: application/modules/default/views/scripts/voting/vote.phtml:29
-#: application/modules/default/views/scripts/voting/vote.phtml:176
+#: application/modules/default/views/scripts/voting/vote.phtml:171
 msgid "Change question or keyword"
 msgstr "Frage / Schlagwort wechseln"
 
@@ -1768,23 +1764,23 @@ msgstr "Frage / Schlagwort wechseln"
 msgid "Keyword"
 msgstr "Schlagwort"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:115
+#: application/modules/default/views/scripts/voting/vote.phtml:110
 msgid "Show explanation"
 msgstr "Zeige Erläuterung"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:142
+#: application/modules/default/views/scripts/voting/vote.phtml:137
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:158
+#: application/modules/default/views/scripts/voting/vote.phtml:153
 msgid "Skip"
 msgstr "Überspringen"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:209
+#: application/modules/default/views/scripts/voting/vote.phtml:204
 msgid "Decide what is most important!"
 msgstr "Entscheide, was besonders wichtig ist!"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:217
+#: application/modules/default/views/scripts/voting/vote.phtml:212
 msgid ""
 "The superbutton allows you to give certain contributions a higher vote. The "
 "overview shows you what you already marked as \"especially important\". Use "
@@ -1796,13 +1792,16 @@ msgstr ""
 "„besonders wichtig“ gekennzeichnet hast. Mit dem „–“ kannst du diese Auswahl "
 "wieder rückgängig machen und Platz für wichtigere Beiträge schaffen."
 
-#: application/modules/default/views/scripts/voting/vote.phtml:226
+#: application/modules/default/views/scripts/voting/vote.phtml:221
 msgid "Supervotes used:"
 msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
 
-#: application/modules/default/views/scripts/voting/vote.phtml:247
+#: application/modules/default/views/scripts/voting/vote.phtml:242
 msgid "Remove"
 msgstr "Entfernen"
+
+#~ msgid "%s videos were disabled by admin for this question"
+#~ msgstr "%s-Videos wurden für diese Frage deaktiviert"
 
 #~ msgid "after Voting has ended"
 #~ msgstr "nach Ende der Abstimmung"
