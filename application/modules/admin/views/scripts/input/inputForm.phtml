@@ -47,9 +47,19 @@
     <?php endif; ?>
 
     <?=$this->element->tags;?>
-    <?=$this->element->user_conf;?>
-    <?=$this->element->block;?>
-    <?=$this->element->vot;?>
+
+    <div class="row offset-bottom">
+        <div class="col-sm-4">
+            <?=$this->element->user_conf;?>
+        </div>
+        <div class="col-sm-4">
+            <?=$this->element->block;?>
+        </div>
+        <div class="col-sm-4">
+            <?=$this->element->vot;?>
+        </div>
+    </div>
+
     <?=$this->element->notiz;?>
 
     <?=$this->element->submit;?>
