@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-09-21 09:10+0200\n"
-"PO-Revision-Date: 2016-09-21 09:11+0200\n"
+"POT-Creation-Date: 2016-10-14 15:08+0200\n"
+"PO-Revision-Date: 2016-10-14 15:08+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -1146,7 +1146,7 @@ msgid "Question"
 msgstr "Frage"
 
 #: application/modules/admin/forms/Input.php:57
-msgid "Theses"
+msgid "Thesis"
 msgstr "These"
 
 #: application/modules/admin/forms/Input.php:70
@@ -3345,6 +3345,9 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Theses"
+#~ msgstr "These"
 
 #~ msgid "Participants data"
 #~ msgstr "Angaben der Teilnehmenden"
