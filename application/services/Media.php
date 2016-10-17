@@ -115,7 +115,7 @@ class Service_Media
         if (!empty($inFiles)) {
             for ($i = 0; $i < count($inFiles); $i++) {
                 $filePath = $inFiles[$i]['dirname'] . '/' . $inFiles[$i]['basename'];
-                if (is_file($filePath) && substr($inFiles[$i]['basename'], 0, 1) !== '.') {
+                if (is_file($filePath) && mb_substr($inFiles[$i]['basename'], 0, 1) !== '.') {
                     $files[$i] = pathinfo($filePath);
                     $files[$i]['size'] = ceil(filesize($filePath) / 1024);
                     $files[$i]['kid'] = isset($inFiles[$i]['kid']) ? $inFiles[$i]['kid'] : null;
@@ -165,7 +165,7 @@ class Service_Media
             ->addValidator('Extension', false, Zend_Registry::get('systemconfig')->media->filetype->extensions);
 
         $imageInfo = $upload->getFileInfo();
-        if (strpos(reset($imageInfo)['type'], 'image/') === 0) {
+        if (mb_strpos(reset($imageInfo)['type'], 'image/') === 0) {
             $uploadRes->addValidator('ImageSize', false, ['maxwidth' => 5000, 'maxheight' => 5000]);
         }
 
@@ -183,7 +183,7 @@ class Service_Media
             $filename = Transliterator::utf8ToAscii($filename);
         }
         $basename = pathinfo($filename, PATHINFO_FILENAME);
-        $basename = substr($basename, 0, Zend_Registry::get('systemconfig')->media->filename->maxLength);
+        $basename = mb_substr($basename, 0, Zend_Registry::get('systemconfig')->media->filename->maxLength);
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $filename = Transliterator::urlize($basename) . '.' . $extension;
 
@@ -298,7 +298,7 @@ class Service_Media
     private function getIconName($extension)
     {
         foreach ($this->iconMap as $icon => $exts) {
-            if (in_array(strtolower($extension), $exts)) {
+            if (in_array(mb_strtolower($extension), $exts)) {
                 return $icon;
             }
         }

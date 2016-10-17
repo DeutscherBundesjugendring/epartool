@@ -309,10 +309,10 @@ class Admin_MediaController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $directory = $this->getRequest()->getParam('directory', null);
-                if (strpos($directory, Admin_Form_Media_Upload::DIR_TYPE_PREFIX_CONSULTATIONS) === 0) {
-                    $this->_kid = substr_replace($directory, '', 0, strlen(Admin_Form_Media_Upload::DIR_TYPE_PREFIX_CONSULTATIONS));
-                } elseif (strpos($directory, Admin_Form_Media_Upload::DIR_TYPE_PREFIX_FOLDERS) === 0) {
-                    $this->_folder = substr_replace($directory, '', 0, strlen(Admin_Form_Media_Upload::DIR_TYPE_PREFIX_FOLDERS));
+                if (mb_strpos($directory, Admin_Form_Media_Upload::DIR_TYPE_PREFIX_CONSULTATIONS) === 0) {
+                    $this->_kid = substr_replace($directory, '', 0, mb_strlen(Admin_Form_Media_Upload::DIR_TYPE_PREFIX_CONSULTATIONS));
+                } elseif (mb_strpos($directory, Admin_Form_Media_Upload::DIR_TYPE_PREFIX_FOLDERS) === 0) {
+                    $this->_folder = substr_replace($directory, '', 0, mb_strlen(Admin_Form_Media_Upload::DIR_TYPE_PREFIX_FOLDERS));
                 } else {
                     throw new Dbjr_Exception('Invalid directory prefix.');
                 }

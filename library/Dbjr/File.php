@@ -67,7 +67,7 @@ class Dbjr_File
      */
     public static function pathinfoUtf8($path, $options = null)
     {
-        if (strpos($path, '/') === false) {
+        if (mb_strpos($path, '/') === false) {
             $pathParts = pathinfo('a' . $path, $options);
         } else {
             $path = str_replace('/', '/a', $path);
@@ -79,13 +79,13 @@ class Dbjr_File
         }
 
         if ($options) {
-            return substr($pathParts, 1);
+            return mb_substr($pathParts, 1);
         } else {
             foreach ($pathParts as $key => &$value) {
                 if ($key === 'extension') {
                     continue;
-                } elseif (strpos($value, '/') === false) {
-                    $value = substr($value, 1);
+                } elseif (mb_strpos($value, '/') === false) {
+                    $value = mb_substr($value, 1);
                 } else {
                     $value = str_replace('/a', '/', $value);
                 }
