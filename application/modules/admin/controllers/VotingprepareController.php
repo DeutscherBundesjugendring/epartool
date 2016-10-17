@@ -181,7 +181,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $origInputId = $this->getRequest()->getParam('inputId');
         $form = new Admin_Form_Input($this->view->url(['action' => 'overview']));
-        $form->addElement($form->createElement('hidden', 'rel_tid'));
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
@@ -204,7 +203,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             unset($origData['when']);
             unset($origData['tags']);
             unset($origData['tid']);
-            unset($origData['rel_tid']);
             $form->populate($origData);
         }
 

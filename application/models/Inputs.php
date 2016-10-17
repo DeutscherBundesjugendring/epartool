@@ -2,6 +2,7 @@
 
 class Model_Inputs extends Dbjr_Db_Table_Abstract
 {
+    const ERROR_CODE_DUPLICATE_ENTRY = 23000;
     protected $_name = 'inpt';
     protected $_primary = 'tid';
 
@@ -129,21 +130,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function unlinkById($id, $relId)
     {
-        if ($this->find($id)->count() < 1) {
-            return 0;
-        }
-
-        $row = $this->find($id)->current();
-        $related = explode(',', $row['rel_tid']);
-        foreach($related as $key => $rid) {
-            if($rid === $relId) {
-                unset($related[$key]);
-                break;
-            }
-        }
-        $row->setFromArray(['rel_tid' => implode(',', $related)]);
-
-        return $row->save();
+        return (new Model_InputRelations())->delete(['parent_id = ?' => $relId, 'child_id = ?' => $id]);
     }
 
     /**
@@ -1054,11 +1041,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select = $this
             ->select()
             ->setIntegrityCheck(false)
-            ->from(['i' => $this->info(self::NAME)])
+            ->from(['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)])
+            ->join(['i' => $this->info(self::NAME)], '')
             ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi = q.qi', [])
             ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid = c.kid', ['kid'])
-            ->where('rel_tid LIKE ?', '%' . $id . '%')
-            ->where("`vot` LIKE 'y'");
+            ->where('r.parent_id = ?', $id)
+            ->where('i.vot = ?', 'y');
         
         $result = $this->fetchAll($select)->toArray();
 
@@ -1112,29 +1100,24 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         foreach ($wheres as $cond => $val) {
             $select->where($cond, $val);
         }
-        $resultSet = $this->getAdapter()->query($select);
+        $resultSet = $this->fetchAll($select);
 
         $inputs = [];
         foreach ($resultSet as $row) {
-            $inputs[$row['tid']] = $row;
-            $inputs[$row['tid']]['related'] = [];
+            $inputs[$row['tid']] = $row->toArray();
 
             $inputs[$row['tid']]['tags'] = [];
-            $tagRows = $this->find($row["tid"])->current()
-                ->findManyToManyRowset('Model_Tags', 'Model_InputsTags')
-                ->toArray();
+            $tagRows = $row->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
             foreach ($tagRows as $tagRow) {
                 $inputs[$row['tid']]['tags'][] = $tagRow;
             }
-        }
 
-        foreach ($this->getAdapter()->query($this->select()) as $contribution) {
-            if (!empty($contribution['rel_tid'])) {
-                foreach (explode(',', $contribution['rel_tid']) as $relatedId) {
-                    if (isset($inputs[$relatedId])) {
-                        $inputs[$relatedId]['related'][] = $contribution;
-                    }
-                }
+            $inputs[$row['tid']]['related'] = [];
+            $relatedRows = $row
+                ->findManyToManyRowset('Model_Inputs', 'Model_InputRelations', null, 'Related')
+                ->toArray();
+            foreach ($relatedRows as $relatedRow) {
+                $inputs[$row['tid']]['related'][] = $relatedRow;
             }
         }
 
@@ -1152,7 +1135,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_service'] = null;
             $data['video_id'] = null;
         }
-        
+
         $row = $this->createRow($data);
         $tid = (int) $row->save();
 
@@ -1169,16 +1152,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param int $origInputId
      * @param array $newInputIds
      * @throws Zend_Db_Table_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     public function appendRelIds($origInputId, array $newInputIds)
     {
         foreach ($newInputIds as $inputId) {
-            $row = $this->find($inputId)->current();
-            $relIds =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
-            $relIds[] = $origInputId;
-            $relIds = array_unique($relIds);
-            $relIds = implode(',', $relIds);
-            $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $inputId));
+            try {
+                (new Model_InputRelations())->insert(['parent_id' => $origInputId, 'child_id' => $inputId]);
+            } catch (Zend_Db_Statement_Exception $e) {
+                if ($e->getCode() !== self::ERROR_CODE_DUPLICATE_ENTRY) {
+                    throw $e;
+                }
+            }
         }
     }
 

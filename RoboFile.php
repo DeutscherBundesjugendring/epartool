@@ -135,6 +135,18 @@ class RoboFile extends Tasks
     }
 
     /**
+     * @param string $environment
+     */
+    public function phinxMigrate($environment)
+    {
+        $this
+            ->taskExec('vendor/bin/phinx migrate')
+            ->args(sprintf('-c %s', self::PHINX_CONFIG_FILE))
+            ->args(sprintf('-e %s', $environment))
+            ->run();
+    }
+
+    /**
      * Zend_Config_* was not used because of ignoring comments in the ini file which were not writed back after editing
      * process.
      * @param string $tag
