@@ -2,6 +2,13 @@
 
 class Model_Consultations extends Dbjr_Db_Table_Abstract
 {
+    const WYSIWYG_FIELDS = [
+        'vot_expl',
+        'follow_up_explanation',
+        'contribution_confirmation_info',
+        'license_agreement',
+    ];
+
     protected $_name = 'cnslt';
     protected $_primary = 'kid';
     protected $_dependentTables = ['Model_Articles', 'Model_Questions', 'Model_Votes', 'Model_Votes_Rights'];
