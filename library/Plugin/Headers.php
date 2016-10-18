@@ -10,7 +10,7 @@ class Plugin_Headers extends Zend_Controller_Plugin_Abstract
         $this->getResponse()
             ->setHeader(
                 'Content-Security-Policy',
-                "default-src 'self' *.google.com *.facebook.com; "
+                "default-src 'self' *.google.com *.facebook.com *.youtube.com; "
                 . "media-src 'self' 'unsafe-inline' 'unsafe-eval' *.youtube.com *.ytimg.com *.vimeo.com *.facebook.com "
                 . "*.facebook.net *.twitter.com; "
                 . "img-src 'self' data: *.facebook.com;"
