@@ -46,14 +46,14 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
         ]);
 
         if ($accessToken['httpCode'] !== 200) {
-            $this->_error($this->_messageTemplates[self::API_UNAVAILABLE]);
+            $this->_error(self::API_UNAVAILABLE);
 
             return false;
         }
         
         $jsonResponse = json_decode($accessToken['output'], true);
         if ($jsonResponse && isset($jsonResponse['error'])) {
-            $this->_error($this->_messageTemplates[self::API_UNAVAILABLE]);
+            $this->_error(self::API_UNAVAILABLE);
 
             return false;
         }
@@ -66,7 +66,7 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
                 return true;
             }
         }
-        $this->_error($this->_messageTemplates[self::NOT_PUBLIC]);
+        $this->_error(self::NOT_PUBLIC);
 
         return false;
     }
@@ -88,11 +88,11 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
 
                 return true;
             }
-            $this->_error($this->_messageTemplates[self::NOT_PUBLIC]);
+            $this->_error(self::NOT_PUBLIC);
 
             return false;
         }
-        $this->_error($this->_messageTemplates[self::API_UNAVAILABLE]);
+        $this->_error(self::API_UNAVAILABLE);
 
         return false;
     }
@@ -111,11 +111,11 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
         if ($response['httpCode'] === 200) {
             return true;
         } elseif ($response['httpCode'] === 401) {
-            $this->_error($this->_messageTemplates[self::NOT_PUBLIC]);
+            $this->_error(self::NOT_PUBLIC);
 
             return false;
         }
-        $this->_error($this->_messageTemplates[self::API_UNAVAILABLE]);
+        $this->_error(self::API_UNAVAILABLE);
 
         return false;
     }

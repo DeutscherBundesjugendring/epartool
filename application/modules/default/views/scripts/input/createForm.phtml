@@ -46,8 +46,8 @@
                 </div>
                 <?php if (count($input->getElement('video_id')->getErrors()) > 0) : ?>
                     <ul class="text-danger-block">
-                        <?php foreach ($input->getElement('video_id')->getErrors() as $error) : ?>
-                            <li><?=$error;?></li>
+                        <?php foreach ($input->getElement('video_id')->getMessages() as $message) : ?>
+                            <li><?=$message;?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
