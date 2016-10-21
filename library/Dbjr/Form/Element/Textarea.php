@@ -54,4 +54,17 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
     {
         return $this->wysiwygType;
     }
+
+    public function basePathToPlaceholder()
+    {
+        return (new Service_Wysiwyg((new Zend_View_Helper_BaseUrl())->getBaseUrl()))
+            ->basePathToPlaceholder($this->getValue());
+    }
+
+    public function placeholderToBasePath()
+    {
+        $this->setValue((new Service_Wysiwyg((new Zend_View_Helper_BaseUrl())->getBaseUrl()))
+            ->placeholderToBasePath($this->_value)
+        );
+    }
 }
