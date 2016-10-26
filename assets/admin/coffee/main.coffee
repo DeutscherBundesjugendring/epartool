@@ -232,11 +232,12 @@ themeSettings = () ->
     );
 
 contributorAgesSettings = () ->
-    $('.js-contributor-ages-delete-row').click () ->
+    $('#js-contributor-ages-intervals').on('click', '.js-contributor-ages-delete-row', () ->
         if !confirm(i18n.translate('Dou you want to delete this interval?'))
             return false
         $(this).closest('.js-row').remove()
         return false
+    );
 
     $('#js-contributor-ages-add-row').click () ->
         timestamp = new Date().getUTCMilliseconds();
@@ -247,11 +248,12 @@ contributorAgesSettings = () ->
         return false
 
 groupsSizesSettings = () ->
-    $('.js-groups-sizes-delete-row').click () ->
+    $('#js-groups-sizes-intervals').on('click', '.js-groups-sizes-delete-row', () ->
         if !confirm(i18n.translate('Dou you want to delete this interval?'))
             return false
         $(this).closest('.js-row').remove()
         return false
+    );
 
     $('#js-groups-sizes-add-row').click () ->
         timestamp = new Date().getUTCMilliseconds();
