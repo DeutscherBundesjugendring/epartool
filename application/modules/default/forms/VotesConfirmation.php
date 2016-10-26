@@ -23,4 +23,10 @@ class Default_Form_VotesConfirmation extends Dbjr_Form_Web
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
         $this->addElement($hash);
     }
+
+    public function disable()
+    {
+        $this->getElement('confirm')->setAttrib('disabled', 'disabled');
+        $this->getElement('reject')->setAttrib('disabled', 'disabled');
+    }
 }
