@@ -235,20 +235,26 @@ class UserController extends Zend_Controller_Action
         $form = new Admin_Form_ListControl();
 
         if ($form->isValid($this->getRequest()->getPost())) {
-            $votesGroupsModel = new Model_Votes_Groups();
+            if ($this->_consultation['vot_to'] === '0000-00-00 00:00:00'
+                || Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
+            ) {
+                $votesGroupsModel = new Model_Votes_Groups();
 
-            if ($this->getRequest()->getPost('confirm')) {
-                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
-                $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
-                $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
-            } elseif ($this->getRequest()->getPost('deny')) {
-                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
-                $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
-                $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
-            } elseif ($this->getRequest()->getPost('delete')) {
-                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
-                $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
-                $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+                if ($this->getRequest()->getPost('confirm')) {
+                    list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
+                    $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
+                    $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
+                } elseif ($this->getRequest()->getPost('deny')) {
+                    list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
+                    $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
+                    $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
+                } elseif ($this->getRequest()->getPost('delete')) {
+                    list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
+                    $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
+                    $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results.', 'error');
             }
         }
 
