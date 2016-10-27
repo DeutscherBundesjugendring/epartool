@@ -51,7 +51,7 @@
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <tr id="js-contributor-ages-new-row" class="hidden">
+                    <tr id="js-contributor-ages-new-row" class="hidden js-row">
                         <td class="col-sm-5">
                             <label for="from" class="sr-only"><?=$this->translate('From');?></label>
                             <div class="form-group offset-bottom-none">
@@ -64,7 +64,11 @@
                                 <input type="text" id="js-contributor-ages-new-row-to" class="form-control">
                             </div>
                         </td>
-                        <td class="table-cell-actions"></td>
+                        <td class="table-cell-actions">
+                            <a href="#" class="js-contributor-ages-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -153,7 +157,7 @@
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                <tr id="js-groups-sizes-new-row" class="hidden">
+                <tr id="js-groups-sizes-new-row" class="hidden js-row">
                     <td class="col-sm-5">
                         <label for="from" class="sr-only"><?=$this->translate('From');?></label>
                         <div class="form-group offset-bottom-none">
@@ -166,7 +170,11 @@
                             <input type="text" id="js-groups-sizes-new-row-to" class="form-control">
                         </div>
                     </td>
-                    <td class="table-cell-actions"></td>
+                    <td class="table-cell-actions">
+                        <a href="#" class="js-groups-sizes-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
