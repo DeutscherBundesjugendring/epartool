@@ -220,7 +220,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $licenseAgreement = $this->createElement('textarea', 'license_agreement');
         $licenseAgreement
-            ->setLabel('License agreement text')
+            ->setLabel('Terms & Conditions text')
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
             ->setAttrib('rows', 5);
         $this->addElement($licenseAgreement);

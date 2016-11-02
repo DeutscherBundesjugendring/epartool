@@ -100,21 +100,23 @@
     </fieldset>
 
     <fieldset>
-        <h3><?=$this->translate('License agreement');?></h3>
+        <h3><?=$this->translate('Terms & Conditions');?></h3>
         <?=$this->form->getElement('license_agreement');?>
 
         <div class="well">
             <h4><?=$this->translate('Placeholders');?></h4>
             <table class="table table-striped">
-                <tbody><tr>
-                    <th class="col-sm-3">{{license_title}}</th>
-                    <td><?=$this->translate('The title of the license selected for the project.');?></td>
-                </tr>
-                <tr>
-                    <th class="col-sm-3">{{license_link}}</th>
-                    <td><?=$this->translate('The link to the web page with information about the selected license.');?></td>
-                </tr>
-                </tbody></table>
+                <tbody>
+                    <tr>
+                        <th class="col-sm-3">{{license_title}}</th>
+                        <td><?=$this->translate('The title of the license selected for the project.');?></td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-3">{{license_link}}</th>
+                        <td><?=$this->translate('The link to the web page with more information on the selected terms or license.');?></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
     </fieldset>
