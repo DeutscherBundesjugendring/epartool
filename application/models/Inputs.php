@@ -991,11 +991,20 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             throw new Zend_Validate_Exception('Given parameter qid must be integer!');
         }
 
-        return $this->fetchAll(
-            $this->select()
+        $db = $this->getAdapter();
+
+        return $db->query(
+            $db->select()
+                ->from(['i' => $this->_name])
+                ->joinLeft(
+                    ['fu' => (new Model_FollowupsRef)->info(Model_FollowupsRef::NAME)],
+                    'fu.tid = i.tid',
+                    [new Zend_Db_Expr('COUNT(fu.tid) as followUpsCount')]
+                )
                 ->where('qi = ?', $qid)
                 ->where('vot = ?', 'y')
-        );
+                ->group('i.tid')
+        )->fetchAll();
     }
 
     /**

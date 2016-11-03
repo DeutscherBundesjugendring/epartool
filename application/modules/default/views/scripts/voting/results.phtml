@@ -34,7 +34,7 @@
             <hr class="hr-alt" />
 
             <?php foreach ($this->votings as $key => $value) : ?>
-                <?php if ($value['uid']) : ?>
+                <?php if ($value['followUpsCount']) : ?>
                     <a href="<?=$this->url([
                         'controller' => 'input',
                         'action' => 'show',
