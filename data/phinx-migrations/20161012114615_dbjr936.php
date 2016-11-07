@@ -22,9 +22,25 @@ ADD FOREIGN KEY (`child_id`) REFERENCES `inpt` (`tid`) ON DELETE CASCADE ON UPDA
                 foreach ($origins as $originId) {
                     $values[] = sprintf('(%d, %d)', $originId, $contribution['tid']);
                 }
-                $this->execute(
-                    sprintf("INSERT INTO `input_relations` (`parent_id`, `child_id`) VALUES%s;", implode(',', $values))
-                );
+                try {
+                    $this->execute(sprintf(
+                        "INSERT INTO `input_relations` (`parent_id`, `child_id`) VALUES %s;",
+                        implode(',', $values)
+                    ));
+                } catch (PDOException $e) {
+                    // try to insert one after one to check what pair is invalid
+                    foreach ($values as $v) {
+                        $sql = sprintf("INSERT INTO `input_relations` (`parent_id`, `child_id`) VALUES %s;", $v);
+                        try {
+                            $this->execute($sql);
+                        } catch (PDOException $e) {
+                            // skip invalid pair (any of two items in pair does not exists or it is duplicity)
+                            $this->output->writeln(
+                                sprintf('Exception %s. Cannot run query %s.', $e->getMessage(), $sql)
+                            );
+                        }
+                    }
+                }
             }
         }
         $this->execute("ALTER TABLE `inpt` DROP `rel_tid`");
