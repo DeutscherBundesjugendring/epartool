@@ -1051,16 +1051,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)])
-            ->join(['i' => $this->info(self::NAME)], '')
+            ->join(['i' => $this->info(self::NAME)], 'i.tid = r.child_id')
             ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi = q.qi', [])
             ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid = c.kid', ['kid'])
             ->where('r.parent_id = ?', $id)
             ->where('i.vot = ?', 'y');
-        
         $result = $this->fetchAll($select)->toArray();
 
         return $result;
-
     }
 
     /**
