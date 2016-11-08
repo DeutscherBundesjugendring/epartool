@@ -792,7 +792,7 @@ class VotingController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('Invalid action invoked.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results.', 'error');
+                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             }
         } else {
             $this->view->settings = $this->getVotingSettings();
@@ -833,7 +833,7 @@ class VotingController extends Zend_Controller_Action
         if ($this->_consultation['vot_to'] !== '0000-00-00 00:00:00'
             && Zend_Date::now()->isLater(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
         ) {
-            $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results.', 'error');
+            $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             $this->redirect('/');
         }
 

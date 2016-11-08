@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-11-02 14:47+0100\n"
-"PO-Revision-Date: 2016-11-02 14:48+0100\n"
+"POT-Creation-Date: 2016-11-08 16:18+0100\n"
+"PO-Revision-Date: 2016-11-08 16:18+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -251,21 +251,25 @@ msgstr ""
 
 #: application/modules/admin/controllers/ConsultationController.php:483
 msgid "Cannot delete already used groups."
-msgstr ""
+msgstr "Bereits benutzte Gruppen können nicht entfernt werden."
 
 #: application/modules/admin/controllers/ConsultationController.php:490
 msgid "Cannot edit groups after consultation has been started."
 msgstr ""
+"Gruppen können nicht verändert werden, sobald die Beteiligungsrunde "
+"gestartet ist."
 
 #: application/modules/admin/controllers/ConsultationController.php:510
 msgid "Group cluster settings were updated."
-msgstr ""
+msgstr "Die Einstellungen der Gruppengrößen wurden aktualisiert."
 
 #: application/modules/admin/controllers/ConsultationController.php:515
 msgid ""
 "Age groups settings cannot be updated. Please check the errors marked in the "
 "form below and try again."
 msgstr ""
+"Die Altersgruppen können nicht aktualisiert werden. Bitte die Fehler im "
+"Formular überprüfen."
 
 #: application/modules/admin/controllers/FollowupController.php:57
 msgid "New snippet has been successfully created."
@@ -952,7 +956,7 @@ msgstr "Verantwortlicher Admin"
 #: application/modules/admin/forms/ConsultationGroups.php:28
 #: application/modules/admin/forms/ConsultationGroups.php:173
 msgid "Activate"
-msgstr ""
+msgstr "Aktivieren"
 
 #: application/modules/admin/forms/ConsultationGroups.php:48
 #: application/modules/admin/forms/ConsultationGroups.php:87
@@ -966,11 +970,11 @@ msgstr ""
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:162
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:193
 msgid "From"
-msgstr ""
+msgstr "Von"
 
 #: application/modules/admin/forms/ConsultationGroups.php:68
 msgid "Activate “No Information” value"
-msgstr ""
+msgstr "Aktiviere „keine Angabe“-Option"
 
 #: application/modules/admin/forms/ConsultationGroups.php:109
 #: application/modules/admin/forms/ConsultationGroups.php:153
@@ -1820,7 +1824,7 @@ msgstr "Allgemein"
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:21
 msgid "Participants' Data"
-msgstr ""
+msgstr "Daten der Teilnehmenden"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:33
 #: application/modules/admin/views/scripts/consultation/phases.phtml:21
@@ -1829,7 +1833,7 @@ msgstr "Phasen"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:38
 msgid "Group Clusters"
-msgstr ""
+msgstr "Gruppengrößen (Cluster)"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:16
 msgid "Dashboard"
@@ -2040,11 +2044,11 @@ msgstr "Einstellungen Videodienste"
 msgid "Terms & Conditions"
 msgstr "Veröffentlichungshinweis"
 
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:111
-msgid "The title of the license selected for the project."
-msgstr ""
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:112
+msgid "The title of the terms selected for the project."
+msgstr "Titel der Bedingungen für dieses Projekt"
 
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:115
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:116
 msgid ""
 "The link to the web page with more information on the selected terms or "
 "license."
@@ -2054,35 +2058,35 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:18
 msgid "Age Groups"
-msgstr ""
+msgstr "Altersgruppen"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:21
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:119
 msgid ""
 "Intervals include the border numbers. Eg. 10–12 includes everything between "
 "10 and 12, including 10 and 12."
-msgstr ""
+msgstr "Die Intervalle schließen die kleinste und größte Zahl jeweils mit ein."
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:47
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:68
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:153
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:174
 msgid "Delete interval"
-msgstr ""
+msgstr "Von"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:79
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:185
 msgid "Add interval"
-msgstr ""
+msgstr "Intervall hinzufügen"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:101
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:207
 msgid "Infinity"
-msgstr ""
+msgstr "unbegrenzt"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:116
 msgid "Voting Group Size"
-msgstr ""
+msgstr "Größe Abstimmungsgruppe"
 
 #: application/modules/admin/views/scripts/consultation/_serverTimeTooltip.phtml:5
 msgid "Server time (when opening this page):"
@@ -2094,7 +2098,7 @@ msgstr "Einstellungen der Beteiligungsrunde"
 
 #: application/modules/admin/views/scripts/consultation/groups.phtml:21
 msgid "Group Cluster Settings"
-msgstr ""
+msgstr "Einstellungen Gruppengrößen"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:27
 msgid "New Contributions"

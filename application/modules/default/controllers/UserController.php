@@ -254,7 +254,7 @@ class UserController extends Zend_Controller_Action
                     $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results.', 'error');
+                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             }
         }
 
