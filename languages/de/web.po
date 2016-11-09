@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-11-08 16:23+0100\n"
-"PO-Revision-Date: 2016-11-08 16:24+0100\n"
+"POT-Creation-Date: 2016-11-09 11:01+0100\n"
+"PO-Revision-Date: 2016-11-09 11:04+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: application/services/UrlkeyAction\n"
 "X-Poedit-SearchPath-3: application/layouts\n"
 
-#: application/modules/default/controllers/ArticleController.php:60
+#: application/modules/default/controllers/ArticleController.php:57
 msgid "Page not found"
 msgstr "Seite nicht gefunden!"
 
@@ -80,7 +80,7 @@ msgid "Back to timeline"
 msgstr "Zurück zur Zeitleiste"
 
 #: application/modules/default/controllers/IndexController.php:76
-#: application/modules/default/views/scripts/input/createForm.phtml:53
+#: application/modules/default/views/scripts/input/createForm.phtml:59
 msgid "Click here to explain contribution"
 msgstr "Klicken, um Eintrag zu erläutern"
 
@@ -104,54 +104,54 @@ msgstr "Lade…"
 msgid "Medium"
 msgstr "Mittel"
 
+#: application/modules/default/controllers/IndexController.php:81
+msgid "Normal"
+msgstr "Normal"
+
 #: application/modules/default/controllers/IndexController.php:82
 msgid "Shut back"
 msgstr "Wieder einklappen"
 
 #: application/modules/default/controllers/IndexController.php:83
-#: application/modules/default/views/scripts/input/createForm.phtml:59
-msgid "Click here to explain contribution"
-msgstr "Klicken, um Eintrag zu erläutern"
-
-#: application/modules/default/controllers/IndexController.php:84
-#: application/modules/default/views/scripts/input/show.phtml:132
-msgid "supporters"
-msgstr "Unterstützende"
-
-#: application/modules/default/controllers/IndexController.php:85
 msgid "Something went wrong"
 msgstr "Etwas ist schiefgelaufen."
 
-#: application/modules/default/controllers/IndexController.php:86
-#: application/modules/default/views/scripts/followup/index.phtml:106
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:93
-#: application/modules/default/views/scripts/followup/show.phtml:134
-msgid "Loading…"
-msgstr "Lade…"
+#: application/modules/default/controllers/IndexController.php:84
+msgid "Strong"
+msgstr "Stark"
 
-#: application/modules/default/controllers/IndexController.php:87
-msgid "All age groups"
-msgstr "Alle Altersgruppen"
-
-#: application/modules/default/controllers/IndexController.php:88
+#: application/modules/default/controllers/IndexController.php:85
 #: application/modules/default/controllers/VotingController.php:339
 msgid "Using of superbutton is not allowed."
 msgstr "Die Auswahl des Superbuttons ist nicht erlaubt."
 
-#: application/modules/default/controllers/IndexController.php:90
+#: application/modules/default/controllers/IndexController.php:86
+msgid "Very Strong"
+msgstr "Sehr stark"
+
+#: application/modules/default/controllers/IndexController.php:87
+msgid "Weak"
+msgstr "Schwach"
+
+#: application/modules/default/controllers/IndexController.php:89
+msgid "You are being logged in. Please wait…"
+msgstr "Du wirst eingeloggt. Bitte warten..."
+
+#: application/modules/default/controllers/IndexController.php:92
 msgid "Your contributions have not been saved."
 msgstr "Deine Beiträge wurden nicht gespeichert."
 
-#: application/modules/default/controllers/IndexController.php:92
-msgid "Follow path"
-msgstr "Folge Verlauf"
+#: application/modules/default/controllers/IndexController.php:94
+#: application/modules/default/views/scripts/input/show.phtml:132
+msgid "supporters"
+msgstr "Unterstützende"
 
-#: application/modules/default/controllers/IndexController.php:180
+#: application/modules/default/controllers/IndexController.php:182
 #: library/Plugin/Auth/AccessControl.php:47
 msgid "Login successful!"
 msgstr "Login erfolgreich!"
 
-#: application/modules/default/controllers/IndexController.php:189
+#: application/modules/default/controllers/IndexController.php:191
 msgid "Only users who submitted a contribution can log in."
 msgstr ""
 "Nur Nutzer_innen, die einen Beitrag übermittelt haben, können sich einloggen."
@@ -532,7 +532,7 @@ msgstr "z.B. "
 #: application/modules/default/forms/Input/Discussion.php:70
 #: application/modules/default/forms/PasswordRecover.php:24
 #: application/modules/default/forms/Profile.php:84
-#: application/modules/default/forms/Register.php:212
+#: application/modules/default/forms/Register.php:215
 msgid "Send"
 msgstr "Absenden"
 
@@ -688,7 +688,7 @@ msgstr "Ich möchte den Newsletter erhalten."
 msgid "Any comments?"
 msgstr "Hier ist noch Platz für Kommentare:"
 
-#: application/modules/default/forms/Register.php:201
+#: application/modules/default/forms/Register.php:204
 msgid "You must agree."
 msgstr "Du musst hier zustimmen."
 
@@ -964,28 +964,28 @@ msgstr "Anmeldedaten sind inkorrekt."
 msgid "DBJR TOOL Admin"
 msgstr "ePartool Administration"
 
-#: application/layouts/scripts/backend.phtml:40
+#: application/layouts/scripts/backend.phtml:43
 #: application/layouts/scripts/frontend.phtml:95
 msgid "Menu"
 msgstr "Menü"
 
-#: application/layouts/scripts/backend.phtml:48
+#: application/layouts/scripts/backend.phtml:51
 msgid "ePartool admin dashboard"
 msgstr "ePartool Admin Dashboard"
 
-#: application/layouts/scripts/backend.phtml:62
+#: application/layouts/scripts/backend.phtml:65
 msgid "Open site in a new tab"
 msgstr "Öffne Site in einem neuen Tab"
 
-#: application/layouts/scripts/backend.phtml:64
+#: application/layouts/scripts/backend.phtml:67
 msgid "Homepage"
 msgstr "Startseite"
 
-#: application/layouts/scripts/backend.phtml:83
+#: application/layouts/scripts/backend.phtml:86
 msgid "Log off"
 msgstr "Ausloggen"
 
-#: application/layouts/scripts/backend.phtml:111
+#: application/layouts/scripts/backend.phtml:114
 msgid "Go to ePartool's developer site"
 msgstr "Zur ePartool-Entwickler-Website"
 
@@ -1726,7 +1726,7 @@ msgstr "Fehler, der Beitrag wurde nicht gelöscht!"
 msgid "Voting results"
 msgstr "Abstimmungsergebnisse"
 
-#: application/modules/default/views/scripts/voting/results.phtml:55
+#: application/modules/default/views/scripts/voting/results.phtml:56
 msgid "See contribution in context"
 msgstr "Beitrag im Zusammenhang ansehen"
 

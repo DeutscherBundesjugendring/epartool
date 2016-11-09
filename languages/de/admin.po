@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-11-08 16:18+0100\n"
-"PO-Revision-Date: 2016-11-08 16:18+0100\n"
+"POT-Creation-Date: 2016-11-09 10:58+0100\n"
+"PO-Revision-Date: 2016-11-09 10:58+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -85,21 +85,21 @@ msgstr "Hilfetext Fragen"
 msgid "Contribution help text"
 msgstr "Hilfetext Beiträge"
 
-#: application/modules/admin/controllers/ArticleController.php:76
-#: application/modules/admin/controllers/ArticleController.php:143
+#: application/modules/admin/controllers/ArticleController.php:71
+#: application/modules/admin/controllers/ArticleController.php:138
 msgid "None"
 msgstr "Keine"
 
-#: application/modules/admin/controllers/ArticleController.php:96
+#: application/modules/admin/controllers/ArticleController.php:91
 msgid "New article has been created."
 msgstr "Neuer Artikel wurde erstellt."
 
-#: application/modules/admin/controllers/ArticleController.php:98
+#: application/modules/admin/controllers/ArticleController.php:93
 msgid "Creating new article failed."
 msgstr "Die Erstellung des neuen Artikels konnte nicht durchgeführt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:106
-#: application/modules/admin/controllers/ArticleController.php:185
+#: application/modules/admin/controllers/ArticleController.php:101
+#: application/modules/admin/controllers/ArticleController.php:180
 #: application/modules/admin/controllers/ConsultationController.php:154
 #: application/modules/admin/controllers/ConsultationController.php:191
 #: application/modules/admin/controllers/ConsultationController.php:368
@@ -119,15 +119,15 @@ msgid "Form is not valid, please check the values entered."
 msgstr ""
 "Das Formular ist nicht richtig ausgefüllt. Bitte überprüfe die Eingaben."
 
-#: application/modules/admin/controllers/ArticleController.php:157
+#: application/modules/admin/controllers/ArticleController.php:152
 msgid "This article does not exist."
 msgstr "Dieser Artikel existiert nicht."
 
-#: application/modules/admin/controllers/ArticleController.php:176
+#: application/modules/admin/controllers/ArticleController.php:171
 msgid "This article could not be hidden."
 msgstr "Dieser Artikel konnte nicht versteckt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:183
+#: application/modules/admin/controllers/ArticleController.php:178
 #: application/modules/admin/controllers/ConsultationController.php:187
 #: application/modules/admin/controllers/FollowupController.php:103
 #: application/modules/admin/controllers/FollowupController.php:182
@@ -140,15 +140,15 @@ msgstr "Dieser Artikel konnte nicht versteckt werden."
 msgid "Changes saved."
 msgstr "Änderungen wurden gespeichert."
 
-#: application/modules/admin/controllers/ArticleController.php:228
+#: application/modules/admin/controllers/ArticleController.php:221
 msgid "This article could not be deleted."
 msgstr "Dieser Artikel konnte nicht gelöscht werden."
 
-#: application/modules/admin/controllers/ArticleController.php:235
+#: application/modules/admin/controllers/ArticleController.php:228
 msgid "Article has been deleted."
 msgstr "Artikel wurde gelöscht."
 
-#: application/modules/admin/controllers/ArticleController.php:237
+#: application/modules/admin/controllers/ArticleController.php:230
 msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
@@ -156,17 +156,17 @@ msgstr ""
 "Artikel konnte nicht gelöscht werden: Wenn er Unter-Artikel hat, müssen "
 "diese zuerst entfernt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:314
+#: application/modules/admin/controllers/ArticleController.php:307
 msgid "Area:"
 msgstr "Bereich:"
 
-#: application/modules/admin/controllers/ArticleController.php:341
+#: application/modules/admin/controllers/ArticleController.php:332
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:21
 msgid "Please select…"
 msgstr "Bitte auswählen..."
 
-#: application/modules/admin/controllers/ArticleController.php:347
+#: application/modules/admin/controllers/ArticleController.php:338
 msgid "On subpages, reference name of parent page is used."
 msgstr ""
 "Unterseiten nutzen denselben Referenznamen wie die jeweilige Elternseite."
