@@ -34,7 +34,7 @@
             <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
 
             <?php if ($this->element->getVideoEnabled()) : ?>
-                <div class="form-inline form-inline-flex form-group text-left offset-top js-video-service">
+                <div class="form-inline form-inline-flex form-group text-left offset-top-small offset-bottom-small js-video-service">
                     <div class="form-group">
                         <?=$input->getElements()['video_service'];?>
                     </div>
@@ -76,26 +76,26 @@
 
     <!-- Actions -->
     <div class="row">
-        <div class="col-xs-12 text-center">
-            <div class="offset-bottom-small">
-                <div class="offset-bottom-xs-max visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+        <div class="col-sm-6 text-left text-center-xs offset-bottom-xs-max">
+
+            <div class="offset-bottom-xs-small visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
                 <?=$this->element->add_input_field->setDecorators(['ViewHelper']);?>
-                </div>
-                <div class="small visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-                    <?=$this->translate('Click here for another contribution');?>
-                </div>
             </div>
+            <span class="small">
+                <?=$this->translate('Click here for another contribution');?>
+            </span>
 
         </div>
-        <div class="col-xs-12 col-sm-6 text-left text-center-xs">
 
-            <div class="offset-bottom-xs-max">
+        <div class="col-sm-6 text-right text-center-xs">
+
+            <div class="offset-bottom-small visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+                <?=$this->element->next_question->setDecorators(['ViewHelper']);?>
+            </div>
+            <div class="offset-bottom-small visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
                 <?=$this->element->finished->setDecorators(['ViewHelper']);?>
             </div>
 
-        </div>
-        <div class="col-xs-12 col-sm-6 text-right text-center-xs">
-            <?=$this->element->next_question->setDecorators(['ViewHelper']);?>
         </div>
     </div><!-- .row -->
 </form><!-- .well -->
