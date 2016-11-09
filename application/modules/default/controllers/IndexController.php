@@ -71,25 +71,27 @@ class IndexController extends Zend_Controller_Action
     public function i18nAction()
     {
         $i18n = [
-            'Weak' => $this->view->translate('Weak'),
-            'Normal' => $this->view->translate('Normal'),
+            'All age groups' => $this->view->translate('All age groups'),
+            'Back to timeline' => $this->view->translate('Back to timeline'),
+            'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
+            'Download' => $this->view->translate('Download'),
+            'Follow path' => $this->view->translate('Follow path'),
+            'Loading…' => $this->view->translate('Loading…'),
             'Medium' => $this->view->translate('Medium'),
+            'Normal' => $this->view->translate('Normal'),
+            'Shut back' => $this->view->translate('Shut back'),
+            'Something went wrong' => $this->view->translate('Something went wrong'),
             'Strong' => $this->view->translate('Strong'),
+            'Using the superbutton is not allowed.' => $this->view->translate('Using of superbutton is not allowed.'),
             'Very Strong' => $this->view->translate('Very Strong'),
+            'Weak' => $this->view->translate('Weak'),
             'You are being logged in. Please wait…' => $this->view->translate(
                 'You are being logged in. Please wait…'
             ),
-            'Shut back' => $this->view->translate('Shut back'),
-            'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
-            'supporters' => $this->view->translate('supporters'),
-            'Something went wrong' => $this->view->translate('Something went wrong'),
-            'Loading…' => $this->view->translate('Loading…'),
-            'All age groups' => $this->view->translate('All age groups'),
-            'Using the superbutton is not allowed.' => $this->view->translate('Using of superbutton is not allowed.'),
             'Your contributions have not been saved' => $this->view->translate(
                 'Your contributions have not been saved.'
             ),
-            'Follow path' => $this->view->translate('Follow path'),
+            'supporters' => $this->view->translate('supporters'),
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');

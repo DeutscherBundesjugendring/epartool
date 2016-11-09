@@ -38,7 +38,7 @@
 
                 <?=$this->authform;?>
 
-                <?=((!empty($this->votingExplanation)) ? $this->votingExplanation : '');?>
+                <?=((!empty($this->votingExplanation)) ? $this->wysiwyg($this->votingExplanation) : '');?>
             </div>
 
         </div>

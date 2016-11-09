@@ -195,7 +195,10 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->setLabel(
                 $formConsultationSettings['license_agreement'] === null
                     ? $license['text']
-                    : $this->replaceLicensePlaceholders($license, $formConsultationSettings['license_agreement'])
+                    : (new Service_Wysiwyg(Zend_Controller_Front::getInstance()->getBaseUrl()))
+                        ->placeholderToBasePath(
+                            $this->replaceLicensePlaceholders($license, $formConsultationSettings['license_agreement'])
+                        )
             )
             ->addValidator('NotEmpty', false, [
                 'messages' => [Zend_Validate_NotEmpty::IS_EMPTY => $translator->translate('You must agree.')]

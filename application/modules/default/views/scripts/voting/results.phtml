@@ -36,10 +36,11 @@
             <?php foreach ($this->votings as $key => $value) : ?>
                 <?php if ($value['followUpsCount']) : ?>
                     <a href="<?=$this->url([
-                        'controller' => 'input',
+                        'controller' => 'followup',
                         'action' => 'show',
                         'kid' => $this->currentQuestion['kid'],
                         'qid' => $this->currentQuestion['qi'],
+                        'tid' => $value['tid'],
                     ]);?>">
                         <div class="result">
                             <span class="result-number"><?=$key + 1;?>.</span>

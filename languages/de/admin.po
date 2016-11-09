@@ -1211,7 +1211,7 @@ msgid "Question"
 msgstr "Frage"
 
 #: application/modules/admin/forms/Input.php:57
-msgid "Theses"
+msgid "Thesis"
 msgstr "These"
 
 #: application/modules/admin/forms/Input.php:70

@@ -148,7 +148,7 @@
                                                                     />
                                                                 </td>
                                                                 <td class="table-cell-top">
-                                                                    <?=strip_tags(html_entity_decode($snippet['expl']));?>
+                                                                    <?=strip_tags(html_entity_decode($this->wysiwyg($snippet['expl'])));?>
                                                                 </td>
                                                             </tr>
                                                         <?php endforeach; ?>

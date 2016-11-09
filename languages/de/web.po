@@ -72,28 +72,37 @@ msgid "You have been unsubscribed."
 msgstr "Das Abonnement wurde beendet."
 
 #: application/modules/default/controllers/IndexController.php:74
-msgid "Weak"
-msgstr "Schwach"
+msgid "All age groups"
+msgstr "Alle Altersgruppen"
 
 #: application/modules/default/controllers/IndexController.php:75
-msgid "Normal"
-msgstr "Normal"
+msgid "Back to timeline"
+msgstr "Zurück zur Zeitleiste"
 
 #: application/modules/default/controllers/IndexController.php:76
-msgid "Medium"
-msgstr "Mittel"
+#: application/modules/default/views/scripts/input/createForm.phtml:53
+msgid "Click here to explain contribution"
+msgstr "Klicken, um Eintrag zu erläutern"
 
 #: application/modules/default/controllers/IndexController.php:77
-msgid "Strong"
-msgstr "Stark"
+#: application/modules/default/views/scripts/followup/index.phtml:91
+msgid "Download"
+msgstr "Herunterladen"
 
 #: application/modules/default/controllers/IndexController.php:78
-msgid "Very Strong"
-msgstr "Sehr stark"
+msgid "Follow path"
+msgstr "Folge Verlauf"
+
+#: application/modules/default/controllers/IndexController.php:79
+#: application/modules/default/views/scripts/followup/index.phtml:106
+#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:93
+#: application/modules/default/views/scripts/followup/show.phtml:134
+msgid "Loading…"
+msgstr "Lade…"
 
 #: application/modules/default/controllers/IndexController.php:80
-msgid "You are being logged in. Please wait…"
-msgstr "Du wirst eingeloggt. Bitte warten..."
+msgid "Medium"
+msgstr "Mittel"
 
 #: application/modules/default/controllers/IndexController.php:82
 msgid "Shut back"
@@ -1128,10 +1137,6 @@ msgstr "Vorschau"
 #: application/modules/default/views/scripts/followup/index.phtml:84
 msgid "View"
 msgstr "Ansehen"
-
-#: application/modules/default/views/scripts/followup/index.phtml:91
-msgid "Download"
-msgstr "Download"
 
 #: application/modules/default/views/scripts/followup/index.phtml:110
 msgid "There are no reactions yet."

@@ -91,4 +91,30 @@ class Dbjr_Form extends Zend_Form
         $oldClass = $element->getAttrib('class') ? ' ' . $element->getAttrib('class') : '';
         $element->setAttrib('class', $class . $oldClass);
     }
+
+    /**
+     * @param bool $suppressArrayNotation
+     * @return array
+     */
+    public function getValues($suppressArrayNotation = false)
+    {
+        $values = parent::getValues($suppressArrayNotation);
+        foreach ($this->getElements() as $element) {
+            if ($element instanceof Dbjr_Form_Element_Textarea) {
+                $values[$element->getName()] = $element->basePathToPlaceholder();
+            }
+        }
+        return $values;
+    }
+
+    public function setDefault($name, $value)
+    {
+        $result = parent::setDefault($name, $value);
+        $element = $this->getElement($name);
+        if ($element instanceof Dbjr_Form_Element_Textarea) {
+            $element->placeholderToBasePath();
+        }
+
+        return $result;
+    }
 }
