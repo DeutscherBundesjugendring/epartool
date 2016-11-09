@@ -11,7 +11,7 @@ db:
     environment:
         MYSQL_ROOT_PASSWORD: pass
 php:
-    build: docker/PHP
+    build: docker/PHP56
     volumes:
         - .:/www
     working_dir: /www
@@ -25,6 +25,8 @@ tools:
     working_dir: /www
     links:
         - db
+        - web:test.localhost
+        - phantomjs
 web:
     build: docker/Apache
     volumes:
@@ -37,3 +39,11 @@ mail:
     image: mailhog/mailhog
     ports:
         - 127.0.0.1:82:8025
+phantomjs:
+    image: cmfatih/phantomjs
+    ports:
+        - 8910
+    entrypoint: phantomjs
+    command: "--webdriver=8910"
+    links:
+        - web:test.localhost

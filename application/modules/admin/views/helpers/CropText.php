@@ -9,8 +9,8 @@ class Admin_View_Helper_CropText extends Zend_View_Helper_Abstract
     public function CropText($string, $maxlength , $croptype = 'normal', $fillchars = '...')
     {
         $result = $string;
-        $fcl = strlen( $fillchars );
-        $strlen = strlen( $string );
+        $fcl = mb_strlen( $fillchars );
+        $strlen = mb_strlen( $string );
 
         if ($strlen > $maxlength) {
             if ($croptype === 'middle') {
@@ -18,11 +18,11 @@ class Admin_View_Helper_CropText extends Zend_View_Helper_Abstract
                 $ml = $mh % 2 !== 0 ? ceil($mh) : $mh;
                 $ml2 = $mh % 2 !== 0 ? floor($mh) : $mh;
 
-                $result = substr($string, 0, $ml);
+                $result = mb_substr($string, 0, $ml);
                 $result .= $fillchars;
-                $result .= substr($string, $strlen - $ml2);
+                $result .= mb_substr($string, $strlen - $ml2);
             } else {
-                $result = substr($string, 0, $maxlength - $fcl);
+                $result = mb_substr($string, 0, $maxlength - $fcl);
                 $result .= $fillchars;
             }
         }

@@ -271,9 +271,9 @@ class VotingController extends Zend_Controller_Action
         $this->view->settings = $this->getVotingSettings();
 
         $param = $this->getRequest()->getParams();
-        $pts = (int) $param['points'];
+        $pts = (isset($param['points']) ? (int) $param['points'] : null);
 
-        if ($pts < 0 || $pts > 5) {
+        if ($pts < Service_Voting::POINTS_MIN || $pts > Service_Voting::POINTS_MAX) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('Your rating is out of accepted range.');
 
@@ -518,9 +518,29 @@ class VotingController extends Zend_Controller_Action
             }
             //use for quick fix the back button end !!
 
+            // Check last voted thesis and append to view
+            $lastTid = $votingIndividualModel->getLastBySubuser($subUid);
+            if (!empty($lastTid) && $thesis['tid'] !== $lastTid[0]['tid']) {
+                $undoLinkParameters = ['kid' => $kid, 'tid' => $lastTid[0]['tid']];
+                if (!empty($tagId)) {
+                    $undoLinkParameters['tag'] = $tagId;
+                } else {
+                    $undoLinkParameters['qid'] = $lastTid[0]['qi'];
+                }
+                $this->view->undoLinkParameters = $undoLinkParameters;
+            }
+
             $question = (new Model_Questions())->getById($thesis['qi']);
             $this->view->thesis = $thesis;
             $this->view->question = $question;
+
+            $skipLinkParameters = ['kid' => $kid, 'token' => time()];
+            if (!empty($tagId)) {
+                $skipLinkParameters['tag'] = $tagId;
+            } else {
+                $skipLinkParameters['qid'] = $qid;
+            }
+            $this->view->skipLinkParameters = $skipLinkParameters;
         }
 
         $this->view->videoServicesStatus = (new Model_Projects())
@@ -529,12 +549,6 @@ class VotingController extends Zend_Controller_Action
         $this->view->thesesCountVoted = count($thesesVoted);
         $this->view->settings = $this ->getVotingSettings();
         $this->view->votingBasket= $this ->getVotingBasket($subUid);
-
-        // Check last voted thesis and append to view
-        $lastTid = $votingIndividualModel->getLastBySubuser($subUid);
-        if (!empty($lastTid)) {
-            $this->view->LastVote = $lastTid;
-        }
 
         if ($question && $question['vot_q']) {
             $votingQuestion = $question['vot_q'];
@@ -559,7 +573,7 @@ class VotingController extends Zend_Controller_Action
 
         $param = $this->getRequest()->getParams();
         $backParam = (!empty($param['qid'])) ? '/qid/' . $param['qid'] : '/tag/' . $param['tag'];
-        $pts = (int) $param['pts'];
+        $pts = (isset($param['pts']) ? (int) $param['pts'] : null);
         $subUid = $votingRightsSession->subUid;
         $uid = $votingRightsSession->uid;
         $tid = (int)$param['tid'];
@@ -577,7 +591,7 @@ class VotingController extends Zend_Controller_Action
         }
 
         // check if the points are correct
-        if ($pts > 5 && $pts < 0) {
+        if ($pts > Service_Voting::POINTS_MAX || $pts < Service_Voting::POINTS_MIN) {
             $this->_flashMessenger->addMessage('The points are not correct.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
         }
@@ -747,38 +761,51 @@ class VotingController extends Zend_Controller_Action
         $votingService = new Service_Voting();
         $dbAdapter = (new Model_Votes_Individual())->getDefaultAdapter();
 
-        $this->view->form = new Default_Form_VotesConfirmation();
+        $form = new Default_Form_VotesConfirmation();
 
         if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if (!empty($data['confirm'])) {
-                $dbAdapter->beginTransaction();
-                try {
-                    $votingService->confirmVotes($confirmationHash);
-                    $dbAdapter->commit();
-                    $this->_flashMessenger->addMessage('Votes were confirmed.', 'success');
-                } catch (Dbjr_Voting_Exception $ex) {
-                    $dbAdapter->rollBack();
-                    $this->_flashMessenger->addMessage('Votes confirmation error.', 'error');
-                }
-            } elseif (!empty($data['reject'])) {
-                $dbAdapter->beginTransaction();
-                try {
-                    $votingService->rejectVotes($confirmationHash);
-                    $dbAdapter->commit();
-                    $this->_flashMessenger->addMessage('Votes were deleted.', 'success');
-                } catch (Dbjr_Voting_Exception $ex) {
-                    $dbAdapter->rollBack();
-                    $this->_flashMessenger->addMessage('Votes deleting error.', 'error');
+            if ($this->_consultation['vot_to'] === '0000-00-00 00:00:00'
+                || Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
+            ) {
+                $data = $this->_request->getPost();
+                if (!empty($data['confirm'])) {
+                    $dbAdapter->beginTransaction();
+                    try {
+                        $votingService->confirmVotes($confirmationHash);
+                        $dbAdapter->commit();
+                        $this->_flashMessenger->addMessage('Votes were confirmed.', 'success');
+                    } catch (Dbjr_Voting_Exception $ex) {
+                        $dbAdapter->rollBack();
+                        $this->_flashMessenger->addMessage('Votes confirmation error.', 'error');
+                    }
+                } elseif (!empty($data['reject'])) {
+                    $dbAdapter->beginTransaction();
+                    try {
+                        $votingService->rejectVotes($confirmationHash);
+                        $dbAdapter->commit();
+                        $this->_flashMessenger->addMessage('Votes were deleted.', 'success');
+                    } catch (Dbjr_Voting_Exception $ex) {
+                        $dbAdapter->rollBack();
+                        $this->_flashMessenger->addMessage('Votes deleting error.', 'error');
+                    }
+                } else {
+                    $this->_flashMessenger->addMessage('Invalid action invoked.', 'error');
                 }
             } else {
-                $this->_flashMessenger->addMessage('Invalid action invoked.', 'error');
+                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             }
         } else {
             $this->view->settings = $this->getVotingSettings();
             $votesData = (new Model_Votes_Uservotes())->fetchVotesToConfirm($confirmationHash);
             $this->view->votesData = $votesData;
 
+            if ($this->_consultation['vot_to'] !== '0000-00-00 00:00:00'
+                && Zend_Date::now()->isLater(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
+            ) {
+                $form->disable();
+            }
+            
+            $this->view->form = $form;
             if (empty($votesData)) {
                 $this->_flashMessenger->addMessage('No unconfirmed votes to process.', 'info');
             } else {
@@ -800,6 +827,13 @@ class VotingController extends Zend_Controller_Action
 
         if (empty($act) || empty($subuid) || empty($authcode)) {
             $this->_flashMessenger->addMessage('The link is not correct.', 'error');
+            $this->redirect('/');
+        }
+
+        if ($this->_consultation['vot_to'] !== '0000-00-00 00:00:00'
+            && Zend_Date::now()->isLater(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
+        ) {
+            $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             $this->redirect('/');
         }
 

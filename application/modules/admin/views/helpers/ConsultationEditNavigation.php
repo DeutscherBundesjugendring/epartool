@@ -18,7 +18,7 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
             ],
             [
                 'name' => 'contribution',
-                'label' => $this->view->translate('Contribution'),
+                'label' => $this->view->translate("Participants' Data"),
                 'href' => $this->view->url(
                     ['controller' => 'consultation', 'action' => 'contribution-submission-form', 'kid' => $kid]
                 ),
@@ -32,6 +32,15 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
                 'name' => 'phases',
                 'label' => $this->view->translate('Phases'),
                 'href' => $this->view->url(['controller' => 'consultation', 'action' => 'phases', 'kid' => $kid]),
+            ],
+            [
+                'name' => 'groups',
+                'label' => $this->view->translate('Group Clusters'),
+                'href' => $this->view->url([
+                    'controller' => 'consultation',
+                    'action' => 'groups',
+                    'kid' => $kid,
+                ]),
             ],
         ];
 

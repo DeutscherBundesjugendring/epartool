@@ -64,7 +64,10 @@
                 <?=$this->form->getElement('discussion_video_enabled');?>
             </div>
             <div class="col-sm-8 col-lg-6 checkbox">
-                <a href="<?=$this->url(['controller' => 'settings', 'action' => 'services']);?>">
+                <a
+                    href="<?=$this->url(['controller' => 'settings', 'action' => 'services']);?>"
+                    target="_blank"
+                >
                     <span class="glyphicon glyphicon-cog offset-right" aria-hidden="true"></span>
                     <?=$this->translate('Video Services Settings');?>
                 </a>
@@ -94,6 +97,28 @@
         <h3><?=$this->translate('Follow-up');?></h3>
         <?=$this->form->getElement('follup_show');?>
         <?=$this->form->getElement('follow_up_explanation');?>
+    </fieldset>
+
+    <fieldset>
+        <h3><?=$this->translate('Terms & Conditions');?></h3>
+        <?=$this->form->getElement('license_agreement');?>
+
+        <div class="well">
+            <h4><?=$this->translate('Placeholders');?></h4>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th class="col-sm-3">{{license_title}}</th>
+                        <td><?=$this->translate('The title of the terms selected for the project.');?></td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-3">{{license_link}}</th>
+                        <td><?=$this->translate('The link to the web page with more information on the selected terms or license.');?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </fieldset>
 
     <?=$this->form->getElement('adm');?>

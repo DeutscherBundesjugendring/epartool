@@ -32,7 +32,7 @@ class FollowupController extends Zend_Controller_Action
 
             $this->consultation = $consultation;
             $this->view->consultation = $consultation;
-            $this->view->mediaCnsltDir = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
+            $this->view->mediaCnsltDir = $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $kid . '/';
         } else {
             $action = $this->_request->getActionName();
             if ($action != 'like' && $action != 'unlike') {
@@ -62,7 +62,7 @@ class FollowupController extends Zend_Controller_Action
         }
 
         foreach ($followups as &$followup) {
-            if (strpos($followup['ref_doc'], 'http://') === 0 || strpos($followup['ref_doc'], 'https://') === 0) {
+            if (mb_strpos($followup['ref_doc'], 'http://') === 0 || mb_strpos($followup['ref_doc'], 'https://') === 0) {
                 $followup['referenceType'] = 'http';
             } else {
                 $followup['referenceType'] = 'file';
@@ -94,7 +94,7 @@ class FollowupController extends Zend_Controller_Action
         }
         $inputModel = new Model_Inputs();
 
-        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag));
+        $paginator = Zend_Paginator::factory($inputModel->getSelectByQuestion($qid, 'i.when DESC', null, $tag, true));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
 
         $this->view->tag = !empty($tag) ? (new Model_Tags())->getById($tag) : null;
@@ -135,7 +135,13 @@ class FollowupController extends Zend_Controller_Action
         foreach ($relInputs as $key => &$relInput) {
             $relInput['relFowupCount'] = isset($countArr[$relInput['tid']]) ? $countArr[$relInput['tid']] : 0;
             $relInput['votingRank'] = $this->getVotingRank(
-                $this->consultation['kid'],
+                /*
+                 $this->consultation['kid'],
+                 9.9.2016 hotfix/DBJR-933 jiri@visionapps.cz
+                 Related inputs connected to other consultation are not valid, however they can exists and we do not
+                 know with certainty, how they were created. This implementation with $relInput['kid'] is only temporary
+                 */
+                $relInput['kid'],
                 $relInput['qi'],
                 $relInput['tid']
             );
@@ -204,10 +210,10 @@ class FollowupController extends Zend_Controller_Action
         $countArr = $followupRefsModel->getFollowupCountByFids([$fid], 'tid = 0');
         $relToThisSnippets = $this->setSnippetData($relToThisSnippets, $countArr, $indexedDocs);
 
-        $snippet['expl'] = html_entity_decode($snippet['expl']);
+        $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
         $snippet['relFowupCount'] = isset($countArr[$snippet['fid']]) ? (int) $countArr[$snippet['fid']] : 0;
         $snippet['gfx_who'] = $this->view->baseUrl()
-            . '/media/consultations/' . $this->consultation->kid
+            . MEDIA_URL . '/consultations/' . $this->consultation->kid
             . '/' . $indexedDocs[(int)$snippet['ffid']]['gfx_who'];
 
         $relToThisInputs = $inputsModel->getByIdArray($relTids);
@@ -263,12 +269,12 @@ class FollowupController extends Zend_Controller_Action
             $countarr = $followupRefsModel->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($snippets as &$snippet) {
-                $snippet['expl'] = html_entity_decode($snippet['expl']);
+                $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
                 $snippet['gfx_who'] = $indexeddocs[(int) $snippet['ffid']]['gfx_who'];
                 $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
             $data['byinput']['snippets'] = $snippets;
-            $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
+            $data['mediafolder'] = $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $kid . '/';
         }
 
         //show References by fowups.fid
@@ -291,7 +297,7 @@ class FollowupController extends Zend_Controller_Action
             $countarr = $followupRefsModel->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($related['snippets'] as &$snippet) {
-                $snippet['expl'] = html_entity_decode($snippet['expl']);
+                $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
                 $snippet['gfx_who'] = $indexeddocs[(int) $snippet['ffid']]['gfx_who'];
                 $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
@@ -301,7 +307,7 @@ class FollowupController extends Zend_Controller_Action
 
             $data['refs']['snippets'] = $related['snippets'];
             $data['refs']['docs'] = $related['followups'];
-            $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
+            $data['mediafolder'] = $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $kid . '/';
         }
 
         //show follow-up_fls by followup_fls.ffid
@@ -310,7 +316,7 @@ class FollowupController extends Zend_Controller_Action
             $data['doc'] = $followupFilesModel->getById($ffid);
             $data['doc']['when'] = strtotime($data['doc']['when']);
             foreach ($data['doc']['fowups'] as &$snippet) {
-                $snippet['expl'] = html_entity_decode($snippet['expl']);
+                $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
                 $snippet['show_in_timeline_link'] = $this->view->url(
                     [
                         'action' => 'show-by-snippet',
@@ -326,7 +332,7 @@ class FollowupController extends Zend_Controller_Action
         $response = $this->getResponse();
         $response->setHeader('Content-type', 'application/json', true);
 
-        $data['mediafolder'] = $this->view->baseUrl() . '/media/consultations/' . $kid . '/';
+        $data['mediafolder'] = $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $kid . '/';
         $this->_helper->json->sendJson($data);
     }
 
@@ -361,7 +367,7 @@ class FollowupController extends Zend_Controller_Action
     public function tagsAction()
     {
         $this->view->inputCount = (new Model_Inputs())->getCountByConsultation($this->consultation->kid);
-        $this->view->tags = (new Model_Tags())->getAllByConsultation($this->consultation->kid);
+        $this->view->tags = (new Model_Tags())->getAllByConsultation($this->consultation->kid, '', true, true);
     }
 
     public function downloadAction()
@@ -508,10 +514,10 @@ class FollowupController extends Zend_Controller_Action
     private function setSnippetData(array $snippets, array $countArr, array $indexedDocs)
     {
         foreach ($snippets as &$snippet) {
-            $snippet['expl'] = html_entity_decode($snippet['expl']);
+            $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
             $snippet['relFowupCount'] = isset($countArr[$snippet['fid']]) ? (int)$countArr[$snippet['fid']] : 0;
             $snippet['gfx_who'] = $this->view->baseUrl()
-                . '/media/consultations/' . $this->consultation['kid']
+                . MEDIA_URL . '/consultations/' . $this->consultation['kid']
                 . '/' . $indexedDocs[(int)$snippet['ffid']]['gfx_who'];
         }
 

@@ -1,5 +1,5 @@
 <?php for ($i = 0, $size = count($this->footers); $i < $size; ++$i): ?>
     <div class="col-sm-6 col-md-3">
-        <?=$this->footers[$i]->text;?>
+        <?=$this->wysiwyg($this->footers[$i]->text);?>
     </div>
 <?php endfor;?>

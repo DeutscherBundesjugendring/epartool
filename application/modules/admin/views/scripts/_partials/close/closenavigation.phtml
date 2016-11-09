@@ -83,7 +83,7 @@ if ($this -> consultation['vt_anonymized']!="y"): ?>
 			</tr>
 		<?php foreach ($this -> consultation['questions'] as $item): ?>
 			<tr>
-				<td><?php echo $item['nr']; ?></td>
+				<td><?=isset($item['nr']) ? $item['nr'] : '';?></td>
 				<td><?php echo $item['q']; ?></td>
 				<td><a href="<?php echo $this -> baseUrl(); ?>/admin/close/export-results/kid/<?php echo $item['kid']; ?>/qid/<?php echo $item['qi'] ?>">CSV exportieren</a></td>
 			</tr>

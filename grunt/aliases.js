@@ -2,12 +2,6 @@
 
 module.exports = {
 
-  // Tests
-  // =====
-
-  'test-php': 'phplint',
-  'test': 'test-php',
-
   // Build
   // =====
 
@@ -97,7 +91,6 @@ module.exports = {
   // ===========
 
   'dev': [
-    'test',
     'build',
     'browserSync',
     'watch'
@@ -109,7 +102,6 @@ module.exports = {
   'mail': 'build-mail',
 
   'default': [
-    'test',
     'build'
   ]
 

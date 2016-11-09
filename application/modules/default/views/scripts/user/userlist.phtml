@@ -60,6 +60,15 @@
                         <strong><?=$this->inputs;?></strong>
                     </p>
 
+                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                        && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
+                    ): ?>
+                        <p class="alert alert-info">
+                            <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                            <?=$this->translate('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.');?>
+                        </p>
+                    <?php endif; ?>
+
                     <form method="<?=$this->form->getMethod();?>" action="<?=$this->url(['action' => 'participant-update']);?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>
                         <table class="table">
@@ -85,6 +94,11 @@
                                                     name="deny"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
+                                                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                                                        && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
+                                                    ): ?>
+                                                        disabled="disabled"
+                                                    <?php endif; ?>
                                                 >
                                                     <?=$this->translate('Deny');?>
                                                 </button>
@@ -97,6 +111,11 @@
                                                     name="confirm"
                                                     data-toggle="confirm"value
                                                     data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
+                                                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                                                        && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
+                                                    ): ?>
+                                                        disabled="disabled"
+                                                    <?php endif; ?>
                                                 >
                                                     <?=$this->translate('Confirm');?>
                                                 </button>
@@ -109,6 +128,11 @@
                                                     name="delete"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
+                                                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                                                        && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
+                                                    ): ?>
+                                                        disabled="disabled"
+                                                    <?php endif; ?>
                                                 >
                                                     <?=$this->translate('Delete');?>
                                                 </button>

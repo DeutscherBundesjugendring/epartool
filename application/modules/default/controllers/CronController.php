@@ -11,10 +11,13 @@ class CronController extends Zend_Controller_Action
         $key = $this->getRequest()->getParam('key');
         if ($key && $key === Zend_Registry::get('systemconfig')->cron->key) {
             Service_Cron::executeAll();
+            // @codingStandardsIgnoreLine
             echo 'Success!';
         } else {
+            // @codingStandardsIgnoreLine
             echo 'Error!';
         }
+        // @codingStandardsIgnoreLine
         die();
     }
 }

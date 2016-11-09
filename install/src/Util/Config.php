@@ -70,7 +70,9 @@ class Config
             $confLocalIni->production->resources->mail->transport->type = 'smtp';
             $confLocalIni->production->resources->mail->transport->auth = $email['smtp']['auth'];
             $confLocalIni->production->resources->mail->transport->port = $email['smtp']['port'];
-            $confLocalIni->production->resources->mail->transport->ssl = $email['smtp']['ssl'];
+            if (!empty($email['smtp']['ssl'])) {
+                $confLocalIni->production->resources->mail->transport->ssl = $email['smtp']['ssl'];
+            }
             $confLocalIni->production->resources->mail->transport->host = $email['smtp']['host'];
             $confLocalIni->production->resources->mail->transport->password = $email['smtp']['password'];
             $confLocalIni->production->resources->mail->transport->username = $email['smtp']['username'];

@@ -9,15 +9,15 @@
         </div>
         <div class="content">
 
-            <h1><?=$this->translate('Finish Contributing');?></h1>
+            <h1 class="main-content-title-narrow"><?=$this->translate('Finish Contributing');?></h1>
 
             <p class="alert alert-info offset-bottom">
                 <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
                 <?=$this->translate('Please fill in the form in order to confirm your contributions to this participation round!');?>
             </p>
 
-            <?=$this->infoText;?>
-            
+            <?=$this->wysiwyg($this->infoText);?>
+
             <hr />
 
             <?php if (!Zend_Auth::getInstance()->hasIdentity()): ?>

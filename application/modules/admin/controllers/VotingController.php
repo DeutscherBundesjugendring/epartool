@@ -25,9 +25,7 @@ class Admin_VotingController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $votingRightsModel = new Model_Votes_Rights();
-        $this->view->countInserted = $votingRightsModel->setInitialRightsByConsultation($this->_consultation->kid);
-        $this->view->votingRights = $votingRightsModel->getByConsultation($this->_consultation->kid);
+        $this->view->votingRights = (new Model_Votes_Rights())->getByConsultation($this->_consultation->kid);
     }
 
     /**
@@ -39,7 +37,7 @@ class Admin_VotingController extends Zend_Controller_Action
         if ($uid > 0) {
             $userModel = new Model_Users();
             $userInfoModel = new Model_User_Info();
-            $form = new Admin_Form_Voting_Rights();
+            $form = new Admin_Form_Voting_Rights($this->_consultation);
 
             $user = $userModel->getById($uid);
             $userInfo = $userInfoModel->getLatestByUserAndConsultation($uid, $this->_consultation['kid']);
@@ -62,7 +60,7 @@ class Admin_VotingController extends Zend_Controller_Action
                     'vt_weight' => $votingRights['vt_weight'],
                     'vt_code' => $votingRights['vt_code'],
                     'grp_siz' => $votingRights['grp_siz'],
-                    'group_size_user' => $userInfo['group_size'],
+                    'group_size_user' => $userInfo['group_size_user'],
                 ];
             }
             $form->populate($data);
@@ -80,7 +78,7 @@ class Admin_VotingController extends Zend_Controller_Action
         $userModel = new Model_Users();
         $users = $userModel->getWithoutVotingRights($this->_consultation->kid);
 
-        $form = new Admin_Form_Voting_RightsAdd($users);
+        $form = new Admin_Form_Voting_RightsAdd($this->_consultation, $users);
         $votingRights = new Model_Votes_Rights();
 
         if ($this->_request->isPost()) {
@@ -151,6 +149,7 @@ class Admin_VotingController extends Zend_Controller_Action
 
         $appOpts = $this->getInvokeArg('bootstrap')->getOptions();
 
+        $this->view->groupSizes = (new Model_GroupSize())->getOptionsByConsultation($this->_consultation['kid']);
         $this->view->participants = $participants;
         $this->view->listControlForm = $listControlForm;
         $this->view->mailDefaultFrom = $appOpts['resources']['mail']['defaultFrom']['email'];
@@ -262,7 +261,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Voting participant has been deleted.', 'success');
             } elseif ($this->getRequest()->getPost('reminderVoter')) {
                 (new Service_VotingReminder)->sendToVoter($this->getRequest()->getPost('reminderVoter'));
-                $this->_flashMessenger->addMessage('Reminder to Voter has been sent', 'success');
+                $this->_flashMessenger->addMessage('Reminder to Voter has been sent.', 'success');
             } elseif ($this->getRequest()->getPost('reminderGroupLeader')) {
                 list($uid, $sub_uid, $kid) = explode('_', $this->getRequest()->getPost('reminderGroupLeader'));
                 (new Service_VotingReminder)->sendToGroupLeader($uid, $sub_uid, $kid);
@@ -468,7 +467,7 @@ class Admin_VotingController extends Zend_Controller_Action
         ];
 
         if ($votingRights && $votingRights['vt_weight'] != 1) {
-            $grpSizDef = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+            $grpSizDef = (new Model_GroupSize())->getOptionsByConsultation($this->_consultation['kid']);
             $placeholders['group_category'] = $grpSizDef[$votingRights['grp_siz']];
             $placeholders['voting_weight'] = $votingRights['vt_weight'];
         }

@@ -19,14 +19,14 @@ class Zend_View_Helper_QuestionDropdown extends Zend_View_Helper_Abstract
 
         foreach ($items as $item) {
 
-            if ($activeItem == $item->qi) {
-
-                $html.= '<option selected="selected" value="'.$item->qi.'">';
+            if ($activeItem == $item['qi']) {
+                
+                $html.= '<option selected="selected" value="'.$item['qi'].'">';
             } else {
 
-                $html.= '<option value="'.$item->qi.'">';
+                $html.= '<option value="'.$item['qi'].'">';
             }
-            $html.= $item->nr.' '.$item->q;
+            $html.= (isset($item['nr']) ? $item['nr'] : '') .' '.$item['q'];
 
             $html.= '</option>';
 

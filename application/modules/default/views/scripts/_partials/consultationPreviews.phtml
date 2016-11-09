@@ -8,11 +8,13 @@
     $votingIsOpen = false;
 
     // Phases are enabled.
-    if (!(Zend_Date::now()->isEarlier($consultation->inp_fr) || $consultation->inp_fr == '0000-00-00 00:00:00')) {
+    if (!(Zend_Date::now()->isEarlier(new Zend_Date($consultation->inp_fr, Zend_Date::ISO_8601))
+        || $consultation->inp_fr == '0000-00-00 00:00:00')) {
         $inputIsEnabled = true;
     }
 
-    if (!(Zend_Date::now()->isEarlier($consultation->vot_fr) || $consultation->vot_fr == '0000-00-00 00:00:00')) {
+    if (!(Zend_Date::now()->isEarlier(new Zend_Date($consultation->vot_fr, Zend_Date::ISO_8601))
+        || $consultation->vot_fr == '0000-00-00 00:00:00')) {
         $votingIsEnabled = true;
     }
 

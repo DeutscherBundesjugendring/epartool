@@ -40,7 +40,7 @@
                 <h2><?=$this->translate('Voting Invitations');?></h2>
 
                 <?php if (!empty($this->participants)): ?>
-                    <?php $grp_siz_def = Zend_Registry::get('systemconfig')->group_size_def->toArray(); ?>
+                    <?php $grp_siz_def = $this->groupSizes; ?>
                     <form method="<?=$this->listControlForm->getMethod();?>">
                         <?=$this->listControlForm->getElement($this->listControlForm->getCsrfTokenName());?>
                         <div class="table-responsive">
@@ -76,7 +76,7 @@
                                                         <?=$this->translate('Voting weight');?>: <?=$user['votingRights']['vt_weight']; ?><br />
                                                         <?=$this->translate('Group size');?>: <?=$grp_siz_def[$user['votingRights']['grp_siz']]; ?>
                                                     </p>
-                                                    <?php if ($user['votingRights']['grp_siz'] != 1): ?>
+                                                    <?php if ($grp_siz_def[$user['votingRights']['grp_siz']] != 1): ?>
                                                         <p>
                                                             <?=$this->translate('Partner');?>: <?=$this->escape($user['name_pers']);?><br/>
                                                             <?=$this->translate('Group name');?>: <?=$this->escape($user['name_group']);?><br/>
@@ -100,6 +100,8 @@
                                                         class="item-action"
                                                         data-toggle="confirm"
                                                         data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user?');?>"
+                                                        data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                        data-confirm-no="<?=$this->translate('No');?>"
                                                         title="<?=$this->translate('Send invitation');?>"
                                                     >
                                                         <span class="glyphicon glyphicon-send" aria-hidden="true"></span>

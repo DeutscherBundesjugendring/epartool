@@ -42,7 +42,7 @@
                             title="<?=$this->translate('Back to overview of contributions sorted by questions');?>"
                         >
                             <h4 class="offset-bottom">
-                                <?=$this->question['nr'];?>
+                                <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
                                 <?=$this->question['q'];?>
                             </h4>
                         </a>

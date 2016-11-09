@@ -71,27 +71,33 @@ class IndexController extends Zend_Controller_Action
     public function i18nAction()
     {
         $i18n = [
-            'Weak' => $this->view->translate('Weak'),
-            'Normal' => $this->view->translate('Normal'),
-            'Medium' => $this->view->translate('Medium'),
-            'Strong' => $this->view->translate('Strong'),
-            'Very Strong' => $this->view->translate('Very Strong'),
-            'You are being logged in. Please wait…' =>
-                $this->view->translate('You are being logged in. Please wait…'),
-            'Shut back' => $this->view->translate('Shut back'),
-            'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
-            'supporters' => $this->view->translate('supporters'),
-            'Something went wrong' => $this->view->translate('Something went wrong'),
-            'Loading…' => $this->view->translate('Loading…'),
             'All age groups' => $this->view->translate('All age groups'),
+            'Back to timeline' => $this->view->translate('Back to timeline'),
+            'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
+            'Download' => $this->view->translate('Download'),
+            'Follow path' => $this->view->translate('Follow path'),
+            'Loading…' => $this->view->translate('Loading…'),
+            'Medium' => $this->view->translate('Medium'),
+            'Normal' => $this->view->translate('Normal'),
+            'Shut back' => $this->view->translate('Shut back'),
+            'Something went wrong' => $this->view->translate('Something went wrong'),
+            'Strong' => $this->view->translate('Strong'),
             'Using the superbutton is not allowed.' => $this->view->translate('Using of superbutton is not allowed.'),
+            'Very Strong' => $this->view->translate('Very Strong'),
+            'Weak' => $this->view->translate('Weak'),
+            'You are being logged in. Please wait…' => $this->view->translate(
+                'You are being logged in. Please wait…'
+            ),
             'Your contributions have not been saved' => $this->view->translate(
                 'Your contributions have not been saved.'
             ),
+            'supporters' => $this->view->translate('supporters'),
         ];
 
         header('Content-Type: application/javascript; charset=utf-8');
+        // @codingStandardsIgnoreLine
         echo 'var i18n = ' . json_encode($i18n, JSON_UNESCAPED_UNICODE);
+        // @codingStandardsIgnoreLine
         die();
     }
 
@@ -110,7 +116,9 @@ class IndexController extends Zend_Controller_Action
         ]);
 
         header('Content-Type: text/css; charset=utf-8');
+        // @codingStandardsIgnoreLine
         echo $css;
+        // @codingStandardsIgnoreLine
         die();
     }
 
@@ -172,8 +180,10 @@ class IndexController extends Zend_Controller_Action
                 $storage = Zend_Auth::getInstance()->getStorage();
                 $storage->write($user);
                 $this->_flashMessenger->addMessage('Login successful!', 'success');
+                // @codingStandardsIgnoreLine
                 echo 'true';
             } else {
+                // @codingStandardsIgnoreLine
                 echo $this->view->partial(
                     '_partials/flashMessage.phtml',
                     [
@@ -210,7 +220,11 @@ class IndexController extends Zend_Controller_Action
             if ($email) {
                 $user = (new Model_Users())->getByEmail($webservice->getEmail());
                 if (!$user) {
-                    $userArr = ['email' => $email, 'group_size' => 1];
+                    $consultationId = (new Zend_Session_Namespace('inputs'))->kid;
+                    $userArr = [
+                        'email' => $email,
+                        'group_size' => (new Model_GroupSize())->getInitGroupSize($consultationId)['id'],
+                    ];
                     $user = $userModel->createRow($userArr);
                     $user->save();
                     (new Model_User_Info())
@@ -220,7 +234,7 @@ class IndexController extends Zend_Controller_Action
                                 [
                                     'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
                                     'date_added' => new Zend_Db_Expr('NOW()'),
-                                    'kid' => (new Zend_Session_Namespace('inputs'))->kid,
+                                    'kid' => $consultationId,
                                     'uid' => $user->uid,
                                 ]
                             )
@@ -231,8 +245,10 @@ class IndexController extends Zend_Controller_Action
 
                 $storage = Zend_Auth::getInstance()->getStorage();
                 $storage->write($user);
+                // @codingStandardsIgnoreLine
                 echo $user->email;
             } else {
+                // @codingStandardsIgnoreLine
                 echo 'false';
             }
         } catch (Exception $e) {

@@ -33,7 +33,7 @@
                     <br/><?=$this->translate('Accumulated number of individuals and groups, even if they contributed in several sessions in this particular consultation');?>
                 </p>
                 <p>
-                    <strong><?=$this->translate('All contributions in the contribution period');?>: <?php echo $this->nrInputs; ?></strong>
+                    <strong><?=$this->translate('All contributions in the contribution period including admin contributions');?>: <?php echo $this->nrInputs; ?></strong>
                 </p>
                 <ul>
                     <li>
@@ -63,11 +63,11 @@
                             )); ?>"
                                title="<?=$this->translate('See Contribution');?>"
                             >
-                                <strong><?php echo $question['nr']; ?> <?php echo $question['q']; ?></strong>
+                                <strong><?=isset($question['nr']) ? $question['nr'] : '';?> <?php echo $question['q']; ?></strong>
                             </a>
                         </p>
                         <p>
-                            <?=$this->translate('Number of confirmed contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
+                            <?=$this->translate('Number of confirmed user contributions');?>: <?php echo $question['nrInputsConfirmed']; ?><br />
                         </p>
                         <p>
                             <?=$this->translate('Number of contributions for voting');?>: <?php echo $question['nrInputsVoting']; ?><br />
@@ -100,8 +100,8 @@
                         <strong><?=$this->translate('Groups that have voting rights and number of actually participating ones');?></strong>
                     </a>
                 </p>
-                
-                <?php if ($this->projectSettings['allow_groups']) : ?>
+
+                <?php if ($this->consultation['allow_groups']) : ?>
                     <h4 class="offset-top"><?=$this->translate('Voting weights');?></h4>
                     <table>
                         <?php foreach ($this->weightCounts as $weight): ?>

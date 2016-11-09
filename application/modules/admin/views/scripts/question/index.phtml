@@ -40,7 +40,7 @@
                             <tbody>
                                 <?php foreach ($this->questions as $question): ?>
                                     <tr>
-                                        <td class="table-cell-id"><?=$this->escape($question->nr);?></td>
+                                        <td class="table-cell-id"><?=isset($question['nr']) ? $this->escape($question['nr']) : '';?></td>
                                         <td><?=html_entity_decode($this->escape($question->q));?></td>
                                         <td class="table-cell-actions">
                                             <a
@@ -56,6 +56,8 @@
                                                 class="item-action item-action-danger"
                                                 data-toggle="confirm"
                                                 data-confirm-message="<?=$this->translate('Delete question?');?>"
+                                                data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                data-confirm-no="<?=$this->translate('No');?>"
                                             >
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>

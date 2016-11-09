@@ -15,14 +15,14 @@
     <div class="row">
         <div class="content content-offset">
 
-            <h1><?=$this->translate('All questions');?></h1>
+            <h1 class="main-content-title-narrow"><?=$this->translate('All questions');?></h1>
 
             <?php foreach ($this->questions as $question): ?>
                 <article class="article">
 
                     <?php if (!empty($question['nr'])): ?>
                         <h2 class="page-header" id="question-<?=$question['qi'];?>">
-                            <?=$this->escape($question['nr']);?>
+                            <?=isset($question['nr']) ? $this->escape($question['nr']) : '';?>
                             <?=$this->escape($question['q']);?>
                         </h2>
                     <?php else: ?>
@@ -53,7 +53,7 @@
 
                     <div class="row">
                         <div class="col-sm-9">
-                            <?=$question['q_xpl'];?>
+                            <?=$this->wysiwyg($question['q_xpl']);?>
                         </div>
                     </div><!-- .row -->
 

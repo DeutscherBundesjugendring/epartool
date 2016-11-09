@@ -1,11 +1,6 @@
 <?php
 
-$rootPath = dirname(dirname(__FILE__));
-
-define('MEDIA_URL', '/www/media');
-define('MEDIA_PATH', realpath($rootPath . '/' . MEDIA_URL));
-define('VENDOR_PATH', realpath($rootPath . '/vendor'));
-define('RUNTIME_PATH', realpath($rootPath . '/runtime'));
+require_once __DIR__ . '/directories.php';
 
 require_once(VENDOR_PATH . '/autoload.php');
 
@@ -19,7 +14,11 @@ set_include_path(
 
 
 // Enable Tracy for error visualization
-Tracy\Debugger::enable(APPLICATION_ENV === 'development' ? Tracy\Debugger::DEVELOPMENT : Tracy\Debugger::PRODUCTION);
+Tracy\Debugger::enable(
+    APPLICATION_ENV === 'development' || APPLICATION_ENV === 'test'
+        ? Tracy\Debugger::DEVELOPMENT
+        : Tracy\Debugger::PRODUCTION
+);
 // Also report E_NOTICE and E_WARNING
 Tracy\Debugger::$strictMode = true;
 

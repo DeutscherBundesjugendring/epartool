@@ -20,10 +20,12 @@
             </div>
             <div class="content">
 
+                <?php if (count($this->questions) > 0): ?>
                 <a class="btn btn-default pull-right" href="<?=$this->url(['action' => 'create']);?>">
                     <span class="glyphicon glyphicon-plus-sign icon-shift-down offset-right" aria-hidden="true"></span>
                     <?=$this->translate('New Contribution');?>
                 </a>
+                <?php endif; ?>
 
                 <h2><?=$this->translate('Contributions');?></h2>
 
@@ -48,7 +50,7 @@
                         <tbody>
                             <?php foreach ($this->questions as $question): ?>
                                 <tr>
-                                    <td class="table-cell-id"><?=$this->escape($question->nr);?></td>
+                                    <td class="table-cell-id"><?=isset($question['nr']) ? $this->escape($question['nr']) : '';?></td>
                                     <td><?=html_entity_decode($this->escape(strip_tags($question->q)));?></td>
                                     <td data-sort-value="<?=$this->escape($question->inputCountUnread);?>">
                                         <?php if (!empty($question->inputCountUnread)): ?>

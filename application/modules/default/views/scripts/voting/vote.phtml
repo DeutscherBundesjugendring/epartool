@@ -83,7 +83,7 @@
 
                     <!-- Question -->
                     <h3>
-                        <?=$this->question['nr'];?>
+                        <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
                         <?=$this->question['q'];?>
                     </h3>
                     <?php if (!empty($this->thesis['tagname_de'])): ?>
@@ -102,11 +102,6 @@
                             && $this->videoServicesStatus['video_' . $this->thesis['video_service'] . '_enabled']): ?>
                             <p>
                                 <?=$this->embeddedVideo($this->thesis['video_service'], $this->thesis['video_id']);?>
-                            </p>
-                        <?php elseif ($this->thesis['video_id'] !== null) : ?>
-                            <p class="alert alert-info">
-                                <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
-                                <?=sprintf($this->translate('%s videos were disabled by admin for this question'), ucfirst($this->thesis['video_service']));?>.
                             </p>
                         <?php endif; ?>
 
@@ -132,16 +127,14 @@
                         <nav class="rating-bar-navigation">
 
                             <!-- Previous -->
-                            <?php if (!empty($this->LastVote)): ?>
-                                <?php if ($this->thesis['tid'] !== $this->LastVote[0]['tid']): ?>
-                                    <a
-                                        href="<?=$this->url(['kid' => $this->consultation->kid, 'tid' => $this->LastVote[0]['tid'], 'qid' => $this->LastVote[0]['qi']]);?>#vote"
-                                        class="btn btn-inverse rating-bar-navigation-prev"
-                                    >
-                                        <span class="glyphicon glyphicon-menu-left icon-shift-down" aria-hidden="true"></span>
-                                        <span class="hidden-xs"><?=$this->translate('Undo');?></span>
-                                    </a>
-                                <?php endif; ?>
+                            <?php if (!empty($this->undoLinkParameters)): ?>
+                                <a
+                                    href="<?=$this->url($this->undoLinkParameters);?>#vote"
+                                    class="btn btn-inverse rating-bar-navigation-prev"
+                                >
+                                    <span class="glyphicon glyphicon-menu-left icon-shift-down" aria-hidden="true"></span>
+                                    <span class="hidden-xs"><?=$this->translate('Undo');?></span>
+                                </a>
                             <?php endif; ?>
 
                             <p>
@@ -152,7 +145,7 @@
 
                             <!-- Next -->
                             <a
-                                href="<?=$this->url(['kid' => $this->consultation->kid, 'qid' => $this->question['qi'], 'token' => time()]);?>#vote"
+                                href="<?=$this->url($this->skipLinkParameters);?>#vote"
                                 class="btn btn-inverse rating-bar-navigation-next"
                             >
                                 <span class="hidden-xs"><?=$this->translate('Skip');?></span>

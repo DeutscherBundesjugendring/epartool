@@ -172,7 +172,7 @@ INSERT INTO `email_placeholder` (`name`, `description`, `is_global`) VALUES
 ('contact_email', 'The email address from the contact info.', 1),
 ('send_date', 'The date the email was send', 1),
 ('website_url', 'Link to the relevant page on the website.', 0),
-('question_text', 'The text of the relevant question.', 0),
+('question_text', 'The number and the text of the relevant question.', 0),
 ('unsubscribe_url', 'Link to remove user from the relevant subscription or mailing list.', 0),
 ('contribution_text', 'The text of the contribution.', 0),
 ('input_thes', 'The theses part of the input.', 0),
@@ -1167,3 +1167,104 @@ ALTER TABLE `proj` DROP COLUMN `state_field_label`;
 
 ALTER TABLE `cnslt` ADD COLUMN `state_field_label` varchar(255) DEFAULT NULL;
 ALTER TABLE `cnslt` ADD COLUMN `contribution_confirmation_info` text NOT NULL;
+
+-- Migration 2016-08-24_18-35_DBJR-902.sql
+ALTER TABLE `vt_indiv`
+CHANGE `pts` `pts` tinyint(4) NULL COMMENT 'the vote itself (points)' AFTER `tid`;
+
+-- 2016-09-15_13-31_DBJR-918.sql
+ALTER TABLE `cnslt` ADD `license_agreement` text NULL DEFAULT NULL;
+
+-- Migration 2016-09-05_14-44_DBJR-911.sql
+ALTER TABLE `inpt` DROP FOREIGN KEY `inpt_uid_ibfk`;
+
+-- Migration 2016-09-21_12-41_DBJR-955.sql
+ALTER TABLE `quests` CHANGE `nr` `nr` varchar(4) NULL DEFAULT NULL COMMENT 'Number shown in ordered list' AFTER `kid`;
+
+-- Migration 2016-06-23_15-34_DBJR-770.sql
+ALTER TABLE `vt_grps`
+ADD INDEX `vt_grps_sub_uid_fkey` (`sub_uid`);
+
+ALTER TABLE `vt_indiv`
+ADD FOREIGN KEY (`sub_uid`) REFERENCES `vt_grps` (`sub_uid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Migration 2016-08-30_09-36_DBJR-889.sql
+CREATE TABLE `contributor_age` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `consultation_id` int(10) unsigned NOT NULL,
+  `from` int NOT NULL,
+  `to` int NULL,
+  FOREIGN KEY (`consultation_id`) REFERENCES `cnslt` (`kid`)
+) ENGINE='InnoDB';
+
+CREATE TABLE `group_size` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `consultation_id` int(10) unsigned NOT NULL,
+  `from` int NOT NULL,
+  `to` int NULL,
+  FOREIGN KEY (`consultation_id`) REFERENCES `cnslt` (`kid`)
+) ENGINE='InnoDB';
+
+ALTER TABLE `cnslt` ADD `groups_no_information` tinyint(1) NOT NULL DEFAULT '1';
+
+INSERT INTO `group_size` (`consultation_id`, `from`, `to`) (SELECT `kid`, '1', '2' FROM `cnslt`);
+INSERT INTO `group_size` (`consultation_id`, `from`, `to`) (SELECT `kid`, '3', '10' FROM `cnslt`);
+INSERT INTO `group_size` (`consultation_id`, `from`, `to`) (SELECT `kid`, '11', '30' FROM `cnslt`);
+INSERT INTO `group_size` (`consultation_id`, `from`, `to`) (SELECT `kid`, '31', '80' FROM `cnslt`);
+INSERT INTO `group_size` (`consultation_id`, `from`, `to`) (SELECT `kid`, '81', '150' FROM `cnslt`);
+INSERT INTO `group_size` (`consultation_id`, `from`) (SELECT `kid`, '151' FROM `cnslt`);
+
+ALTER TABLE `vt_rights`
+CHANGE `grp_siz` `grp_siz` int(11) NULL COMMENT 'Group size that we recognise' AFTER `vt_code`;
+
+UPDATE `vt_rights` SET grp_siz = (SELECT id FROM `group_size` WHERE consultation_id = `vt_rights`.kid AND `from` = 1 AND `to` = 2) WHERE grp_siz = 1;
+UPDATE `vt_rights` SET grp_siz = (SELECT id FROM `group_size` WHERE consultation_id = `vt_rights`.kid AND `from` = 3 AND `to` = 10) WHERE grp_siz = 10;
+UPDATE `vt_rights` SET grp_siz = (SELECT id FROM `group_size` WHERE consultation_id = `vt_rights`.kid AND `from` = 11 AND `to` = 30) WHERE grp_siz = 30;
+UPDATE `vt_rights` SET grp_siz = (SELECT id FROM `group_size` WHERE consultation_id = `vt_rights`.kid AND `from` = 31 AND `to` = 80) WHERE grp_siz = 80;
+UPDATE `vt_rights` SET grp_siz = (SELECT id FROM `group_size` WHERE consultation_id = `vt_rights`.kid AND `from` = 81 AND `to` = 150) WHERE grp_siz = 150;
+UPDATE `vt_rights` SET grp_siz = (SELECT id FROM `group_size` WHERE consultation_id = `vt_rights`.kid AND `from` = 151 AND `to` IS NULL) WHERE grp_siz = 200;
+
+UPDATE `vt_rights` SET grp_siz = NULL WHERE grp_siz = 0;
+
+ALTER TABLE `vt_rights`
+ADD FOREIGN KEY (`grp_siz`) REFERENCES `group_size` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `user_info` CHANGE `group_size` `group_size` int NULL AFTER `src_misc`;
+
+UPDATE `user_info` SET group_size = (SELECT id FROM `group_size` WHERE consultation_id = `user_info`.kid AND `from` = 1 AND `to` = 2) WHERE group_size = 1;
+UPDATE `user_info` SET group_size = (SELECT id FROM `group_size` WHERE consultation_id = `user_info`.kid AND `from` = 3 AND `to` = 10) WHERE group_size = 10;
+UPDATE `user_info` SET group_size = (SELECT id FROM `group_size` WHERE consultation_id = `user_info`.kid AND `from` = 11 AND `to` = 30) WHERE group_size = 30;
+UPDATE `user_info` SET group_size = (SELECT id FROM `group_size` WHERE consultation_id = `user_info`.kid AND `from` = 31 AND `to` = 80) WHERE group_size = 80;
+UPDATE `user_info` SET group_size = (SELECT id FROM `group_size` WHERE consultation_id = `user_info`.kid AND `from` = 81 AND `to` = 150) WHERE group_size = 150;
+UPDATE `user_info` SET group_size = (SELECT id FROM `group_size` WHERE consultation_id = `user_info`.kid AND `from` = 151 AND `to` IS NULL) WHERE group_size = 200;
+
+ALTER TABLE `user_info`
+ADD FOREIGN KEY (`group_size`) REFERENCES `group_size` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+ALTER TABLE `user_info`
+CHANGE `age_group` `age_group` int NULL AFTER `name_pers`;
+
+INSERT INTO `contributor_age` (`consultation_id`, `from`) (SELECT `kid`, '1' FROM `cnslt`);
+INSERT INTO `contributor_age` (`consultation_id`, `from`, `to`) (SELECT `kid`, '1', '17' FROM `cnslt`);
+INSERT INTO `contributor_age` (`consultation_id`, `from`, `to`) (SELECT `kid`, '18', '26' FROM `cnslt`);
+INSERT INTO `contributor_age` (`consultation_id`, `from`) (SELECT `kid`, '27' FROM `cnslt`);
+
+UPDATE `user_info` SET age_group = (SELECT id FROM `contributor_age` WHERE consultation_id = `user_info`.kid AND `from` = 1 AND `to` IS NULL) WHERE age_group = 4;
+UPDATE `user_info` SET age_group = (SELECT id FROM `contributor_age` WHERE consultation_id = `user_info`.kid AND `from` = 1 AND `to` = 17) WHERE age_group = 1;
+UPDATE `user_info` SET age_group = (SELECT id FROM `contributor_age` WHERE consultation_id = `user_info`.kid AND `from` = 18 AND `to` = 26) WHERE age_group = 2;
+UPDATE `user_info` SET age_group = (SELECT id FROM `contributor_age` WHERE consultation_id = `user_info`.kid AND `from` = 27 AND `to` IS NULL) WHERE age_group = 3;
+UPDATE `user_info` SET age_group = NULL WHERE age_group = 5;
+
+ALTER TABLE `user_info`
+ADD FOREIGN KEY (`age_group`) REFERENCES `contributor_age` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Migration
+CREATE TABLE `input_relations` (`parent_id` int(10) unsigned NOT NULL, `child_id` int(10) unsigned NOT NULL)
+ENGINE='InnoDB';
+ALTER TABLE `input_relations` ADD PRIMARY KEY `pkey` (`parent_id`, `child_id`);
+ALTER TABLE `input_relations` ADD FOREIGN KEY (`parent_id`) REFERENCES `inpt` (`tid`) ON DELETE CASCADE ON UPDATE
+CASCADE;
+ALTER TABLE `input_relations` ADD FOREIGN KEY (`child_id`) REFERENCES `inpt` (`tid`) ON DELETE CASCADE ON UPDATE
+CASCADE;
+ALTER TABLE `inpt` DROP `rel_tid`;

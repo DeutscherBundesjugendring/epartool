@@ -11,7 +11,6 @@ $(document).ready () ->
     bindRemoveSupervote()
     bindVotingRate()
     bindToggleVotingContributionExplanation()
-    bindContributionVideoSelect()
     initFB(document, 'script', 'facebook-jssdk')
 
     $('.js-has-password-meter').pwstrength({'ui': {
@@ -54,11 +53,16 @@ bindToggleGroupRegister = () ->
     elementName = $("#name-element")
     groupTypeChecked = $('input[name="group_type"]:checked').val()
 
-    if groupTypeChecked != "group"
+    if groupTypeChecked == "group"
+        labelName.hide()
+        elementName.hide()
+        container.slideDown()
+        $('select#age_group > option:last-child').show()
+    else
         labelName.show()
         elementName.show()
         container.hide()
-        $('select#age_group option').filter("[value='4']").remove()
+        $('select#age_group > option:last-child').hide();
 
     $('input[name="group_type"]').change(() ->
         groupTypeChecked = $('input[name="group_type"]:checked').val()
@@ -66,12 +70,12 @@ bindToggleGroupRegister = () ->
             labelName.hide()
             elementName.hide()
             container.slideDown()
-            $('select#age_group').append($('<option></option>').val('4').html(i18n['All age groups']))
+            $('select#age_group > option:last-child').show();
         else
             labelName.show()
             elementName.show()
             container.slideUp()
-            $('select#age_group option').filter("[value='4']").remove()
+            $('select#age_group > option:last-child').hide();
     )
 
 bindLoadMoreConsultations = () ->
@@ -324,10 +328,3 @@ bindToggleVotingContributionExplanation = () ->
     $('.js-toggle-voting-contribution-explanation').on 'click', (e) ->
         $('#voting-contribution-explanation').toggle()
         $('.glyphicon', this).toggleClass('hide')
-
-bindContributionVideoSelect = () ->
-    select = $('.js-video-service select');
-    select.change () ->
-        addon = $(this).closest('.js-video-service').find('.js-video-service-url');
-        addon.html($(this).data('url')[$(this).children(':selected').attr('value')]);
-    select.trigger('change');

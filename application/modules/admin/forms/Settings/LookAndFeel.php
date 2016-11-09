@@ -44,7 +44,7 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
 
         $mitmachenBubble = $this->createElement('checkbox', 'mitmachen_bubble');
         $mitmachenBubble
-            ->setLabel('Add MitMachen bubble')
+            ->setLabel('Add «Join In» bubble')
             ->setRequired(false);
         $this->addElement($mitmachenBubble);
 

@@ -80,15 +80,8 @@
                     <tr>
                         <th><?=$this->translate('Age groups');?></th>
                         <td>
-                            <?php $age_tm = [
-                                1 => $this->translate('up to 17'),
-                                2 => $this->translate('up to 26'),
-                                3 => $this->translate('from 27'),
-                                4 => $this->translate('all age groups'),
-                                5 => $this->translate('Not available'),
-                            ];?>
-                            <?php if (array_key_exists($this->user_info['age_group'], $age_tm)): ?>
-                                <?=$age_tm[$this->user_info['age_group']];?>
+                            <?php if (array_key_exists($this->user_info['age_group'], $this->contributorAges)): ?>
+                                <?=$this->contributorAges[$this->user_info['age_group']];?>
                             <?php else: ?>
                                 <?=$this->translate('Not available');?>
                             <?php endif; ?>
@@ -182,8 +175,8 @@
                         </div>
 
                         <!-- Listing -->
-                        <?php foreach ($this->inputs as $questionNum => $inputs): ?>
-                            <h3><?=$questionNum;?> <?=$this->escape($inputs['q']);?></h3>
+                        <?php foreach ($this->inputs as $inputs): ?>
+                            <h3><?=isset($inputs['nr']) ? $inputs['nr'] : '';?> <?=$this->escape($inputs['q']);?></h3>
                             <div class="table-responsive">
                                 <table class="table table-bordered js-table-rows-toggle">
                                     <?php foreach ($inputs['inputs'] as $input): ?>

@@ -8,7 +8,7 @@ class Service_Voting
     const STATUS_SKIPPED = 's';
 
     const POINTS_MIN = 0;
-    const POINTS_MAX = 5;
+    const POINTS_MAX = 4;
 
     /**
      * @return string
@@ -91,6 +91,7 @@ class Service_Voting
      * @param array $vote
      * @param string $confirmationHash
      * @throws \Dbjr_Voting_Exception
+     * @throws \Zend_Db_Statement_Exception
      */
     public function saveVote($vote, $confirmationHash)
     {
@@ -99,14 +100,10 @@ class Service_Voting
         if (!$this->isVoteValid($vote)) {
             throw new Dbjr_Voting_Exception('Vote is invalid');
         }
-        
-        $vote['confirmation_hash'] = $confirmationHash;
-        $vote['upd'] = new Zend_Db_Expr('NOW()');
-        $vote['status'] = 'v';
-        
-        if (empty($votesModel->createRow($vote)->save())) {
+
+        if(!$votesModel->updateVote($vote['tid'], $vote['sub_uid'], $vote['uid'], $vote['pts'], $confirmationHash)) {
             throw new Dbjr_Voting_Exception('Cannot save vote');
-        }
+        };
     }
 
     /**

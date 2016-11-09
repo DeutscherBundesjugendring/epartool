@@ -260,8 +260,10 @@ class Admin_CloseController extends Zend_Controller_Action
                 $replace,
                 $votingResultsValues['currentQuestion']['q']
             );
-            $csv.= ' - Frage: ' .$votingResultsValues['currentQuestion']['nr']
-                . ' - ' . $votingResultsValues['currentQuestion']['q'] ."\r\n\r\n";
+            $csv.= ' - Frage: ' . isset($votingResultsValues['currentQuestion']['nr'])
+                ? $votingResultsValues['currentQuestion']['nr'] . ' - '
+                : ''
+                . $votingResultsValues['currentQuestion']['q'] ."\r\n\r\n";
         } else {
             $csv .= 'Frage nicht gefunden!\r\n\r\n';
         }
@@ -289,6 +291,7 @@ class Admin_CloseController extends Zend_Controller_Action
             . '_groupresults_' .  gmdate('Y-m-d_H') . '_utf-8.csv'
         );
         header('Pragma: no-cache');
+        // @codingStandardsIgnoreLine
         echo html_entity_decode($csv, ENT_COMPAT, 'UTF-8');
     }
 

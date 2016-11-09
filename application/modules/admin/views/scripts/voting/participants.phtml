@@ -79,15 +79,8 @@
                                                     </span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td class="text-right"><?=$this->escape(substr_count($group['vt_inp_list'], ','));?></td>
+                                            <td class="text-right"><?=$this->inputs - $group['count'];?></td>
                                             <td class="table-cell-actions">
-                                                <a
-                                                    href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $group['uid']]);?>"
-                                                    class="item-action"
-                                                    title="<?=$this->translate('Show all contributions by this user');?>"
-                                                    >
-                                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                                </a>
                                                 <a
                                                     href="<?=$this->url(['action' => 'participantedit', 'uid' => $group['uid'], 'sub_uid' => $group['sub_uid']]);?>"
                                                     class="item-action"
@@ -108,6 +101,8 @@
                                                                 name="confirm"
                                                                 data-toggle="confirm"
                                                                 data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
+                                                                data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                                data-confirm-no="<?=$this->translate('No');?>"
                                                                 title="<?=$this->translate('Confirm participant');?>"
                                                                 >
                                                                     <span class="glyphicon glyphicon-ok-sign offset-right" aria-hidden="true"></span>
@@ -123,6 +118,8 @@
                                                                     name="deny"
                                                                     data-toggle="confirm"
                                                                     data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
+                                                                    data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                                    data-confirm-no="<?=$this->translate('No');?>"
                                                                     title="<?=$this->translate('Deny participant');?>"
                                                                 >
                                                                     <span class="glyphicon glyphicon-ban-circle offset-right" aria-hidden="true"></span>
@@ -138,6 +135,8 @@
                                                                     name="delete"
                                                                     data-toggle="confirm"
                                                                     data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
+                                                                    data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                                    data-confirm-no="<?=$this->translate('No');?>"
                                                                     title="<?=$this->translate('Delete participant');?>"
                                                                 >
                                                                     <span class="glyphicon glyphicon-trash offset-right" aria-hidden="true"></span>

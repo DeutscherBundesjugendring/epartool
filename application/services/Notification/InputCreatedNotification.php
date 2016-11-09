@@ -72,7 +72,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
                     'to_email' => $user->email,
                     'website_url' => Zend_Registry::get('baseUrl')
                         . '/input/show/kid/' . $question->kid . '/qid/' . $question->qi,
-                    'question_text' => $question->q,
+                    'question_text' => (isset($question['nr']) ? $question['nr'] . ' ' : '') . $question['q'],
                     'unsubscribe_url' => Zend_Registry::get('baseUrl')
                         . '/urlkey-action/execute/urlkey/' . $urlkeys[$user->notificationId],
                 ])
@@ -105,13 +105,14 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
             [Service_UrlkeyAction_ConfirmNotification::PARAM_NOTIFICATION_ID => $ntfId]
         );
 
+        $question = (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current();
         $mailer = new Dbjr_Mail();
         $mailer
             ->setTemplate($template)
             ->setPlaceholders([
                 'to_name' => $user->name ? $user->name : $user->email,
                 'to_email' => $user->email,
-                'question_text' => (new Model_Questions())->find($params[self::PARAM_QUESTION_ID])->current()->q,
+                'question_text' => (isset($question['nr']) ? $question['nr'] . ' ' : '') . $question['q'],
                 'confirmation_url' =>  Zend_Registry::get('baseUrl')
                     . '/urlkey-action/execute/urlkey/' . $action->getUrlkey(),
             ])

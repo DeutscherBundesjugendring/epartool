@@ -1,0 +1,221 @@
+<form
+    role="form"
+    enctype="<?=$this->form->getEnctype();?>"
+    method="<?=$this->form->getMethod();?>"
+    action="<?=$this->form->getAction();?>"
+>
+    <?=$this->form->getElement('titl');?>
+    <?=$this->form->getElement('titl_short');?>
+    <?=$this->form->getElement('titl_sub');?>
+    <?=$this->form->getElement('img_file');?>
+    <?=$this->form->getElement('img_expl');?>
+    <?=$this->form->getElement('ord');?>
+    <?=$this->form->getElement('expl');?>
+    <?=$this->form->getElement('expl_short');?>
+
+    <fieldset>
+        <h3>
+            <?=$this->translate('Age Groups');?>
+        </h3>
+        <p class="alert alert-info" role="alert">
+            <?=$this->translate('Intervals include the border numbers. Eg. 10–12 includes everything between 10 and 12, including 10 and 12.');?>
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-hover offset-bottom-small">
+                <thead>
+                    <tr>
+                        <th class="col-sm-5">
+                            <?=$this->translate('From');?>
+                        </th class="col-sm-5">
+                        <th>
+                            <?=$this->translate('To');?>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="js-contributor-ages-intervals">
+                    <?php if (count($this->form->contributorAges) > 0): ?>
+                        <?php foreach ($this->form->contributorAges as $contributorAgeElement): ?>
+                            <tr class="js-row">
+                                <?php foreach ($contributorAgeElement as $elementPart): ?>
+                                    <td class="col-sm-5">
+                                        <?=$elementPart;?>
+                                    </td>
+                                <?php endforeach; ?>
+                                <td class="table-cell-actions">
+                                    <a href="#" class="js-contributor-ages-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <tr id="js-contributor-ages-new-row" class="hidden js-row">
+                        <td class="col-sm-5">
+                            <label for="from" class="sr-only"><?=$this->translate('From');?></label>
+                            <div class="form-group offset-bottom-none">
+                                <input type="text" id="js-contributor-ages-new-row-from" class="form-control">
+                            </div>
+                        </td>
+                        <td class="col-sm-5">
+                            <label for="to" class="sr-only"><?=$this->translate('To');?></label>
+                            <div class="form-group offset-bottom-none">
+                                <input type="text" id="js-contributor-ages-new-row-to" class="form-control">
+                            </div>
+                        </td>
+                        <td class="table-cell-actions">
+                            <a href="#" class="js-contributor-ages-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="#" id="js-contributor-ages-add-row" class="btn btn-default offset-bottom">
+            <span aria-hidden="true" class="glyphicon glyphicon-plus-sign offset-right"></span>
+            <?=$this->translate('Add interval');?>
+        </a>
+
+        <div class="table-responsive">
+            <table class="table table-hover offset-bottom-small">
+                <thead>
+                    <tr>
+                        <th class="col-sm-5">
+                            <?=$this->translate('From');?>
+                        </th>
+                        <th class="col-sm-5">
+                            <?=$this->translate('To');?>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="js-contributor-ages-intervals">
+                    <tr>
+                        <td class="col-sm-5">
+                            <?=$this->form->getElement('toInfinityAgeFrom');?>
+                        </td>
+                        <td class="col-sm-5">
+                            <?=$this->translate('Infinity');?>
+                        </td>
+                        <td class="table-cell-actions">
+                            <?=$this->form->getElement('activateToInfinityAge');?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <?=$this->form->getElement('activateNoInformationValue');?>
+    </fieldset>
+
+    <fieldset>
+        <h3>
+            <?=$this->translate('Voting Group Size');?>
+        </h3>
+        <p class="alert alert-info" role="alert">
+            <?=$this->translate('Intervals include the border numbers. Eg. 10–12 includes everything between 10 and 12, including 10 and 12.');?>
+        </p>
+        <div class="table-responsive">
+            <table class="table table-hover offset-bottom-small">
+                <thead>
+                    <tr>
+                        <th class="col-sm-5">
+                            <?=$this->translate('From');?>
+                        </th>
+                        <th class="col-sm-5">
+                            <?=$this->translate('To');?>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="js-groups-sizes-intervals">
+                    <tr>
+                        <td class="col-sm-5">
+                            <?=$this->form->getElement('singleFrom');?>
+                        </td>
+                        <td class="col-sm-5">
+                            <?=$this->form->getElement('singleTo');?>
+                        </td>
+                        <td class="table-cell-actions"></td>
+                    </tr>
+                    <?php if (count($this->form->groupSizes) > 0): ?>
+                        <?php foreach ($this->form->groupSizes as $groupSizeElement): ?>
+                            <tr class="js-row">
+                                <?php foreach ($groupSizeElement as $elementPart): ?>
+                                    <td class="col-sm-5">
+                                        <?=$elementPart;?>
+                                    </td>
+                                <?php endforeach; ?>
+                                <td class="table-cell-actions">
+                                    <a href="#" class="js-groups-sizes-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                <tr id="js-groups-sizes-new-row" class="hidden js-row">
+                    <td class="col-sm-5">
+                        <label for="from" class="sr-only"><?=$this->translate('From');?></label>
+                        <div class="form-group offset-bottom-none">
+                            <input type="text" id="js-groups-sizes-new-row-from" class="form-control">
+                        </div>
+                    </td>
+                    <td class="col-sm-5">
+                        <label for="to" class="sr-only"><?=$this->translate('To');?></label>
+                        <div class="form-group offset-bottom-none">
+                            <input type="text" id="js-groups-sizes-new-row-to" class="form-control">
+                        </div>
+                    </td>
+                    <td class="table-cell-actions">
+                        <a href="#" class="js-groups-sizes-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="#" id="js-groups-sizes-add-row" class="btn btn-default offset-bottom">
+            <span aria-hidden="true" class="glyphicon glyphicon-plus-sign offset-right"></span>
+            <?=$this->translate('Add interval');?>
+        </a>
+
+        <div class="table-responsive offset-bottom">
+            <table class="table table-hover offset-bottom-small">
+                <thead>
+                    <tr>
+                        <th class="col-sm-5">
+                            <?=$this->translate('From');?>
+                        </th>
+                        <th class="col-sm-5">
+                            <?=$this->translate('To');?>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="js-contributor-ages-intervals">
+                    <tr>
+                        <td class="col-sm-5">
+                            <?=$this->form->getElement('toInfinitySizeFrom');?>
+                        </td>
+                        <td class="col-sm-5">
+                            <?=$this->translate('Infinity');?>
+                        </td>
+                        <td class="table-cell-actions">
+                            <?=$this->form->getElement('activateToInfinitySize');?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </fieldset>
+
+    <?=$this->form->getElement('csrf_token_consultation');?>
+    <?=$this->form->getElement('submit');?>
+</form>

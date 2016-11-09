@@ -54,7 +54,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 
         $thes = $this->createElement('textarea', 'thes');
         $thes
-            ->setLabel('Theses')
+            ->setLabel('Thesis')
             ->setRequired(true)
             ->setAttrib('rows', 5);
         $this->addElement($thes);

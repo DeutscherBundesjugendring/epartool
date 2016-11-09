@@ -1,6 +1,6 @@
 <tr
     data-admin-confirmation="<?=$this->escape($this->input['block']);?>"
-    data-origin="<?=$this->input['rel_tid'] ? 'adminCreated' : 'userCreated';?>"
+    data-origin="<?=$this->input['uid'] === null && $this->input['confirmation_key'] === null ? 'adminCreated' : 'userCreated';?>"
     data-voting="<?=$this->escape($this->input['vot']);?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
     data-directory="<?=$this->escape($this->input['dir']);?>"
@@ -79,6 +79,8 @@
                             data-toggle="confirm"
                             title="<?=$this->translate('Unlink contribution');?>"
                             data-confirm-message="<?=$this->translate('Unlink contribution');?>?"
+                            data-confirm-yes="<?=$this->translate('Yes');?>"
+                            data-confirm-no="<?=$this->translate('No');?>"
                         >
                             <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                         </button>
@@ -94,7 +96,7 @@
             <?=$this->translate('Origin');?><br />
             <span class="label label-info">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <?=$this->input['rel_tid'] ? $this->translate('Admin') : $this->translate('User');?>
+                <?=$this->input['uid'] === null && $this->input['confirmation_key'] === null  ? $this->translate('Admin') : $this->translate('User');?>
             </span>
         </p>
         <p>
@@ -166,6 +168,8 @@
                 value="<?=$this->escape($this->input['tid']);?>"
                 data-toggle="confirm"
                 data-confirm-message="<?=$this->translate('Delete contribution?');?>"
+                data-confirm-yes="<?=$this->translate('Yes');?>"
+                data-confirm-no="<?=$this->translate('No');?>"
                 title="<?=$this->translate('Delete contribution');?>"
             >
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

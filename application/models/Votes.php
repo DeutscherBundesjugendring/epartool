@@ -105,7 +105,7 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
             $followUpModel = new Model_FollowupsRef();
             foreach ($theses as $thesis) {
                 $thesesVotes[$thesis['tid']] = $votesIndivModel->getVotingValuesByThesis($thesis['tid'], $kid);
-                $thesesValues[$thesis['tid']] = $thesis->toArray();
+                $thesesValues[$thesis['tid']] = $thesis;
                 // get follow-ups?
                 $followUps = $followUpModel->getFollowupCountByTids($thesis['tid']);
                 $thesesValues[$thesis['tid']]['fowups'] = 'n';

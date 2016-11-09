@@ -47,12 +47,14 @@
             <div class="col-sm-6 col-md-4">
                 <div class="well well-bordered well-fixed-height offset-bottom-large">
 
+                    <?php if (isset($question['nr'])): ?>
                     <div class="bubble bubble-sm well-bubble">
                         <h4 class="bubble-title"><?=$this->escape($question['nr']);?></h4>
                     </div>
+                    <?php endif; ?>
 
                     <div class="clip-vertical offset-bottom">
-                        <h2 class="well-title-with-bubble">
+                        <h2<?=isset($question['nr']) ? ' class="well-title-with-bubble"' : ''; ?>>
                             <a href="<?=$this->url(['action' => 'show', 'qid' => $question['qi']]);?>">
                                 <?=$this->escape($question['q']);?>
                             </a>

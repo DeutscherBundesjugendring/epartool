@@ -7,7 +7,20 @@
 <div class="main-content">
 
     <h1><?=$this->translate('Confirmation of your votes.');?></h1>
-    <p><?=$this->translate('Here you can check your previous votes. Please confirm or delete them with the buttons below.');?></p>
+    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+        && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
+    ): ?>
+        <p class="alert alert-info">
+            <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+            <?=$this->translate('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.');?>
+        </p>
+    <?php else: ?>
+        <p><?=$this->translate('Here you can check your previous votes. Please confirm or delete them with the buttons below.');?></p>
+    <?php endif; ?>
+
+    <div class="offset-bottom">
+        <?=$this->form;?>
+    </div>
 
     <!-- Questions -->
     <?=$this->partialLoop('_partials/voting/votingConfirmationQuestionThesis.phtml', $this->votesData);?>

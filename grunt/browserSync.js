@@ -11,8 +11,8 @@ module.exports = {
         '<%= paths.dist %>/images/**/*.png',
         '<%= paths.dist %>/images/**/*.jpg',
         'application/layouts/scripts/*.phtml',
-        'application/modules/admin/views/**/*.phtml',
-        'application/modules/default/views/**/*.phtml'
+        'application/modules/admin/views/**/*',
+        'application/modules/default/views/**/*'
       ]
     },
     options: {

@@ -1,6 +1,6 @@
 <?php
 
-class Service_Article
+class Service_Wysiwyg
 {
     const BASE_URL_PLACEHOLDER = '{{BASE_URL}}';
 
@@ -25,8 +25,8 @@ class Service_Article
     public function placeholderToBasePath($text)
     {
         return str_replace(
-            self::BASE_URL_PLACEHOLDER . '/media/',
-            $this->baseUrl . '/media/',
+            self::BASE_URL_PLACEHOLDER . MEDIA_URL . '/',
+            $this->baseUrl . MEDIA_URL . '/',
             $text
         );
     }
@@ -38,8 +38,8 @@ class Service_Article
     public function basePathToPlaceholder($text)
     {
         return str_replace(
-            $this->baseUrl . '/media/',
-            self::BASE_URL_PLACEHOLDER . '/media/',
+            $this->baseUrl . MEDIA_URL . '/',
+            self::BASE_URL_PLACEHOLDER . MEDIA_URL . '/',
             $text
         );
     }

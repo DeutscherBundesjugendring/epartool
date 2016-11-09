@@ -24,10 +24,11 @@
                         <?=$this->element->getElement('video_id');?>
                     </div>
                     <?php if (count($this->element->getElement('video_id')->getErrors()) > 0) : ?>
-                        <ul class="text-danger-block"
+                        <ul class="text-danger-block">
                         <?php foreach ($this->element->getElement('video_id')->getErrors() as $error) : ?>
                             <li><?=$error;?></li>
                         <?php endforeach; ?>
+                        </ul>
                     <?php endif; ?>
                 </div>
             </div>

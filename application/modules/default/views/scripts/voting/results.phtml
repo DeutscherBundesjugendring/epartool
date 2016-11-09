@@ -9,7 +9,7 @@
         </div>
         <div class="content">
 
-            <h1><?=$this->translate('Voting results')?></h1>
+            <h1 class="main-content-title-narrow"><?=$this->translate('Voting results')?></h1>
 
             <?php if (!empty($this->articleGeneral)) : ?>
                 <?=html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8');?>
@@ -26,7 +26,7 @@
                     'kid' => $this->currentQuestion['kid'],
                     'qid' => $this->currentQuestion['qi'],
                 ]);?>">
-                    <?=$this->currentQuestion['nr'];?>
+                    <?=isset($this->currentQuestion['nr']) ? $this->currentQuestion['nr'] : '';?>
                     <?=$this->currentQuestion['q'];?>
                 </a>
             </h2>
@@ -34,12 +34,13 @@
             <hr class="hr-alt" />
 
             <?php foreach ($this->votings as $key => $value) : ?>
-                <?php if ($value['uid']) : ?>
+                <?php if ($value['followUpsCount']) : ?>
                     <a href="<?=$this->url([
-                        'controller' => 'input',
+                        'controller' => 'followup',
                         'action' => 'show',
                         'kid' => $this->currentQuestion['kid'],
                         'qid' => $this->currentQuestion['qi'],
+                        'tid' => $value['tid'],
                     ]);?>">
                         <div class="result">
                             <span class="result-number"><?=$key + 1;?>.</span>
@@ -51,9 +52,10 @@
                                     : 0;
                                 ?>%;"
                             ></div>
-                            <span class="btn btn-default btn-sm">
+                            <small>
                                 <?=$this->translate('See contribution in context');?>
-                            </span>
+                                <span class="glyphicon glyphicon-menu-right icon-vertically-aligned" aria-hidden="true"></span>
+                            </small>
                         </div>
                     </a>
                 <?php else : ?>

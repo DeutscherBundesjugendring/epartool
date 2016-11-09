@@ -21,8 +21,6 @@ class Default_Form_Register extends Dbjr_Form_Web
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $formProjectSettings = (new Model_Projects())
-            ->find(Zend_Registry::get('systemconfig')->project)->current()->toArray();
         $formConsultationSettings = (new Model_Consultations())->find($this->consultationId)->current()->toArray();
 
         $this
@@ -108,11 +106,7 @@ class Default_Form_Register extends Dbjr_Form_Web
 
         if ((bool) $formConsultationSettings['field_switch_individuals_sum']) {
             $groupSize = $this->createElement('select', 'group_size');
-            $grpSizeDef = Zend_Registry::get('systemconfig')
-                ->group_size_def
-                ->toArray();
-            unset($grpSizeDef['0']);
-            unset($grpSizeDef['1']);
+            $grpSizeDef = (new Model_GroupSize())->getOptionsByConsultation($this->consultationId);
             $groupSize
                 ->setLabel('How many individuals were involved?')
                 ->setMultioptions($grpSizeDef);
@@ -138,17 +132,13 @@ class Default_Form_Register extends Dbjr_Form_Web
 
         if ((bool) $formConsultationSettings['field_switch_age']) {
             $age = $this->createElement('select', 'age_group');
+            $ageOptions = (new Model_ContributorAge())->getOptionsByConsultation($this->consultationId);
+            if ($formConsultationSettings['groups_no_information']) {
+                $ageOptions[''] = $translator->translate('no information');
+            }
             $age
                 ->setLabel('Age')
-                ->setMultiOptions(
-                    [
-                        '1' => sprintf($translator->translate('up to %s years'), 17),
-                        '2' => sprintf($translator->translate('up to %s years'), 26),
-                        '3' => sprintf($translator->translate('%s years or older'), 26),
-                        '4' => $translator->translate('all age groups'),
-                        '5' => $translator->translate('no information'),
-                    ]
-                );
+                ->setMultiOptions($ageOptions);
             $this->addElement($age);
         }
 
@@ -157,8 +147,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $regioPax
                 ->setLabel(!empty($formConsultationSettings['state_field_label'])
                     ? $formConsultationSettings['state_field_label']
-                    : 'State'
-                )
+                    : 'State')
                 ->setFilters(['StripTags', 'HtmlEntities']);
             $this->addElement($regioPax);
         }
@@ -192,10 +181,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $this->addElement($comment);
         }
 
-        $locale = Zend_Controller_Front::getInstance()
-            ->getParam('bootstrap')
-            ->getPluginResource('locale')
-            ->getLocale();
+        $locale = Zend_Registry::get('Zend_Locale');
         $projectSettings = (new Model_Projects())
             ->find(Zend_Registry::get('systemconfig')->project)
             ->current()
@@ -206,8 +192,17 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->toArray();
         $ccLicense = $this->createElement('checkbox', 'is_contrib_under_cc');
         $ccLicense
-            ->setLabel($license['text'])
-            ->addValidator('NotEmpty', false, ['messages' => [Zend_Validate_NotEmpty::IS_EMPTY => 'You must agree']])
+            ->setLabel(
+                $formConsultationSettings['license_agreement'] === null
+                    ? $license['text']
+                    : (new Service_Wysiwyg(Zend_Controller_Front::getInstance()->getBaseUrl()))
+                        ->placeholderToBasePath(
+                            $this->replaceLicensePlaceholders($license, $formConsultationSettings['license_agreement'])
+                        )
+            )
+            ->addValidator('NotEmpty', false, [
+                'messages' => [Zend_Validate_NotEmpty::IS_EMPTY => $translator->translate('You must agree.')]
+            ])
             ->setCheckedValue('1')
             ->setUnCheckedValue(null)
             ->setRequired(true);
@@ -244,5 +239,14 @@ class Default_Form_Register extends Dbjr_Form_Web
         $this
             ->addElement($emailDisabledEl)
             ->addElement($emailHiddenEl);
+    }
+
+    private function replaceLicensePlaceholders(array $license, $text)
+    {
+        return preg_replace(
+            '#http[s]?\:\/\/(http[s]?)#',
+            '$1',
+            str_replace(['{{license_link}}', '{{license_title}}'], [$license['link'], $license['title']], $text)
+        );
     }
 }

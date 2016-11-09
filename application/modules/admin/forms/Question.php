@@ -4,9 +4,9 @@ class Admin_Form_Question extends Dbjr_Form_Admin
 {
     protected $_kid;
 
-    public function __construct($kid)
+    public function __construct($consultationId)
     {
-        $this->_kid = $kid;
+        $this->_kid = $consultationId;
         parent::__construct();
     }
 
@@ -20,7 +20,6 @@ class Admin_Form_Question extends Dbjr_Form_Admin
         $order = $this->createElement('text', 'nr');
         $order
             ->setLabel('Order')
-            ->setRequired(true)
             ->setAttrib('maxlength', 4);
         $this->addElement($order);
 

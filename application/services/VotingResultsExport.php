@@ -48,6 +48,6 @@ class Service_VotingResultsExport
     private function correctSheetTitle($title)
     {
         $correctedTitle = str_replace(['*', ':', '/', '\\', '?', '[', ']'], '-', $title);
-        return substr($correctedTitle, 0, 31);
+        return mb_substr($correctedTitle, 0, 31);
     }
 }

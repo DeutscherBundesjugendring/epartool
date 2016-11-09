@@ -41,10 +41,10 @@
                                 <tr>
                                     <th class="table-cell-id" data-toggle="sort" tabindex="0">#</th>
                                     <th class="sorting-asc" data-toggle="sort" tabindex="0"><?=$this->translate('User');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Voting Weight');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Access Code');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Accepted Size');?></th>
-                                    <th data-toggle="sort" tabindex="0"><?=$this->translate('Stated Size');?></th>
+                                    <th data-toggle="sort" tabindex="0"><span class="text-wrap"><?=$this->translate('Voting Weight');?></span></th>
+                                    <th data-toggle="sort" tabindex="0"><span class="text-wrap"><?=$this->translate('Access Code');?></span></th>
+                                    <th data-toggle="sort" tabindex="0"><span class="text-wrap"><?=$this->translate('Accepted Size');?></span></th>
+                                    <th data-toggle="sort" tabindex="0"><span class="text-wrap"><?=$this->translate('Stated Size');?></span></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -60,7 +60,7 @@
                                         <td><?=$this->escape($item['vt_weight']);?></td>
                                         <td><?=$this->escape($item['vt_code']);?></td>
                                         <td><?=$this->escape($item['grp_siz']);?></td>
-                                        <td><?=$this->escape(is_numeric($item['group_size_user']) ? $item['group_size_user'] : '-');?></td>
+                                        <td><?=$this->escape($item['group_size_user'] ? $item['group_size_user'] : '-');?></td>
                                         <td class="table-cell-actions">
                                             <a
                                                 href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $item['uid']]);?>"

@@ -10,7 +10,7 @@
                         '<?=$this->targetElId;?>',
                         '<?=$this->lockDir
                             ? ''
-                            : $this->baseUrl() . ($this->targetElId === 'CKEditor' ? MEDIA_URL . '/' : '') .
+                            : ($this->targetElId === 'CKEditor' ? $this->baseUrl() . MEDIA_URL . '/' : '') .
                                 ($file['dirRefDirUrl'] ? $file['dirRefDirUrl'] . '/' : '');?>',
                         '<?=$this->mediaPresenter($file, 'admin_media_form_element');?>',
                         '<?=$this->CKEditorFuncNum;?>'

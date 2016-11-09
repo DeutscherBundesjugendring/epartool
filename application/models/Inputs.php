@@ -2,6 +2,7 @@
 
 class Model_Inputs extends Dbjr_Db_Table_Abstract
 {
+    const ERROR_CODE_DUPLICATE_ENTRY = 23000;
     protected $_name = 'inpt';
     protected $_primary = 'tid';
 
@@ -129,21 +130,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function unlinkById($id, $relId)
     {
-        if ($this->find($id)->count() < 1) {
-            return 0;
-        }
-
-        $row = $this->find($id)->current();
-        $related = explode(',', $row['rel_tid']);
-        foreach($related as $key => $rid) {
-            if($rid === $relId) {
-                unset($related[$key]);
-                break;
-            }
-        }
-        $row->setFromArray(['rel_tid' => implode(',', $related)]);
-
-        return $row->save();
+        return (new Model_InputRelations())->delete(['parent_id = ?' => $relId, 'child_id = ?' => $id]);
     }
 
     /**
@@ -261,9 +248,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  string|array $order [optional] MySQL Order Expression, e.g. 'votes DESC'
      * @param  integer      $limit [optional] Number of records to return
      * @param  integer      $tag   [optional] id of tag (tg_nr)
+     * @param  bool         $withoutAdmin [optional]
      * @return array
      */
-    public function getByQuestion($qid, $order = 'i.tid ASC', $limit = null, $tag = null)
+    public function getByQuestion($qid, $order = 'i.tid ASC', $limit = null, $tag = null, $withoutAdmin = false)
     {
         // is int?
         $intVal = new Zend_Validate_Int();
@@ -272,7 +260,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         // get select obj
-        $select = $this->getSelectByQuestion($qid, $order, $limit, $tag);
+        $select = $this->getSelectByQuestion($qid, $order, $limit, $tag, $withoutAdmin);
 
         $stmt = $this->getDefaultAdapter()->query($select);
         $result = $stmt->fetchAll();
@@ -284,9 +272,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * Returns number of inputs for a consultation
      * @param  integer $kid               The consultattion identifier
      * @param  boolean $excludeInvisible  Default: true
+     * @param  boolean $withoutAdmin
      * @return integer                    The number of inputs
      */
-    public function getCountByConsultation($kid, $excludeInvisible = true)
+    public function getCountByConsultation($kid, $excludeInvisible = true, $withoutAdmin = true)
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
@@ -305,6 +294,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $select
                 ->where('block<>?', 'y')
                 ->where('user_conf=?', 'c');
+        }
+        
+        if ($withoutAdmin) {
+            $select->where('(uid IS NOT NULL OR confirmation_key IS NOT NULL)');
         }
 
         return $this->fetchAll($select)->current()->count;
@@ -399,9 +392,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  integer $qid
      * @param  integer $tag              [optional]
      * @param  boolean $excludeInvisible [optional], Default: true
+     * @param  boolean $withoutAdmin
      * @return integer
      */
-    public function getCountByQuestion($qid, $tag = null, $excludeInvisible = true)
+    public function getCountByQuestion($qid, $tag = null, $excludeInvisible = true, $withoutAdmin = true)
     {
         $intVal = new Zend_Validate_Int();
         if (!$intVal->isValid($qid)) {
@@ -420,6 +414,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $select
                 ->where('i.block<>?', 'y')
                 ->where('i.user_conf=?', 'c');
+        }
+
+        if ($withoutAdmin) {
+            $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
         }
 
         if ($intVal->isValid($tag)) {
@@ -474,9 +472,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param  string|array   $order
      * @param  integer        $limit
      * @param  integer        $tag   [optional] id of tag (tg_nr)
+     * @param  bool           $withoutAdmin [optional]
      * @return Zend_Db_Select
      */
-    public function getSelectByQuestion($qid, $order = 'i.tid DESC', $limit = null, $tag = null)
+    public function getSelectByQuestion($qid, $order = 'i.tid DESC', $limit = null, $tag = null, $withoutAdmin = false)
     {
         $intVal = new Zend_Validate_Int();
         $select = $this
@@ -493,6 +492,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $select
                 ->joinLeft(array('it' => 'inpt_tgs'), 'i.tid = it.tid', array())
                 ->where('it.tg_nr = ?', $tag);
+        }
+
+        if ($withoutAdmin) {
+            $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
         }
 
         $select
@@ -524,7 +527,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $userModel = new Model_Users();
         if (!$uid) {
-            $uid = $userModel->confirmbyCkey($confirmKey);
+            $uid = $userModel->confirmByCkey($confirmKey);
         }
         $userModel->ping($uid);
 
@@ -568,7 +571,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Throws excpetion if rejection/confimation are not allowed
+     * Throws excpetion if rejection/confirmation are not allowed
      * @throws Dbjr_UrlkeyAction_Exception  If the consultation has moved past the input phase
      */
     private function isConfirmOrRejectAllowed($confirmKey)
@@ -684,7 +687,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
         $csv = '';
         $db = $this->getAdapter();
-            $select = $db->select()
+        $select = $db->select()
             ->from(['i' => 'inpt'])
             ->join(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
@@ -696,19 +699,25 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         switch ($mod) {
             case 'cnf':
-                $select->where('i.user_conf = ?', 'c');
+                $select
+                    ->where('i.user_conf = ?', 'c')
+                    ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'unc':
-                $select->where('i.user_conf = ?', 'u');
+                $select
+                    ->where('i.user_conf != ?', 'c')
+                    ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'all':
-                $select->where('i.uid > ?', 1);
+                $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'vot':
                 $select->where('i.vot = ?', 'y');
                 break;
             case 'edt':
-                $select->where('i.uid = ?', 1);
+                $select
+                    ->where('i.vot = ?', 'y')
+                    ->where('i.uid IS NULL AND i.confirmation_key IS NULL');
                 break;
         }
         $select->joinLeft(
@@ -738,7 +747,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $questionModel = new Model_Questions();
         $question = $questionModel->find($qid)->current()->toArray();
         if (!empty($question)) {
-            $csv.= '"' .$question['nr'] . '";"' . $question['q'] . '"' . "\r\n\r\n";
+            $csv.= '"' .(isset($question['nr']) ? $question['nr'] : '') . '";"' . $question['q'] . '"' . "\r\n\r\n";
         } else {
             return 'Frage nicht gefunden!';
         }
@@ -962,6 +971,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             if (!empty($input['tg_nrs'])) {
                 $tags = explode(',', $input['tg_nrs']);
                 $inputTagsModel->insertByInputsId($input['tid'], $tags);
+                // @codingStandardsIgnoreLine
                 echo($input['tid'] . ':' .$input['tg_nrs'] . '<br />');
             }
 
@@ -981,11 +991,20 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             throw new Zend_Validate_Exception('Given parameter qid must be integer!');
         }
 
-        return $this->fetchAll(
-            $this->select()
+        $db = $this->getAdapter();
+
+        return $db->query(
+            $db->select()
+                ->from(['i' => $this->_name])
+                ->joinLeft(
+                    ['fu' => (new Model_FollowupsRef)->info(Model_FollowupsRef::NAME)],
+                    'fu.tid = i.tid',
+                    [new Zend_Db_Expr('COUNT(fu.tid) as followUpsCount')]
+                )
                 ->where('qi = ?', $qid)
                 ->where('vot = ?', 'y')
-        );
+                ->group('i.tid')
+        )->fetchAll();
     }
 
     /**
@@ -1028,13 +1047,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 return array();
         }
 
-        $select = $this->select();
-        $select ->where('rel_tid LIKE ?', '%' . $id . '%');
-        $select ->where("`vot` LIKE 'y'");
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)])
+            ->join(['i' => $this->info(self::NAME)], 'i.tid = r.child_id')
+            ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi = q.qi', [])
+            ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid = c.kid', ['kid'])
+            ->where('r.parent_id = ?', $id)
+            ->where('i.vot = ?', 'y');
         $result = $this->fetchAll($select)->toArray();
 
         return $result;
-
     }
 
     /**
@@ -1083,29 +1107,24 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         foreach ($wheres as $cond => $val) {
             $select->where($cond, $val);
         }
-        $resultSet = $this->getAdapter()->query($select);
+        $resultSet = $this->fetchAll($select);
 
         $inputs = [];
         foreach ($resultSet as $row) {
-            $inputs[$row['tid']] = $row;
-            $inputs[$row['tid']]['related'] = [];
+            $inputs[$row['tid']] = $row->toArray();
 
             $inputs[$row['tid']]['tags'] = [];
-            $tagRows = $this->find($row["tid"])->current()
-                ->findManyToManyRowset('Model_Tags', 'Model_InputsTags')
-                ->toArray();
+            $tagRows = $row->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
             foreach ($tagRows as $tagRow) {
                 $inputs[$row['tid']]['tags'][] = $tagRow;
             }
-        }
 
-        foreach ($this->getAdapter()->query($this->select()) as $contribution) {
-            if (!empty($contribution['rel_tid'])) {
-                foreach (explode(',', $contribution['rel_tid']) as $relatedId) {
-                    if (isset($inputs[$relatedId])) {
-                        $inputs[$relatedId]['related'][] = $contribution;
-                    }
-                }
+            $inputs[$row['tid']]['related'] = [];
+            $relatedRows = $row
+                ->findManyToManyRowset('Model_Inputs', 'Model_InputRelations', null, 'Related')
+                ->toArray();
+            foreach ($relatedRows as $relatedRow) {
+                $inputs[$row['tid']]['related'][] = $relatedRow;
             }
         }
 
@@ -1123,7 +1142,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_service'] = null;
             $data['video_id'] = null;
         }
-        
+
         $row = $this->createRow($data);
         $tid = (int) $row->save();
 
@@ -1140,16 +1159,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      * @param int $origInputId
      * @param array $newInputIds
      * @throws Zend_Db_Table_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     public function appendRelIds($origInputId, array $newInputIds)
     {
         foreach ($newInputIds as $inputId) {
-            $row = $this->find($inputId)->current();
-            $relIds =  !empty($row['rel_tid']) ? explode(',', $row['rel_tid']) : [];
-            $relIds[] = $origInputId;
-            $relIds = array_unique($relIds);
-            $relIds = implode(',', $relIds);
-            $this->update(['rel_tid' => $relIds], $this->getAdapter()->quoteInto('tid= ?', $inputId));
+            try {
+                (new Model_InputRelations())->insert(['parent_id' => $origInputId, 'child_id' => $inputId]);
+            } catch (Zend_Db_Statement_Exception $e) {
+                if ($e->getCode() !== self::ERROR_CODE_DUPLICATE_ENTRY) {
+                    throw $e;
+                }
+            }
         }
     }
 
@@ -1252,16 +1273,17 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $inputs = [];
         foreach ($res as $input) {
-            if (!isset($inputs[$input->nr])) {
-                $inputs[$input->nr] = [
-                    'q' => $input->q,
+            if (!isset($inputs[$input['qi']])) {
+                $inputs[$input['qi']] = [
+                    'q' => $input['q'],
                     'inputs' => [],
+                    'nr' => $input['nr'],
                 ];
             }
             $tags = $input->findManyToManyRowset('Model_Tags', 'Model_InputsTags')->toArray();
             $input = $input->toArray();
             $input['tags'] = $tags ? $tags : [];
-            $inputs[$input['nr']]['inputs'][] = $input;
+            $inputs[$input['qi']]['inputs'][] = $input;
         }
 
         return $inputs;
@@ -1303,7 +1325,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->join(
                 (new Model_Questions())->info(Model_Questions::NAME),
                 $this->info(self::NAME) . '.qi = ' . (new Model_Questions())->info(Model_Questions::NAME) . '.qi',
-                ['nr', 'q']
+                ['nr', 'q', 'qi']
             )
             ->joinLeft(
                 (new Model_Users())->info(Model_Users::NAME),
@@ -1482,7 +1504,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $db = $this->getDefaultAdapter();
         $contributions->where(
-            $db->quoteInto('vot = ?', 'y') . ' OR ' . $db->quoteInto('vot = ?', 'u'));
+            $db->quoteInto('vot = ?', 'y') . ' OR ' . $db->quoteInto('vot = ?', 'u')
+        );
 
         return $this->fetchAll($contributions)->current()->count;
     }

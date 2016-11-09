@@ -2,6 +2,13 @@
 
 class Model_Consultations extends Dbjr_Db_Table_Abstract
 {
+    const WYSIWYG_FIELDS = [
+        'vot_expl',
+        'follow_up_explanation',
+        'contribution_confirmation_info',
+        'license_agreement',
+    ];
+
     protected $_name = 'cnslt';
     protected $_primary = 'kid';
     protected $_dependentTables = ['Model_Articles', 'Model_Questions', 'Model_Votes', 'Model_Votes_Rights'];
@@ -283,6 +290,30 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
             )
             ->where('i.uid = ?', $uid)
             ->group('c.kid');
+
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * @param $uid
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getByUserVotingRights($uid)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['vr' => (new Model_Votes_Rights())->info(Model_Votes_Rights::NAME)],
+                ['kid', 'uid']
+            )
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'vr.kid = c.kid',
+                ['titl' => 'c.titl', 'kid']
+            )
+            ->where('vr.uid = ?', $uid);
 
         return $this->fetchAll($select);
     }

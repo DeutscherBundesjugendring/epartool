@@ -30,15 +30,12 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
                 'Label',
                 ['escape' => $this->getOption('escapeLabel') === false ? false : true]
             )
-            ->addDecorator('Errors', ['class' => 'text-danger-block'])
-            ->addDecorator(
-                'Description',
-                [
-                    'tag' => 'p',
-                    'class' => 'help-block',
-                    'escape' => $this->getOption('escapeDescription') === false ? false : true
-                ]
+            ->addDecorator('HtmlTag', [
+                'tag' => 'br',
+                'openOnly' => true,
+                'placement' => Zend_Form_Decorator_Abstract::APPEND]
             )
+            ->addDecorator('Errors', ['class' => 'text-danger-block'])
             ->addDecorator(
                 ['previewImage' => 'HtmlTag'],
                 [
@@ -62,7 +59,12 @@ EOD;
                     'label' => $translator->translate('Change media'),
                     'placement' => Zend_Form_Decorator_Abstract::APPEND
                 ]
-            );
+            )
+            ->addDecorator('Description', [
+                'tag' => 'p',
+                'class' => 'help-block',
+                'escape' => $this->getOption('escapeDescription') === false ? false : true
+            ]);
 
             if ($element->getIsRemovable()) {
                 $element->addDecorator(

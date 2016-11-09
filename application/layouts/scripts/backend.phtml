@@ -20,7 +20,10 @@
     <?php else : ?>
         <script src="<?=$this->baseUrl('js/admin.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
-    <script src="<?=$this->baseUrl('vendor/select2/select2_locale_' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
+
+    <?php if (Zend_Registry::get('Zend_Locale')->getLanguage() !== 'en'): ?>
+        <script src="<?=$this->baseUrl('vendor/select2/select2_locale_' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
+    <?php endif?>
     <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
     <script src="<?=$this->baseUrl('vendor/ckeditor/ckeditor.js');?>?v=<?=$this->toolVersion();?>"></script>
     <script src="<?=$this->baseUrl('vendor/ckeditor/adapters/jquery.js');?>?v=<?=$this->toolVersion();?>"></script>

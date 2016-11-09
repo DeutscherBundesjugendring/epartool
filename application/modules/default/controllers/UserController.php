@@ -100,15 +100,19 @@ class UserController extends Zend_Controller_Action
                             $userModel->addConsultationData($data);
                         }
                         unset($data['cmnt_ext']);
+                        $consultationId = $data['kid'];
                         unset($data['kid']);
                         unset($data['is_contrib_under_cc']);
                         unset($data['csrf_token_register']);
                         if (isset($data['group_specs'])) {
                             $data = array_merge($data, $data['group_specs']);
                             unset($data['group_specs']);
-                            foreach ($data['source'] as $source) {
-                                $data['source'] = $source;
-                                break;
+
+                            if (isset($data['source'])) {
+                                foreach ($data['source'] as $source) {
+                                    $data['source'] = $source;
+                                    break;
+                                }
                             }
                         }
                         $data['email'] = $this->_auth->getIdentity()->email;
@@ -116,6 +120,8 @@ class UserController extends Zend_Controller_Action
 
                         $inputModel = new Model_Inputs();
                         $inputModel->confirmByCkey($confirmKey, $uid);
+
+                        (new Model_Votes_Rights())->setInitialRightsForConfirmedUser($uid, $consultationId);
 
                         $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
                     }
@@ -173,9 +179,8 @@ class UserController extends Zend_Controller_Action
             if ($kid == 0) {
                 $consultationModel = new Model_Consultations();
                 $groupsModel = new Model_Votes_Groups();
-                $consultationList = $consultationModel->getByUser($identity->uid)->toArray();
+                $consultationList = $consultationModel->getByUserVotingRights($identity->uid)->toArray();
                 foreach ($consultationList as $key => $value) {
-                    $group = array();
                     $group = $groupsModel->getByConsultation($value['kid'], $identity->uid);
                     // if no group member in consultation delete consultation from array
                     if (empty($group)) {
@@ -207,7 +212,6 @@ class UserController extends Zend_Controller_Action
                     // its possible the user reload's the page
                     $consultationList = $consultationModel->getByUser($identity->uid)->toArray();
                     foreach ($consultationList as $key => $value) {
-                        $group = array();
                         $group = $groupsModel->getByConsultation($value['kid'], $identity->uid);
                         // if no group member delete consultation from array
                         if (empty($group)) {
@@ -231,20 +235,26 @@ class UserController extends Zend_Controller_Action
         $form = new Admin_Form_ListControl();
 
         if ($form->isValid($this->getRequest()->getPost())) {
-            $votesGroupsModel = new Model_Votes_Groups();
+            if ($this->_consultation['vot_to'] === '0000-00-00 00:00:00'
+                || Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
+            ) {
+                $votesGroupsModel = new Model_Votes_Groups();
 
-            if ($this->getRequest()->getPost('confirm')) {
-                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
-                $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
-                $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
-            } elseif ($this->getRequest()->getPost('deny')) {
-                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
-                $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
-                $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
-            } elseif ($this->getRequest()->getPost('delete')) {
-                list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
-                $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
-                $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+                if ($this->getRequest()->getPost('confirm')) {
+                    list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('confirm'));
+                    $votesGroupsModel->confirmVoter($this->_consultation->kid, $uid, $sub_uid);
+                    $this->_flashMessenger->addMessage('The voting participant was confirmed.', 'success');
+                } elseif ($this->getRequest()->getPost('deny')) {
+                    list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('deny'));
+                    $this->_flashMessenger->addMessage('The voting participant was denied.', 'success');
+                    $votesGroupsModel->denyVoter($this->_consultation->kid, $uid, $sub_uid);
+                } elseif ($this->getRequest()->getPost('delete')) {
+                    list($uid, $sub_uid) = explode('_', $this->getRequest()->getPost('delete'));
+                    $votesGroupsModel->deleteVoter($this->_consultation->kid, $uid, $sub_uid);
+                    $this->_flashMessenger->addMessage('The voting participant was deleted.', 'success');
+                }
+            } else {
+                $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             }
         }
 

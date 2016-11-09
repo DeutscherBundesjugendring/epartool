@@ -43,7 +43,6 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
             'follow-up' => array(
                 'url' => $this->view->baseUrl() . '/followup/index/kid/' . $con->kid,
                 'text' => $con->phase_followup ? $this->view->escape($con->phase_followup) : $this->view->translate('Reactions & Impact'),
-                'info' => $this->view->translate('after Voting has ended'),
                 'showBubble' => false
             ),
         );

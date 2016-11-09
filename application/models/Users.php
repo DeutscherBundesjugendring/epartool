@@ -129,9 +129,10 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'date_added' => new Zend_Db_Expr('NOW()'),
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
+            'age_group' => $data['age_group'] === "" ? null : $data['age_group'],
         ];
 
-        foreach (['age_group', 'newsl_subscr', 'regio_pax', 'cmnt_ext', 'cnslt_results', 'name'] as $property) {
+        foreach (['newsl_subscr', 'regio_pax', 'cmnt_ext', 'cnslt_results', 'name'] as $property) {
             if (isset($data[$property])) {
                 $userConsultData[$property] = $data[$property];
             }
@@ -150,7 +151,9 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 }
             }
         } else {
-            $userConsultData = array_merge($userConsultData, ['group_size' => 1]);
+            $userConsultData = array_merge($userConsultData, [
+                'group_size' => (new Model_GroupSize())->getInitGroupSize($data['kid'])['id'],
+            ]);
         }
 
         return (new Model_User_Info())

@@ -16,7 +16,7 @@ class Service_Cron_Logrotate extends Service_Cron
             $maxSize = Zend_Registry::get('systemconfig')->log->file->maxSize;
             if (isset($pathInfo['extension'])
                 && $pathInfo['extension'] === 'log'
-                && !strpos($pathInfo['filename'], '.')
+                && !mb_strpos($pathInfo['filename'], '.')
                 && filesize($pathInfo['dirname'] . '/' . $pathInfo['basename']) > $maxSize
             ) {
                 rename(

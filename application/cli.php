@@ -1,6 +1,7 @@
 <?php
 
 if (php_sapi_name() !== 'cli') {
+    // @codingStandardsIgnoreLine
     die('This script may only be run form CLI.');
 }
 
@@ -22,8 +23,10 @@ EOD;
 
 
 if ($argc === 1) {
+    // @codingStandardsIgnoreLine
     echo $help;
 } elseif ($argc === 2 && $argv[1] === 'cron') {
     Service_Cron::executeAll();
+    // @codingStandardsIgnoreLine
     echo "Cron task completed succesffuly\n";
 }

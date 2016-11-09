@@ -130,7 +130,9 @@ class Admin_InputController extends Zend_Controller_Action
                 (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
             ]
         );
-        $this->view->userGroupSizes = Zend_Registry::get('systemconfig')->group_size_def->toArray();
+        $this->view->userGroupSizes = (new Model_GroupSize())->getOptionsByConsultation($this->_consultation['kid']);
+        $this->view->contributorAges = (new Model_ContributorAge())
+            ->getOptionsByConsultation($this->_consultation['kid']);
         $this->view->form = new Admin_Form_ListControl();
         $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['uid=?' => $uid]);
     }
@@ -421,10 +423,11 @@ class Admin_InputController extends Zend_Controller_Action
         header("Content-type: text/csv");
         header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
         header('Content-Disposition: attachment; filename=inputs_'
-            . $question['nr'] . '_qid' . $qid . '_' . $mod . '_'
+            . (isset($question['nr']) ? $question['nr'] . '_' : '') . 'qid' . $qid . '_' . $mod . '_'
             . gmdate('Y-m-d_H\hi\m') . '_' . $cod . '.csv');
         header('Pragma: no-cache');
 
+        // @codingStandardsIgnoreLine
         echo $csv;
         exit;
     }

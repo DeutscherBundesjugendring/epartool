@@ -14,7 +14,7 @@
         </div>
         <div class="content">
 
-            <h1>
+            <h1 class="main-content-title-narrow">
                 <?=$this->translate('How it all proceeeded:');?>
                 <br />
                 <?=$this->translate('Reactions & Impact');?>
@@ -22,7 +22,7 @@
 
             <?php if ($this->consultation['follow_up_explanation']): ?>
                 <p class="offset-bottom-large">
-                    <?=$this->consultation['follow_up_explanation'];?>
+                    <?=$this->wysiwyg($this->consultation['follow_up_explanation']);?>
                 </p>
             <?php endif;?>
 
@@ -58,7 +58,7 @@
                                         </h4>
                                         <div class="offset-bottom-small">
                                             <img
-                                                class="followup-well-link img-responsive followup-timeline-box js-openoverlay js-timeline-box"
+                                                class="followup-well-link img-responsive followup-timeline-box followup-timeline-box-border js-openoverlay js-timeline-box"
                                                 data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
                                                 data-ffid="<?=(int) $followup['ffid'];?>"
                                                 src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"

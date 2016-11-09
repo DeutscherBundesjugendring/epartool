@@ -132,8 +132,10 @@ class Admin_MailSendController extends Zend_Controller_Action
                 ->where($templateModel->getName() . '.id=?', $templateId)
         );
         if ($template) {
+            // @codingStandardsIgnoreLine
             echo json_encode($template->toArray());
         }
+        // @codingStandardsIgnoreLine
         die();
     }
 }
