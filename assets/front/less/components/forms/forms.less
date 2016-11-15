@@ -35,10 +35,8 @@ label.required:after {
 }
 
 // Enable full-width inline forms with expanding item.
-.input-group-full-xs {
-    @media (max-width: @screen-xs-max) {
-        width: 100%;
-    }
+.input-group-full {
+    width: 100%;
 }
 
 .form-inline-flex {
@@ -48,7 +46,7 @@ label.required:after {
 
         .input-group {
             display: table;
-            margin-left: @grid-gutter-width / 2;
+            padding-left: @grid-gutter-width / 2;
 
             .input-group-addon,
             .input-group-btn {
