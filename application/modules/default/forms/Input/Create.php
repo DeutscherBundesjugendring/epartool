@@ -135,7 +135,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setOptions($videoElOpts)
             ->setValue($videoId)
             ->setLabel('Video ID')
-            ->setAttrib('placeholder', $view->translate('Video ID'))
+            ->setAttrib('placeholder', $view->translate('Please paste video URL'))
             ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
 
         $inputForm->addElement('textarea', 'expl');
