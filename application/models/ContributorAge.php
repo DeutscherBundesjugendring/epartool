@@ -41,6 +41,6 @@ class Model_ContributorAge extends Dbjr_Db_Table_Abstract
             }
         }
 
-        return array_merge($options, $lastOption);
+        return $options + $lastOption;
     }
 }
