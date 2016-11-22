@@ -11,6 +11,7 @@ RUN             apt-get update && apt-get install -y \
                     mysql-client \
                     libpng12-dev \
                     libjpeg-dev \
+                    zip \
                     zlib1g-dev
 
 RUN             docker-php-ext-install pdo_mysql
