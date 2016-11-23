@@ -1259,7 +1259,7 @@ UPDATE `user_info` SET age_group = NULL WHERE age_group = 5;
 ALTER TABLE `user_info`
 ADD FOREIGN KEY (`age_group`) REFERENCES `contributor_age` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
--- Migration
+-- Migration 20161012114615_dbjr936.php
 CREATE TABLE `input_relations` (`parent_id` int(10) unsigned NOT NULL, `child_id` int(10) unsigned NOT NULL)
 ENGINE='InnoDB';
 ALTER TABLE `input_relations` ADD PRIMARY KEY `pkey` (`parent_id`, `child_id`);

@@ -1049,3 +1049,11 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
 DELETE FROM email_template_has_email_placeholder
 WHERE email_template_id = (SELECT id FROM email_template WHERE name = 'voting_confirmation_single')
 AND email_placeholder_id = (SELECT id FROM email_placeholder WHERE name = 'rejection_url');
+
+-- Migration 20161123214112_dbjr1020.php
+INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
+('help-text-admin-consultation-settings-general', 'Sample consultation settings general page text.', @project_code, 'admin'),
+('help-text-admin-consultation-settings-participants-data', 'Sample consultation settings participants data page text.', @project_code, 'admin'),
+('help-text-admin-consultation-settings-voting', 'Sample consultation settings voting page text.', @project_code, 'admin'),
+('help-text-admin-consultation-settings-phases', 'Sample consultation settings phases page text.', @project_code, 'admin'),
+('help-text-admin-consultation-settings-group-clusters', 'Sample consultation settings group clusters page text.', @project_code, 'admin');
