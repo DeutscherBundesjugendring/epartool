@@ -33,15 +33,17 @@
         </li>
     <?php endfor; ?>
 
-    <li<?=$this->points === null ? ' class="active"' : '';?>>
-        <a href="#"
-           data-tid="<?=$this->escape($this->tid);?>"
-           data-kid="<?=$settings['kid'];?>"
-           data-rating=""
-           class="js-voting-rate"
-        >
-            <?=$this->translate('No opinion');?>
-        </a>
-    </li>
+    <?php if ($settings['btn_no_opinion']): ?>
+        <li<?=$this->points === null ? ' class="active"' : '';?>>
+            <a href="#"
+               data-tid="<?=$this->escape($this->tid);?>"
+               data-kid="<?=$settings['kid'];?>"
+               data-rating=""
+               class="js-voting-rate"
+            >
+                <?=$this->translate('No opinion');?>
+            </a>
+        </li>
+    <?php endif; ?>
 
 </ul>

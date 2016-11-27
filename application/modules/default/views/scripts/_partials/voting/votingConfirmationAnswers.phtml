@@ -21,8 +21,10 @@
         </li>
     <?php endfor; ?>
 
-    <li<?=$this->points === null ? ' class="active"' : '';?>>
-        <span><?=$this->translate('No opinion');?></span>
-    </li>
+    <?php if ($settings['btn_no_opinion']) : ?>
+        <li<?=$this->points === null ? ' class="active"' : '';?>>
+            <span><?=$this->translate('No opinion');?></span>
+        </li>
+    <?php endif; ?>
 
 </ul>
