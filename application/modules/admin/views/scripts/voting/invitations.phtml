@@ -94,18 +94,39 @@
                                                         >
                                                         <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                                                     </a>
-                                                    <button
-                                                        value="<?=$this->escape($user['uid']);?>"
-                                                        name="instantSendUserId"
-                                                        class="item-action"
-                                                        data-toggle="confirm"
-                                                        data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user?');?>"
-                                                        data-confirm-yes="<?=$this->translate('Yes');?>"
-                                                        data-confirm-no="<?=$this->translate('No');?>"
-                                                        title="<?=$this->translate('Send invitation');?>"
-                                                    >
-                                                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                                                    </button>
+
+                                                    <?php if ($user['invitation_sent_date'] !== null): ?>
+                                                        <button
+                                                            value="<?=$this->escape($user['uid']);?>"
+                                                            name="instantSendUserId"
+                                                            class="item-action"
+                                                            data-toggle="confirm"
+                                                            data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user again?');?>"
+                                                            data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                            data-confirm-no="<?=$this->translate('No');?>"
+                                                            title="<?=sprintf($this->translate('Invitation has been sent at %s'), $this->formatDate($user['invitation_sent_date']));?>"
+                                                        >
+                                                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                                            <span
+                                                                class="glyphicon glyphicon-ok"
+                                                                style="font-size: 0.7em; color: #00BB00;"
+                                                                aria-hidden="true">
+                                                            </span>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <button
+                                                            value="<?=$this->escape($user['uid']);?>"
+                                                            name="instantSendUserId"
+                                                            class="item-action"
+                                                            data-toggle="confirm"
+                                                            data-confirm-message="<?=$this->translate('Do you really want to send invitation to this user?');?>"
+                                                            data-confirm-yes="<?=$this->translate('Yes');?>"
+                                                            data-confirm-no="<?=$this->translate('No');?>"
+                                                            title="<?=$this->translate('Send invitation');?>"
+                                                        >
+                                                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                                        </button>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                                 <a
                                                     href="<?=$this->url(['controller' => 'input', 'action' => 'list-by-user', 'uid' => $user['uid']]);?>"

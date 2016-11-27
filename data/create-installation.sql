@@ -1268,3 +1268,6 @@ CASCADE;
 ALTER TABLE `input_relations` ADD FOREIGN KEY (`child_id`) REFERENCES `inpt` (`tid`) ON DELETE CASCADE ON UPDATE
 CASCADE;
 ALTER TABLE `inpt` DROP `rel_tid`;
+
+-- Migration 20161127190639_dbjr1029.php
+ALTER TABLE `user_info` ADD `invitation_sent_date` datetime NULL DEFAULT NULL;

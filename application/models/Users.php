@@ -411,7 +411,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 ->join(
                     ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
                     'u.uid = ui.uid',
-                    []
+                    ['invitation_sent_date']
                 )
                 ->where('ui.kid=?', $kid)
                 ->where('ui.confirmation_key IS NULL');
