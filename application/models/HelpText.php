@@ -29,8 +29,20 @@ class Model_HelpText extends Dbjr_Db_Table_Abstract
             'help-text-admin-consultation-voting-results' => $trans->translate('Voting results help text'),
             'help-text-admin-consultation-follow-up' => $trans->translate('Reactions & Impact help text'),
             'help-text-admin-consultation-follow-up-snippets' => $trans->translate('Follow up snippets help text'),
-            'help-text-admin-question' => $trans->translate('Question help text'),
+
+            'help-text-admin-consultation-settings-general' =>
+                $trans->translate('Consultation general settings help text'),
+            'help-text-admin-consultation-settings-participants-data' =>
+                $trans->translate('Consultation participant settings help text'),
+            'help-text-admin-consultation-settings-voting' =>
+                $trans->translate('Consultation voting settings help text'),
+            'help-text-admin-consultation-settings-phases' =>
+                $trans->translate('Consultation phase settings help text'),
+            'help-text-admin-consultation-settings-group-clusters' =>
+                $trans->translate('Consultation group settings help text'),
+
             'help-text-admin-contribution' => $trans->translate('Contribution help text'),
+            'help-text-admin-question' => $trans->translate('Question help text'),
         ];
 
         return $names[$name];
