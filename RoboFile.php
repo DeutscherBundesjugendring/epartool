@@ -39,7 +39,8 @@ class RoboFile extends Tasks
         $this->stopOnFail(true);
         $this->clearCache();
         $this->build();
-        $this->dbMigrateProd();
+        $this->phinxMigrate('production');
+        $this->phinxMigrate('test');
         $this->test();
     }
 
@@ -105,7 +106,6 @@ class RoboFile extends Tasks
             ->run();
         $this->taskExec('rm www/media/consultations/1/consultation_thumb_micro_scholl.jpg')->run();
         $this->taskExec('rm www/media/folders/misc/logo.png')->run();
-
     }
 
     /**
@@ -115,8 +115,8 @@ class RoboFile extends Tasks
     {
         $this
             ->taskExec('vendor/bin/phinx migrate')
-            ->args(sprintf('-c %s', self::PHINX_CONFIG_FILE))
-            ->args(sprintf('-e %s', $environment))
+            ->option('-c', self::PHINX_CONFIG_FILE)
+            ->option('-e', $environment)
             ->run();
     }
 
@@ -136,15 +136,6 @@ class RoboFile extends Tasks
         $this->taskComposerInstall()->run();
         $this->taskNpmInstall()->run();
         $this->taskExec('grunt')->run();
-    }
-
-    private function dbMigrateProd()
-    {
-        $this
-            ->taskExec('vendor/bin/phinx migrate')
-            ->args(sprintf('-c %s', self::PHINX_CONFIG_FILE))
-            ->args('-e default')
-            ->run();
     }
 
     private function clearCache()

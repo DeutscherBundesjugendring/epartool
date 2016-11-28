@@ -5,7 +5,7 @@ paths:
 environments:
     default_migration_table: phinxlog
     # these credentials has to be stored even in config.local.ini
-    default:
+    production:
         adapter: mysql
         host: db
         name: dbjr
