@@ -1028,12 +1028,61 @@ VALUES
 
 
 INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
-('help-text-home', 'Sample home page text.', @project_code, 'default'),
-('help-text-consultation-info', 'Sample consultation-info page text.', @project_code, 'default'),
-('help-text-consultation-question', 'Sample consultation-question page text.', @project_code, 'default'),
-('help-text-consultation-input', 'Sample consultation-input page text.', @project_code, 'default'),
-('help-text-consultation-voting', 'Sample consultation-voting page text.', @project_code, 'default'),
-('help-text-consultation-followup', 'Sample consultation-followup page text.', @project_code, 'default'),
+(
+    'help-text-home',
+    '<p>Diese Seite begr&uuml;&szlig;t alle Besucher_innen. Oben leiten euch die Buttons <strong>&bdquo;Was &ndash; wir &ndash; mit euch &ndash; machen&ldquo;</strong> auf eine Unterseite mit detaillierten Informationen zum Projekt/ Prozess und den Phasen des Beteiligungstools.</p>
+<p><strong>Login:</strong> Falls ihr schon einmal auf der Seite wart und an einer Beteiligungsrunde teilgenommen habt, k&ouml;nnt ihr euch mit eurer E-Mail-Adresse und eurem Passwort anmelden und unter <strong>&bdquo;Alle meine Beitr&auml;ge ansehen&ldquo;</strong> dort weitermachen, wo ihr das letzte Mal aufgeh&ouml;rt habt, oder die Beteiligung an einer neuen Runde beginnen. Wenn ihr eurer Passwort vergessen habt, k&ouml;nnt ihr euch ganz unkompliziert ein neues zuschicken lassen, indem ihr auf <strong>&bdquo;Passwort vergessen&ldquo; </strong>klickt.</p>
+<p>&nbsp;</p>
+<p>Im Hauptteil der Seite findet ihr eine &Uuml;bersicht &uuml;ber laufende oder k&uuml;rzlich beendete Beteiligungsrunden, die aktuellste an oberster Stelle. In horizontal nebeneinander stehenden schwarzen Balken sind Informationen zur Runde, die Fragen sowie die einzelnen Phasen der Beteiligungsrunde zum Anklicken aufgelistet. Die Phasen <strong>&bdquo;Beitr&auml;ge&ldquo;</strong> und <strong>&bdquo;Abstimmung&ldquo;</strong> haben zumeist bestimmte Laufzeiten, in denen dann zus&auml;tzlich ein gelber Button <strong>&bdquo;<em>Jetzt mitmachen!</em>&ldquo;</strong> auf dem schwarzen Balken leuchtet. Ist ein Balken grau, so ist diese Phase noch nicht aktiv und kann nicht ausgew&auml;hlt werden.</p>
+<p>&nbsp;</p>
+<p>Unter dem Hauptteil der Seite befindet sich eine Leiste mit Links zu besonderen Seiten (<strong><em>Datenschutz</em>, <em>Impressum</em> etc.</strong>). Darunter befindet sich der Fu&szlig;bereich mit Informationen zu Projekttr&auml;ger, F&ouml;rderer usw. Beides wird genau wie der Kopfbereich auf allen Unterseiten angezeigt.</p>',
+    @project_code,
+    'default'
+),
+(
+    'help-text-consultation-info',
+    '<p>Unter <strong>&bdquo;Infos&ldquo;</strong> gibt es die wichtigsten Informationen zur entsprechenden Beteiligungsrunde auf einen Blick.</p>
+     <p>Links auf der Seite befinden sich weitere Buttons, z.B. <strong>&bdquo;<em>So geht&rsquo;s</em>&ldquo;</strong> und <strong>&bdquo;<em>Infos zum Thema&ldquo;</em>, </strong>die euch auf weitere Unterseiten f&uuml;hren und den Beteiligungsprozess sowie den thematischen Hintergrund der jeweiligen Beteiligungsrunde und ihrer Fragen erl&auml;utern.</p>',
+    @project_code,
+    'default'
+),
+(
+    'help-text-consultation-question',
+    '<p>Der Balken <strong>&bdquo;<em>Fragen</em>&ldquo;</strong> f&uuml;hrt euch auf eine Unterseite, auf der alle Fragen der Beteiligungsrunde sowie kurze Erl&auml;uterungen dazu aufgef&uuml;hrt sind.</p>
+     <p>Wenn die Beitragsphase der Beteiligungsrunde aktiv ist, seht ihr au&szlig;erdem rechts neben jeder Frage den Button <strong>&bdquo;<em>Beitrag verfassen</em>&ldquo; </strong>&ndash; hier k&ouml;nnt ihr sofort loslegen.</p>',
+    @project_code,
+    'default'
+),
+(
+    'help-text-consultation-input',
+    '<p>Durch Klicken auf den Balken <strong>&bdquo;Beitr&auml;ge&ldquo;</strong> kommt ihr auf diese Unterseite, auf der Felder mit den Fragen der Beteiligungsrunde und jeweils abgegebene Beitr&auml;ge angezeigt werden.</p>
+     <p>Wenn die Beitragsphase der Beteiligungsrunde aktiv ist, seht ihr au&szlig;erdem rechts neben jeder Frage den Button <strong>&bdquo;<em>Beitrag verfassen</em>&ldquo; </strong>&ndash; hier k&ouml;nnt ihr sofort loslegen.</p>',
+    @project_code,
+    'default'
+),
+(
+    'help-text-consultation-voting',
+    '<p>In der Abstimmungsphase erhaltet ihr (als Einzelperson von den Admins oder als Gruppenmitglieder von eurem_eurer Gruppenverantwortlichen) eine <strong>E-Mail mit Einladung zur Abstimmung und einem Zugangscode</strong>. Dieser Zugangscode ist entweder Einzelpersonen oder Gruppen zugeordnet &ndash; Gruppen haben ein st&auml;rkeres Stimmgewicht.</p>
+     <p><strong>Wichtig: </strong>Mit dem Zugangscode einer Gruppe k&ouml;nnen beliebig viele junge Menschen teilnehmen, das Stimmengewicht der gesamten Gruppe ist vorher festgelegt und verteilt sich auf alle Abstimmenden. Gruppenverantwortliche m&uuml;ssen euch freischalten, k&ouml;nnen aber nicht sehen, wie ihr abstimmt, nur, dass ihr abgestimmt habt!</p>
+     <p>Zum Abstimmen braucht ihr neben diesem Code eure E-Mail-Adresse.</p>
+     <p>Zum Abstimmen klickt ihr bei laufendem Abstimmungszeitraum auf <strong>&bdquo;Jetzt abstimmen!&ldquo;</strong> in der entsprechenden Beteiligungsrunde. Dadurch gelangt ihr nach Eingabe von E-Mail-Adresse und Zugangscode auf eine &Uuml;bersichtsseite mit allen Fragen der Beteiligungsrunde sowie allen in den Beitr&auml;gen verwendeten Schlagw&ouml;rtern.</p>',
+    @project_code,
+    'default'
+),
+(
+    'help-text-consultation-followup',
+    '<p>Mit der Abstimmung ist die Beteiligung noch nicht zu Ende, denn ihr m&ouml;chtet ja auch sehen, was dabei herauskommt. Hier werden die Reaktionen anschaulich dargestellt:</p>
+     <p>In der <strong>&Uuml;bersichtsseite der Reaktionen</strong> k&ouml;nnt ihr sehen, wie eure Beitr&auml;ge in der Abstimmung gewertet wurden und ob sie Teil der Ergebniszusammenfassung wurden. Ihr seht au&szlig;erdem, von wem es welche Reaktionen auf eine Beteiligungsrunde bzw. auf eure einzelnen Beitr&auml;ge gab. In welche Beschlusspapiere sind die Beitr&auml;ge eingegangen, welche politischen Debatten schlossen sich an die Beteiligungsrunde an? All das veranschaulicht das Tool durch Bereitstellung aller Dokumente und Links zu Websites, Videos etc.</p>
+     <p>Unter diesem &Uuml;berblick gelangt ihr &uuml;ber die Fragen zu <strong>&bdquo;Reaktionen und Feedback auf einzelne Beitr&auml;ge&ldquo;:</strong> Hier k&ouml;nnt ihr bestimmte Beitr&auml;ge sowie die Reaktionen darauf im Einzelnen grafisch aufbereitet nachverfolgen.</p>',
+    @project_code,
+    'default'
+),
+(
+    'help-text-login',
+    '<p>Wenn ihr schon einmal teilgenommen habt oder Adminberechtigungen f&uuml;r eine oder mehrere Beteiligungsrunden besitzt, so habt ihr nach dem Login die M&ouml;glichkeit, von der Startseite zu den Beteiligungsrunden in den <strong>gesch&uuml;tzten Bereich</strong> zu wechseln. Dazu klickt ihr oben rechts neben der Anzeige eures Login-Namens auf den Pfeil, hier bekommt ihr die Optionen &bdquo;<strong>Alle meine Beitr&auml;ge ansehen&ldquo;</strong>, <strong>&bdquo;Gruppenmitglieder ansehen&ldquo;</strong> und <strong>&bdquo;Logout&ldquo;</strong> angezeigt. Administrator_innen k&ouml;nnen zudem in den<strong> &bdquo;Adminbereich&ldquo;</strong> wechseln.</p>',
+    @project_code,
+    'default'
+),
 
 ('help-text-admin-consultation-voting-preparation', 'Sample voting-preparation text.', @project_code, 'admin'),
 ('help-text-admin-consultation-voting-permissions', 'Sample voting-permissions text.', @project_code, 'admin'),
