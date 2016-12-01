@@ -136,6 +136,10 @@ class Admin_VotingController extends Zend_Controller_Action
                 $mailer->addTo($user['email']);
 
                 (new Service_Email)->queueForSend($mailer)->sendQueued();
+                (new Model_User_Info())->update(
+                    ['invitation_sent_date' => new Zend_Db_Expr('NOW()')],
+                    ['uid = ?' => $user['uid'], 'kid' => $this->_consultation['kid']]
+                );
                 $this->_flashMessenger->addMessage(
                     sprintf(
                         $this->view->translate('Voting invitation to %s has been successfully sent.'),
@@ -199,6 +203,10 @@ class Admin_VotingController extends Zend_Controller_Action
                 }
 
                 (new Service_Email)->queueForSend($mailer)->sendQueued();
+                (new Model_User_Info())->update(
+                    ['invitation_sent_date' => new Zend_Db_Expr('NOW()')],
+                    ['uid = ?' => $user['uid'], 'kid' => $this->_consultation['kid']]
+                );
                 $this->_flashMessenger->addMessage(
                     sprintf(
                         $this->view->translate('Voting invitation to %s has been successfully sent.'),
