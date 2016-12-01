@@ -442,6 +442,7 @@ class Admin_VotingController extends Zend_Controller_Action
                 $values = $form->getValues();
 
                 $this->_settings->btn_important = $values['btn_important'];
+                $this->_settings->btn_no_opinion = $values['btn_no_opinion'];
                 $this->_settings->btn_important_label = $values['btn_important_label'];
                 $this->_settings->btn_numbers = $values['btn_numbers'];
                 $this->_settings->btn_labels = $values['btn_labels'];
