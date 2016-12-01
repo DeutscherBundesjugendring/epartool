@@ -37,6 +37,18 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             );
         $this->addElement($buttonImportant);
 
+        $buttonNoOpinion = $this->createElement('radio', 'btn_no_opinion');
+        $buttonNoOpinion
+            ->setLabel('No Opinion')
+            ->setRequired(true)
+            ->setMultiOptions(
+                [
+                    1 => $translator->translate('Enable'),
+                    0 => $translator->translate('Disable'),
+                ]
+            );
+        $this->addElement($buttonNoOpinion);
+
         $buttonImportantLabel = $this->createElement('text', 'btn_important_label');
         $buttonImportantLabel->setLabel('Superbutton label');
         $this->addElement($buttonImportantLabel);
