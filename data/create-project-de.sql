@@ -99,22 +99,18 @@ Das Team des ePartool
         (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
         @project_code,
         'Vielen Dank fürs Abstimmen! Bitte bestätige deine Teilnahme!',
-        '<p>Hallo {{to_email}},</p>
-<p>vielen Dank für deine Teilnahme an der Abstimmung zur Beteiligungsrunde „{{consultation_title_long}}“. Damit wir sicherstellen können, dass wirklich du selbst abgestimmt hast, bitten wir dich, deine Teilnahme über den unten stehenden Link zu bestätigen.</p>
-<p>Ja, ich habe abgestimmt:<br />
+'<p>Hallo {{to_email}},</p>
+<p>vielen Dank für deine Teilnahme an der Abstimmung zur Beteiligungsrunde „{{consultation_title_long}}“. Damit wir sicherstellen können, dass wirklich du selbst abgestimmt hast, bitten wir dich, deine Teilnahme über den untenstehenden Linkzu bestätigen oder abzulehnen.</p>
+<p>Hier kannst du deine Beiträge bestätigen oder ablehnen:<br />
 <a href="{{confirmation_url}}">{{confirmation_url}}</a></p>
-<p>Solltest du nicht an der Abstimmung teilgenommen haben, klicke auf diesen Link:<br />
-<a href="{{rejection_url}}">{{rejection_url}}</a></p>
 <p>Falls sich der Bestätigungslink nicht anklicken lässt oder ein Teil des Links abgeschnitten wurde, kopiere bitte den gesamten Link und füge ihn in die Adressleiste deines Browsers ein. Drücke anschließend die Eingabetaste. Wir freuen uns über dein Interesse und werden dich nach Abschluss der Beteiligungsrunde per E-Mail über die Ergebnisse informieren.</p>
 <p>Viele Grüße<br />
 Das Team des ePartool</p>',
         'Hallo {{to_email}},
 vielen Dank für deine Teilnahme an der Abstimmung zur Beteiligungsrunde „{{consultation_title_long}}“.
-Damit wir sicherstellen können, dass wirklich du selbst abgestimmt hast, bitten wir dich, deine Teilnahme über den unten stehenden Link zu bestätigen.
-Ja, ich habe abgestimmt:
+Damit wir sicherstellen können, dass wirklich du selbst abgestimmt hast, bitten wir dich, deine Teilnahme über den untenstehenden Link zu bestätigen oder abzulehnen.
+Hier kannst du deine Beiträge bestätigen oder ablehnen:
 {{confirmation_url}}
-Solltest du nicht an der Abstimmung teilgenommen haben, klicke auf diesen Link:
-{{rejection_url}}
 Falls sich der Bestätigungslink nicht anklicken lässt oder ein Teil des Links abgeschnitten wurde, kopiere bitte den gesamten Link und füge ihn in die Adressleiste deines Browsers ein. Drücke anschließend die Eingabetaste.
 Wir freuen uns über dein Interesse und werden dich nach Abschluss der Beteiligungsrunde per E-Mail über die Ergebnisse informieren.
 Viele Grüße
