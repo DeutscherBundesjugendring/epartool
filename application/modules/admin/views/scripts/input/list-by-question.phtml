@@ -217,7 +217,7 @@
 
                         <!-- Listing -->
                         <div class="table-responsive">
-                            <table class="table table-bordered js-table-rows-toggle" id="contribution-table">
+                            <table class="table table-bordered js-table-rows-toggle" id="contribution-table" data-token="<?=$this->csrfToken;?>">
                                 <?php foreach ($this->inputs as $input): ?>
                                     <?=$this->partial('input/_inputBox.phtml', [
                                         'input' => $input,

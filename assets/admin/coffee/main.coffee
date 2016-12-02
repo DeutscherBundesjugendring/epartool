@@ -14,6 +14,7 @@ $(document).ready () ->
     initSortableVotingDirs()
     initSortablePartners()
     initMediaIndexFileLazyLoad()
+    changeContributionStatus()
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -262,6 +263,54 @@ groupsSizesSettings = () ->
         el.find('#js-groups-sizes-new-row-to').attr('name', 'groupSizes[_' + timestamp + '][to]').attr('id', '')
         $('#js-groups-sizes-intervals').append(el)
         return false
+
+changeContributionStatus = () ->
+    $('.js-contribution-change-status').on 'click', (e) ->
+        e.preventDefault()
+        tokenEl = $('#contribution-table')
+        if (tokenEl.data('token') == '')
+            return
+
+        kid = $(this).data('kid')
+        tid = $(this).data('tid')
+        property = $(this).data('property')
+
+        thisButton = $(this)
+        buttonLabel = $(this).find('.label')
+        buttonIcon = $(this).find('.glyphicon').clone();
+
+        $.ajax
+            url: baseUrl + '/admin/input/change-status/kid/' + kid + '/tid/' + tid + '/token/' + tokenEl.data('token') + '/property/' + property
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            cache: false
+            async: true
+            error: ->
+                buttonLabel.attr('class', 'label label-warning')
+                buttonLabel.html(' ' + i18n.translate('Something went wrong'))
+                buttonIcon.attr('class', 'glyphicon glyphicon-alert')
+                buttonLabel.prepend(buttonIcon)
+                thisButton.attr('style', '')
+                return
+            beforeSend: ->
+                tokenEl.data('token', '')
+                $('.js-contribution-change-status').attr('style', 'opacity:0.7')
+                buttonLabel.attr('class', 'label label-info')
+                buttonLabel.html(' ' + i18n.translate('Loading…'))
+                buttonIcon.attr('class', 'glyphicon glyphicon-refresh')
+                buttonLabel.prepend(buttonIcon)
+                return
+            success: (response) ->
+                buttonIcon.attr('class', 'glyphicon glyphicon-' + response.iconClass)
+                buttonLabel.attr('class','label label-' + response.labelClass)
+                buttonLabel.html(' ' + response.label)
+                buttonLabel.prepend(buttonIcon);
+                tokenEl.data('token', response.token)
+                $('.js-contribution-change-status').attr('style', '')
+                return
+        return
+
 
 class mediaSelectPopup
     ###*
