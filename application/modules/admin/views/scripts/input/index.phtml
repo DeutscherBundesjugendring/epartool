@@ -29,12 +29,17 @@
 
                 <h2><?=$this->translate('Contributions');?></h2>
 
-                <?php if (!count($this->questions) && !count($this->users)): ?>
-                    <p class="alert alert-info">
-                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                <p class="alert alert-info">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <?php if (!count($this->questions) && !count($this->users)): ?>
                         <?=$this->translate('There are no contributions yet.');?>
-                    </p>
-                <?php endif; ?>
+                    <?php else: ?>
+                        <?=$this->translate('Voting preparation of contributions is');?>
+                        <a href="<?php echo $this->url(array(
+                            'controller' => 'votingprepare'
+                        )); ?>"><?=$this->translate('here');?></a>.
+                    <?php endif; ?>
+                </p>
 
                 <?php if (count($this->questions)): ?>
                     <h3><?=$this->translate('By Question');?></h3>
