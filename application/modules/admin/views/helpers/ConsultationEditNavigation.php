@@ -35,7 +35,7 @@ class Admin_View_Helper_ConsultationEditNavigation extends Zend_View_Helper_Abst
             ],
             [
                 'name' => 'groups',
-                'label' => $this->view->translate('Group Clusters'),
+                'label' => $this->view->translate('Groups'),
                 'href' => $this->view->url([
                     'controller' => 'consultation',
                     'action' => 'groups',

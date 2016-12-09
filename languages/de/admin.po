@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-12-09 13:13+0100\n"
-"PO-Revision-Date: 2016-12-09 13:14+0100\n"
+"POT-Creation-Date: 2016-12-09 14:07+0100\n"
+"PO-Revision-Date: 2016-12-09 14:07+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -984,11 +984,11 @@ msgstr "Aktivieren"
 #: application/modules/admin/forms/ConsultationGroups.php:193
 #: application/modules/admin/forms/ConsultationGroups.php:226
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:29
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:56
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:87
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:126
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:162
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:193
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:63
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:104
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:146
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:195
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:236
 msgid "From"
 msgstr "Von"
 
@@ -1000,12 +1000,8 @@ msgstr "Aktiviere „keine Angabe“-Option"
 #: application/modules/admin/forms/ConsultationGroups.php:153
 #: application/modules/admin/forms/ConsultationGroups.php:248
 #: application/modules/admin/forms/Mail/Send.php:15
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:32
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:62
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:90
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:129
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:168
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:196
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:72
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:204
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:56
 msgid "To"
 msgstr "An"
@@ -1860,8 +1856,9 @@ msgid "Phases"
 msgstr "Phasen"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:38
-msgid "Group Clusters"
-msgstr "Gruppengrößen (Cluster)"
+#: application/modules/admin/views/scripts/consultation/groups.phtml:23
+msgid "Groups"
+msgstr "Gruppen\t"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:16
 msgid "Dashboard"
@@ -2084,36 +2081,59 @@ msgstr ""
 "Veröffentlichungshinweisen/Lizenz zur Verfügung stellt."
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:18
-msgid "Age Groups"
-msgstr "Altersgruppen"
+msgid "Categories Of Age Groups"
+msgstr "Kategorien von Altersgruppen"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:21
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:119
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:139
 msgid ""
 "Intervals include the border numbers. Eg. 10–12 includes everything between "
 "10 and 12, including 10 and 12."
 msgstr "Die Intervalle schließen die kleinste und größte Zahl jeweils mit ein."
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:47
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:68
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:153
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:174
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:32
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:107
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:149
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:239
+msgid "Up To"
+msgstr "Bis"
+
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:45
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:67
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:76
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:117
+msgid "Years"
+msgstr "Jahre"
+
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:53
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:84
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:185
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:216
 msgid "Delete interval"
 msgstr "Von"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:79
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:185
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:96
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:228
 msgid "Add interval"
 msgstr "Intervall hinzufügen"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:101
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:207
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:121
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:253
 msgid "Infinity"
 msgstr "unbegrenzt"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:116
-msgid "Voting Group Size"
-msgstr "Größe Abstimmungsgruppe"
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:136
+msgid "Categories of Group Sizes"
+msgstr "Kategorien von Gruppengrößen"
+
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:159
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:165
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:177
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:199
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:208
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:249
+msgid "Persons"
+msgstr "Personen"
 
 #: application/modules/admin/views/scripts/consultation/_serverTimeTooltip.phtml:5
 msgid "Server time (when opening this page):"
@@ -2122,10 +2142,6 @@ msgstr "Uhrzeit des Servers (beim Öffnen der Seite):"
 #: application/modules/admin/views/scripts/consultation/edit.phtml:50
 msgid "Consultation Settings"
 msgstr "Einstellungen der Beteiligungsrunde"
-
-#: application/modules/admin/views/scripts/consultation/groups.phtml:23
-msgid "Group Cluster Settings"
-msgstr "Einstellungen Gruppengrößen"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:27
 msgid "New Contributions"
@@ -3457,6 +3473,18 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Group Clusters"
+#~ msgstr "Gruppengrößen (Cluster)"
+
+#~ msgid "Age Groups"
+#~ msgstr "Altersgruppen"
+
+#~ msgid "Voting Group Size"
+#~ msgstr "Größe Abstimmungsgruppe"
+
+#~ msgid "Group Cluster Settings"
+#~ msgstr "Einstellungen Gruppengrößen"
 
 #~ msgid "Admin Help Texts"
 #~ msgstr "Administrative Hilfetexte"

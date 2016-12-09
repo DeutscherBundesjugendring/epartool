@@ -15,7 +15,7 @@
 
     <fieldset>
         <h3>
-            <?=$this->translate('Age Groups');?>
+            <?=$this->translate('Categories Of Age Groups');?>
         </h3>
         <p class="alert alert-info" role="alert">
             <?=$this->translate('Intervals include the border numbers. Eg. 10–12 includes everything between 10 and 12, including 10 and 12.');?>
@@ -29,7 +29,7 @@
                             <?=$this->translate('From');?>
                         </th class="col-sm-5">
                         <th>
-                            <?=$this->translate('To');?>
+                            <?=$this->translate('Up To');?>
                         </th>
                         <th></th>
                     </tr>
@@ -40,11 +40,18 @@
                             <tr class="js-row">
                                 <?php foreach ($contributorAgeElement as $elementPart): ?>
                                     <td class="col-sm-5">
-                                        <?=$elementPart;?>
+                                        <div class="input-group">
+                                            <?=$elementPart;?>
+                                            <span class="input-group-addon"><?=$this->translate('Years');?></span>
+                                        </div>
                                     </td>
                                 <?php endforeach; ?>
                                 <td class="table-cell-actions">
-                                    <a href="#" class="js-contributor-ages-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                                    <a
+                                        href="#"
+                                        class="js-contributor-ages-delete-row item-action item-action-danger"
+                                        title="<?=$this->translate('Delete interval');?>"
+                                    >
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </a>
                                 </td>
@@ -55,17 +62,27 @@
                         <td class="col-sm-5">
                             <label for="from" class="sr-only"><?=$this->translate('From');?></label>
                             <div class="form-group offset-bottom-none">
-                                <input type="text" id="js-contributor-ages-new-row-from" class="form-control">
+                                <div class="input-group">
+                                    <input type="text" id="js-contributor-ages-new-row-from" class="form-control">
+                                    <span class="input-group-addon"><?=$this->translate('Years');?></span>
+                                </div>
                             </div>
                         </td>
                         <td class="col-sm-5">
                             <label for="to" class="sr-only"><?=$this->translate('To');?></label>
                             <div class="form-group offset-bottom-none">
-                                <input type="text" id="js-contributor-ages-new-row-to" class="form-control">
+                                <div class="input-group">
+                                    <input type="text" id="js-contributor-ages-new-row-to" class="form-control">
+                                    <span class="input-group-addon"><?=$this->translate('Years');?></span>
+                                </div>
                             </div>
                         </td>
                         <td class="table-cell-actions">
-                            <a href="#" class="js-contributor-ages-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                            <a
+                                href="#"
+                                class="js-contributor-ages-delete-row item-action item-action-danger"
+                                title="<?=$this->translate('Delete interval');?>"
+                            >
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
                         </td>
@@ -87,7 +104,7 @@
                             <?=$this->translate('From');?>
                         </th>
                         <th class="col-sm-5">
-                            <?=$this->translate('To');?>
+                            <?=$this->translate('Up To');?>
                         </th>
                         <th></th>
                     </tr>
@@ -95,7 +112,10 @@
                 <tbody id="js-contributor-ages-intervals">
                     <tr>
                         <td class="col-sm-5">
-                            <?=$this->form->getElement('toInfinityAgeFrom');?>
+                            <div class="input-group">
+                                <?=$this->form->getElement('toInfinityAgeFrom');?>
+                                <span class="input-group-addon"><?=$this->translate('Years');?></span>
+                            </div>
                         </td>
                         <td class="col-sm-5">
                             <?=$this->translate('Infinity');?>
@@ -113,7 +133,7 @@
 
     <fieldset>
         <h3>
-            <?=$this->translate('Voting Group Size');?>
+            <?=$this->translate('Categories of Group Sizes');?>
         </h3>
         <p class="alert alert-info" role="alert">
             <?=$this->translate('Intervals include the border numbers. Eg. 10–12 includes everything between 10 and 12, including 10 and 12.');?>
@@ -126,7 +146,7 @@
                             <?=$this->translate('From');?>
                         </th>
                         <th class="col-sm-5">
-                            <?=$this->translate('To');?>
+                            <?=$this->translate('Up To');?>
                         </th>
                         <th></th>
                     </tr>
@@ -134,10 +154,16 @@
                 <tbody id="js-groups-sizes-intervals">
                     <tr>
                         <td class="col-sm-5">
-                            <?=$this->form->getElement('singleFrom');?>
+                            <div class="input-group">
+                                <?=$this->form->getElement('singleFrom');?>
+                                <span class="input-group-addon"><?=$this->translate('Persons');?></span>
+                            </div>
                         </td>
                         <td class="col-sm-5">
-                            <?=$this->form->getElement('singleTo');?>
+                            <div class="input-group">
+                                <?=$this->form->getElement('singleTo');?>
+                                <span class="input-group-addon"><?=$this->translate('Persons');?></span>
+                            </div>
                         </td>
                         <td class="table-cell-actions"></td>
                     </tr>
@@ -146,11 +172,18 @@
                             <tr class="js-row">
                                 <?php foreach ($groupSizeElement as $elementPart): ?>
                                     <td class="col-sm-5">
-                                        <?=$elementPart;?>
+                                        <div class="input-group">
+                                            <?=$elementPart;?>
+                                            <span class="input-group-addon"><?=$this->translate('Persons');?></span>
+                                        </div>
                                     </td>
                                 <?php endforeach; ?>
                                 <td class="table-cell-actions">
-                                    <a href="#" class="js-groups-sizes-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                                    <a
+                                        href="#"
+                                        class="js-groups-sizes-delete-row item-action item-action-danger"
+                                        title="<?=$this->translate('Delete interval');?>"
+                                    >
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </a>
                                 </td>
@@ -161,17 +194,27 @@
                     <td class="col-sm-5">
                         <label for="from" class="sr-only"><?=$this->translate('From');?></label>
                         <div class="form-group offset-bottom-none">
-                            <input type="text" id="js-groups-sizes-new-row-from" class="form-control">
+                            <div class="input-group">
+                                <input type="text" id="js-groups-sizes-new-row-from" class="form-control">
+                                <span class="input-group-addon"><?=$this->translate('Persons');?></span>
+                            </div>
                         </div>
                     </td>
                     <td class="col-sm-5">
                         <label for="to" class="sr-only"><?=$this->translate('To');?></label>
                         <div class="form-group offset-bottom-none">
-                            <input type="text" id="js-groups-sizes-new-row-to" class="form-control">
+                            <div class="input-group">
+                                <input type="text" id="js-groups-sizes-new-row-to" class="form-control">
+                                <span class="input-group-addon"><?=$this->translate('Persons');?></span>
+                            </div>
                         </div>
                     </td>
                     <td class="table-cell-actions">
-                        <a href="#" class="js-groups-sizes-delete-row item-action item-action-danger" title="<?=$this->translate('Delete interval');?>">
+                        <a
+                            href="#"
+                            class="js-groups-sizes-delete-row item-action item-action-danger"
+                            title="<?=$this->translate('Delete interval');?>"
+                        >
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>
                     </td>
@@ -193,7 +236,7 @@
                             <?=$this->translate('From');?>
                         </th>
                         <th class="col-sm-5">
-                            <?=$this->translate('To');?>
+                            <?=$this->translate('Up To');?>
                         </th>
                         <th></th>
                     </tr>
@@ -201,7 +244,10 @@
                 <tbody id="js-contributor-ages-intervals">
                     <tr>
                         <td class="col-sm-5">
-                            <?=$this->form->getElement('toInfinitySizeFrom');?>
+                            <div class="input-group">
+                                <?=$this->form->getElement('toInfinitySizeFrom');?>
+                                <span class="input-group-addon"><?=$this->translate('Persons');?></span>
+                            </div>
                         </td>
                         <td class="col-sm-5">
                             <?=$this->translate('Infinity');?>

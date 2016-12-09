@@ -38,7 +38,7 @@ class Model_HelpText extends Dbjr_Db_Table_Abstract
                 $trans->translate('Consultation voting settings help text'),
             'help-text-admin-consultation-settings-phases' =>
                 $trans->translate('Consultation phase settings help text'),
-            'help-text-admin-consultation-settings-group-clusters' =>
+            'help-text-admin-consultation-settings-groups' =>
                 $trans->translate('Consultation group settings help text'),
 
             'help-text-admin-contribution' => $trans->translate('Contribution help text'),
