@@ -175,7 +175,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
     {
         $form = new Admin_Form_Consultation();
         $form->setKid($this->_consultation->kid);
-        $form->getElement('img_file')->setIsLockDir(true);
+        $form->getElement('img_file')->setIsLockDir(false);
 
         if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
             if ($form->isValid($this->getRequest()->getPost())) {
