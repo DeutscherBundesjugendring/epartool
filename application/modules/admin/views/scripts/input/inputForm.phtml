@@ -72,8 +72,8 @@
     <?=$this->element->submit;?>
     <?=$this->element->delete;?>
     <div class="form-action-static">
-        or
-        <a href="<?=$this->element->getCancelUrl();?>">Cancel</a>
+        <?=$this->translate('or');?>
+        <a href="<?=$this->element->getCancelUrl();?>"><?=$this->translate('Cancel');?></a>
     </div>
 
 </form>
