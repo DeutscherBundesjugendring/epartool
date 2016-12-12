@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-11-09 11:01+0100\n"
-"PO-Revision-Date: 2016-11-09 11:04+0100\n"
+"POT-Creation-Date: 2016-12-12 16:19+0100\n"
+"PO-Revision-Date: 2016-12-12 16:19+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -505,9 +505,12 @@ msgid "Video:"
 msgstr "Video:"
 
 #: application/modules/default/forms/Input/Create.php:137
-#: application/modules/default/forms/Input/Create.php:138
 msgid "Video ID"
 msgstr "Video-ID"
+
+#: application/modules/default/forms/Input/Create.php:138
+msgid "Please paste video URL"
+msgstr "Bitte Webadresse des Videos eintragen"
 
 #: application/modules/default/forms/Input/Create.php:145
 msgid "Explain your contribution"
@@ -1112,9 +1115,9 @@ msgstr "von"
 msgid "Open voting basket"
 msgstr "\"Besonders wichtig\"-Liste öffnen"
 
-#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:79
-#: application/modules/default/views/scripts/_partials/voting/votingConfirmationAnswers.phtml:25
-#: application/modules/default/views/scripts/_partials/voting/votingPreviewButtons.phtml:43
+#: application/modules/default/views/scripts/_partials/voting/votingButtons.phtml:81
+#: application/modules/default/views/scripts/_partials/voting/votingConfirmationAnswers.phtml:26
+#: application/modules/default/views/scripts/_partials/voting/votingPreviewButtons.phtml:44
 msgid "No opinion"
 msgstr "Keine Meinung"
 

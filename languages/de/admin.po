@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2016-12-09 14:07+0100\n"
-"PO-Revision-Date: 2016-12-09 14:07+0100\n"
+"PO-Revision-Date: 2016-12-12 16:19+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -79,19 +79,19 @@ msgstr "Hilfetext Textschnippsel für Reaktionen"
 
 #: application/models/HelpText.php:34
 msgid "Consultation general settings help text"
-msgstr ""
+msgstr "Hilfetext Grundeinstellungen der Beteiligungsrunde"
 
 #: application/models/HelpText.php:36
 msgid "Consultation participant settings help text"
-msgstr ""
+msgstr "Hilfetext Teilnehmereinstellungen der Beteiligungsrunde"
 
 #: application/models/HelpText.php:38
 msgid "Consultation voting settings help text"
-msgstr ""
+msgstr "Hilfetext Abstimmungseinstellungen der Beteiligungsrunde"
 
 #: application/models/HelpText.php:40
 msgid "Consultation phase settings help text"
-msgstr ""
+msgstr "Hilfetext Phasen der Beteiligungsrunde"
 
 #: application/models/HelpText.php:42
 msgid "Consultation group settings help text"
@@ -1823,7 +1823,7 @@ msgstr "Deaktivieren"
 
 #: application/modules/admin/forms/Voting/Settings.php:42
 msgid "No Opinion"
-msgstr ""
+msgstr "Keine Meinung"
 
 #: application/modules/admin/forms/Voting/Settings.php:53
 msgid "Superbutton label"
@@ -3191,12 +3191,12 @@ msgstr "Einladungen ansehen und verschicken"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:104
 msgid "Do you really want to send invitation to this user again?"
-msgstr ""
+msgstr "Möchtest du die Einladung erneut versenden?"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:107
 #, php-format
 msgid "Invitation has been sent at %s"
-msgstr ""
+msgstr "Einladung wurde gesendet um %s"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:122
 msgid "Do you really want to send invitation to this user?"
