@@ -34,7 +34,10 @@
                     <?php if (!count($this->questions) && !count($this->users)): ?>
                         <?=$this->translate('There are no contributions yet.');?>
                     <?php else: ?>
-                        <?=$this->translate('You can prepare contributions for voting <a href="' . $this->url(["controller" => "votingprepare"]) . '">in the Voting section</a>.');?>
+                        <?=sprintf(
+                            $this->translate('You can prepare contributions for voting <a href="%s">in the Voting section</a>.'),
+                            $this->url(["controller" => "votingprepare"])
+                        );?>
                     <?php endif; ?>
                 </p>
 
