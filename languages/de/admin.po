@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-12-09 14:07+0100\n"
-"PO-Revision-Date: 2016-12-12 16:19+0100\n"
+"POT-Creation-Date: 2016-12-13 14:07+0100\n"
+"PO-Revision-Date: 2016-12-13 14:09+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -95,7 +95,7 @@ msgstr "Hilfetext Phasen der Beteiligungsrunde"
 
 #: application/models/HelpText.php:42
 msgid "Consultation group settings help text"
-msgstr ""
+msgstr "Hilfetext Gruppeneinstellungen der Beteiligungsrunde"
 
 #: application/models/HelpText.php:44
 msgid "Contribution help text"
@@ -1045,7 +1045,7 @@ msgstr "Fragen"
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:32
 #: application/modules/admin/views/scripts/index/index.phtml:64
 #: application/modules/admin/views/scripts/input/index.phtml:30
-#: application/modules/admin/views/scripts/input/index.phtml:85
+#: application/modules/admin/views/scripts/input/index.phtml:90
 msgid "Contributions"
 msgstr "Beiträge"
 
@@ -1135,7 +1135,7 @@ msgstr "Beitragsverfasser_in"
 #: application/modules/admin/forms/Settings/Site.php:59
 #: application/modules/admin/forms/User/Create.php:15
 #: application/modules/admin/forms/User/Edit.php:20
-#: application/modules/admin/views/scripts/input/index.phtml:83
+#: application/modules/admin/views/scripts/input/index.phtml:88
 #: application/modules/admin/views/scripts/mail-component/index.phtml:46
 #: application/modules/admin/views/scripts/mail-template/index.phtml:39
 #: application/modules/admin/views/scripts/media/folders.phtml:37
@@ -1220,7 +1220,7 @@ msgstr "Speichern und zurück zur Übersicht"
 
 #: application/modules/admin/forms/Input.php:49
 #: application/modules/admin/forms/Question.php:29
-#: application/modules/admin/views/scripts/input/index.phtml:45
+#: application/modules/admin/views/scripts/input/index.phtml:50
 #: application/modules/admin/views/scripts/question/index.phtml:36
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:31
 msgid "Question"
@@ -1682,7 +1682,7 @@ msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 #: application/modules/admin/forms/Settings/Site.php:68
 #: application/modules/admin/forms/User/Create.php:23
 #: application/modules/admin/forms/User/Edit.php:27
-#: application/modules/admin/views/scripts/input/index.phtml:84
+#: application/modules/admin/views/scripts/input/index.phtml:89
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:5
 #: application/modules/admin/views/scripts/mail-component/index.phtml:5
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:5
@@ -2580,29 +2580,36 @@ msgstr "Alle Beiträge dieser_s Teilnehmenden"
 msgid "There are no contributions yet."
 msgstr "Es gibt noch keine Beiträge."
 
-#: application/modules/admin/views/scripts/input/index.phtml:40
+#: application/modules/admin/views/scripts/input/index.phtml:38
+#, php-format
+msgid ""
+"You can prepare contributions for voting <a href=\"%s\">in the Voting "
+"section</a>."
+msgstr ""
+
+#: application/modules/admin/views/scripts/input/index.phtml:45
 msgid "By Question"
 msgstr "Nach Frage"
 
-#: application/modules/admin/views/scripts/input/index.phtml:46
+#: application/modules/admin/views/scripts/input/index.phtml:51
 msgid "Unread"
 msgstr "Ungelesen"
 
-#: application/modules/admin/views/scripts/input/index.phtml:47
+#: application/modules/admin/views/scripts/input/index.phtml:52
 msgid "Total"
 msgstr "Gesamt"
 
-#: application/modules/admin/views/scripts/input/index.phtml:57
-#: application/modules/admin/views/scripts/input/index.phtml:65
-#: application/modules/admin/views/scripts/input/index.phtml:104
+#: application/modules/admin/views/scripts/input/index.phtml:62
+#: application/modules/admin/views/scripts/input/index.phtml:70
+#: application/modules/admin/views/scripts/input/index.phtml:109
 msgid "Show"
 msgstr "Zeige"
 
-#: application/modules/admin/views/scripts/input/index.phtml:78
+#: application/modules/admin/views/scripts/input/index.phtml:83
 msgid "By User"
 msgstr "Nach User"
 
-#: application/modules/admin/views/scripts/input/index.phtml:86
+#: application/modules/admin/views/scripts/input/index.phtml:91
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:103
 msgid "Comment"
 msgstr "Hier ist noch Platz für Kommentare"
@@ -2610,6 +2617,18 @@ msgstr "Hier ist noch Platz für Kommentare"
 #: application/modules/admin/views/scripts/input/inputForm.phtml:24
 msgid "Video"
 msgstr "Video"
+
+#: application/modules/admin/views/scripts/input/inputForm.phtml:75
+#: application/modules/admin/views/scripts/question/create.phtml:53
+#: application/modules/admin/views/scripts/question/edit.phtml:53
+msgid "or"
+msgstr "oder"
+
+#: application/modules/admin/views/scripts/input/inputForm.phtml:76
+#: application/modules/admin/views/scripts/question/create.phtml:54
+#: application/modules/admin/views/scripts/question/edit.phtml:54
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:22
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:22
@@ -2946,16 +2965,6 @@ msgstr "Zurück zur Fragenübersicht"
 msgid "New Question"
 msgstr "Neue Frage"
 
-#: application/modules/admin/views/scripts/question/create.phtml:53
-#: application/modules/admin/views/scripts/question/edit.phtml:53
-msgid "or"
-msgstr "oder"
-
-#: application/modules/admin/views/scripts/question/create.phtml:54
-#: application/modules/admin/views/scripts/question/edit.phtml:54
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #: application/modules/admin/views/scripts/question/edit.phtml:23
 msgid "Edit Question"
 msgstr "Frage bearbeiten"
@@ -2978,8 +2987,8 @@ msgid "Back to Help Texts"
 msgstr "Zurück zu Hilfetexten"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:16
-msgid "Frontend Help Texts"
-msgstr "Hilfetexte im Frontend"
+msgid "Frontend"
+msgstr "Backend"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:33
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:42
@@ -2989,8 +2998,8 @@ msgid "Edit help text"
 msgstr "Hilfetext bearbeiten"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:52
-msgid "Backend Help Texts"
-msgstr "Hilfetexte im Backend"
+msgid "Backend"
+msgstr "Backend"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:9
 msgid "Logo"
@@ -3473,6 +3482,12 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Frontend Help Texts"
+#~ msgstr "Hilfetexte im Frontend"
+
+#~ msgid "Backend Help Texts"
+#~ msgstr "Hilfetexte im Backend"
 
 #~ msgid "Group Clusters"
 #~ msgstr "Gruppengrößen (Cluster)"
