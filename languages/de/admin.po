@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-12-13 14:07+0100\n"
-"PO-Revision-Date: 2016-12-13 14:09+0100\n"
+"POT-Creation-Date: 2016-12-14 10:24+0100\n"
+"PO-Revision-Date: 2016-12-14 10:28+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -2069,8 +2069,11 @@ msgid "Terms & Conditions"
 msgstr "Veröffentlichungshinweis"
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:112
-msgid "The title of the terms selected for the project."
-msgstr "Titel der Bedingungen für dieses Projekt"
+msgid ""
+"Title of the publication terms for this website as mentioned in general "
+"footer."
+msgstr ""
+"Titel der Veröffentlichungslizenz dieser Website (wie im allgemeinen Footer)."
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:116
 msgid ""
@@ -3482,6 +3485,9 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "The title of the terms selected for the project."
+#~ msgstr "Titel der Bedingungen für dieses Projekt"
 
 #~ msgid "Frontend Help Texts"
 #~ msgstr "Hilfetexte im Frontend"
