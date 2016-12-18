@@ -426,6 +426,37 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param int $kid
+     * @return \Zend_Db_Table_Rowset_Abstract
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getParticipantsByConsultationWithVotingRights($kid)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['u' => $this->info(self::NAME)])
+            ->where('u.block=?', 'c')
+            ->group('u.uid')
+            ->order('u.email');
+
+        $select
+            ->join(
+                ['ui' => (new Model_User_Info())->info(Model_User_Info::NAME)],
+                'u.uid = ui.uid',
+                ['invitation_sent_date']
+            )
+            ->join(
+                ['vtr' => (new Model_Votes_Rights())->info(Model_Votes_Rights::NAME)],
+                'vtr.kid = ui.kid AND vtr.uid = ui.uid'
+            )
+            ->where('ui.kid=?', $kid)
+            ->where('ui.confirmation_key IS NULL');
+
+        return $this->fetchAll($select);
+    }
+
+    /**
      * Return all users
      */
     public function getAll()
