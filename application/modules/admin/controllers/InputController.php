@@ -125,8 +125,9 @@ class Admin_InputController extends Zend_Controller_Action
 
         if ((new Zend_Session_Namespace('adminActionCsrf'))->token !== $token
             || !$tid || !isset($properties[$property])) {
-            $this->getResponse()->setHttpResponseCode(403);
-            exit;
+            $response = $this->getResponse();
+            $response->setHttpResponseCode(403);
+            $response->sendResponse();
         }
 
         $nextStatus = [
