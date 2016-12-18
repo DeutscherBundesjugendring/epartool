@@ -120,6 +120,17 @@ class RoboFile extends Tasks
             ->run();
     }
 
+    /**
+     * @param string $name
+     */
+    public function phinxCreate($name)
+    {
+        $this
+            ->taskExec('bin/phinxCreate.sh')
+            ->arg($name)
+            ->run();
+    }
+
     private function prepareTestDb()
     {
         $this->stopOnFail(true);
