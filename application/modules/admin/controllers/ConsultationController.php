@@ -98,6 +98,12 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
+            if (!array_key_exists('proj', $postData)) {
+                $postData['proj'] = [];
+            }
+            if (!in_array(Zend_Registry::get('systemconfig')->project, $postData['proj'])) {
+                $postData['proj'][] = Zend_Registry::get('systemconfig')->project;
+            }
             $mediaService = new Service_Media();
 
             if ($form->isValid($postData)) {
@@ -152,7 +158,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $this->_redirect('/admin/consultation/edit/kid/' . $consultationRow->kid);
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
-                $form->populate($this->getRequest()->getPost());
+                $form->populate($postData);
             }
         } else {
             $form->getElement('ord')->setValue($consultationModel->getMaxOrder() + 1);
