@@ -1402,6 +1402,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 if (!$userInfoId) {
                     throw new \Exception('Adding user info failed');
                 }
+
+                $userInfo = $userInfoModel->find($userInfoId)->current();
+                (new Model_Votes_Rights())->setInitialRightsForConfirmedUser($userInfo['uid'], $userInfo['kid']);
             }
             return;
         }
