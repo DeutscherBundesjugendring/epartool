@@ -142,11 +142,7 @@ class Service_Groups
                 $model->insert(['consultation_id' => $consultation['kid'], 'from' => (int) $infinityFrom]);
             } elseif ($infinityItem['from'] !== $infinityFrom) {
                 if (!$canEdit) {
-                    if ($model instanceof Model_ContributorAge) {
-                        throw (new Service_Exception_GroupsEditingException());
-                    } else {
-                        throw (new Service_Exception_GroupsEditingException());
-                    }
+                    throw new Service_Exception_GroupsEditingException();
                 }
                 $model->update(
                     ['from' => (int) $infinityFrom],
@@ -158,11 +154,7 @@ class Service_Groups
                 $model->delete(['consultation_id = ?' => $consultation['kid'], '`to` IS NULL']);
             } catch (Zend_Db_Statement_Exception $e) {
                 if ($e->getCode() === self::SQL_STATE_CODE_CANNOT_DELETE) {
-                    if ($model instanceof Model_ContributorAge) {
-                        throw (new Service_Exception_GroupsDeletingException());
-                    } else {
-                        throw (new Service_Exception_GroupsDeletingException());
-                    }
+                    throw new Service_Exception_GroupsDeletingException();
                 } else {
                     throw $e;
                 }

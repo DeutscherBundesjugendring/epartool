@@ -55,7 +55,8 @@ class RoboFile extends Tasks
             ->taskExec('vendor/bin/phpcs')
             ->args('--standard=.php_cs_ruleset.xml')
             ->args('--encoding=utf-8')
-            ->args(implode(' ', [self::APP_DIR, self::LIB_DIR]))
+            ->args(self::APP_DIR)
+            ->args(self::LIB_DIR)
             ->run();
     }
 
