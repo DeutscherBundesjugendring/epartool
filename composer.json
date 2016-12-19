@@ -26,7 +26,7 @@
     "phpoffice/phpexcel": "^1.8",
     "squizlabs/php_codesniffer": "^2.7",
     "codeception/codeception": "^2.2",
-    "visionappscz/video-id-extractor": "dev-master",
+    "visionappscz/video-id-extractor": "~1.0.0",
     "robmorgan/phinx": "^0.6.4"
   }
 }
