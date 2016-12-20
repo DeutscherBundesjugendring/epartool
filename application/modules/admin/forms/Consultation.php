@@ -255,7 +255,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setDescription('Current project must be always selected.')
             ->setRequired(true)
             ->setMultiOptions($options)
-            ->setValue([Zend_Registry::get('systemconfig')->project]);
+            ->setValue([Zend_Registry::get('systemconfig')->project])
+            ->setAttrib('disable', [Zend_Registry::get('systemconfig')->project]);
         $this->addElement($project);
 
         // CSRF Protection
