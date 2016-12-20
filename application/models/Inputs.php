@@ -584,9 +584,10 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi=q.qi', [])
                 ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid=c.kid', ['inp_to'])
                 ->where('i.confirmation_key=?', $confirmKey)
-        )->inp_to;
+        );
 
-        if (Zend_Date::now()->isLater(new Zend_Date($inputPhaseTo, Zend_Date::ISO_8601))) {
+        if ($inputPhaseTo !== null
+            && Zend_Date::now()->isLater(new Zend_Date($inputPhaseTo->inp_to, Zend_Date::ISO_8601))) {
             throw new Dbjr_UrlkeyAction_Exception('Cant confirm or reject once the input phase is over');
         }
     }

@@ -71,18 +71,18 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td class="table-cell-top">
-                                                <?php if (isset($user['votingRights'])): ?>
-                                                    <p>
-                                                        <?=$this->translate('Voting weight');?>: <?=$user['votingRights']['vt_weight']; ?><br />
-                                                        <?=$this->translate('Group size');?>: <?=$grp_siz_def[$user['votingRights']['grp_siz']]; ?>
-                                                    </p>
-                                                    <?php if ($grp_siz_def[$user['votingRights']['grp_siz']] != 1): ?>
-                                                        <p>
-                                                            <?=$this->translate('Partner');?>: <?=$this->escape($user['name_pers']);?><br/>
-                                                            <?=$this->translate('Group name');?>: <?=$this->escape($user['name_group']);?><br/>
-                                                            <?=$this->translate('Group size');?>: <?=$this->escape($user['group_size']);?>
-                                                        </p>
+                                                <p>
+                                                    <?=$this->translate('Voting weight');?>: <?=$user['vt_weight']; ?><br />
+                                                    <?php if ($user['grp_siz'] !== null): ?>
+                                                        <?=$this->translate('Group size');?>: <?=$grp_siz_def[$user['grp_siz']]; ?>
                                                     <?php endif; ?>
+                                                </p>
+                                                <?php if ($user['grp_siz'] !== null && $grp_siz_def[$user['grp_siz']] != 1): ?>
+                                                    <p>
+                                                        <?=$this->translate('Partner');?>: <?=$this->escape($user['name_pers']);?><br/>
+                                                        <?=$this->translate('Group name');?>: <?=$this->escape($user['name_group']);?><br/>
+                                                        <?=$this->translate('Group size');?>: <?=$this->escape($user['group_size']);?>
+                                                    </p>
                                                 <?php endif; ?>
                                             </td>
                                             <td class="table-cell-actions table-cell-top">

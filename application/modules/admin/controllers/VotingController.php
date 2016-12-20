@@ -112,21 +112,15 @@ class Admin_VotingController extends Zend_Controller_Action
         $userModel = new Model_Users();
         $votingRightsModel = new Model_Votes_Rights();
         $participants = $userModel
-            ->getParticipantsByConsultation($this->_consultation->kid)
+            ->getParticipantsByConsultationWithVotingRights($this->_consultation->kid)
             ->toArray();
-
-        foreach ($participants as $key => $value) {
-            $participants[$key]['votingRights'] = $votingRightsModel
-                ->find($this->_consultation->kid, $value['uid'])
-                ->current();
-        }
 
         $listControlForm = new Admin_Form_ListControl();
         if ($this->getRequest()->isPost() && $listControlForm->isValid($this->getRequest()->getPost())) {
             $userId = $this->getRequest()->getPost('instantSendUserId');
             if ($userId) {
                 $user = (new Model_Users())->getById($userId);
-                $votingRights = $votingRightsModel->find($this->_consultation->kid, $value['uid'])->current();
+                $votingRights = $votingRightsModel->find($this->_consultation->kid, $user['uid'])->current();
                 if ($votingRights && $votingRights['vt_weight'] != 1) {
                     $templateName = Model_Mail_Template::SYSTEM_TEMPLATE_VOTING_INVITATION_GROUP;
                 } else {
