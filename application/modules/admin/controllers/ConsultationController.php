@@ -111,20 +111,21 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 try {
                     $consultationRow = $consultationModel->createRow($postData);
                     $consultationRow->proj = implode(',', $form->getElement('proj')->getValue());
-                    $filename = $form->getElement('img_file')->getFileName();
-                    if ($filename) {
-                        $consultationRow->img_file = $mediaService->sanitizeFilename($filename);
-                    }
 
                     $newKid = $consultationRow->save();
 
                     if ($newKid) {
                         $mediaService->createDir($newKid);
-                        if ($filename) {
+
+                        $fileName = $form->getElement('img_file')->getFileName();
+                        if ($fileName) {
+                            $consultationRow->img_file = Service_Media::MEDIA_DIR_CONSULTATIONS . '/' .$newKid . '/'
+                                . $mediaService->sanitizeFilename($fileName);
                             $mediaService->upload(
-                                Dbjr_File::pathinfoUtf8($filename, PATHINFO_BASENAME),
+                                Dbjr_File::pathinfoUtf8($fileName, PATHINFO_BASENAME),
                                 $newKid
                             );
+                            $consultationRow->save();
                         }
                     } else {
                         throw new \Exception('Create consultation failed');
