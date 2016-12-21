@@ -287,9 +287,9 @@ changeContributionStatus = () ->
             cache: false
             async: true
             error: ->
-                buttonLabel.attr('class', 'label label-warning')
-                buttonLabel.html(' ' + i18n.translate('Something went wrong'))
-                buttonIcon.attr('class', 'glyphicon glyphicon-alert')
+                buttonLabel.attr('class', 'label label-default')
+                buttonLabel.html(' ' + i18n.translate('Unknown'))
+                buttonIcon.attr('class', 'glyphicon glyphicon-question-sign')
                 buttonLabel.prepend(buttonIcon)
                 thisButton.attr('style', '')
                 return
