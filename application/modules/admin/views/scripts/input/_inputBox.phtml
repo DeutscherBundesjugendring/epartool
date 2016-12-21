@@ -85,17 +85,17 @@
         <p>
             <?=$this->translate('User Confirmation');?><br />
             <?php if ($this->input['user_conf'] === 'u'): ?>
-                <span class="label label-default">
+                <span class="label label-default label-disabled">
                     <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                     <?=$this->translate('Unknown');?>
                 </span>
             <?php elseif ($this->input['user_conf'] === 'r'): ?>
-                <span class="label label-danger">
+                <span class="label label-danger label-disabled">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('Rejected');?>
                 </span>
             <?php elseif ($this->input['user_conf'] === 'c'): ?>
-                <span class="label label-success">
+                <span class="label label-success label-disabled">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Confirmed');?>
                 </span>

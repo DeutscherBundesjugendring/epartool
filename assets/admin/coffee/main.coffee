@@ -106,7 +106,7 @@ bindTableRowsToggle = () ->
     checkboxes = $('.js-table-rows-toggle input:checkbox')
 
     rows.click (e) ->
-        if (e.target.type != 'checkbox')
+        if (e.target.type != 'checkbox' && e.target.classList[0] != 'label')
             $(':checkbox', this).trigger('click')
 
     checkboxes.change (e) ->

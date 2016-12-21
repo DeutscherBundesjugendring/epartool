@@ -22,6 +22,7 @@
 
 @brand-primary: darken(@turqoise, 6%);
 @link-color: @blue;
+@label-disabled-color: #777;
 
 @blockquote-font-size: 1em;
 @back-link-decoration: '← ';
@@ -138,4 +139,11 @@ label.required:after {
 
 .text-wrap {
     white-space: normal;
+}
+
+.label-disabled {
+    cursor: default;
+    border: 1px solid @label-disabled-color;
+    background-color: transparent;
+    color: #000;
 }
