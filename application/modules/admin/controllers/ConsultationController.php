@@ -490,11 +490,17 @@ class Admin_ConsultationController extends Zend_Controller_Action
                         'Cannot edit groups after consultation has been started.',
                         'error'
                     );
-                    foreach ($e->getInterval() as $id => $interval) {
-                        $formData[$e->getIntervalGroup()][$id] = [
-                            'from' => $interval['from'],
-                            'to' => $interval['to'],
-                        ];
+                    if ($e->getInterval() !== null) {
+                        foreach ($e->getInterval() as $id => $interval) {
+                            $formData[$e->getIntervalGroup()][$id] = [
+                                'from' => $interval['from'],
+                                'to' => $interval['to'],
+                            ];
+                        }
+                    }
+                    if ($e->getToInfinityOriginal() !== null) {
+                        foreach ($e->getToInfinityOriginal() as $name => $value)
+                        $formData[$name] = $value;
                     }
                     $error = true;
                 } catch (Exception $e) {
