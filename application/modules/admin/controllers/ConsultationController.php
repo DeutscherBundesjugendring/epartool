@@ -183,8 +183,17 @@ class Admin_ConsultationController extends Zend_Controller_Action
         $form->setKid($this->_consultation->kid);
         $form->getElement('img_file')->setIsLockDir(false);
 
-        if ($this->getRequest()->isPost() && false !== $this->getRequest()->getPost('submit', false)) {
-            if ($form->isValid($this->getRequest()->getPost())) {
+        if ($this->getRequest()->isPost()) {
+            $postData = $this->getRequest()->getPost();
+
+            if (!array_key_exists('proj', $postData)) {
+                $postData['proj'] = [];
+            }
+            if (!in_array(Zend_Registry::get('systemconfig')->project, $postData['proj'])) {
+                $postData['proj'][] = Zend_Registry::get('systemconfig')->project;
+            }
+
+            if ($form->isValid($postData)) {
                 $this->_consultation->setFromArray($form->getValues());
                 $this->_consultation->proj = implode(',', $form->getElement('proj')->getValue());
                 $this->_consultation->discussion_from = $this->_consultation->discussion_from ? $this->_consultation->discussion_from : null;
