@@ -178,7 +178,11 @@
                         <?php foreach ($this->inputs as $inputs): ?>
                             <h3><?=isset($inputs['nr']) ? $inputs['nr'] : '';?> <?=$this->escape($inputs['q']);?></h3>
                             <div class="table-responsive">
-                                <table class="table table-bordered js-table-rows-toggle">
+                                <table
+                                    class="table table-bordered js-table-rows-toggle"
+                                    id="contribution-table"
+                                    data-token="<?=$this->csrfToken;?>"
+                                >
                                     <?php foreach ($inputs['inputs'] as $input): ?>
                                         <?=$this->partial(
                                             'input/_inputBox.phtml',

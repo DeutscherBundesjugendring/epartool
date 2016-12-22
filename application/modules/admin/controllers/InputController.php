@@ -103,12 +103,67 @@ class Admin_InputController extends Zend_Controller_Action
         } else {
             $this->view->inputs = $inputModel->getComplete($wheres);
         }
-        
+
+        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
+        $adminActionCsrfSess->token = md5(mt_rand(1, 100000) . time());
+
         $this->view->sortForm = $form;
         $this->view->question = $question;
         $this->view->form = new Admin_Form_ListControl();
         $this->view->tags = (new Model_Tags())->getAll()->toArray();
         $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['qi=?' => $qid]);
+        $this->view->csrfToken = $adminActionCsrfSess->token;
+    }
+
+    public function changeStatusAction()
+    {
+        $token = $this->_request->getParam('token', null);
+        $tid = $this->_request->getParam('tid', null);
+
+        $properties = ['voting' => 'vot', 'blocking' => 'block'];
+        $property = $this->_request->getParam('property', null);
+
+        if ((new Zend_Session_Namespace('adminActionCsrf'))->token !== $token
+            || !$tid || !isset($properties[$property])) {
+            $response = $this->getResponse();
+            $response->setHttpResponseCode(403);
+            $response->sendResponse();
+        }
+
+        $nextStatus = [
+            'blocking' => ['y' => 'u', 'n' => 'y', 'u' => 'n'],
+            'voting' => ['y' => 'n', 'n' => 'u', 'u' => 'y'],
+        ];
+        $button = [
+            'blocking' => [
+                'y' => ['label' => 'Blocked', 'iconClass' => 'remove', 'labelClass' => 'danger'],
+                'n' => ['label' => 'Confirmed', 'iconClass' => 'ok', 'labelClass' => 'success'],
+                'u' => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
+                ],
+            'voting' => [
+                'y' => ['label' => 'Yes', 'iconClass' => 'ok', 'labelClass' => 'success'],
+                'n' => ['label' => 'No', 'iconClass' => 'remove', 'labelClass' => 'danger'],
+                'u' => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
+                ],
+        ];
+        $contributionModel = new Model_Inputs();
+        $contribution = $contributionModel->find($tid)->current();
+        $contributionModel->update(
+            [$properties[$property] => $nextStatus[$property][$contribution[$properties[$property]]]],
+            ['tid = ?' => $tid]
+        );
+
+        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
+        $adminActionCsrfSess->token = md5(mt_rand(1, 100000) . time());
+        $this->_helper->json([
+            'iconClass' => $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['iconClass'],
+            'labelClass' => $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['labelClass'],
+            'label' => Zend_Registry::get('Zend_Translate')->translate(
+                $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['label']
+            ),
+            'status' => $nextStatus[$property][$contribution[$properties[$property]]],
+            'token' => $adminActionCsrfSess->token,
+        ]);
     }
 
     /**
@@ -130,11 +185,16 @@ class Admin_InputController extends Zend_Controller_Action
                 (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
             ]
         );
+
+        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
+        $adminActionCsrfSess->token = md5(mt_rand(1, 100000) . time());
+
         $this->view->userGroupSizes = (new Model_GroupSize())->getOptionsByConsultation($this->_consultation['kid']);
         $this->view->contributorAges = (new Model_ContributorAge())
             ->getOptionsByConsultation($this->_consultation['kid']);
         $this->view->form = new Admin_Form_ListControl();
         $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['uid=?' => $uid]);
+        $this->view->csrfToken = $adminActionCsrfSess->token;
     }
 
     /**
