@@ -16,7 +16,7 @@ class Dbjr_Form_Decorator_BootstrapMedia extends Zend_Form_Decorator_Abstract
             $kidFolderParam = '';
         }
         $lockDir = $element->getIsLockDir() ? '/lockDir/1' : '';
-        if ($element->getKid()) {
+        if ($element->getIsLockDir()) {
             $imgPath = MEDIA_PATH . '/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $element->getKid() . '/' . $element->getValue();
         } else {
             $imgPath = MEDIA_PATH . '/' . $element->getValue();

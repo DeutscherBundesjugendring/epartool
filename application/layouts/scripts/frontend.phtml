@@ -166,7 +166,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                         <div class="col-sm-12 col-md-3 col-md-pull-6">
 
                             <!-- Image -->
-                            <?php $image = 'media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $this->consultation->kid .  '/' .($this->consultation->img_file); ?>
+                            <?php $image = 'media/' . $this->consultation->img_file; ?>
                             <img
                                 src="<?=$this->mediaPresenter($image, 'front_consultation');?>"
                                 srcset="

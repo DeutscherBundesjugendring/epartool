@@ -77,7 +77,7 @@
             <!-- Title image with explanation -->
             <li class="hidden-print">
                 <a href="<?=$this->url(['controller' => 'article', 'action' => 'show', 'kid' => $consultation->kid]);?>" class="consultation-phases-preview-image">
-                    <?php $image = 'media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $consultation->kid .  '/' .($consultation->img_file); ?>
+                    <?php $image = 'media/' . ($consultation->img_file); ?>
                     <img
                         src="<?=$this->mediaPresenter($image, 'front_consultation');?>"
                         srcset="
