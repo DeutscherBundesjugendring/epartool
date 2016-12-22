@@ -245,7 +245,7 @@ contributorAgesSettings = () ->
         el = $('#js-contributor-ages-new-row').clone().removeClass('hidden').attr('id','')
         el.find('#js-contributor-ages-new-row-from').attr('name', 'contributorAges[_' + timestamp + '][from]').attr('id', '')
         el.find('#js-contributor-ages-new-row-to').attr('name', 'contributorAges[_' + timestamp + '][to]').attr('id', '')
-        $('#js-contributor-ages-intervals').append(el)
+        $('#js-contributor-ages-intervals tr:last').before(el)
         return false
 
 groupsSizesSettings = () ->
@@ -261,7 +261,7 @@ groupsSizesSettings = () ->
         el = $('#js-groups-sizes-new-row').clone().removeClass('hidden').attr('id','')
         el.find('#js-groups-sizes-new-row-from').attr('name', 'groupSizes[_' + timestamp + '][from]').attr('id', '')
         el.find('#js-groups-sizes-new-row-to').attr('name', 'groupSizes[_' + timestamp + '][to]').attr('id', '')
-        $('#js-groups-sizes-intervals').append(el)
+        $('#js-groups-sizes-intervals tr:last').before(el)
         return false
 
 changeContributionStatus = () ->
