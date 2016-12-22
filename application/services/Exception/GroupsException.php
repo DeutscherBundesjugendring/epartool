@@ -13,6 +13,11 @@ class Service_Exception_GroupsException extends Dbjr_Exception
     private $intervalGroup;
 
     /**
+     * @var array
+     */
+    private $toInfinityOriginal;
+
+    /**
      * @param array $interval
      * @return $this
      */
@@ -53,6 +58,24 @@ class Service_Exception_GroupsException extends Dbjr_Exception
     public function setIntervalGroup($intervalGroup)
     {
         $this->intervalGroup = $intervalGroup;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getToInfinityOriginal()
+    {
+        return $this->toInfinityOriginal;
+    }
+
+    /**
+     * @param array $toInfinityOriginal
+     * @return Service_Exception_GroupsException
+     */
+    public function setToInfinityOriginal($toInfinityOriginal)
+    {
+        $this->toInfinityOriginal = $toInfinityOriginal;
         return $this;
     }
 }

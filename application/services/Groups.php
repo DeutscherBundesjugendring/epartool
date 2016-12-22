@@ -136,22 +136,33 @@ class Service_Groups
             );
         }
 
+        if ($model instanceof Model_ContributorAge) {
+            $infinityCriteria = ['consultation_id = ?' => $consultation['kid'], '`to` IS NULL', '`from` != ?' => 1];
+        } else {
+            $infinityCriteria = ['consultation_id = ?' => $consultation['kid'], '`to` IS NULL'];
+        }
         if ($infinityFrom > 0) {
-            $infinityItem = $model->fetchRow(['`to` IS NULL', 'consultation_id = ?' => $consultation['kid']]);
+            $infinityItem = $model->fetchRow($infinityCriteria);
             if ($infinityItem === null) {
                 $model->insert(['consultation_id' => $consultation['kid'], 'from' => (int) $infinityFrom]);
             } elseif ($infinityItem['from'] !== $infinityFrom) {
                 if (!$canEdit) {
-                    throw new Service_Exception_GroupsEditingException();
+                    if ($model instanceof Model_ContributorAge) {
+                        throw (new Service_Exception_GroupsEditingException())->setToInfinityOriginal([
+                            'toInfinityAgeFrom' => $infinityItem['from'],
+                        ]);
+                    } else {
+                        throw (new Service_Exception_GroupsEditingException())->setToInfinityOriginal([
+                            'toInfinitySizeFrom' => $infinityItem['from'],
+                        ]);
+                    }
+
                 }
-                $model->update(
-                    ['from' => (int) $infinityFrom],
-                    ['`to` IS NULL', 'consultation_id = ?' => $consultation['kid']]
-                );
+                $model->update(['from' => (int) $infinityFrom], $infinityCriteria);
             }
         } else {
             try {
-                $model->delete(['consultation_id = ?' => $consultation['kid'], '`to` IS NULL']);
+                $model->delete($infinityCriteria);
             } catch (Zend_Db_Statement_Exception $e) {
                 if ($e->getCode() === self::SQL_STATE_CODE_CANNOT_DELETE) {
                     throw new Service_Exception_GroupsDeletingException();
