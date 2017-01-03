@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-07-02 19:46+0100\n"
-"PO-Revision-Date: 2015-07-02 19:46+0100\n"
+"POT-Creation-Date: 2015-07-02 19:47+0100\n"
+"PO-Revision-Date: 2015-07-02 19:48+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,15 +18,15 @@ msgstr ""
 
 #: admin/coffee/main.coffee:199
 msgid "Are you sure?"
-msgstr "Are you sure?"
+msgstr ""
 
 #: admin/coffee/main.coffee:200
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: admin/coffee/main.coffee:201
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #~ msgid "Info"
 #~ msgstr "Info"
