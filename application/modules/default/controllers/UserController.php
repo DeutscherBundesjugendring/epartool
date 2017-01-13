@@ -47,7 +47,7 @@ class UserController extends Zend_Controller_Action
             $userModel = new Model_Users();
             $populateForm = new Zend_Session_Namespace('populateForm');
 
-            // If user authenticated by webservice, the emial is not required
+            // If user authenticated by webservice, the email is not required
             if ($this->_auth->hasIdentity()) {
                 $form->getElement('email')
                     ->setRequired(false)
@@ -104,6 +104,7 @@ class UserController extends Zend_Controller_Action
                         unset($data['kid']);
                         unset($data['is_contrib_under_cc']);
                         unset($data['csrf_token_register']);
+                        unset($data['age_group']);
                         if (isset($data['group_specs'])) {
                             $data = array_merge($data, $data['group_specs']);
                             unset($data['group_specs']);

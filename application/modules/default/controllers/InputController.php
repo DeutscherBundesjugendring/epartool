@@ -458,6 +458,12 @@ class InputController extends Zend_Controller_Action
                         ->select()
                         ->where('email=?', $auth->getIdentity()->email)
                 )->toArray();
+                $guessedGroupAge = (new Service_Groups())->guessGroupAge(
+                    $this->consultation,
+                    $user['age_group_from'],
+                    $user['age_group_to']
+                );
+                $user['age_group'] = $guessedGroupAge !== -1 ? $guessedGroupAge : null;
                 $user['is_contrib_under_cc'] = false;
                 $registerForm->populate($user);
                 $registerForm->lockEmailField();
