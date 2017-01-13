@@ -6,6 +6,30 @@ class Service_Groups
     const SQL_STATE_CODE_CANNOT_DELETE = 23000;
 
     /**
+     * @param Zend_Db_Table_Row $consultation
+     * @param int $from
+     * @param int $to
+     * @return int
+     */
+    public function guessGroupAge($consultation, $from, $to)
+    {
+        if ($from === null) {
+            return -1;
+        }
+
+        $group = (new Model_ContributorAge())->fetchRow([
+            '`consultation_id` = ?' => $consultation['kid'],
+            '`from` = ?' => (int) $from,
+            '`to` = ?' => (int) $to,
+        ]);
+        if ($group) {
+            return $group['id'];
+        }
+
+        return -1;
+    }
+
+    /**
      * @param array $groupAges
      * @param int $infinityFrom
      * @param \Zend_Db_Table_Row_Abstract $consultation

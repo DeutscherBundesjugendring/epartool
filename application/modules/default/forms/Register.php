@@ -241,6 +241,11 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->addElement($emailHiddenEl);
     }
 
+    /**
+     * @param array $license
+     * @param string $text
+     * @return string
+     */
     private function replaceLicensePlaceholders(array $license, $text)
     {
         return preg_replace(

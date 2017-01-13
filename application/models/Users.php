@@ -330,12 +330,19 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         );
         $user = $this->find($userConsultData->uid)->current();
 
+        if ($userConsultData->age_group !== null) {
+            $ageGroup = (new Model_ContributorAge())->find($userConsultData->age_group)->current();
+        } else {
+            $ageGroup = ['from' => null, 'to' => null];
+        }
+
         if ($user) {
             $user->block = 'c';
             $user->name = $userConsultData->name;
             $user->name_group = $userConsultData->name_group;
             $user->name_pers = $userConsultData->name_pers;
-            $user->age_group = $userConsultData->age_group;
+            $user->age_group_from = $ageGroup['from'];
+            $user->age_group_to = $ageGroup['to'];
             $user->regio_pax = $userConsultData->regio_pax;
             $user->cnslt_results = $userConsultData->cnslt_results;
             $user->newsl_subscr = $userConsultData->newsl_subscr;
