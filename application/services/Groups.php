@@ -18,15 +18,12 @@ class Service_Groups
         }
 
         $group = (new Model_ContributorAge())->fetchRow([
-            '`consultation_id` = ?' => $consultation['kid'],
+            'consultation_id = ?' => $consultation['kid'],
             '`from` = ?' => (int) $from,
             '`to` = ?' => (int) $to,
         ]);
-        if ($group) {
-            return $group['id'];
-        }
 
-        return -1;
+        return $group ? $group['id'] : -1;
     }
 
     /**

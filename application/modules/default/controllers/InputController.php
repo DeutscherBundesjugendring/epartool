@@ -463,9 +463,7 @@ class InputController extends Zend_Controller_Action
                     $user['age_group_from'],
                     $user['age_group_to']
                 );
-                if ($guessedGroupAge !== -1) {
-                    $user['age_group'] = $guessedGroupAge;
-                }
+                $user['age_group'] = $guessedGroupAge !== -1 ? $guessedGroupAge : null;
                 $user['is_contrib_under_cc'] = false;
                 $registerForm->populate($user);
                 $registerForm->lockEmailField();
