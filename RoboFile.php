@@ -105,8 +105,8 @@ class RoboFile extends Tasks
             ->option('--exclude', 'runtime/cache/*')
             ->option('--exclude', 'runtime/sessions/*')
             ->option('--exclude', 'runtime/logs/*')
-            ->option('--exclude', '\*.git*')
-            ->option('--exclude', '\*.keep')
+            ->option('--exclude', '*.git*')
+            ->option('--exclude', '*.keep')
             ->run();
         $this->taskExec('rm www/media/consultations/1/consultation_thumb_micro_scholl.jpg')->run();
         $this->taskExec('rm www/media/folders/misc/logo.png')->run();
