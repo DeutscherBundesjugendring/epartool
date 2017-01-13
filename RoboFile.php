@@ -74,6 +74,7 @@ class RoboFile extends Tasks
         $this->stopOnFail(true);
         $this->build();
         $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
+        $this->taskExec('mkdir www/media/folders/misc || exit 0')->run();
         $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
         $this->taskExec('zip')
             ->args('--recurse-paths')
@@ -83,6 +84,8 @@ class RoboFile extends Tasks
             ->option('--include', '.htaccess')
             ->option('--include', 'application/*')
             ->option('--include', 'data/*')
+            ->option('--exclude', 'data/db-migrations/*')
+            ->option('--exclude', 'data/phinx-migrations/*')
             ->option('--include', 'install/*')
             ->option('--include', 'languages/*')
             ->option('--include', 'library/*')
