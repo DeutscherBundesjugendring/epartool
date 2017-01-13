@@ -1275,3 +1275,11 @@ ALTER TABLE `user_info` ADD `invitation_sent_date` datetime NULL DEFAULT NULL;
 
 -- Migration 20161127161259_dbjr1028.php
 ALTER TABLE `vt_settings` ADD `btn_no_opinion` boolean NOT NULL DEFAULT true AFTER `btn_important`;
+
+-- Migration 20161127190639_dbjr1029.php
+ALTER TABLE `user_info` ADD `invitation_sent_date` datetime NULL DEFAULT NULL;
+
+-- Migration 20161209122403_dbjr1019
+UPDATE help_text
+SET name='help-text-admin-consultation-settings-groups'
+WHERE name='help-text-admin-consultation-settings-group-clusters';
