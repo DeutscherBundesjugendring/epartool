@@ -167,7 +167,7 @@ initMediaIndexFileLazyLoad = () ->
             containerBottom = $container.scrollTop() + $container.height()
             if viewBottom + 500 > containerBottom && wait == false
                 wait = true
-                url = '/admin/media/lazy-load-images/offset/' + offset;
+                url = baseUrl + '/admin/media/lazy-load-images/offset/' + offset;
                 if $container.data('kid')
                     url = url + '/kid/' + $container.data('kid')
                 if $container.data('folder')
