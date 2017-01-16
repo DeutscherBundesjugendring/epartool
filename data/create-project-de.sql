@@ -1101,4 +1101,4 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
 ('help-text-admin-consultation-settings-participants-data', 'Sample consultation settings participants data page text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-voting', 'Sample consultation settings voting page text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-phases', 'Sample consultation settings phases page text.', @project_code, 'admin'),
-('help-text-admin-consultation-settings-group-clusters', 'Sample consultation settings group clusters page text.', @project_code, 'admin');
+('help-text-admin-consultation-settings-groups', 'Sample consultation settings groups page text.', @project_code, 'admin');
