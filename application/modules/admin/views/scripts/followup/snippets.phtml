@@ -56,7 +56,7 @@
                                                 <input type="hidden" name="docorg[<?=$this->escape($snippet['fid']);?>]" value="<?=$this->escape($snippet['docorg']);?>" />
                                             </td>
                                             <td class="table-cell-top">
-                                                <p><?=strip_tags($this->cropText(html_entity_decode($this->wysiwyg($snippet['expl'])), 400));?></p>
+                                                <p><?=$this->cropText(strip_tags($this->wysiwyg($snippet['expl'])), 400);?></p>
                                             </td>
                                             <td class="col-xs-2 table-cell-top text-nowrap">
                                                 <?=$this->translate('Snippet links');?><br />

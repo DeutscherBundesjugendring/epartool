@@ -16,6 +16,7 @@ class UrlkeyActionController extends Zend_Controller_Action
         $urlKeyActionModel = new Model_UrlkeyAction();
         $db = $urlKeyActionModel->getAdapter();
         $db->beginTransaction();
+        $handler = null;
         try {
             $urlkeyAction = $urlKeyActionModel->fetchRow(
                 $urlKeyActionModel
@@ -30,22 +31,24 @@ class UrlkeyActionController extends Zend_Controller_Action
                 $handler->execute($this->getRequest(), $urlkeyAction);
                 $this->view->assign($handler->getViewData());
                 $this->_flashMessenger->addMessage($handler->getMessage()['text'], $handler->getMessage()['type']);
-                $db->commit();
-                if ($handler->getViewName()) {
-                    $this->render($handler->getViewName());
-                } elseif ($handler->getRedirectUrl()) {
-                    $this->redirect($handler->getRedirectUrl());
-                } else {
-                    $this->redirect('/');
-                }
             } else {
                 $this->_flashMessenger->addMessage('There is no available action with such key.', 'error');
-                $db->commit();
-                $this->redirect('/');
             }
+            $db->commit();
         } catch (Exception $e) {
             $db->rollback();
             throw $e;
         }
+
+        if ($handler !== null) {
+            if ($handler->getViewName()) {
+                $this->render($handler->getViewName());
+
+                return;
+            } elseif ($handler->getRedirectUrl()) {
+                $this->redirect($handler->getRedirectUrl());
+            }
+        }
+        $this->redirect('/');
     }
 }

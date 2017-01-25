@@ -32,9 +32,9 @@
                         <p class="alert alert-info">
                             <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
                             <?php if ($this->numberInputs > 0): ?>
-                                <?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
+                                <?=sprintf($this->translate('Only contributions with the keyword %s are shown.'), '<em>' . $this->escape($this->tag['tg_de']) . '</em>');?>
                             <?php else: ?>
-                                <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->tag['tg_de'] . '</em>');?>
+                                <?=sprintf($this->translate('There are no contributions with the keyword %s on this question.'), '<em>' . $this->escape($this->tag['tg_de']) . '</em>');?>
                             <?php endif; ?>
                             <a href="<?=$this->url(['tag' => null]);?>">
                                 <?=$this->translate('Show all contributions');?>.
@@ -50,8 +50,8 @@
                     </div>
 
                     <h1>
-                        <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
-                        <?=$this->question['q'];?>
+                        <?=isset($this->question['nr']) ? $this->escape($this->question['nr']) : '';?>
+                        <?=$this->escape($this->question['q']);?>
                     </h1>
 
                 </div>

@@ -176,7 +176,7 @@
 
                         <!-- Listing -->
                         <?php foreach ($this->inputs as $inputs): ?>
-                            <h3><?=isset($inputs['nr']) ? $inputs['nr'] : '';?> <?=$this->escape($inputs['q']);?></h3>
+                            <h3><?=isset($inputs['nr']) ? $this->escape($inputs['nr']) : '';?> <?=$this->escape($inputs['q']);?></h3>
                             <div class="table-responsive">
                                 <table
                                     class="table table-bordered js-table-rows-toggle"

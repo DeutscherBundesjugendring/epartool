@@ -21,14 +21,15 @@ class Zend_View_Helper_QuestionDropdown extends Zend_View_Helper_Abstract
 
             if ($activeItem == $item['qi']) {
                 
-                $html.= '<option selected="selected" value="'.$item['qi'].'">';
+                $html .= '<option selected="selected" value="'.$item['qi'].'">';
             } else {
 
-                $html.= '<option value="'.$item['qi'].'">';
+                $html .= '<option value="'.$item['qi'].'">';
             }
-            $html.= (isset($item['nr']) ? $item['nr'] : '') .' '.$item['q'];
+            $html .= (isset($item['nr']) ? $this->view->escape($item['nr']) : '') . ' '
+                . $this->view->escape($item['q']);
 
-            $html.= '</option>';
+            $html .= '</option>';
 
         }
         $html.= '</select>';

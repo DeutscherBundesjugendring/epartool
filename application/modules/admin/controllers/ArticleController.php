@@ -113,13 +113,6 @@ class Admin_ArticleController extends Zend_Controller_Action
                 }
             }
 
-            foreach ($form->getElements() as $element) {
-                $element->clearFilters();
-                if ($element->getName() != 'proj') {
-                    $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
-                }
-            }
-
             $this->view->form = $form;
         }
     }
@@ -191,13 +184,6 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $article['proj'] = explode(',', $article['proj']);
                 }
                 $form->populate($article);
-            }
-
-            foreach ($form->getElements() as $element) {
-                $element->clearFilters();
-                if ($element->getName() != 'proj') {
-                    $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
-                }
             }
 
             $this->view->form = $form;

@@ -24,7 +24,7 @@
             <div class="content">
 
                 <a href="<?=$this->url(['action' => 'folders', 'folder' => null]);?>" class="back"><?=$this->translate('Back to Folders');?></a>
-                <h2><?=$this->pageTitle;?></h2>
+                <h2><?=$this->escape($this->pageTitle);?></h2>
 
                 <?=$this->form;?>
 

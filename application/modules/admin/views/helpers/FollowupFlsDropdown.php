@@ -30,7 +30,7 @@ class Zend_View_Helper_FollowupFlsDropdown extends Zend_View_Helper_Abstract
 
                 $html.= '<option value="'.$item['ffid'].'">';
             }
-            $html.= $item['titl'];
+            $html.= $this->view->escape($item['titl']);
 
             $html.= '</option>';
 

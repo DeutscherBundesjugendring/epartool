@@ -100,7 +100,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             $srcMisc
                 ->setAttrib('cols', 60)
                 ->setAttrib('rows', 2)
-                ->setFilters(['StripTags', 'HtmlEntities']);
+                ->setFilters(['StripTags']);
             $groupSubForm->addElement($srcMisc);
         }
 
@@ -148,7 +148,7 @@ class Default_Form_Register extends Dbjr_Form_Web
                 ->setLabel(!empty($formConsultationSettings['state_field_label'])
                     ? $formConsultationSettings['state_field_label']
                     : 'State')
-                ->setFilters(['StripTags', 'HtmlEntities']);
+                ->setFilters(['StripTags']);
             $this->addElement($regioPax);
         }
 
@@ -177,7 +177,7 @@ class Default_Form_Register extends Dbjr_Form_Web
                 ->setAttrib('cols', 100)
                 ->setAttrib('rows', 3)
                 ->setAttrib('maxlength', 600)
-                ->setFilters(['StripTags', 'HtmlEntities']);
+                ->setFilters(['StripTags']);
             $this->addElement($comment);
         }
 

@@ -210,7 +210,7 @@ class FollowupController extends Zend_Controller_Action
         $countArr = $followupRefsModel->getFollowupCountByFids([$fid], 'tid = 0');
         $relToThisSnippets = $this->setSnippetData($relToThisSnippets, $countArr, $indexedDocs);
 
-        $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
+        $snippet['expl'] = $this->view->wysiwyg($snippet['expl']);
         $snippet['relFowupCount'] = isset($countArr[$snippet['fid']]) ? (int) $countArr[$snippet['fid']] : 0;
         $snippet['gfx_who'] = $this->view->baseUrl()
             . MEDIA_URL . '/consultations/' . $this->consultation->kid
@@ -269,7 +269,7 @@ class FollowupController extends Zend_Controller_Action
             $countarr = $followupRefsModel->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($snippets as &$snippet) {
-                $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
+                $snippet['expl'] = $this->view->wysiwyg($snippet['expl']);
                 $snippet['gfx_who'] = $indexeddocs[(int) $snippet['ffid']]['gfx_who'];
                 $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
@@ -297,7 +297,7 @@ class FollowupController extends Zend_Controller_Action
             $countarr = $followupRefsModel->getFollowupCountByFids($snippetids, 'tid = 0');
 
             foreach ($related['snippets'] as &$snippet) {
-                $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
+                $snippet['expl'] = $this->view->wysiwyg($snippet['expl']);
                 $snippet['gfx_who'] = $indexeddocs[(int) $snippet['ffid']]['gfx_who'];
                 $snippet['relFowupCount'] = isset($countarr[$snippet['fid']]) ? (int) $countarr[$snippet['fid']] : 0;
             }
@@ -316,7 +316,7 @@ class FollowupController extends Zend_Controller_Action
             $data['doc'] = $followupFilesModel->getById($ffid);
             $data['doc']['when'] = strtotime($data['doc']['when']);
             foreach ($data['doc']['fowups'] as &$snippet) {
-                $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
+                $snippet['expl'] = $this->view->wysiwyg($snippet['expl']);
                 $snippet['show_in_timeline_link'] = $this->view->url(
                     [
                         'action' => 'show-by-snippet',
@@ -514,7 +514,7 @@ class FollowupController extends Zend_Controller_Action
     private function setSnippetData(array $snippets, array $countArr, array $indexedDocs)
     {
         foreach ($snippets as &$snippet) {
-            $snippet['expl'] = html_entity_decode($this->view->wysiwyg($snippet['expl']));
+            $snippet['expl'] = $this->view->wysiwyg($snippet['expl']);
             $snippet['relFowupCount'] = isset($countArr[$snippet['fid']]) ? (int)$countArr[$snippet['fid']] : 0;
             $snippet['gfx_who'] = $this->view->baseUrl()
                 . MEDIA_URL . '/consultations/' . $this->consultation['kid']

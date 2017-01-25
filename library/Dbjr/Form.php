@@ -99,9 +99,10 @@ class Dbjr_Form extends Zend_Form
     public function getValues($suppressArrayNotation = false)
     {
         $values = parent::getValues($suppressArrayNotation);
+        $wysiwyg = new Service_Wysiwyg((new Zend_View_Helper_BaseUrl())->getBaseUrl());
         foreach ($this->getElements() as $element) {
-            if ($element instanceof Dbjr_Form_Element_Textarea) {
-                $values[$element->getName()] = $element->basePathToPlaceholder();
+            if ($element instanceof Dbjr_Form_Element_Textarea && $element->isWysiwygType()) {
+                $values[$element->getName()] = $wysiwyg->stripForbiddenTags($element->basePathToPlaceholder());
             }
         }
         return $values;
@@ -111,7 +112,7 @@ class Dbjr_Form extends Zend_Form
     {
         $result = parent::setDefault($name, $value);
         $element = $this->getElement($name);
-        if ($element instanceof Dbjr_Form_Element_Textarea) {
+        if ($element instanceof Dbjr_Form_Element_Textarea && $element->isWysiwygType()) {
             $element->placeholderToBasePath();
         }
 

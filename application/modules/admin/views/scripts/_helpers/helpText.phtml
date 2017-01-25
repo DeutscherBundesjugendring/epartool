@@ -12,7 +12,7 @@
                 </button>
                 <h4 class="modal-title" id="helpTextModalLabel"><?=$this->helpTextName;?></h4>
             </div>
-            <div class="modal-body"><?=$this->helpTextBody;?></div>
+            <div class="modal-body"><?=$this->escape($this->helpTextBody);?></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     <?=$this->translate('Close');?>
