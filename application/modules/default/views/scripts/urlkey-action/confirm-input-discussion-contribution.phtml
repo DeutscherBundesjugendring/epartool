@@ -13,11 +13,11 @@
                             'inputId' => $this->discussionContribution['input_id']], null, true);?>"
                         target="_blank"
                     >
-                        <?=$this->contribution['thes'];?>
+                        <?=$this->escape($this->contribution['thes']);?>
                     </a>
                 </p>
                 <p>
-                    <?=$this->discussionContribution->body;?>
+                    <?=$this->escape($this->discussionContribution->body);?>
                 </p>
 
                 <?php if ($this->consultation['discussion_video_enabled']

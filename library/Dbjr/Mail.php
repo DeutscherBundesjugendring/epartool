@@ -116,7 +116,7 @@ class Dbjr_Mail extends Zend_Mail
     protected function replaceTokens($text, $tokens)
     {
         foreach ($tokens as $key => $val) {
-            $text = str_replace(self::TOKEN_OPEN . $key . self::TOKEN_CLOSE, $val, $text);
+            $text = str_replace(self::TOKEN_OPEN . $key . self::TOKEN_CLOSE, $this->escape($val), $text);
         }
 
         return $text;
@@ -404,5 +404,10 @@ class Dbjr_Mail extends Zend_Mail
     {
         $this->_attachmentFiles[] = $file;
         return $this;
+    }
+
+    private function escape($string)
+    {
+        return htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
     }
 }
