@@ -29,4 +29,9 @@ CKEDITOR.editorConfig = function( config ) {
   config.bootstrapCollapse_managePopupContent = false;
 
   config.image2_alignClasses = ['align-left', 'align-center', 'align-right'];
+
+  config.entities = false;
+  config.entities_latin = false;
+  config.entities_greek = false;
+  config.entities_additional = false;
 };

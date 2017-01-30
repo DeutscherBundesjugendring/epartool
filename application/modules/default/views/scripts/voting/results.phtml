@@ -12,11 +12,11 @@
             <h1 class="main-content-title-narrow"><?=$this->translate('Voting results')?></h1>
 
             <?php if (!empty($this->articleGeneral)) : ?>
-                <?=html_entity_decode($this->articleGeneral['artcl'], ENT_COMPAT, 'UTF-8');?>
+                <?=$this->wysiwyg($this->articleGeneral['artcl']);?>
             <?php endif; ?>
 
             <?php if (!empty($this->articleConsultation)) : ?>
-                <?=html_entity_decode($this->articleConsultation['artcl'], ENT_COMPAT, 'UTF-8');?>
+                <?=$this->wysiwyg($this->articleConsultation['artcl']);?>
             <?php endif; ?>
 
             <h2>
@@ -26,8 +26,8 @@
                     'kid' => $this->currentQuestion['kid'],
                     'qid' => $this->currentQuestion['qi'],
                 ]);?>">
-                    <?=isset($this->currentQuestion['nr']) ? $this->currentQuestion['nr'] : '';?>
-                    <?=$this->currentQuestion['q'];?>
+                    <?=isset($this->currentQuestion['nr']) ? $this->escape($this->currentQuestion['nr']) : '';?>
+                    <?=$this->escape($this->currentQuestion['q']);?>
                 </a>
             </h2>
 
@@ -44,7 +44,7 @@
                     ]);?>">
                         <div class="result">
                             <span class="result-number"><?=$key + 1;?>.</span>
-                            <p><strong><?=$value['thes'];?></strong></p>
+                            <p><strong><?=$this->escape($value['thes']);?></strong></p>
                             <div
                                 class="result-bar"
                                 style="width:<?=$this->highest_rank
@@ -61,7 +61,7 @@
                 <?php else : ?>
                     <div class="result">
                         <span class="result-number"><?=$key + 1;?>.</span>
-                        <p><strong><?=$value['thes'];?></strong></p>
+                        <p><strong><?=$this->escape($value['thes']);?></strong></p>
                         <div
                             class="result-bar"
                             style="width:<?=$this->highest_rank

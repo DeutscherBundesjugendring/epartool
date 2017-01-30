@@ -11,7 +11,7 @@
 
     <h1 class="text-center">
         <?=$this->translate('Voting for');?>
-        &quot;<?=$this->consultation->titl;?>&quot;
+        &quot;<?=$this->escape($this->consultation->titl);?>&quot;
     </h1>
 
     <div class="row">
@@ -83,20 +83,20 @@
 
                     <!-- Question -->
                     <h3>
-                        <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
-                        <?=$this->question['q'];?>
+                        <?=isset($this->question['nr']) ? $this->escape($this->question['nr']) : '';?>
+                        <?=$this->escape($this->question['q']);?>
                     </h3>
                     <?php if (!empty($this->thesis['tagname_de'])): ?>
                         <h4>
                             <?=$this->translate('Keyword');?>:
-                            <?=$this->thesis['tagname_de'];?>
+                            <?=$this->escape($this->thesis['tagname_de']);?>
                         </h4>
                     <?php endif; ?>
 
                     <!-- Thesis -->
                     <div class="well well-simple text-left well-has-toggle">
                         <p>
-                            <?=$this->thesis['thes'];?>
+                            <?=$this->escape($this->thesis['thes']);?>
                         </p>
                         <?php if ($this->question['video_enabled'] && $this->thesis['video_service'] !== null && $this->thesis['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $this->thesis['video_service'] . '_enabled']): ?>
@@ -229,7 +229,7 @@
                             <?php foreach ($this->votingBasket["votes"] as $v): ?>
                                 <tr id="thes-<?=$v["tid"];?>">
                                     <td>
-                                        <?=$v["thes"];?>
+                                        <?=$this->escape($v["thes"]);?>
                                     </td>
                                     <td>
                                         <button

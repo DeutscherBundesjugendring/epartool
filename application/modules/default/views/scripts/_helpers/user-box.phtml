@@ -4,11 +4,11 @@
         <!-- User name -->
         <div class="smaller text-right">
             <?php if (!empty($this->user->name)): ?>
-                <strong><?=$this->user->name;?></strong><br />
+                <strong><?=$this->escape($this->user->name);?></strong><br />
             <?php else: ?>
                 <?=$this->translate('Logged in as');?><br />
             <?php endif; ?>
-            <a href="mailto:<?=$this->user->email;?>"><?=$this->user->email;?></a>
+            <a href="mailto:<?=$this->escape($this->user->email);?>"><?=$this->escape($this->user->email);?></a>
         </div>
 
     </div>

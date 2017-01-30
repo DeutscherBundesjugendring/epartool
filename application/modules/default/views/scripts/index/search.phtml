@@ -11,9 +11,9 @@
                         <li>
                             <a
                                 href="<?=in_array($article['ref_nm'], $staticArticles) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id']?>"
-                                title="<?php echo $article['desc']?>"
+                                title="<?=$this->escape($article['desc']);?>"
                             >
-                                <?php echo $article['desc']?>
+                                <?=$this->escape($article['desc']);?>
                             </a>
                        </li>
                     <?php endforeach?>
@@ -32,7 +32,7 @@
                     || count($consultation['questions']) > 0
                     || count($consultation['inputs']) > 0
                 ): ?>
-                    <h3><?php echo $consultation['titel']?></h3>
+                    <h3><?=$this->escape($consultation['titel'])?></h3>
 
                     <?php if (count($consultation['articles']) > 0): ?>
                         <h4><?=$this->translate('Information pages')?></h4>
@@ -41,9 +41,9 @@
                                 <li>
                                     <a
                                         href="<?php echo $this->baseUrl()?>/article/show/kid/<?php echo $consultation['cid']?>/aid/<?php echo $article['art_id']?>"
-                                        title="<?php echo $article['desc']?>"
+                                        title="<?=$this->escape($article['desc']);?>"
                                     >
-                                        <?php echo $article['desc']?>
+                                        <?=$this->escape($article['desc']);?>
                                     </a>
                                    </li>
                             <?php endforeach?>
@@ -56,12 +56,12 @@
                                     <li>
                                         <a
                                             href="<?php echo $this->baseUrl()?>/question/show/kid/<?php echo $consultation['cid']?>/qid/<?php echo $question['qi']?>"
-                                            title="<?php echo $question['q']?>"
+                                            title="<?=$this->escape($question['q']);?>"
                                         >
-                                            <?php echo $question['q']?>
+                                            <?=$this->escape($question['q']);?>
                                         </a>
                                         <br />
-                                        <?php echo strip_tags($question['q_xpl'])?>...
+                                        <?=$this->escape(strip_tags($question['q_xpl']));?>...
                                     </li>
                                 <?php endforeach?>
                             </ul>
@@ -74,12 +74,12 @@
                                 <li>
                                     <a
                                         href="<?php echo $this->baseUrl()?>/input/show/kid/<?php echo $consultation['cid']?>/qid/<?php echo $input['qi']?>#input-<?php echo $input['tid']?>"
-                                        title="' . $thes . '"
+                                        title="<?=$this->escape(strip_tags($input['thes']));?>"
                                     >
-                                        <?php echo stripslashes(strip_tags($input['thes']))?>
+                                        <?=$this->escape(strip_tags($input['thes']));?>
                                     </a>
                                     <br />
-                                    <?php echo $this->perex($input['expl'], 150, array('HTML_ENTITY_DECODE', 'STRIP_TAGS', 'STRIPSLASHES'))?>
+                                    <?=$this->escape($this->perex(strip_tags($input['expl']), 150));?>
                                 </li>
                             <?php endforeach?>
                         </ul>
@@ -99,12 +99,12 @@
                         >
                             <img
                                 src="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
-                                alt="<?php echo $followUp['title']?>"
+                                alt="<?=$this->escape($followUp['title']);?>"
                             />
                         </a>
                         <div class="media-body">
                             <a href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
-                                <h3 class="followup-title"><?php echo $followUp['title']?></h3>
+                                <h3 class="followup-title"><?=$this->escape($followUp['title']);?></h3>
                             </a>
                             <time class="followup-time">
                                 <?php if ($followUp['showNoDay'] == 'y'): ?>
@@ -120,7 +120,7 @@
                                 <?php foreach ($followUp['snippets'] as $snippet): ?>
                                     <li class="level-<?php echo $snippet['hierarchyLevel']?>">
                                         <p class="followup-snippet">
-                                            <?php echo html_entity_decode($snippet['text'])?>
+                                            <?=$this->escape($snippet['text']);?>
                                         </p>
                                     </li>
                                 <?php endforeach?>

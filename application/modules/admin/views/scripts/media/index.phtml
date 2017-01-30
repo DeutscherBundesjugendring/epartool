@@ -42,7 +42,7 @@
             <?php endif; ?>
         <?php endif; ?>
 
-        <h2><?=$this->title;?></h2>
+        <h2><?=$this->escape($this->title);?></h2>
 
         <?php if (!empty($this->files)): ?>
             <div

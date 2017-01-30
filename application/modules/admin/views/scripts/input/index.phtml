@@ -56,7 +56,7 @@
                             <?php foreach ($this->questions as $question): ?>
                                 <tr>
                                     <td class="table-cell-id"><?=isset($question['nr']) ? $this->escape($question['nr']) : '';?></td>
-                                    <td><?=html_entity_decode($this->escape(strip_tags($question->q)));?></td>
+                                    <td><?=$this->escape($question->q);?></td>
                                     <td data-sort-value="<?=$this->escape($question->inputCountUnread);?>">
                                         <?php if (!empty($question->inputCountUnread)): ?>
                                             <a href="<?=$this->url(['action' => 'list-by-question', 'qi' => $question->qi, 'isUnread' => '1']);?>"><?=$this->translate('Show');?></a>

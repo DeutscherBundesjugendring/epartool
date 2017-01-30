@@ -165,13 +165,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
             $form->getElement('ord')->setValue($consultationModel->getMaxOrder() + 1);
         }
 
-        foreach ($form->getElements() as $element) {
-            $element->clearFilters();
-            if ($element->getName() != 'proj') {
-                $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
-            }
-        }
-
         $this->view->form = $form;
     }
 
@@ -232,13 +225,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
             $form->populate($this->_consultation->toArray());
             $form->getElement('proj')->setValue(explode(',', $this->_consultation['proj']));
-        }
-
-        foreach ($form->getElements() as $element) {
-            $element->clearFilters();
-            if ($element->getName() != 'proj') {
-                $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
-            }
         }
 
         $this->view->form = $form;

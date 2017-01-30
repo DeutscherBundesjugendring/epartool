@@ -43,13 +43,13 @@
                         >
                             <h4 class="offset-bottom">
                                 <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
-                                <?=$this->question['q'];?>
+                                <?=$this->escape($this->question['q']);?>
                             </h4>
                         </a>
 
                         <div class="well well-bordered followup-well">
                             <p>
-                                <?=$this->input['thes'];?>
+                                <?=$this->escape($this->input['thes']);?>
                             </p>
 
                             <?php if (!empty($this->input['expl'])): ?>
@@ -57,7 +57,7 @@
                                     <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                                 </div>
                                 <div class="toggleexpl">
-                                    <p><?=$this->input['expl'];?></p>
+                                    <p><?=$this->escape($this->input['expl']);?></p>
                                 </div>
                             <?php endif; ?>
 
@@ -90,7 +90,7 @@
                             <div class="followup-timeline-box js-timeline-box">
                                 <div class="well well-bordered followup-well">
                                     <p>
-                                        <?=$relInput['thes'];?>
+                                        <?=$this->escape($relInput['thes']);?>
                                     </p>
 
                                     <?php if ($relInput['vot'] === 'y'): ?>

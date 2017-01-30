@@ -24,13 +24,13 @@
         <div class="content content-narrow">
 
             <article class="article">
-                <?php echo html_entity_decode($this->wysiwyg($this->article['artcl']), ENT_COMPAT, 'UTF-8'); ?>
+                <?php echo $this->wysiwyg($this->article['artcl']); ?>
             </article>
 
         </div>
         <aside class="sidebar-right hidden-print">
 
-            <?php echo html_entity_decode($this->wysiwyg($this->article['sidebar']), ENT_COMPAT, 'UTF-8'); ?>
+            <?php echo $this->wysiwyg($this->article['sidebar']); ?>
 
         </aside>
     </div><!-- .row -->

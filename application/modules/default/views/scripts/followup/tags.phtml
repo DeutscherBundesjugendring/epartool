@@ -30,7 +30,7 @@
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?=$tag['frequency'];?>">
                                 <a href="<?=$this->url(['action' => 'inputs-by-question', 'tag' => $tag['tg_nr']]);?>" class="link-unstyled link-print-nourl">
-                                    <?=$tag['tg_de'];?>
+                                    <?=$this->escape($tag['tg_de']);?>
                                 </a>
                             </li>
                         <?php endforeach; ?>

@@ -268,12 +268,12 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 
                 <li class="licence">
                     <a
-                        href="<?=$license['link'];?>"
+                        href="<?=$this->escape($license['link']);?>"
                         rel="license"
                         target="_blank"
-                        title="<?=$license['description'];?>"
+                        title="<?=$this->escape($license['description']);?>"
                         >
-                        <img src="<?=$this->baseUrl('images/' . $license['icon']);?>" width="98" height="34" alt="<?=$license['alt'];?>" />
+                        <img src="<?=$this->baseUrl('images/' . $license['icon']);?>" width="98" height="34" alt="<?=$this->escape($license['alt']);?>" />
                     </a>
                 </li>
             </ul>

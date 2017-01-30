@@ -23,7 +23,6 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
             ->setLabel('Explanation')
             ->setAttrib('rows', 5)
             ->setAttrib('rows', 10000)
-            ->addFilter('HtmlEntities')
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
         $this->addElement($expl);
 

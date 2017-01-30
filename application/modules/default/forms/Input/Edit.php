@@ -11,7 +11,6 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputEditForm.phtml'))));
-        $this->getView()->setEscape('html_entity_decode');
         $translator = Zend_Registry::get('Zend_Translate');
 
         $this->setMethod('post');
@@ -27,7 +26,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setAttrib('rows', 3)
             ->setRequired(false)
             ->setAttrib('placeholder', $placeholder)
-            ->setFilters(['StripTags', 'HtmlEntities'])
+            ->setFilters(['StripTags'])
             ->addValidators(['NotEmpty']);
         $this->addElement($thes);
 
@@ -38,7 +37,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setAttrib('cols', 85)
             ->setAttrib('rows', 5)
             ->setAttrib('placeholder', $placeholder)
-            ->setFilters(['StripTags', 'HtmlEntities']);
+            ->setFilters(['StripTags']);
         $this->addElement($expl);
         
         $this->addElement('videoService', 'video_service');
@@ -69,7 +68,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
 
     /**
      * @param bool $videoEnabled
-     * @return \Default_Form_Input_Create
+     * @return \Default_Form_Input_Edit
      */
     public function setVideoEnabled($videoEnabled)
     {

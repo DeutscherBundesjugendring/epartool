@@ -34,8 +34,8 @@
                     </div>
 
                     <h1>
-                        <?=isset($this->question['nr']) ? $this->question['nr'] : '';?>
-                        <?=$this->question['q'];?>
+                        <?=isset($this->question['nr']) ? $this->escape($this->question['nr']) : '';?>
+                        <?=$this->escape($this->question['q']);?>
                     </h1>
 
                 </div>

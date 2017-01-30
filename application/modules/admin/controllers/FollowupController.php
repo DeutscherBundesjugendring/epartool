@@ -120,12 +120,6 @@ class Admin_FollowupController extends Zend_Controller_Action
             $form->populate($snippet->toArray());
         }
 
-        // This is here because all data in db is saved escaped :(
-        foreach ($form->getElements() as $element) {
-            $element->clearFilters();
-            $element->setValue(html_entity_decode($element->getValue()));
-        }
-
         $this->view->form = $form;
         $this->view->pageTitle = $this->view->translate('Edit Follow-Up Snippet');
         $this->render('snippet-detail');
@@ -188,12 +182,6 @@ class Admin_FollowupController extends Zend_Controller_Action
         } else {
             $followup = $followupModel->find($ffid)->current();
             $form->populate($followup->toArray());
-        }
-
-        // This is here because all data in db is saved escaped :(
-        foreach ($form->getElements() as $element) {
-            $element->clearFilters();
-            $element->setValue(html_entity_decode($element->getValue(), ENT_COMPAT, 'UTF-8'));
         }
 
         $this->view->form = $form;

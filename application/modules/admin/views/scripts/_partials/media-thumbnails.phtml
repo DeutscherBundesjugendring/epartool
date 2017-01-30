@@ -16,7 +16,7 @@
                         '<?=$this->CKEditorFuncNum;?>'
                         )"
                     href="#"
-                    title="<?=$this->translate('Select');?> <?=$file['basename'];?>"
+                    title="<?=$this->translate('Select');?> <?=$this->escape($file['basename']);?>"
                 <?php else: ?>
                     <?php // We are in listing mode. ?>
                     href="<?=$this->url([

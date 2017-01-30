@@ -57,8 +57,8 @@
                     <?php foreach ($this->questions as $question): ?>
                         <div class="form-group">
                             <a href="<?=$this->url(['action' => 'vote', 'qid' => $question['qi']]);?>#vote" class="btn btn-default btn-default-alt text-wrap">
-                                <?=isset($question['nr']) ? $question['nr'] : '';?>
-                                <?=$question['q'];?>
+                                <?=isset($question['nr']) ? $this->escape($question['nr']) : '';?>
+                                <?=$this->escape($question['q']);?>
                             </a>
                         </div>
                     <?php endforeach; ?>
@@ -76,7 +76,7 @@
                         <?php foreach ($this->tags as $tag): ?>
                             <li class="tag-<?=$tag['frequency'];?>">
                                 <a href="<?=$this->url(['action' => 'vote', 'tag' => $tag['tg_nr'], 'qid' => null]);?>" class="link-unstyled link-unstyled-alt link-print-nourl">
-                                    <?=$tag['tg_de'];?>
+                                    <?=$this->escape($tag['tg_de']);?>
                                 </a>
                             </li>
                         <?php endforeach; ?>

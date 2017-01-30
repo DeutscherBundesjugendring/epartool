@@ -20,7 +20,7 @@
 
                 <a href="<?=$this->url(['action' => 'index', 'ffid' => null]);?>" class="back"><?=$this->translate('Back to Follow-ups');?></a>
 
-                <h2><?=$this->pageTitle;?></h2>
+                <h2><?=$this->escape($this->pageTitle);?></h2>
                 <?=$this->form;?>
 
             </div>

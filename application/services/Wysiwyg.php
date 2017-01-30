@@ -3,6 +3,7 @@
 class Service_Wysiwyg
 {
     const BASE_URL_PLACEHOLDER = '{{BASE_URL}}';
+    const FORBIDDEN_TAGS = ['script'];
 
     /**
      * @var string
@@ -42,5 +43,14 @@ class Service_Wysiwyg
             self::BASE_URL_PLACEHOLDER . MEDIA_URL . '/',
             $text
         );
+    }
+
+    /**
+     * @param string $text
+     * @return string
+     */
+    public function stripForbiddenTags($text)
+    {
+        return preg_replace('/<[\/]?(' . implode('|', self::FORBIDDEN_TAGS) . ')[^>]*\>/i', '', $text);
     }
 }

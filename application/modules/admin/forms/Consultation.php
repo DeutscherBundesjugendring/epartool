@@ -164,8 +164,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $explVoting
             ->setLabel('Voting phase explanation')
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
-            ->setAttrib('rows', 5)
-            ->addFilter('HtmlEntities');
+            ->setAttrib('rows', 5);
         $this->addElement($explVoting);
 
         $discussionActive = $this->createElement('checkbox', 'is_discussion_active');

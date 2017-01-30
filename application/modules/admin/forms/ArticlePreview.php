@@ -20,14 +20,12 @@ class Admin_Form_ArticlePreview extends Dbjr_Form_Admin
 
         $body = $this->createElement('hidden', 'artcl');
         $body
-            ->addValidator('NotEmpty')
-            ->addFilter('HtmlEntities');
+            ->addValidator('NotEmpty');
         $this->addElement($body);
 
         $sidebar = $this->createElement('hidden', 'sidebar');
         $sidebar
-            ->addValidator('NotEmpty')
-            ->addFilter('HtmlEntities');
+            ->addValidator('NotEmpty');
         $this->addElement($sidebar);
 
         $hide = $this->createElement('hidden', 'hid');
