@@ -286,11 +286,6 @@ class Dbjr972 extends AbstractMigration
         }
     }
 
-    public function execute($sql)
-    {
-        echo $sql . PHP_EOL;
-        return parent::execute($sql);
-    }
     /**
      * @return string
      * @throws Exception
