@@ -1,3 +1,4 @@
+SET collation_connection = 'utf8mb4_unicode_ci';
 SET @project_code = 'xx';
 
 INSERT INTO `cnslt` (`proj`, `inp_fr`, `inp_to`, `inp_show`, `spprt_show`, `spprt_fr`, `spprt_to`, `spprt_ct`, `vot_fr`, `vot_to`, `vot_show`, `vot_expl`, `vot_res_show`, `follup_show`, `ord`, `titl`, `titl_short`, `titl_sub`, `img_file`, `img_expl`, `expl_short`, `ln`, `public`, `is_discussion_active`, `discussion_from`, `discussion_to`, `vt_finalized`, `vt_anonymized`, `contribution_confirmation_info`)

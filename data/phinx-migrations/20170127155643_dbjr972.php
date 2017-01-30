@@ -232,6 +232,9 @@ class Dbjr972 extends AbstractMigration
             'cnslt_results' => 'enum(\'y\',\'n\')',
             'nick' => 'varchar(255)',
         ],
+        'video_service' => [
+            'name' => 'varchar(191)',
+        ],
         'vt_final' => [
             'fowups' => 'enum(\'y\',\'n\')',
             'id' => 'varchar(191)',

@@ -1,7 +1,7 @@
+SET collation_connection = 'utf8mb4_unicode_ci';
 SET @project_code = 'xx';
 SET @project_name = 'ePartool (default)';
 SET @locale = 'de_DE';
-
 
 INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`, `license`) VALUES
     (

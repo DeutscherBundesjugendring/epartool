@@ -1,3 +1,4 @@
+SET collation_connection = 'utf8mb4_unicode_ci';
 SET @name = 'Name';
 SET @email = 'email@email.com';
 

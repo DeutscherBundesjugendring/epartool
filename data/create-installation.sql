@@ -1275,6 +1275,10 @@ ALTER TABLE `user_info` ADD `invitation_sent_date` datetime NULL DEFAULT NULL;
 -- Migration 20161127161259_dbjr1028.php
 ALTER TABLE `vt_settings` ADD `btn_no_opinion` boolean NOT NULL DEFAULT true AFTER `btn_important`;
 
+-- Migration 20170109174207_dbjr1065.php
+ALTER TABLE `users` CHANGE `age_group` `age_group_from` int(11) NULL AFTER `name_pers`,
+ADD `age_group_to` int(11) NULL AFTER `age_group_from`;
+
 -- Migration 20170116123840_dbjr1072.php
 ALTER TABLE `cnslt` CHANGE `img_file` `img_file` text NULL AFTER `titl_sub`;
 
@@ -1307,16 +1311,14 @@ ALTER TABLE `articles` CHANGE `ref_nm` `ref_nm` varchar(191) CHARACTER SET utf8m
 ALTER TABLE `articles` CHANGE `artcl` `artcl` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles` CHANGE `sidebar` `sidebar` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `articles_refnm` CHANGE `ref_nm` `ref_nm` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles_refnm` CHANGE `lng` `lng` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles_refnm` CHANGE `desc` `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles_refnm` CHANGE `type` `type` enum('g','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles_refnm` CHANGE `scope` `scope` enum('none','info','voting','followup','static') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles_refnm` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `cnslt` CHANGE `proj` `proj` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `cnslt` CHANGE `inp_show` `inp_show` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `cnslt` CHANGE `spprt_show` `spprt_show` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1344,66 +1346,54 @@ ALTER TABLE `cnslt` CHANGE `state_field_label` `state_field_label` varchar(255) 
 ALTER TABLE `cnslt` CHANGE `contribution_confirmation_info` `contribution_confirmation_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `cnslt` CHANGE `license_agreement` `license_agreement` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `cnslt` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `contributor_age` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `dirs` CHANGE `dir_name` `dir_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `dirs` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email` CHANGE `project_code` `project_code` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email` CHANGE `sent_by_user` `sent_by_user` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email` CHANGE `subject` `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email` CHANGE `body_html` `body_html` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email` CHANGE `body_text` `body_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_attachment` CHANGE `filepath` `filepath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_attachment` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_component` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_component` CHANGE `project_code` `project_code` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_component` CHANGE `body_html` `body_html` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_component` CHANGE `body_text` `body_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_component` CHANGE `description` `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_component` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_placeholder` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_placeholder` CHANGE `description` `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_placeholder` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_recipient` CHANGE `type` `type` enum('to','cc','bcc') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_recipient` CHANGE `name` `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_recipient` CHANGE `email` `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_recipient` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_template` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_template` CHANGE `project_code` `project_code` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_template` CHANGE `subject` `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_template` CHANGE `body_html` `body_html` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_template` CHANGE `body_text` `body_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_template` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_template_has_email_placeholder` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `email_template_type` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `email_template_type` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `footer` CHANGE `proj` `proj` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `footer` CHANGE `text` `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `footer` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `fowup_fls` CHANGE `titl` `titl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowup_fls` CHANGE `who` `who` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowup_fls` CHANGE `show_no_day` `show_no_day` enum('n','y') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1411,35 +1401,28 @@ ALTER TABLE `fowup_fls` CHANGE `ref_doc` `ref_doc` varchar(255) CHARACTER SET ut
 ALTER TABLE `fowup_fls` CHANGE `ref_view` `ref_view` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowup_fls` CHANGE `gfx_who` `gfx_who` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowup_fls` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `fowups` CHANGE `embed` `embed` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowups` CHANGE `expl` `expl` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowups` CHANGE `typ` `typ` enum('g','s','a','r','e') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowups` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `fowups_rid` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `fowups_supports` CHANGE `tmphash` `tmphash` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `fowups_supports` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `group_size` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `help_text` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `help_text` CHANGE `body` `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `help_text` CHANGE `project_code` `project_code` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `help_text` CHANGE `module` `module` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `help_text` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `help_text_module` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `help_text_module` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `inpt` CHANGE `thes` `thes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `inpt` CHANGE `expl` `expl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `inpt` CHANGE `block` `block` enum('y','n','u') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1452,24 +1435,19 @@ ALTER TABLE `inpt` CHANGE `confirmation_key` `confirmation_key` varchar(255) CHA
 ALTER TABLE `inpt` CHANGE `video_service` `video_service` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `inpt` CHANGE `video_id` `video_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `inpt` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `inpt_tgs` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `input_discussion` CHANGE `body` `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `input_discussion` CHANGE `video_service` `video_service` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `input_discussion` CHANGE `video_id` `video_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `input_discussion` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `input_relations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `language` CHANGE `code` `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `language` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `license` CHANGE `title` `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `license` CHANGE `description` `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `license` CHANGE `text` `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1478,26 +1456,21 @@ ALTER TABLE `license` CHANGE `icon` `icon` varchar(255) CHARACTER SET utf8mb4 CO
 ALTER TABLE `license` CHANGE `alt` `alt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `license` CHANGE `locale` `locale` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `license` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `notification` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `notification_parameter` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `notification_parameter` CHANGE `value` `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `notification_parameter` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `notification_type` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `notification_type` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `parameter` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `parameter` CHANGE `proj` `proj` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `parameter` CHANGE `value` `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `parameter` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `proj` CHANGE `proj` `proj` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `proj` CHANGE `titl_short` `titl_short` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `proj` CHANGE `vot_q` `vot_q` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1508,37 +1481,31 @@ ALTER TABLE `proj` CHANGE `logo` `logo` varchar(255) CHARACTER SET utf8mb4 COLLA
 ALTER TABLE `proj` CHANGE `favicon` `favicon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `proj` CHANGE `locale` `locale` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `proj` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `quests` CHANGE `nr` `nr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `quests` CHANGE `q` `q` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `quests` CHANGE `q_xpl` `q_xpl` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `quests` CHANGE `ln` `ln` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `quests` CHANGE `vot_q` `vot_q` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `quests` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `tgs` CHANGE `tg_de` `tg_de` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `tgs` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `theme` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `theme` CHANGE `color_accent_1` `color_accent_1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `theme` CHANGE `color_primary` `color_primary` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `theme` CHANGE `color_accent_2` `color_accent_2` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `theme` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `urlkey_action` CHANGE `urlkey` `urlkey` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `urlkey_action` CHANGE `handler_class` `handler_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `urlkey_action` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `urlkey_action_parameter` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `urlkey_action_parameter` CHANGE `value` `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `urlkey_action_parameter` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `user_info` CHANGE `cmnt` `cmnt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `user_info` CHANGE `source` `source` set('d','g','p','m') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `user_info` CHANGE `src_misc` `src_misc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1551,8 +1518,7 @@ ALTER TABLE `user_info` CHANGE `confirmation_key` `confirmation_key` varchar(255
 ALTER TABLE `user_info` CHANGE `name` `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `user_info` CHANGE `newsl_subscr` `newsl_subscr` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `user_info` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `users` CHANGE `block` `block` enum('b','u','c') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `users` CHANGE `name` `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `users` CHANGE `email` `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1568,13 +1534,14 @@ ALTER TABLE `users` CHANGE `regio_pax` `regio_pax` varchar(255) CHARACTER SET ut
 ALTER TABLE `users` CHANGE `cnslt_results` `cnslt_results` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `users` CHANGE `nick` `nick` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
+ALTER TABLE `video_service` CHANGE `name` `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `video_service` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 ALTER TABLE `vt_final` CHANGE `fowups` `fowups` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_final` CHANGE `id` `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_final` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `vt_grps` CHANGE `sub_user` `sub_user` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_grps` CHANGE `sub_uid` `sub_uid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_grps` CHANGE `member` `member` enum('y','n','u') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1582,19 +1549,16 @@ ALTER TABLE `vt_grps` CHANGE `vt_inp_list` `vt_inp_list` text CHARACTER SET utf8
 ALTER TABLE `vt_grps` CHANGE `vt_rel_qid` `vt_rel_qid` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_grps` CHANGE `vt_tg_list` `vt_tg_list` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_grps` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `vt_indiv` CHANGE `sub_uid` `sub_uid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_indiv` CHANGE `pimp` `pimp` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_indiv` CHANGE `status` `status` enum('v','s','c') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_indiv` CHANGE `confirmation_hash` `confirmation_hash` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_indiv` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `vt_rights` CHANGE `vt_code` `vt_code` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_rights` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
-SET foreign_key_checks = 0;
+
 ALTER TABLE `vt_settings` CHANGE `btn_important` `btn_important` enum('y','n') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_settings` CHANGE `btn_important_label` `btn_important_label` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_settings` CHANGE `btn_numbers` `btn_numbers` enum('0','1','2','3','4') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
