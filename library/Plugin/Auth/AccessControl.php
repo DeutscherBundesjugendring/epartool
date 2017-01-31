@@ -56,7 +56,7 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         if ($this->_auth->hasIdentity() && is_object($this->_auth->getIdentity())) {
-            $role = $this->_auth->getIdentity()->lvl;
+            $role = $this->_auth->getIdentity()->role;
             $userModel = new Model_Users();
             $userModel->ping($this->_auth->getIdentity()->uid);
         } else {

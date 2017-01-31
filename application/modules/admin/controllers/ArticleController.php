@@ -317,13 +317,13 @@ class Admin_ArticleController extends Zend_Controller_Action
     {
         $multiOptions = [0 => $this->view->translate('Please select…')];
         if ($kid > 0) {
-            foreach ($this->getMultioptionsByType('b') as $key => $value) {
+            foreach ($this->getMultioptionsByType(Model_ArticleRefNames::TYPE_CONSULTATION) as $key => $value) {
                 $multiOptions[$key] = $value;
             }
             $form->getElement('ref_nm')->setMultioptions($multiOptions);
             $form->getElement('ref_nm')->setDescription('On subpages, reference name of parent page is used.');
         } else {
-            foreach ($this->getMultioptionsByType('g') as $key => $value) {
+            foreach ($this->getMultioptionsByType(Model_ArticleRefNames::TYPE_GLOBAL) as $key => $value) {
                 $multiOptions[$key] = $value;
             }
             $form->getElement('ref_nm')->setMultioptions($multiOptions);

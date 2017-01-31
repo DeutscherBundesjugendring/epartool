@@ -7,6 +7,15 @@ class Model_ArticleRefNames extends Dbjr_Db_Table_Abstract
 {
     const ARTICLE_EXPLANATION = 'article_explanation';
 
+    const TYPE_GLOBAL = 'global';
+    const TYPE_CONSULTATION = 'consultation';
+
+    const SCOPE_NONE = 'none';
+    const SCOPE_INFO = 'info';
+    const SCOPE_VOTING = 'voting';
+    const SCOPE_FOLLOWUP = 'followup';
+    const SCOPE_STATIC = 'static';
+
     protected $_name = 'articles_refnm';
     protected $_primary = array('ref_nm', 'lng');
 

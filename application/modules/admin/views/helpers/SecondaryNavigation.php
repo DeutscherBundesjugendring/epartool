@@ -15,7 +15,7 @@ class Admin_View_Helper_SecondaryNavigation extends Zend_View_Helper_Abstract
         foreach ($items as $item) {
             $currentUser = Zend_Auth::getInstance()->getIdentity();
             if (!array_key_exists('required_user_level', $item)
-                || $currentUser->lvl === $item['required_user_level']
+                || $currentUser->role === $item['required_user_level']
             ) {
                 $this->getItemHtml($item, $html, $activeItem);
             }

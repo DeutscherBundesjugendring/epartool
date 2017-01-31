@@ -59,18 +59,18 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php switch($user->lvl) {
-                                                    case 'usr':
-                                                        $userLevel = $this->translate('User');
+                                                <?php switch($user->role) {
+                                                    case Model_Users::ROLE_USER:
+                                                        $userRole = $this->translate('User');
                                                         break;
-                                                    case 'edt':
-                                                        $userLevel = $this->translate('Editor');
+                                                    case Model_Users::ROLE_EDITOR:
+                                                        $userRole = $this->translate('Editor');
                                                         break;
-                                                    case 'adm':
-                                                        $userLevel = $this->translate('Administrator');
+                                                    case Model_Users::ROLE_ADMIN:
+                                                        $userRole = $this->translate('Administrator');
                                                         break;
                                                 };?>
-                                                <?=$userLevel;?>
+                                                <?=$userRole;?>
                                             </td>
                                             <td data-sort-value="<?=$user->last_act?>">
                                                 <?=$this->formatDate($user->last_act, Zend_Date::DATETIME_SHORT);?>

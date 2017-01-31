@@ -136,10 +136,10 @@
                     _likeNo = '<span class="badge js-amount js-dislike">' + data.byinput.snippets[i].lknay + '</span> <a class="link-alt link-unstyled js-voting js-dislike" href="' + _host + '/followup/unlike/fid/' + data.byinput.snippets[i].fid + '"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>';
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.byinput.snippets[i].ffid;
-                    _edgeLeft = data.byinput.snippets[i].typ !== 'g' ? '<div class="followup-typ edge-left followup-typ-'+data.byinput.snippets[i].typ+'"> </div>' : '';
-                    _gfxwho_overlay = data.byinput.snippets[i].typ !== 'g' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+data.byinput.snippets[i].typ+'"> </div>' : '';
-                    _hasTypOverlay = data.byinput.snippets[i].typ !== 'g' ? 'has-typ-overlay' : '';
-                    if (data.byinput.snippets[i].relFowupCount > 0 && data.byinput.snippets[i].typ !== "r" && data.byinput.snippets[i].typ !== "e") {
+                    _edgeLeft = data.byinput.snippets[i].type !== 'general' ? '<div class="followup-typ edge-left followup-typ-'+data.byinput.snippets[i].type+'"> </div>' : '';
+                    _gfxwho_overlay = data.byinput.snippets[i].type !== 'general' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+data.byinput.snippets[i].type+'"> </div>' : '';
+                    _hasTypOverlay = data.byinput.snippets[i].type !== 'general' ? 'has-typ-overlay' : '';
+                    if (data.byinput.snippets[i].relFowupCount > 0 && data.byinput.snippets[i].type !== 'rejected' && data.byinput.snippets[i].type !== 'end') {
 
                         _link = '<a class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick"'
                         + ' href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.byinput.snippets[i].fid + '">' + data.byinput.snippets[i].relFowupCount + '</a>';
@@ -188,7 +188,7 @@
 
                 for (var i in data.refs.snippets) {
                     var snippet = data.refs.snippets[i];
-                    if (snippet.relFowupCount > 0 && snippet.typ !== "r" && snippet.typ !== "e") {
+                    if (snippet.relFowupCount > 0 && snippet.type !== 'rejected' && snippet.type !== 'end') {
                         _link = '<a class="link-unstyled followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count js-ajaxclick" href="' + _host + '/followup/json/kid/' + _kid + '/fid/' + data.refs.snippets[i].fid + '">' + data.refs.snippets[i].relFowupCount + '</a>';
                     } else {
                         _link = '';
@@ -199,9 +199,9 @@
 
                     _overlayLink = _host + '/followup/json/kid/' + _kid + '/ffid/' + data.refs.snippets[i].ffid;
 
-                    _edgeLeft = snippet.typ !== 'g' ? '<div class="followup-typ edge-left followup-typ-'+snippet.typ+'"> </div>' : '';
-                    _gfxwho_overlay = snippet.typ !== 'g' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+snippet.typ+'"> </div>' : '';
-                    _hasTypOverlay = snippet.typ !== 'g' ? 'has-typ-overlay' : '';
+                    _edgeLeft = snippet.type !== 'general' ? '<div class="followup-typ edge-left followup-typ-'+snippet.type+'"> </div>' : '';
+                    _gfxwho_overlay = snippet.type !== 'general' ? '<div class="followup-typ gfx-who-overlay followup-typ-'+snippet.type+'"> </div>' : '';
+                    _hasTypOverlay = snippet.type !== 'general' ? 'has-typ-overlay' : '';
 
                     _html += '<div class="followup-timeline-box js-timeline-box js-openoverlay" data-href="' + _overlayLink + '" data-fid="' + data.refs.snippets[i].fid + '">' +
                             ' <div class="well well-bordered followup-well followup-well-link '+_hasTypOverlay+'">' +
@@ -250,7 +250,7 @@
                   _highlightClass = 'well-standard';
                 }
 
-                _edgeRight = data.doc.fowups[i].typ !== 'g' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].typ + '"> </div>' : '';
+                _edgeRight = data.doc.fowups[i].type !== 'general' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].type + '"> </div>' : '';
 
                 _snippets += '<div class="well well-simple well-simple-light text-left ' + _activeSnippetClass + ' ' + _highlightClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
                         _edgeRight +

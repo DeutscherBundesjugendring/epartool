@@ -17,7 +17,7 @@
 
             <!-- Tertiary navigation -->
             <?php if ($this->article['ref_nm'] != 'about'): // do not show tertiary navigation on "about" page ?>
-                <?php echo $this->articleNavigation($this->article['art_id'], 'info'); ?>
+                <?php echo $this->articleNavigation($this->article['art_id'], Model_ArticleRefNames::SCOPE_INFO); ?>
             <?php endif; ?>
 
         </div>

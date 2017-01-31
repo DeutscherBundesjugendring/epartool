@@ -79,7 +79,7 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
                             'thes' => mb_substr($contrib->body, 0, 330), //330 = max length of input->thes as defined in db
                             'expl' => mb_substr($contrib->body, 331, 2000), //2000 = max length of input->thes as defined in db
                             'uid' => null,
-                            'typ' => 'p',
+                            'type' => Model_Inputs::TYPE_FROM_DISCUSSION,
                             'input_discussion_contrib' => $contribId,
                         ];
                         $newInputId = $inputModel->add($newInput);
